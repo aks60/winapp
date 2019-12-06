@@ -19,36 +19,46 @@ public class Script {
         try {
             Connection cn1 = java.sql.DriverManager.getConnection(
                     "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-                    //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             Connection cn2 = java.sql.DriverManager.getConnection(
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
-            List<String> tableList = new ArrayList<String>();
-            List<String> generatorList = new ArrayList<String>();
+            List<String> listTable1 = new ArrayList<String>();
+            List<String> listTable2 = new ArrayList<String>();
+            List<String> listGenerator2 = new ArrayList<String>();
 
+            Statement st1 = cn1.createStatement();
+            DatabaseMetaData metaData1 = cn1.getMetaData();
+            ResultSet resultSet1 = metaData1.getTables(null, null, null, new String[]{"TABLE"});
+            while (resultSet1.next()) {
+                listTable1.add(resultSet1.getString("TABLE_NAME"));
+            }
             Statement st2 = cn2.createStatement();
             DatabaseMetaData metaData2 = cn2.getMetaData();
-            ResultSet rs = metaData2.getTables(null, null, null, new String[]{"TABLE"});
-            while (rs.next()) {
-                tableList.add(rs.getString("TABLE_NAME"));
+            ResultSet resultSet2 = metaData2.getTables(null, null, null, new String[]{"TABLE"});
+            while (resultSet2.next()) {
+                listTable2.add(resultSet2.getString("TABLE_NAME"));
             }
-            rs = st2.executeQuery("select rdb$generator_name from rdb$generators");
-            while (rs.next()) {
-                generatorList.add(rs.getString("RDB$GENERATOR_NAME").trim());
+            
+            resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators");
+            while (resultSet2.next()) {
+                listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
             for (Field fieldUp : fieldsUp) {
 
-                if (generatorList.contains("GEN_" + fieldUp.tname()) == true) {
+                if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
                     st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";");
                 }
-                if (tableList.contains(fieldUp.tname()) == true) {
+                if (listTable2.contains(fieldUp.tname()) == true) {
                     st2.execute("DROP TABLE " + fieldUp.tname() + ";");
                 }
                 ArrayList<String> batch = Script.createTable(fieldUp.fields());
-                for (String s : batch) {
-                    st2.execute(s);
+                for (String ddl : batch) {
+                    st2.execute(ddl);
                 }
-                convertTable(cn1, cn2, fieldUp.fields());
+                if (listTable1.contains(fieldUp.tname()) == true) {
+                    convertTable(cn1, cn2, fieldUp.fields());
+                }
 
                 st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname());
                 st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)");
@@ -102,7 +112,7 @@ public class Script {
                 count = rs1.getInt(1);
             }
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
-            //for (int index_page = 8065; index_page <= count / 500; ++index_page) {
+                //for (int index_page = 8065; index_page <= count / 500; ++index_page) {
 
                 Utils.println(nameTable2 + " " + index_page);
                 String nameCols2 = "";
