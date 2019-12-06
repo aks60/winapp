@@ -8,7 +8,7 @@ import dataset.Record;
 import domain.eArtikls;
 import domain.eArtsvst;
 import domain.eColslst;
-import domain.eCorrenc;
+import domain.eRate;
 import domain.eGrupcol;
 import enums.eTypeArtikl;
 import java.awt.event.FocusEvent;
@@ -36,7 +36,7 @@ import javax.swing.event.TreeSelectionListener;
 public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private Query qArtikls = new Query(eArtikls.values(), eCorrenc.values());
+    private Query qArtikls = new Query(eArtikls.values(), eRate.values());
     private Query qArtsvst = new Query(eArtsvst.id, eGrupcol.gname, eColslst.cname, eArtsvst.clprc, eArtsvst.clpr1, eArtsvst.clpr2, eArtsvst.clprv);
     DefTableModel rsmArtikls, rsmArtsvst;
     DefFieldRenderer rsvArtikls;
@@ -88,7 +88,7 @@ public class Artikls extends javax.swing.JFrame
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
-        rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eCorrenc.cshor);
+        rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eRate.cshor);
         rsmArtsvst = new DefTableModel(tab2, qArtsvst, eGrupcol.gname, eColslst.cname, eArtsvst.clprc, eArtsvst.clpr1, eArtsvst.clpr2, eArtsvst.clprv);
 
         tab1.addFocusListener(listenerFocus);
@@ -103,7 +103,7 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikls.add(eArtikls.unit, txtField4);
         rsvArtikls.add(eArtikls.unit, txtField5);
         rsvArtikls.add(eArtikls.otx_norm, txtField6);
-        rsvArtikls.add(eCorrenc.cshor, txtField7);
+        rsvArtikls.add(eRate.crode, txtField7);
         rsvArtikls.add(eArtikls.size_centr, txtField8);
 
         JButton btnColor = new JButton("...");
@@ -121,13 +121,13 @@ public class Artikls extends javax.swing.JFrame
                 DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeMat.getLastSelectedPathComponent();
                 if (selectedNode != null) {
                     if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
-                        qArtikls.select("artikls left join correnc on artikls.cnumb = correnc.cnumb order by artikls.level1, artikls.code");
+                        qArtikls.select("artikls left join rate on artikls.rate_id = rate.id order by artikls.level1, artikls.code");
                     } else if (selectedNode.isLeaf()) {
                         eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select("artikls left join correnc on artikls.cnumb = correnc.cnumb where artikls.level1 = " + e.id1 + " and artikls.level2 = " + e.id2 + " order by artikls.level1, artikls.code");
+                        qArtikls.select("artikls left join rate on artikls.rate_id = rate.id where artikls.level1 = " + e.id1 + " and artikls.level2 = " + e.id2 + " order by artikls.level1, artikls.code");
                     } else {
                         eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select("artikls left join correnc on artikls.cnumb = correnc.cnumb where artikls.level1 = " + e.id1 + " order by artikls.level1, artikls.code");
+                        qArtikls.select("artikls left join rate on artikls.rate_id = rate.id where artikls.level1 = " + e.id1 + " order by artikls.level1, artikls.code");
                     }
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                     if (tab1.getRowCount() > 0) {

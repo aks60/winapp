@@ -7,7 +7,7 @@ import dataset.Query;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
-import domain.eCorrenc;
+import domain.eRate;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -19,8 +19,8 @@ import swing.DefTableModel;
 public class Rate extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private Query qCorrenc = new Query(eCorrenc.values()).select("correnc order by correnc.cname");
-    private DefTableModel rsmCorrenc;
+    private Query qRate = new Query(eRate.values()).select("rate order by rate.cname");
+    private DefTableModel rsmRate;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -62,8 +62,8 @@ public class Rate extends javax.swing.JFrame
 
     public Rate() {
         initComponents();
-        rsmCorrenc = new DefTableModel(tab1, qCorrenc, eCorrenc.cname, eCorrenc.crode, eCorrenc.crodm, eCorrenc.ckurs);
-        rsmCorrenc.addFrameListener(listenerModify);
+        rsmRate = new DefTableModel(tab1, qRate, eRate.cname, eRate.crode, eRate.crodm, eRate.ckurs);
+        rsmRate.addFrameListener(listenerModify);
     }
 
     public void request(DefTableModel rsm) {
@@ -269,7 +269,7 @@ public class Rate extends javax.swing.JFrame
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
 
-        qCorrenc.execsql();
+        qRate.execsql();
         listenerModify.response(null);
         //((DefTableModel) tab1.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnSave
@@ -279,10 +279,10 @@ public class Rate extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getSelectedRow() != -1) {
                 try {
-                    Query query = qCorrenc.query(eCorrenc.up.tname());
+                    Query query = qRate.query(eRate.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
-                    qCorrenc.select("correnc order by correnc.cname");
+                    qRate.select("rate order by rate.cname");
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 } catch (Exception e) {
                     System.out.println(e);
@@ -292,20 +292,20 @@ public class Rate extends javax.swing.JFrame
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Query query = qCorrenc.query(eCorrenc.up.tname());
+        Query query = qRate.query(eRate.up.tname());
         Record record = query.newRecord(Query.INS);
-        int id = ConnApp.get().generstorId(eCorrenc.up.tname());
-        record.setNo(eCorrenc.id, id);
-        record.setNo(eCorrenc.cnumb, id);
+        int id = ConnApp.get().generstorId(eRate.up.tname());
+        record.setNo(eRate.id, id);
+        record.setNo(eRate.id, id);
         query.add(record);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         
-        if (qCorrenc.isUpdate() && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
+        if (qRate.isUpdate() && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            qCorrenc.execsql();
+            qRate.execsql();
             listenerModify.response(null);
         }
     }//GEN-LAST:event_formWindowClosed

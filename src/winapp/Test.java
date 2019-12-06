@@ -8,7 +8,7 @@ import domain.eColslst;
 import domain.eConnlst;
 import domain.eConnspc;
 import domain.eConnvar;
-import domain.eCorrenc;
+import domain.eRate;
 import domain.eFurnlen;
 import domain.eFurnles;
 import domain.eFurnspc;
@@ -47,7 +47,6 @@ public class Test {
         Main.dev = true;
         
         try {
-            //////////7777+888
             Test test = new Test();
             test.convert();
             //test.query();
@@ -58,10 +57,9 @@ public class Test {
     }
 
     private void convert() {
-        convdb.Script.script(
-                eArtikls.up
+        convdb.Script.script(eArtikls.up
                 , eArtsvst.up, eColslst.up, eConnlst.up, eConnspc.up, eConnvar.up,
-                eCorrenc.up, eFurnlen.up, eFurnles.up, eFurnspc.up, eGlasart.up, eGlasgrp.up, eGlaspro.up,
+                eRate.up, eFurnlen.up, eFurnles.up, eFurnspc.up, eGlasart.up, eGlasgrp.up, eGlaspro.up,
                 eGrupart.up, eGrupcol.up, eKomplst.up, eKompspc.up, eParcols.up, eParcons.up, eParconv.up,
                 eParfurl.up, eParfurs.up, eParglas.up, eParlist.up, eParsysp.up, eParvstm.up, eParvsts.up,
                 eRuleclk.up, eSysdata.up, eVstalst.up, eVstaspc.up, eSyssize.up, eSyspros.up, eSysproa.up, 

@@ -14,7 +14,6 @@ public enum eArtikls implements Field {
     group2("12", "32", "1", "категория", "APREF"),
     group3("12", "196", "1", "группа печати", "AGRUP"),
     num_unic("4", "10", "1", "ИД компоненета", "NUNIC"),
-    cnumb("4", "10", "1", "ID валюты", "CNUMB"),
     cnumt("4", "10", "1", "null", "CNUMT"),
     analog("12", "32", "1", "артикул аналога?", "AMAIN"),
     name("12", "64", "1", "Название", "ANAME"),
@@ -56,7 +55,8 @@ public enum eArtikls implements Field {
     ruch("12", "196", "1", "null", "VRUCH"),
     imain("5", "5", "1", "null", "IMAIN"),
     comp("5", "5", "1", "null", "ACOMP"),
-    abits("4", "10", "1", "null", "ABITS");
+    abits("4", "10", "1", "null", "ABITS"),
+    rate_id("4", "10", "1", "ID валюты", "CNUMB");
     private MetaField meta = new MetaField(this);
 
     eArtikls(Object... p) {

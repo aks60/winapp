@@ -56,12 +56,12 @@ public class Script {
                 for (String ddl : batch) {
                     st2.execute(ddl);
                 }
-                if (listTable1.contains(fieldUp.tname()) == true) {
+                if (listTable1.contains(fieldUp.meta().field_name) == true) {
                     convertTable(cn1, cn2, fieldUp.fields());
                 }
 
                 st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname());
-                st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)");
+                st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)  where id is null");
                 st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
             }
             for (Field field : fieldsUp) {
@@ -107,16 +107,15 @@ public class Script {
             Statement st1 = cn1.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Statement st2 = cn2.createStatement();
 
-            ResultSet rs1 = st1.executeQuery("select count(*) from " + fields[0].tname());
+            ResultSet rs1 = st1.executeQuery("select count(*) from " + fields[0].meta().field_name);
             if (rs1.next()) {
                 count = rs1.getInt(1);
             }
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
-                //for (int index_page = 8065; index_page <= count / 500; ++index_page) {
 
                 Utils.println(nameTable2 + " " + index_page);
                 String nameCols2 = "";
-                rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + fields[0].tname());
+                rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + fields[0].meta().field_name);
                 ResultSetMetaData md1 = rs1.getMetaData();
                 HashSet hsNonField = new HashSet();
                 for (int index = 1; index <= md1.getColumnCount(); index++) {

@@ -6,7 +6,7 @@ import domain.eColslst;
 import domain.eConnlst;
 import domain.eConnspc;
 import domain.eConnvar;
-import domain.eCorrenc;
+import domain.eRate;
 import domain.eFurnlen;
 import domain.eFurnles;
 import domain.eFurnspc;
