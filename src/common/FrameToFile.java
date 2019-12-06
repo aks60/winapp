@@ -1,0 +1,140 @@
+package common;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.Window;
+import java.awt.event.ActionListener;
+import javax.swing.AbstractButton;
+import common.eProp;
+import static java.awt.SystemColor.menu;
+
+/**
+ * <p>
+ * Сохронение размера фрейма в файле </p>
+ */
+public class FrameToFile extends javax.swing.Timer implements ActionListener {
+
+    private static Dimension screenSize;
+    private static Dimension frameSize;
+    private static Window frameUp;
+    private boolean eventPerformed = false;
+    private static Window frame;
+    private static AbstractButton btn;
+    private static Window frame2;
+
+    public FrameToFile(Window frame, AbstractButton btn) {
+        super(1000, null);
+        this.frame = frame;
+        this.btn = btn;
+        initListener();
+    }
+
+    private void initListener() {
+        super.addActionListener(this);
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                start();
+            }
+
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                stop();
+                btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px24/c007.gif")));
+            }
+        });
+    }
+
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Dimension frameSize = frame.getSize();
+        try {
+            btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px24/c033.gif")));
+            String dy = String.valueOf(frame.getSize().height);
+            String dx = String.valueOf(frame.getSize().width);
+            eProp.load().setProperty(frame.getName() + "_height", dy);
+            eProp.load().setProperty(frame.getName() + "_width", dx);
+            eProp.save();
+        } finally {
+            stop();
+        }
+    }
+
+    /**
+     * Устанавливаем координаты window
+     */
+    public static void setFrameSize(Window frame) {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frameSize = frame.getSize();
+        frameUp = frame;
+        String dy = eProp.load().getProperty(frame.getName() + "_height", "nul");
+        String dx = eProp.load().getProperty(frame.getName() + "_width", "nul");
+        if (!dy.equals("nul")) {
+            frameSize.height = Integer.valueOf(dy);
+        }
+        if (!dx.equals("nul")) {
+            frameSize.width = Integer.valueOf(dx);
+        }
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+        if (frame.getName().equals("Property")) {
+            frame.setLocation(20, 140);
+       // } else if (frame.getName().equals("DicDate") && mMenu.window.equals(frame.getParent())) {
+         //   frame.setLocation(10, 90);
+        } else {
+            frame.setLocation((screenSize.width - frameSize.width) / 2,
+                    (screenSize.height - frameSize.height - 48) / 2 + 48);
+        }
+        frame.setPreferredSize(frameSize);
+        frame.pack();
+    }
+
+    /**
+     * Устанавливаем координаты window
+     */
+    public static void setFrameSize(Window frame, int x, int y, int dx, int dy) {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frameSize = frame.getSize();
+        frameUp = frame;
+        if (dy != 0) {
+            frameSize.height = dy;
+        } else {
+            String dy2 = eProp.load().getProperty(frame.getName() + "_height", "nul");
+            if (!dy2.equals("nul")) {
+                frameSize.height = Integer.valueOf(dy2);
+            }
+        }
+        if (dx != 0) {
+            frameSize.width = dx;
+        } else {
+            String dx2 = eProp.load().getProperty(frame.getName() + "_width", "nul");
+            if (!dx2.equals("nul")) {
+                frameSize.width = Integer.valueOf(dx2);
+            }
+        }
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+        if (x == 0 && y == 0) {
+            frame.setLocation((screenSize.width - frameSize.width) / 2,
+                    (screenSize.height - frameSize.height - 48) / 2 + 48);
+        } else if (x == 0 && y != 0) {
+            frame.setLocation((screenSize.width - frameSize.width) / 2, y);
+        } else if (x != 0 && y == 0) {
+            frame.setLocation(x, (screenSize.height - frameSize.height - 48) / 2 + 48);
+        } else {
+            frame.setLocation(x, y);
+        }
+        frame.setPreferredSize(frameSize);
+        frame.pack();
+    }
+    
+    public static void loadHelp(String name) {
+        //ExecuteCmd.startHtml(name + ".html");
+    }
+}
