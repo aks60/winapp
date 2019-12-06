@@ -1,5 +1,6 @@
-package appmain;
+package winapp;
 
+import winapp.App1;
 import common.FrameAdapter;
 import common.FrameToFile;
 import common.eProfile;

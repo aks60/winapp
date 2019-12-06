@@ -1,6 +1,6 @@
 package common;
 
-import appmain.Main;
+import winapp.Main;
 import dataset.Query;
 import dataset.Record;
 import dataset.Table;

@@ -1,5 +1,6 @@
-package appmain;
+package winapp;
 
+import winapp.App1;
 import dataset.Query;
 import domain.eArtikls;
 import domain.eArtsvst;
