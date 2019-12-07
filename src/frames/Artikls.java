@@ -6,10 +6,10 @@ import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
-import domain.eArtsvst;
-import domain.eColslst;
-import domain.eRate;
-import domain.eGrupcol;
+import domain.eArtTarif;
+import domain.eTexture;
+import domain.eDicRate;
+import domain.eDicGrTexst;
 import enums.eTypeArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -36,8 +36,8 @@ import javax.swing.event.TreeSelectionListener;
 public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private Query qArtikls = new Query(eArtikls.values(), eRate.values());
-    private Query qArtsvst = new Query(eArtsvst.id, eGrupcol.gname, eColslst.cname, eArtsvst.clprc, eArtsvst.clpr1, eArtsvst.clpr2, eArtsvst.clprv);
+    private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
+    private Query qArtsvst = new Query(eArtTarif.id, eDicGrTexst.gname, eTexture.cname, eArtTarif.clprc, eArtTarif.clpr1, eArtTarif.clpr2, eArtTarif.clprv);
     DefTableModel rsmArtikls, rsmArtsvst;
     DefFieldRenderer rsvArtikls;
 
@@ -88,8 +88,8 @@ public class Artikls extends javax.swing.JFrame
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
-        rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eRate.cshor);
-        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eGrupcol.gname, eColslst.cname, eArtsvst.clprc, eArtsvst.clpr1, eArtsvst.clpr2, eArtsvst.clprv);
+        rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.cshor);
+        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eDicGrTexst.gname, eTexture.cname, eArtTarif.clprc, eArtTarif.clpr1, eArtTarif.clpr2, eArtTarif.clprv);
 
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
@@ -103,7 +103,7 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikls.add(eArtikls.unit, txtField4);
         rsvArtikls.add(eArtikls.unit, txtField5);
         rsvArtikls.add(eArtikls.otx_norm, txtField6);
-        rsvArtikls.add(eRate.crode, txtField7);
+        rsvArtikls.add(eDicRate.crode, txtField7);
         rsvArtikls.add(eArtikls.size_centr, txtField8);
 
         JButton btnColor = new JButton("...");

@@ -7,7 +7,7 @@ import dataset.Query;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
-import domain.eRate;
+import domain.eDicRate;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -19,7 +19,7 @@ import swing.DefTableModel;
 public class Rate extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private Query qRate = new Query(eRate.values()).select("rate order by rate.cname");
+    private Query qRate = new Query(eDicRate.values()).select("rate order by rate.cname");
     private DefTableModel rsmRate;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -62,7 +62,7 @@ public class Rate extends javax.swing.JFrame
 
     public Rate() {
         initComponents();
-        rsmRate = new DefTableModel(tab1, qRate, eRate.cname, eRate.crode, eRate.crodm, eRate.ckurs);
+        rsmRate = new DefTableModel(tab1, qRate, eDicRate.cname, eDicRate.crode, eDicRate.crodm, eDicRate.ckurs);
         rsmRate.addFrameListener(listenerModify);
     }
 
@@ -279,7 +279,7 @@ public class Rate extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getSelectedRow() != -1) {
                 try {
-                    Query query = qRate.query(eRate.up.tname());
+                    Query query = qRate.query(eDicRate.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
                     qRate.select("rate order by rate.cname");
@@ -292,11 +292,11 @@ public class Rate extends javax.swing.JFrame
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Query query = qRate.query(eRate.up.tname());
+        Query query = qRate.query(eDicRate.up.tname());
         Record record = query.newRecord(Query.INS);
-        int id = ConnApp.get().generstorId(eRate.up.tname());
-        record.setNo(eRate.id, id);
-        record.setNo(eRate.id, id);
+        int id = ConnApp.get().generstorId(eDicRate.up.tname());
+        record.setNo(eDicRate.id, id);
+        record.setNo(eDicRate.id, id);
         query.add(record);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnInsert
