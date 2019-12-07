@@ -2,6 +2,7 @@ package winapp;
 
 import convdb.Script;
 import dataset.Query;
+import domain.eArtikls;
 import domain.eTexture;
 import frames.Artikls;
 import frames.Rate;
@@ -13,8 +14,7 @@ public class Test {
         Main.dev = true;
         
         try {
-            Script.script();
-            
+            Script.script(); 
             //Test test = new Test();
             //test.query();
 
