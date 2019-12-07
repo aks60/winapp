@@ -52,7 +52,6 @@ import java.util.List;
 public class Script {
 
     public static void script() {
-
         Field[] fieldsUp = {
             eArtikls.up, eArtTarif.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
             eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
