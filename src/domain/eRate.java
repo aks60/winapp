@@ -5,10 +5,10 @@ import dataset.MetaField;
 import dataset.Record;
 
 public enum eRate implements Field {
-    up("0", "0", "0", "Курс валюты", "CORRENC"),
-    id("4", "10", "0", "Идентификатор", "CNUMB"),
+    up("0", "0", "0", "Валюта", "CORRENC"),
+    id("4", "10", "0", "Идентификатор", "id"),
     cname("12", "32", "1", "Название валюты", "CNAME"),
-    //cnumb("4", "10", "1", "ID валюты", "CNUMB"),
+    cnumb("4", "10", "1", "ID валюты", "CNUMB"),
     crode("12", "32", "1", "Родит.падеж ед.ч.", "CRODE"),
     crodm("12", "32", "1", "Родит.падеж мн.ч.", "CRODM"),
     cshor("12", "8", "1", "Обозначение", "CSHOR"),

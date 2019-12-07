@@ -17,66 +17,85 @@ public class Script {
 
     public static void script(Field... fieldsUp) {
         try {
-            Connection cn1 = java.sql.DriverManager.getConnection(
+            Connection cn1 = java.sql.DriverManager.getConnection( //источник
                     "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
-            Connection cn2 = java.sql.DriverManager.getConnection(
+            Connection cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
+            Utils.println("Подготовка методанных");
             List<String> listTable1 = new ArrayList<String>();
             List<String> listTable2 = new ArrayList<String>();
             List<String> listGenerator2 = new ArrayList<String>();
 
+            //Таблицы источника
             Statement st1 = cn1.createStatement();
             DatabaseMetaData metaData1 = cn1.getMetaData();
             ResultSet resultSet1 = metaData1.getTables(null, null, null, new String[]{"TABLE"});
             while (resultSet1.next()) {
                 listTable1.add(resultSet1.getString("TABLE_NAME"));
             }
+            //Таблицы приёмника (если есть)
             Statement st2 = cn2.createStatement();
             DatabaseMetaData metaData2 = cn2.getMetaData();
             ResultSet resultSet2 = metaData2.getTables(null, null, null, new String[]{"TABLE"});
             while (resultSet2.next()) {
                 listTable2.add(resultSet2.getString("TABLE_NAME"));
             }
-            
+            //Генераторы приёмника
             resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators");
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
+            Utils.println("Перенос данных");
+            //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
 
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
-                    st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";");
+                    st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
                 }
                 if (listTable2.contains(fieldUp.tname()) == true) {
-                    st2.execute("DROP TABLE " + fieldUp.tname() + ";");
+                    st2.execute("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
                 }
+                //Создание таблицы приёмника
                 ArrayList<String> batch = Script.createTable(fieldUp.fields());
                 for (String ddl : batch) {
                     st2.execute(ddl);
                 }
+                //Конвертирование данных в таблицу приёмника
                 if (listTable1.contains(fieldUp.meta().field_name) == true) {
                     convertTable(cn1, cn2, fieldUp.fields());
                 }
 
-                st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname());
-                st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)  where id is null");
-                st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
+                st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
+                if ("id".equals(fieldUp.meta().field_name)) {
+                    st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
+                }
+                st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
             }
+            
+            Utils.println("Обновление структуры БД");
             for (Field field : fieldsUp) {
-                st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'");
+                st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание всех полей таблицы
             }
             if (fieldsUp.length > 3) {
                 st2.execute("update artsvst set artikl_id = (select id from artikls a where a.code = artsvst.anumb)");
                 st2.execute("alter table artsvst drop anumb");
+
             }
+            Utils.println("Обновление закончено!");
 
         } catch (Exception e) {
             System.err.println("SQL-SCRIPT: " + e);
         }
     }
 
+    /**
+     * Создание таблицы
+     *
+     * @param f все поля соэдаваемой таблицы
+     * @return список ddl операторов создания таблицы
+     */
     public static ArrayList<String> createTable(Field... f) {
 
         ArrayList<String> batch = new ArrayList();
@@ -98,6 +117,13 @@ public class Script {
         return batch;
     }
 
+    /**
+     * Конвертор данных таблицы
+     *
+     * @param cn1 соединение источника
+     * @param cn2 соединение приёмника
+     * @param fields все поля таблицы
+     */
     public static void convertTable(Connection cn1, Connection cn2, Field[] fields) {
         String sql = "";
         try {
@@ -178,6 +204,9 @@ public class Script {
         }
     }
 
+    /**
+     * Типы полей
+     */
     private static String typeColumn(Field field) {
 
         switch (field.meta().type().name()) {

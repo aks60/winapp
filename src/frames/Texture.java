@@ -447,9 +447,9 @@ public class Texture extends javax.swing.JFrame
             Record record2 = query2.newRecord(Query.INS);
             int id = ConnApp.get().generstorId(eColslst.up.tname());
             int cgrup = record1.getInt(eGrupcol.gunic);
-            record2.setNo(eColslst.id, id);
-            record2.setNo(eColslst.ccode, id);
             record2.setNo(eColslst.cnumb, id);
+            record2.setNo(eColslst.id, id);
+            //record2.setNo(eColslst.xxx, id);
             record2.setNo(eColslst.cgrup, cgrup);
             query2.add(record2);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();            
