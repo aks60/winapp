@@ -4,18 +4,18 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eGlasArt implements Field {
-    up("0", "0", "0", "Спецификация групп заполнения", "GLASART"),
+public enum eDicGrText implements Field {
+    up("0", "0", "0", "Группа текстур", "GRUPCOL"),
     id("4", "10", "0", "Идентификатор", "id"),
-    gnumb("4", "10", "1", "ID группы заполнения", "GNUMB"),
+    gnumb("4", "10", "1", "номер группы", "GNUMB"),
+    gname("12", "32", "1", "название группы", "GNAME"),
     gunic("4", "10", "1", "null", "GUNIC"),
-    afric("8", "15", "1", "Толщина", "AFRIC"),
-    anumb("12", "32", "1", "Артикул элемента", "ANUMB"),
-    clnum("4", "10", "1", "Текстура", "CLNUM"),
-    ctype("5", "5", "1", "null", "CTYPE");
+    gkoef("8", "15", "1", "ценовой коэффицент", "GKOEF"),
+    gprc1("8", "15", "1", "null", "GPRC1"),
+    gprc2("8", "15", "1", "null", "GPRC2");
     private MetaField meta = new MetaField(this);
 
-    eGlasArt(Object... p) {
+    eDicGrText(Object... p) {
         meta.init(p);
     }
 

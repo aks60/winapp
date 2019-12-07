@@ -9,7 +9,7 @@ import domain.eCompSpec;
 import domain.eComplet;
 import domain.eDicConst;
 import domain.eDicGrArt;
-import domain.eDicGrTexst;
+import domain.eDicGrText;
 import domain.eDicRate;
 import domain.eDicSysPar;
 import domain.eTexture;
@@ -28,7 +28,7 @@ import domain.eJoinPar3;
 import domain.eJoinSpec;
 import domain.eJoinVar;
 import domain.eJoining;
-import domain.eTexturePar;
+import domain.eTextPar;
 import domain.eGlasPar2;
 import domain.eGlasPar1;
 import domain.eDicParam;
@@ -56,15 +56,15 @@ public class Script {
         Field[] fieldsUp = {
             eArtikls.up, eArtTarif.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
             eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
-            eDicGrArt.up, eDicGrTexst.up, eComplet.up, eCompSpec.up, eTexturePar.up, eJoinPar1.up, eJoinPar2.up,
+            eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
             eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
-            eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up,
-            eSpecific.up
+            eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up
+            //,eSpecific.up
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник
-                    "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+                    //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+                    "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             Connection cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
