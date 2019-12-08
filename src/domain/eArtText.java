@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eArtTarif implements Field {
+public enum eArtText implements Field {
     up("0", "0", "0", "Тариф. мат. цености", "ARTSVST"),
     id("4", "10", "0", "Идентификатор", "id"),
     //anumb("12", "32", "1", "артикул", "ANUMB"),
@@ -25,7 +25,7 @@ public enum eArtTarif implements Field {
     texture_id("4", "10", "1", "ссылка", "texture_id");
     private MetaField meta = new MetaField(this);
 
-    eArtTarif(Object... p) {
+    eArtText(Object... p) {
         meta.init(p);
     }
 

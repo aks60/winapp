@@ -1,7 +1,7 @@
 package dataset;
 
 import domain.eArtikls;
-import domain.eArtTarif;
+import domain.eArtText;
 import domain.eTexture;
 import domain.eJoining;
 import domain.eJoinSpec;

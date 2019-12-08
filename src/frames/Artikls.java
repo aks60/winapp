@@ -6,7 +6,7 @@ import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
-import domain.eArtTarif;
+import domain.eArtText;
 import domain.eTexture;
 import domain.eDicRate;
 import domain.eDicGrText;
@@ -37,7 +37,7 @@ public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
-    private Query qArtsvst = new Query(eArtTarif.id, eDicGrText.gname, eTexture.cname, eArtTarif.clprc, eArtTarif.clpr1, eArtTarif.clpr2, eArtTarif.clprv);
+    private Query qArtsvst = new Query(eArtText.id, eDicGrText.gname, eTexture.cname, eArtText.clprc, eArtText.clpr1, eArtText.clpr2, eArtText.clprv);
     DefTableModel rsmArtikls, rsmArtsvst;
     DefFieldRenderer rsvArtikls;
 
@@ -89,7 +89,7 @@ public class Artikls extends javax.swing.JFrame
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
         rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.cshor);
-        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eDicGrText.gname, eTexture.cname, eArtTarif.clprc, eArtTarif.clpr1, eArtTarif.clpr2, eArtTarif.clprv);
+        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eDicGrText.gname, eTexture.cname, eArtText.clprc, eArtText.clpr1, eArtText.clpr2, eArtText.clprv);
 
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);

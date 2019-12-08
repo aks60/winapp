@@ -9,7 +9,7 @@ package convdb;
 import common.Utils;
 import dataset.Field;
 import dataset.Query;
-import domain.eArtTarif;
+import domain.eArtText;
 import domain.eArtikls;
 import domain.eCompSpec;
 import domain.eComplet;
@@ -59,7 +59,7 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtTarif.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
+            eArtikls.up, eArtText.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
             eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
             eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
             eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
@@ -138,8 +138,8 @@ public class Script {
                 st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             if (fieldsUp.length > 1) {
-                st2.execute("update art_tarif set artikl_id = (select id from artikls a where a.code = art_tarif.anumb)");
-                st2.execute("update art_tarif set texture_id = (select id from texture a where a.ccode = art_tarif.clcod and a.cnumb = art_tarif.clnum)");
+                st2.execute("update art_text set artikl_id = (select id from artikls a where a.code = art_text.anumb)");
+                st2.execute("update art_text set texture_id = (select id from texture a where a.ccode = art_text.clcod and a.cnumb = art_text.clnum)");
 
             }
             Utils.println("Обновление закончено");
