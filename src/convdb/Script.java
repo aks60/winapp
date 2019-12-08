@@ -1,10 +1,8 @@
-
 /**
-1. В пс3 и пс4 разное количество полей в таблицах но список столбцов eEnum.values() для них один.
-2. Отсутствующие поля в пс3 будут заполняться пустышками.
-3. Поля не вошедшие в список столбцов eEnum.values() тоже будут переноситься для sql update таблиц и потом удаляться.
+ * 1. В пс3 и пс4 разное количество полей в таблицах, но список столбцов eEnum.values() для них один.
+ * 2. Отсутствующие поля пс3 в eEnum.values() будут заполняться пустышками.
+ * 3. Поля не вошедшие в список столбцов eEnum.values() тоже будут переноситься для sql update и потом удаляться.
  */
-
 package convdb;
 
 import common.Utils;
@@ -122,11 +120,10 @@ public class Script {
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (String ddl : Script.createColumn(hsDeltaCol, fieldUp.tname())) {
-                    System.out.println(ddl);
-                    //st2.execute(ddl);
+                    st2.execute(ddl);
                 }
                 //Конвертирование данных в таблицу приёмника                   
-                convertTable(cn1, cn2, fieldUp.fields());
+                convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
 
                 st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
                 Object obj = fieldUp.meta().fname;
@@ -199,7 +196,7 @@ public class Script {
      * @param cn2 соединение приёмника
      * @param fields все поля таблицы
      */
-    public static void convertTable(Connection cn1, Connection cn2, Field[] fields) {
+    public static void convertTable(Connection cn1, Connection cn2, Field[] fields, HashSet<String[]> hsDeltaCol) {
         String sql = "";
         try {
             int count = 0;
@@ -213,6 +210,7 @@ public class Script {
             if (rs1.next()) {
                 count = rs1.getInt(1);
             }
+            //Цыкл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
                 Utils.println(tname2 + " " + index_page);
@@ -228,22 +226,35 @@ public class Script {
                         }
                     }
                 }
+                //Строка insert into(...)
                 for (int index = 1; index < fields.length; index++) {
                     Field field = fields[index];
                     nameCols2 = nameCols2 + field.name() + ",";
                 }
+                for (String[] str : hsDeltaCol) {//поля для sql update (в конце будут удалены)
+                    nameCols2 = nameCols2 + str[0] + ",";
+                }
                 nameCols2 = nameCols2.substring(0, nameCols2.length() - 1);
-
+                //Строка values(...)
                 while (rs1.next()) {
                     String nameVal2 = "";
+                    //Цыкл по полям eEnum.values()
                     for (int index = 1; index < fields.length; index++) {
                         Field field = fields[index];
-                        //в ps3 и ps4 разное количество полей
-                        if (hsExistField.contains(field)) {
+                        if (hsExistField.contains(field)) { //т.к. ps3 и ps4 разное количество полей
                             Object val = rs1.getObject(field.meta().fname);
                             nameVal2 = nameVal2 + Query.wrapper(val, field) + ",";
                         } else {
                             nameVal2 = nameVal2 + "0" + ",";
+                        }
+                    }
+                    //Цыкл по полям не вошедших в eEnum.values()
+                    for (String[] str : hsDeltaCol) {
+                        Object val = rs1.getObject(str[0]);
+                        if (str[1].equals("4")) {
+                            nameVal2 = nameVal2 + val + ",";
+                        } else {
+                            nameVal2 = nameVal2 + "'" + val + "',";
                         }
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
@@ -253,7 +264,8 @@ public class Script {
                     } else {
                         try {
                             System.out.println(sql);
-                            st2.executeUpdate(sql);
+                            //Если была ошибка в пакете выполняю отдельные sql insert
+                            st2.executeUpdate(sql); 
                         } catch (SQLException e) {
                             System.out.println("SCRIPT-INSERT:  " + e + "  " + sql);
                         }
@@ -262,6 +274,7 @@ public class Script {
                 bash = true;
                 cn2.setAutoCommit(false);
                 try {
+                    //Пакетный insert
                     st2.executeBatch();
                     cn2.commit();
                     st2.clearBatch();
