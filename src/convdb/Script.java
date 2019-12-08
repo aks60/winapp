@@ -58,7 +58,7 @@ public class Script {
             eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
             eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
             eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up
-            //,eSpecific.up
+        //,eSpecific.up
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник
@@ -68,23 +68,19 @@ public class Script {
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
             Utils.println("Подготовка методанных");
-            List<String> listTable1 = new ArrayList<String>();
-            List<String> listTable2 = new ArrayList<String>();
+            List<String> listExistTable2 = new ArrayList<String>();
             List<String> listGenerator2 = new ArrayList<String>();
 
-            //Таблицы источника
-            Statement st1 = cn1.createStatement();
-            DatabaseMetaData metaData1 = cn1.getMetaData();
-            ResultSet resultSet1 = metaData1.getTables(null, null, null, new String[]{"TABLE"});
-            while (resultSet1.next()) {
-                listTable1.add(resultSet1.getString("TABLE_NAME"));
-            }
-            //Таблицы приёмника (если есть)
-            Statement st2 = cn2.createStatement();
+            Statement st1 = cn1.createStatement(); //мсточник
+            Statement st2 = cn2.createStatement();//приёмник
             DatabaseMetaData metaData2 = cn2.getMetaData();
             ResultSet resultSet2 = metaData2.getTables(null, null, null, new String[]{"TABLE"});
             while (resultSet2.next()) {
-                listTable2.add(resultSet2.getString("TABLE_NAME"));
+                listExistTable2.add(resultSet2.getString("TABLE_NAME"));
+            }
+            //Изменение структуры источника
+            for (Field fieldUp : fieldsUp) {
+                ResultSet rs1 = st1.executeQuery("select first 1 skip 0 * from " + fieldUp.meta().field_name);
             }
             //Генераторы приёмника
             resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators");
@@ -98,7 +94,7 @@ public class Script {
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
                     st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
                 }
-                if (listTable2.contains(fieldUp.tname()) == true) {
+                if (listExistTable2.contains(fieldUp.tname()) == true) {
                     st2.execute("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
                 }
                 //Создание таблицы приёмника
@@ -106,10 +102,8 @@ public class Script {
                 for (String ddl : batch) {
                     st2.execute(ddl);
                 }
-                //Конвертирование данных в таблицу приёмника
-                if (listTable1.contains(fieldUp.meta().field_name) == true) {
-                    convertTable(cn1, cn2, fieldUp.fields());
-                }
+                //Конвертирование данных в таблицу приёмника                   
+                convertTable(cn1, cn2, fieldUp.fields());
 
                 st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
                 Object obj = fieldUp.meta().field_name;
