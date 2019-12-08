@@ -120,6 +120,7 @@ public class Script {
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (String ddl : Script.createColumn(hsDeltaCol, fieldUp.tname())) {
+                    //System.out.println(ddl);
                     st2.execute(ddl);
                 }
                 //Конвертирование данных в таблицу приёмника                   
@@ -199,10 +200,10 @@ public class Script {
     public static void convertTable(Connection cn1, Connection cn2, Field[] fields, HashSet<String[]> hsDeltaCol) {
         String sql = "";
         try {
-            int count = 0;
+            int count = 0; //колчество записей для расчёта кол. пакетов
             String tname1 = fields[0].meta().fname;
             String tname2 = fields[0].tname();
-            HashSet hsExistField = new HashSet();
+            HashSet hsExistField = new HashSet(); //список полей которые есть в источнике и в eEnum.values()
             boolean bash = true;
             Statement st1 = cn1.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Statement st2 = cn2.createStatement();
@@ -219,6 +220,7 @@ public class Script {
                 ResultSetMetaData md1 = rs1.getMetaData();
                 for (int index = 1; index <= md1.getColumnCount(); index++) {
 
+                    //Список полей которые есть в источнике и в eEnum.values()
                     String fn = md1.getColumnLabel(index);
                     for (Field f : fields) {
                         if (f.meta().fname.equalsIgnoreCase(fn)) {
