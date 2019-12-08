@@ -78,10 +78,6 @@ public class Script {
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
-            //Изменение структуры источника
-            for (Field fieldUp : fieldsUp) {
-                ResultSet rs1 = st1.executeQuery("select first 1 skip 0 * from " + fieldUp.meta().field_name);
-            }
             //Генераторы приёмника
             resultSet2 = st2.executeQuery("select rdb$generator_name from rdb$generators");
             while (resultSet2.next()) {
