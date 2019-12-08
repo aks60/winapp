@@ -34,7 +34,7 @@ public enum eArtikls implements Field {
     mom_iner2("8", "15", "1", "момент инерции", "AJYYY"),
     sechen("8", "15", "1", "сечение", "ASECH"),
     noopt("5", "5", "1", "не оптимизировать", "NOOPT"),
-    price_kotf("8", "15", "1", "ценовой коэффицент", "AKOEF"),
+    price_koef("8", "15", "1", "ценовой коэффицент", "AKOEF"),
     otx_norm("8", "15", "1", "норма отхода", "AOUTS"),
     ost_delov("8", "15", "1", "деловой остаток", "AOSTD"),
     sect_perim("8", "15", "1", "периметр сечения", "APERI"),
