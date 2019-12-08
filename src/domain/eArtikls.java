@@ -71,9 +71,7 @@ public enum eArtikls implements Field {
         return values();
     }
 
-    
-
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }
