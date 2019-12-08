@@ -70,22 +70,6 @@ public interface Field {
         }
     };
 
-    default void selectSql() {
-    }
-    
-    default String updateSql(Record record) {
-        
-        return null;
-    }
-
-    default String insertSql(Record record) {
-        return null;
-    }
-
-    default String deleteSql(Record record) {
-        return null;
-    }
-
     default String tname() {
 
         String str = this.getClass().toString().substring(14);
@@ -105,21 +89,37 @@ public interface Field {
     public int ordinal();
 
     public String name();
-    
-    default Field[] key() {
-      return new Field[]  {fields()[1]};  
-    }
-    
-    default Field[] unique() {
-        return null;
-    }
-    
-    default Field[] foreign() {
-        return null;
-    }
+   
     
     public MetaField meta();
+    
+    default void selectSql() {
+    }
+    
+    default String updateSql(Record record) {
+        
+        return null;
+    }
 
-    public boolean equals(Object other);
+    default String insertSql(Record record) {
+        return null;
+    }
 
+    default String deleteSql(Record record) {
+        return null;
+    }
+//    
+//    default Field[] key() {
+//      return new Field[]  {fields()[1]};  
+//    }
+//    
+//    default Field[] unique() {
+//        return null;
+//    }
+//    
+//    default Field[] foreign() {
+//        return null;
+//    }
+    
+    public boolean equals(Object other);    
 }
