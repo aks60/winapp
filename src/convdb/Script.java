@@ -2,6 +2,7 @@
  * 1. В пс3 и пс4 разное количество полей в таблицах, но список столбцов eEnum.values() для них один.
  * 2. Отсутствующие поля пс3 в eEnum.values() будут заполняться пустышками.
  * 3. Поля не вошедшие в список столбцов eEnum.values() тоже будут переноситься для sql update и потом удаляться.
+ * 4. Обновление данных выполняется пакетом, если была ошибка в пакете, откат и пакет выполяется отдельными insert.
  */
 package convdb;
 
@@ -58,12 +59,11 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up
-//                , eArtTarif.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
-//            eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
-//            eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
-//            eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
-//            eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up
+            eArtikls.up, eArtTarif.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
+            eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
+            eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
+            eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
+            eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up
         //,eSpecific.up
         };
         try {
@@ -120,7 +120,6 @@ public class Script {
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (String ddl : Script.createColumn(hsDeltaCol, fieldUp.tname())) {
-                    //System.out.println(ddl);
                     st2.execute(ddl);
                 }
                 //Конвертирование данных в таблицу приёмника                   
@@ -138,11 +137,11 @@ public class Script {
             for (Field field : fieldsUp) {
                 st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
-//            if (fieldsUp.length > 3) {
-//                st2.execute("update artsvst set artikl_id = (select id from artikls a where a.code = artsvst.anumb)");
-//                st2.execute("alter table artsvst drop anumb");
-//
-//            }
+            if (fieldsUp.length > 1) {
+                st2.execute("update art_tarif set artikl_id = (select id from artikls a where a.code = art_tarif.anumb)");
+                st2.execute("update art_tarif set texture_id = (select id from texture a where a.ccode = art_tarif.clcod and a.cnumb = art_tarif.clnum)");
+
+            }
             Utils.println("Обновление закончено");
 
         } catch (Exception e) {
@@ -184,7 +183,7 @@ public class Script {
             if ("4".equals(str[1]) == true) {
                 batch.add("ALTER TABLE " + tname + " ADD " + str[0] + " INTEGER;");
             } else {
-                batch.add("ALTER TABLE " + tname + " ADD " + str[0] + " VARCHAR(255);");
+                batch.add("ALTER TABLE " + tname + " ADD " + str[0] + " VARCHAR(64);");
             }
         }
         return batch;
@@ -300,20 +299,19 @@ public class Script {
      */
     private static String typeColumn(Field field) {
 
-        switch (field.meta().type().name()) {
-            case "INT":
-                return "INTEGER";
-            case "DBL":
-                return "DOUBLE PRECISION";
-            case "FLT":
-                return "FLOAT";
-            case "STR":
-                return "VARCHAR(" + field.meta().size() + ")";
-            case "DATE":
-                return "DATE";
-            case "BLOB":
-                return "BLOB SUB_TYPE 1 SEGMENT SIZE " + field.meta().size();
-        }
+        if(field.meta().type() == Field.TYPE.INT) {
+            return "INTEGER";
+        } else if(field.meta().type() == Field.TYPE.DBL) {
+            return "DOUBLE PRECISION";
+        } else if(field.meta().type() == Field.TYPE.FLT) {
+            return "FLOAT";
+        } else if(field.meta().type()== Field.TYPE.STR) {
+            return "VARCHAR(" + field.meta().size() + ")";
+        } else if(field.meta().type()== Field.TYPE.DATE) {
+            return "DATE";
+        } else if(field.meta().type()== Field.TYPE.BLOB) {
+            return "BLOB SUB_TYPE 1 SEGMENT SIZE " + field.meta().size();
+        } 
         return "";
-    }
+    }    
 }
