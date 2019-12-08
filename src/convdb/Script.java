@@ -94,7 +94,7 @@ public class Script {
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
 
-                HashSet<String[]> hsDeltaCol = new HashSet(); //поля не вошедшие в Field[], в последствии будут использоваться для sql update
+                HashSet<String[]> hsDeltaCol = new HashSet(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
                 ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
                 while (rsc1.next()) {
                     String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE")};
@@ -191,10 +191,10 @@ public class Script {
 
     /**
      * Конвертор данных таблиц
-     *
      * @param cn1 соединение источника
      * @param cn2 соединение приёмника
      * @param fields все поля таблицы
+     * @param hsDeltaCol поля не вошедшие в eEnum.values()
      */
     public static void convertTable(Connection cn1, Connection cn2, Field[] fields, HashSet<String[]> hsDeltaCol) {
         String sql = "";
