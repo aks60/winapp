@@ -102,8 +102,8 @@ public class Script {
                 convertTable(cn1, cn2, fieldUp.fields());
 
                 st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
-                Object obj = fieldUp.meta().field_name;
-                if ("id".equals(fieldUp.fields()[1].meta().field_name)) {
+                Object obj = fieldUp.meta().fname;
+                if ("id".equals(fieldUp.fields()[1].meta().fname)) {
                     st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
                 st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
@@ -168,7 +168,7 @@ public class Script {
             Statement st1 = cn1.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Statement st2 = cn2.createStatement();
 
-            ResultSet rs1 = st1.executeQuery("select count(*) from " + fields[0].meta().field_name);
+            ResultSet rs1 = st1.executeQuery("select count(*) from " + fields[0].meta().fname);
             if (rs1.next()) {
                 count = rs1.getInt(1);
             }
@@ -176,14 +176,14 @@ public class Script {
 
                 Utils.println(nameTable2 + " " + index_page);
                 String nameCols2 = "";
-                rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + fields[0].meta().field_name);
+                rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + fields[0].meta().fname);
                 ResultSetMetaData md1 = rs1.getMetaData();
                 HashSet hsNonField = new HashSet();
                 for (int index = 1; index <= md1.getColumnCount(); index++) {
 
                     String fn = md1.getColumnLabel(index);
                     for (Field f : fields) {
-                        if (f.meta().field_name.equalsIgnoreCase(fn)) {
+                        if (f.meta().fname.equalsIgnoreCase(fn)) {
                             hsNonField.add(f);
                         }
                     }
@@ -199,7 +199,7 @@ public class Script {
                     for (int index = 1; index < fields.length; index++) {
                         Field field = fields[index];
                         if (hsNonField.contains(field)) {
-                            Object val = rs1.getObject(field.meta().field_name);
+                            Object val = rs1.getObject(field.meta().fname);
                             nameVal2 = nameVal2 + Query.wrapper(val, field) + ",";
                         } else {
                             nameVal2 = nameVal2 + "0" + ",";

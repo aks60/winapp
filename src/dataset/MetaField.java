@@ -19,7 +19,7 @@ public class MetaField {
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
     private boolean isnull = false; //запретить null в таблице
     private Field field = null; //enum
-    public String field_name = null; //служебное для переопределение имени поля
+    public String fname = null; //служебное для переопределение имени поля
     public String descr = ""; //описание поля
     private TYPE type = TYPE.OBJ; //тип поля
     private Integer size = 0; //размер поля
@@ -28,7 +28,7 @@ public class MetaField {
     public MetaField(Field e) {
         field = e;
         if (e instanceof Enum) {
-            this.field_name = ((Enum) e).name(); //имя поля но умолчанию
+            this.fname = ((Enum) e).name(); //имя поля но умолчанию
         }
     }
 
@@ -42,7 +42,7 @@ public class MetaField {
         this.size = Integer.valueOf(p[Entity.size.ordinal()].toString());
         this.isnull = p[Entity.nullable.ordinal()].equals("1"); //равно null
         this.descr = p[Entity.comment.ordinal()].toString(); //описание поля 
-        this.field_name = p[Entity.fname.ordinal()].toString(); //переопределение имени поля
+        this.fname = p[Entity.fname.ordinal()].toString(); //переопределение имени поля
     }
 
     /**
@@ -50,7 +50,7 @@ public class MetaField {
      */
     public String validate(Object value) {
 
-        if (field_name == null || size == 0) {
+        if (fname == null || size == 0) {
             return null;
         }
         try {
