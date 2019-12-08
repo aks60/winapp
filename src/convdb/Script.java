@@ -1,3 +1,10 @@
+
+/**
+1. В пс3 и пс4 разное количество полей в таблицах но список столбцов eEnum.values() для них один.
+2. Отсутствующие поля в пс3 будут заполняться пустышками.
+3. Поля не вошедшие в список столбцов eEnum.values() тоже будут переноситься для sql update таблиц и потом удаляться.
+ */
+
 package convdb;
 
 import common.Utils;
@@ -35,7 +42,6 @@ import domain.eDicParam;
 import domain.eItemPar1;
 import domain.eItemPar2;
 import domain.eRuleCalc;
-import domain.eSpecific;
 import domain.eSysFurn;
 import domain.eSysPar;
 import domain.eSysProf;
@@ -46,6 +52,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -53,17 +60,18 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtTarif.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
-            eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
-            eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
-            eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
-            eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up
+            eArtikls.up
+//                , eArtTarif.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
+//            eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
+//            eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
+//            eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
+//            eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up
         //,eSpecific.up
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник
-                    //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-                    "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+                    "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             Connection cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
@@ -71,10 +79,11 @@ public class Script {
             List<String> listExistTable2 = new ArrayList<String>();
             List<String> listGenerator2 = new ArrayList<String>();
 
-            Statement st1 = cn1.createStatement(); //мсточник
+            Statement st1 = cn1.createStatement(); //мсточник   
+            DatabaseMetaData mdb1 = cn1.getMetaData();
             Statement st2 = cn2.createStatement();//приёмник
-            DatabaseMetaData metaData2 = cn2.getMetaData();
-            ResultSet resultSet2 = metaData2.getTables(null, null, null, new String[]{"TABLE"});
+            DatabaseMetaData mdb2 = cn2.getMetaData();
+            ResultSet resultSet2 = mdb2.getTables(null, null, null, new String[]{"TABLE"});
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
@@ -87,6 +96,20 @@ public class Script {
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
 
+                HashSet<String[]> hsDeltaCol = new HashSet(); //поля не вошедшие в Field[], в последствии будут использоваться для sql update
+                ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
+                while (rsc1.next()) {
+                    String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE")};
+                    boolean find = false;
+                    for (Field field : fieldUp.fields()) {
+                        if (field.meta().fname.equalsIgnoreCase(name[0])) {
+                            find = true;
+                        }
+                    }
+                    if (find == false) {
+                        hsDeltaCol.add(name);
+                    }
+                }
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
                     st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
                 }
@@ -94,9 +117,13 @@ public class Script {
                     st2.execute("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
                 }
                 //Создание таблицы приёмника
-                ArrayList<String> batch = Script.createTable(fieldUp.fields());
-                for (String ddl : batch) {
+                for (String ddl : Script.createTable(fieldUp.fields())) {
                     st2.execute(ddl);
+                }
+                //Добавление столбцов не вошедших в eEnum.values()
+                for (String ddl : Script.createColumn(hsDeltaCol, fieldUp.tname())) {
+                    System.out.println(ddl);
+                    //st2.execute(ddl);
                 }
                 //Конвертирование данных в таблицу приёмника                   
                 convertTable(cn1, cn2, fieldUp.fields());
@@ -152,8 +179,21 @@ public class Script {
         return batch;
     }
 
+    public static ArrayList<String> createColumn(HashSet<String[]> hsDeltaCol, String tname) {
+
+        ArrayList<String> batch = new ArrayList();
+        for (String[] str : hsDeltaCol) {
+            if ("4".equals(str[1]) == true) {
+                batch.add("ALTER TABLE " + tname + " ADD " + str[0] + " INTEGER;");
+            } else {
+                batch.add("ALTER TABLE " + tname + " ADD " + str[0] + " VARCHAR(255);");
+            }
+        }
+        return batch;
+    }
+
     /**
-     * Конвертор данных таблицы
+     * Конвертор данных таблиц
      *
      * @param cn1 соединение источника
      * @param cn2 соединение приёмника
@@ -163,28 +203,28 @@ public class Script {
         String sql = "";
         try {
             int count = 0;
-            String nameTable2 = fields[0].tname();
+            String tname1 = fields[0].meta().fname;
+            String tname2 = fields[0].tname();
+            HashSet hsExistField = new HashSet();
             boolean bash = true;
             Statement st1 = cn1.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             Statement st2 = cn2.createStatement();
-
-            ResultSet rs1 = st1.executeQuery("select count(*) from " + fields[0].meta().fname);
+            ResultSet rs1 = st1.executeQuery("select count(*) from " + tname1);
             if (rs1.next()) {
                 count = rs1.getInt(1);
             }
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
-                Utils.println(nameTable2 + " " + index_page);
+                Utils.println(tname2 + " " + index_page);
                 String nameCols2 = "";
-                rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + fields[0].meta().fname);
+                rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + tname1);
                 ResultSetMetaData md1 = rs1.getMetaData();
-                HashSet hsNonField = new HashSet();
                 for (int index = 1; index <= md1.getColumnCount(); index++) {
 
                     String fn = md1.getColumnLabel(index);
                     for (Field f : fields) {
                         if (f.meta().fname.equalsIgnoreCase(fn)) {
-                            hsNonField.add(f);
+                            hsExistField.add(f);
                         }
                     }
                 }
@@ -198,7 +238,8 @@ public class Script {
                     String nameVal2 = "";
                     for (int index = 1; index < fields.length; index++) {
                         Field field = fields[index];
-                        if (hsNonField.contains(field)) {
+                        //в ps3 и ps4 разное количество полей
+                        if (hsExistField.contains(field)) {
                             Object val = rs1.getObject(field.meta().fname);
                             nameVal2 = nameVal2 + Query.wrapper(val, field) + ",";
                         } else {
@@ -206,7 +247,7 @@ public class Script {
                         }
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
-                    sql = "insert into " + nameTable2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";
+                    sql = "insert into " + tname2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";
                     if (bash == true) {
                         st2.addBatch(sql);
                     } else {

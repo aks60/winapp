@@ -41,6 +41,6 @@ public enum eFurnityra implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

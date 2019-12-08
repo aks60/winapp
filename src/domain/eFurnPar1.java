@@ -30,6 +30,6 @@ public enum eFurnPar1 implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

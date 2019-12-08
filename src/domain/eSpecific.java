@@ -60,6 +60,6 @@ public enum eSpecific implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

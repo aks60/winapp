@@ -30,6 +30,6 @@ public enum eJoinPar2 implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

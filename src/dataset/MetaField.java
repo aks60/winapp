@@ -87,7 +87,7 @@ public class MetaField {
         return null;
     }
 
-    public String getColName() {
+    public String getDescr() {
         return descr;
     }
 

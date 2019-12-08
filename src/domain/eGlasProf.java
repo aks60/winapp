@@ -29,6 +29,6 @@ public enum eGlasProf implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

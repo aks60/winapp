@@ -30,6 +30,6 @@ public enum eGlasGrup implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

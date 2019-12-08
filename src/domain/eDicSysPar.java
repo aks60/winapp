@@ -28,6 +28,6 @@ public enum eDicSysPar implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

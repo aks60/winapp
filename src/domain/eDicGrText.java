@@ -30,6 +30,6 @@ public enum eDicGrText implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }

@@ -40,6 +40,6 @@ public enum eComplet implements Field {
     
 
     public String toString() {
-        return meta.getColName();
+        return meta.getDescr();
     }
 }
