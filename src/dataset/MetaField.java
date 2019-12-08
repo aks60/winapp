@@ -22,12 +22,8 @@ public class MetaField {
     public String field_name = null; //служебное для переопределение имени поля
     public String descr = ""; //описание поля
     private TYPE type = TYPE.OBJ; //тип поля
-    private DOMAIN domain = null; //значение домена
     private Integer size = 0; //размер поля
-    private Field.EDIT edit = Field.EDIT.TRUE; //запретить редактирование
-    public Field foreignkey = null; //внешний ключ
-    public Object value = null; // не используется
-    public ArrayDeque<Object> stack = new ArrayDeque();
+    private Field.EDIT edit = Field.EDIT.TRUE; //запретить редактирование в визуальном комроненте
 
     public MetaField(Field e) {
         field = e;
@@ -116,16 +112,8 @@ public class MetaField {
         return type;
     }
 
-    public Field foreignkey() {
-        return foreignkey;
-    }
-
     public boolean edit() {
         return edit.edit;
-    }
-
-    public int domain() {
-        return domain.domain;
     }
 
     public void size(Integer size) {
@@ -138,35 +126,5 @@ public class MetaField {
 
     public int width() {
         return size;
-    }
-
-    public void value(Object value) {
-        this.value = value;
-    }
-
-    public Object value() {
-        return value;
-    }
-
-    public ArrayDeque<Object> getStack() {
-        return stack;
-    }
-
-    public Field push(Object val) {
-//        if(val.equals("null")) {
-//            stack.clear();
-//        } else {
-//            stack.push(val);
-//        }
-        stack.push((val == null) ? "null" : val);
-        return field;
-    }
-
-    public Object pop() {
-        try {
-            return stack.pop();
-        } catch (Exception e) {
-            return null;
-        }
     }
 }

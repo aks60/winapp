@@ -105,7 +105,19 @@ public interface Field {
     public int ordinal();
 
     public String name();
-
+    
+    default Field[] key() {
+      return new Field[]  {fields()[1]};  
+    }
+    
+    default Field[] unique() {
+        return null;
+    }
+    
+    default Field[] foreign() {
+        return null;
+    }
+    
     public MetaField meta();
 
     public boolean equals(Object other);
