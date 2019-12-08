@@ -56,7 +56,7 @@ public enum eArtikls implements Field {
     imain("5", "5", "1", "null", "IMAIN"),
     comp("5", "5", "1", "null", "ACOMP"),
     abits("4", "10", "1", "null", "ABITS"),
-    rate_id("4", "10", "1", "ID валюты", "CNUMB");
+    rate_id("4", "10", "1", "ID валюты", "rate_id");
     private MetaField meta = new MetaField(this);
 
     eArtikls(Object... p) {
