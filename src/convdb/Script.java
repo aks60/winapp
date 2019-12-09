@@ -50,12 +50,12 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * 1. В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
- * прилшжении eEnum.values() для них один. 2. Отсутствующие поля пс3 в
+ * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
+ * прилшжении eEnum.values() для них один. Отсутствующие поля пс3 в
  * eEnum.values() будут заполняться пустышками. 3. Поля не вошедшие в список
  * столбцов eEnum.values() тоже будут переноситься для sql update и потом
- * удаляться. 4. Обновление данных выполняется пакетом, если была ошибка в
- * пакете, откат и пакет обслуживается отдельными insert.
+ * удаляться. Обновление данных выполняется пакетом, если была ошибка в пакете,
+ * откат и пакет обслуживается отдельными insert.
  */
 public class Script {
 
@@ -77,14 +77,14 @@ public class Script {
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
             Util.println("Подготовка методанных");
-            List<String> listExistTable2 = new ArrayList<String>();
-            List<String> listGenerator2 = new ArrayList<String>();
-
             Statement st1 = cn1.createStatement(); //мсточник   
             DatabaseMetaData mdb1 = cn1.getMetaData();
             Statement st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb2 = cn2.getMetaData();
             ResultSet resultSet2 = mdb2.getTables(null, null, null, new String[]{"TABLE"});
+            List<String> listExistTable2 = new ArrayList<String>();//таблицы приёмника
+            List<String> listGenerator2 = new ArrayList<String>();//генераторы приёмника 
+
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
@@ -124,15 +124,13 @@ public class Script {
                 }
                 st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
             }
+            Util.println("Изменение структуры БД");
+            for (Field field : fieldsUp) {
+                st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
+            }
             if (fieldsUp.length > 1) {
-
-                Util.println("Изменение структуры БД");
-                for (Field field : fieldsUp) {
-                    st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
-                }
                 st2.execute("update art_text set artikl_id = (select id from artikls a where a.code = art_text.anumb)");
                 st2.execute("update art_text set texture_id = (select id from texture a where a.ccode = art_text.clcod and a.cnumb = art_text.clnum)");
-
             }
             //Удаление столбцов не вошедших в eEnum.values()
             for (Field fieldUp : fieldsUp) {
