@@ -1,7 +1,7 @@
 package convdb;
 
 import common.FrameToFile;
-import common.Utils;
+import common.Util;
 import dataset.Field;
 import dataset.Query;
 import static dataset.Query.SEL;
@@ -55,7 +55,7 @@ public class ConvPs extends javax.swing.JDialog {
             }
         }
         sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
-        Utils.println("SQL-SELECT: " + sql);
+        Util.println("SQL-SELECT: " + sql);
         try {
             Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet recordset = statement.executeQuery(sql);

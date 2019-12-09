@@ -1,7 +1,7 @@
 
 package convdb;
 
-import common.Utils;
+import common.Util;
 import dataset.Field;
 import dataset.Query;
 import domain.eArtText;
@@ -75,7 +75,7 @@ public class Script {
             Connection cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
-            Utils.println("Подготовка методанных");
+            Util.println("Подготовка методанных");
             List<String> listExistTable2 = new ArrayList<String>();
             List<String> listGenerator2 = new ArrayList<String>();
 
@@ -92,7 +92,7 @@ public class Script {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
-            Utils.println("Перенос данных");
+            Util.println("Перенос данных");
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
 
@@ -137,7 +137,7 @@ public class Script {
             }
             if (fieldsUp.length > 1) {
 
-                Utils.println("Изменение структуры БД");
+                Util.println("Изменение структуры БД");
                 for (Field field : fieldsUp) {
                     st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
                 }
@@ -145,7 +145,7 @@ public class Script {
                 st2.execute("update art_text set texture_id = (select id from texture a where a.ccode = art_text.clcod and a.cnumb = art_text.clnum)");
 
             }
-            Utils.println("Обновление завершено");
+            Util.println("Обновление завершено");
 
         } catch (Exception e) {
             System.err.println("SQL-SCRIPT: " + e);
@@ -165,7 +165,7 @@ public class Script {
         for (int i = 1; i < f.length; ++i) {
 
             Field f2 = f[i];
-            ddl = ddl + "\n" + f2.name() + "  " + Utils.typeSql(f2.meta().type(), f2.meta().size());
+            ddl = ddl + "\n" + f2.name() + "  " + Util.typeSql(f2.meta().type(), f2.meta().size());
             if (f2.meta().isnull() == false) {
                 ddl = ddl + " NOT NULL";
             }
@@ -183,7 +183,7 @@ public class Script {
 
         ArrayList<String> batch = new ArrayList();        
         for (Object[] tp : hsDeltaCol) {
-            batch.add("ALTER TABLE " + tname + " ADD " + tp[0] + " " + Utils.typeSql(Field.TYPE.type(tp[1]), tp[2]) + ";");
+            batch.add("ALTER TABLE " + tname + " ADD " + tp[0] + " " + Util.typeSql(Field.TYPE.type(tp[1]), tp[2]) + ";");
         }
         return batch;
     }
@@ -213,7 +213,7 @@ public class Script {
             //Цыкл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
-                Utils.println(tname2 + " пакет:" + index_page);
+                Util.println(tname2 + " пакет:" + index_page);
                 String nameCols2 = "";
                 rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + tname1);
                 ResultSetMetaData md1 = rs1.getMetaData();
@@ -244,7 +244,7 @@ public class Script {
                         Field field = fields[index];
                         if (hsExistField.contains(field)) { //т.к. ps3 и ps4 разное количество полей
                             Object val = rs1.getObject(field.meta().fname);
-                            nameVal2 = nameVal2 + Utils.wrapperSql(val, field.meta().type()) + ",";
+                            nameVal2 = nameVal2 + Util.wrapperSql(val, field.meta().type()) + ",";
                         } else {
                             nameVal2 = nameVal2 + "0" + ",";
                         }
@@ -252,7 +252,7 @@ public class Script {
                     //Цыкл по полям не вошедших в eEnum.values()
                     for (String[] str : hsDeltaCol) {
                         Object val = rs1.getObject(str[0]);
-                        nameVal2 = nameVal2 + Utils.wrapperSql(val, Field.TYPE.type(str[1])) + ",";
+                        nameVal2 = nameVal2 + Util.wrapperSql(val, Field.TYPE.type(str[1])) + ",";
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
                     sql = "insert into " + tname2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";

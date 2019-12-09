@@ -1,6 +1,6 @@
 package winapp;
 
-import common.Utils;
+import common.Util;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -29,8 +29,8 @@ public class App1 extends javax.swing.JFrame {
         }
 
         public void response(Object obj) {
-            Utils.setGregorianCalendar(obj);
-            btn11.setText(Utils.getDateStr(null));
+            Util.setGregorianCalendar(obj);
+            btn11.setText(Util.getDateStr(null));
         }
     };
 
@@ -53,7 +53,7 @@ public class App1 extends javax.swing.JFrame {
         } else {
             mn0441.setSelected(true);
         }
-        btn11.setText(Utils.getDateStr(null));
+        btn11.setText(Util.getDateStr(null));
 //        if (Main.dev == true) {
 //            new FrameListener2() {
 //
@@ -145,7 +145,7 @@ public class App1 extends javax.swing.JFrame {
         tb1.setRollover(true);
         tb1.setPreferredSize(new java.awt.Dimension(210, 27));
 
-        btn11.setFont(common.Utils.getFont(3,1));
+        btn11.setFont(common.Util.getFont(3,1));
         btn11.setForeground(new java.awt.Color(0, 61, 255));
         btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn11.setText("06.12.2008");
@@ -356,14 +356,14 @@ public class App1 extends javax.swing.JFrame {
 
         mn01.setText("Настройки");
         mn01.setActionCommand("*Учреждение");
-        mn01.setFont(common.Utils.getFont(1,1));
+        mn01.setFont(common.Util.getFont(1,1));
 
         mn44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn44.setText("Вид интерфейса");
-        mn44.setFont(common.Utils.getFont(1,1));
+        mn44.setFont(common.Util.getFont(1,1));
 
         buttonLookAndFiilGroup.add(mn0441);
-        mn0441.setFont(common.Utils.getFont(1,1));
+        mn0441.setFont(common.Util.getFont(1,1));
         mn0441.setText("Win Classic");
         mn0441.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -373,7 +373,7 @@ public class App1 extends javax.swing.JFrame {
         mn44.add(mn0441);
 
         buttonLookAndFiilGroup.add(mn0442);
-        mn0442.setFont(common.Utils.getFont(1,1));
+        mn0442.setFont(common.Util.getFont(1,1));
         mn0442.setText("Java Nimbus");
         mn0442.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,7 +383,7 @@ public class App1 extends javax.swing.JFrame {
         mn44.add(mn0442);
 
         buttonLookAndFiilGroup.add(mn0443);
-        mn0443.setFont(common.Utils.getFont(1,1));
+        mn0443.setFont(common.Util.getFont(1,1));
         mn0443.setText("Java Metal");
         mn0443.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,7 +394,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn01.add(mn44);
 
-        mn15.setFont(common.Utils.getFont(1,1));
+        mn15.setFont(common.Util.getFont(1,1));
         mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn15.setText("Сстемные константы");
         mn15.addActionListener(new java.awt.event.ActionListener() {
@@ -406,9 +406,9 @@ public class App1 extends javax.swing.JFrame {
 
         mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn11.setText("Расчётные данные");
-        mn11.setFont(common.Utils.getFont(1,1));
+        mn11.setFont(common.Util.getFont(1,1));
 
-        mn0111.setFont(common.Utils.getFont(1,1));
+        mn0111.setFont(common.Util.getFont(1,1));
         mn0111.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0111.setText("Ценовые");
         mn0111.addActionListener(new java.awt.event.ActionListener() {
@@ -418,7 +418,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn11.add(mn0111);
 
-        mn0112.setFont(common.Utils.getFont(1,1));
+        mn0112.setFont(common.Util.getFont(1,1));
         mn0112.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0112.setText("Скидки/Наценки");
         mn0112.addActionListener(new java.awt.event.ActionListener() {
@@ -428,7 +428,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn11.add(mn0112);
 
-        mn0113.setFont(common.Utils.getFont(1,1));
+        mn0113.setFont(common.Util.getFont(1,1));
         mn0113.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0113.setText("Расчётные");
         mn0113.addActionListener(new java.awt.event.ActionListener() {
@@ -438,7 +438,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn11.add(mn0113);
 
-        mn0114.setFont(common.Utils.getFont(1,1));
+        mn0114.setFont(common.Util.getFont(1,1));
         mn0114.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0114.setText("Технологические");
         mn0114.addActionListener(new java.awt.event.ActionListener() {
@@ -448,7 +448,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn11.add(mn0114);
 
-        mn0115.setFont(common.Utils.getFont(1,1));
+        mn0115.setFont(common.Util.getFont(1,1));
         mn0115.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0115.setText("Дополнительно");
         mn0115.addActionListener(new java.awt.event.ActionListener() {
@@ -458,7 +458,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn11.add(mn0115);
 
-        mn0116.setFont(common.Utils.getFont(1,1));
+        mn0116.setFont(common.Util.getFont(1,1));
         mn0116.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0116.setText("Раскрои");
         mn0116.addActionListener(new java.awt.event.ActionListener() {
@@ -472,9 +472,9 @@ public class App1 extends javax.swing.JFrame {
 
         mn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn12.setText("Графические настройки");
-        mn12.setFont(common.Utils.getFont(1,1));
+        mn12.setFont(common.Util.getFont(1,1));
 
-        mn0121.setFont(common.Utils.getFont(1,1));
+        mn0121.setFont(common.Util.getFont(1,1));
         mn0121.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0121.setText("Размерные");
         mn0121.addActionListener(new java.awt.event.ActionListener() {
@@ -484,7 +484,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn12.add(mn0121);
 
-        mn0122.setFont(common.Utils.getFont(1,1));
+        mn0122.setFont(common.Util.getFont(1,1));
         mn0122.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0122.setText("Форматы");
         mn0122.addActionListener(new java.awt.event.ActionListener() {
@@ -494,7 +494,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn12.add(mn0122);
 
-        mn0123.setFont(common.Utils.getFont(1,1));
+        mn0123.setFont(common.Util.getFont(1,1));
         mn0123.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn0123.setText("Надписи");
         mn0123.addActionListener(new java.awt.event.ActionListener() {
@@ -507,7 +507,7 @@ public class App1 extends javax.swing.JFrame {
         mn01.add(mn12);
         mn01.add(mn13);
 
-        mn14.setFont(common.Utils.getFont(1,1));
+        mn14.setFont(common.Util.getFont(1,1));
         mn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b009.gif"))); // NOI18N
         mn14.setText("Выход");
         mn14.addActionListener(new java.awt.event.ActionListener() {
@@ -520,9 +520,9 @@ public class App1 extends javax.swing.JFrame {
         mn0.add(mn01);
 
         mn02.setText("Справочники");
-        mn02.setFont(common.Utils.getFont(1,1));
+        mn02.setFont(common.Util.getFont(1,1));
 
-        mn21.setFont(common.Utils.getFont(1,1));
+        mn21.setFont(common.Util.getFont(1,1));
         mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn21.setText("Описание текстур");
         mn21.addActionListener(new java.awt.event.ActionListener() {
@@ -532,7 +532,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn02.add(mn21);
 
-        mn24.setFont(common.Utils.getFont(1,1));
+        mn24.setFont(common.Util.getFont(1,1));
         mn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn24.setText("Курсы валют");
         mn24.addActionListener(new java.awt.event.ActionListener() {
@@ -546,9 +546,9 @@ public class App1 extends javax.swing.JFrame {
         mn0.add(mn02);
 
         mn03.setText("Конструктив");
-        mn03.setFont(common.Utils.getFont(1,1));
+        mn03.setFont(common.Util.getFont(1,1));
 
-        mn39.setFont(common.Utils.getFont(1,1));
+        mn39.setFont(common.Util.getFont(1,1));
         mn39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn39.setText("Мат. ценности");
         mn39.addActionListener(new java.awt.event.ActionListener() {
@@ -558,7 +558,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn03.add(mn39);
 
-        mn33.setFont(common.Utils.getFont(1,1));
+        mn33.setFont(common.Util.getFont(1,1));
         mn33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn33.setText("Параметры");
         mn33.addActionListener(new java.awt.event.ActionListener() {
@@ -568,7 +568,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn03.add(mn33);
 
-        mn31.setFont(common.Utils.getFont(1,1));
+        mn31.setFont(common.Util.getFont(1,1));
         mn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn31.setText("Комплекты");
         mn31.addActionListener(new java.awt.event.ActionListener() {
@@ -578,7 +578,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn03.add(mn31);
 
-        mn32.setFont(common.Utils.getFont(1,1));
+        mn32.setFont(common.Util.getFont(1,1));
         mn32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn32.setText("Соединения");
         mn32.addActionListener(new java.awt.event.ActionListener() {
@@ -588,7 +588,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn03.add(mn32);
 
-        mn34.setFont(common.Utils.getFont(1,1));
+        mn34.setFont(common.Util.getFont(1,1));
         mn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn34.setText("Составы");
         mn34.addActionListener(new java.awt.event.ActionListener() {
@@ -598,7 +598,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn03.add(mn34);
 
-        mn35.setFont(common.Utils.getFont(1,1));
+        mn35.setFont(common.Util.getFont(1,1));
         mn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn35.setText("Заполнения");
         mn35.addActionListener(new java.awt.event.ActionListener() {
@@ -608,7 +608,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn03.add(mn35);
 
-        mn36.setFont(common.Utils.getFont(1,1));
+        mn36.setFont(common.Util.getFont(1,1));
         mn36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn36.setText("Фурнитура");
         mn36.addActionListener(new java.awt.event.ActionListener() {
@@ -618,7 +618,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn03.add(mn36);
 
-        mn37.setFont(common.Utils.getFont(1,1));
+        mn37.setFont(common.Util.getFont(1,1));
         mn37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn37.setText("Конструкции");
         mn37.addActionListener(new java.awt.event.ActionListener() {
@@ -632,9 +632,9 @@ public class App1 extends javax.swing.JFrame {
         mn0.add(mn03);
 
         mn04.setText("Документы");
-        mn04.setFont(common.Utils.getFont(1,1));
+        mn04.setFont(common.Util.getFont(1,1));
 
-        mn41.setFont(common.Utils.getFont(1,1));
+        mn41.setFont(common.Util.getFont(1,1));
         mn41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn41.setText("Спецификация");
         mn41.addActionListener(new java.awt.event.ActionListener() {
@@ -644,7 +644,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn04.add(mn41);
 
-        mn43.setFont(common.Utils.getFont(1,1));
+        mn43.setFont(common.Util.getFont(1,1));
         mn43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn43.setText("Задание в цех");
         mn43.addActionListener(new java.awt.event.ActionListener() {
@@ -654,7 +654,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn04.add(mn43);
 
-        mn42.setFont(common.Utils.getFont(1,1));
+        mn42.setFont(common.Util.getFont(1,1));
         mn42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn42.setText("Паспорт изделия");
         mn42.addActionListener(new java.awt.event.ActionListener() {
@@ -667,9 +667,9 @@ public class App1 extends javax.swing.JFrame {
         mn0.add(mn04);
 
         mn06.setText("Сервис");
-        mn06.setFont(common.Utils.getFont(1,1));
+        mn06.setFont(common.Util.getFont(1,1));
 
-        mn61.setFont(common.Utils.getFont(1,1));
+        mn61.setFont(common.Util.getFont(1,1));
         mn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn61.setText("Путь к базе данных");
         mn61.addActionListener(new java.awt.event.ActionListener() {
@@ -682,9 +682,9 @@ public class App1 extends javax.swing.JFrame {
         mn0.add(mn06);
 
         mn05.setText("Справка");
-        mn05.setFont(common.Utils.getFont(1,1));
+        mn05.setFont(common.Util.getFont(1,1));
 
-        mn51.setFont(common.Utils.getFont(1,1));
+        mn51.setFont(common.Util.getFont(1,1));
         mn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn51.setText("Справка");
         mn51.addActionListener(new java.awt.event.ActionListener() {
@@ -694,7 +694,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn05.add(mn51);
 
-        mn52.setFont(common.Utils.getFont(1,1));
+        mn52.setFont(common.Util.getFont(1,1));
         mn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn52.setText("Часто задаваемые вопросы");
         mn52.addActionListener(new java.awt.event.ActionListener() {
@@ -704,7 +704,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn05.add(mn52);
 
-        mn54.setFont(common.Utils.getFont(1,1));
+        mn54.setFont(common.Util.getFont(1,1));
         mn54.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn54.setText("О программе");
         mn54.addActionListener(new java.awt.event.ActionListener() {
@@ -765,7 +765,7 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mExit
 
     private void mDictDicDate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictDicDate
-        btn11.setText(Utils.getDateStr(null));
+        btn11.setText(Util.getDateStr(null));
     }//GEN-LAST:event_mDictDicDate
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
@@ -801,7 +801,7 @@ private void mn0114(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0114
 
 private void mnDicNewDate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDicNewDate
 
-    btn11.setText(Utils.getDateStr(null));
+    btn11.setText(Util.getDateStr(null));
 }//GEN-LAST:event_mnDicNewDate
 
 private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0111ActionPerformed
@@ -987,7 +987,7 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     public class FrameListener2 implements FrameListener {
 
         public FrameListener2() {
-            if (Utils.progressFrame) {
+            if (Util.progressFrame) {
                 //прогресс бар это специальная дополнительная форма
                 FrameProgress.create(App1.this, this);
             } else {

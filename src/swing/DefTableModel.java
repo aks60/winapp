@@ -1,7 +1,7 @@
 package swing;
 
 import common.FrameListener;
-import common.Utils;
+import common.Util;
 import dataset.Field;
 import dataset.Query;
 import dataset.Table;
@@ -41,7 +41,7 @@ public class DefTableModel extends DefaultTableModel {
         table.setModel(this);
         table.setRowSorter(sorter);
         JTableHeader header = table.getTableHeader();
-        header.setFont(Utils.getFont(0, 0));
+        header.setFont(Util.getFont(0, 0));
         for (int index = 0; index < resizableList.size(); index++) {
             table.getColumnModel().getColumn(index).setResizable(resizableList.get(index));
             table.getColumnModel().getColumn(index).setPreferredWidth(preferredWidthList.get(index));
@@ -92,7 +92,7 @@ public class DefTableModel extends DefaultTableModel {
             return;
         }
         if (field.meta().type().equals(Field.TYPE.DATE)) {
-            Date d = Utils.StrToDate(value.toString());
+            Date d = Util.StrToDate(value.toString());
             if (d != null) {
                 GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
                 GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);

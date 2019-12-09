@@ -1,6 +1,6 @@
 package dataset;
 
-import common.Utils;
+import common.Util;
 import common.eProp;
 import static dataset.Query.connection;
 import java.sql.Connection;
@@ -22,7 +22,7 @@ public class ConnFb extends dataset.ConnApp {
     public final static String fbserver = "jdbc:firebirdsql:";
 
     public void configApp() {
-        Utils.setSimpleDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
+        Util.setSimpleDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
     }
 
     /**

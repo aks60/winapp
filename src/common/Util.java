@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * <p>
  * Параметры приложения </p>
  */
-public class Utils {
+public class Util {
 
     public static boolean progressFrame = true;
     /**

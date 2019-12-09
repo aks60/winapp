@@ -144,7 +144,7 @@
         <Component class="javax.swing.JLabel" name="labMes">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(1,1)" type="code"/>
+              <Connection code="common.Util.getFont(1,1)" type="code"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="0" type="rgb"/>
@@ -161,7 +161,7 @@
         <Component class="javax.swing.JLabel" name="labUser1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(1,1)" type="code"/>
+              <Connection code="common.Util.getFont(1,1)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x421;&#x435;&#x440;&#x432;&#x435;&#x440;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -176,7 +176,7 @@
         <Component class="javax.swing.JTextField" name="edHost">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -197,7 +197,7 @@
         <Component class="javax.swing.JLabel" name="labUser2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(1,1)" type="code"/>
+              <Connection code="common.Util.getFont(1,1)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x424;&#x430;&#x439;&#x43b; &#x411;&#x414;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -212,7 +212,7 @@
         <Component class="javax.swing.JTextField" name="edPath">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -233,7 +233,7 @@
         <Component class="javax.swing.JButton" name="btnFile">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img16/b033.gif"/>
@@ -263,7 +263,7 @@
         <Component class="javax.swing.JLabel" name="labUser3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(1,1)" type="code"/>
+              <Connection code="common.Util.getFont(1,1)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x440;&#x442;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -272,7 +272,7 @@
         <Component class="javax.swing.JTextField" name="edPort">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -326,7 +326,7 @@
         <Component class="javax.swing.JLabel" name="labUser">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(1,1)" type="code"/>
+              <Connection code="common.Util.getFont(1,1)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x43b;&#x44c;&#x437;&#x43e;&#x432;&#x430;&#x442;&#x435;&#x43b;&#x44c;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -341,7 +341,7 @@
         <Component class="javax.swing.JLabel" name="labPass">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(1,1)" type="code"/>
+              <Connection code="common.Util.getFont(1,1)" type="code"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#x41f;&#x430;&#x440;&#x43e;&#x43b;&#x44c;"/>
             <Property name="alignmentX" type="float" value="0.5"/>
@@ -356,7 +356,7 @@
         <Component class="javax.swing.JTextField" name="edUser">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -377,7 +377,7 @@
         <Component class="javax.swing.JPasswordField" name="edPass">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -392,7 +392,7 @@
         <Component class="javax.swing.JButton" name="btnUser">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img32/d032.gif"/>
@@ -424,7 +424,7 @@
         <Component class="javax.swing.JButton" name="btnAdm">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img32/d032.gif"/>
@@ -504,7 +504,7 @@
         <Component class="javax.swing.JButton" name="btnOk">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img16/b028.gif"/>
@@ -562,7 +562,7 @@
         <Component class="javax.swing.JButton" name="btnClose">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Utils.getFont(0,0)" type="code"/>
+              <Connection code="common.Util.getFont(0,0)" type="code"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img16/b029.gif"/>

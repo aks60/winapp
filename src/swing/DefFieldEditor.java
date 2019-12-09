@@ -14,7 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import common.Utils;
+import common.Util;
 import common.FrameListener;
 import java.awt.Color;
 import java.text.DecimalFormat;

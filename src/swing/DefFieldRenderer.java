@@ -4,7 +4,7 @@
  */
 package swing;
 
-import common.Utils;
+import common.Util;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -76,7 +76,7 @@ public class DefFieldRenderer {
             if (index == null || val == null) {
                 comp.setText("");
             } else if (field.meta().type().equals(Field.TYPE.DATE)) {
-                comp.setText(Utils.DateToStr(val));
+                comp.setText(Util.DateToStr(val));
             } else {
                 comp.setText(val.toString());
             }

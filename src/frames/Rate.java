@@ -1,7 +1,7 @@
 package frames;
 
 import common.FrameListener;
-import common.Utils;
+import common.Util;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Query;

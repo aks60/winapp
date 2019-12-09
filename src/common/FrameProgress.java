@@ -151,7 +151,7 @@ public class FrameProgress extends javax.swing.JDialog {
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         lab.setBackground(new java.awt.Color(85, 85, 255));
-        lab.setFont(common.Utils.getFont(0,1));
+        lab.setFont(common.Util.getFont(0,1));
         lab.setForeground(new java.awt.Color(255, 255, 51));
         lab.setText("    Пожалуйста, подождите...");
         lab.setFocusable(false);

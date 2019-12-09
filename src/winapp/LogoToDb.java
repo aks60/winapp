@@ -121,13 +121,13 @@ public class LogoToDb extends javax.swing.JDialog {
         progressBar.setPreferredSize(new java.awt.Dimension(336, 2));
         progressBar.setRequestFocusEnabled(false);
 
-        labPass.setFont(common.Utils.getFont(0,0));
+        labPass.setFont(common.Util.getFont(0,0));
         labPass.setText("Пароль");
         labPass.setAlignmentX(0.5F);
         labPass.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labPass.setPreferredSize(new java.awt.Dimension(90, 18));
 
-        edPass.setFont(common.Utils.getFont(0,0));
+        edPass.setFont(common.Util.getFont(0,0));
         edPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         edPass.setPreferredSize(new java.awt.Dimension(82, 18));
         edPass.addCaretListener(new javax.swing.event.CaretListener() {
@@ -141,13 +141,13 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         });
 
-        labUser.setFont(common.Utils.getFont(0,0));
+        labUser.setFont(common.Util.getFont(0,0));
         labUser.setText("Пользователь");
         labUser.setAlignmentX(0.5F);
         labUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         labUser.setPreferredSize(new java.awt.Dimension(90, 18));
 
-        edUser.setFont(common.Utils.getFont(0,0));
+        edUser.setFont(common.Util.getFont(0,0));
         edUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         edUser.setMinimumSize(new java.awt.Dimension(0, 0));
         edUser.setPreferredSize(new java.awt.Dimension(82, 18));
@@ -157,7 +157,7 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         });
 
-        btnUser.setFont(common.Utils.getFont(0,0));
+        btnUser.setFont(common.Util.getFont(0,0));
         btnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
         btnUser.setText("user");
         btnUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -174,7 +174,7 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         });
 
-        btnAdm.setFont(common.Utils.getFont(0,0));
+        btnAdm.setFont(common.Util.getFont(0,0));
         btnAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
         btnAdm.setText("admin");
         btnAdm.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -192,7 +192,7 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         });
 
-        labMes.setFont(common.Utils.getFont(0,1));
+        labMes.setFont(common.Util.getFont(0,1));
         labMes.setText("<html>Ошибка соединения с базой данных!");
         labMes.setMaximumSize(new java.awt.Dimension(200, 14));
         labMes.setPreferredSize(new java.awt.Dimension(320, 14));
@@ -244,7 +244,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 .addGap(33, 33, 33))
         );
 
-        btnOk.setFont(common.Utils.getFont(0,0));
+        btnOk.setFont(common.Util.getFont(0,0));
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         btnOk.setText("ОК");
         btnOk.setToolTipText("");
@@ -260,7 +260,7 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         });
 
-        btnClose.setFont(common.Utils.getFont(0,0));
+        btnClose.setFont(common.Util.getFont(0,0));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b029.gif"))); // NOI18N
         btnClose.setText("Отмена");
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
