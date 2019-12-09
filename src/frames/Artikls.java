@@ -99,7 +99,7 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikls = new DefFieldRenderer(rsmArtikls);
         rsvArtikls.add(eArtikls.length, txtField1);
         rsvArtikls.add(eArtikls.height, txtField2);
-        rsvArtikls.add(eArtikls.thickn, txtField3);
+        rsvArtikls.add(eArtikls.thick, txtField3);
         rsvArtikls.add(eArtikls.unit, txtField4);
         rsvArtikls.add(eArtikls.unit, txtField5);
         rsvArtikls.add(eArtikls.otx_norm, txtField6);
