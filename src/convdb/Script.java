@@ -1,4 +1,3 @@
-
 package convdb;
 
 import common.Util;
@@ -51,10 +50,12 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * 1. В пс3 и пс4 разное количество полей в таблицах, но список столбцов в прилшжении eEnum.values() для них один.
- * 2. Отсутствующие поля пс3 в eEnum.values() будут заполняться пустышками.
- * 3. Поля не вошедшие в список столбцов eEnum.values() тоже будут переноситься для sql update и потом удаляться.
- * 4. Обновление данных выполняется пакетом, если была ошибка в пакете, откат и пакет обслуживается отдельными insert.
+ * 1. В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
+ * прилшжении eEnum.values() для них один. 2. Отсутствующие поля пс3 в
+ * eEnum.values() будут заполняться пустышками. 3. Поля не вошедшие в список
+ * столбцов eEnum.values() тоже будут переноситься для sql update и потом
+ * удаляться. 4. Обновление данных выполняется пакетом, если была ошибка в
+ * пакете, откат и пакет обслуживается отдельными insert.
  */
 public class Script {
 
@@ -71,7 +72,7 @@ public class Script {
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник
                     "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-                    //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             Connection cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
@@ -96,20 +97,9 @@ public class Script {
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
 
-                HashSet<String[]> hsDeltaCol = new HashSet(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
-                ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
-                while (rsc1.next()) {
-                    String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
-                    boolean find = false;
-                    for (Field field : fieldUp.fields()) {
-                        if (field.meta().fname.equalsIgnoreCase(name[0].toString())) {
-                            find = true;
-                        }
-                    }
-                    if (find == false) {
-                        hsDeltaCol.add(name);
-                    }
-                }
+                //Поля не вошедшие в eEnum.values()
+                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
+
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
                     st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
                 }
@@ -122,9 +112,8 @@ public class Script {
                     st2.execute(ddl);
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
-                for (String ddl : Script.createColumn(hsDeltaCol, fieldUp.tname())) {
-                    System.out.println(ddl);
-                    st2.execute(ddl);
+                for (Object[] deltaCol : hsDeltaCol) {
+                    st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";");
                 }
                 //Конвертирование данных в таблицу приёмника                   
                 convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
@@ -144,6 +133,13 @@ public class Script {
                 st2.execute("update art_text set artikl_id = (select id from artikls a where a.code = art_text.anumb)");
                 st2.execute("update art_text set texture_id = (select id from texture a where a.ccode = art_text.clcod and a.cnumb = art_text.clnum)");
 
+            }
+            //Удаление столбцов не вошедших в eEnum.values()
+            for (Field fieldUp : fieldsUp) {
+                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Object[] deltaCol : hsDeltaCol) {
+                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+                }
             }
             Util.println("Обновление завершено");
 
@@ -175,15 +171,6 @@ public class Script {
         batch.add(ddl);
         for (int i = 1; i < f.length; ++i) {
             batch.add("COMMENT ON COLUMN \"" + f[i].tname() + "\"." + f[i].name() + " IS '" + f[i].meta().descr + "';");
-        }
-        return batch;
-    }
-
-    public static ArrayList<String> createColumn(HashSet<String[]> hsDeltaCol, String tname) {
-
-        ArrayList<String> batch = new ArrayList();        
-        for (Object[] tp : hsDeltaCol) {
-            batch.add("ALTER TABLE " + tname + " ADD " + tp[0] + " " + Util.typeSql(Field.TYPE.type(tp[1]), tp[2]) + ";");
         }
         return batch;
     }
@@ -286,6 +273,29 @@ public class Script {
             }
         } catch (SQLException e) {
             System.out.println("CONVERT-TABLE:  " + e + "  " + sql);
+        }
+    }
+
+    private static HashSet<String[]> deltaColumn(DatabaseMetaData mdb1, Field fieldUp) {
+        try {
+            HashSet<String[]> hsDeltaCol = new HashSet(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
+            ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
+            while (rsc1.next()) {
+                String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
+                boolean find = false;
+                for (Field field : fieldUp.fields()) {
+                    if (field.meta().fname.equalsIgnoreCase(name[0].toString())) {
+                        find = true;
+                    }
+                }
+                if (find == false) {
+                    hsDeltaCol.add(name);
+                }
+            }
+            return hsDeltaCol;
+        } catch (SQLException e) {
+            System.err.println("DELTA-COLUMN: " + e);
+            return null;
         }
     }
 }
