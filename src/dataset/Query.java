@@ -259,29 +259,4 @@ public class Query extends Table {
         }
         return false;
     }
-
-    public static Object wrapper(Object value, Field field) {
-        try {
-            if (value == null) {
-                return null;
-            } else if (Field.TYPE.STR.equals(field.meta().type())) {
-                return "'" + value + "'";
-            } else if (Field.TYPE.BLOB.equals(field.meta().type())) {
-                return "'" + value + "'";
-            } else if (Field.TYPE.BOOL.equals(field.meta().type())) {
-                return "'" + value + "'";
-            } else if (Field.TYPE.DATE.equals(field.meta().type())) {
-                if (value instanceof java.util.Date) {
-                    return " '" + new SimpleDateFormat("dd.MM.yyyy").format(value) + "' ";
-                } else {
-                    return " '" + value + "' ";
-                }
-            }
-            return value;
-
-        } catch (Exception e) {
-            System.out.println("Query.vrapper() " + e);
-            return null;
-        }
-    }
 }

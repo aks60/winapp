@@ -1,9 +1,4 @@
-/**
- * 1. В пс3 и пс4 разное количество полей в таблицах, но список столбцов eEnum.values() для них один.
- * 2. Отсутствующие поля пс3 в eEnum.values() будут заполняться пустышками.
- * 3. Поля не вошедшие в список столбцов eEnum.values() тоже будут переноситься для sql update и потом удаляться.
- * 4. Обновление данных выполняется пакетом, если была ошибка в пакете, откат и пакет выполяется отдельными insert.
- */
+
 package convdb;
 
 import common.Utils;
@@ -55,21 +50,28 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * 1. В пс3 и пс4 разное количество полей в таблицах, но список столбцов в прилшжении eEnum.values() для них один.
+ * 2. Отсутствующие поля пс3 в eEnum.values() будут заполняться пустышками.
+ * 3. Поля не вошедшие в список столбцов eEnum.values() тоже будут переноситься для sql update и потом удаляться.
+ * 4. Обновление данных выполняется пакетом, если была ошибка в пакете, откат и пакет обслуживается отдельными insert.
+ */
 public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtText.up, eTexture.up, eJoining.up, eJoinSpec.up, eJoinVar.up, eDicRate.up,
-            eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
-            eDicGrArt.up, eDicGrText.up, eComplet.up, eCompSpec.up, eTextPar.up, eJoinPar1.up, eJoinPar2.up,
-            eFurnPar1.up, eJoinPar3.up, eGlasPar1.up, eGlasPar2.up, eDicParam.up, eSysPar.up, eItemPar1.up, eItemPar2.up,
-            eRuleCalc.up, eDicSysPar.up, eItems.up, eItenSpec.up, eDicConst.up, eSysFurn.up, eSysProf.up
-        //,eSpecific.up
+            eArtikls.up, eArtText.up, eTexture.up, eTextPar.up, eComplet.up, eCompSpec.up,
+            eGlasPar1.up, eGlasPar2.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
+            eJoining.up, eJoinSpec.up, eJoinVar.up, eJoinPar1.up, eJoinPar2.up, eJoinPar3.up,
+            eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eFurnPar1.up,
+            eItems.up, eItenSpec.up, eItemPar1.up, eItemPar2.up,
+            eSysPar.up, eSysFurn.up, eSysProf.up, eRuleCalc.up,
+            eDicConst.up, eDicSysPar.up, eDicRate.up, eDicGrArt.up, eDicGrText.up, eDicParam.up
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник
                     "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+                    //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             Connection cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
@@ -97,10 +99,10 @@ public class Script {
                 HashSet<String[]> hsDeltaCol = new HashSet(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
                 ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
                 while (rsc1.next()) {
-                    String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE")};
+                    String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
                     boolean find = false;
                     for (Field field : fieldUp.fields()) {
-                        if (field.meta().fname.equalsIgnoreCase(name[0])) {
+                        if (field.meta().fname.equalsIgnoreCase(name[0].toString())) {
                             find = true;
                         }
                     }
@@ -112,6 +114,7 @@ public class Script {
                     st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
                 }
                 if (listExistTable2.contains(fieldUp.tname()) == true) {
+                    System.out.println("DROP TABLE " + fieldUp.tname() + ";");
                     st2.execute("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
                 }
                 //Создание таблицы приёмника
@@ -120,29 +123,29 @@ public class Script {
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (String ddl : Script.createColumn(hsDeltaCol, fieldUp.tname())) {
+                    System.out.println(ddl);
                     st2.execute(ddl);
                 }
                 //Конвертирование данных в таблицу приёмника                   
                 convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
 
                 st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
-                Object obj = fieldUp.meta().fname;
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) {
                     st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
                 st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
             }
-
-            Utils.println("Изменение структуры БД");
-            for (Field field : fieldsUp) {
-                st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
-            }
             if (fieldsUp.length > 1) {
+
+                Utils.println("Изменение структуры БД");
+                for (Field field : fieldsUp) {
+                    st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
+                }
                 st2.execute("update art_text set artikl_id = (select id from artikls a where a.code = art_text.anumb)");
                 st2.execute("update art_text set texture_id = (select id from texture a where a.ccode = art_text.clcod and a.cnumb = art_text.clnum)");
 
             }
-            Utils.println("Обновление закончено");
+            Utils.println("Обновление завершено");
 
         } catch (Exception e) {
             System.err.println("SQL-SCRIPT: " + e);
@@ -162,7 +165,7 @@ public class Script {
         for (int i = 1; i < f.length; ++i) {
 
             Field f2 = f[i];
-            ddl = ddl + "\n" + f2.name() + "  " + typeColumn(f2);
+            ddl = ddl + "\n" + f2.name() + "  " + Utils.typeSql(f2.meta().type(), f2.meta().size());
             if (f2.meta().isnull() == false) {
                 ddl = ddl + " NOT NULL";
             }
@@ -178,19 +181,16 @@ public class Script {
 
     public static ArrayList<String> createColumn(HashSet<String[]> hsDeltaCol, String tname) {
 
-        ArrayList<String> batch = new ArrayList();
-        for (String[] str : hsDeltaCol) {
-            if ("4".equals(str[1]) == true) {
-                batch.add("ALTER TABLE " + tname + " ADD " + str[0] + " INTEGER;");
-            } else {
-                batch.add("ALTER TABLE " + tname + " ADD " + str[0] + " VARCHAR(64);");
-            }
+        ArrayList<String> batch = new ArrayList();        
+        for (Object[] tp : hsDeltaCol) {
+            batch.add("ALTER TABLE " + tname + " ADD " + tp[0] + " " + Utils.typeSql(Field.TYPE.type(tp[1]), tp[2]) + ";");
         }
         return batch;
     }
 
     /**
      * Конвертор данных таблиц
+     *
      * @param cn1 соединение источника
      * @param cn2 соединение приёмника
      * @param fields все поля таблицы
@@ -213,7 +213,7 @@ public class Script {
             //Цыкл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
-                Utils.println(tname2 + " " + index_page);
+                Utils.println(tname2 + " пакет:" + index_page);
                 String nameCols2 = "";
                 rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + tname1);
                 ResultSetMetaData md1 = rs1.getMetaData();
@@ -232,7 +232,7 @@ public class Script {
                     Field field = fields[index];
                     nameCols2 = nameCols2 + field.name() + ",";
                 }
-                for (String[] str : hsDeltaCol) {//поля для sql update (в конце будут удалены)
+                for (Object[] str : hsDeltaCol) {//поля для sql update (в конце будут удалены)
                     nameCols2 = nameCols2 + str[0] + ",";
                 }
                 nameCols2 = nameCols2.substring(0, nameCols2.length() - 1);
@@ -244,7 +244,7 @@ public class Script {
                         Field field = fields[index];
                         if (hsExistField.contains(field)) { //т.к. ps3 и ps4 разное количество полей
                             Object val = rs1.getObject(field.meta().fname);
-                            nameVal2 = nameVal2 + Query.wrapper(val, field) + ",";
+                            nameVal2 = nameVal2 + Utils.wrapperSql(val, field.meta().type()) + ",";
                         } else {
                             nameVal2 = nameVal2 + "0" + ",";
                         }
@@ -252,11 +252,7 @@ public class Script {
                     //Цыкл по полям не вошедших в eEnum.values()
                     for (String[] str : hsDeltaCol) {
                         Object val = rs1.getObject(str[0]);
-                        if (str[1].equals("4")) {
-                            nameVal2 = nameVal2 + val + ",";
-                        } else {
-                            nameVal2 = nameVal2 + "'" + val + "',";
-                        }
+                        nameVal2 = nameVal2 + Utils.wrapperSql(val, Field.TYPE.type(str[1])) + ",";
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
                     sql = "insert into " + tname2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";
@@ -264,9 +260,8 @@ public class Script {
                         st2.addBatch(sql);
                     } else {
                         try {
-                            System.out.println(sql);
                             //Если была ошибка в пакете выполняю отдельные sql insert
-                            st2.executeUpdate(sql); 
+                            st2.executeUpdate(sql);
                         } catch (SQLException e) {
                             System.out.println("SCRIPT-INSERT:  " + e + "  " + sql);
                         }
@@ -293,25 +288,4 @@ public class Script {
             System.out.println("CONVERT-TABLE:  " + e + "  " + sql);
         }
     }
-
-    /**
-     * Типы полей
-     */
-    private static String typeColumn(Field field) {
-
-        if(field.meta().type() == Field.TYPE.INT) {
-            return "INTEGER";
-        } else if(field.meta().type() == Field.TYPE.DBL) {
-            return "DOUBLE PRECISION";
-        } else if(field.meta().type() == Field.TYPE.FLT) {
-            return "FLOAT";
-        } else if(field.meta().type()== Field.TYPE.STR) {
-            return "VARCHAR(" + field.meta().size() + ")";
-        } else if(field.meta().type()== Field.TYPE.DATE) {
-            return "DATE";
-        } else if(field.meta().type()== Field.TYPE.BLOB) {
-            return "BLOB SUB_TYPE 1 SEGMENT SIZE " + field.meta().size();
-        } 
-        return "";
-    }    
 }

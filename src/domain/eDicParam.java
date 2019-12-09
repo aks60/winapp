@@ -22,7 +22,7 @@ public enum eDicParam implements Field {
     vprog("5", "5", "1", "системные (вшитые в систему)", "VPROG"),
     pmacr("12", "32", "1", "null", "PMACR"),
     xdepa("5", "5", "1", "null", "XDEPA"),
-    psize("12", "96", "1", "null", "PRIZE");
+    psize("12", "96", "1", "null", "PSIZE");
     private MetaField meta = new MetaField(this);
 
     eDicParam(Object... p) {

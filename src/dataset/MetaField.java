@@ -1,6 +1,5 @@
 package dataset;
 
-import dataset.Field.DOMAIN;
 import dataset.Field.TYPE;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -102,7 +101,7 @@ public class MetaField {
     public void type(int type) {
 
         for (TYPE type2 : TYPE.values()) {
-            if (type2.conv.contains(type) == true) {
+            if (type2.hsConv.contains(type) == true) {
                 this.type = type2;
             }
         }

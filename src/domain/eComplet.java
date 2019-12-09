@@ -20,7 +20,7 @@ public enum eComplet implements Field {
     kgrup("12", "96", "1", "null", "KGRUP"),
     xdepa("5", "5", "1", "null", "XDEPA"),
     kdiff("8", "15", "1", "null", "KDIFF"),
-    pnump("5", "5", "1", "null", "PNUMB"),
+    pnump("5", "5", "1", "null", "PNUMP"),
     gnumb("5", "5", "1", "null", "GNUMB"),
     ksize("12", "96", "1", "null", "KSIZE");
     private MetaField meta = new MetaField(this);

@@ -1,7 +1,7 @@
 package common;
 
+import dataset.Field;
 import winapp.Main;
-import dataset.Query;
 import dataset.Record;
 import dataset.Table;
 import java.awt.Font;
@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * <p>
@@ -175,22 +174,6 @@ public class Utils {
         return appCalendar.get(Calendar.YEAR);
     }
 
-    /**
-     * Текущий учебный год
-     */
-    public static int getYearSchool() {
-        /*int index = eSystem.query().locate(eSystem.sp.meta().push(1));
-        int year = appCalendar.get(Calendar.YEAR);
-        int month = eSystem.query().getInt(index, eSystem.val1);
-        int day = eSystem.query().getInt(index, eSystem.val2);
-        GregorianCalendar schCalendar = new GregorianCalendar(year, month - 1, day);
-        if (appCalendar.before(schCalendar)) {
-            --year;
-        }
-        return year;*/
-        return 2019;
-    }
-
     public static void setGregorianCalendar(Object obj) {
         appCalendar = (java.util.GregorianCalendar) obj;
     }
@@ -210,12 +193,47 @@ public class Utils {
         return new Font(eProp.fontname.read(), bold, Integer.valueOf(eProp.fontsize.read()) + size);
     }
 
-    public static <E> ArrayList<E> asArr(E... objs) {
-        ArrayList<E> arr = new ArrayList();
-        for (E obj : objs) {
-            arr.add(obj);
+    public static String typeSql(Field.TYPE type, Object size) {
+
+        if (type == Field.TYPE.INT) {
+            return "INTEGER";
+        } else if (type == Field.TYPE.DBL) {
+            return "DOUBLE PRECISION";
+        } else if (type == Field.TYPE.FLT) {
+            return "FLOAT";
+        } else if (type == Field.TYPE.STR) {
+            return "VARCHAR(" + size + ")";
+        } else if (type == Field.TYPE.DATE) {
+            return "DATE";
+        } else if (type == Field.TYPE.BLOB) {
+            return "BLOB SUB_TYPE 1 SEGMENT SIZE " + size;
         }
-        return arr;
+        return "";
+    }
+
+    public static Object wrapperSql(Object value, Field.TYPE type) {
+        try {
+            if (value == null) {
+                return null;
+            } else if (Field.TYPE.STR.equals(type)) {
+                return "'" + value + "'";
+            } else if (Field.TYPE.BLOB.equals(type)) {
+                return "'" + value + "'";
+            } else if (Field.TYPE.BOOL.equals(type)) {
+                return "'" + value + "'";
+            } else if (Field.TYPE.DATE.equals(type)) {
+                if (value instanceof java.util.Date) {
+                    return " '" + new SimpleDateFormat("dd.MM.yyyy").format(value) + "' ";
+                } else {
+                    return " '" + value + "' ";
+                }
+            }
+            return value;
+
+        } catch (Exception e) {
+            System.out.println("Query.vrapper() " + e);
+            return null;
+        }
     }
 
     public static void println(Object obj) {
@@ -230,13 +248,5 @@ public class Utils {
                 System.out.println(record);
             }
         }
-    }
-
-    public static String sepfile() {
-        return System.getProperty("file.separator");
-    }
-
-    public static String sepline() {
-        return System.getProperty("line.separator");
     }
 }

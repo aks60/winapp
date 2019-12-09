@@ -32,8 +32,6 @@ public enum eJoinVar implements Field {
         return values();
     }
 
-    
-
     public String toString() {
         return meta.getDescr();
     }
