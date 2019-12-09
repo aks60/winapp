@@ -104,8 +104,7 @@ public class Script {
                     st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
                 }
                 if (listExistTable2.contains(fieldUp.tname()) == true) {
-                    System.out.println("DROP TABLE " + fieldUp.tname() + ";");
-                    st2.execute("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
+                    st2.execute(print("DROP TABLE " + fieldUp.tname() + ";")); //удаление таблицы приёмника
                 }
                 //Создание таблицы приёмника
                 for (String ddl : Script.createTable(fieldUp.fields())) {
@@ -113,7 +112,7 @@ public class Script {
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Object[] deltaCol : hsDeltaCol) {
-                    st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";");
+                    st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";"));
                 }
                 //Конвертирование данных в таблицу приёмника                   
                 convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
@@ -122,7 +121,7 @@ public class Script {
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) {
                     st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
-                st2.execute("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
+                st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);")); //DDL создание первичного ключа
             }
             Util.println("Изменение структуры БД");
             for (Field field : fieldsUp) {
@@ -198,7 +197,7 @@ public class Script {
             //Цыкл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
-                Util.println(tname2 + " пакет:" + index_page);
+                Util.println("Таблица:" + tname2 + " пакет:" + index_page);
                 String nameCols2 = "";
                 rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + tname1);
                 ResultSetMetaData md1 = rs1.getMetaData();
@@ -296,4 +295,9 @@ public class Script {
             return null;
         }
     }
-}
+    
+    private static String print(String str) {
+        System.out.println(str);
+        return str;
+    }
+ }
