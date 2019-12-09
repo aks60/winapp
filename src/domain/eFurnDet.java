@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eFurnSpec implements Field {
+public enum eFurnDet implements Field {
     up("0", "0", "0", "Спецификация фурнитуры", "FURNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
     fincs("4", "10", "1", "ID зависимого фурнитурного набора из  FINCB  по данной фурнитуре", "FINCS"),
@@ -16,7 +16,7 @@ public enum eFurnSpec implements Field {
     fleve("5", "5", "1", "Тип спецификации (1 - основная, 2 - зависимая, 3 - вложенная)", "FLEVE");
     private MetaField meta = new MetaField(this);
 
-    eFurnSpec(Object... p) {
+    eFurnDet(Object... p) {
         meta.init(p);
     }
 

@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eJoinSpec implements Field {
+public enum eJoinDet implements Field {
     up("0", "0", "0", "Спецификация вариантов соединения", "CONNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
     cunic("4", "10", "1", "null", "CUNIC"),
@@ -14,7 +14,7 @@ public enum eJoinSpec implements Field {
     ctype("5", "5", "1", "null", "CTYPE");
     private MetaField meta = new MetaField(this);
 
-    eJoinSpec(Object... p) {
+    eJoinDet(Object... p) {
         meta.init(p);
     }
 

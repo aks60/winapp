@@ -3,9 +3,9 @@ package convdb;
 import common.Util;
 import dataset.Field;
 import dataset.Query;
-import domain.eArtText;
+import domain.eArtDet;
 import domain.eArtikls;
-import domain.eCompSpec;
+import domain.eCompDet;
 import domain.eComplet;
 import domain.eDicConst;
 import domain.eDicGrArt;
@@ -16,16 +16,16 @@ import domain.eTexture;
 import domain.eFurnCh1;
 import domain.eFurnCh2;
 import domain.eFurnPar1;
-import domain.eFurnSpec;
+import domain.eFurnDet;
 import domain.eGlasArt;
 import domain.eGlasGrup;
 import domain.eGlasProf;
 import domain.eItems;
-import domain.eItenSpec;
+import domain.eItenDet;
 import domain.eJoinPar1;
 import domain.eJoinPar2;
 import domain.eJoinPar3;
-import domain.eJoinSpec;
+import domain.eJoinDet;
 import domain.eJoinVar;
 import domain.eJoining;
 import domain.eTextPar;
@@ -61,11 +61,11 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtText.up, eTexture.up, eTextPar.up, eComplet.up, eCompSpec.up,
+            eArtikls.up, eArtDet.up, eTexture.up, eTextPar.up, eComplet.up, eCompDet.up,
             eGlasPar1.up, eGlasPar2.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
-            eJoining.up, eJoinSpec.up, eJoinVar.up, eJoinPar1.up, eJoinPar2.up, eJoinPar3.up,
-            eFurnCh1.up, eFurnCh2.up, eFurnSpec.up, eFurnPar1.up,
-            eItems.up, eItenSpec.up, eItemPar1.up, eItemPar2.up,
+            eJoining.up, eJoinDet.up, eJoinVar.up, eJoinPar1.up, eJoinPar2.up, eJoinPar3.up,
+            eFurnCh1.up, eFurnCh2.up, eFurnDet.up, eFurnPar1.up,
+            eItems.up, eItenDet.up, eItemPar1.up, eItemPar2.up,
             eSysPar.up, eSysFurn.up, eSysProf.up, eRuleCalc.up,
             eDicConst.up, eDicSysPar.up, eDicRate.up, eDicGrArt.up, eDicGrText.up, eDicParam.up
         };

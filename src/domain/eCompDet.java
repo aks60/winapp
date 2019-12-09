@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eCompSpec implements Field {
+public enum eCompDet implements Field {
     up("0", "0", "0", "Спецификация комплектов", "KOMPSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
     kunic("4", "10", "1", "ID комплекта", "KUNIC"),
@@ -16,7 +16,7 @@ public enum eCompSpec implements Field {
     kmain("5", "5", "1", "Флаг основного элемента комплекта", "KMAIN");
     private MetaField meta = new MetaField(this);
 
-    eCompSpec(Object... p) {
+    eCompDet(Object... p) {
         meta.init(p);
     }
 
