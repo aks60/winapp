@@ -9,7 +9,7 @@ import domain.eArtikls;
 import domain.eArtDet;
 import domain.eTexture;
 import domain.eDicRate;
-import domain.eDicGrText;
+import domain.eTextGrp;
 import enums.eTypeArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -37,7 +37,7 @@ public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
-    private Query qArtsvst = new Query(eArtDet.id, eDicGrText.gname, eTexture.cname, eArtDet.clprc, eArtDet.clpr1, eArtDet.clpr2, eArtDet.clprv);
+    private Query qArtsvst = new Query(eArtDet.id, eTextGrp.name, eTexture.name, eArtDet.cost_cl1, eArtDet.cost_cl2, eArtDet.cost_cl3, eArtDet.cost_unit);
     DefTableModel rsmArtikls, rsmArtsvst;
     DefFieldRenderer rsvArtikls;
 
@@ -88,8 +88,8 @@ public class Artikls extends javax.swing.JFrame
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
-        rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.cshor);
-        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eDicGrText.gname, eTexture.cname, eArtDet.clprc, eArtDet.clpr1, eArtDet.clpr2, eArtDet.clprv);
+        rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
+        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eTextGrp.name, eTexture.name, eArtDet.cost_cl1, eArtDet.cost_cl2, eArtDet.cost_cl3, eArtDet.cost_unit);
 
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
@@ -103,7 +103,7 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikls.add(eArtikls.unit, txtField4);
         rsvArtikls.add(eArtikls.unit, txtField5);
         rsvArtikls.add(eArtikls.otx_norm, txtField6);
-        rsvArtikls.add(eDicRate.crode, txtField7);
+        rsvArtikls.add(eDicRate.par_case1, txtField7);
         rsvArtikls.add(eArtikls.size_centr, txtField8);
 
         JButton btnColor = new JButton("...");

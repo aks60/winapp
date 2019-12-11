@@ -9,7 +9,7 @@ import domain.eCompDet;
 import domain.eComplet;
 import domain.eDicConst;
 import domain.eDicGrArt;
-import domain.eDicGrText;
+import domain.eTextGrp;
 import domain.eDicRate;
 import domain.eDicSysPar;
 import domain.eTexture;
@@ -67,7 +67,7 @@ public class Script {
             eFurnCh1.up, eFurnCh2.up, eFurnDet.up, eFurnPar1.up,
             eItems.up, eItenDet.up, eItemPar1.up, eItemPar2.up,
             eSysPar.up, eSysFurn.up, eSysProf.up, eRuleCalc.up,
-            eDicConst.up, eDicSysPar.up, eDicRate.up, eDicGrArt.up, eDicGrText.up, eDicParam.up
+            eDicConst.up, eDicSysPar.up, eDicRate.up, eDicGrArt.up, eTextGrp.up, eDicParam.up
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник

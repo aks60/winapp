@@ -5,7 +5,7 @@ import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eTexture;
-import domain.eDicGrText;
+import domain.eTextGrp;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -22,7 +22,7 @@ public class Texture extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Component focusComp = null;
-    private Query qGrupcol = new Query(eDicGrText.id, eDicGrText.gnumb, eDicGrText.gunic, eDicGrText.gname, eDicGrText.gkoef).select("grupcol order by grupcol.gname");
+    private Query qGrupcol = new Query(eTextGrp.id, eTextGrp.name, eTextGrp.coeff).select("grupcol order by grupcol.gname");
     private Query qColslst = new Query(eTexture.values());
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -64,8 +64,8 @@ public class Texture extends javax.swing.JFrame
     public Texture() {
         initComponents();
 
-        DefTableModel rsmGrupcol = new DefTableModel(tab1, qGrupcol, eDicGrText.gname);
-        DefTableModel rsmColslst = new DefTableModel(tab2, qColslst, eTexture.cname, eTexture.cmain, eTexture.cinto, eTexture.couts);
+        DefTableModel rsmGrupcol = new DefTableModel(tab1, qGrupcol, eTextGrp.name);
+        DefTableModel rsmColslst = new DefTableModel(tab2, qColslst, eTexture.name, eTexture.suffix1, eTexture.suffix2, eTexture.suffix3);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
         rsmGrupcol.addFrameListener(listenerModify);
@@ -76,8 +76,8 @@ public class Texture extends javax.swing.JFrame
                 listenerModify.response(null);
                 int row = tab1.getSelectedRow();
                 if (row != -1) {
-                    Record record = qGrupcol.query(eDicGrText.up.tname()).get(row);
-                    Integer cgrup = record.getInt(eDicGrText.gunic);
+                    Record record = qGrupcol.query(eTextGrp.up.tname()).get(row);
+                    Integer cgrup = record.getInt(eTextGrp.id);
                     qColslst.select("colslst where colslst.cgrup = " + cgrup + " order by colslst.cname");
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                     if (tab2.getRowCount() > 0) {
@@ -407,7 +407,7 @@ public class Texture extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             try {
                 if (focusComp == tab1) {
-                    Query query = qGrupcol.query(eDicGrText.up.tname());
+                    Query query = qGrupcol.query(eTextGrp.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
                     qGrupcol.select("grupcol order by grupcol.gname");
@@ -429,28 +429,28 @@ public class Texture extends javax.swing.JFrame
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         
         if (focusComp == tab1) {
-            Query query = qGrupcol.query(eDicGrText.up.tname());
+            Query query = qGrupcol.query(eTextGrp.up.tname());
             Record record = query.newRecord(Query.INS);
-            int id = ConnApp.get().generstorId(eDicGrText.up.tname());
-            record.setNo(eDicGrText.id, id);
-            record.setNo(eDicGrText.gnumb, id);
-            record.setNo(eDicGrText.gunic, id);
-            record.setNo(eDicGrText.gkoef, 1);
+            int id = ConnApp.get().generstorId(eTextGrp.up.tname());
+            record.setNo(eTextGrp.id, id);
+            record.setNo(eTextGrp.numb_grp, id);
+            //record.setNo(eTextGrp.gunic, id);
+            record.setNo(eTextGrp.coeff, 1);
             query.add(record);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             
         } else if(focusComp == tab2) {
             int row = tab1.getSelectedRow();
-            Query query1 = qGrupcol.query(eDicGrText.up.tname());
+            Query query1 = qGrupcol.query(eTextGrp.up.tname());
             Query query2 = qColslst.query(eTexture.up.tname());
             Record record1 = query1.get(row);
             Record record2 = query2.newRecord(Query.INS);
             int id = ConnApp.get().generstorId(eTexture.up.tname());
-            int cgrup = record1.getInt(eDicGrText.gunic);
-            record2.setNo(eTexture.cnumb, id);
+            //int cgrup = record1.getInt(eTextGrp.gunic);
+            //record2.setNo(eTexture.cnumb, id);
             record2.setNo(eTexture.id, id);
             //record2.setNo(eColslst.xxx, id);
-            record2.setNo(eTexture.cgrup, cgrup);
+            //record2.setNo(eTexture.group, cgrup);
             query2.add(record2);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();            
         }

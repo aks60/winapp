@@ -62,7 +62,7 @@ public class Rate extends javax.swing.JFrame
 
     public Rate() {
         initComponents();
-        rsmRate = new DefTableModel(tab1, qRate, eDicRate.cname, eDicRate.crode, eDicRate.crodm, eDicRate.ckurs);
+        rsmRate = new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour);
         rsmRate.addFrameListener(listenerModify);
     }
 

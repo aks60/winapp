@@ -14,7 +14,7 @@ import domain.eGlasArt;
 import domain.eGlasGrup;
 import domain.eGlasProf;
 import domain.eDicGrArt;
-import domain.eDicGrText;
+import domain.eTextGrp;
 import domain.eComplet;
 import domain.eCompDet;
 import domain.eTextPar;

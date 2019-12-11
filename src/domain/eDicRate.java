@@ -7,15 +7,15 @@ import dataset.Record;
 public enum eDicRate implements Field {
     up("0", "0", "0", "Валюта", "CORRENC"),
     id("4", "10", "0", "Идентификатор", "id"),
-    cname("12", "32", "1", "Название валюты", "CNAME"),
-    cnumb("4", "10", "1", "ID валюты", "CNUMB"),
-    crode("12", "32", "1", "Родит.падеж ед.ч.", "CRODE"),
-    crodm("12", "32", "1", "Родит.падеж мн.ч.", "CRODM"),
-    cshor("12", "8", "1", "Обозначение", "CSHOR"),
-    csize("5", "5", "1", "Точность", "CSIZE"),
-    ckurs("8", "15", "1", "Кросс курс", "CKURS"),
-    csets("5", "5", "1", "Флаг  Основная ", "CSETS"),
-    cinto("5", "5", "1", "Флаг  Внутренняя ", "CINTO");
+    name("12", "32", "1", "Название валюты", "CNAME"),
+    //cnumb("4", "10", "1", "ID валюты", "CNUMB"),
+    par_case1("12", "32", "1", "Родит.падеж ед.ч.", "CRODE"),
+    par_case3("12", "32", "1", "Родит.падеж мн.ч.", "CRODM"),
+    design("12", "8", "1", "Обозначение", "CSHOR"),
+    precis("5", "5", "1", "Точность", "CSIZE"),
+    cross_cour("8", "15", "1", "Кросс курс", "CKURS"),
+    check1("5", "5", "1", "Флаг  Основная ", "CSETS"),
+    check2("5", "5", "1", "Флаг  Внутренняя ", "CINTO");
     private MetaField meta = new MetaField(this);
 
     eDicRate(Object... p) {
