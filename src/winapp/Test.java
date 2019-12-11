@@ -1,8 +1,8 @@
 package winapp;
 
 import convdb.Script;
+import dataset.Entity;
 import dataset.Query;
-import domain.eArtikls;
 import domain.eTexture;
 import frames.Artikls;
 import frames.Rate;
@@ -14,6 +14,7 @@ public class Test {
         Main.dev = true;
         
         try {
+            
             Script.script(); 
             //Test test = new Test();
             //test.query();
@@ -46,9 +47,11 @@ public class Test {
                    "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //Query qCorrenc = new Query(eCorrenc.values()).select("correnc order by correnc.cname");
             //Query qGrupcol = new Query(eGrupcol.id, eGrupcol.gnumb, eGrupcol.gunic, eGrupcol.gname, eGrupcol.gkoef).select("grupcol order by grupcol.gname");
-            Query qColslst = new Query(eTexture.values());
-            int cgrup = 1;
-            qColslst.select("colslst where colslst.cgrup = " + cgrup + " order by colslst.cname");
+            //Query qColslst = new Query(eTexture.values());
+            //int cgrup = 1;
+            //qColslst.select("colslst where colslst.cgrup = " + cgrup + " order by colslst.cname");
+            
+            Entity.firebird(Query.connection, eTexture.up.meta().fname);
             
         } catch (Exception e) {
             System.err.println("TEST-CONNECTION: " + e);

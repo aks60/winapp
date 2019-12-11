@@ -121,13 +121,13 @@ public class Artikls extends javax.swing.JFrame
                 DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeMat.getLastSelectedPathComponent();
                 if (selectedNode != null) {
                     if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
-                        qArtikls.select("artikls left join rate on artikls.rate_id = rate.id order by artikls.level1, artikls.code");
+                        qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id order by artikls.level1, artikls.code");
                     } else if (selectedNode.isLeaf()) {
                         eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select("artikls left join rate on artikls.rate_id = rate.id where artikls.level1 = " + e.id1 + " and artikls.level2 = " + e.id2 + " order by artikls.level1, artikls.code");
+                        qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id where artikls.level1 = " + e.id1 + " and artikls.level2 = " + e.id2 + " order by artikls.level1, artikls.code");
                     } else {
                         eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select("artikls left join rate on artikls.rate_id = rate.id where artikls.level1 = " + e.id1 + " order by artikls.level1, artikls.code");
+                        qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id where artikls.level1 = " + e.id1 + " order by artikls.level1, artikls.code");
                     }
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                     if (tab1.getRowCount() > 0) {
@@ -141,10 +141,10 @@ public class Artikls extends javax.swing.JFrame
                 int row = tab1.getSelectedRow();
                 if (row != -1) {
                     Record record = qArtikls.query(eArtikls.up.tname()).get(row);
-                    System.out.println(record);
+                    //System.out.println(record);
                     int id = record.getInt(eArtikls.id);
-                    qArtsvst.select("artsvst left join colslst on artsvst.code = colslst.ccode "
-                            + "left join grupcol on colslst.cgrup = grupcol.gnumb where artsvst.artikl_id = " + id);
+                    qArtsvst.select("art_det left join texture on art_det.id = texture.code "
+                            + "left join text_grp on texture.groups = text_grp.id where art_det.artikl_id = " + id);
                     rsvArtikls.write(row);
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                     if (tab2.getRowCount() > 0) {

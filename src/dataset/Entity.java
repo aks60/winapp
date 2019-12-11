@@ -66,7 +66,7 @@ public enum Entity {
     private static void script() { //throws FileNotFoundException, UnsupportedEncodingException{
 
         try {
-            String ename = "e" + table.substring(0, 1).toUpperCase() + table.substring(1).toLowerCase();
+            String ename = "_e" + table.substring(0, 1).toUpperCase() + table.substring(1).toLowerCase();
             PrintWriter writer = new PrintWriter("src/domain/" + ename + ".java", "UTF-8");
             writer.println("");
             writer.println("package domain;");
@@ -157,7 +157,7 @@ public enum Entity {
         } catch (SQLException e) {
             System.err.println(e);
         }
-        //script();
+        script();
     }
 
     public static void postgres(Connection connection, String _table) {

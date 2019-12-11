@@ -22,7 +22,7 @@ public class Texture extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Component focusComp = null;
-    private Query qGrupcol = new Query(eTextGrp.id, eTextGrp.name, eTextGrp.coeff).select("grupcol order by grupcol.gname");
+    private Query qGrupcol = new Query(eTextGrp.id, eTextGrp.name, eTextGrp.coeff).select("text_grp order by text_grp.name");
     private Query qColslst = new Query(eTexture.values());
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -78,7 +78,7 @@ public class Texture extends javax.swing.JFrame
                 if (row != -1) {
                     Record record = qGrupcol.query(eTextGrp.up.tname()).get(row);
                     Integer cgrup = record.getInt(eTextGrp.id);
-                    qColslst.select("colslst where colslst.cgrup = " + cgrup + " order by colslst.cname");
+                    qColslst.select("texture where texture.text_gr = " + cgrup + " order by texture.name");
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                     if (tab2.getRowCount() > 0) {
                         tab2.setRowSelectionInterval(0, 0);
@@ -387,7 +387,7 @@ public class Texture extends javax.swing.JFrame
     }//GEN-LAST:event_btnHelp
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qGrupcol.select("grupcol order by grupcol.gname");
+        qGrupcol.select("text_grp order by text_grp.gname");
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -410,14 +410,14 @@ public class Texture extends javax.swing.JFrame
                     Query query = qGrupcol.query(eTextGrp.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
-                    qGrupcol.select("grupcol order by grupcol.gname");
+                    qGrupcol.select("text_grp order by text_grp.name");
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                     
                 } else if(focusComp == tab2) {
                     Query query = qColslst.query(eTexture.up.tname());
                     Record record = query.get(tab2.getSelectedRow());
                     query.delete(record);
-                    qColslst.select("grupcol order by grupcol.gname");
+                    qColslst.select("text_grp order by text_grp.name");
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 }
             } catch (Exception e) {
@@ -433,7 +433,7 @@ public class Texture extends javax.swing.JFrame
             Record record = query.newRecord(Query.INS);
             int id = ConnApp.get().generstorId(eTextGrp.up.tname());
             record.setNo(eTextGrp.id, id);
-            record.setNo(eTextGrp.numb_grp, id);
+            //record.setNo(eTextGrp.groups, id);
             //record.setNo(eTextGrp.gunic, id);
             record.setNo(eTextGrp.coeff, 1);
             query.add(record);

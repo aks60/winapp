@@ -2,7 +2,6 @@ package convdb;
 
 import common.Util;
 import dataset.Field;
-import dataset.Query;
 import domain.eArtDet;
 import domain.eArtikls;
 import domain.eCompDet;
@@ -45,7 +44,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -112,6 +110,7 @@ public class Script {
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Object[] deltaCol : hsDeltaCol) {
+                    //String str = "ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";";
                     st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";"));
                 }
                 //Конвертирование данных в таблицу приёмника                   
@@ -128,8 +127,8 @@ public class Script {
                 st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             if (fieldsUp.length > 1) {
-                st2.execute("update art_text set artikl_id = (select id from artikls a where a.code = art_text.anumb)");
-                st2.execute("update art_text set texture_id = (select id from texture a where a.ccode = art_text.clcod and a.cnumb = art_text.clnum)");
+                st2.execute("update art_det set artikl_id = (select id from artikls a where a.code = art_det.anumb)");
+                st2.execute("update art_det set texture_id = (select id from texture a where a.code = art_det.clcod and a.cnumb = art_det.clnum)");
             }
             //Удаление столбцов не вошедших в eEnum.values()
             for (Field fieldUp : fieldsUp) {
@@ -279,6 +278,9 @@ public class Script {
             ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
             while (rsc1.next()) {
                 String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
+                if ("-1".equals(rsc1.getString("DATA_TYPE"))) {
+                    name[2] = "80";
+                }
                 boolean find = false;
                 for (Field field : fieldUp.fields()) {
                     if (field.meta().fname.equalsIgnoreCase(name[0].toString())) {
@@ -295,9 +297,9 @@ public class Script {
             return null;
         }
     }
-    
+
     private static String print(String str) {
         System.out.println(str);
         return str;
     }
- }
+}
