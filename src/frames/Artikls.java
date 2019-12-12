@@ -97,7 +97,7 @@ public class Artikls extends javax.swing.JFrame
         rsmArtsvst.addFrameListener(listenerModify);
 
         rsvArtikls = new DefFieldRenderer(rsmArtikls);
-        rsvArtikls.add(eArtikls.length, txtField1);
+        rsvArtikls.add(eArtikls.len_unit, txtField1);
         rsvArtikls.add(eArtikls.height, txtField2);
         rsvArtikls.add(eArtikls.thick, txtField3);
         rsvArtikls.add(eArtikls.unit, txtField4);
@@ -122,6 +122,7 @@ public class Artikls extends javax.swing.JFrame
                 if (selectedNode != null) {
                     if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
                         qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id order by artikls.level1, artikls.code");
+                        //, eArtikls.up, eDicRate.up, eArtikls.rate_id, eDicRate.id, eArtikls.level1, );
                     } else if (selectedNode.isLeaf()) {
                         eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
                         qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id where artikls.level1 = " + e.id1 + " and artikls.level2 = " + e.id2 + " order by artikls.level1, artikls.code");

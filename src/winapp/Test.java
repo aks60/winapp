@@ -1,9 +1,9 @@
 package winapp;
 
 import convdb.Script;
-import dataset.Entity;
 import dataset.Query;
-import domain.eTexture;
+import dataset.Table;
+import domain.eArtikls;
 import frames.Artikls;
 import frames.Rate;
 import frames.Texture;
@@ -15,9 +15,9 @@ public class Test {
         
         try {
             
-            Script.script(); 
-            //Test test = new Test();
-            //test.query();
+            //Script.script(); 
+            Test test = new Test();
+            test.query();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -44,14 +44,16 @@ public class Test {
     private void query() {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
-                   "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-            //Query qCorrenc = new Query(eCorrenc.values()).select("correnc order by correnc.cname");
+                   "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+            
+            Query q = new Query(eArtikls.values()).select("$t where $f = $v order by $f", eArtikls.up, eArtikls.id, eArtikls.code, 2);
+            Table yyy = q.query(eArtikls.up.tname());
             //Query qGrupcol = new Query(eGrupcol.id, eGrupcol.gnumb, eGrupcol.gunic, eGrupcol.gname, eGrupcol.gkoef).select("grupcol order by grupcol.gname");
             //Query qColslst = new Query(eTexture.values());
             //int cgrup = 1;
             //qColslst.select("colslst where colslst.cgrup = " + cgrup + " order by colslst.cname");
             
-            Entity.firebird(Query.connection, eTexture.up.meta().fname);
+            
             
         } catch (Exception e) {
             System.err.println("TEST-CONNECTION: " + e);
