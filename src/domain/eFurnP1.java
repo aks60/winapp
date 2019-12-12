@@ -4,17 +4,18 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eJoinDet implements Field {
-    up("0", "0", "0", "Спецификация вариантов соединения", "CONNSPC"),
+public enum eFurnP1 implements Field {
+    up("0", "0", "0", "Параметры ограничений сторон фурнитуры", "PARFURL"),
     id("4", "10", "0", "Идентификатор", "id"),
-    cunic("4", "10", "1", "null", "CUNIC"),
-    aunic("4", "10", "1", "null", "AUNIC"),
-    anumb("12", "32", "1", "артикул", "ANUMB"),
-    clnum("4", "10", "1", "null", "CLNUM"),
-    ctype("5", "5", "1", "null", "CTYPE");
+    psss("4", "10", "1", "null", "PSSS"),
+    pporn("5", "5", "1", "null", "PPORN"),
+    pnumb("4", "10", "1", "null", "PNUMB"),
+    znumb("4", "10", "1", "null", "ZNUMB"),
+    punic("4", "10", "1", "null", "PUNIC"),
+    ptext("12", "64", "1", "null", "PTEXT");
     private MetaField meta = new MetaField(this);
 
-    eJoinDet(Object... p) {
+    eFurnP1(Object... p) {
         meta.init(p);
     }
 

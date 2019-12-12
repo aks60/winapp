@@ -2,41 +2,41 @@ package convdb;
 
 import common.Util;
 import dataset.Field;
-import domain.eArtDet;
+import domain.eArtdet;
 import domain.eArtikls;
-import domain.eCompDet;
+import domain.eCompdet;
 import domain.eComplet;
 import domain.eDicConst;
-import domain.eDicGrArt;
-import domain.eTextGrp;
+import domain.eDicArtgr;
+import domain.eTextgrp;
 import domain.eDicRate;
-import domain.eDicSysPar;
+import domain.eDicSyspar;
 import domain.eTexture;
 import domain.eFurnCh1;
 import domain.eFurnCh2;
-import domain.eFurnPar1;
-import domain.eFurnDet;
-import domain.eGlasArt;
-import domain.eGlasGrup;
-import domain.eGlasProf;
+import domain.eFurnP1;
+import domain.eFurndet;
+import domain.eGlasart;
+import domain.eGlasgrup;
+import domain.eGlasprof;
 import domain.eItems;
-import domain.eItenDet;
-import domain.eJoinPar1;
-import domain.eJoinPar2;
-import domain.eJoinPar3;
-import domain.eJoinDet;
-import domain.eJoinVar;
+import domain.eItemdet;
+import domain.eJoinP1;
+import domain.eJoinP2;
+import domain.eJoinP3;
+import domain.eJoindet;
+import domain.eJoinvar;
 import domain.eJoining;
-import domain.eTextPar;
-import domain.eGlasPar2;
-import domain.eGlasPar1;
+import domain.eTextP1;
+import domain.eGlasP2;
+import domain.eGlasP1;
 import domain.eDicParam;
-import domain.eItemPar1;
-import domain.eItemPar2;
-import domain.eRuleCalc;
-import domain.eSysFurn;
-import domain.eSysPar;
-import domain.eSysProf;
+import domain.eItemP1;
+import domain.eItemP2;
+import domain.eRulecalc;
+import domain.eSysfurn;
+import domain.eSysP1;
+import domain.eSysprof;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -59,13 +59,13 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtDet.up, eTexture.up, eTextPar.up, eComplet.up, eCompDet.up,
-            eGlasPar1.up, eGlasPar2.up, eGlasArt.up, eGlasGrup.up, eGlasProf.up,
-            eJoining.up, eJoinDet.up, eJoinVar.up, eJoinPar1.up, eJoinPar2.up, eJoinPar3.up,
-            eFurnCh1.up, eFurnCh2.up, eFurnDet.up, eFurnPar1.up,
-            eItems.up, eItenDet.up, eItemPar1.up, eItemPar2.up,
-            eSysPar.up, eSysFurn.up, eSysProf.up, eRuleCalc.up,
-            eDicConst.up, eDicSysPar.up, eDicRate.up, eDicGrArt.up, eTextGrp.up, eDicParam.up
+            eArtikls.up, eArtdet.up, eTexture.up, eTextP1.up, eComplet.up, eCompdet.up,
+            eGlasP1.up, eGlasP2.up, eGlasart.up, eGlasgrup.up, eGlasprof.up,
+            eJoining.up, eJoindet.up, eJoinvar.up, eJoinP1.up, eJoinP2.up, eJoinP3.up,
+            eFurnCh1.up, eFurnCh2.up, eFurndet.up, eFurnP1.up,
+            eItems.up, eItemdet.up, eItemP1.up, eItemP2.up,
+            eSysP1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
+            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgr.up, eTextgrp.up, eDicParam.up
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник
@@ -127,8 +127,8 @@ public class Script {
                 st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             if (fieldsUp.length > 1) {
-                st2.execute("update art_det set artikl_id = (select id from artikls a where a.code = art_det.anumb)");
-                st2.execute("update art_det set texture_id = (select id from texture a where a.code = art_det.clcod and a.cnumb = art_det.clnum)");
+                st2.execute("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)");
+                st2.execute("update artdet set texture_id = (select id from texture a where a.code = artdet.clcod and a.cnumb = artdet.clnum)");
             }
             //Удаление столбцов не вошедших в eEnum.values()
             for (Field fieldUp : fieldsUp) {

@@ -4,18 +4,18 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eJoinPar3 implements Field {
-    up("0", "0", "0", "Параметры спецификаций фурнитуры", "PARFURS"),
+public enum eGlasP2 implements Field {
+    up("0", "0", "0", "Параметры спецификаций групп заполнения", "PARGLAS"),
     id("4", "10", "0", "Идентификатор", "id"),
     psss("4", "10", "1", "null", "PSSS"),
     pporn("5", "5", "1", "null", "PPORN"),
-    pnumb("4", "10", "1", "null", "PNUMB"),
-    znumb("4", "10", "1", "null", "ZNUMB"),
+    pnumb("4", "10", "1", "номер параметра", "PNUMB"),
+    znumb("4", "10", "1", "значение параметра", "ZNUMB"),
     punic("4", "10", "1", "null", "PUNIC"),
-    ptext("12", "64", "1", "null", "PTEXT");
+    ptext("12", "64", "1", "наименование значения параметра", "PTEXT");
     private MetaField meta = new MetaField(this);
 
-    eJoinPar3(Object... p) {
+    eGlasP2(Object... p) {
         meta.init(p);
     }
 
@@ -28,7 +28,6 @@ public enum eJoinPar3 implements Field {
     }
 
     
-
     public String toString() {
         return meta.getDescr();
     }

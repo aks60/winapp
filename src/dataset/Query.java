@@ -74,7 +74,7 @@ public class Query extends Table {
                 if ("up".equals(f.name())) {
                     sql = sql + " " + f.tname();
                 } else {
-                    sql = sql + " " + f.name();
+                    sql = sql + " " + f.tname() + "."  + f.name();
                 }
             } else {
                 sql = sql + " " + p;

@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eItemPar1 implements Field {
+public enum eItemP1 implements Field {
     up("0", "0", "0", "Параметры составов", "PARVSTM"),
     id("4", "10", "0", "Идентификатор", "id"),
     punic("4", "10", "1", "номер параметра", "PUNIC"),
@@ -15,7 +15,7 @@ public enum eItemPar1 implements Field {
     ptext("12", "64", "1", "наименование значения параметра", "PTEXT");
     private MetaField meta = new MetaField(this);
 
-    eItemPar1(Object... p) {
+    eItemP1(Object... p) {
         meta.init(p);
     }
 

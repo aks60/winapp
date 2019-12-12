@@ -6,10 +6,10 @@ import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
-import domain.eArtDet;
+import domain.eArtdet;
 import domain.eTexture;
 import domain.eDicRate;
-import domain.eTextGrp;
+import domain.eTextgrp;
 import enums.eTypeArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -37,7 +37,7 @@ public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
-    private Query qArtsvst = new Query(eArtDet.id, eTextGrp.name, eTexture.name, eArtDet.cost_cl1, eArtDet.cost_cl2, eArtDet.cost_cl3, eArtDet.cost_unit);
+    private Query qArtsvst = new Query(eArtdet.id, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
     DefTableModel rsmArtikls, rsmArtsvst;
     DefFieldRenderer rsvArtikls;
 
@@ -89,7 +89,7 @@ public class Artikls extends javax.swing.JFrame
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
         rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
-        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eTextGrp.name, eTexture.name, eArtDet.cost_cl1, eArtDet.cost_cl2, eArtDet.cost_cl3, eArtDet.cost_unit);
+        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
 
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);

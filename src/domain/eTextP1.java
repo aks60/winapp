@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eTextPar implements Field {
+public enum eTextP1 implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),
     id("4", "10", "0", "Идентификатор", "id"),
     //psss("4", "10", "1", "null", "PSSS"),
@@ -16,7 +16,7 @@ public enum eTextPar implements Field {
     param_id("4", "10", "1", "номер параметра", "eDicParam");
     private MetaField meta = new MetaField(this);
 
-    eTextPar(Object... p) {
+    eTextP1(Object... p) {
         meta.init(p);
     }
 

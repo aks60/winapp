@@ -46,8 +46,9 @@ public class Test {
             Query.connection = java.sql.DriverManager.getConnection(
                    "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
             
-            Query q = new Query(eArtikls.values()).select("$t where $f = $v order by $f", eArtikls.up, eArtikls.id, eArtikls.code, 2);
-            Table yyy = q.query(eArtikls.up.tname());
+            Query q1 = new Query(eArtikls.values()).select("$t where $f = $v order by $f", eArtikls.up, eArtikls.id, eArtikls.code, 2);
+            Query q2 = new Query(eArtikls.values()).select(eArtikls.up, "where", eArtikls.id, "=", 2, "order by", eArtikls.code);
+            Table yyy = q2.query(eArtikls.up.tname());
             //Query qGrupcol = new Query(eGrupcol.id, eGrupcol.gnumb, eGrupcol.gunic, eGrupcol.gname, eGrupcol.gkoef).select("grupcol order by grupcol.gname");
             //Query qColslst = new Query(eTexture.values());
             //int cgrup = 1;
