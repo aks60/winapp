@@ -1,12 +1,9 @@
 package frames;
 
 import common.FrameListener;
-import common.Util;
 import dataset.ConnApp;
 import dataset.Query;
-import dataset.Query;
 import dataset.Record;
-import domain.eArtikls;
 import domain.eDicRate;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -19,7 +16,7 @@ import swing.DefTableModel;
 public class Rate extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private Query qRate = new Query(eDicRate.values()).select("rate order by rate.cname");
+    private Query qRate = new Query(eDicRate.values()).select(eDicRate.up, "order by", eDicRate.name);
     private DefTableModel rsmRate;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -282,7 +279,7 @@ public class Rate extends javax.swing.JFrame
                     Query query = qRate.query(eDicRate.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
-                    qRate.select("rate order by rate.cname");
+                    qRate.select(eDicRate.up, "order by", eDicRate.name);
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 } catch (Exception e) {
                     System.out.println(e);
