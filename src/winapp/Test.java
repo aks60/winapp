@@ -15,9 +15,9 @@ public class Test {
         
         try {
             
-            //Script.script(); 
+            Script.script(); 
             Test test = new Test();
-            test.query();
+            //test.query();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

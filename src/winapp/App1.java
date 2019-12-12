@@ -12,6 +12,8 @@ import frames.Artikls;
 import frames.Joining;
 import frames.Rate;
 import frames.Texture;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 
 /**
  * <p>
@@ -139,6 +141,9 @@ public class App1 extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+            public void windowIconified(java.awt.event.WindowEvent evt) {
+                formWindowIconified(evt);
             }
         });
 
@@ -769,7 +774,7 @@ public class App1 extends javax.swing.JFrame {
     }//GEN-LAST:event_mDictDicDate
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-
+        
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb
@@ -916,6 +921,10 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mn61ActionPerformed
+
+    private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
+        eApp1.disposeFrame();
+    }//GEN-LAST:event_formWindowIconified
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1020,28 +1029,36 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     public enum eApp1 {
 
         Rate, Texture, Artikls, Joining;
-        java.awt.Window window;
+        java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
-            if (window == null) {
+            if (frame == null) {
                 switch (this) {
                     case Artikls:
-                        window = new Artikls();
+                        frame = new Artikls();
                         break;
                     case Texture:
-                        window = new Texture();
+                        frame = new Texture();
                         break;
                     case Joining:
-                        window = new Joining();
+                        frame = new Joining();
                         break;
                     case Rate:
-                        window = new Rate();
+                        frame = new Rate();
                         break;
                 }
-                window.setName(this.name());
-                FrameToFile.setFrameSize(window);
+                frame.setName(this.name());
+                FrameToFile.setFrameSize(frame);
             }
-            window.setVisible(true);
+            frame.setVisible(true);
+        }
+        
+        public static void disposeFrame() {
+            for (eApp1 e : values()) {
+                if(e.frame != null) {
+                    e.frame.setState(JFrame.ICONIFIED);
+                }
+            }
         }
     }
 }

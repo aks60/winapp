@@ -78,7 +78,7 @@ public class Texture extends javax.swing.JFrame
                 if (row != -1) {
                     Record record = qGrupcol.query(eTextgrp.up.tname()).get(row);
                     Integer cgrup = record.getInt(eTextgrp.id);
-                    qColslst.select(eTexture.up, "where", eTexture.groups, "=" + cgrup + "order by", eTexture.name);
+                    qColslst.select(eTexture.up, "where", eTexture.textgrp_id, "=" + cgrup + "order by", eTexture.name);
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                     if (tab2.getRowCount() > 0) {
                         tab2.setRowSelectionInterval(0, 0);

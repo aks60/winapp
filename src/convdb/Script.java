@@ -127,8 +127,10 @@ public class Script {
                 st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             if (fieldsUp.length > 1) {
-                st2.execute("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)");
-                st2.execute("update artdet set texture_id = (select id from texture a where a.code = artdet.clcod and a.cnumb = artdet.clnum)");
+                st2.execute(print("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)"));
+                st2.execute(print("update artdet set textgrp_id = (select id from textgrp a where a.gnumb = artdet.clnum)"));
+                st2.execute(print("update artdet set texture_id = (select id from texture a where a.cnumb = artdet.clcod)"));
+                st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
             }
             //Удаление столбцов не вошедших в eEnum.values()
             for (Field fieldUp : fieldsUp) {

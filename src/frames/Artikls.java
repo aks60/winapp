@@ -23,7 +23,6 @@ import swing.DefTableModel;
 import swing.DefFieldRenderer;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -37,7 +36,7 @@ public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
-    private Query qArtsvst = new Query(eArtdet.id, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+    private Query qArtdet = new Query(eArtdet.id, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
     DefTableModel rsmArtikls, rsmArtsvst;
     DefFieldRenderer rsvArtikls;
 
@@ -89,7 +88,7 @@ public class Artikls extends javax.swing.JFrame
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
         rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
-        rsmArtsvst = new DefTableModel(tab2, qArtsvst, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+        rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
 
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
@@ -113,7 +112,7 @@ public class Artikls extends javax.swing.JFrame
             }
         });
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnColor));
-        
+
         treeMat.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent tse) {
@@ -121,14 +120,15 @@ public class Artikls extends javax.swing.JFrame
                 DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeMat.getLastSelectedPathComponent();
                 if (selectedNode != null) {
                     if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
-                        qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id order by artikls.level1, artikls.code");
-                        //, eArtikls.up, eDicRate.up, eArtikls.rate_id, eDicRate.id, eArtikls.level1, );
+                        qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "order by", eArtikls.level1, ",", eArtikls.code);
                     } else if (selectedNode.isLeaf()) {
                         eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id where artikls.level1 = " + e.id1 + " and artikls.level2 = " + e.id2 + " order by artikls.level1, artikls.code");
+                        qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "where", eArtikls.level1, "=",
+                                e.id1 + "and", eArtikls.level2, "=", e.id2, "order by", eArtikls.level1, ",", eArtikls.code);
                     } else {
                         eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select("artikls left join dic_rate on artikls.rate_id = dic_rate.id where artikls.level1 = " + e.id1 + " order by artikls.level1, artikls.code");
+                        qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "where",
+                                eArtikls.level1, "=", e.id1, "order by", eArtikls.level1, ",", eArtikls.code);
                     }
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                     if (tab1.getRowCount() > 0) {
@@ -136,7 +136,7 @@ public class Artikls extends javax.swing.JFrame
                     }
                 }
             }
-        });        
+        });
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 int row = tab1.getSelectedRow();
@@ -144,8 +144,8 @@ public class Artikls extends javax.swing.JFrame
                     Record record = qArtikls.query(eArtikls.up.tname()).get(row);
                     //System.out.println(record);
                     int id = record.getInt(eArtikls.id);
-                    qArtsvst.select("art_det left join texture on art_det.id = texture.code "
-                            + "left join text_grp on texture.groups = text_grp.id where art_det.artikl_id = " + id);
+                    qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
+                            "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
                     rsvArtikls.write(row);
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                     if (tab2.getRowCount() > 0) {
@@ -153,9 +153,9 @@ public class Artikls extends javax.swing.JFrame
                     }
                 }
             }
-        });        
+        });
 
-        load1();        
+        load1();
     }
 
     public void request(DefTableModel rsm) {
@@ -739,10 +739,10 @@ public class Artikls extends javax.swing.JFrame
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-        if ((qArtikls.isUpdate() || qArtsvst.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
+        if ((qArtikls.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             qArtikls.execsql();
-            qArtsvst.execsql();
+            qArtdet.execsql();
             listenerModify.response(null);
         }
     }//GEN-LAST:event_formWindowClosed
@@ -766,7 +766,7 @@ public class Artikls extends javax.swing.JFrame
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
 
         qArtikls.execsql();
-        qArtsvst.execsql();
+        qArtdet.execsql();
         listenerModify.response(null);
     }//GEN-LAST:event_btnSave
 

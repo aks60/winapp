@@ -66,9 +66,9 @@ public class Query extends Table {
         return hmQuery.get(name_table);
     }
 
-    public Query select(Object... obj) {
+    public Query select(Object... s) {
         String sql = "";
-        for (Object p : obj) {
+        for (Object p : s) {
             if(p instanceof Field) {
                 Field f = (Field) p;
                 if ("up".equals(f.name())) {
@@ -81,32 +81,6 @@ public class Query extends Table {
             }
         }
         return select(sql);
-    }
-    
-    
-    public Query select(String sql, Object... par) {
-
-        StringBuilder s = new StringBuilder(sql);
-        int it = 0, ip = 0, iv = 0;
-        for (Object p : par) {
-            if (p instanceof Field) {
-                Field f = (Field) p;
-                if ("up".equals(f.name())) {
-                    it = s.indexOf("$t", it);
-                    s.delete(it, it + 2);
-                    s.insert(it, f.tname());
-                } else {
-                    ip = s.indexOf("$f", ip);
-                    s.delete(ip, ip + 2);
-                    s.insert(ip, f.tname() + "." + f.name());
-                }
-            } else {
-                iv = s.indexOf("$v", iv);
-                s.delete(iv, iv + 2);
-                s.insert(iv, p);
-            }            
-        }
-        return select(s.toString());
     }
 
     public Query select(String sql) {
