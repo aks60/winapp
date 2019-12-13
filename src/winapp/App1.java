@@ -9,6 +9,8 @@ import common.eProp;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import frames.Artikls;
+import frames.Builder;
+import frames.Composition;
 import frames.Joining;
 import frames.Rate;
 import frames.Texture;
@@ -206,7 +208,7 @@ public class App1 extends javax.swing.JFrame {
         btn14.setPreferredSize(new java.awt.Dimension(25, 25));
         btn14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mUchUchOne(evt);
+                mBuilder(evt);
             }
         });
         tb1.add(btn14);
@@ -765,9 +767,14 @@ public class App1 extends javax.swing.JFrame {
         };
 }//GEN-LAST:event_mDictColor
 
-    private void mUchUchOne(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mUchUchOne
+    private void mBuilder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mBuilder
+        new FrameListener2() {
 
-}//GEN-LAST:event_mUchUchOne
+            public void request(Object obj) {
+                eApp1.Builder.createFrame(App1.this);
+            }
+        };
+}//GEN-LAST:event_mBuilder
 
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
         System.exit(0);
@@ -866,7 +873,12 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     }//GEN-LAST:event_mn33mnExcelToDatabase
 
     private void mn34mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn34mnExcelToDatabase
-        // TODO add your handling code here:
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Composition.createFrame(App1.this);
+            }
+        };
     }//GEN-LAST:event_mn34mnExcelToDatabase
 
     private void mn35mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn35mnExcelToDatabase
@@ -907,7 +919,12 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     }//GEN-LAST:event_mn24
 
     private void btn25mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn25mn39
-        // TODO add your handling code here:
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Composition.createFrame(App1.this);
+            }
+        };        
     }//GEN-LAST:event_btn25mn39
 
     private void btn26mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn26mn39
@@ -1052,7 +1069,7 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
 
     public enum eApp1 {
 
-        Rate, Texture, Artikls, Joining;
+        Rate, Texture, Artikls, Joining, Builder, Composition;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1069,6 +1086,12 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
                         break;
                     case Rate:
                         frame = new Rate();
+                        break;
+                    case Builder:
+                        frame = new Builder();
+                        break;
+                    case Composition:
+                        frame = new Composition();
                         break;
                 }
                 frame.setName(this.name());

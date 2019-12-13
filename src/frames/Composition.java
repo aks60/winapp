@@ -1,11 +1,42 @@
 
 package frames;
 
-public class Builder extends javax.swing.JFrame {
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
-    public Builder() {
+public class Composition extends javax.swing.JFrame {
+
+    
+    private FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+//            if (e.getSource() instanceof JTable) {
+//                ((JTable) e.getSource()).setBorder(border);
+//                btnIns.setEnabled(true);
+//                btnDel.setEnabled(true);
+//            } else if (e.getSource() instanceof JTree) {
+//                ((JTree) e.getSource()).setBorder(border);
+//                btnIns.setEnabled(true);
+//                btnDel.setEnabled(false);
+//            }
+        }
+
+        public void focusLost(FocusEvent e) {
+//            if (e.getSource() instanceof JTable) {
+//                ((JTable) e.getSource()).setBorder(null);
+//
+//            } else if (e.getSource() instanceof JTree) {
+//                ((JTree) e.getSource()).setBorder(null);
+//            }
+        }
+    }; 
+    
+    public Composition() {
         initComponents();
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -19,20 +50,26 @@ public class Builder extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
-        panCentr2 = new javax.swing.JPanel();
         panNorth2 = new javax.swing.JPanel();
-        panSounh2 = new javax.swing.JPanel();
-        panEast2 = new javax.swing.JPanel();
-        panWest2 = new javax.swing.JPanel();
-        panEast = new javax.swing.JPanel();
-        panWest = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        panCentr2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(600, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -123,7 +160,7 @@ public class Builder extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 582, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 773, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -144,13 +181,12 @@ public class Builder extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(800, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGap(0, 936, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,114 +198,104 @@ public class Builder extends javax.swing.JFrame {
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        panCentr2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        panNorth2.setPreferredSize(new java.awt.Dimension(847, 320));
+        panNorth2.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout panCentr2Layout = new javax.swing.GroupLayout(panCentr2);
-        panCentr2.setLayout(panCentr2Layout);
-        panCentr2Layout.setHorizontalGroup(
-            panCentr2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
-        );
-        panCentr2Layout.setVerticalGroup(
-            panCentr2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
-        );
+        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable1.setFillsViewportHeight(true);
+        jScrollPane1.setViewportView(jTable1);
+
+        panNorth2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(200, 404));
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable4.setFillsViewportHeight(true);
+        jScrollPane4.setViewportView(jTable4);
+
+        panNorth2.add(jScrollPane4, java.awt.BorderLayout.EAST);
+
+        panCentr.add(panNorth2, java.awt.BorderLayout.NORTH);
+
+        panCentr2.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(854, 84));
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable3.setFillsViewportHeight(true);
+        jTable3.setPreferredSize(new java.awt.Dimension(800, 64));
+        jScrollPane3.setViewportView(jTable3);
+
+        panCentr2.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(200, 404));
+
+        jTable2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jTable2.setFillsViewportHeight(true);
+        jTable2.setMinimumSize(new java.awt.Dimension(6, 64));
+        jTable2.setPreferredSize(new java.awt.Dimension(0, 64));
+        jScrollPane2.setViewportView(jTable2);
+
+        panCentr2.add(jScrollPane2, java.awt.BorderLayout.EAST);
 
         panCentr.add(panCentr2, java.awt.BorderLayout.CENTER);
 
-        panNorth2.setPreferredSize(new java.awt.Dimension(700, 60));
-
-        javax.swing.GroupLayout panNorth2Layout = new javax.swing.GroupLayout(panNorth2);
-        panNorth2.setLayout(panNorth2Layout);
-        panNorth2Layout.setHorizontalGroup(
-            panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
-        );
-        panNorth2Layout.setVerticalGroup(
-            panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panNorth2, java.awt.BorderLayout.PAGE_START);
-
-        panSounh2.setPreferredSize(new java.awt.Dimension(744, 60));
-
-        javax.swing.GroupLayout panSounh2Layout = new javax.swing.GroupLayout(panSounh2);
-        panSounh2.setLayout(panSounh2Layout);
-        panSounh2Layout.setHorizontalGroup(
-            panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
-        );
-        panSounh2Layout.setVerticalGroup(
-            panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panSounh2, java.awt.BorderLayout.PAGE_END);
-
-        panEast2.setPreferredSize(new java.awt.Dimension(120, 376));
-
-        javax.swing.GroupLayout panEast2Layout = new javax.swing.GroupLayout(panEast2);
-        panEast2.setLayout(panEast2Layout);
-        panEast2Layout.setHorizontalGroup(
-            panEast2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
-        );
-        panEast2Layout.setVerticalGroup(
-            panEast2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panEast2, java.awt.BorderLayout.LINE_END);
-
-        panWest2.setPreferredSize(new java.awt.Dimension(120, 336));
-
-        javax.swing.GroupLayout panWest2Layout = new javax.swing.GroupLayout(panWest2);
-        panWest2.setLayout(panWest2Layout);
-        panWest2Layout.setHorizontalGroup(
-            panWest2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
-        );
-        panWest2Layout.setVerticalGroup(
-            panWest2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panWest2, java.awt.BorderLayout.LINE_START);
-
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
-        panEast.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panEast.setPreferredSize(new java.awt.Dimension(60, 500));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout panEastLayout = new javax.swing.GroupLayout(panEast);
-        panEast.setLayout(panEastLayout);
-        panEastLayout.setHorizontalGroup(
-            panEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
-        );
-        panEastLayout.setVerticalGroup(
-            panEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane6.setViewportView(jList1);
 
-        getContentPane().add(panEast, java.awt.BorderLayout.EAST);
+        jPanel1.add(jScrollPane6, java.awt.BorderLayout.CENTER);
 
-        panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panWest.setPreferredSize(new java.awt.Dimension(40, 500));
-
-        javax.swing.GroupLayout panWestLayout = new javax.swing.GroupLayout(panWest);
-        panWest.setLayout(panWestLayout);
-        panWestLayout.setHorizontalGroup(
-            panWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
-        );
-        panWestLayout.setVerticalGroup(
-            panWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panWest, java.awt.BorderLayout.WEST);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.WEST);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -293,7 +319,6 @@ public class Builder extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
     }//GEN-LAST:event_btnInsert
-
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -301,16 +326,22 @@ public class Builder extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panCentr2;
-    private javax.swing.JPanel panEast;
-    private javax.swing.JPanel panEast2;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panNorth2;
-    private javax.swing.JPanel panSounh2;
     private javax.swing.JPanel panSouth;
-    private javax.swing.JPanel panWest;
-    private javax.swing.JPanel panWest2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 }

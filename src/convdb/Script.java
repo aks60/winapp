@@ -1,6 +1,7 @@
 package convdb;
 
 import common.Util;
+import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -19,7 +20,7 @@ import domain.eFurnCh2;
 import domain.eFurnP1;
 import domain.eFurndet;
 import domain.eGlasart;
-import domain.eGlasgrup;
+import domain.eGlasgrp;
 import domain.eGlasprof;
 import domain.eItems;
 import domain.eItemdet;
@@ -35,6 +36,7 @@ import domain.eGlasP1;
 import domain.eDicParam;
 import domain.eItemP1;
 import domain.eItemP2;
+import domain.eItemgrp;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSysP1;
@@ -59,13 +61,15 @@ import java.util.List;
  */
 public class Script {
 
+    private static char versionPs = 4;
+
     public static void script() {
         Field[] fieldsUp = {
             eArtikls.up, eArtdet.up, eTexture.up, eTextP1.up, eComplet.up, eCompdet.up,
-            eGlasP1.up, eGlasP2.up, eGlasart.up, eGlasgrup.up, eGlasprof.up,
+            eGlasP1.up, eGlasP2.up, eGlasart.up, eGlasgrp.up, eGlasprof.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinP1.up, eJoinP2.up, eJoinP3.up,
             eFurnCh1.up, eFurnCh2.up, eFurndet.up, eFurnP1.up,
-            eItems.up, eItemdet.up, eItemP1.up, eItemP2.up,
+            eItems.up, eItemgrp.up, eItemdet.up, eItemP1.up, eItemP2.up,
             eSysP1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgr.up, eTextgrp.up, eDicParam.up
         };
@@ -77,14 +81,20 @@ public class Script {
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
             Util.println("Подготовка методанных");
-            Statement st1 = cn1.createStatement(); //мсточник   
-            DatabaseMetaData mdb1 = cn1.getMetaData();
+            Statement st1 = cn1.createStatement(); //мсточник 
             Statement st2 = cn2.createStatement();//приёмник
+            DatabaseMetaData mdb1 = cn1.getMetaData();
             DatabaseMetaData mdb2 = cn2.getMetaData();
+            ResultSet resultSet1 = mdb1.getTables(null, null, null, new String[]{"TABLE"});
             ResultSet resultSet2 = mdb2.getTables(null, null, null, new String[]{"TABLE"});
+
             List<String> listExistTable2 = new ArrayList<String>();//таблицы приёмника
             List<String> listGenerator2 = new ArrayList<String>();//генераторы приёмника 
-
+            while (resultSet1.next()) {
+                if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
+                    versionPs = 3;
+                }
+            }
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
             }
@@ -112,7 +122,6 @@ public class Script {
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Object[] deltaCol : hsDeltaCol) {
-                    //String str = "ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";";
                     st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";"));
                 }
                 //Конвертирование данных в таблицу приёмника                   
@@ -124,35 +133,15 @@ public class Script {
                 }
                 st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);")); //DDL создание первичного ключа
             }
-            Util.println("Изменение структуры БД");
+            Util.println("Добавление комментариев к полям");
             for (Field field : fieldsUp) {
                 st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
+            Util.println("Заключительные действия, изменение структуры БД");
             if (fieldsUp.length > 1) {
-                
-                st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
-                Query.connection = cn2;
-                Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
-                Query q2 = new Query(eTexture.values()).query(eTexture.up.tname());
-                for (Record record : q1) {
-                    Record record2 = q2.newRecord(Query.INS);
-                    record2.setNo(eTexture.id, -1 * record.getInt(eTextgrp.id));
-                    record2.setNo(eTexture.textgrp_id, record.getInt(eTextgrp.id));
-                    record2.setNo(eTexture.name, "Все текстуры группы");
-                    record2.setNo(eTexture.name2, "Все текстуры группы");
-                    record2.setNo(eTexture.coef1, 1);
-                    record2.setNo(eTexture.coef2, 1);
-                    record2.setNo(eTexture.coef2, 1);
-                    record2.setNo(eTexture.suffix1, 1);
-                    record2.setNo(eTexture.suffix2, 1);
-                    record2.setNo(eTexture.suffix3, 1);
-                    q2.insert(record2);
-                }  
-                st2.execute(print("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)"));                
-                st2.execute(print("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));                
-                st2.execute(print("update artdet set texture_id = artdet.clnum where artdet.clnum < 0"));                
+                updateDb(cn2, st2);
             }
-            //Удаление столбцов не вошедших в eEnum.values()
+            Util.println("Удаление столбцов не вошедших в eEnum.values()");
             for (Field fieldUp : fieldsUp) {
                 HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Object[] deltaCol : hsDeltaCol) {
@@ -206,6 +195,11 @@ public class Script {
         try {
             int count = 0; //колчество записей для расчёта кол. пакетов
             String tname1 = fields[0].meta().fname;
+            if (tname1.equals("EMPTY")) { //новая таблица
+                return;
+            } else if (tname1.equals("CONNLST") && versionPs == 3) { //баг с названием таблицы в PS-3
+                tname1 = "CONNECT";
+            }
             String tname2 = fields[0].tname();
             HashSet hsExistField = new HashSet(); //список полей которые есть в источнике и в eEnum.values()
             boolean bash = true;
@@ -300,7 +294,7 @@ public class Script {
             ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
             while (rsc1.next()) {
                 String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
-                if ("-1".equals(rsc1.getString("DATA_TYPE"))) {
+                if ("-1".equals(rsc1.getString("DATA_TYPE")) || "-4".equals(rsc1.getString("DATA_TYPE"))) {
                     name[2] = "80";
                 }
                 boolean find = false;
@@ -317,6 +311,52 @@ public class Script {
         } catch (SQLException e) {
             System.err.println("DELTA-COLUMN: " + e);
             return null;
+        }
+    }
+
+    private static void updateDb(Connection cn2, Statement st2) {
+        try {
+            ConnApp con = ConnApp.initConnect();
+            con.setConnection(cn2);
+            st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
+            Query.connection = cn2;
+            Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
+            Query q2 = new Query(eTexture.values()).query(eTexture.up.tname());
+            for (Record record : q1) {
+                Record record2 = q2.newRecord(Query.INS);
+                record2.setNo(eTexture.id, -1 * record.getInt(eTextgrp.id));
+                record2.setNo(eTexture.textgrp_id, record.getInt(eTextgrp.id));
+                record2.setNo(eTexture.name, "Все текстуры группы");
+                record2.setNo(eTexture.name2, "Все текстуры группы");
+                record2.setNo(eTexture.coef1, 1);
+                record2.setNo(eTexture.coef2, 1);
+                record2.setNo(eTexture.coef2, 1);
+                record2.setNo(eTexture.suffix1, 1);
+                record2.setNo(eTexture.suffix2, 1);
+                record2.setNo(eTexture.suffix3, 1);
+                q2.insert(record2);
+            }
+            st2.execute(print("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)"));
+            st2.execute(print("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));
+            st2.execute(print("update artdet set texture_id = artdet.clnum where artdet.clnum < 0"));
+
+            Query q3 = new Query(eItemgrp.values()).query(eItemgrp.up.tname());
+            ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from items order by  ATYPM, VPREF");
+            ArrayList<Object[]> fieldList = new ArrayList();
+            while (rs3.next()) {
+                fieldList.add(new Object[]{rs3.getString("VPREF"), rs3.getInt("ATYPM")});
+            }
+            for (Object[] obj : fieldList) {
+                Record record = q3.newRecord(Query.INS);
+                record.setNo(eItemgrp.id, ConnApp.get().generstorId(eItemgrp.up.tname()));
+                record.setNo(eItemgrp.name, obj[0]);
+                record.setNo(eItemgrp.level, obj[1]);
+                q3.insert(record);
+            }
+            st2.execute(print("update items set itemgrp_id = (select id from itemgrp a where a.name = items.vpref and a.level = items.atypm)"));
+
+        } catch (Exception e) {
+            System.out.println("UPDATE-DB:  " + e);
         }
     }
 

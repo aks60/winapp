@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eGlasgrup implements Field {
+public enum eGlasgrp implements Field {
     up("0", "0", "0", "Группы заполнения", "GLASGRP"),
     id("4", "10", "0", "Идентификатор", "id"),
     gname("12", "64", "1", "Название группы", "GNAME"),
@@ -15,7 +15,7 @@ public enum eGlasgrup implements Field {
     pnump("5", "5", "1", "null", "PNUMP");
     private MetaField meta = new MetaField(this);
 
-    eGlasgrup(Object... p) {
+    eGlasgrp(Object... p) {
         meta.init(p);
     }
 

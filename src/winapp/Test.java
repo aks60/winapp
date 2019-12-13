@@ -30,7 +30,7 @@ public class Test {
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
             App1 app = new App1();
             Artikls art = new Artikls();
-            art.treeMat.setSelectionRow(2);
+            art.tree.setSelectionRow(2);
             art.setVisible(true);
             new Rate().setVisible(true);
             new Texture().setVisible(true);

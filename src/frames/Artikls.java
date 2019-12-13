@@ -21,8 +21,8 @@ import javax.swing.tree.DefaultTreeModel;
 import swing.DefTableModel;
 import swing.DefFieldRenderer;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -42,26 +42,27 @@ public class Artikls extends javax.swing.JFrame
 
     private FocusListener listenerFocus = new FocusListener() {
 
-        javax.swing.border.Border border
-                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            rsmActive = (TableModel) table.getModel();
-            btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(border);
+                btnIns.setEnabled(true);
+                btnDel.setEnabled(true);
+            } else if (e.getSource() instanceof JTree) {
+                ((JTree) e.getSource()).setBorder(border);
+                btnIns.setEnabled(true);
+                btnDel.setEnabled(false);
+            }
         }
 
         public void focusLost(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(null);
-            btnIns.setEnabled(false);
-            btnDel.setEnabled(false);
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(null);
+
+            } else if (e.getSource() instanceof JTree) {
+                ((JTree) e.getSource()).setBorder(null);
+            }
         }
     };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
@@ -82,7 +83,7 @@ public class Artikls extends javax.swing.JFrame
         initComponents();
 
         //treeMat.setRootVisible(false);
-        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) treeMat.getCellRenderer();
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
@@ -90,6 +91,7 @@ public class Artikls extends javax.swing.JFrame
         rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
         rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
 
+        tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
         rsmArtikls.addFrameListener(listenerModify);
@@ -113,11 +115,11 @@ public class Artikls extends javax.swing.JFrame
         });
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnColor));
 
-        treeMat.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent tse) {
 
-                DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) treeMat.getLastSelectedPathComponent();
+                DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
                 if (selectedNode != null) {
                     if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
                         qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "order by", eArtikls.level1, ",", eArtikls.code);
@@ -146,7 +148,7 @@ public class Artikls extends javax.swing.JFrame
                     int id = record.getInt(eArtikls.id);
                     qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
                             "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
-                    
+
                     rsvArtikls.write(row);
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                     if (tab2.getRowCount() > 0) {
@@ -195,9 +197,9 @@ public class Artikls extends javax.swing.JFrame
             }
         }
         treeNode1.add(treeNode2);
-        treeMat.setModel(new DefaultTreeModel(treeNode1));
-        src1.setViewportView(treeMat);
-        treeMat.setSelectionRow(0);
+        tree.setModel(new DefaultTreeModel(treeNode1));
+        src1.setViewportView(tree);
+        tree.setSelectionRow(0);
     }
 
     @SuppressWarnings("unchecked")
@@ -218,7 +220,7 @@ public class Artikls extends javax.swing.JFrame
         btnReport = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
         src1 = new javax.swing.JScrollPane();
-        treeMat = new javax.swing.JTree();
+        tree = new javax.swing.JTree();
         panCenter = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -448,7 +450,7 @@ public class Artikls extends javax.swing.JFrame
 
         src1.setBorder(null);
 
-        treeMat.setFont(common.Util.getFont(0,0));
+        tree.setFont(common.Util.getFont(0,0));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Мат. ценности");
         javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Профили");
@@ -458,8 +460,8 @@ public class Artikls extends javax.swing.JFrame
         treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("БлаБла");
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
-        treeMat.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        src1.setViewportView(treeMat);
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        src1.setViewportView(tree);
 
         panWest.add(src1, java.awt.BorderLayout.CENTER);
 
@@ -675,13 +677,13 @@ public class Artikls extends javax.swing.JFrame
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(232, Short.MAX_VALUE))
         );
 
         panCenter.add(pan2, java.awt.BorderLayout.EAST);
 
         pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan3.setPreferredSize(new java.awt.Dimension(600, 62));
+        pan3.setPreferredSize(new java.awt.Dimension(600, 90));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
@@ -826,7 +828,7 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JScrollPane src1;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
-    public javax.swing.JTree treeMat;
+    public javax.swing.JTree tree;
     private javax.swing.JFormattedTextField txtField1;
     private javax.swing.JFormattedTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;

@@ -11,7 +11,7 @@ import domain.eFurnCh1;
 import domain.eFurnCh2;
 import domain.eFurndet;
 import domain.eGlasart;
-import domain.eGlasgrup;
+import domain.eGlasgrp;
 import domain.eGlasprof;
 import domain.eDicArtgr;
 import domain.eTextgrp;
