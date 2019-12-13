@@ -12,7 +12,8 @@ import frames.Artikls;
 import frames.Joining;
 import frames.Rate;
 import frames.Texture;
-import java.awt.event.KeyEvent;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 /**
@@ -1031,6 +1032,22 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
 
         public void response(Object obj) {
         }
+    }
+
+    public static <T> T createApp(eProfile profile) {
+
+        java.awt.Window frame = null;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        if (profile.equals(eProfile.P16)) {
+            eProp.open_dict = false;
+            eProfile.role_user = "user";
+            frame = new App1();
+            frame.setName(eProfile.P16.name());
+        }
+        frame.setLocation(0, 0);
+        frame.setSize(screenSize.width, frame.getHeight());
+        frame.setVisible(true);
+        return (T) frame;
     }
 
     public enum eApp1 {

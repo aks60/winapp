@@ -10,7 +10,7 @@ public class Main {
     public static boolean dev = false;
     //Конструктор
     public Main() {
-        mMainapp.logoToDb();
+        LogoToDb.logoToDb();
         eProp.save();
     }
 

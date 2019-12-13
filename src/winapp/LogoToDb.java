@@ -48,7 +48,7 @@ public class LogoToDb extends javax.swing.JDialog {
         ++countCon;
         if (countCon > 3) {
             dispose();
-            mMainapp.pathToDb(null);
+            PathToDb.pathToDb(null);
         }
 
         new SwingWorker() {
@@ -66,7 +66,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 Query.connection = con.getConnection();
                 if (pass == eExcep.yesConn) {
                     //запуск главного меню
-                    mMainapp.createApp(eProfile.profile);
+                    App1.createApp(eProfile.profile);
                     dispose();
                     //тут мы сохраняем в файл текущего пользователя
                     eProp.save();
@@ -77,7 +77,7 @@ public class LogoToDb extends javax.swing.JDialog {
                 } else {
                     dispose();
                     //установим путь к базе
-                    mMainapp.pathToDb(null);
+                    PathToDb.pathToDb(null);
                 }
                 return null;
             }
@@ -87,7 +87,12 @@ public class LogoToDb extends javax.swing.JDialog {
             }
         }.execute();
     }
-
+    public static void logoToDb() {
+        LogoToDb frame = new LogoToDb(null);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

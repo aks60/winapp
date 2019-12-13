@@ -83,7 +83,7 @@ public class PathToDb extends javax.swing.JDialog {
         Query.connection = con.getConnection();
         if (pass == eExcep.yesConn) {
             //запуск главного меню
-            mMainapp.createApp(eProfile.profile);
+            App1.createApp(eProfile.profile);
             dispose();
             //тут мы сохраняем в файл текущего пользователя
             eProp.save();
@@ -93,7 +93,13 @@ public class PathToDb extends javax.swing.JDialog {
             labMes.setText(mes);
         }
     }
-
+    
+    public static void pathToDb(java.awt.Window owner) {
+        PathToDb  pathToDb = new PathToDb(owner);
+        FrameToFile.setFrameSize(pathToDb);
+        pathToDb.setVisible(true);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
