@@ -49,7 +49,7 @@ public enum eProfile {
             return role_name + " " + uch_name + "  " + String.valueOf(App.getYearSchool()) + "/"
                     + String.valueOf(App.getYearSchool() + 1) + " уч. год";
         }*/
-        return "АРМ Технолог";
+        return "Lotus <АРМ Технолог>";
     }
 
     public int id;

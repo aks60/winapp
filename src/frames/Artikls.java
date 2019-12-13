@@ -1,7 +1,6 @@
 package frames;
 
 import common.FrameListener;
-import common.Util;
 import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
@@ -22,11 +21,13 @@ import javax.swing.tree.DefaultTreeModel;
 import swing.DefTableModel;
 import swing.DefFieldRenderer;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import winapp.mMainapp;
 
 /**
  * <p>
@@ -146,6 +147,7 @@ public class Artikls extends javax.swing.JFrame
                     int id = record.getInt(eArtikls.id);
                     qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
                             "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
+                    
                     rsvArtikls.write(row);
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                     if (tab2.getRowCount() > 0) {
@@ -471,7 +473,7 @@ public class Artikls extends javax.swing.JFrame
 
         scr1.setBorder(null);
 
-        tab1.setFont(Util.getFont(0,0));
+        tab1.setFont(common.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "111"},
@@ -504,26 +506,26 @@ public class Artikls extends javax.swing.JFrame
         pan2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan2.setPreferredSize(new java.awt.Dimension(300, 500));
 
-        jLabel13.setFont(Util.getFont(0,0));
+        jLabel13.setFont(common.Util.getFont(0,0));
         jLabel13.setText("Длина");
         jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel13.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        jLabel14.setFont(Util.getFont(0,0));
+        jLabel14.setFont(common.Util.getFont(0,0));
         jLabel14.setText("Ширина");
         jLabel14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel14.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        txtField5.setFont(Util.getFont(0,0));
+        txtField5.setFont(common.Util.getFont(0,0));
         txtField5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField5.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        jLabel15.setFont(Util.getFont(0,0));
+        jLabel15.setFont(common.Util.getFont(0,0));
         jLabel15.setText("Толщина");
         jLabel15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel15.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        txtField6.setFont(Util.getFont(0,0));
+        txtField6.setFont(common.Util.getFont(0,0));
         txtField6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField6.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -539,7 +541,7 @@ public class Artikls extends javax.swing.JFrame
         txtField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField3.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        jLabel16.setFont(Util.getFont(0,0));
+        jLabel16.setFont(common.Util.getFont(0,0));
         jLabel16.setText("Уд.вес кг/ед");
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel16.setPreferredSize(new java.awt.Dimension(108, 18));
@@ -548,24 +550,24 @@ public class Artikls extends javax.swing.JFrame
         txtField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField4.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        jLabel17.setFont(Util.getFont(0,0));
+        jLabel17.setFont(common.Util.getFont(0,0));
         jLabel17.setText("Ед.измерения");
         jLabel17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel17.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        jLabel18.setFont(Util.getFont(0,0));
+        jLabel18.setFont(common.Util.getFont(0,0));
         jLabel18.setText("Норма отхода");
         jLabel18.setToolTipText("");
         jLabel18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel18.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        jLabel19.setFont(Util.getFont(0,0));
+        jLabel19.setFont(common.Util.getFont(0,0));
         jLabel19.setText("Валюта");
         jLabel19.setToolTipText("");
         jLabel19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel19.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        txtField7.setFont(Util.getFont(0,0));
+        txtField7.setFont(common.Util.getFont(0,0));
         txtField7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField7.setPreferredSize(new java.awt.Dimension(60, 18));
 
@@ -573,13 +575,13 @@ public class Artikls extends javax.swing.JFrame
         txtField8.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField8.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        jLabel20.setFont(Util.getFont(0,0));
+        jLabel20.setFont(common.Util.getFont(0,0));
         jLabel20.setText("От края до оси (В)");
         jLabel20.setToolTipText("");
         jLabel20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel20.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        jLabel21.setFont(Util.getFont(0,0));
+        jLabel21.setFont(common.Util.getFont(0,0));
         jLabel21.setText("Фурн. паз (F)");
         jLabel21.setToolTipText("");
         jLabel21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -685,7 +687,7 @@ public class Artikls extends javax.swing.JFrame
 
         scr2.setBorder(null);
 
-        tab2.setFont(Util.getFont(0,0));
+        tab2.setFont(common.Util.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -775,12 +777,7 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnRefresh
 
     private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
-        //tab1.setRowSelectionInterval(2, 2);
-        Object ooo = eArtikls.up.tname();
-        Object ddf = qArtikls.query(eArtikls.up.tname());
-        Record record0 = qArtikls.query(eArtikls.up.tname()).get(0);
-        Record record1 = qArtikls.query(eArtikls.up.tname()).get(1);
-        Record record2 = qArtikls.query(eArtikls.up.tname()).get(2);
+
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice

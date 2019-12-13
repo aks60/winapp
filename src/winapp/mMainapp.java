@@ -16,7 +16,7 @@ public class mMainapp extends FrameAdapter {
 
     public static Dimension screenSize;
     public static Dimension frameSize;
-    public static java.awt.Window window;
+    public static java.awt.Frame frame;
 
     public static void logoToDb() {
         LogoToDb frame = new LogoToDb(null);
@@ -37,12 +37,12 @@ public class mMainapp extends FrameAdapter {
         if (profile.equals(eProfile.P16)) {
             eProp.open_dict = false;
             eProfile.role_user = "user";
-            window = new App1();
-            window.setName(eProfile.P16.name());
+            frame = new App1();
+            frame.setName(eProfile.P16.name());
         }
-        window.setLocation(0, 0);
-        window.setSize(screenSize.width, window.getHeight());
-        window.setVisible(true);
-        return (T) window;
+        frame.setLocation(0, 0);
+        frame.setSize(screenSize.width, frame.getHeight());
+        frame.setVisible(true);
+        return (T) frame;
     }
 }

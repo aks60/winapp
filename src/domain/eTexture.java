@@ -7,7 +7,7 @@ import dataset.Record;
 public enum eTexture implements Field {
     up("0", "0", "0", "Описание текстур", "COLSLST"),
     id("4", "10", "0", "Идентификатор", "id"),
-    code("4", "10", "1", "код текстуры", "CCODE"),
+    //ccode("4", "10", "1", "код текстуры", "CCODE"),
     name("12", "32", "1", "название текстуры", "CNAME"),
     //cnumb("4", "10", "1", "id", "CNUMB"),
     name2("12", "32", "1", "название у поставщика", "CNAMP"),

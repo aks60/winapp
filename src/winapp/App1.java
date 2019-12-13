@@ -135,12 +135,15 @@ public class App1 extends javax.swing.JFrame {
         mn54 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("АРМ Технолог");
+        setTitle("Lotus   АРМ Технолог");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+            public void windowDeiconified(java.awt.event.WindowEvent evt) {
+                formWindowDeiconified(evt);
             }
             public void windowIconified(java.awt.event.WindowEvent evt) {
                 formWindowIconified(evt);
@@ -755,10 +758,10 @@ public class App1 extends javax.swing.JFrame {
 
         new FrameListener2() {
 
-        public void request(Object obj) {
-            eApp1.Texture.createFrame(App1.this);
-        }
-    };
+            public void request(Object obj) {
+                eApp1.Texture.createFrame(App1.this);
+            }
+        };
 }//GEN-LAST:event_mDictColor
 
     private void mUchUchOne(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mUchUchOne
@@ -774,7 +777,7 @@ public class App1 extends javax.swing.JFrame {
     }//GEN-LAST:event_mDictDicDate
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-        
+
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb
@@ -896,10 +899,10 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     private void mn24(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn24
         new FrameListener2() {
 
-        public void request(Object obj) {
-            eApp1.Rate.createFrame(App1.this);
-        }
-    };
+            public void request(Object obj) {
+                eApp1.Rate.createFrame(App1.this);
+            }
+        };
     }//GEN-LAST:event_mn24
 
     private void btn25mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn25mn39
@@ -925,6 +928,10 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
         eApp1.disposeFrame();
     }//GEN-LAST:event_formWindowIconified
+
+    private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
+        System.out.println("winapp.App1.formWindowDeiconified()");
+    }//GEN-LAST:event_formWindowDeiconified
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -992,7 +999,7 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     private javax.swing.JToolBar td3;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    
+
     public class FrameListener2 implements FrameListener {
 
         public FrameListener2() {
@@ -1051,11 +1058,17 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
                 FrameToFile.setFrameSize(frame);
             }
             frame.setVisible(true);
+
+//            frame.addWindowListener(new java.awt.event.WindowAdapter() {
+//                public void windowDeiconified(java.awt.event.WindowEvent evt) {
+//                    System.out.println("TEST");
+//                }
+//            });
         }
-        
+
         public static void disposeFrame() {
             for (eApp1 e : values()) {
-                if(e.frame != null) {
+                if (e.frame != null) {
                     e.frame.setState(JFrame.ICONIFIED);
                 }
             }

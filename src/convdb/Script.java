@@ -2,6 +2,8 @@ package convdb;
 
 import common.Util;
 import dataset.Field;
+import dataset.Query;
+import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikls;
 import domain.eCompdet;
@@ -127,10 +129,28 @@ public class Script {
                 st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             if (fieldsUp.length > 1) {
-                st2.execute(print("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)"));
-                st2.execute(print("update artdet set textgrp_id = (select id from textgrp a where a.gnumb = artdet.clnum)"));
-                st2.execute(print("update artdet set texture_id = (select id from texture a where a.cnumb = artdet.clcod)"));
+                
                 st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
+                Query.connection = cn2;
+                Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
+                Query q2 = new Query(eTexture.values()).query(eTexture.up.tname());
+                for (Record record : q1) {
+                    Record record2 = q2.newRecord(Query.INS);
+                    record2.setNo(eTexture.id, -1 * record.getInt(eTextgrp.id));
+                    record2.setNo(eTexture.textgrp_id, record.getInt(eTextgrp.id));
+                    record2.setNo(eTexture.name, "Все текстуры группы");
+                    record2.setNo(eTexture.name2, "Все текстуры группы");
+                    record2.setNo(eTexture.coef1, 1);
+                    record2.setNo(eTexture.coef2, 1);
+                    record2.setNo(eTexture.coef2, 1);
+                    record2.setNo(eTexture.suffix1, 1);
+                    record2.setNo(eTexture.suffix2, 1);
+                    record2.setNo(eTexture.suffix3, 1);
+                    q2.insert(record2);
+                }  
+                st2.execute(print("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)"));                
+                st2.execute(print("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));                
+                st2.execute(print("update artdet set texture_id = artdet.clnum where artdet.clnum < 0"));                
             }
             //Удаление столбцов не вошедших в eEnum.values()
             for (Field fieldUp : fieldsUp) {
