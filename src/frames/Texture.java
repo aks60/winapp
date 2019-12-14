@@ -64,12 +64,12 @@ public class Texture extends javax.swing.JFrame
     public Texture() {
         initComponents();
 
-        DefTableModel rsmGrupcol = new DefTableModel(tab1, qGrupcol, eTextgrp.name);
-        DefTableModel rsmColslst = new DefTableModel(tab2, qColslst, eTexture.name, eTexture.suffix1, eTexture.suffix2, eTexture.suffix3);
+        DefTableModel tmGrupcol = new DefTableModel(tab1, qGrupcol, eTextgrp.name);
+        DefTableModel tmColslst = new DefTableModel(tab2, qColslst, eTexture.name, eTexture.suffix1, eTexture.suffix2, eTexture.suffix3);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-        rsmGrupcol.addFrameListener(listenerModify);
-        rsmColslst.addFrameListener(listenerModify);
+        tmGrupcol.addFrameListener(listenerModify);
+        tmColslst.addFrameListener(listenerModify);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 qColslst.execsql();
@@ -94,7 +94,7 @@ public class Texture extends javax.swing.JFrame
         }
     }
 
-    public void request(DefTableModel rsm) {
+    public void request(DefTableModel tm) {
     }
 
     public void response(Object obj) {

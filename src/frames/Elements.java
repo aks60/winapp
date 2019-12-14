@@ -4,6 +4,8 @@ import common.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
+import domain.eDicParam;
+import domain.eElemdet;
 import domain.eElements;
 import domain.eElemgrp;
 import java.awt.event.FocusEvent;
@@ -14,9 +16,13 @@ import swing.DefTableModel;
 public class Elements extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-    private Query qElements = new Query(eElements.values(), eArtikls.values()).select(eElements.up, "left join", eArtikls.up,
-            "on", eElements.artikl_id, "=", eArtikls.id, "order by", eElements.name);
-    DefTableModel rsmItems, rsmItemP1;
+    private Query qElements = new Query(eElements.values(), eArtikls.values()).select(eElements.up,
+            "left join", eArtikls.up, "on", eElements.artikl_id, "=", eArtikls.id, "order by", eElements.name);
+    private Query qElemdet = new Query(eElemdet.values(), eArtikls.values(), eDicParam.values()).select(eElemdet.up, 
+            "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id,  "left join", eDicParam.up, 
+            "on", eElemdet.param_id, "=", eDicParam.id2);
+            
+    private DefTableModel tmElements, tmElemdet;
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -51,9 +57,9 @@ public class Elements extends javax.swing.JFrame {
             dlm.addElement(record.getStr(eElemgrp.name));
         }
         list1.setModel(dlm);
-        rsmItems = new DefTableModel(tab2, qElements, eArtikls.code, eArtikls.name,  
+        tmElements = new DefTableModel(tab2, qElements, eArtikls.code, eArtikls.name,  
                 eElements.name, eElements.vtype, eArtikls.series, eElements.binding, eElements.binding, eElements.markup);
-
+        //tmElemdet = new DefTableModel(tab3, qElemdet, eElemdet.id);
     }
 
     @SuppressWarnings("unchecked")
@@ -84,7 +90,7 @@ public class Elements extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(900, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -366,7 +372,7 @@ public class Elements extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+      
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

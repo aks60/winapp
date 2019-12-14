@@ -507,9 +507,6 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//FrameAdapter.initTable(this, tab1, rsmArtikls, listenerFocus, listenerModify);"/>
-                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

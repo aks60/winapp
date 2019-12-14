@@ -357,6 +357,8 @@ public class Script {
             st2.execute(print("update elements set artikl_id = (select id from artikls a where a.code = elements.anumb)"));
             st2.execute(print("update elemdet set artikl_id = (select id from artikls a where a.code = elemdet.anumb)"));
             st2.execute(print("update elemdet set element_id = (select id from elements a where a.vnumb = elemdet.vnumb)"));
+            st2.execute(print("update elemdet set param_id = clnum where clnum < 0"));
+            st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);

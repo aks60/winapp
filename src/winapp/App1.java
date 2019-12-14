@@ -635,7 +635,7 @@ public class App1 extends javax.swing.JFrame {
         mn37.setText("Конструкции");
         mn37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn37mnExcelToDatabase(evt);
+                mBuilder(evt);
             }
         });
         mn03.add(mn37);
@@ -785,7 +785,7 @@ public class App1 extends javax.swing.JFrame {
     }//GEN-LAST:event_mDictDicDate
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-
+    eApp1.Elements.frame.setExtendedState(JFrame.NORMAL);
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb
@@ -893,10 +893,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         // TODO add your handling code here:
     }//GEN-LAST:event_mn15mExit
 
-    private void mn37mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn37mnExcelToDatabase
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mn37mnExcelToDatabase
-
     private void mHowTo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHowTo
 
     }//GEN-LAST:event_mHowTo
@@ -924,7 +920,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             public void request(Object obj) {
                 eApp1.Elements.createFrame(App1.this);
             }
-        };        
+        };
     }//GEN-LAST:event_btn25mn39
 
     private void btn26mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn26mn39
@@ -1051,25 +1047,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         }
     }
 
-    public static <T> T createApp(eProfile profile) {
-
-        java.awt.Window frame = null;
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        if (profile.equals(eProfile.P16)) {
-            eProp.open_dict = false;
-            eProfile.role_user = "user";
-            frame = new App1();
-            frame.setName(eProfile.P16.name());
-        }
-        frame.setLocation(0, 0);
-        frame.setSize(screenSize.width, frame.getHeight());
-        frame.setVisible(true);
-        return (T) frame;
-    }
-
     public enum eApp1 {
 
-        Rate, Texture, Artikls, Joining, Builder, Elements;
+        App1, Rate, Texture, Artikls, Joining, Builder, Elements;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1096,14 +1076,27 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 }
                 frame.setName(this.name());
                 FrameToFile.setFrameSize(frame);
+                frame.addWindowListener(new java.awt.event.WindowAdapter() {
+                    public void windowDeiconified(java.awt.event.WindowEvent evt) {
+                        App1.frame.setExtendedState(JFrame.NORMAL);
+                    }
+                });
             }
             frame.setVisible(true);
+        }
 
-//            frame.addWindowListener(new java.awt.event.WindowAdapter() {
-//                public void windowDeiconified(java.awt.event.WindowEvent evt) {
-//                    System.out.println("TEST");
-//                }
-//            });
+        public static void createApp(eProfile profile) {
+
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            if (profile.equals(eProfile.P16)) {
+                eProp.open_dict = false;
+                eProfile.role_user = "user";
+                App1.frame = new App1();
+                App1.frame.setName(eProfile.P16.name());
+            }
+            App1.frame.setLocation(0, 0);
+            App1.frame.setSize(screenSize.width, App1.frame.getHeight());
+            App1.frame.setVisible(true);
         }
 
         public static void disposeFrame() {

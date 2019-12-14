@@ -37,7 +37,7 @@ public class Artikls extends javax.swing.JFrame
 
     private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
     private Query qArtdet = new Query(eArtdet.id, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
-    DefTableModel rsmArtikls, rsmArtsvst;
+    DefTableModel tmArtikls, tmArtsvst;
     DefFieldRenderer rsvArtikls;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -88,16 +88,16 @@ public class Artikls extends javax.swing.JFrame
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
-        rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
-        rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+        tmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
+        tmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
 
         tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-        rsmArtikls.addFrameListener(listenerModify);
-        rsmArtsvst.addFrameListener(listenerModify);
+        tmArtikls.addFrameListener(listenerModify);
+        tmArtsvst.addFrameListener(listenerModify);
 
-        rsvArtikls = new DefFieldRenderer(rsmArtikls);
+        rsvArtikls = new DefFieldRenderer(tmArtikls);
         rsvArtikls.add(eArtikls.len_unit, txtField1);
         rsvArtikls.add(eArtikls.height, txtField2);
         rsvArtikls.add(eArtikls.thick, txtField3);
@@ -161,7 +161,7 @@ public class Artikls extends javax.swing.JFrame
         load1();
     }
 
-    public void request(DefTableModel rsm) {
+    public void request(DefTableModel tm) {
     }
 
     public void response(Object obj) {
@@ -494,7 +494,6 @@ public class Artikls extends javax.swing.JFrame
         });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        //FrameAdapter.initTable(this, tab1, rsmArtikls, listenerFocus, listenerModify);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
