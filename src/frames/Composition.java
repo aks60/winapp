@@ -3,15 +3,17 @@ package frames;
 import dataset.Query;
 import dataset.Record;
 import domain.eItemgrp;
+import domain.eItems;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.Arrays;
 import javax.swing.DefaultListModel;
+import swing.DefTableModel;
 
 public class Composition extends javax.swing.JFrame {
 
-    private Query qItemGrp = new Query(eItemgrp.values()).select(eItemgrp.up, "order by", eItemgrp.level, ",", eItemgrp.name);
-
+    private Query qItemgrp = new Query(eItemgrp.values()).select(eItemgrp.up, "order by", eItemgrp.level, ",", eItemgrp.name);
+    private Query qItems = new Query(eItems.values()).select(eItems.up, "order by", eItems.name);
+    DefTableModel rsmItems, rsmItemP1;
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -42,10 +44,12 @@ public class Composition extends javax.swing.JFrame {
         initComponents();
 
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        for (Record record : qItemGrp.query(eItemgrp.up.tname())) {
+        for (Record record : qItemgrp.query(eItemgrp.up.tname())) {
             dlm.addElement(record.getStr(eItemgrp.name));
         }
         list1.setModel(dlm);
+        rsmItems = new DefTableModel(tab2, qItems, eItems.articl, eItems.name, eItems.vtype, eItems.vlets, eItems.vsets);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -75,6 +79,7 @@ public class Composition extends javax.swing.JFrame {
         list1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Составы");
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -322,11 +327,14 @@ public class Composition extends javax.swing.JFrame {
 
         scr1.setBorder(null);
 
+        list1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         list1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        list1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list1.setFocusCycleRoot(true);
         scr1.setViewportView(list1);
 
         panWest.add(scr1, java.awt.BorderLayout.CENTER);
