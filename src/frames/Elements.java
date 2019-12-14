@@ -9,7 +9,7 @@ import java.awt.event.FocusListener;
 import javax.swing.DefaultListModel;
 import swing.DefTableModel;
 
-public class Composition extends javax.swing.JFrame {
+public class Elements extends javax.swing.JFrame {
 
     private Query qItemgrp = new Query(eItemgrp.values()).select(eItemgrp.up, "order by", eItemgrp.level, ",", eItemgrp.name);
     private Query qItems = new Query(eItems.values()).select(eItems.up, "order by", eItems.name);
@@ -40,7 +40,7 @@ public class Composition extends javax.swing.JFrame {
         }
     };
 
-    public Composition() {
+    public Elements() {
         initComponents();
 
         DefaultListModel<String> dlm = new DefaultListModel<>();

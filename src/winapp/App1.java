@@ -10,7 +10,7 @@ import java.util.Locale;
 import javax.swing.SwingWorker;
 import frames.Artikls;
 import frames.Builder;
-import frames.Composition;
+import frames.Elements;
 import frames.Joining;
 import frames.Rate;
 import frames.Texture;
@@ -876,7 +876,7 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Composition.createFrame(App1.this);
+                eApp1.Elements.createFrame(App1.this);
             }
         };
     }//GEN-LAST:event_mn34mnExcelToDatabase
@@ -922,7 +922,7 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Composition.createFrame(App1.this);
+                eApp1.Elements.createFrame(App1.this);
             }
         };        
     }//GEN-LAST:event_btn25mn39
@@ -1069,7 +1069,7 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
 
     public enum eApp1 {
 
-        Rate, Texture, Artikls, Joining, Builder, Composition;
+        Rate, Texture, Artikls, Joining, Builder, Elements;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1090,8 +1090,8 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
                     case Builder:
                         frame = new Builder();
                         break;
-                    case Composition:
-                        frame = new Composition();
+                    case Elements:
+                        frame = new Elements();
                         break;
                 }
                 frame.setName(this.name());
