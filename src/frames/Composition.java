@@ -48,8 +48,8 @@ public class Composition extends javax.swing.JFrame {
             dlm.addElement(record.getStr(eItemgrp.name));
         }
         list1.setModel(dlm);
-        rsmItems = new DefTableModel(tab2, qItems, eItems.articl, eItems.name, eItems.vtype, eItems.vlets, eItems.vsets);
-        
+        //rsmItems = new DefTableModel(tab2, qItems, eItems.articl, eItems.name,  eItems.vtype, eItems.vlets, eItems.vsets, eItems.vsets, eItems.markup);
+
     }
 
     @SuppressWarnings("unchecked")
