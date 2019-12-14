@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eItemdet implements Field {
+public enum eElemdet implements Field {
     up("0", "0", "0", "Спецификация составов", "VSTASPC"),
     id("4", "10", "0", "Идентификатор", "id"),
     aunic("4", "10", "1", "ИД компонента", "AUNIC"),
@@ -14,7 +14,7 @@ public enum eItemdet implements Field {
     ctype("5", "5", "1", "Тип подбора 0 - указана вручную 11 - профиль 31 - основная", "CTYPE");
     private MetaField meta = new MetaField(this);
 
-    eItemdet(Object... p) {
+    eElemdet(Object... p) {
         meta.init(p);
     }
 

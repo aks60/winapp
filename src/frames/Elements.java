@@ -1,9 +1,11 @@
 package frames;
 
+import common.Util;
 import dataset.Query;
 import dataset.Record;
-import domain.eItemgrp;
-import domain.eItems;
+import domain.eArtikls;
+import domain.eElements;
+import domain.eElemgrp;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.DefaultListModel;
@@ -11,8 +13,9 @@ import swing.DefTableModel;
 
 public class Elements extends javax.swing.JFrame {
 
-    private Query qItemgrp = new Query(eItemgrp.values()).select(eItemgrp.up, "order by", eItemgrp.level, ",", eItemgrp.name);
-    private Query qItems = new Query(eItems.values()).select(eItems.up, "order by", eItems.name);
+    private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
+    private Query qElements = new Query(eElements.values(), eArtikls.values()).select(eElements.up, "left join", eArtikls.up,
+            "on", eElements.artikl_id, "=", eArtikls.id, "order by", eElements.name);
     DefTableModel rsmItems, rsmItemP1;
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -44,11 +47,12 @@ public class Elements extends javax.swing.JFrame {
         initComponents();
 
         DefaultListModel<String> dlm = new DefaultListModel<>();
-        for (Record record : qItemgrp.query(eItemgrp.up.tname())) {
-            dlm.addElement(record.getStr(eItemgrp.name));
+        for (Record record : qElemgrp.query(eElemgrp.up.tname())) {
+            dlm.addElement(record.getStr(eElemgrp.name));
         }
         list1.setModel(dlm);
-        //rsmItems = new DefTableModel(tab2, qItems, eItems.articl, eItems.name,  eItems.vtype, eItems.vlets, eItems.vsets, eItems.vsets, eItems.markup);
+        rsmItems = new DefTableModel(tab2, qElements, eArtikls.code, eArtikls.name,  
+                eElements.name, eElements.vtype, eArtikls.series, eElements.binding, eElements.binding, eElements.markup);
 
     }
 
@@ -220,15 +224,15 @@ public class Elements extends javax.swing.JFrame {
         tab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"aaaa", "xxxxxxxxxxxxx", "vvvvvvvvvvvvvvv", "ddd", "www", "1", "1",  new Double(0.0)},
-                {"aaaa", "zzzzzzzzzzzzzzz", "hhhhhhhhhhhhhh", "fff", "www", "1", "1",  new Double(0.0)}
+                {"aaaa", "xxxxxxxxxxxxx", "vvvvvvvvvvvvvvv", "ddd", null, null, null,  new Double(0.0)},
+                {"aaaa", "zzzzzzzzzzzzzzz", "hhhhhhhhhhhhhh", "fff", null, null, null,  new Double(0.0)}
             },
             new String [] {
-                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка"
+                "Артикул", "Название артикула", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -236,7 +240,18 @@ public class Elements extends javax.swing.JFrame {
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(4).setMaxWidth(160);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(50);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(50);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(50);
+        }
 
         panNorth2.add(scr2, java.awt.BorderLayout.CENTER);
 
@@ -284,6 +299,7 @@ public class Elements extends javax.swing.JFrame {
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setPreferredSize(new java.awt.Dimension(800, 64));
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr3.setViewportView(tab3);
 
         panCentr2.add(scr3, java.awt.BorderLayout.CENTER);
@@ -328,6 +344,7 @@ public class Elements extends javax.swing.JFrame {
         scr1.setBorder(null);
 
         list1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        list1.setFont(Util.getFont(0, 0));
         list1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }

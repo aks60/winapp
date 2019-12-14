@@ -4,13 +4,13 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eItems implements Field {
+public enum eElements implements Field {
     up("0", "0", "0", "Составы", "VSTALST"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "наименование состав", "VNAME"),
     vtype("12", "16", "1", "тип состава (1 - внутренний, 5 - состав_С/П)", "VTYPE"),
     markup("8", "15", "1", "наценка %", "VPERC"),
-    vsets("5", "5", "1", "установка обязательности: 0  - умолчание нет, обязательно нет 1 - умолчание да, обязательно да 2 - умолчание да, обязательно нет", "VSETS"),
+    binding("5", "5", "1", "установка обязательности: 0  - умолчание нет, обязательно нет 1 - умолчание да, обязательно да 2 - умолчание да, обязательно нет", "VSETS"),
     //anumb("12", "32", "1", "артикул", "ANUMB"),    
     //atypm("5", "5", "1", "тип артикула  1 - профили  5 - заполнение", "ATYPM"),    
     //vnumb("4", "10", "0", "ID", "VNUMB"),
@@ -23,12 +23,12 @@ public enum eItems implements Field {
     //vdiff("8", "15", "1", "null", "VDIFF"),
     //pnump("5", "5", "1", "null", "PNUMP"),
     //vcomp("5", "5", "1", "null", "VCOMP");
-    itemgrp_id("4", "10", "0", "Фнешний ключ", "itemgrp_id"),
+    elemgrp_id("4", "10", "0", "Фнешний ключ", "elemgrp_id"),
     artikl_id("4", "10", "0", "Фнешний ключ", "artikl_id");
 
     private MetaField meta = new MetaField(this);
 
-    eItems(Object... p) {
+    eElements(Object... p) {
         meta.init(p);
     }
 

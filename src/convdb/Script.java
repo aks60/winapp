@@ -22,8 +22,6 @@ import domain.eFurndet;
 import domain.eGlasart;
 import domain.eGlasgrp;
 import domain.eGlasprof;
-import domain.eItems;
-import domain.eItemdet;
 import domain.eJoinP1;
 import domain.eJoinP2;
 import domain.eJoinP3;
@@ -34,9 +32,11 @@ import domain.eTextP1;
 import domain.eGlasP2;
 import domain.eGlasP1;
 import domain.eDicParam;
-import domain.eItemP1;
-import domain.eItemP2;
-import domain.eItemgrp;
+import domain.eElemdet;
+import domain.eElementP1;
+import domain.eElementP2;
+import domain.eElements;
+import domain.eElemgrp;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSysP1;
@@ -69,7 +69,7 @@ public class Script {
             eGlasP1.up, eGlasP2.up, eGlasart.up, eGlasgrp.up, eGlasprof.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinP1.up, eJoinP2.up, eJoinP3.up,
             eFurnCh1.up, eFurnCh2.up, eFurndet.up, eFurnP1.up,
-            eItems.up, eItemgrp.up, eItemdet.up, eItemP1.up, eItemP2.up,
+            eElements.up, eElemgrp.up, eElemdet.up, eElementP1.up, eElementP2.up,
             eSysP1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgr.up, eTextgrp.up, eDicParam.up
         };
@@ -340,20 +340,21 @@ public class Script {
             st2.execute(print("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));
             st2.execute(print("update artdet set texture_id = artdet.clnum where artdet.clnum < 0"));
 
-            Query q3 = new Query(eItemgrp.values()).query(eItemgrp.up.tname());
-            ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from items order by  ATYPM, VPREF");
+            Query q3 = new Query(eElemgrp.values()).query(eElemgrp.up.tname());
+            ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from elements order by  ATYPM, VPREF");
             ArrayList<Object[]> fieldList = new ArrayList();
             while (rs3.next()) {
                 fieldList.add(new Object[]{rs3.getString("VPREF"), rs3.getInt("ATYPM")});
             }
             for (Object[] obj : fieldList) {
                 Record record = q3.newRecord(Query.INS);
-                record.setNo(eItemgrp.id, ConnApp.get().generstorId(eItemgrp.up.tname()));
-                record.setNo(eItemgrp.name, obj[0]);
-                record.setNo(eItemgrp.level, obj[1]);
+                record.setNo(eElemgrp.id, ConnApp.get().generstorId(eElemgrp.up.tname()));
+                record.setNo(eElemgrp.name, obj[0]);
+                record.setNo(eElemgrp.level, obj[1]);
                 q3.insert(record);
             }
-            st2.execute(print("update items set itemgrp_id = (select id from itemgrp a where a.name = items.vpref and a.level = items.atypm)"));
+            st2.execute(print("update elements set elemgrp_id = (select id from elemgrp a where a.name = elements.vpref and a.level = elements.atypm)"));
+            st2.execute(print("update elements set artikl_id = (select id from artikls a where a.code = elements.anumb)"));
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);

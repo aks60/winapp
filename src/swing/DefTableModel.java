@@ -33,10 +33,12 @@ public class DefTableModel extends DefaultTableModel {
             editable[index] = model.isCellEditable(0, index);
         }
         ArrayList<Boolean> resizableList = new ArrayList();
-        ArrayList<Integer> preferredWidthList = new ArrayList();
+        ArrayList<Integer> prefWidthList = new ArrayList();
+        ArrayList<Integer> maxWidthList = new ArrayList();
         for (int index = 0; index < table.getColumnModel().getColumnCount(); index++) {
             resizableList.add(table.getColumnModel().getColumn(index).getResizable());
-            preferredWidthList.add(table.getColumnModel().getColumn(index).getPreferredWidth());
+            prefWidthList.add(table.getColumnModel().getColumn(index).getPreferredWidth());
+            maxWidthList.add(table.getColumnModel().getColumn(index).getMaxWidth());
         }
         table.setModel(this);
         table.setRowSorter(sorter);
@@ -44,7 +46,8 @@ public class DefTableModel extends DefaultTableModel {
         header.setFont(Util.getFont(0, 0));
         for (int index = 0; index < resizableList.size(); index++) {
             table.getColumnModel().getColumn(index).setResizable(resizableList.get(index));
-            table.getColumnModel().getColumn(index).setPreferredWidth(preferredWidthList.get(index));
+            table.getColumnModel().getColumn(index).setPreferredWidth(prefWidthList.get(index));
+            table.getColumnModel().getColumn(index).setMaxWidth(maxWidthList.get(index));
         }
     }
 
