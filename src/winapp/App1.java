@@ -115,17 +115,17 @@ public class App1 extends javax.swing.JFrame {
         mn02 = new javax.swing.JMenu();
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
+        mn23 = new javax.swing.JMenuItem();
         mn22 = new javax.swing.JPopupMenu.Separator();
+        mn25 = new javax.swing.JMenuItem();
         mn03 = new javax.swing.JMenu();
-        mn39 = new javax.swing.JMenuItem();
-        mn33 = new javax.swing.JMenuItem();
         mn31 = new javax.swing.JMenuItem();
         mn32 = new javax.swing.JMenuItem();
         mn34 = new javax.swing.JMenuItem();
         mn35 = new javax.swing.JMenuItem();
         mn36 = new javax.swing.JMenuItem();
-        mn37 = new javax.swing.JMenuItem();
         mn38 = new javax.swing.JPopupMenu.Separator();
+        mn37 = new javax.swing.JMenuItem();
         mn04 = new javax.swing.JMenu();
         mn41 = new javax.swing.JMenuItem();
         mn43 = new javax.swing.JMenuItem();
@@ -228,7 +228,7 @@ public class App1 extends javax.swing.JFrame {
         btn21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn39(evt);
+                mn25(evt);
             }
         });
         tb2.add(btn21);
@@ -552,32 +552,32 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         mn02.add(mn24);
+
+        mn23.setFont(common.Util.getFont(1,1));
+        mn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn23.setText("Параметры");
+        mn23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn23mnExcelToDatabase(evt);
+            }
+        });
+        mn02.add(mn23);
         mn02.add(mn22);
+
+        mn25.setFont(common.Util.getFont(1,1));
+        mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn25.setText("Мат.ценности");
+        mn25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn25(evt);
+            }
+        });
+        mn02.add(mn25);
 
         mn0.add(mn02);
 
         mn03.setText("Конструктив");
         mn03.setFont(common.Util.getFont(1,1));
-
-        mn39.setFont(common.Util.getFont(1,1));
-        mn39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn39.setText("Мат. ценности");
-        mn39.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn39(evt);
-            }
-        });
-        mn03.add(mn39);
-
-        mn33.setFont(common.Util.getFont(1,1));
-        mn33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn33.setText("Параметры");
-        mn33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn33mnExcelToDatabase(evt);
-            }
-        });
-        mn03.add(mn33);
 
         mn31.setFont(common.Util.getFont(1,1));
         mn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
@@ -628,6 +628,7 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         mn03.add(mn36);
+        mn03.add(mn38);
 
         mn37.setFont(common.Util.getFont(1,1));
         mn37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
@@ -638,7 +639,6 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         mn03.add(mn37);
-        mn03.add(mn38);
 
         mn0.add(mn03);
 
@@ -843,7 +843,7 @@ private void mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:eve
 
 }//GEN-LAST:event_mn41mAdminUserToDb
 
-private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
+private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     new FrameListener2() {
 
@@ -851,7 +851,7 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
             eApp1.Artikls.createFrame(App1.this);
         }
     };
-}//GEN-LAST:event_mn39
+}//GEN-LAST:event_mn25
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         if (locale != null) {
@@ -868,9 +868,9 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
 
     }//GEN-LAST:event_mn0122ActionPerformed
 
-    private void mn33mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn33mnExcelToDatabase
+    private void mn23mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn23mnExcelToDatabase
         // TODO add your handling code here:
-    }//GEN-LAST:event_mn33mnExcelToDatabase
+    }//GEN-LAST:event_mn23mnExcelToDatabase
 
     private void mn34mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn34mnExcelToDatabase
         new FrameListener2() {
@@ -993,16 +993,16 @@ private void mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn39
     private javax.swing.JMenuItem mn15;
     private javax.swing.JMenuItem mn21;
     private javax.swing.JPopupMenu.Separator mn22;
+    private javax.swing.JMenuItem mn23;
     private javax.swing.JMenuItem mn24;
+    private javax.swing.JMenuItem mn25;
     private javax.swing.JMenuItem mn31;
     private javax.swing.JMenuItem mn32;
-    private javax.swing.JMenuItem mn33;
     private javax.swing.JMenuItem mn34;
     private javax.swing.JMenuItem mn35;
     private javax.swing.JMenuItem mn36;
     private javax.swing.JMenuItem mn37;
     private javax.swing.JPopupMenu.Separator mn38;
-    private javax.swing.JMenuItem mn39;
     private javax.swing.JMenuItem mn41;
     private javax.swing.JMenuItem mn42;
     private javax.swing.JMenuItem mn43;
