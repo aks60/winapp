@@ -7,9 +7,7 @@ import dataset.Record;
 public enum eTexture implements Field {
     up("0", "0", "0", "Описание текстур", "COLSLST"),
     id("4", "10", "0", "Идентификатор", "id"),
-    //ccode("4", "10", "1", "код текстуры", "CCODE"),
     name("12", "32", "1", "название текстуры", "CNAME"),
-    //cnumb("4", "10", "1", "id", "CNUMB"),
     name2("12", "32", "1", "название у поставщика", "CNAMP"),
     color("4", "10", "1", "цвет отображения", "CVIEW"),
     coef1("8", "15", "1", "ценовой коэффицент основной", "CKOEF"),
@@ -20,8 +18,10 @@ public enum eTexture implements Field {
     suffix3("12", "8", "1", "суффикс внешний текстуры", "COUTS"),    
     orient("5", "5", "1", "ориентация", "CORIE"),
     pain("5", "5", "1", "покраска", "CTYPE"),
-    //cgrup("5", "5", "1", "группа", "CGRUP");
     textgrp_id("5", "5", "1", "группа", "textgrp_id");
+    //ccode("4", "10", "1", "код текстуры", "CCODE"),
+    //cnumb("4", "10", "1", "id", "CNUMB"),
+    //cgrup("5", "5", "1", "группа", "CGRUP");    
     //cpict("-4", "80", "1", "null", "CPICT"),
     //xdepa("5", "5", "1", "null", "XDEPA"),
     //nouse("5", "5", "1", "null", "NOUSE"),
