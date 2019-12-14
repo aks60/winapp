@@ -1,12 +1,17 @@
-
 package frames;
 
+import dataset.Query;
+import dataset.Record;
+import domain.eItemgrp;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Arrays;
+import javax.swing.DefaultListModel;
 
 public class Composition extends javax.swing.JFrame {
 
-    
+    private Query qItemGrp = new Query(eItemgrp.values()).select(eItemgrp.up, "order by", eItemgrp.level, ",", eItemgrp.name);
+
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -31,12 +36,17 @@ public class Composition extends javax.swing.JFrame {
 //                ((JTree) e.getSource()).setBorder(null);
 //            }
         }
-    }; 
-    
+    };
+
     public Composition() {
         initComponents();
-    }
 
+        DefaultListModel<String> dlm = new DefaultListModel<>();
+        for (Record record : qItemGrp.query(eItemgrp.up.tname())) {
+            dlm.addElement(record.getStr(eItemgrp.name));
+        }
+        list1.setModel(dlm);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,18 +61,18 @@ public class Composition extends javax.swing.JFrame {
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
         panNorth2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
         panCentr2 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
+        scr6 = new javax.swing.JScrollPane();
+        tab6 = new javax.swing.JTable();
+        panWest = new javax.swing.JPanel();
+        scr1 = new javax.swing.JScrollPane();
+        list1 = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -196,106 +206,132 @@ public class Composition extends javax.swing.JFrame {
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panCentr.setPreferredSize(new java.awt.Dimension(858, 728));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         panNorth2.setPreferredSize(new java.awt.Dimension(847, 320));
         panNorth2.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"aaaa", "xxxxxxxxxxxxx", "vvvvvvvvvvvvvvv", "ddd", "www", "1", "1",  new Double(0.0)},
+                {"aaaa", "zzzzzzzzzzzzzzz", "hhhhhhhhhhhhhh", "fff", "www", "1", "1",  new Double(0.0)}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка"
             }
-        ));
-        jTable1.setFillsViewportHeight(true);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+            };
 
-        panNorth2.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab2.setFillsViewportHeight(true);
+        scr2.setViewportView(tab2);
 
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(200, 404));
+        panNorth2.add(scr2, java.awt.BorderLayout.CENTER);
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        scr4.setPreferredSize(new java.awt.Dimension(260, 404));
+
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"ххххххххххххххххххх", "111"},
+                {"vvvvvvvvvvvvvvvvvvv", "222"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Параметр", "Значение"
             }
-        ));
-        jTable4.setFillsViewportHeight(true);
-        jScrollPane4.setViewportView(jTable4);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class
+            };
 
-        panNorth2.add(jScrollPane4, java.awt.BorderLayout.EAST);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab4.setFillsViewportHeight(true);
+        scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(40);
+        }
+
+        panNorth2.add(scr4, java.awt.BorderLayout.EAST);
 
         panCentr.add(panNorth2, java.awt.BorderLayout.NORTH);
 
         panCentr2.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(854, 84));
+        scr3.setPreferredSize(new java.awt.Dimension(854, 84));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"aaaa", "xxxxxxxxxxxxxxx", "rrrrrrr", "yyyyyy"},
+                {"aaaa", "ccccccccccccccccc", "bbbbb", "sssssss"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Артикул", "Название", "Текстура", "Подбор"
             }
         ));
-        jTable3.setFillsViewportHeight(true);
-        jTable3.setPreferredSize(new java.awt.Dimension(800, 64));
-        jScrollPane3.setViewportView(jTable3);
+        tab3.setFillsViewportHeight(true);
+        tab3.setPreferredSize(new java.awt.Dimension(800, 64));
+        scr3.setViewportView(tab3);
 
-        panCentr2.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+        panCentr2.add(scr3, java.awt.BorderLayout.CENTER);
 
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(200, 404));
+        scr6.setPreferredSize(new java.awt.Dimension(260, 404));
 
-        jTable2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tab6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"xxxxxxxxxxxxxxxxx", "111"},
+                {"zzzzzzzzzzzzzzzzzzzz", "222"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Параметр", "Значение"
             }
-        ));
-        jTable2.setFillsViewportHeight(true);
-        jTable2.setMinimumSize(new java.awt.Dimension(6, 64));
-        jTable2.setPreferredSize(new java.awt.Dimension(0, 64));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class
+            };
 
-        panCentr2.add(jScrollPane2, java.awt.BorderLayout.EAST);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab6.setFillsViewportHeight(true);
+        tab6.setMinimumSize(new java.awt.Dimension(6, 64));
+        tab6.setPreferredSize(new java.awt.Dimension(0, 64));
+        scr6.setViewportView(tab6);
+        if (tab6.getColumnModel().getColumnCount() > 0) {
+            tab6.getColumnModel().getColumn(1).setPreferredWidth(40);
+        }
+
+        panCentr2.add(scr6, java.awt.BorderLayout.EAST);
 
         panCentr.add(panCentr2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        panWest.setPreferredSize(new java.awt.Dimension(120, 132));
+        panWest.setLayout(new java.awt.BorderLayout());
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        scr1.setBorder(null);
+
+        list1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane6.setViewportView(jList1);
+        scr1.setViewportView(list1);
 
-        jPanel1.add(jScrollPane6, java.awt.BorderLayout.CENTER);
+        panWest.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.WEST);
+        getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -326,22 +362,22 @@ public class Composition extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
+    private javax.swing.JList<String> list1;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panCentr2;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panNorth2;
     private javax.swing.JPanel panSouth;
+    private javax.swing.JPanel panWest;
+    private javax.swing.JScrollPane scr1;
+    private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
+    private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr6;
+    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
+    private javax.swing.JTable tab4;
+    private javax.swing.JTable tab6;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 }
