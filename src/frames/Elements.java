@@ -8,6 +8,7 @@ import domain.eDicParam;
 import domain.eElemdet;
 import domain.eElements;
 import domain.eElemgrp;
+import domain.eTexture;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.DefaultListModel;
@@ -18,10 +19,10 @@ public class Elements extends javax.swing.JFrame {
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
     private Query qElements = new Query(eElements.values(), eArtikls.values()).select(eElements.up,
             "left join", eArtikls.up, "on", eElements.artikl_id, "=", eArtikls.id, "order by", eElements.name);
-    private Query qElemdet = new Query(eElemdet.values(), eArtikls.values(), eDicParam.values()).select(eElemdet.up, 
-            "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id,  "left join", eDicParam.up, 
+    private Query qElemdet = new Query(eElemdet.values(), eArtikls.values(), eDicParam.values()).select(eElemdet.up,
+            "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id, "left join", eDicParam.up,
             "on", eElemdet.param_id, "=", eDicParam.id2);
-            
+
     private DefTableModel tmElements, tmElemdet;
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -57,9 +58,10 @@ public class Elements extends javax.swing.JFrame {
             dlm.addElement(record.getStr(eElemgrp.name));
         }
         list1.setModel(dlm);
-        tmElements = new DefTableModel(tab2, qElements, eArtikls.code, eArtikls.name,  
+        tmElements = new DefTableModel(tab2, qElements, eArtikls.code, eArtikls.name,
                 eElements.name, eElements.vtype, eArtikls.series, eElements.binding, eElements.binding, eElements.markup);
-        //tmElemdet = new DefTableModel(tab3, qElemdet, eElemdet.id);
+        Query qqq = qElemdet.query(eArtikls.up.tname());
+        tmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eArtikls.id, eArtikls.id);
     }
 
     @SuppressWarnings("unchecked")
@@ -372,7 +374,7 @@ public class Elements extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-      
+
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
