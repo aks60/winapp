@@ -5,7 +5,7 @@ import dataset.Record;
 import domain.eArtikls;
 import domain.eDicParam;
 import domain.eElemdet;
-import domain.eElements;
+import domain.eElement;
 import domain.eElemgrp;
 import java.awt.Image;
 import java.awt.event.FocusEvent;
@@ -15,8 +15,8 @@ import swing.DefTableModel;
 public class Elements extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-    private Query qElements = new Query(eElements.values(), eArtikls.values()).select(eElements.up,
-            "left join", eArtikls.up, "on", eElements.artikl_id, "=", eArtikls.id, "order by", eElements.name);
+    private Query qElements = new Query(eElement.values(), eArtikls.values()).select(eElement.up,
+            "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id, "order by", eElement.name);
     private Query qElemdet = new Query(eElemdet.values(), eArtikls.values(), eDicParam.values()).select(eElemdet.up,
             "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id, "left join", eDicParam.up,
             "on", eElemdet.param_id, "=", eDicParam.id2);
@@ -65,7 +65,7 @@ public class Elements extends javax.swing.JFrame {
         }
         tmElemgrp = new DefTableModel(tab1, qElemgrp, eElemgrp.name);
         tmElements = new DefTableModel(tab2, qElements, eArtikls.code, eArtikls.name,
-                eElements.name, eElements.vtype, eArtikls.series, eElements.binding, eElements.binding, eElements.markup);
+                eElement.name, eElement.vtype, eArtikls.series, eElement.binding, eElement.binding, eElement.markup);
         Query qqq = qElemdet.query(eArtikls.up.tname());
         tmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id);
     }

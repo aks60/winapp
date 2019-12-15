@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eElements implements Field {
+public enum eElement implements Field {
     up("0", "0", "0", "Составы", "VSTALST"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "наименование состав", "VNAME"),
@@ -28,7 +28,7 @@ public enum eElements implements Field {
     //vcomp("5", "5", "1", "null", "VCOMP");
     private MetaField meta = new MetaField(this);
 
-    eElements(Object... p) {
+    eElement(Object... p) {
         meta.init(p);
     }
 
