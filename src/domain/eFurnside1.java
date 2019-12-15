@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eFurnlen implements Field {
+public enum eFurnside1 implements Field {
     up("0", "0", "0", "Ограничение сторон фурнитуры", "FURNLEN"),
     id("4", "10", "0", "Идентификатор", "id"),
     funic("4", "10", "1", "null", "FUNIC"),
@@ -13,7 +13,7 @@ public enum eFurnlen implements Field {
     ftype("12", "16", "1", "null", "FTYPE");
     private MetaField meta = new MetaField(this);
 
-    eFurnlen(Object... p) {
+    eFurnside1(Object... p) {
         meta.init(p);
     }
 

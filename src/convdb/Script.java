@@ -15,31 +15,31 @@ import domain.eTextgrp;
 import domain.eDicRate;
 import domain.eDicSyspar;
 import domain.eTexture;
-import domain.eFurnlen;
-import domain.eFurndlen;
-import domain.eFurnlenz;
+import domain.eFurnside1;
+import domain.eFurnside2;
+import domain.eFurnpar1;
 import domain.eFurndet;
-import domain.eGlasart;
+import domain.eGlasdet;
 import domain.eGlasgrp;
 import domain.eGlasprof;
-import domain.eJoindetz;
-import domain.eJoinvarz;
-import domain.eFurndlenz;
+import domain.eJoinpar2;
+import domain.eJoinpar1;
+import domain.eFurnpar2;
 import domain.eJoindet;
 import domain.eJoinvar;
 import domain.eJoining;
-import domain.eTexturez;
-import domain.eGlasartz;
-import domain.eGlasgrpz;
+import domain.eTextpar1;
+import domain.eGlaspar2;
+import domain.eGlaspar1;
 import domain.eDicParam;
 import domain.eElemdet;
-import domain.eElementz;
-import domain.eElemdetz;
+import domain.eElempar1;
+import domain.eElempar2;
 import domain.eElement;
 import domain.eElemgrp;
 import domain.eRulecalc;
 import domain.eSysfurn;
-import domain.eSysprofz;
+import domain.eSyspar1;
 import domain.eSysprof;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -65,12 +65,12 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtdet.up, eTexture.up, eTexturez.up, eComplet.up, eCompdet.up,
-            eGlasgrpz.up, eGlasartz.up, eGlasart.up, eGlasgrp.up, eGlasprof.up,
-            eJoining.up, eJoindet.up, eJoinvar.up, eJoindetz.up, eJoinvarz.up, eFurndlenz.up,
-            eFurnlen.up, eFurndlen.up, eFurndet.up, eFurnlenz.up,
-            eElement.up, eElemgrp.up, eElemdet.up, eElementz.up, eElemdetz.up,
-            eSysprofz.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
+            eArtikls.up, eArtdet.up, eTexture.up, eTextpar1.up, eComplet.up, eCompdet.up,
+            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasgrp.up, eGlasprof.up,
+            eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up, eFurnpar2.up,
+            eFurnside1.up, eFurnside2.up, eFurndet.up, eFurnpar1.up,
+            eElement.up, eElemgrp.up, eElemdet.up, eElempar1.up, eElempar2.up,
+            eSyspar1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eTextgrp.up, eDicParam.up
         };
         try {

@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eElemdetz implements Field {
+public enum eElempar2 implements Field {
     up("0", "0", "0", "Параметры спецификаций составов", "PARVSTS"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
@@ -16,7 +16,7 @@ public enum eElemdetz implements Field {
 
     private MetaField meta = new MetaField(this);
 
-    eElemdetz(Object... p) {
+    eElempar2(Object... p) {
         meta.init(p);
     }
 

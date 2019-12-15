@@ -12,7 +12,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import swing.DefTableModel;
 
-public class Elements extends javax.swing.JFrame {
+public class Element extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
     private Query qElements = new Query(eElement.values(), eArtikls.values()).select(eElement.up,
@@ -48,7 +48,7 @@ public class Elements extends javax.swing.JFrame {
         }
     };
     
-    public Elements() {
+    public Element() {
         initComponents();
 
         Record record = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);

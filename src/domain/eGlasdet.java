@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eGlasart implements Field {
+public enum eGlasdet implements Field {
     up("0", "0", "0", "Спецификация групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),
     gnumb("4", "10", "1", "ID группы заполнения", "GNUMB"),
@@ -15,7 +15,7 @@ public enum eGlasart implements Field {
     ctype("5", "5", "1", "null", "CTYPE");
     private MetaField meta = new MetaField(this);
 
-    eGlasart(Object... p) {
+    eGlasdet(Object... p) {
         meta.init(p);
     }
 

@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eGlasartz implements Field {
+public enum eGlaspar2 implements Field {
     up("0", "0", "0", "Параметры спецификаций групп заполнения", "PARGLAS"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
@@ -16,7 +16,7 @@ public enum eGlasartz implements Field {
 
     private MetaField meta = new MetaField(this);
 
-    eGlasartz(Object... p) {
+    eGlaspar2(Object... p) {
         meta.init(p);
     }
 

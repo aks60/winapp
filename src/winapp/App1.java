@@ -10,7 +10,7 @@ import java.util.Locale;
 import javax.swing.SwingWorker;
 import frames.Artikls;
 import frames.Builder;
-import frames.Elements;
+import frames.Element;
 import frames.Joining;
 import frames.Rate;
 import frames.Texture;
@@ -1052,7 +1052,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new Builder();
                         break;
                     case Elements:
-                        frame = new Elements();
+                        frame = new Element();
                         break;
                 }
                 frame.setName(this.name());

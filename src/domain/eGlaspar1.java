@@ -3,9 +3,9 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
-import static domain.eGlasartz.values;
+import static domain.eGlaspar2.values;
 
-public enum eGlasgrpz implements Field {
+public enum eGlaspar1 implements Field {
     up("0", "0", "0", "Параметры групп заполнения", "PARGRUP"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
@@ -17,7 +17,7 @@ public enum eGlasgrpz implements Field {
     
     private MetaField meta = new MetaField(this);
 
-    eGlasgrpz(Object... p) {
+    eGlaspar1(Object... p) {
         meta.init(p);
     }
 
