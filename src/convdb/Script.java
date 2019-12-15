@@ -15,26 +15,26 @@ import domain.eTextgrp;
 import domain.eDicRate;
 import domain.eDicSyspar;
 import domain.eTexture;
-import domain.eFurnCh1;
-import domain.eFurnCh2;
-import domain.eFurnP1;
+import domain.eFurnityraCh;
+import domain.eFurndetCh;
+import domain.eFurnlenP;
 import domain.eFurndet;
 import domain.eGlasart;
 import domain.eGlasgrp;
 import domain.eGlasprof;
-import domain.eJoinP1;
-import domain.eJoinP2;
-import domain.eJoinP3;
+import domain.eJoindetP;
+import domain.eJoinvarP;
+import domain.eFurndetP;
 import domain.eJoindet;
 import domain.eJoinvar;
 import domain.eJoining;
 import domain.eTextP1;
-import domain.eGlasP2;
-import domain.eGlasP1;
+import domain.eGlasartP;
+import domain.eGlasgrpP;
 import domain.eDicParam;
 import domain.eElemdet;
-import domain.eElementP1;
-import domain.eElementP2;
+import domain.eElementP;
+import domain.eElemdicP;
 import domain.eElements;
 import domain.eElemgrp;
 import domain.eRulecalc;
@@ -66,10 +66,10 @@ public class Script {
     public static void script() {
         Field[] fieldsUp = {
             eArtikls.up, eArtdet.up, eTexture.up, eTextP1.up, eComplet.up, eCompdet.up,
-            eGlasP1.up, eGlasP2.up, eGlasart.up, eGlasgrp.up, eGlasprof.up,
-            eJoining.up, eJoindet.up, eJoinvar.up, eJoinP1.up, eJoinP2.up, eJoinP3.up,
-            eFurnCh1.up, eFurnCh2.up, eFurndet.up, eFurnP1.up,
-            eElements.up, eElemgrp.up, eElemdet.up, eElementP1.up, eElementP2.up,
+            eGlasgrpP.up, eGlasartP.up, eGlasart.up, eGlasgrp.up, eGlasprof.up,
+            eJoining.up, eJoindet.up, eJoinvar.up, eJoindetP.up, eJoinvarP.up, eFurndetP.up,
+            eFurnityraCh.up, eFurndetCh.up, eFurndet.up, eFurnlenP.up,
+            eElements.up, eElemgrp.up, eElemdet.up, eElementP.up, eElemdicP.up,
             eSysP1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eTextgrp.up, eDicParam.up
         };

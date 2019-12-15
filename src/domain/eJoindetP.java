@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eJoinP1 implements Field {
+public enum eJoindetP implements Field {
     up("0", "0", "0", "Параметры спецификаций вариантов", "PARCONS"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
@@ -16,7 +16,7 @@ public enum eJoinP1 implements Field {
     
     private MetaField meta = new MetaField(this);
 
-    eJoinP1(Object... p) {
+    eJoindetP(Object... p) {
         meta.init(p);
     }
 

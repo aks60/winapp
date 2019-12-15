@@ -357,10 +357,8 @@ public class Elements extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {"wwwwwww"},
+                {"ddddddddd"}
             },
             new String [] {
                 "Категория"

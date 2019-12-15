@@ -3,19 +3,21 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
+import static domain.eGlasartP.values;
 
-public enum eFurnP1 implements Field {
-    up("0", "0", "0", "Параметры ограничений сторон фурнитуры", "PARFURL"),
+public enum eGlasgrpP implements Field {
+    up("0", "0", "0", "Параметры групп заполнения", "PARGRUP"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
-    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");       
+    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");
     //psss("4", "10", "1", "null", "PSSS"),
     //pporn("5", "5", "1", "null", "PPORN"),
-    //znumb("4", "10", "1", "null", "ZNUMB"),
+    //znumb("4", "10", "1", "значение параметра", "ZNUMB"),
     //punic("4", "10", "1", "null", "PUNIC"),
+    
     private MetaField meta = new MetaField(this);
 
-    eFurnP1(Object... p) {
+    eGlasgrpP(Object... p) {
         meta.init(p);
     }
 
