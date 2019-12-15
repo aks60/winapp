@@ -28,7 +28,7 @@ import domain.eFurndetP;
 import domain.eJoindet;
 import domain.eJoinvar;
 import domain.eJoining;
-import domain.eTextP1;
+import domain.eTextureP;
 import domain.eGlasartP;
 import domain.eGlasgrpP;
 import domain.eDicParam;
@@ -39,7 +39,7 @@ import domain.eElements;
 import domain.eElemgrp;
 import domain.eRulecalc;
 import domain.eSysfurn;
-import domain.eSysP1;
+import domain.eSysprofP;
 import domain.eSysprof;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -65,12 +65,12 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtdet.up, eTexture.up, eTextP1.up, eComplet.up, eCompdet.up,
+            eArtikls.up, eArtdet.up, eTexture.up, eTextureP.up, eComplet.up, eCompdet.up,
             eGlasgrpP.up, eGlasartP.up, eGlasart.up, eGlasgrp.up, eGlasprof.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoindetP.up, eJoinvarP.up, eFurndetP.up,
             eFurnityraCh.up, eFurndetCh.up, eFurndet.up, eFurnlenP.up,
             eElements.up, eElemgrp.up, eElemdet.up, eElementP.up, eElemdicP.up,
-            eSysP1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
+            eSysprofP.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eTextgrp.up, eDicParam.up
         };
         try {
