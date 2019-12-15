@@ -341,7 +341,7 @@ public class Script {
             st2.execute(print("update artdet set texture_id = artdet.clnum where artdet.clnum < 0"));
 
             Query q3 = new Query(eElemgrp.values()).query(eElemgrp.up.tname());
-            ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from elements order by  ATYPM, VPREF");
+            ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
             ArrayList<Object[]> fieldList = new ArrayList();
             while (rs3.next()) {
                 fieldList.add(new Object[]{rs3.getString("VPREF"), rs3.getInt("ATYPM")});
@@ -353,10 +353,10 @@ public class Script {
                 record.setNo(eElemgrp.level, obj[1]);
                 q3.insert(record);
             }
-            st2.execute(print("update elements set elemgrp_id = (select id from elemgrp a where a.name = elements.vpref and a.level = elements.atypm)"));
-            st2.execute(print("update elements set artikl_id = (select id from artikls a where a.code = elements.anumb)"));
+            st2.execute(print("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)"));
+            st2.execute(print("update element set artikl_id = (select id from artikls a where a.code = element.anumb)"));
             st2.execute(print("update elemdet set artikl_id = (select id from artikls a where a.code = elemdet.anumb)"));
-            st2.execute(print("update elemdet set element_id = (select id from elements a where a.vnumb = elemdet.vnumb)"));
+            st2.execute(print("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)"));
             st2.execute(print("update elemdet set param_id = clnum where clnum < 0"));
             st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));
 
