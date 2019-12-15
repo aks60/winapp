@@ -23,7 +23,7 @@ public class Elements extends javax.swing.JFrame {
             "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id, "left join", eDicParam.up,
             "on", eElemdet.param_id, "=", eDicParam.id2);
 
-    private DefTableModel tmElements, tmElemdet;
+    private DefTableModel tmElemgrp, tmElements, tmElemdet;
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -53,15 +53,23 @@ public class Elements extends javax.swing.JFrame {
     public Elements() {
         initComponents();
 
-        DefaultListModel<String> dlm = new DefaultListModel<>();
-        for (Record record : qElemgrp.query(eElemgrp.up.tname())) {
-            dlm.addElement(record.getStr(eElemgrp.name));
+        Record record = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);
+        record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
+        qElemgrp.query(eElemgrp.up.tname()).add(0, record);
+        for (int index = 0; index < qElemgrp.query(eElemgrp.up.tname()).size(); ++index) {
+            int level = qElemgrp.query(eElemgrp.up.tname()).getInt(index, eElemgrp.level);
+            if (level == 5) {
+                Record record2 = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);
+                record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
+                qElemgrp.query(eElemgrp.up.tname()).add(index, record2);
+                break;
+            }
         }
-        list1.setModel(dlm);
+        tmElemgrp = new DefTableModel(tab1, qElemgrp, eElemgrp.name);
         tmElements = new DefTableModel(tab2, qElements, eArtikls.code, eArtikls.name,
                 eElements.name, eElements.vtype, eArtikls.series, eElements.binding, eElements.binding, eElements.markup);
         Query qqq = qElemdet.query(eArtikls.up.tname());
-        tmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eArtikls.id, eArtikls.id);
+        tmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id);
     }
 
     @SuppressWarnings("unchecked")
@@ -82,13 +90,13 @@ public class Elements extends javax.swing.JFrame {
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
         panCentr2 = new javax.swing.JPanel();
-        scr3 = new javax.swing.JScrollPane();
-        tab3 = new javax.swing.JTable();
         scr6 = new javax.swing.JScrollPane();
         tab6 = new javax.swing.JTable();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         panWest = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
-        list1 = new javax.swing.JList<>();
+        tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
@@ -187,7 +195,7 @@ public class Elements extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 773, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 512, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -213,7 +221,7 @@ public class Elements extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 936, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,6 +259,7 @@ public class Elements extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(2).setMinWidth(160);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(4).setMaxWidth(160);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
@@ -294,24 +303,6 @@ public class Elements extends javax.swing.JFrame {
 
         panCentr2.setLayout(new java.awt.BorderLayout());
 
-        scr3.setPreferredSize(new java.awt.Dimension(854, 84));
-
-        tab3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"aaaa", "xxxxxxxxxxxxxxx", "rrrrrrr", "yyyyyy"},
-                {"aaaa", "ccccccccccccccccc", "bbbbb", "sssssss"}
-            },
-            new String [] {
-                "Артикул", "Название", "Текстура", "Подбор"
-            }
-        ));
-        tab3.setFillsViewportHeight(true);
-        tab3.setPreferredSize(new java.awt.Dimension(800, 64));
-        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr3.setViewportView(tab3);
-
-        panCentr2.add(scr3, java.awt.BorderLayout.CENTER);
-
         scr6.setPreferredSize(new java.awt.Dimension(260, 404));
 
         tab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -342,6 +333,23 @@ public class Elements extends javax.swing.JFrame {
 
         panCentr2.add(scr6, java.awt.BorderLayout.EAST);
 
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"xxxxxxxx", "vvvvvvvv", "mmmmm", "kkkkkkk"},
+                {"zzzzzzzzz", "vvvvvvvv", "mmmmm", "kkkkkkk"}
+            },
+            new String [] {
+                "Артикул", "Название", "Текстура", "Подбор"
+            }
+        ));
+        tab3.setFillsViewportHeight(true);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(1).setMinWidth(160);
+        }
+
+        panCentr2.add(scr3, java.awt.BorderLayout.CENTER);
+
         panCentr.add(panCentr2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
@@ -349,18 +357,27 @@ public class Elements extends javax.swing.JFrame {
         panWest.setPreferredSize(new java.awt.Dimension(120, 132));
         panWest.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(null);
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Категория"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
 
-        list1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        list1.setFont(Util.getFont(0, 0));
-        list1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
         });
-        list1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        list1.setFocusCycleRoot(true);
-        scr1.setViewportView(list1);
+        tab1.setFillsViewportHeight(true);
+        scr1.setViewportView(tab1);
 
         panWest.add(scr1, java.awt.BorderLayout.CENTER);
 
@@ -395,7 +412,6 @@ public class Elements extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
-    private javax.swing.JList<String> list1;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panCentr2;
     private javax.swing.JPanel panNorth;
@@ -407,6 +423,7 @@ public class Elements extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr6;
+    private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
