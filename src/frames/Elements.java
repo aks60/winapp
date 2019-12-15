@@ -1,6 +1,5 @@
 package frames;
 
-import common.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
@@ -8,10 +7,9 @@ import domain.eDicParam;
 import domain.eElemdet;
 import domain.eElements;
 import domain.eElemgrp;
-import domain.eTexture;
+import java.awt.Image;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.DefaultListModel;
 import swing.DefTableModel;
 
 public class Elements extends javax.swing.JFrame {
@@ -53,8 +51,6 @@ public class Elements extends javax.swing.JFrame {
     public Elements() {
         initComponents();
 
-        Object  ooo = (new javax.swing.ImageIcon(getClass().getResource("./resource/img32/d033.gif")).getImage());
-        
         Record record = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);
         record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
         qElemgrp.query(eElemgrp.up.tname()).add(0, record);

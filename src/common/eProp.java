@@ -33,7 +33,7 @@ public enum eProp {
     cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
     cmd_html("firefox ", "cmd /c start iexplore.exe "),
     fontname("Dialog"),
-    fontsize("12");
+    fontsize("11");
     private static Properties prop = null;
     //это значение по умолчанию
     private String value;

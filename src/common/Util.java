@@ -59,22 +59,6 @@ public class Util {
         simpledateFormat = _simpledateFormat;
     }
 
-    /**
-     * message
-     */
-    public static void D(Object... obj) {
-        if (Main.dev == false) {
-            return;
-        }
-        if (obj == null) {
-            System.out.println(String.valueOf(++mes));
-        } else {
-            for (Object obj2 : obj) {
-                System.out.println(obj2);
-            }
-        }
-    }
-
     public static boolean isDataCardFormat() {
         return cardFormat;
     }

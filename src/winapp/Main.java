@@ -26,7 +26,7 @@ public class Main {
 
             public void run() {
                 //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
-                String lafName = eProp.lookandfeel.read();
+                String lafName = "Windows"; //eProp.lookandfeel.read();
                 try {
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {

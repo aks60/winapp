@@ -7,12 +7,12 @@ import dataset.Record;
 public enum eFurnP1 implements Field {
     up("0", "0", "0", "Параметры ограничений сторон фурнитуры", "PARFURL"),
     id("4", "10", "0", "Идентификатор", "id"),
-    psss("4", "10", "1", "null", "PSSS"),
-    pporn("5", "5", "1", "null", "PPORN"),
-    pnumb("4", "10", "1", "null", "PNUMB"),
-    znumb("4", "10", "1", "null", "ZNUMB"),
-    punic("4", "10", "1", "null", "PUNIC"),
-    ptext("12", "64", "1", "null", "PTEXT");
+    vnumb("4", "10", "1", "номер параметра", "PNUMB"),
+    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");       
+    //psss("4", "10", "1", "null", "PSSS"),
+    //pporn("5", "5", "1", "null", "PPORN"),
+    //znumb("4", "10", "1", "null", "ZNUMB"),
+    //punic("4", "10", "1", "null", "PUNIC"),
     private MetaField meta = new MetaField(this);
 
     eFurnP1(Object... p) {
