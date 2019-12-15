@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eSysprofpar implements Field {
+public enum eSysprofz implements Field {
     up("0", "0", "0", "Парамметры системы профилей", "PARSYSP"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
@@ -16,7 +16,7 @@ public enum eSysprofpar implements Field {
     //pfixx("5", "5", "1", "закреплено", "PFIXX");
     private MetaField meta = new MetaField(this);
 
-    eSysprofpar(Object... p) {
+    eSysprofz(Object... p) {
         meta.init(p);
     }
 

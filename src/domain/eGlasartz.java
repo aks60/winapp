@@ -4,19 +4,19 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eTexturepar implements Field {
-    up("0", "0", "0", "Парметры текстур", "PARCOLS"),
+public enum eGlasartz implements Field {
+    up("0", "0", "0", "Параметры спецификаций групп заполнения", "PARGLAS"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
-    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");        
+    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");    
     //psss("4", "10", "1", "null", "PSSS"),
-    //pporn("5", "5", "1", "null", "PPORN"),
-    //znumb("4", "10", "1", "null", "ZNUMB"),
+    //pporn("5", "5", "1", "null", "PPORN"),,
+    //znumb("4", "10", "1", "значение параметра", "ZNUMB"),
     //punic("4", "10", "1", "null", "PUNIC"),
 
     private MetaField meta = new MetaField(this);
 
-    eTexturepar(Object... p) {
+    eGlasartz(Object... p) {
         meta.init(p);
     }
 
@@ -29,7 +29,6 @@ public enum eTexturepar implements Field {
     }
 
     
-
     public String toString() {
         return meta.getDescr();
     }

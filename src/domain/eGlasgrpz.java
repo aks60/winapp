@@ -3,20 +3,21 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
+import static domain.eGlasartz.values;
 
-public enum eGlasartpar implements Field {
-    up("0", "0", "0", "Параметры спецификаций групп заполнения", "PARGLAS"),
+public enum eGlasgrpz implements Field {
+    up("0", "0", "0", "Параметры групп заполнения", "PARGRUP"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "номер параметра", "PNUMB"),
-    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");    
+    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");
     //psss("4", "10", "1", "null", "PSSS"),
-    //pporn("5", "5", "1", "null", "PPORN"),,
+    //pporn("5", "5", "1", "null", "PPORN"),
     //znumb("4", "10", "1", "значение параметра", "ZNUMB"),
     //punic("4", "10", "1", "null", "PUNIC"),
-
+    
     private MetaField meta = new MetaField(this);
 
-    eGlasartpar(Object... p) {
+    eGlasgrpz(Object... p) {
         meta.init(p);
     }
 
@@ -29,6 +30,7 @@ public enum eGlasartpar implements Field {
     }
 
     
+
     public String toString() {
         return meta.getDescr();
     }

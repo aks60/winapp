@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eFurndlenpar implements Field {
+public enum eFurndlenz implements Field {
     up("0", "0", "0", "Параметры спецификаций фурнитуры", "PARFURS"),
     id("4", "10", "0", "Идентификатор", "id"),
     vnumb("4", "10", "1", "null", "PNUMB"),
@@ -16,7 +16,7 @@ public enum eFurndlenpar implements Field {
     
     private MetaField meta = new MetaField(this);
 
-    eFurndlenpar(Object... p) {
+    eFurndlenz(Object... p) {
         meta.init(p);
     }
 

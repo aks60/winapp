@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eElementpar implements Field {
+public enum eElementz implements Field {
     up("0", "0", "0", "Параметры составов", "PARVSTM"),
     id("4", "10", "0", "Идентификатор", "id"),
     param_id("4", "10", "1", "ссылка на eDicParam", "param_id"),
@@ -18,7 +18,7 @@ public enum eElementpar implements Field {
     //znumb("4", "10", "1", "значение параметра (параметры вводимые пользователем)", "ZNUMB"),
     private MetaField meta = new MetaField(this);
 
-    eElementpar(Object... p) {
+    eElementz(Object... p) {
         meta.init(p);
     }
 
