@@ -49,10 +49,12 @@ public class Elements extends javax.swing.JFrame {
 //            }
         }
     };
-
+    
     public Elements() {
         initComponents();
 
+        Object  ooo = (new javax.swing.ImageIcon(getClass().getResource("./resource/img32/d033.gif")).getImage());
+        
         Record record = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);
         record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
         qElemgrp.query(eElemgrp.up.tname()).add(0, record);
