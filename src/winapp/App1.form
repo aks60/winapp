@@ -275,7 +275,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b057.gif"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x41e;&#x43f;&#x438;&#x441;&#x430;&#x43d;&#x438;&#x435; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;"/>
+                <Property name="text" type="java.lang.String" value="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x44b;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mDictColor"/>
@@ -289,7 +289,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b057.gif"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x41a;&#x443;&#x440;&#x441;&#x44b; &#x432;&#x430;&#x43b;&#x44e;&#x442;"/>
+                <Property name="text" type="java.lang.String" value="&#x412;&#x430;&#x43b;&#x44e;&#x442;&#x44b;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mn24"/>
@@ -319,7 +319,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b057.gif"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x41c;&#x430;&#x442;.&#x446;&#x435;&#x43d;&#x43d;&#x43e;&#x441;&#x442;&#x438;"/>
+                <Property name="text" type="java.lang.String" value="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x44b;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mn25"/>
@@ -415,7 +415,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b056.gif"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x438;"/>
+                <Property name="text" type="java.lang.String" value="&#x421;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x430;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mBuilder"/>

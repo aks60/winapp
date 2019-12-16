@@ -521,7 +521,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn21.setFont(common.Util.getFont(1,1));
         mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
-        mn21.setText("Описание текстур");
+        mn21.setText("Текстуры");
         mn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mDictColor(evt);
@@ -531,7 +531,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn24.setFont(common.Util.getFont(1,1));
         mn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
-        mn24.setText("Курсы валют");
+        mn24.setText("Валюты");
         mn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn24(evt);
@@ -552,7 +552,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn25.setFont(common.Util.getFont(1,1));
         mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
-        mn25.setText("Мат.ценности");
+        mn25.setText("Артикулы");
         mn25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn25(evt);
@@ -618,7 +618,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn37.setFont(common.Util.getFont(1,1));
         mn37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
-        mn37.setText("Конструкции");
+        mn37.setText("Система");
         mn37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mBuilder(evt);
