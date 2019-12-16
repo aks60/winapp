@@ -9,7 +9,7 @@ public enum eElempar1 implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     param_id("4", "10", "1", "ссылка", "param_id"), //PSSS
     element_id("4", "10", "1", "ссылка", "element_id"), //PNUMB
-    value("12", "64", "1", "значения параметра", "PTEXT");    
+    val("12", "64", "1", "значения параметра", "PTEXT");    
     
     //punic("4", "10", "1", "номер параметра", "PUNIC"),
     //psss("4", "10", "1", "ссылка на eDicParam", "PSSS"),
