@@ -116,12 +116,13 @@ public class Element extends javax.swing.JFrame {
                 int row = tab2.getSelectedRow();
                 if (row != -1) {
                     Record record = qElement.query(eElement.up.tname()).get(row);
-                    Integer p = record.getInt(eElement.id);
+                    Integer p = record.getInt(eElement.id);                    
                     qElemdet.select(eElemdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id,
-                            "left join", eDicParam.up, "on", eElemdet.param_id, "=", eDicParam.numb2, "where", eElemdet.element_id, "=", p);
-                    qElempar1.select(eElempar1.up, "left join", eDicParam.up, "on", eDicParam.id, "=", eElempar1.param_id);
-                    
-                    ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                            "left join", eDicParam.up, "on", eElemdet.param_id, "=", eDicParam.numb, "where", eElemdet.element_id, "=", p);                  
+                    qElempar1.select(eElempar1.up, "left join", eDicParam.up, "on", 
+                            eDicParam.numb, "=", eElempar1.param_id, "and", eDicParam.part, "=31", "where", eElempar1.element_id, "=", p);
+                    ((DefaultTableModel) tab3.getModel()).fireTableDataChanged(); 
+                    ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                     if (tab3.getRowCount() > 0) {
                         tab3.setRowSelectionInterval(0, 0);
                     }

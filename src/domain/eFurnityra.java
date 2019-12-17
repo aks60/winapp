@@ -18,12 +18,13 @@ public enum eFurnityra implements Field {
     fview("12", "16", "1", "Вид (поворотная, раздвижная, фрамуга)", "FVIEW"),
     fpars("12", "96", "1", "Использ. параметры №№", "FPARS"),
     forml("12", "128", "1", "координаты ограничений", "FORML"),
-    fprim("-4", "null", "1", "null", "FPRIM"),
     thand("5", "5", "1", "null", "THAND"),
     fways("5", "5", "1", "null", "FWAYS"),
     xdepa("5", "5", "1", "null", "XDEPA"),
     fdiff("8", "15", "1", "null", "FDIFF"),
     sunic("4", "10", "1", "тип комплекта фурнитуры: 0 - все, 15 - ROTO OK,", "SUNIC");
+    //fprim("-4", "512", "1", "null", "FPRIM"),
+
     private MetaField meta = new MetaField(this);
 
     eFurnityra(Object... p) {
@@ -37,8 +38,6 @@ public enum eFurnityra implements Field {
     public Field[] fields() {
         return values();
     }
-
-    
 
     public String toString() {
         return meta.getDescr();
