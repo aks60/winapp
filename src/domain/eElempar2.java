@@ -7,9 +7,10 @@ import dataset.Record;
 public enum eElempar2 implements Field {
     up("0", "0", "0", "Параметры спецификаций составов", "PARVSTS"),
     id("4", "10", "0", "Идентификатор", "id"),
-    elemdet_id("4", "10", "0", "ссылка", "elemdet_id"),
-    param_id("4", "10", "0", "ссылка", "param_id"),
-    value("12", "64", "1", "значения параметра", "PTEXT");
+    param_id("4", "10", "1", "ссылка", "PNUMB"), 
+    elemdet_id("4", "10", "1", "ссылка", "element_id"), 
+    val("12", "64", "1", "значения параметра", "PTEXT");   
+    
     //PNUMB("4", "10", "1", "номер параметра", "PNUMB"),
     //punic("4", "10", "1", "PK*", "PUNIC"),
     //psss("4", "10", "1", "ИД компонента состава", "PSSS"),

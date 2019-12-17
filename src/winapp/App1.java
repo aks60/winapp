@@ -12,6 +12,7 @@ import frames.Artikls;
 import frames.Builder;
 import frames.Element;
 import frames.Joining;
+import frames.Parametr;
 import frames.Rate;
 import frames.Texture;
 import java.awt.Dimension;
@@ -77,10 +78,9 @@ public class App1 extends javax.swing.JFrame {
         tb1 = new javax.swing.JToolBar();
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
-        btn14 = new javax.swing.JButton();
+        btn22 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
         tb2 = new javax.swing.JToolBar();
-        btn22 = new javax.swing.JButton();
         btn23 = new javax.swing.JButton();
         btn24 = new javax.swing.JButton();
         btn25 = new javax.swing.JButton();
@@ -88,6 +88,8 @@ public class App1 extends javax.swing.JFrame {
         btn27 = new javax.swing.JButton();
         btn28 = new javax.swing.JButton();
         td3 = new javax.swing.JToolBar();
+        btn29 = new javax.swing.JButton();
+        tb4 = new javax.swing.JToolBar();
         btn31 = new javax.swing.JButton();
         btn32 = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
@@ -139,6 +141,7 @@ public class App1 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lotus   АРМ Технолог");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(979, 78));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -151,9 +154,10 @@ public class App1 extends javax.swing.JFrame {
                 formWindowIconified(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
-        tb1.setPreferredSize(new java.awt.Dimension(140, 27));
+        tb1.setPreferredSize(new java.awt.Dimension(120, 27));
 
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c043.gif"))); // NOI18N
         btn12.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -181,19 +185,20 @@ public class App1 extends javax.swing.JFrame {
         });
         tb1.add(btn13);
 
-        btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c011.gif"))); // NOI18N
-        btn14.setFocusable(false);
-        btn14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn14.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn14.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn14.setPreferredSize(new java.awt.Dimension(25, 25));
-        btn14.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn14.addActionListener(new java.awt.event.ActionListener() {
+        btn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
+        btn22.setFocusable(false);
+        btn22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn22.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn22.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn22.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn22.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mBuilder(evt);
+                parametr(evt);
             }
         });
-        tb1.add(btn14);
+        tb1.add(btn22);
 
         btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
         btn11.setFocusable(false);
@@ -209,23 +214,12 @@ public class App1 extends javax.swing.JFrame {
         });
         tb1.add(btn11);
 
+        getContentPane().add(tb1);
+
         tb2.setRollover(true);
         tb2.setMaximumSize(new java.awt.Dimension(220, 27));
         tb2.setMinimumSize(new java.awt.Dimension(220, 27));
-        tb2.setPreferredSize(new java.awt.Dimension(220, 27));
-
-        btn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
-        btn22.setFocusable(false);
-        btn22.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn22.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn22.setPreferredSize(new java.awt.Dimension(25, 25));
-        btn22.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConvToDatabase(evt);
-            }
-        });
-        tb2.add(btn22);
+        tb2.setPreferredSize(new java.awt.Dimension(200, 27));
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
         btn23.setFocusable(false);
@@ -310,12 +304,34 @@ public class App1 extends javax.swing.JFrame {
         btn28.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn28mn39(evt);
+                mBuilder(evt);
             }
         });
         tb2.add(btn28);
 
+        getContentPane().add(tb2);
+
         td3.setRollover(true);
+        td3.setPreferredSize(new java.awt.Dimension(80, 27));
+
+        btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c029.gif"))); // NOI18N
+        btn29.setFocusable(false);
+        btn29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn29.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn29.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn29.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn29.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn29mn41mAdminUserToDb(evt);
+            }
+        });
+        td3.add(btn29);
+
+        getContentPane().add(td3);
+
+        tb4.setRollover(true);
 
         btn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c013.gif"))); // NOI18N
         btn31.setFocusable(false);
@@ -324,12 +340,13 @@ public class App1 extends javax.swing.JFrame {
         btn31.setMinimumSize(new java.awt.Dimension(25, 25));
         btn31.setPreferredSize(new java.awt.Dimension(25, 25));
         btn31.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn31.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mHelp(evt);
             }
         });
-        td3.add(btn31);
+        tb4.add(btn31);
 
         btn32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         btn32.setFocusable(false);
@@ -338,16 +355,20 @@ public class App1 extends javax.swing.JFrame {
         btn32.setMinimumSize(new java.awt.Dimension(25, 25));
         btn32.setPreferredSize(new java.awt.Dimension(25, 25));
         btn32.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn32.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mExit(evt);
             }
         });
-        td3.add(btn32);
+        tb4.add(btn32);
+
+        getContentPane().add(tb4);
 
         progressBar.setBorder(null);
         progressBar.setMinimumSize(new java.awt.Dimension(120, 4));
         progressBar.setPreferredSize(new java.awt.Dimension(146, 6));
+        getContentPane().add(progressBar);
 
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
@@ -521,7 +542,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn21.setFont(common.Util.getFont(1,1));
         mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
-        mn21.setText("Описание текстур");
+        mn21.setText("Текстуры");
         mn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mDictColor(evt);
@@ -531,7 +552,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn24.setFont(common.Util.getFont(1,1));
         mn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
-        mn24.setText("Курсы валют");
+        mn24.setText("Валюты");
         mn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn24(evt);
@@ -544,7 +565,7 @@ public class App1 extends javax.swing.JFrame {
         mn23.setText("Параметры");
         mn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn23mnExcelToDatabase(evt);
+                parametr(evt);
             }
         });
         mn02.add(mn23);
@@ -552,7 +573,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn25.setFont(common.Util.getFont(1,1));
         mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
-        mn25.setText("Мат.ценности");
+        mn25.setText("Артикулы");
         mn25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn25(evt);
@@ -618,7 +639,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn37.setFont(common.Util.getFont(1,1));
         mn37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b056.gif"))); // NOI18N
-        mn37.setText("Конструкции");
+        mn37.setText("Система");
         mn37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mBuilder(evt);
@@ -714,31 +735,6 @@ public class App1 extends javax.swing.JFrame {
         mn0.add(mn05);
 
         setJMenuBar(mn0);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(tb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(td3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tb2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(tb1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(td3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -850,10 +846,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     }//GEN-LAST:event_mn0122ActionPerformed
 
-    private void mn23mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn23mnExcelToDatabase
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mn23mnExcelToDatabase
-
     private void mn34mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn34mnExcelToDatabase
         new FrameListener2() {
 
@@ -913,10 +905,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         // TODO add your handling code here:
     }//GEN-LAST:event_btn27mn39
 
-    private void btn28mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn28mn39
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn28mn39
-
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mn61ActionPerformed
@@ -928,12 +916,24 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
         System.out.println("winapp.App1.formWindowDeiconified()");
     }//GEN-LAST:event_formWindowDeiconified
+
+    private void btn29mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn29mn41mAdminUserToDb
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn29mn41mAdminUserToDb
+
+    private void parametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parametr
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Parametr.createFrame(App1.this);
+            }
+        };
+    }//GEN-LAST:event_parametr
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
     private javax.swing.JButton btn12;
     private javax.swing.JButton btn13;
-    private javax.swing.JButton btn14;
     private javax.swing.JButton btn22;
     private javax.swing.JButton btn23;
     private javax.swing.JButton btn24;
@@ -941,6 +941,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
     private javax.swing.JButton btn28;
+    private javax.swing.JButton btn29;
     private javax.swing.JButton btn31;
     private javax.swing.JButton btn32;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
@@ -991,6 +992,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
+    private javax.swing.JToolBar tb4;
     private javax.swing.JToolBar td3;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
@@ -1030,7 +1032,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Rate, Texture, Artikls, Joining, Builder, Elements;
+        App1, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1053,6 +1055,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Elements:
                         frame = new Element();
+                        break;
+                    case Parametr:
+                        frame = new Parametr();
                         break;
                 }
                 frame.setName(this.name());

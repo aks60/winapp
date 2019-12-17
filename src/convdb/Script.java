@@ -37,6 +37,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eElement;
 import domain.eElemgrp;
+import domain.eFurnityra;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -65,13 +66,13 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtdet.up, eTexture.up, eTextpar1.up, eComplet.up, eCompdet.up,
-            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasgrp.up, eGlasprof.up,
-            eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up, eFurnpar2.up,
-            eFurnside1.up, eFurnside2.up, eFurndet.up, eFurnpar1.up,
-            eElement.up, eElemgrp.up, eElemdet.up, eElempar1.up, eElempar2.up,
+            eArtikls.up, eArtdet.up, eTextgrp.up, eTexture.up, eTextpar1.up, eComplet.up, eCompdet.up,
+            eGlasdet.up, eGlasgrp.up, eGlasprof.up, eGlaspar1.up, eGlaspar2.up,
+            eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up, 
+            eFurnityra.up, eFurndet.up, eFurnside1.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
+            eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eSyspar1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
-            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eTextgrp.up, eDicParam.up
+            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник
@@ -359,6 +360,11 @@ public class Script {
             st2.execute(print("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)"));
             st2.execute(print("update elemdet set param_id = clnum where clnum < 0"));
             st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));
+            
+            st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));                        
+            st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));            
+            
+            //st2.execute(print("update elempar1 set param_id = (select id from dic_param a where a.numb2 = elempar1.pnumb)"));
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);
