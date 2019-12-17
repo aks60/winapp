@@ -1,11 +1,70 @@
-
 package frames;
 
+import common.FrameListener;
+import dataset.Query;
+import domain.eArtikls;
+import domain.eDicParam;
+import domain.eDicRate;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.Icon;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import swing.DefTableModel;
 
 public class Parametr extends javax.swing.JFrame {
 
+    private Query qParam = new Query(eDicParam.values()).select(eDicParam.up, "order by", eDicParam.name);
+    private DefTableModel tmParam;
+
+    private FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
+        }
+
+        public void focusLost(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(null);
+            }
+        }
+    };
+    private FrameListener<Object, Object> listenerModify = new FrameListener() {
+
+        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
+            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
+
+        public void request(Object obj) {
+            btnSave.setIcon(btnIM[0]);
+        }
+
+        public void response(Object obj) {
+            btnSave.setIcon(btnIM[1]);
+        }
+    };
+
     public Parametr() {
         initComponents();
+
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab1(event);
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab2(event);
+            }
+        });
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
+        tmParam = new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
+                eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,6 +91,7 @@ public class Parametr extends javax.swing.JFrame {
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Параметры");
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -179,7 +239,7 @@ public class Parametr extends javax.swing.JFrame {
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 489, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
                 .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -223,8 +283,8 @@ public class Parametr extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setMinWidth(200);
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tab1.getColumnModel().getColumn(0).setMinWidth(300);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(400);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -265,7 +325,7 @@ public class Parametr extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 841, Short.MAX_VALUE)
+            .addGap(0, 716, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

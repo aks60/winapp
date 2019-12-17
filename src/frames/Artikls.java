@@ -141,30 +141,11 @@ public class Artikls extends javax.swing.JFrame
         });
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                int row = tab1.getSelectedRow();
-                if (row != -1) {
-                    Record record = qArtikls.query(eArtikls.up.tname()).get(row);
-                    //System.out.println(record);
-                    int id = record.getInt(eArtikls.id);
-                    qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
-                            "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
-
-                    rsvArtikls.write(row);
-                    ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                    if (tab2.getRowCount() > 0) {
-                        tab2.setRowSelectionInterval(0, 0);
-                    }
-                }
+                selectioTree(event);
             }
         });
 
         load1();
-    }
-
-    public void request(DefTableModel tm) {
-    }
-
-    public void response(Object obj) {
     }
 
     private void load1() {
@@ -200,6 +181,30 @@ public class Artikls extends javax.swing.JFrame
         tree.setModel(new DefaultTreeModel(treeNode1));
         src1.setViewportView(tree);
         tree.setSelectionRow(0);
+    }
+
+    private void selectioTree(ListSelectionEvent event) {
+        
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qArtikls.query(eArtikls.up.tname()).get(row);
+            //System.out.println(record);
+            int id = record.getInt(eArtikls.id);
+            qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
+                    "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
+
+            rsvArtikls.write(row);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    public void request(DefTableModel tm) {
+    }
+
+    public void response(Object obj) {
     }
 
     @SuppressWarnings("unchecked")
