@@ -2,21 +2,25 @@ package frames;
 
 import common.FrameListener;
 import dataset.Query;
-import domain.eArtikls;
+import dataset.Record;
 import domain.eDicParam;
-import domain.eDicRate;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
 public class Parametr extends javax.swing.JFrame {
 
-    private Query qParam = new Query(eDicParam.values()).select(eDicParam.up, "order by", eDicParam.name);
-    private DefTableModel tmParam;
+    private Query qParam = new Query(eDicParam.values()).select(eDicParam.up, "where",
+            eDicParam.numb, "< 0", "and", eDicParam.part, "= 0", "order by", eDicParam.name);
+    private Query qPardet = new Query(eDicParam.values()).select(eDicParam.up, "where",
+            eDicParam.numb, "< 0", "and", eDicParam.part, "= -1", "order by", eDicParam.name);
+
+    private DefTableModel tmParam, tmPardet;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -65,6 +69,35 @@ public class Parametr extends javax.swing.JFrame {
         tab2.addFocusListener(listenerFocus);
         tmParam = new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
                 eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
+        tmPardet = new DefTableModel(tab2, qPardet, eDicParam.name, eDicParam.komp,
+                eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab1(event);
+            }
+        });
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
+        qPardet.query(eDicParam.up.tname()).clear();
+        qPardet = new Query(eDicParam.values()).select(eDicParam.up, "where", eDicParam.numb, "= -262127", "and", eDicParam.part, "= -1", "order by", eDicParam.name);
+        tmPardet.fireTableDataChanged();
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+//        listenerModify.response(null);
+//        int row = tab1.getSelectedRow();
+//        if (row != -1) {
+//            Record record = qParam.query(eDicParam.up.tname()).get(row);
+//            Integer p1 = record.getInt(eDicParam.numb);
+//            System.out.println("xxxxxxxxxxxxxxxxxx");
+//            qPardet = new Query(eDicParam.values()).select(eDicParam.up, "where",
+//                    eDicParam.numb, "=", p1, "and", eDicParam.part, "= -1", "order by", eDicParam.name);
+//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+//            if (tab2.getRowCount() > 0) {
+//                tab2.setRowSelectionInterval(0, 0);
+//            }
+//        }
     }
 
     @SuppressWarnings("unchecked")
@@ -78,7 +111,6 @@ public class Parametr extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        btnFind = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         panCentr = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
@@ -192,21 +224,6 @@ public class Parametr extends javax.swing.JFrame {
             }
         });
 
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btnFind.setToolTipText(bundle.getString("Поиск")); // NOI18N
-        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFind.setFocusable(false);
-        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindChoice(evt);
-            }
-        });
-
         btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
         btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
         btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -235,9 +252,7 @@ public class Parametr extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
-                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(129, 129, 129)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
                 .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,8 +271,7 @@ public class Parametr extends javax.swing.JFrame {
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -305,8 +319,8 @@ public class Parametr extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setMinWidth(200);
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tab2.getColumnModel().getColumn(0).setMinWidth(300);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(400);
         }
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
@@ -342,7 +356,8 @@ public class Parametr extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-
+        qPardet.query(eDicParam.up.tname()).clear();
+        tmPardet.fireTableDataChanged();
     }//GEN-LAST:event_btnHelp
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
@@ -361,10 +376,6 @@ public class Parametr extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnInsert
 
-    private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
-
-    }//GEN-LAST:event_btnFindChoice
-
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
 
     }//GEN-LAST:event_btnReportChoice
@@ -372,7 +383,6 @@ public class Parametr extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
