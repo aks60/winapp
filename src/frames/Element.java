@@ -13,6 +13,7 @@ import domain.eElempar2;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -32,24 +33,15 @@ public class Element extends javax.swing.JFrame {
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
-//            if (e.getSource() instanceof JTable) {
-//                ((JTable) e.getSource()).setBorder(border);
-//                btnIns.setEnabled(true);
-//                btnDel.setEnabled(true);
-//            } else if (e.getSource() instanceof JTree) {
-//                ((JTree) e.getSource()).setBorder(border);
-//                btnIns.setEnabled(true);
-//                btnDel.setEnabled(false);
-//            }
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
         }
 
         public void focusLost(FocusEvent e) {
-//            if (e.getSource() instanceof JTable) {
-//                ((JTable) e.getSource()).setBorder(null);
-//
-//            } else if (e.getSource() instanceof JTree) {
-//                ((JTree) e.getSource()).setBorder(null);
-//            }
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(null);
+            }
         }
     };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
@@ -69,6 +61,42 @@ public class Element extends javax.swing.JFrame {
     public Element() {
         initComponents();
 
+        loadDataTab1();
+
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab1(event);
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab2(event);
+            }
+        });
+        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab3(event);
+            }
+        });
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
+        tab4.addFocusListener(listenerFocus);
+        tab5.addFocusListener(listenerFocus);
+
+        tmElemgrp = new DefTableModel(tab1, qElemgrp, eElemgrp.name);
+        tmElement = new DefTableModel(tab2, qElement, eArtikls.code, eArtikls.name,
+                eElement.name, eElement.vtype, eArtikls.series, eElement.binding, eElement.binding, eElement.markup);
+        tmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id);
+        tmElempar1 = new DefTableModel(tab4, qElempar1, eDicParam.name, eElempar1.val);
+        tmElempar2 = new DefTableModel(tab5, qElempar2, eDicParam.name, eElempar2.val);
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    private void loadDataTab1() {
+
         Record record = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
         record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
@@ -83,60 +111,62 @@ public class Element extends javax.swing.JFrame {
                 break;
             }
         }
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                qElement.execsql();
-                qElemdet.execsql();
-                listenerModify.response(null);
-                int row = tab1.getSelectedRow();
-                if (row != -1) {
-                    Record record = qElemgrp.query(eElemgrp.up.tname()).get(row);
-                    Integer id = record.getInt(eElemgrp.id);
-                    if (id == -1) {
-                        qElement.select(eElement.up, "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id,
-                                "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=1");
-                    } else if (id == -5) {
-                        qElement.select(eElement.up, "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id,
-                                "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=5");
-                    } else {
-                        qElement.select(eElement.up, "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id,
-                                "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
-                    }
-                    ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                    if (tab2.getRowCount() > 0) {
-                        tab2.setRowSelectionInterval(0, 0);
-                    }
-                }
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+        qElement.execsql();
+        qElemdet.execsql();
+        listenerModify.response(null);
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qElemgrp.query(eElemgrp.up.tname()).get(row);
+            Integer id = record.getInt(eElemgrp.id);
+            if (id == -1) {
+                qElement.select(eElement.up, "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id,
+                        "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=1");
+            } else if (id == -5) {
+                qElement.select(eElement.up, "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id,
+                        "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=5");
+            } else {
+                qElement.select(eElement.up, "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id,
+                        "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
             }
-        });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                qElement.execsql();
-                listenerModify.response(null);
-                int row = tab2.getSelectedRow();
-                if (row != -1) {
-                    Record record = qElement.query(eElement.up.tname()).get(row);
-                    Integer p = record.getInt(eElement.id);                    
-                    qElemdet.select(eElemdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id,
-                            "left join", eDicParam.up, "on", eElemdet.param_id, "=", eDicParam.numb, "where", eElemdet.element_id, "=", p);                  
-                    qElempar1.select(eElempar1.up, "left join", eDicParam.up, "on", 
-                            eDicParam.numb, "=", eElempar1.param_id, "and", eDicParam.part, "=31", "where", eElempar1.element_id, "=", p);
-                    ((DefaultTableModel) tab3.getModel()).fireTableDataChanged(); 
-                    ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                    if (tab3.getRowCount() > 0) {
-                        tab3.setRowSelectionInterval(0, 0);
-                    }
-                }
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
             }
-        });
-        tmElemgrp = new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        tmElement = new DefTableModel(tab2, qElement, eArtikls.code, eArtikls.name,
-                eElement.name, eElement.vtype, eArtikls.series, eElement.binding, eElement.binding, eElement.markup);
-        tmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id);
-        tmElempar1 = new DefTableModel(tab4, qElempar1, eDicParam.name, eElempar1.val);
-        tmElempar2 = new DefTableModel(tab6, qElempar2, eDicParam.name, eElempar2.val);
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        //qElement.execsql();
+        listenerModify.response(null);
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qElement.query(eElement.up.tname()).get(row);
+            Integer p1 = record.getInt(eElement.id);
+            qElemdet.select(eElemdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id,
+                    "left join", eDicParam.up, "on", eElemdet.param_id, "=", eDicParam.numb, "where", eElemdet.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eDicParam.up, "on",
+                    eDicParam.numb, "=", eElempar1.param_id, "and", eDicParam.part, "=31", "where", eElempar1.element_id, "=", p1);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            if (tab3.getRowCount() > 0) {
+                tab3.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    private void selectionTab3(ListSelectionEvent event) {
+        //qElemdet.execsql();
+        listenerModify.response(null);
+        int row = tab3.getSelectedRow();
+        if (row != -1) {
+            Record record = qElemdet.query(eElemdet.up.tname()).get(row);
+            Integer p1 = record.getInt(eElement.id);
+            qElempar2.select(eElempar2.up, "left join", eDicParam.up, "on",
+                    eDicParam.numb, "=", eElempar2.param_id, "and", eDicParam.part, ">=33 and", eDicParam.part, "<41", "where", eElempar2.elemdet_id, "=", p1);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
     }
 
@@ -158,8 +188,8 @@ public class Element extends javax.swing.JFrame {
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
         panCentr2 = new javax.swing.JPanel();
-        scr6 = new javax.swing.JScrollPane();
-        tab6 = new javax.swing.JTable();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         panWest = new javax.swing.JPanel();
@@ -371,10 +401,10 @@ public class Element extends javax.swing.JFrame {
 
         panCentr2.setLayout(new java.awt.BorderLayout());
 
-        scr6.setPreferredSize(new java.awt.Dimension(260, 404));
+        scr5.setPreferredSize(new java.awt.Dimension(260, 404));
 
-        tab6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        tab6.setModel(new javax.swing.table.DefaultTableModel(
+        tab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxxxxxxxxxxx", "111"},
                 {"zzzzzzzzzzzzzzzzzzzz", "222"}
@@ -391,15 +421,15 @@ public class Element extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tab6.setFillsViewportHeight(true);
-        tab6.setMinimumSize(new java.awt.Dimension(6, 64));
-        tab6.setPreferredSize(new java.awt.Dimension(0, 64));
-        scr6.setViewportView(tab6);
-        if (tab6.getColumnModel().getColumnCount() > 0) {
-            tab6.getColumnModel().getColumn(1).setPreferredWidth(40);
+        tab5.setFillsViewportHeight(true);
+        tab5.setMinimumSize(new java.awt.Dimension(6, 64));
+        tab5.setPreferredSize(new java.awt.Dimension(0, 64));
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(40);
         }
 
-        panCentr2.add(scr6, java.awt.BorderLayout.EAST);
+        panCentr2.add(scr5, java.awt.BorderLayout.EAST);
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -488,12 +518,12 @@ public class Element extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
-    private javax.swing.JScrollPane scr6;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
-    private javax.swing.JTable tab6;
+    private javax.swing.JTable tab5;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 }

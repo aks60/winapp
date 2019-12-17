@@ -362,7 +362,7 @@ public class Script {
             st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));
             
             st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));                        
-            //st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));            
+            st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));            
             
             //st2.execute(print("update elempar1 set param_id = (select id from dic_param a where a.numb2 = elempar1.pnumb)"));
 

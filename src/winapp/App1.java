@@ -12,6 +12,7 @@ import frames.Artikls;
 import frames.Builder;
 import frames.Element;
 import frames.Joining;
+import frames.Parametr;
 import frames.Rate;
 import frames.Texture;
 import java.awt.Dimension;
@@ -77,9 +78,9 @@ public class App1 extends javax.swing.JFrame {
         tb1 = new javax.swing.JToolBar();
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
+        btn22 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
         tb2 = new javax.swing.JToolBar();
-        btn22 = new javax.swing.JButton();
         btn23 = new javax.swing.JButton();
         btn24 = new javax.swing.JButton();
         btn25 = new javax.swing.JButton();
@@ -156,7 +157,7 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
-        tb1.setPreferredSize(new java.awt.Dimension(100, 27));
+        tb1.setPreferredSize(new java.awt.Dimension(120, 27));
 
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c043.gif"))); // NOI18N
         btn12.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -184,6 +185,21 @@ public class App1 extends javax.swing.JFrame {
         });
         tb1.add(btn13);
 
+        btn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
+        btn22.setFocusable(false);
+        btn22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn22.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn22.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn22.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn22.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                parametr(evt);
+            }
+        });
+        tb1.add(btn22);
+
         btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
         btn11.setFocusable(false);
         btn11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -204,19 +220,6 @@ public class App1 extends javax.swing.JFrame {
         tb2.setMaximumSize(new java.awt.Dimension(220, 27));
         tb2.setMinimumSize(new java.awt.Dimension(220, 27));
         tb2.setPreferredSize(new java.awt.Dimension(200, 27));
-
-        btn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
-        btn22.setFocusable(false);
-        btn22.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn22.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn22.setPreferredSize(new java.awt.Dimension(25, 25));
-        btn22.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConvToDatabase(evt);
-            }
-        });
-        tb2.add(btn22);
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
         btn23.setFocusable(false);
@@ -562,7 +565,7 @@ public class App1 extends javax.swing.JFrame {
         mn23.setText("Параметры");
         mn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn23mnExcelToDatabase(evt);
+                parametr(evt);
             }
         });
         mn02.add(mn23);
@@ -843,10 +846,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     }//GEN-LAST:event_mn0122ActionPerformed
 
-    private void mn23mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn23mnExcelToDatabase
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mn23mnExcelToDatabase
-
     private void mn34mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn34mnExcelToDatabase
         new FrameListener2() {
 
@@ -921,6 +920,15 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void btn29mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn29mn41mAdminUserToDb
         // TODO add your handling code here:
     }//GEN-LAST:event_btn29mn41mAdminUserToDb
+
+    private void parametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parametr
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Parametr.createFrame(App1.this);
+            }
+        };
+    }//GEN-LAST:event_parametr
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1024,7 +1032,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Rate, Texture, Artikls, Joining, Builder, Elements;
+        App1, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1047,6 +1055,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Elements:
                         frame = new Element();
+                        break;
+                    case Parametr:
+                        frame = new Parametr();
                         break;
                 }
                 frame.setName(this.name());
