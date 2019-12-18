@@ -7,11 +7,14 @@ import dataset.Record;
 public enum eJoindet implements Field {
     up("0", "0", "0", "Спецификация вариантов соединения", "CONNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
-    cunic("4", "10", "1", "null", "CUNIC"),
-    aunic("4", "10", "1", "null", "AUNIC"),
-    anumb("12", "32", "1", "артикул", "ANUMB"),
-    clnum("4", "10", "1", "null", "CLNUM"),
-    ctype("5", "5", "1", "null", "CTYPE");
+    match("5", "5", "1", "подбор", "CTYPE"),
+    texture_id("4", "10", "1", "ссылка", "texture_id"),
+    artikl_id("4", "10", "1", "ссылка", "artikl_id"),
+    joinvar_id("4", "10", "1", "ссылка", "joinvar_id");
+    //anumb("12", "32", "1", "артикул", "ANUMB"),
+    //cunic("4", "10", "1", "null", "CUNIC"),
+    //aunic("4", "10", "1", "ID", "AUNIC"),  
+    //clnum("4", "10", "1", "null", "CLNUM");    
     private MetaField meta = new MetaField(this);
 
     eJoindet(Object... p) {
@@ -25,8 +28,6 @@ public enum eJoindet implements Field {
     public Field[] fields() {
         return values();
     }
-
-    
 
     public String toString() {
         return meta.getDescr();

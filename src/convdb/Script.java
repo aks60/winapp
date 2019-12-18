@@ -359,12 +359,14 @@ public class Script {
             st2.execute(print("update elemdet set artikl_id = (select id from artikls a where a.code = elemdet.anumb)"));
             st2.execute(print("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)"));
             st2.execute(print("update elemdet set param_id = clnum where clnum < 0"));
-            st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));
-            
+            st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));    
             st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));                        
             st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));            
             
-            //st2.execute(print("update elempar1 set param_id = (select id from dic_param a where a.numb2 = elempar1.pnumb)"));
+            st2.execute(print("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)"));            
+            st2.execute(print("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)"));
+            st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)")); 
+            st2.execute(print("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)")); 
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);

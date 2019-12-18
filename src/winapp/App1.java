@@ -95,10 +95,6 @@ public class App1 extends javax.swing.JFrame {
         progressBar = new javax.swing.JProgressBar();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
-        mn44 = new javax.swing.JMenu();
-        mn0441 = new javax.swing.JCheckBoxMenuItem();
-        mn0442 = new javax.swing.JCheckBoxMenuItem();
-        mn0443 = new javax.swing.JCheckBoxMenuItem();
         mn15 = new javax.swing.JMenuItem();
         mn11 = new javax.swing.JMenu();
         mn0111 = new javax.swing.JMenuItem();
@@ -133,6 +129,10 @@ public class App1 extends javax.swing.JFrame {
         mn42 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
         mn61 = new javax.swing.JMenuItem();
+        mn62 = new javax.swing.JMenu();
+        mn0441 = new javax.swing.JCheckBoxMenuItem();
+        mn0442 = new javax.swing.JCheckBoxMenuItem();
+        mn0443 = new javax.swing.JCheckBoxMenuItem();
         mn05 = new javax.swing.JMenu();
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
@@ -244,7 +244,7 @@ public class App1 extends javax.swing.JFrame {
         btn24.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mAdminPathToDb(evt);
+                mJoining(evt);
             }
         });
         tb2.add(btn24);
@@ -375,42 +375,6 @@ public class App1 extends javax.swing.JFrame {
         mn01.setText("Настройки");
         mn01.setActionCommand("*Учреждение");
         mn01.setFont(common.Util.getFont(1,1));
-
-        mn44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn44.setText("Вид интерфейса");
-        mn44.setFont(common.Util.getFont(1,1));
-
-        buttonLookAndFiilGroup.add(mn0441);
-        mn0441.setFont(common.Util.getFont(1,1));
-        mn0441.setText("Win Classic");
-        mn0441.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLookAndFeel(evt);
-            }
-        });
-        mn44.add(mn0441);
-
-        buttonLookAndFiilGroup.add(mn0442);
-        mn0442.setFont(common.Util.getFont(1,1));
-        mn0442.setText("Java Nimbus");
-        mn0442.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLookAndFeel(evt);
-            }
-        });
-        mn44.add(mn0442);
-
-        buttonLookAndFiilGroup.add(mn0443);
-        mn0443.setFont(common.Util.getFont(1,1));
-        mn0443.setText("Java Metal");
-        mn0443.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnLookAndFeel(evt);
-            }
-        });
-        mn44.add(mn0443);
-
-        mn01.add(mn44);
 
         mn15.setFont(common.Util.getFont(1,1));
         mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
@@ -601,7 +565,7 @@ public class App1 extends javax.swing.JFrame {
         mn32.setText("Соединения");
         mn32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnExcelToDatabase(evt);
+                mJoining(evt);
             }
         });
         mn03.add(mn32);
@@ -696,6 +660,42 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         mn06.add(mn61);
+
+        mn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn62.setText("Вид интерфейса");
+        mn62.setFont(common.Util.getFont(1,1));
+
+        buttonLookAndFiilGroup.add(mn0441);
+        mn0441.setFont(common.Util.getFont(1,1));
+        mn0441.setText("Win Classic");
+        mn0441.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnLookAndFeel(evt);
+            }
+        });
+        mn62.add(mn0441);
+
+        buttonLookAndFiilGroup.add(mn0442);
+        mn0442.setFont(common.Util.getFont(1,1));
+        mn0442.setText("Java Nimbus");
+        mn0442.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnLookAndFeel(evt);
+            }
+        });
+        mn62.add(mn0442);
+
+        buttonLookAndFiilGroup.add(mn0443);
+        mn0443.setFont(common.Util.getFont(1,1));
+        mn0443.setText("Java Metal");
+        mn0443.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnLookAndFeel(evt);
+            }
+        });
+        mn62.add(mn0443);
+
+        mn06.add(mn62);
 
         mn0.add(mn06);
 
@@ -838,10 +838,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         }
     }//GEN-LAST:event_formWindowClosed
 
-    private void mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnExcelToDatabase
-
-    }//GEN-LAST:event_mnExcelToDatabase
-
     private void mn0122ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0122ActionPerformed
 
     }//GEN-LAST:event_mn0122ActionPerformed
@@ -929,6 +925,15 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         };
     }//GEN-LAST:event_parametr
+
+    private void mJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mJoining
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Joining.createFrame(App1.this);
+            }
+        };
+    }//GEN-LAST:event_mJoining
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -984,11 +989,11 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn41;
     private javax.swing.JMenuItem mn42;
     private javax.swing.JMenuItem mn43;
-    private javax.swing.JMenu mn44;
     private javax.swing.JMenuItem mn51;
     private javax.swing.JMenuItem mn52;
     private javax.swing.JMenuItem mn54;
     private javax.swing.JMenuItem mn61;
+    private javax.swing.JMenu mn62;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
