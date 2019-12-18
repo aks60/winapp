@@ -143,12 +143,12 @@ public class Script {
                 updateDb(cn2, st2);
             }
             Util.println("Удаление столбцов не вошедших в eEnum.values()");
-            for (Field fieldUp : fieldsUp) {
-                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Object[] deltaCol : hsDeltaCol) {
-                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
-                }
-            }
+//            for (Field fieldUp : fieldsUp) {
+//                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Object[] deltaCol : hsDeltaCol) {
+//                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+//                }
+//            }
             Util.println("Обновление завершено");
 
         } catch (Exception e) {
@@ -363,6 +363,8 @@ public class Script {
             st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));                        
             st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));            
             
+            st2.execute(print("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)"));            
+            st2.execute(print("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2) where exists  (select id from artikls a where a.code = joining.anum2)"));            
             st2.execute(print("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)"));            
             st2.execute(print("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)"));
             st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)")); 

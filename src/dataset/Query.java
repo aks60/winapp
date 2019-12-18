@@ -69,21 +69,17 @@ public class Query extends Table {
     public Query select(Object... s) {
         String sql = "";
         for (Object p : s) {
-            if(p instanceof Field) {
+            if (p instanceof Field) {
                 Field f = (Field) p;
                 if ("up".equals(f.name())) {
                     sql = sql + " " + f.tname();
                 } else {
-                    sql = sql + " " + f.tname() + "."  + f.name();
+                    sql = sql + " " + f.tname() + "." + f.name();
                 }
             } else {
                 sql = sql + " " + p;
             }
         }
-        return select(sql);
-    }
-
-    public Query select(String sql) {
         String str = "";
         for (Map.Entry<String, Query> q : hmQuery.entrySet()) {
             Query table = q.getValue();

@@ -1,9 +1,23 @@
 package frames;
 
+import dataset.Query;
+import domain.eArtikls;
+import domain.eJoining;
+
+
 public class Joining extends javax.swing.JFrame {
 
+    private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);    
+    private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
+    private Query qArtikls2 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id2);
+    
+    //private Query qArtikl2 = new Query(eArtikls.code, eArtikls.name).select(eJoining.up, "order by", eJoining.name);
+    
     public Joining() {
         initComponents();
+        
+        Object obj = qArtikls1.query(eArtikls.up.tname());
+        //DefTableModel rsmJoining = new DefTableModel(tab1, qJoining, eElemgrp.name);
     }
 
     @SuppressWarnings("unchecked")
@@ -197,6 +211,7 @@ public class Joining extends javax.swing.JFrame {
                 "Артикул 1", "Артикул 2", "Название"
             }
         ));
+        tab1.setFillsViewportHeight(true);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(2).setMinWidth(100);
@@ -222,6 +237,7 @@ public class Joining extends javax.swing.JFrame {
                 "Приоритет", "Название"
             }
         ));
+        tab2.setFillsViewportHeight(true);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -235,15 +251,14 @@ public class Joining extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"kkkkkkkkkkk", "77"},
+                {"hhhhhhhhh", "88"}
             },
             new String [] {
                 "Парометр", "Значение"
             }
         ));
+        tab3.setFillsViewportHeight(true);
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -260,15 +275,14 @@ public class Joining extends javax.swing.JFrame {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"yyyyyyyy", "fffffffffffffff", "44", "7"},
+                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2"}
             },
             new String [] {
                 "Артикул", "Название", "Текстура", "Подбор"
             }
         ));
+        tab4.setFillsViewportHeight(true);
         scr4.setViewportView(tab4);
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
@@ -278,16 +292,19 @@ public class Joining extends javax.swing.JFrame {
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"eeeeeeeeee", "22"},
+                {"mmmmmmm", "44"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Параметр", "Значение"
             }
         ));
+        tab5.setFillsViewportHeight(true);
         scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(1).setMaxWidth(120);
+        }
 
         jPanel3.add(scr5, java.awt.BorderLayout.EAST);
 

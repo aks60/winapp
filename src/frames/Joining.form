@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Container class="javax.swing.JScrollPane" name="scr6">
       <Properties>
@@ -373,6 +373,7 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
+                    <Property name="fillsViewportHeight" type="boolean" value="true"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
@@ -444,6 +445,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="fillsViewportHeight" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -476,9 +478,15 @@
                     <Component class="javax.swing.JTable" name="tab3">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="2" rowCount="4">
-                            <Column editable="true" title="&#x41f;&#x430;&#x440;&#x43e;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
+                          <Table columnCount="2" rowCount="2">
+                            <Column editable="true" title="&#x41f;&#x430;&#x440;&#x43e;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.Object">
+                              <Data value="kkkkkkkkkkk"/>
+                              <Data value="hhhhhhhhh"/>
+                            </Column>
+                            <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Object">
+                              <Data value="77"/>
+                              <Data value="88"/>
+                            </Column>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -495,6 +503,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="fillsViewportHeight" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -530,11 +539,23 @@
                     <Component class="javax.swing.JTable" name="tab4">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="4">
-                            <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x41f;&#x43e;&#x434;&#x431;&#x43e;&#x440;" type="java.lang.Object"/>
+                          <Table columnCount="4" rowCount="2">
+                            <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object">
+                              <Data value="yyyyyyyy"/>
+                              <Data value="rrrrrrrrrrr"/>
+                            </Column>
+                            <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object">
+                              <Data value="fffffffffffffff"/>
+                              <Data value="llllllllllllllllllllllllllll"/>
+                            </Column>
+                            <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object">
+                              <Data value="44"/>
+                              <Data value="77"/>
+                            </Column>
+                            <Column editable="true" title="&#x41f;&#x43e;&#x434;&#x431;&#x43e;&#x440;" type="java.lang.Object">
+                              <Data value="7"/>
+                              <Data value="2"/>
+                            </Column>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -561,6 +582,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="fillsViewportHeight" type="boolean" value="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -593,12 +615,34 @@
                     <Component class="javax.swing.JTable" name="tab5">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="4" rowCount="4">
-                            <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                            <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                            <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                            <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                          <Table columnCount="2" rowCount="2">
+                            <Column editable="true" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.Object">
+                              <Data value="eeeeeeeeee"/>
+                              <Data value="mmmmmmm"/>
+                            </Column>
+                            <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Object">
+                              <Data value="22"/>
+                              <Data value="44"/>
+                            </Column>
                           </Table>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="120" minWidth="-1" prefWidth="80" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
                     </Component>
