@@ -37,7 +37,6 @@ public class Artikls extends javax.swing.JFrame
 
     private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
     private Query qArtdet = new Query(eArtdet.id, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
-    DefTableModel tmArtikls, tmArtsvst;
     DefFieldRenderer rsvArtikls;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -88,16 +87,16 @@ public class Artikls extends javax.swing.JFrame
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
-        tmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
-        tmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+        DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
+        DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
 
         tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-        tmArtikls.addFrameListener(listenerModify);
-        tmArtsvst.addFrameListener(listenerModify);
+        rsmArtikls.addFrameListener(listenerModify);
+        rsmArtsvst.addFrameListener(listenerModify);
 
-        rsvArtikls = new DefFieldRenderer(tmArtikls);
+        rsvArtikls = new DefFieldRenderer(rsmArtikls);
         rsvArtikls.add(eArtikls.len_unit, txtField1);
         rsvArtikls.add(eArtikls.height, txtField2);
         rsvArtikls.add(eArtikls.thick, txtField3);
@@ -141,30 +140,11 @@ public class Artikls extends javax.swing.JFrame
         });
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                int row = tab1.getSelectedRow();
-                if (row != -1) {
-                    Record record = qArtikls.query(eArtikls.up.tname()).get(row);
-                    //System.out.println(record);
-                    int id = record.getInt(eArtikls.id);
-                    qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
-                            "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
-
-                    rsvArtikls.write(row);
-                    ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                    if (tab2.getRowCount() > 0) {
-                        tab2.setRowSelectionInterval(0, 0);
-                    }
-                }
+                selectioTree(event);
             }
         });
 
         load1();
-    }
-
-    public void request(DefTableModel tm) {
-    }
-
-    public void response(Object obj) {
     }
 
     private void load1() {
@@ -200,6 +180,30 @@ public class Artikls extends javax.swing.JFrame
         tree.setModel(new DefaultTreeModel(treeNode1));
         src1.setViewportView(tree);
         tree.setSelectionRow(0);
+    }
+
+    private void selectioTree(ListSelectionEvent event) {
+        
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qArtikls.query(eArtikls.up.tname()).get(row);
+            //System.out.println(record);
+            int id = record.getInt(eArtikls.id);
+            qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
+                    "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
+
+            rsvArtikls.write(row);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    public void request(DefTableModel tm) {
+    }
+
+    public void response(Object obj) {
     }
 
     @SuppressWarnings("unchecked")

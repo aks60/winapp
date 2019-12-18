@@ -17,7 +17,6 @@ public class Rate extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Query qRate = new Query(eDicRate.values()).select(eDicRate.up, "order by", eDicRate.name);
-    private DefTableModel tmRate;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -59,7 +58,7 @@ public class Rate extends javax.swing.JFrame
 
     public Rate() {
         initComponents();
-        tmRate = new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour);
+        DefTableModel tmRate = new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour);
         tmRate.addFrameListener(listenerModify);
     }
 
