@@ -37,7 +37,6 @@ public class Artikls extends javax.swing.JFrame
 
     private Query qArtikls = new Query(eArtikls.values(), eDicRate.values());
     private Query qArtdet = new Query(eArtdet.id, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
-    DefTableModel tmArtikls, tmArtsvst;
     DefFieldRenderer rsvArtikls;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -88,16 +87,16 @@ public class Artikls extends javax.swing.JFrame
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
-        tmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
-        tmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+        DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
+        DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
 
         tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-        tmArtikls.addFrameListener(listenerModify);
-        tmArtsvst.addFrameListener(listenerModify);
+        rsmArtikls.addFrameListener(listenerModify);
+        rsmArtsvst.addFrameListener(listenerModify);
 
-        rsvArtikls = new DefFieldRenderer(tmArtikls);
+        rsvArtikls = new DefFieldRenderer(rsmArtikls);
         rsvArtikls.add(eArtikls.len_unit, txtField1);
         rsvArtikls.add(eArtikls.height, txtField2);
         rsvArtikls.add(eArtikls.thick, txtField3);

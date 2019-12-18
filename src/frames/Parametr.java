@@ -17,10 +17,7 @@ public class Parametr extends javax.swing.JFrame {
 
     private Query qParam = new Query(eDicParam.values()).select(eDicParam.up, "where",
             eDicParam.numb, "< 0", "and", eDicParam.part, "= 0", "order by", eDicParam.name);
-    private Query qPardet = new Query(eDicParam.values()).select(eDicParam.up, "where",
-            eDicParam.numb, "< 0", "and", eDicParam.part, "= -1", "order by", eDicParam.name);
-
-    private DefTableModel tmParam, tmPardet;
+    private Query qPardet = new Query(eDicParam.values());
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -67,9 +64,9 @@ public class Parametr extends javax.swing.JFrame {
         });
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-        tmParam = new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
+        DefTableModel rsmParam = new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
                 eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
-        tmPardet = new DefTableModel(tab2, qPardet, eDicParam.name, eDicParam.komp,
+        DefTableModel rsmPardet = new DefTableModel(tab2, qPardet, eDicParam.name, eDicParam.komp,
                 eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
@@ -79,25 +76,20 @@ public class Parametr extends javax.swing.JFrame {
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
-        qPardet.query(eDicParam.up.tname()).clear();
-        qPardet = new Query(eDicParam.values()).select(eDicParam.up, "where", eDicParam.numb, "= -262127", "and", eDicParam.part, "= -1", "order by", eDicParam.name);
-        tmPardet.fireTableDataChanged();
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-//        listenerModify.response(null);
-//        int row = tab1.getSelectedRow();
-//        if (row != -1) {
-//            Record record = qParam.query(eDicParam.up.tname()).get(row);
-//            Integer p1 = record.getInt(eDicParam.numb);
-//            System.out.println("xxxxxxxxxxxxxxxxxx");
-//            qPardet = new Query(eDicParam.values()).select(eDicParam.up, "where",
-//                    eDicParam.numb, "=", p1, "and", eDicParam.part, "= -1", "order by", eDicParam.name);
-//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-//            if (tab2.getRowCount() > 0) {
-//                tab2.setRowSelectionInterval(0, 0);
-//            }
-//        }
+        listenerModify.response(null);
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qParam.query(eDicParam.up.tname()).get(row);
+            Integer p1 = record.getInt(eDicParam.numb);
+            qPardet.select(eDicParam.up, "where", eDicParam.numb, "=", p1, "and", eDicParam.part, "= -1", "order by", eDicParam.name);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -356,8 +348,7 @@ public class Parametr extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-        qPardet.query(eDicParam.up.tname()).clear();
-        tmPardet.fireTableDataChanged();
+
     }//GEN-LAST:event_btnHelp
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh

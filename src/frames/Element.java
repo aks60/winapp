@@ -26,8 +26,6 @@ public class Element extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikls.values(), eDicParam.values());
     private Query qElempar1 = new Query(eElempar1.values(), eDicParam.values());
     private Query qElempar2 = new Query(eElempar2.values(), eDicParam.values());
-
-    private DefTableModel tmElemgrp, tmElement, tmElemdet, tmElempar1, tmElempar2;
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -84,12 +82,12 @@ public class Element extends javax.swing.JFrame {
         tab4.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
 
-        tmElemgrp = new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        tmElement = new DefTableModel(tab2, qElement, eArtikls.code, eArtikls.name,
+        DefTableModel rsmElemgrp = new DefTableModel(tab1, qElemgrp, eElemgrp.name);
+        DefTableModel esmElement = new DefTableModel(tab2, qElement, eArtikls.code, eArtikls.name,
                 eElement.name, eElement.vtype, eArtikls.series, eElement.binding, eElement.binding, eElement.markup);
-        tmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id);
-        tmElempar1 = new DefTableModel(tab4, qElempar1, eDicParam.name, eElempar1.val);
-        tmElempar2 = new DefTableModel(tab5, qElempar2, eDicParam.name, eElempar2.val);
+        DefTableModel rsmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id);
+        DefTableModel rsmElempar1 = new DefTableModel(tab4, qElempar1, eDicParam.name, eElempar1.val);
+        DefTableModel rsmElempar2 = new DefTableModel(tab5, qElempar2, eDicParam.name, eElempar2.val);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }

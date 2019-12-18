@@ -64,33 +64,37 @@ public class Texture extends javax.swing.JFrame
     public Texture() {
         initComponents();
 
-        DefTableModel tmGrupcol = new DefTableModel(tab1, qGrupcol, eTextgrp.name);
-        DefTableModel tmColslst = new DefTableModel(tab2, qColslst, eTexture.name, eTexture.suffix1, eTexture.suffix2, eTexture.suffix3);
+        DefTableModel rsmGrupcol = new DefTableModel(tab1, qGrupcol, eTextgrp.name);
+        DefTableModel rsmColslst = new DefTableModel(tab2, qColslst, eTexture.name, eTexture.suffix1, eTexture.suffix2, eTexture.suffix3);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-        tmGrupcol.addFrameListener(listenerModify);
-        tmColslst.addFrameListener(listenerModify);
+        rsmGrupcol.addFrameListener(listenerModify);
+        rsmColslst.addFrameListener(listenerModify);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                qColslst.execsql();
-                listenerModify.response(null);
-                int row = tab1.getSelectedRow();
-                if (row != -1) {
-                    Record record = qGrupcol.query(eTextgrp.up.tname()).get(row);
-                    Integer cgrup = record.getInt(eTextgrp.id);
-                    qColslst.select(eTexture.up, "where", eTexture.textgrp_id, "=" + cgrup + "order by", eTexture.name);
-                    ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                    if (tab2.getRowCount() > 0) {
-                        tab2.setRowSelectionInterval(0, 0);
-                        btnDel.setEnabled(false);
-                    } else {
-                        btnDel.setEnabled(true);
-                    }
-                }
+                selectionTab1(event);
             }
         });
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+        qColslst.execsql();
+        listenerModify.response(null);
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qGrupcol.query(eTextgrp.up.tname()).get(row);
+            Integer cgrup = record.getInt(eTextgrp.id);
+            qColslst.select(eTexture.up, "where", eTexture.textgrp_id, "=" + cgrup + "order by", eTexture.name);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+                btnDel.setEnabled(false);
+            } else {
+                btnDel.setEnabled(true);
+            }
         }
     }
 
@@ -411,14 +415,14 @@ public class Texture extends javax.swing.JFrame
                     Query query = qGrupcol.query(eTextgrp.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
-                    qGrupcol.select(eTextgrp.up, "order by",  eTextgrp.name);
+                    qGrupcol.select(eTextgrp.up, "order by", eTextgrp.name);
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
                 } else if (focusComp == tab2) {
                     Query query = qColslst.query(eTexture.up.tname());
                     Record record = query.get(tab2.getSelectedRow());
                     query.delete(record);
-                    qColslst.select(eTextgrp.up, "order by",  eTextgrp.name);
+                    qColslst.select(eTextgrp.up, "order by", eTextgrp.name);
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 }
             } catch (Exception e) {
