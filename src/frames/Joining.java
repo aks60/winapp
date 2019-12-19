@@ -1,25 +1,75 @@
 package frames;
 
+import common.FrameListener;
 import dataset.Query;
+import dataset.Record;
 import domain.eArtikls;
+import domain.eElemgrp;
 import domain.eJoining;
-
+import domain.eJoinvar;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.Icon;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import swing.DefTableModel;
 
 public class Joining extends javax.swing.JFrame {
 
-    private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);    
+    private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);
     private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
     private Query qArtikls2 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id2);
+    private Query qJoinvar = new Query(eJoinvar.values());
     
-    //private Query qArtikl2 = new Query(eArtikls.code, eArtikls.name).select(eJoining.up, "order by", eJoining.name);
-    
+    private FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
+        }
+
+        public void focusLost(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(null);
+            }
+        }
+    };
+    private FrameListener<Object, Object> listenerModify = new FrameListener() {
+
+        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
+            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
+
+        public void request(Object obj) {
+            btnSave.setIcon(btnIM[0]);
+        }
+
+        public void response(Object obj) {
+            btnSave.setIcon(btnIM[1]);
+        }
+    };
+
     public Joining() {
         initComponents();
-        
-        Object obj = qArtikls1.query(eArtikls.up.tname());
-        //DefTableModel rsmJoining = new DefTableModel(tab1, qJoining, eElemgrp.name);
-    }
+        initObjects();
 
+        Object obj = qArtikls1.query(eArtikls.up.tname());
+        DefTableModel rsmJoining = new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
+        DefTableModel rsmJoinvar = new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
+    }
+    
+    private void selectionTab1(ListSelectionEvent event) {
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qJoining.query(eJoining.up.tname()).get(row);
+            Integer id = record.getInt(eElemgrp.id);
+            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.name);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -363,5 +413,35 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JTable tab5;
     private javax.swing.JTable tab6;
     // End of variables declaration//GEN-END:variables
+
+    private void initObjects() {
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab1(event);
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab2(event);
+            }
+        });
+        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab3(event);
+            }
+        });
+        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab3(event);
+            }
+        });
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
+        tab4.addFocusListener(listenerFocus);
+        tab5.addFocusListener(listenerFocus);
+    }
 // </editor-fold> 
 }

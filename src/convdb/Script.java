@@ -68,7 +68,7 @@ public class Script {
         Field[] fieldsUp = {
             eArtikls.up, eArtdet.up, eTextgrp.up, eTexture.up, eTextpar1.up, eComplet.up, eCompdet.up,
             eGlasdet.up, eGlasgrp.up, eGlasprof.up, eGlaspar1.up, eGlaspar2.up,
-            eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up, 
+            eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
             eFurnityra.up, eFurndet.up, eFurnside1.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eSyspar1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
@@ -143,12 +143,12 @@ public class Script {
                 updateDb(cn2, st2);
             }
             Util.println("Удаление столбцов не вошедших в eEnum.values()");
-//            for (Field fieldUp : fieldsUp) {
-//                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Object[] deltaCol : hsDeltaCol) {
-//                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
-//                }
-//            }
+            for (Field fieldUp : fieldsUp) {
+                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Object[] deltaCol : hsDeltaCol) {
+                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+                }
+            }
             Util.println("Обновление завершено");
 
         } catch (Exception e) {
@@ -319,6 +319,25 @@ public class Script {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
+
+            //Секция удаления фантомов
+            st2.execute(print("delete from texture where not exists (select id from textgrp a where a.gnumb = texture.cgrup)")); //textgrp_id
+            st2.execute(print("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)"));//artikl_id
+            st2.execute(print("delete from artdet where not exists (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));//texture_id
+            st2.execute(print("delete from element where not exists (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)"));
+            st2.execute(print("delete from element where not exists (select id from artikls a where a.code = element.anumb)"));//artikl_id
+            st2.execute(print("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)"));//artikl_id
+            st2.execute(print("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)"));//element_id
+            st2.execute(print("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)"));//element_id
+            st2.execute(print("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)"));//elemdet_id
+            st2.execute(print("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)"));//artikl_id1
+            st2.execute(print("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)"));//artikl_id2
+            st2.execute(print("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)"));//joining_id
+            st2.execute(print("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)"));//joinvar_id
+            st2.execute(print("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)"));//joinvar_id
+            st2.execute(print("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)"));//joindet_id            
+
+            //Секция update
             st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
             Query.connection = cn2;
             Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
@@ -359,16 +378,15 @@ public class Script {
             st2.execute(print("update elemdet set artikl_id = (select id from artikls a where a.code = elemdet.anumb)"));
             st2.execute(print("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)"));
             st2.execute(print("update elemdet set param_id = clnum where clnum < 0"));
-            st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));    
-            st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));                        
-            st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));            
-            
-            st2.execute(print("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)"));            
-            st2.execute(print("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2) where exists  (select id from artikls a where a.code = joining.anum2)"));            
-            st2.execute(print("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)"));            
+            st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));
+            st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));
+            st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));
+            st2.execute(print("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)"));
+            st2.execute(print("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2)"));
+            st2.execute(print("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)"));
             st2.execute(print("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)"));
-            st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)")); 
-            st2.execute(print("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)")); 
+            st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)"));
+            st2.execute(print("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)"));
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);
