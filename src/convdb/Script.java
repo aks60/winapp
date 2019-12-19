@@ -324,7 +324,6 @@ public class Script {
             st2.execute(print("delete from texture where not exists (select id from textgrp a where a.gnumb = texture.cgrup)")); //textgrp_id
             st2.execute(print("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)"));//artikl_id
             st2.execute(print("delete from artdet where not exists (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));//texture_id
-            st2.execute(print("delete from element where not exists (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)"));
             st2.execute(print("delete from element where not exists (select id from artikls a where a.code = element.anumb)"));//artikl_id
             st2.execute(print("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)"));//artikl_id
             st2.execute(print("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)"));//element_id
@@ -382,7 +381,7 @@ public class Script {
             st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));
             st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));
             st2.execute(print("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)"));
-            st2.execute(print("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2)"));
+            st2.execute(print("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2)")); // where exists  (select id from artikls a where a.code = joining.anum2)")); 
             st2.execute(print("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)"));
             st2.execute(print("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)"));
             st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)"));

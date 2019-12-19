@@ -5,7 +5,10 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
 import domain.eElemgrp;
+import domain.eJoindet;
 import domain.eJoining;
+import domain.eJoinpar1;
+import domain.eJoinpar2;
 import domain.eJoinvar;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -13,6 +16,7 @@ import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
 public class Joining extends javax.swing.JFrame {
@@ -21,7 +25,10 @@ public class Joining extends javax.swing.JFrame {
     private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
     private Query qArtikls2 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id2);
     private Query qJoinvar = new Query(eJoinvar.values());
-    
+    private Query qJoindet = new Query(eJoindet.values());
+    private Query qJoinpar1 = new Query(eJoinpar1.values());
+    private Query qJoinpar2 = new Query(eJoinpar2.values());
+
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -54,19 +61,60 @@ public class Joining extends javax.swing.JFrame {
 
     public Joining() {
         initComponents();
-        initObjects();
+        initElements();
 
-        Object obj = qArtikls1.query(eArtikls.up.tname());
-        DefTableModel rsmJoining = new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
-        DefTableModel rsmJoinvar = new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
+        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
+        new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
+        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.texture_id, eJoindet.match);
+        new DefTableModel(tab3, qJoinpar1, eJoinpar1.param_id, eJoinpar1.val);
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.param_id, eJoinpar2.val);
+
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
     }
-    
+
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qJoining.query(eJoining.up.tname()).get(row);
-            Integer id = record.getInt(eElemgrp.id);
-            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.name);
+            Integer id = record.getInt(eJoining.id);
+            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qJoinvar.query(eJoinvar.up.tname()).get(row);
+            Integer id = record.getInt(eJoinvar.id);
+            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
+            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.param_id);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            if (tab3.getRowCount() > 0) {
+                tab3.setRowSelectionInterval(0, 0);
+            }
+            if (tab4.getRowCount() > 0) {
+                tab4.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    private void selectionTab4(ListSelectionEvent event) {
+        int row = tab4.getSelectedRow();
+        if (row != -1) {
+            Record record = qJoindet.query(eJoindet.up.tname()).get(row);
+            Integer id = record.getInt(eJoindet.id);
+            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.param_id);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            if (tab5.getRowCount() > 0) {
+                tab5.setRowSelectionInterval(0, 0);
+            }
         }
     }
     
@@ -115,6 +163,7 @@ public class Joining extends javax.swing.JFrame {
         scr6.setViewportView(tab6);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Соединения");
         setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -262,6 +311,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(2).setMinWidth(100);
@@ -288,6 +338,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -309,6 +360,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab3.setFillsViewportHeight(true);
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -333,6 +385,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab4.setFillsViewportHeight(true);
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
@@ -350,6 +403,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab5.setFillsViewportHeight(true);
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -414,7 +468,7 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JTable tab6;
     // End of variables declaration//GEN-END:variables
 
-    private void initObjects() {
+    private void initElements() {
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab1(event);
@@ -422,19 +476,13 @@ public class Joining extends javax.swing.JFrame {
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                //selectionTab2(event);
-            }
-        });
-        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            public void valueChanged(ListSelectionEvent event) {
-                //selectionTab3(event);
+                selectionTab2(event);
             }
         });
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent event) {
-                //selectionTab3(event);
+                selectionTab4(event);
             }
         });
         tab1.addFocusListener(listenerFocus);
