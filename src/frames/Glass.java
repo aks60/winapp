@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Joining extends javax.swing.JFrame {
+public class Glass extends javax.swing.JFrame {
 
     private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);
     private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
@@ -59,7 +59,7 @@ public class Joining extends javax.swing.JFrame {
         }
     };
 
-    public Joining() {
+    public Glass() {
         initComponents();
         initElements();
 
@@ -122,49 +122,30 @@ public class Joining extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scr6 = new javax.swing.JScrollPane();
-        tab6 = new javax.swing.JTable();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        scr4 = new javax.swing.JScrollPane();
-        tab4 = new javax.swing.JTable();
+        tabb1 = new javax.swing.JTabbedPane();
+        pan4 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
-
-        scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        tab6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        scr6.setViewportView(tab6);
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
+        pan3 = new javax.swing.JPanel();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Соединения");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setTitle("Заполнения");
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -259,7 +240,7 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 677, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 697, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -278,55 +259,13 @@ public class Joining extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
-
+        panCentr.setPreferredSize(new java.awt.Dimension(800, 600));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(300, 548));
-        jPanel4.setLayout(new java.awt.BorderLayout());
-
-        scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"zzzzz", "aaaaa", "vvvvvvvvvvvvvvvvv"},
-                {"ccccc", "vvvvv", "uuuuuuuuuuuuu"}
-            },
-            new String [] {
-                "Артикул 1", "Артикул 2", "Название"
-            }
-        ));
-        tab1.setFillsViewportHeight(true);
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(2).setMinWidth(100);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(200);
-        }
-
-        jPanel4.add(scr1, java.awt.BorderLayout.CENTER);
-
-        panCentr.add(jPanel4, java.awt.BorderLayout.WEST);
-
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
-
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        pan1.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr2.setPreferredSize(new java.awt.Dimension(400, 400));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -345,10 +284,10 @@ public class Joining extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
-        jPanel2.add(scr2, java.awt.BorderLayout.CENTER);
+        pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr3.setPreferredSize(new java.awt.Dimension(200, 404));
+        scr3.setPreferredSize(new java.awt.Dimension(300, 400));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -367,31 +306,18 @@ public class Joining extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
-        jPanel2.add(scr3, java.awt.BorderLayout.EAST);
+        pan1.add(scr3, java.awt.BorderLayout.EAST);
 
-        jPanel1.add(jPanel2);
+        panCentr.add(pan1, java.awt.BorderLayout.CENTER);
 
-        jPanel3.setLayout(new java.awt.BorderLayout());
+        tabb1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+        tabb1.setToolTipText("");
+        tabb1.setPreferredSize(new java.awt.Dimension(800, 300));
 
-        scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        tab4.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", "7"},
-                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2"}
-            },
-            new String [] {
-                "Артикул", "Название", "Текстура", "Подбор"
-            }
-        ));
-        tab4.setFillsViewportHeight(true);
-        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr4.setViewportView(tab4);
-
-        jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
+        pan4.setLayout(new java.awt.BorderLayout());
 
         scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr5.setPreferredSize(new java.awt.Dimension(200, 404));
+        scr5.setPreferredSize(new java.awt.Dimension(400, 300));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -410,11 +336,56 @@ public class Joining extends javax.swing.JFrame {
             tab5.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
-        jPanel3.add(scr5, java.awt.BorderLayout.EAST);
+        pan4.add(scr5, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(jPanel3);
+        scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr1.setPreferredSize(new java.awt.Dimension(300, 300));
 
-        panCentr.add(jPanel1, java.awt.BorderLayout.CENTER);
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"zzzzz", "aaaaa", "vvvvvvvvvvvvvvvvv"},
+                {"ccccc", "vvvvv", "uuuuuuuuuuuuu"}
+            },
+            new String [] {
+                "Артикул 1", "Артикул 2", "Название"
+            }
+        ));
+        tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(2).setMinWidth(100);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(200);
+        }
+
+        pan4.add(scr1, java.awt.BorderLayout.EAST);
+
+        tabb1.addTab("Спецификация", pan4);
+
+        pan3.setPreferredSize(new java.awt.Dimension(10, 10));
+        pan3.setLayout(new java.awt.BorderLayout());
+
+        scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"yyyyyyyy", "fffffffffffffff", "44", "7"},
+                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2"}
+            },
+            new String [] {
+                "Артикул", "Название", "Текстура", "Подбор"
+            }
+        ));
+        tab4.setFillsViewportHeight(true);
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr4.setViewportView(tab4);
+
+        pan3.add(scr4, java.awt.BorderLayout.CENTER);
+
+        tabb1.addTab("Прфили в группе", pan3);
+
+        panCentr.add(tabb1, java.awt.BorderLayout.SOUTH);
+        tabb1.getAccessibleContext().setAccessibleName("");
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
@@ -447,25 +418,22 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
-    private javax.swing.JScrollPane scr6;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
-    private javax.swing.JTable tab6;
+    private javax.swing.JTabbedPane tabb1;
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {

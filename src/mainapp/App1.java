@@ -1,4 +1,4 @@
-package winapp;
+package mainapp;
 
 import common.Util;
 import common.FrameListener;
@@ -11,6 +11,7 @@ import javax.swing.SwingWorker;
 import frames.Artikls;
 import frames.Builder;
 import frames.Element;
+import frames.Glass;
 import frames.Joining;
 import frames.Parametr;
 import frames.Rate;
@@ -141,7 +142,6 @@ public class App1 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lotus   АРМ Технолог");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(979, 78));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -259,7 +259,7 @@ public class App1 extends javax.swing.JFrame {
         btn25.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn25mn39(evt);
+                mnElement(evt);
             }
         });
         tb2.add(btn25);
@@ -274,7 +274,7 @@ public class App1 extends javax.swing.JFrame {
         btn26.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn26mn39(evt);
+                mnGlass(evt);
             }
         });
         tb2.add(btn26);
@@ -575,7 +575,7 @@ public class App1 extends javax.swing.JFrame {
         mn34.setText("Составы");
         mn34.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn34mnExcelToDatabase(evt);
+                mnElement(evt);
             }
         });
         mn03.add(mn34);
@@ -585,7 +585,7 @@ public class App1 extends javax.swing.JFrame {
         mn35.setText("Заполнения");
         mn35.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn35mnExcelToDatabase(evt);
+                mnGlass(evt);
             }
         });
         mn03.add(mn35);
@@ -842,19 +842,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     }//GEN-LAST:event_mn0122ActionPerformed
 
-    private void mn34mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn34mnExcelToDatabase
-        new FrameListener2() {
-
-            public void request(Object obj) {
-                eApp1.Elements.createFrame(App1.this);
-            }
-        };
-    }//GEN-LAST:event_mn34mnExcelToDatabase
-
-    private void mn35mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn35mnExcelToDatabase
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mn35mnExcelToDatabase
-
     private void mn36mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn36mnExcelToDatabase
         // TODO add your handling code here:
     }//GEN-LAST:event_mn36mnExcelToDatabase
@@ -884,18 +871,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         };
     }//GEN-LAST:event_mn24
 
-    private void btn25mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn25mn39
+    private void mnElement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnElement
         new FrameListener2() {
 
             public void request(Object obj) {
                 eApp1.Elements.createFrame(App1.this);
             }
         };
-    }//GEN-LAST:event_btn25mn39
-
-    private void btn26mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn26mn39
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn26mn39
+    }//GEN-LAST:event_mnElement
 
     private void btn27mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn27mn39
         // TODO add your handling code here:
@@ -934,6 +917,15 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         };
     }//GEN-LAST:event_mJoining
+
+    private void mnGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGlass
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Glass.createFrame(App1.this);
+            }
+        };      
+    }//GEN-LAST:event_mnGlass
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1037,7 +1029,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr;
+        App1, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1063,6 +1055,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Parametr:
                         frame = new Parametr();
+                        break;
+                    case Glass:
+                        frame = new Glass();
                         break;
                 }
                 frame.setName(this.name());

@@ -1,4 +1,4 @@
-package winapp;
+package mainapp;
 
 import dataset.ConnApp;
 import dataset.eExcep;

@@ -1,4 +1,4 @@
-package winapp;
+package mainapp;
 
 import common.eProfile;
 import common.eProp;
