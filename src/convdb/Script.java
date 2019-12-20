@@ -94,6 +94,7 @@ public class Script {
             while (resultSet1.next()) {
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
                     versionPs = 3;
+                    eJoining.up.meta().fname = "CONNECT";
                 }
             }
             while (resultSet2.next()) {
@@ -198,9 +199,10 @@ public class Script {
             String tname1 = fields[0].meta().fname;
             if (tname1.equals("EMPTY")) { //новая таблица
                 return;
-            } else if (tname1.equals("CONNLST") && versionPs == 3) { //баг с названием таблицы в PS-3
-                tname1 = "CONNECT";
-            }
+            } 
+//            else if (tname1.equals("CONNLST") && versionPs == 3) { //баг с названием таблицы в PS-3
+//                tname1 = "CONNECT";
+//            }
             String tname2 = fields[0].tname();
             HashSet hsExistField = new HashSet(); //список полей которые есть в источнике и в eEnum.values()
             boolean bash = true;
@@ -335,8 +337,14 @@ public class Script {
             st2.execute(print("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)"));//joinvar_id
             st2.execute(print("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)"));//joinvar_id
             st2.execute(print("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)"));//joindet_id            
+            
+            st2.execute(print("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
+            st2.execute(print("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)"));
+            st2.execute(print("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
+            st2.execute(print("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)"));
+            
 
-            //Секция update
+           //Секция update
             st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
             Query.connection = cn2;
             Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
@@ -386,6 +394,11 @@ public class Script {
             st2.execute(print("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)"));
             st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)"));
             st2.execute(print("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)"));
+            
+            st2.execute(print("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
+            st2.execute(print("update glasprof set artikl_id = (select id from artikls a where a.code = glasprof.anumb)"));
+            st2.execute(print("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
+            st2.execute(print("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)"));
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);

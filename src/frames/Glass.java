@@ -21,13 +21,13 @@ import swing.DefTableModel;
 
 public class Glass extends javax.swing.JFrame {
 
-    private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);
-    private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
-    private Query qArtikls2 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id2);
-    private Query qJoinvar = new Query(eJoinvar.values());
-    private Query qJoindet = new Query(eJoindet.values());
-    private Query qJoinpar1 = new Query(eJoinpar1.values());
-    private Query qJoinpar2 = new Query(eJoinpar2.values());
+//    private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);
+//    private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
+//    private Query qArtikls2 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id2);
+//    private Query qJoinvar = new Query(eJoinvar.values());
+//    private Query qJoindet = new Query(eJoindet.values());
+//    private Query qJoinpar1 = new Query(eJoinpar1.values());
+//    private Query qJoinpar2 = new Query(eJoinpar2.values());
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -63,11 +63,11 @@ public class Glass extends javax.swing.JFrame {
         initComponents();
         initElements();
 
-        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
-        new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
-        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.texture_id, eJoindet.match);
-        new DefTableModel(tab3, qJoinpar1, eJoinpar1.param_id, eJoinpar1.val);
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.param_id, eJoinpar2.val);
+//        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
+//        new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
+//        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.texture_id, eJoindet.match);
+//        new DefTableModel(tab3, qJoinpar1, eJoinpar1.pnumb_id, eJoinpar1.val);
+//        new DefTableModel(tab5, qJoinpar2, eJoinpar2.pnumb_id, eJoinpar2.val);
 
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -75,47 +75,47 @@ public class Glass extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = tab1.getSelectedRow();
-        if (row != -1) {
-            Record record = qJoining.query(eJoining.up.tname()).get(row);
-            Integer id = record.getInt(eJoining.id);
-            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-            }
-        }
+//        int row = tab1.getSelectedRow();
+//        if (row != -1) {
+//            Record record = qJoining.query(eJoining.up.tname()).get(row);
+//            Integer id = record.getInt(eJoining.id);
+//            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
+//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+//            if (tab2.getRowCount() > 0) {
+//                tab2.setRowSelectionInterval(0, 0);
+//            }
+//        }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = tab2.getSelectedRow();
-        if (row != -1) {
-            Record record = qJoinvar.query(eJoinvar.up.tname()).get(row);
-            Integer id = record.getInt(eJoinvar.id);
-            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
-            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.param_id);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            if (tab3.getRowCount() > 0) {
-                tab3.setRowSelectionInterval(0, 0);
-            }
-            if (tab4.getRowCount() > 0) {
-                tab4.setRowSelectionInterval(0, 0);
-            }
-        }
+//        int row = tab2.getSelectedRow();
+//        if (row != -1) {
+//            Record record = qJoinvar.query(eJoinvar.up.tname()).get(row);
+//            Integer id = record.getInt(eJoinvar.id);
+//            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
+//            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.pnumb_id);
+//            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+//            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+//            if (tab3.getRowCount() > 0) {
+//                tab3.setRowSelectionInterval(0, 0);
+//            }
+//            if (tab4.getRowCount() > 0) {
+//                tab4.setRowSelectionInterval(0, 0);
+//            }
+//        }
     }
 
     private void selectionTab4(ListSelectionEvent event) {
-        int row = tab4.getSelectedRow();
-        if (row != -1) {
-            Record record = qJoindet.query(eJoindet.up.tname()).get(row);
-            Integer id = record.getInt(eJoindet.id);
-            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.param_id);
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            if (tab5.getRowCount() > 0) {
-                tab5.setRowSelectionInterval(0, 0);
-            }
-        }
+//        int row = tab4.getSelectedRow();
+//        if (row != -1) {
+//            Record record = qJoindet.query(eJoindet.up.tname()).get(row);
+//            Integer id = record.getInt(eJoindet.id);
+//            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.pnumb_id);
+//            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+//            if (tab5.getRowCount() > 0) {
+//                tab5.setRowSelectionInterval(0, 0);
+//            }
+//        }
     }
     
     @SuppressWarnings("unchecked")
@@ -240,7 +240,7 @@ public class Glass extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 697, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -269,19 +269,21 @@ public class Glass extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Мммммммммм"},
-                {"2", "Ррррррррррр"}
+                {"Мммммммммм", "1", "111"},
+                {"Ррррррррррр", "2", "222"}
             },
             new String [] {
-                "Приоритет", "Название"
+                "Название", "Зазор", "Толщины доступные"
             }
         ));
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(120);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
@@ -321,19 +323,25 @@ public class Glass extends javax.swing.JFrame {
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"eeeeeeeeee", "22"},
-                {"mmmmmmm", "44"}
+                {"eeeeeeeeee", "22", null, null, null},
+                {"mmmmmmm", "44", null, null, null}
             },
             new String [] {
-                "Параметр", "Значение"
+                "Толщина", "Артикул", "Название", "Текстура", "Подбор"
             }
         ));
         tab5.setFillsViewportHeight(true);
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(0).setMaxWidth(120);
             tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(1).setMaxWidth(120);
+            tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(4).setMaxWidth(120);
         }
 
         pan4.add(scr5, java.awt.BorderLayout.CENTER);
@@ -343,42 +351,47 @@ public class Glass extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzz", "aaaaa", "vvvvvvvvvvvvvvvvv"},
-                {"ccccc", "vvvvv", "uuuuuuuuuuuuu"}
+                {"zzzzz", "aaaaa"},
+                {"ccccc", "vvvvv"}
             },
             new String [] {
-                "Артикул 1", "Артикул 2", "Название"
+                "Параметр", "Значение"
             }
         ));
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(2).setMinWidth(100);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
         pan4.add(scr1, java.awt.BorderLayout.EAST);
 
         tabb1.addTab("Спецификация", pan4);
 
-        pan3.setPreferredSize(new java.awt.Dimension(10, 10));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", "7"},
-                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2"}
+                {"yyyyyyyy", "fffffffffffffff", "44", "7", "2"},
+                {"rrrrrrrrrrr", "pppppppppp", "77", "2", "4"}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор"
+                "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее"
             }
         ));
         tab4.setFillsViewportHeight(true);
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab4.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(4).setMaxWidth(120);
+        }
 
         pan3.add(scr4, java.awt.BorderLayout.CENTER);
 
