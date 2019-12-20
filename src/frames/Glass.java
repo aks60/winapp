@@ -318,7 +318,7 @@ public class Glass extends javax.swing.JFrame {
 
         pan4.setLayout(new java.awt.BorderLayout());
 
-        scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Спецификация", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
         scr5.setPreferredSize(new java.awt.Dimension(400, 300));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
