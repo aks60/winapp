@@ -2,32 +2,27 @@ package frames;
 
 import common.FrameListener;
 import dataset.Query;
-import dataset.Record;
 import domain.eArtikls;
-import domain.eElemgrp;
-import domain.eJoindet;
-import domain.eJoining;
-import domain.eJoinpar1;
-import domain.eJoinpar2;
-import domain.eJoinvar;
+import domain.eGlasdet;
+import domain.eGlasgrp;
+import domain.eGlaspar1;
+import domain.eGlaspar2;
+import domain.eGlasprof;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
 public class Glass extends javax.swing.JFrame {
 
-//    private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);
-//    private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
-//    private Query qArtikls2 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id2);
-//    private Query qJoinvar = new Query(eJoinvar.values());
-//    private Query qJoindet = new Query(eJoindet.values());
-//    private Query qJoinpar1 = new Query(eJoinpar1.values());
-//    private Query qJoinpar2 = new Query(eJoinpar2.values());
+    private Query qGlasgrp = new Query(eGlasgrp.values()).select(eGlasgrp.up, "order by", eGlasgrp.name);
+    private Query qGlasdet = new Query(eGlasdet.values(), eArtikls.values()).select(eGlasdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasdet.artikl_id);
+    private Query qGlasprof = new Query(eGlasprof.values(), eArtikls.values()).select(eGlasprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasprof.artikl_id);
+    private Query qGlaspar1 = new Query(eGlaspar1.values()).select(eGlaspar1.up, "order by", eGlaspar1.id);
+    private Query qGlaspar2 = new Query(eGlaspar2.values()).select(eGlaspar2.up, "order by", eGlaspar2.id);
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -63,14 +58,14 @@ public class Glass extends javax.swing.JFrame {
         initComponents();
         initElements();
 
-//        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
-//        new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
-//        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.texture_id, eJoindet.match);
-//        new DefTableModel(tab3, qJoinpar1, eJoinpar1.pnumb_id, eJoinpar1.val);
-//        new DefTableModel(tab5, qJoinpar2, eJoinpar2.pnumb_id, eJoinpar2.val);
+        new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
+        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikls.code, eArtikls.name, eGlasdet.id, eGlasdet.id);
+        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikls.code, eArtikls.name, eGlasprof.id, eGlasprof.id);
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.pnumb_id, eGlaspar1.val);
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.pnumb_id, eGlaspar2.val);
 
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
+        if (tab4.getRowCount() > 0) {
+            tab4.setRowSelectionInterval(0, 0);
         }
     }
 
@@ -130,22 +125,23 @@ public class Glass extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         panCentr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         tabb1 = new javax.swing.JTabbedPane();
         pan4 = new javax.swing.JPanel();
-        scr5 = new javax.swing.JScrollPane();
-        tab5 = new javax.swing.JTable();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
-        pan3 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
+        pan3 = new javax.swing.JPanel();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Заполнения");
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -262,12 +258,13 @@ public class Glass extends javax.swing.JFrame {
         panCentr.setPreferredSize(new java.awt.Dimension(800, 600));
         panCentr.setLayout(new java.awt.BorderLayout());
 
+        pan1.setPreferredSize(new java.awt.Dimension(700, 300));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr2.setPreferredSize(new java.awt.Dimension(400, 400));
+        scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr1.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Мммммммммм", "1", "111"},
                 {"Ррррррррррр", "2", "222"}
@@ -276,20 +273,20 @@ public class Glass extends javax.swing.JFrame {
                 "Название", "Зазор", "Толщины доступные"
             }
         ));
-        tab2.setFillsViewportHeight(true);
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(2).setMaxWidth(120);
+        tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(160);
         }
 
-        pan1.add(scr2, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr3.setPreferredSize(new java.awt.Dimension(300, 400));
+        scr3.setPreferredSize(new java.awt.Dimension(300, 300));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -318,10 +315,10 @@ public class Glass extends javax.swing.JFrame {
 
         pan4.setLayout(new java.awt.BorderLayout());
 
-        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Спецификация", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-        scr5.setPreferredSize(new java.awt.Dimension(400, 300));
+        scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr2.setPreferredSize(new java.awt.Dimension(500, 300));
 
-        tab5.setModel(new javax.swing.table.DefaultTableModel(
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"eeeeeeeeee", "22", null, null, null},
                 {"mmmmmmm", "44", null, null, null}
@@ -330,26 +327,26 @@ public class Glass extends javax.swing.JFrame {
                 "Толщина", "Артикул", "Название", "Текстура", "Подбор"
             }
         ));
-        tab5.setFillsViewportHeight(true);
-        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr5.setViewportView(tab5);
-        if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(0).setMaxWidth(120);
-            tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(1).setMaxWidth(120);
-            tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(4).setMaxWidth(120);
+        tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(4).setMaxWidth(120);
         }
 
-        pan4.add(scr5, java.awt.BorderLayout.CENTER);
+        pan4.add(scr2, java.awt.BorderLayout.CENTER);
 
-        scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr1.setPreferredSize(new java.awt.Dimension(300, 300));
+        scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr4.setPreferredSize(new java.awt.Dimension(300, 300));
 
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"zzzzz", "aaaaa"},
                 {"ccccc", "vvvvv"}
@@ -358,23 +355,23 @@ public class Glass extends javax.swing.JFrame {
                 "Параметр", "Значение"
             }
         ));
-        tab1.setFillsViewportHeight(true);
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(1).setMaxWidth(120);
+        tab4.setFillsViewportHeight(true);
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
-        pan4.add(scr1, java.awt.BorderLayout.EAST);
+        pan4.add(scr4, java.awt.BorderLayout.EAST);
 
         tabb1.addTab("Спецификация", pan4);
 
         pan3.setLayout(new java.awt.BorderLayout());
 
-        scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        tab4.setModel(new javax.swing.table.DefaultTableModel(
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"yyyyyyyy", "fffffffffffffff", "44", "7", "2"},
                 {"rrrrrrrrrrr", "pppppppppp", "77", "2", "4"}
@@ -383,17 +380,17 @@ public class Glass extends javax.swing.JFrame {
                 "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее"
             }
         ));
-        tab4.setFillsViewportHeight(true);
-        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr4.setViewportView(tab4);
-        if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab4.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(4).setMaxWidth(120);
+        tab5.setFillsViewportHeight(true);
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(4).setMaxWidth(120);
         }
 
-        pan3.add(scr4, java.awt.BorderLayout.CENTER);
+        pan3.add(scr5, java.awt.BorderLayout.CENTER);
 
         tabb1.addTab("Прфили в группе", pan3);
 
@@ -450,27 +447,27 @@ public class Glass extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab1(event);
             }
         });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab2(event);
             }
         });
-        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab4(event);
             }
         });
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
-        tab3.addFocusListener(listenerFocus);
         tab4.addFocusListener(listenerFocus);
+        tab1.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
     }
 // </editor-fold> 
 }

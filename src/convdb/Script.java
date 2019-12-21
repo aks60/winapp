@@ -329,20 +329,20 @@ public class Script {
             st2.execute(print("delete from element where not exists (select id from artikls a where a.code = element.anumb)"));//artikl_id
             st2.execute(print("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)"));//artikl_id
             st2.execute(print("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)"));//element_id
-            st2.execute(print("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)"));//element_id
+            st2.execute(print("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)"));//element_id           
             st2.execute(print("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)"));//elemdet_id
             st2.execute(print("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)"));//artikl_id1
             st2.execute(print("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)"));//artikl_id2
             st2.execute(print("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)"));//joining_id
             st2.execute(print("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)"));//joinvar_id
             st2.execute(print("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)"));//joinvar_id
-            st2.execute(print("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)"));//joindet_id            
-            
+            st2.execute(print("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)"));//joindet_id                      
             st2.execute(print("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
             st2.execute(print("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)"));
             st2.execute(print("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
-            st2.execute(print("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)"));
-            
+            st2.execute(print("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)"));           
+            st2.execute(print("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
+            st2.execute(print("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)"));            
 
            //Секция update
             st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
@@ -394,11 +394,12 @@ public class Script {
             st2.execute(print("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)"));
             st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)"));
             st2.execute(print("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)"));
-            
             st2.execute(print("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
             st2.execute(print("update glasprof set artikl_id = (select id from artikls a where a.code = glasprof.anumb)"));
             st2.execute(print("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
-            st2.execute(print("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)"));
+            st2.execute(print("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)"));           
+            st2.execute(print("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
+            st2.execute(print("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)"));
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);
