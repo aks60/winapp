@@ -64,9 +64,9 @@ public class Parametr extends javax.swing.JFrame {
         });
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-        DefTableModel rsmParam = new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
+        new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
                 eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
-        DefTableModel rsmPardet = new DefTableModel(tab2, qPardet, eDicParam.name, eDicParam.komp,
+        new DefTableModel(tab2, qPardet, eDicParam.name, eDicParam.komp,
                 eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {

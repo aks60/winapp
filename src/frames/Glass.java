@@ -2,18 +2,22 @@ package frames;
 
 import common.FrameListener;
 import dataset.Query;
+import dataset.Record;
 import domain.eArtikls;
 import domain.eGlasdet;
 import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
+import domain.eJoining;
+import domain.eJoinvar;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
 public class Glass extends javax.swing.JFrame {
@@ -64,53 +68,45 @@ public class Glass extends javax.swing.JFrame {
         new DefTableModel(tab3, qGlaspar1, eGlaspar1.pnumb_id, eGlaspar1.val);
         new DefTableModel(tab4, qGlaspar2, eGlaspar2.pnumb_id, eGlaspar2.val);
 
-        if (tab4.getRowCount() > 0) {
-            tab4.setRowSelectionInterval(0, 0);
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
         }
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-//        int row = tab1.getSelectedRow();
-//        if (row != -1) {
-//            Record record = qJoining.query(eJoining.up.tname()).get(row);
-//            Integer id = record.getInt(eJoining.id);
-//            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
-//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-//            if (tab2.getRowCount() > 0) {
-//                tab2.setRowSelectionInterval(0, 0);
-//            }
-//        }
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qGlasgrp.query(eGlasgrp.up.tname()).get(row);
+            Integer id = record.getInt(eGlasgrp.id);
+            qGlasdet.select(eGlasdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "where", eGlaspar1.glasgrp_id, "=", id, "order by", eGlaspar1.id);
+            qGlasprof.select(eGlasprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
+            if (tab3.getRowCount() > 0) {
+                tab3.setRowSelectionInterval(0, 0);
+            }
+            if (tab5.getRowCount() > 0) {
+                tab5.setRowSelectionInterval(0, 0);
+            }
+        }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-//        int row = tab2.getSelectedRow();
-//        if (row != -1) {
-//            Record record = qJoinvar.query(eJoinvar.up.tname()).get(row);
-//            Integer id = record.getInt(eJoinvar.id);
-//            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
-//            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.pnumb_id);
-//            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-//            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-//            if (tab3.getRowCount() > 0) {
-//                tab3.setRowSelectionInterval(0, 0);
-//            }
-//            if (tab4.getRowCount() > 0) {
-//                tab4.setRowSelectionInterval(0, 0);
-//            }
-//        }
-    }
-
-    private void selectionTab4(ListSelectionEvent event) {
-//        int row = tab4.getSelectedRow();
-//        if (row != -1) {
-//            Record record = qJoindet.query(eJoindet.up.tname()).get(row);
-//            Integer id = record.getInt(eJoindet.id);
-//            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.pnumb_id);
-//            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-//            if (tab5.getRowCount() > 0) {
-//                tab5.setRowSelectionInterval(0, 0);
-//            }
-//        }
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qGlasdet.query(eGlasdet.up.tname()).get(row);
+            Integer id = record.getInt(eJoinvar.id);
+            qGlaspar2.select(eGlaspar2.up, "where", eGlaspar2.glasdet_id, "=", id, "order by", eGlaspar2.id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            if (tab4.getRowCount() > 0) {
+                tab4.setRowSelectionInterval(0, 0);
+            }
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -447,20 +443,14 @@ public class Glass extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab1(event);
             }
         });
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab2(event);
-            }
-        });
-        tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab4(event);
             }
         });
         tab4.addFocusListener(listenerFocus);
