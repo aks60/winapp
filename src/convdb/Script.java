@@ -144,12 +144,12 @@ public class Script {
                 updateDb(cn2, st2);
             }
             Util.println("Удаление столбцов не вошедших в eEnum.values()");
-            for (Field fieldUp : fieldsUp) {
-                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Object[] deltaCol : hsDeltaCol) {
-                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
-                }
-            }
+//            for (Field fieldUp : fieldsUp) {
+//                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Object[] deltaCol : hsDeltaCol) {
+//                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+//                }
+//            }
             Util.println("Обновление завершено");
 
         } catch (Exception e) {
@@ -345,6 +345,7 @@ public class Script {
             st2.execute(print("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)"));
 
             st2.execute(print("delete from furnside1 where not exists (select id from furnitura a where a.funic = furnside1.funic)"));
+            st2.execute(print("delete from furnpar1 where not exists (select id from furnside1 a where a.funic = furnpar1.psss)"));
             
             //Секция update
             st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
@@ -404,6 +405,10 @@ public class Script {
             st2.execute(print("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)"));
 
             st2.execute(print("update furnside1 set furnitura_id = (select id from furnitura a where a.funic = furnside1.funic)"));
+            st2.execute(print("update furnside1 SET type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )"));
+            st2.execute(print("update furnpar1 set furnside_id = (select id from furnside1 a where a.funic = furnpar1.psss)"));
+            //update furnpar1 set furnside_id = (select id from furnside1 a where a.funic = furnpar1.psss)
+            
             
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);

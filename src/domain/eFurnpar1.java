@@ -9,7 +9,7 @@ public enum eFurnpar1 implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     val("12", "64", "1", "наименование значения параметра", "PTEXT"),
     pnumb_id("4", "10", "1", "ссылка", "PNUMB"),
-    furnitura_id("4", "10", "1", "ссылка", "furnitura_id");
+    furnside_id("4", "10", "1", "ссылка", "furnside_id");
     //psss("4", "10", "1", "null", "PSSS"),
     //pporn("5", "5", "1", "null", "PPORN"),
     //znumb("4", "10", "1", "null", "ZNUMB"),

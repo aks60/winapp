@@ -2,18 +2,24 @@ package frames;
 
 import common.FrameListener;
 import dataset.Query;
+import dataset.Record;
 import domain.eFurnitura;
+import domain.eFurnpar1;
+import domain.eFurnside1;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
 public class Furnitura extends javax.swing.JFrame {
 
     private Query qFurnitura = new Query(eFurnitura.values()).select(eFurnitura.up, "order by", eFurnitura.name);
+    private Query qFurnside1 = new Query(eFurnside1.values());
+    private Query qFurnpar1 = new Query(eFurnpar1.values()).select(eFurnpar1.up, "order by", eFurnpar1.pnumb_id);
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -56,16 +62,37 @@ public class Furnitura extends javax.swing.JFrame {
     public Furnitura() {
         initComponents();
         initElements();
-        
-      Object obj = qFurnitura.query(eFurnitura.up.tname());
-      
-        DefTableModel rsmFurnitura = new DefTableModel(tab1, qFurnitura, eFurnitura.name, eFurnitura.view_open, eFurnitura.view_open, eFurnitura.p2_max, 
-                eFurnitura.width_max, eFurnitura.height_max, eFurnitura.weight_max, eFurnitura.types, eFurnitura.pars, eFurnitura.coord_lim);
-//        rsmFurnitura.addFrameListener(listenerModify);
+
+        new DefTableModel(tab1, qFurnitura, eFurnitura.name, eFurnitura.view_open, eFurnitura.view_open, eFurnitura.p2_max, eFurnitura.width_max,
+                eFurnitura.height_max, eFurnitura.weight_max, eFurnitura.types, eFurnitura.pars, eFurnitura.coord_lim).addFrameListener(listenerModify);
+        new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furnitura_id, eFurnside1.type_side).addFrameListener(listenerModify);
+        //new DefTableModel(tab5, qFurnpar1, eFurnpar1.pnumb_id, eFurnpar1.val).addFrameListener(listenerModify);
     }
 
-    public void selectionTab1(ListSelectionEvent event) {
-
+    private void selectionTab1(ListSelectionEvent event) {
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qFurnitura.query(eFurnitura.up.tname()).get(row);
+            Integer id = record.getInt(eFurnitura.id);
+            qFurnside1.select(eFurnside1.up, "where", eFurnside1.furnitura_id, "=", id, "order by", eFurnside1.npp);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            if (tab4.getRowCount() > 0) {
+                tab4.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+    
+    private void selectionTab4(ListSelectionEvent event) {
+//        int row = tab1.getSelectedRow();
+//        if (row != -1) {
+//            Record record = qFurnside1.query(eFurnside1.up.tname()).get(row);
+//            Integer id = record.getInt(eFurnside1.id);
+//            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.pnumb_id);
+//            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+//            if (tab5.getRowCount() > 0) {
+//                tab5.setRowSelectionInterval(0, 0);
+//            }
+//        }
     }
 
     @SuppressWarnings("unchecked")
@@ -297,7 +324,7 @@ public class Furnitura extends javax.swing.JFrame {
                 {"2", "44", "erere"}
             },
             new String [] {
-                "Номер", "Вид", "Назваание"
+                "Номер", "Вид", "Назначение"
             }
         ));
         tab4.setFillsViewportHeight(true);
@@ -553,12 +580,12 @@ public class Furnitura extends javax.swing.JFrame {
                 selectionTab1(event);
             }
         });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                //selectionTab2(event);
+                selectionTab4(event);
             }
         });
-        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent event) {
                 //selectionTab4(event);
