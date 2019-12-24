@@ -144,12 +144,12 @@ public class Script {
                 updateDb(cn2, st2);
             }
             Util.println("Удаление столбцов не вошедших в eEnum.values()");
-//            for (Field fieldUp : fieldsUp) {
-//                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Object[] deltaCol : hsDeltaCol) {
-//                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
-//                }
-//            }
+            for (Field fieldUp : fieldsUp) {
+                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Object[] deltaCol : hsDeltaCol) {
+                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+                }
+            }
             Util.println("Обновление завершено");
 
         } catch (Exception e) {
