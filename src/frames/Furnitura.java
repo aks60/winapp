@@ -157,7 +157,7 @@ public class Furnitura extends javax.swing.JFrame {
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(600, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -273,7 +273,7 @@ public class Furnitura extends javax.swing.JFrame {
                 .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 394, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -297,15 +297,17 @@ public class Furnitura extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
+        panSentr.setPreferredSize(new java.awt.Dimension(800, 642));
         panSentr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 200));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        pan4.setPreferredSize(new java.awt.Dimension(500, 400));
+        pan4.setPreferredSize(new java.awt.Dimension(500, 200));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
+        scr1.setPreferredSize(new java.awt.Dimension(450, 200));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -327,7 +329,7 @@ public class Furnitura extends javax.swing.JFrame {
 
         pan1.add(pan4, java.awt.BorderLayout.CENTER);
 
-        pan5.setPreferredSize(new java.awt.Dimension(300, 400));
+        pan5.setPreferredSize(new java.awt.Dimension(300, 200));
         pan5.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(null);
@@ -354,7 +356,7 @@ public class Furnitura extends javax.swing.JFrame {
         pan5.add(scr4, java.awt.BorderLayout.NORTH);
 
         scr5.setBorder(null);
-        scr5.setPreferredSize(new java.awt.Dimension(300, 400));
+        scr5.setPreferredSize(new java.awt.Dimension(300, 100));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -390,10 +392,11 @@ public class Furnitura extends javax.swing.JFrame {
         pan2.setPreferredSize(new java.awt.Dimension(800, 402));
         pan2.setLayout(new java.awt.BorderLayout());
 
+        pan6.setPreferredSize(new java.awt.Dimension(800, 300));
         pan6.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
-        scr2.setPreferredSize(new java.awt.Dimension(500, 400));
+        scr2.setPreferredSize(new java.awt.Dimension(500, 300));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -411,7 +414,7 @@ public class Furnitura extends javax.swing.JFrame {
         pan6.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(null);
-        scr3.setPreferredSize(new java.awt.Dimension(300, 400));
+        scr3.setPreferredSize(new java.awt.Dimension(300, 300));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -442,11 +445,11 @@ public class Furnitura extends javax.swing.JFrame {
 
         pan2.add(pan6, java.awt.BorderLayout.CENTER);
 
-        pan7.setPreferredSize(new java.awt.Dimension(807, 120));
+        pan7.setPreferredSize(new java.awt.Dimension(807, 100));
         pan7.setLayout(new java.awt.BorderLayout());
 
         scr6.setBorder(null);
-        scr6.setPreferredSize(new java.awt.Dimension(300, 400));
+        scr6.setPreferredSize(new java.awt.Dimension(300, 100));
 
         tab6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -476,6 +479,7 @@ public class Furnitura extends javax.swing.JFrame {
         pan7.add(scr6, java.awt.BorderLayout.EAST);
 
         scr7.setBorder(null);
+        scr7.setPreferredSize(new java.awt.Dimension(450, 100));
 
         tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -500,12 +504,13 @@ public class Furnitura extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(800, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 882, Short.MAX_VALUE)
+            .addGap(0, 725, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
