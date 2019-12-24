@@ -69,7 +69,7 @@ public class Script {
             eArtikls.up, eArtdet.up, eTextgrp.up, eTexture.up, eTextpar1.up, eComplet.up, eCompdet.up,
             eGlasdet.up, eGlasgrp.up, eGlasprof.up, eGlaspar1.up, eGlaspar2.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
-            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up, 
+            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eSyspar1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up
@@ -89,9 +89,11 @@ public class Script {
             ResultSet resultSet1 = mdb1.getTables(null, null, null, new String[]{"TABLE"});
             ResultSet resultSet2 = mdb2.getTables(null, null, null, new String[]{"TABLE"});
 
+            List<String> listExistTable1 = new ArrayList<String>();//таблицы приёмника
             List<String> listExistTable2 = new ArrayList<String>();//таблицы приёмника
             List<String> listGenerator2 = new ArrayList<String>();//генераторы приёмника 
             while (resultSet1.next()) {
+                listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
                     versionPs = 3;
                     eJoining.up.meta().fname = "CONNECT";
@@ -126,8 +128,10 @@ public class Script {
                 for (Object[] deltaCol : hsDeltaCol) {
                     st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";"));
                 }
-                //Конвертирование данных в таблицу приёмника                   
-                convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
+                //Конвертирование данных в таблицу приёмника 
+                if (listExistTable1.contains(fieldUp.meta().fname) == true) {
+                    convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
+                }
 
                 st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) {
@@ -197,9 +201,9 @@ public class Script {
         try {
             int count = 0; //колчество записей для расчёта кол. пакетов
             String tname1 = fields[0].meta().fname;
-            if (tname1.equals("EMPTY")) { //новая таблица
-                return;
-            }
+//            if (tname1.equals("EMPTY")) { //новая таблица
+//                return;
+//            }
 //            else if (tname1.equals("CONNLST") && versionPs == 3) { //баг с названием таблицы в PS-3
 //                tname1 = "CONNECT";
 //            }
@@ -345,8 +349,10 @@ public class Script {
             st2.execute(print("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)"));
 
             st2.execute(print("delete from furnside1 where not exists (select id from furnitura a where a.funic = furnside1.funic)"));
-            st2.execute(print("delete from furnpar1 where not exists (select id from furnside1 a where a.funic = furnpar1.psss)"));
-            
+            st2.execute(print("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)"));
+            st2.execute(print("delete from furndet where not exists (select id from furnitura a where a.funic = furndet.funic)"));
+            st2.execute(print("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"));
+          
             //Секция update
             st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
             Query.connection = cn2;
@@ -406,10 +412,10 @@ public class Script {
 
             st2.execute(print("update furnside1 set furnitura_id = (select id from furnitura a where a.funic = furnside1.funic)"));
             st2.execute(print("update furnside1 SET type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )"));
-            st2.execute(print("update furnpar1 set furnside_id = (select id from furnside1 a where a.funic = furnpar1.psss)"));
-            //update furnpar1 set furnside_id = (select id from furnside1 a where a.funic = furnpar1.psss)
-            
-            
+            st2.execute(print("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)"));
+            st2.execute(print("update furndet set furnitura_id = (select id from furnitura a where a.funic = furndet.funic)"));
+            st2.execute(print("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"));
+
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);
         }

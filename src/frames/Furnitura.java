@@ -3,9 +3,12 @@ package frames;
 import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
+import domain.eArtikls;
+import domain.eFurndet;
 import domain.eFurnitura;
 import domain.eFurnpar1;
 import domain.eFurnside1;
+import domain.eTexture;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -19,7 +22,8 @@ public class Furnitura extends javax.swing.JFrame {
 
     private Query qFurnitura = new Query(eFurnitura.values()).select(eFurnitura.up, "order by", eFurnitura.name);
     private Query qFurnside1 = new Query(eFurnside1.values());
-    private Query qFurnpar1 = new Query(eFurnpar1.values()).select(eFurnpar1.up, "order by", eFurnpar1.pnumb_id);
+    private Query qFurnpar1 = new Query(eFurnpar1.values());
+    private Query qFurndet = new Query(eFurndet.values(), eArtikls.values(), eTexture.values());
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -66,7 +70,11 @@ public class Furnitura extends javax.swing.JFrame {
         new DefTableModel(tab1, qFurnitura, eFurnitura.name, eFurnitura.view_open, eFurnitura.view_open, eFurnitura.p2_max, eFurnitura.width_max,
                 eFurnitura.height_max, eFurnitura.weight_max, eFurnitura.types, eFurnitura.pars, eFurnitura.coord_lim).addFrameListener(listenerModify);
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furnitura_id, eFurnside1.type_side).addFrameListener(listenerModify);
-        //new DefTableModel(tab5, qFurnpar1, eFurnpar1.pnumb_id, eFurnpar1.val).addFrameListener(listenerModify);
+        new DefTableModel(tab5, qFurnpar1, eFurnpar1.pnumb_id, eFurnpar1.val).addFrameListener(listenerModify);
+        new DefTableModel(tab2, qFurndet, eArtikls.code, eArtikls.code, eArtikls.name, eTexture.name, eFurndet.types).addFrameListener(listenerModify);
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -75,24 +83,31 @@ public class Furnitura extends javax.swing.JFrame {
             Record record = qFurnitura.query(eFurnitura.up.tname()).get(row);
             Integer id = record.getInt(eFurnitura.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furnitura_id, "=", id, "order by", eFurnside1.npp);
+            qFurndet.select(eFurndet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eFurndet.artikl_id,
+                    "left join", eTexture.up, "on", eTexture.id, "=", eFurndet.furnitura_id,
+                    "where", eFurndet.furnitura_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
             if (tab4.getRowCount() > 0) {
                 tab4.setRowSelectionInterval(0, 0);
             }
         }
     }
-    
+
     private void selectionTab4(ListSelectionEvent event) {
-//        int row = tab1.getSelectedRow();
-//        if (row != -1) {
-//            Record record = qFurnside1.query(eFurnside1.up.tname()).get(row);
-//            Integer id = record.getInt(eFurnside1.id);
-//            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.pnumb_id);
-//            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-//            if (tab5.getRowCount() > 0) {
-//                tab5.setRowSelectionInterval(0, 0);
-//            }
-//        }
+        int row = tab4.getSelectedRow();
+        if (row != -1) {
+            Record record = qFurnside1.query(eFurnside1.up.tname()).get(row);
+            Integer id = record.getInt(eFurnside1.id);
+            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.pnumb_id);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            if (tab5.getRowCount() > 0) {
+                tab5.setRowSelectionInterval(0, 0);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -382,21 +397,13 @@ public class Furnitura extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"фывфыв", "мммммммммммммм", "11",  new Double(22.0)},
-                {"ываыва", "иииииииииииии", "22",  new Double(33.0)}
+                {"11", "xxxxxxxxx", "11", "11"},
+                {"22", "vvvvvvvvv", "22", "22"}
             },
             new String [] {
                 "Артикул", "Название", "Текстура", "Подбор"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
