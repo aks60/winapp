@@ -11,8 +11,10 @@ import javax.swing.SwingWorker;
 import frames.Artikls;
 import frames.Builder;
 import frames.Element;
+import frames.Furnitura;
 import frames.Glass;
 import frames.Joining;
+import frames.Kits;
 import frames.Parametr;
 import frames.Rate;
 import frames.Texture;
@@ -48,7 +50,6 @@ public class App1 extends javax.swing.JFrame {
 
         initComponents();
 
-        setTitle(eProfile.P02.getTitle());
         if (eProp.lookandfeel.read().equals("Metal")) {
             mn0443.setSelected(true);
         } else if (eProp.lookandfeel.read().equals("Nimbus")) {
@@ -90,6 +91,8 @@ public class App1 extends javax.swing.JFrame {
         btn28 = new javax.swing.JButton();
         td3 = new javax.swing.JToolBar();
         btn29 = new javax.swing.JButton();
+        btn30 = new javax.swing.JButton();
+        btn33 = new javax.swing.JButton();
         tb4 = new javax.swing.JToolBar();
         btn31 = new javax.swing.JButton();
         btn32 = new javax.swing.JButton();
@@ -140,7 +143,7 @@ public class App1 extends javax.swing.JFrame {
         mn54 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lotus   АРМ Технолог");
+        setTitle("SAWIN   <АРМ Технолог>");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -230,7 +233,7 @@ public class App1 extends javax.swing.JFrame {
         btn23.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn41mAdminUserToDb(evt);
+                mnKits(evt);
             }
         });
         tb2.add(btn23);
@@ -289,7 +292,7 @@ public class App1 extends javax.swing.JFrame {
         btn27.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn27.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn27mn39(evt);
+                mnFurnityra(evt);
             }
         });
         tb2.add(btn27);
@@ -312,7 +315,7 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(tb2);
 
         td3.setRollover(true);
-        td3.setPreferredSize(new java.awt.Dimension(80, 27));
+        td3.setPreferredSize(new java.awt.Dimension(85, 27));
 
         btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c029.gif"))); // NOI18N
         btn29.setFocusable(false);
@@ -328,6 +331,36 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         td3.add(btn29);
+
+        btn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c029.gif"))); // NOI18N
+        btn30.setFocusable(false);
+        btn30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn30.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn30.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn30.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn30.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn30mn41mAdminUserToDb(evt);
+            }
+        });
+        td3.add(btn30);
+
+        btn33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c029.gif"))); // NOI18N
+        btn33.setFocusable(false);
+        btn33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn33.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn33.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn33.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn33.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn33.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn33mn41mAdminUserToDb(evt);
+            }
+        });
+        td3.add(btn33);
 
         getContentPane().add(td3);
 
@@ -555,7 +588,7 @@ public class App1 extends javax.swing.JFrame {
         mn31.setText("Комплекты");
         mn31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConvToDatabase(evt);
+                mnKits(evt);
             }
         });
         mn03.add(mn31);
@@ -595,7 +628,7 @@ public class App1 extends javax.swing.JFrame {
         mn36.setText("Фурнитура");
         mn36.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn36mnExcelToDatabase(evt);
+                mnFurnityra(evt);
             }
         });
         mn03.add(mn36);
@@ -813,10 +846,6 @@ private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn
     eProp.save();
 }//GEN-LAST:event_mnLookAndFeel
 
-private void mnConvToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvToDatabase
-
-}//GEN-LAST:event_mnConvToDatabase
-
 private void mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41mAdminUserToDb
 
 }//GEN-LAST:event_mn41mAdminUserToDb
@@ -841,10 +870,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mn0122ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0122ActionPerformed
 
     }//GEN-LAST:event_mn0122ActionPerformed
-
-    private void mn36mnExcelToDatabase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn36mnExcelToDatabase
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mn36mnExcelToDatabase
 
     private void mn15mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn15mExit
         // TODO add your handling code here:
@@ -880,9 +905,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         };
     }//GEN-LAST:event_mnElement
 
-    private void btn27mn39(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn27mn39
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn27mn39
+    private void mnFurnityra(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFurnityra
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Furnitura.createFrame(App1.this);
+            }
+        };
+    }//GEN-LAST:event_mnFurnityra
 
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
         // TODO add your handling code here:
@@ -926,6 +956,23 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         };      
     }//GEN-LAST:event_mnGlass
+
+    private void btn30mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn30mn41mAdminUserToDb
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn30mn41mAdminUserToDb
+
+    private void btn33mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn33mn41mAdminUserToDb
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn33mn41mAdminUserToDb
+
+    private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Kits.createFrame(App1.this);
+            }
+        }; 
+    }//GEN-LAST:event_mnKits
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -939,8 +986,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn27;
     private javax.swing.JButton btn28;
     private javax.swing.JButton btn29;
+    private javax.swing.JButton btn30;
     private javax.swing.JButton btn31;
     private javax.swing.JButton btn32;
+    private javax.swing.JButton btn33;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
@@ -1029,7 +1078,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass;
+        App1, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass, Furnitura, Kits;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1058,6 +1107,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Glass:
                         frame = new Glass();
+                        break;
+                    case Furnitura:
+                        frame = new Furnitura();
+                        break;
+                    case Kits:
+                        frame = new Kits();
                         break;
                 }
                 frame.setName(this.name());

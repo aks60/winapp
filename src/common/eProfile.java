@@ -42,15 +42,6 @@ public enum eProfile {
         this.role_name4 = (role.length > 7) ? role[7] : null;
     }
 
-    public String getTitle() {
-
-        /*if (eUchSchool.query().isEmpty() == false) {
-            String uch_name = eUchSchool.query().getAs(0, eUchSchool.name, "");
-            return role_name + " " + uch_name + "  " + String.valueOf(App.getYearSchool()) + "/"
-                    + String.valueOf(App.getYearSchool() + 1) + " уч. год";
-        }*/
-        return "Lotus <АРМ Технолог>";
-    }
 
     public int id;
     public String config;

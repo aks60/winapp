@@ -13,7 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Furnityra extends javax.swing.JFrame {
+public class Furnitura extends javax.swing.JFrame {
 
     //private Query qRate = new Query(eDicRate.values()).select(eDicRate.up, "order by", eDicRate.name);
 
@@ -55,7 +55,7 @@ public class Furnityra extends javax.swing.JFrame {
         }
     };
 
-    public Furnityra() {
+    public Furnitura() {
         initComponents();
         //new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour);
         //tmRate.addFrameListener(listenerModify);
@@ -72,8 +72,21 @@ public class Furnityra extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         panSentr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
+        pan3 = new javax.swing.JPanel();
+        pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        pan5 = new javax.swing.JPanel();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
+        pan2 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -178,7 +191,7 @@ public class Furnityra extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 584, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 590, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -198,6 +211,15 @@ public class Furnityra extends javax.swing.JFrame {
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
         panSentr.setLayout(new java.awt.BorderLayout());
+
+        pan1.setPreferredSize(new java.awt.Dimension(800, 302));
+        pan1.setLayout(new java.awt.BorderLayout());
+
+        pan3.setPreferredSize(new java.awt.Dimension(800, 32));
+        pan3.setLayout(new java.awt.BorderLayout());
+        pan1.add(pan3, java.awt.BorderLayout.NORTH);
+
+        pan4.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
 
@@ -224,9 +246,154 @@ public class Furnityra extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(1).setHeaderValue("Ед. число");
+            tab1.getColumnModel().getColumn(3).setHeaderValue("Курс");
         }
 
-        panSentr.add(scr1, java.awt.BorderLayout.CENTER);
+        pan4.add(scr1, java.awt.BorderLayout.CENTER);
+
+        pan1.add(pan4, java.awt.BorderLayout.CENTER);
+
+        pan5.setPreferredSize(new java.awt.Dimension(300, 32));
+        pan5.setLayout(new java.awt.BorderLayout());
+
+        scr4.setBorder(null);
+
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Название", "Ед. число", "Мн. число", "Курс"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab4.setFillsViewportHeight(true);
+        scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab4.getColumnModel().getColumn(1).setHeaderValue("Ед. число");
+            tab4.getColumnModel().getColumn(3).setHeaderValue("Курс");
+        }
+
+        pan5.add(scr4, java.awt.BorderLayout.CENTER);
+
+        scr5.setBorder(null);
+        scr5.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Название", "Ед. число", "Мн. число", "Курс"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab5.setFillsViewportHeight(true);
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab5.getColumnModel().getColumn(1).setHeaderValue("Ед. число");
+            tab5.getColumnModel().getColumn(3).setHeaderValue("Курс");
+        }
+
+        pan5.add(scr5, java.awt.BorderLayout.EAST);
+
+        pan1.add(pan5, java.awt.BorderLayout.EAST);
+
+        panSentr.add(pan1, java.awt.BorderLayout.NORTH);
+
+        pan2.setPreferredSize(new java.awt.Dimension(801, 302));
+        pan2.setLayout(new java.awt.BorderLayout());
+
+        scr2.setBorder(null);
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Название", "Ед. число", "Мн. число", "Курс"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab2.setFillsViewportHeight(true);
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(200);
+        }
+
+        pan2.add(scr2, java.awt.BorderLayout.CENTER);
+
+        panSentr.add(pan2, java.awt.BorderLayout.CENTER);
+
+        scr3.setBorder(null);
+        scr3.setPreferredSize(new java.awt.Dimension(300, 400));
+
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Параметр", "Значение"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab3.setFillsViewportHeight(true);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(200);
+        }
+
+        panSentr.add(scr3, java.awt.BorderLayout.EAST);
 
         getContentPane().add(panSentr, java.awt.BorderLayout.CENTER);
 
@@ -237,7 +404,7 @@ public class Furnityra extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 747, Short.MAX_VALUE)
+            .addGap(0, 753, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,6 +412,8 @@ public class Furnityra extends javax.swing.JFrame {
         );
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+
+        getAccessibleContext().setAccessibleName("Фурнитура");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -284,11 +453,24 @@ public class Furnityra extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
+    private javax.swing.JPanel pan5;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSentr;
     private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;
+    private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
+    private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JTable tab1;
+    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
+    private javax.swing.JTable tab4;
+    private javax.swing.JTable tab5;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 }
