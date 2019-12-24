@@ -16,7 +16,7 @@ public class Test {
         try {
             
             Script.script(); 
-            Test test = new Test();
+            //Test test = new Test();
             //test.query();
 
         } catch (Exception e) {

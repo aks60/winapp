@@ -7,8 +7,9 @@ import dataset.Record;
 public enum eFurnpar1 implements Field {
     up("0", "0", "0", "Параметры ограничений сторон фурнитуры", "PARFURL"),
     id("4", "10", "0", "Идентификатор", "id"),
-    vnumb("4", "10", "1", "номер параметра", "PNUMB"),
-    vtext("12", "64", "1", "наименование значения параметра", "PTEXT");       
+    val("12", "64", "1", "наименование значения параметра", "PTEXT"),
+    pnumb_id("4", "10", "1", "ссылка", "PNUMB"),
+    furnitura_id("4", "10", "1", "ссылка", "furnitura_id");
     //psss("4", "10", "1", "null", "PSSS"),
     //pporn("5", "5", "1", "null", "PPORN"),
     //znumb("4", "10", "1", "null", "ZNUMB"),
@@ -26,8 +27,6 @@ public enum eFurnpar1 implements Field {
     public Field[] fields() {
         return values();
     }
-
-    
 
     public String toString() {
         return meta.getDescr();

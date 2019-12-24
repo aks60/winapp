@@ -65,15 +65,18 @@ public class Furnitura extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grour1 = new javax.swing.ButtonGroup();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
+        rdb1 = new javax.swing.JRadioButton();
+        rdb2 = new javax.swing.JRadioButton();
+        rdb3 = new javax.swing.JRadioButton();
         panSentr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
-        pan3 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -83,14 +86,20 @@ public class Furnitura extends javax.swing.JFrame {
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
+        pan6 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        pan7 = new javax.swing.JPanel();
+        scr8 = new javax.swing.JScrollPane();
+        tab8 = new javax.swing.JTable();
+        scr9 = new javax.swing.JScrollPane();
+        tab9 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Курсы валют");
+        setTitle("Фурнитура");
         setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -178,20 +187,45 @@ public class Furnitura extends javax.swing.JFrame {
             }
         });
 
+        grour1.add(rdb1);
+        rdb1.setSelected(true);
+        rdb1.setText("Основная");
+        rdb1.setMaximumSize(new java.awt.Dimension(75, 18));
+        rdb1.setMinimumSize(new java.awt.Dimension(75, 18));
+        rdb1.setPreferredSize(new java.awt.Dimension(100, 18));
+
+        grour1.add(rdb2);
+        rdb2.setText("Дополнительная");
+        rdb2.setMaximumSize(new java.awt.Dimension(75, 18));
+        rdb2.setMinimumSize(new java.awt.Dimension(75, 18));
+        rdb2.setPreferredSize(new java.awt.Dimension(100, 18));
+
+        grour1.add(rdb3);
+        rdb3.setText("Комплекты");
+        rdb3.setMaximumSize(new java.awt.Dimension(75, 18));
+        rdb3.setMinimumSize(new java.awt.Dimension(75, 18));
+        rdb3.setPreferredSize(new java.awt.Dimension(100, 18));
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 590, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 394, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -199,12 +233,17 @@ public class Furnitura extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panNorthLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -212,98 +251,74 @@ public class Furnitura extends javax.swing.JFrame {
 
         panSentr.setLayout(new java.awt.BorderLayout());
 
-        pan1.setPreferredSize(new java.awt.Dimension(800, 302));
+        pan1.setPreferredSize(new java.awt.Dimension(800, 200));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        pan3.setPreferredSize(new java.awt.Dimension(800, 32));
-        pan3.setLayout(new java.awt.BorderLayout());
-        pan1.add(pan3, java.awt.BorderLayout.NORTH);
-
+        pan4.setPreferredSize(new java.awt.Dimension(500, 400));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"ddddddd", "3", "3", "3"},
+                {"ffffffffffff", "3", "4", "5"}
             },
             new String [] {
                 "Название", "Ед. число", "Мн. число", "Курс"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(1).setHeaderValue("Ед. число");
-            tab1.getColumnModel().getColumn(3).setHeaderValue("Курс");
         }
 
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
 
         pan1.add(pan4, java.awt.BorderLayout.CENTER);
 
-        pan5.setPreferredSize(new java.awt.Dimension(300, 32));
+        pan5.setPreferredSize(new java.awt.Dimension(300, 400));
         pan5.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(null);
+        scr4.setPreferredSize(new java.awt.Dimension(300, 100));
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"1", "333", "5544"},
+                {"2", "44", "erere"}
             },
             new String [] {
-                "Название", "Ед. число", "Мн. число", "Курс"
+                "Номер", "Вид", "Назваание"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tab4.setFillsViewportHeight(true);
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tab4.getColumnModel().getColumn(1).setHeaderValue("Ед. число");
-            tab4.getColumnModel().getColumn(3).setHeaderValue("Курс");
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab4.getColumnModel().getColumn(2).setPreferredWidth(220);
         }
 
-        pan5.add(scr4, java.awt.BorderLayout.CENTER);
+        pan5.add(scr4, java.awt.BorderLayout.NORTH);
 
         scr5.setBorder(null);
-        scr5.setPreferredSize(new java.awt.Dimension(200, 30));
+        scr5.setPreferredSize(new java.awt.Dimension(300, 400));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"zzzzzzzzzzzzzzzzz", "11"},
+                {"vvvvvvvvvvvvvv", "22"}
             },
             new String [] {
-                "Название", "Ед. число", "Мн. число", "Курс"
+                "Параметр", "Значение"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -311,33 +326,34 @@ public class Furnitura extends javax.swing.JFrame {
             }
         });
         tab5.setFillsViewportHeight(true);
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tab5.getColumnModel().getColumn(1).setHeaderValue("Ед. число");
-            tab5.getColumnModel().getColumn(3).setHeaderValue("Курс");
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(220);
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
-        pan5.add(scr5, java.awt.BorderLayout.EAST);
+        pan5.add(scr5, java.awt.BorderLayout.CENTER);
 
         pan1.add(pan5, java.awt.BorderLayout.EAST);
 
         panSentr.add(pan1, java.awt.BorderLayout.NORTH);
 
-        pan2.setPreferredSize(new java.awt.Dimension(801, 302));
+        pan2.setPreferredSize(new java.awt.Dimension(800, 402));
         pan2.setLayout(new java.awt.BorderLayout());
 
+        pan6.setLayout(new java.awt.BorderLayout());
+
         scr2.setBorder(null);
+        scr2.setPreferredSize(new java.awt.Dimension(500, 400));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"фывфыв", "мммммммммммммм", "11",  new Double(22.0)},
+                {"ываыва", "иииииииииииии", "22",  new Double(33.0)}
             },
             new String [] {
-                "Название", "Ед. число", "Мн. число", "Курс"
+                "Артикул", "Название", "Текстура", "Подбор"
             }
         ) {
             Class[] types = new Class [] {
@@ -349,51 +365,96 @@ public class Furnitura extends javax.swing.JFrame {
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(200);
-        }
 
-        pan2.add(scr2, java.awt.BorderLayout.CENTER);
-
-        panSentr.add(pan2, java.awt.BorderLayout.CENTER);
+        pan6.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(null);
         scr3.setPreferredSize(new java.awt.Dimension(300, 400));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {"ffffffffffffffffff", "11"},
+                {"eeeeeeeeeeee", "22"}
             },
             new String [] {
                 "Параметр", "Значение"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, false
+                java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
         });
         tab3.setFillsViewportHeight(true);
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(220);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
-        panSentr.add(scr3, java.awt.BorderLayout.EAST);
+        pan6.add(scr3, java.awt.BorderLayout.EAST);
+
+        pan2.add(pan6, java.awt.BorderLayout.CENTER);
+
+        pan7.setPreferredSize(new java.awt.Dimension(807, 120));
+        pan7.setLayout(new java.awt.BorderLayout());
+
+        scr8.setBorder(null);
+        scr8.setPreferredSize(new java.awt.Dimension(300, 400));
+
+        tab8.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"sssssssssssssssss", "55"},
+                {"kkkkkkkkkkkkkkkkk", "44"}
+            },
+            new String [] {
+                "Параметр", "Значение"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab8.setFillsViewportHeight(true);
+        tab8.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr8.setViewportView(tab8);
+        if (tab8.getColumnModel().getColumnCount() > 0) {
+            tab8.getColumnModel().getColumn(0).setPreferredWidth(220);
+            tab8.getColumnModel().getColumn(1).setPreferredWidth(80);
+        }
+
+        pan7.add(scr8, java.awt.BorderLayout.EAST);
+
+        scr9.setBorder(null);
+
+        tab9.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "1", "1", "1", "1"},
+                {"2", "2", "2", "2", "2"}
+            },
+            new String [] {
+                "Номер", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
+            }
+        ));
+        tab9.setFillsViewportHeight(true);
+        tab9.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr9.setViewportView(tab9);
+
+        pan7.add(scr9, java.awt.BorderLayout.CENTER);
+
+        pan2.add(pan7, java.awt.BorderLayout.SOUTH);
+
+        panSentr.add(pan2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panSentr, java.awt.BorderLayout.CENTER);
 
@@ -404,7 +465,7 @@ public class Furnitura extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
+            .addGap(0, 882, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,24 +514,33 @@ public class Furnitura extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.ButtonGroup grour1;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
-    private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
+    private javax.swing.JPanel pan6;
+    private javax.swing.JPanel pan7;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSentr;
     private javax.swing.JPanel panSouth;
+    private javax.swing.JRadioButton rdb1;
+    private javax.swing.JRadioButton rdb2;
+    private javax.swing.JRadioButton rdb3;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
+    private javax.swing.JScrollPane scr8;
+    private javax.swing.JScrollPane scr9;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
+    private javax.swing.JTable tab8;
+    private javax.swing.JTable tab9;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 }

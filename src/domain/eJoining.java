@@ -5,7 +5,7 @@ import dataset.MetaField;
 import dataset.Record;
 
 public enum eJoining implements Field {
-    up("0", "0", "0", "Соединения", "CONNECT"), //CONNLST"),
+    up("0", "0", "0", "Соединения", "CONNLST"), //или CONNECT"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "Название соединения", "CNAME"),
     variant("5", "5", "1", " Битовая маска: 0x100=256 - установлен флаг   Основное соединение  . Смысл других бит пока неизвестен. ", "CVARF"),

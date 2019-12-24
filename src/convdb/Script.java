@@ -37,7 +37,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eElement;
 import domain.eElemgrp;
-import domain.eFurnityra;
+import domain.eFurnitura;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -69,7 +69,7 @@ public class Script {
             eArtikls.up, eArtdet.up, eTextgrp.up, eTexture.up, eTextpar1.up, eComplet.up, eCompdet.up,
             eGlasdet.up, eGlasgrp.up, eGlasprof.up, eGlaspar1.up, eGlaspar2.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
-            eFurnityra.up, eFurndet.up, eFurnside1.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
+            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up, 
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eSyspar1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up
@@ -144,12 +144,12 @@ public class Script {
                 updateDb(cn2, st2);
             }
             Util.println("Удаление столбцов не вошедших в eEnum.values()");
-            for (Field fieldUp : fieldsUp) {
-                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Object[] deltaCol : hsDeltaCol) {
-                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
-                }
-            }
+//            for (Field fieldUp : fieldsUp) {
+//                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Object[] deltaCol : hsDeltaCol) {
+//                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+//                }
+//            }
             Util.println("Обновление завершено");
 
         } catch (Exception e) {
@@ -199,7 +199,7 @@ public class Script {
             String tname1 = fields[0].meta().fname;
             if (tname1.equals("EMPTY")) { //новая таблица
                 return;
-            } 
+            }
 //            else if (tname1.equals("CONNLST") && versionPs == 3) { //баг с названием таблицы в PS-3
 //                tname1 = "CONNECT";
 //            }
@@ -340,11 +340,13 @@ public class Script {
             st2.execute(print("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
             st2.execute(print("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)"));
             st2.execute(print("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
-            st2.execute(print("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)"));           
+            st2.execute(print("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)"));
             st2.execute(print("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
-            st2.execute(print("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)"));            
+            st2.execute(print("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)"));
 
-           //Секция update
+            st2.execute(print("delete from furnside1 where not exists (select id from furnitura a where a.funic = furnside1.funic)"));
+            
+            //Секция update
             st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
             Query.connection = cn2;
             Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
@@ -397,10 +399,12 @@ public class Script {
             st2.execute(print("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
             st2.execute(print("update glasprof set artikl_id = (select id from artikls a where a.code = glasprof.anumb)"));
             st2.execute(print("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
-            st2.execute(print("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)"));           
+            st2.execute(print("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)"));
             st2.execute(print("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
             st2.execute(print("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)"));
 
+            st2.execute(print("update furnside1 set furnitura_id = (select id from furnitura a where a.funic = furnside1.funic)"));
+            
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);
         }

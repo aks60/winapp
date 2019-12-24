@@ -7,9 +7,9 @@ import dataset.Record;
 public enum eGlaspar2 implements Field {
     up("0", "0", "0", "Параметры спецификаций групп заполнения", "PARGLAS"),
     id("4", "10", "0", "Идентификатор", "id"),
+    val("12", "64", "1", "значения параметра", "PTEXT"),
     pnumb_id("4", "10", "1", "ссылка", "PNUMB"), 
-    glasdet_id("4", "10", "1", "ссылка", "glasdet_id"), 
-    val("12", "64", "1", "значения параметра", "PTEXT");    
+    glasdet_id("4", "10", "1", "ссылка", "glasdet_id");      
     //psss("4", "10", "1", "null", "PSSS"),
     //pporn("5", "5", "1", "null", "PPORN"),,
     //znumb("4", "10", "1", "значение параметра", "ZNUMB"),
