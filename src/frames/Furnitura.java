@@ -1,21 +1,19 @@
 package frames;
 
 import common.FrameListener;
-import dataset.ConnApp;
 import dataset.Query;
-import dataset.Record;
-import domain.eDicRate;
+import domain.eFurnitura;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import swing.DefTableModel;
 
 public class Furnitura extends javax.swing.JFrame {
 
-    //private Query qRate = new Query(eDicRate.values()).select(eDicRate.up, "order by", eDicRate.name);
+    private Query qFurnitura = new Query(eFurnitura.values()).select(eFurnitura.up, "order by", eFurnitura.name);
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -57,8 +55,17 @@ public class Furnitura extends javax.swing.JFrame {
 
     public Furnitura() {
         initComponents();
-        //new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour);
-        //tmRate.addFrameListener(listenerModify);
+        initElements();
+        
+      Object obj = qFurnitura.query(eFurnitura.up.tname());
+      
+        DefTableModel rsmFurnitura = new DefTableModel(tab1, qFurnitura, eFurnitura.name, eFurnitura.view_open, eFurnitura.view_open, eFurnitura.p2_max, 
+                eFurnitura.width_max, eFurnitura.height_max, eFurnitura.weight_max, eFurnitura.types, eFurnitura.pars, eFurnitura.coord_lim);
+//        rsmFurnitura.addFrameListener(listenerModify);
+    }
+
+    public void selectionTab1(ListSelectionEvent event) {
+
     }
 
     @SuppressWarnings("unchecked")
@@ -92,15 +99,14 @@ public class Furnitura extends javax.swing.JFrame {
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         pan7 = new javax.swing.JPanel();
-        scr8 = new javax.swing.JScrollPane();
-        tab8 = new javax.swing.JTable();
-        scr9 = new javax.swing.JScrollPane();
-        tab9 = new javax.swing.JTable();
+        scr6 = new javax.swing.JScrollPane();
+        tab6 = new javax.swing.JTable();
+        scr7 = new javax.swing.JScrollPane();
+        tab7 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
-        setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -261,11 +267,11 @@ public class Furnitura extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ddddddd", "3", "3", "3"},
-                {"ffffffffffff", "3", "4", "5"}
+                {"ddddddd", "3", "3", "3", null, null, null, null, null, null},
+                {"ffffffffffff", "3", "4", "5", null, null, null, null, null, null}
             },
             new String [] {
-                "Название", "Ед. число", "Мн. число", "Курс"
+                "Название", "Вид", "Сторона ручки", "Р/2 максимальная", "Ширина максимальная", "Высота максимальная", "Вес максимальный", "Створка", "Использ. параметры", "Ограничения"
             }
         ));
         tab1.setFillsViewportHeight(true);
@@ -405,10 +411,10 @@ public class Furnitura extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(807, 120));
         pan7.setLayout(new java.awt.BorderLayout());
 
-        scr8.setBorder(null);
-        scr8.setPreferredSize(new java.awt.Dimension(300, 400));
+        scr6.setBorder(null);
+        scr6.setPreferredSize(new java.awt.Dimension(300, 400));
 
-        tab8.setModel(new javax.swing.table.DefaultTableModel(
+        tab6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"sssssssssssssssss", "55"},
                 {"kkkkkkkkkkkkkkkkk", "44"}
@@ -425,19 +431,19 @@ public class Furnitura extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tab8.setFillsViewportHeight(true);
-        tab8.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr8.setViewportView(tab8);
-        if (tab8.getColumnModel().getColumnCount() > 0) {
-            tab8.getColumnModel().getColumn(0).setPreferredWidth(220);
-            tab8.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tab6.setFillsViewportHeight(true);
+        tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr6.setViewportView(tab6);
+        if (tab6.getColumnModel().getColumnCount() > 0) {
+            tab6.getColumnModel().getColumn(0).setPreferredWidth(220);
+            tab6.getColumnModel().getColumn(1).setPreferredWidth(80);
         }
 
-        pan7.add(scr8, java.awt.BorderLayout.EAST);
+        pan7.add(scr6, java.awt.BorderLayout.EAST);
 
-        scr9.setBorder(null);
+        scr7.setBorder(null);
 
-        tab9.setModel(new javax.swing.table.DefaultTableModel(
+        tab7.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "1", "1", "1", "1"},
                 {"2", "2", "2", "2", "2"}
@@ -446,11 +452,11 @@ public class Furnitura extends javax.swing.JFrame {
                 "Номер", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
             }
         ));
-        tab9.setFillsViewportHeight(true);
-        tab9.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr9.setViewportView(tab9);
+        tab7.setFillsViewportHeight(true);
+        tab7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr7.setViewportView(tab7);
 
-        pan7.add(scr9, java.awt.BorderLayout.CENTER);
+        pan7.add(scr7, java.awt.BorderLayout.CENTER);
 
         pan2.add(pan7, java.awt.BorderLayout.SOUTH);
 
@@ -473,8 +479,6 @@ public class Furnitura extends javax.swing.JFrame {
         );
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
-
-        getAccessibleContext().setAccessibleName("Фурнитура");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -500,7 +504,7 @@ public class Furnitura extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
 //        if (qRate.isUpdate() && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
 //                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 //            qRate.execsql();
@@ -532,15 +536,41 @@ public class Furnitura extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
-    private javax.swing.JScrollPane scr8;
-    private javax.swing.JScrollPane scr9;
+    private javax.swing.JScrollPane scr6;
+    private javax.swing.JScrollPane scr7;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
-    private javax.swing.JTable tab8;
-    private javax.swing.JTable tab9;
+    private javax.swing.JTable tab6;
+    private javax.swing.JTable tab7;
     // End of variables declaration//GEN-END:variables
+
+    private void initElements() {
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab1(event);
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab2(event);
+            }
+        });
+        tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab4(event);
+            }
+        });
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
+        tab4.addFocusListener(listenerFocus);
+        tab5.addFocusListener(listenerFocus);
+        tab6.addFocusListener(listenerFocus);
+        tab7.addFocusListener(listenerFocus);
+    }
 // </editor-fold> 
 }

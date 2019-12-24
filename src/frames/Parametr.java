@@ -51,19 +51,8 @@ public class Parametr extends javax.swing.JFrame {
 
     public Parametr() {
         initComponents();
+        initElements();
 
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                //selectionTab1(event);
-            }
-        });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                //selectionTab2(event);
-            }
-        });
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
         new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
                 eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
         new DefTableModel(tab2, qPardet, eDicParam.name, eDicParam.komp,
@@ -390,5 +379,20 @@ public class Parametr extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
+
+    private void initElements() {
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab1(event);
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                //selectionTab2(event);
+            }
+        });
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);        
+    }
 // </editor-fold> 
 }

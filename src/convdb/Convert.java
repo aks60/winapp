@@ -16,76 +16,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ConvPs extends javax.swing.JDialog {
+public class Convert extends javax.swing.JFrame {
 
-    public ConvPs(java.awt.Window owner) {
-        super(owner);
+    public Convert() {
         initComponents();
-    }
-
-    private void begin() {
-//        try {
-//            Connection conn1 = java.sql.DriverManager.getConnection(
-//                    "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-//            Connection conn2 = java.sql.DriverManager.getConnection(
-//                    "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-//
-//            Field field = eArtikls.up;
-//            Query.connection = conn1;
-//            Query query1 = new Query(field.fields()).select(field.table() + " order by anumb").query(field.table());
-//
-//            List<String> tabletList = new ArrayList<String>();
-//            Statement st2 = conn2.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-//            //st2.execute("DROP TABLE " + field.table() + ";");
-//            st2.execute("DROP TABLE NEW_TABLE2;");
-//            String script = Script.table(field.fields());
-//
-//        } catch (Exception e) {
-//            System.err.println(e);
-//        }
-    }
-
-    private Query select(Connection conn, Query query, String sql) {
-        String str = "";
-        Query table = query;
-        table.clear();
-        for (Field field : table.fields()) {
-            if (field.name().equals("up") == false) {
-                str = str + ", " + field.tname() + "." + field.name();
-            }
-        }
-        sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
-        Util.println("SQL-SELECT: " + sql);
-        try {
-            Statement statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet recordset = statement.executeQuery(sql);
-            if (recordset.first() == true) {
-                do {
-                    Record record = table.newRecord(SEL);
-                    table.add(record);
-                    for (Field field : table.fields()) {
-                        if (field.name().equals("up") == false) {
-                            Object value = recordset.getObject(field.name());
-                            record.setNo(field, value);
-                        }
-                    }
-                } while (recordset.next());
-            }
-            return query;
-
-        } catch (SQLException e) {
-            System.out.println(sql + e);
-            return null;
-        }
-    }
-
-    private void othe() {
-//            DatabaseMetaData metaData2 = conn1.getMetaData();
-//            ResultSet rs = metaData2.getTables(null, null, null, new String[]{"TABLE"});
-//            while (rs.next()) {
-//                tabletList.add(rs.getString("TABLE_NAME"));
-//            }
-//            if(tabletList.contains(field.table())) {
+        initElements();
     }
 
     @SuppressWarnings("unchecked")
@@ -99,6 +34,7 @@ public class ConvPs extends javax.swing.JDialog {
         panCent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -142,7 +78,7 @@ public class ConvPs extends javax.swing.JDialog {
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 435, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 727, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -164,7 +100,7 @@ public class ConvPs extends javax.swing.JDialog {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 505, Short.MAX_VALUE)
+            .addGap(0, 797, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,11 +113,11 @@ public class ConvPs extends javax.swing.JDialog {
         panCent.setLayout(panCentLayout);
         panCentLayout.setHorizontalGroup(
             panCentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGap(0, 801, Short.MAX_VALUE)
         );
         panCentLayout.setVerticalGroup(
             panCentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGap(0, 539, Short.MAX_VALUE)
         );
 
         getContentPane().add(panCent, java.awt.BorderLayout.CENTER);
@@ -194,26 +130,9 @@ public class ConvPs extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-        begin();
+
     }//GEN-LAST:event_btnSave
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ConvPs dialog = new ConvPs(null);
-                dialog.begin();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                FrameToFile.setFrameSize(dialog);
-                dialog.setVisible(true);
-            }
-        });
-    }
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -222,5 +141,7 @@ public class ConvPs extends javax.swing.JDialog {
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
     // End of variables declaration//GEN-END:variables
+    private void initElements() {
+    }
 // </editor-fold> 
 }

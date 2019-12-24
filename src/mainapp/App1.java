@@ -6,6 +6,7 @@ import common.FrameProgress;
 import common.FrameToFile;
 import common.eProfile;
 import common.eProp;
+import convdb.Convert;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import frames.Artikls;
@@ -113,6 +114,8 @@ public class App1 extends javax.swing.JFrame {
         mn0123 = new javax.swing.JMenuItem();
         mn13 = new javax.swing.JSeparator();
         mn14 = new javax.swing.JMenuItem();
+        mn07 = new javax.swing.JMenu();
+        mn71 = new javax.swing.JMenuItem();
         mn02 = new javax.swing.JMenu();
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
@@ -143,7 +146,7 @@ public class App1 extends javax.swing.JFrame {
         mn54 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SAWIN   <АРМ Технолог>");
+        setTitle("SAWin   <АРМ Технолог>");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -160,7 +163,7 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
-        tb1.setPreferredSize(new java.awt.Dimension(120, 27));
+        tb1.setPreferredSize(new java.awt.Dimension(110, 27));
 
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c012.gif"))); // NOI18N
         btn12.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -222,7 +225,7 @@ public class App1 extends javax.swing.JFrame {
         tb2.setRollover(true);
         tb2.setMaximumSize(new java.awt.Dimension(220, 27));
         tb2.setMinimumSize(new java.awt.Dimension(220, 27));
-        tb2.setPreferredSize(new java.awt.Dimension(200, 27));
+        tb2.setPreferredSize(new java.awt.Dimension(160, 27));
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
         btn23.setFocusable(false);
@@ -534,6 +537,21 @@ public class App1 extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
+        mn07.setText("Конвертор");
+        mn07.setFont(common.Util.getFont(1,1));
+
+        mn71.setFont(common.Util.getFont(1,1));
+        mn71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn71.setText("SAWin <= ПрофСтрой(3,4)");
+        mn71.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnConvert(evt);
+            }
+        });
+        mn07.add(mn71);
+
+        mn0.add(mn07);
+
         mn02.setText("Справочники");
         mn02.setFont(common.Util.getFont(1,1));
 
@@ -769,6 +787,8 @@ public class App1 extends javax.swing.JFrame {
 
         setJMenuBar(mn0);
 
+        getAccessibleContext().setAccessibleName("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -973,6 +993,15 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         }; 
     }//GEN-LAST:event_mnKits
+
+    private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Convert.createFrame(App1.this);
+            }
+        }; 
+    }//GEN-LAST:event_mnConvert
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1010,6 +1039,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JCheckBoxMenuItem mn0443;
     private javax.swing.JMenu mn05;
     private javax.swing.JMenu mn06;
+    private javax.swing.JMenu mn07;
     private javax.swing.JMenu mn11;
     private javax.swing.JMenu mn12;
     private javax.swing.JSeparator mn13;
@@ -1035,6 +1065,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn54;
     private javax.swing.JMenuItem mn61;
     private javax.swing.JMenu mn62;
+    private javax.swing.JMenuItem mn71;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
@@ -1078,7 +1109,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass, Furnitura, Kits;
+        App1, Convert, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass, Furnitura, Kits;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1086,6 +1117,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 switch (this) {
                     case Artikls:
                         frame = new Artikls();
+                        break;
+                    case Convert:
+                        frame = new Convert();
                         break;
                     case Texture:
                         frame = new Texture();
