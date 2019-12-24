@@ -347,7 +347,6 @@ public class Script {
             st2.execute(print("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)"));
             st2.execute(print("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
             st2.execute(print("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)"));
-
             st2.execute(print("delete from furnside1 where not exists (select id from furnitura a where a.funic = furnside1.funic)"));
             st2.execute(print("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)"));
             st2.execute(print("delete from furndet where not exists (select id from furnitura a where a.funic = furndet.funic)"));
@@ -409,7 +408,6 @@ public class Script {
             st2.execute(print("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)"));
             st2.execute(print("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
             st2.execute(print("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)"));
-
             st2.execute(print("update furnside1 set furnitura_id = (select id from furnitura a where a.funic = furnside1.funic)"));
             st2.execute(print("update furnside1 SET type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )"));
             st2.execute(print("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)"));
