@@ -413,6 +413,7 @@ public class Script {
             st2.execute(print("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)"));
             st2.execute(print("update furndet set furnitura_id = (select id from furnitura a where a.funic = furndet.funic)"));
             st2.execute(print("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"));
+            st2.execute(print("update furnpar2 set furndet_id = (select id from furndet a where a.fincr = furnpar2.psss)"));
 
         } catch (Exception e) {
             System.out.println("UPDATE-DB:  " + e);

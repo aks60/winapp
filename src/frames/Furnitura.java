@@ -7,6 +7,7 @@ import domain.eArtikls;
 import domain.eFurndet;
 import domain.eFurnitura;
 import domain.eFurnpar1;
+import domain.eFurnpar2;
 import domain.eFurnside1;
 import domain.eTexture;
 import java.awt.event.FocusEvent;
@@ -24,6 +25,7 @@ public class Furnitura extends javax.swing.JFrame {
     private Query qFurnside1 = new Query(eFurnside1.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurndet = new Query(eFurndet.values(), eArtikls.values(), eTexture.values());
+    private Query qFurnpar2 = new Query(eFurnpar2.values());
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -72,6 +74,7 @@ public class Furnitura extends javax.swing.JFrame {
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furnitura_id, eFurnside1.type_side).addFrameListener(listenerModify);
         new DefTableModel(tab5, qFurnpar1, eFurnpar1.pnumb_id, eFurnpar1.val).addFrameListener(listenerModify);
         new DefTableModel(tab2, qFurndet, eArtikls.code, eArtikls.code, eArtikls.name, eTexture.name, eFurndet.types).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qFurnpar2, eFurnpar2.pnumb_id, eFurnpar2.val).addFrameListener(listenerModify);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -97,6 +100,19 @@ public class Furnitura extends javax.swing.JFrame {
         }
     }
 
+    private void selectionTab2(ListSelectionEvent event) {
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qFurndet.query(eFurndet.up.tname()).get(row);
+            Integer id = record.getInt(eFurndet.id);
+            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.pnumb_id);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            if (tab3.getRowCount() > 0) {
+                tab3.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+    
     private void selectionTab4(ListSelectionEvent event) {
         int row = tab4.getSelectedRow();
         if (row != -1) {
@@ -592,15 +608,15 @@ public class Furnitura extends javax.swing.JFrame {
                 selectionTab1(event);
             }
         });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab2(event);
+            }
+        });        
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab4(event);
-            }
-        });
-        tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            public void valueChanged(ListSelectionEvent event) {
-                //selectionTab4(event);
             }
         });
         tab1.addFocusListener(listenerFocus);
