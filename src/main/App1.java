@@ -1,4 +1,4 @@
-package mainapp;
+package main;
 
 import common.Util;
 import common.FrameListener;
@@ -10,6 +10,7 @@ import convdb.Convert;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import frames.Artikls;
+import frames.Constr;
 import frames.Design;
 import frames.Element;
 import frames.Furnitura;
@@ -310,7 +311,7 @@ public class App1 extends javax.swing.JFrame {
         btn28.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mBuilder(evt);
+                mnConstr(evt);
             }
         });
         tb2.add(btn28);
@@ -657,7 +658,7 @@ public class App1 extends javax.swing.JFrame {
         mn37.setText("Система");
         mn37.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mBuilder(evt);
+                mnConstr(evt);
             }
         });
         mn03.add(mn37);
@@ -802,14 +803,14 @@ public class App1 extends javax.swing.JFrame {
         };
 }//GEN-LAST:event_mDictColor
 
-    private void mBuilder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mBuilder
+    private void mnConstr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConstr
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Builder.createFrame(App1.this);
+                eApp1.Constr.createFrame(App1.this);
             }
         };
-}//GEN-LAST:event_mBuilder
+}//GEN-LAST:event_mnConstr
 
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
         System.exit(0);
@@ -1109,7 +1110,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Convert, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass, Furnitura, Kits;
+        App1, Convert, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass, Furnitura, Kits, Constr;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1147,6 +1148,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Kits:
                         frame = new Kits();
+                        break;
+                    case Constr:
+                        frame = new Constr();
                         break;
                 }
                 frame.setName(this.name());

@@ -1,7 +1,7 @@
 package common;
 
 import dataset.Field;
-import mainapp.Main;
+import main.Main;
 import dataset.Record;
 import dataset.Table;
 import java.awt.Font;

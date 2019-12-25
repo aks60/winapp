@@ -1,4 +1,4 @@
-package mainapp;
+package main;
 
 import common.eProfile;
 import common.eProp;

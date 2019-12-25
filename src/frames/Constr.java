@@ -1,8 +1,8 @@
 package frames;
 
-public class Const extends javax.swing.JFrame {
+public class Constr extends javax.swing.JFrame {
 
-    public Const() {
+    public Constr() {
         initComponents();
         initElements();
     }

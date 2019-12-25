@@ -1,6 +1,6 @@
 package common;
 
-import mainapp.Main;
+import main.Main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

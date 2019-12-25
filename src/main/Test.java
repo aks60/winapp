@@ -1,4 +1,4 @@
-package mainapp;
+package main;
 
 import convdb.Script;
 import dataset.Query;
