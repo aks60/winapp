@@ -157,7 +157,7 @@ public class Script {
             Util.println("Обновление завершено");
 
         } catch (Exception e) {
-            System.err.println("SQL-SCRIPT: " + e);
+            System.out.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");
         }
     }
 
@@ -269,7 +269,7 @@ public class Script {
                             //Если была ошибка в пакете выполняю отдельные sql insert
                             st2.executeUpdate(sql);
                         } catch (SQLException e) {
-                            System.out.println("SCRIPT-INSERT:  " + e + "  " + sql);
+                            System.out.println("\u001B[31m" + "SCRIPT-INSERT:  " + e + "\u001B[0m");
                         }
                     }
                 }
@@ -287,11 +287,11 @@ public class Script {
                     bash = false;
                     --index_page;
                     cn2.setAutoCommit(true);
-                    System.out.println("SCRIPT-BATCH:  " + e);
+                    System.out.println("\u001B[31m" + "SCRIPT-BATCH:  " + e + "\u001B[0m");
                 }
             }
         } catch (SQLException e) {
-            System.out.println("CONVERT-TABLE:  " + e + "  " + sql);
+            System.out.println("\u001B[31m" + "CONVERT-TABLE:  " + e + "\u001B[0m");
         }
     }
 
@@ -316,7 +316,7 @@ public class Script {
             }
             return hsDeltaCol;
         } catch (SQLException e) {
-            System.err.println("DELTA-COLUMN: " + e);
+            System.out.println("\u001B[31m" + "DELTA-COLUMN: " + e + "\u001B[0m");
             return null;
         }
     }
@@ -351,6 +351,7 @@ public class Script {
             st2.execute(print("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)"));
             st2.execute(print("delete from furndet where not exists (select id from furnitura a where a.funic = furndet.funic)"));
             st2.execute(print("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"));
+            st2.execute(print("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)"));
           
             //Секция update
             st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
@@ -413,10 +414,10 @@ public class Script {
             st2.execute(print("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)"));
             st2.execute(print("update furndet set furnitura_id = (select id from furnitura a where a.funic = furndet.funic)"));
             st2.execute(print("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"));
-            st2.execute(print("update furnpar2 set furndet_id = (select id from furndet a where a.fincr = furnpar2.psss)"));
+            st2.execute(print("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)"));
 
         } catch (Exception e) {
-            System.out.println("UPDATE-DB:  " + e);
+            System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");
         }
     }
 

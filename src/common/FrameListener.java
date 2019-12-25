@@ -2,8 +2,9 @@ package common;
 
 public interface FrameListener<A, B> {
 
-    public void request(A obj);
+    default void request(A obj) {
+    }
 
-    public void response(B obj);
+    default void response(B obj) {
+    }
 }
-

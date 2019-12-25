@@ -58,36 +58,15 @@ public class Element extends javax.swing.JFrame {
 
     public Element() {
         initComponents();
-
+        initElements();
         loadDataTab1();
 
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab1(event);
-            }
-        });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab2(event);
-            }
-        });
-        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab3(event);
-            }
-        });
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
-        tab3.addFocusListener(listenerFocus);
-        tab4.addFocusListener(listenerFocus);
-        tab5.addFocusListener(listenerFocus);
-
-        DefTableModel rsmElemgrp = new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        DefTableModel esmElement = new DefTableModel(tab2, qElement, eArtikls.code, eArtikls.name,
-                eElement.name, eElement.vtype, eArtikls.series, eElement.binding, eElement.binding, eElement.markup);
-        DefTableModel rsmElemdet = new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id);
-        DefTableModel rsmElempar1 = new DefTableModel(tab4, qElempar1, eDicParam.name, eElempar1.val);
-        DefTableModel rsmElempar2 = new DefTableModel(tab5, qElempar2, eDicParam.name, eElempar2.val);
+        new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
+        new DefTableModel(tab2, qElement, eArtikls.code, eArtikls.name,
+                eElement.name, eElement.vtype, eArtikls.series, eElement.binding, eElement.binding, eElement.markup).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id).addFrameListener(listenerModify);
+        new DefTableModel(tab4, qElempar1, eDicParam.name, eElempar1.val).addFrameListener(listenerModify);
+        new DefTableModel(tab5, qElempar2, eDicParam.name, eElempar2.val).addFrameListener(listenerModify);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -523,5 +502,38 @@ public class Element extends javax.swing.JFrame {
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     // End of variables declaration//GEN-END:variables
+
+    private void initElements() {
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Категории составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Списки составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Спецификация составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab1(event);
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab2(event);
+            }
+        });
+        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab3(event);
+            }
+        });
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
+        tab4.addFocusListener(listenerFocus);
+        tab5.addFocusListener(listenerFocus);        
+    }
 // </editor-fold> 
 }

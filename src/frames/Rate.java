@@ -10,11 +10,12 @@ import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Rate extends javax.swing.JFrame
-        implements FrameListener<DefTableModel, Object> {
+public class Rate extends javax.swing.JFrame {
 
     private Query qRate = new Query(eDicRate.values()).select(eDicRate.up, "order by", eDicRate.name);
 
@@ -58,14 +59,8 @@ public class Rate extends javax.swing.JFrame
 
     public Rate() {
         initComponents();
-        DefTableModel tmRate = new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour);
-        tmRate.addFrameListener(listenerModify);
-    }
-
-    public void request(DefTableModel tm) {
-    }
-
-    public void response(Object obj) {
+        initElements();     
+        new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour).addFrameListener(listenerModify);
     }
 
     @SuppressWarnings("unchecked")
@@ -318,5 +313,10 @@ public class Rate extends javax.swing.JFrame
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
+    private void initElements() {
+        tab1.addFocusListener(listenerFocus);
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Курсы валют", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+    }
 // </editor-fold> 
 }

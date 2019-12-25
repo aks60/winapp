@@ -14,7 +14,6 @@ public class Test {
         Main.dev = true;
         
         try {
-            
             Script.script(); 
             //Test test = new Test();
             //test.query();

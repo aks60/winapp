@@ -5,6 +5,7 @@ public class Kits extends javax.swing.JFrame {
 
     public Kits() {
         initComponents();
+        initElements();
     }
 
     /** This method is called from within the constructor to
@@ -24,6 +25,8 @@ public class Kits extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -156,6 +159,22 @@ public class Kits extends javax.swing.JFrame {
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
         panCentr.setLayout(new javax.swing.OverlayLayout(panCentr));
+
+        scr1.setBorder(null);
+
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        scr1.setViewportView(tab1);
+
+        panCentr.add(scr1);
+
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -181,7 +200,7 @@ public class Kits extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnInsert
 
-
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
@@ -191,6 +210,13 @@ public class Kits extends javax.swing.JFrame {
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
+    private javax.swing.JScrollPane scr1;
+    private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 
+    private void initElements() {
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));   
+    }
+// </editor-fold>     
 }

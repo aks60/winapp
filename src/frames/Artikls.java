@@ -80,7 +80,7 @@ public class Artikls extends javax.swing.JFrame
 
     public Artikls() {
         initComponents();
-
+        initElements();
         //treeMat.setRootVisible(false);
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
@@ -89,10 +89,6 @@ public class Artikls extends javax.swing.JFrame
 
         DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
         DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
-
-        tree.addFocusListener(listenerFocus);
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
         rsmArtikls.addFrameListener(listenerModify);
         rsmArtsvst.addFrameListener(listenerModify);
 
@@ -114,40 +110,10 @@ public class Artikls extends javax.swing.JFrame
         });
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnColor));
 
-        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
-
-            public void valueChanged(TreeSelectionEvent tse) {
-
-                DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-                if (selectedNode != null) {
-                    if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
-                        qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "order by", eArtikls.level1, ",", eArtikls.code);
-                    } else if (selectedNode.isLeaf()) {
-                        eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "where", eArtikls.level1, "=",
-                                e.id1 + "and", eArtikls.level2, "=", e.id2, "order by", eArtikls.level1, ",", eArtikls.code);
-                    } else {
-                        eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
-                        qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "where",
-                                eArtikls.level1, "=", e.id1, "order by", eArtikls.level1, ",", eArtikls.code);
-                    }
-                    ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                    if (tab1.getRowCount() > 0) {
-                        tab1.setRowSelectionInterval(0, 0);
-                    }
-                }
-            }
-        });
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                selectioTree(event);
-            }
-        });
-
-        load1();
+        loadTree();
     }
 
-    private void load1() {
+    private void loadTree() {
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Мат. ценности");
         DefaultMutableTreeNode treeNode2 = null;
@@ -178,12 +144,12 @@ public class Artikls extends javax.swing.JFrame
         }
         treeNode1.add(treeNode2);
         tree.setModel(new DefaultTreeModel(treeNode1));
-        src1.setViewportView(tree);
+        scrTree.setViewportView(tree);
         tree.setSelectionRow(0);
     }
 
     private void selectioTree(ListSelectionEvent event) {
-        
+
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qArtikls.query(eArtikls.up.tname()).get(row);
@@ -200,10 +166,25 @@ public class Artikls extends javax.swing.JFrame
         }
     }
 
-    public void request(DefTableModel tm) {
-    }
-
-    public void response(Object obj) {
+    private void selectionTab1() {
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
+                qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "order by", eArtikls.level1, ",", eArtikls.code);
+            } else if (selectedNode.isLeaf()) {
+                eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
+                qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "where", eArtikls.level1, "=",
+                        e.id1 + "and", eArtikls.level2, "=", e.id2, "order by", eArtikls.level1, ",", eArtikls.code);
+            } else {
+                eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
+                qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "where",
+                        eArtikls.level1, "=", e.id1, "order by", eArtikls.level1, ",", eArtikls.code);
+            }
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            if (tab1.getRowCount() > 0) {
+                tab1.setRowSelectionInterval(0, 0);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -223,7 +204,7 @@ public class Artikls extends javax.swing.JFrame
         btnFind = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
-        src1 = new javax.swing.JScrollPane();
+        scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         panCenter = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
@@ -451,7 +432,7 @@ public class Artikls extends javax.swing.JFrame
         panWest.setPreferredSize(new java.awt.Dimension(200, 550));
         panWest.setLayout(new java.awt.BorderLayout());
 
-        src1.setBorder(null);
+        scrTree.setBorder(null);
 
         tree.setFont(common.Util.getFont(0,0));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -464,9 +445,9 @@ public class Artikls extends javax.swing.JFrame
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        src1.setViewportView(tree);
+        scrTree.setViewportView(tree);
 
-        panWest.add(src1, java.awt.BorderLayout.CENTER);
+        panWest.add(scrTree, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
@@ -827,7 +808,7 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JPopupMenu ppmReport;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
-    private javax.swing.JScrollPane src1;
+    private javax.swing.JScrollPane scrTree;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     public javax.swing.JTree tree;
@@ -841,5 +822,28 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JFormattedTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;
     // End of variables declaration//GEN-END:variables
-    // </editor-fold> 
+
+    private void initElements() {
+        tree.addFocusListener(listenerFocus);
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);        
+        scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Свойства артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Текстура артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+
+            public void valueChanged(TreeSelectionEvent tse) {
+                selectionTab1();
+            }
+        });
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectioTree(event);
+            }
+        });
+    }
+// </editor-fold> 
 }

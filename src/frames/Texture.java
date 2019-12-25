@@ -63,18 +63,11 @@ public class Texture extends javax.swing.JFrame
 
     public Texture() {
         initComponents();
+        initElements();
 
-        DefTableModel rsmGrupcol = new DefTableModel(tab1, qGrupcol, eTextgrp.name);
-        DefTableModel rsmColslst = new DefTableModel(tab2, qColslst, eTexture.name, eTexture.suffix1, eTexture.suffix2, eTexture.suffix3);
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
-        rsmGrupcol.addFrameListener(listenerModify);
-        rsmColslst.addFrameListener(listenerModify);
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab1(event);
-            }
-        });
+        new DefTableModel(tab1, qGrupcol, eTextgrp.name).addFrameListener(listenerModify);
+        new DefTableModel(tab2, qColslst, eTexture.name, eTexture.suffix1, eTexture.suffix2, eTexture.suffix3).addFrameListener(listenerModify);
+
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -123,6 +116,8 @@ public class Texture extends javax.swing.JFrame
         panCentr = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -274,7 +269,7 @@ public class Texture extends javax.swing.JFrame
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 433, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
                 .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,8 +293,11 @@ public class Texture extends javax.swing.JFrame
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
+        panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panWest.setPreferredSize(new java.awt.Dimension(200, 594));
         panWest.setLayout(new java.awt.BorderLayout());
+
+        scr1.setBorder(null);
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -326,16 +324,15 @@ public class Texture extends javax.swing.JFrame
 
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
+        panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"111",  new Integer(1),  new Integer(1),  new Integer(1)},
+                {"222",  new Integer(2),  new Integer(2),  new Integer(2)}
             },
             new String [] {
                 "Название", "Основная", "Внутрення", "Внешняя"
@@ -361,6 +358,27 @@ public class Texture extends javax.swing.JFrame
 
         panCentr.add(scr2, java.awt.BorderLayout.CENTER);
 
+        scr3.setBorder(null);
+        scr3.setPreferredSize(new java.awt.Dimension(454, 200));
+
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"xxxxx", "xxxxxx"},
+                {"zzzzzz", "zzzzzzz"}
+            },
+            new String [] {
+                "Параметр", "Текстура"
+            }
+        ));
+        tab3.setFillsViewportHeight(true);
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
+
+        panCentr.add(scr3, java.awt.BorderLayout.SOUTH);
+
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -371,7 +389,7 @@ public class Texture extends javax.swing.JFrame
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 785, Short.MAX_VALUE)
+            .addGap(0, 906, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -484,8 +502,26 @@ public class Texture extends javax.swing.JFrame
     private javax.swing.JPanel panWest;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
     // End of variables declaration//GEN-END:variables
+
+    private void initElements() {
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab1(event);
+            }
+        });
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Группы текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), 
+                "Описание текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Параметры текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+    }
 // </editor-fold> 
 }

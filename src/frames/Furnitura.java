@@ -156,11 +156,6 @@ public class Furnitura extends javax.swing.JFrame {
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        pan7 = new javax.swing.JPanel();
-        scr6 = new javax.swing.JScrollPane();
-        tab6 = new javax.swing.JTable();
-        scr7 = new javax.swing.JScrollPane();
-        tab7 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -289,7 +284,7 @@ public class Furnitura extends javax.swing.JFrame {
                 .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 439, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -316,7 +311,7 @@ public class Furnitura extends javax.swing.JFrame {
         panSentr.setPreferredSize(new java.awt.Dimension(800, 642));
         panSentr.setLayout(new java.awt.BorderLayout());
 
-        pan1.setPreferredSize(new java.awt.Dimension(800, 200));
+        pan1.setPreferredSize(new java.awt.Dimension(800, 260));
         pan1.setLayout(new java.awt.BorderLayout());
 
         pan4.setPreferredSize(new java.awt.Dimension(500, 200));
@@ -461,59 +456,6 @@ public class Furnitura extends javax.swing.JFrame {
 
         pan2.add(pan6, java.awt.BorderLayout.CENTER);
 
-        pan7.setPreferredSize(new java.awt.Dimension(807, 100));
-        pan7.setLayout(new java.awt.BorderLayout());
-
-        scr6.setBorder(null);
-        scr6.setPreferredSize(new java.awt.Dimension(300, 100));
-
-        tab6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"sssssssssssssssss", "55"},
-                {"kkkkkkkkkkkkkkkkk", "44"}
-            },
-            new String [] {
-                "Параметр", "Значение"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab6.setFillsViewportHeight(true);
-        tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr6.setViewportView(tab6);
-        if (tab6.getColumnModel().getColumnCount() > 0) {
-            tab6.getColumnModel().getColumn(0).setPreferredWidth(220);
-            tab6.getColumnModel().getColumn(1).setPreferredWidth(80);
-        }
-
-        pan7.add(scr6, java.awt.BorderLayout.EAST);
-
-        scr7.setBorder(null);
-        scr7.setPreferredSize(new java.awt.Dimension(450, 100));
-
-        tab7.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "1", "1", "1", "1"},
-                {"2", "2", "2", "2", "2"}
-            },
-            new String [] {
-                "Номер", "Мин. длина", "Макс. длина", "Мин. угол", "Макс. угол"
-            }
-        ));
-        tab7.setFillsViewportHeight(true);
-        tab7.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr7.setViewportView(tab7);
-
-        pan7.add(scr7, java.awt.BorderLayout.CENTER);
-
-        pan2.add(pan7, java.awt.BorderLayout.SOUTH);
-
         panSentr.add(pan2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panSentr, java.awt.BorderLayout.CENTER);
@@ -526,7 +468,7 @@ public class Furnitura extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 725, Short.MAX_VALUE)
+            .addGap(0, 927, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,7 +521,6 @@ public class Furnitura extends javax.swing.JFrame {
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
-    private javax.swing.JPanel pan7;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSentr;
     private javax.swing.JPanel panSouth;
@@ -591,18 +532,22 @@ public class Furnitura extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
-    private javax.swing.JScrollPane scr6;
-    private javax.swing.JScrollPane scr7;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
-    private javax.swing.JTable tab6;
-    private javax.swing.JTable tab7;
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));         
+        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Спецификация фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));         
+        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));         
+        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));                  
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab1(event);
@@ -624,8 +569,6 @@ public class Furnitura extends javax.swing.JFrame {
         tab3.addFocusListener(listenerFocus);
         tab4.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
-        tab6.addFocusListener(listenerFocus);
-        tab7.addFocusListener(listenerFocus);
     }
 // </editor-fold> 
 }
