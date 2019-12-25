@@ -18,7 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Texture extends javax.swing.JFrame
+public class Color extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Component focusComp = null;
@@ -61,7 +61,7 @@ public class Texture extends javax.swing.JFrame
         }
     };
 
-    public Texture() {
+    public Color() {
         initComponents();
         initElements();
 
@@ -122,7 +122,6 @@ public class Texture extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Текстура");
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));

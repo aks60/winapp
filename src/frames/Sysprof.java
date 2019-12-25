@@ -1,8 +1,8 @@
 package frames;
 
-public class Constr extends javax.swing.JFrame {
+public class Sysprof extends javax.swing.JFrame {
 
-    public Constr() {
+    public Sysprof() {
         initComponents();
         initElements();
     }

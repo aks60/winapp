@@ -41,7 +41,7 @@ import domain.eFurnitura;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eSysprof;
+import domain.eSystree;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -71,7 +71,7 @@ public class Script {
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
             eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
-            eSyspar1.up, eSysfurn.up, eSysprof.up, eRulecalc.up,
+            eSyspar1.up, eSysfurn.up, eSystree.up, eRulecalc.up,
             eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up
         };
         try {

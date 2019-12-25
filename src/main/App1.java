@@ -10,16 +10,16 @@ import convdb.Convert;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import frames.Artikls;
-import frames.Constr;
+import frames.Sysprof;
 import frames.Design;
 import frames.Element;
-import frames.Furnitura;
+import frames.Furn;
 import frames.Glass;
 import frames.Joining;
 import frames.Kits;
-import frames.Parametr;
+import frames.Param;
 import frames.Rate;
-import frames.Texture;
+import frames.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -798,7 +798,7 @@ public class App1 extends javax.swing.JFrame {
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Texture.createFrame(App1.this);
+                eApp1.Color.createFrame(App1.this);
             }
         };
 }//GEN-LAST:event_mDictColor
@@ -807,7 +807,7 @@ public class App1 extends javax.swing.JFrame {
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Constr.createFrame(App1.this);
+                eApp1.Sysprof.createFrame(App1.this);
             }
         };
 }//GEN-LAST:event_mnConstr
@@ -930,7 +930,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Furnitura.createFrame(App1.this);
+                eApp1.Furn.createFrame(App1.this);
             }
         };
     }//GEN-LAST:event_mnFurnityra
@@ -955,7 +955,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Parametr.createFrame(App1.this);
+                eApp1.Param.createFrame(App1.this);
             }
         };
     }//GEN-LAST:event_parametr
@@ -1110,7 +1110,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Convert, Rate, Texture, Artikls, Joining, Builder, Elements, Parametr, Glass, Furnitura, Kits, Constr;
+        App1, Convert, Rate, Color, Artikls, Joining, Builder, Elements, Param, Glass, Furn, Kits, Sysprof;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1122,8 +1122,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Convert:
                         frame = new Convert();
                         break;
-                    case Texture:
-                        frame = new Texture();
+                    case Color:
+                        frame = new Color();
                         break;
                     case Joining:
                         frame = new Joining();
@@ -1137,20 +1137,20 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Elements:
                         frame = new Element();
                         break;
-                    case Parametr:
-                        frame = new Parametr();
+                    case Param:
+                        frame = new Param();
                         break;
                     case Glass:
                         frame = new Glass();
                         break;
-                    case Furnitura:
-                        frame = new Furnitura();
+                    case Furn:
+                        frame = new Furn();
                         break;
                     case Kits:
                         frame = new Kits();
                         break;
-                    case Constr:
-                        frame = new Constr();
+                    case Sysprof:
+                        frame = new Sysprof();
                         break;
                 }
                 frame.setName(this.name());

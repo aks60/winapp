@@ -13,7 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Parametr extends javax.swing.JFrame {
+public class Param extends javax.swing.JFrame {
 
     private Query qParam = new Query(eDicParam.values()).select(eDicParam.up, "where",
             eDicParam.numb, "< 0", "and", eDicParam.part, "= 0", "order by", eDicParam.name);
@@ -49,7 +49,7 @@ public class Parametr extends javax.swing.JFrame {
         }
     };
 
-    public Parametr() {
+    public Param() {
         initComponents();
         initElements();
 
