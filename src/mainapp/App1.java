@@ -10,7 +10,7 @@ import convdb.Convert;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import frames.Artikls;
-import frames.Builder;
+import frames.Design;
 import frames.Element;
 import frames.Furnitura;
 import frames.Glass;
@@ -1131,7 +1131,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new Rate();
                         break;
                     case Builder:
-                        frame = new Builder();
+                        frame = new Design();
                         break;
                     case Elements:
                         frame = new Element();

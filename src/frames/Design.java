@@ -1,10 +1,10 @@
-
 package frames;
 
-public class Builder extends javax.swing.JFrame {
+public class Design extends javax.swing.JFrame {
 
-    public Builder() {
+    public Design() {
         initComponents();
+        initElements();
     }
 
     @SuppressWarnings("unchecked")
@@ -28,7 +28,6 @@ public class Builder extends javax.swing.JFrame {
         panWest = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -293,7 +292,7 @@ public class Builder extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
     }//GEN-LAST:event_btnInsert
-
+   
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -312,5 +311,8 @@ public class Builder extends javax.swing.JFrame {
     private javax.swing.JPanel panWest;
     private javax.swing.JPanel panWest2;
     // End of variables declaration//GEN-END:variables
+
+    private void initElements() {
+    }
 // </editor-fold> 
 }
