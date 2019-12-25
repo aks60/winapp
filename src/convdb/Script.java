@@ -40,7 +40,8 @@ import domain.eElemgrp;
 import domain.eFurnitura;
 import domain.eRulecalc;
 import domain.eSysfurn;
-import domain.eSyspar1;
+import domain.eSyspar;
+import domain.eSysprof;
 import domain.eSystree;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -66,13 +67,14 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eArtikls.up, eArtdet.up, eTextgrp.up, eTexture.up, eTextpar1.up, eComplet.up, eCompdet.up,
-            eGlasdet.up, eGlasgrp.up, eGlasprof.up, eGlaspar1.up, eGlaspar2.up,
+            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up, eRulecalc.up,  
+            eTexture.up, eTextgrp.up, eTextpar1.up,
+            eArtikls.up, eArtdet.up, eComplet.up, eCompdet.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
-            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
-            eSyspar1.up, eSysfurn.up, eSystree.up, eRulecalc.up,
-            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up
+            eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,                                     
+            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,            
+            eSystree.up, eSysprof.up, eSysfurn.up, eSyspar.up           
         };
         try {
             Connection cn1 = java.sql.DriverManager.getConnection( //источник

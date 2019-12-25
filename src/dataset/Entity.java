@@ -40,7 +40,8 @@ public enum Entity {
             writer.println("import dataset.MetaField;");
             writer.println("import dataset.Record;");
             writer.println("public enum " + ename + " implements Field {");
-            writer.println("up(\"0\", \"0\", \"0\", \"0\", \"null\"),");
+            writer.println("up(\"0\", \"0\", \"0\", \"0\", \"" + table + "\"),");
+            writer.println("id(\"4\", \"10\", \"0\", \"Идентификатор\", \"id\"),");
             int index = 0;
             for (String colname : rangcol) {
                 String end = (index++ < columns.size() - 1) ? ")," : ");";
