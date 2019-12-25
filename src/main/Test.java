@@ -13,19 +13,17 @@ public class Test {
 
     public static void main(String[] args) {
         Main.dev = true;
-        
+
         try {
-           
-            //Script.script(); 
-            Test test = new Test();
-            test.query();
+
+            Script.script();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
     }
 
-    private void frames() {
+    private static void frames() {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
@@ -41,14 +39,14 @@ public class Test {
             System.err.println("TEST-FRAMES: " + e);
         }
     }
-   
-    private void query() {
+
+    private static void query() {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
-                   //"jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-                  "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
-            Entity.firebird(Query.connection, "SYSPROF");
-            
+                    //"jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                    "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
+            //Entity.firebird(Query.connection, "SYSPROF");
+
             //Query q1 = new Query(eArtikls.values()).select("$t where $f = $v order by $f", eArtikls.up, eArtikls.id, eArtikls.code, 2);
             //Query q2 = new Query(eArtikls.values()).select(eArtikls.up, "where", eArtikls.id, "=", 2, "order by", eArtikls.code);
             //Table yyy = q2.query(eArtikls.up.tname());
@@ -56,11 +54,8 @@ public class Test {
             //Query qColslst = new Query(eTexture.values());
             //int cgrup = 1;
             //qColslst.select("colslst where colslst.cgrup = " + cgrup + " order by colslst.cname");
-            
-            
-            
         } catch (Exception e) {
             System.err.println("TEST-CONNECTION: " + e);
         }
-    }    
+    }
 }
