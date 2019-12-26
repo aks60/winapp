@@ -4,6 +4,8 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
+import domain.eFurnitura;
+import domain.eSysfurn;
 import domain.eSysprof;
 import domain.eSystree;
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class Sysprof extends javax.swing.JFrame {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
     private Query qSysprof = new Query(eSysprof.values(), eArtikls.values());
+    private Query qSysfurn = new Query(eSysfurn.values(), eFurnitura.values());
+    
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
@@ -43,8 +47,11 @@ public class Sysprof extends javax.swing.JFrame {
         initElements();
 
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        new DefTableModel(tab2, qSysprof, eArtikls.id, eArtikls.code, eArtikls.name, eSysprof.id, eSysprof.prio).addFrameListener(listenerModify);
-
+        new DefTableModel(tab2, qSysprof, eArtikls.id, eArtikls.code, eArtikls.name, 
+                eSysprof.id, eSysprof.prio).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurnitura.name, eSysfurn.side_open,
+                eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify); 
+        
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.id, txtField1);
 
@@ -67,6 +74,7 @@ public class Sysprof extends javax.swing.JFrame {
         ArrayList<DefaultMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
         tree.setModel(new DefaultTreeModel(treeNode1));
         scr1.setViewportView(tree);
         tree.setSelectionRow(0);
@@ -89,7 +97,7 @@ public class Sysprof extends javax.swing.JFrame {
         return nodeList2;
     }
 
-    private void selectionTab1() {
+    private void selectionTree() {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
 
@@ -97,10 +105,16 @@ public class Sysprof extends javax.swing.JFrame {
                 UserNode node = (UserNode) selectedNode.getUserObject();
                 qSysprof.select(eSysprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=",
                         eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
+                qSysfurn.select(eSysfurn.up, "left join", eFurnitura.up, "on", eFurnitura.id, "=",
+                        eSysfurn.furnitura_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
                 
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 if (tab2.getRowCount() > 0) {
                     tab2.setRowSelectionInterval(0, 0);
+                }
+                if (tab3.getRowCount() > 0) {
+                    tab3.setRowSelectionInterval(0, 0);
                 }
             }
         }
@@ -341,17 +355,23 @@ public class Sysprof extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "№пп", "Название  фурнитуры", "Тип открывания", "Замена", "Установка ручки"
             }
         ));
         tab3.setFillsViewportHeight(true);
         scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab3.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(3).setMaxWidth(80);
+        }
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);
 
@@ -444,7 +464,7 @@ public class Sysprof extends javax.swing.JFrame {
         tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent tse) {
-                selectionTab1();
+                selectionTree();
             }
         });
     }
