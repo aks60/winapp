@@ -41,8 +41,8 @@ import domain.eFurnitura;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSyspar;
-import domain.eSysprof;
 import domain.eSystree;
+import domain.eSysprof;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -64,28 +64,32 @@ import java.util.List;
 public class Script {
 
     private static char versionPs = 4;
+    private static Connection cn1;
+    private static Connection cn2;
+    private static Statement st1; //источник 
+    private static Statement st2;//приёмник
 
     public static void script() {
         Field[] fieldsUp = {
-            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up, eRulecalc.up,  
+            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up, eRulecalc.up,
             eTexture.up, eTextgrp.up, eTextpar1.up,
             eArtikls.up, eArtdet.up, eComplet.up, eCompdet.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
-            eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,                                     
-            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,            
-            eSystree.up, eSysprof.up, eSysfurn.up, eSyspar.up           
+            eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
+            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
+            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar.up
         };
         try {
-            Connection cn1 = java.sql.DriverManager.getConnection( //источник
+            cn1 = java.sql.DriverManager.getConnection( //источник
                     "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
-            Connection cn2 = java.sql.DriverManager.getConnection( //приёмник
+            cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
             Util.println("Подготовка методанных");
-            Statement st1 = cn1.createStatement(); //мсточник 
-            Statement st2 = cn2.createStatement();//приёмник
+            st1 = cn1.createStatement(); //источник 
+            st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
             DatabaseMetaData mdb2 = cn2.getMetaData();
             ResultSet resultSet1 = mdb1.getTables(null, null, null, new String[]{"TABLE"});
@@ -117,33 +121,33 @@ public class Script {
                 HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
 
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
-                    st2.execute("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
+                    sql("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
                 }
                 if (listExistTable2.contains(fieldUp.tname()) == true) {
-                    st2.execute(print("DROP TABLE " + fieldUp.tname() + ";")); //удаление таблицы приёмника
+                    sql("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
                 }
                 //Создание таблицы приёмника
                 for (String ddl : Script.createTable(fieldUp.fields())) {
-                    st2.execute(ddl);
+                    sql(ddl);
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Object[] deltaCol : hsDeltaCol) {
-                    st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";"));
+                    sql("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";");
                 }
                 //Конвертирование данных в таблицу приёмника 
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
                 }
 
-                st2.execute("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
+                sql("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) {
-                    st2.execute("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
+                    sql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
-                st2.execute(print("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);")); //DDL создание первичного ключа
+                sql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
             }
             Util.println("Добавление комментариев к полям");
             for (Field field : fieldsUp) {
-                st2.execute("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
+                sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             Util.println("Заключительные действия, изменение структуры БД");
             if (fieldsUp.length > 1) {
@@ -153,13 +157,13 @@ public class Script {
 //            for (Field fieldUp : fieldsUp) {
 //                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
 //                for (Object[] deltaCol : hsDeltaCol) {
-//                    st2.execute("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+//                    sql(st2, "ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
 //                }
 //            }
-            Util.println("Обновление завершено");
+            System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
         } catch (Exception e) {
-            System.out.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");
+            System.out.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");    
         }
     }
 
@@ -203,12 +207,6 @@ public class Script {
         try {
             int count = 0; //колчество записей для расчёта кол. пакетов
             String tname1 = fields[0].meta().fname;
-//            if (tname1.equals("EMPTY")) { //новая таблица
-//                return;
-//            }
-//            else if (tname1.equals("CONNLST") && versionPs == 3) { //баг с названием таблицы в PS-3
-//                tname1 = "CONNECT";
-//            }
             String tname2 = fields[0].tname();
             HashSet hsExistField = new HashSet(); //список полей которые есть в источнике и в eEnum.values()
             boolean bash = true;
@@ -329,34 +327,34 @@ public class Script {
             con.setConnection(cn2);
 
             //Секция удаления фантомов
-            st2.execute(print("delete from texture where not exists (select id from textgrp a where a.gnumb = texture.cgrup)")); //textgrp_id
-            st2.execute(print("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)"));//artikl_id
-            st2.execute(print("delete from artdet where not exists (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));//texture_id
-            st2.execute(print("delete from element where not exists (select id from artikls a where a.code = element.anumb)"));//artikl_id
-            st2.execute(print("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)"));//artikl_id
-            st2.execute(print("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)"));//element_id
-            st2.execute(print("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)"));//element_id           
-            st2.execute(print("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)"));//elemdet_id
-            st2.execute(print("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)"));//artikl_id1
-            st2.execute(print("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)"));//artikl_id2
-            st2.execute(print("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)"));//joining_id
-            st2.execute(print("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)"));//joinvar_id
-            st2.execute(print("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)"));//joinvar_id
-            st2.execute(print("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)"));//joindet_id                      
-            st2.execute(print("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
-            st2.execute(print("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)"));
-            st2.execute(print("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
-            st2.execute(print("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)"));
-            st2.execute(print("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
-            st2.execute(print("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)"));
-            st2.execute(print("delete from furnside1 where not exists (select id from furnitura a where a.funic = furnside1.funic)"));
-            st2.execute(print("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)"));
-            st2.execute(print("delete from furndet where not exists (select id from furnitura a where a.funic = furndet.funic)"));
-            st2.execute(print("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"));
-            st2.execute(print("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)"));
-          
+            sql("delete from texture where not exists (select id from textgrp a where a.gnumb = texture.cgrup)");
+            sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");
+            sql("delete from artdet where not exists (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
+            sql("delete from element where not exists (select id from artikls a where a.code = element.anumb)");
+            sql("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)");
+            sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");
+            sql("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)");
+            sql("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)");
+            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)");
+            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)");
+            sql("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)");
+            sql("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)");
+            sql("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)");
+            sql("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)");
+            sql("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
+            sql("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)");
+            sql("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
+            sql("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)");
+            sql("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)");
+            sql("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)");
+            sql("delete from furnside1 where not exists (select id from furnitura a where a.funic = furnside1.funic)");
+            sql("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)");
+            sql("delete from furndet where not exists (select id from furnitura a where a.funic = furndet.funic)");
+            sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
+            sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)");
+
             //Секция update
-            st2.execute(print("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)"));
+            sql("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)");
             Query.connection = cn2;
             Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
             Query q2 = new Query(eTexture.values()).query(eTexture.up.tname());
@@ -374,9 +372,9 @@ public class Script {
                 record2.setNo(eTexture.suffix3, 1);
                 q2.insert(record2);
             }
-            st2.execute(print("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)"));
-            st2.execute(print("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)"));
-            st2.execute(print("update artdet set texture_id = artdet.clnum where artdet.clnum < 0"));
+            sql("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)");
+            sql("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
+            sql("update artdet set texture_id = artdet.clnum where artdet.clnum < 0");
 
             Query q3 = new Query(eElemgrp.values()).query(eElemgrp.up.tname());
             ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
@@ -391,40 +389,48 @@ public class Script {
                 record.setNo(eElemgrp.level, obj[1]);
                 q3.insert(record);
             }
-            st2.execute(print("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)"));
-            st2.execute(print("update element set artikl_id = (select id from artikls a where a.code = element.anumb)"));
-            st2.execute(print("update elemdet set artikl_id = (select id from artikls a where a.code = elemdet.anumb)"));
-            st2.execute(print("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)"));
-            st2.execute(print("update elemdet set param_id = clnum where clnum < 0"));
-            st2.execute(print("update elemdet set text_st = clnum where clnum > 0"));
-            st2.execute(print("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)"));
-            st2.execute(print("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)"));
-            st2.execute(print("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)"));
-            st2.execute(print("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2)")); // where exists  (select id from artikls a where a.code = joining.anum2)")); 
-            st2.execute(print("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)"));
-            st2.execute(print("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)"));
-            st2.execute(print("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)"));
-            st2.execute(print("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)"));
-            st2.execute(print("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)"));
-            st2.execute(print("update glasprof set artikl_id = (select id from artikls a where a.code = glasprof.anumb)"));
-            st2.execute(print("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)"));
-            st2.execute(print("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)"));
-            st2.execute(print("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)"));
-            st2.execute(print("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)"));
-            st2.execute(print("update furnside1 set furnitura_id = (select id from furnitura a where a.funic = furnside1.funic)"));
-            st2.execute(print("update furnside1 SET type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )"));
-            st2.execute(print("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)"));
-            st2.execute(print("update furndet set furnitura_id = (select id from furnitura a where a.funic = furndet.funic)"));
-            st2.execute(print("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"));
-            st2.execute(print("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)"));
+            sql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
+            sql("update element set artikl_id = (select id from artikls a where a.code = element.anumb)");
+            sql("update elemdet set artikl_id = (select id from artikls a where a.code = elemdet.anumb)");
+            sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
+            sql("update elemdet set param_id = clnum where clnum < 0");
+            sql("update elemdet set text_st = clnum where clnum > 0");
+            sql("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)");
+            sql("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)");
+            sql("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)");
+            sql("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2)"); // where exists  (select id from artikls a where a.code = joining.anum2)")); 
+            sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
+            sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");
+            sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
+            sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
+            sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
+            sql("update glasprof set artikl_id = (select id from artikls a where a.code = glasprof.anumb)");
+            sql("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
+            sql("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)");
+            sql("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)");
+            sql("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)");
+            sql("update furnside1 set furnitura_id = (select id from furnitura a where a.funic = furnside1.funic)");
+            sql("update furnside1 SET type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
+            sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
+            sql("update furndet set furnitura_id = (select id from furnitura a where a.funic = furndet.funic)");
+            sql("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
+            sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
+            
+            sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
+            sql("update systree set parent_id = id where npar = 0");
+            sql("update sysprof set artikl_id = (select id from artikls a where a.code = sysprof.anumb)");
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");
         }
     }
 
-    private static String print(String str) {
-        System.out.println(str);
-        return str;
+    private static void sql(String str) {
+        try {
+            System.out.println(str);
+            st2.execute(str);
+        } catch (Exception e) {
+            System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
+        }
     }
 }
