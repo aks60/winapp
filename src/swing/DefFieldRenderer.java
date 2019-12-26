@@ -72,7 +72,7 @@ public class DefFieldRenderer {
         for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
             JTextComponent comp = me.getKey();
             Field field = me.getValue();
-            Object val = tableModel.query.query(field.tname()).getAs(index, field, "");
+            Object val = tableModel.query.table(field.tname()).getAs(index, field, "");
             if (index == null || val == null) {
                 comp.setText("");
             } else if (field.meta().type().equals(Field.TYPE.DATE)) {

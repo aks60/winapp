@@ -62,7 +62,7 @@ public class Query extends Table {
         return arr.toArray(new Field[arr.size()]);
     }
 
-    public Query query(String name_table) {
+    public Query table(String name_table) {
         return hmQuery.get(name_table);
     }
 

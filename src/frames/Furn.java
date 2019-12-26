@@ -83,7 +83,7 @@ public class Furn extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qFurnitura.query(eFurnitura.up.tname()).get(row);
+            Record record = qFurnitura.table(eFurnitura.up.tname()).get(row);
             Integer id = record.getInt(eFurnitura.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furnitura_id, "=", id, "order by", eFurnside1.npp);
             qFurndet.select(eFurndet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eFurndet.artikl_id,
@@ -103,7 +103,7 @@ public class Furn extends javax.swing.JFrame {
     private void selectionTab2(ListSelectionEvent event) {
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qFurndet.query(eFurndet.up.tname()).get(row);
+            Record record = qFurndet.table(eFurndet.up.tname()).get(row);
             Integer id = record.getInt(eFurndet.id);
             qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.pnumb_id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -116,7 +116,7 @@ public class Furn extends javax.swing.JFrame {
     private void selectionTab4(ListSelectionEvent event) {
         int row = tab4.getSelectedRow();
         if (row != -1) {
-            Record record = qFurnside1.query(eFurnside1.up.tname()).get(row);
+            Record record = qFurnside1.table(eFurnside1.up.tname()).get(row);
             Integer id = record.getInt(eFurnside1.id);
             qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.pnumb_id);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();

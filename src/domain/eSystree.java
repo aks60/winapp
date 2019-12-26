@@ -3,20 +3,21 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
+import static domain.eArtdet.values;
 
 public enum eSystree implements Field {
     up("0", "0", "0", "Дерево системы профилей", "SYSPROF"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "Наименование ветки дерева", "TEXT"),
+    level("5", "5", "1", "Номер ступеньки в дереве", "NLEV"),
     parent_id("4", "10", "1", "ID материнского профиля", "parent_id"),    
-    glas_id("12", "32", "1", "Заполнение по умолчанию", "ANUMB"),    
-    koef("8", "15", "1", "Коэффициент рентабельности", "KOEF"),
+    glas("12", "32", "1", "Заполнение по умолчанию", "ANUMB"),    
+    coef("8", "15", "1", "Коэффициент рентабельности", "KOEF"),
     size("12", "128", "1", "Доступные толщины стеклопакетов", "ZSIZE"),
-    text1("12", "128", "1", "Доступные основные текстуры", "CCODE"),
-    text2("12", "128", "1", "Доступные внутрение текстуры", "CCOD1"),
-    text3("12", "128", "1", "Доступные внешние текстуры", "CCOD2"),
-    type("5", "5", "1", "Типы 1 - окно; 4,5 - двери", "TYPEW");
-    //nlev("5", "5", "1", "Номер ступеньки в дереве", "NLEV"),
+    tex1("12", "128", "1", "Доступные основные текстуры", "CCODE"),
+    tex2("12", "128", "1", "Доступные внутрение текстуры", "CCOD1"),
+    tex3("12", "128", "1", "Доступные внешние текстуры", "CCOD2"),
+    types("5", "5", "1", "Типы 1 - окно; 4,5 - двери", "TYPEW");
     //npar("4", "10", "1", "ID материнского профиля (SYSPROF.NUNI)", "NPAR"),
     //tcalk("5", "5", "1", "Спецификация профилей и пакетов для сборки", "TCALK"),
     //tview("5", "5", "1", "Примечание", "TVIEW"),
@@ -29,7 +30,7 @@ public enum eSystree implements Field {
     //nuni("4", "10", "1", "ID ветки дерева", "NUNI"),
     private MetaField meta = new MetaField(this);
 
-    eSystree(String... p) {
+    eSystree(Object... p) {
         meta.init(p);
     }
 
@@ -39,10 +40,6 @@ public enum eSystree implements Field {
 
     public Field[] fields() {
         return values();
-    }
-
-    public String table() {
-        return "SYSPROF";
     }
 
     public String toString() {

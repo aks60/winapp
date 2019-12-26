@@ -78,7 +78,7 @@ public class Color extends javax.swing.JFrame
         listenerModify.response(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qGrupcol.query(eTextgrp.up.tname()).get(row);
+            Record record = qGrupcol.table(eTextgrp.up.tname()).get(row);
             Integer cgrup = record.getInt(eTextgrp.id);
             qColslst.select(eTexture.up, "where", eTexture.textgrp_id, "=" + cgrup + "order by", eTexture.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -429,14 +429,14 @@ public class Color extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             try {
                 if (focusComp == tab1) {
-                    Query query = qGrupcol.query(eTextgrp.up.tname());
+                    Query query = qGrupcol.table(eTextgrp.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
                     qGrupcol.select(eTextgrp.up, "order by", eTextgrp.name);
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
                 } else if (focusComp == tab2) {
-                    Query query = qColslst.query(eTexture.up.tname());
+                    Query query = qColslst.table(eTexture.up.tname());
                     Record record = query.get(tab2.getSelectedRow());
                     query.delete(record);
                     qColslst.select(eTextgrp.up, "order by", eTextgrp.name);
@@ -451,7 +451,7 @@ public class Color extends javax.swing.JFrame
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (focusComp == tab1) {
-            Query query = qGrupcol.query(eTextgrp.up.tname());
+            Query query = qGrupcol.table(eTextgrp.up.tname());
             Record record = query.newRecord(Query.INS);
             int id = ConnApp.get().generstorId(eTextgrp.up.tname());
             record.setNo(eTextgrp.id, id);
@@ -463,8 +463,8 @@ public class Color extends javax.swing.JFrame
 
         } else if (focusComp == tab2) {
             int row = tab1.getSelectedRow();
-            Query query1 = qGrupcol.query(eTextgrp.up.tname());
-            Query query2 = qColslst.query(eTexture.up.tname());
+            Query query1 = qGrupcol.table(eTextgrp.up.tname());
+            Query query2 = qColslst.table(eTexture.up.tname());
             Record record1 = query1.get(row);
             Record record2 = query2.newRecord(Query.INS);
             int id = ConnApp.get().generstorId(eTexture.up.tname());

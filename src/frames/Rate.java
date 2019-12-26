@@ -270,7 +270,7 @@ public class Rate extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getSelectedRow() != -1) {
                 try {
-                    Query query = qRate.query(eDicRate.up.tname());
+                    Query query = qRate.table(eDicRate.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
                     qRate.select(eDicRate.up, "order by", eDicRate.name);
@@ -283,7 +283,7 @@ public class Rate extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Query query = qRate.query(eDicRate.up.tname());
+        Query query = qRate.table(eDicRate.up.tname());
         Record record = query.newRecord(Query.INS);
         int id = ConnApp.get().generstorId(eDicRate.up.tname());
         record.setNo(eDicRate.id, id);

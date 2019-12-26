@@ -152,7 +152,7 @@ public class Artikls extends javax.swing.JFrame
 
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qArtikls.query(eArtikls.up.tname()).get(row);
+            Record record = qArtikls.table(eArtikls.up.tname()).get(row);
             //System.out.println(record);
             int id = record.getInt(eArtikls.id);
             qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,

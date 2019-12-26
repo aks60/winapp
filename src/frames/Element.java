@@ -74,17 +74,17 @@ public class Element extends javax.swing.JFrame {
 
     private void loadDataTab1() {
 
-        Record record = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);
+        Record record = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
         record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
-        qElemgrp.query(eElemgrp.up.tname()).add(0, record);
-        for (int index = 0; index < qElemgrp.query(eElemgrp.up.tname()).size(); ++index) {
-            int level = qElemgrp.query(eElemgrp.up.tname()).getInt(index, eElemgrp.level);
+        qElemgrp.table(eElemgrp.up.tname()).add(0, record);
+        for (int index = 0; index < qElemgrp.table(eElemgrp.up.tname()).size(); ++index) {
+            int level = qElemgrp.table(eElemgrp.up.tname()).getInt(index, eElemgrp.level);
             if (level == 5) {
-                Record record2 = qElemgrp.query(eElemgrp.up.tname()).newRecord(Query.SEL);
+                Record record2 = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
                 record2.setNo(eElemgrp.id, -5);
                 record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
-                qElemgrp.query(eElemgrp.up.tname()).add(index, record2);
+                qElemgrp.table(eElemgrp.up.tname()).add(index, record2);
                 break;
             }
         }
@@ -96,7 +96,7 @@ public class Element extends javax.swing.JFrame {
         listenerModify.response(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qElemgrp.query(eElemgrp.up.tname()).get(row);
+            Record record = qElemgrp.table(eElemgrp.up.tname()).get(row);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1) {
                 qElement.select(eElement.up, "left join", eArtikls.up, "on", eElement.artikl_id, "=", eArtikls.id,
@@ -120,7 +120,7 @@ public class Element extends javax.swing.JFrame {
         listenerModify.response(null);
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qElement.query(eElement.up.tname()).get(row);
+            Record record = qElement.table(eElement.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id,
                     "left join", eDicParam.up, "on", eElemdet.param_id, "=", eDicParam.numb, "where", eElemdet.element_id, "=", p1);
@@ -139,7 +139,7 @@ public class Element extends javax.swing.JFrame {
         listenerModify.response(null);
         int row = tab3.getSelectedRow();
         if (row != -1) {
-            Record record = qElemdet.query(eElemdet.up.tname()).get(row);
+            Record record = qElemdet.table(eElemdet.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElempar2.select(eElempar2.up, "left join", eDicParam.up, "on",
                     eDicParam.numb, "=", eElempar2.pnumb_id, "and", eDicParam.part, ">=33 and", eDicParam.part, "<41", "where", eElempar2.elemdet_id, "=", p1);

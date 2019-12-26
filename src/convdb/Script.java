@@ -356,8 +356,8 @@ public class Script {
             //Секция update
             sql("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)");
             Query.connection = cn2;
-            Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).query(eTextgrp.up.tname());
-            Query q2 = new Query(eTexture.values()).query(eTexture.up.tname());
+            Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).table(eTextgrp.up.tname());
+            Query q2 = new Query(eTexture.values()).table(eTexture.up.tname());
             for (Record record : q1) {
                 Record record2 = q2.newRecord(Query.INS);
                 record2.setNo(eTexture.id, -1 * record.getInt(eTextgrp.id));
@@ -376,7 +376,7 @@ public class Script {
             sql("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
             sql("update artdet set texture_id = artdet.clnum where artdet.clnum < 0");
 
-            Query q3 = new Query(eElemgrp.values()).query(eElemgrp.up.tname());
+            Query q3 = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
             ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
             ArrayList<Object[]> fieldList = new ArrayList();
             while (rs3.next()) {

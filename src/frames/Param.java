@@ -71,7 +71,7 @@ public class Param extends javax.swing.JFrame {
         listenerModify.response(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qParam.query(eDicParam.up.tname()).get(row);
+            Record record = qParam.table(eDicParam.up.tname()).get(row);
             Integer p1 = record.getInt(eDicParam.numb);
             qPardet.select(eDicParam.up, "where", eDicParam.numb, "=", p1, "and", eDicParam.part, "= -1", "order by", eDicParam.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

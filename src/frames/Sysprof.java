@@ -1,10 +1,65 @@
 package frames;
 
+import dataset.Query;
+import dataset.Record;
+import domain.eSystree;
+import java.util.ArrayList;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+
 public class Sysprof extends javax.swing.JFrame {
+
+    private Query qSystree = new Query(eSystree.values()).select(eSystree.up, "order by", eSystree.level);
+    private DefaultMutableTreeNode root = null;
 
     public Sysprof() {
         initComponents();
         initElements();
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
+        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
+        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
+        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
+
+        loadTree();
+    }
+
+    private void loadTree() {
+
+        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
+        ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
+        Query q = qSystree.table(eSystree.up.tname());
+        for (Record record : q) {
+            if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
+                DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record));
+                treeList.add(node2);
+                treeNode1.add(node2);
+            }
+        }
+        ArrayList<DefaultMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
+        tree.setModel(new DefaultTreeModel(treeNode1));
+        scr1.setViewportView(tree);
+        tree.setSelectionRow(0);
+    }
+
+    private ArrayList<DefaultMutableTreeNode> addChild(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
+
+        Query q = qSystree.table(eSystree.up.tname());
+        for (DefaultMutableTreeNode node : nodeList1) {
+            UserNode userNode = (UserNode) node.getUserObject();
+            for (Record record2 : q) {
+                if (record2.getInt(eSystree.parent_id) == userNode.record.getInt(eSystree.id)
+                        && record2.getInt(eSystree.parent_id) != record2.getInt(eSystree.id)) {
+                    DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record2));
+                    node.add(node2);
+                    nodeList2.add(node2);
+                }
+            }
+        }
+        return nodeList2;
     }
 
     @SuppressWarnings("unchecked")
@@ -20,7 +75,7 @@ public class Sysprof extends javax.swing.JFrame {
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
-        tree1 = new javax.swing.JTree();
+        tree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
@@ -171,7 +226,7 @@ public class Sysprof extends javax.swing.JFrame {
 
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(200, 324));
-        scr1.setViewportView(tree1);
+        scr1.setViewportView(tree);
 
         panCentr.add(scr1, java.awt.BorderLayout.WEST);
 
@@ -344,9 +399,22 @@ public class Sysprof extends javax.swing.JFrame {
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTabbedPane tabb1;
-    private javax.swing.JTree tree1;
+    private javax.swing.JTree tree;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
     }
 // </editor-fold> 
+
+    private class UserNode {
+
+        Record record;
+
+        UserNode(Record record) {
+            this.record = record;
+        }
+
+        public String toString() {
+            return record.getStr(eSystree.name);
+        }
+    }
 }

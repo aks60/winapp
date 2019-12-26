@@ -77,7 +77,7 @@ public class Joining extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qJoining.query(eJoining.up.tname()).get(row);
+            Record record = qJoining.table(eJoining.up.tname()).get(row);
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -90,7 +90,7 @@ public class Joining extends javax.swing.JFrame {
     private void selectionTab2(ListSelectionEvent event) {
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qJoinvar.query(eJoinvar.up.tname()).get(row);
+            Record record = qJoinvar.table(eJoinvar.up.tname()).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
             qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.pnumb_id);
@@ -108,7 +108,7 @@ public class Joining extends javax.swing.JFrame {
     private void selectionTab4(ListSelectionEvent event) {
         int row = tab4.getSelectedRow();
         if (row != -1) {
-            Record record = qJoindet.query(eJoindet.up.tname()).get(row);
+            Record record = qJoindet.table(eJoindet.up.tname()).get(row);
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.pnumb_id);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();

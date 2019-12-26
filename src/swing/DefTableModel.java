@@ -64,7 +64,7 @@ public class DefTableModel extends DefaultTableModel {
     }
 
     public int getRowCount() {
-        return (columns != null) ? query.query(columns[0].tname()).size() : 0;
+        return (columns != null) ? query.table(columns[0].tname()).size() : 0;
     }
 
     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -74,7 +74,7 @@ public class DefTableModel extends DefaultTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (columns != null) {
             String tname = columns[columnIndex].tname();
-            Table table = query.query(tname);
+            Table table = query.table(tname);
             return table.get(rowIndex, columns[columnIndex]);
         }
         return null;
@@ -90,7 +90,7 @@ public class DefTableModel extends DefaultTableModel {
      */
     public void setValueAt(Object value, int row, Field field) {
 
-        Table table = query.query(field.tname());
+        Table table = query.table(field.tname());
         if (field.meta().edit() == false || value.equals(table.get(row, field))) {
             return;
         }

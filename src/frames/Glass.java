@@ -76,7 +76,7 @@ public class Glass extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qGlasgrp.query(eGlasgrp.up.tname()).get(row);
+            Record record = qGlasgrp.table(eGlasgrp.up.tname()).get(row);
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
             qGlaspar1.select(eGlaspar1.up, "where", eGlaspar1.glasgrp_id, "=", id, "order by", eGlaspar1.id);
@@ -99,7 +99,7 @@ public class Glass extends javax.swing.JFrame {
     private void selectionTab2(ListSelectionEvent event) {
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qGlasdet.query(eGlasdet.up.tname()).get(row);
+            Record record = qGlasdet.table(eGlasdet.up.tname()).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qGlaspar2.select(eGlaspar2.up, "where", eGlaspar2.glasdet_id, "=", id, "order by", eGlaspar2.id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
