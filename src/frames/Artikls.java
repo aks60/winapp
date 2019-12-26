@@ -82,10 +82,6 @@ public class Artikls extends javax.swing.JFrame
         initComponents();
         initElements();
         //treeMat.setRootVisible(false);
-        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
-        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
-        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
-        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
 
         DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eDicRate.design);
         DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
@@ -824,6 +820,10 @@ public class Artikls extends javax.swing.JFrame
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
+        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
+        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
+        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));        
         tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);        

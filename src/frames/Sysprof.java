@@ -2,24 +2,30 @@ package frames;
 
 import dataset.Query;
 import dataset.Record;
+import domain.eSysprof;
 import domain.eSystree;
 import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import swing.DefFieldRenderer;
+import swing.DefTableModel;
 
 public class Sysprof extends javax.swing.JFrame {
 
-    private Query qSystree = new Query(eSystree.values()).select(eSystree.up, "order by", eSystree.level);
+    private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
+    private Query qSysprof = new Query(eSysprof.values()).select(eSysprof.up);
     private DefaultMutableTreeNode root = null;
+    private DefFieldRenderer rsvSystree;
 
     public Sysprof() {
         initComponents();
         initElements();
-        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
-        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
-        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
-        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
+        
+        DefTableModel rsmSysprof = new DefTableModel(new JTable(), qSysprof, eSysprof.id, eSysprof.prio);
+        rsvSystree = new DefFieldRenderer(rsmSysprof);
+        rsvSystree.add(eSystree.id, txtField1);
 
         loadTree();
     }
@@ -78,6 +84,8 @@ public class Sysprof extends javax.swing.JFrame {
         tree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        txtField1 = new javax.swing.JFormattedTextField();
         tabb1 = new javax.swing.JTabbedPane();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -234,15 +242,34 @@ public class Sysprof extends javax.swing.JFrame {
 
         pan2.setPreferredSize(new java.awt.Dimension(692, 300));
 
+        jLabel13.setFont(common.Util.getFont(0,0));
+        jLabel13.setText("Длина");
+        jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel13.setPreferredSize(new java.awt.Dimension(108, 18));
+
+        txtField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtField1.setPreferredSize(new java.awt.Dimension(60, 18));
+
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
         pan2Layout.setHorizontalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 590, Short.MAX_VALUE)
+            .addGroup(pan2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(399, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(pan2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(257, Short.MAX_VALUE))
         );
 
         pan1.add(pan2, java.awt.BorderLayout.NORTH);
@@ -269,6 +296,8 @@ public class Sysprof extends javax.swing.JFrame {
 
         tabb1.addTab("Профили в системе", pan3);
 
+        pan4.setLayout(new java.awt.BorderLayout());
+
         scr3.setBorder(null);
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -285,28 +314,11 @@ public class Sysprof extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         scr3.setViewportView(tab3);
 
-        javax.swing.GroupLayout pan4Layout = new javax.swing.GroupLayout(pan4);
-        pan4.setLayout(pan4Layout);
-        pan4Layout.setHorizontalGroup(
-            pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 687, Short.MAX_VALUE)
-            .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan4Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(scr3, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        pan4Layout.setVerticalGroup(
-            pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
-            .addGroup(pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan4Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(scr3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        pan4.add(scr3, java.awt.BorderLayout.CENTER);
 
         tabb1.addTab("Фурнитура в системе", pan4);
+
+        pan5.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(null);
 
@@ -324,26 +336,7 @@ public class Sysprof extends javax.swing.JFrame {
         tab4.setFillsViewportHeight(true);
         scr4.setViewportView(tab4);
 
-        javax.swing.GroupLayout pan5Layout = new javax.swing.GroupLayout(pan5);
-        pan5.setLayout(pan5Layout);
-        pan5Layout.setHorizontalGroup(
-            pan5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 687, Short.MAX_VALUE)
-            .addGroup(pan5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan5Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(scr4, javax.swing.GroupLayout.PREFERRED_SIZE, 687, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        pan5Layout.setVerticalGroup(
-            pan5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
-            .addGroup(pan5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pan5Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(scr4, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        pan5.add(scr4, java.awt.BorderLayout.CENTER);
 
         tabb1.addTab("Параметры по умолчанию", pan5);
 
@@ -383,6 +376,7 @@ public class Sysprof extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
@@ -400,8 +394,14 @@ public class Sysprof extends javax.swing.JFrame {
     private javax.swing.JTable tab4;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTree tree;
+    private javax.swing.JFormattedTextField txtField1;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
+
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
+        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
+        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
+        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
     }
 // </editor-fold> 
 
