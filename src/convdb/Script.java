@@ -37,7 +37,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eElement;
 import domain.eElemgrp;
-import domain.eFurnitura;
+import domain.eFurniture;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSyspar;
@@ -77,7 +77,7 @@ public class Script {
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
-            eFurnitura.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
+            eFurniture.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
             eSysprof.up, eSystree.up, eSysfurn.up, eSyspar.up
         };
         try {
@@ -347,15 +347,15 @@ public class Script {
             sql("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)");
             sql("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)");
             sql("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)");
-            sql("delete from furnside1 where not exists (select id from furnitura a where a.funic = furnside1.funic)");
+            sql("delete from furnside1 where not exists (select id from furniture a where a.funic = furnside1.funic)");
             sql("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)");
-            sql("delete from furndet where not exists (select id from furnitura a where a.funic = furndet.funic)");
+            sql("delete from furndet where not exists (select id from furniture a where a.funic = furndet.funic)");
             sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)");
             
             sql("delete from sysprof where not exists (select id from artikls a where a.code = sysprof.anumb)");
             sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)"); 
-            sql("delete from sysfurn where not exists (select id from furnitura a where a.funic = sysfurn.funic)");
+            sql("delete from sysfurn where not exists (select id from furniture a where a.funic = sysfurn.funic)");
             sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)");            
 
             //Секция update
@@ -414,10 +414,10 @@ public class Script {
             sql("update glasdet set artikl_id = (select id from artikls a where a.code = glasdet.anumb)");
             sql("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)");
             sql("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)");
-            sql("update furnside1 set furnitura_id = (select id from furnitura a where a.funic = furnside1.funic)");
+            sql("update furnside1 set furniture_id = (select id from furniture a where a.funic = furnside1.funic)");
             sql("update furnside1 SET type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
-            sql("update furndet set furnitura_id = (select id from furnitura a where a.funic = furndet.funic)");
+            sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
             sql("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
             
@@ -426,7 +426,7 @@ public class Script {
             
             sql("update sysprof set artikl_id = (select id from artikls a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
-            sql("update sysfurn set furnitura_id = (select id from furnitura a where a.funic = sysfurn.funic)");
+            sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
             sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");            
 
         } catch (Exception e) {

@@ -4,7 +4,7 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
-import domain.eFurnitura;
+import domain.eFurniture;
 import domain.eSysfurn;
 import domain.eSysprof;
 import domain.eSystree;
@@ -24,7 +24,7 @@ public class Sysprof extends javax.swing.JFrame {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
     private Query qSysprof = new Query(eSysprof.values(), eArtikls.values());
-    private Query qSysfurn = new Query(eSysfurn.values(), eFurnitura.values());
+    private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
@@ -49,7 +49,7 @@ public class Sysprof extends javax.swing.JFrame {
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         new DefTableModel(tab2, qSysprof, eArtikls.id, eArtikls.code, eArtikls.name, 
                 eSysprof.id, eSysprof.prio).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurnitura.name, eSysfurn.side_open,
+        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify); 
         
         rsvSystree = new DefFieldRenderer(rsmSystree);
@@ -105,8 +105,8 @@ public class Sysprof extends javax.swing.JFrame {
                 UserNode node = (UserNode) selectedNode.getUserObject();
                 qSysprof.select(eSysprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=",
                         eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
-                qSysfurn.select(eSysfurn.up, "left join", eFurnitura.up, "on", eFurnitura.id, "=",
-                        eSysfurn.furnitura_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
+                qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
+                        eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
                 
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();

@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eFurnitura implements Field {
+public enum eFurniture implements Field {
     up("0", "0", "0", "Список фурнитуры", "FURNLST"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "Название", "FNAME"),  
@@ -27,7 +27,7 @@ public enum eFurnitura implements Field {
 
     private MetaField meta = new MetaField(this);
 
-    eFurnitura(Object... p) {
+    eFurniture(Object... p) {
         meta.init(p);
     }
 
