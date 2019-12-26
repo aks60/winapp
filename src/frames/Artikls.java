@@ -167,6 +167,7 @@ public class Artikls extends javax.swing.JFrame
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
                 qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "order by", eArtikls.level1, ",", eArtikls.code);
+            
             } else if (selectedNode.isLeaf()) {
                 eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
                 qArtikls.select(eArtikls.up, "left join", eDicRate.up, "on", eArtikls.rate_id, "=", eDicRate.id, "where", eArtikls.level1, "=",

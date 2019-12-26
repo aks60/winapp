@@ -1,11 +1,17 @@
 package frames;
 
+import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
+import domain.eArtikls;
 import domain.eSysprof;
 import domain.eSystree;
 import java.util.ArrayList;
+import javax.swing.Icon;
 import javax.swing.JTable;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
@@ -15,16 +21,31 @@ import swing.DefTableModel;
 public class Sysprof extends javax.swing.JFrame {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
-    private Query qSysprof = new Query(eSysprof.values()).select(eSysprof.up);
+    private Query qSysprof = new Query(eSysprof.values(), eArtikls.values());
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
+    private FrameListener<Object, Object> listenerModify = new FrameListener() {
+
+        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
+            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
+
+        public void request(Object obj) {
+            btnSave.setIcon(btnIM[0]);
+        }
+
+        public void response(Object obj) {
+            btnSave.setIcon(btnIM[1]);
+        }
+    };
 
     public Sysprof() {
         initComponents();
         initElements();
-        
-        DefTableModel rsmSysprof = new DefTableModel(new JTable(), qSysprof, eSysprof.id, eSysprof.prio);
-        rsvSystree = new DefFieldRenderer(rsmSysprof);
+
+        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
+        new DefTableModel(tab2, qSysprof, eArtikls.id, eArtikls.code, eArtikls.name, eSysprof.id, eSysprof.prio).addFrameListener(listenerModify);
+
+        rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.id, txtField1);
 
         loadTree();
@@ -68,6 +89,23 @@ public class Sysprof extends javax.swing.JFrame {
         return nodeList2;
     }
 
+    private void selectionTab1() {
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+
+            if (selectedNode.getUserObject() instanceof UserNode) {
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                qSysprof.select(eSysprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=",
+                        eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
+                
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                if (tab2.getRowCount() > 0) {
+                    tab2.setRowSelectionInterval(0, 0);
+                }
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -98,6 +136,7 @@ public class Sysprof extends javax.swing.JFrame {
         tab4 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Системы профилей");
         setPreferredSize(new java.awt.Dimension(806, 608));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -280,13 +319,13 @@ public class Sysprof extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Применение", "Артикул", "Название", "Сторона", "Приоритет"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -402,6 +441,12 @@ public class Sysprof extends javax.swing.JFrame {
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
+        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+
+            public void valueChanged(TreeSelectionEvent tse) {
+                selectionTab1();
+            }
+        });
     }
 // </editor-fold> 
 

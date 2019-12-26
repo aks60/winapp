@@ -352,6 +352,9 @@ public class Script {
             sql("delete from furndet where not exists (select id from furnitura a where a.funic = furndet.funic)");
             sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)");
+            
+            sql("delete from sysprof where not exists (select id from artikls a where a.code = sysprof.anumb)");
+            sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)");            
 
             //Секция update
             sql("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)");
@@ -418,7 +421,9 @@ public class Script {
             
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             sql("update systree set parent_id = id where npar = 0");
+            
             sql("update sysprof set artikl_id = (select id from artikls a where a.code = sysprof.anumb)");
+            sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");
