@@ -75,6 +75,9 @@ public class DefTableModel extends DefaultTableModel {
         if (columns != null) {
             String tname = columns[columnIndex].tname();
             Table table = query.table(tname);
+            if (getColumnClass(columnIndex) == Boolean.class) {
+                return (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
+            }
             return table.get(rowIndex, columns[columnIndex]);
         }
         return null;
@@ -94,39 +97,31 @@ public class DefTableModel extends DefaultTableModel {
         if (field.meta().edit() == false || value.equals(table.get(row, field))) {
             return;
         }
-        if (field.meta().type().equals(Field.TYPE.DATE)) {
-            Date d = Util.StrToDate(value.toString());
-            if (d != null) {
-                GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
-                GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);
-                if (d.after(d2.getTime()) || d.before(d1.getTime())) {
-                    return;
+        try {
+            if (field.meta().type().equals(Field.TYPE.DATE)) {
+                Date d = Util.StrToDate(value.toString());
+                if (d != null) {
+                    GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
+                    GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);
+                    if (d.after(d2.getTime()) || d.before(d1.getTime())) {
+                        return;
+                    }
                 }
-            }
-            value = d;
-        } else if (field.meta().type().equals(Field.TYPE.INT)) {
-            try {
+                value = d;
+            } else if (field.meta().type().equals(Field.TYPE.INT)) {
                 value = Integer.valueOf(String.valueOf(value));
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-        } else if (field.meta().type().equals(Field.TYPE.DBL)) {
-            try {
+            } else if (field.meta().type().equals(Field.TYPE.DBL)) {
                 String str = String.valueOf(value).replace(',', '.');
                 value = Double.valueOf(str);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-        } else if (field.meta().type().equals(Field.TYPE.FLT)) {
-            try {
+            } else if (field.meta().type().equals(Field.TYPE.FLT)) {
                 String str = String.valueOf(value).replace(',', '.');
                 value = Float.valueOf(str);
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
+                value = Boolean.valueOf(String.valueOf(value));
             }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
         table.set(value, row, field);
         if (listenerModify != null) {

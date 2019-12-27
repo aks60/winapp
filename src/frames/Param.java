@@ -268,13 +268,21 @@ public class Param extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzzz", "1", "1", "1", "1", "1", "1", "1"},
-                {"xxxxx", "1", "1", "1", "1", "1", "1", "1"}
+                {"zzzzzz", null, null, null, null, null, null, null},
+                {"xxxxx", null, null, null, null, null, null, null}
             },
             new String [] {
                 "Название параметра", "Комплекты", "Соединения", "Составы", "Заполнения", "Фурнитура", "Откосы", "Текстура"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab1.setFillsViewportHeight(true);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
@@ -290,13 +298,21 @@ public class Param extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzzz", "1", "1", "1", "1", "1", "1", "1"},
-                {"xxxxx", "1", "1", "1", "1", "1", "1", "1"}
+                {"zzzzzz", null, null, null, null, null, null, "1"},
+                {"xxxxx", null, null, null, null, null, null, "1"}
             },
             new String [] {
                 "Значение параметра", "Комплекты", "Соединения", "Составы", "Заполнения", "Фурнитура", "Откосы", "Надпись"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
