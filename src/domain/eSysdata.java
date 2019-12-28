@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eDicSyspar implements Field {
+public enum eSysdata implements Field {
     up("0", "0", "0", "Расчетные данные настройки", "SYSDATA"),
     id("4", "10", "0", "Идентификатор", "id"),
     sunic("4", "10", "1", "null", "SUNIC"),
@@ -13,7 +13,7 @@ public enum eDicSyspar implements Field {
     sflot("8", "15", "1", "значение параметра", "SFLOT");
     private MetaField meta = new MetaField(this);
 
-    eDicSyspar(Object... p) {
+    eSysdata(Object... p) {
         meta.init(p);
     }
 

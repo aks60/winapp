@@ -4,7 +4,7 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
-import domain.eDicParam;
+import domain.eParams;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElemgrp;
@@ -23,9 +23,9 @@ public class Element extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
     private Query qElement = new Query(eElement.values(), eArtikls.values());
-    private Query qElemdet = new Query(eElemdet.values(), eArtikls.values(), eDicParam.values());
-    private Query qElempar1 = new Query(eElempar1.values(), eDicParam.values());
-    private Query qElempar2 = new Query(eElempar2.values(), eDicParam.values());
+    private Query qElemdet = new Query(eElemdet.values(), eArtikls.values(), eParams.values());
+    private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
+    private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -64,9 +64,9 @@ public class Element extends javax.swing.JFrame {
         new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
         new DefTableModel(tab2, qElement, eArtikls.code, eArtikls.name,
                 eElement.name, eElement.vtype, eArtikls.series, eElement.binding, eElement.binding, eElement.markup).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eDicParam.name, eDicParam.id).addFrameListener(listenerModify);
-        new DefTableModel(tab4, qElempar1, eDicParam.name, eElempar1.val).addFrameListener(listenerModify);
-        new DefTableModel(tab5, qElempar2, eDicParam.name, eElempar2.val).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qElemdet, eArtikls.code, eArtikls.name, eParams.name, eParams.id).addFrameListener(listenerModify);
+        new DefTableModel(tab4, qElempar1, eParams.name, eElempar1.val).addFrameListener(listenerModify);
+        new DefTableModel(tab5, qElempar2, eParams.name, eElempar2.val).addFrameListener(listenerModify);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -123,9 +123,9 @@ public class Element extends javax.swing.JFrame {
             Record record = qElement.table(eElement.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eElemdet.artikl_id,
-                    "left join", eDicParam.up, "on", eElemdet.param_id, "=", eDicParam.numb, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eDicParam.up, "on",
-                    eDicParam.numb, "=", eElempar1.pnumb_id, "and", eDicParam.part, "=31", "where", eElempar1.element_id, "=", p1);
+                    "left join", eParams.up, "on", eElemdet.param_id, "=", eParams.numb, "where", eElemdet.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on",
+                    eParams.numb, "=", eElempar1.pnumb_id, "and", eParams.part, "=31", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
@@ -141,8 +141,8 @@ public class Element extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qElemdet.table(eElemdet.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
-            qElempar2.select(eElempar2.up, "left join", eDicParam.up, "on",
-                    eDicParam.numb, "=", eElempar2.pnumb_id, "and", eDicParam.part, ">=33 and", eDicParam.part, "<41", "where", eElempar2.elemdet_id, "=", p1);
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on",
+                    eParams.numb, "=", eElempar2.pnumb_id, "and", eParams.part, ">=33 and", eParams.part, "<41", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
     }

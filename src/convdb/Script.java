@@ -9,11 +9,11 @@ import domain.eArtdet;
 import domain.eArtikls;
 import domain.eCompdet;
 import domain.eComplet;
-import domain.eDicConst;
-import domain.eDicArtgrp;
+import domain.eSysconst;
+import domain.eArtgrp;
 import domain.eTextgrp;
-import domain.eDicRate;
-import domain.eDicSyspar;
+import domain.eCurrenc;
+import domain.eSysdata;
 import domain.eTexture;
 import domain.eFurnside1;
 import domain.eFurnside2;
@@ -31,7 +31,7 @@ import domain.eJoining;
 import domain.eTextpar1;
 import domain.eGlaspar2;
 import domain.eGlaspar1;
-import domain.eDicParam;
+import domain.eParams;
 import domain.eElemdet;
 import domain.eElempar1;
 import domain.eElempar2;
@@ -73,7 +73,7 @@ public class Script {
 
     public static void script() {
         Field[] fieldsUp = {
-            eDicConst.up, eDicSyspar.up, eDicRate.up, eDicArtgrp.up, eDicParam.up, eRulecalc.up,
+            eSysconst.up, eSysdata.up, eCurrenc.up, eArtgrp.up, eParams.up, eRulecalc.up,
             eTexture.up, eTextgrp.up, eTextpar1.up,
             eArtikls.up, eArtdet.up, eComplet.up, eCompdet.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,

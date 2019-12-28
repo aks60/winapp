@@ -3,7 +3,7 @@ package frames;
 import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
-import domain.eDicParam;
+import domain.eParams;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -15,9 +15,9 @@ import swing.DefTableModel;
 
 public class Param extends javax.swing.JFrame {
 
-    private Query qParam = new Query(eDicParam.values()).select(eDicParam.up, "where",
-            eDicParam.numb, "< 0", "and", eDicParam.part, "= 0", "order by", eDicParam.name);
-    private Query qPardet = new Query(eDicParam.values());
+    private Query qParam = new Query(eParams.values()).select(eParams.up, "where",
+            eParams.numb, "< 0", "and", eParams.part, "= 0", "order by", eParams.name);
+    private Query qPardet = new Query(eParams.values());
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -53,10 +53,10 @@ public class Param extends javax.swing.JFrame {
         initComponents();
         initElements();
 
-        new DefTableModel(tab1, qParam, eDicParam.name, eDicParam.komp,
-                eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
-        new DefTableModel(tab2, qPardet, eDicParam.name, eDicParam.komp,
-                eDicParam.joint, eDicParam.elem, eDicParam.glas, eDicParam.furn, eDicParam.otkos, eDicParam.text);
+        new DefTableModel(tab1, qParam, eParams.name, eParams.komp,
+                eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.text);
+        new DefTableModel(tab2, qPardet, eParams.name, eParams.komp,
+                eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.text);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab1(event);
@@ -71,9 +71,9 @@ public class Param extends javax.swing.JFrame {
         listenerModify.response(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qParam.table(eDicParam.up.tname()).get(row);
-            Integer p1 = record.getInt(eDicParam.numb);
-            qPardet.select(eDicParam.up, "where", eDicParam.numb, "=", p1, "and", eDicParam.part, "= -1", "order by", eDicParam.name);
+            Record record = qParam.table(eParams.up.tname()).get(row);
+            Integer p1 = record.getInt(eParams.numb);
+            qPardet.select(eParams.up, "where", eParams.numb, "=", p1, "and", eParams.part, "= -1", "order by", eParams.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
                 tab2.setRowSelectionInterval(0, 0);

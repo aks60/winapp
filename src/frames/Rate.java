@@ -4,7 +4,7 @@ import common.FrameListener;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
-import domain.eDicRate;
+import domain.eCurrenc;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -17,7 +17,7 @@ import swing.DefTableModel;
 
 public class Rate extends javax.swing.JFrame {
 
-    private Query qRate = new Query(eDicRate.values()).select(eDicRate.up, "order by", eDicRate.name);
+    private Query qRate = new Query(eCurrenc.values()).select(eCurrenc.up, "order by", eCurrenc.name);
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -60,7 +60,7 @@ public class Rate extends javax.swing.JFrame {
     public Rate() {
         initComponents();
         initElements();     
-        new DefTableModel(tab1, qRate, eDicRate.name, eDicRate.par_case1, eDicRate.par_case3, eDicRate.cross_cour).addFrameListener(listenerModify);
+        new DefTableModel(tab1, qRate, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour).addFrameListener(listenerModify);
     }
 
     @SuppressWarnings("unchecked")
@@ -270,10 +270,10 @@ public class Rate extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getSelectedRow() != -1) {
                 try {
-                    Query query = qRate.table(eDicRate.up.tname());
+                    Query query = qRate.table(eCurrenc.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
-                    qRate.select(eDicRate.up, "order by", eDicRate.name);
+                    qRate.select(eCurrenc.up, "order by", eCurrenc.name);
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 } catch (Exception e) {
                     System.out.println(e);
@@ -283,11 +283,11 @@ public class Rate extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Query query = qRate.table(eDicRate.up.tname());
+        Query query = qRate.table(eCurrenc.up.tname());
         Record record = query.newRecord(Query.INS);
-        int id = ConnApp.get().generstorId(eDicRate.up.tname());
-        record.setNo(eDicRate.id, id);
-        record.setNo(eDicRate.id, id);
+        int id = ConnApp.get().generstorId(eCurrenc.up.tname());
+        record.setNo(eCurrenc.id, id);
+        record.setNo(eCurrenc.id, id);
         query.add(record);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnInsert

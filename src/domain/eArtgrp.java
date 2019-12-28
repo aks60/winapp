@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eDicArtgrp implements Field {
+public enum eArtgrp implements Field {
     up("0", "0", "0", "Группа материальных ценостей", "GRUPART"),
     id("4", "10", "0", "Идентификатор", "id"),
     mpref("12", "16", "1", "Категория группы МЦ", "MPREF"),
@@ -14,7 +14,7 @@ public enum eDicArtgrp implements Field {
     ugrup("4", "10", "1", "Группа_пользователей", "UGRUP");
     private MetaField meta = new MetaField(this);
 
-    eDicArtgrp(Object... p) {
+    eArtgrp(Object... p) {
         meta.init(p);
     }
 

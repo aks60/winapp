@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eDicConst implements Field {
+public enum eSysconst implements Field {
     up("0", "0", "0", "Системные константы", "SYSSIZE"),
     id("4", "10", "0", "Идентификатор", "id"),
     sunic("4", "10", "1", "ID системы", "SUNIC"),
@@ -15,7 +15,7 @@ public enum eDicConst implements Field {
     ssizi("8", "15", "1", "Заход импоста", "SSIZI");
     private MetaField meta = new MetaField(this);
 
-    eDicConst(Object... p) {
+    eSysconst(Object... p) {
         meta.init(p);
     }
 
