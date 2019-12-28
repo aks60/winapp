@@ -191,6 +191,8 @@ public class Util {
             return "DATE";
         } else if (type == Field.TYPE.BLOB) {
             return "BLOB SUB_TYPE 1 SEGMENT SIZE " + size;
+        } else if (type == Field.TYPE.BOOL) {
+            return "SMALLINT";
         }
         return "";
     }

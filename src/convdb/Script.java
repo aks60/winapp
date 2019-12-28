@@ -40,7 +40,7 @@ import domain.eElemgrp;
 import domain.eFurniture;
 import domain.eRulecalc;
 import domain.eSysfurn;
-import domain.eSyspar;
+import domain.eSyspar1;
 import domain.eSystree;
 import domain.eSysprof;
 import java.sql.Connection;
@@ -78,12 +78,12 @@ public class Script {
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
             eFurniture.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
-            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar.up
+            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up
         };
         try {
             cn1 = java.sql.DriverManager.getConnection( //источник
-                    "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+                   //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+            "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
@@ -356,7 +356,8 @@ public class Script {
             sql("delete from sysprof where not exists (select id from artikls a where a.code = sysprof.anumb)");
             sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)"); 
             sql("delete from sysfurn where not exists (select id from furniture a where a.funic = sysfurn.funic)");
-            sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)");            
+            sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)"); 
+            sql("delete from syspar1 where not exists (select id from systree a where a.nuni = syspar1.psss)");
 
             //Секция update
             sql("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)");
@@ -419,15 +420,15 @@ public class Script {
             sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
             sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
             sql("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
-            
+            sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");            
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             sql("update systree set parent_id = id where npar = 0");
             
             sql("update sysprof set artikl_id = (select id from artikls a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
             sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
-            sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");            
+            sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");  
+            sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");
