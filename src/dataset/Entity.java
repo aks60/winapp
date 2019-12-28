@@ -59,7 +59,6 @@ public enum Entity {
             writer.println("public String deleteSql(Record record) { return null; }");
             writer.println("public MetaField meta() { return meta; }");
             writer.println("public Field[] fields() { return values(); }");
-            writer.println("public String table() {  return \"" + table + "\";  }");
             writer.println("public String toString() { return meta.getDescr(); }");
             writer.println("}");
             writer.close();
