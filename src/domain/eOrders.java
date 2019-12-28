@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eOrder implements Field {
+public enum eOrders implements Field {
     up("0", "0", "0", "Список проектов", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
     numb("4", "10", "1", "номер проекта", "PNUMB"),
@@ -107,7 +107,7 @@ public enum eOrder implements Field {
 //    date3("93", "19", "1", "null", "DATE3");
     private MetaField meta = new MetaField(this);
 
-    eOrder(String... p) {
+    eOrders(String... p) {
         meta.init(p);
     }
 

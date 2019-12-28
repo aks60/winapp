@@ -38,6 +38,8 @@ import domain.eElempar2;
 import domain.eElement;
 import domain.eElemgrp;
 import domain.eFurniture;
+import domain.eOrders;
+import domain.ePartner;
 import domain.eRulecalc;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -78,16 +80,17 @@ public class Script {
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
             eFurniture.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
-            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up
+            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up,
+            ePartner.up, eOrders.up
         };
         try {
             cn1 = java.sql.DriverManager.getConnection( //источник
-                   //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-            "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+                   "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
-            Util.println("Подготовка методанных");
+            Util.println("\u001B[32m" + "Подготовка методанных" + "\u001B[0m");
             st1 = cn1.createStatement(); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
@@ -113,7 +116,7 @@ public class Script {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
-            Util.println("Перенос данных");
+            Util.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
 
@@ -145,15 +148,15 @@ public class Script {
                 }
                 sql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
             }
-            Util.println("Добавление комментариев к полям");
+            Util.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
             for (Field field : fieldsUp) {
                 sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
-            Util.println("Заключительные действия, изменение структуры БД");
+            Util.println("\u001B[32m" + "Заключительные действия, изменение структуры БД" + "\u001B[0m");
             if (fieldsUp.length > 1) {
                 updateDb(cn2, st2);
             }
-            Util.println("Удаление столбцов не вошедших в eEnum.values()");
+            Util.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
 //            for (Field fieldUp : fieldsUp) {
 //                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
 //                for (Object[] deltaCol : hsDeltaCol) {
@@ -325,8 +328,7 @@ public class Script {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
-
-            //Секция удаления фантомов
+            Util.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             sql("delete from texture where not exists (select id from textgrp a where a.gnumb = texture.cgrup)");
             sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");
             sql("delete from artdet where not exists (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
@@ -359,7 +361,7 @@ public class Script {
             sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)"); 
             sql("delete from syspar1 where not exists (select id from systree a where a.nuni = syspar1.psss)");
 
-            //Секция update
+            Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)");
             Query.connection = cn2;
             Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).table(eTextgrp.up.tname());

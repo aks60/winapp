@@ -5,7 +5,7 @@ import dataset.MetaField;
 import dataset.Record;
 
 public enum ePartner implements Field {
-    up("0", "0", "0", "0", "CLIENTS"),
+    up("0", "0", "0", "Диллер", "CLIENTS"),
     id("4", "10", "0", "Идентификатор", "id"),
     ame("12", "64", "1", "название контрагента", "KNAME"),
     categ("12", "32", "1", "категория (заказчик, поставщик, офис, дилер, специальный)", "KPREF"),
