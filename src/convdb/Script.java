@@ -131,18 +131,18 @@ public class Script {
                 }
                 //Создание таблицы приёмника
                 for (String ddl : Script.createTable(fieldUp.fields())) {
-                    sql(ddl);
+                    st2.execute(ddl);
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Object[] deltaCol : hsDeltaCol) {
                     sql("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";");
                 }
-                //Конвертирование данных в таблицу приёмника 
+                //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
                 }
-
-                sql("CREATE GENERATOR GEN_" + fieldUp.tname()); //создание генератора приёмника
+                //Создание генератора таблицы
+                sql("CREATE GENERATOR GEN_" + fieldUp.tname()); 
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) {
                     sql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
@@ -152,17 +152,16 @@ public class Script {
             for (Field field : fieldsUp) {
                 sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
-            Util.println("\u001B[32m" + "Заключительные действия, изменение структуры БД" + "\u001B[0m");
             if (fieldsUp.length > 1) {
                 updateDb(cn2, st2);
             }
             Util.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
-//            for (Field fieldUp : fieldsUp) {
-//                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Object[] deltaCol : hsDeltaCol) {
-//                    sql(st2, "ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
-//                }
-//            }
+            for (Field fieldUp : fieldsUp) {
+                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Object[] deltaCol : hsDeltaCol) {
+                    sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+                }
+            }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
         } catch (Exception e) {
@@ -328,7 +327,7 @@ public class Script {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
-            Util.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
+            Util.println("\u001B[32m" + "Секция даления потеренных ссылок (фантомов)" + "\u001B[0m");
             sql("delete from texture where not exists (select id from textgrp a where a.gnumb = texture.cgrup)");
             sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");
             sql("delete from artdet where not exists (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
@@ -439,7 +438,7 @@ public class Script {
 
     private static void sql(String str) {
         try {
-            System.out.println(str);
+            Util.println(str);
             st2.execute(str);
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
