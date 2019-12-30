@@ -20,6 +20,7 @@ import frames.Kits;
 import frames.Param;
 import frames.Rate;
 import frames.Color;
+import frames.Order;
 import frames.Partner;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -116,8 +117,6 @@ public class App1 extends javax.swing.JFrame {
         mn0123 = new javax.swing.JMenuItem();
         mn13 = new javax.swing.JSeparator();
         mn14 = new javax.swing.JMenuItem();
-        mn07 = new javax.swing.JMenu();
-        mn71 = new javax.swing.JMenuItem();
         mn02 = new javax.swing.JMenu();
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
@@ -139,6 +138,8 @@ public class App1 extends javax.swing.JFrame {
         mn41 = new javax.swing.JMenuItem();
         mn43 = new javax.swing.JMenuItem();
         mn42 = new javax.swing.JMenuItem();
+        mn07 = new javax.swing.JMenu();
+        mn71 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
         mn61 = new javax.swing.JMenuItem();
         mn62 = new javax.swing.JMenu();
@@ -340,7 +341,7 @@ public class App1 extends javax.swing.JFrame {
         });
         td3.add(btn29);
 
-        btn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c029.gif"))); // NOI18N
+        btn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c047.gif"))); // NOI18N
         btn30.setFocusable(false);
         btn30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn30.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -350,7 +351,7 @@ public class App1 extends javax.swing.JFrame {
         btn30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn30mn41mAdminUserToDb(evt);
+                mnOrder(evt);
             }
         });
         td3.add(btn30);
@@ -541,21 +542,6 @@ public class App1 extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
-        mn07.setText("Конвертор");
-        mn07.setFont(common.Util.getFont(1,1));
-
-        mn71.setFont(common.Util.getFont(1,1));
-        mn71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn71.setText("SA-OKNA <= ПрофСтрой(3,4)");
-        mn71.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConvert(evt);
-            }
-        });
-        mn07.add(mn71);
-
-        mn0.add(mn07);
-
         mn02.setText("Справочники");
         mn02.setFont(common.Util.getFont(1,1));
 
@@ -668,7 +654,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn0.add(mn03);
 
-        mn08.setText("Проекты");
+        mn08.setText("Заказы");
         mn08.setFont(common.Util.getFont(1,1));
 
         mn81.setFont(common.Util.getFont(1,1));
@@ -683,10 +669,10 @@ public class App1 extends javax.swing.JFrame {
 
         mn82.setFont(common.Util.getFont(1,1));
         mn82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn82.setText("Проекты");
+        mn82.setText("Заказы");
         mn82.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn82ActionPerformed(evt);
+                mnOrder(evt);
             }
         });
         mn08.add(mn82);
@@ -727,6 +713,21 @@ public class App1 extends javax.swing.JFrame {
         mn04.add(mn42);
 
         mn0.add(mn04);
+
+        mn07.setText("Конвертор");
+        mn07.setFont(common.Util.getFont(1,1));
+
+        mn71.setFont(common.Util.getFont(1,1));
+        mn71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn71.setText("SA-OKNA <= ПрофСтрой(3,4)");
+        mn71.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnConvert(evt);
+            }
+        });
+        mn07.add(mn71);
+
+        mn0.add(mn07);
 
         mn06.setText("Сервис");
         mn06.setFont(common.Util.getFont(1,1));
@@ -1012,10 +1013,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         };      
     }//GEN-LAST:event_mnGlass
 
-    private void btn30mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn30mn41mAdminUserToDb
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn30mn41mAdminUserToDb
-
     private void btn33mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn33mn41mAdminUserToDb
         // TODO add your handling code here:
     }//GEN-LAST:event_btn33mn41mAdminUserToDb
@@ -1038,9 +1035,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         }; 
     }//GEN-LAST:event_mnConvert
 
-    private void mn82ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn82ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mn82ActionPerformed
+    private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Order.createFrame(App1.this);
+            }
+        }; 
+    }//GEN-LAST:event_mnOrder
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1151,7 +1153,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Convert, Rate, Color, Artikls, Joining, Builder, Elements, Param, Glass, Furn, Kits, Sysprof, Partner;
+        App1, Convert, Rate, Color, Artikls, Joining, Builder, Elements, Param, 
+        Glass, Furn, Kits, Sysprof, Partner, Order;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1195,6 +1198,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Partner:
                         frame = new Partner();
+                        break;
+                    case Order:
+                        frame = new Order();
                         break;
                 }
                 frame.setName(this.name());

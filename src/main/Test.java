@@ -16,8 +16,8 @@ public class Test {
 
         try {
 
-            Script.script();
-            //query();
+            //Script.script();
+            query();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -46,7 +46,7 @@ public class Test {
             Query.connection = java.sql.DriverManager.getConnection(
                     //"jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
                     "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
-            Entity.firebird(Query.connection, "CLIENTS");
+            Entity.firebird(Query.connection, "KOMPSPC");
 
             //Query q1 = new Query(eArtikls.values()).select("$t where $f = $v order by $f", eArtikls.up, eArtikls.id, eArtikls.code, 2);
             //Query q2 = new Query(eArtikls.values()).select(eArtikls.up, "where", eArtikls.id, "=", 2, "order by", eArtikls.code);
