@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.ArrayList;
 
 /**
  * <p>
@@ -211,7 +210,8 @@ public class Util {
                 if (value instanceof java.util.Date) {
                     return " '" + new SimpleDateFormat("dd.MM.yyyy").format(value) + "' ";
                 } else {
-                    return " '" + value + "' ";
+                    //return " '" + value + "' ";
+                    return null;
                 }
             }
             return value;

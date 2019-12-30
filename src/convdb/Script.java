@@ -6,45 +6,47 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
+import domain.eArtgrp;
 import domain.eArtikls;
+import domain.eColgrp;
+import domain.eColor;
+import domain.eColpar1;
 import domain.eCompdet;
 import domain.eComplet;
-import domain.eSysconst;
-import domain.eArtgrp;
-import domain.eTextgrp;
 import domain.eCurrenc;
-import domain.eSysdata;
-import domain.eTexture;
-import domain.eFurnside1;
-import domain.eFurnside2;
-import domain.eFurnpar1;
-import domain.eFurndet;
-import domain.eGlasdet;
-import domain.eGlasgrp;
-import domain.eGlasprof;
-import domain.eJoinpar2;
-import domain.eJoinpar1;
-import domain.eFurnpar2;
-import domain.eJoindet;
-import domain.eJoinvar;
-import domain.eJoining;
-import domain.eTextpar1;
-import domain.eGlaspar2;
-import domain.eGlaspar1;
-import domain.eParams;
 import domain.eElemdet;
+import domain.eElement;
+import domain.eJoining;
+import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eElement;
-import domain.eElemgrp;
+import domain.eFurndet;
 import domain.eFurniture;
+import domain.eFurnpar1;
+import domain.eFurnpar2;
+import domain.eFurnside1;
+import domain.eFurnside2;
+import domain.eGlasdet;
+import domain.eGlasgrp;
+import domain.eGlaspar1;
+import domain.eGlaspar2;
+import domain.eGlasprof;
+import domain.eJoindet;
+import domain.eJoinpar1;
+import domain.eJoinpar2;
+import domain.eJoinvar;
+import domain.eKitdet;
+import domain.eKits;
 import domain.eOrders;
+import domain.eParams;
 import domain.ePartner;
 import domain.eRulecalc;
+import domain.eSysconst;
+import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eSystree;
 import domain.eSysprof;
+import domain.eSystree;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -52,8 +54,10 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
@@ -74,18 +78,19 @@ public class Script {
     public static void script() {
         Field[] fieldsUp = {
             eSysconst.up, eSysdata.up, eCurrenc.up, eArtgrp.up, eParams.up, eRulecalc.up,
-            eTexture.up, eTextgrp.up, eTextpar1.up,
+            eColor.up, eColgrp.up, eColpar1.up,
             eArtikls.up, eArtdet.up, eComplet.up, eCompdet.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
             eFurniture.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
             eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up,
+            eKits.up, eKitdet.up,
             ePartner.up, eOrders.up
         };
         try {
             cn1 = java.sql.DriverManager.getConnection( //источник
-                   "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+                    "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
@@ -121,7 +126,7 @@ public class Script {
             for (Field fieldUp : fieldsUp) {
 
                 //Поля не вошедшие в eEnum.values()
-                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
 
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
                     sql("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
@@ -134,15 +139,16 @@ public class Script {
                     st2.execute(ddl);
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
-                for (Object[] deltaCol : hsDeltaCol) {
-                    sql("ALTER TABLE " + fieldUp.tname() + " ADD " + deltaCol[0] + " " + Util.typeSql(Field.TYPE.type(deltaCol[1]), deltaCol[2]) + ";");
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    String deltaCol[] = entry.getValue();
+                    sql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + Util.typeSql(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
                 }
                 //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
-                    convertTable(cn1, cn2, fieldUp.fields(), hsDeltaCol);
+                    convertTable(cn1, cn2, fieldUp.fields(), hmDeltaCol);
                 }
                 //Создание генератора таблицы
-                sql("CREATE GENERATOR GEN_" + fieldUp.tname()); 
+                sql("CREATE GENERATOR GEN_" + fieldUp.tname());
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) {
                     sql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
@@ -152,20 +158,19 @@ public class Script {
             for (Field field : fieldsUp) {
                 sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
-            if (fieldsUp.length > 1) {
-                updateDb(cn2, st2);
-            }
+            updateDb(cn2, st2);
+
             Util.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
             for (Field fieldUp : fieldsUp) {
-                HashSet<String[]> hsDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Object[] deltaCol : hsDeltaCol) {
-                    sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + deltaCol[0] + ";");
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
         } catch (Exception e) {
-            System.out.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");    
+            System.out.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");
         }
     }
 
@@ -202,9 +207,9 @@ public class Script {
      * @param cn1 соединение источника
      * @param cn2 соединение приёмника
      * @param fields все поля таблицы
-     * @param hsDeltaCol поля не вошедшие в eEnum.values()
+     * @param hmDeltaCol поля не вошедшие в eEnum.values()
      */
-    public static void convertTable(Connection cn1, Connection cn2, Field[] fields, HashSet<String[]> hsDeltaCol) {
+    public static void convertTable(Connection cn1, Connection cn2, Field[] fields, HashMap<String, String[]> hmDeltaCol) {
         String sql = "";
         try {
             int count = 0; //колчество записей для расчёта кол. пакетов
@@ -240,8 +245,8 @@ public class Script {
                     Field field = fields[index];
                     nameCols2 = nameCols2 + field.name() + ",";
                 }
-                for (Object[] str : hsDeltaCol) {//поля для sql update (в конце будут удалены)
-                    nameCols2 = nameCols2 + str[0] + ",";
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) { //поля для sql update (в конце будут удалены)
+                    nameCols2 = nameCols2 + entry.getKey() + ",";
                 }
                 nameCols2 = nameCols2.substring(0, nameCols2.length() - 1);
                 //Строка values(...)
@@ -254,16 +259,23 @@ public class Script {
                             Object val = rs1.getObject(field.meta().fname);
                             nameVal2 = nameVal2 + Util.wrapperSql(val, field.meta().type()) + ",";
                         } else {
-                            nameVal2 = nameVal2 + "0" + ",";
+                            if (field.meta().type() == Field.TYPE.BOOL || field.meta().type() == Field.TYPE.DBL 
+                                    || field.meta().type() == Field.TYPE.FLT || field.meta().type() == Field.TYPE.INT 
+                                    || field.meta().type() == Field.TYPE.LONG) {
+                                nameVal2 = nameVal2 + "0" + ",";
+                            } else {
+                                nameVal2 = nameVal2 + "null" + ",";
+                            }
                         }
                     }
                     //Цыкл по полям не вошедших в eEnum.values()
-                    for (String[] str : hsDeltaCol) {
-                        Object val = rs1.getObject(str[0]);
-                        nameVal2 = nameVal2 + Util.wrapperSql(val, Field.TYPE.type(str[1])) + ",";
+                    for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                        Object val = rs1.getObject(entry.getKey());
+                        nameVal2 = nameVal2 + Util.wrapperSql(val, Field.TYPE.type(entry.getValue()[0])) + ",";
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
                     sql = "insert into " + tname2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";
+                    //System.out.println(sql);
                     if (bash == true) {
                         st2.addBatch(sql);
                     } else {
@@ -297,26 +309,27 @@ public class Script {
         }
     }
 
-    private static HashSet<String[]> deltaColumn(DatabaseMetaData mdb1, Field fieldUp) {
+    private static HashMap<String, String[]> deltaColumn(DatabaseMetaData mdb1, Field fieldUp) {
         try {
-            HashSet<String[]> hsDeltaCol = new HashSet(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
+            HashMap<String, String[]> hmDeltaCol = new HashMap(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
             ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
             while (rsc1.next()) {
-                String[] name = {rsc1.getString("COLUMN_NAME"), rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
+                String key = rsc1.getString("COLUMN_NAME");
+                String[] val = {rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
                 if ("-1".equals(rsc1.getString("DATA_TYPE")) || "-4".equals(rsc1.getString("DATA_TYPE"))) {
-                    name[2] = "80";
+                    val[1] = "80";
                 }
                 boolean find = false;
                 for (Field field : fieldUp.fields()) {
-                    if (field.meta().fname.equalsIgnoreCase(name[0].toString())) {
+                    if (field.meta().fname.equalsIgnoreCase(key)) {
                         find = true;
                     }
                 }
                 if (find == false) {
-                    hsDeltaCol.add(name);
+                    hmDeltaCol.put(key, val);
                 }
             }
-            return hsDeltaCol;
+            return hmDeltaCol;
         } catch (SQLException e) {
             System.out.println("\u001B[31m" + "DELTA-COLUMN: " + e + "\u001B[0m");
             return null;
@@ -327,10 +340,10 @@ public class Script {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
-            Util.println("\u001B[32m" + "Секция даления потеренных ссылок (фантомов)" + "\u001B[0m");
-            sql("delete from texture where not exists (select id from textgrp a where a.gnumb = texture.cgrup)");
+            Util.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
+            sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");
             sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");
-            sql("delete from artdet where not exists (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
+            sql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
             sql("delete from element where not exists (select id from artikls a where a.code = element.anumb)");
             sql("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)");
             sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");
@@ -353,35 +366,39 @@ public class Script {
             sql("delete from furndet where not exists (select id from furniture a where a.funic = furndet.funic)");
             sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)");
-            
+
             sql("delete from sysprof where not exists (select id from artikls a where a.code = sysprof.anumb)");
-            sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)"); 
+            sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)");
             sql("delete from sysfurn where not exists (select id from furniture a where a.funic = sysfurn.funic)");
-            sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)"); 
+            sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)");
             sql("delete from syspar1 where not exists (select id from systree a where a.nuni = syspar1.psss)");
+            sql("delete from kits where not exists (select id from artikls a where a.code = kits.anumb)");
+            //sql("delete from kits set where not exists (select id from color a where a.ccode = kits.clnum)");
+            sql("delete from kitdet where not exists (select id from kits a where a.kunic = kitdet.kunic)");
+            sql("delete from kitdet where not exists (select id from artikls a where a.code = kitdet.anumb)");
 
             Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
-            sql("update texture set textgrp_id = (select id from textgrp a where a.gnumb = texture.cgrup)");
+            sql("update color set colgrp_id = (select id from colgrp a where a.gnumb = color.cgrup)");
             Query.connection = cn2;
-            Query q1 = new Query(eTextgrp.values()).select(eTextgrp.up).table(eTextgrp.up.tname());
-            Query q2 = new Query(eTexture.values()).table(eTexture.up.tname());
+            Query q1 = new Query(eColgrp.values()).select(eColgrp.up).table(eColgrp.up.tname());
+            Query q2 = new Query(eColor.values()).table(eColor.up.tname());
             for (Record record : q1) {
                 Record record2 = q2.newRecord(Query.INS);
-                record2.setNo(eTexture.id, -1 * record.getInt(eTextgrp.id));
-                record2.setNo(eTexture.textgrp_id, record.getInt(eTextgrp.id));
-                record2.setNo(eTexture.name, "Все текстуры группы");
-                record2.setNo(eTexture.name2, "Все текстуры группы");
-                record2.setNo(eTexture.coef1, 1);
-                record2.setNo(eTexture.coef2, 1);
-                record2.setNo(eTexture.coef2, 1);
-                record2.setNo(eTexture.suffix1, 1);
-                record2.setNo(eTexture.suffix2, 1);
-                record2.setNo(eTexture.suffix3, 1);
+                record2.setNo(eColor.id, -1 * record.getInt(eColgrp.id));
+                record2.setNo(eColor.colgrp_id, record.getInt(eColgrp.id));
+                record2.setNo(eColor.name, "Все текстуры группы");
+                record2.setNo(eColor.name2, "Все текстуры группы");
+                record2.setNo(eColor.coef1, 1);
+                record2.setNo(eColor.coef2, 1);
+                record2.setNo(eColor.coef2, 1);
+                record2.setNo(eColor.suffix1, 1);
+                record2.setNo(eColor.suffix2, 1);
+                record2.setNo(eColor.suffix3, 1);
                 q2.insert(record2);
             }
             sql("update artdet set artikl_id = (select id from artikls a where a.code = artdet.anumb)");
-            sql("update artdet set texture_id = (select id from texture a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
-            sql("update artdet set texture_id = artdet.clnum where artdet.clnum < 0");
+            sql("update artdet set color_id = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
+            sql("update artdet set color_id = artdet.clnum where artdet.clnum < 0");
 
             Query q3 = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
             ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
@@ -401,7 +418,7 @@ public class Script {
             sql("update elemdet set artikl_id = (select id from artikls a where a.code = elemdet.anumb)");
             sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
             sql("update elemdet set param_id = clnum where clnum < 0");
-            sql("update elemdet set text_st = clnum where clnum > 0");
+            sql("update elemdet set color_st = clnum where clnum > 0");
             sql("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)");
             sql("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)");
             sql("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)");
@@ -421,15 +438,19 @@ public class Script {
             sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
             sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
             sql("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");            
+            sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             sql("update systree set parent_id = id where npar = 0");
-            
+
             sql("update sysprof set artikl_id = (select id from artikls a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
             sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
-            sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");  
+            sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");
             sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
+            sql("update kits set artikl_id = (select id from artikls a where a.code = kits.anumb)");
+            //sql("update kits set color_id = (select id from color a where a.ccode = kits.clnum)");
+            sql("update kitdet set kits_id = (select id from kits a where a.kunic = kitdet.kunic)");
+            sql("update kitdet set artikl_id = (select id from artikls a where a.code = kitdet.anumb)");
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");

@@ -6,9 +6,9 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtikls;
 import domain.eArtdet;
-import domain.eTexture;
+import domain.eColor;
 import domain.eCurrenc;
-import domain.eTextgrp;
+import domain.eColgrp;
 import enums.eTypeArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -36,7 +36,7 @@ public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Query qArtikls = new Query(eArtikls.values(), eCurrenc.values());
-    private Query qArtdet = new Query(eArtdet.id, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+    private Query qArtdet = new Query(eArtdet.id, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
     DefFieldRenderer rsvArtikls;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -84,7 +84,7 @@ public class Artikls extends javax.swing.JFrame
         //treeMat.setRootVisible(false);
 
         DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eCurrenc.design);
-        DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eTextgrp.name, eTexture.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+        DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
         rsmArtikls.addFrameListener(listenerModify);
         rsmArtsvst.addFrameListener(listenerModify);
 
@@ -151,8 +151,8 @@ public class Artikls extends javax.swing.JFrame
             Record record = qArtikls.table(eArtikls.up.tname()).get(row);
             //System.out.println(record);
             int id = record.getInt(eArtikls.id);
-            qArtdet.select(eArtdet.up, "left join", eTexture.up, "on", eArtdet.texture_id, "=", eTexture.id,
-                    "left join", eTextgrp.up, "on", eTexture.textgrp_id, "=", eTextgrp.id, "where", eArtdet.artikl_id, "=", id);
+            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_id, "=", eColor.id,
+                    "left join", eColgrp.up, "on", eColor.colgrp_id, "=", eColgrp.id, "where", eArtdet.artikl_id, "=", id);
 
             rsvArtikls.write(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

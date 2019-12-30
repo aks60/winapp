@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Record;
 
-public enum eTextgrp implements Field {
+public enum eColgrp implements Field {
     up("0", "0", "0", "Группа текстур", "GRUPCOL"),
     id("4", "10", "0", "Идентификатор", "id"),
     //groups("4", "10", "1", "номер группы", "GNUMB"),
@@ -15,7 +15,7 @@ public enum eTextgrp implements Field {
     //gprc2("8", "15", "1", "null", "GPRC2");
     private MetaField meta = new MetaField(this);
 
-    eTextgrp(Object... p) {
+    eColgrp(Object... p) {
         meta.init(p);
     }
 

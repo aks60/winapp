@@ -9,7 +9,7 @@ import domain.eFurniture;
 import domain.eFurnpar1;
 import domain.eFurnpar2;
 import domain.eFurnside1;
-import domain.eTexture;
+import domain.eColor;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -24,7 +24,7 @@ public class Furn extends javax.swing.JFrame {
     private Query qFurniture = new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name);
     private Query qFurnside1 = new Query(eFurnside1.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
-    private Query qFurndet = new Query(eFurndet.values(), eArtikls.values(), eTexture.values());
+    private Query qFurndet = new Query(eFurndet.values(), eArtikls.values(), eColor.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -73,7 +73,7 @@ public class Furn extends javax.swing.JFrame {
                 eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim).addFrameListener(listenerModify);
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side).addFrameListener(listenerModify);
         new DefTableModel(tab5, qFurnpar1, eFurnpar1.pnumb_id, eFurnpar1.val).addFrameListener(listenerModify);
-        new DefTableModel(tab2, qFurndet, eArtikls.code, eArtikls.code, eArtikls.name, eTexture.name, eFurndet.types).addFrameListener(listenerModify);
+        new DefTableModel(tab2, qFurndet, eArtikls.code, eArtikls.code, eArtikls.name, eColor.name, eFurndet.types).addFrameListener(listenerModify);
         new DefTableModel(tab3, qFurnpar2, eFurnpar2.pnumb_id, eFurnpar2.val).addFrameListener(listenerModify);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -87,7 +87,7 @@ public class Furn extends javax.swing.JFrame {
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.npp);
             qFurndet.select(eFurndet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eFurndet.artikl_id,
-                    "left join", eTexture.up, "on", eTexture.id, "=", eFurndet.furniture_id,
+                    "left join", eColor.up, "on", eColor.id, "=", eFurndet.furniture_id,
                     "where", eFurndet.furniture_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

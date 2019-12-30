@@ -2,10 +2,9 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
-import dataset.Record;
 
 public enum eOrders implements Field {
-    up("0", "0", "0", "Список проектов", "EMPTY"),
+    up("0", "0", "0", "Список проектов", "LISTPRJ"),
     id("4", "10", "0", "Идентификатор", "id"),    
     numb("12", "32", "1", "номер заказа", "ZNUMB"),    
     partner_id("4", "10", "0", "контрагент", "partner_id"),    
@@ -15,8 +14,8 @@ public enum eOrders implements Field {
     space("8", "15", "1", "площадь изделий", "PSQRA"),    
     weight("8", "15", "1", "вес изделий", "EMPTY"),    
     desc("8", "15", "1", "дополнительная скидка", "XDESC"),
-    date1("93", "19", "1", "дата отправки в производство", "WDATE"),
-    date2("93", "19", "1", "дополнительная дата", "date2");
+    dat1("93", "19", "1", "дата отправки в производство", "WDATE"),
+    dat2("93", "19", "1", "дополнительная дата", "dat2");
     
 //    зnumb("4", "10", "1", "номер проекта", "PNUMB"),
 //    ndepa("5", "5", "1", "номер отдела", "NDEPA"),    
