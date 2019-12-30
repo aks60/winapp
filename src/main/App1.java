@@ -146,6 +146,7 @@ public class App1 extends javax.swing.JFrame {
         mn0441 = new javax.swing.JCheckBoxMenuItem();
         mn0442 = new javax.swing.JCheckBoxMenuItem();
         mn0443 = new javax.swing.JCheckBoxMenuItem();
+        mn444 = new javax.swing.JCheckBoxMenuItem();
         mn05 = new javax.swing.JMenu();
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
@@ -542,7 +543,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
-        mn02.setText("Справочники");
+        mn02.setText("Информация");
         mn02.setFont(common.Util.getFont(1,1));
 
         mn21.setFont(common.Util.getFont(1,1));
@@ -775,6 +776,16 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         mn62.add(mn0443);
+
+        buttonLookAndFiilGroup.add(mn444);
+        mn444.setFont(common.Util.getFont(1,1));
+        mn444.setText("CDE/Motif");
+        mn444.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn444mnLookAndFeel(evt);
+            }
+        });
+        mn62.add(mn444);
 
         mn06.add(mn62);
 
@@ -1043,6 +1054,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         }; 
     }//GEN-LAST:event_mnOrder
+
+    private void mn444mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn444mnLookAndFeel
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mn444mnLookAndFeel
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1102,6 +1117,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn41;
     private javax.swing.JMenuItem mn42;
     private javax.swing.JMenuItem mn43;
+    private javax.swing.JCheckBoxMenuItem mn444;
     private javax.swing.JMenuItem mn51;
     private javax.swing.JMenuItem mn52;
     private javax.swing.JMenuItem mn54;
