@@ -162,10 +162,10 @@ public class Script {
 
             Util.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
             for (Field fieldUp : fieldsUp) {
-                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-                    sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-                }
+//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+//                    sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+//                }
             }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
@@ -259,9 +259,7 @@ public class Script {
                             Object val = rs1.getObject(field.meta().fname);
                             nameVal2 = nameVal2 + Util.wrapperSql(val, field.meta().type()) + ",";
                         } else {
-                            if (field.meta().type() == Field.TYPE.BOOL || field.meta().type() == Field.TYPE.DBL 
-                                    || field.meta().type() == Field.TYPE.FLT || field.meta().type() == Field.TYPE.INT 
-                                    || field.meta().type() == Field.TYPE.LONG) {
+                            if (field.meta().isnull() == false) { //если not null то тупо пишу 0
                                 nameVal2 = nameVal2 + "0" + ",";
                             } else {
                                 nameVal2 = nameVal2 + "null" + ",";
@@ -275,12 +273,10 @@ public class Script {
                     }
                     nameVal2 = nameVal2.substring(0, nameVal2.length() - 1);
                     sql = "insert into " + tname2 + "(" + nameCols2 + ") values (" + nameVal2.toString() + ")";
-                    //System.out.println(sql);
                     if (bash == true) {
                         st2.addBatch(sql);
                     } else {
-                        try {
-                            //Если была ошибка в пакете выполняю отдельные sql insert
+                        try {  //Если была ошибка в пакете выполняю отдельные sql insert
                             st2.executeUpdate(sql);
                         } catch (SQLException e) {
                             System.out.println("\u001B[31m" + "SCRIPT-INSERT:  " + e + "\u001B[0m");
@@ -341,20 +337,20 @@ public class Script {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
             Util.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
-            sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");
-            sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");
-            sql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
-            sql("delete from element where not exists (select id from artikls a where a.code = element.anumb)");
-            sql("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)");
-            sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");
-            sql("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)");
-            sql("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)");
-            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)");
-            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)");
-            sql("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)");
-            sql("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)");
-            sql("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)");
-            sql("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)");
+            sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");//textgrp_id
+            sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");//artikl_id
+            sql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");//color_id
+            sql("delete from element where not exists (select id from artikls a where a.code = element.anumb)");//artikl_id
+            sql("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)");//artikl_id
+            sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");//element_id
+            sql("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)");//element_id 
+            sql("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)");//elemdet_id
+            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)");//artikl_id1
+            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)");//artikl_id2
+            sql("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)");//joining_id
+            sql("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)");//joinvar_id
+            sql("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)");//joinvar_id
+            sql("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)");//joindet_id 
             sql("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
             sql("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)");
             sql("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
@@ -366,16 +362,18 @@ public class Script {
             sql("delete from furndet where not exists (select id from furniture a where a.funic = furndet.funic)");
             sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)");
-
             sql("delete from sysprof where not exists (select id from artikls a where a.code = sysprof.anumb)");
             sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)");
             sql("delete from sysfurn where not exists (select id from furniture a where a.funic = sysfurn.funic)");
             sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)");
             sql("delete from syspar1 where not exists (select id from systree a where a.nuni = syspar1.psss)");
             sql("delete from kits where not exists (select id from artikls a where a.code = kits.anumb)");
-            //sql("delete from kits set where not exists (select id from color a where a.ccode = kits.clnum)");
+            //sql("delete from kits where not exists (select id from color a where a.cnumb = kits.clnum)");//color_id 
             sql("delete from kitdet where not exists (select id from kits a where a.kunic = kitdet.kunic)");
             sql("delete from kitdet where not exists (select id from artikls a where a.code = kitdet.anumb)");
+            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnum)");//color1_id 
+            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu1)");//color2_id 
+            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu2)");//color3_id             
 
             Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update color set colgrp_id = (select id from colgrp a where a.gnumb = color.cgrup)");
@@ -441,16 +439,18 @@ public class Script {
             sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             sql("update systree set parent_id = id where npar = 0");
-
             sql("update sysprof set artikl_id = (select id from artikls a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
             sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
             sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");
             sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
             sql("update kits set artikl_id = (select id from artikls a where a.code = kits.anumb)");
-            //sql("update kits set color_id = (select id from color a where a.ccode = kits.clnum)");
+            sql("update kits set color_id = (select id from color a where a.cnumb = kits.clnum)");
             sql("update kitdet set kits_id = (select id from kits a where a.kunic = kitdet.kunic)");
             sql("update kitdet set artikl_id = (select id from artikls a where a.code = kitdet.anumb)");
+            sql("update kitdet set color1_id = (select id from color a where a.cnumb = kitdet.clnum)");
+            sql("update kitdet set color2_id = (select id from color a where a.cnumb = kitdet.clnu1)");
+            sql("update kitdet set color3_id = (select id from color a where a.cnumb = kitdet.clnu2)");
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");

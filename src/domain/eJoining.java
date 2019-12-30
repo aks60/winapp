@@ -31,8 +31,6 @@ public enum eJoining implements Field {
         return values();
     }
 
-    
-
     public String toString() {
         return meta.getDescr();
     }

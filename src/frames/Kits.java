@@ -1,8 +1,14 @@
 
 package frames;
 
+import dataset.Query;
+import domain.eCurrenc;
+import domain.eKits;
+
 public class Kits extends javax.swing.JFrame {
 
+    private Query qRate = new Query(eKits.values()).select(eKits.up, "order by", eKits.name);
+    
     public Kits() {
         initComponents();
         initElements();
