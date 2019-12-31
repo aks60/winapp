@@ -3,18 +3,25 @@ package frames;
 import common.FrameListener;
 import common.Util;
 import dataset.Query;
+import dataset.Record;
+import domain.eJoinpar1;
 import domain.eKitdet;
+import domain.eKitpar1;
 import domain.eKits;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
 public class Kits extends javax.swing.JFrame {
 
     private Query qKits = new Query(eKits.values()).select(eKits.up, "order by", eKits.name);
-    private Query qKitdet = new Query(eKitdet.values()).select(eKitdet.up, "order by", eKitdet.artikl_id);
+    private Query qKitdet = new Query(eKitdet.values());
+    private Query qKitpar1 = new Query(eKitpar1.values());
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -49,10 +56,43 @@ public class Kits extends javax.swing.JFrame {
     public Kits() {
         initComponents();
         initElements();
-        
+
         new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ).addFrameListener(listenerModify);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.val);
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
+    }
 
+    private void selectionTab1(ListSelectionEvent event) {
+
+        listenerModify.response(null);
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qKits.table(eKits.up.tname()).get(row);
+            Integer id = record.getInt(eKits.id);
+            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        
+        listenerModify.response(null);
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qKitdet.table(eKitdet.up.tname()).get(row);
+            Integer id = record.getInt(eKitdet.id);
+            qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.numb);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            if (tab3.getRowCount() > 0) {
+                tab3.setRowSelectionInterval(0, 0);
+            }
+        }
     }
 
     /**
@@ -393,6 +433,18 @@ public class Kits extends javax.swing.JFrame {
                 "Спецификация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab1(event);
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                selectionTab2(event);
+            }
+        });
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
     }
 // </editor-fold>     
 }

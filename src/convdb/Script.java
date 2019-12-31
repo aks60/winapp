@@ -11,8 +11,6 @@ import domain.eArtikls;
 import domain.eColgrp;
 import domain.eColor;
 import domain.eColpar1;
-import domain.eCompdet;
-import domain.eComplet;
 import domain.eCurrenc;
 import domain.eElemdet;
 import domain.eElement;
@@ -36,6 +34,7 @@ import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eJoinvar;
 import domain.eKitdet;
+import domain.eKitpar1;
 import domain.eKits;
 import domain.eOrders;
 import domain.eParams;
@@ -79,13 +78,13 @@ public class Script {
         Field[] fieldsUp = {
             eSysconst.up, eSysdata.up, eCurrenc.up, eArtgrp.up, eParams.up, eRulecalc.up,
             eColor.up, eColgrp.up, eColpar1.up,
-            eArtikls.up, eArtdet.up, eComplet.up, eCompdet.up,
+            eKits.up, eKitdet.up, eKitpar1.up,
+            eArtikls.up, eArtdet.up, 
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
             eFurniture.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
-            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up,
-            eKits.up, eKitdet.up,
+            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up,            
             ePartner.up, eOrders.up
         };
         try {
@@ -373,7 +372,8 @@ public class Script {
             sql("delete from kitdet where not exists (select id from artikls a where a.code = kitdet.anumb)");
             //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnum)");//color1_id 
             //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu1)");//color2_id 
-            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu2)");//color3_id             
+            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu2)");//color3_id  
+            sql("delete from kitpar1 where not exists (select id from kitdet a where a.kincr = kitpar1.psss)");
 
             Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update color set colgrp_id = (select id from colgrp a where a.gnumb = color.cgrup)");
@@ -451,6 +451,7 @@ public class Script {
             sql("update kitdet set color1_id = (select id from color a where a.cnumb = kitdet.clnum)");
             sql("update kitdet set color2_id = (select id from color a where a.cnumb = kitdet.clnu1)");
             sql("update kitdet set color3_id = (select id from color a where a.cnumb = kitdet.clnu2)");
+            sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");

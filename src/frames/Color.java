@@ -468,11 +468,7 @@ public class Color extends javax.swing.JFrame
             Record record1 = query1.get(row);
             Record record2 = query2.newRecord(Query.INS);
             int id = ConnApp.get().generstorId(eColor.up.tname());
-            //int cgrup = record1.getInt(eTextGrp.gunic);
-            //record2.setNo(eTexture.cnumb, id);
             record2.setNo(eColor.id, id);
-            //record2.setNo(eColslst.xxx, id);
-            //record2.setNo(eTexture.group, cgrup);
             query2.add(record2);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }

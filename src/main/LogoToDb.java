@@ -348,12 +348,12 @@ public class LogoToDb extends javax.swing.JDialog {
     }//GEN-LAST:event_edUseronCaretUpdate
 
     private void edPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edPassActionPerformed
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_edPassActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 //        if (Main.dev == true) {
-//            this.setVisible(false);        // TODO add your handling code here:
+//            this.setVisible(false);       
 //        }
     }//GEN-LAST:event_formWindowActivated
 // <editor-fold defaultstate="collapsed" desc="Generated Code">

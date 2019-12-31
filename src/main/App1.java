@@ -933,7 +933,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mn0122ActionPerformed
 
     private void mn15mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn15mExit
-        // TODO add your handling code here:
+        // 
     }//GEN-LAST:event_mn15mExit
 
     private void mHowTo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHowTo
@@ -941,11 +941,11 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mHowTo
 
     private void mn0115(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0115
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_mn0115
 
     private void mn0116(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0116
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_mn0116
 
     private void mn24(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn24
@@ -976,7 +976,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnFurnityra
 
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_mn61ActionPerformed
 
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
@@ -1025,7 +1025,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnGlass
 
     private void btn33mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn33mn41mAdminUserToDb
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_btn33mn41mAdminUserToDb
 
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
@@ -1056,7 +1056,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnOrder
 
     private void mn444mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn444mnLookAndFeel
-        // TODO add your handling code here:
+        //
     }//GEN-LAST:event_mn444mnLookAndFeel
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
