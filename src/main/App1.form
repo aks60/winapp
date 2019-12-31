@@ -682,7 +682,7 @@
         <Component class="javax.swing.JButton" name="btn12">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c012.gif"/>
+              <Image iconType="3" name="/resource/img24/c010.gif"/>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[25, 25]"/>

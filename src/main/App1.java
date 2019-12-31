@@ -172,7 +172,7 @@ public class App1 extends javax.swing.JFrame {
         tb1.setRollover(true);
         tb1.setPreferredSize(new java.awt.Dimension(110, 27));
 
-        btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c012.gif"))); // NOI18N
+        btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c010.gif"))); // NOI18N
         btn12.setMaximumSize(new java.awt.Dimension(25, 25));
         btn12.setMinimumSize(new java.awt.Dimension(25, 25));
         btn12.setPreferredSize(new java.awt.Dimension(25, 25));
