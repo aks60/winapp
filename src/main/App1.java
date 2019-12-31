@@ -819,7 +819,7 @@ public class App1 extends javax.swing.JFrame {
         mn54.setText("О программе");
         mn54.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mAdminAboutBox(evt);
+                mnAboutBox(evt);
             }
         });
         mn05.add(mn54);
@@ -868,9 +868,14 @@ private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDi
 
 }//GEN-LAST:event_mDictDicAddr
 
-private void mAdminAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminAboutBox
-
-}//GEN-LAST:event_mAdminAboutBox
+private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAboutBox
+//        new FrameListener2() {
+//
+//            public void request(Object obj) {
+                eApp1.AboutBox.createFrame(App1.this);
+//            }
+//        };
+}//GEN-LAST:event_mnAboutBox
 
 private void mn51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn51ActionPerformed
 }//GEN-LAST:event_mn51ActionPerformed
@@ -1170,12 +1175,15 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     public enum eApp1 {
 
         App1, Convert, Rate, Color, Artikls, Joining, Builder, Elements, Param, 
-        Glass, Furn, Kits, Sysprof, Partner, Order;
+        Glass, Furn, Kits, Sysprof, Partner, Order, AboutBox;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
             if (frame == null) {
                 switch (this) {
+                    case AboutBox:
+                        frame = new AboutBox();
+                        break;
                     case Artikls:
                         frame = new Artikls();
                         break;

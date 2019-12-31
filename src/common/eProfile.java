@@ -18,12 +18,16 @@ public enum eProfile {
 
     //ОЧЕНЬ ВАЖНО! Профайлер проекта
     //устанавливается перед выпуском
-    public final static int[] version = {5, 2, 1};
+    public final static int[] version = {1, 0};
     public final static eProfile profile = eProfile.P16;
     //имя файла properties
     public final static String filename = "v" + String.valueOf(eProfile.profile.id) + ".properties";
     public static String role_user = "null";
 
+    public static int[] getVersionBase() {
+            return new int[]{1, 0};
+    }
+    
     /**
      * Конструктор 2
      */
