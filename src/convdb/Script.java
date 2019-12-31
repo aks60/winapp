@@ -336,44 +336,44 @@ public class Script {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
             Util.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
-            sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");//textgrp_id
-            sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");//artikl_id
-            sql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");//color_id
-            sql("delete from element where not exists (select id from artikls a where a.code = element.anumb)");//artikl_id
-            sql("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)");//artikl_id
-            sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");//element_id
-            sql("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)");//element_id 
-            sql("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)");//elemdet_id
-            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)");//artikl_id1
-            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)");//artikl_id2
-            sql("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)");//joining_id
-            sql("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)");//joinvar_id
-            sql("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)");//joinvar_id
-            sql("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)");//joindet_id 
-            sql("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
-            sql("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)");
-            sql("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
-            sql("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)");
-            sql("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)");
-            sql("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)");
-            sql("delete from furnside1 where not exists (select id from furniture a where a.funic = furnside1.funic)");
-            sql("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)");
-            sql("delete from furndet where not exists (select id from furniture a where a.funic = furndet.funic)");
-            sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)");
-            sql("delete from sysprof where not exists (select id from artikls a where a.code = sysprof.anumb)");
-            sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)");
-            sql("delete from sysfurn where not exists (select id from furniture a where a.funic = sysfurn.funic)");
-            sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)");
-            sql("delete from syspar1 where not exists (select id from systree a where a.nuni = syspar1.psss)");
-            sql("delete from kits where not exists (select id from artikls a where a.code = kits.anumb)");
+            sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");  //textgrp_id
+            sql("delete from artdet where not exists (select id from artikls a where a.code = artdet.anumb)");  //artikl_id
+            sql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_id
+            sql("delete from element where not exists (select id from artikls a where a.code = element.anumb)");  //artikl_id
+            sql("delete from elemdet where not exists (select id from artikls a where a.code = elemdet.anumb)");  //artikl_id
+            sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");  //element_id
+            sql("delete from elempar1 where not exists (select id from element a where a.vnumb = elempar1.psss)");  //element_id 
+            sql("delete from elempar2 where not exists (select id from elemdet a where a.aunic = elempar2.psss)");  //elemdet_id
+            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum1)");  //artikl_id1
+            sql("delete from joining where not exists (select id from artikls a where a.code = joining.anum2)");  //artikl_id2
+            sql("delete from joinvar where not exists (select id from joining a where a.cconn = joinvar.cconn)");  //joining_id
+            sql("delete from joindet where not exists (select id from joinvar a where a.cunic = joindet.cunic)");  //joinvar_id
+            sql("delete from joinpar1 where not exists (select id from joinvar a where a.cunic = joinpar1.psss)");  //joinvar_id
+            sql("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)");  //joindet_id 
+            sql("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)");  //glasgrp_id
+            sql("delete from glasprof where not exists (select id from artikls a where a.code = glasprof.anumb)");  //artikl_id
+            sql("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)");  //glasgrp_id
+            sql("delete from glasdet where not exists (select id from artikls a where a.code = glasdet.anumb)");  //artikl_id
+            sql("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)");  //glasgrp_id
+            sql("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)");  //glasdet_id
+            sql("delete from furnside1 where not exists (select id from furniture a where a.funic = furnside1.funic)"); //furniture_id
+            sql("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)");  //furnside_id
+            sql("delete from furndet where not exists (select id from furniture a where a.funic = furndet.funic)");  //furniture_id
+            sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
+            sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)"); //furndet_id
+            sql("delete from sysprof where not exists (select id from artikls a where a.code = sysprof.anumb)");  //artikl_id
+            sql("delete from sysprof where not exists (select id from systree a where a.nuni = sysprof.nuni)");  //systree_id
+            sql("delete from sysfurn where not exists (select id from furniture a where a.funic = sysfurn.funic)");  //furniture_id
+            sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)");  //systree_id
+            sql("delete from syspar1 where not exists (select id from systree a where a.nuni = syspar1.psss)");  //systree_id
+            sql("delete from kits where not exists (select id from artikls a where a.code = kits.anumb)");  //artikl_id
             //sql("delete from kits where not exists (select id from color a where a.cnumb = kits.clnum)");//color_id 
-            sql("delete from kitdet where not exists (select id from kits a where a.kunic = kitdet.kunic)");
-            sql("delete from kitdet where not exists (select id from artikls a where a.code = kitdet.anumb)");
+            sql("delete from kitdet where not exists (select id from kits a where a.kunic = kitdet.kunic)");  //kits_id
+            sql("delete from kitdet where not exists (select id from artikls a where a.code = kitdet.anumb)");  //artikl_id
             //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnum)");//color1_id 
             //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu1)");//color2_id 
             //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu2)");//color3_id  
-            sql("delete from kitpar1 where not exists (select id from kitdet a where a.kincr = kitpar1.psss)");
+            sql("delete from kitpar1 where not exists (select id from kitdet a where a.kincr = kitpar1.psss)");  //kitdet_id
 
             Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update color set colgrp_id = (select id from colgrp a where a.gnumb = color.cgrup)");
