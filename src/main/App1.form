@@ -206,7 +206,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mn02">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x418;&#x43d;&#x444;&#x43e;&#x440;&#x43c;&#x430;&#x446;&#x438;&#x44f;"/>
+            <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a;&#x438;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="common.Util.getFont(1,1)" type="code"/>
             </Property>

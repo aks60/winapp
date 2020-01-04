@@ -543,7 +543,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn0.add(mn01);
 
-        mn02.setText("Информация");
+        mn02.setText("Справочники");
         mn02.setFont(common.Util.getFont(1,1));
 
         mn21.setFont(common.Util.getFont(1,1));
