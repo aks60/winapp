@@ -30,6 +30,11 @@ public class Design extends javax.swing.JFrame {
         panEast2 = new javax.swing.JPanel();
         panWest2 = new javax.swing.JPanel();
         panEast = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
@@ -88,6 +93,7 @@ public class Design extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(600, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -182,7 +188,7 @@ public class Design extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 571, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 412, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -209,7 +215,7 @@ public class Design extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 734, Short.MAX_VALUE)
+            .addGap(0, 575, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +237,7 @@ public class Design extends javax.swing.JFrame {
         panNorth2.setLayout(panNorth2Layout);
         panNorth2Layout.setHorizontalGroup(
             panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 499, Short.MAX_VALUE)
         );
         panNorth2Layout.setVerticalGroup(
             panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +252,7 @@ public class Design extends javax.swing.JFrame {
         panSounh2.setLayout(panSounh2Layout);
         panSounh2Layout.setHorizontalGroup(
             panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 499, Short.MAX_VALUE)
         );
         panSounh2Layout.setVerticalGroup(
             panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +271,7 @@ public class Design extends javax.swing.JFrame {
         );
         panEast2Layout.setVerticalGroup(
             panEast2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 352, Short.MAX_VALUE)
         );
 
         panCentr.add(panEast2, java.awt.BorderLayout.LINE_END);
@@ -280,7 +286,7 @@ public class Design extends javax.swing.JFrame {
         );
         panWest2Layout.setVerticalGroup(
             panWest2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 352, Short.MAX_VALUE)
         );
 
         panCentr.add(panWest2, java.awt.BorderLayout.LINE_START);
@@ -288,35 +294,46 @@ public class Design extends javax.swing.JFrame {
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         panEast.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panEast.setPreferredSize(new java.awt.Dimension(40, 500));
+        panEast.setPreferredSize(new java.awt.Dimension(38, 500));
+        panEast.setLayout(new javax.swing.BoxLayout(panEast, javax.swing.BoxLayout.Y_AXIS));
 
-        javax.swing.GroupLayout panEastLayout = new javax.swing.GroupLayout(panEast);
-        panEast.setLayout(panEastLayout);
-        panEastLayout.setHorizontalGroup(
-            panEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
-        );
-        panEastLayout.setVerticalGroup(
-            panEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
-        );
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jButton1.setMaximumSize(new java.awt.Dimension(32, 32));
+        jButton1.setMinimumSize(new java.awt.Dimension(32, 32));
+        jButton1.setPreferredSize(new java.awt.Dimension(32, 32));
+        panEast.add(jButton1);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
+        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jButton2.setMaximumSize(new java.awt.Dimension(32, 32));
+        jButton2.setMinimumSize(new java.awt.Dimension(32, 32));
+        jButton2.setPreferredSize(new java.awt.Dimension(32, 32));
+        panEast.add(jButton2);
+
+        jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jButton3.setMaximumSize(new java.awt.Dimension(32, 32));
+        jButton3.setMinimumSize(new java.awt.Dimension(32, 32));
+        jButton3.setPreferredSize(new java.awt.Dimension(32, 32));
+        panEast.add(jButton3);
+
+        jButton4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jButton4.setMaximumSize(new java.awt.Dimension(32, 32));
+        jButton4.setMinimumSize(new java.awt.Dimension(32, 32));
+        jButton4.setPreferredSize(new java.awt.Dimension(32, 32));
+        panEast.add(jButton4);
+
+        jButton5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jButton5.setMaximumSize(new java.awt.Dimension(32, 32));
+        jButton5.setMinimumSize(new java.awt.Dimension(32, 32));
+        jButton5.setPreferredSize(new java.awt.Dimension(32, 32));
+        panEast.add(jButton5);
 
         getContentPane().add(panEast, java.awt.BorderLayout.EAST);
 
         panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panWest.setPreferredSize(new java.awt.Dimension(40, 500));
-
-        javax.swing.GroupLayout panWestLayout = new javax.swing.GroupLayout(panWest);
-        panWest.setLayout(panWestLayout);
-        panWestLayout.setHorizontalGroup(
-            panWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
-        );
-        panWestLayout.setVerticalGroup(
-            panWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
-        );
-
+        panWest.setPreferredSize(new java.awt.Dimension(38, 500));
+        panWest.setLayout(new javax.swing.BoxLayout(panWest, javax.swing.BoxLayout.Y_AXIS));
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
         pack();
@@ -352,6 +369,11 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel centr;
     private javax.swing.JPanel design;
     private javax.swing.JPanel east;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JPanel north;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panEast;
