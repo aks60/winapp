@@ -1,5 +1,7 @@
 package frames;
 
+import javax.swing.JButton;
+
 public class Design extends javax.swing.JFrame {
 
     public Design() {
@@ -30,8 +32,8 @@ public class Design extends javax.swing.JFrame {
         panEast2 = new javax.swing.JPanel();
         panWest2 = new javax.swing.JPanel();
         panEast = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSquare = new javax.swing.JButton();
+        btnArch = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -297,19 +299,31 @@ public class Design extends javax.swing.JFrame {
         panEast.setPreferredSize(new java.awt.Dimension(38, 500));
         panEast.setLayout(new javax.swing.BoxLayout(panEast, javax.swing.BoxLayout.Y_AXIS));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton1.setMaximumSize(new java.awt.Dimension(32, 32));
-        jButton1.setMinimumSize(new java.awt.Dimension(32, 32));
-        jButton1.setPreferredSize(new java.awt.Dimension(32, 32));
-        panEast.add(jButton1);
+        btnSquare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnSquare.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare.setName("areaSquare"); // NOI18N
+        btnSquare.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnSquare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        panEast.add(btnSquare);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton2.setMaximumSize(new java.awt.Dimension(32, 32));
-        jButton2.setMinimumSize(new java.awt.Dimension(32, 32));
-        jButton2.setPreferredSize(new java.awt.Dimension(32, 32));
-        panEast.add(jButton2);
+        btnArch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
+        btnArch.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArch.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnArch.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnArch.setName("areaArch"); // NOI18N
+        btnArch.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnArch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        panEast.add(btnArch);
 
         jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jButton3.setMaximumSize(new java.awt.Dimension(32, 32));
@@ -358,19 +372,30 @@ public class Design extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
     }//GEN-LAST:event_btnInsert
-   
+
+    private void btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArea
+        JButton btn = (JButton) evt.getSource();
+        if ("areaSquare".equals(btn.getName())) {
+            System.out.println("frames.Design.areaSquare()");
+            
+        } else if ("areaArch".equals(btn.getName())) {
+            System.out.println("frames.Design.areaArch()");
+            
+        }
+    }//GEN-LAST:event_btnArea
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnArch;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSquare;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel design;
     private javax.swing.JPanel east;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
