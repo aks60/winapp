@@ -11,6 +11,11 @@ public class Design extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        north = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
+        west = new javax.swing.JPanel();
+        east = new javax.swing.JPanel();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -19,13 +24,68 @@ public class Design extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
-        panCentr2 = new javax.swing.JPanel();
+        design = new javax.swing.JPanel();
         panNorth2 = new javax.swing.JPanel();
         panSounh2 = new javax.swing.JPanel();
         panEast2 = new javax.swing.JPanel();
         panWest2 = new javax.swing.JPanel();
         panEast = new javax.swing.JPanel();
         panWest = new javax.swing.JPanel();
+
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 530, Short.MAX_VALUE)
+        );
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout centrLayout = new javax.swing.GroupLayout(centr);
+        centr.setLayout(centrLayout);
+        centrLayout.setHorizontalGroup(
+            centrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 330, Short.MAX_VALUE)
+        );
+        centrLayout.setVerticalGroup(
+            centrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
+        south.setLayout(southLayout);
+        southLayout.setHorizontalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 530, Short.MAX_VALUE)
+        );
+        southLayout.setVerticalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout westLayout = new javax.swing.GroupLayout(west);
+        west.setLayout(westLayout);
+        westLayout.setHorizontalGroup(
+            westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        westLayout.setVerticalGroup(
+            westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout eastLayout = new javax.swing.GroupLayout(east);
+        east.setLayout(eastLayout);
+        eastLayout.setHorizontalGroup(
+            eastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        eastLayout.setVerticalGroup(
+            eastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 498, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,7 +182,7 @@ public class Design extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 582, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 571, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -143,17 +203,17 @@ public class Design extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(800, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(800, 40));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGap(0, 734, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
+            .addGap(0, 36, Short.MAX_VALUE)
         );
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
@@ -161,20 +221,9 @@ public class Design extends javax.swing.JFrame {
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        panCentr2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout panCentr2Layout = new javax.swing.GroupLayout(panCentr2);
-        panCentr2.setLayout(panCentr2Layout);
-        panCentr2Layout.setHorizontalGroup(
-            panCentr2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
-        );
-        panCentr2Layout.setVerticalGroup(
-            panCentr2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panCentr2, java.awt.BorderLayout.CENTER);
+        design.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
+        design.setLayout(new java.awt.BorderLayout());
+        panCentr.add(design, java.awt.BorderLayout.CENTER);
 
         panNorth2.setPreferredSize(new java.awt.Dimension(700, 60));
 
@@ -182,7 +231,7 @@ public class Design extends javax.swing.JFrame {
         panNorth2.setLayout(panNorth2Layout);
         panNorth2Layout.setHorizontalGroup(
             panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addGap(0, 654, Short.MAX_VALUE)
         );
         panNorth2Layout.setVerticalGroup(
             panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +246,7 @@ public class Design extends javax.swing.JFrame {
         panSounh2.setLayout(panSounh2Layout);
         panSounh2Layout.setHorizontalGroup(
             panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
+            .addGap(0, 654, Short.MAX_VALUE)
         );
         panSounh2Layout.setVerticalGroup(
             panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,32 +255,32 @@ public class Design extends javax.swing.JFrame {
 
         panCentr.add(panSounh2, java.awt.BorderLayout.PAGE_END);
 
-        panEast2.setPreferredSize(new java.awt.Dimension(120, 376));
+        panEast2.setPreferredSize(new java.awt.Dimension(60, 376));
 
         javax.swing.GroupLayout panEast2Layout = new javax.swing.GroupLayout(panEast2);
         panEast2.setLayout(panEast2Layout);
         panEast2Layout.setHorizontalGroup(
             panEast2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 60, Short.MAX_VALUE)
         );
         panEast2Layout.setVerticalGroup(
             panEast2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
 
         panCentr.add(panEast2, java.awt.BorderLayout.LINE_END);
 
-        panWest2.setPreferredSize(new java.awt.Dimension(120, 336));
+        panWest2.setPreferredSize(new java.awt.Dimension(60, 336));
 
         javax.swing.GroupLayout panWest2Layout = new javax.swing.GroupLayout(panWest2);
         panWest2.setLayout(panWest2Layout);
         panWest2Layout.setHorizontalGroup(
             panWest2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 60, Short.MAX_VALUE)
         );
         panWest2Layout.setVerticalGroup(
             panWest2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
 
         panCentr.add(panWest2, java.awt.BorderLayout.LINE_START);
@@ -239,17 +288,17 @@ public class Design extends javax.swing.JFrame {
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         panEast.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panEast.setPreferredSize(new java.awt.Dimension(60, 500));
+        panEast.setPreferredSize(new java.awt.Dimension(40, 500));
 
         javax.swing.GroupLayout panEastLayout = new javax.swing.GroupLayout(panEast);
         panEast.setLayout(panEastLayout);
         panEastLayout.setHorizontalGroup(
             panEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+            .addGap(0, 36, Short.MAX_VALUE)
         );
         panEastLayout.setVerticalGroup(
             panEastLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         getContentPane().add(panEast, java.awt.BorderLayout.EAST);
@@ -265,7 +314,7 @@ public class Design extends javax.swing.JFrame {
         );
         panWestLayout.setVerticalGroup(
             panWestLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 622, Short.MAX_VALUE)
         );
 
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
@@ -300,8 +349,11 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.JPanel centr;
+    private javax.swing.JPanel design;
+    private javax.swing.JPanel east;
+    private javax.swing.JPanel north;
     private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panCentr2;
     private javax.swing.JPanel panEast;
     private javax.swing.JPanel panEast2;
     private javax.swing.JPanel panNorth;
@@ -310,6 +362,8 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel panSouth;
     private javax.swing.JPanel panWest;
     private javax.swing.JPanel panWest2;
+    private javax.swing.JPanel south;
+    private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {

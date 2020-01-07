@@ -134,6 +134,8 @@ public class App1 extends javax.swing.JFrame {
         mn08 = new javax.swing.JMenu();
         mn81 = new javax.swing.JMenuItem();
         mn82 = new javax.swing.JMenuItem();
+        mn83 = new javax.swing.JPopupMenu.Separator();
+        mn84 = new javax.swing.JMenuItem();
         mn04 = new javax.swing.JMenu();
         mn41 = new javax.swing.JMenuItem();
         mn43 = new javax.swing.JMenuItem();
@@ -325,7 +327,7 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(tb2);
 
         td3.setRollover(true);
-        td3.setPreferredSize(new java.awt.Dimension(85, 27));
+        td3.setPreferredSize(new java.awt.Dimension(110, 27));
 
         btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
         btn29.setFocusable(false);
@@ -357,6 +359,7 @@ public class App1 extends javax.swing.JFrame {
         });
         td3.add(btn30);
 
+        btn33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c011.gif"))); // NOI18N
         btn33.setFocusable(false);
         btn33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn33.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -366,7 +369,7 @@ public class App1 extends javax.swing.JFrame {
         btn33.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn33mn41mAdminUserToDb(evt);
+                mnDesign(evt);
             }
         });
         td3.add(btn33);
@@ -589,7 +592,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn0.add(mn02);
 
-        mn03.setText("Конструктив");
+        mn03.setText("Конструкции");
         mn03.setFont(common.Util.getFont(1,1));
 
         mn31.setFont(common.Util.getFont(1,1));
@@ -677,6 +680,17 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         mn08.add(mn82);
+        mn08.add(mn83);
+
+        mn84.setFont(common.Util.getFont(1,1));
+        mn84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn84.setText("Конструктор");
+        mn84.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnDesign(evt);
+            }
+        });
+        mn08.add(mn84);
 
         mn0.add(mn08);
 
@@ -1029,9 +1043,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         };      
     }//GEN-LAST:event_mnGlass
 
-    private void btn33mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn33mn41mAdminUserToDb
-        //
-    }//GEN-LAST:event_btn33mn41mAdminUserToDb
+    private void mnDesign(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDesign
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Design.createFrame(App1.this);
+            }
+        }; 
+    }//GEN-LAST:event_mnDesign
 
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
         new FrameListener2() {
@@ -1131,6 +1150,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn71;
     private javax.swing.JMenuItem mn81;
     private javax.swing.JMenuItem mn82;
+    private javax.swing.JPopupMenu.Separator mn83;
+    private javax.swing.JMenuItem mn84;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
@@ -1174,7 +1195,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public enum eApp1 {
 
-        App1, Convert, Rate, Color, Artikls, Joining, Builder, Elements, Param, 
+        App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param, 
         Glass, Furn, Kits, Sysprof, Partner, Order, AboutBox;
         java.awt.Frame frame;
 
@@ -1199,7 +1220,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Rate:
                         frame = new Rate();
                         break;
-                    case Builder:
+                    case Design:
                         frame = new Design();
                         break;
                     case Elements:
