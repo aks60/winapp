@@ -34,9 +34,10 @@ public class Design extends javax.swing.JFrame {
         panEast = new javax.swing.JPanel();
         btnSquare = new javax.swing.JButton();
         btnArch = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnArch2 = new javax.swing.JButton();
+        btnTrapeze = new javax.swing.JButton();
+        btnTrapeze2 = new javax.swing.JButton();
+        btnSquare1 = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
@@ -325,23 +326,57 @@ public class Design extends javax.swing.JFrame {
         });
         panEast.add(btnArch);
 
-        jButton3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton3.setMaximumSize(new java.awt.Dimension(32, 32));
-        jButton3.setMinimumSize(new java.awt.Dimension(32, 32));
-        jButton3.setPreferredSize(new java.awt.Dimension(32, 32));
-        panEast.add(jButton3);
+        btnArch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d030.gif"))); // NOI18N
+        btnArch2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArch2.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnArch2.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnArch2.setName("areaArch2"); // NOI18N
+        btnArch2.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnArch2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        panEast.add(btnArch2);
 
-        jButton4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton4.setMaximumSize(new java.awt.Dimension(32, 32));
-        jButton4.setMinimumSize(new java.awt.Dimension(32, 32));
-        jButton4.setPreferredSize(new java.awt.Dimension(32, 32));
-        panEast.add(jButton4);
+        btnTrapeze.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d028.gif"))); // NOI18N
+        btnTrapeze.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTrapeze.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze.setName("areaTrapeze"); // NOI18N
+        btnTrapeze.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnTrapeze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        panEast.add(btnTrapeze);
 
-        jButton5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jButton5.setMaximumSize(new java.awt.Dimension(32, 32));
-        jButton5.setMinimumSize(new java.awt.Dimension(32, 32));
-        jButton5.setPreferredSize(new java.awt.Dimension(32, 32));
-        panEast.add(jButton5);
+        btnTrapeze2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d027.gif"))); // NOI18N
+        btnTrapeze2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTrapeze2.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze2.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze2.setName("areaTrapeze2"); // NOI18N
+        btnTrapeze2.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnTrapeze2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        panEast.add(btnTrapeze2);
+
+        btnSquare1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d024.gif"))); // NOI18N
+        btnSquare1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare1.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare1.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare1.setName("areaSquare"); // NOI18N
+        btnSquare1.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnSquare1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        panEast.add(btnSquare1);
 
         getContentPane().add(panEast, java.awt.BorderLayout.EAST);
 
@@ -381,24 +416,28 @@ public class Design extends javax.swing.JFrame {
         } else if ("areaArch".equals(btn.getName())) {
             System.out.println("frames.Design.areaArch()");
             
+        } else if ("areaArch2".equals(btn.getName())) {
+            System.out.println("frames.Design.areaArch2()");
+            
         }
     }//GEN-LAST:event_btnArea
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArch;
+    private javax.swing.JButton btnArch2;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSquare;
+    private javax.swing.JButton btnSquare1;
+    private javax.swing.JButton btnTrapeze;
+    private javax.swing.JButton btnTrapeze2;
     private javax.swing.JPanel centr;
     private javax.swing.JPanel design;
     private javax.swing.JPanel east;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JPanel north;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panEast;
