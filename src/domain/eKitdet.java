@@ -20,7 +20,7 @@ public enum eKitdet implements Field {
 //    kincr("4", "10", "1", "ID набора параметров комплекта для артикула", "KINCR"),    
     private MetaField meta = new MetaField(this);
 
-    eKitdet(String... p) {
+    eKitdet(Object... p) {
         meta.init(p);
     }
     

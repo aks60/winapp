@@ -1,14 +1,38 @@
 package wincalc;
 
+import enums.eLayoutArea;
+import java.util.EnumMap;
+import java.util.LinkedList;
 import javax.swing.JPanel;
 
-public class AreaBase extends JPanel implements IBase {
+public abstract class AreaBase  extends JPanel implements IBase {
+
+    protected Wincalc iwin = null; //главный класс
+    private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
+    private LinkedList<ElemBase> childList = new LinkedList(); //список компонентов в окне
+    protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне
+    
+    protected String id = "0"; //идентификатор
+    protected int width = 0; //ширина
+    protected int height = 0; //высота
+
+    public AreaBase(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public int width() {
-        return 0;
+        return width;
     }
 
     public int height() {
-        return 0;
+        return width;
     }
+    
+    public eLayoutArea getLayoutArea() {
+        return layout;
+    }     
 }

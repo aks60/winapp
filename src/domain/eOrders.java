@@ -107,7 +107,7 @@ public enum eOrders implements Field {
 //    date3("93", "19", "1", "null", "DATE3");
     private MetaField meta = new MetaField(this);
 
-    eOrders(String... p) {
+    eOrders(Object... p) {
         meta.init(p);
     }
 

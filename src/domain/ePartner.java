@@ -70,7 +70,7 @@ public enum ePartner implements Field {
 //    cuser("4", "10", "1", "null", "CUSER");    
     private MetaField meta = new MetaField(this);
 
-    ePartner(String... p) {
+    ePartner(Object... p) {
         meta.init(p);
     }
 

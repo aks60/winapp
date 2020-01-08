@@ -26,7 +26,7 @@ public enum eKits implements Field {
 //    kblob("-4", "null", "1", "Примечания BLOB", "KBLOB"),    
     private MetaField meta = new MetaField(this);
 
-    eKits(String... p) {
+    eKits(Object... p) {
         meta.init(p);
     }
 

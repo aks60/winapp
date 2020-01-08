@@ -1,13 +1,11 @@
 package main;
 
-import convdb.Script;
 import dataset.Entity;
 import dataset.Query;
-import dataset.Table;
-import domain.eArtikls;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
+import javax.swing.JPanel;
 
 public class Test {
 
@@ -15,8 +13,10 @@ public class Test {
         Main.dev = true;
 
         try {
-
-            Script.script();
+//            JPanel pan = new JPanel();
+//            AreaBase ar = new AreaArch("1");
+//            ElemBase el = new ElemFrame("1");
+            //Script.script();
             //query();
 
         } catch (Exception e) {
