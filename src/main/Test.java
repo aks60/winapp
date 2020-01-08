@@ -13,7 +13,7 @@ public class Test {
         Main.dev = true;
 
         try {
-//            JPanel pan = new JPanel();
+            JPanel pan = new JPanel();
 //            AreaBase ar = new AreaArch("1");
 //            ElemBase el = new ElemFrame("1");
             //Script.script();

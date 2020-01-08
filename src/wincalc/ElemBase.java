@@ -1,8 +1,8 @@
 package wincalc;
 
-import java.awt.Component;
+import javax.swing.JComponent;
 
-public abstract class ElemBase extends Component implements IBase {
+public abstract class ElemBase extends JComponent implements IBase {
 
     protected String id = "0"; //идентификатор
     protected int width = 0; //ширина
