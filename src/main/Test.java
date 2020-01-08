@@ -5,9 +5,9 @@ import dataset.Entity;
 import dataset.Query;
 import dataset.Table;
 import domain.eArtikls;
-import frames.Artikls;
-import frames.Rate;
-import frames.Color;
+import forms.Artikls;
+import forms.Rate;
+import forms.Color;
 
 public class Test {
 
