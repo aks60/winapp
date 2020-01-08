@@ -3,7 +3,7 @@ package enums;
 /**
  * Типы открывания створок
  */
-public enum tTypeOpen {
+public enum eTypeOpen {
 
     OM_INVALID(-1, "empty", "Ошибка"),
     OM_FIXED(0, "empty", "Глухая створка (не открывается)"),
@@ -19,7 +19,7 @@ public enum tTypeOpen {
     public String side;
     public String name;
 
-    tTypeOpen(int value, String side, String name) {
+    eTypeOpen(int value, String side, String name) {
         this.value = value;
         this.side = side;
         this.name = name;

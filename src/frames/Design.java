@@ -1,8 +1,12 @@
 package frames;
 
 import javax.swing.JButton;
+import script.Area;
+import script.ScriptBuild;
 
 public class Design extends javax.swing.JFrame {
+
+    private Area rootArea;
 
     public Design() {
         initComponents();
@@ -28,17 +32,21 @@ public class Design extends javax.swing.JFrame {
         panCentr = new javax.swing.JPanel();
         design = new javax.swing.JPanel();
         panNorth2 = new javax.swing.JPanel();
-        panSounh2 = new javax.swing.JPanel();
+        panSouth2 = new javax.swing.JPanel();
         panEast2 = new javax.swing.JPanel();
         panWest2 = new javax.swing.JPanel();
         panEast = new javax.swing.JPanel();
         btnSquare = new javax.swing.JButton();
-        btnArch = new javax.swing.JButton();
+        btnArch3 = new javax.swing.JButton();
         btnArch2 = new javax.swing.JButton();
         btnTrapeze = new javax.swing.JButton();
         btnTrapeze2 = new javax.swing.JButton();
         btnSquare1 = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
+        btnImpostVert = new javax.swing.JButton();
+        btnImpostGoriz = new javax.swing.JButton();
+        btnSquare4 = new javax.swing.JButton();
+        btnSquare5 = new javax.swing.JButton();
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
@@ -230,8 +238,19 @@ public class Design extends javax.swing.JFrame {
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        design.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)));
-        design.setLayout(new java.awt.BorderLayout());
+        design.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 255, 255)));
+
+        javax.swing.GroupLayout designLayout = new javax.swing.GroupLayout(design);
+        design.setLayout(designLayout);
+        designLayout.setHorizontalGroup(
+            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 377, Short.MAX_VALUE)
+        );
+        designLayout.setVerticalGroup(
+            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
+        );
+
         panCentr.add(design, java.awt.BorderLayout.CENTER);
 
         panNorth2.setPreferredSize(new java.awt.Dimension(700, 60));
@@ -249,20 +268,20 @@ public class Design extends javax.swing.JFrame {
 
         panCentr.add(panNorth2, java.awt.BorderLayout.PAGE_START);
 
-        panSounh2.setPreferredSize(new java.awt.Dimension(744, 60));
+        panSouth2.setPreferredSize(new java.awt.Dimension(744, 60));
 
-        javax.swing.GroupLayout panSounh2Layout = new javax.swing.GroupLayout(panSounh2);
-        panSounh2.setLayout(panSounh2Layout);
-        panSounh2Layout.setHorizontalGroup(
-            panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panSouth2Layout = new javax.swing.GroupLayout(panSouth2);
+        panSouth2.setLayout(panSouth2Layout);
+        panSouth2Layout.setHorizontalGroup(
+            panSouth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 499, Short.MAX_VALUE)
         );
-        panSounh2Layout.setVerticalGroup(
-            panSounh2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panSouth2Layout.setVerticalGroup(
+            panSouth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        panCentr.add(panSounh2, java.awt.BorderLayout.PAGE_END);
+        panCentr.add(panSouth2, java.awt.BorderLayout.SOUTH);
 
         panEast2.setPreferredSize(new java.awt.Dimension(60, 376));
 
@@ -313,20 +332,20 @@ public class Design extends javax.swing.JFrame {
         });
         panEast.add(btnSquare);
 
-        btnArch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
-        btnArch.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnArch.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnArch.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnArch.setName("areaArch"); // NOI18N
-        btnArch.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnArch.addActionListener(new java.awt.event.ActionListener() {
+        btnArch3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d030.gif"))); // NOI18N
+        btnArch3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArch3.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnArch3.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnArch3.setName("areaArch"); // NOI18N
+        btnArch3.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnArch3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnArea(evt);
             }
         });
-        panEast.add(btnArch);
+        panEast.add(btnArch3);
 
-        btnArch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d030.gif"))); // NOI18N
+        btnArch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
         btnArch2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnArch2.setMaximumSize(new java.awt.Dimension(32, 32));
         btnArch2.setMinimumSize(new java.awt.Dimension(32, 32));
@@ -383,6 +402,49 @@ public class Design extends javax.swing.JFrame {
         panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panWest.setPreferredSize(new java.awt.Dimension(38, 500));
         panWest.setLayout(new javax.swing.BoxLayout(panWest, javax.swing.BoxLayout.Y_AXIS));
+
+        btnImpostVert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d023.gif"))); // NOI18N
+        btnImpostVert.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnImpostVert.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnImpostVert.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnImpostVert.setName("impostVert"); // NOI18N
+        btnImpostVert.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnImpostVert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElem(evt);
+            }
+        });
+        panWest.add(btnImpostVert);
+
+        btnImpostGoriz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d022.gif"))); // NOI18N
+        btnImpostGoriz.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnImpostGoriz.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnImpostGoriz.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnImpostGoriz.setName("impostGoriz"); // NOI18N
+        btnImpostGoriz.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnImpostGoriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElem(evt);
+            }
+        });
+        panWest.add(btnImpostGoriz);
+
+        btnSquare4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnSquare4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare4.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare4.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare4.setName("areaSquare"); // NOI18N
+        btnSquare4.setPreferredSize(new java.awt.Dimension(32, 32));
+        panWest.add(btnSquare4);
+
+        btnSquare5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnSquare5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare5.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare5.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare5.setName("areaSquare"); // NOI18N
+        btnSquare5.setPreferredSize(new java.awt.Dimension(32, 32));
+        panWest.add(btnSquare5);
+
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
         pack();
@@ -410,29 +472,29 @@ public class Design extends javax.swing.JFrame {
 
     private void btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArea
         JButton btn = (JButton) evt.getSource();
-        if ("areaSquare".equals(btn.getName())) {
-            System.out.println("frames.Design.areaSquare()");
-            
-        } else if ("areaArch".equals(btn.getName())) {
-            System.out.println("frames.Design.areaArch()");
-            
-        } else if ("areaArch2".equals(btn.getName())) {
-            System.out.println("frames.Design.areaArch2()");
-            
-        }
+        ScriptBuild.addArea(btn.getName());
     }//GEN-LAST:event_btnArea
+
+    private void btnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElem
+        JButton btn = (JButton) evt.getSource();
+        ScriptBuild.addElem(btn.getName());
+    }//GEN-LAST:event_btnElem
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnArch;
     private javax.swing.JButton btnArch2;
+    private javax.swing.JButton btnArch3;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnImpostGoriz;
+    private javax.swing.JButton btnImpostVert;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSquare;
     private javax.swing.JButton btnSquare1;
+    private javax.swing.JButton btnSquare4;
+    private javax.swing.JButton btnSquare5;
     private javax.swing.JButton btnTrapeze;
     private javax.swing.JButton btnTrapeze2;
     private javax.swing.JPanel centr;
@@ -444,8 +506,8 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel panEast2;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panNorth2;
-    private javax.swing.JPanel panSounh2;
     private javax.swing.JPanel panSouth;
+    private javax.swing.JPanel panSouth2;
     private javax.swing.JPanel panWest;
     private javax.swing.JPanel panWest2;
     private javax.swing.JPanel south;
