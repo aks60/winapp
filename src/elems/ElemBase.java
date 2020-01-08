@@ -8,13 +8,14 @@ import org.json.simple.JSONObject;
 
 import java.awt.*;
 import java.util.*;
+import javax.swing.JPanel;
 
 //if(vstalstRec.vnumb == "15606071601")) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
 
 /**
  * Базовый класс всех элементов конструкции окна
  */
-public abstract class ElemBase {
+public abstract class ElemBase extends JPanel {
 
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2; //правая сторона
@@ -138,7 +139,9 @@ public abstract class ElemBase {
     /**
      * Получить порядок расположения элементов в контейнере
      */
-    public abstract eLayoutArea getLayout();
+    public eLayoutArea getLayoutArea() {
+        return eLayoutArea.NONE;
+    }
 
     /**
      * Заполнить главную спецификацию элемента
@@ -325,18 +328,18 @@ public abstract class ElemBase {
     /**
      * Ширина
      */
-    public float getWidth() {
+    public float getWidth2() {
         return width;
     }
 
-    public void setWidth(float width) {
+    public void setWidth2(float width) {
         this.width = width;
     }
 
     /**
      * Высота
      */
-    public float getHeight() {
+    public float getHeight2() {
         return height;
     }
 

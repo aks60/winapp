@@ -160,7 +160,7 @@ public class ElemImpost extends ElemBase {
     }
 
     @Override
-    public eLayoutArea getLayout() {
+    public eLayoutArea getLayoutArea() {
         return side;
     }
 
@@ -193,6 +193,6 @@ public class ElemImpost extends ElemBase {
 
     @Override
     public String toString() {
-        return "IMPOST ID=" + id + ", расположение=" + getLayout() + ", угол1=" + anglCut1 + ", угол2=" + anglCut2;
+        return "IMPOST ID=" + id + ", расположение=" + getLayoutArea() + ", угол1=" + anglCut1 + ", угол2=" + anglCut2;
     }
 }

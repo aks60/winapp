@@ -156,7 +156,7 @@ public class ElemGlass extends ElemBase {
     }
 
     @Override
-    public eLayoutArea getLayout() {
+    public eLayoutArea getLayoutArea() {
         return side;
     }
 
@@ -186,6 +186,6 @@ public class ElemGlass extends ElemBase {
 
     @Override
     public String toString() {
-        return "GLASS ID=" + id + ", расположение=" + getLayout() + ", ширина=" + width + ", высота=" + height + "x1=" + x1 + ", y=" + y1 + ", x2=" + x2 + ", y2=" + y2;
+        return "GLASS ID=" + id + ", расположение=" + getLayoutArea() + ", ширина=" + width + ", высота=" + height + "x1=" + x1 + ", y=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 }

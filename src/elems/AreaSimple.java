@@ -66,10 +66,10 @@ public class AreaSimple extends ElemBase {
     private void initDimension(AreaSimple owner) {
         if (owner != null) {
             //Заполним по умолчанию
-            if (eLayoutArea.VERTICAL.equals(owner.getLayout())) { //сверху вниз
+            if (eLayoutArea.VERTICAL.equals(owner.getLayoutArea())) { //сверху вниз
                 setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
 
-            } else if (eLayoutArea.HORIZONTAL.equals(owner.getLayout())) { //слева направо
+            } else if (eLayoutArea.HORIZONTAL.equals(owner.getLayoutArea())) { //слева направо
                 setDimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
@@ -77,10 +77,10 @@ public class AreaSimple extends ElemBase {
                 if (owner.getChildList().get(index) instanceof AreaSimple) {
                     ElemBase prevArea = owner.getChildList().get(index);
 
-                    if (eLayoutArea.VERTICAL.equals(owner.getLayout())) { //сверху вниз
+                    if (eLayoutArea.VERTICAL.equals(owner.getLayoutArea())) { //сверху вниз
                         setDimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
 
-                    } else if (eLayoutArea.HORIZONTAL.equals(owner.getLayout())) { //слева направо
+                    } else if (eLayoutArea.HORIZONTAL.equals(owner.getLayoutArea())) { //слева направо
                         setDimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
@@ -96,7 +96,7 @@ public class AreaSimple extends ElemBase {
         return iwin;
     }
 
-    public eLayoutArea getLayout() {
+    public eLayoutArea getLayoutArea() {
         return layout;
     }
 
@@ -105,7 +105,7 @@ public class AreaSimple extends ElemBase {
     }
 
     public ElemFrame addRama(ElemFrame elemRama) {
-        hmElemFrame.put(elemRama.getLayout(), elemRama);
+        hmElemFrame.put(elemRama.getLayoutArea(), elemRama);
         return elemRama;
     }
 
@@ -214,13 +214,13 @@ public class AreaSimple extends ElemBase {
             if (elemBase.id != id) continue; //пропускаем если другая ареа
 
             EnumMap<eLayoutArea, ElemFrame> hm = getRoot().hmElemFrame;
-            if (index == 0 && owner.equals(getRoot()) && layoutSide == eLayoutArea.TOP && owner.getLayout() == eLayoutArea.VERTICAL && getRoot().getTypeElem() == eTypeElem.ARCH) {
+            if (index == 0 && owner.equals(getRoot()) && layoutSide == eLayoutArea.TOP && owner.getLayoutArea() == eLayoutArea.VERTICAL && getRoot().getTypeElem() == eTypeElem.ARCH) {
                 return hm.get(eTypeElem.ARCH);
-            } else if (owner.equals(getRoot()) && layoutSide == eLayoutArea.TOP && owner.getLayout() == eLayoutArea.HORIZONTAL && getRoot().getTypeElem() == eTypeElem.ARCH) {
+            } else if (owner.equals(getRoot()) && layoutSide == eLayoutArea.TOP && owner.getLayoutArea() == eLayoutArea.HORIZONTAL && getRoot().getTypeElem() == eTypeElem.ARCH) {
                 return hm.get(eTypeElem.ARCH);
             }
 
-            if (owner.equals(getRoot()) && owner.getLayout() == eLayoutArea.VERTICAL) {
+            if (owner.equals(getRoot()) && owner.getLayoutArea() == eLayoutArea.VERTICAL) {
                 if (layoutSide == eLayoutArea.TOP) {
                     return (index == 0) ? hm.get(layoutSide) : listElem.get(index - 1);
                 } else if (layoutSide == eLayoutArea.BOTTOM) {
@@ -229,7 +229,7 @@ public class AreaSimple extends ElemBase {
                     return getRoot().hmElemFrame.get(layoutSide);
                 }
 
-            } else if (owner.equals(getRoot()) && owner.getLayout() == eLayoutArea.HORIZONTAL) {
+            } else if (owner.equals(getRoot()) && owner.getLayoutArea() == eLayoutArea.HORIZONTAL) {
                 if (layoutSide == eLayoutArea.LEFT) {
                     return (index == 0) ? hm.get(layoutSide) : listElem.get(index - 1);
                 } else if (layoutSide == eLayoutArea.RIGHT) {
@@ -239,7 +239,7 @@ public class AreaSimple extends ElemBase {
                 }
 
             } else {
-                if (owner.getLayout() == eLayoutArea.VERTICAL) {
+                if (owner.getLayoutArea() == eLayoutArea.VERTICAL) {
                     if (layoutSide == eLayoutArea.TOP) {
                         return (index == 0) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index - 1);
                     } else if (layoutSide == eLayoutArea.BOTTOM) {
@@ -385,9 +385,9 @@ public class AreaSimple extends ElemBase {
         } else {  //вложенный контейнер
             float moveV = (this.owner == getRoot()) ? 120 : 60;
             if (this.height > 160 && this.width > 160) {
-                if (owner.getChildList().size() > 1 && owner.getLayout() == eLayoutArea.VERTICAL) {
+                if (owner.getChildList().size() > 1 && owner.getLayoutArea() == eLayoutArea.VERTICAL) {
                     lineLength2(String.format("%.0f", y2 - y1), (int) (x2 + moveV), (int) y1, (int) (x2 + moveV), (int) y2);
-                } else if (owner.getChildList().size() > 1 && owner.getLayout() == eLayoutArea.HORIZONTAL) {
+                } else if (owner.getChildList().size() > 1 && owner.getLayoutArea() == eLayoutArea.HORIZONTAL) {
                     lineLength2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + moveV), (int) x2, (int) (y2 + moveV));
                 }
             }

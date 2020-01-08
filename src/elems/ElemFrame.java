@@ -216,7 +216,7 @@ public class ElemFrame extends ElemBase {
     }
 
     @Override
-    public eLayoutArea getLayout() {
+    public eLayoutArea getLayoutArea() {
         return side;
     }
 
