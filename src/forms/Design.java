@@ -15,7 +15,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import script.Area;
-import script.ScriptBuild;
 import swing.DefFieldRenderer;
 import swing.DefTableModel;
 
@@ -42,10 +41,10 @@ public class Design extends javax.swing.JFrame {
         initElements();
         
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        loadTree();
+        //loadTree();
     }
 
-    public void loadTree() {
+    public void loadTree(String name) {
         
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
@@ -62,9 +61,9 @@ public class Design extends javax.swing.JFrame {
         ArrayList<DefaultMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
-        tree.setModel(new DefaultTreeModel(treeNode1));
-        scr1.setViewportView(tree);
-        tree.setSelectionRow(0);
+        tree1.setModel(new DefaultTreeModel(treeNode1));
+        scr1.setViewportView(tree1);
+        tree1.setSelectionRow(0);
     }
 
     private ArrayList<DefaultMutableTreeNode> addChild(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
@@ -88,6 +87,7 @@ public class Design extends javax.swing.JFrame {
 
     }
 
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -97,9 +97,13 @@ public class Design extends javax.swing.JFrame {
         south = new javax.swing.JPanel();
         west = new javax.swing.JPanel();
         east = new javax.swing.JPanel();
+        pan1a = new javax.swing.JTabbedPane();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
+        tree1 = new javax.swing.JTree();
+        pan13 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tree2 = new javax.swing.JTree();
         pan2 = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
         pav4 = new javax.swing.JPanel();
@@ -185,15 +189,28 @@ public class Design extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
 
+        pan1a.setPreferredSize(new java.awt.Dimension(260, 5));
+
         pan1.setPreferredSize(new java.awt.Dimension(240, 654));
         pan1.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
-        scr1.setViewportView(tree);
+        scr1.setViewportView(tree1);
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(pan1, java.awt.BorderLayout.WEST);
+        pan1a.addTab("Дерево системы", pan1);
+
+        pan13.setLayout(new java.awt.BorderLayout());
+
+        scr2.setBorder(null);
+        scr2.setViewportView(tree2);
+
+        pan13.add(scr2, java.awt.BorderLayout.CENTER);
+
+        pan1a.addTab("Дерево окна", pan13);
+
+        getContentPane().add(pan1a, java.awt.BorderLayout.WEST);
 
         pan2.setPreferredSize(new java.awt.Dimension(560, 585));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -206,7 +223,7 @@ public class Design extends javax.swing.JFrame {
         pan3.setLayout(pan3Layout);
         pan3Layout.setHorizontalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 676, Short.MAX_VALUE)
+            .addGap(0, 656, Short.MAX_VALUE)
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,7 +241,7 @@ public class Design extends javax.swing.JFrame {
         design.setLayout(designLayout);
         designLayout.setHorizontalGroup(
             designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGap(0, 458, Short.MAX_VALUE)
         );
         designLayout.setVerticalGroup(
             designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,7 +256,7 @@ public class Design extends javax.swing.JFrame {
         pan7.setLayout(pan7Layout);
         pan7Layout.setHorizontalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +271,7 @@ public class Design extends javax.swing.JFrame {
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -566,7 +583,7 @@ public class Design extends javax.swing.JFrame {
 
     private void btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArea
         JButton btn = (JButton) evt.getSource();
-        //loadTree(btn.getName());
+        loadTree(btn.getName());
     }//GEN-LAST:event_btnArea
 
     private void btnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElem
@@ -599,6 +616,8 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan11;
     private javax.swing.JPanel pan12;
+    private javax.swing.JPanel pan13;
+    private javax.swing.JTabbedPane pan1a;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan6;
@@ -607,14 +626,16 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel pan9;
     private javax.swing.JPanel pav4;
     private javax.swing.JScrollPane scr1;
+    private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;
-    private javax.swing.JTree tree;
+    private javax.swing.JTree tree1;
+    private javax.swing.JTree tree2;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
 
-        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree1.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
