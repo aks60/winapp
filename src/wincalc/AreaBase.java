@@ -3,9 +3,9 @@ package wincalc;
 import enums.eLayoutArea;
 import java.util.EnumMap;
 import java.util.LinkedList;
-import javax.swing.JPanel;
+import javax.swing.JComponent;
 
-public abstract class AreaBase  extends JPanel implements IBase {
+public abstract class AreaBase  extends JComponent implements IBase {
 
     protected Wincalc iwin = null; //главный класс
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
@@ -18,6 +18,9 @@ public abstract class AreaBase  extends JPanel implements IBase {
 
     public AreaBase(String id) {
         this.id = id;
+        
+        //setLayout(layout);
+        setDoubleBuffered(true);      
     }
 
     public String getId() {

@@ -1,11 +1,11 @@
 package main;
 
+import convdb.Script;
 import dataset.Entity;
 import dataset.Query;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
-import javax.swing.JPanel;
 
 public class Test {
 
@@ -16,15 +16,15 @@ public class Test {
 //            JPanel pan = new JPanel();
 //            AreaBase ar = new AreaArch("1");
 //            ElemBase el = new ElemFrame("1");
-            //Script.script();
-            //query();
+            Script.script();
+//            query();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
     }
 
-    private static void frames() {
+    private static void frame() {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
@@ -44,9 +44,10 @@ public class Test {
     private static void query() {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
-                    //"jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-                    "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
-            Entity.firebird(Query.connection, "KOMPSPC");
+                    "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                    //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                    //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+            Entity.firebird(Query.connection, "LIS_ORD");
 
             //Query q1 = new Query(eArtikls.values()).select("$t where $f = $v order by $f", eArtikls.up, eArtikls.id, eArtikls.code, 2);
             //Query q2 = new Query(eArtikls.values()).select(eArtikls.up, "where", eArtikls.id, "=", 2, "order by", eArtikls.code);

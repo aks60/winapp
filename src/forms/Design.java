@@ -1,16 +1,91 @@
 package forms;
 
+import common.FrameListener;
+import dataset.Query;
+import dataset.Record;
+import domain.eSystree;
+import enums.eLayoutArea;
+import enums.eTypeElem;
+import java.util.ArrayList;
+import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
 import script.Area;
 import script.ScriptBuild;
+import swing.DefFieldRenderer;
+import swing.DefTableModel;
 
 public class Design extends javax.swing.JFrame {
 
-    private Area rootArea;
+    private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
+    private DefaultMutableTreeNode root = null;
+    private FrameListener<Object, Object> listenerModify = new FrameListener() {
+
+        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
+            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
+
+        public void request(Object obj) {
+            btnSave.setIcon(btnIM[0]);
+        }
+
+        public void response(Object obj) {
+            btnSave.setIcon(btnIM[1]);
+        }
+    };
 
     public Design() {
         initComponents();
         initElements();
+        
+        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
+        loadTree();
+    }
+
+    public void loadTree() {
+        
+        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
+        ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
+        Query q = qSystree.table(eSystree.up.tname());
+        for (Record record : q) {
+            if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
+                DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new Design.UserNode(record));
+                treeList.add(node2);
+                treeNode1.add(node2);
+            }
+        }
+        ArrayList<DefaultMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
+        tree.setModel(new DefaultTreeModel(treeNode1));
+        scr1.setViewportView(tree);
+        tree.setSelectionRow(0);
+    }
+
+    private ArrayList<DefaultMutableTreeNode> addChild(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
+
+        Query q = qSystree.table(eSystree.up.tname());
+        for (DefaultMutableTreeNode node : nodeList1) {
+            Design.UserNode userNode = (Design.UserNode) node.getUserObject();
+            for (Record record2 : q) {
+                if (record2.getInt(eSystree.parent_id) == userNode.record.getInt(eSystree.id)
+                        && record2.getInt(eSystree.parent_id) != record2.getInt(eSystree.id)) {
+                    DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new Design.UserNode(record2));
+                    node.add(node2);
+                    nodeList2.add(node2);
+                }
+            }
+        }
+        return nodeList2;
+    }
+
+    private void selectioTree(ListSelectionEvent event) {
+
     }
 
     @SuppressWarnings("unchecked")
@@ -22,31 +97,35 @@ public class Design extends javax.swing.JFrame {
         south = new javax.swing.JPanel();
         west = new javax.swing.JPanel();
         east = new javax.swing.JPanel();
-        panNorth = new javax.swing.JPanel();
-        btnClose = new javax.swing.JButton();
-        btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
-        btnDel = new javax.swing.JButton();
-        btnIns = new javax.swing.JButton();
-        panSouth = new javax.swing.JPanel();
-        panCentr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
+        scr1 = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
+        pan2 = new javax.swing.JPanel();
+        pan3 = new javax.swing.JPanel();
+        pav4 = new javax.swing.JPanel();
         design = new javax.swing.JPanel();
-        panNorth2 = new javax.swing.JPanel();
-        panSouth2 = new javax.swing.JPanel();
-        panEast2 = new javax.swing.JPanel();
-        panWest2 = new javax.swing.JPanel();
-        panEast = new javax.swing.JPanel();
+        pan7 = new javax.swing.JPanel();
+        pan8 = new javax.swing.JPanel();
+        pan9 = new javax.swing.JPanel();
+        pan10 = new javax.swing.JPanel();
+        pan6 = new javax.swing.JPanel();
         btnSquare = new javax.swing.JButton();
         btnArch3 = new javax.swing.JButton();
         btnArch2 = new javax.swing.JButton();
         btnTrapeze = new javax.swing.JButton();
         btnTrapeze2 = new javax.swing.JButton();
         btnSquare1 = new javax.swing.JButton();
-        panWest = new javax.swing.JPanel();
+        pan12 = new javax.swing.JPanel();
         btnImpostVert = new javax.swing.JButton();
         btnImpostGoriz = new javax.swing.JButton();
         btnSquare4 = new javax.swing.JButton();
         btnSquare5 = new javax.swing.JButton();
+        pan11 = new javax.swing.JPanel();
+        btnClose = new javax.swing.JButton();
+        btnRef = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
+        btnIns = new javax.swing.JButton();
 
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
@@ -104,10 +183,255 @@ public class Design extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
+        pan1.setPreferredSize(new java.awt.Dimension(240, 654));
+        pan1.setLayout(new java.awt.BorderLayout());
+
+        scr1.setBorder(null);
+        scr1.setViewportView(tree);
+
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(pan1, java.awt.BorderLayout.WEST);
+
+        pan2.setPreferredSize(new java.awt.Dimension(560, 585));
+        pan2.setLayout(new java.awt.BorderLayout());
+
+        pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan3.setMinimumSize(new java.awt.Dimension(100, 20));
+        pan3.setPreferredSize(new java.awt.Dimension(800, 40));
+
+        javax.swing.GroupLayout pan3Layout = new javax.swing.GroupLayout(pan3);
+        pan3.setLayout(pan3Layout);
+        pan3Layout.setHorizontalGroup(
+            pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 676, Short.MAX_VALUE)
+        );
+        pan3Layout.setVerticalGroup(
+            pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 36, Short.MAX_VALUE)
+        );
+
+        pan2.add(pan3, java.awt.BorderLayout.SOUTH);
+
+        pav4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pav4.setLayout(new java.awt.BorderLayout());
+
+        design.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 255, 255)));
+
+        javax.swing.GroupLayout designLayout = new javax.swing.GroupLayout(design);
+        design.setLayout(designLayout);
+        designLayout.setHorizontalGroup(
+            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 478, Short.MAX_VALUE)
+        );
+        designLayout.setVerticalGroup(
+            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 459, Short.MAX_VALUE)
+        );
+
+        pav4.add(design, java.awt.BorderLayout.CENTER);
+
+        pan7.setPreferredSize(new java.awt.Dimension(700, 60));
+
+        javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
+        pan7.setLayout(pan7Layout);
+        pan7Layout.setHorizontalGroup(
+            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        pan7Layout.setVerticalGroup(
+            pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pav4.add(pan7, java.awt.BorderLayout.PAGE_START);
+
+        pan8.setPreferredSize(new java.awt.Dimension(744, 60));
+
+        javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
+        pan8.setLayout(pan8Layout);
+        pan8Layout.setHorizontalGroup(
+            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+        pan8Layout.setVerticalGroup(
+            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        pav4.add(pan8, java.awt.BorderLayout.SOUTH);
+
+        pan9.setPreferredSize(new java.awt.Dimension(60, 376));
+
+        javax.swing.GroupLayout pan9Layout = new javax.swing.GroupLayout(pan9);
+        pan9.setLayout(pan9Layout);
+        pan9Layout.setHorizontalGroup(
+            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        pan9Layout.setVerticalGroup(
+            pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 461, Short.MAX_VALUE)
+        );
+
+        pav4.add(pan9, java.awt.BorderLayout.LINE_END);
+
+        pan10.setPreferredSize(new java.awt.Dimension(60, 336));
+
+        javax.swing.GroupLayout pan10Layout = new javax.swing.GroupLayout(pan10);
+        pan10.setLayout(pan10Layout);
+        pan10Layout.setHorizontalGroup(
+            pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        pan10Layout.setVerticalGroup(
+            pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 461, Short.MAX_VALUE)
+        );
+
+        pav4.add(pan10, java.awt.BorderLayout.LINE_START);
+
+        pan2.add(pav4, java.awt.BorderLayout.CENTER);
+
+        pan6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan6.setPreferredSize(new java.awt.Dimension(38, 500));
+        pan6.setLayout(new javax.swing.BoxLayout(pan6, javax.swing.BoxLayout.Y_AXIS));
+
+        btnSquare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnSquare.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare.setName("areaSquare"); // NOI18N
+        btnSquare.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnSquare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        pan6.add(btnSquare);
+
+        btnArch3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d030.gif"))); // NOI18N
+        btnArch3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArch3.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnArch3.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnArch3.setName("areaArch"); // NOI18N
+        btnArch3.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnArch3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        pan6.add(btnArch3);
+
+        btnArch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
+        btnArch2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArch2.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnArch2.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnArch2.setName("areaArch2"); // NOI18N
+        btnArch2.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnArch2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        pan6.add(btnArch2);
+
+        btnTrapeze.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d028.gif"))); // NOI18N
+        btnTrapeze.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTrapeze.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze.setName("areaTrapeze"); // NOI18N
+        btnTrapeze.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnTrapeze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        pan6.add(btnTrapeze);
+
+        btnTrapeze2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d027.gif"))); // NOI18N
+        btnTrapeze2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnTrapeze2.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze2.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnTrapeze2.setName("areaTrapeze2"); // NOI18N
+        btnTrapeze2.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnTrapeze2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        pan6.add(btnTrapeze2);
+
+        btnSquare1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d024.gif"))); // NOI18N
+        btnSquare1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare1.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare1.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare1.setName("areaSquare"); // NOI18N
+        btnSquare1.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnSquare1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArea(evt);
+            }
+        });
+        pan6.add(btnSquare1);
+
+        pan2.add(pan6, java.awt.BorderLayout.EAST);
+
+        pan12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan12.setPreferredSize(new java.awt.Dimension(38, 500));
+        pan12.setLayout(new javax.swing.BoxLayout(pan12, javax.swing.BoxLayout.Y_AXIS));
+
+        btnImpostVert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d023.gif"))); // NOI18N
+        btnImpostVert.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnImpostVert.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnImpostVert.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnImpostVert.setName("impostVert"); // NOI18N
+        btnImpostVert.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnImpostVert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElem(evt);
+            }
+        });
+        pan12.add(btnImpostVert);
+
+        btnImpostGoriz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d022.gif"))); // NOI18N
+        btnImpostGoriz.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnImpostGoriz.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnImpostGoriz.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnImpostGoriz.setName("impostGoriz"); // NOI18N
+        btnImpostGoriz.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnImpostGoriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElem(evt);
+            }
+        });
+        pan12.add(btnImpostGoriz);
+
+        btnSquare4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnSquare4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare4.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare4.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare4.setName("areaSquare"); // NOI18N
+        btnSquare4.setPreferredSize(new java.awt.Dimension(32, 32));
+        pan12.add(btnSquare4);
+
+        btnSquare5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnSquare5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSquare5.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnSquare5.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnSquare5.setName("areaSquare"); // NOI18N
+        btnSquare5.setPreferredSize(new java.awt.Dimension(32, 32));
+        pan12.add(btnSquare5);
+
+        pan2.add(pan12, java.awt.BorderLayout.WEST);
+
+        getContentPane().add(pan2, java.awt.BorderLayout.CENTER);
+
+        pan11.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan11.setMaximumSize(new java.awt.Dimension(32767, 31));
+        pan11.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -185,11 +509,11 @@ public class Design extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout pan11Layout = new javax.swing.GroupLayout(pan11);
+        pan11.setLayout(pan11Layout);
+        pan11Layout.setHorizontalGroup(
+            pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan11Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,16 +522,16 @@ public class Design extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 412, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 753, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pan11Layout.setVerticalGroup(
+            pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan11Layout.createSequentialGroup()
+                .addGroup(pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pan11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -215,236 +539,7 @@ public class Design extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
-
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(800, 40));
-
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
-
-        panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panCentr.setLayout(new java.awt.BorderLayout());
-
-        design.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 255, 255)));
-
-        javax.swing.GroupLayout designLayout = new javax.swing.GroupLayout(design);
-        design.setLayout(designLayout);
-        designLayout.setHorizontalGroup(
-            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 377, Short.MAX_VALUE)
-        );
-        designLayout.setVerticalGroup(
-            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
-        );
-
-        panCentr.add(design, java.awt.BorderLayout.CENTER);
-
-        panNorth2.setPreferredSize(new java.awt.Dimension(700, 60));
-
-        javax.swing.GroupLayout panNorth2Layout = new javax.swing.GroupLayout(panNorth2);
-        panNorth2.setLayout(panNorth2Layout);
-        panNorth2Layout.setHorizontalGroup(
-            panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
-        );
-        panNorth2Layout.setVerticalGroup(
-            panNorth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panNorth2, java.awt.BorderLayout.PAGE_START);
-
-        panSouth2.setPreferredSize(new java.awt.Dimension(744, 60));
-
-        javax.swing.GroupLayout panSouth2Layout = new javax.swing.GroupLayout(panSouth2);
-        panSouth2.setLayout(panSouth2Layout);
-        panSouth2Layout.setHorizontalGroup(
-            panSouth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
-        );
-        panSouth2Layout.setVerticalGroup(
-            panSouth2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panSouth2, java.awt.BorderLayout.SOUTH);
-
-        panEast2.setPreferredSize(new java.awt.Dimension(60, 376));
-
-        javax.swing.GroupLayout panEast2Layout = new javax.swing.GroupLayout(panEast2);
-        panEast2.setLayout(panEast2Layout);
-        panEast2Layout.setHorizontalGroup(
-            panEast2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-        panEast2Layout.setVerticalGroup(
-            panEast2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 352, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panEast2, java.awt.BorderLayout.LINE_END);
-
-        panWest2.setPreferredSize(new java.awt.Dimension(60, 336));
-
-        javax.swing.GroupLayout panWest2Layout = new javax.swing.GroupLayout(panWest2);
-        panWest2.setLayout(panWest2Layout);
-        panWest2Layout.setHorizontalGroup(
-            panWest2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
-        panWest2Layout.setVerticalGroup(
-            panWest2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 352, Short.MAX_VALUE)
-        );
-
-        panCentr.add(panWest2, java.awt.BorderLayout.LINE_START);
-
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
-
-        panEast.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panEast.setPreferredSize(new java.awt.Dimension(38, 500));
-        panEast.setLayout(new javax.swing.BoxLayout(panEast, javax.swing.BoxLayout.Y_AXIS));
-
-        btnSquare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare.setName("areaSquare"); // NOI18N
-        btnSquare.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArea(evt);
-            }
-        });
-        panEast.add(btnSquare);
-
-        btnArch3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d030.gif"))); // NOI18N
-        btnArch3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnArch3.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnArch3.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnArch3.setName("areaArch"); // NOI18N
-        btnArch3.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnArch3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArea(evt);
-            }
-        });
-        panEast.add(btnArch3);
-
-        btnArch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
-        btnArch2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnArch2.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnArch2.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnArch2.setName("areaArch2"); // NOI18N
-        btnArch2.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnArch2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArea(evt);
-            }
-        });
-        panEast.add(btnArch2);
-
-        btnTrapeze.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d028.gif"))); // NOI18N
-        btnTrapeze.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnTrapeze.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze.setName("areaTrapeze"); // NOI18N
-        btnTrapeze.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnTrapeze.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArea(evt);
-            }
-        });
-        panEast.add(btnTrapeze);
-
-        btnTrapeze2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d027.gif"))); // NOI18N
-        btnTrapeze2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnTrapeze2.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze2.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze2.setName("areaTrapeze2"); // NOI18N
-        btnTrapeze2.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnTrapeze2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArea(evt);
-            }
-        });
-        panEast.add(btnTrapeze2);
-
-        btnSquare1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d024.gif"))); // NOI18N
-        btnSquare1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare1.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare1.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare1.setName("areaSquare"); // NOI18N
-        btnSquare1.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArea(evt);
-            }
-        });
-        panEast.add(btnSquare1);
-
-        getContentPane().add(panEast, java.awt.BorderLayout.EAST);
-
-        panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panWest.setPreferredSize(new java.awt.Dimension(38, 500));
-        panWest.setLayout(new javax.swing.BoxLayout(panWest, javax.swing.BoxLayout.Y_AXIS));
-
-        btnImpostVert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d023.gif"))); // NOI18N
-        btnImpostVert.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnImpostVert.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnImpostVert.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnImpostVert.setName("impostVert"); // NOI18N
-        btnImpostVert.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnImpostVert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnElem(evt);
-            }
-        });
-        panWest.add(btnImpostVert);
-
-        btnImpostGoriz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d022.gif"))); // NOI18N
-        btnImpostGoriz.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnImpostGoriz.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnImpostGoriz.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnImpostGoriz.setName("impostGoriz"); // NOI18N
-        btnImpostGoriz.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnImpostGoriz.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnElem(evt);
-            }
-        });
-        panWest.add(btnImpostGoriz);
-
-        btnSquare4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare4.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare4.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare4.setName("areaSquare"); // NOI18N
-        btnSquare4.setPreferredSize(new java.awt.Dimension(32, 32));
-        panWest.add(btnSquare4);
-
-        btnSquare5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare5.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare5.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare5.setName("areaSquare"); // NOI18N
-        btnSquare5.setPreferredSize(new java.awt.Dimension(32, 32));
-        panWest.add(btnSquare5);
-
-        getContentPane().add(panWest, java.awt.BorderLayout.WEST);
+        getContentPane().add(pan11, java.awt.BorderLayout.NORTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -471,12 +566,12 @@ public class Design extends javax.swing.JFrame {
 
     private void btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArea
         JButton btn = (JButton) evt.getSource();
-        ScriptBuild.addArea(btn.getName());
+        //loadTree(btn.getName());
     }//GEN-LAST:event_btnArea
 
     private void btnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElem
         JButton btn = (JButton) evt.getSource();
-        ScriptBuild.addElem(btn.getName());
+        //addTree(btn.getName());
     }//GEN-LAST:event_btnElem
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -500,20 +595,42 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel design;
     private javax.swing.JPanel east;
     private javax.swing.JPanel north;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panEast;
-    private javax.swing.JPanel panEast2;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panNorth2;
-    private javax.swing.JPanel panSouth;
-    private javax.swing.JPanel panSouth2;
-    private javax.swing.JPanel panWest;
-    private javax.swing.JPanel panWest2;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan10;
+    private javax.swing.JPanel pan11;
+    private javax.swing.JPanel pan12;
+    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan6;
+    private javax.swing.JPanel pan7;
+    private javax.swing.JPanel pan8;
+    private javax.swing.JPanel pan9;
+    private javax.swing.JPanel pav4;
+    private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
+    private javax.swing.JTree tree;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-    }
+
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
+        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
+        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
+        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
+    } 
 // </editor-fold> 
+    
+    private class UserNode {
+
+        Record record;
+
+        UserNode(Record record) {
+            this.record = record;
+        }
+
+        public String toString() {
+            return record.getStr(eSystree.name);
+        }
+    }       
 }

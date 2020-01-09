@@ -52,7 +52,7 @@ public enum Entity {
                 writer.println(colname.toLowerCase() + "(" + str.substring(0, str.length() - 1) + end);
             }
             writer.println("private MetaField meta = new MetaField(this);");
-            writer.println(ename + "(String... p) { meta.init(p); }");
+            writer.println(ename + "(Object... p) { meta.init(p); }");
             writer.println("public void selectSql() {}");
             writer.println("public String updateSql(Record record) { return null; }");
             writer.println("public String insertSql(Record record) { return null; }");
@@ -117,6 +117,7 @@ public enum Entity {
                 ArrayList<String> column = newcol();
                 column.set(comment.ordinal(), rs.getString("comment"));
                 columns.put(rs.getString("name").trim().toLowerCase(), column);
+                //System.out.println(rs.getString("name").trim().toLowerCase());
             }
             meta(connection);
 

@@ -4,7 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 
 public enum eOrders implements Field {
-    up("0", "0", "0", "Список проектов", "LISTPRJ"),
+    up("0", "0", "0", "Список заказов (проектов)", "LISTPRJ"),
     id("4", "10", "0", "Идентификатор", "id"),    
     numb("12", "32", "1", "номер заказа", "ZNUMB"),    
     partner_id("4", "10", "0", "контрагент", "partner_id"),    

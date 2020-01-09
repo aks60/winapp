@@ -44,6 +44,7 @@ import domain.eSysconst;
 import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
+import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import java.sql.Connection;
@@ -79,12 +80,12 @@ public class Script {
             eSysconst.up, eSysdata.up, eCurrenc.up, eArtgrp.up, eParams.up, eRulecalc.up,
             eColor.up, eColgrp.up, eColpar1.up,
             eKits.up, eKitdet.up, eKitpar1.up,
-            eArtikls.up, eArtdet.up, 
+            eArtikls.up, eArtdet.up,
             eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
             eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
             eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
             eFurniture.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
-            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up,            
+            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up, eSysprod.up,
             ePartner.up, eOrders.up
         };
         try {
@@ -102,9 +103,10 @@ public class Script {
             ResultSet resultSet1 = mdb1.getTables(null, null, null, new String[]{"TABLE"});
             ResultSet resultSet2 = mdb2.getTables(null, null, null, new String[]{"TABLE"});
 
-            List<String> listExistTable1 = new ArrayList<String>();//таблицы приёмника
+            List<String> listExistTable1 = new ArrayList<String>();//таблицы источника
             List<String> listExistTable2 = new ArrayList<String>();//таблицы приёмника
             List<String> listGenerator2 = new ArrayList<String>();//генераторы приёмника 
+            
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
@@ -123,7 +125,6 @@ public class Script {
             Util.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
-
                 //Поля не вошедшие в eEnum.values()
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
 
@@ -144,7 +145,7 @@ public class Script {
                 }
                 //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
-                    convertTable(cn1, cn2, fieldUp.fields(), hmDeltaCol);
+                    convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
                 }
                 //Создание генератора таблицы
                 sql("CREATE GENERATOR GEN_" + fieldUp.tname());
@@ -161,10 +162,10 @@ public class Script {
 
             Util.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
             for (Field fieldUp : fieldsUp) {
-//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-//                    sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-//                }
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+                }
             }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
@@ -208,7 +209,7 @@ public class Script {
      * @param fields все поля таблицы
      * @param hmDeltaCol поля не вошедшие в eEnum.values()
      */
-    public static void convertTable(Connection cn1, Connection cn2, Field[] fields, HashMap<String, String[]> hmDeltaCol) {
+    public static void convertTable(Connection cn1, Connection cn2, HashMap<String, String[]> hmDeltaCol, Field[] fields) {
         String sql = "";
         try {
             int count = 0; //колчество записей для расчёта кол. пакетов
@@ -309,19 +310,23 @@ public class Script {
             HashMap<String, String[]> hmDeltaCol = new HashMap(); //поля не вошедшие в eEnum.values(), в последствии будут использоваться для sql update
             ResultSet rsc1 = mdb1.getColumns(null, null, fieldUp.meta().fname, null);
             while (rsc1.next()) {
-                String key = rsc1.getString("COLUMN_NAME");
-                String[] val = {rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
-                if ("-1".equals(rsc1.getString("DATA_TYPE")) || "-4".equals(rsc1.getString("DATA_TYPE"))) {
-                    val[1] = "80";
-                }
-                boolean find = false;
-                for (Field field : fieldUp.fields()) {
-                    if (field.meta().fname.equalsIgnoreCase(key)) {
-                        find = true;
+                String table_name = rsc1.getString("TABLE_NAME");
+                if (fieldUp.meta().fname.equals(table_name)) {
+
+                    String column_name = rsc1.getString("COLUMN_NAME");
+                    String[] val = {rsc1.getString("DATA_TYPE"), rsc1.getString("COLUMN_SIZE")};
+                    if ("-1".equals(rsc1.getString("DATA_TYPE")) || "-4".equals(rsc1.getString("DATA_TYPE"))) {
+                        val[1] = "80";
                     }
-                }
-                if (find == false) {
-                    hmDeltaCol.put(key, val);
+                    boolean find = false;
+                    for (Field field : fieldUp.fields()) {
+                        if (field.meta().fname.equalsIgnoreCase(column_name)) {
+                            find = true;
+                        }
+                    }
+                    if (find == false) {
+                        hmDeltaCol.put(column_name, val);
+                    }
                 }
             }
             return hmDeltaCol;

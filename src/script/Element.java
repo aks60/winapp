@@ -59,4 +59,8 @@ public class Element {
     public eLayoutArea getLayoutRama() {
         return layoutRama;
     }
+    
+    public String toString() {
+        return elemType.name();
+    }     
 }
