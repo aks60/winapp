@@ -5,7 +5,7 @@ import enums.eTypeElem;
 import java.util.EnumMap;
 import java.util.LinkedList;
 
-public class AreaBase implements IBase {
+public abstract class AreaBase implements IBase {
 
     protected String id = "0"; //идентификатор
 
@@ -160,9 +160,7 @@ public class AreaBase implements IBase {
         this.y2 = y2;
     }
     
-    public  eTypeElem getTypeArea() {
-        return eTypeElem.NONE;
-    }
+    public abstract eTypeElem getTypeArea();
     
     public LinkedList<IBase> getChildList() {
         return childList;

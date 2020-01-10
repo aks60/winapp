@@ -173,9 +173,9 @@ public class Wincalc {
         String layoutObj = objArea.get("layoutArea").toString();
         eLayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
         String id = objArea.get("id").toString();
-        AreaBase elemArea = new AreaBase(this, rootArea, ownerArea, id, layoutArea, width, height);
-        ownerArea.addElem(elemArea);
-        return elemArea;
+        AreaScene sceneArea = new AreaScene(this, rootArea, ownerArea, id, layoutArea, width, height);
+        ownerArea.addElem(sceneArea);
+        return sceneArea;
     }
 
     private void parsingAddElem(AreaBase root, AreaBase owner, JSONObject elem) throws ParseException {
