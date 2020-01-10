@@ -1,9 +1,16 @@
 package wincalc;
 
 import enums.eLayoutArea;
+import enums.eParamJson;
 import enums.eTypeElem;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.LinkedList;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public abstract class AreaBase implements IBase {
 
@@ -22,6 +29,7 @@ public abstract class AreaBase implements IBase {
     protected Wincalc iwin = null; //главный класс
     protected AreaBase root = null; //главное окно
     protected AreaBase owner = null; //владелец
+    protected HashMap<eParamJson, Object> hmParamJson = new HashMap(); //параметры элемента
     private LinkedList<IBase> childList = new LinkedList(); //список компонентов в окне    
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
@@ -98,28 +106,28 @@ public abstract class AreaBase implements IBase {
      * Инициализация pro4Params
      */
     protected void parsingParamJson(AreaBase root, String paramJson) {
-        /*try {
-            if (paramJson != null && paramJson.isEmpty() == false) {
-                String str = paramJson.replace("'", "\"");
-                JSONObject jsonObj = (JSONObject) new JSONParser().parse(str);
-                ArrayList<ArrayList<Long>> jsonArr = (JSONArray) jsonObj.get(ParamJson.pro4Params.name());
-                if (jsonArr instanceof ArrayList && jsonArr.isEmpty() == false) {
-
-                    hmParamJson.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант
-
-                    HashMap<Integer, Object[]> hmValue = new HashMap();
-                    for (ArrayList<Long> jsonRec : jsonArr) {
-                        int pnumb = Integer.valueOf(String.valueOf(jsonRec.get(0)));
-                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
-                        if (pnumb < 0 && rec != null)
-                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
-                    }
-                    hmParamJson.put(ParamJson.pro4Params2, hmValue); //второй вариант
-                }
-            }
-        } catch (ParseException e) {
-            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
-        }*/
+//        try {
+//            if (paramJson != null && paramJson.isEmpty() == false) {
+//                String str = paramJson.replace("'", "\"");
+//                JSONObject jsonObj = (JSONObject) new JSONParser().parse(str);
+//                ArrayList<ArrayList<Long>> jsonArr = (JSONArray) jsonObj.get(eParamJson.pro4Params.name());
+//                if (jsonArr instanceof ArrayList && jsonArr.isEmpty() == false) {
+//
+//                    hmParamJson.put(eParamJson.pro4Params, jsonObj.get(eParamJson.pro4Params.name())); //первый вариант
+//
+//                    HashMap<Integer, Object[]> hmValue = new HashMap();
+//                    for (ArrayList<Long> jsonRec : jsonArr) {
+//                        int pnumb = Integer.valueOf(String.valueOf(jsonRec.get(0)));
+//                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
+//                        if (pnumb < 0 && rec != null)
+//                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
+//                    }
+//                    hmParamJson.put(eParamJson.pro4Params2, hmValue); //второй вариант
+//                }
+//            }
+//        } catch (ParseException e) {
+//            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
+//        }
     }
     
     public void addElem(IBase element) {
