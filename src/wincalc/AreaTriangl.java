@@ -12,7 +12,7 @@ public class AreaTriangl extends AreaBase {
     }
     
     @Override
-    public eTypeElem getTypeArea() {
+    public eTypeElem typeArea() {
         return eTypeElem.TRIANGL;
     }    
 }

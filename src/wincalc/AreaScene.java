@@ -10,7 +10,7 @@ public class AreaScene extends AreaBase {
     }
 
     @Override
-    public eTypeElem getTypeArea() {
+    public eTypeElem typeArea() {
         return eTypeElem.NONE;
     }
 }

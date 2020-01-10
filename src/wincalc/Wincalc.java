@@ -105,25 +105,25 @@ public class Wincalc {
             }
 
             //Добавим рамы
-            for (Object elementRama : (JSONArray) mainObj.get("elements")) {
-                JSONObject elemRama = (JSONObject) elementRama;
+            for (Object elemFrame : (JSONArray) mainObj.get("elements")) {
+                JSONObject jsonFrame = (JSONObject) elemFrame;
 
-                if (eTypeElem.FRAME.name().equals(elemRama.get("elemType"))) {
+                if (eTypeElem.FRAME.name().equals(jsonFrame.get("elemType"))) {
 
-                    if (eLayoutArea.LEFT.name().equals(elemRama.get("layoutRama"))) {
-                        ElemFrame ramaLeft = rootArea.addRama(new ElemFrame(rootArea, elemRama.get("id").toString(), eLayoutArea.LEFT));
+                    if (eLayoutArea.LEFT.name().equals(jsonFrame.get("layoutFrame"))) {
+                        ElemFrame frameLeft = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.LEFT));
 
-                    } else if (eLayoutArea.RIGHT.name().equals(elemRama.get("layoutRama"))) {
-                        ElemFrame ramaRight = rootArea.addRama(new ElemFrame(rootArea, elemRama.get("id").toString(), eLayoutArea.RIGHT));
+                    } else if (eLayoutArea.RIGHT.name().equals(jsonFrame.get("layoutFrame"))) {
+                        ElemFrame frameRight = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.RIGHT));
 
-                    } else if (eLayoutArea.TOP.name().equals(elemRama.get("layoutRama"))) {
-                        ElemFrame ramaTop = rootArea.addRama(new ElemFrame(rootArea, elemRama.get("id").toString(), eLayoutArea.TOP));
+                    } else if (eLayoutArea.TOP.name().equals(jsonFrame.get("layoutFrame"))) {
+                        ElemFrame frameTop = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.TOP));
 
-                    } else if (eLayoutArea.BOTTOM.name().equals(elemRama.get("layoutRama"))) {
-                        ElemFrame ramaBottom = rootArea.addRama(new ElemFrame(rootArea, elemRama.get("id").toString(), eLayoutArea.BOTTOM));
+                    } else if (eLayoutArea.BOTTOM.name().equals(jsonFrame.get("layoutFrame"))) {
+                        ElemFrame frameBottom = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.BOTTOM));
 
-                    } else if (eLayoutArea.ARCH.name().equals(elemRama.get("layoutRama"))) {
-                        ElemFrame ramaArch = rootArea.addRama(new ElemFrame(rootArea, elemRama.get("id").toString(), eLayoutArea.ARCH));
+                    } else if (eLayoutArea.ARCH.name().equals(jsonFrame.get("layoutFrame"))) {
+                        ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.ARCH));
                     }
                 }
             }
@@ -167,8 +167,8 @@ public class Wincalc {
 
     private AreaBase parsingAddArea(AreaBase rootArea, AreaBase ownerArea, JSONObject objArea) {
 
-        float width = (ownerArea.getLayout() == eLayoutArea.VERTICAL) ? ownerArea.width : Float.valueOf(objArea.get("width").toString());
-        float height = (ownerArea.getLayout() == eLayoutArea.VERTICAL) ? Float.valueOf(objArea.get("height").toString()) : ownerArea.height;
+        float width = (ownerArea.layout() == eLayoutArea.VERTICAL) ? ownerArea.width : Float.valueOf(objArea.get("width").toString());
+        float height = (ownerArea.layout() == eLayoutArea.VERTICAL) ? Float.valueOf(objArea.get("height").toString()) : ownerArea.height;
 
         String layoutObj = objArea.get("layoutArea").toString();
         eLayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;

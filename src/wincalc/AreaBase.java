@@ -68,21 +68,21 @@ public abstract class AreaBase implements IBase {
     private void initDimension(AreaBase owner) {
         if (owner != null) {
             //Заполним по умолчанию
-            if (eLayoutArea.VERTICAL.equals(owner.getLayout())) { //сверху вниз
+            if (eLayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
                 setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
 
-            } else if (eLayoutArea.HORIZONTAL.equals(owner.getLayout())) { //слева направо
+            } else if (eLayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
                 setDimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
-            for (int index = owner.getChildList().size() - 1; index >= 0; --index) {
-                if (owner.getChildList().get(index) instanceof AreaBase) {
-                    ElemBase prevArea = (ElemBase) owner.getChildList().get(index);
+            for (int index = owner.childs().size() - 1; index >= 0; --index) {
+                if (owner.childs().get(index) instanceof AreaBase) {
+                    ElemBase prevArea = (ElemBase) owner.childs().get(index);
 
-                    if (eLayoutArea.VERTICAL.equals(owner.getLayout())) { //сверху вниз
+                    if (eLayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
                         setDimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
 
-                    } else if (eLayoutArea.HORIZONTAL.equals(owner.getLayout())) { //слева направо
+                    } else if (eLayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
                         setDimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
@@ -126,9 +126,9 @@ public abstract class AreaBase implements IBase {
         childList.add(element);
     }
         
-    public ElemFrame addRama(ElemFrame elemRama) {
-        hmElemFrame.put(elemRama.getLayout(), elemRama);
-        return elemRama;
+    public ElemFrame addFrame(ElemFrame elemFrame) {
+        hmElemFrame.put(elemFrame.getLayout(), elemFrame);
+        return elemFrame;
     }
     
     @Override
@@ -146,7 +146,7 @@ public abstract class AreaBase implements IBase {
         return width;
     }
 
-    public eLayoutArea getLayout() {
+    public eLayoutArea layout() {
         return layout;
     }
 
@@ -160,9 +160,9 @@ public abstract class AreaBase implements IBase {
         this.y2 = y2;
     }
     
-    public abstract eTypeElem getTypeArea();
+    public abstract eTypeElem typeArea();
     
-    public LinkedList<IBase> getChildList() {
+    public LinkedList<IBase> childs() {
         return childList;
     }
 }

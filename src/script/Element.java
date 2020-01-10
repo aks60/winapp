@@ -10,7 +10,7 @@ import enums.eTypeElem;
 public class Element {
 
     protected String id = null;  // идентификатор элемента
-    protected eLayoutArea layoutRama = null; //сторона располодения эл. рамы
+    protected eLayoutArea layoutFrame = null; //сторона располодения эл. рамы
     protected eTypeElem elemType = eTypeElem.NONE; //тип элемента
     protected String paramJson = null; //параметры элемента
 
@@ -49,7 +49,7 @@ public class Element {
     public Element(String id, eTypeElem elemType, eLayoutArea layoutRama) {
         this.id = id;
         this.elemType = elemType;
-        this.layoutRama = layoutRama;
+        this.layoutFrame = layoutRama;
     }
 
     public eTypeElem getElemType() {
@@ -57,7 +57,7 @@ public class Element {
     }
 
     public eLayoutArea getLayoutRama() {
-        return layoutRama;
+        return layoutFrame;
     }
     
     public String toString() {

@@ -17,14 +17,14 @@ public class ElemImpost extends ElemBase {
     public ElemImpost(AreaBase root, AreaBase owner, String id) {
 
         super(id);
-        this.side = (owner.getLayout() == eLayoutArea.HORIZONTAL) ?eLayoutArea.VERTICAL :eLayoutArea.HORIZONTAL;
+        this.side = (owner.layout() == eLayoutArea.HORIZONTAL) ?eLayoutArea.VERTICAL :eLayoutArea.HORIZONTAL;
         color1 = root.color1;
         color2 = root.color2;
         color3 = root.color3;
         initСonstructiv();
 
         //Коррекция положения импоста арки
-        if((eTypeElem.ARCH == owner.getTypeArea() || eTypeElem.TRAPEZE == owner.getTypeArea()) && owner.getChildList().isEmpty()) {
+        if((eTypeElem.ARCH == owner.typeArea() || eTypeElem.TRAPEZE == owner.typeArea()) && owner.childs().isEmpty()) {
 
 //                float dh = articlesRec.aheig / 2;
 //                owner.addElem(new AreaBase(owner.getIwin(), root, owner, genId(), eLayoutArea.HORIZONTAL, owner.width, dh));

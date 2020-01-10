@@ -36,7 +36,7 @@ public abstract class ElemBase implements IBase {
         return width;
     }
 
-    public int getXY(int index) {
+    public int xy(int index) {
         int xy[] = {x1, y1, x2, y2};
         return xy[index - 1];
     }
