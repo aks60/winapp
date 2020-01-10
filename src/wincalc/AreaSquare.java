@@ -6,3 +6,4 @@ public class AreaSquare extends AreaBase {
         super(id);
     }
 }
+

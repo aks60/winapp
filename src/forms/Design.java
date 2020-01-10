@@ -4,8 +4,6 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eSystree;
-import enums.eLayoutArea;
-import enums.eTypeElem;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -14,14 +12,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import script.Area;
-import swing.DefFieldRenderer;
+import script.RootArea;
 import swing.DefTableModel;
 
 public class Design extends javax.swing.JFrame {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
-    private DefaultMutableTreeNode root = null;
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -35,6 +31,7 @@ public class Design extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
+    private RootArea rootArea;
 
     public Design() {
         initComponents();
@@ -110,6 +107,10 @@ public class Design extends javax.swing.JFrame {
         design = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
+        lab1 = new javax.swing.JLabel();
+        txt1 = new javax.swing.JFormattedTextField();
+        lab2 = new javax.swing.JLabel();
+        txt2 = new javax.swing.JFormattedTextField();
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
         pan6 = new javax.swing.JPanel();
@@ -267,15 +268,49 @@ public class Design extends javax.swing.JFrame {
 
         pan8.setPreferredSize(new java.awt.Dimension(744, 60));
 
+        lab1.setText("Ширина");
+        lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        txt1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txt1.setText("1200");
+
+        lab2.setText("Высота");
+        lab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        txt2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txt2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        txt2.setText("1800");
+
         javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGroup(pan8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan8Layout.createSequentialGroup()
+                        .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan8Layout.createSequentialGroup()
+                        .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(464, 464, 464))
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(pan8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab1)
+                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lab2)
+                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pav4.add(pan8, java.awt.BorderLayout.SOUTH);
@@ -611,6 +646,8 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel centr;
     private javax.swing.JPanel design;
     private javax.swing.JPanel east;
+    private javax.swing.JLabel lab1;
+    private javax.swing.JLabel lab2;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
@@ -630,6 +667,8 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel south;
     private javax.swing.JTree tree1;
     private javax.swing.JTree tree2;
+    private javax.swing.JFormattedTextField txt1;
+    private javax.swing.JFormattedTextField txt2;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 

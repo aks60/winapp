@@ -1,8 +1,9 @@
 package wincalc;
 
+import java.util.LinkedList;
 import javax.swing.JComponent;
 
-public abstract class ElemBase extends JComponent implements IBase {
+public abstract class ElemBase implements IBase {
 
     protected String id = "0"; //идентификатор
     protected int width = 0; //ширина
@@ -23,11 +24,11 @@ public abstract class ElemBase extends JComponent implements IBase {
         return id;
     }
 
-    public int width() {
+    public float width() {
         return width;
     }
 
-    public int height() {
+    public float height() {
         return width;
     }
 
@@ -39,5 +40,4 @@ public abstract class ElemBase extends JComponent implements IBase {
     public int color(int index) {
         return (index == 1) ? color1 : (index == 2) ? color2 : color3;
     }    
-    
 }

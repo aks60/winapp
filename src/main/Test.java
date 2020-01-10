@@ -6,6 +6,7 @@ import dataset.Query;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
+import script.AreaElem;
 
 public class Test {
 
@@ -13,10 +14,12 @@ public class Test {
         Main.dev = true;
 
         try {
+              System.out.println(AreaElem.test(604008));
+              
 //            JPanel pan = new JPanel();
 //            AreaBase ar = new AreaArch("1");
 //            ElemBase el = new ElemFrame("1");
-            Script.script();
+//            Script.script();
 //            query();
 
         } catch (Exception e) {
