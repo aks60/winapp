@@ -22,7 +22,7 @@ public class AreaBase implements IBase {
     protected Wincalc iwin = null; //главный класс
     protected AreaBase root = null; //главное окно
     protected AreaBase owner = null; //владелец
-    private LinkedList<ElemBase> childList = new LinkedList(); //список компонентов в окне    
+    private LinkedList<IBase> childList = new LinkedList(); //список компонентов в окне    
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
 
@@ -76,8 +76,8 @@ public class AreaBase implements IBase {
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
             for (int index = owner.getChildList().size() - 1; index >= 0; --index) {
-                //if (owner.getChildList().get(index) instanceof AreaBase) {
-                    ElemBase prevArea = owner.getChildList().get(index);
+                if (owner.getChildList().get(index) instanceof AreaBase) {
+                    ElemBase prevArea = (ElemBase) owner.getChildList().get(index);
 
                     if (eLayoutArea.VERTICAL.equals(owner.getLayout())) { //сверху вниз
                         setDimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
@@ -86,7 +86,7 @@ public class AreaBase implements IBase {
                         setDimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
-                //}
+                }
             }
         } else { //для root area
             x2 = x1 + width;
@@ -122,7 +122,7 @@ public class AreaBase implements IBase {
         }*/
     }
     
-    public void addElem(ElemBase element) {
+    public void addElem(IBase element) {
         childList.add(element);
     }
         
@@ -164,7 +164,7 @@ public class AreaBase implements IBase {
         return eTypeElem.NONE;
     }
     
-    public LinkedList<ElemBase> getChildList() {
+    public LinkedList<IBase> getChildList() {
         return childList;
     }
 }

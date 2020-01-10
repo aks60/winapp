@@ -26,7 +26,7 @@ public class Wincalc {
     protected float width = 0.f;  //ширина окна
     protected float height = 0.f;  //высота окна
     protected float heightAdd = 0.f; //арка, трапеция, треугольник
-    private float scale = .3f; //массштаб рисунка
+    private float scale = .3f; //масштаб рисунка
     protected int color1 = -1; //базовый цвет
     protected int color2 = -1; //внутренний цвет
     protected int color3 = -1; //внещний цвет
