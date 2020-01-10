@@ -1,48 +1,68 @@
 package wincalc;
 
 import enums.eLayoutArea;
+import enums.eTypeElem;
 import java.util.EnumMap;
 import java.util.LinkedList;
-import javax.swing.JComponent;
 
-public abstract class AreaBase implements IBase {
+public class AreaBase implements IBase {
 
     protected String id = "0"; //идентификатор
 
-    protected Wincalc iwin = null; //главный класс
-    protected AreaBase owner = null; //владелец
-    private LinkedList<ElemBase> childList = new LinkedList(); //список компонентов в окне    
-    private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
-    protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне
-
-    protected float width = 0; //ширина
-    protected float height = 0; //высота
     protected float x1 = 0;
     protected float y1 = 0;
     protected float x2 = 0;
     protected float y2 = 0;
+    protected float width = 0;  //ширина
+    protected float height = 0; //высота    
+    protected int color1 = -1;  //базовый 
+    protected int color2 = -1;  //внутренний
+    protected int color3 = -1;  //внешний
+    
+    protected Wincalc iwin = null; //главный класс
+    protected AreaBase root = null; //главное окно
+    protected AreaBase owner = null; //владелец
+    private LinkedList<ElemBase> childList = new LinkedList(); //список компонентов в окне    
+    private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
+    protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
 
-    protected int color1 = -1;
-    protected int color2 = -1;
-    protected int color3 = -1;
-
+    /**
+     * Конструктор
+     */    
     public AreaBase(String id) {
         this.id = id;
         //setLayout(layout);     
     }
 
     /**
-     * Конструктор root окна
+     * Конструктор парсинга скрипта
+     */
+    public AreaBase(Wincalc iwin, AreaBase root, AreaBase owner, String id, eLayoutArea layout, float width, float height) {
+        this(owner, id, layout, width, height, 1, 1, 1);
+        this.iwin = iwin;
+        this.root = root;
+        //Коррекция размера стеклопакета(створки) арки.
+        //Уменьшение на величину добавленной подкладки над импостом.
+        //if (owner != null && eTypeElem.ARCH == owner.getTypeArea() && owner.getChildList().size() == 2 && eTypeElem.IMPOST == owner.getChildList().get(1).getTypeElem()) {
+            //float dh = owner.getChildList().get(1).getArticlesRec().aheig / 2;
+            //setDimension(x1, y1, x2, y2 - dh);
+        //}
+    }
+
+    
+    /**
+     * Конструктор
      */
     public AreaBase(AreaBase owner, String id, eLayoutArea layout, float width, float height, int color1, int color2, int color3) {
         this.owner = owner;
+        this.id = id;
         this.layout = layout;
         this.width = width;
         this.height = height;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        //initDimension(owner);
+        initDimension(owner);
     }
 
     private void initDimension(AreaBase owner) {
@@ -56,7 +76,7 @@ public abstract class AreaBase implements IBase {
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
             for (int index = owner.getChildList().size() - 1; index >= 0; --index) {
-                if (owner.getChildList().get(index) instanceof AreaBase) {
+                //if (owner.getChildList().get(index) instanceof AreaBase) {
                     ElemBase prevArea = owner.getChildList().get(index);
 
                     if (eLayoutArea.VERTICAL.equals(owner.getLayout())) { //сверху вниз
@@ -66,7 +86,7 @@ public abstract class AreaBase implements IBase {
                         setDimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
-                }
+                //}
             }
         } else { //для root area
             x2 = x1 + width;
@@ -74,14 +94,54 @@ public abstract class AreaBase implements IBase {
         }
     }
 
+    /**
+     * Инициализация pro4Params
+     */
+    protected void parsingParamJson(AreaBase root, String paramJson) {
+        /*try {
+            if (paramJson != null && paramJson.isEmpty() == false) {
+                String str = paramJson.replace("'", "\"");
+                JSONObject jsonObj = (JSONObject) new JSONParser().parse(str);
+                ArrayList<ArrayList<Long>> jsonArr = (JSONArray) jsonObj.get(ParamJson.pro4Params.name());
+                if (jsonArr instanceof ArrayList && jsonArr.isEmpty() == false) {
+
+                    hmParamJson.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант
+
+                    HashMap<Integer, Object[]> hmValue = new HashMap();
+                    for (ArrayList<Long> jsonRec : jsonArr) {
+                        int pnumb = Integer.valueOf(String.valueOf(jsonRec.get(0)));
+                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
+                        if (pnumb < 0 && rec != null)
+                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
+                    }
+                    hmParamJson.put(ParamJson.pro4Params2, hmValue); //второй вариант
+                }
+            }
+        } catch (ParseException e) {
+            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
+        }*/
+    }
+    
+    public void addElem(ElemBase element) {
+        childList.add(element);
+    }
+        
+    public ElemFrame addRama(ElemFrame elemRama) {
+        hmElemFrame.put(elemRama.getLayout(), elemRama);
+        return elemRama;
+    }
+    
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public float width() {
         return width;
     }
 
+    @Override
     public float height() {
         return width;
     }
@@ -99,7 +159,11 @@ public abstract class AreaBase implements IBase {
         this.x2 = x2;
         this.y2 = y2;
     }
-
+    
+    public  eTypeElem getTypeArea() {
+        return eTypeElem.NONE;
+    }
+    
     public LinkedList<ElemBase> getChildList() {
         return childList;
     }

@@ -27,15 +27,15 @@ public class Wincalc {
     protected float height = 0.f;  //высота окна
     protected float heightAdd = 0.f; //арка, трапеция, треугольник
     private float scale = .3f; //массштаб рисунка
-    protected int colorBase = -1; //базовый цвет
-    protected int colorInternal = -1; //внутренний цвет
-    protected int colorExternal = -1; //внещний цвет
+    protected int color1 = -1; //базовый цвет
+    protected int color2 = -1; //внутренний цвет
+    protected int color3 = -1; //внещний цвет
     private byte[] bufferSmallImg = null; //рисунок без линий
     private byte[] bufferFullImg = null; //полный рисунок
     protected String labelSketch = "empty"; //надпись на эскизе
     private AreaBase rootArea = null;
     private HashMap<Integer, String> hmPro4Params = new HashMap();
-    protected Syssize syssizeRec = null; //константы
+    //protected Syssize syssizeRec = null; //константы
     protected BufferedImage img = null;  //образ рисунка
     protected HashMap<Integer, Object[]> hmParamDef = new HashMap(); //параметры по умолчанию
     protected HashMap<String, ElemJoinig> hmJoinElem = new HashMap(); //список соединений рам и створок
@@ -82,25 +82,25 @@ public class Wincalc {
 //            syssizeRec = Syssize.find(constr, articlesRec.sunic); //системные константы
 
             //Цвета
-            colorBase = Integer.parseInt(mainObj.get("colorBase").toString());
-            colorInternal = Integer.parseInt(mainObj.get("colorInternal").toString());
-            colorExternal = Integer.parseInt(mainObj.get("colorExternal").toString());
+            color1 = Integer.parseInt(mainObj.get("colorBase").toString());
+            color2 = Integer.parseInt(mainObj.get("colorInternal").toString());
+            color3 = Integer.parseInt(mainObj.get("colorExternal").toString());
 
             //Определим напрвление построения окна
             layoutObj = mainObj.get("layoutArea").toString();
             eLayoutArea layoutRoot = ("VERTICAL".equals(layoutObj)) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
 
             if ("SQUARE".equals(mainObj.get("elemType").toString())) {
-                rootArea = new AreaSquare(this, id, layoutRoot, width, height, colorBase, colorInternal, colorExternal, paramJson); //простое
+                rootArea = new AreaSquare(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
 
             } else if ("TRAPEZE".equals(mainObj.get("elemType").toString())) {
-                rootArea = new AreaTrapeze(this, id, layoutRoot, width, height, colorBase, colorInternal, colorExternal, paramJson); //трапеция
+                rootArea = new AreaTrapeze(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //трапеция
 
             } else if ("TRIANGL".equals(mainObj.get("elemType").toString())) {
-                rootArea = new AreaTriangl(this, id, layoutRoot, width, height, colorBase, colorInternal, colorExternal, paramJson); //треугольник
+                rootArea = new AreaTriangl(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //треугольник
 
             } else if ("ARCH".equals(mainObj.get("elemType").toString())) {
-                rootArea = new AreaArch(this, id, layoutRoot, width, height, colorBase, colorInternal, colorExternal, paramJson); //арка
+                rootArea = new AreaArch(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
 
             }
 
@@ -167,8 +167,8 @@ public class Wincalc {
 
     private AreaBase parsingAddArea(AreaBase rootArea, AreaBase ownerArea, JSONObject objArea) {
 
-        float width = (ownerArea.getLayoutArea() == eLayoutArea.VERTICAL) ? ownerArea.width : Float.valueOf(objArea.get("width").toString());
-        float height = (ownerArea.getLayoutArea() == eLayoutArea.VERTICAL) ? Float.valueOf(objArea.get("height").toString()) : ownerArea.height;
+        float width = (ownerArea.getLayout() == eLayoutArea.VERTICAL) ? ownerArea.width : Float.valueOf(objArea.get("width").toString());
+        float height = (ownerArea.getLayout() == eLayoutArea.VERTICAL) ? Float.valueOf(objArea.get("height").toString()) : ownerArea.height;
 
         String layoutObj = objArea.get("layoutArea").toString();
         eLayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
@@ -190,7 +190,7 @@ public class Wincalc {
                 owner.addElem(new ElemGlass(root, owner, elem.get("id").toString()));
             }
 
-        } else if (TypeElem.FULLSTVORKA.name().equals(elem.get("elemType"))) {
+        } else if (eTypeElem.FULLSTVORKA.name().equals(elem.get("elemType"))) {
 
             AreaStvorka elemStvorka = new AreaStvorka(this, owner, elem.get("id").toString(), elem.get("paramJson").toString());
             owner.addElem(elemStvorka);

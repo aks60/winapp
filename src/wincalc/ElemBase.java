@@ -6,28 +6,32 @@ import javax.swing.JComponent;
 public abstract class ElemBase implements IBase {
 
     protected String id = "0"; //идентификатор
-    protected int width = 0; //ширина
-    protected int height = 0; //высота
+    
     protected int x1 = 0;
     protected int y1 = 0;
     protected int x2 = 0;
     protected int y2 = 0;
-    protected int color1 = -1; //базовый 
-    protected int color2 = -1; //внутренний
-    protected int color3 = -1; //внешний
+    protected float width = 0;  //ширина
+    protected float height = 0; //высота    
+    protected int color1 = -1;  //базовый 
+    protected int color2 = -1;  //внутренний
+    protected int color3 = -1;  //внешний
 
     public ElemBase(String id) {
         this.id = id;
     }
 
+    @Override
     public String getId() {
         return id;
     }
 
+    @Override
     public float width() {
         return width;
     }
 
+    @Override
     public float height() {
         return width;
     }

@@ -7,6 +7,8 @@ public interface IBase {
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2; //правая сторона
     
+    public String getId();
+            
     public float width();
     
     public float height();
