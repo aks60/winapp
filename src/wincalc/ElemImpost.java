@@ -14,17 +14,17 @@ public class ElemImpost extends ElemBase {
         super(id);
     }
 
-    public ElemImpost(AreaBase root, AreaBase owner, String id) {
+    public ElemImpost(Wincalc iwin, AreaBase owner, String id) {
 
         super(id);
         this.side = (owner.layout() == eLayoutArea.HORIZONTAL) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
-        color1 = root.color1;
-        color2 = root.color2;
-        color3 = root.color3;
+        color1 = iwin.color1;
+        color2 = iwin.color2;
+        color3 = iwin.color3;
         initСonstructiv();
 
         //Коррекция положения импоста арки
-        if ((eTypeElem.ARCH == owner.getTypeElem() || eTypeElem.TRAPEZE == owner.getTypeElem()) && owner.childs().isEmpty()) {
+        if ((eTypeElem.ARCH == owner.typeElem() || eTypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
 //                float dh = articlesRec.aheig / 2;
 //                owner.addElem(new AreaBase(owner.getIwin(), root, owner, genId(), eLayoutArea.HORIZONTAL, owner.width, dh));
@@ -59,7 +59,7 @@ public class ElemImpost extends ElemBase {
     }
 
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.IMPOST;
     }
 }

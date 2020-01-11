@@ -10,9 +10,14 @@ public class AreaTrapeze extends AreaBase {
         this.iwin = iwin;
         parsingParamJson(this, paramJson);
     }
-    
+
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.TRAPEZE;
-    }    
+    }
+
+    @Override
+    public void passJoinRama() {
+        System.out.println("Функция не определена");
+    }
 }

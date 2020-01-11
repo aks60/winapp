@@ -63,7 +63,7 @@ public class ElemFrame extends ElemBase {
     }   
     
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.FRAME;
     }    
 }

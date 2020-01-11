@@ -10,9 +10,14 @@ public class AreaTriangl extends AreaBase {
         this.iwin = iwin;
         parsingParamJson(this, paramJson);
     }
-    
+
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.TRIANGL;
-    }    
+    }
+
+    @Override
+    public void passJoinRama() {
+        System.out.println("Функция не определена");
+    }
 }

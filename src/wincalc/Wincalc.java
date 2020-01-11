@@ -3,6 +3,8 @@ package wincalc;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import constr.CalcConstructiv;
+import constr.CalcTariffication;
 import enums.eLayoutArea;
 import enums.eTypeElem;
 import forms.Artikls;
@@ -31,7 +33,7 @@ public class Wincalc {
     private byte[] bufferSmallImg = null; //рисунок без линий
     private byte[] bufferFullImg = null; //полный рисунок
     protected String labelSketch = "empty"; //надпись на эскизе
-    private AreaBase rootArea = null;
+    protected AreaBase rootArea = null;
     private HashMap<Integer, String> hmPro4Params = new HashMap();
     //protected Syssize syssizeRec = null; //константы
     protected BufferedImage img = null;  //образ рисунка
@@ -61,11 +63,16 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        LinkedList<AreaBase> areaList = rootArea.getElemList(eTypeElem.AREA); //список контейнеров
-        LinkedList<AreaStvorka> stvorkaList = rootArea.getElemList(eTypeElem.FULLSTVORKA); //список створок
+        LinkedList<AreaBase> areaList = rootArea.elemList(eTypeElem.AREA); //список контейнеров
+        LinkedList<AreaStvorka> stvorkaList = rootArea.elemList(eTypeElem.FULLSTVORKA); //список створок
         EnumMap<eLayoutArea, ElemFrame> hmElemRama = rootArea.hmElemFrame; //список рам
-        //HashMap<String, ElemJoinig> hmJoinElem = rootArea.getHmJoinElem(); //список соединений
+
+        //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
+        //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
+        //Соединения рамы
+        rootArea.passJoinRama();  //обход соединений и кальк. углов рамы
+
         return rootArea;
     }
 
@@ -189,7 +196,7 @@ public class Wincalc {
         String layoutObj = objArea.get("layoutArea").getAsString();
         eLayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
         String id = objArea.get("id").getAsString();
-        AreaScene sceneArea = new AreaScene(this, rootArea, ownerArea, id, layoutArea, width, height);
+        AreaScene sceneArea = new AreaScene(this, ownerArea, id, layoutArea, width, height);
         ownerArea.addElem(sceneArea);
         return sceneArea;
     }
@@ -197,13 +204,13 @@ public class Wincalc {
     private void parsingAddElem(AreaBase root, AreaBase owner, JsonObject elem) {
 
         if (eTypeElem.IMPOST.name().equals(elem.get("elemType").getAsString())) {
-            owner.addElem(new ElemImpost(root, owner, elem.get("id").getAsString()));
+            owner.addElem(new ElemImpost(this, owner, elem.get("id").getAsString()));
 
         } else if (eTypeElem.GLASS.name().equals(elem.get("elemType").getAsString())) {
             if (elem.get("paramJson") != null) {
-                owner.addElem(new ElemGlass(root, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
+                owner.addElem(new ElemGlass(this, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
             } else {
-                owner.addElem(new ElemGlass(root, owner, elem.get("id").getAsString()));
+                owner.addElem(new ElemGlass(this, owner, elem.get("id").getAsString()));
             }
 
         } else if (eTypeElem.FULLSTVORKA.name().equals(elem.get("elemType").getAsString())) {
@@ -215,13 +222,12 @@ public class Wincalc {
                 JsonObject elem2 = (JsonObject) obj;
                 if (eTypeElem.GLASS.name().equals(elem2.get("elemType").getAsString())) {
                     if (elem2.get("paramJson") != null) {
-                        elemStvorka.addElem(new ElemGlass(root, elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
+                        elemStvorka.addElem(new ElemGlass(this, elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
                     } else {
-                        elemStvorka.addElem(new ElemGlass(root, elemStvorka, elem2.get("id").getAsString()));
+                        elemStvorka.addElem(new ElemGlass(this, elemStvorka, elem2.get("id").getAsString()));
                     }
                 }
             }
         }
     }
-
 }

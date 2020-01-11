@@ -8,7 +8,7 @@ import java.util.Map;
 public abstract class Base {
 
     protected String id = "0"; //идентификатор
-    
+    protected Wincalc iwin = null; //главный класс калькуляции
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2; //правая сторона  
     
@@ -27,7 +27,14 @@ public abstract class Base {
     public String getId() {
         return id;
     }
+    public Wincalc iwin() {
+        return iwin;
+    }
     
+     public AreaBase root() {
+         return iwin.rootArea;
+     }
+     
     public float width() {
         return width;
     }
@@ -36,7 +43,7 @@ public abstract class Base {
         return width;
     }
     
-    public void setDimension(float x1, float y1, float x2, float y2) {
+    public void dimension(float x1, float y1, float x2, float y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
@@ -52,7 +59,7 @@ public abstract class Base {
         return (index == 1) ? color1 : (index == 2) ? color2 : color3;
     } 
     
-    public abstract eTypeElem getTypeElem();
+    public abstract eTypeElem typeElem();
     
-    public abstract LinkedList<Base> getArrChild();
+    public abstract LinkedList<Base> listChild();
 }

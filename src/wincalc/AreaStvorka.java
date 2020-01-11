@@ -4,7 +4,9 @@ import enums.eLayoutArea;
 import enums.eTypeElem;
 import enums.eTypeOpen;
 
-public class AreaStvorka extends AreaBase {    public String handleHeight = ""; //высота ручки
+public class AreaStvorka extends AreaBase {
+
+    public String handleHeight = ""; //высота ручки
 
     protected eTypeOpen typeOpen = eTypeOpen.OM_INVALID; //тип открывания
 
@@ -15,7 +17,7 @@ public class AreaStvorka extends AreaBase {    public String handleHeight = ""; 
         this.owner = owner;
         this.width = owner.width;
         this.height = owner.height;
-        setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
+        dimension(owner.x1, owner.y1, owner.x2, owner.y2);
         this.color1 = iwin.color1;
         this.color2 = iwin.color2;
         this.color3 = iwin.color3;
@@ -51,12 +53,17 @@ public class AreaStvorka extends AreaBase {    public String handleHeight = ""; 
 //        specificationRec.setArticlRec(articlesRec);
     }
 
-    public eTypeOpen getTypeOpen() {
+    public eTypeOpen typeOpen() {
         return eTypeOpen.OM_INVALID;
     }
-    
+
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.STVORKA;
-    }    
+    }
+
+    @Override
+    public void passJoinRama() {
+        System.out.println("Функция не определена");
+    }
 }

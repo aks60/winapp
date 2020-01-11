@@ -11,7 +11,7 @@ public abstract class ElemBase extends Base {
         this.id = id;
     }
 
-     public LinkedList<Base> getArrChild() {
+     public LinkedList<Base> listChild() {
          return new LinkedList();
      }
 }

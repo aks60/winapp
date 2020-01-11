@@ -11,11 +11,10 @@ import java.util.Map;
 
 public abstract class AreaBase extends Base {
 
-    protected Wincalc iwin = null; //главный класс
-    protected AreaBase root = null; //главное окно
     protected AreaBase owner = null; //владелец
-    protected HashMap<eParamJson, Object> hmParamJson = new HashMap(); //параметры элемента
-    private LinkedList<Base> arrChild = new LinkedList(); //список компонентов в окне    
+    private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
+    
+    protected HashMap<eParamJson, Object> hmParamJson = new HashMap(); //параметры элемента        
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
 
@@ -23,17 +22,15 @@ public abstract class AreaBase extends Base {
      * Конструктор
      */
     public AreaBase(String id) {
-        this.id = id;
-        //setLayout(layout);     
+        this.id = id;  
     }
 
     /**
      * Конструктор парсинга скрипта
      */
-    public AreaBase(Wincalc iwin, AreaBase root, AreaBase owner, String id, eLayoutArea layout, float width, float height) {
+    public AreaBase(Wincalc iwin, AreaBase owner, String id, eLayoutArea layout, float width, float height) {
         this(owner, id, layout, width, height, 1, 1, 1);
         this.iwin = iwin;
-        this.root = root;
         //Коррекция размера стеклопакета(створки) арки.
         //Уменьшение на величину добавленной подкладки над импостом.
         //if (owner != null && eTypeElem.ARCH == owner.getTypeArea() && owner.getChildList().size() == 2 && eTypeElem.IMPOST == owner.getChildList().get(1).getTypeElem()) {
@@ -61,21 +58,21 @@ public abstract class AreaBase extends Base {
         if (owner != null) {
             //Заполним по умолчанию
             if (eLayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
-                setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
+                dimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
 
             } else if (eLayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
-                setDimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
+                dimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
-            for (int index = owner.childs().size() - 1; index >= 0; --index) {
-                if (owner.childs().get(index) instanceof AreaBase) {
-                    ElemBase prevArea = (ElemBase) owner.childs().get(index);
+            for (int index = owner.listChild().size() - 1; index >= 0; --index) {
+                if (owner.listChild().get(index) instanceof AreaBase) {
+                    ElemBase prevArea = (ElemBase) owner.listChild().get(index);
 
                     if (eLayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
-                        setDimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
+                        dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
 
                     } else if (eLayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
-                        setDimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
+                        dimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
                 }
@@ -121,40 +118,40 @@ public abstract class AreaBase extends Base {
      * @param <E> Тип возвращаемого элемента
      * @return Список элементов в контейнере
      */
-    public <E> LinkedList<E> getElemList(eTypeElem... type) {
+    public <E> LinkedList<E> elemList(eTypeElem... type) {
         if (type == null) {
             type = new eTypeElem[]{eTypeElem.FRAME, eTypeElem.IMPOST, eTypeElem.GLASS, eTypeElem.STVORKA};
         }
         LinkedList<Base> arrElem = new LinkedList();
         LinkedList<E> outElem = new LinkedList();
-        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : root.getHmElemFrame().entrySet()) {
+        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : root().hmElemFrame().entrySet()) {
             arrElem.add(elemRama.getValue());
         }
-        for (Base elemBase : root.getArrChild()) { //первый уровень
+        for (Base elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase instanceof AreaBase) {
-                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase).getHmElemFrame().entrySet()) {
+                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase).hmElemFrame().entrySet()) {
                     arrElem.add(elemRama.getValue());
                 }
-                for (Base elemBase2 : elemBase.getArrChild()) { //второй уровень
+                for (Base elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
                     if (elemBase2 instanceof AreaBase) {
-                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase2).getHmElemFrame().entrySet()) {
+                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase2).hmElemFrame().entrySet()) {
                             arrElem.add(elemRama.getValue());
                         }
-                        for (Base elemBase3 : elemBase2.getArrChild()) { //третий уровень
+                        for (Base elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
                             if (elemBase3 instanceof AreaBase) {
-                                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase3).getHmElemFrame().entrySet()) {
+                                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase3).hmElemFrame().entrySet()) {
                                     arrElem.add(elemRama.getValue());
                                 }
-                                for (Base elemBase4 : elemBase3.getArrChild()) { //четвёртый уровень
+                                for (Base elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
                                     if (elemBase4 instanceof AreaBase) {
-                                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase4).getHmElemFrame().entrySet()) {
+                                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase4).hmElemFrame().entrySet()) {
                                             arrElem.add(elemRama.getValue());
                                         }
-                                        for (Base elemBase5 : elemBase4.getArrChild()) { //пятый уровень
+                                        for (Base elemBase5 : elemBase4.listChild()) { //пятый уровень
                                             arrElem.add(elemBase5);
                                         }
                                     }
@@ -169,7 +166,7 @@ public abstract class AreaBase extends Base {
         for (int index = 0; index < type.length; ++index) {
             eTypeElem type2 = type[index];
             for (Base elemBase : arrElem) {
-                if (elemBase.getTypeElem() == type2) {
+                if (elemBase.typeElem() == type2) {
                     E elem = (E) elemBase;
                     outElem.add(elem);
                 }
@@ -178,18 +175,25 @@ public abstract class AreaBase extends Base {
         return outElem;
     }
 
-    public LinkedList<Base> getArrChild() { 
-        return arrChild;
-    }
-    
-    public void addElem(Base element) {
-        arrChild.add(element);
+    public abstract void passJoinRama();
+
+    public HashMap<String, ElemJoinig> hmJoinElem() {
+        return iwin().hmJoinElem;
     }
 
-    public EnumMap<eLayoutArea, ElemFrame> getHmElemFrame() {
+    @Override
+    public LinkedList<Base> listChild() {
+        return listChild;
+    }
+
+    public void addElem(Base element) {
+        listChild.add(element);
+    }
+
+    public EnumMap<eLayoutArea, ElemFrame> hmElemFrame() {
         return hmElemFrame;
     }
-    
+
     public ElemFrame addFrame(ElemFrame elemFrame) {
         hmElemFrame.put(elemFrame.getLayout(), elemFrame);
         return elemFrame;
@@ -197,9 +201,5 @@ public abstract class AreaBase extends Base {
 
     public eLayoutArea layout() {
         return layout;
-    }
-
-    public LinkedList<Base> childs() {
-        return arrChild;
     }
 }

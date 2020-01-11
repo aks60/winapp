@@ -13,13 +13,14 @@ public class ElemGlass extends ElemBase {
     private eLayoutArea side = eLayoutArea.FULL;
     protected float radiusGlass = 0;
 
-    public ElemGlass(AreaBase root, AreaBase owner, String id) {
-        this(root, owner, id, null);
+    public ElemGlass(Wincalc iwin, AreaBase owner, String id) {
+        this(iwin, owner, id, null);
     }
 
-    public ElemGlass(AreaBase root, AreaBase owner, String id, String paramJson) {
+    public ElemGlass(Wincalc iwin, AreaBase owner, String id, String paramJson) {
 
         super(id);
+        this.iwin = iwin;
 
 //        if(paramJson != null) {
 //            String str = paramJson.replace("'", "\"");
@@ -59,7 +60,7 @@ public class ElemGlass extends ElemBase {
     }
 
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.GLASS;
     }
 }

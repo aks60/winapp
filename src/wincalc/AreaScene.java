@@ -5,12 +5,17 @@ import enums.eTypeElem;
 
 public class AreaScene extends AreaBase {
 
-    public AreaScene(Wincalc iwin, AreaBase root, AreaBase owner, String id, eLayoutArea layout, float width, float height) {
-        super(iwin, root, owner, id, layout, width, height);
+    public AreaScene(Wincalc iwin, AreaBase owner, String id, eLayoutArea layout, float width, float height) {
+        super(iwin, owner, id, layout, width, height);
     }
 
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.AREA;
+    }
+
+    @Override
+    public void passJoinRama() {
+        System.out.println("Функция не определена");
     }
 }

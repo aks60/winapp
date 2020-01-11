@@ -12,7 +12,12 @@ public class AreaArch extends AreaBase {
     }
 
     @Override
-    public eTypeElem getTypeElem() {
+    public eTypeElem typeElem() {
         return eTypeElem.ARCH;
+    }
+    
+    @Override
+    public void passJoinRama() {
+        System.out.println("Функция не определена");
     }
 }
