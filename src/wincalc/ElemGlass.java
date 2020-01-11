@@ -1,9 +1,6 @@
 package wincalc;
 
 import enums.eLayoutArea;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class ElemGlass extends ElemBase {
 
@@ -16,11 +13,11 @@ public class ElemGlass extends ElemBase {
     private eLayoutArea side = eLayoutArea.FULL;
     protected float radiusGlass = 0;
 
-    public ElemGlass(AreaBase root, AreaBase owner, String id) throws ParseException  {
+    public ElemGlass(AreaBase root, AreaBase owner, String id) {
         this(root, owner, id, null);
     }
 
-    public ElemGlass(AreaBase root, AreaBase owner, String id, String paramJson) throws ParseException  {
+    public ElemGlass(AreaBase root, AreaBase owner, String id, String paramJson) {
 
         super(id);
         

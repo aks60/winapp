@@ -1,20 +1,17 @@
-
 package wincalc;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import enums.eLayoutArea;
 import enums.eTypeElem;
 import forms.Artikls;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.LinkedList;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 
 public class Wincalc {
-    
+
     protected static boolean production = false;
     //protected final Constructive constr;
     //protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
@@ -39,40 +36,41 @@ public class Wincalc {
     protected BufferedImage img = null;  //образ рисунка
     protected HashMap<Integer, Object[]> hmParamDef = new HashMap(); //параметры по умолчанию
     protected HashMap<String, ElemJoinig> hmJoinElem = new HashMap(); //список соединений рам и створок
-    protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон    
-    
-    
+    protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
+    protected Gson gson = new Gson(); //библиотека json
+
     public Wincalc() {
     }
-    
-   public AreaBase create(String productJson) {
-      
+
+    public AreaBase create(String productJson) {
+
         hmParamDef.clear();
         hmJoinElem.clear();
-        drawMapLineList.clear(); 
-        
+        drawMapLineList.clear();
+
         //Парсинг входного скрипта
         AreaBase mainArea = parsingScript(productJson);
-       
-        
+        System.out.println(mainArea);
+
         return rootArea;
-   }
-   
- /**
+    }
+
+    /**
      * Парсим входное json окно и строим объектную модель окна
      */
     private AreaBase parsingScript(String json) {
         String layoutObj = null;
         AreaBase rootArea = null;
         try {
-            JSONParser parser = new JSONParser();
-            //java.io.Reader json2 = new  java.io.FileReader("src\\resource\\script.json");
-            //java.io.Reader json2 = new  java.io.FileReader("X:\\_aks\\Razio58 арка 1ств (пустая areaId).json");
-            JSONObject mainObj = (JSONObject) parser.parse(json);
+            JsonElement lsnoElement = gson.fromJson(json, JsonElement.class);
+            JsonObject mainObj = lsnoElement.getAsJsonObject();
+
             String id = mainObj.get("id").toString();
             String paramJson = mainObj.get("paramJson").toString();
             nuni = Integer.parseInt(mainObj.get("nuni").toString());
-            if (mainObj.get("prj") != null) prj = mainObj.get("prj").toString();
+            if (mainObj.get("prj") != null) {
+                prj = mainObj.get("prj").toString();
+            }
             width = Float.parseFloat(mainObj.get("width").toString());
             height = Float.parseFloat(mainObj.get("heightLow").toString());
             heightAdd = Float.parseFloat(mainObj.get("height").toString());
@@ -80,11 +78,10 @@ public class Wincalc {
 //            Sysproa sysproaRec = Sysproa.find(constr, nuni, TypeProfile.FRAME, ProfileSide.Left);
 //            articlesRec = Artikls.get(constr, sysproaRec.anumb, true); //главный артикл системы профилей
 //            syssizeRec = Syssize.find(constr, articlesRec.sunic); //системные константы
-
             //Цвета
-            color1 = Integer.parseInt(mainObj.get("colorBase").toString());
-            color2 = Integer.parseInt(mainObj.get("colorInternal").toString());
-            color3 = Integer.parseInt(mainObj.get("colorExternal").toString());
+            color1 = Integer.parseInt(mainObj.get("color1").toString());
+            color2 = Integer.parseInt(mainObj.get("color2").toString());
+            color3 = Integer.parseInt(mainObj.get("color3").toString());
 
             //Определим напрвление построения окна
             layoutObj = mainObj.get("layoutArea").toString();
@@ -105,8 +102,8 @@ public class Wincalc {
             }
 
             //Добавим рамы
-            for (Object elemFrame : (JSONArray) mainObj.get("elements")) {
-                JSONObject jsonFrame = (JSONObject) elemFrame;
+            for (Object elemFrame : mainObj.get("elements").getAsJsonArray()) {
+                JsonObject jsonFrame = (JsonObject) elemFrame;
 
                 if (eTypeElem.FRAME.name().equals(jsonFrame.get("elemType"))) {
 
@@ -129,43 +126,49 @@ public class Wincalc {
             }
 
             //Элементы окна
-            for (Object objL1 : (JSONArray) mainObj.get("elements")) { //первый уровень
-                JSONObject elemL1 = (JSONObject) objL1;
+            for (Object objL1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
+                JsonObject elemL1 = (JsonObject) objL1;
                 if (eTypeElem.AREA.name().equals(elemL1.get("elemType"))) {
                     AreaBase areaSimple1 = parsingAddArea(rootArea, rootArea, elemL1);
 
-                    for (Object objL2 : (JSONArray) elemL1.get("elements")) { //второй уровень
-                        JSONObject elemL2 = (JSONObject) objL2;
+                    for (Object objL2 : elemL1.get("elements").getAsJsonArray()) { //второй уровень
+                        JsonObject elemL2 = (JsonObject) objL2;
                         if (eTypeElem.AREA.name().equals(elemL2.get("elemType"))) {
                             AreaBase areaSimple2 = parsingAddArea(rootArea, areaSimple1, elemL2);
 
-                            for (Object objL3 : (JSONArray) elemL2.get("elements")) {  //третий уровень
-                                JSONObject elemL3 = (JSONObject) objL3;
+                            for (Object objL3 : elemL2.get("elements").getAsJsonArray()) {  //третий уровень
+                                JsonObject elemL3 = (JsonObject) objL3;
                                 if (eTypeElem.AREA.name().equals(elemL3.get("elemType"))) {
                                     AreaBase areaSimple3 = parsingAddArea(rootArea, areaSimple2, elemL3);
 
-                                    for (Object objL4 : (JSONArray) elemL3.get("elements")) {  //четвёртый уровень
-                                        JSONObject elemL4 = (JSONObject) objL4;
+                                    for (Object objL4 : elemL3.get("elements").getAsJsonArray()) {  //четвёртый уровень
+                                        JsonObject elemL4 = (JsonObject) objL4;
                                         if (eTypeElem.AREA.name().equals(elemL4.get("elemType"))) {
                                             AreaBase areaSinple4 = parsingAddArea(rootArea, areaSimple3, elemL4);
-                                        } else parsingAddElem(rootArea, areaSimple3, elemL4);
+                                        } else {
+                                            parsingAddElem(rootArea, areaSimple3, elemL4);
+                                        }
                                     }
 
-                                } else parsingAddElem(rootArea, areaSimple2, elemL3);
+                                } else {
+                                    parsingAddElem(rootArea, areaSimple2, elemL3);
+                                }
                             }
-                        } else parsingAddElem(rootArea, areaSimple1, elemL2);
+                        } else {
+                            parsingAddElem(rootArea, areaSimple1, elemL2);
+                        }
                     }
-                } else parsingAddElem(rootArea, rootArea, elemL1);
+                } else {
+                    parsingAddElem(rootArea, rootArea, elemL1);
+                }
             }
-        } catch (ParseException e) {
-            System.out.println("Ошибка Iwindows.parsingScript() " + e);
         } catch (Exception e2) {
             System.out.println("Ошибка Iwindows.parsingScript() " + e2);
         }
         return rootArea;
     }
 
-    private AreaBase parsingAddArea(AreaBase rootArea, AreaBase ownerArea, JSONObject objArea) {
+    private AreaBase parsingAddArea(AreaBase rootArea, AreaBase ownerArea, JsonObject objArea) {
 
         float width = (ownerArea.layout() == eLayoutArea.VERTICAL) ? ownerArea.width : Float.valueOf(objArea.get("width").toString());
         float height = (ownerArea.layout() == eLayoutArea.VERTICAL) ? Float.valueOf(objArea.get("height").toString()) : ownerArea.height;
@@ -178,7 +181,7 @@ public class Wincalc {
         return sceneArea;
     }
 
-    private void parsingAddElem(AreaBase root, AreaBase owner, JSONObject elem) throws ParseException {
+    private void parsingAddElem(AreaBase root, AreaBase owner, JsonObject elem) {
 
         if (eTypeElem.IMPOST.name().equals(elem.get("elemType"))) {
             owner.addElem(new ElemImpost(root, owner, elem.get("id").toString()));
@@ -195,8 +198,8 @@ public class Wincalc {
             AreaStvorka elemStvorka = new AreaStvorka(this, owner, elem.get("id").toString(), elem.get("paramJson").toString());
             owner.addElem(elemStvorka);
             //Уровень ниже
-            for (Object obj : (JSONArray) elem.get("elements")) { //т.к. может быть и глухарь
-                JSONObject elem2 = (JSONObject) obj;
+            for (Object obj : elem.get("elements").getAsJsonArray()) { //т.к. может быть и глухарь
+                JsonObject elem2 = (JsonObject) obj;
                 if (eTypeElem.GLASS.name().equals(elem2.get("elemType"))) {
                     if (elem2.get("paramJson") != null) {
                         elemStvorka.addElem(new ElemGlass(root, elemStvorka, elem2.get("id").toString(), elem2.get("paramJson").toString()));
@@ -207,5 +210,5 @@ public class Wincalc {
             }
         }
     }
-   
+
 }

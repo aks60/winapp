@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public abstract class AreaBase implements IBase {
 
@@ -30,7 +26,7 @@ public abstract class AreaBase implements IBase {
     protected AreaBase root = null; //главное окно
     protected AreaBase owner = null; //владелец
     protected HashMap<eParamJson, Object> hmParamJson = new HashMap(); //параметры элемента
-    private LinkedList<IBase> childList = new LinkedList(); //список компонентов в окне    
+    private LinkedList<IBase> arrChild = new LinkedList(); //список компонентов в окне    
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
 
@@ -131,7 +127,7 @@ public abstract class AreaBase implements IBase {
     }
     
     public void addElem(IBase element) {
-        childList.add(element);
+        arrChild.add(element);
     }
         
     public ElemFrame addFrame(ElemFrame elemFrame) {
@@ -171,6 +167,6 @@ public abstract class AreaBase implements IBase {
     public abstract eTypeElem typeArea();
     
     public LinkedList<IBase> childs() {
-        return childList;
+        return arrChild;
     }
 }

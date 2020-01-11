@@ -3,9 +3,6 @@ package wincalc;
 import enums.eLayoutArea;
 import enums.eTypeElem;
 import enums.eTypeOpen;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class AreaStvorka extends AreaBase {    public String handleHeight = ""; //высота ручки
 

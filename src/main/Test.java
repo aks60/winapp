@@ -1,12 +1,15 @@
 package main;
 
-import convdb.Script;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import dataset.Entity;
 import dataset.Query;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
 import script.AreaElem;
+import wincalc.Wincalc;
 
 public class Test {
 
@@ -14,14 +17,20 @@ public class Test {
         Main.dev = true;
 
         try {
-              System.out.println(AreaElem.test(604008));
-              
+            Wincalc wc = new Wincalc();
+            wc.create(AreaElem.test(601001));
+
+//            String json = AreaElem.test(601001);
+//            Gson gson = new Gson();
+//            JsonElement element = gson.fromJson(json, JsonElement.class);
+//            JsonObject mainObj = element.getAsJsonObject();
+
+//              System.out.println(AreaElem.test(601001));              
 //            JPanel pan = new JPanel();
 //            AreaBase ar = new AreaArch("1");
 //            ElemBase el = new ElemFrame("1");
 //            Script.script();
 //            query();
-
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -48,8 +57,8 @@ public class Test {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-                    //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
-                    //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
+            //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             Entity.firebird(Query.connection, "LIS_ORD");
 
             //Query q1 = new Query(eArtikls.values()).select("$t where $f = $v order by $f", eArtikls.up, eArtikls.id, eArtikls.code, 2);
