@@ -7,6 +7,7 @@ import enums.eLayoutArea;
 import enums.eTypeElem;
 import forms.Artikls;
 import java.awt.image.BufferedImage;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -60,7 +61,11 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        //LinkedList<AreaBase> areaList = rootArea.getElemList(eTypeElem.AREA); //список контейнеров        
+        LinkedList<AreaBase> areaList = rootArea.getElemList(eTypeElem.AREA); //список контейнеров
+        LinkedList<AreaStvorka> stvorkaList = rootArea.getElemList(eTypeElem.FULLSTVORKA); //список створок
+        EnumMap<eLayoutArea, ElemFrame> hmElemRama = rootArea.hmElemFrame; //список рам
+        //HashMap<String, ElemJoinig> hmJoinElem = rootArea.getHmJoinElem(); //список соединений
+        
         return rootArea;
     }
 
