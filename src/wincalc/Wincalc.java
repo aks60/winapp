@@ -50,8 +50,17 @@ public class Wincalc {
 
         //Парсинг входного скрипта
         AreaBase mainArea = parsingScript(productJson);
-        System.out.println(mainArea);
 
+        //Создание root окна
+        if (mainArea instanceof AreaSquare) {
+            rootArea = (AreaSquare) mainArea;  //калькуляция простого окна
+        } else if (mainArea instanceof AreaArch) {
+            rootArea = (AreaArch) mainArea;    //калькуляция арки
+        } else if (mainArea instanceof AreaTrapeze) {
+            rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
+        }
+        //Инициализация объектов калькуляции
+        //LinkedList<AreaBase> areaList = rootArea.getElemList(eTypeElem.AREA); //список контейнеров        
         return rootArea;
     }
 
@@ -59,44 +68,43 @@ public class Wincalc {
      * Парсим входное json окно и строим объектную модель окна
      */
     private AreaBase parsingScript(String json) {
-        String layoutObj = null;
         AreaBase rootArea = null;
         try {
             JsonElement lsnoElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = lsnoElement.getAsJsonObject();
 
-            String id = mainObj.get("id").toString();
-            String paramJson = mainObj.get("paramJson").toString();
-            nuni = Integer.parseInt(mainObj.get("nuni").toString());
+            String id = mainObj.get("id").getAsString();
+            String paramJson = mainObj.get("paramJson").getAsString();
+            nuni = mainObj.get("nuni").getAsInt();
             if (mainObj.get("prj") != null) {
-                prj = mainObj.get("prj").toString();
+                prj = mainObj.get("prj").getAsString();
             }
-            width = Float.parseFloat(mainObj.get("width").toString());
-            height = Float.parseFloat(mainObj.get("heightLow").toString());
-            heightAdd = Float.parseFloat(mainObj.get("height").toString());
+            width = mainObj.get("width").getAsFloat();
+            height = mainObj.get("heightLow").getAsFloat();
+            heightAdd = mainObj.get("height").getAsFloat();
 
 //            Sysproa sysproaRec = Sysproa.find(constr, nuni, TypeProfile.FRAME, ProfileSide.Left);
 //            articlesRec = Artikls.get(constr, sysproaRec.anumb, true); //главный артикл системы профилей
 //            syssizeRec = Syssize.find(constr, articlesRec.sunic); //системные константы
             //Цвета
-            color1 = Integer.parseInt(mainObj.get("color1").toString());
-            color2 = Integer.parseInt(mainObj.get("color2").toString());
-            color3 = Integer.parseInt(mainObj.get("color3").toString());
+            color1 = mainObj.get("color1").getAsInt();
+            color2 = mainObj.get("color2").getAsInt();
+            color3 = mainObj.get("color3").getAsInt();
 
             //Определим напрвление построения окна
-            layoutObj = mainObj.get("layoutArea").toString();
+            String layoutObj = mainObj.get("layoutArea").getAsString();
             eLayoutArea layoutRoot = ("VERTICAL".equals(layoutObj)) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
 
-            if ("SQUARE".equals(mainObj.get("elemType").toString())) {
+            if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
                 rootArea = new AreaSquare(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
 
-            } else if ("TRAPEZE".equals(mainObj.get("elemType").toString())) {
+            } else if ("TRAPEZE".equals(mainObj.get("elemType").getAsString())) {
                 rootArea = new AreaTrapeze(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //трапеция
 
-            } else if ("TRIANGL".equals(mainObj.get("elemType").toString())) {
+            } else if ("TRIANGL".equals(mainObj.get("elemType").getAsString())) {
                 rootArea = new AreaTriangl(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //треугольник
 
-            } else if ("ARCH".equals(mainObj.get("elemType").toString())) {
+            } else if ("ARCH".equals(mainObj.get("elemType").getAsString())) {
                 rootArea = new AreaArch(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
 
             }
@@ -105,22 +113,22 @@ public class Wincalc {
             for (Object elemFrame : mainObj.get("elements").getAsJsonArray()) {
                 JsonObject jsonFrame = (JsonObject) elemFrame;
 
-                if (eTypeElem.FRAME.name().equals(jsonFrame.get("elemType"))) {
+                if (eTypeElem.FRAME.name().equals(jsonFrame.get("elemType").getAsString())) {
 
-                    if (eLayoutArea.LEFT.name().equals(jsonFrame.get("layoutFrame"))) {
-                        ElemFrame frameLeft = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.LEFT));
+                    if (eLayoutArea.LEFT.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                        ElemFrame frameLeft = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), eLayoutArea.LEFT));
 
-                    } else if (eLayoutArea.RIGHT.name().equals(jsonFrame.get("layoutFrame"))) {
-                        ElemFrame frameRight = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.RIGHT));
+                    } else if (eLayoutArea.RIGHT.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                        ElemFrame frameRight = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), eLayoutArea.RIGHT));
 
-                    } else if (eLayoutArea.TOP.name().equals(jsonFrame.get("layoutFrame"))) {
-                        ElemFrame frameTop = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.TOP));
+                    } else if (eLayoutArea.TOP.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                        ElemFrame frameTop = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), eLayoutArea.TOP));
 
-                    } else if (eLayoutArea.BOTTOM.name().equals(jsonFrame.get("layoutFrame"))) {
-                        ElemFrame frameBottom = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.BOTTOM));
+                    } else if (eLayoutArea.BOTTOM.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                        ElemFrame frameBottom = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), eLayoutArea.BOTTOM));
 
-                    } else if (eLayoutArea.ARCH.name().equals(jsonFrame.get("layoutFrame"))) {
-                        ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").toString(), eLayoutArea.ARCH));
+                    } else if (eLayoutArea.ARCH.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                        ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), eLayoutArea.ARCH));
                     }
                 }
             }
@@ -128,22 +136,22 @@ public class Wincalc {
             //Элементы окна
             for (Object objL1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
                 JsonObject elemL1 = (JsonObject) objL1;
-                if (eTypeElem.AREA.name().equals(elemL1.get("elemType"))) {
+                if (eTypeElem.AREA.name().equals(elemL1.get("elemType").getAsString())) {
                     AreaBase areaSimple1 = parsingAddArea(rootArea, rootArea, elemL1);
 
                     for (Object objL2 : elemL1.get("elements").getAsJsonArray()) { //второй уровень
                         JsonObject elemL2 = (JsonObject) objL2;
-                        if (eTypeElem.AREA.name().equals(elemL2.get("elemType"))) {
+                        if (eTypeElem.AREA.name().equals(elemL2.get("elemType").getAsString())) {
                             AreaBase areaSimple2 = parsingAddArea(rootArea, areaSimple1, elemL2);
 
                             for (Object objL3 : elemL2.get("elements").getAsJsonArray()) {  //третий уровень
                                 JsonObject elemL3 = (JsonObject) objL3;
-                                if (eTypeElem.AREA.name().equals(elemL3.get("elemType"))) {
+                                if (eTypeElem.AREA.name().equals(elemL3.get("elemType").getAsString())) {
                                     AreaBase areaSimple3 = parsingAddArea(rootArea, areaSimple2, elemL3);
 
                                     for (Object objL4 : elemL3.get("elements").getAsJsonArray()) {  //четвёртый уровень
                                         JsonObject elemL4 = (JsonObject) objL4;
-                                        if (eTypeElem.AREA.name().equals(elemL4.get("elemType"))) {
+                                        if (eTypeElem.AREA.name().equals(elemL4.get("elemType").getAsString())) {
                                             AreaBase areaSinple4 = parsingAddArea(rootArea, areaSimple3, elemL4);
                                         } else {
                                             parsingAddElem(rootArea, areaSimple3, elemL4);
@@ -170,12 +178,12 @@ public class Wincalc {
 
     private AreaBase parsingAddArea(AreaBase rootArea, AreaBase ownerArea, JsonObject objArea) {
 
-        float width = (ownerArea.layout() == eLayoutArea.VERTICAL) ? ownerArea.width : Float.valueOf(objArea.get("width").toString());
-        float height = (ownerArea.layout() == eLayoutArea.VERTICAL) ? Float.valueOf(objArea.get("height").toString()) : ownerArea.height;
+        float width = (ownerArea.layout() == eLayoutArea.VERTICAL) ? ownerArea.width : objArea.get("width").getAsFloat();
+        float height = (ownerArea.layout() == eLayoutArea.VERTICAL) ? objArea.get("height").getAsFloat() : ownerArea.height;
 
-        String layoutObj = objArea.get("layoutArea").toString();
+        String layoutObj = objArea.get("layoutArea").getAsString();
         eLayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
-        String id = objArea.get("id").toString();
+        String id = objArea.get("id").getAsString();
         AreaScene sceneArea = new AreaScene(this, rootArea, ownerArea, id, layoutArea, width, height);
         ownerArea.addElem(sceneArea);
         return sceneArea;
@@ -183,28 +191,28 @@ public class Wincalc {
 
     private void parsingAddElem(AreaBase root, AreaBase owner, JsonObject elem) {
 
-        if (eTypeElem.IMPOST.name().equals(elem.get("elemType"))) {
-            owner.addElem(new ElemImpost(root, owner, elem.get("id").toString()));
+        if (eTypeElem.IMPOST.name().equals(elem.get("elemType").getAsString())) {
+            owner.addElem(new ElemImpost(root, owner, elem.get("id").getAsString()));
 
-        } else if (eTypeElem.GLASS.name().equals(elem.get("elemType"))) {
+        } else if (eTypeElem.GLASS.name().equals(elem.get("elemType").getAsString())) {
             if (elem.get("paramJson") != null) {
-                owner.addElem(new ElemGlass(root, owner, elem.get("id").toString(), elem.get("paramJson").toString()));
+                owner.addElem(new ElemGlass(root, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
             } else {
-                owner.addElem(new ElemGlass(root, owner, elem.get("id").toString()));
+                owner.addElem(new ElemGlass(root, owner, elem.get("id").getAsString()));
             }
 
-        } else if (eTypeElem.FULLSTVORKA.name().equals(elem.get("elemType"))) {
+        } else if (eTypeElem.FULLSTVORKA.name().equals(elem.get("elemType").getAsString())) {
 
-            AreaStvorka elemStvorka = new AreaStvorka(this, owner, elem.get("id").toString(), elem.get("paramJson").toString());
+            AreaStvorka elemStvorka = new AreaStvorka(this, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString());
             owner.addElem(elemStvorka);
             //Уровень ниже
             for (Object obj : elem.get("elements").getAsJsonArray()) { //т.к. может быть и глухарь
                 JsonObject elem2 = (JsonObject) obj;
-                if (eTypeElem.GLASS.name().equals(elem2.get("elemType"))) {
+                if (eTypeElem.GLASS.name().equals(elem2.get("elemType").getAsString())) {
                     if (elem2.get("paramJson") != null) {
-                        elemStvorka.addElem(new ElemGlass(root, elemStvorka, elem2.get("id").toString(), elem2.get("paramJson").toString()));
+                        elemStvorka.addElem(new ElemGlass(root, elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
                     } else {
-                        elemStvorka.addElem(new ElemGlass(root, elemStvorka, elem2.get("id").toString()));
+                        elemStvorka.addElem(new ElemGlass(root, elemStvorka, elem2.get("id").getAsString()));
                     }
                 }
             }

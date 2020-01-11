@@ -10,21 +10,21 @@ public class ElemImpost extends ElemBase {
     protected float anglCut1 = 90; //угол реза импоста
     protected float anglCut2 = 90; //угол реза импоста
 
-        public ElemImpost(String id) {
+    public ElemImpost(String id) {
         super(id);
     }
-        
+
     public ElemImpost(AreaBase root, AreaBase owner, String id) {
 
         super(id);
-        this.side = (owner.layout() == eLayoutArea.HORIZONTAL) ?eLayoutArea.VERTICAL :eLayoutArea.HORIZONTAL;
+        this.side = (owner.layout() == eLayoutArea.HORIZONTAL) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
         color1 = root.color1;
         color2 = root.color2;
         color3 = root.color3;
         initСonstructiv();
 
         //Коррекция положения импоста арки
-        if((eTypeElem.ARCH == owner.typeArea() || eTypeElem.TRAPEZE == owner.typeArea()) && owner.childs().isEmpty()) {
+        if ((eTypeElem.ARCH == owner.getTypeElem() || eTypeElem.TRAPEZE == owner.getTypeElem()) && owner.childs().isEmpty()) {
 
 //                float dh = articlesRec.aheig / 2;
 //                owner.addElem(new AreaBase(owner.getIwin(), root, owner, genId(), eLayoutArea.HORIZONTAL, owner.width, dh));
@@ -56,5 +56,10 @@ public class ElemImpost extends ElemBase {
 //        }
 //        articlesRec = Artikls.get(getConst(), sysproaRec.anumb, true);
 //        specificationRec.setArticlRec(articlesRec);
+    }
+
+    @Override
+    public eTypeElem getTypeElem() {
+        return eTypeElem.IMPOST;
     }
 }

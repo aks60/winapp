@@ -7,32 +7,21 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
-public abstract class AreaBase implements IBase {
+public abstract class AreaBase extends Base {
 
-    protected String id = "0"; //идентификатор
-
-    protected float x1 = 0;
-    protected float y1 = 0;
-    protected float x2 = 0;
-    protected float y2 = 0;
-    protected float width = 0;  //ширина
-    protected float height = 0; //высота    
-    protected int color1 = -1;  //базовый 
-    protected int color2 = -1;  //внутренний
-    protected int color3 = -1;  //внешний
-    
     protected Wincalc iwin = null; //главный класс
     protected AreaBase root = null; //главное окно
     protected AreaBase owner = null; //владелец
     protected HashMap<eParamJson, Object> hmParamJson = new HashMap(); //параметры элемента
-    private LinkedList<IBase> arrChild = new LinkedList(); //список компонентов в окне    
+    private LinkedList<Base> arrChild = new LinkedList(); //список компонентов в окне    
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
 
     /**
      * Конструктор
-     */    
+     */
     public AreaBase(String id) {
         this.id = id;
         //setLayout(layout);     
@@ -48,12 +37,11 @@ public abstract class AreaBase implements IBase {
         //Коррекция размера стеклопакета(створки) арки.
         //Уменьшение на величину добавленной подкладки над импостом.
         //if (owner != null && eTypeElem.ARCH == owner.getTypeArea() && owner.getChildList().size() == 2 && eTypeElem.IMPOST == owner.getChildList().get(1).getTypeElem()) {
-            //float dh = owner.getChildList().get(1).getArticlesRec().aheig / 2;
-            //setDimension(x1, y1, x2, y2 - dh);
+        //float dh = owner.getChildList().get(1).getArticlesRec().aheig / 2;
+        //setDimension(x1, y1, x2, y2 - dh);
         //}
     }
 
-    
     /**
      * Конструктор
      */
@@ -125,48 +113,93 @@ public abstract class AreaBase implements IBase {
 //            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
 //        }
     }
+
+    /**
+     * Список элементов окна
+     *
+     * @param type Тип элемента
+     * @param <E> Тип возвращаемого элемента
+     * @return Список элементов в контейнере
+     */
+    public <E> LinkedList<E> getElemList(eTypeElem... type) {
+        if (type == null) {
+            type = new eTypeElem[]{eTypeElem.FRAME, eTypeElem.IMPOST, eTypeElem.GLASS, eTypeElem.STVORKA};
+        }
+        LinkedList<Base> arrElem = new LinkedList();
+        LinkedList<E> outElem = new LinkedList();
+        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : root.getHmElemFrame().entrySet()) {
+            arrElem.add(elemRama.getValue());
+        }
+        for (Base elemBase : root.getArrChild()) { //первый уровень
+            arrElem.add(elemBase);
+            if (elemBase instanceof AreaBase) {
+                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase).getHmElemFrame().entrySet()) {
+                    arrElem.add(elemRama.getValue());
+                }
+                for (Base elemBase2 : elemBase.getArrChild()) { //второй уровень
+                    arrElem.add(elemBase2);
+                    if (elemBase2 instanceof AreaBase) {
+                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase2).getHmElemFrame().entrySet()) {
+                            arrElem.add(elemRama.getValue());
+                        }
+                        for (Base elemBase3 : elemBase2.getArrChild()) { //третий уровень
+                            arrElem.add(elemBase3);
+                            if (elemBase3 instanceof AreaBase) {
+                                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase3).getHmElemFrame().entrySet()) {
+                                    arrElem.add(elemRama.getValue());
+                                }
+                                for (Base elemBase4 : elemBase3.getArrChild()) { //четвёртый уровень
+                                    arrElem.add(elemBase4);
+                                    if (elemBase4 instanceof AreaBase) {
+                                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase4).getHmElemFrame().entrySet()) {
+                                            arrElem.add(elemRama.getValue());
+                                        }
+                                        for (Base elemBase5 : elemBase4.getArrChild()) { //пятый уровень
+                                            arrElem.add(elemBase5);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //Цикл по входному списку элементов
+        for (int index = 0; index < type.length; ++index) {
+            eTypeElem type2 = type[index];
+            for (Base elemBase : arrElem) {
+                if (elemBase.getTypeElem() == type2) {
+                    E elem = (E) elemBase;
+                    outElem.add(elem);
+                }
+            }
+        }
+        return outElem;
+    }
+
+    public LinkedList<Base> getArrChild() { 
+        return arrChild;
+    }
     
-    public void addElem(IBase element) {
+    public void addElem(Base element) {
         arrChild.add(element);
     }
-        
+
+    public EnumMap<eLayoutArea, ElemFrame> getHmElemFrame() {
+        return hmElemFrame;
+    }
+    
     public ElemFrame addFrame(ElemFrame elemFrame) {
         hmElemFrame.put(elemFrame.getLayout(), elemFrame);
         return elemFrame;
-    }
-    
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public float width() {
-        return width;
-    }
-
-    @Override
-    public float height() {
-        return width;
     }
 
     public eLayoutArea layout() {
         return layout;
     }
 
-    /**
-     * Заполнить главную спецификацию элемента
-     */
-    public void setDimension(float x1, float y1, float x2, float y2) {
-        this.x1 = x1;
-        this.y1 = y1;
-        this.x2 = x2;
-        this.y2 = y2;
-    }
-    
-    public abstract eTypeElem typeArea();
-    
-    public LinkedList<IBase> childs() {
+    public LinkedList<Base> childs() {
         return arrChild;
     }
 }

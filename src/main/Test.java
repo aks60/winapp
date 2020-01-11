@@ -8,6 +8,8 @@ import dataset.Query;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import script.AreaElem;
 import wincalc.Wincalc;
 
@@ -25,7 +27,7 @@ public class Test {
 //            JsonElement element = gson.fromJson(json, JsonElement.class);
 //            JsonObject mainObj = element.getAsJsonObject();
 
-//              System.out.println(AreaElem.test(601001));              
+//            System.out.println(AreaElem.test(601001));              
 //            JPanel pan = new JPanel();
 //            AreaBase ar = new AreaArch("1");
 //            ElemBase el = new ElemFrame("1");

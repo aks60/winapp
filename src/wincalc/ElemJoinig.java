@@ -1,8 +1,10 @@
 package wincalc;
 
-public class ElemJoinig extends ElemBase {
+import enums.eTypeElem;
+
+public class ElemJoinig {
 
     public ElemJoinig(String id) {
-        super(id);
     }
+       
 }

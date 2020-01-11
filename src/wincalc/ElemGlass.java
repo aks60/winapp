@@ -1,9 +1,9 @@
 package wincalc;
 
 import enums.eLayoutArea;
+import enums.eTypeElem;
 
 public class ElemGlass extends ElemBase {
-
 
     public static final String RECTANGL = "Прямоугольное";              //
     public static final String RECTANGU_NOT = "Не прямоугольное";       // Параметры
@@ -20,7 +20,7 @@ public class ElemGlass extends ElemBase {
     public ElemGlass(AreaBase root, AreaBase owner, String id, String paramJson) {
 
         super(id);
-        
+
 //        if(paramJson != null) {
 //            String str = paramJson.replace("'", "\"");
 //            JSONObject jsonPar = (JSONObject) new JSONParser().parse(str);
@@ -56,5 +56,10 @@ public class ElemGlass extends ElemBase {
 //        colorInternal = artsvstRec.clcod;
 //        colorExternal = artsvstRec.clcod;
 //        specificationRec.setArticlRec(articlesRec);
+    }
+
+    @Override
+    public eTypeElem getTypeElem() {
+        return eTypeElem.GLASS;
     }
 }

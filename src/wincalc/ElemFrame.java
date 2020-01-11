@@ -1,6 +1,7 @@
 package wincalc;
 
 import enums.eLayoutArea;
+import enums.eTypeElem;
 
 public class ElemFrame extends ElemBase {
 
@@ -59,5 +60,10 @@ public class ElemFrame extends ElemBase {
 //        sysproaRec = Sysproa.find(getConst(), owner.iwin.nuni, getTypeProfile());
 //        articlesRec = Artikls.get(getConst(), sysproaRec.anumb, true);
 //        specificationRec.setArticlRec(articlesRec);
+    }   
+    
+    @Override
+    public eTypeElem getTypeElem() {
+        return eTypeElem.FRAME;
     }    
 }

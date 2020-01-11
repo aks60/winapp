@@ -12,7 +12,7 @@ public class AreaArch extends AreaBase {
     }
 
     @Override
-    public eTypeElem typeArea() {
+    public eTypeElem getTypeElem() {
         return eTypeElem.ARCH;
     }
 }

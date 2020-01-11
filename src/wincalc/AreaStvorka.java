@@ -56,7 +56,7 @@ public class AreaStvorka extends AreaBase {    public String handleHeight = ""; 
     }
     
     @Override
-    public eTypeElem typeArea() {
+    public eTypeElem getTypeElem() {
         return eTypeElem.STVORKA;
     }    
 }

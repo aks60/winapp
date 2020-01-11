@@ -12,7 +12,7 @@ public class AreaSquare extends AreaBase {
     }
     
     @Override
-    public eTypeElem typeArea() {
+    public eTypeElem getTypeElem() {
         return eTypeElem.SQUARE;
     }    
 }
