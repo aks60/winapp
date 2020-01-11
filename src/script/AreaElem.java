@@ -92,7 +92,7 @@ public class AreaElem extends Element {
     public static String test(Integer id) {
         if (id == 601001) {
 
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
             rootArea.setParam(8, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -103,7 +103,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601002) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1300, 1400, 1400, 1009, 10009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1300, 1400, 1400, 1009, 10009, 1009, "");
             rootArea.setParam(29, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -121,7 +121,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601003) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 1440, 1700, 1700, 1009, 1009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 1440, 1700, 1700, 1009, 1009, 1009, "");
             rootArea.setParam(81, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -143,7 +143,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601004) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 1440, 1700, 1700, 1009, 1009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 1440, 1700, 1700, 1009, 1009, 1009, "");
             rootArea.setParam(8, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -165,7 +165,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601005) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1600, 1700, 1700, 1009, 1009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1600, 1700, 1700, 1009, 1009, 1009, "");
             rootArea.setParam(8, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -183,7 +183,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601006) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 900, 1400, 1400, 1009, 1009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 900, 1400, 1400, 1009, 1009, 1009, "");
             rootArea.setParam(110, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -194,7 +194,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601007) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 1100, 1400, 1400, 1009, 10018, 10018, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.SQUARE, 1100, 1400, 1400, 1009, 10018, 10018, "");
             rootArea.setParam(87, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -216,7 +216,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601008) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1200, 1700, 1700, 1009, 28014, 21057, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1200, 1700, 1700, 1009, 28014, 21057, "");
             rootArea.setParam(99, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -237,7 +237,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601009) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 700, 1400, 1400, 1009, 1009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 700, 1400, 1400, 1009, 1009, 1009, "");
             rootArea.setParam(54, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -248,7 +248,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 601010) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1300, 1400, 1400, 1009, 1009, 1009, "{'pro4Params':[[-862071,295],[-862065,314],[-862062,325],[-862131,17],[-862097,195],[-862060,335]]}");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.HORIZONTAL, eTypeElem.SQUARE, 1300, 1400, 1400, 1009, 1009, 1009, "{'pro4Params':[[-862071,295],[-862065,314],[-862062,325],[-862131,17],[-862097,195],[-862060,335]]}");
             rootArea.setParam(54, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -267,7 +267,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 604004) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1700, 1050, 1009, 1009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1700, 1050, 1009, 1009, 1009, "");
             rootArea.setParam(37, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -289,7 +289,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 604005) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
             rootArea.setParam(135, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -310,7 +310,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 604006) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1100, 1600, 1220, 1009, 1009, 10012, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1100, 1600, 1220, 1009, 1009, 10012, "");
             rootArea.setParam(135, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -331,7 +331,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 604007) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1400, 1700, 1300, 1009, 1009, 10001, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1400, 1700, 1300, 1009, 1009, 10001, "");
             rootArea.setParam(99, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -352,7 +352,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 604008) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
             rootArea.setParam(8, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -373,7 +373,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 604009) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
             rootArea.setParam(8, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -388,7 +388,7 @@ public class AreaElem extends Element {
             return new Gson().toJson(rootArea);
 
         } else if (id == 604010) {
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1700, 1400, 1009, 10009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.ARCH, 1300, 1700, 1400, 1009, 10009, 1009, "");
             rootArea.setParam(29, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));
@@ -413,7 +413,7 @@ public class AreaElem extends Element {
 
         } else if (id == 605001) {
 
-            RootArea rootArea = new RootArea("1", eLayoutArea.VERTICAL, eTypeElem.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            AreaRoot rootArea = new AreaRoot("1", eLayoutArea.VERTICAL, eTypeElem.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009, "");
             rootArea.setParam(8, id.toString());
             rootArea.add(new Element("2", eTypeElem.FRAME, eLayoutArea.LEFT));
             rootArea.add(new Element("3", eTypeElem.FRAME, eLayoutArea.RIGHT));

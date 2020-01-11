@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import script.RootArea;
+import script.AreaRoot;
 import swing.DefTableModel;
 
 public class Design extends javax.swing.JFrame {
@@ -31,7 +31,7 @@ public class Design extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
-    private RootArea rootArea;
+    private AreaRoot rootArea;
 
     public Design() {
         initComponents();

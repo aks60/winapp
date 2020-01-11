@@ -4,7 +4,7 @@ import enums.eLayoutArea;
 import enums.eTypeElem;
 import java.util.LinkedList;
 
-public class RootArea extends AreaElem {
+public class AreaRoot extends AreaElem {
 
     private Integer nuni = null;       //nuni профиля (PRO4_SYSPROF.NUNI)
     protected Float heightLow = null;  //меньшая высота, мм (по аналогии с ПС-4). Для прямоугольного изделия = height.
@@ -16,7 +16,7 @@ public class RootArea extends AreaElem {
     /**
      * Контруктор главного окна
      */
-    public RootArea(String id, eLayoutArea layoutArea, eTypeElem elemType, float width, float height, float heightLow, int color1, int color2, int color3, String paramJson) {
+    public AreaRoot(String id, eLayoutArea layoutArea, eTypeElem elemType, float width, float height, float heightLow, int color1, int color2, int color3, String paramJson) {
         super.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
