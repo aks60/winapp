@@ -17,47 +17,47 @@ public class AreaSquare extends AreaBase {
     }
 
     @Override
-    public void passJoinRama() {
-/*
+    public void passJoin() {
+
         String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
         String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
         String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
         String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
 
         //Угловое соединение левое верхнее
-        ElemJoinig elemJoin1 = new ElemJoinig(getConst());
-        elemJoin1.elemJoinRight = hmElemFrame.get(LayoutArea.TOP);
-        elemJoin1.elemJoinBottom = hmElemFrame.get(LayoutArea.LEFT);
+        ElemJoinig elemJoin1 = new ElemJoinig(iwin);
+        elemJoin1.elemJoinRight = mapFrame.get(eLayoutArea.TOP);
+        elemJoin1.elemJoinBottom = mapFrame.get(eLayoutArea.LEFT);
         elemJoin1.cutAngl1 = 45;
         elemJoin1.cutAngl2 = 45;
         elemJoin1.anglProf = 90;
-        getHmJoinElem().put(key1, elemJoin1);
+        mapJoin().put(key1, elemJoin1);
 
         //Угловое соединение правое верхнее
-        ElemJoinig elemJoin2 = new ElemJoinig(getConst());
-        elemJoin2.elemJoinLeft = hmElemFrame.get(LayoutArea.TOP);
-        elemJoin2.elemJoinBottom = hmElemFrame.get(LayoutArea.RIGHT);
+        ElemJoinig elemJoin2 = new ElemJoinig(iwin);
+        elemJoin2.elemJoinLeft = mapFrame.get(eLayoutArea.TOP);
+        elemJoin2.elemJoinBottom = mapFrame.get(eLayoutArea.RIGHT);
         elemJoin2.cutAngl1 = 45;
         elemJoin2.cutAngl2 = 45;
         elemJoin2.anglProf = 90;
-        getHmJoinElem().put(key2, elemJoin2);
+        mapJoin().put(key2, elemJoin2);
 
         //Угловое соединение правое нижнее
-        ElemJoinig elemJoin3 = new ElemJoinig(getConst());
-        elemJoin3.elemJoinTop = hmElemFrame.get(LayoutArea.RIGHT);
-        elemJoin3.elemJoinLeft = hmElemFrame.get(LayoutArea.BOTTOM);
+        ElemJoinig elemJoin3 = new ElemJoinig(iwin);
+        elemJoin3.elemJoinTop = mapFrame.get(eLayoutArea.RIGHT);
+        elemJoin3.elemJoinLeft = mapFrame.get(eLayoutArea.BOTTOM);
         elemJoin3.cutAngl1 = 45;
         elemJoin3.cutAngl2 = 45;
         elemJoin3.anglProf = 90;
-        getHmJoinElem().put(key3, elemJoin3);
+        mapJoin().put(key3, elemJoin3);
 
         //Угловое соединение левое нижнее
-        ElemJoinig elemJoin4 = new ElemJoinig(getConst());
-        elemJoin4.elemJoinRight = hmElemFrame.get(LayoutArea.BOTTOM);
-        elemJoin4.elemJoinTop = hmElemFrame.get(LayoutArea.LEFT);
+        ElemJoinig elemJoin4 = new ElemJoinig(iwin);
+        elemJoin4.elemJoinRight = mapFrame.get(eLayoutArea.BOTTOM);
+        elemJoin4.elemJoinTop = mapFrame.get(eLayoutArea.LEFT);
         elemJoin4.cutAngl1 = 45;
         elemJoin4.cutAngl2 = 45;
         elemJoin4.anglProf = 90;
-        getHmJoinElem().put(key4, elemJoin4);*/
+        mapJoin().put(key4, elemJoin4);
     }
 }

@@ -14,7 +14,7 @@ public class ElemFrame extends ElemBase {
         super(id);
     }
 
-    public eLayoutArea getLayout() {
+    public eLayoutArea layout() {
         return side;
     }
 
@@ -45,11 +45,11 @@ public class ElemFrame extends ElemBase {
 //        }
 
 
-        if (eLayoutArea.TOP == getLayout() || eLayoutArea.BOTTOM == getLayout()) {
+        if (eLayoutArea.TOP == layout() || eLayoutArea.BOTTOM == layout()) {
             width = x2 - x1;
             height = y2 - y1;
 
-        } else if (eLayoutArea.LEFT == getLayout() || eLayoutArea.RIGHT == getLayout()) {
+        } else if (eLayoutArea.LEFT == layout() || eLayoutArea.RIGHT == layout()) {
             width = y2 - y1;
             height = x2 - x1;
         }

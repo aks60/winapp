@@ -34,11 +34,11 @@ public class Wincalc {
     private byte[] bufferFullImg = null; //полный рисунок
     protected String labelSketch = "empty"; //надпись на эскизе
     protected AreaBase rootArea = null;
-    private HashMap<Integer, String> hmPro4Params = new HashMap();
+    private HashMap<Integer, String> mapPro4Params = new HashMap();
     //protected Syssize syssizeRec = null; //константы
     protected BufferedImage img = null;  //образ рисунка
-    protected HashMap<Integer, Object[]> hmParamDef = new HashMap(); //параметры по умолчанию
-    protected HashMap<String, ElemJoinig> hmJoinElem = new HashMap(); //список соединений рам и створок
+    protected HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию
+    protected HashMap<String, ElemJoinig> mapJoin = new HashMap(); //список соединений рам и створок
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
 
@@ -47,8 +47,8 @@ public class Wincalc {
 
     public AreaBase create(String productJson) {
 
-        hmParamDef.clear();
-        hmJoinElem.clear();
+        mapParamDef.clear();
+        mapJoin.clear();
         drawMapLineList.clear();
 
         //Парсинг входного скрипта
@@ -65,13 +65,13 @@ public class Wincalc {
         //Инициализация объектов калькуляции
         LinkedList<AreaBase> areaList = rootArea.elemList(eTypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> stvorkaList = rootArea.elemList(eTypeElem.FULLSTVORKA); //список створок
-        EnumMap<eLayoutArea, ElemFrame> hmElemRama = rootArea.hmElemFrame; //список рам
+        EnumMap<eLayoutArea, ElemFrame> hmElemRama = rootArea.mapFrame; //список рам
 
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
         //Соединения рамы
-        rootArea.passJoinRama();  //обход соединений и кальк. углов рамы
+        rootArea.passJoin();  //обход соединений и кальк. углов рамы
 
         return rootArea;
     }

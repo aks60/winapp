@@ -15,7 +15,7 @@ public class AreaScene extends AreaBase {
     }
 
     @Override
-    public void passJoinRama() {
+    public void passJoin() {
         System.out.println("Функция не определена");
     }
 }

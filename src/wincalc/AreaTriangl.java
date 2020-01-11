@@ -17,7 +17,7 @@ public class AreaTriangl extends AreaBase {
     }
 
     @Override
-    public void passJoinRama() {
+    public void passJoin() {
         System.out.println("Функция не определена");
     }
 }

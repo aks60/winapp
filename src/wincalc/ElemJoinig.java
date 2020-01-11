@@ -24,7 +24,7 @@ public class ElemJoinig {
     protected float anglProf = 0;     //Угол между профилями
     public String costsJoin = "";     //Трудозатраты, ч/ч. 
     
-    public ElemJoinig(String id) {
+    public ElemJoinig(Wincalc iwin) {
     }
        
 }

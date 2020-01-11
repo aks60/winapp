@@ -14,9 +14,9 @@ public abstract class AreaBase extends Base {
     protected AreaBase owner = null; //владелец
     private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
     
-    protected HashMap<eParamJson, Object> hmParamJson = new HashMap(); //параметры элемента        
+    protected HashMap<eParamJson, Object> mapParamJson = new HashMap(); //параметры элемента        
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
-    protected EnumMap<eLayoutArea, ElemFrame> hmElemFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
+    protected EnumMap<eLayoutArea, ElemFrame> mapFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
 
     /**
      * Конструктор
@@ -124,31 +124,31 @@ public abstract class AreaBase extends Base {
         }
         LinkedList<Base> arrElem = new LinkedList();
         LinkedList<E> outElem = new LinkedList();
-        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : root().hmElemFrame().entrySet()) {
+        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : root().mapFrame.entrySet()) {
             arrElem.add(elemRama.getValue());
         }
         for (Base elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase instanceof AreaBase) {
-                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase).hmElemFrame().entrySet()) {
+                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase).mapFrame.entrySet()) {
                     arrElem.add(elemRama.getValue());
                 }
                 for (Base elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
                     if (elemBase2 instanceof AreaBase) {
-                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase2).hmElemFrame().entrySet()) {
+                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase2).mapFrame.entrySet()) {
                             arrElem.add(elemRama.getValue());
                         }
                         for (Base elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
                             if (elemBase3 instanceof AreaBase) {
-                                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase3).hmElemFrame().entrySet()) {
+                                for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase3).mapFrame.entrySet()) {
                                     arrElem.add(elemRama.getValue());
                                 }
                                 for (Base elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
                                     if (elemBase4 instanceof AreaBase) {
-                                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase4).hmElemFrame().entrySet()) {
+                                        for (Map.Entry<eLayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase4).mapFrame.entrySet()) {
                                             arrElem.add(elemRama.getValue());
                                         }
                                         for (Base elemBase5 : elemBase4.listChild()) { //пятый уровень
@@ -175,10 +175,10 @@ public abstract class AreaBase extends Base {
         return outElem;
     }
 
-    public abstract void passJoinRama();
+    public abstract void passJoin();
 
-    public HashMap<String, ElemJoinig> hmJoinElem() {
-        return iwin().hmJoinElem;
+    public HashMap<String, ElemJoinig> mapJoin() {
+        return iwin.mapJoin;
     }
 
     @Override
@@ -190,12 +190,8 @@ public abstract class AreaBase extends Base {
         listChild.add(element);
     }
 
-    public EnumMap<eLayoutArea, ElemFrame> hmElemFrame() {
-        return hmElemFrame;
-    }
-
     public ElemFrame addFrame(ElemFrame elemFrame) {
-        hmElemFrame.put(elemFrame.getLayout(), elemFrame);
+        mapFrame.put(elemFrame.layout(), elemFrame);
         return elemFrame;
     }
 
