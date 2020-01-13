@@ -13,7 +13,7 @@ public abstract class AreaBase extends Base {
 
     protected AreaBase owner = null; //владелец
     private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
-    
+
     protected HashMap<eParamJson, Object> mapParamJson = new HashMap(); //параметры элемента        
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<eLayoutArea, ElemFrame> mapFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
@@ -22,7 +22,7 @@ public abstract class AreaBase extends Base {
      * Конструктор
      */
     public AreaBase(String id) {
-        this.id = id;  
+        this.id = id;
     }
 
     /**
@@ -112,6 +112,134 @@ public abstract class AreaBase extends Base {
     }
 
     /**
+     * Обход(схлопывание) соединений рамы
+     */
+    public void passJoinArea(HashMap<String, ElemJoinig> hmJoin) {
+
+        /* if(getAdjoinedElem(LayoutArea.TOP) instanceof AreaSimple || getAdjoinedElem(LayoutArea.LEFT) instanceof AreaSimple) {
+            return; //примыкающие ареи не могут порождать соединения
+        }*/
+ /*if(this != null) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
+        if(height < 160) {
+            return;
+        }*/
+        ElemJoinig elemJoinVal = null;
+        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
+        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
+        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
+        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
+
+        //if (getAdjoinedElem(LayoutArea.TOP) instanceof AreaSimple) {
+        elemJoinVal = hmJoin.get(key1);
+        if (elemJoinVal == null) {
+            hmJoin.put(key1, new ElemJoinig(iwin));
+            elemJoinVal = hmJoin.get(key1);
+        }
+        if (elemJoinVal.elemJoinRight == null) {
+            elemJoinVal.elemJoinRight = getAdjoinedElem(eLayoutArea.TOP);
+        }
+        if (elemJoinVal.elemJoinBottom == null) {
+            elemJoinVal.elemJoinBottom = getAdjoinedElem(eLayoutArea.LEFT);
+        }
+
+        elemJoinVal = hmJoin.get(key2);
+        if (elemJoinVal == null) {
+            hmJoin.put(key2, new ElemJoinig(iwin));
+            elemJoinVal = hmJoin.get(key2);
+        }
+        if (elemJoinVal.elemJoinLeft == null) {
+            elemJoinVal.elemJoinLeft = getAdjoinedElem(eLayoutArea.TOP);
+        }
+        if (elemJoinVal.elemJoinBottom == null) {
+            elemJoinVal.elemJoinBottom = getAdjoinedElem(eLayoutArea.RIGHT);
+        }
+        //}
+        elemJoinVal = hmJoin.get(key3);
+        if (elemJoinVal == null) {
+            hmJoin.put(key3, new ElemJoinig(iwin));
+            elemJoinVal = hmJoin.get(key3);
+        }
+        if (elemJoinVal.elemJoinTop == null) {
+            elemJoinVal.elemJoinTop = getAdjoinedElem(eLayoutArea.RIGHT);
+        }
+        if (elemJoinVal.elemJoinLeft == null) {
+            elemJoinVal.elemJoinLeft = getAdjoinedElem(eLayoutArea.BOTTOM);
+        }
+
+        elemJoinVal = hmJoin.get(key4);
+        if (elemJoinVal == null) {
+            hmJoin.put(key4, new ElemJoinig(iwin));
+            elemJoinVal = hmJoin.get(key4);
+        }
+        if (elemJoinVal.elemJoinTop == null) {
+            elemJoinVal.elemJoinTop = getAdjoinedElem(eLayoutArea.LEFT);
+        }
+        if (elemJoinVal.elemJoinRight == null) {
+            elemJoinVal.elemJoinRight = getAdjoinedElem(eLayoutArea.BOTTOM);
+        }
+    }
+
+    /**
+     * Получить примыкающий элемент
+     * (используется при нахождении элементов соединений)
+     */
+    protected ElemBase getAdjoinedElem(eLayoutArea layoutSide) {
+
+        LinkedList<ElemBase> listElem = getAreaElemList();
+        for (int index = 0; index < listElem.size(); ++index) {
+
+            ElemBase elemBase = listElem.get(index);
+            if (elemBase.id != id) continue; //пропускаем если другая ареа
+
+            EnumMap<eLayoutArea, ElemFrame> hm = root().mapFrame;
+            if (index == 0 && owner.equals(root()) && layoutSide == eLayoutArea.TOP && owner.layout() == eLayoutArea.VERTICAL && getRoot().getTypeElem() == TypeElem.ARCH) {
+                return hm.get(eTypeElem.ARCH);
+            } else if (owner.equals(root()) && layoutSide == eLayoutArea.TOP && owner.layout() == eLayoutArea.HORIZONTAL && getRoot().getTypeElem() == TypeElem.ARCH) {
+                return hm.get(eTypeElem.ARCH);
+            }
+
+            if (owner.equals(root()) && owner.layout() == eLayoutArea.VERTICAL) {
+                if (layoutSide == eLayoutArea.TOP) {
+                    return (index == 0) ? hm.get(layoutSide) : listElem.get(index - 1);
+                } else if (layoutSide == eLayoutArea.BOTTOM) {
+                    return (index == listElem.size() - 1) ? hm.get(layoutSide) : listElem.get(index + 1);
+                } else {
+                    return root().mapFrame.get(layoutSide);
+                }
+
+            } else if (owner.equals(root()) && owner.layout() == eLayoutArea.HORIZONTAL) {
+                if (layoutSide == eLayoutArea.LEFT) {
+                    return (index == 0) ? hm.get(layoutSide) : listElem.get(index - 1);
+                } else if (layoutSide == eLayoutArea.RIGHT) {
+                    return (index == listElem.size() - 1) ? hm.get(layoutSide) : listElem.get(index + 1);
+                } else {
+                    return orot().hmElemFrame.get(layoutSide);
+                }
+
+            } else {
+                if (owner.layout() == eLayoutArea.VERTICAL) {
+                    if (layoutSide == eLayoutArea.TOP) {
+                        return (index == 0) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index - 1);
+                    } else if (layoutSide == eLayoutArea.BOTTOM) {
+                        return (index == listElem.size() - 1) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index + 1);
+                    } else {
+                        return owner.getAdjoinedElem(layoutSide);
+                    }
+                } else {
+                    if (layoutSide == eLayoutArea.LEFT) {
+                        return (index == 0) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index - 1);
+                    } else if (layoutSide == eLayoutArea.RIGHT) {
+                        return (index == listElem.size() - 1) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index + 1);
+                    } else {
+                        return owner.getAdjoinedElem(layoutSide);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Список элементов окна
      *
      * @param type Тип элемента
@@ -175,7 +303,7 @@ public abstract class AreaBase extends Base {
         return outElem;
     }
 
-    public abstract void passJoin();
+    public abstract void passJoinRama();
 
     public HashMap<String, ElemJoinig> mapJoin() {
         return iwin.mapJoin;

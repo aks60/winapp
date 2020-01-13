@@ -71,7 +71,8 @@ public class Wincalc {
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
         //Соединения рамы
-        rootArea.passJoin();  //обход соединений и кальк. углов рамы
+        rootArea.passJoinRama();  //обход соединений и кальк. углов рамы
+        areaList.stream().forEach(area -> area.passJoin(mapJoin)); //обход(схлопывание) соединений рамы
 
         return rootArea;
     }

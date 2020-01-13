@@ -7,6 +7,7 @@ import common.FrameToFile;
 import common.eProfile;
 import common.eProp;
 import convdb.Convert;
+import domain.eArtikls;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import forms.Artikls;
@@ -871,7 +872,7 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-    eApp1.Elements.frame.setExtendedState(JFrame.NORMAL);
+    //Object obj = eArtikls.query;
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb

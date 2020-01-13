@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eArtikls implements Field {
@@ -59,6 +60,7 @@ public enum eArtikls implements Field {
     //abits("4", "10", "1", "null", "ABITS"),
 
     private MetaField meta = new MetaField(this);
+    //public static Query query = new Query(values()).select(up).table(up.tname());
 
     eArtikls(Object... p) {
         meta.init(p);

@@ -63,7 +63,7 @@ public class AreaStvorka extends AreaBase {
     }
 
     @Override
-    public void passJoin() {
+    public void passJoinRama() {
         System.out.println("Функция не определена");
     }
 }
