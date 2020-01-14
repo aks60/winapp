@@ -1,9 +1,10 @@
 package wincalc;
 
-import enums.LayoutArea;
+import constr.Specification;
+import dataset.Record;
+import domain.eArtikls;
 import enums.TypeElem;
 import java.util.LinkedList;
-import java.util.Map;
 
 public abstract class Base {
 
@@ -11,6 +12,7 @@ public abstract class Base {
     public static final int SIDE_END = 2; //правая сторона 
 
     protected String id = "0"; //идентификатор
+    protected AreaBase owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
     protected float x1 = 0;
@@ -24,6 +26,10 @@ public abstract class Base {
     protected int color1 = -1;  //базовый 
     protected int color2 = -1;  //внутренний
     protected int color3 = -1;  //внешний
+
+    protected Record sysprofRec = null; //профиль в системе
+    protected eArtikls articlRec = null; //мат. средства, основной профиль
+    protected Specification specificationRec = null; //спецификация элемента    
 
     public String getId() {
         return id;
@@ -52,5 +58,5 @@ public abstract class Base {
     public abstract TypeElem typeElem();
 
     public abstract LinkedList<Base> listChild();
-    
+
 }

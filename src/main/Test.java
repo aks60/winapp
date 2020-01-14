@@ -5,11 +5,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Query;
-import domain.eArtikls;
+import dataset.Record;
+import domain.eSysprof;
 import enums.ParamJson;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Test {
@@ -18,12 +20,11 @@ public class Test {
         Main.dev = true;
 
         try {
-
 //            Wincalc wc = new Wincalc();
 //            wc.create(AreaElem.test(601001));
 //            Script.script();
 
-//            query();
+            query();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -54,13 +55,14 @@ public class Test {
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //Entity.firebird(Query.connection, "LIS_ORD");
-
+            Query sysprofRec = eSysprof.query.select(eSysprof.up, "where", eSysprof.systree_id, "=", 22, "and", eSysprof.types, "=", 44).table(eSysprof.up.tname());
+         
+            int mm = 0;
             //Query q1 = new Query(eArtikls.values()).table(eArtikls.up.tname());
-            Query q1 = eArtikls.query.select(eArtikls.up, "order by", eArtikls.id);
-            int id = q1.getInt(0, eArtikls.id);
-            q1.select(eArtikls.up, "where", eArtikls.id, "= 2");
-            int i2 = q1.getInt(0, eArtikls.id);
-            int mmm = 0;
+            //Query q1 = eArtikls.query.select(eArtikls.up, "order by", eArtikls.id);
+            //int id = q1.getInt(0, eArtikls.id);
+            //q1.select(eArtikls.up, "where", eArtikls.id, "= 2");
+            //int i2 = q1.getInt(0, eArtikls.id);
             //Query q2 = new Query(eArtikls.values()).select(eArtikls.up, "where", eArtikls.id, "=", 2, "order by", eArtikls.code);
             //Table yyy = q2.query(eArtikls.up.tname());
             //Query qGrupcol = new Query(eGrupcol.id, eGrupcol.gnumb, eGrupcol.gunic, eGrupcol.gname, eGrupcol.gkoef).select("grupcol order by grupcol.gname");

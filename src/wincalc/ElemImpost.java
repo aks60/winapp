@@ -2,6 +2,7 @@ package wincalc;
 
 import enums.LayoutArea;
 import enums.TypeElem;
+import enums.TypeProfile;
 
 public class ElemImpost extends ElemBase {
 
@@ -62,4 +63,9 @@ public class ElemImpost extends ElemBase {
     public TypeElem typeElem() {
         return TypeElem.IMPOST;
     }
+    
+    @Override
+    public TypeProfile typeProfile() {
+        return TypeProfile.IMPOST;
+    }    
 }

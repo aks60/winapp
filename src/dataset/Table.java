@@ -111,7 +111,8 @@ public class Table extends ArrayList<Record> {
             }
         }
         return record;
-    }*/
+    }*/  
+    
     /**
      * Вставка данных fields[0] = UPDATE
      */

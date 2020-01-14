@@ -1,7 +1,11 @@
 package wincalc;
 
+import dataset.Query;
+import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
+import enums.TypeProfile;
+import java.util.ArrayList;
 
 public class ElemFrame extends ElemBase {
 
@@ -57,6 +61,10 @@ public class ElemFrame extends ElemBase {
 
     public void initСonstructiv() {
 
+        Query q = eSysprof.query.select(eSysprof.up, "where", eSysprof.systree_id, "="
+                , iwin.nuni, "and", eSysprof.types, "=", typeProfile().value).table(eSysprof.up.tname());
+        sysprofRec = (q.size() == 0) ? null :q.get(0);
+        
 //        sysproaRec = Sysproa.find(getConst(), owner.iwin.nuni, getTypeProfile());
 //        articlesRec = Artikls.get(getConst(), sysproaRec.anumb, true);
 //        specificationRec.setArticlRec(articlesRec);
@@ -65,5 +73,10 @@ public class ElemFrame extends ElemBase {
     @Override
     public TypeElem typeElem() {
         return TypeElem.FRAME;
+    }
+
+    @Override
+    public TypeProfile typeProfile() {
+        return (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeProfile.STVORKA : TypeProfile.FRAME;
     }    
 }

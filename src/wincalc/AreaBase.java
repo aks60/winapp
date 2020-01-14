@@ -16,7 +16,6 @@ import java.util.Map;
 
 public abstract class AreaBase extends Base {
 
-    protected AreaBase owner = null; //владелец
     private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
 
     protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента        

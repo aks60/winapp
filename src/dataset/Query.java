@@ -31,7 +31,7 @@ public class Query extends Table {
     }
 
     public Query(Field... fields) {
-
+        this.root = this;
         for (Field field : fields) {
             if (!field.name().equals("up")) {
                 if (mapQuery.get(field.tname()) == null) {
@@ -43,6 +43,7 @@ public class Query extends Table {
     }
 
     public Query(Field[]... fieldsArr) {
+        this.root = this;
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {
                 if (!field.name().equals("up")) {
@@ -124,11 +125,11 @@ public class Query extends Table {
 
     public int insert(Record record) throws SQLException {
 
-        Field[] f = root.fields.get(0).fields();
+        Field[] f = fields.get(0).fields();
         if (Query.INS.equals(record.get(f[0])) == false) {
             return 0;
         }
-        String sql = root.fields.get(0).insertSql(record);
+        String sql = fields.get(0).insertSql(record);
         Statement statement = connection.createStatement();
         //если есть insert утверждение
         if (sql != null) {
@@ -137,8 +138,8 @@ public class Query extends Table {
             //если нет, генерю сам
             String nameCols = "", nameVals = "";
             //цикл по полям таблицы
-            for (int k = 0; k < root.fields.size(); k++) {
-                Field field = root.fields.get(k);
+            for (int k = 0; k < fields.size(); k++) {
+                Field field = fields.get(k);
                 if (field.meta().type() != Field.TYPE.OBJ) {
                     nameCols = nameCols + field.name() + ",";
                     nameVals = nameVals + wrapper(record, field) + ",";
@@ -147,7 +148,7 @@ public class Query extends Table {
             if (nameCols != null && nameVals != null) {
                 nameCols = nameCols.substring(0, nameCols.length() - 1);
                 nameVals = nameVals.substring(0, nameVals.length() - 1);
-                sql = "insert into " + schema + root.fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+                sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
                 Util.println("SQL-INSERT " + sql);
                 return statement.executeUpdate(sql);
                 //return 0;
@@ -160,30 +161,30 @@ public class Query extends Table {
         Statement statement = null;
         try {
             statement = connection.createStatement();
-            String sql = root.fields.get(0).updateSql(record);
+            String sql = fields.get(0).updateSql(record);
             if (sql != null) {
                 Util.println("SQL-UPDATE " + sql);
                 return statement.executeUpdate(sql);
             } else {
                 String nameCols = "";
                 //цикл по полям таблицы
-                for (int k = 1; k < root.fields.size(); k++) {
-                    Field field = root.fields.get(k);
+                for (int k = 1; k < fields.size(); k++) {
+                    Field field = fields.get(k);
                     if (field.meta().type() != Field.TYPE.OBJ) {
                         nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
                     }
                 }
-                Field[] f = root.fields.get(0).fields();
+                Field[] f = fields.get(0).fields();
                 if (nameCols.isEmpty() == false) {
                     nameCols = nameCols.substring(0, nameCols.length() - 1);
-                    sql = "update " + schema + root.fields.get(0).tname() + " set "
+                    sql = "update " + schema + fields.get(0).tname() + " set "
                             + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
                     Util.println("SQL-UPDATE " + sql);
                     return statement.executeUpdate(sql);
                 }
             }
         } catch (Exception e) {
-            System.out.println(root.fields.get(0).tname() + ".update() " + e);
+            System.out.println(fields.get(0).tname() + ".update() " + e);
             return -1;
         } finally {
             try {
@@ -199,14 +200,14 @@ public class Query extends Table {
 
     public int delete(Record record) throws SQLException {
         //if (Query.DEL.equals(record.get(fields[0])) == false) {  return 0;  }
-        String sql = root.fields.get(0).deleteSql(record);
+        String sql = fields.get(0).deleteSql(record);
         Statement statement = connection.createStatement();
         if (sql != null) {
             Util.println("SQL-DELETE " + sql);
             return statement.executeUpdate(sql);
         } else {
-            Field[] f = root.fields.get(0).fields();
-            sql = "delete from " + schema + root.fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+            Field[] f = fields.get(0).fields();
+            sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
             Util.println("SQL-DELETE " + sql);
             return statement.executeUpdate(sql);
         }
@@ -220,8 +221,8 @@ public class Query extends Table {
                     if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
 
                         Util.println(record);
-                        if (record.validate(root.fields) != null) { //проверка на корректность ввода данных
-                            JOptionPane.showMessageDialog(null, record.validate(root.fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        if (record.validate(fields) != null) { //проверка на корректность ввода данных
+                            JOptionPane.showMessageDialog(null, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                             return;
                         }
                     }
