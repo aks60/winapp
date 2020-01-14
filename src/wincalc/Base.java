@@ -52,4 +52,5 @@ public abstract class Base {
     public abstract eTypeElem typeElem();
 
     public abstract LinkedList<Base> listChild();
+    
 }

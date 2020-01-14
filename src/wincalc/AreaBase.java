@@ -185,10 +185,10 @@ public abstract class AreaBase extends Base {
      */
     protected ElemBase getAdjoinedElem(eLayoutArea layoutSide) {
 
-        LinkedList<ElemBase> listElem = getAreaElemList();
+  /*      LinkedList<Base> listElem = getAreaElemList();
         for (int index = 0; index < listElem.size(); ++index) {
 
-            ElemBase elemBase = listElem.get(index);
+            Base elemBase = listElem.get(index);
             if (elemBase.id != id) continue; //пропускаем если другая ареа
 
             EnumMap<eLayoutArea, ElemFrame> hm = root().mapFrame;
@@ -213,7 +213,7 @@ public abstract class AreaBase extends Base {
                 } else if (layoutSide == eLayoutArea.RIGHT) {
                     return (index == listElem.size() - 1) ? hm.get(layoutSide) : listElem.get(index + 1);
                 } else {
-                    return orot().hmElemFrame.get(layoutSide);
+                    return root().hmElemFrame.get(layoutSide);
                 }
 
             } else {
@@ -235,7 +235,7 @@ public abstract class AreaBase extends Base {
                     }
                 }
             }
-        }
+        }*/
         return null;
     }
     
@@ -325,5 +325,19 @@ public abstract class AreaBase extends Base {
 
     public eLayoutArea layout() {
         return layout;
+    }
+    
+        /**
+     * Список area и impost
+     */
+    public LinkedList<Base> getAreaElemList() {
+
+        LinkedList<Base> elemList = new LinkedList();
+        for (Base elemBase : owner.listChild()) {
+            if (eTypeElem.AREA == elemBase.typeElem() || eTypeElem.IMPOST == elemBase.typeElem()) {
+                elemList.add(elemBase);
+            }
+        }
+        return elemList;
     }
 }
