@@ -71,8 +71,8 @@ public class Wincalc {
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
         //Соединения рамы
-        rootArea.passJoinRama();  //обход соединений и кальк. углов рамы
-        //areaList.stream().forEach(area -> area.passJoin(mapJoin)); //обход(схлопывание) соединений рамы
+        rootArea.joinRama();  //обход соединений и кальк. углов рамы
+        areaList.stream().forEach(area -> area.joinArea(mapJoin)); //обход(схлопывание) соединений рамы
 
         return rootArea;
     }
@@ -83,8 +83,8 @@ public class Wincalc {
     private AreaBase parsingScript(String json) {
         AreaBase rootArea = null;
         try {
-            JsonElement lsnoElement = gson.fromJson(json, JsonElement.class);
-            JsonObject mainObj = lsnoElement.getAsJsonObject();
+            JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
+            JsonObject mainObj = jsonElement.getAsJsonObject();
 
             String id = mainObj.get("id").getAsString();
             String paramJson = mainObj.get("paramJson").getAsString();

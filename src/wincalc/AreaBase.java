@@ -1,20 +1,26 @@
 package wincalc;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import enums.eLayoutArea;
 import enums.eParamJson;
 import enums.eTypeElem;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import jdk.nashorn.internal.parser.JSONParser;
 
 public abstract class AreaBase extends Base {
 
     protected AreaBase owner = null; //владелец
     private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
 
-    protected HashMap<eParamJson, Object> mapParamJson = new HashMap(); //параметры элемента        
+    protected HashMap<eParamJson, Object> mapParam = new HashMap(); //параметры элемента        
     private eLayoutArea layout = eLayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<eLayoutArea, ElemFrame> mapFrame = new EnumMap<>(eLayoutArea.class); //список рам в окне    
 
@@ -86,29 +92,32 @@ public abstract class AreaBase extends Base {
     /**
      * Инициализация pro4Params
      */
-    protected void parsingParamJson(AreaBase root, String paramJson) {
-//        try {
-//            if (paramJson != null && paramJson.isEmpty() == false) {
-//                String str = paramJson.replace("'", "\"");
-//                JSONObject jsonObj = (JSONObject) new JSONParser().parse(str);
-//                ArrayList<ArrayList<Long>> jsonArr = (JSONArray) jsonObj.get(eParamJson.pro4Params.name());
-//                if (jsonArr instanceof ArrayList && jsonArr.isEmpty() == false) {
-//
-//                    hmParamJson.put(eParamJson.pro4Params, jsonObj.get(eParamJson.pro4Params.name())); //первый вариант
-//
-//                    HashMap<Integer, Object[]> hmValue = new HashMap();
-//                    for (ArrayList<Long> jsonRec : jsonArr) {
-//                        int pnumb = Integer.valueOf(String.valueOf(jsonRec.get(0)));
+    protected void parsingParam(AreaBase root, String paramJson) {
+        try {
+            Gson gson = new Gson(); //библиотека json
+            if (paramJson != null && paramJson.isEmpty() == false) {
+                String str = paramJson.replace("'", "\"");
+
+            JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
+            JsonObject jsonObj = jsonElem.getAsJsonObject();
+            JsonArray jsonArr = jsonObj.getAsJsonArray(eParamJson.pro4Params.name()); 
+            
+            if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                mapParam.put(eParamJson.pro4Params, jsonObj.get(eParamJson.pro4Params.name())); 
+                    HashMap<Integer, Object[]> hmValue = new HashMap();
+                    for (int index = 0; index < jsonArr.size(); index++) {
+                      JsonArray jsonRec = (JsonArray) jsonArr.get(index);
+                      int pnumb = jsonRec.getAsInt();
 //                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
 //                        if (pnumb < 0 && rec != null)
 //                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
-//                    }
-//                    hmParamJson.put(eParamJson.pro4Params2, hmValue); //второй вариант
-//                }
-//            }
-//        } catch (ParseException e) {
-//            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
-//        }
+                    }
+                    mapParam.put(eParamJson.pro4Params2, hmValue); //второй вариант                
+            }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
+        }
     }
 
     /**
@@ -173,8 +182,8 @@ public abstract class AreaBase extends Base {
     }
 
     /**
-     * Получить примыкающий элемент
-     * (используется при нахождении элементов соединений)
+     * Получить примыкающий элемент (используется при нахождении элементов
+     * соединений)
      */
     protected ElemBase adjoinElem(eLayoutArea layoutSide) {
 
@@ -182,8 +191,9 @@ public abstract class AreaBase extends Base {
         for (int index = 0; index < listElem.size(); ++index) {
 
             Base elemBase = listElem.get(index);
-            if (elemBase.id != id) continue; //пропускаем если другая ареа
-
+            if (elemBase.id != id) {
+                continue; //пропускаем если другая ареа
+            }
             EnumMap<eLayoutArea, ElemFrame> mapFrame = root().mapFrame;
             if (index == 0 && owner.equals(root()) && layoutSide == eLayoutArea.TOP && owner.layout() == eLayoutArea.VERTICAL && root().typeElem() == eTypeElem.ARCH) {
                 return mapFrame.get(eTypeElem.ARCH);
@@ -193,7 +203,7 @@ public abstract class AreaBase extends Base {
 
             if (owner.equals(root()) && owner.layout() == eLayoutArea.VERTICAL) {
                 if (layoutSide == eLayoutArea.TOP) {
-                    
+
                     return (index == 0) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index - 1);
                 } else if (layoutSide == eLayoutArea.BOTTOM) {
                     return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index + 1);
@@ -231,7 +241,7 @@ public abstract class AreaBase extends Base {
         }
         return null;
     }
-    
+
     /**
      * Список элементов окна
      */
@@ -315,8 +325,8 @@ public abstract class AreaBase extends Base {
     public eLayoutArea layout() {
         return layout;
     }
-    
-        /**
+
+    /**
      * Список area и impost
      */
     public LinkedList<Base> areaOrImpostList() {

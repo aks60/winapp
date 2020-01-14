@@ -8,7 +8,7 @@ public class AreaArch extends AreaBase {
     public AreaArch(Wincalc iwin, String id, eLayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
         super(null, id, layout, width, height, color1, color2, color3);
         this.iwin = iwin;
-        parsingParamJson(this, paramJson);
+        parsingParam(this, paramJson);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class AreaArch extends AreaBase {
     }
     
     @Override
-    public void passJoinRama() {
+    public void joinRama() {
 /*
         String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
         String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);

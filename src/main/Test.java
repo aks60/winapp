@@ -1,17 +1,17 @@
 package main;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Entity;
 import dataset.Query;
+import enums.eParamJson;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import script.AreaElem;
-import wincalc.Wincalc;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Test {
 
@@ -19,14 +19,32 @@ public class Test {
         Main.dev = true;
 
         try {
-            Wincalc wc = new Wincalc();
-            wc.create(AreaElem.test(601001));
 
-//            String json = AreaElem.test(601001);
-//            Gson gson = new Gson();
-//            JsonElement element = gson.fromJson(json, JsonElement.class);
-//            JsonObject mainObj = element.getAsJsonObject();
+//            Wincalc wc = new Wincalc();
+//            wc.create(AreaElem.test(601001));
 
+            HashMap<eParamJson, Object> mapParam = new HashMap();
+            String paramJson = "{'typeOpen':1,'funic':23, 'pro4Params': [[-862107,826],[-862106,830]]}";
+            Gson gson = new Gson();
+            String str = paramJson.replace("'", "\"");
+
+            JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
+            JsonObject jsonObj = jsonElem.getAsJsonObject();
+            JsonArray jsonArr = jsonObj.getAsJsonArray(eParamJson.pro4Params.name()); 
+            
+            if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                mapParam.put(eParamJson.pro4Params, jsonObj.get(eParamJson.pro4Params.name())); 
+                    HashMap<Integer, Object[]> hmValue = new HashMap();
+                    for (int index = 0; index < jsonArr.size(); index++) {
+                      JsonArray jsonRec = (JsonArray) jsonArr.get(index);
+                      int pnumb = jsonRec.getAsInt();
+//                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
+//                        if (pnumb < 0 && rec != null)
+//                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
+                      int mm = 0;
+                    }
+                    mapParam.put(eParamJson.pro4Params2, hmValue); //второй вариант                
+            }
 //            System.out.println(AreaElem.test(601001));              
 //            JPanel pan = new JPanel();
 //            AreaBase ar = new AreaArch("1");
