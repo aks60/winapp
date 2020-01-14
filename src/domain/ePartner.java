@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum ePartner implements Field {
@@ -68,7 +69,8 @@ public enum ePartner implements Field {
 //    tele3("12", "48", "1", "null", "TELE3"),
 //    gnumb("5", "5", "1", "null", "GNUMB"),
 //    cuser("4", "10", "1", "null", "CUSER");    
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     ePartner(Object... p) {
         meta.init(p);

@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eSpecific implements Field {
@@ -43,7 +44,8 @@ public enum eSpecific implements Field {
     nrama("5", "5", "1", "null", "NRAMA"),
     gpict("-4", "80", "1", "null", "GPICT"),
     nunic("4", "10", "1", "null", "NUNIC");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eSpecific(Object... p) {
         meta.init(p);

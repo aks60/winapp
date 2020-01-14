@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eFurnside2 implements Field {
@@ -16,7 +17,8 @@ public enum eFurnside2 implements Field {
     //fincs("4", "10", "1", "null", "FINCS"),
     //funic("4", "10", "1", "ID фурнитурного набора", "FUNIC"),
     //lunic("4", "10", "1", "null", "LUNIC"),    
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eFurnside2(Object... p) {
         meta.init(p);

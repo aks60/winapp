@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eSysprof implements Field {
@@ -16,7 +17,8 @@ public enum eSysprof implements Field {
     //nuni("4", "10", "1", "ID  серии профилей", "NUNI"),    
     //anumb("12", "32", "1", "артикул", "ANUMB"),
     //cflag("5", "5", "1", "Свои текстуры", "CFLAG");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eSysprof(Object... p) {
         meta.init(p);

@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eSysfurn implements Field {
@@ -19,7 +20,8 @@ public enum eSysfurn implements Field {
     //funic("4", "10", "1", "ИД фурнитурного набора", "FUNIC"),            
     //anumbt("12", "32", "1", "Артикул ручки по умолчанию", "ARUCH"),
     //apetl("12", "32", "1", "Артиккул подвеса (петли) по умолчанию", "APETL");    
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eSysfurn(Object... p) {
         meta.init(p);

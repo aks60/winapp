@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eRulecalc implements Field {
@@ -23,7 +24,8 @@ public enum eRulecalc implements Field {
     rpric("8", "15", "1", "Надбавка", "RPRIC"),
     rsebe("5", "5", "1", "Себестоимость", "RSEBE"),
     rcalk("5", "5", "1", "null", "RCALK");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eRulecalc(Object... p) {
         meta.init(p);

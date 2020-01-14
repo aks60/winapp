@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eGlasprof implements Field {
@@ -14,7 +15,8 @@ public enum eGlasprof implements Field {
     //zunic("4", "10", "1", "null", "ZUNIC"),
     //anumb("12", "32", "1", "Артикул", "ANUMB"),
     //gnumb("4", "10", "1", "ID группы", "GNUMB"),
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eGlasprof(Object... p) {
         meta.init(p);

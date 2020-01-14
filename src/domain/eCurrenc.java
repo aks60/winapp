@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eCurrenc implements Field {
@@ -16,7 +17,8 @@ public enum eCurrenc implements Field {
     check1("5", "5", "1", "Флаг  Основная ", "CSETS"),
     check2("5", "5", "1", "Флаг  Внутренняя ", "CINTO");
     //cnumb("4", "10", "1", "ID валюты", "CNUMB"),
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eCurrenc(Object... p) {
         meta.init(p);

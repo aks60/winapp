@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eGlasgrp implements Field {
@@ -14,7 +15,8 @@ public enum eGlasgrp implements Field {
     //gnumb("4", "10", "1", "id группы", "GNUMB"),    
     //gdiff("8", "15", "1", "null", "GDIFF"),
     //pnump("5", "5", "1", "null", "PNUMP");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eGlasgrp(Object... p) {
         meta.init(p);

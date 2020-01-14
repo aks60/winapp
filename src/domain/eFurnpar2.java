@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eFurnpar2 implements Field {
@@ -15,7 +16,8 @@ public enum eFurnpar2 implements Field {
     //znumb("4", "10", "1", "null", "ZNUMB"),
     //punic("4", "10", "1", "null", "PUNIC"),
     
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eFurnpar2(Object... p) {
         meta.init(p);

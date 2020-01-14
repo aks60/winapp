@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eElempar2 implements Field {
@@ -16,7 +17,8 @@ public enum eElempar2 implements Field {
     //psss("4", "10", "1", "ИД компонента состава", "PSSS"),
     //pporn("5", "5", "1", "номер параметра в таблицах ввода параметров в программу. Присваивается автоматически, возможно поменять вручную. В рамках одного группы одноименных номеров быть не может. Возможно менять вручную если такой номер не занят", "PPORN"),
     //znumb("4", "10", "1", "null", "ZNUMB"),
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eElempar2(Object... p) {
         meta.init(p);

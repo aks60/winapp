@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eArtdet implements Field {
@@ -24,7 +25,8 @@ public enum eArtdet implements Field {
     //cluni("4", "10", "1", "null", "CLUNI"), 
     //cminp("8", "15", "1", "минимальный тариф", "CMINP"),
 
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eArtdet(Object... p) {
         meta.init(p);

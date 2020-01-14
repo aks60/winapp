@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eJoinvar implements Field {
@@ -19,7 +20,8 @@ public enum eJoinvar implements Field {
     //aser2("12", "32", "1", "Артикул 2", "ASER2"),
     //cpict("12", "64", "1", "Чертеж варианта", "CPICT"),    
     //cdiff("8", "15", "1", "null", "CDIFF");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eJoinvar(Object... p) {
         meta.init(p);

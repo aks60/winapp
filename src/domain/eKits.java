@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 
 public enum eKits implements Field {
     up("0", "0", "0", "Комплекты", "KOMPLST"),
@@ -24,7 +25,8 @@ public enum eKits implements Field {
 //    ksize("12", "96", "1", "null", "KSIZE");
 //    kunic("4", "10", "1", "ID комплекта", "KUNIC"),
 //    kblob("-4", "null", "1", "Примечания BLOB", "KBLOB"),    
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eKits(Object... p) {
         meta.init(p);

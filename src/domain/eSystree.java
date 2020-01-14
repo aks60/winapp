@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 import static domain.eArtdet.values;
 
@@ -28,7 +29,8 @@ public enum eSystree implements Field {
     //pnump("5", "5", "1", "null", "PNUMP"),
     //pnumn("5", "5", "1", "null", "PNUMN"),
     //nuni("4", "10", "1", "ID ветки дерева", "NUNI"),
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eSystree(Object... p) {
         meta.init(p);

@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eSysdata implements Field {
@@ -11,7 +12,8 @@ public enum eSysdata implements Field {
     sname("12", "64", "1", "наименование", "SNAME"),
     stext("12", "128", "1", "null", "STEXT"),
     sflot("8", "15", "1", "значение параметра", "SFLOT");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eSysdata(Object... p) {
         meta.init(p);

@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 import static domain.eGlaspar2.values;
 
@@ -16,7 +17,8 @@ public enum eGlaspar1 implements Field {
     //znumb("4", "10", "1", "значение параметра", "ZNUMB"),
     //punic("4", "10", "1", "null", "PUNIC"),
 
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eGlaspar1(Object... p) {
         meta.init(p);

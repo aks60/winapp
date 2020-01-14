@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eSysconst implements Field {
@@ -13,7 +14,8 @@ public enum eSysconst implements Field {
     ssizn("8", "15", "1", "Наплав системы", "SSIZN"),
     ssizf("8", "15", "1", "Нахлест створки", "SSIZF"),
     ssizi("8", "15", "1", "Заход импоста", "SSIZI");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eSysconst(Object... p) {
         meta.init(p);

@@ -3,6 +3,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eSysprod implements Field {
@@ -12,7 +13,8 @@ public enum eSysprod implements Field {
     json("12", "1024", "0", "Скрипт построения окна", "json"),
     systree_id("4", "10", "0", "Ссылка", "systree_id");    
 
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eSysprod(Object... p) {
         meta.init(p);

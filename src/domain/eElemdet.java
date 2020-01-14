@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eElemdet implements Field {
@@ -16,7 +17,8 @@ public enum eElemdet implements Field {
     //anumb("12", "32", "1", "название компонента", "ANUMB").    
     //vnumb("4", "10", "1", "ИД состава", "VNUMB"),
     //aunic("4", "10", "1", "ИД компонента", "AUNIC"),    
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eElemdet(Object... p) {
         meta.init(p);

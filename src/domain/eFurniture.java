@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eFurniture implements Field {
@@ -25,7 +26,8 @@ public enum eFurniture implements Field {
     //sunic("4", "10", "1", "тип комплекта фурнитуры: 0 - все, 15 - ROTO OK,", "SUNIC");
     //fprim("-4", "512", "1", "null", "FPRIM"),
 
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eFurniture(Object... p) {
         meta.init(p);

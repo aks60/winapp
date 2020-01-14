@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eColgrp implements Field {
@@ -14,6 +15,7 @@ public enum eColgrp implements Field {
     //gprc1("8", "15", "1", "null", "GPRC1"),
     //gprc2("8", "15", "1", "null", "GPRC2");
     private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eColgrp(Object... p) {
         meta.init(p);
@@ -26,8 +28,6 @@ public enum eColgrp implements Field {
     public Field[] fields() {
         return values();
     }
-
-    
 
     public String toString() {
         return meta.getDescr();

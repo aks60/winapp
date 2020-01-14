@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eArtgrp implements Field {
@@ -12,7 +13,8 @@ public enum eArtgrp implements Field {
     munic("4", "10", "1", "ID группы МЦ", "MUNIC"),
     mkoef("8", "15", "1", "Ценовой коэффицент", "MKOEF"),
     ugrup("4", "10", "1", "Группа_пользователей", "UGRUP");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eArtgrp(Object... p) {
         meta.init(p);

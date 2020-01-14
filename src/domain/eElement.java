@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eElement implements Field {
@@ -26,7 +27,8 @@ public enum eElement implements Field {
     //vdiff("8", "15", "1", "null", "VDIFF"),
     //pnump("5", "5", "1", "null", "PNUMP"),
     //vcomp("5", "5", "1", "null", "VCOMP");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eElement(Object... p) {
         meta.init(p);

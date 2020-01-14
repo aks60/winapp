@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 
 public enum eOrders implements Field {
     up("0", "0", "0", "Список заказов (проектов)", "LISTPRJ"),
@@ -105,7 +106,8 @@ public enum eOrders implements Field {
 //    date1("93", "19", "1", "настраиваемая дата", "DATE1"),
 //    date2("93", "19", "1", "null", "DATE2"),
 //    date3("93", "19", "1", "null", "DATE3");
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eOrders(Object... p) {
         meta.init(p);

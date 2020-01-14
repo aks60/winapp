@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eJoindet implements Field {
@@ -15,7 +16,8 @@ public enum eJoindet implements Field {
     //cunic("4", "10", "1", "null", "CUNIC"),
     //aunic("4", "10", "1", "ID", "AUNIC"),  
     //clnum("4", "10", "1", "null", "CLNUM");    
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eJoindet(Object... p) {
         meta.init(p);

@@ -2,6 +2,7 @@ package domain;
 
 import dataset.Field;
 import dataset.MetaField;
+import dataset.Query;
 import dataset.Record;
 
 public enum eJoining implements Field {
@@ -17,7 +18,8 @@ public enum eJoining implements Field {
     //cconn("4", "10", "1", "ID соединения", "CCONN"),
     //cpref("12", "32", "1", "Категория", "CPREF"),
     
-    private MetaField meta = new MetaField(this);
+        private MetaField meta = new MetaField(this);
+    public static Query q = new Query(values()).table(up.tname());
 
     eJoining(Object... p) {
         meta.init(p);
