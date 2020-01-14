@@ -16,7 +16,7 @@ public enum eColpar1 implements Field {
     //punic("4", "10", "1", "null", "PUNIC"),
 
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eColpar1(Object... p) {
         meta.init(p);

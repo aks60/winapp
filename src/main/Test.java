@@ -56,7 +56,7 @@ public class Test {
             //Entity.firebird(Query.connection, "LIS_ORD");
 
             //Query q1 = new Query(eArtikls.values()).table(eArtikls.up.tname());
-            Query q1 = eArtikls.q.select(eArtikls.up, "order by", eArtikls.id);
+            Query q1 = eArtikls.query.select(eArtikls.up, "order by", eArtikls.id);
             int id = q1.getInt(0, eArtikls.id);
             q1.select(eArtikls.up, "where", eArtikls.id, "= 2");
             int i2 = q1.getInt(0, eArtikls.id);

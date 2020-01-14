@@ -45,7 +45,7 @@ public enum eSpecific implements Field {
     gpict("-4", "80", "1", "null", "GPICT"),
     nunic("4", "10", "1", "null", "NUNIC");
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eSpecific(Object... p) {
         meta.init(p);

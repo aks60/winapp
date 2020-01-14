@@ -18,7 +18,7 @@ public enum eFurndet implements Field {
     //funic("4", "10", "1", "ID фурнитурного набора (из FURNLST.FUNIC )", "FUNIC"),
     //anumb("12", "32", "1", "Артикул материала или слово  НАБОР .", "ANUMB"),
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eFurndet(Object... p) {
         meta.init(p);

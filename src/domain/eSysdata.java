@@ -13,7 +13,7 @@ public enum eSysdata implements Field {
     stext("12", "128", "1", "null", "STEXT"),
     sflot("8", "15", "1", "значение параметра", "SFLOT");
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eSysdata(Object... p) {
         meta.init(p);

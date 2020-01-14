@@ -4,16 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import dataset.Record;
+import domain.eParams;
 import enums.eLayoutArea;
 import enums.eParamJson;
 import enums.eTypeElem;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import jdk.nashorn.internal.parser.JSONParser;
 
 public abstract class AreaBase extends Base {
 
@@ -108,6 +107,9 @@ public abstract class AreaBase extends Base {
                     for (int index = 0; index < jsonArr.size(); index++) {
                       JsonArray jsonRec = (JsonArray) jsonArr.get(index);
                       int pnumb = jsonRec.getAsInt();
+                          String p1 = jsonRec.get(0).getAsString();
+                          String p2 = jsonRec.get(1).getAsString();
+                          //Record rec = eParams.q.select(eParams.up, "where", eParams.).get(0);
 //                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
 //                        if (pnumb < 0 && rec != null)
 //                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});

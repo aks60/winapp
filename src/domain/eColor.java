@@ -29,7 +29,7 @@ public enum eColor implements Field {
     //cprc1("8", "15", "1", "null", "CPRC1"),
     //cprc2("8", "15", "1", "null", "CPRC2");
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eColor(Object... p) {
         meta.init(p);

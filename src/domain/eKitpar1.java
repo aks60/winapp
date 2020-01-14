@@ -17,7 +17,7 @@ public enum eKitpar1 implements Field {
     //punic("4", "10", "1", "null", "PUNIC"),
 
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eKitpar1(Object... p) {
         meta.init(p);

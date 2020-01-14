@@ -14,7 +14,7 @@ public enum eSysprod implements Field {
     systree_id("4", "10", "0", "Ссылка", "systree_id");    
 
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eSysprod(Object... p) {
         meta.init(p);

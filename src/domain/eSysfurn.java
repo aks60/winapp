@@ -21,7 +21,7 @@ public enum eSysfurn implements Field {
     //anumbt("12", "32", "1", "Артикул ручки по умолчанию", "ARUCH"),
     //apetl("12", "32", "1", "Артиккул подвеса (петли) по умолчанию", "APETL");    
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eSysfurn(Object... p) {
         meta.init(p);

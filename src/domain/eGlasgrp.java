@@ -16,7 +16,7 @@ public enum eGlasgrp implements Field {
     //gdiff("8", "15", "1", "null", "GDIFF"),
     //pnump("5", "5", "1", "null", "PNUMP");
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eGlasgrp(Object... p) {
         meta.init(p);

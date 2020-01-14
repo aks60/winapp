@@ -25,8 +25,8 @@ public enum eArtdet implements Field {
     //cluni("4", "10", "1", "null", "CLUNI"), 
     //cminp("8", "15", "1", "минимальный тариф", "CMINP"),
 
-        private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    private MetaField meta = new MetaField(this);
+    public static Query query = new Query(values()).table(up.tname());
 
     eArtdet(Object... p) {
         meta.init(p);

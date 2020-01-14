@@ -19,7 +19,7 @@ public enum eJoining implements Field {
     //cpref("12", "32", "1", "Категория", "CPREF"),
     
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eJoining(Object... p) {
         meta.init(p);

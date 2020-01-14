@@ -15,7 +15,7 @@ public enum eColgrp implements Field {
     //gprc1("8", "15", "1", "null", "GPRC1"),
     //gprc2("8", "15", "1", "null", "GPRC2");
     private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eColgrp(Object... p) {
         meta.init(p);

@@ -21,7 +21,7 @@ public enum eJoinvar implements Field {
     //cpict("12", "64", "1", "Чертеж варианта", "CPICT"),    
     //cdiff("8", "15", "1", "null", "CDIFF");
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eJoinvar(Object... p) {
         meta.init(p);

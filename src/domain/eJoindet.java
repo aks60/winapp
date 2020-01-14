@@ -17,7 +17,7 @@ public enum eJoindet implements Field {
     //aunic("4", "10", "1", "ID", "AUNIC"),  
     //clnum("4", "10", "1", "null", "CLNUM");    
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eJoindet(Object... p) {
         meta.init(p);

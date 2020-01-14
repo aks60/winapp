@@ -18,7 +18,7 @@ public enum eJoinpar2 implements Field {
     //znumb("4", "10", "1", "значение параметра (параметры вводимые пользователем)", "ZNUMB"),
 
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eJoinpar2(Object... p) {
         meta.init(p);

@@ -27,7 +27,7 @@ public enum eFurniture implements Field {
     //fprim("-4", "512", "1", "null", "FPRIM"),
 
         private MetaField meta = new MetaField(this);
-    public static Query q = new Query(values()).table(up.tname());
+    public static Query query = new Query(values()).table(up.tname());
 
     eFurniture(Object... p) {
         meta.init(p);
