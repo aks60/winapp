@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 //TODO Удалить лишние проверки .equals("up") кроме конструктора
 public class Query extends Table {
 
-    private Query rootQuery;
+    private Query root = this;
     private HashMap<String, Query> mapQuery = new HashMap();
 
     private static String schema = "";
@@ -27,7 +27,7 @@ public class Query extends Table {
     public static String DEL = "DEL";
 
     public Query(Query query) {
-        this.rootQuery = query;
+        this.root = query;
     }
 
     public Query(Field... fields) {
@@ -57,15 +57,15 @@ public class Query extends Table {
 
     public Field[] fields() {
         ArrayList<Field> arr = new ArrayList();
-        for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
-            Query t = q.getValue();
-            arr.addAll(t.fields);
+        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
+            Query q2 = q.getValue();
+            arr.addAll(q2.fields);
         }
         return arr.toArray(new Field[arr.size()]);
     }
 
     public Query table(String name_table) {
-        return mapQuery.get(name_table);
+        return root.mapQuery.get(name_table);
     }
 
     public Query select(Object... s) {
@@ -83,7 +83,7 @@ public class Query extends Table {
             }
         }
         String str = "";
-        for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
+        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
             Query table = q.getValue();
             table.clear();
             for (Field field : table.fields) {
@@ -99,7 +99,7 @@ public class Query extends Table {
             ResultSet recordset = statement.executeQuery(sql);
             while (recordset.next()) {
                 int selector = 0;
-                for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
+                for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
                     Query table = q.getValue();
                     Record record = table.newRecord(SEL);
                     table.add(record);
@@ -124,11 +124,11 @@ public class Query extends Table {
 
     public int insert(Record record) throws SQLException {
 
-        Field[] f = fields.get(0).fields();
+        Field[] f = root.fields.get(0).fields();
         if (Query.INS.equals(record.get(f[0])) == false) {
             return 0;
         }
-        String sql = fields.get(0).insertSql(record);
+        String sql = root.fields.get(0).insertSql(record);
         Statement statement = connection.createStatement();
         //если есть insert утверждение
         if (sql != null) {
@@ -137,8 +137,8 @@ public class Query extends Table {
             //если нет, генерю сам
             String nameCols = "", nameVals = "";
             //цикл по полям таблицы
-            for (int k = 0; k < fields.size(); k++) {
-                Field field = fields.get(k);
+            for (int k = 0; k < root.fields.size(); k++) {
+                Field field = root.fields.get(k);
                 if (field.meta().type() != Field.TYPE.OBJ) {
                     nameCols = nameCols + field.name() + ",";
                     nameVals = nameVals + wrapper(record, field) + ",";
@@ -147,7 +147,7 @@ public class Query extends Table {
             if (nameCols != null && nameVals != null) {
                 nameCols = nameCols.substring(0, nameCols.length() - 1);
                 nameVals = nameVals.substring(0, nameVals.length() - 1);
-                sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+                sql = "insert into " + schema + root.fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
                 Util.println("SQL-INSERT " + sql);
                 return statement.executeUpdate(sql);
                 //return 0;
@@ -160,30 +160,30 @@ public class Query extends Table {
         Statement statement = null;
         try {
             statement = connection.createStatement();
-            String sql = fields.get(0).updateSql(record);
+            String sql = root.fields.get(0).updateSql(record);
             if (sql != null) {
                 Util.println("SQL-UPDATE " + sql);
                 return statement.executeUpdate(sql);
             } else {
                 String nameCols = "";
                 //цикл по полям таблицы
-                for (int k = 1; k < fields.size(); k++) {
-                    Field field = fields.get(k);
+                for (int k = 1; k < root.fields.size(); k++) {
+                    Field field = root.fields.get(k);
                     if (field.meta().type() != Field.TYPE.OBJ) {
                         nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
                     }
                 }
-                Field[] f = fields.get(0).fields();
+                Field[] f = root.fields.get(0).fields();
                 if (nameCols.isEmpty() == false) {
                     nameCols = nameCols.substring(0, nameCols.length() - 1);
-                    sql = "update " + schema + fields.get(0).tname() + " set "
+                    sql = "update " + schema + root.fields.get(0).tname() + " set "
                             + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
                     Util.println("SQL-UPDATE " + sql);
                     return statement.executeUpdate(sql);
                 }
             }
         } catch (Exception e) {
-            System.out.println(fields.get(0).tname() + ".update() " + e);
+            System.out.println(root.fields.get(0).tname() + ".update() " + e);
             return -1;
         } finally {
             try {
@@ -199,14 +199,14 @@ public class Query extends Table {
 
     public int delete(Record record) throws SQLException {
         //if (Query.DEL.equals(record.get(fields[0])) == false) {  return 0;  }
-        String sql = fields.get(0).deleteSql(record);
+        String sql = root.fields.get(0).deleteSql(record);
         Statement statement = connection.createStatement();
         if (sql != null) {
             Util.println("SQL-DELETE " + sql);
             return statement.executeUpdate(sql);
         } else {
-            Field[] f = fields.get(0).fields();
-            sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+            Field[] f = root.fields.get(0).fields();
+            sql = "delete from " + schema + root.fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
             Util.println("SQL-DELETE " + sql);
             return statement.executeUpdate(sql);
         }
@@ -220,8 +220,8 @@ public class Query extends Table {
                     if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
 
                         Util.println(record);
-                        if (record.validate(fields) != null) { //проверка на корректность ввода данных
-                            JOptionPane.showMessageDialog(null, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        if (record.validate(root.fields) != null) { //проверка на корректность ввода данных
+                            JOptionPane.showMessageDialog(null, record.validate(root.fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                             return;
                         }
                     }
