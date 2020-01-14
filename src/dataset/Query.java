@@ -16,7 +16,8 @@ import javax.swing.JOptionPane;
 //TODO Удалить лишние проверки .equals("up") кроме конструктора
 public class Query extends Table {
 
-    private HashMap<String, Query> hmQuery = new HashMap();
+    private Query rootQuery;
+    private HashMap<String, Query> mapQuery = new HashMap();
 
     private static String schema = "";
     public static Connection connection = null;
@@ -25,17 +26,18 @@ public class Query extends Table {
     public static String UPD = "UPD";
     public static String DEL = "DEL";
 
-    public Query() {
+    public Query(Query query) {
+        this.rootQuery = query;
     }
 
     public Query(Field... fields) {
 
         for (Field field : fields) {
             if (!field.name().equals("up")) {
-                if (hmQuery.get(field.tname()) == null) {
-                    hmQuery.put(field.tname(), new Query());
+                if (mapQuery.get(field.tname()) == null) {
+                    mapQuery.put(field.tname(), new Query(this));
                 }
-                hmQuery.get(field.tname()).fields.add(field);
+                mapQuery.get(field.tname()).fields.add(field);
             }
         }
     }
@@ -44,10 +46,10 @@ public class Query extends Table {
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {
                 if (!field.name().equals("up")) {
-                    if (hmQuery.get(field.tname()) == null) {
-                        hmQuery.put(field.tname(), new Query());
+                    if (mapQuery.get(field.tname()) == null) {
+                        mapQuery.put(field.tname(), new Query(this));
                     }
-                    hmQuery.get(field.tname()).fields.add(field);
+                    mapQuery.get(field.tname()).fields.add(field);
                 }
             }
         }
@@ -55,7 +57,7 @@ public class Query extends Table {
 
     public Field[] fields() {
         ArrayList<Field> arr = new ArrayList();
-        for (Map.Entry<String, Query> q : hmQuery.entrySet()) {
+        for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
             Query t = q.getValue();
             arr.addAll(t.fields);
         }
@@ -63,7 +65,7 @@ public class Query extends Table {
     }
 
     public Query table(String name_table) {
-        return hmQuery.get(name_table);
+        return mapQuery.get(name_table);
     }
 
     public Query select(Object... s) {
@@ -81,7 +83,7 @@ public class Query extends Table {
             }
         }
         String str = "";
-        for (Map.Entry<String, Query> q : hmQuery.entrySet()) {
+        for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
             Query table = q.getValue();
             table.clear();
             for (Field field : table.fields) {
@@ -97,7 +99,7 @@ public class Query extends Table {
             ResultSet recordset = statement.executeQuery(sql);
             while (recordset.next()) {
                 int selector = 0;
-                for (Map.Entry<String, Query> q : hmQuery.entrySet()) {
+                for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
                     Query table = q.getValue();
                     Record record = table.newRecord(SEL);
                     table.add(record);
@@ -212,7 +214,7 @@ public class Query extends Table {
 
     public void execsql() {
         try {
-            for (Map.Entry<String, Query> q : hmQuery.entrySet()) {
+            for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
                 Query query = q.getValue();
                 for (Record record : query) {
                     if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
@@ -263,7 +265,7 @@ public class Query extends Table {
     }
 
     public boolean isUpdate() {
-        for (Map.Entry<String, Query> q : hmQuery.entrySet()) {
+        for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
             for (Record record : q.getValue()) {
                 if ("UPD".equals(record.getStr(0)) || "INS".equals(record.getStr(0))) {
                     return true;
