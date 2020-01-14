@@ -112,17 +112,10 @@ public abstract class AreaBase extends Base {
     }
 
     /**
-     * Обход(схлопывание) соединений рамы
+     * Обход(схлопывание) соединений area
      */
-    public void passJoinArea(HashMap<String, ElemJoinig> hmJoin) {
+    public void joinArea(HashMap<String, ElemJoinig> hmJoin) {
 
-        /* if(getAdjoinedElem(LayoutArea.TOP) instanceof AreaSimple || getAdjoinedElem(LayoutArea.LEFT) instanceof AreaSimple) {
-            return; //примыкающие ареи не могут порождать соединения
-        }*/
- /*if(this != null) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-        if(height < 160) {
-            return;
-        }*/
         ElemJoinig elemJoinVal = null;
         String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
         String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
@@ -136,10 +129,10 @@ public abstract class AreaBase extends Base {
             elemJoinVal = hmJoin.get(key1);
         }
         if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = getAdjoinedElem(eLayoutArea.TOP);
+            elemJoinVal.elemJoinRight = adjoinElem(eLayoutArea.TOP);
         }
         if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = getAdjoinedElem(eLayoutArea.LEFT);
+            elemJoinVal.elemJoinBottom = adjoinElem(eLayoutArea.LEFT);
         }
 
         elemJoinVal = hmJoin.get(key2);
@@ -148,10 +141,10 @@ public abstract class AreaBase extends Base {
             elemJoinVal = hmJoin.get(key2);
         }
         if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = getAdjoinedElem(eLayoutArea.TOP);
+            elemJoinVal.elemJoinLeft = adjoinElem(eLayoutArea.TOP);
         }
         if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = getAdjoinedElem(eLayoutArea.RIGHT);
+            elemJoinVal.elemJoinBottom = adjoinElem(eLayoutArea.RIGHT);
         }
         //}
         elemJoinVal = hmJoin.get(key3);
@@ -160,10 +153,10 @@ public abstract class AreaBase extends Base {
             elemJoinVal = hmJoin.get(key3);
         }
         if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = getAdjoinedElem(eLayoutArea.RIGHT);
+            elemJoinVal.elemJoinTop = adjoinElem(eLayoutArea.RIGHT);
         }
         if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = getAdjoinedElem(eLayoutArea.BOTTOM);
+            elemJoinVal.elemJoinLeft = adjoinElem(eLayoutArea.BOTTOM);
         }
 
         elemJoinVal = hmJoin.get(key4);
@@ -172,10 +165,10 @@ public abstract class AreaBase extends Base {
             elemJoinVal = hmJoin.get(key4);
         }
         if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = getAdjoinedElem(eLayoutArea.LEFT);
+            elemJoinVal.elemJoinTop = adjoinElem(eLayoutArea.LEFT);
         }
         if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = getAdjoinedElem(eLayoutArea.BOTTOM);
+            elemJoinVal.elemJoinRight = adjoinElem(eLayoutArea.BOTTOM);
         }
     }
 
@@ -183,68 +176,64 @@ public abstract class AreaBase extends Base {
      * Получить примыкающий элемент
      * (используется при нахождении элементов соединений)
      */
-    protected ElemBase getAdjoinedElem(eLayoutArea layoutSide) {
+    protected ElemBase adjoinElem(eLayoutArea layoutSide) {
 
-  /*      LinkedList<Base> listElem = getAreaElemList();
+        LinkedList<Base> listElem = areaOrImpostList();
         for (int index = 0; index < listElem.size(); ++index) {
 
             Base elemBase = listElem.get(index);
             if (elemBase.id != id) continue; //пропускаем если другая ареа
 
-            EnumMap<eLayoutArea, ElemFrame> hm = root().mapFrame;
-            if (index == 0 && owner.equals(root()) && layoutSide == eLayoutArea.TOP && owner.layout() == eLayoutArea.VERTICAL && getRoot().getTypeElem() == TypeElem.ARCH) {
-                return hm.get(eTypeElem.ARCH);
-            } else if (owner.equals(root()) && layoutSide == eLayoutArea.TOP && owner.layout() == eLayoutArea.HORIZONTAL && getRoot().getTypeElem() == TypeElem.ARCH) {
-                return hm.get(eTypeElem.ARCH);
+            EnumMap<eLayoutArea, ElemFrame> mapFrame = root().mapFrame;
+            if (index == 0 && owner.equals(root()) && layoutSide == eLayoutArea.TOP && owner.layout() == eLayoutArea.VERTICAL && root().typeElem() == eTypeElem.ARCH) {
+                return mapFrame.get(eTypeElem.ARCH);
+            } else if (owner.equals(root()) && layoutSide == eLayoutArea.TOP && owner.layout() == eLayoutArea.HORIZONTAL && root().typeElem() == eTypeElem.ARCH) {
+                return mapFrame.get(eTypeElem.ARCH);
             }
 
             if (owner.equals(root()) && owner.layout() == eLayoutArea.VERTICAL) {
                 if (layoutSide == eLayoutArea.TOP) {
-                    return (index == 0) ? hm.get(layoutSide) : listElem.get(index - 1);
+                    
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index - 1);
                 } else if (layoutSide == eLayoutArea.BOTTOM) {
-                    return (index == listElem.size() - 1) ? hm.get(layoutSide) : listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
-
             } else if (owner.equals(root()) && owner.layout() == eLayoutArea.HORIZONTAL) {
                 if (layoutSide == eLayoutArea.LEFT) {
-                    return (index == 0) ? hm.get(layoutSide) : listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index - 1);
                 } else if (layoutSide == eLayoutArea.RIGHT) {
-                    return (index == listElem.size() - 1) ? hm.get(layoutSide) : listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index + 1);
                 } else {
-                    return root().hmElemFrame.get(layoutSide);
+                    return root().mapFrame.get(layoutSide);
                 }
 
             } else {
                 if (owner.layout() == eLayoutArea.VERTICAL) {
                     if (layoutSide == eLayoutArea.TOP) {
-                        return (index == 0) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index - 1);
                     } else if (layoutSide == eLayoutArea.BOTTOM) {
-                        return (index == listElem.size() - 1) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index + 1);
                     } else {
-                        return owner.getAdjoinedElem(layoutSide);
+                        return owner.adjoinElem(layoutSide);
                     }
                 } else {
                     if (layoutSide == eLayoutArea.LEFT) {
-                        return (index == 0) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index - 1);
                     } else if (layoutSide == eLayoutArea.RIGHT) {
-                        return (index == listElem.size() - 1) ? owner.getAdjoinedElem(layoutSide) : listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index + 1);
                     } else {
-                        return owner.getAdjoinedElem(layoutSide);
+                        return owner.adjoinElem(layoutSide);
                     }
                 }
             }
-        }*/
+        }
         return null;
     }
     
     /**
      * Список элементов окна
-     *
-     * @param type Тип элемента
-     * @param <E> Тип возвращаемого элемента
-     * @return Список элементов в контейнере
      */
     public <E> LinkedList<E> elemList(eTypeElem... type) {
         if (type == null) {
@@ -303,7 +292,7 @@ public abstract class AreaBase extends Base {
         return outElem;
     }
 
-    public abstract void passJoinRama();
+    public abstract void joinRama();
 
     public HashMap<String, ElemJoinig> mapJoin() {
         return iwin.mapJoin;
@@ -330,7 +319,7 @@ public abstract class AreaBase extends Base {
         /**
      * Список area и impost
      */
-    public LinkedList<Base> getAreaElemList() {
+    public LinkedList<Base> areaOrImpostList() {
 
         LinkedList<Base> elemList = new LinkedList();
         for (Base elemBase : owner.listChild()) {
