@@ -1,19 +1,19 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 public class AreaTriangl extends AreaBase {
 
-    public AreaTriangl(Wincalc iwin, String id, eLayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
+    public AreaTriangl(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
         super(null, id, layout, width, height, color1, color2, color3);
         this.iwin = iwin;
         parsingParam(this, paramJson);
     }
 
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.TRIANGL;
+    public TypeElem typeElem() {
+        return TypeElem.TRIANGL;
     }
 
     @Override

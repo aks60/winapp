@@ -1,7 +1,7 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -49,7 +49,7 @@ public abstract class Base {
         return (index == 1) ? color1 : (index == 2) ? color2 : color3;
     }
 
-    public abstract eTypeElem typeElem();
+    public abstract TypeElem typeElem();
 
     public abstract LinkedList<Base> listChild();
     

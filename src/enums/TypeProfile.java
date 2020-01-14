@@ -3,7 +3,7 @@ package enums;
 /**
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций
  */
-public enum eTypeProfile {
+public enum TypeProfile {
     UNKNOWN(0, "любой тип"),
     FRAME(1, "рама"),
     STVORKA(2, "створка"),
@@ -18,7 +18,7 @@ public enum eTypeProfile {
     public int value;
     public String name;
 
-    eTypeProfile(int value, String name) {
+    TypeProfile(int value, String name) {
         this.value = value;
         this.name = name;
     }

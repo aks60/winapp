@@ -1,7 +1,7 @@
 package script;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 import java.util.LinkedList;
 
 public class AreaRoot extends AreaElem {
@@ -16,7 +16,7 @@ public class AreaRoot extends AreaElem {
     /**
      * Контруктор главного окна
      */
-    public AreaRoot(String id, eLayoutArea layoutArea, eTypeElem elemType, float width, float height, float heightLow, int color1, int color2, int color3, String paramJson) {
+    public AreaRoot(String id, LayoutArea layoutArea, TypeElem elemType, float width, float height, float heightLow, int color1, int color2, int color3, String paramJson) {
         super.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;

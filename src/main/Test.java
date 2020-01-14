@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Query;
 import domain.eArtikls;
-import enums.eParamJson;
+import enums.ParamJson;
 import forms.Artikls;
 import forms.Rate;
 import forms.Color;
@@ -74,17 +74,17 @@ public class Test {
     
     static void parseJson() {
         
-            HashMap<eParamJson, Object> mapParam = new HashMap();
+            HashMap<ParamJson, Object> mapParam = new HashMap();
             String paramJson = "{'typeOpen':1,'funic':23, 'pro4Params': [[-862107,826],[-862106,830]]}";
             Gson gson = new Gson();
             String str = paramJson.replace("'", "\"");
 
             JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
-            JsonArray jsonArr = jsonObj.getAsJsonArray(eParamJson.pro4Params.name()); 
+            JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name()); 
             
             if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                mapParam.put(eParamJson.pro4Params, jsonObj.get(eParamJson.pro4Params.name())); 
+                mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); 
                     HashMap<Integer, Object[]> hmValue = new HashMap();
                     for (int index = 0; index < jsonArr.size(); index++) {
                       JsonArray jsonRec = (JsonArray) jsonArr.get(index);
@@ -94,7 +94,7 @@ public class Test {
 //                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
                       int mm = 0;
                     }
-                    mapParam.put(eParamJson.pro4Params2, hmValue); //второй вариант                
+                    mapParam.put(ParamJson.pro4Params2, hmValue); //второй вариант                
             }        
     }
 }

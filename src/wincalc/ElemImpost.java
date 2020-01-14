@@ -1,11 +1,11 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 public class ElemImpost extends ElemBase {
 
-    private eLayoutArea side = eLayoutArea.NONE;
+    private LayoutArea side = LayoutArea.NONE;
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
     protected float anglCut1 = 90; //угол реза импоста
     protected float anglCut2 = 90; //угол реза импоста
@@ -17,14 +17,14 @@ public class ElemImpost extends ElemBase {
     public ElemImpost(Wincalc iwin, AreaBase owner, String id) {
 
         super(id);
-        this.side = (owner.layout() == eLayoutArea.HORIZONTAL) ? eLayoutArea.VERTICAL : eLayoutArea.HORIZONTAL;
+        this.side = (owner.layout() == LayoutArea.HORIZONTAL) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;
         color1 = iwin.color1;
         color2 = iwin.color2;
         color3 = iwin.color3;
         initСonstructiv();
 
         //Коррекция положения импоста арки
-        if ((eTypeElem.ARCH == owner.typeElem() || eTypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
+        if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
 //                float dh = articlesRec.aheig / 2;
 //                owner.addElem(new AreaBase(owner.getIwin(), root, owner, genId(), eLayoutArea.HORIZONTAL, owner.width, dh));
@@ -59,7 +59,7 @@ public class ElemImpost extends ElemBase {
     }
 
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.IMPOST;
+    public TypeElem typeElem() {
+        return TypeElem.IMPOST;
     }
 }

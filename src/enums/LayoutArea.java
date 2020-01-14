@@ -1,6 +1,6 @@
 package enums;
 
-public enum eLayoutArea {
+public enum LayoutArea {
     NONE("Любая"),
     FULL("Везде"),
     HORIZONTAL("Горизонтальное"),
@@ -15,7 +15,7 @@ public enum eLayoutArea {
 
     public String name = "";
 
-    eLayoutArea(String name) {
+    LayoutArea(String name) {
         this.name = name;
     }
 }

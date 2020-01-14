@@ -1,7 +1,7 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 public class ElemGlass extends ElemBase {
 
@@ -10,7 +10,7 @@ public class ElemGlass extends ElemBase {
     public static final String ARCHED = "Арочное";                      // формы заполнения
     public static final String ARCHED_NOT = "Не арочное";               //
 
-    private eLayoutArea side = eLayoutArea.FULL;
+    private LayoutArea side = LayoutArea.FULL;
     protected float radiusGlass = 0;
 
     public ElemGlass(Wincalc iwin, AreaBase owner, String id) {
@@ -60,7 +60,7 @@ public class ElemGlass extends ElemBase {
     }
 
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.GLASS;
+    public TypeElem typeElem() {
+        return TypeElem.GLASS;
     }
 }

@@ -1,6 +1,6 @@
 package wincalc;
 
-import enums.eVariantJoin;
+import enums.VariantJoin;
 
 public class ElemJoinig {
 
@@ -15,7 +15,7 @@ public class ElemJoinig {
     protected ElemBase elemJoinLeft = null;     // схлопывания повторяющихся обходов
     protected ElemBase elemJoinRight = null;    //
 
-    protected eVariantJoin varJoin = eVariantJoin.EMPTY;    // Вариант соединения
+    protected VariantJoin varJoin = VariantJoin.EMPTY;    // Вариант соединения
     protected ElemBase joinElement1 = null;  // Элемент соединения 1
     protected ElemBase joinElement2 = null;  // Элемент соединения 2
 

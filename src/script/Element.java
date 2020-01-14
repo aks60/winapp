@@ -1,7 +1,7 @@
 package script;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 /**
  * Элементы передачи данных
@@ -10,8 +10,8 @@ import enums.eTypeElem;
 public class Element {
 
     protected String id = null;  // идентификатор элемента
-    protected eLayoutArea layoutFrame = null; //сторона располодения эл. рамы
-    protected eTypeElem elemType = eTypeElem.NONE; //тип элемента
+    protected LayoutArea layoutFrame = null; //сторона располодения эл. рамы
+    protected TypeElem elemType = TypeElem.NONE; //тип элемента
     protected String paramJson = null; //параметры элемента
 
     /**
@@ -25,7 +25,7 @@ public class Element {
      * @param id        профиля
      * @param elemType  тип профиля
      */
-    public Element(String id, eTypeElem elemType) {
+    public Element(String id, TypeElem elemType) {
         this.id = id;
         this.elemType = elemType;
     }
@@ -34,7 +34,7 @@ public class Element {
      * @param id        профиля
      * @param elemType  тип профиля
      */
-    public Element(String id, eTypeElem elemType, String paramJson) {
+    public Element(String id, TypeElem elemType, String paramJson) {
         this.id = id;
         this.elemType = elemType;
         this.paramJson = paramJson;
@@ -46,17 +46,17 @@ public class Element {
      * @param elemType    тип профиля
      * @param layoutRama  расположение
      */
-    public Element(String id, eTypeElem elemType, eLayoutArea layoutRama) {
+    public Element(String id, TypeElem elemType, LayoutArea layoutRama) {
         this.id = id;
         this.elemType = elemType;
         this.layoutFrame = layoutRama;
     }
 
-    public eTypeElem getElemType() {
+    public TypeElem getElemType() {
         return elemType;
     }
 
-    public eLayoutArea getLayoutRama() {
+    public LayoutArea getLayoutRama() {
         return layoutFrame;
     }
     

@@ -3,7 +3,7 @@ package enums;
 
 // Стороны для профилей (SYSPROA.ASETS)
 // select distinct ASETS from PRO4_SYSPROA where region_id = 177 order by ASETS
-public enum eProfileSide {
+public enum ProfileSide {
     Horiz(-2, "Горизонтальная"),
     Vert(-3, "Вертикальная"),
     Any(-1, "Любая"),
@@ -16,7 +16,7 @@ public enum eProfileSide {
     public int value;
     public String name;
 
-    eProfileSide(int value, String name) {
+    ProfileSide(int value, String name) {
         this.value = value;
         this.name = name;
     }

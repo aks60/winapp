@@ -1,6 +1,6 @@
 package wincalc;
 
-import enums.eTypeElem;
+import enums.TypeElem;
 import java.util.LinkedList;
 import javax.swing.JComponent;
 

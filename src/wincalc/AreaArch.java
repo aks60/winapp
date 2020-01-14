@@ -1,19 +1,19 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 public class AreaArch extends AreaBase {
 
-    public AreaArch(Wincalc iwin, String id, eLayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
+    public AreaArch(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
         super(null, id, layout, width, height, color1, color2, color3);
         this.iwin = iwin;
         parsingParam(this, paramJson);
     }
 
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.ARCH;
+    public TypeElem typeElem() {
+        return TypeElem.ARCH;
     }
     
     @Override

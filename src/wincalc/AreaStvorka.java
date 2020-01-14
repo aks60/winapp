@@ -1,14 +1,14 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
-import enums.eTypeOpen;
+import enums.LayoutArea;
+import enums.TypeElem;
+import enums.TypeOpen;
 
 public class AreaStvorka extends AreaBase {
 
     public String handleHeight = ""; //высота ручки
 
-    protected eTypeOpen typeOpen = eTypeOpen.OM_INVALID; //тип открывания
+    protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
     public AreaStvorka(Wincalc iwin, AreaBase owner, String id, String paramJson) {
 
@@ -53,13 +53,13 @@ public class AreaStvorka extends AreaBase {
 //        specificationRec.setArticlRec(articlesRec);
     }
 
-    public eTypeOpen typeOpen() {
-        return eTypeOpen.OM_INVALID;
+    public TypeOpen typeOpen() {
+        return TypeOpen.OM_INVALID;
     }
 
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.STVORKA;
+    public TypeElem typeElem() {
+        return TypeElem.STVORKA;
     }
 
     @Override

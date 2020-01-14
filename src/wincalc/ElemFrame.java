@@ -1,11 +1,11 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 public class ElemFrame extends ElemBase {
 
-    protected eLayoutArea side = eLayoutArea.NONE;
+    protected LayoutArea side = LayoutArea.NONE;
     protected float length = 0; //Длина арки
     protected float anglCut1 = 0; //Угол реза рамы
     protected float anglCut2 = 0; //Угол реза рамы
@@ -14,11 +14,11 @@ public class ElemFrame extends ElemBase {
         super(id);
     }
 
-    public eLayoutArea layout() {
+    public LayoutArea layout() {
         return side;
     }
 
-    public ElemFrame(AreaBase owner, String id, eLayoutArea side) {
+    public ElemFrame(AreaBase owner, String id, LayoutArea side) {
         super(id);
         this.side = side;
         color1 = owner.color1;
@@ -45,11 +45,11 @@ public class ElemFrame extends ElemBase {
 //        }
 
 
-        if (eLayoutArea.TOP == layout() || eLayoutArea.BOTTOM == layout()) {
+        if (LayoutArea.TOP == layout() || LayoutArea.BOTTOM == layout()) {
             width = x2 - x1;
             height = y2 - y1;
 
-        } else if (eLayoutArea.LEFT == layout() || eLayoutArea.RIGHT == layout()) {
+        } else if (LayoutArea.LEFT == layout() || LayoutArea.RIGHT == layout()) {
             width = y2 - y1;
             height = x2 - x1;
         }
@@ -63,7 +63,7 @@ public class ElemFrame extends ElemBase {
     }   
     
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.FRAME;
+    public TypeElem typeElem() {
+        return TypeElem.FRAME;
     }    
 }

@@ -5,7 +5,7 @@ package enums;
  * Типы элементов приходящие на вход сервиса (json to model)
  * Тут объединены окно и все его элементы
  */
-public enum eTypeElem {
+public enum TypeElem {
 
     MOSKITKA_SET(-13, "Москитка"),
     GLASS(1, "Стеклопакет"),
@@ -29,7 +29,7 @@ public enum eTypeElem {
     public int value;
     public String name;
 
-    eTypeElem(int value, String name) {
+    TypeElem(int value, String name) {
         this.value = value;
         this.name = name;
     }

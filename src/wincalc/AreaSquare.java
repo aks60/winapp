@@ -1,19 +1,19 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 public class AreaSquare extends AreaBase {
 
-    public AreaSquare(Wincalc iwin, String id, eLayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
+    public AreaSquare(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
         super(null, id, layout, width, height, color1, color2, color3);
         this.iwin = iwin;
         parsingParam(this, paramJson);
     }
 
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.SQUARE;
+    public TypeElem typeElem() {
+        return TypeElem.SQUARE;
     }
 
     @Override
@@ -26,8 +26,8 @@ public class AreaSquare extends AreaBase {
 
         //Угловое соединение левое верхнее
         ElemJoinig elemJoin1 = new ElemJoinig(iwin);
-        elemJoin1.elemJoinRight = mapFrame.get(eLayoutArea.TOP);
-        elemJoin1.elemJoinBottom = mapFrame.get(eLayoutArea.LEFT);
+        elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.TOP);
+        elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
         elemJoin1.cutAngl1 = 45;
         elemJoin1.cutAngl2 = 45;
         elemJoin1.anglProf = 90;
@@ -35,8 +35,8 @@ public class AreaSquare extends AreaBase {
 
         //Угловое соединение правое верхнее
         ElemJoinig elemJoin2 = new ElemJoinig(iwin);
-        elemJoin2.elemJoinLeft = mapFrame.get(eLayoutArea.TOP);
-        elemJoin2.elemJoinBottom = mapFrame.get(eLayoutArea.RIGHT);
+        elemJoin2.elemJoinLeft = mapFrame.get(LayoutArea.TOP);
+        elemJoin2.elemJoinBottom = mapFrame.get(LayoutArea.RIGHT);
         elemJoin2.cutAngl1 = 45;
         elemJoin2.cutAngl2 = 45;
         elemJoin2.anglProf = 90;
@@ -44,8 +44,8 @@ public class AreaSquare extends AreaBase {
 
         //Угловое соединение правое нижнее
         ElemJoinig elemJoin3 = new ElemJoinig(iwin);
-        elemJoin3.elemJoinTop = mapFrame.get(eLayoutArea.RIGHT);
-        elemJoin3.elemJoinLeft = mapFrame.get(eLayoutArea.BOTTOM);
+        elemJoin3.elemJoinTop = mapFrame.get(LayoutArea.RIGHT);
+        elemJoin3.elemJoinLeft = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin3.cutAngl1 = 45;
         elemJoin3.cutAngl2 = 45;
         elemJoin3.anglProf = 90;
@@ -53,8 +53,8 @@ public class AreaSquare extends AreaBase {
 
         //Угловое соединение левое нижнее
         ElemJoinig elemJoin4 = new ElemJoinig(iwin);
-        elemJoin4.elemJoinRight = mapFrame.get(eLayoutArea.BOTTOM);
-        elemJoin4.elemJoinTop = mapFrame.get(eLayoutArea.LEFT);
+        elemJoin4.elemJoinRight = mapFrame.get(LayoutArea.BOTTOM);
+        elemJoin4.elemJoinTop = mapFrame.get(LayoutArea.LEFT);
         elemJoin4.cutAngl1 = 45;
         elemJoin4.cutAngl2 = 45;
         elemJoin4.anglProf = 90;

@@ -1,17 +1,17 @@
 package wincalc;
 
-import enums.eLayoutArea;
-import enums.eTypeElem;
+import enums.LayoutArea;
+import enums.TypeElem;
 
 public class AreaScene extends AreaBase {
 
-    public AreaScene(Wincalc iwin, AreaBase owner, String id, eLayoutArea layout, float width, float height) {
+    public AreaScene(Wincalc iwin, AreaBase owner, String id, LayoutArea layout, float width, float height) {
         super(iwin, owner, id, layout, width, height);
     }
 
     @Override
-    public eTypeElem typeElem() {
-        return eTypeElem.AREA;
+    public TypeElem typeElem() {
+        return TypeElem.AREA;
     }
 
     @Override

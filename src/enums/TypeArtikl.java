@@ -3,7 +3,7 @@ package enums;
 /**
  * Типы мат. ценностей
  */
-public enum eTypeArtikl {
+public enum TypeArtikl {
 
     X100(1, 0, "Профили"),
     X101(1, 1, "Коробка"),
@@ -90,7 +90,7 @@ public enum eTypeArtikl {
    public int id2 = 0;
    public String name = "";
 
-    eTypeArtikl(int id1, int id2, String name) {
+    TypeArtikl(int id1, int id2, String name) {
         this.id1 = id1;
         this.id2 = id2;
         this.name = name;

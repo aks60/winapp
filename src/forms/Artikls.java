@@ -9,7 +9,7 @@ import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
-import enums.eTypeArtikl;
+import enums.TypeArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -113,25 +113,25 @@ public class Artikls extends javax.swing.JFrame
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Мат. ценности");
         DefaultMutableTreeNode treeNode2 = null;
-        for (eTypeArtikl it : eTypeArtikl.values()) {
+        for (TypeArtikl it : TypeArtikl.values()) {
             if (it.id1 == 1 && it.id2 == 0) {
-                treeNode2 = new DefaultMutableTreeNode(eTypeArtikl.X100); //"Профили"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X100); //"Профили"
 
             } else if (it.id1 == 2 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(eTypeArtikl.X200); //"Аксессуары"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X200); //"Аксессуары"
 
             } else if (it.id1 == 3 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(eTypeArtikl.X300); //"Погонаж"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X300); //"Погонаж"
 
             } else if (it.id1 == 4 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(eTypeArtikl.X400); //"Инструмент"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X400); //"Инструмент"
 
             } else if (it.id1 == 5 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(eTypeArtikl.X500); //"Заполнения"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
 
             } else if (it.id2 > 0) {
                 treeNode1.add(treeNode2);
@@ -165,15 +165,15 @@ public class Artikls extends javax.swing.JFrame
     private void selectionTab1() {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof eTypeArtikl == false) {
+            if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
                 qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.rate_id, "=", eCurrenc.id, "order by", eArtikls.level1, ",", eArtikls.code);
             
             } else if (selectedNode.isLeaf()) {
-                eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
+                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
                 qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.rate_id, "=", eCurrenc.id, "where", eArtikls.level1, "=",
                         e.id1 + "and", eArtikls.level2, "=", e.id2, "order by", eArtikls.level1, ",", eArtikls.code);
             } else {
-                eTypeArtikl e = (eTypeArtikl) selectedNode.getUserObject();
+                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
                 qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.rate_id, "=", eCurrenc.id, "where",
                         eArtikls.level1, "=", e.id1, "order by", eArtikls.level1, ",", eArtikls.code);
             }

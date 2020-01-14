@@ -1,6 +1,6 @@
 package enums;
 
-public enum eTypeJoin {
+public enum TypeJoin {
 
     LT, //угловое соединение левое верхнее
     LB, //угловое соединение левое нижнее

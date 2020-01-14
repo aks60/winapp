@@ -1,6 +1,6 @@
 package enums;
 
-public enum eParamJson {
+public enum ParamJson {
 
     //paramJson("Уник. идентиф."),
     funic("Уник. идентиф."),
@@ -11,7 +11,7 @@ public enum eParamJson {
     nunic_iwin("Уникальный идентификатор артикула");
     String name = "";
 
-    eParamJson(String name) {
+    ParamJson(String name) {
         this.name = name;
     }
 
