@@ -24,7 +24,7 @@ public class Test {
 //            wc.create(AreaElem.test(601001));
             //ConvPs.script();
 
-            //query();
+            query();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -58,7 +58,7 @@ public class Test {
             //Query sysprofRec = eSysprof.query.select(eSysprof.up, "where", eSysprof.systree_id, "=", 22, "and", eSysprof.types, "=", 44).table(eSysprof.up.tname());
             //Quaery record = eSysprof.query.select().stream().filter(record -> record.get(eSysprof.id) != null);
             
-           Query qqq = eSysprof.query.select(); 
+           //Record recs = eSysprof.query.newRecord(Query.SEL);
            Record record = eSysprof.query.select().stream()
                    .filter(rec -> rec.getInt(eSysprof.systree_id) == 39 && rec.getInt(eSysprof.types) == 2).findFirst().orElse(null);
            

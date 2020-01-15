@@ -69,7 +69,7 @@ public class ElemFrame extends ElemBase {
         articlRec = eArtikls.query.select().stream()
                 .filter(rec -> rec.getInt(eArtikls.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
 
-//        specificationRec.setArticlRec(articlesRec);
+        //specificationRec.setArticlRec(articlesRec);
     }
 
     @Override
