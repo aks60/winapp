@@ -27,7 +27,7 @@ public enum eElement implements Field {
     //vdiff("8", "15", "1", "null", "VDIFF"),
     //pnump("5", "5", "1", "null", "PNUMP"),
     //vcomp("5", "5", "1", "null", "VCOMP");
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eElement(Object... p) {
@@ -40,6 +40,14 @@ public enum eElement implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

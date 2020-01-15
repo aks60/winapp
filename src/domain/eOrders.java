@@ -6,18 +6,18 @@ import dataset.Query;
 
 public enum eOrders implements Field {
     up("0", "0", "0", "Список заказов (проектов)", "LISTPRJ"),
-    id("4", "10", "0", "Идентификатор", "id"),    
-    numb("12", "32", "1", "номер заказа", "ZNUMB"),    
-    partner_id("4", "10", "0", "контрагент", "partner_id"),    
+    id("4", "10", "0", "Идентификатор", "id"),
+    numb("12", "32", "1", "номер заказа", "ZNUMB"),
+    partner_id("4", "10", "0", "контрагент", "partner_id"),
     manager_id("4", "10", "1", "менеджер", "manager_id"),
-    constr_id("4", "10", "1", "конструктор", "constr_id"), 
+    constr_id("4", "10", "1", "конструктор", "constr_id"),
     sale_name("12", "64", "1", "продавец", "SNAME"),
-    space("8", "15", "1", "площадь изделий", "PSQRA"),    
-    weight("8", "15", "1", "вес изделий", "EMPTY"),    
+    space("8", "15", "1", "площадь изделий", "PSQRA"),
+    weight("8", "15", "1", "вес изделий", "EMPTY"),
     desc("8", "15", "1", "дополнительная скидка", "XDESC"),
     dat1("93", "19", "1", "дата отправки в производство", "WDATE"),
     dat2("93", "19", "1", "дополнительная дата", "dat2");
-    
+
 //    зnumb("4", "10", "1", "номер проекта", "PNUMB"),
 //    ndepa("5", "5", "1", "номер отдела", "NDEPA"),    
 //    punic("4", "10", "1", "null", "PUNIC"),
@@ -106,7 +106,7 @@ public enum eOrders implements Field {
 //    date1("93", "19", "1", "настраиваемая дата", "DATE1"),
 //    date2("93", "19", "1", "null", "DATE2"),
 //    date3("93", "19", "1", "null", "DATE3");
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eOrders(Object... p) {
@@ -119,6 +119,14 @@ public enum eOrders implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

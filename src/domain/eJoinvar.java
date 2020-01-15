@@ -7,7 +7,7 @@ import dataset.Record;
 
 public enum eJoinvar implements Field {
     up("0", "0", "0", "Варианты соединений", "CONNVAR"),
-    id("4", "10", "0", "Идентификатор", "id"),    
+    id("4", "10", "0", "Идентификатор", "id"),
     prio("5", "5", "1", "Приоритет", "CPRIO"),
     name("12", "64", "1", "Название варианта", "CNAME"),
     types("5", "5", "1", "Тип варианта", "CTYPE"),
@@ -20,7 +20,7 @@ public enum eJoinvar implements Field {
     //aser2("12", "32", "1", "Артикул 2", "ASER2"),
     //cpict("12", "64", "1", "Чертеж варианта", "CPICT"),    
     //cdiff("8", "15", "1", "null", "CDIFF");
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eJoinvar(Object... p) {
@@ -33,6 +33,14 @@ public enum eJoinvar implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

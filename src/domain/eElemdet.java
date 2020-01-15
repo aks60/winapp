@@ -8,7 +8,7 @@ import dataset.Record;
 public enum eElemdet implements Field {
     up("0", "0", "0", "Спецификация составов", "VSTASPC"),
     id("4", "10", "0", "Идентификатор", "id"),
-    mtyp("5", "5", "1", "Тип подбора 0 - указана вручную 11 - профиль 31 - основная", "CTYPE"),    
+    mtyp("5", "5", "1", "Тип подбора 0 - указана вручную 11 - профиль 31 - основная", "CTYPE"),
     element_id("4", "10", "0", "Внешний ключ", "element_id"),
     param_id("4", "10", "0", "Внешний ключ", "param_id"),
     color_st("4", "10", "0", "Внешний enum", "color_st"),
@@ -17,7 +17,7 @@ public enum eElemdet implements Field {
     //anumb("12", "32", "1", "название компонента", "ANUMB").    
     //vnumb("4", "10", "1", "ИД состава", "VNUMB"),
     //aunic("4", "10", "1", "ИД компонента", "AUNIC"),    
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eElemdet(Object... p) {
@@ -30,6 +30,14 @@ public enum eElemdet implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

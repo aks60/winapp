@@ -10,10 +10,10 @@ public enum ePartner implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "название контрагента", "KNAME"),
     categ("12", "32", "1", "категория (заказчик, поставщик, офис, дилер, специальный)", "KPREF"),
-    types("5", "5", "1", "частное лицо (0 - частное, 1 - организация)", "KCHAS"),   
-    city("12", "64", "1", "город", "KTOWN"),  
+    types("5", "5", "1", "частное лицо (0 - частное, 1 - организация)", "KCHAS"),
+    city("12", "64", "1", "город", "KTOWN"),
     land("12", "64", "1", "страна", "KCOUN"),
-    addr("12", "192", "1", "почтовый адрес", "KADRP"),   
+    addr("12", "192", "1", "почтовый адрес", "KADRP"),
     phone("12", "32", "1", "телефон", "KTELE"),
     email("12", "64", "1", "е-mail", "KMAIL"),
     bank_name("12", "128", "1", "банк", "KBANK"),
@@ -21,10 +21,10 @@ public enum ePartner implements Field {
     bank_rs("12", "64", "1", "Р/С", "KBAN2"),
     bank_bik("12", "64", "1", "БИК", "KBAN3"),
     bank_ks("12", "64", "1", "К/С", "KBAN4"),
-    bank_kpp("12", "64", "1", "КПП", "KBAN5"),    
+    bank_kpp("12", "64", "1", "КПП", "KBAN5"),
     bank_ogrn("12", "32", "1", "ОГРН", "KOGRN"),
-    manager("12", "32", "1", "менеджер", "PNAME"), 
-    desc("8", "15", "1", "скидки по умолчанию", "CDESC");   
+    manager("12", "32", "1", "менеджер", "PNAME"),
+    desc("8", "15", "1", "скидки по умолчанию", "CDESC");
 //    kunic("4", "10", "1", "null", "KUNIC"),
 //    krekl("4", "10", "1", "null", "KREKL"),
 //    pricl("4", "10", "1", "null", "PRICL"),
@@ -69,7 +69,7 @@ public enum ePartner implements Field {
 //    tele3("12", "48", "1", "null", "TELE3"),
 //    gnumb("5", "5", "1", "null", "GNUMB"),
 //    cuser("4", "10", "1", "null", "CUSER");    
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     ePartner(Object... p) {
@@ -82,6 +82,14 @@ public enum ePartner implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

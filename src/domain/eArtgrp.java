@@ -13,7 +13,7 @@ public enum eArtgrp implements Field {
     munic("4", "10", "1", "ID группы МЦ", "MUNIC"),
     mkoef("8", "15", "1", "Ценовой коэффицент", "MKOEF"),
     ugrup("4", "10", "1", "Группа_пользователей", "UGRUP");
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eArtgrp(Object... p) {
@@ -28,7 +28,13 @@ public enum eArtgrp implements Field {
         return values();
     }
 
-    
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
+    }
 
     public String toString() {
         return meta.getDescr();

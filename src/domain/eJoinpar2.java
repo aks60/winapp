@@ -17,7 +17,7 @@ public enum eJoinpar2 implements Field {
     //pporn("5", "5", "1", "номер параметра в таблицах ввода параметров в программу. Присваивается автоматически, возможно поменять вручную. В рамках одного группы одноименных номеров быть не может. Возможно менять вручную если такой номер не занят", "PPORN"),   
     //znumb("4", "10", "1", "значение параметра (параметры вводимые пользователем)", "ZNUMB"),
 
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eJoinpar2(Object... p) {
@@ -30,6 +30,14 @@ public enum eJoinpar2 implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

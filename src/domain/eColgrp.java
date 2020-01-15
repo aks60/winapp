@@ -29,6 +29,14 @@ public enum eColgrp implements Field {
         return values();
     }
 
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
+    }
+
     public String toString() {
         return meta.getDescr();
     }

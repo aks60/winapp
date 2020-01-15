@@ -20,7 +20,7 @@ public enum eSysfurn implements Field {
     //funic("4", "10", "1", "ИД фурнитурного набора", "FUNIC"),            
     //anumbt("12", "32", "1", "Артикул ручки по умолчанию", "ARUCH"),
     //apetl("12", "32", "1", "Артиккул подвеса (петли) по умолчанию", "APETL");    
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eSysfurn(Object... p) {
@@ -33,6 +33,14 @@ public enum eSysfurn implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

@@ -16,7 +16,7 @@ public enum eColor implements Field {
     coef3("8", "15", "1", "ценовой коэффицент внешний", "KOEF2"),
     suffix1("12", "8", "1", "суффикс основной тестуры", "CMAIN"),
     suffix2("12", "8", "1", "суффикс внутренний тестуры", "CINTO"),
-    suffix3("12", "8", "1", "суффикс внешний текстуры", "COUTS"),    
+    suffix3("12", "8", "1", "суффикс внешний текстуры", "COUTS"),
     orient("5", "5", "1", "ориентация", "CORIE"),
     pain("5", "5", "1", "покраска", "CTYPE"),
     colgrp_id("5", "5", "0", "группа", "colgrp_id");
@@ -28,7 +28,7 @@ public enum eColor implements Field {
     //nouse("5", "5", "1", "null", "NOUSE"),
     //cprc1("8", "15", "1", "null", "CPRC1"),
     //cprc2("8", "15", "1", "null", "CPRC2");
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eColor(Object... p) {
@@ -43,7 +43,13 @@ public enum eColor implements Field {
         return values();
     }
 
-    
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
+    }
 
     public String toString() {
         return meta.getDescr();

@@ -29,7 +29,7 @@ public enum eSystree implements Field {
     //pnump("5", "5", "1", "null", "PNUMP"),
     //pnumn("5", "5", "1", "null", "PNUMN"),
     //nuni("4", "10", "1", "ID ветки дерева", "NUNI"),
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eSystree(Object... p) {
@@ -42,6 +42,14 @@ public enum eSystree implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

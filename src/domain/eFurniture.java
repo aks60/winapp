@@ -8,7 +8,7 @@ import dataset.Record;
 public enum eFurniture implements Field {
     up("0", "0", "0", "Список фурнитуры", "FURNLST"),
     id("4", "10", "0", "Идентификатор", "id"),
-    name("12", "64", "1", "Название", "FNAME"),  
+    name("12", "64", "1", "Название", "FNAME"),
     p2_max("8", "15", "1", "Макс. P/2, мм", "FMAXP"),
     height_max("8", "15", "1", "Макс. выс., мм", "FMAXH"),
     width_max("8", "15", "1", "Макс. шир., мм", "FMAXL"),
@@ -26,7 +26,7 @@ public enum eFurniture implements Field {
     //sunic("4", "10", "1", "тип комплекта фурнитуры: 0 - все, 15 - ROTO OK,", "SUNIC");
     //fprim("-4", "512", "1", "null", "FPRIM"),
 
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eFurniture(Object... p) {
@@ -39,6 +39,14 @@ public enum eFurniture implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

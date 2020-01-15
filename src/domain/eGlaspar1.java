@@ -17,7 +17,7 @@ public enum eGlaspar1 implements Field {
     //znumb("4", "10", "1", "значение параметра", "ZNUMB"),
     //punic("4", "10", "1", "null", "PUNIC"),
 
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eGlaspar1(Object... p) {
@@ -30,6 +30,14 @@ public enum eGlaspar1 implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {

@@ -17,7 +17,7 @@ public enum eGlasdet implements Field {
     //anumb("12", "32", "1", "Артикул элемента", "ANUMB"),
     //clnum("4", "10", "1", "Текстура", "CLNUM"),
     //ctype("5", "5", "1", "null", "CTYPE"),    
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eGlasdet(Object... p) {
@@ -32,7 +32,13 @@ public enum eGlasdet implements Field {
         return values();
     }
 
-    
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
+    }
 
     public String toString() {
         return meta.getDescr();

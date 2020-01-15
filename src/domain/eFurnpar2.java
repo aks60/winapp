@@ -15,8 +15,8 @@ public enum eFurnpar2 implements Field {
     //pporn("5", "5", "1", "null", "PPORN"),
     //znumb("4", "10", "1", "null", "ZNUMB"),
     //punic("4", "10", "1", "null", "PUNIC"),
-    
-        private MetaField meta = new MetaField(this);
+
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eFurnpar2(Object... p) {
@@ -31,7 +31,13 @@ public enum eFurnpar2 implements Field {
         return values();
     }
 
-    
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
+    }
 
     public String toString() {
         return meta.getDescr();

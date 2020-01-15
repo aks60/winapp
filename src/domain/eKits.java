@@ -11,7 +11,7 @@ public enum eKits implements Field {
     types("5", "5", "1", "Тип", "KTYPE"), //Продажа, Скатка, Ламинация, Стеклопакет
     categ("12", "32", "1", "Категория", "KPREF"),
     quant("8", "15", "1", "Количество", "AQTYK"),
-    hide("5", "5", "1", "Флаг  Скрыт . Устанавливается для запрета использования комплекта", "KHIDE"),    
+    hide("5", "5", "1", "Флаг  Скрыт . Устанавливается для запрета использования комплекта", "KHIDE"),
     artikl_id("4", "10", "0", "Ссылка", "id"),
     color_id("4", "10", "1", "Ссылка", "id");
 //    anumb("12", "32", "1", "Aртикул, получаемый в случае использования  скатки  или ламинации", "ANUMB"),
@@ -25,13 +25,12 @@ public enum eKits implements Field {
 //    ksize("12", "96", "1", "null", "KSIZE");
 //    kunic("4", "10", "1", "ID комплекта", "KUNIC"),
 //    kblob("-4", "null", "1", "Примечания BLOB", "KBLOB"),    
-        private MetaField meta = new MetaField(this);
+    private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
     eKits(Object... p) {
         meta.init(p);
     }
-
 
     public MetaField meta() {
         return meta;
@@ -39,6 +38,14 @@ public enum eKits implements Field {
 
     public Field[] fields() {
         return values();
+    }
+
+    @Override
+    public Query selectSql() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public String toString() {
