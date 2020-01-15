@@ -1,6 +1,8 @@
 package wincalc;
 
 import dataset.Query;
+import dataset.Record;
+import domain.eArtikls;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
@@ -48,7 +50,6 @@ public class ElemFrame extends ElemBase {
 //            anglHoriz = 180;
 //        }
 
-
         if (LayoutArea.TOP == layout() || LayoutArea.BOTTOM == layout()) {
             width = x2 - x1;
             height = y2 - y1;
@@ -61,15 +62,16 @@ public class ElemFrame extends ElemBase {
 
     public void initСonstructiv() {
 
-        Query q = eSysprof.query.select(eSysprof.up, "where", eSysprof.systree_id, "="
-                , iwin.nuni, "and", eSysprof.types, "=", typeProfile().value).table(eSysprof.up.tname());
-        sysprofRec = (q.size() == 0) ? null :q.get(0);
-        
-//        sysproaRec = Sysproa.find(getConst(), owner.iwin.nuni, getTypeProfile());
-//        articlesRec = Artikls.get(getConst(), sysproaRec.anumb, true);
+        sysprofRec = eSysprof.query.select().stream()
+                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni 
+                        && rec.getInt(eSysprof.types) == typeProfile().value).findFirst().orElse(null);
+       
+        articlRec = eArtikls.query.select().stream()
+                .filter(rec -> rec.getInt(eArtikls.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+
 //        specificationRec.setArticlRec(articlesRec);
-    }   
-    
+    }
+
     @Override
     public TypeElem typeElem() {
         return TypeElem.FRAME;
@@ -78,5 +80,5 @@ public class ElemFrame extends ElemBase {
     @Override
     public TypeProfile typeProfile() {
         return (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeProfile.STVORKA : TypeProfile.FRAME;
-    }    
+    }
 }

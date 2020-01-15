@@ -28,7 +28,7 @@ public abstract class Base {
     protected int color3 = -1;  //внешний
 
     protected Record sysprofRec = null; //профиль в системе
-    protected eArtikls articlRec = null; //мат. средства, основной профиль
+    protected Record articlRec = null; //мат. средства, основной профиль
     protected Specification specificationRec = null; //спецификация элемента    
 
     public String getId() {

@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import convdb.Script;
 import dataset.Query;
+import dataset.Record;
 import domain.eSysprof;
 import enums.ParamJson;
 import forms.Artikls;
@@ -20,7 +22,7 @@ public class Test {
         try {
 //            Wincalc wc = new Wincalc();
 //            wc.create(AreaElem.test(601001));
-//            Script.script();
+            //Script.script();
 
             query();
             
@@ -56,7 +58,10 @@ public class Test {
             //Query sysprofRec = eSysprof.query.select(eSysprof.up, "where", eSysprof.systree_id, "=", 22, "and", eSysprof.types, "=", 44).table(eSysprof.up.tname());
             //Quaery record = eSysprof.query.select().stream().filter(record -> record.get(eSysprof.id) != null);
             
-            //eSysprof.query.str
+           Query qqq = eSysprof.query.select(); 
+           Record record = eSysprof.query.select().stream()
+                   .filter(rec -> rec.getInt(eSysprof.systree_id) == 39 && rec.getInt(eSysprof.types) == 2).findFirst().orElse(null);
+           
             int mm = 0;
             //Query q1 = new Query(eArtikls.values()).table(eArtikls.up.tname());
             //Query q1 = eArtikls.query.select(eArtikls.up, "order by", eArtikls.id);
