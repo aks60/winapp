@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import convdb.Script;
+import convdb.ConvPs;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprof;
@@ -22,9 +22,9 @@ public class Test {
         try {
 //            Wincalc wc = new Wincalc();
 //            wc.create(AreaElem.test(601001));
-            //Script.script();
+            //ConvPs.script();
 
-            query();
+            //query();
             
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

@@ -67,7 +67,7 @@ import java.util.Map;
  * удаляться. Обновление данных выполняется пакетом, если была ошибка в пакете,
  * откат и пакет обслуживается отдельными insert.
  */
-public class Script {
+public class ConvPs {
 
     private static char versionPs = 4;
     private static Connection cn1;
@@ -135,7 +135,7 @@ public class Script {
                     sql("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
                 }
                 //Создание таблицы приёмника
-                for (String ddl : Script.createTable(fieldUp.fields())) {
+                for (String ddl : ConvPs.createTable(fieldUp.fields())) {
                     st2.execute(ddl);
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
