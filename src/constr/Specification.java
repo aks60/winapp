@@ -1,43 +1,50 @@
 package constr;
 
+import dataset.Record;
+import domain.eArtikls;
+import enums.TypeArtikl;
+import java.util.ArrayList;
+import java.util.HashMap;
+import wincalc.ElemBase;
+
 
 /**
  * Спецификация элемента окна
  */
 public class Specification {
 
-//    public ElemBase elemOwnerSpecif = null; //элемент пораждающий спецификацию
-//    protected ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
-//    protected HashMap<Integer, String> hmParam = null; //параметры спецификации
-//    private Artikls articlesRec = null; //профиль в спецификации
-//
-//    public String id = "0";  //ID
-//    public String areaId = "0"; //ID area
-//    public String elemId = "0"; //ID elem
-//    public String elemType = "0"; //TypeElem
-//    public String element = "-"; //Расположение
-//    public String artikl = "-";  //Артикул
-//    public String name = "-";  //Наименование
-//    public int colorBase = 1005;  //Текстура
-//    public int colorInternal = 1005;  //Внутренняя
-//    public int colorExternal = 1005;  //Внешняя
-//    public float width = 0;  //Длина
-//    public float height = 0;  //Ширина
-//    public float weight = 0;  //масса
-//    public float anglCut1 = 0;  //Угол1
-//    public float anglCut2 = 0;  //Угол2
-//    public int count = 1;  //Кол. единиц
-//    public int unit = 0; //Ед.изм
-//    public float quantity = 0; //Количество без отхода
-//    public float wastePrc = 0;  //Процент отхода
-//    public float quantity2 = 0;  //Количество с отходом
-//    public float inPrice = 0;  //Собес-сть за ед. изм.
-//    public float outPrice = 0;  //Собес-сть за злемент с отходом
-//    public float inCost = 0; //Стоимость без скидки
-//    public float outCost = 0; //Стоимость со скидкой
-//    public float discount = 0;  //Скидка
-//    public float anglHoriz = 0; // Угол к горизонту
-//
+    public ElemBase elemOwnerSpecif = null; //элемент пораждающий спецификацию
+    protected ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
+    protected HashMap<Integer, String> hmParam = null; //параметры спецификации
+    private Record artiklesRec = null; //профиль в спецификации
+
+    public String id = "0";  //ID
+    public String areaId = "0"; //ID area
+    public String elemId = "0"; //ID elem
+    public String elemType = "0"; //TypeElem
+    public String element = "-"; //Расположение
+    public String artikl = "-";  //Артикул
+    public String name = "-";  //Наименование
+    public int colorBase = 1005;  //Текстура
+    public int colorInternal = 1005;  //Внутренняя
+    public int colorExternal = 1005;  //Внешняя
+    public float width = 0;  //Длина
+    public float height = 0;  //Ширина
+    public float weight = 0;  //масса
+    public float anglCut1 = 0;  //Угол1
+    public float anglCut2 = 0;  //Угол2
+    public int count = 1;  //Кол. единиц
+    public int unit = 0; //Ед.изм
+    public float quantity = 0; //Количество без отхода
+    public float wastePrc = 0;  //Процент отхода
+    public float quantity2 = 0;  //Количество с отходом
+    public float inPrice = 0;  //Собес-сть за ед. изм.
+    public float outPrice = 0;  //Собес-сть за злемент с отходом
+    public float inCost = 0; //Стоимость без скидки
+    public float outCost = 0; //Стоимость со скидкой
+    public float discount = 0;  //Скидка
+    public float anglHoriz = 0; // Угол к горизонту
+
 //    /**
 //     * Конструктор для видимых эдементов окна
 //     *
@@ -86,25 +93,25 @@ public class Specification {
 //        this.discount = spec.discount;
 //        this.anglHoriz = spec.anglHoriz;
 //        this.hmParam = spec.hmParam;
-//        this.articlesRec = spec.getArticRec();
+//        this.artiklesRec = spec.getArticRec();
 //    }
 //
 //    public ArrayList<Specification> getSpecificationList() {
 //        return specificationList;
 //    }
 //
-//    public void setArticlRec(Artikls artiklRec) {
-//        this.artikl = artiklRec.anumb;
-//        this.name = artiklRec.aname;
-//        this.wastePrc = artiklRec.aouts;
-//        this.unit = artiklRec.atypi;
-//        this.articlesRec = artiklRec;
-//        setAnglCut();
-//        //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться
-//    }
+    public void setArticlRec(Record artiklRec) {
+        this.artikl = artiklRec.getStr(eArtikls.code);
+        this.name = artiklRec.getStr(eArtikls.name);
+        this.wastePrc = artiklRec.getFloat(eArtikls.otx_norm);
+        this.unit = artiklRec.getInt(eArtikls.unit); //atypi;
+        this.artiklesRec = artiklRec;
+        setAnglCut();
+        //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться
+    }
 //
 //    public Artikls getArticRec() {
-//        return articlesRec;
+//        return artiklesRec;
 //    }
 //
 //    public void setColor(int colorBase, int colorInternal, int colorExternal) {
@@ -120,20 +127,20 @@ public class Specification {
 //        colorExternal = calcConstructiv.determineColorCodeForArt(elemBase, 3, par_specif, this);
 //    }
 //
-//    protected void setAnglCut() {
-//
-//        if (TypeArtikl.FITTING.isType(articlesRec) ||
-//                TypeArtikl.KONZEVPROF.isType(articlesRec) ||
-//                TypeArtikl.MONTPROF.isType(articlesRec) ||
-//                TypeArtikl.FIKSPROF.isType(articlesRec)) {
-//            anglCut2 = 90;
-//            anglCut1 = 90;
-//
-//        } else if (TypeArtikl.FITTING.isType(articlesRec)) {
-//            anglCut2 = 0;
-//            anglCut1 = 0;
-//        }
-//    }
+    protected void setAnglCut() {
+        //YODO Тут логическая ошибка
+        if (TypeArtikl.X109.isType(artiklesRec) ||
+                TypeArtikl.X135.isType(artiklesRec) ||
+                TypeArtikl.X117.isType(artiklesRec) ||
+                TypeArtikl.X136.isType(artiklesRec)) {
+            anglCut2 = 90;
+            anglCut1 = 90;
+
+        } else if (TypeArtikl.X109.isType(artiklesRec)) {
+            anglCut2 = 0;
+            anglCut1 = 0;
+        }
+    }
 //
 //    public void putHmParam(Integer key, String val) {
 //        hmParam.put(key, val);
