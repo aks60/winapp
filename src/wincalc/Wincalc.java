@@ -3,11 +3,9 @@ package wincalc;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import constr.CalcConstructiv;
-import constr.CalcTariffication;
+import dataset.Record;
 import enums.LayoutArea;
 import enums.TypeElem;
-import forms.Artikls;
 import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -19,7 +17,7 @@ public class Wincalc {
     //protected final Constructive constr;
     //protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     protected int nuni = 0;
-    protected Artikls articlesRec = null;  //главный артикл системы профилей
+    protected Record articlesRec = null;  //главный артикл системы профилей
     protected String prj = "empty";
     protected float percentMarkup = 0;  //процентная надбавка
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
