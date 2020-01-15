@@ -70,7 +70,8 @@ public interface Field {
     
     public MetaField meta();
     
-    default void selectSql() {
+    default Query selectSql() {
+        return null;
     }
     
     default String updateSql(Record record) {

@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -17,10 +18,11 @@ import javax.swing.JOptionPane;
 public class Query extends Table {
 
     private Query root = this;
-    private HashMap<String, Query> mapQuery = new HashMap();
+    private HashMap<String, Query> mapQuery = new HashMap();    
 
     private static String schema = "";
     public static Connection connection = null;
+    public static LinkedHashSet<Query> setOpenTable = new LinkedHashSet<Query>();
     public static String INS = "INS";
     public static String SEL = "SEL";
     public static String UPD = "UPD";
@@ -69,6 +71,11 @@ public class Query extends Table {
         return root.mapQuery.get(name_table);
     }
 
+    public Query select() {
+        setOpenTable.add(root);
+        return root.fields()[0].selectSql();
+    }
+    
     public Query select(Object... s) {
         String sql = "";
         for (Object p : s) {
