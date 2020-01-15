@@ -1,5 +1,7 @@
 package wincalc;
 
+import domain.eArtikls;
+import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.TypeOpen;
@@ -39,17 +41,23 @@ public class AreaStvorka extends AreaBase {
 //            }
 //        }
 //        setRoot(this);
-//        initСonstructiv();
+        initСonstructiv();
 //        parsingParamJson(getRoot(), paramJson);
     }
 
     public void initСonstructiv() {
+        sysprofRec = eSysprof.query.select().stream()
+                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
+                && rec.getInt(eSysprof.types) == typeProfile().value).findFirst().orElse(null);
 
+        articlRec = eArtikls.query.select().stream()
+                .filter(rec -> rec.getInt(eArtikls.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+        
 //        Sysproa sysproaRec = Sysproa.find(getConst(), iwin.nuni, TypeProfile.STVORKA);
 //        articlesRec = Artikls.get(getConst(), sysproaRec.anumb, true);
-//        if (articlesRec.asizn == 0) {
-//            articlesRec.asizn = iwin.articlesRec.asizn; //TODO наследование дордома Профстроя
-//        }
+        if (articlRec.asizn == 0) {
+            articlesRec.asizn = iwin.articlesRec.asizn; //TODO наследование дордома Профстроя
+        }
 //        specificationRec.setArticlRec(articlesRec);
     }
 

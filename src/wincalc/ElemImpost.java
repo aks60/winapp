@@ -63,9 +63,18 @@ public class ElemImpost extends ElemBase {
     public TypeElem typeElem() {
         return TypeElem.IMPOST;
     }
-    
+
     @Override
     public TypeProfile typeProfile() {
         return TypeProfile.IMPOST;
-    }    
+    }
+
+    @Override
+    public void anglCut(int side, float anglCut) {
+        if (side == 1) {
+            anglCut1 = anglCut;
+        } else {
+            anglCut2 = anglCut;
+        }
+    }
 }

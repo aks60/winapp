@@ -1,9 +1,12 @@
 package wincalc;
 
+import domain.eArtikls;
 import enums.LayoutArea;
 import enums.TypeElem;
 
 public class AreaArch extends AreaBase {
+    
+    protected double radiusArch = 0; //радиус арки
 
     public AreaArch(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
         super(null, id, layout, width, height, color1, color2, color3);
@@ -18,7 +21,7 @@ public class AreaArch extends AreaBase {
     
     @Override
     public void joinRama() {
-/*
+
         String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
         String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
         String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
@@ -29,8 +32,8 @@ public class AreaArch extends AreaBase {
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.ARCH);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
         mapJoin().put(key1, elemJoin1);
-        float dz = elemJoin1.elemJoinRight.articlesRec.aheig;
-        float h = iwin.getHeightAdd() - height;
+        float dz = elemJoin1.elemJoinRight.articlRec.getFloat(eArtikls.height);
+        float h = iwin.heightAdd - height;
         float w = width;
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки
         radiusArch = r; //запишем радиус дуги в AreaArch
@@ -44,8 +47,8 @@ public class AreaArch extends AreaBase {
         elemJoin1.cutAngl1 = (float) ang3; //угол реза 1
         elemJoin1.cutAngl2 = (float) ang4; //угол реза 2
         elemJoin1.anglProf = (float) ang4;
-        elemJoin1.elemJoinRight.setAnglCut(ElemBase.SIDE_END, elemJoin1.cutAngl2);
-        elemJoin1.elemJoinBottom.setAnglCut(ElemBase.SIDE_START, elemJoin1.cutAngl1);
+        elemJoin1.elemJoinRight.anglCut(ElemBase.SIDE_END, elemJoin1.cutAngl2);
+        elemJoin1.elemJoinBottom.anglCut(ElemBase.SIDE_START, elemJoin1.cutAngl1);
 
         //Угловое соединение правое верхнее
         ElemJoinig elemJoin2 = new ElemJoinig(iwin);
@@ -55,8 +58,8 @@ public class AreaArch extends AreaBase {
         elemJoin2.cutAngl1 = (float) ang3;
         elemJoin2.cutAngl2 = (float) ang4;
         elemJoin2.anglProf = (float) ang4;
-        elemJoin2.elemJoinLeft.setAnglCut(ElemBase.SIDE_START, elemJoin2.cutAngl2);
-        elemJoin2.elemJoinBottom.setAnglCut(ElemBase.SIDE_END, elemJoin2.cutAngl1);
+        elemJoin2.elemJoinLeft.anglCut(ElemBase.SIDE_START, elemJoin2.cutAngl2);
+        elemJoin2.elemJoinBottom.anglCut(ElemBase.SIDE_END, elemJoin2.cutAngl1);
 
         //Угловое соединение правое нижнее
         ElemJoinig elemJoin3 = new ElemJoinig(iwin);
@@ -66,8 +69,8 @@ public class AreaArch extends AreaBase {
         elemJoin3.cutAngl1 = 45;
         elemJoin3.cutAngl2 = 45;
         elemJoin3.anglProf = 90;
-        elemJoin3.elemJoinTop.setAnglCut(ElemBase.SIDE_START, elemJoin3.cutAngl1);
-        elemJoin3.elemJoinLeft.setAnglCut(ElemBase.SIDE_END, elemJoin3.cutAngl2);
+        elemJoin3.elemJoinTop.anglCut(ElemBase.SIDE_START, elemJoin3.cutAngl1);
+        elemJoin3.elemJoinLeft.anglCut(ElemBase.SIDE_END, elemJoin3.cutAngl2);
 
         //Угловое соединение левое нижнее
         ElemJoinig elemJoin4 = new ElemJoinig(iwin);
@@ -77,8 +80,8 @@ public class AreaArch extends AreaBase {
         elemJoin4.cutAngl1 = 45;
         elemJoin4.cutAngl2 = 45;
         elemJoin4.anglProf = 90;
-        elemJoin4.elemJoinRight.setAnglCut(ElemBase.SIDE_START, elemJoin4.cutAngl2);
-        elemJoin4.elemJoinTop.setAnglCut(ElemBase.SIDE_END, elemJoin4.cutAngl1);*/
+        elemJoin4.elemJoinRight.anglCut(ElemBase.SIDE_START, elemJoin4.cutAngl2);
+        elemJoin4.elemJoinTop.anglCut(ElemBase.SIDE_END, elemJoin4.cutAngl1);
     }
 
 }

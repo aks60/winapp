@@ -63,9 +63,9 @@ public class ElemFrame extends ElemBase {
     public void initСonstructiv() {
 
         sysprofRec = eSysprof.query.select().stream()
-                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni 
-                        && rec.getInt(eSysprof.types) == typeProfile().value).findFirst().orElse(null);
-       
+                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
+                && rec.getInt(eSysprof.types) == typeProfile().value).findFirst().orElse(null);
+
         articlRec = eArtikls.query.select().stream()
                 .filter(rec -> rec.getInt(eArtikls.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
 
@@ -80,5 +80,14 @@ public class ElemFrame extends ElemBase {
     @Override
     public TypeProfile typeProfile() {
         return (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeProfile.STVORKA : TypeProfile.FRAME;
+    }
+
+    @Override
+    public void anglCut(int side, float anglCut) {
+        if (side == 1) {
+            anglCut1 = anglCut;
+        } else {
+            anglCut2 = anglCut;
+        }
     }
 }

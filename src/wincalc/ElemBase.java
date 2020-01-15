@@ -19,5 +19,8 @@ public abstract class ElemBase extends Base {
     /**
      * Типы профилей
      */
-    public abstract TypeProfile typeProfile();    
+    public abstract TypeProfile typeProfile();
+
+    public void anglCut(int side, float anglCut) {        
+    }   
 }

@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
+import domain.eArtikls;
 import domain.eParams;
 import enums.LayoutArea;
 import enums.ParamJson;
@@ -37,10 +38,12 @@ public abstract class AreaBase extends Base {
         this.iwin = iwin;
         //Коррекция размера стеклопакета(створки) арки.
         //Уменьшение на величину добавленной подкладки над импостом.
-        //if (owner != null && eTypeElem.ARCH == owner.getTypeArea() && owner.getChildList().size() == 2 && eTypeElem.IMPOST == owner.getChildList().get(1).getTypeElem()) {
-        //float dh = owner.getChildList().get(1).getArticlesRec().aheig / 2;
-        //setDimension(x1, y1, x2, y2 - dh);
-        //}
+        if (owner != null && TypeElem.ARCH == owner.typeElem()
+                && owner.listChild().size() == 2
+                && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
+            float dh = owner.listChild().get(1).articlRec.getFloat(eArtikls.height) / 2;  //.aheig / 2;
+            dimension(x1, y1, x2, y2 - dh);
+        }
     }
 
     /**
@@ -96,24 +99,25 @@ public abstract class AreaBase extends Base {
             if (paramJson != null && paramJson.isEmpty() == false) {
                 String str = paramJson.replace("'", "\"");
 
-            JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
-            JsonObject jsonObj = jsonElem.getAsJsonObject();
-            JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name()); 
-            
-            if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
+                JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
+                JsonObject jsonObj = jsonElem.getAsJsonObject();
+                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
+
+                if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                    mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
                     HashMap<Integer, Object[]> mapValue = new HashMap();
                     for (int index = 0; index < jsonArr.size(); index++) {
-                      JsonArray jsonRec = (JsonArray) jsonArr.get(index);
-                      int pnumb = jsonRec.getAsInt();
-                          String p1 = jsonRec.get(0).getAsString();
-                          String p2 = jsonRec.get(1).getAsString();
-                          Record rec = eParams.query.select(eParams.up, "where", eParams.numb, "=", p1, "and", eParams.mixt, "=", p2).get(0);
-                        if (pnumb < 0 && rec != null)
+                        JsonArray jsonRec = (JsonArray) jsonArr.get(index);
+                        int pnumb = jsonRec.getAsInt();
+                        String p1 = jsonRec.get(0).getAsString();
+                        String p2 = jsonRec.get(1).getAsString();
+                        Record rec = eParams.query.select(eParams.up, "where", eParams.numb, "=", p1, "and", eParams.mixt, "=", p2).get(0);
+                        if (pnumb < 0 && rec != null) {
                             mapValue.put(pnumb, new Object[]{rec.get(eParams.name), rec.get(eParams.mixt), 0});
+                        }
                     }
                     mapParam.put(ParamJson.pro4Params2, mapValue); //второй вариант                
-            }
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
