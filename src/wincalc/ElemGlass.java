@@ -23,21 +23,21 @@ public class ElemGlass extends ElemBase {
         super(id);
         this.iwin = iwin;
 
-//        if(paramJson != null) {
-//            String str = paramJson.replace("'", "\"");
-//            JSONObject jsonPar = (JSONObject) new JSONParser().parse(str);
-//            hmParamJson.put(ParamJson.nunic_iwin, jsonPar.get(ParamJson.nunic_iwin.name()));
-//        }
-//        initСonstructiv();
-//        parsingParamJson(root, paramJson);
-//
-//        if (TypeElem.ARCH == owner.getTypeElem()) {
-//            setDimension(owner.x1, owner.y1, owner.x2, root.getIwin().getHeightAdd() - owner.y2);
-//            putHmParam(13015, ARCHED);
-//        } else {
-//            setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-//            putHmParam(13015, RECTANGL);
-//        }
+        if(paramJson != null) {
+            String str = paramJson.replace("'", "\"");
+            JSONObject jsonPar = (JSONObject) new JSONParser().parse(str);
+            hmParamJson.put(ParamJson.nunic_iwin, jsonPar.get(ParamJson.nunic_iwin.name()));
+        }
+        initСonstructiv();
+        parsingParamJson(root, paramJson);
+
+        if (TypeElem.ARCH == owner.getTypeElem()) {
+            setDimension(owner.x1, owner.y1, owner.x2, root.getIwin().getHeightAdd() - owner.y2);
+            putHmParam(13015, ARCHED);
+        } else {
+            setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
+            putHmParam(13015, RECTANGL);
+        }
     }
 
     public void initСonstructiv() {
