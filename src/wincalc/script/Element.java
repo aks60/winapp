@@ -1,4 +1,4 @@
-package script;
+package wincalc.script;
 
 import enums.LayoutArea;
 import enums.TypeElem;

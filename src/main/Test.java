@@ -15,10 +15,10 @@ import forms.Artikls;
 import forms.Rate;
 import forms.Color;
 import java.util.HashMap;
-import script.AreaElem;
-import script.AreaRoot;
-import script.Element;
-import script.Script;
+import wincalc.script.AreaElem;
+import wincalc.script.AreaRoot;
+import wincalc.script.Element;
+import wincalc.script.Script;
 
 public class Test {
 

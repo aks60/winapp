@@ -18,8 +18,7 @@ import java.util.Map;
 public abstract class AreaBase extends Base {
 
     private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
-
-    protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента        
+     
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     protected EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
@@ -87,40 +86,6 @@ public abstract class AreaBase extends Base {
         } else { //для root area
             x2 = x1 + width;
             y2 = y1 + height;
-        }
-    }
-
-    /**
-     * Инициализация pro4Params
-     */
-    protected void parsingParam(AreaBase root, String paramJson) {
-        try {
-            Gson gson = new Gson(); //библиотека json
-            if (paramJson != null && paramJson.isEmpty() == false) {
-                String str = paramJson.replace("'", "\"");
-
-                JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
-                JsonObject jsonObj = jsonElem.getAsJsonObject();
-                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
-
-                if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                    mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
-                    HashMap<Integer, Object[]> mapValue = new HashMap();
-                    for (int index = 0; index < jsonArr.size(); index++) {
-                        JsonArray jsonRec = (JsonArray) jsonArr.get(index);
-                        int pnumb = jsonRec.getAsInt();
-                        String p1 = jsonRec.get(0).getAsString();
-                        String p2 = jsonRec.get(1).getAsString();
-                        Record rec = eParams.query.select(eParams.up, "where", eParams.numb, "=", p1, "and", eParams.mixt, "=", p2).get(0);
-                        if (pnumb < 0 && rec != null) {
-                            mapValue.put(pnumb, new Object[]{rec.get(eParams.name), rec.get(eParams.mixt), 0});
-                        }
-                    }
-                    mapParam.put(ParamJson.pro4Params2, mapValue); //второй вариант                
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
         }
     }
 

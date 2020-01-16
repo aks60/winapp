@@ -1,4 +1,4 @@
-package script;
+package wincalc.script;
 
 import com.google.gson.Gson;
 import enums.LayoutArea;

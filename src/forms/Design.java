@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import script.AreaRoot;
+import wincalc.script.AreaRoot;
 import swing.DefTableModel;
 
 public class Design extends javax.swing.JFrame {

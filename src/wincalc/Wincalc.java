@@ -16,7 +16,7 @@ public class Wincalc {
     protected static boolean production = false;
     //protected final Constructive constr;
     //protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
-    protected int nuni = 0;
+    protected Integer nuni = 0;
     protected Record articlesRec = null;  //главный артикл системы профилей
     protected String prj = "empty";
     protected float percentMarkup = 0;  //процентная надбавка

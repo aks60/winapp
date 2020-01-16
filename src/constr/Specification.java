@@ -95,11 +95,11 @@ public class Specification {
 //        this.hmParam = spec.hmParam;
 //        this.artiklesRec = spec.getArticRec();
 //    }
-//
-//    public ArrayList<Specification> getSpecificationList() {
-//        return specificationList;
-//    }
-//
+
+    public ArrayList<Specification> specificationList() {
+        return specificationList;
+    }
+
     public void setArticlRec(Record artiklRec) {
         this.artikl = artiklRec.getStr(eArtikls.code);
         this.name = artiklRec.getStr(eArtikls.name);
