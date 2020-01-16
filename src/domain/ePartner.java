@@ -24,7 +24,7 @@ public enum ePartner implements Field {
     bank_kpp("12", "64", "1", "КПП", "KBAN5"),
     bank_ogrn("12", "32", "1", "ОГРН", "KOGRN"),
     manager("12", "32", "1", "менеджер", "PNAME"),
-    desc("8", "15", "1", "скидки по умолчанию", "CDESC");
+    disc("8", "15", "1", "скидки по умолчанию", "CDESC");
 //    kunic("4", "10", "1", "null", "KUNIC"),
 //    krekl("4", "10", "1", "null", "KREKL"),
 //    pricl("4", "10", "1", "null", "PRICL"),

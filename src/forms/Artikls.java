@@ -166,15 +166,15 @@ public class Artikls extends javax.swing.JFrame
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.rate_id, "=", eCurrenc.id, "order by", eArtikls.level1, ",", eArtikls.code);
+                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.currenc_id, "=", eCurrenc.id, "order by", eArtikls.level1, ",", eArtikls.code);
             
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.rate_id, "=", eCurrenc.id, "where", eArtikls.level1, "=",
+                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.currenc_id, "=", eCurrenc.id, "where", eArtikls.level1, "=",
                         e.id1 + "and", eArtikls.level2, "=", e.id2, "order by", eArtikls.level1, ",", eArtikls.code);
             } else {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.rate_id, "=", eCurrenc.id, "where",
+                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.currenc_id, "=", eCurrenc.id, "where",
                         eArtikls.level1, "=", e.id1, "order by", eArtikls.level1, ",", eArtikls.code);
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();

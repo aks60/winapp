@@ -216,9 +216,7 @@ public abstract class AreaBase extends Base {
      * Список элементов окна
      */
     public <E> LinkedList<E> elemList(TypeElem... type) {
-        if (type == null) {
-            type = new TypeElem[]{TypeElem.FRAME, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.STVORKA};
-        }
+        
         LinkedList<Base> arrElem = new LinkedList();
         LinkedList<E> outElem = new LinkedList();
         for (Map.Entry<LayoutArea, ElemFrame> elemRama : root().mapFrame.entrySet()) {

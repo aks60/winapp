@@ -77,16 +77,15 @@ public class ConvPs {
 
     public static void script() {
         Field[] fieldsUp = {
-            eSysconst.up, eSysdata.up, eCurrenc.up, eArtgrp.up, eParams.up, eRulecalc.up,
-            eColor.up, eColgrp.up, eColpar1.up,
-            eKits.up, eKitdet.up, eKitpar1.up,
-            eArtikls.up, eArtdet.up,
-            eJoining.up, eJoindet.up, eJoinvar.up, eJoinpar2.up, eJoinpar1.up,
-            eElemgrp.up, eElement.up, eElemdet.up, eElempar1.up, eElempar2.up,
-            eGlasgrp.up, eGlasprof.up, eGlasdet.up, eGlaspar1.up, eGlaspar2.up,
-            eFurniture.up, eFurnside1.up, eFurndet.up, eFurnside2.up, eFurnpar1.up, eFurnpar2.up,
-            eSysprof.up, eSystree.up, eSysfurn.up, eSyspar1.up, eSysprod.up,
-            ePartner.up, eOrders.up
+            eSysconst.up, eSysdata.up, eCurrenc.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
+            eKitpar1.up, eKitdet.up, eKits.up,
+            eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
+            eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,  
+            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,   
+            eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up, 
+            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSystree.up,                        
+            eArtdet.up, eArtikls.up, eArtgrp.up,
+            eColpar1.up, eColor.up, eColgrp.up    
         };
         try {
             cn1 = java.sql.DriverManager.getConnection( //источник
@@ -362,7 +361,7 @@ public class ConvPs {
             sql("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)");  //glasgrp_id
             sql("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)");  //glasdet_id
             sql("delete from furnside1 where not exists (select id from furniture a where a.funic = furnside1.funic)"); //furniture_id
-            sql("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)");  //furnside_id
+            sql("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)");  //furnside_id           
             sql("delete from furndet where not exists (select id from furniture a where a.funic = furndet.funic)");  //furniture_id
             sql("delete from furndet where not exists (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
             sql("delete from furnpar2 where not exists (select id from furndet a where a.fincb = furnpar2.psss)"); //furndet_id
@@ -424,12 +423,12 @@ public class ConvPs {
             sql("update elemdet set color_st = clnum where clnum > 0");
             sql("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)");
             sql("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)");
-            sql("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)");
+            sql("update joining set artikl_id1 = (select id from artikls a where a.code = joining.anum1)");            
             sql("update joining set artikl_id2 = (select id from artikls a where a.code = joining.anum2)"); // where exists  (select id from artikls a where a.code = joining.anum2)")); 
             sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
             sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");
             sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
-            sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
+            sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");            
             sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
             sql("update glasprof set artikl_id = (select id from artikls a where a.code = glasprof.anumb)");
             sql("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
@@ -442,21 +441,65 @@ public class ConvPs {
             sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
             sql("update furndet set artikl_id = (select id from artikls a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
-            sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
+            sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");           
             sql("update systree set parent_id = id where npar = 0");
             sql("update sysprof set artikl_id = (select id from artikls a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
             sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
-            sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");
+            sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");            
             sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
             sql("update kits set artikl_id = (select id from artikls a where a.code = kits.anumb)");
             sql("update kits set color_id = (select id from color a where a.cnumb = kits.clnum)");
             sql("update kitdet set kits_id = (select id from kits a where a.kunic = kitdet.kunic)");
-            sql("update kitdet set artikl_id = (select id from artikls a where a.code = kitdet.anumb)");
+            sql("update kitdet set artikl_id = (select id from artikls a where a.code = kitdet.anumb)");            
             sql("update kitdet set color1_id = (select id from color a where a.cnumb = kitdet.clnum)");
             sql("update kitdet set color2_id = (select id from color a where a.cnumb = kitdet.clnu1)");
             sql("update kitdet set color3_id = (select id from color a where a.cnumb = kitdet.clnu2)");
             sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
+            
+            Util.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
+            sql("alter table artikls add constraint fk_artikl1 foreign key (currenc_id) references currenc (id)"); 
+            sql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)"); 
+            sql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikls (id)"); 
+            sql("alter table artdet add constraint fk_artdet2 foreign key (color_id) references color (id)");           
+            sql("alter table element add constraint fk_element1 foreign key (elemgrp_id) references elemgrp (id)");
+            sql("alter table element add constraint fk_element2 foreign key (artikl_id) references artikls (id)");
+            sql("alter table elemdet add constraint fk_elemdet1 foreign key (artikl_id) references artikls (id)");           
+            sql("alter table elemdet add constraint fk_elemdet2 foreign key (element_id) references element (id)");
+            sql("alter table elempar1 add constraint fk_elempar1 foreign key (element_id) references element (id)");
+            sql("alter table elempar2 add constraint fk_elempar2 foreign key (elemdet_id) references elemdet (id)"); 
+            sql("alter table joining add constraint fk_joining1 foreign key (artikl_id1) references artikls (id)");             
+            sql("alter table joining add constraint fk_joining2 foreign key (artikl_id2) references artikls (id)");
+            sql("alter table joinvar add constraint fk_joinvar1 foreign key (joining_id) references joining (id)");
+            sql("alter table joindet add constraint fk_joindet1 foreign key (joinvar_id) references joinvar (id)");
+            sql("alter table joinpar1 add constraint fk_joinpar1 foreign key (joinvar_id) references joinvar (id)");
+            sql("alter table joinpar2 add constraint fk_joinpar2 foreign key (joindet_id) references joindet (id)");  
+            sql("alter table glasprof add constraint fk_glasprof1 foreign key (glasgrp_id) references glasgrp (id)");
+            sql("alter table glasprof add constraint fk_glasprof2 foreign key (artikl_id) references artikls (id)");
+            sql("alter table glasdet add constraint fk_glasdet1 foreign key (glasgrp_id) references glasgrp (id)");
+            sql("alter table glasdet add constraint fk_glasdet2 foreign key (artikl_id) references artikls (id)");
+            sql("alter table glaspar1 add constraint fk_glaspar1 foreign key (glasgrp_id) references glasgrp (id)");   
+            sql("alter table glaspar2 add constraint fk_glaspar2 foreign key (glasdet_id) references glasdet (id)");
+            sql("alter table furnside1 add constraint fk_furnside1 foreign key (furniture_id) references furniture (id)"); 
+            sql("alter table furnpar1 add constraint fk_furnpar1 foreign key (furnside_id) references furnside1 (id)");             
+            sql("alter table furndet add constraint fk_furndet1 foreign key (furniture_id) references furniture (id)");
+            sql("alter table furndet add constraint fk_furndet2 foreign key (artikl_id) references artikls (id)");    
+            sql("alter table furnpar2 add constraint fk_furnpar2 foreign key (furndet_id) references furndet (id)");            
+            sql("alter table sysprof add constraint fk_sysprof1 foreign key (artikl_id) references artikls (id)");
+            sql("alter table sysprof add constraint fk_sysprof2 foreign key (systree_id) references systree (id)");  
+            sql("alter table sysprod add constraint fk_sysprod1 foreign key (systree_id) references systree (id)");           
+            sql("alter table sysfurn add constraint fk_sysfurn1 foreign key (systree_id) references systree (id)"); 
+            sql("alter table sysfurn add constraint fk_sysfurn2 foreign key (furniture_id) references furniture (id)");
+            sql("alter table syspar1 add constraint fk_syspar1 foreign key (systree_id) references systree (id)"); 
+            sql("alter table kits add constraint fk_kits1 foreign key (artikl_id) references artikls (id)");
+            sql("alter table kits add constraint fk_kits2 foreign key (color_id) references color (id)");  
+            sql("alter table kitdet add constraint fk_kitdet1 foreign key (kits_id) references kits (id)");
+            sql("alter table kitdet add constraint fk_kitdet2 foreign key (artikl_id) references artikls (id)");
+            sql("alter table kitdet add constraint fk_kitdet3 foreign key (color1_id) references color (id)");
+            sql("alter table kitdet add constraint fk_kitdet4 foreign key (color2_id) references color (id)");
+            sql("alter table kitdet add constraint fk_kitdet5 foreign key (color3_id) references color (id)");   
+            sql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)");           
+            //sql("alter table xxx add constraint fk_xxx foreign key (yyy_id) references yyy (id)");           
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");

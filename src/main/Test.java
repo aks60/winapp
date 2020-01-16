@@ -26,9 +26,10 @@ public class Test {
         Main.dev = true;
 
         try {
-//            Wincalc wc = new Wincalc();
-//            wc.create(AreaElem.test(601001));
-            //ConvPs.script();
+            //Wincalc wc = new Wincalc();
+            //wc.create(AreaElem.test(601001));
+            
+            ConvPs.script();
 
             //query();
         } catch (Exception e) {

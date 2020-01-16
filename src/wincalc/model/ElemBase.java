@@ -32,7 +32,7 @@ public abstract class ElemBase extends Base {
      */
     public String genId() {
         int maxId = 0;
-        LinkedList<ElemBase> elemList = root().elemList(null);
+        LinkedList<ElemBase> elemList = root().elemList(TypeElem.FRAME, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.STVORKA);
         for (ElemBase elemBase : elemList) {
             for (Specification specification : elemBase.specificationRec.specificationList()) {
                 if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {

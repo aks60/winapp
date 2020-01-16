@@ -59,7 +59,7 @@ public class Partner extends javax.swing.JFrame {
         initElements();
         
         new DefTableModel(tab1, qPartner, ePartner.categ, ePartner.name, ePartner.phone, ePartner.addr, ePartner.email, 
-                ePartner.manager, ePartner.desc, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik, 
+                ePartner.manager, ePartner.disc, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik, 
                 ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn).addFrameListener(listenerModify);
     }
 
