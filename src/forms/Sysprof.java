@@ -3,7 +3,7 @@ package forms;
 import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eFurniture;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -24,7 +24,7 @@ import swing.DefTableModel;
 public class Sysprof extends javax.swing.JFrame {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
-    private Query qSysprof = new Query(eSysprof.values(), eArtikls.values());
+    private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
 
@@ -49,7 +49,7 @@ public class Sysprof extends javax.swing.JFrame {
         initElements();
 
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        new DefTableModel(tab2, qSysprof, eArtikls.id, eArtikls.code, eArtikls.name,
+        new DefTableModel(tab2, qSysprof, eArtikl.id, eArtikl.code, eArtikl.name,
                 eSysprof.id, eSysprof.prio).addFrameListener(listenerModify);
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
@@ -116,7 +116,7 @@ public class Sysprof extends javax.swing.JFrame {
                         rsvSystree.write(i);
                     }
                 }
-                qSysprof.select(eSysprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=",
+                qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                         eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
                 qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                         eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));

@@ -1,7 +1,7 @@
 package enums;
 
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import static domain.eSpecific.atypm;
 import static javax.management.Query.value;
 
@@ -106,7 +106,7 @@ public enum TypeArtikl {
     }
     
     public boolean isType(Record artiklsRec) {
-        if (id1 == artiklsRec.getInt(eArtikls.code) && id2 == artiklsRec.getInt(eArtikls.level2)) return true;
+        if (id1 == artiklsRec.getInt(eArtikl.code) && id2 == artiklsRec.getInt(eArtikl.level2)) return true;
         return false;
     }
     

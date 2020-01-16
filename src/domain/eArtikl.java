@@ -5,7 +5,7 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 
-public enum eArtikls implements Field {
+public enum eArtikl implements Field {
     up("0", "0", "0", "Материальные цености", "ARTIKLS"),
     id("4", "10", "0", "Идентификатор", "id"),
     code("12", "32", "1", "Артикул", "ANUMB"),
@@ -62,7 +62,7 @@ public enum eArtikls implements Field {
     private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
-    eArtikls(Object... p) {
+    eArtikl(Object... p) {
         meta.init(p);
     }
 

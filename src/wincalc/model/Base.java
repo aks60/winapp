@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import wincalc.constr.Specification;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eParams;
 import enums.ParamJson;
 import enums.TypeElem;

@@ -7,7 +7,7 @@ import common.FrameToFile;
 import common.eProfile;
 import common.eProp;
 import convdb.Convert;
-import domain.eArtikls;
+import domain.eArtikl;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import forms.Artikls;

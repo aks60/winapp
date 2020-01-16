@@ -5,7 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eParams;
 import enums.LayoutArea;
 import enums.ParamJson;
@@ -41,7 +41,7 @@ public abstract class AreaBase extends Base {
         if (owner != null && TypeElem.ARCH == owner.typeElem()
                 && owner.listChild().size() == 2
                 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
-            float dh = owner.listChild().get(1).articlRec.getFloat(eArtikls.height) / 2;  //.aheig / 2;
+            float dh = owner.listChild().get(1).articlRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
             dimension(x1, y1, x2, y2 - dh);
         }
     }

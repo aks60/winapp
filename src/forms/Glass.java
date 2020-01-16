@@ -3,7 +3,7 @@ package forms;
 import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eGlasdet;
 import domain.eGlasgrp;
 import domain.eGlaspar1;
@@ -23,8 +23,8 @@ import swing.DefTableModel;
 public class Glass extends javax.swing.JFrame {
 
     private Query qGlasgrp = new Query(eGlasgrp.values()).select(eGlasgrp.up, "order by", eGlasgrp.name);
-    private Query qGlasdet = new Query(eGlasdet.values(), eArtikls.values()).select(eGlasdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasdet.artikl_id);
-    private Query qGlasprof = new Query(eGlasprof.values(), eArtikls.values()).select(eGlasprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasprof.artikl_id);
+    private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values()).select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+    private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values()).select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
     private Query qGlaspar1 = new Query(eGlaspar1.values()).select(eGlaspar1.up, "order by", eGlaspar1.id);
     private Query qGlaspar2 = new Query(eGlaspar2.values()).select(eGlaspar2.up, "order by", eGlaspar2.id);
 
@@ -63,8 +63,8 @@ public class Glass extends javax.swing.JFrame {
         initElements();
 
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
-        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikls.code, eArtikls.name, eGlasdet.id, eGlasdet.id);
-        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikls.code, eArtikls.name, eGlasprof.id, eGlasprof.id);
+        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.id, eGlasdet.id);
+        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
         new DefTableModel(tab3, qGlaspar1, eGlaspar1.pnumb_id, eGlaspar1.val);
         new DefTableModel(tab4, qGlaspar2, eGlaspar2.pnumb_id, eGlaspar2.val);
 
@@ -78,9 +78,9 @@ public class Glass extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qGlasgrp.table(eGlasgrp.up.tname()).get(row);
             Integer id = record.getInt(eGlasgrp.id);
-            qGlasdet.select(eGlasdet.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
+            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
             qGlaspar1.select(eGlaspar1.up, "where", eGlaspar1.glasgrp_id, "=", id, "order by", eGlaspar1.id);
-            qGlasprof.select(eGlasprof.up, "left join", eArtikls.up, "on", eArtikls.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
+            qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();

@@ -4,7 +4,7 @@ import common.FrameListener;
 import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
@@ -35,7 +35,7 @@ import javax.swing.event.TreeSelectionListener;
 public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private Query qArtikls = new Query(eArtikls.values(), eCurrenc.values());
+    private Query qArtikls = new Query(eArtikl.values(), eCurrenc.values());
     private Query qArtdet = new Query(eArtdet.id, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
     DefFieldRenderer rsvArtikls;
 
@@ -83,20 +83,20 @@ public class Artikls extends javax.swing.JFrame
         initElements();
         //treeMat.setRootVisible(false);
 
-        DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikls.code, eArtikls.name, eCurrenc.design);
+        DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikl.code, eArtikl.name, eCurrenc.design);
         DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
         rsmArtikls.addFrameListener(listenerModify);
         rsmArtsvst.addFrameListener(listenerModify);
 
         rsvArtikls = new DefFieldRenderer(rsmArtikls);
-        rsvArtikls.add(eArtikls.len_unit, txtField1);
-        rsvArtikls.add(eArtikls.height, txtField2);
-        rsvArtikls.add(eArtikls.thick, txtField3);
-        rsvArtikls.add(eArtikls.unit, txtField4);
-        rsvArtikls.add(eArtikls.unit, txtField5);
-        rsvArtikls.add(eArtikls.otx_norm, txtField6);
+        rsvArtikls.add(eArtikl.len_unit, txtField1);
+        rsvArtikls.add(eArtikl.height, txtField2);
+        rsvArtikls.add(eArtikl.thick, txtField3);
+        rsvArtikls.add(eArtikl.unit, txtField4);
+        rsvArtikls.add(eArtikl.unit, txtField5);
+        rsvArtikls.add(eArtikl.otx_norm, txtField6);
         rsvArtikls.add(eCurrenc.par_case1, txtField7);
-        rsvArtikls.add(eArtikls.size_centr, txtField8);
+        rsvArtikls.add(eArtikl.size_centr, txtField8);
 
         JButton btnColor = new JButton("...");
         btnColor.addActionListener(new java.awt.event.ActionListener() {
@@ -148,9 +148,9 @@ public class Artikls extends javax.swing.JFrame
 
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qArtikls.table(eArtikls.up.tname()).get(row);
+            Record record = qArtikls.table(eArtikl.up.tname()).get(row);
             //System.out.println(record);
-            int id = record.getInt(eArtikls.id);
+            int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_id, "=", eColor.id,
                     "left join", eColgrp.up, "on", eColor.colgrp_id, "=", eColgrp.id, "where", eArtdet.artikl_id, "=", id);
 
@@ -166,16 +166,16 @@ public class Artikls extends javax.swing.JFrame
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.currenc_id, "=", eCurrenc.id, "order by", eArtikls.level1, ",", eArtikls.code);
+                qArtikls.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "order by", eArtikl.level1, ",", eArtikl.code);
             
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.currenc_id, "=", eCurrenc.id, "where", eArtikls.level1, "=",
-                        e.id1 + "and", eArtikls.level2, "=", e.id2, "order by", eArtikls.level1, ",", eArtikls.code);
+                qArtikls.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "where", eArtikl.level1, "=",
+                        e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
             } else {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikls.select(eArtikls.up, "left join", eCurrenc.up, "on", eArtikls.currenc_id, "=", eCurrenc.id, "where",
-                        eArtikls.level1, "=", e.id1, "order by", eArtikls.level1, ",", eArtikls.code);
+                qArtikls.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "where",
+                        eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             if (tab1.getRowCount() > 0) {

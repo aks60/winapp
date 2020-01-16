@@ -1,7 +1,7 @@
 package wincalc.constr;
 
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import enums.TypeArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,10 +101,10 @@ public class Specification {
     }
 
     public void setArticlRec(Record artiklRec) {
-        this.artikl = artiklRec.getStr(eArtikls.code);
-        this.name = artiklRec.getStr(eArtikls.name);
-        this.wastePrc = artiklRec.getFloat(eArtikls.otx_norm);
-        this.unit = artiklRec.getInt(eArtikls.unit); //atypi;
+        this.artikl = artiklRec.getStr(eArtikl.code);
+        this.name = artiklRec.getStr(eArtikl.name);
+        this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
+        this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
         this.artiklesRec = artiklRec;
         setAnglCut();
         //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться

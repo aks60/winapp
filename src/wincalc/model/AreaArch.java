@@ -1,6 +1,6 @@
 package wincalc.model;
 
-import domain.eArtikls;
+import domain.eArtikl;
 import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
@@ -33,7 +33,7 @@ public class AreaArch extends AreaBase {
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.ARCH);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
         mapJoin().put(key1, elemJoin1);
-        float dz = elemJoin1.elemJoinRight.articlRec.getFloat(eArtikls.height);
+        float dz = elemJoin1.elemJoinRight.articlRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd - height;
         float w = width;
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки

@@ -2,7 +2,7 @@ package wincalc.model;
 
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
@@ -28,18 +28,18 @@ public class ElemFrame extends ElemBase {
         color3 = owner.color3;
         initСonstructiv();
         if (LayoutArea.LEFT == side) {
-            dimension(owner.x1, owner.y1, owner.x1 + articlRec.getInt(eArtikls.height), owner.y2);
+            dimension(owner.x1, owner.y1, owner.x1 + articlRec.getInt(eArtikl.height), owner.y2);
 
         } else if (LayoutArea.RIGHT == side) {
-            dimension(owner.x2 - articlRec.getInt(eArtikls.height), owner.y1, owner.x2, owner.y2);
+            dimension(owner.x2 - articlRec.getInt(eArtikl.height), owner.y1, owner.x2, owner.y2);
             anglHoriz = 90;
 
         } else if (LayoutArea.TOP == side) {
-            dimension(owner.x1, owner.y1, owner.x2, owner.y1 + articlRec.getInt(eArtikls.height));
+            dimension(owner.x1, owner.y1, owner.x2, owner.y1 + articlRec.getInt(eArtikl.height));
             anglHoriz = 180;
 
         } else if (LayoutArea.BOTTOM == side) {
-            dimension(owner.x1, owner.y2 - articlRec.getInt(eArtikls.height), owner.x2, owner.y2);
+            dimension(owner.x1, owner.y2 - articlRec.getInt(eArtikl.height), owner.x2, owner.y2);
             anglHoriz = 0;
 
         } else if (LayoutArea.ARCH == side) {
@@ -62,8 +62,8 @@ public class ElemFrame extends ElemBase {
                 .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
                 && rec.getInt(eSysprof.types) == typeProfile().value).findFirst().orElse(null);
 
-        articlRec = eArtikls.query.select().stream()
-                .filter(rec -> rec.getInt(eArtikls.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+        articlRec = eArtikl.query.select().stream()
+                .filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
 
         specificationRec.setArticlRec(articlRec);
     }

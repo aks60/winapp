@@ -1,7 +1,7 @@
 package wincalc.constr;
 
 import dataset.Query;
-import domain.eArtikls;
+import domain.eArtikl;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -9,7 +9,7 @@ public class Constructive {
 
     public static boolean fromPS3 = false;  // Признак, что конструктив из ПС-3, а не из PS4.
 
-    public static Query artikls = new Query(eArtikls.values());
+    public static Query artikls = new Query(eArtikl.values());
 
     public static Connection connection() {
 

@@ -3,7 +3,7 @@ package forms;
 import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eElemgrp;
 import domain.eJoindet;
 import domain.eJoining;
@@ -22,8 +22,8 @@ import swing.DefTableModel;
 public class Joining extends javax.swing.JFrame {
 
     private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);
-    private Query qArtikls1 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id1);
-    private Query qArtikls2 = new Query(eArtikls.id, eArtikls.code, eArtikls.name).select(eArtikls.up, ",", eJoining.up, "where", eArtikls.id, "=", eJoining.artikl_id2);
+    private Query qArtikls1 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id1);
+    private Query qArtikls2 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id2);
     private Query qJoinvar = new Query(eJoinvar.values());
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());

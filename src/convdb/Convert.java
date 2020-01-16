@@ -6,7 +6,7 @@ import dataset.Field;
 import dataset.Query;
 import static dataset.Query.SEL;
 import dataset.Record;
-import domain.eArtikls;
+import domain.eArtikl;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;

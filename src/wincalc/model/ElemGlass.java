@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtdet;
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
 import domain.eSystree;
@@ -56,20 +56,20 @@ public class ElemGlass extends ElemBase {
     public void initСonstructiv() {
 
         Object code = mapParam.get(ParamJson.nunic_iwin);
-        articlRec = eArtikls.query.select().stream().filter(rec -> code.equals(rec.get(eArtikls.code))).findFirst().orElse(null);
+        articlRec = eArtikl.query.select().stream().filter(rec -> code.equals(rec.get(eArtikl.code))).findFirst().orElse(null);
         if (articlRec == null) {
             Record sysreeRec = eSystree.query.select().stream().filter(rec -> iwin.nuni.equals(rec.get(eSystree.id))).findFirst().orElse(null); //по умолчанию стеклопакет
-            articlRec = eArtikls.query.select().stream().filter(rec -> rec.getInt(eArtikls.id) == sysreeRec.getInt(eSystree.glas)).findFirst().orElse(null);
+            articlRec = eArtikl.query.select().stream().filter(rec -> rec.getInt(eArtikl.id) == sysreeRec.getInt(eSystree.glas)).findFirst().orElse(null);
         }
         sysprofRec = eSysprof.query.select().stream() //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame  
                 .filter(rec -> iwin.nuni == rec.getInt(eSysprof.systree_id)
                 && TypeProfile.FRAME.value == rec.getInt(eSysprof.types)
                 && ProfileSide.Left.value == rec.getInt(eSysprof.side)).findFirst().orElse(null);
-        if (articlRec.getDbl(eArtikls.size_falz) == 0) {
-            articlRec.set(eArtikls.tech_code, iwin.articlesRec.getDbl(eArtikls.tech_code)); //TODO наследование дордома Профстроя
+        if (articlRec.getDbl(eArtikl.size_falz) == 0) {
+            articlRec.set(eArtikl.tech_code, iwin.articlesRec.getDbl(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
-        Record artdetRec = eArtdet.query.select().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == articlRec.getInt(eArtikls.id)).findFirst().orElse(null);
+        Record artdetRec = eArtdet.query.select().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == articlRec.getInt(eArtikl.id)).findFirst().orElse(null);
         Record colorRec = eColor.query.select().stream().filter(rec -> rec.getInt(eColor.id) == artdetRec.getInt(eArtdet.color_id)).findFirst().orElse(null);        
         color1 = colorRec.getInt(eColor.color);
         color2 = colorRec.getInt(eColor.color);

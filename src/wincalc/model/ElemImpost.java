@@ -1,6 +1,6 @@
 package wincalc.model;
 
-import domain.eArtikls;
+import domain.eArtikl;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ProfileSide;
@@ -31,14 +31,14 @@ public class ElemImpost extends ElemBase {
         //Коррекция положения импоста арки
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
-                float dh = articlRec.getFloat(eArtikls.height) / 2;     
+                float dh = articlRec.getFloat(eArtikl.height) / 2;     
                 owner.addElem(new AreaScene(iwin, owner, genId(), LayoutArea.HORIZONTAL, owner.width, dh));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
             if (owner.listChild().get(index) instanceof AreaBase) {
                 Base prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
-                float dx = articlRec.getFloat(eArtikls.size_centr);
+                float dx = articlRec.getFloat(eArtikl.size_centr);
 
                 if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
                     dimension(owner.x1, prevArea.y2 - dx, prevArea.x2, prevArea.y2 + dx);
@@ -64,9 +64,9 @@ public class ElemImpost extends ElemBase {
            && TypeProfile.IMPOST.value == rec.getInt(eSysprof.types)
            && ProfileSide.Vert.value == rec.getInt(eSysprof.side)).findFirst().orElse(null);
         }
-        articlRec = eArtikls.query.select().stream().filter(rec -> rec.getInt(eArtikls.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
-        if (articlRec.get(eArtikls.analog) != null && articlRec.getStr(eArtikls.analog).isEmpty() == false) {
-            articlRec = eArtikls.query.select().stream().filter(rec -> rec.getStr(eArtikls.code).equals(articlRec.getStr(eArtikls.analog))).findFirst().orElse(null);
+        articlRec = eArtikl.query.select().stream().filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+        if (articlRec.get(eArtikl.analog) != null && articlRec.getStr(eArtikl.analog).isEmpty() == false) {
+            articlRec = eArtikl.query.select().stream().filter(rec -> rec.getStr(eArtikl.code).equals(articlRec.getStr(eArtikl.analog))).findFirst().orElse(null);
         }
     }
 
