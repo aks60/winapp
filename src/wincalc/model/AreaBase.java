@@ -1,4 +1,4 @@
-package wincalc;
+package wincalc.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -14,13 +14,14 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import wincalc.Wincalc;
 
 public abstract class AreaBase extends Base {
 
     private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
      
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
-    protected EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
+    public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
     /**
      * Конструктор

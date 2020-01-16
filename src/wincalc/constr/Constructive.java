@@ -1,4 +1,4 @@
-package constr;
+package wincalc.constr;
 
 import dataset.Query;
 import domain.eArtikls;

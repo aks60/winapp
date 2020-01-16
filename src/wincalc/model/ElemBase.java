@@ -1,6 +1,6 @@
-package wincalc;
+package wincalc.model;
 
-import constr.Specification;
+import wincalc.constr.Specification;
 import enums.TypeElem;
 import enums.TypeProfile;
 import java.util.LinkedList;

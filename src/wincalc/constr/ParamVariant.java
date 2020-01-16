@@ -1,4 +1,4 @@
-package constr;
+package wincalc.constr;
 
 
 /**

@@ -1,4 +1,4 @@
-package wincalc;
+package wincalc.model;
 
 import dataset.Query;
 import dataset.Record;

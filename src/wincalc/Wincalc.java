@@ -1,5 +1,16 @@
 package wincalc;
 
+import wincalc.model.ElemGlass;
+import wincalc.model.ElemFrame;
+import wincalc.model.AreaStvorka;
+import wincalc.model.AreaArch;
+import wincalc.model.AreaTriangl;
+import wincalc.model.ElemJoinig;
+import wincalc.model.AreaBase;
+import wincalc.model.AreaSquare;
+import wincalc.model.AreaTrapeze;
+import wincalc.model.ElemImpost;
+import wincalc.model.AreaScene;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -16,27 +27,27 @@ public class Wincalc {
     protected static boolean production = false;
     //protected final Constructive constr;
     //protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
-    protected Integer nuni = 0;
-    protected Record articlesRec = null;  //главный артикл системы профилей
+    public Integer nuni = 0;
+    public Record articlesRec = null;  //главный артикл системы профилей
     protected String prj = "empty";
     protected float percentMarkup = 0;  //процентная надбавка
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     protected float width = 0.f;  //ширина окна
     protected float height = 0.f;  //высота окна
-    protected float heightAdd = 0.f; //арка, трапеция, треугольник
+    public float heightAdd = 0.f; //арка, трапеция, треугольник
     private float scale = .3f; //масштаб рисунка
-    protected int color1 = -1; //базовый цвет
-    protected int color2 = -1; //внутренний цвет
-    protected int color3 = -1; //внещний цвет
+    public int color1 = -1; //базовый цвет
+    public int color2 = -1; //внутренний цвет
+    public int color3 = -1; //внещний цвет
     private byte[] bufferSmallImg = null; //рисунок без линий
     private byte[] bufferFullImg = null; //полный рисунок
     protected String labelSketch = "empty"; //надпись на эскизе
-    protected AreaBase rootArea = null;
+    public AreaBase rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
     //protected Syssize syssizeRec = null; //константы
     protected BufferedImage img = null;  //образ рисунка
     protected HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию
-    protected HashMap<String, ElemJoinig> mapJoin = new HashMap(); //список соединений рам и створок
+    public HashMap<String, ElemJoinig> mapJoin = new HashMap(); //список соединений рам и створок
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
 
@@ -189,8 +200,8 @@ public class Wincalc {
 
     private AreaBase parsingAddArea(AreaBase rootArea, AreaBase ownerArea, JsonObject objArea) {
 
-        float width = (ownerArea.layout() == LayoutArea.VERTICAL) ? ownerArea.width : objArea.get("width").getAsFloat();
-        float height = (ownerArea.layout() == LayoutArea.VERTICAL) ? objArea.get("height").getAsFloat() : ownerArea.height;
+        float width = (ownerArea.layout() == LayoutArea.VERTICAL) ? ownerArea.width() : objArea.get("width").getAsFloat();
+        float height = (ownerArea.layout() == LayoutArea.VERTICAL) ? objArea.get("height").getAsFloat() : ownerArea.height();
 
         String layoutObj = objArea.get("layoutArea").getAsString();
         LayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;

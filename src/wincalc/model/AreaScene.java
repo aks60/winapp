@@ -1,7 +1,8 @@
-package wincalc;
+package wincalc.model;
 
 import enums.LayoutArea;
 import enums.TypeElem;
+import wincalc.Wincalc;
 
 public class AreaScene extends AreaBase {
 

@@ -1,4 +1,4 @@
-package wincalc;
+package wincalc.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -14,6 +14,7 @@ import enums.ParamJson;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
+import wincalc.Wincalc;
 
 public class ElemGlass extends ElemBase {
 

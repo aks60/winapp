@@ -1,8 +1,9 @@
-package wincalc;
+package wincalc.model;
 
 import domain.eArtikls;
 import enums.LayoutArea;
 import enums.TypeElem;
+import wincalc.Wincalc;
 
 public class AreaArch extends AreaBase {
     

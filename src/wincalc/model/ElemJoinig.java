@@ -1,6 +1,7 @@
-package wincalc;
+package wincalc.model;
 
 import enums.VariantJoin;
+import wincalc.Wincalc;
 
 public class ElemJoinig {
 

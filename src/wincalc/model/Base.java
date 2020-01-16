@@ -1,10 +1,10 @@
-package wincalc;
+package wincalc.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import constr.Specification;
+import wincalc.constr.Specification;
 import dataset.Record;
 import domain.eArtikls;
 import domain.eParams;
@@ -13,6 +13,7 @@ import enums.TypeElem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import wincalc.Wincalc;
 
 public abstract class Base {
 
@@ -55,6 +56,14 @@ public abstract class Base {
         this.y2 = y2;
     }
 
+    public float width() {
+        return width;
+    }
+    
+    public float height() {
+        return height;
+    }
+    
     public float xy(int index) {
         float xy[] = {x1, y1, x2, y2};
         return xy[index - 1];

@@ -1,4 +1,4 @@
-package wincalc;
+package wincalc.model;
 
 import domain.eArtikls;
 import domain.eSysprof;
@@ -6,6 +6,7 @@ import enums.LayoutArea;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
+import wincalc.Wincalc;
 
 public class ElemImpost extends ElemBase {
 

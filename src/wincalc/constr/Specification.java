@@ -1,11 +1,11 @@
-package constr;
+package wincalc.constr;
 
 import dataset.Record;
 import domain.eArtikls;
 import enums.TypeArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
-import wincalc.ElemBase;
+import wincalc.model.ElemBase;
 
 
 /**

@@ -1,11 +1,12 @@
-package wincalc;
+package wincalc.model;
 
 import enums.LayoutArea;
 import enums.TypeElem;
+import wincalc.Wincalc;
 
-public class AreaTriangl extends AreaBase {
+public class AreaTrapeze extends AreaBase {
 
-    public AreaTriangl(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
+    public AreaTrapeze(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
         super(null, id, layout, width, height, color1, color2, color3);
         this.iwin = iwin;
         parsingParam(this, paramJson);
@@ -13,7 +14,7 @@ public class AreaTriangl extends AreaBase {
 
     @Override
     public TypeElem typeElem() {
-        return TypeElem.TRIANGL;
+        return TypeElem.TRAPEZE;
     }
 
     @Override
