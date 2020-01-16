@@ -76,16 +76,17 @@ public class ConvPs {
     private static Statement st2;//приёмник
 
     public static void script() {
-        Field[] fieldsUp = {
-            eSysconst.up, eSysdata.up, eCurrenc.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
+        Field[] fieldsUp = { //порядок записи определён в ссответсвии с зависимостями
+            eSysconst.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,  
-            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,   
-            eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up, 
-            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSystree.up,                        
+            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,                
+            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSystree.up,
+            eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eArtdet.up, eArtikls.up, eArtgrp.up,
-            eColpar1.up, eColor.up, eColgrp.up    
+            eColpar1.up, eColor.up, eColgrp.up,
+            eCurrenc.up
         };
         try {
             cn1 = java.sql.DriverManager.getConnection( //источник
