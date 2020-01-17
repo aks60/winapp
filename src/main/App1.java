@@ -6,7 +6,7 @@ import common.FrameProgress;
 import common.FrameToFile;
 import common.eProfile;
 import common.eProp;
-import convdb.Convert;
+import convert.Convert;
 import domain.eArtikl;
 import java.util.Locale;
 import javax.swing.SwingWorker;

@@ -1,4 +1,4 @@
-package convdb;
+package convert;
 
 import common.FrameToFile;
 import common.Util;
@@ -34,7 +34,6 @@ public class Convert extends javax.swing.JFrame {
         panCent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));

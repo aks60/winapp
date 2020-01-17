@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import convdb.ConvPs;
+import convert.ConvPs;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprof;
