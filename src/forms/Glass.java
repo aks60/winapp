@@ -137,6 +137,7 @@ public class Glass extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Заполнения");
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -250,14 +251,14 @@ public class Glass extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(800, 600));
+        panCentr.setPreferredSize(new java.awt.Dimension(800, 560));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        pan1.setPreferredSize(new java.awt.Dimension(700, 300));
+        pan1.setPreferredSize(new java.awt.Dimension(700, 200));
         pan1.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr1.setPreferredSize(new java.awt.Dimension(400, 500));
+        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -281,7 +282,7 @@ public class Glass extends javax.swing.JFrame {
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr3.setPreferredSize(new java.awt.Dimension(300, 300));
+        scr3.setPreferredSize(new java.awt.Dimension(300, 200));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -362,9 +363,11 @@ public class Glass extends javax.swing.JFrame {
 
         tabb1.addTab("Спецификация", pan4);
 
+        pan3.setPreferredSize(new java.awt.Dimension(454, 304));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr5.setPreferredSize(new java.awt.Dimension(454, 304));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -105,6 +105,7 @@ public class Param extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Параметры");
+        setPreferredSize(new java.awt.Dimension(740, 602));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -257,13 +258,18 @@ public class Param extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
+        panCentr.setPreferredSize(new java.awt.Dimension(454, 563));
         panCentr.setLayout(new javax.swing.BoxLayout(panCentr, javax.swing.BoxLayout.PAGE_AXIS));
 
         jSplitPane1.setBorder(null);
         jSplitPane1.setDividerLocation(400);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setPreferredSize(new java.awt.Dimension(454, 563));
 
+        pan1.setPreferredSize(new java.awt.Dimension(454, 304));
         pan1.setLayout(new java.awt.BorderLayout());
+
+        scr1.setPreferredSize(new java.awt.Dimension(454, 304));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -293,7 +299,10 @@ public class Param extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(pan1);
 
+        pan2.setPreferredSize(new java.awt.Dimension(454, 204));
         pan2.setLayout(new java.awt.BorderLayout());
+
+        scr2.setPreferredSize(new java.awt.Dimension(454, 204));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

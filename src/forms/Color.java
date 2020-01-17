@@ -122,6 +122,7 @@ public class Color extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Текстура");
+        setPreferredSize(new java.awt.Dimension(740, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -268,7 +269,7 @@ public class Color extends javax.swing.JFrame
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
                 .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,7 +294,7 @@ public class Color extends javax.swing.JFrame
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
         panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panWest.setPreferredSize(new java.awt.Dimension(200, 594));
+        panWest.setPreferredSize(new java.awt.Dimension(200, 600));
         panWest.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -324,9 +325,11 @@ public class Color extends javax.swing.JFrame
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panCentr.setPreferredSize(new java.awt.Dimension(458, 480));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
+        scr2.setPreferredSize(new java.awt.Dimension(450, 360));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -388,7 +391,7 @@ public class Color extends javax.swing.JFrame
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 906, Short.MAX_VALUE)
+            .addGap(0, 773, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

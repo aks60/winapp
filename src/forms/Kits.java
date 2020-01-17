@@ -115,7 +115,6 @@ public class Kits extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
-        panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -124,9 +123,11 @@ public class Kits extends javax.swing.JFrame {
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Комплекты");
+        setPreferredSize(new java.awt.Dimension(700, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -286,24 +287,7 @@ public class Kits extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(700, 20));
-
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
-
-        panCentr.setPreferredSize(new java.awt.Dimension(700, 100));
+        panCentr.setPreferredSize(new java.awt.Dimension(700, 560));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -329,10 +313,11 @@ public class Kits extends javax.swing.JFrame {
 
         panCentr.add(scr1, java.awt.BorderLayout.CENTER);
 
-        pan2.setPreferredSize(new java.awt.Dimension(700, 100));
+        pan2.setPreferredSize(new java.awt.Dimension(700, 200));
         pan2.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
+        scr2.setPreferredSize(new java.awt.Dimension(450, 200));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -377,6 +362,23 @@ public class Kits extends javax.swing.JFrame {
         panCentr.add(pan2, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+
+        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(700, 20));
+
+        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
+        panSouth.setLayout(panSouthLayout);
+        panSouthLayout.setHorizontalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 666, Short.MAX_VALUE)
+        );
+        panSouthLayout.setVerticalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

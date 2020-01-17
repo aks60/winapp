@@ -175,6 +175,7 @@ public class Element extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
+        setPreferredSize(new java.awt.Dimension(978, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -269,7 +270,7 @@ public class Element extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 512, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -295,7 +296,7 @@ public class Element extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 686, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,11 +306,13 @@ public class Element extends javax.swing.JFrame {
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panCentr.setPreferredSize(new java.awt.Dimension(858, 728));
+        panCentr.setPreferredSize(new java.awt.Dimension(858, 560));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         panNorth2.setPreferredSize(new java.awt.Dimension(847, 320));
         panNorth2.setLayout(new java.awt.BorderLayout());
+
+        scr2.setPreferredSize(new java.awt.Dimension(454, 320));
 
         tab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
@@ -346,7 +349,7 @@ public class Element extends javax.swing.JFrame {
 
         panNorth2.add(scr2, java.awt.BorderLayout.CENTER);
 
-        scr4.setPreferredSize(new java.awt.Dimension(260, 404));
+        scr4.setPreferredSize(new java.awt.Dimension(260, 320));
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -377,7 +380,7 @@ public class Element extends javax.swing.JFrame {
 
         panCentr2.setLayout(new java.awt.BorderLayout());
 
-        scr5.setPreferredSize(new java.awt.Dimension(260, 404));
+        scr5.setPreferredSize(new java.awt.Dimension(260, 204));
 
         tab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
@@ -407,6 +410,8 @@ public class Element extends javax.swing.JFrame {
 
         panCentr2.add(scr5, java.awt.BorderLayout.EAST);
 
+        scr3.setPreferredSize(new java.awt.Dimension(454, 204));
+
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxx", "vvvvvvvv", "mmmmm", "kkkkkkk"},
@@ -428,7 +433,7 @@ public class Element extends javax.swing.JFrame {
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
-        panWest.setPreferredSize(new java.awt.Dimension(120, 132));
+        panWest.setPreferredSize(new java.awt.Dimension(120, 560));
         panWest.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(

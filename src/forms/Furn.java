@@ -160,6 +160,7 @@ public class Furn extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
+        setPreferredSize(new java.awt.Dimension(800, 601));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -308,7 +309,7 @@ public class Furn extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panSentr.setPreferredSize(new java.awt.Dimension(800, 642));
+        panSentr.setPreferredSize(new java.awt.Dimension(800, 562));
         panSentr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 260));
@@ -400,7 +401,7 @@ public class Furn extends javax.swing.JFrame {
 
         panSentr.add(pan1, java.awt.BorderLayout.NORTH);
 
-        pan2.setPreferredSize(new java.awt.Dimension(800, 402));
+        pan2.setPreferredSize(new java.awt.Dimension(800, 302));
         pan2.setLayout(new java.awt.BorderLayout());
 
         pan6.setPreferredSize(new java.awt.Dimension(800, 300));
