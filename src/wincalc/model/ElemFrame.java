@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class ElemFrame extends ElemBase {
 
-    protected LayoutArea side = LayoutArea.NONE;
     protected float length = 0; //Длина арки
     protected float anglCut1 = 0; //Угол реза рамы
     protected float anglCut2 = 0; //Угол реза рамы

@@ -1,5 +1,6 @@
 package wincalc.model;
 
+import enums.LayoutArea;
 import wincalc.constr.Specification;
 import enums.TypeElem;
 import enums.TypeProfile;
@@ -9,6 +10,7 @@ import javax.swing.JComponent;
 public abstract class ElemBase extends Base {
 
     protected float anglHoriz = -1; //угол к горизонту
+    protected LayoutArea side = LayoutArea.NONE; //сторона расположения элемента
     
     public ElemBase(String id) {
         this.id = id;

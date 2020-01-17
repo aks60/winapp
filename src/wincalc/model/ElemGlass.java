@@ -23,7 +23,6 @@ public class ElemGlass extends ElemBase {
     public static final String ARCHED = "Арочное";                      // формы заполнения
     public static final String ARCHED_NOT = "Не арочное";               //
 
-    private LayoutArea side = LayoutArea.FULL;
     protected float radiusGlass = 0;
 
     public ElemGlass(Wincalc iwin, AreaBase owner, String id) {
@@ -34,7 +33,8 @@ public class ElemGlass extends ElemBase {
 
         super(id);
         this.iwin = iwin;
-
+        this.side = LayoutArea.FULL;
+        
         if (paramJson != null && paramJson.isEmpty() == false) {
             String str = paramJson.replace("'", "\"");
             JsonElement jsonElem = new Gson().fromJson(str, JsonElement.class);

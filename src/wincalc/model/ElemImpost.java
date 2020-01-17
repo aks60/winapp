@@ -10,7 +10,6 @@ import wincalc.Wincalc;
 
 public class ElemImpost extends ElemBase {
 
-    private LayoutArea side = LayoutArea.NONE;
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
     protected float anglCut1 = 90; //угол реза импоста
     protected float anglCut2 = 90; //угол реза импоста
