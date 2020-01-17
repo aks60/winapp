@@ -9,7 +9,6 @@ public class ElemJoinig {
     public static final int SECOND_SIDE = 2; //вторая сторона
 
     public String id = "0"; //идентификатор соединения
-    //private final Constructive constructive;
 
     protected ElemBase elemJoinTop = null;      //
     protected ElemBase elemJoinBottom = null;   // Элементы соединения, временно для

@@ -84,8 +84,8 @@ public abstract class Base {
         try {
             Gson gson = new Gson();
             if (paramJson != null && paramJson.isEmpty() == false) {
+                
                 String str = paramJson.replace("'", "\"");
-
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
@@ -107,7 +107,7 @@ public abstract class Base {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка ElemBase.parsingParamJson() " + e);
+            System.err.println("Ошибка Base.parsingParam() " + e);
         }
     }
 

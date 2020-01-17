@@ -1,8 +1,11 @@
 package wincalc.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import domain.eArtikl;
 import domain.eSysprof;
-import enums.LayoutArea;
+import enums.ParamJson;
 import enums.TypeElem;
 import enums.TypeOpen;
 import enums.TypeProfile;
@@ -11,7 +14,6 @@ import wincalc.Wincalc;
 public class AreaStvorka extends AreaBase {
 
     public String handleHeight = ""; //высота ручки
-
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
     public AreaStvorka(Wincalc iwin, AreaBase owner, String id, String paramJson) {
@@ -25,30 +27,29 @@ public class AreaStvorka extends AreaBase {
         this.color1 = iwin.color1;
         this.color2 = iwin.color2;
         this.color3 = iwin.color3;
-//        try {
-//            String str = paramJson.replace("'", "\"");
-//            JSONObject jsoPar = (JSONObject) new JSONParser().parse(str);
-//            hmParamJson.put(ParamJson.typeOpen, jsoPar.get(ParamJson.typeOpen.name()));
-//            hmParamJson.put(ParamJson.funic, jsoPar.get(ParamJson.funic.name()));
-//
-//        } catch (ParseException e) {
-//            System.err.println("Ошибка AreaStvorka() " + e);
-//        }
-//        if (hmParamJson.get(ParamJson.typeOpen) != null) {
-//            int key = Integer.valueOf(hmParamJson.get(ParamJson.typeOpen).toString());
-//            for (TypeOpen typeOpen : TypeOpen.values()) {
-//                if (typeOpen.value == key) {
-//                    this.typeOpen = typeOpen;
-//                }
-//            }
-//        }
-//        setRoot(this);
+        if (paramJson != null && paramJson.isEmpty() == false) {
+            String str = paramJson.replace("'", "\"");
+            Gson gson = new Gson();
+            JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
+            JsonObject jsonObj = jsonElem.getAsJsonObject();
+            mapParam.put(ParamJson.typeOpen, jsonObj.get(ParamJson.funic.name()));
+            if (mapParam.get(ParamJson.typeOpen) != null) {
+                
+                int key = Integer.valueOf(mapParam.get(ParamJson.typeOpen).toString());
+                for (TypeOpen typeOpen : TypeOpen.values()) {
+                    if (typeOpen.value == key) {
+                        this.typeOpen = typeOpen;
+                    }
+                }
+            }
+
+        }
         initСonstructiv();
-//        parsingParamJson(getRoot(), paramJson);
+        parsingParam(root(), paramJson);
     }
 
     public void initСonstructiv() {
-        
+
         sysprofRec = eSysprof.query.select().stream()
                 .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
                 && rec.getInt(eSysprof.types) == TypeProfile.STVORKA.value).findFirst().orElse(null);
