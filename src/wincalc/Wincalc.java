@@ -32,10 +32,10 @@ public class Wincalc {
     protected String prj = "empty";
     protected float percentMarkup = 0;  //процентная надбавка
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
-    protected float width = 0.f;  //ширина окна
-    protected float height = 0.f;  //высота окна
+    public float width = 0.f;  //ширина окна
+    public float height = 0.f;  //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
-    private float scale = .3f; //масштаб рисунка
+    public float scale = .3f; //масштаб рисунка
     public int color1 = -1; //базовый цвет
     public int color2 = -1; //внутренний цвет
     public int color3 = -1; //внещний цвет
@@ -44,8 +44,8 @@ public class Wincalc {
     protected String labelSketch = "empty"; //надпись на эскизе
     public AreaBase rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
-    //protected Syssize syssizeRec = null; //константы
-    protected BufferedImage img = null;  //образ рисунка
+    public Record syssizeRec = null; //константы
+    public BufferedImage img = null;  //образ рисунка
     protected HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию
     public HashMap<String, ElemJoinig> mapJoin = new HashMap(); //список соединений рам и створок
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 

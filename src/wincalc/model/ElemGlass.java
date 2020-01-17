@@ -15,6 +15,7 @@ import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
 import wincalc.Wincalc;
+import wincalc.constr.Specification;
 
 public class ElemGlass extends ElemBase {
 
@@ -78,6 +79,30 @@ public class ElemGlass extends ElemBase {
         specificationRec.setArticlRec(articlRec);
     }
 
+    /**
+     * Добавление спесификаций зависимых элементов
+     */    
+    @Override
+    public void addSpecifSubelem(Specification specif) {
+    /*
+        indexUniq(specif);
+        specif.element = "ЗАП";
+        if (TypeArtikl.GLASS.value2 == specif.getArticRec().atypp && specif.getArticRec().atypm == 5) { //стеклопакет
+            return;
+
+        } else if (TypeArtikl.SHTAPIK.value2 == specif.getArticRec().atypp && specif.getArticRec().atypm == 1) { //штапик
+            specif.id = getId();
+
+        } else if (TypeArtikl.KONZEVPROF.value2 == specif.getArticRec().atypp && specif.getArticRec().atypm == 3) { //уплотнитель
+            specif.id = getId();
+
+        } else {
+            specif.id = getId();
+        }
+        quantityMaterials(specif);
+        specificationRec.getSpecificationList().add(specif);*/
+    }
+    
     @Override
     public TypeElem typeElem() {
         return TypeElem.GLASS;

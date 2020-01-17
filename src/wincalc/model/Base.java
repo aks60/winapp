@@ -10,15 +10,20 @@ import domain.eArtikl;
 import domain.eParams;
 import enums.ParamJson;
 import enums.TypeElem;
+import java.awt.BasicStroke;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
 import wincalc.Wincalc;
 
 public abstract class Base {
 
     public static final int SIDE_START = 1; //левая сторона
-    public static final int SIDE_END = 2; //правая сторона 
+    public static final int SIDE_END = 2;   //правая сторона 
+    protected static float moveXY = 40;     //смещение рисунка
 
     protected String id = "0"; //идентификатор
     protected AreaBase owner = null; //владелец
@@ -30,7 +35,7 @@ public abstract class Base {
     protected float y2 = 0;
 
     protected float width = 0;  //ширина
-    protected float height = 0; //высота  
+    protected float height = 0; //высота     
 
     protected int color1 = -1;  //базовый 
     protected int color2 = -1;  //внутренний
@@ -59,11 +64,11 @@ public abstract class Base {
     public float width() {
         return width;
     }
-    
+
     public float height() {
         return height;
     }
-    
+
     public float xy(int index) {
         float xy[] = {x1, y1, x2, y2};
         return xy[index - 1];
@@ -78,13 +83,19 @@ public abstract class Base {
     public abstract LinkedList<Base> listChild();
 
     /**
+     * Прорисовка элемента на холсте
+     */
+    public void drawElemList() {
+    }
+
+    /**
      * Инициализация pro4Params
      */
     protected void parsingParam(AreaBase root, String paramJson) {
         try {
             Gson gson = new Gson();
             if (paramJson != null && paramJson.isEmpty() == false) {
-                
+
                 String str = paramJson.replace("'", "\"");
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
@@ -111,4 +122,50 @@ public abstract class Base {
         }
     }
 
+    protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
+            float y2, float y3, float y4, int rgbFill, Color rdbStroke, double lineWidth) {
+
+        float scale = iwin.scale;
+        Graphics2D gc = iwin.img.createGraphics();
+        gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
+        gc.setColor(java.awt.Color.BLACK);
+        float h = iwin.heightAdd - iwin.height;
+        gc.drawPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
+                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
+        gc.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
+        gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
+                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
+    }
+
+    protected void strokeArc(double x, double y, double w, double h, double startAngle,
+            double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
+
+        float scale = iwin.scale;
+        Graphics2D gc = iwin.img.createGraphics();
+        gc.setStroke(new BasicStroke((float) lineWidth * scale)); //толщина линии
+        gc.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
+        gc.drawArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
+    }
+
+    protected void fillArc(double x, double y, double w, double h, double startAngle, double arcExtent) {
+
+        float scale = iwin.scale;
+        Graphics2D gc = iwin.img.createGraphics();
+        gc.setColor(new java.awt.Color(226, 255, 250));
+        gc.fillArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
+    }
+
+    protected void fillPoligon(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
+
+        float scale = iwin.scale;
+        Graphics2D gc = iwin.img.createGraphics();
+        gc.setColor(new java.awt.Color(226, 255, 250));
+        float h = iwin.heightAdd - iwin.height;
+        gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
+                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
+    }
+
+    public boolean equals(Object obj) {
+        return id == ((Base) obj).id;
+    }
 }
