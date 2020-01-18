@@ -6,7 +6,7 @@ import wincalc.model.AreaStvorka;
 import wincalc.model.AreaArch;
 import wincalc.model.AreaTriangl;
 import wincalc.model.ElemJoinig;
-import wincalc.model.AreaBase;
+import wincalc.model.AreaContainer;
 import wincalc.model.AreaSquare;
 import wincalc.model.AreaTrapeze;
 import wincalc.model.ElemImpost;
@@ -42,7 +42,7 @@ public class Wincalc {
     private byte[] bufferSmallImg = null; //рисунок без линий
     private byte[] bufferFullImg = null; //полный рисунок
     protected String labelSketch = "empty"; //надпись на эскизе
-    public AreaBase rootArea = null;
+    public AreaContainer rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
     public Record syssizeRec = null; //константы
     public BufferedImage img = null;  //образ рисунка
@@ -54,14 +54,14 @@ public class Wincalc {
     public Wincalc() {
     }
 
-    public AreaBase create(String productJson) {
+    public AreaContainer create(String productJson) {
 
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
 
         //Парсинг входного скрипта
-        AreaBase mainArea = parsingScript(productJson);
+        AreaContainer mainArea = parsingScript(productJson);
 
         //Создание root окна
         if (mainArea instanceof AreaSquare) {
@@ -72,7 +72,7 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        LinkedList<AreaBase> areaList = rootArea.elemList(TypeElem.AREA); //список контейнеров
+        LinkedList<AreaContainer> areaList = rootArea.elemList(TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> stvorkaList = rootArea.elemList(TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> hmElemRama = rootArea.mapFrame; //список рам
 
@@ -89,8 +89,8 @@ public class Wincalc {
     /**
      * Парсим входное json окно и строим объектную модель окна
      */
-    private AreaBase parsingScript(String json) {
-        AreaBase rootArea = null;
+    private AreaContainer parsingScript(String json) {
+        AreaContainer rootArea = null;
         try {
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = jsonElement.getAsJsonObject();
@@ -159,22 +159,22 @@ public class Wincalc {
             for (Object objL1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
                 JsonObject elemL1 = (JsonObject) objL1;
                 if (TypeElem.AREA.name().equals(elemL1.get("elemType").getAsString())) {
-                    AreaBase areaSimple1 = parsingAddArea(rootArea, rootArea, elemL1);
+                    AreaContainer areaSimple1 = parsingAddArea(rootArea, rootArea, elemL1);
 
                     for (Object objL2 : elemL1.get("elements").getAsJsonArray()) { //второй уровень
                         JsonObject elemL2 = (JsonObject) objL2;
                         if (TypeElem.AREA.name().equals(elemL2.get("elemType").getAsString())) {
-                            AreaBase areaSimple2 = parsingAddArea(rootArea, areaSimple1, elemL2);
+                            AreaContainer areaSimple2 = parsingAddArea(rootArea, areaSimple1, elemL2);
 
                             for (Object objL3 : elemL2.get("elements").getAsJsonArray()) {  //третий уровень
                                 JsonObject elemL3 = (JsonObject) objL3;
                                 if (TypeElem.AREA.name().equals(elemL3.get("elemType").getAsString())) {
-                                    AreaBase areaSimple3 = parsingAddArea(rootArea, areaSimple2, elemL3);
+                                    AreaContainer areaSimple3 = parsingAddArea(rootArea, areaSimple2, elemL3);
 
                                     for (Object objL4 : elemL3.get("elements").getAsJsonArray()) {  //четвёртый уровень
                                         JsonObject elemL4 = (JsonObject) objL4;
                                         if (TypeElem.AREA.name().equals(elemL4.get("elemType").getAsString())) {
-                                            AreaBase areaSinple4 = parsingAddArea(rootArea, areaSimple3, elemL4);
+                                            AreaContainer areaSinple4 = parsingAddArea(rootArea, areaSimple3, elemL4);
                                         } else {
                                             parsingAddElem(rootArea, areaSimple3, elemL4);
                                         }
@@ -198,7 +198,7 @@ public class Wincalc {
         return rootArea;
     }
 
-    private AreaBase parsingAddArea(AreaBase rootArea, AreaBase ownerArea, JsonObject objArea) {
+    private AreaContainer parsingAddArea(AreaContainer rootArea, AreaContainer ownerArea, JsonObject objArea) {
 
         float width = (ownerArea.layout() == LayoutArea.VERTICAL) ? ownerArea.width() : objArea.get("width").getAsFloat();
         float height = (ownerArea.layout() == LayoutArea.VERTICAL) ? objArea.get("height").getAsFloat() : ownerArea.height();
@@ -211,7 +211,7 @@ public class Wincalc {
         return sceneArea;
     }
 
-    private void parsingAddElem(AreaBase root, AreaBase owner, JsonObject elem) {
+    private void parsingAddElem(AreaContainer root, AreaContainer owner, JsonObject elem) {
 
         if (TypeElem.IMPOST.name().equals(elem.get("elemType").getAsString())) {
             owner.addElem(new ElemImpost(this, owner, elem.get("id").getAsString()));

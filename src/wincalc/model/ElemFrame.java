@@ -7,7 +7,7 @@ import enums.TypeElem;
 import enums.TypeProfile;
 import wincalc.constr.Specification;
 
-public class ElemFrame extends ElemComponent {
+public class ElemFrame extends ElemComp {
 
     protected float length = 0; //Длина арки
     protected float anglCut1 = 0; //Угол реза рамы

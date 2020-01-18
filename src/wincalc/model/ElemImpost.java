@@ -10,7 +10,7 @@ import enums.TypeProfile;
 import wincalc.Wincalc;
 import wincalc.constr.Specification;
 
-public class ElemImpost extends ElemComponent {
+public class ElemImpost extends ElemComp {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
     protected float anglCut1 = 90; //угол реза импоста

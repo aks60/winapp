@@ -8,17 +8,13 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import javax.swing.JComponent;
 
-public abstract class ElemComponent extends Common {
+public abstract class ElemComp extends Common {
 
     protected float anglHoriz = -1; //угол к горизонту
     protected LayoutArea side = LayoutArea.NONE; //сторона расположения элемента
 
-    public ElemComponent(String id) {
+    public ElemComp(String id) {
         this.id = id;
-    }
-
-    public boolean inside(int x, int y) {
-        return (x >= 0) && (x < width) && (y >= 0) && (y < height);
     }
         
     @Override
@@ -42,7 +38,7 @@ public abstract class ElemComponent extends Common {
     /**
      * Получить предыдущий элемент в контейнере
      */
-    public ElemComponent prevElem() {
+    public ElemComp prevElem() {
         /*
         for (ListIterator<ElemBase> iter = getAreaElemList().listIterator(); iter.hasNext(); ) {
             if (iter.next().id == id) { //находим элемент в списке и от него движемся вверх
@@ -62,8 +58,8 @@ public abstract class ElemComponent extends Common {
      */
     public String genId() {
         int maxId = 0;
-        LinkedList<ElemComponent> elemList = root().elemList(TypeElem.FRAME, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.STVORKA);
-        for (ElemComponent elemBase : elemList) {
+        LinkedList<ElemComp> elemList = root().elemList(TypeElem.FRAME, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.STVORKA);
+        for (ElemComp elemBase : elemList) {
             for (Specification specification : elemBase.specificationRec.specificationList()) {
                 if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {
                     maxId = Integer.valueOf(elemBase.specificationRec.id);

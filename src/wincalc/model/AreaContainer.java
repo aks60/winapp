@@ -66,7 +66,7 @@ public abstract class AreaContainer extends Common {
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
                 if (owner.listChild().get(index) instanceof AreaContainer) {
-                    ElemComponent prevArea = (ElemComponent) owner.listChild().get(index);
+                    ElemComp prevArea = (ElemComp) owner.listChild().get(index);
 
                     if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
                         dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
@@ -148,7 +148,7 @@ public abstract class AreaContainer extends Common {
      * Получить примыкающий элемент (используется при нахождении элементов
      * соединений)
      */
-    protected ElemComponent adjoinElem(LayoutArea layoutSide) {
+    protected ElemComp adjoinElem(LayoutArea layoutSide) {
 
         LinkedList<Common> listElem = areaOrImpostList();
         for (int index = 0; index < listElem.size(); ++index) {
@@ -167,17 +167,17 @@ public abstract class AreaContainer extends Common {
             if (owner.equals(root()) && owner.layout() == LayoutArea.VERTICAL) {
                 if (layoutSide == LayoutArea.TOP) {
 
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.BOTTOM) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
             } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZONTAL) {
                 if (layoutSide == LayoutArea.LEFT) {
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.RIGHT) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
@@ -185,17 +185,17 @@ public abstract class AreaContainer extends Common {
             } else {
                 if (owner.layout() == LayoutArea.VERTICAL) {
                     if (layoutSide == LayoutArea.TOP) {
-                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.BOTTOM) {
-                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index + 1);
                     } else {
                         return owner.adjoinElem(layoutSide);
                     }
                 } else {
                     if (layoutSide == LayoutArea.LEFT) {
-                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.RIGHT) {
-                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index + 1);
                     } else {
                         return owner.adjoinElem(layoutSide);
                     }

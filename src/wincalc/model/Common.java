@@ -61,6 +61,11 @@ public abstract class Common {
         this.y2 = y2;
     }
 
+
+    public boolean inside(int x, int y) {
+        return (x >= 0) && (x < width) && (y >= 0) && (y < height);
+    }
+    
     public float width() {
         return width;
     }

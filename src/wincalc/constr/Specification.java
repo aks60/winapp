@@ -5,7 +5,7 @@ import domain.eArtikl;
 import enums.TypeArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
-import wincalc.model.ElemBase;
+import wincalc.model.ElemComp;
 
 
 /**
@@ -13,7 +13,7 @@ import wincalc.model.ElemBase;
  */
 public class Specification {
 
-    public ElemBase elemOwnerSpecif = null; //элемент пораждающий спецификацию
+    public ElemComp elemOwnerSpecif = null; //элемент пораждающий спецификацию
     protected ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
     protected HashMap<Integer, String> hmParam = null; //параметры спецификации
     private Record artiklesRec = null; //профиль в спецификации

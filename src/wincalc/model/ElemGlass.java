@@ -17,7 +17,7 @@ import enums.TypeProfile;
 import wincalc.Wincalc;
 import wincalc.constr.Specification;
 
-public class ElemGlass extends ElemComponent {
+public class ElemGlass extends ElemComp {
 
     public static final String RECTANGL = "Прямоугольное";              //
     public static final String RECTANGU_NOT = "Не прямоугольное";       // Параметры

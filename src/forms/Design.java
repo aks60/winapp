@@ -4,6 +4,7 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eSystree;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -103,7 +104,7 @@ public class Design extends javax.swing.JFrame {
         tree2 = new javax.swing.JTree();
         pan2 = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
-        pav4 = new javax.swing.JPanel();
+        pan4 = new javax.swing.JPanel();
         design = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
@@ -234,8 +235,8 @@ public class Design extends javax.swing.JFrame {
 
         pan2.add(pan3, java.awt.BorderLayout.SOUTH);
 
-        pav4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pav4.setLayout(new java.awt.BorderLayout());
+        pan4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        pan4.setLayout(new java.awt.BorderLayout());
 
         design.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 255, 255)));
 
@@ -250,7 +251,7 @@ public class Design extends javax.swing.JFrame {
             .addGap(0, 459, Short.MAX_VALUE)
         );
 
-        pav4.add(design, java.awt.BorderLayout.CENTER);
+        pan4.add(design, java.awt.BorderLayout.CENTER);
 
         pan7.setPreferredSize(new java.awt.Dimension(700, 60));
 
@@ -265,7 +266,7 @@ public class Design extends javax.swing.JFrame {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        pav4.add(pan7, java.awt.BorderLayout.PAGE_START);
+        pan4.add(pan7, java.awt.BorderLayout.NORTH);
 
         pan8.setPreferredSize(new java.awt.Dimension(744, 60));
 
@@ -314,7 +315,7 @@ public class Design extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pav4.add(pan8, java.awt.BorderLayout.SOUTH);
+        pan4.add(pan8, java.awt.BorderLayout.SOUTH);
 
         pan9.setPreferredSize(new java.awt.Dimension(60, 376));
 
@@ -329,7 +330,7 @@ public class Design extends javax.swing.JFrame {
             .addGap(0, 461, Short.MAX_VALUE)
         );
 
-        pav4.add(pan9, java.awt.BorderLayout.LINE_END);
+        pan4.add(pan9, java.awt.BorderLayout.EAST);
 
         pan10.setPreferredSize(new java.awt.Dimension(60, 336));
 
@@ -344,9 +345,9 @@ public class Design extends javax.swing.JFrame {
             .addGap(0, 461, Short.MAX_VALUE)
         );
 
-        pav4.add(pan10, java.awt.BorderLayout.LINE_START);
+        pan4.add(pan10, java.awt.BorderLayout.WEST);
 
-        pan2.add(pav4, java.awt.BorderLayout.CENTER);
+        pan2.add(pan4, java.awt.BorderLayout.CENTER);
 
         pan6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan6.setPreferredSize(new java.awt.Dimension(38, 500));
@@ -602,11 +603,14 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+             pan10.setPreferredSize(new Dimension(100, 400));
+             pan4.repaint();
+             this.setVisible(true);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
+      pan4.paintComponents(pan4.getGraphics());
+      this.setVisible(true);
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -658,11 +662,11 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JTabbedPane pan1a;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
-    private javax.swing.JPanel pav4;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;
