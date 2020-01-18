@@ -499,8 +499,8 @@ public class ConvPs {
             sql("alter table kitdet add constraint fk_kitdet3 foreign key (color1_id) references color (id)");
             sql("alter table kitdet add constraint fk_kitdet4 foreign key (color2_id) references color (id)");
             sql("alter table kitdet add constraint fk_kitdet5 foreign key (color3_id) references color (id)");
-            sql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)");
-            //sql("alter table xxx add constraint fk_xxx foreign key (yyy_id) references yyy (id)");           
+            sql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)"); 
+            //sql("alter table mmm add constraint fk_mmm foreign key (yyy_id) references yyy (id)"); 
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");

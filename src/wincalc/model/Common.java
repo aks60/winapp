@@ -90,6 +90,7 @@ public abstract class Common {
     /**
      * Прорисовка элемента на холсте
      */
+    //TODO переименовать в paint()
     public void drawElemList() {
     }
 

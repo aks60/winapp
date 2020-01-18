@@ -5,7 +5,6 @@ import common.eProp;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-//TODO В типовой конфигурации надо внешний и внутренний цвет включить в параметры!!!
 public class Main {
 
     public static boolean dev = false;

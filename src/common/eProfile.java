@@ -8,8 +8,7 @@ import com.sun.prism.impl.Disposer.Record;
  * Профили проекта </p>
  */
 public enum eProfile {
-//TODO необходимо пересмотреть eProfile
-
+    
     // admin
     P02(30, "30.2", "<АВЕРС: Директор-админ>", "OY_HO", "OY_HO1", "Группа №1", "OY_HO2", "Группа №2"),
     P04(30, "30.4", "<АВЕРС: Директор-админ>", "OY_HO", "OY_HO1", "Группа №1", "OY_HO2", "Группа №2"),
