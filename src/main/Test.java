@@ -14,24 +14,19 @@ import forms.Artikls;
 import forms.Rate;
 import forms.Color;
 import java.util.HashMap;
-import wincalc.Wincalc;
 import wincalc.script.AreaElem;
 import wincalc.script.AreaRoot;
 import wincalc.script.Element;
-import wincalc.script.Script;
 
 public class Test {
 
     public static void main(String[] args) {
         Main.dev = true;
 
-        try {
-            Wincalc wc = new Wincalc();
-            wc.create(Script.test(601002));
-            
-            //ConvPs.script();
+        try {                      
+            //convert.ConvPs.script();
 
-            //query();
+            query();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -71,6 +66,10 @@ public class Test {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+            
+            wincalc.Wincalc wc = new wincalc.Wincalc();
+            wc.create(wincalc.script.WinScript.test(601002));
+            
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //Entity.firebird(Query.connection, "LIS_ORD");
@@ -78,10 +77,8 @@ public class Test {
             //Quaery record = eSysprof.query.select().stream().filter(record -> record.get(eSysprof.id) != null);
 
             //Record recs = eSysprof.query.newRecord(Query.SEL);
-            Record record = eSysprof.query.select().stream()
-                    .filter(rec -> rec.getInt(eSysprof.systree_id) == 39 && rec.getInt(eSysprof.types) == 2).findFirst().orElse(null);
-
-            int mm = 0;
+            //Record record = eSysprof.query.select().stream()
+            //        .filter(rec -> rec.getInt(eSysprof.systree_id) == 39 && rec.getInt(eSysprof.types) == 2).findFirst().orElse(null);
             //Query q1 = new Query(eArtikls.values()).table(eArtikls.up.tname());
             //Query q1 = eArtikls.query.select(eArtikls.up, "order by", eArtikls.id);
             //int id = q1.getInt(0, eArtikls.id);

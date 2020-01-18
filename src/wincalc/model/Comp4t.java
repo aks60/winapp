@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import wincalc.Wincalc;
 
-public abstract class Component {
+public abstract class Comp4t {
 
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2;   //правая сторона 
@@ -46,6 +46,11 @@ public abstract class Component {
     protected Specification specificationRec = null; //спецификация элемента
     protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
+    public Comp4t(String id) {
+        this.id = id;
+        specificationRec = new Specification(id, this);
+    }
+
     public String getId() {
         return id;
     }
@@ -61,11 +66,10 @@ public abstract class Component {
         this.y2 = y2;
     }
 
-
     public boolean inside(int x, int y) {
         return (x >= 0) && (x < width) && (y >= 0) && (y < height);
     }
-    
+
     public float width() {
         return width;
     }
@@ -85,7 +89,7 @@ public abstract class Component {
 
     public abstract TypeElem typeElem();
 
-    public abstract LinkedList<Component> listChild();
+    public abstract LinkedList<Comp4t> listChild();
 
     /**
      * Прорисовка элемента на холсте
@@ -128,50 +132,7 @@ public abstract class Component {
         }
     }
 
-    protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
-            float y2, float y3, float y4, int rgbFill, Color rdbStroke, double lineWidth) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
-        gc.setColor(java.awt.Color.BLACK);
-        float h = iwin.heightAdd - iwin.height;
-        gc.drawPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
-                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
-        gc.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
-        gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
-                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
-    }
-
-    protected void strokeArc(double x, double y, double w, double h, double startAngle,
-            double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setStroke(new BasicStroke((float) lineWidth * scale)); //толщина линии
-        gc.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
-        gc.drawArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
-    }
-
-    protected void fillArc(double x, double y, double w, double h, double startAngle, double arcExtent) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setColor(new java.awt.Color(226, 255, 250));
-        gc.fillArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
-    }
-
-    protected void fillPoligon(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setColor(new java.awt.Color(226, 255, 250));
-        float h = iwin.heightAdd - iwin.height;
-        gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
-                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
-    }
-
     public boolean equals(Object obj) {
-        return id == ((Component) obj).id;
+        return id == ((Comp4t) obj).id;
     }
 }

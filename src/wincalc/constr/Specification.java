@@ -5,6 +5,7 @@ import domain.eArtikl;
 import enums.TypeArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
+import wincalc.model.Comp4t;
 import wincalc.model.ElemComp;
 
 
@@ -13,7 +14,7 @@ import wincalc.model.ElemComp;
  */
 public class Specification {
 
-    public ElemComp elemOwnerSpecif = null; //элемент пораждающий спецификацию
+    public Comp4t elemOwnerSpecif = null; //элемент пораждающий спецификацию
     protected ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
     protected HashMap<Integer, String> hmParam = null; //параметры спецификации
     private Record artiklesRec = null; //профиль в спецификации
@@ -45,18 +46,18 @@ public class Specification {
     public float discount = 0;  //Скидка
     public float anglHoriz = 0; // Угол к горизонту
 
-//    /**
-//     * Конструктор для видимых эдементов окна
-//     *
-//     * @param id
-//     * @param elemBase
-//     */
-//    public Specification(String id, ElemBase elemBase) {
-//        this.id = id;
-//        this.elemOwnerSpecif = elemBase;
-//        this.hmParam = new HashMap();
-//    }
-//
+    /**
+     * Конструктор для видимых эдементов окна
+     *
+     * @param id
+     * @param elemBase
+     */
+    public Specification(String id, Comp4t elemBase) {
+        this.id = id;
+        this.elemOwnerSpecif = elemBase;
+        this.hmParam = new HashMap();
+    }
+
 //    /**
 //     * Конструктор для элементов спецификации окна
 //     *

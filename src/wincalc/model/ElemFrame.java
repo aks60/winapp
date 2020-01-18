@@ -19,7 +19,9 @@ public class ElemFrame extends ElemComp {
 
     public ElemFrame(AreaContainer owner, String id, LayoutArea side) {
         super(id);
+        this.owner = owner;
         this.side = side;
+        this.iwin = owner.iwin;
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;

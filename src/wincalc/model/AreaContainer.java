@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import wincalc.Wincalc;
 
-public abstract class AreaContainer extends Component {
+public abstract class AreaContainer extends Comp4t {
 
-    private LinkedList<Component> listChild = new LinkedList(); //список компонентов в окне
+    private LinkedList<Comp4t> listChild = new LinkedList(); //список компонентов в окне
      
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
@@ -20,7 +20,7 @@ public abstract class AreaContainer extends Component {
      * Конструктор
      */
     public AreaContainer(String id) {
-        this.id = id;
+        super(id);
     }
 
     /**
@@ -43,8 +43,8 @@ public abstract class AreaContainer extends Component {
      * Конструктор
      */
     public AreaContainer(AreaContainer owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+        super(id);
         this.owner = owner;
-        this.id = id;
         this.layout = layout;
         this.width = width;
         this.height = height;
@@ -150,10 +150,10 @@ public abstract class AreaContainer extends Component {
      */
     protected ElemComp adjoinElem(LayoutArea layoutSide) {
 
-        LinkedList<Component> listElem = areaOrImpostList();
+        LinkedList<Comp4t> listElem = areaOrImpostList();
         for (int index = 0; index < listElem.size(); ++index) {
 
-            Component elemBase = listElem.get(index);
+            Comp4t elemBase = listElem.get(index);
             if (elemBase.id != id) {
                 continue; //пропускаем если другая ареа
             }
@@ -210,38 +210,38 @@ public abstract class AreaContainer extends Component {
      */
     public <E> LinkedList<E> elemList(TypeElem... type) {
         
-        LinkedList<Component> arrElem = new LinkedList();
+        LinkedList<Comp4t> arrElem = new LinkedList();
         LinkedList<E> outElem = new LinkedList();
         for (Map.Entry<LayoutArea, ElemFrame> elemRama : root().mapFrame.entrySet()) {
             arrElem.add(elemRama.getValue());
         }
         Object obj = root().listChild();
         
-        for (Component elemBase : root().listChild()) { //первый уровень
+        for (Comp4t elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase instanceof AreaContainer) {
                 for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase).mapFrame.entrySet()) {
                     arrElem.add(elemRama.getValue());
                 }
-                for (Component elemBase2 : elemBase.listChild()) { //второй уровень
+                for (Comp4t elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
                     if (elemBase2 instanceof AreaContainer) {
                         for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase2).mapFrame.entrySet()) {
                             arrElem.add(elemRama.getValue());
                         }
-                        for (Component elemBase3 : elemBase2.listChild()) { //третий уровень
+                        for (Comp4t elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
                             if (elemBase3 instanceof AreaContainer) {
                                 for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase3).mapFrame.entrySet()) {
                                     arrElem.add(elemRama.getValue());
                                 }
-                                for (Component elemBase4 : elemBase3.listChild()) { //четвёртый уровень
+                                for (Comp4t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
                                     if (elemBase4 instanceof AreaContainer) {
                                         for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase4).mapFrame.entrySet()) {
                                             arrElem.add(elemRama.getValue());
                                         }
-                                        for (Component elemBase5 : elemBase4.listChild()) { //пятый уровень
+                                        for (Comp4t elemBase5 : elemBase4.listChild()) { //пятый уровень
                                             arrElem.add(elemBase5);
                                         }
                                     }
@@ -255,7 +255,7 @@ public abstract class AreaContainer extends Component {
         //Цикл по входному списку элементов
         for (int index = 0; index < type.length; ++index) {
             TypeElem type2 = type[index];
-            for (Component elemBase : arrElem) {
+            for (Comp4t elemBase : arrElem) {
                 if (elemBase.typeElem() == type2) {
                     E elem = (E) elemBase;
                     outElem.add(elem);
@@ -272,11 +272,11 @@ public abstract class AreaContainer extends Component {
     }
 
     @Override
-    public LinkedList<Component> listChild() {
+    public LinkedList<Comp4t> listChild() {
         return listChild;
     }
 
-    public void addElem(Component element) {
+    public void addElem(Comp4t element) {
         listChild.add(element);
     }
 
@@ -292,10 +292,10 @@ public abstract class AreaContainer extends Component {
     /**
      * Список area и impost
      */
-    public LinkedList<Component> areaOrImpostList() {
+    public LinkedList<Comp4t> areaOrImpostList() {
 
-        LinkedList<Component> elemList = new LinkedList();
-        for (Component elemBase : owner.listChild()) {
+        LinkedList<Comp4t> elemList = new LinkedList();
+        for (Comp4t elemBase : owner.listChild()) {
             if (TypeElem.AREA == elemBase.typeElem() || TypeElem.IMPOST == elemBase.typeElem()) {
                 elemList.add(elemBase);
             }

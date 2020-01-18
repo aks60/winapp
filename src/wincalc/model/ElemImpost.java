@@ -20,9 +20,12 @@ public class ElemImpost extends ElemComp {
         super(id);
     }
 
-    public ElemImpost(Wincalc iwin, AreaContainer owner, String id) {
+    public ElemImpost(AreaContainer owner, String id) {
 
         super(id);
+        this.owner = owner;
+        this.side = side;
+        this.iwin = owner.iwin;        
         this.side = (owner.layout() == LayoutArea.HORIZONTAL) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;
         color1 = iwin.color1;
         color2 = iwin.color2;
@@ -38,7 +41,7 @@ public class ElemImpost extends ElemComp {
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
             if (owner.listChild().get(index) instanceof AreaContainer) {
-                Component prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
+                Comp4t prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
                 float dx = articlRec.getFloat(eArtikl.size_centr);
 
                 if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз

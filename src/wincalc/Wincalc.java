@@ -193,7 +193,7 @@ public class Wincalc {
                 }
             }
         } catch (Exception e2) {
-            System.out.println("Ошибка Iwindows.parsingScript() " + e2);
+            System.out.println("Ошибка Wincala.parsingScript() " + e2);
         }
         return rootArea;
     }
@@ -214,13 +214,13 @@ public class Wincalc {
     private void parsingAddElem(AreaContainer root, AreaContainer owner, JsonObject elem) {
 
         if (TypeElem.IMPOST.name().equals(elem.get("elemType").getAsString())) {
-            owner.addElem(new ElemImpost(this, owner, elem.get("id").getAsString()));
+            owner.addElem(new ElemImpost(owner, elem.get("id").getAsString()));
 
         } else if (TypeElem.GLASS.name().equals(elem.get("elemType").getAsString())) {
             if (elem.get("paramJson") != null) {
-                owner.addElem(new ElemGlass(this, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
+                owner.addElem(new ElemGlass(owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
             } else {
-                owner.addElem(new ElemGlass(this, owner, elem.get("id").getAsString()));
+                owner.addElem(new ElemGlass(owner, elem.get("id").getAsString()));
             }
 
         } else if (TypeElem.FULLSTVORKA.name().equals(elem.get("elemType").getAsString())) {
@@ -232,9 +232,9 @@ public class Wincalc {
                 JsonObject elem2 = (JsonObject) obj;
                 if (TypeElem.GLASS.name().equals(elem2.get("elemType").getAsString())) {
                     if (elem2.get("paramJson") != null) {
-                        elemStvorka.addElem(new ElemGlass(this, elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
+                        elemStvorka.addElem(new ElemGlass(elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
                     } else {
-                        elemStvorka.addElem(new ElemGlass(this, elemStvorka, elem2.get("id").getAsString()));
+                        elemStvorka.addElem(new ElemGlass(elemStvorka, elem2.get("id").getAsString()));
                     }
                 }
             }

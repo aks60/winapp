@@ -9,6 +9,7 @@ public class AreaSquare extends AreaContainer {
     public AreaSquare(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
         super(null, id, layout, width, height, color1, color2, color3);
         this.iwin = iwin;
+        this.owner = this;
         parsingParam(this, paramJson);
     }
 

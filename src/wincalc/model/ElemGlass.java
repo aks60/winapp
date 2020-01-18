@@ -26,14 +26,16 @@ public class ElemGlass extends ElemComp {
 
     protected float radiusGlass = 0;
 
-    public ElemGlass(Wincalc iwin, AreaContainer owner, String id) {
-        this(iwin, owner, id, null);
+    public ElemGlass(AreaContainer owner, String id) {
+        this(owner, id, null);
     }
 
-    public ElemGlass(Wincalc iwin, AreaContainer owner, String id, String paramJson) {
+    public ElemGlass(AreaContainer owner, String id, String paramJson) {
 
         super(id);
-        this.iwin = iwin;
+        this.owner = owner;
+        this.side = side;
+        this.iwin = owner.iwin;
         this.side = LayoutArea.FULL;
         
         if (paramJson != null && paramJson.isEmpty() == false) {

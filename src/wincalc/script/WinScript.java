@@ -4,11 +4,33 @@ import com.google.gson.Gson;
 import enums.LayoutArea;
 import enums.TypeElem;
 
-public class Script {
+public class WinScript {
 
     public static String test(Integer id) {
-        if (id == 601001) {
+        if (id == 601002) {
+            AreaRoot rootArea = new AreaRoot("1", LayoutArea.HORIZONTAL, TypeElem.SQUARE, 1300, 1400, 1400, 1009, 10009, 1009, "");
+            rootArea.setParam(31, id.toString());
+            rootArea.add(new Element("2", TypeElem.FRAME, LayoutArea.LEFT));
+            rootArea.add(new Element("3", TypeElem.FRAME, LayoutArea.RIGHT));
+            rootArea.add(new Element("4", TypeElem.FRAME, LayoutArea.TOP));
+            rootArea.add(new Element("5", TypeElem.FRAME, LayoutArea.BOTTOM));
 
+            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.HORIZONTAL, TypeElem.AREA, 1300 / 2));
+            rootArea.add(new Element("7", TypeElem.IMPOST));
+            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("8", LayoutArea.HORIZONTAL, TypeElem.AREA, 1300 / 2));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
+
+            area4.add(new Element("11", TypeElem.GLASS));
+            area5.add(new Element("12", TypeElem.GLASS));
+            return new Gson().toJson(rootArea);
+
+        }
+        return null;
+    }
+
+    public static String test2(Integer id) {
+        if (id == 601001) {
             AreaRoot rootArea = new AreaRoot("1", LayoutArea.VERTICAL, TypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
             rootArea.setParam(8, id.toString());
             rootArea.add(new Element("2", TypeElem.FRAME, LayoutArea.LEFT));
