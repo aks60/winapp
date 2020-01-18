@@ -7,7 +7,7 @@ import enums.TypeElem;
 import enums.TypeProfile;
 import wincalc.constr.Specification;
 
-public class ElemFrame extends ElemBase {
+public class ElemFrame extends ElemComponent {
 
     protected float length = 0; //Длина арки
     protected float anglCut1 = 0; //Угол реза рамы
@@ -17,7 +17,7 @@ public class ElemFrame extends ElemBase {
         super(id);
     }
 
-    public ElemFrame(AreaBase owner, String id, LayoutArea side) {
+    public ElemFrame(AreaContainer owner, String id, LayoutArea side) {
         super(id);
         this.side = side;
         color1 = owner.color1;

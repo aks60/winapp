@@ -10,14 +10,14 @@ public class ElemJoinig {
 
     public String id = "0"; //идентификатор соединения
 
-    protected ElemBase elemJoinTop = null;      //
-    protected ElemBase elemJoinBottom = null;   // Элементы соединения, временно для
-    protected ElemBase elemJoinLeft = null;     // схлопывания повторяющихся обходов
-    protected ElemBase elemJoinRight = null;    //
+    protected ElemComponent elemJoinTop = null;      //
+    protected ElemComponent elemJoinBottom = null;   // Элементы соединения, временно для
+    protected ElemComponent elemJoinLeft = null;     // схлопывания повторяющихся обходов
+    protected ElemComponent elemJoinRight = null;    //
 
     protected VariantJoin varJoin = VariantJoin.EMPTY;    // Вариант соединения
-    protected ElemBase joinElement1 = null;  // Элемент соединения 1
-    protected ElemBase joinElement2 = null;  // Элемент соединения 2
+    protected ElemComponent joinElement1 = null;  // Элемент соединения 1
+    protected ElemComponent joinElement2 = null;  // Элемент соединения 2
 
     protected float cutAngl1 = 90;    //Угол реза1
     protected float cutAngl2 = 90;    //Угол реза2

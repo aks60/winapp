@@ -11,12 +11,12 @@ import enums.TypeOpen;
 import enums.TypeProfile;
 import wincalc.Wincalc;
 
-public class AreaStvorka extends AreaBase {
+public class AreaStvorka extends AreaContainer {
 
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
-    public AreaStvorka(Wincalc iwin, AreaBase owner, String id, String paramJson) {
+    public AreaStvorka(Wincalc iwin, AreaContainer owner, String id, String paramJson) {
 
         super(id);
         this.iwin = iwin;

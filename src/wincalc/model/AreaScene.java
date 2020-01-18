@@ -4,9 +4,9 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
 
-public class AreaScene extends AreaBase {
+public class AreaScene extends AreaContainer {
 
-    public AreaScene(Wincalc iwin, AreaBase owner, String id, LayoutArea layout, float width, float height) {
+    public AreaScene(Wincalc iwin, AreaContainer owner, String id, LayoutArea layout, float width, float height) {
         super(iwin, owner, id, layout, width, height);
     }
 

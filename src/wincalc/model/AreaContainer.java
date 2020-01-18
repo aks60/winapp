@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import wincalc.Wincalc;
 
-public abstract class AreaBase extends Base {
+public abstract class AreaContainer extends Common {
 
-    private LinkedList<Base> listChild = new LinkedList(); //список компонентов в окне
+    private LinkedList<Common> listChild = new LinkedList(); //список компонентов в окне
      
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
@@ -19,14 +19,14 @@ public abstract class AreaBase extends Base {
     /**
      * Конструктор
      */
-    public AreaBase(String id) {
+    public AreaContainer(String id) {
         this.id = id;
     }
 
     /**
      * Конструктор парсинга скрипта
      */
-    public AreaBase(Wincalc iwin, AreaBase owner, String id, LayoutArea layout, float width, float height) {
+    public AreaContainer(Wincalc iwin, AreaContainer owner, String id, LayoutArea layout, float width, float height) {
         this(owner, id, layout, width, height, 1, 1, 1);
         this.iwin = iwin;
         //Коррекция размера стеклопакета(створки) арки.
@@ -42,7 +42,7 @@ public abstract class AreaBase extends Base {
     /**
      * Конструктор
      */
-    public AreaBase(AreaBase owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+    public AreaContainer(AreaContainer owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         this.owner = owner;
         this.id = id;
         this.layout = layout;
@@ -54,7 +54,7 @@ public abstract class AreaBase extends Base {
         initDimension(owner);
     }
 
-    private void initDimension(AreaBase owner) {
+    private void initDimension(AreaContainer owner) {
         if (owner != null) {
             //Заполним по умолчанию
             if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
@@ -65,8 +65,8 @@ public abstract class AreaBase extends Base {
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
-                if (owner.listChild().get(index) instanceof AreaBase) {
-                    ElemBase prevArea = (ElemBase) owner.listChild().get(index);
+                if (owner.listChild().get(index) instanceof AreaContainer) {
+                    ElemComponent prevArea = (ElemComponent) owner.listChild().get(index);
 
                     if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
                         dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
@@ -148,12 +148,12 @@ public abstract class AreaBase extends Base {
      * Получить примыкающий элемент (используется при нахождении элементов
      * соединений)
      */
-    protected ElemBase adjoinElem(LayoutArea layoutSide) {
+    protected ElemComponent adjoinElem(LayoutArea layoutSide) {
 
-        LinkedList<Base> listElem = areaOrImpostList();
+        LinkedList<Common> listElem = areaOrImpostList();
         for (int index = 0; index < listElem.size(); ++index) {
 
-            Base elemBase = listElem.get(index);
+            Common elemBase = listElem.get(index);
             if (elemBase.id != id) {
                 continue; //пропускаем если другая ареа
             }
@@ -167,17 +167,17 @@ public abstract class AreaBase extends Base {
             if (owner.equals(root()) && owner.layout() == LayoutArea.VERTICAL) {
                 if (layoutSide == LayoutArea.TOP) {
 
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.BOTTOM) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
             } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZONTAL) {
                 if (layoutSide == LayoutArea.LEFT) {
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.RIGHT) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemBase) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComponent) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
@@ -185,17 +185,17 @@ public abstract class AreaBase extends Base {
             } else {
                 if (owner.layout() == LayoutArea.VERTICAL) {
                     if (layoutSide == LayoutArea.TOP) {
-                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.BOTTOM) {
-                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index + 1);
                     } else {
                         return owner.adjoinElem(layoutSide);
                     }
                 } else {
                     if (layoutSide == LayoutArea.LEFT) {
-                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.RIGHT) {
-                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemBase) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComponent) listElem.get(index + 1);
                     } else {
                         return owner.adjoinElem(layoutSide);
                     }
@@ -210,36 +210,36 @@ public abstract class AreaBase extends Base {
      */
     public <E> LinkedList<E> elemList(TypeElem... type) {
         
-        LinkedList<Base> arrElem = new LinkedList();
+        LinkedList<Common> arrElem = new LinkedList();
         LinkedList<E> outElem = new LinkedList();
         for (Map.Entry<LayoutArea, ElemFrame> elemRama : root().mapFrame.entrySet()) {
             arrElem.add(elemRama.getValue());
         }
-        for (Base elemBase : root().listChild()) { //первый уровень
+        for (Common elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
-            if (elemBase instanceof AreaBase) {
-                for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase).mapFrame.entrySet()) {
+            if (elemBase instanceof AreaContainer) {
+                for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase).mapFrame.entrySet()) {
                     arrElem.add(elemRama.getValue());
                 }
-                for (Base elemBase2 : elemBase.listChild()) { //второй уровень
+                for (Common elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
-                    if (elemBase2 instanceof AreaBase) {
-                        for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase2).mapFrame.entrySet()) {
+                    if (elemBase2 instanceof AreaContainer) {
+                        for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase2).mapFrame.entrySet()) {
                             arrElem.add(elemRama.getValue());
                         }
-                        for (Base elemBase3 : elemBase2.listChild()) { //третий уровень
+                        for (Common elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
-                            if (elemBase3 instanceof AreaBase) {
-                                for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase3).mapFrame.entrySet()) {
+                            if (elemBase3 instanceof AreaContainer) {
+                                for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase3).mapFrame.entrySet()) {
                                     arrElem.add(elemRama.getValue());
                                 }
-                                for (Base elemBase4 : elemBase3.listChild()) { //четвёртый уровень
+                                for (Common elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
-                                    if (elemBase4 instanceof AreaBase) {
-                                        for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaBase) elemBase4).mapFrame.entrySet()) {
+                                    if (elemBase4 instanceof AreaContainer) {
+                                        for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase4).mapFrame.entrySet()) {
                                             arrElem.add(elemRama.getValue());
                                         }
-                                        for (Base elemBase5 : elemBase4.listChild()) { //пятый уровень
+                                        for (Common elemBase5 : elemBase4.listChild()) { //пятый уровень
                                             arrElem.add(elemBase5);
                                         }
                                     }
@@ -253,7 +253,7 @@ public abstract class AreaBase extends Base {
         //Цикл по входному списку элементов
         for (int index = 0; index < type.length; ++index) {
             TypeElem type2 = type[index];
-            for (Base elemBase : arrElem) {
+            for (Common elemBase : arrElem) {
                 if (elemBase.typeElem() == type2) {
                     E elem = (E) elemBase;
                     outElem.add(elem);
@@ -270,11 +270,11 @@ public abstract class AreaBase extends Base {
     }
 
     @Override
-    public LinkedList<Base> listChild() {
+    public LinkedList<Common> listChild() {
         return listChild;
     }
 
-    public void addElem(Base element) {
+    public void addElem(Common element) {
         listChild.add(element);
     }
 
@@ -290,10 +290,10 @@ public abstract class AreaBase extends Base {
     /**
      * Список area и impost
      */
-    public LinkedList<Base> areaOrImpostList() {
+    public LinkedList<Common> areaOrImpostList() {
 
-        LinkedList<Base> elemList = new LinkedList();
-        for (Base elemBase : owner.listChild()) {
+        LinkedList<Common> elemList = new LinkedList();
+        for (Common elemBase : owner.listChild()) {
             if (TypeElem.AREA == elemBase.typeElem() || TypeElem.IMPOST == elemBase.typeElem()) {
                 elemList.add(elemBase);
             }

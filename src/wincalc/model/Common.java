@@ -19,14 +19,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import wincalc.Wincalc;
 
-public abstract class Base {
+public abstract class Common {
 
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2;   //правая сторона 
     protected static float moveXY = 40;     //смещение рисунка
 
     protected String id = "0"; //идентификатор
-    protected AreaBase owner = null; //владелец
+    protected AreaContainer owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
     protected float x1 = 0;
@@ -50,7 +50,7 @@ public abstract class Base {
         return id;
     }
 
-    public AreaBase root() {
+    public AreaContainer root() {
         return iwin.rootArea;
     }
 
@@ -80,7 +80,7 @@ public abstract class Base {
 
     public abstract TypeElem typeElem();
 
-    public abstract LinkedList<Base> listChild();
+    public abstract LinkedList<Common> listChild();
 
     /**
      * Прорисовка элемента на холсте
@@ -91,7 +91,7 @@ public abstract class Base {
     /**
      * Инициализация pro4Params
      */
-    protected void parsingParam(AreaBase root, String paramJson) {
+    protected void parsingParam(AreaContainer root, String paramJson) {
         try {
             Gson gson = new Gson();
             if (paramJson != null && paramJson.isEmpty() == false) {
@@ -166,6 +166,6 @@ public abstract class Base {
     }
 
     public boolean equals(Object obj) {
-        return id == ((Base) obj).id;
+        return id == ((Common) obj).id;
     }
 }

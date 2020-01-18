@@ -5,7 +5,7 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
 
-public class AreaArch extends AreaBase {
+public class AreaArch extends AreaContainer {
     
     protected double radiusArch = 0; //радиус арки
 
@@ -48,8 +48,8 @@ public class AreaArch extends AreaBase {
         elemJoin1.cutAngl1 = (float) ang3; //угол реза 1
         elemJoin1.cutAngl2 = (float) ang4; //угол реза 2
         elemJoin1.anglProf = (float) ang4;
-        elemJoin1.elemJoinRight.anglCut(ElemBase.SIDE_END, elemJoin1.cutAngl2);
-        elemJoin1.elemJoinBottom.anglCut(ElemBase.SIDE_START, elemJoin1.cutAngl1);
+        elemJoin1.elemJoinRight.anglCut(ElemComponent.SIDE_END, elemJoin1.cutAngl2);
+        elemJoin1.elemJoinBottom.anglCut(ElemComponent.SIDE_START, elemJoin1.cutAngl1);
 
         //Угловое соединение правое верхнее
         ElemJoinig elemJoin2 = new ElemJoinig(iwin);
@@ -59,8 +59,8 @@ public class AreaArch extends AreaBase {
         elemJoin2.cutAngl1 = (float) ang3;
         elemJoin2.cutAngl2 = (float) ang4;
         elemJoin2.anglProf = (float) ang4;
-        elemJoin2.elemJoinLeft.anglCut(ElemBase.SIDE_START, elemJoin2.cutAngl2);
-        elemJoin2.elemJoinBottom.anglCut(ElemBase.SIDE_END, elemJoin2.cutAngl1);
+        elemJoin2.elemJoinLeft.anglCut(ElemComponent.SIDE_START, elemJoin2.cutAngl2);
+        elemJoin2.elemJoinBottom.anglCut(ElemComponent.SIDE_END, elemJoin2.cutAngl1);
 
         //Угловое соединение правое нижнее
         ElemJoinig elemJoin3 = new ElemJoinig(iwin);
@@ -70,8 +70,8 @@ public class AreaArch extends AreaBase {
         elemJoin3.cutAngl1 = 45;
         elemJoin3.cutAngl2 = 45;
         elemJoin3.anglProf = 90;
-        elemJoin3.elemJoinTop.anglCut(ElemBase.SIDE_START, elemJoin3.cutAngl1);
-        elemJoin3.elemJoinLeft.anglCut(ElemBase.SIDE_END, elemJoin3.cutAngl2);
+        elemJoin3.elemJoinTop.anglCut(ElemComponent.SIDE_START, elemJoin3.cutAngl1);
+        elemJoin3.elemJoinLeft.anglCut(ElemComponent.SIDE_END, elemJoin3.cutAngl2);
 
         //Угловое соединение левое нижнее
         ElemJoinig elemJoin4 = new ElemJoinig(iwin);
@@ -81,8 +81,8 @@ public class AreaArch extends AreaBase {
         elemJoin4.cutAngl1 = 45;
         elemJoin4.cutAngl2 = 45;
         elemJoin4.anglProf = 90;
-        elemJoin4.elemJoinRight.anglCut(ElemBase.SIDE_START, elemJoin4.cutAngl2);
-        elemJoin4.elemJoinTop.anglCut(ElemBase.SIDE_END, elemJoin4.cutAngl1);
+        elemJoin4.elemJoinRight.anglCut(ElemComponent.SIDE_START, elemJoin4.cutAngl2);
+        elemJoin4.elemJoinTop.anglCut(ElemComponent.SIDE_END, elemJoin4.cutAngl1);
     }
 
 }

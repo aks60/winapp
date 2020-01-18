@@ -10,7 +10,7 @@ import enums.TypeProfile;
 import wincalc.Wincalc;
 import wincalc.constr.Specification;
 
-public class ElemImpost extends ElemBase {
+public class ElemImpost extends ElemComponent {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
     protected float anglCut1 = 90; //угол реза импоста
@@ -20,7 +20,7 @@ public class ElemImpost extends ElemBase {
         super(id);
     }
 
-    public ElemImpost(Wincalc iwin, AreaBase owner, String id) {
+    public ElemImpost(Wincalc iwin, AreaContainer owner, String id) {
 
         super(id);
         this.side = (owner.layout() == LayoutArea.HORIZONTAL) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;
@@ -37,8 +37,8 @@ public class ElemImpost extends ElemBase {
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
-            if (owner.listChild().get(index) instanceof AreaBase) {
-                Base prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
+            if (owner.listChild().get(index) instanceof AreaContainer) {
+                Common prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
                 float dx = articlRec.getFloat(eArtikl.size_centr);
 
                 if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
