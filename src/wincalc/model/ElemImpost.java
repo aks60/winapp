@@ -38,7 +38,7 @@ public class ElemImpost extends ElemComp {
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
             if (owner.listChild().get(index) instanceof AreaContainer) {
-                Common prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
+                Component prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
                 float dx = articlRec.getFloat(eArtikl.size_centr);
 
                 if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз

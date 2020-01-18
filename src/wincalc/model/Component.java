@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import wincalc.Wincalc;
 
-public abstract class Common {
+public abstract class Component {
 
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2;   //правая сторона 
@@ -85,7 +85,7 @@ public abstract class Common {
 
     public abstract TypeElem typeElem();
 
-    public abstract LinkedList<Common> listChild();
+    public abstract LinkedList<Component> listChild();
 
     /**
      * Прорисовка элемента на холсте
@@ -172,6 +172,6 @@ public abstract class Common {
     }
 
     public boolean equals(Object obj) {
-        return id == ((Common) obj).id;
+        return id == ((Component) obj).id;
     }
 }

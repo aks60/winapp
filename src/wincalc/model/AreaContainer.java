@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.Map;
 import wincalc.Wincalc;
 
-public abstract class AreaContainer extends Common {
+public abstract class AreaContainer extends Component {
 
-    private LinkedList<Common> listChild = new LinkedList(); //список компонентов в окне
+    private LinkedList<Component> listChild = new LinkedList(); //список компонентов в окне
      
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
@@ -150,10 +150,10 @@ public abstract class AreaContainer extends Common {
      */
     protected ElemComp adjoinElem(LayoutArea layoutSide) {
 
-        LinkedList<Common> listElem = areaOrImpostList();
+        LinkedList<Component> listElem = areaOrImpostList();
         for (int index = 0; index < listElem.size(); ++index) {
 
-            Common elemBase = listElem.get(index);
+            Component elemBase = listElem.get(index);
             if (elemBase.id != id) {
                 continue; //пропускаем если другая ареа
             }
@@ -210,36 +210,38 @@ public abstract class AreaContainer extends Common {
      */
     public <E> LinkedList<E> elemList(TypeElem... type) {
         
-        LinkedList<Common> arrElem = new LinkedList();
+        LinkedList<Component> arrElem = new LinkedList();
         LinkedList<E> outElem = new LinkedList();
         for (Map.Entry<LayoutArea, ElemFrame> elemRama : root().mapFrame.entrySet()) {
             arrElem.add(elemRama.getValue());
         }
-        for (Common elemBase : root().listChild()) { //первый уровень
+        Object obj = root().listChild();
+        
+        for (Component elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase instanceof AreaContainer) {
                 for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase).mapFrame.entrySet()) {
                     arrElem.add(elemRama.getValue());
                 }
-                for (Common elemBase2 : elemBase.listChild()) { //второй уровень
+                for (Component elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
                     if (elemBase2 instanceof AreaContainer) {
                         for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase2).mapFrame.entrySet()) {
                             arrElem.add(elemRama.getValue());
                         }
-                        for (Common elemBase3 : elemBase2.listChild()) { //третий уровень
+                        for (Component elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
                             if (elemBase3 instanceof AreaContainer) {
                                 for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase3).mapFrame.entrySet()) {
                                     arrElem.add(elemRama.getValue());
                                 }
-                                for (Common elemBase4 : elemBase3.listChild()) { //четвёртый уровень
+                                for (Component elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
                                     if (elemBase4 instanceof AreaContainer) {
                                         for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase4).mapFrame.entrySet()) {
                                             arrElem.add(elemRama.getValue());
                                         }
-                                        for (Common elemBase5 : elemBase4.listChild()) { //пятый уровень
+                                        for (Component elemBase5 : elemBase4.listChild()) { //пятый уровень
                                             arrElem.add(elemBase5);
                                         }
                                     }
@@ -253,7 +255,7 @@ public abstract class AreaContainer extends Common {
         //Цикл по входному списку элементов
         for (int index = 0; index < type.length; ++index) {
             TypeElem type2 = type[index];
-            for (Common elemBase : arrElem) {
+            for (Component elemBase : arrElem) {
                 if (elemBase.typeElem() == type2) {
                     E elem = (E) elemBase;
                     outElem.add(elem);
@@ -270,11 +272,11 @@ public abstract class AreaContainer extends Common {
     }
 
     @Override
-    public LinkedList<Common> listChild() {
+    public LinkedList<Component> listChild() {
         return listChild;
     }
 
-    public void addElem(Common element) {
+    public void addElem(Component element) {
         listChild.add(element);
     }
 
@@ -290,10 +292,10 @@ public abstract class AreaContainer extends Common {
     /**
      * Список area и impost
      */
-    public LinkedList<Common> areaOrImpostList() {
+    public LinkedList<Component> areaOrImpostList() {
 
-        LinkedList<Common> elemList = new LinkedList();
-        for (Common elemBase : owner.listChild()) {
+        LinkedList<Component> elemList = new LinkedList();
+        for (Component elemBase : owner.listChild()) {
             if (TypeElem.AREA == elemBase.typeElem() || TypeElem.IMPOST == elemBase.typeElem()) {
                 elemList.add(elemBase);
             }

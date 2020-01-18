@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import javax.swing.JComponent;
 
-public abstract class ElemComp extends Common {
+public abstract class ElemComp extends Component {
 
     protected float anglHoriz = -1; //угол к горизонту
     protected LayoutArea side = LayoutArea.NONE; //сторона расположения элемента
@@ -18,7 +18,7 @@ public abstract class ElemComp extends Common {
     }
         
     @Override
-    public LinkedList<Common> listChild() {
+    public LinkedList<Component> listChild() {
         return new LinkedList();
     }
 

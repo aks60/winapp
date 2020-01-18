@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import convert.ConvPs;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprof;
@@ -15,6 +14,7 @@ import forms.Artikls;
 import forms.Rate;
 import forms.Color;
 import java.util.HashMap;
+import wincalc.Wincalc;
 import wincalc.script.AreaElem;
 import wincalc.script.AreaRoot;
 import wincalc.script.Element;
@@ -26,10 +26,10 @@ public class Test {
         Main.dev = true;
 
         try {
-            //Wincalc wc = new Wincalc();
-            //wc.create(AreaElem.test(601001));
+            Wincalc wc = new Wincalc();
+            wc.create(Script.test(601002));
             
-            ConvPs.script();
+            //ConvPs.script();
 
             //query();
         } catch (Exception e) {
