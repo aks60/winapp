@@ -24,8 +24,8 @@ public class Test {
         Main.dev = true;
 
         try {                      
-            convert.ConvPs.script();
-            //query();
+            //convert.ConvPs.script();
+            query();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -67,7 +67,7 @@ public class Test {
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
             
             wincalc.Wincalc wc = new wincalc.Wincalc();
-            wc.create(wincalc.script.WinScript.test(601002));
+            wc.create(wincalc.script.Winscript.test(601002));
             
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");

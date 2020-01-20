@@ -40,7 +40,7 @@ import domain.eOrders;
 import domain.eParams;
 import domain.ePartner;
 import domain.eRulecalc;
-import domain.eSysconst;
+import domain.eSyssize;
 import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -77,7 +77,7 @@ public class ConvPs {
 
     public static void script() {
         Field[] fieldsUp = { //порядок записи определён в ссответсвии с зависимостями
-            eSysconst.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
+            eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
@@ -106,7 +106,6 @@ public class ConvPs {
             List<String> listExistTable1 = new ArrayList<String>();//таблицы источника
             List<String> listExistTable2 = new ArrayList<String>();//таблицы приёмника
             List<String> listGenerator2 = new ArrayList<String>();//генераторы приёмника 
-            List<String> listTrigger2 = new ArrayList<String>();//генераторы приёмника 
 
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
@@ -123,28 +122,19 @@ public class ConvPs {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
-            //Триггеры приёмника
-            resultSet2 = st2.executeQuery("select rdb$trigger_name from rdb$triggers"); 
-            while (resultSet2.next()) {
-                listTrigger2.add(resultSet2.getString("rdb$trigger_name").trim());
-            }
             Util.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
                 //Поля не вошедшие в eEnum.values()
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
 
-                //Удаление триггеров приёмника
-                if (listTrigger2.contains(fieldUp.tname() + "_BI") == true) {
-                    sql("DROP TRIGGER " + fieldUp.tname() + "_BI;"); 
-                }                
+                //Удаление таблиц приёмника
+                if (listExistTable2.contains(fieldUp.tname()) == true) {
+                    sql("DROP TABLE " + fieldUp.tname() + ";");
+                }
                 //Удаление генератора приёмника
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
-                    sql("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); 
-                }
-                //Удаление таблицы приёмника
-                if (listExistTable2.contains(fieldUp.tname()) == true) {
-                    sql("DROP TABLE " + fieldUp.tname() + ";"); 
+                    sql("DROP GENERATOR GEN_" + fieldUp.tname() + ";");
                 }
                 //Создание таблицы приёмника
                 for (String ddl : ConvPs.createTable(fieldUp.fields())) {
@@ -168,11 +158,20 @@ public class ConvPs {
                 }
                 sql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
             }
+
             Util.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
             for (Field field : fieldsUp) {
                 sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             updateDb(cn2, st2);
+
+            Util.println("\u001B[32m" + "Дополнительная коррекция бд" + "\u001B[0m");
+            sql("update systree set prip = 3, napl = 20, naxl = 8, zax = 4 where id = parent_id");
+            sql("update systree a set a.prip = (select b.prip from syssize b where b.name = a.name),"
+                    + " a.napl = (select b.napl from syssize b where b.name = a.name), a.naxl = (select b.naxl from syssize b where b.name = a.name),"
+                    + " a.zax = (select b.zax from syssize b where b.name = a.name)  where exists (select 1 from syssize b where b.name = a.name)");
+            sql("DROP TABLE SYSSIZE;"); 
+            sql("DROP GENERATOR GEN_SYSSIZE;");
 
             Util.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
             for (Field fieldUp : fieldsUp) {

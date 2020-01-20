@@ -1,9 +1,11 @@
 package common;
 
 import dataset.Field;
+import dataset.Query;
 import main.Main;
 import dataset.Record;
 import dataset.Table;
+import domain.eSystree;
 import java.awt.Font;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -234,5 +236,18 @@ public class Util {
                 System.out.println(record);
             }
         }
+    }
+
+    public static Record findParent(Query table, int key) {
+        for (Record record : table) {
+            if (key == record.getInt(eSystree.id)) {
+                if (record.getInt(eSystree.id) == record.getInt(eSystree.parent_id)) {
+                    return record;
+                } else {
+                    return findParent(table, record.getInt(eSystree.parent_id));
+                }
+            }
+        }
+        return null;
     }
 }
