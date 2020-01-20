@@ -168,6 +168,7 @@ public class ConvPs {
             Util.println("\u001B[32m" + "Дополнительная коррекция бд" + "\u001B[0m");
             cn2.setAutoCommit(false);
             cn2.commit();
+            cn2.setAutoCommit(true);
             sql("DROP TABLE SYSSIZE;"); 
             sql("DROP GENERATOR GEN_SYSSIZE;");
 
