@@ -90,8 +90,8 @@ public class ConvPs {
         };
         try {
             cn1 = java.sql.DriverManager.getConnection( //источник
-                    "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
+                    //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+            "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251", "sysdba", "masterkey");
             cn2 = java.sql.DriverManager.getConnection( //приёмник
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
@@ -166,10 +166,8 @@ public class ConvPs {
             updateDb(cn2, st2);
 
             Util.println("\u001B[32m" + "Дополнительная коррекция бд" + "\u001B[0m");
-            sql("update systree set prip = 3, napl = 20, naxl = 8, zax = 4 where id = parent_id");
-            sql("update systree a set a.prip = (select b.prip from syssize b where b.name = a.name),"
-                    + " a.napl = (select b.napl from syssize b where b.name = a.name), a.naxl = (select b.naxl from syssize b where b.name = a.name),"
-                    + " a.zax = (select b.zax from syssize b where b.name = a.name)  where exists (select 1 from syssize b where b.name = a.name)");
+            cn2.setAutoCommit(false);
+            cn2.commit();
             sql("DROP TABLE SYSSIZE;"); 
             sql("DROP GENERATOR GEN_SYSSIZE;");
 
@@ -457,6 +455,10 @@ public class ConvPs {
             sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             sql("update systree set parent_id = id where npar = 0");
+            sql("update systree set prip = 3, napl = 20, naxl = 8, zax = 4 where id = parent_id");
+//            sql("update systree a set a.prip = (select b.prip from syssize b where b.name = a.name),"
+//                    + " a.napl = (select b.napl from syssize b where b.name = a.name), a.naxl = (select b.naxl from syssize b where b.name = a.name),"
+//                    + " a.zax = (select b.zax from syssize b where b.name = a.name)  where exists (select 1 from syssize b where b.name = a.name)");            
             sql("update sysprof set artikl_id = (select id from artikl a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
             sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
@@ -470,7 +472,7 @@ public class ConvPs {
             sql("update kitdet set color2_id = (select id from color a where a.cnumb = kitdet.clnu1)");
             sql("update kitdet set color3_id = (select id from color a where a.cnumb = kitdet.clnu2)");
             sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
-
+            
             Util.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
             sql("alter table artikl add constraint fk_artikl1 foreign key (currenc_id) references currenc (id)");
             sql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
