@@ -20,8 +20,6 @@ public enum eSysprof implements Field {
     private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 
-    ;
-
     eSysprof(Object... p) {
         meta.init(p);
     }
@@ -37,7 +35,7 @@ public enum eSysprof implements Field {
     @Override
     public Query selectSql() {
         if (query.size() == 0) {
-            query.select(up, "order by", id);
+            query.select(up, "order by", prio);
         }
         return query;
     }

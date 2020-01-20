@@ -106,6 +106,7 @@ public class ConvPs {
             List<String> listExistTable1 = new ArrayList<String>();//таблицы источника
             List<String> listExistTable2 = new ArrayList<String>();//таблицы приёмника
             List<String> listGenerator2 = new ArrayList<String>();//генераторы приёмника 
+            List<String> listTrigger2 = new ArrayList<String>();//генераторы приёмника 
 
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
@@ -122,17 +123,28 @@ public class ConvPs {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
+            //Триггеры приёмника
+            resultSet2 = st2.executeQuery("select rdb$trigger_name from rdb$triggers"); 
+            while (resultSet2.next()) {
+                listTrigger2.add(resultSet2.getString("rdb$trigger_name").trim());
+            }
             Util.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
                 //Поля не вошедшие в eEnum.values()
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
 
+                //Удаление триггеров приёмника
+                if (listTrigger2.contains(fieldUp.tname() + "_BI") == true) {
+                    sql("DROP TRIGGER " + fieldUp.tname() + "_BI;"); 
+                }                
+                //Удаление генератора приёмника
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
-                    sql("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); //удаление генератора приёмника
+                    sql("DROP GENERATOR GEN_" + fieldUp.tname() + ";"); 
                 }
+                //Удаление таблицы приёмника
                 if (listExistTable2.contains(fieldUp.tname()) == true) {
-                    sql("DROP TABLE " + fieldUp.tname() + ";"); //удаление таблицы приёмника
+                    sql("DROP TABLE " + fieldUp.tname() + ";"); 
                 }
                 //Создание таблицы приёмника
                 for (String ddl : ConvPs.createTable(fieldUp.fields())) {
@@ -151,6 +163,8 @@ public class ConvPs {
                 sql("CREATE GENERATOR GEN_" + fieldUp.tname());
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) {
                     sql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
+                    sql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
+                            + " if (new.id is null) then new.id = gen_id(gen_" + fieldUp.tname() + ", 1); end");
                 }
                 sql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
             }
@@ -499,7 +513,7 @@ public class ConvPs {
             sql("alter table kitdet add constraint fk_kitdet3 foreign key (color1_id) references color (id)");
             sql("alter table kitdet add constraint fk_kitdet4 foreign key (color2_id) references color (id)");
             sql("alter table kitdet add constraint fk_kitdet5 foreign key (color3_id) references color (id)");
-            sql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)"); 
+            sql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)");
             //sql("alter table mmm add constraint fk_mmm foreign key (yyy_id) references yyy (id)"); 
 
         } catch (Exception e) {

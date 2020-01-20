@@ -24,9 +24,8 @@ public class Test {
         Main.dev = true;
 
         try {                      
-            //convert.ConvPs.script();
-
-            query();
+            convert.ConvPs.script();
+            //query();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

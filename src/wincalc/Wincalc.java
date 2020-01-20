@@ -15,8 +15,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
+import domain.eArtikl;
+import domain.eSysconst;
+import domain.eSysprof;
 import enums.LayoutArea;
+import enums.ProfileSide;
 import enums.TypeElem;
+import enums.TypeProfile;
 import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -78,7 +83,6 @@ public class Wincalc {
 
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
-        
         //Соединения рамы
         rootArea.joinRama();  //обход соединений и кальк. углов рамы
         areaList.stream().forEach(area -> area.joinArea(mapJoin)); //обход(схлопывание) соединений рамы
@@ -105,9 +109,15 @@ public class Wincalc {
             height = mainObj.get("heightLow").getAsFloat();
             heightAdd = mainObj.get("height").getAsFloat();
 
-//            Sysproa sysproaRec = Sysproa.find(constr, nuni, TypeProfile.FRAME, ProfileSide.Left);
-//            articlesRec = Artikls.get(constr, sysproaRec.anumb, true); //главный артикл системы профилей
-//            syssizeRec = Syssize.find(constr, articlesRec.sunic); //системные константы
+            Record sysprofRec = eSysprof.query.select().stream().filter(rec -> nuni == rec.getInt(eSysprof.systree_id)
+                    && TypeProfile.FRAME.value == rec.getInt(eSysprof.types)
+                    && (ProfileSide.Left.value == rec.getInt(eSysprof.side)
+                    || -1 == rec.getInt(eSysprof.side))).findFirst().orElse(null);
+            articlesRec = eArtikl.query.select().stream().filter(rec -> sysprofRec
+                    .getInt(eSysprof.artikl_id) == rec.getInt(eArtikl.id)).findFirst().orElse(null);           
+            syssizeRec = eSysconst.query.select().stream().filter(rec -> articlesRec
+                    .getInt(eArtikl.sysconst_id) == rec.getInt(eSysconst.id)).findFirst().orElse(null);
+
             //Цвета
             color1 = mainObj.get("color1").getAsInt();
             color2 = mainObj.get("color2").getAsInt();

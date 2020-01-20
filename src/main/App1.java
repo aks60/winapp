@@ -7,7 +7,6 @@ import common.FrameToFile;
 import common.eProfile;
 import common.eProp;
 import convert.Convert;
-import domain.eArtikl;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import forms.Artikls;
@@ -23,6 +22,7 @@ import forms.Rate;
 import forms.Color;
 import forms.Order;
 import forms.Partner;
+import forms.Sysconst;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -83,6 +83,7 @@ public class App1 extends javax.swing.JFrame {
 
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
         tb1 = new javax.swing.JToolBar();
+        btn14 = new javax.swing.JButton();
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
         btn22 = new javax.swing.JButton();
@@ -119,6 +120,7 @@ public class App1 extends javax.swing.JFrame {
         mn13 = new javax.swing.JSeparator();
         mn14 = new javax.swing.JMenuItem();
         mn02 = new javax.swing.JMenu();
+        mn26 = new javax.swing.JMenuItem();
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
@@ -173,7 +175,22 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
-        tb1.setPreferredSize(new java.awt.Dimension(110, 27));
+        tb1.setPreferredSize(new java.awt.Dimension(140, 27));
+
+        btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
+        btn14.setFocusable(false);
+        btn14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn14.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn14.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn14.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn14.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnSysconst(evt);
+            }
+        });
+        tb1.add(btn14);
 
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c010.gif"))); // NOI18N
         btn12.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -549,6 +566,16 @@ public class App1 extends javax.swing.JFrame {
 
         mn02.setText("Справочники");
         mn02.setFont(common.Util.getFont(1,1));
+
+        mn26.setFont(common.Util.getFont(1,1));
+        mn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn26.setText("Константы");
+        mn26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnSysconst(evt);
+            }
+        });
+        mn02.add(mn26);
 
         mn21.setFont(common.Util.getFont(1,1));
         mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
@@ -1083,11 +1110,21 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mn444mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn444mnLookAndFeel
         //
     }//GEN-LAST:event_mn444mnLookAndFeel
+
+    private void mnSysconst(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSysconst
+        new FrameListener2() {
+
+            public void request(Object obj) {
+                eApp1.Sysconst.createFrame(App1.this);
+            }
+        }; 
+    }//GEN-LAST:event_mnSysconst
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
     private javax.swing.JButton btn12;
     private javax.swing.JButton btn13;
+    private javax.swing.JButton btn14;
     private javax.swing.JButton btn22;
     private javax.swing.JButton btn23;
     private javax.swing.JButton btn24;
@@ -1132,6 +1169,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn23;
     private javax.swing.JMenuItem mn24;
     private javax.swing.JMenuItem mn25;
+    private javax.swing.JMenuItem mn26;
     private javax.swing.JMenuItem mn31;
     private javax.swing.JMenuItem mn32;
     private javax.swing.JMenuItem mn34;
@@ -1197,7 +1235,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     public enum eApp1 {
 
         App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param, 
-        Glass, Furn, Kits, Sysprof, Partner, Order, AboutBox;
+        Glass, Furn, Kits, Sysprof, Partner, Order, AboutBox, Sysconst;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1247,6 +1285,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Order:
                         frame = new Order();
+                        break;
+                    case Sysconst:
+                        frame = new Sysconst();
                         break;
                 }
                 frame.setName(this.name());

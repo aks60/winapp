@@ -58,9 +58,9 @@ public class Sysprof extends javax.swing.JFrame {
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.glas, txtField1);
         rsvSystree.add(eSystree.size, txtField2);
-        rsvSystree.add(eSystree.tex1, txtField3);
-        rsvSystree.add(eSystree.tex2, txtField4);
-        rsvSystree.add(eSystree.tex3, txtField5);
+        rsvSystree.add(eSystree.col1, txtField3);
+        rsvSystree.add(eSystree.col2, txtField4);
+        rsvSystree.add(eSystree.col3, txtField5);
 
         loadTree();
     }
