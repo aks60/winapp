@@ -14,14 +14,14 @@ import wincalc.model.AreaScene;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import common.Util;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSyscons;
 import domain.eSysprof;
-import domain.eSystree;
 import enums.LayoutArea;
+import enums.ProfileSide;
 import enums.TypeElem;
+import enums.TypeProfile;
 import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -121,8 +121,8 @@ public class Wincalc {
             height = mainObj.get("heightLow").getAsFloat();
             heightAdd = mainObj.get("height").getAsFloat();
 
-            Record sysprofRec = eSysprof.find(nuni);
-            articlesRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id));
+            Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.Left);
+            articlesRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id));
             sysconsRec = eSyscons.find(articlesRec.getInt(eArtikl.syscons_id));
 
             color1 = mainObj.get("color1").getAsInt();

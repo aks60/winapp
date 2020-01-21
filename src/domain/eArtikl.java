@@ -84,12 +84,12 @@ public enum eArtikl implements Field {
         return query;
     }
 
-    public static Record find(int id) {
-        return query.select().stream().filter(rec -> id == rec.getInt(eArtikl.id)).findFirst().orElse(null);
+    public Record find(int _id) {
+        return query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
     }
 
-    public static Record find2(String code) {
-        return query.select().stream().filter(rec -> code.equals(rec.getStr(eArtikl.code))).findFirst().orElse(null);
+    public Record find2(String _code) {
+        return query.select().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
     }
 
     public String toString() {

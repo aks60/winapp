@@ -51,8 +51,8 @@ public enum eColor implements Field {
         return query;
     }
 
-    public static Record find(int id) {
-        return query.select().stream().filter(rec -> rec.getInt(eColor.id) == id).findFirst().orElse(null);
+    public Record find(int _id) {
+        return query.select().stream().filter(rec -> rec.getInt(eColor.id) == _id).findFirst().orElse(null);
     }
 
     public String toString() {

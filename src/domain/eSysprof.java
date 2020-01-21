@@ -6,11 +6,14 @@ import dataset.Query;
 import dataset.Record;
 import enums.ProfileSide;
 import enums.TypeProfile;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum eSysprof implements Field {
     up("0", "0", "0", "Профили, системы профилей", "SYSPROA"),
     id("4", "10", "0", "Идентификатор", "id"),
-    prio("5", "5", "1", " приоритет 0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - ", "APRIO"),
+    prio("4", "10", "1", " приоритет 0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - ", "APRIO"),
     side("5", "5", "1", " сторона (см.ProfileSide)", "ASETS"),
     types("5", "5", "1", " тип профиля (см.TypeProfile)", "ATYPE"),
     artikl_id("4", "10", "0", "Ссылка", "artikl_id"),
@@ -41,19 +44,55 @@ public enum eSysprof implements Field {
         }
         return query;
     }
+    
+    public  ArrayList<Record> find(int nuni) {
 
-    public static Record find(int nuni) {
-        return query.select().stream().filter(rec -> nuni == rec.getInt(eSysprof.systree_id)
-                && TypeProfile.FRAME.value == rec.getInt(eSysprof.types)
-                && (ProfileSide.Left.value == rec.getInt(eSysprof.side)
-                || -1 == rec.getInt(eSysprof.side))).findFirst().orElse(null);
+        ArrayList<Record> sysproaList = new ArrayList();
+        query.stream().filter(rec -> nuni == rec.getInt(id)).forEach(rec -> sysproaList.add(rec));
+        return sysproaList;
     }
 
-    public static Record find2(int nuni) {
-        return query.select().stream() //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame  
-                .filter(rec -> nuni == rec.getInt(eSysprof.systree_id)
-                && TypeProfile.FRAME.value == rec.getInt(eSysprof.types)
-                && ProfileSide.Left.value == rec.getInt(eSysprof.side)).findFirst().orElse(null);
+    public Record find2(int nuni, TypeProfile type) {
+
+        HashMap<Integer, Record> mapPrio = new HashMap();
+        query.stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types))
+                .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
+        int minLevel = 32767;
+        for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
+
+            if (entry.getKey() == 0) {
+                return entry.getValue();
+            }
+            if (minLevel > entry.getKey()) {
+                minLevel = entry.getKey();
+            }
+        }
+        if (mapPrio.size() == 0) {
+            return null;
+        }
+        return mapPrio.get(minLevel);                
+    }
+    
+    public Record find3(int nuni, TypeProfile type, ProfileSide _side) {
+
+        HashMap<Integer, Record> mapPrio = new HashMap();
+        query.stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types)
+                && (_side.value == rec.getInt(side) || ProfileSide.Any.value == rec.getInt(side)))
+                .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
+        int minLevel = 32767;
+        for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
+
+            if (entry.getKey() == 0) {
+                return entry.getValue();
+            }
+            if (minLevel > entry.getKey()) {
+                minLevel = entry.getKey();
+            }
+        }
+        if (mapPrio.size() == 0) {
+            return null;
+        }
+        return mapPrio.get(minLevel);                
     }
 
     public String toString() {

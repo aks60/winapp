@@ -24,7 +24,6 @@ public class ElemImpost extends ElemComp {
 
         super(id);
         this.owner = owner;
-        this.side = side;
         this.iwin = owner.iwin;        
         this.side = (owner.layout() == LayoutArea.HORIZONTAL) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;
         color1 = iwin.color1;
@@ -58,19 +57,17 @@ public class ElemImpost extends ElemComp {
     }
 
     public void initСonstructiv() {
+        
         if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
-           sysprofRec = eSysprof.query.stream().filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
-           && TypeProfile.IMPOST.value == rec.getInt(eSysprof.types)
-           && ProfileSide.Horiz.value == rec.getInt(eSysprof.side)).findFirst().orElse(null);
+           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Horiz);  
            
         } else if (LayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
-           sysprofRec = eSysprof.query.stream().filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
-           && TypeProfile.IMPOST.value == rec.getInt(eSysprof.types)
-           && ProfileSide.Vert.value == rec.getInt(eSysprof.side)).findFirst().orElse(null);
+           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Vert); 
         }
-        articlRec = eArtikl.query.select().stream().filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
-        if (articlRec.get(eArtikl.analog) != null && articlRec.getStr(eArtikl.analog).isEmpty() == false) {
-            articlRec = eArtikl.query.select().stream().filter(rec -> rec.getStr(eArtikl.code).equals(articlRec.getStr(eArtikl.analog))).findFirst().orElse(null);
+        
+        articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id));
+        if (articlRec.get(eArtikl.analog) != null && articlRec.getStr(eArtikl.analog).isEmpty() == false) {           
+            articlRec = eArtikl.up.find2(articlRec.getStr(eArtikl.analog));
         }
     }
 
