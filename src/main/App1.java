@@ -22,7 +22,7 @@ import forms.Rate;
 import forms.Color;
 import forms.Order;
 import forms.Partner;
-import forms.Sysconst;
+import forms.Syscons;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -105,7 +105,6 @@ public class App1 extends javax.swing.JFrame {
         progressBar = new javax.swing.JProgressBar();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
-        mn15 = new javax.swing.JMenuItem();
         mn11 = new javax.swing.JMenu();
         mn0111 = new javax.swing.JMenuItem();
         mn0112 = new javax.swing.JMenuItem();
@@ -204,7 +203,7 @@ public class App1 extends javax.swing.JFrame {
         });
         tb1.add(btn12);
 
-        btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c042.gif"))); // NOI18N
+        btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c007.gif"))); // NOI18N
         btn13.setFocusable(false);
         btn13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn13.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -438,16 +437,6 @@ public class App1 extends javax.swing.JFrame {
         mn01.setText("Настройки");
         mn01.setActionCommand("*Учреждение");
         mn01.setFont(common.Util.getFont(1,1));
-
-        mn15.setFont(common.Util.getFont(1,1));
-        mn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn15.setText("Сстемные константы");
-        mn15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn15mExit(evt);
-            }
-        });
-        mn01.add(mn15);
 
         mn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn11.setText("Расчётные данные");
@@ -979,10 +968,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     }//GEN-LAST:event_mn0122ActionPerformed
 
-    private void mn15mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn15mExit
-        // 
-    }//GEN-LAST:event_mn15mExit
-
     private void mHowTo(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHowTo
 
     }//GEN-LAST:event_mHowTo
@@ -1115,7 +1100,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Sysconst.createFrame(App1.this);
+                eApp1.Syscons.createFrame(App1.this);
             }
         }; 
     }//GEN-LAST:event_mnSysconst
@@ -1163,7 +1148,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenu mn12;
     private javax.swing.JSeparator mn13;
     private javax.swing.JMenuItem mn14;
-    private javax.swing.JMenuItem mn15;
     private javax.swing.JMenuItem mn21;
     private javax.swing.JPopupMenu.Separator mn22;
     private javax.swing.JMenuItem mn23;
@@ -1235,7 +1219,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     public enum eApp1 {
 
         App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param, 
-        Glass, Furn, Kits, Sysprof, Partner, Order, AboutBox, Sysconst;
+        Glass, Furn, Kits, Sysprof, Partner, Order, AboutBox, Syscons;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1286,8 +1270,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Order:
                         frame = new Order();
                         break;
-                    case Sysconst:
-                        frame = new Sysconst();
+                    case Syscons:
+                        frame = new Syscons();
                         break;
                 }
                 frame.setName(this.name());

@@ -6,7 +6,7 @@ import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JTable;
 
-public class Sysconst extends javax.swing.JFrame {
+public class Syscons extends javax.swing.JFrame {
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -45,8 +45,8 @@ public class Sysconst extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
-        
-    public Sysconst() {
+
+    public Syscons() {
         initComponents();
         initElements();
     }
@@ -67,7 +67,7 @@ public class Sysconst extends javax.swing.JFrame {
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setTitle("Системные константы");
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -244,6 +244,7 @@ public class Sysconst extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnInsert
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
@@ -260,6 +261,7 @@ public class Sysconst extends javax.swing.JFrame {
     private void initElements() {
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Заказы клиентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+                "Системные константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
+// </editor-fold>     
 }

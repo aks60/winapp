@@ -4,6 +4,8 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import enums.ProfileSide;
+import enums.TypeProfile;
 
 public enum eSysprof implements Field {
     up("0", "0", "0", "Профили, системы профилей", "SYSPROA"),
@@ -38,6 +40,13 @@ public enum eSysprof implements Field {
             query.select(up, "order by", prio);
         }
         return query;
+    }
+
+    public static Record find(int id) {
+        return query.select().stream().filter(rec -> id == rec.getInt(eSysprof.systree_id)
+                && TypeProfile.FRAME.value == rec.getInt(eSysprof.types)
+                && (ProfileSide.Left.value == rec.getInt(eSysprof.side)
+                || -1 == rec.getInt(eSysprof.side))).findFirst().orElse(null);
     }
 
     public String toString() {

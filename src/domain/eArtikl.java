@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtdet.query;
 
 public enum eArtikl implements Field {
     up("0", "0", "0", "Материальные цености", "ARTIKLS"),
@@ -38,7 +39,7 @@ public enum eArtikl implements Field {
     nokom("5", "5", "1", "Доступ для выбора ( -2 - Только в комплектах, -1 - Только в комплектации, 0- Доступен везде, 1 - Не доступен, 2 - Только в изделиях и ввод блоков, 4 - Только в изделиях)", "NOKOM"),
     noskl("5", "5", "1", "Не для склада", "NOSKL"),
     sel_color("5", "5", "1", "Подбор текстур", "ACOLL"),
-    sysconst_id("4", "10", "1", "null", "SUNIC"),
+    syscons_id("4", "10", "1", "Ссылка", "syscons_id"),
     currenc_id("4", "10", "1", "Ссылка", "currenc_id");
     //cut_perim2("8", "15", "1", "null", "APER1"),
     //cut_perim3("8", "15", "1", "null", "APER2"),    
@@ -83,6 +84,10 @@ public enum eArtikl implements Field {
         return query;
     }
 
+    public static Record find(int id) {
+        return query.select().stream().filter(rec -> id == rec.getInt(eArtikl.id)).findFirst().orElse(null);
+    }
+    
     public String toString() {
         return meta.getDescr();
     }

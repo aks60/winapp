@@ -40,7 +40,7 @@ import domain.eOrders;
 import domain.eParams;
 import domain.ePartner;
 import domain.eRulecalc;
-import domain.eSyssize;
+import domain.eSyscons;
 import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -77,7 +77,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //порядок записи определён в ссответсвии с зависимостями
-            eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
+            eSyscons.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
@@ -173,13 +173,6 @@ public class Profstroy {
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
-            }
-            if (listExistTable1.contains(eSyssize.up.meta().fname) == true) {
-                Util.println("\u001B[32m" + "Заключительная коррекция методанных" + "\u001B[0m");
-                cn2.close();
-                st2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey").createStatement();;
-                sql("DROP TABLE SYSSIZE;");
-                sql("DROP GENERATOR GEN_SYSSIZE;");
             }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
@@ -433,6 +426,9 @@ public class Profstroy {
             sql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");
             sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
+            if (versionPs == 4) {
+                sql("update artikl set syscons_id = (select id from syscons a where a.sunic = artikl.sunic)");
+            }
             sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
             sql("update elemdet set param_id = clnum where clnum < 0");
             sql("update elemdet set color_st = clnum where clnum > 0");
@@ -457,11 +453,7 @@ public class Profstroy {
             sql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
-            sql("update systree set parent_id = id where npar = 0");
-            sql("update systree set prip = 3, napl = 20, naxl = 8, zax = 4 where id = parent_id");
-            sql("update systree a set a.prip = (select b.prip from syssize b where b.name = a.name),"
-                    + " a.napl = (select b.napl from syssize b where b.name = a.name), a.naxl = (select b.naxl from syssize b where b.name = a.name),"
-                    + " a.zax = (select b.zax from syssize b where b.name = a.name)  where exists (select 1 from syssize b where b.name = a.name)");            
+            sql("update systree set parent_id = id where npar = 0");           
             sql("update sysprof set artikl_id = (select id from artikl a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
             sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");

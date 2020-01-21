@@ -20,20 +20,6 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mn15">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resource/img16/b031.gif"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="&#x421;&#x441;&#x442;&#x435;&#x43c;&#x43d;&#x44b;&#x435; &#x43a;&#x43e;&#x43d;&#x441;&#x442;&#x430;&#x43d;&#x442;&#x44b;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mn15mExit"/>
-              </Events>
-            </MenuItem>
             <Menu class="javax.swing.JMenu" name="mn11">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -759,7 +745,7 @@
         <Component class="javax.swing.JButton" name="btn13">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c042.gif"/>
+              <Image iconType="3" name="/resource/img24/c007.gif"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
