@@ -24,8 +24,8 @@ public class Test {
         Main.dev = true;
 
         try {                      
-            convert.Profstroy.script();
-            //query();
+            //convert.Profstroy.script();
+            query();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

@@ -42,11 +42,18 @@ public enum eSysprof implements Field {
         return query;
     }
 
-    public static Record find(int id) {
-        return query.select().stream().filter(rec -> id == rec.getInt(eSysprof.systree_id)
+    public static Record find(int nuni) {
+        return query.select().stream().filter(rec -> nuni == rec.getInt(eSysprof.systree_id)
                 && TypeProfile.FRAME.value == rec.getInt(eSysprof.types)
                 && (ProfileSide.Left.value == rec.getInt(eSysprof.side)
                 || -1 == rec.getInt(eSysprof.side))).findFirst().orElse(null);
+    }
+
+    public static Record find2(int nuni) {
+        return query.select().stream() //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame  
+                .filter(rec -> nuni == rec.getInt(eSysprof.systree_id)
+                && TypeProfile.FRAME.value == rec.getInt(eSysprof.types)
+                && ProfileSide.Left.value == rec.getInt(eSysprof.side)).findFirst().orElse(null);
     }
 
     public String toString() {

@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
+import main.Main;
 import wincalc.constr.Constructive;
 
 public class Wincalc {
@@ -84,10 +85,20 @@ public class Wincalc {
 
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
+        
         //Соединения рамы
-        rootArea.joinRama();  //обход соединений и кальк. углов рамы
-        areaList.stream().forEach(area -> area.joinArea(mapJoin)); //обход(схлопывание) соединений рамы
-
+        //rootArea.joinRama();  //обход соединений и кальк. углов рамы
+        //areaList.stream().forEach(area -> area.joinArea(mapJoin)); //обход(схлопывание) соединений рамы
+        
+        //Тестирование
+        if (Main.dev == true) {
+            System.out.println(productJson); //вывод на консоль json
+            //Specification.write_txt(constr, rootArea.specificList()); //вывод на тестирование в DLL
+            //Specification.write_txt2(constr, rootArea.specificList()); //вывод уникального индекса
+            //CalcBase.test_param(ParamSpecific.paramSum); //тестирование парам. спецификации
+            //Main.print_joining(hmJoinElem); //соединения на консоль
+            //model.Main.compareIWin(rootArea.specificList(), prj, true); //сравнение спецификации с профстроем
+        } 
         return rootArea;
     }
 

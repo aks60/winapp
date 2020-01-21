@@ -87,7 +87,11 @@ public enum eArtikl implements Field {
     public static Record find(int id) {
         return query.select().stream().filter(rec -> id == rec.getInt(eArtikl.id)).findFirst().orElse(null);
     }
-    
+
+    public static Record find2(String code) {
+        return query.select().stream().filter(rec -> code.equals(rec.getStr(eArtikl.code))).findFirst().orElse(null);
+    }
+
     public String toString() {
         return meta.getDescr();
     }

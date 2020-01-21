@@ -3,13 +3,15 @@ package wincalc.script;
 import com.google.gson.Gson;
 import enums.LayoutArea;
 import enums.TypeElem;
+import main.Main;
 
 public class Winscript {
 
     public static String test(Integer id) {
         if (id == 601002) {
             AreaRoot rootArea = new AreaRoot("1", LayoutArea.HORIZONTAL, TypeElem.SQUARE, 1300, 1400, 1400, 1009, 10009, 1009, "");
-            rootArea.setParam(34, id.toString());
+            //rootArea.setParam(34, id.toString());
+            rootArea.setParam(29, id.toString());
             rootArea.add(new Element("2", TypeElem.FRAME, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME, LayoutArea.TOP));
@@ -25,7 +27,7 @@ public class Winscript {
             area5.add(new Element("12", TypeElem.GLASS));
             return new Gson().toJson(rootArea);
 
-        }
+        }       
         return null;
     }
 

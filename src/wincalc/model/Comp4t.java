@@ -6,17 +6,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import wincalc.constr.Specification;
 import dataset.Record;
-import domain.eArtikl;
 import domain.eParams;
 import enums.ParamJson;
 import enums.TypeElem;
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 import wincalc.Wincalc;
 
 public abstract class Comp4t {
@@ -110,18 +104,17 @@ public abstract class Comp4t {
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
-
-                if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                
+                if (jsonArr != null && jsonArr.isJsonArray()) {
                     mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
                     HashMap<Integer, Object[]> mapValue = new HashMap();
                     for (int index = 0; index < jsonArr.size(); index++) {
                         JsonArray jsonRec = (JsonArray) jsonArr.get(index);
-                        int pnumb = jsonRec.getAsInt();
-                        String p1 = jsonRec.get(0).getAsString();
-                        String p2 = jsonRec.get(1).getAsString();
-                        Record rec = eParams.query.select(eParams.up, "where", eParams.numb, "=", p1, "and", eParams.mixt, "=", p2).get(0);
-                        if (pnumb < 0 && rec != null) {
-                            mapValue.put(pnumb, new Object[]{rec.get(eParams.name), rec.get(eParams.mixt), 0});
+                        int p1 = jsonRec.get(0).getAsInt();
+                        int p2 = jsonRec.get(1).getAsInt();
+                        Record record = eParams.find(p1, p2);                  
+                        if (p1 < 0 && record != null) {
+                            mapValue.put(p1, new Object[]{record.get(eParams.name), record.get(eParams.mixt), 0});
                         }
                     }
                     mapParam.put(ParamJson.pro4Params2, mapValue); //второй вариант                
