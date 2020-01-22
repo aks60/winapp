@@ -30,21 +30,21 @@ public class ElemGlass extends ElemComp {
         this(owner, id, null);
     }
 
-    public ElemGlass(AreaContainer owner, String id, String paramJson) {
+    public ElemGlass(AreaContainer owner, String id, String param) {
 
         super(id);
         this.owner = owner;
         this.iwin = owner.iwin;
         this.side = LayoutArea.FULL;
         
-        if (paramJson != null && paramJson.isEmpty() == false) {
-            String str = paramJson.replace("'", "\"");
+        if (param != null && param.isEmpty() == false) {
+            String str = param.replace("'", "\"");
             JsonElement jsonElem = new Gson().fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
             mapParam.put(ParamJson.nunic_iwin, jsonObj.get(ParamJson.nunic_iwin.name()));
         }
         initСonstructiv();
-        parsingParam(iwin.rootArea, paramJson);
+        parsing(param);
 
         if (TypeElem.ARCH == owner.typeElem()) {
             dimension(owner.x1, owner.y1, owner.x2, iwin.heightAdd - owner.y2);

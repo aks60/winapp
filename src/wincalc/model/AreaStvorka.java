@@ -16,7 +16,7 @@ public class AreaStvorka extends AreaContainer {
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
-    public AreaStvorka(Wincalc iwin, AreaContainer owner, String id, String paramJson) {
+    public AreaStvorka(Wincalc iwin, AreaContainer owner, String id, String param) {
 
         super(id);
         this.iwin = iwin;
@@ -27,8 +27,8 @@ public class AreaStvorka extends AreaContainer {
         this.color1 = iwin.color1;
         this.color2 = iwin.color2;
         this.color3 = iwin.color3;
-        if (paramJson != null && paramJson.isEmpty() == false) {
-            String str = paramJson.replace("'", "\"");
+        if (param != null && param.isEmpty() == false) {
+            String str = param.replace("'", "\"");
             Gson gson = new Gson();
             JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
@@ -45,7 +45,7 @@ public class AreaStvorka extends AreaContainer {
 
         }
         initСonstructiv();
-        parsingParam(root(), paramJson);
+        parsing(param);
     }
 
     public void initСonstructiv() {

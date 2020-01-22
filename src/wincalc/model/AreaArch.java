@@ -9,10 +9,10 @@ public class AreaArch extends AreaContainer {
     
     protected double radiusArch = 0; //радиус арки
 
-    public AreaArch(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String paramJson) {
+    public AreaArch(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(null, id, layout, width, height, color1, color2, color3);
         this.iwin = iwin;
-        parsingParam(this, paramJson);
+        parsing(param);
     }
 
     @Override

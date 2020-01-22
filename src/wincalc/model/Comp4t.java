@@ -95,12 +95,12 @@ public abstract class Comp4t {
     /**
      * Инициализация pro4Params
      */
-    protected void parsingParam(AreaContainer root, String paramJson) {
+    protected void parsing(String param) {
         try {
             Gson gson = new Gson();
-            if (paramJson != null && paramJson.isEmpty() == false) {
+            if (param != null && param.isEmpty() == false) {
 
-                String str = paramJson.replace("'", "\"");
+                String str = param.replace("'", "\"");
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
