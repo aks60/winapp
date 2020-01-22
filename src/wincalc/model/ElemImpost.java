@@ -2,12 +2,13 @@ package wincalc.model;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
-import wincalc.Wincalc;
+import java.awt.Color;
 import wincalc.constr.Specification;
 
 public class ElemImpost extends ElemComp {
@@ -160,6 +161,19 @@ public class ElemImpost extends ElemComp {
         quantityMaterials(specif);
         specificationRec.getSpecificationList().add(specif);
         */
+    }
+    
+    @Override
+    public void drawElemList() {
+
+        int rgb = eColor.up.find(color3).getInt(eColor.color);
+        
+        if (LayoutArea.VERTICAL == owner.layout()) {
+            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+
+        } else if (LayoutArea.HORIZONTAL == owner.layout()) {
+            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+        }
     }
     
     @Override

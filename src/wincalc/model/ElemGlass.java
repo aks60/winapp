@@ -79,6 +79,20 @@ public class ElemGlass extends ElemComp {
         specificationRec.setArticlRec(articlRec);
     }
 
+    @Override
+    public void drawElemList() {
+        if (owner instanceof AreaArch) {
+            ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
+            float dz = ef.articlRec.getFloat(eArtikl.height);            
+            double r = ((AreaArch) root()).radiusArch;
+            double ang1 = 90 - Math.toDegrees(Math.asin(root().width / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width - 2 * dz) / ((r - dz) * 2)));
+            fillArc(root().width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2); //прорисовка на сцену
+        } else {
+            fillPoligon(x1, x2, x2, x1, y1, y1, y2, y2);
+        }
+    }
+    
     /**
      * Добавление спесификаций зависимых элементов
      */    
