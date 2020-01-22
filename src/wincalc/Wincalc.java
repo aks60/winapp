@@ -81,14 +81,24 @@ public class Wincalc {
         //Инициализация объектов калькуляции
         LinkedList<AreaContainer> areaList = rootArea.elemList(TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> stvorkaList = rootArea.elemList(TypeElem.FULLSTVORKA); //список створок
-        EnumMap<LayoutArea, ElemFrame> hmElemRama = rootArea.mapFrame; //список рам
+        EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
 
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
         //Соединения рамы
-        //rootArea.joinRama();  //обход соединений и кальк. углов рамы
-        //areaList.stream().forEach(area -> area.joinArea(mapJoin)); //обход(схлопывание) соединений рамы
+        rootArea.joinRama();  //обход соединений и кальк. углов рамы
+        areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
+        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
+        
+        //Соединения створок
+        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
+        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinRama()); //обход соединений и кальк. углов створок
+
+        //Список элементов
+        LinkedList<AreaContainer> elemList = rootArea.elemList(TypeElem.FRAME, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.STVORKA);  //(важно! получаем после построения створки)        
+        
+        //rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
         
         //Тестирование
         if (Main.dev == true) {

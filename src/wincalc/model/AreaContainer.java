@@ -86,7 +86,7 @@ public abstract class AreaContainer extends Com5t {
     /**
      * Обход(схлопывание) соединений area
      */
-    public void joinArea(HashMap<String, ElemJoinig> hmJoin) {
+    public void passJoinArea(HashMap<String, ElemJoinig> hmJoin) {
 
         ElemJoinig elemJoinVal = null;
         String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
@@ -101,10 +101,10 @@ public abstract class AreaContainer extends Com5t {
             elemJoinVal = hmJoin.get(key1);
         }
         if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinElem(LayoutArea.TOP);
+            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
         }
         if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinElem(LayoutArea.LEFT);
+            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
         }
 
         elemJoinVal = hmJoin.get(key2);
@@ -113,10 +113,10 @@ public abstract class AreaContainer extends Com5t {
             elemJoinVal = hmJoin.get(key2);
         }
         if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinElem(LayoutArea.TOP);
+            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
         }
         if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinElem(LayoutArea.RIGHT);
+            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
         }
         //}
         elemJoinVal = hmJoin.get(key3);
@@ -125,10 +125,10 @@ public abstract class AreaContainer extends Com5t {
             elemJoinVal = hmJoin.get(key3);
         }
         if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinElem(LayoutArea.RIGHT);
+            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
         }
         if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinElem(LayoutArea.BOTTOM);
+            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
         }
 
         elemJoinVal = hmJoin.get(key4);
@@ -137,10 +137,10 @@ public abstract class AreaContainer extends Com5t {
             elemJoinVal = hmJoin.get(key4);
         }
         if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinElem(LayoutArea.LEFT);
+            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
         }
         if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinElem(LayoutArea.BOTTOM);
+            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
         }
     }
 
@@ -148,7 +148,7 @@ public abstract class AreaContainer extends Com5t {
      * Получить примыкающий элемент (используется при нахождении элементов
      * соединений)
      */
-    protected ElemComp adjoinElem(LayoutArea layoutSide) {
+    protected ElemComp adjoinedElem(LayoutArea layoutSide) {
 
         LinkedList<Com5t> listElem = areaOrImpostList();
         for (int index = 0; index < listElem.size(); ++index) {
@@ -185,19 +185,19 @@ public abstract class AreaContainer extends Com5t {
             } else {
                 if (owner.layout() == LayoutArea.VERTICAL) {
                     if (layoutSide == LayoutArea.TOP) {
-                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.BOTTOM) {
-                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
                     } else {
-                        return owner.adjoinElem(layoutSide);
+                        return owner.adjoinedElem(layoutSide);
                     }
                 } else {
                     if (layoutSide == LayoutArea.LEFT) {
-                        return (index == 0) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.RIGHT) {
-                        return (index == listElem.size() - 1) ? owner.adjoinElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
                     } else {
-                        return owner.adjoinElem(layoutSide);
+                        return owner.adjoinedElem(layoutSide);
                     }
                 }
             }
@@ -267,15 +267,14 @@ public abstract class AreaContainer extends Com5t {
 
     public abstract void joinRama();
 
-    public HashMap<String, ElemJoinig> mapJoin() {
-        return iwin.mapJoin;
-    }
-
     @Override
     public LinkedList<Com5t> listChild() {
         return listChild;
     }
 
+    public void passJoinRama() {
+    }
+    
     public void addElem(Com5t element) {
         listChild.add(element);
     }

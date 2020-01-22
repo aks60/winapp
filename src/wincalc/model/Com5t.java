@@ -23,10 +23,7 @@ public abstract class Com5t {
     protected AreaContainer owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
-    protected float x1 = 0;
-    protected float y1 = 0;
-    protected float x2 = 0;
-    protected float y2 = 0;
+    protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area
 
     protected float width = 0;  //ширина
     protected float height = 0; //высота     
@@ -81,20 +78,6 @@ public abstract class Com5t {
         return (index == 1) ? color1 : (index == 2) ? color2 : color3;
     }
 
-    public abstract TypeElem typeElem();
-
-    public abstract LinkedList<Com5t> listChild();
-
-    /**
-     * Прорисовка элемента на холсте
-     */
-    //TODO переименовать в paint()
-    public void drawElemList() {
-    }
-
-    /**
-     * Инициализация pro4Params
-     */
     protected void parsing(String param) {
         try {
             Gson gson = new Gson();
@@ -123,6 +106,14 @@ public abstract class Com5t {
         } catch (Exception e) {
             System.err.println("Ошибка Base.parsingParam() " + e);
         }
+    }
+    
+    public abstract TypeElem typeElem();
+
+    public abstract LinkedList<Com5t> listChild();
+
+    //TODO переименовать в paint()
+    public void drawElemList() {
     }
 
     public boolean equals(Object obj) {

@@ -32,7 +32,7 @@ public class AreaArch extends AreaContainer {
         ElemJoinig elemJoin1 = new ElemJoinig(iwin);
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.ARCH);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
-        mapJoin().put(key1, elemJoin1);
+        iwin.mapJoin.put(key1, elemJoin1);
         float dz = elemJoin1.elemJoinRight.articlRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd - height;
         float w = width;
@@ -55,7 +55,7 @@ public class AreaArch extends AreaContainer {
         ElemJoinig elemJoin2 = new ElemJoinig(iwin);
         elemJoin2.elemJoinLeft = mapFrame.get(LayoutArea.ARCH);
         elemJoin2.elemJoinBottom = mapFrame.get(LayoutArea.RIGHT);
-        mapJoin().put(key2, elemJoin2);
+        iwin.mapJoin.put(key2, elemJoin2);
         elemJoin2.cutAngl1 = (float) ang3;
         elemJoin2.cutAngl2 = (float) ang4;
         elemJoin2.anglProf = (float) ang4;
@@ -66,7 +66,7 @@ public class AreaArch extends AreaContainer {
         ElemJoinig elemJoin3 = new ElemJoinig(iwin);
         elemJoin3.elemJoinTop = mapFrame.get(LayoutArea.RIGHT);
         elemJoin3.elemJoinLeft = mapFrame.get(LayoutArea.BOTTOM);
-        mapJoin().put(key3, elemJoin3);
+        iwin.mapJoin.put(key3, elemJoin3);
         elemJoin3.cutAngl1 = 45;
         elemJoin3.cutAngl2 = 45;
         elemJoin3.anglProf = 90;
@@ -77,7 +77,7 @@ public class AreaArch extends AreaContainer {
         ElemJoinig elemJoin4 = new ElemJoinig(iwin);
         elemJoin4.elemJoinRight = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin4.elemJoinTop = mapFrame.get(LayoutArea.LEFT);
-        mapJoin().put(key4, elemJoin4);
+        iwin.mapJoin.put(key4, elemJoin4);
         elemJoin4.cutAngl1 = 45;
         elemJoin4.cutAngl2 = 45;
         elemJoin4.anglProf = 90;

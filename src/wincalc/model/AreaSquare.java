@@ -33,7 +33,7 @@ public class AreaSquare extends AreaContainer {
         elemJoin1.cutAngl1 = 45;
         elemJoin1.cutAngl2 = 45;
         elemJoin1.anglProf = 90;
-        mapJoin().put(key1, elemJoin1);
+        iwin.mapJoin.put(key1, elemJoin1);
 
         //Угловое соединение правое верхнее
         ElemJoinig elemJoin2 = new ElemJoinig(iwin);
@@ -42,7 +42,7 @@ public class AreaSquare extends AreaContainer {
         elemJoin2.cutAngl1 = 45;
         elemJoin2.cutAngl2 = 45;
         elemJoin2.anglProf = 90;
-        mapJoin().put(key2, elemJoin2);
+        iwin.mapJoin.put(key2, elemJoin2);
 
         //Угловое соединение правое нижнее
         ElemJoinig elemJoin3 = new ElemJoinig(iwin);
@@ -51,7 +51,7 @@ public class AreaSquare extends AreaContainer {
         elemJoin3.cutAngl1 = 45;
         elemJoin3.cutAngl2 = 45;
         elemJoin3.anglProf = 90;
-        mapJoin().put(key3, elemJoin3);
+        iwin.mapJoin.put(key3, elemJoin3);
 
         //Угловое соединение левое нижнее
         ElemJoinig elemJoin4 = new ElemJoinig(iwin);
@@ -60,6 +60,6 @@ public class AreaSquare extends AreaContainer {
         elemJoin4.cutAngl1 = 45;
         elemJoin4.cutAngl2 = 45;
         elemJoin4.anglProf = 90;
-        mapJoin().put(key4, elemJoin4);
+        iwin.mapJoin.put(key4, elemJoin4);
     }
 }
