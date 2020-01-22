@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import wincalc.Wincalc;
 
-public abstract class Comp4t {
+public abstract class Com5t {
 
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2;   //правая сторона 
@@ -40,7 +40,7 @@ public abstract class Comp4t {
     protected Specification specificationRec = null; //спецификация элемента
     protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
-    public Comp4t(String id) {
+    public Com5t(String id) {
         this.id = id;
         specificationRec = new Specification(id, this);
     }
@@ -83,7 +83,7 @@ public abstract class Comp4t {
 
     public abstract TypeElem typeElem();
 
-    public abstract LinkedList<Comp4t> listChild();
+    public abstract LinkedList<Com5t> listChild();
 
     /**
      * Прорисовка элемента на холсте
@@ -126,6 +126,6 @@ public abstract class Comp4t {
     }
 
     public boolean equals(Object obj) {
-        return id == ((Comp4t) obj).id;
+        return id == ((Com5t) obj).id;
     }
 }

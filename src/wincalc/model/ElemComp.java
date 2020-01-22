@@ -9,9 +9,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
 import javafx.scene.shape.ArcType;
-import static wincalc.model.Comp4t.moveXY;
+import static wincalc.model.Com5t.moveXY;
 
-public abstract class ElemComp extends Comp4t {
+public abstract class ElemComp extends Com5t {
 
     protected float anglHoriz = -1; //угол к горизонту
     protected LayoutArea side = LayoutArea.NONE; //сторона расположения элемента
@@ -21,7 +21,7 @@ public abstract class ElemComp extends Comp4t {
     }
 
     @Override
-    public LinkedList<Comp4t> listChild() {
+    public LinkedList<Com5t> listChild() {
         return new LinkedList();
     }
 
