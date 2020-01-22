@@ -233,12 +233,12 @@ public class AreaStvorka extends AreaContainer {
     }
     
     @Override
-    public void drawElemList() {
+    public void drawElem() {
 
-        mapFrame.get(LayoutArea.TOP).drawElemList();
-        mapFrame.get(LayoutArea.BOTTOM).drawElemList();
-        mapFrame.get(LayoutArea.LEFT).drawElemList();
-        mapFrame.get(LayoutArea.RIGHT).drawElemList();
+        mapFrame.get(LayoutArea.TOP).drawElem();
+        mapFrame.get(LayoutArea.BOTTOM).drawElem();
+        mapFrame.get(LayoutArea.LEFT).drawElem();
+        mapFrame.get(LayoutArea.RIGHT).drawElem();
 
         if (mapParam.get(ParamJson.typeOpen) != null) {
             float dx = 20, dy = 60, X1 = 0, Y1 = 0;

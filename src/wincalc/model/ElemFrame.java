@@ -145,7 +145,7 @@ public class ElemFrame extends ElemComp {
     }
 
     @Override
-    public void drawElemList() {
+    public void drawElem() {
         float dz = articlRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd- iwin.height;
         float w = root().width;

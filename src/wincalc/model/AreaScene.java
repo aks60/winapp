@@ -19,4 +19,5 @@ public class AreaScene extends AreaContainer {
     public void joinRama() {
         System.out.println("Функция не определена");
     }
+        
 }

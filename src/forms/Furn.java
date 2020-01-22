@@ -72,9 +72,9 @@ public class Furn extends javax.swing.JFrame {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
                 eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim).addFrameListener(listenerModify);
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side).addFrameListener(listenerModify);
-        new DefTableModel(tab5, qFurnpar1, eFurnpar1.pnumb_id, eFurnpar1.val).addFrameListener(listenerModify);
+        new DefTableModel(tab5, qFurnpar1, eFurnpar1.pnumb, eFurnpar1.val).addFrameListener(listenerModify);
         new DefTableModel(tab2, qFurndet, eArtikl.code, eArtikl.code, eArtikl.name, eColor.name, eFurndet.types).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qFurnpar2, eFurnpar2.pnumb_id, eFurnpar2.val).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qFurnpar2, eFurnpar2.pnumb, eFurnpar2.val).addFrameListener(listenerModify);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -105,7 +105,7 @@ public class Furn extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qFurndet.table(eFurndet.up.tname()).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.pnumb_id);
+            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.pnumb);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
                 tab3.setRowSelectionInterval(0, 0);
@@ -118,7 +118,7 @@ public class Furn extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qFurnside1.table(eFurnside1.up.tname()).get(row);
             Integer id = record.getInt(eFurnside1.id);
-            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.pnumb_id);
+            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.pnumb);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             if (tab5.getRowCount() > 0) {
                 tab5.setRowSelectionInterval(0, 0);

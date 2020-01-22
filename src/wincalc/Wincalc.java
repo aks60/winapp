@@ -17,16 +17,17 @@ import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSyscons;
+import domain.eSyspar1;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
-import main.Main;
 import wincalc.constr.Constructive;
 
 public class Wincalc {
@@ -69,7 +70,13 @@ public class Wincalc {
 
         //Парсинг входного скрипта
         AreaContainer mainArea = parsingScript(productJson);
-
+        img = new BufferedImage((int) (width + 260),
+                (int) (heightAdd + 260), BufferedImage.TYPE_INT_RGB); //инит. буфера рисунка
+        
+        //Загрузим параметры по умолчанию
+        ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);        
+        //syspar1List.stream().forEach(record -> mapParamDef.put(record.pnumb, new Object[]{record.ptext, record.znumb, 0}));
+        
         //Создание root окна
         if (mainArea instanceof AreaSquare) {
             rootArea = (AreaSquare) mainArea;  //калькуляция простого окна
@@ -98,7 +105,8 @@ public class Wincalc {
         LinkedList<AreaContainer> elemList = rootArea.listElem(TypeElem.FRAME_BOX,
                  TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)        
 
-        //rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
+        rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
+        
         //Тестирование
         if (Wincalc.dev == true) {
             System.out.println(productJson); //вывод на консоль json

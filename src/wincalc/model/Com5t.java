@@ -114,10 +114,12 @@ public abstract class Com5t {
     
     public abstract TypeElem typeElem();
 
-    public abstract LinkedList<Com5t> listChild();
+    public LinkedList<Com5t> listChild() {
+        return new LinkedList();
+    }
 
     //TODO переименовать в paint()
-    public void drawElemList() {
+    public void drawElem() {
     }
 
     /**

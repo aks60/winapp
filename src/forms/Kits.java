@@ -87,7 +87,7 @@ public class Kits extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qKitdet.table(eKitdet.up.tname()).get(row);
             Integer id = record.getInt(eKitdet.id);
-            qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.numb);
+            qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.pnumb);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
                 tab3.setRowSelectionInterval(0, 0);

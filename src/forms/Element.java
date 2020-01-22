@@ -125,7 +125,7 @@ public class Element extends javax.swing.JFrame {
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id,
                     "left join", eParams.up, "on", eElemdet.param_id, "=", eParams.numb, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on",
-                    eParams.numb, "=", eElempar1.pnumb_id, "and", eParams.part, "=31", "where", eElempar1.element_id, "=", p1);
+                    eParams.numb, "=", eElempar1.pnumb, "and", eParams.part, "=31", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
@@ -142,7 +142,7 @@ public class Element extends javax.swing.JFrame {
             Record record = qElemdet.table(eElemdet.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on",
-                    eParams.numb, "=", eElempar2.pnumb_id, "and", eParams.part, ">=33 and", eParams.part, "<41", "where", eElempar2.elemdet_id, "=", p1);
+                    eParams.numb, "=", eElempar2.pnumb, "and", eParams.part, ">=33 and", eParams.part, "<41", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
     }

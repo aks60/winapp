@@ -1,6 +1,7 @@
 package wincalc.model;
 
 import domain.eArtikl;
+import domain.eColor;
 import enums.LayoutArea;
 import enums.TypeElem;
 import java.awt.Color;
@@ -12,6 +13,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import javafx.scene.shape.ArcType;
 import javax.imageio.ImageIO;
 import wincalc.Wincalc;
 
@@ -307,7 +309,6 @@ public abstract class AreaContainer extends Com5t {
         return elemList;
     }
   
-
     public void drawWin(float scale, byte[] buffer, boolean line) {
         try {
             iwin.scale = scale;
@@ -318,21 +319,21 @@ public abstract class AreaContainer extends Com5t {
 
             //Прорисовка стеклопакетов
             LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
-            elemGlassList.stream().forEach(el -> el.drawElemList());
+            elemGlassList.stream().forEach(el -> el.drawElem());
 
             //Прорисовка импостов
             LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
-            elemImpostList.stream().forEach(el -> el.drawElemList());
+            elemImpostList.stream().forEach(el -> el.drawElem());
 
             //Прорисовка рам
             drawTopFrame();
-            mapFrame.get(LayoutArea.BOTTOM).drawElemList();
-            mapFrame.get(LayoutArea.LEFT).drawElemList();
-            mapFrame.get(LayoutArea.RIGHT).drawElemList();
+            mapFrame.get(LayoutArea.BOTTOM).drawElem();
+            mapFrame.get(LayoutArea.LEFT).drawElem();
+            mapFrame.get(LayoutArea.RIGHT).drawElem();
 
             //Прорисовка створок
             LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
-            elemStvorkaList.stream().forEach(el -> el.drawElemList());
+            elemStvorkaList.stream().forEach(el -> el.drawElem());
 
             if (line == true) {
                 //Прорисовка размера
@@ -352,7 +353,7 @@ public abstract class AreaContainer extends Com5t {
             }
 
         } catch (Exception s) {
-            System.err.println("Ошибка AreaSimple.drawWin() " + s);
+            System.err.println("Ошибка AreaContainer.drawWin() " + s);
         }
     }
     
@@ -380,50 +381,49 @@ public abstract class AreaContainer extends Com5t {
     }
 
     private void lineLength2(String txt, int x1, int y1, int x2, int y2) {
-//        float h = iwin.heightAdd - iwin.height;
-//        Graphics2D gc = iwin.img.createGraphics();
-//        gc.setColor(java.awt.Color.BLACK);
-//        gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 40));
-//        strokeLine(x1, y1, x2, y2, Color.BLACK, 2);
-//        if (x1 == x2) {
-//            strokeLine(x1 - 24, y1, x1 + 24, y1, Color.BLACK, 2);
-//            strokeLine(x2 - 24, y2, x2 + 24, y2, Color.BLACK, 2);
-//            strokeLine(x1, y1, x1 + 12, y1 + 24, Color.BLACK, 2);
-//            strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK, 2);
-//            strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK, 2);
-//            strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK, 2);
-//            gc.rotate(Math.toRadians(270), x1 + 28, y1 + (y2 - y1) / 2 + h);
-//            gc.drawString(txt, x1 + 28, y1 + (y2 - y1) / 2 + h);
-//        } else {
-//            strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK, 2);
-//            strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK, 2);
-//            strokeLine(x1, y1, x1 + 24, y1 - 12, Color.BLACK, 2);
-//            strokeLine(x1, y1, x1 + 24, y1 + 12, Color.BLACK, 2);
-//            strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK, 2);
-//            strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK, 2);
-//            gc.rotate(Math.toRadians(0), x1 + (x2 - x1) / 2, y2 + 28 + h);
-//            gc.drawString(txt, x1 + (x2 - x1) / 2, y2 + 28 + h);
-//        }
+        float h = iwin.heightAdd - iwin.height;
+        Graphics2D gc = iwin.img.createGraphics();
+        gc.setColor(java.awt.Color.BLACK);
+        gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 40));
+        strokeLine(x1, y1, x2, y2, Color.BLACK, 2);
+        if (x1 == x2) {
+            strokeLine(x1 - 24, y1, x1 + 24, y1, Color.BLACK, 2);
+            strokeLine(x2 - 24, y2, x2 + 24, y2, Color.BLACK, 2);
+            strokeLine(x1, y1, x1 + 12, y1 + 24, Color.BLACK, 2);
+            strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK, 2);
+            strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK, 2);
+            strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK, 2);
+            gc.rotate(Math.toRadians(270), x1 + 28, y1 + (y2 - y1) / 2 + h);
+            gc.drawString(txt, x1 + 28, y1 + (y2 - y1) / 2 + h);
+        } else {
+            strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK, 2);
+            strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK, 2);
+            strokeLine(x1, y1, x1 + 24, y1 - 12, Color.BLACK, 2);
+            strokeLine(x1, y1, x1 + 24, y1 + 12, Color.BLACK, 2);
+            strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK, 2);
+            strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK, 2);
+            gc.rotate(Math.toRadians(0), x1 + (x2 - x1) / 2, y2 + 28 + h);
+            gc.drawString(txt, x1 + (x2 - x1) / 2, y2 + 28 + h);
+        }
     }
 
-
     private void drawTopFrame() {
-//
-//        if (TypeElem.ARCH == this.getTypeElem()) {
-//            //TODO для прорисовки арки добавил один градус, а это не айс!
-//            //Прорисовка арки
-//            ElemFrame ef = hmElemFrame.get(LayoutArea.ARCH);
-//            float dz = ef.articlesRec.aheig;
-//            double r = ((AreaArch) owner.getRoot()).radiusArch;
-//            int rgb = Colslst.get2(getRoot().getConst(), ef.colorInternal).cview;
-//            double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
-//            double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * dz) / ((r - dz) * 2)));
-//            strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-//            strokeArc(width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-//            strokeArc(width / 2 - r + dz / 2, dz / 2, (r - dz / 2) * 2, (r - dz / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, dz - 4); //прорисовка на сцену
-//        } else {
-//            hmElemFrame.get(LayoutArea.TOP).drawElemList();
-//        }
+
+        if (TypeElem.ARCH == this.typeElem()) {
+            //TODO для прорисовки арки добавил один градус, а это не айс!
+            //Прорисовка арки
+            ElemFrame ef = mapFrame.get(LayoutArea.ARCH);
+            float dz = ef.articlRec.getFloat(eArtikl.height);
+            double r = ((AreaArch) root()).radiusArch;
+            int rgb = eColor.up.find(ef.color3).getInt(eColor.color);
+            double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * dz) / ((r - dz) * 2)));
+            strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+            strokeArc(width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+            strokeArc(width / 2 - r + dz / 2, dz / 2, (r - dz / 2) * 2, (r - dz / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, dz - 4); //прорисовка на сцену
+        } else {
+            mapFrame.get(LayoutArea.TOP).drawElem();
+        }
     }
 
     public void print() {

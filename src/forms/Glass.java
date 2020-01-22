@@ -65,8 +65,8 @@ public class Glass extends javax.swing.JFrame {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.id, eGlasdet.id);
         new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
-        new DefTableModel(tab3, qGlaspar1, eGlaspar1.pnumb_id, eGlaspar1.val);
-        new DefTableModel(tab4, qGlaspar2, eGlaspar2.pnumb_id, eGlaspar2.val);
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.pnumb, eGlaspar1.val);
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.pnumb, eGlaspar2.val);
 
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);

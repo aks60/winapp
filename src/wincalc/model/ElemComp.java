@@ -4,12 +4,7 @@ import enums.LayoutArea;
 import wincalc.constr.Specification;
 import enums.TypeElem;
 import enums.TypeProfile;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.util.LinkedList;
-import javafx.scene.shape.ArcType;
-import static wincalc.model.Com5t.moveXY;
 
 public abstract class ElemComp extends Com5t {
 
@@ -18,11 +13,6 @@ public abstract class ElemComp extends Com5t {
 
     public ElemComp(String id) {        
         super(id);
-    }
-
-    @Override
-    public LinkedList<Com5t> listChild() {
-        return new LinkedList();
     }
 
     /**
@@ -74,4 +64,5 @@ public abstract class ElemComp extends Com5t {
         }
         return String.valueOf(++maxId);
     }
+    
 }
