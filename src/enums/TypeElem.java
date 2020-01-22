@@ -9,9 +9,9 @@ public enum TypeElem {
 
     MOSKITKA_SET(-13, "Москитка"),
     GLASS(1, "Стеклопакет"),
-    FRAME(2, "Рама"),
+    FRAME_BOX(2, "Рама коробки"),
     IMPOST(3, "Импост"),
-    STVORKA(4, "Створка"),
+    FRAME_STV(4, "Рама створки"), //элемент FULLSTVORKA
     SHTULP(10, "Штульп"),
     MOSKITKA(13, "Москитка"),
     RASKLADKA(14, "Раскладка"),
@@ -23,7 +23,7 @@ public enum TypeElem {
     TRAPEZE(1002, "Окно трапеция в сборе"),
     TRIANGL(1003, "Треугольное окно в сборе"),
     ARCH(1004, "Арочное окно в сборе"),
-    FULLSTVORKA(1005, "Створка в сборе"),
+    FULLSTVORKA(1005, "Створка в сборе"), //см. ElemFrame.typeProfile, ElemFrame.typeElem
     NONE(0, "Не определено");
 
     public int value;

@@ -142,7 +142,7 @@ public class ElemFrame extends ElemComp {
     
     @Override
     public TypeElem typeElem() {
-        return TypeElem.FRAME;
+        return (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
     }
 
     @Override

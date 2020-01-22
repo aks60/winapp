@@ -210,13 +210,12 @@ public abstract class AreaContainer extends Com5t {
      */
     public <E> LinkedList<E> elemList(TypeElem... type) {
         
-        LinkedList<Com5t> arrElem = new LinkedList();
-        LinkedList<E> outElem = new LinkedList();
+        LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
+        LinkedList<E> outElem = new LinkedList(); //выходной список
         for (Map.Entry<LayoutArea, ElemFrame> elemRama : root().mapFrame.entrySet()) {
+            
             arrElem.add(elemRama.getValue());
-        }
-        Object obj = root().listChild();
-        
+        }        
         for (Com5t elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase instanceof AreaContainer) {

@@ -85,21 +85,20 @@ public class Wincalc {
 
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
-        
         //Соединения рамы
         rootArea.joinRama();  //обход соединений и кальк. углов рамы
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
         mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
-        
+
         //Соединения створок
         stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         stvorkaList.stream().forEach(stvorka -> stvorka.passJoinRama()); //обход соединений и кальк. углов створок
 
         //Список элементов
-        LinkedList<AreaContainer> elemList = rootArea.elemList(TypeElem.FRAME, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.STVORKA);  //(важно! получаем после построения створки)        
-        
+        LinkedList<AreaContainer> elemList = rootArea.elemList(TypeElem.FRAME_BOX,
+                 TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)        
+
         //rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
-        
         //Тестирование
         if (Main.dev == true) {
             System.out.println(productJson); //вывод на консоль json
@@ -108,7 +107,7 @@ public class Wincalc {
             //CalcBase.test_param(ParamSpecific.paramSum); //тестирование парам. спецификации
             //Main.print_joining(hmJoinElem); //соединения на консоль
             //model.Main.compareIWin(rootArea.specificList(), prj, true); //сравнение спецификации с профстроем
-        } 
+        }
         return rootArea;
     }
 
@@ -161,7 +160,7 @@ public class Wincalc {
             for (Object elemFrame : mainObj.get("elements").getAsJsonArray()) {
                 JsonObject jsonFrame = (JsonObject) elemFrame;
 
-                if (TypeElem.FRAME.name().equals(jsonFrame.get("elemType").getAsString())) {
+                if (TypeElem.FRAME_BOX.name().equals(jsonFrame.get("elemType").getAsString())) {
 
                     if (LayoutArea.LEFT.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
                         ElemFrame frameLeft = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.LEFT));

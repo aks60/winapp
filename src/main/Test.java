@@ -35,10 +35,10 @@ public class Test {
 
         AreaRoot rootArea = new AreaRoot("1", LayoutArea.VERTICAL, TypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
         rootArea.setParam(8, "1");
-        rootArea.add(new Element("2", TypeElem.FRAME, LayoutArea.LEFT));
-        rootArea.add(new Element("3", TypeElem.FRAME, LayoutArea.RIGHT));
-        rootArea.add(new Element("4", TypeElem.FRAME, LayoutArea.TOP));
-        rootArea.add(new Element("5", TypeElem.FRAME, LayoutArea.BOTTOM));
+        rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
+        rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
+        rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
+        rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
         AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
         area2.add(new Element("7", TypeElem.GLASS));
 

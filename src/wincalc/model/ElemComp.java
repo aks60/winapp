@@ -61,7 +61,7 @@ public abstract class ElemComp extends Com5t {
      */
     public String genId() {
         int maxId = 0;
-        LinkedList<ElemComp> elemList = root().elemList(TypeElem.FRAME, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.STVORKA);
+        LinkedList<ElemComp> elemList = root().elemList(TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
         for (ElemComp elemBase : elemList) {
             for (Specification specification : elemBase.specificationRec.specificationList()) {
                 if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {

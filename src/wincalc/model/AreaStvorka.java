@@ -233,7 +233,7 @@ public class AreaStvorka extends AreaContainer {
     
     @Override
     public TypeElem typeElem() {
-        return TypeElem.STVORKA;
+        return TypeElem.FULLSTVORKA;
     }
 
     @Override
