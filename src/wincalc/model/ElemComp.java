@@ -61,7 +61,7 @@ public abstract class ElemComp extends Com5t {
      */
     public String genId() {
         int maxId = 0;
-        LinkedList<ElemComp> elemList = root().elemList(TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
+        LinkedList<ElemComp> elemList = root().listElem(TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
         for (ElemComp elemBase : elemList) {
             for (Specification specification : elemBase.specificationRec.specificationList()) {
                 if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {
@@ -73,48 +73,5 @@ public abstract class ElemComp extends Com5t {
             }
         }
         return String.valueOf(++maxId);
-    }
-
-    protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
-            float y2, float y3, float y4, int rgbFill, Color rdbStroke, double lineWidth) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
-        gc.setColor(java.awt.Color.BLACK);
-        float h = iwin.heightAdd - iwin.height;
-        gc.drawPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
-                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
-        gc.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
-        gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
-                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
-    }
-
-    protected void strokeArc(double x, double y, double w, double h, double startAngle,
-            double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setStroke(new BasicStroke((float) lineWidth * scale)); //толщина линии
-        gc.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
-        gc.drawArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
-    }
-
-    protected void fillArc(double x, double y, double w, double h, double startAngle, double arcExtent) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setColor(new java.awt.Color(226, 255, 250));
-        gc.fillArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
-    }
-
-    protected void fillPoligon(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
-
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
-        gc.setColor(new java.awt.Color(226, 255, 250));
-        float h = iwin.heightAdd - iwin.height;
-        gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
-                new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
     }
 }

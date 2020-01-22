@@ -1,10 +1,14 @@
 package wincalc.model;
 
+import dataset.Record;
 import domain.eArtikl;
+import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.TypeProfile;
+import java.awt.Color;
+import static javafx.scene.paint.Color.rgb;
 import wincalc.constr.Specification;
 
 public class ElemFrame extends ElemComp {
@@ -138,6 +142,43 @@ public class ElemFrame extends ElemComp {
     
     public LayoutArea layout() {
         return side;
+    }
+
+    @Override
+    public void drawElemList() {
+        float dz = articlRec.getFloat(eArtikl.height);
+        float h = iwin.heightAdd- iwin.height;
+        float w = root().width;
+        float y1h = y1 + h;
+        float y2h = y2 + h;
+
+        int rgb = eColor.up.find(color3).getInt(eColor.color);
+        if (LayoutArea.TOP == side) {
+            strokePolygon(x1, x2, x2 - dz, x1 + dz, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+
+        } else if (LayoutArea.BOTTOM == side) {
+            strokePolygon(x1 + dz, x2 - dz, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+
+        } else if (LayoutArea.LEFT == side) {
+            if (root() instanceof AreaArch) {
+                double r = ((AreaArch) root()).radiusArch;
+                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * dz) / ((r - dz) * 2)));
+                double a = (r - dz) * Math.sin(Math.toRadians(ang2));
+                strokePolygon(x1, x2, x2, x1, y1, (float) (r - a - h), y2 - dz, y2, rgb, Color.BLACK, 4);
+            } else {
+                strokePolygon(x1, x2, x2, x1, y1, y1 + dz, y2 - dz, y2, rgb, Color.BLACK, 4);
+            }
+        } else if (LayoutArea.RIGHT == side) {
+            if (root() instanceof AreaArch) {
+                double r = ((AreaArch) root()).radiusArch;
+                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * dz) / ((r - dz) * 2)));
+                double a = (r - dz) * Math.sin(Math.toRadians(ang2));
+                strokePolygon(x1, x2, x2, x1, (float) (r - a - h), y1, y2, y2 - dz, rgb, Color.BLACK, 4);
+            } else {
+                strokePolygon(x1, x2, x2, x1, y1 + dz, y1, y2, y2 - dz, rgb, Color.BLACK, 4);
+            }
+
+        }
     }
     
     @Override

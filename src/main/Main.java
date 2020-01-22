@@ -1,13 +1,12 @@
 package main;
 
-import common.eProfile;
 import common.eProp;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import wincalc.Wincalc;
 
 public class Main {
-
-    public static boolean dev = false;
+    
     //Конструктор
     public Main() {
         LogoToDb.logoToDb();
@@ -19,7 +18,7 @@ public class Main {
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("dev")) {
                 //режим разработки и тестирования
-                Main.dev = true;
+                Wincalc.dev = true;
             }
         }
         SwingUtilities.invokeLater(new Runnable() {

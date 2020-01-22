@@ -1,6 +1,5 @@
 package main;
 
-import common.Util;
 import common.FrameToFile;
 import common.eProfile;
 import common.eProp;
@@ -10,6 +9,7 @@ import java.io.File;
 import java.util.Locale;
 import javax.swing.JFileChooser;
 import dataset.eExcep;
+import wincalc.Wincalc;
 
 /**
  * <p>
@@ -45,7 +45,7 @@ public class PathToDb extends javax.swing.JDialog {
         edUser.setText(eProp.user.read());
         edPass.setText(eProp.password);
 
-        if (Main.dev == false) {
+        if (Wincalc.dev == false) {
             btnAdm.setVisible(false);
             btnUser.setVisible(false);
             btnFile.setVisible(false);
@@ -89,7 +89,7 @@ public class PathToDb extends javax.swing.JDialog {
             eProp.save();
 
         } else {
-            String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
+            String mes = (Wincalc.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
             labMes.setText(mes);
         }
     }

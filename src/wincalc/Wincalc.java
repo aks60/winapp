@@ -31,7 +31,7 @@ import wincalc.constr.Constructive;
 
 public class Wincalc {
 
-    protected static boolean production = false;
+    public static boolean dev = false;
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
@@ -79,8 +79,8 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        LinkedList<AreaContainer> areaList = rootArea.elemList(TypeElem.AREA); //список контейнеров
-        LinkedList<AreaStvorka> stvorkaList = rootArea.elemList(TypeElem.FULLSTVORKA); //список створок
+        LinkedList<AreaContainer> areaList = rootArea.listElem(TypeElem.AREA); //список контейнеров
+        LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
 
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
@@ -95,12 +95,12 @@ public class Wincalc {
         stvorkaList.stream().forEach(stvorka -> stvorka.passJoinRama()); //обход соединений и кальк. углов створок
 
         //Список элементов
-        LinkedList<AreaContainer> elemList = rootArea.elemList(TypeElem.FRAME_BOX,
+        LinkedList<AreaContainer> elemList = rootArea.listElem(TypeElem.FRAME_BOX,
                  TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)        
 
         //rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
         //Тестирование
-        if (Main.dev == true) {
+        if (Wincalc.dev == true) {
             System.out.println(productJson); //вывод на консоль json
             //Specification.write_txt(constr, rootArea.specificList()); //вывод на тестирование в DLL
             //Specification.write_txt2(constr, rootArea.specificList()); //вывод уникального индекса

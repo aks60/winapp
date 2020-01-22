@@ -12,6 +12,7 @@ import enums.TypeElem;
 import enums.TypeOpen;
 import enums.TypeProfile;
 import enums.VariantJoin;
+import java.awt.Color;
 import java.util.Map;
 import wincalc.Wincalc;
 
@@ -229,6 +230,44 @@ public class AreaStvorka extends AreaContainer {
         elemJoin_right.cutAngl2 = 0;
         elemJoin_right.varJoin = VariantJoin.VAR1;
         iwin.mapJoin.put(String.valueOf(x2 - 1) + ":" + String.valueOf(y1 + height / 2), elemJoin_right);
+    }
+    
+    @Override
+    public void drawElemList() {
+
+        mapFrame.get(LayoutArea.TOP).drawElemList();
+        mapFrame.get(LayoutArea.BOTTOM).drawElemList();
+        mapFrame.get(LayoutArea.LEFT).drawElemList();
+        mapFrame.get(LayoutArea.RIGHT).drawElemList();
+
+        if (mapParam.get(ParamJson.typeOpen) != null) {
+            float dx = 20, dy = 60, X1 = 0, Y1 = 0;
+            String value = mapParam.get(ParamJson.typeOpen).toString();
+            ElemComp elemL = mapFrame.get(LayoutArea.LEFT);
+            ElemComp elemR = mapFrame.get(LayoutArea.RIGHT);
+            ElemComp elemT = mapFrame.get(LayoutArea.TOP);
+            ElemComp elemB = mapFrame.get(LayoutArea.BOTTOM);
+            if (value.equals("1") || value.equals("3")) {
+                X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
+                Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
+                strokeLine(elemL.x1, elemL.y1, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2, Color.BLACK, 1);
+                strokeLine(elemL.x1, elemL.y2, elemR.x2, elemR.y1 + (elemR.y2 - elemR.y1) / 2, Color.BLACK, 1);
+
+            } else if (value.equals("2") || value.equals("4")) {
+                X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
+                Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
+                strokeLine(elemR.x2, elemR.y1, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2, Color.BLACK, 1);
+                strokeLine(elemR.x2, elemR.y2, elemL.x1, elemL.y1 + (elemL.y2 - elemL.y1) / 2, Color.BLACK, 1);
+            }
+            if (value.equals("3") || value.equals("4")) {
+                strokeLine(elemB.x1, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, Color.BLACK, 1);
+                strokeLine(elemB.x2, elemB.y2, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1, Color.BLACK, 1);
+            }
+            strokePolygon(X1 - dx, X1 + dx, X1 + dx, X1 - dx, Y1 - dy, Y1 - dy, Y1 + dy, Y1 + dy, 0xFFFFFFFF, Color.BLACK, 2);
+            dx = dx - 12;
+            Y1 = Y1 + 20;
+            strokePolygon(X1 - dx, X1 + dx, X1 + dx, X1 - dx, Y1 - dy, Y1 - dy, Y1 + dy, Y1 + dy, 0xFFFFFFFF, Color.BLACK, 2);
+        }
     }
     
     @Override

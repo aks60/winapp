@@ -7,6 +7,7 @@ import common.eProfile;
 import common.eProp;
 import dataset.Query;
 import javax.swing.SwingWorker;
+import wincalc.Wincalc;
 
 /**
  * <p>
@@ -22,7 +23,7 @@ public class LogoToDb extends javax.swing.JDialog {
         initComponents();
 
         new FrameToFile(this, btnClose);
-        if (Main.dev == false) {
+        if (Wincalc.dev == false) {
             btnAdm.setVisible(false);
             btnUser.setVisible(false);
             labUser.setPreferredSize(new java.awt.Dimension(120, 18));

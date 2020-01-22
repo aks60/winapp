@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import wincalc.Wincalc;
 
 /**
  * <p>
@@ -225,13 +226,13 @@ public class Util {
     }
 
     public static void println(Object obj) {
-        if (Main.dev == true) {
+        if (Wincalc.dev == true) {
             System.out.println(obj);
         }
     }
 
     public static void println(Table table) {
-        if (Main.dev == true) {
+        if (Wincalc.dev == true) {
             for (Record record : table) {
                 System.out.println(record);
             }

@@ -5,8 +5,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Query;
-import dataset.Record;
-import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
@@ -14,6 +12,7 @@ import forms.Artikls;
 import forms.Rate;
 import forms.Color;
 import java.util.HashMap;
+import wincalc.Wincalc;
 import wincalc.script.AreaElem;
 import wincalc.script.AreaRoot;
 import wincalc.script.Element;
@@ -21,7 +20,7 @@ import wincalc.script.Element;
 public class Test {
 
     public static void main(String[] args) {
-        Main.dev = true;
+        Wincalc.dev = true;
 
         try {                      
             //convert.Profstroy.script();

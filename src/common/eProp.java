@@ -1,6 +1,5 @@
 package common;
 
-import main.Main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 import javax.swing.JTextField;
+import wincalc.Wincalc;
 
 /**
  * <p>
@@ -81,7 +81,7 @@ public enum eProp {
         load();
         String prop2 = prop.getProperty(this.name());
         //если свойство не записано локально
-        if (prop2 != null && prop.getProperty(this.name()).equals("") || Main.dev == true) {
+        if (prop2 != null && prop.getProperty(this.name()).equals("") || Wincalc.dev == true) {
             return this.value;
         } else {
             //иначе читаем с диска
