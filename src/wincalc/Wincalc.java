@@ -54,7 +54,7 @@ public class Wincalc {
     private HashMap<Integer, String> mapPro4Params = new HashMap();
     public Record sysconsRec = null; //константы
     public BufferedImage img = null;  //образ рисунка
-    protected HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию
+    protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию
     public HashMap<String, ElemJoinig> mapJoin = new HashMap(); //список соединений рам и створок
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
@@ -75,7 +75,7 @@ public class Wincalc {
         
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);        
-        //syspar1List.stream().forEach(record -> mapParamDef.put(record.pnumb, new Object[]{record.ptext, record.znumb, 0}));
+        syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
         
         //Создание root окна
         if (mainArea instanceof AreaSquare) {
@@ -90,8 +90,10 @@ public class Wincalc {
         LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
 
+        //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
+        
         //Соединения рамы
         rootArea.joinRama();  //обход соединений и кальк. углов рамы
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
