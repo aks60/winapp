@@ -66,7 +66,7 @@ public abstract class AreaContainer extends Comp4t {
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
                 if (owner.listChild().get(index) instanceof AreaContainer) {
-                    ElemComp prevArea = (ElemComp) owner.listChild().get(index);
+                    AreaContainer prevArea = (AreaContainer) owner.listChild().get(index);
 
                     if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
                         dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);

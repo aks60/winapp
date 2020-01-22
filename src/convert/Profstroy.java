@@ -406,6 +406,7 @@ public class Profstroy {
                 record2.setNo(eColor.suffix3, 1);
                 q2.insert(record2);
             }
+            sql("update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
             sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
             sql("update artdet set color_id = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
             sql("update artdet set color_id = artdet.clnum where artdet.clnum < 0");

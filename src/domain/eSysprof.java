@@ -48,14 +48,14 @@ public enum eSysprof implements Field {
     public  ArrayList<Record> find(int nuni) {
 
         ArrayList<Record> sysproaList = new ArrayList();
-        query.stream().filter(rec -> nuni == rec.getInt(id)).forEach(rec -> sysproaList.add(rec));
+        query.select().stream().filter(rec -> nuni == rec.getInt(id)).forEach(rec -> sysproaList.add(rec));
         return sysproaList;
     }
 
     public Record find2(int nuni, TypeProfile type) {
 
         HashMap<Integer, Record> mapPrio = new HashMap();
-        query.stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types))
+        query.select().stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types))
                 .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
         int minLevel = 32767;
         for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
@@ -76,7 +76,7 @@ public enum eSysprof implements Field {
     public Record find3(int nuni, TypeProfile type, ProfileSide _side) {
 
         HashMap<Integer, Record> mapPrio = new HashMap();
-        query.stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types)
+        query.select().stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types)
                 && (_side.value == rec.getInt(side) || ProfileSide.Any.value == rec.getInt(side)))
                 .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
         int minLevel = 32767;

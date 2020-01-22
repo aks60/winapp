@@ -122,7 +122,7 @@ public class Wincalc {
             heightAdd = mainObj.get("height").getAsFloat();
 
             Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.Left);
-            articlesRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id));
+            articlesRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             sysconsRec = eSyscons.find(articlesRec.getInt(eArtikl.syscons_id));
 
             color1 = mainObj.get("color1").getAsInt();
@@ -175,12 +175,12 @@ public class Wincalc {
             for (Object objL1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
                 JsonObject elemL1 = (JsonObject) objL1;
                 if (TypeElem.AREA.name().equals(elemL1.get("elemType").getAsString())) {
-                    AreaContainer areaSimple1 = parsingAddArea(rootArea, rootArea, elemL1);
+                    AreaContainer areaContainer = parsingAddArea(rootArea, rootArea, elemL1);
 
                     for (Object objL2 : elemL1.get("elements").getAsJsonArray()) { //второй уровень
                         JsonObject elemL2 = (JsonObject) objL2;
                         if (TypeElem.AREA.name().equals(elemL2.get("elemType").getAsString())) {
-                            AreaContainer areaSimple2 = parsingAddArea(rootArea, areaSimple1, elemL2);
+                            AreaContainer areaSimple2 = parsingAddArea(rootArea, areaContainer, elemL2);
 
                             for (Object objL3 : elemL2.get("elements").getAsJsonArray()) {  //третий уровень
                                 JsonObject elemL3 = (JsonObject) objL3;
@@ -201,7 +201,7 @@ public class Wincalc {
                                 }
                             }
                         } else {
-                            parsingAddElem(rootArea, areaSimple1, elemL2);
+                            parsingAddElem(rootArea, areaContainer, elemL2);
                         }
                     }
                 } else {

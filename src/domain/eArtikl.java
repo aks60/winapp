@@ -14,7 +14,6 @@ public enum eArtikl implements Field {
     level2("5", "5", "1", "Подтип артикула", "ATYPP"),
     group1("4", "10", "1", "Группа материальных ценостей", "MUNIC"),
     group2("12", "32", "1", "Категория", "APREF"),
-    analog("12", "32", "1", "Артикул аналога?", "AMAIN"),
     name("12", "64", "1", "Название", "ANAME"),
     supplier("12", "64", "1", "У поставщика", "ANAMP"),
     tech_code("12", "64", "1", "Технологический код контейнера", "ATECH"),
@@ -39,8 +38,10 @@ public enum eArtikl implements Field {
     nokom("5", "5", "1", "Доступ для выбора ( -2 - Только в комплектах, -1 - Только в комплектации, 0- Доступен везде, 1 - Не доступен, 2 - Только в изделиях и ввод блоков, 4 - Только в изделиях)", "NOKOM"),
     noskl("5", "5", "1", "Не для склада", "NOSKL"),
     sel_color("5", "5", "1", "Подбор текстур", "ACOLL"),
+    analog_id("4", "10", "1", "Ссылка, артикул аналога?", "analog_id"),
     syscons_id("4", "10", "1", "Ссылка", "syscons_id"),
     currenc_id("4", "10", "1", "Ссылка", "currenc_id");
+    //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
     //cut_perim2("8", "15", "1", "null", "APER1"),
     //cut_perim3("8", "15", "1", "null", "APER2"),    
     //price_koef("8", "15", "1", "ценовой коэффицент", "AKOEF"),    
@@ -84,8 +85,14 @@ public enum eArtikl implements Field {
         return query;
     }
 
-    public Record find(int _id) {
-        return query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+    public Record find(int _id, boolean _analog) {
+        Record articlRec = query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null); 
+        
+        if (_analog == false && articlRec.get(analog_id) != null) {
+            int _analog_id = articlRec.getInt(analog_id);
+            articlRec = query.select().stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
+        } 
+        return articlRec;
     }
 
     public Record find2(String _code) {

@@ -64,11 +64,8 @@ public class ElemImpost extends ElemComp {
         } else if (LayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
            sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Vert); 
         }
-        
-        articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id));
-        if (articlRec.get(eArtikl.analog) != null && articlRec.getStr(eArtikl.analog).isEmpty() == false) {           
-            articlRec = eArtikl.up.find2(articlRec.getStr(eArtikl.analog));
-        }
+        articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        specificationRec.setArticlRec(articlRec);  
     }
 
     public void setSpecifElement(Record sysproaRec) {
