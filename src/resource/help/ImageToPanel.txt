@@ -1,0 +1,53 @@
+////////////////////////////////////////////////////
+public class ImagePanel extends JPanel{
+
+    private BufferedImage image;
+
+    public ImagePanel() {
+       try {                
+          image = ImageIO.read(new File("image name and path"));
+       } catch (IOException ex) {
+            // handle exception...
+       }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this); // see javadoc for more info on the parameters            
+    }
+
+}
+/////////////////////////////////////////////////////////
+Если вы используете JPanels, то, вероятно, работаете с Swing. Попробуй это:
+
+BufferedImage myPicture = ImageIO.read(new File("path-to-file"));
+JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+add(picLabel);
+////////////////////////////////////////////////////////
+Путь Фреда Хаслама работает отлично. Однако у меня возникли проблемы с путем к файлу, поскольку я хочу сослаться на изображение в моем банке. Для этого я использовал:
+
+BufferedImage wPic = ImageIO.read(this.getClass().getResource("snow.png"));
+JLabel wIcon = new JLabel(new ImageIcon(wPic));
+/////////////////////////////////////////////////////////
+Вы можете создать подкласс JPanel - вот выдержка из моей ImagePanel, которая помещает изображение в любое из 5 мест: верхнее / левое, верхнее / правое, среднее / среднее, нижнее / левое или нижнее / правое:
+
+protected void paintComponent(Graphics gc) {
+    super.paintComponent(gc);
+
+    Dimension                           cs=getSize();                           // component size
+
+    gc=gc.create();
+    gc.clipRect(insets.left,insets.top,(cs.width-insets.left-insets.right),(cs.height-insets.top-insets.bottom));
+    if(mmImage!=null) { gc.drawImage(mmImage,(((cs.width-mmSize.width)/2)       +mmHrzShift),(((cs.height-mmSize.height)/2)        +mmVrtShift),null); }
+    if(tlImage!=null) { gc.drawImage(tlImage,(insets.left                       +tlHrzShift),(insets.top                           +tlVrtShift),null); }
+    if(trImage!=null) { gc.drawImage(trImage,(cs.width-insets.right-trSize.width+trHrzShift),(insets.top                           +trVrtShift),null); }
+    if(blImage!=null) { gc.drawImage(blImage,(insets.left                       +blHrzShift),(cs.height-insets.bottom-blSize.height+blVrtShift),null); }
+    if(brImage!=null) { gc.drawImage(brImage,(cs.width-insets.right-brSize.width+brHrzShift),(cs.height-insets.bottom-brSize.height+brVrtShift),null); }
+    }
+	//////////////////////////////////////////////////////////////////////
+	@Override
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    g.drawImage(image, 0, 0, this); 
+}
