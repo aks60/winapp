@@ -20,7 +20,7 @@ import wincalc.Wincalc;
 public abstract class AreaContainer extends Com5t {
 
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
-     
+
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
@@ -90,7 +90,7 @@ public abstract class AreaContainer extends Com5t {
             y2 = y1 + height;
         }
     }
-    
+
     /**
      * Обход(схлопывание) соединений area
      */
@@ -217,13 +217,13 @@ public abstract class AreaContainer extends Com5t {
      * Список элементов окна
      */
     public <E> LinkedList<E> listElem(TypeElem... type) {
-        
+
         LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
         LinkedList<E> outElem = new LinkedList(); //выходной список
         for (Map.Entry<LayoutArea, ElemFrame> elemFrame : root().mapFrame.entrySet()) {
-            
+
             arrElem.add(elemFrame.getValue());
-        }        
+        }
         for (Com5t elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase instanceof AreaContainer) {
@@ -281,7 +281,7 @@ public abstract class AreaContainer extends Com5t {
 
     public void passJoinFrame() {
     }
-    
+
     public void addElem(Com5t element) {
         listChild.add(element);
     }
@@ -308,7 +308,7 @@ public abstract class AreaContainer extends Com5t {
         }
         return elemList;
     }
-  
+
     public void drawWin(float scale, byte[] buffer, boolean line) {
         try {
             iwin.scale = scale;
@@ -326,7 +326,21 @@ public abstract class AreaContainer extends Com5t {
 //            elemImpostList.stream().forEach(el -> el.drawElem());
 
             //Прорисовка рам
-            drawTopFrame();
+            if (TypeElem.ARCH == this.typeElem()) {
+                //TODO для прорисовки арки добавил один градус, а это не айс!
+                //Прорисовка арки
+                ElemFrame ef = mapFrame.get(LayoutArea.ARCH);
+                float dz = ef.articlRec.getFloat(eArtikl.height);
+                double r = ((AreaArch) root()).radiusArch;
+                int rgb = eColor.up.find(ef.color3).getInt(eColor.color);
+                double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
+                double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * dz) / ((r - dz) * 2)));
+                strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+                strokeArc(width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+                strokeArc(width / 2 - r + dz / 2, dz / 2, (r - dz / 2) * 2, (r - dz / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, dz - 4); //прорисовка на сцену
+            } else {
+                mapFrame.get(LayoutArea.TOP).paint();
+            }
             mapFrame.get(LayoutArea.BOTTOM).paint();
             mapFrame.get(LayoutArea.LEFT).paint();
             mapFrame.get(LayoutArea.RIGHT).paint();
@@ -341,7 +355,6 @@ public abstract class AreaContainer extends Com5t {
 //                LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
 //                areaList.stream().forEach(el -> el.drawLineLength());
 //            }
-
             //Рисунок в память
             ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
             ImageIO.write(image, "png", bosFill);
@@ -356,11 +369,11 @@ public abstract class AreaContainer extends Com5t {
             System.err.println("Ошибка AreaContainer.drawWin() " + s);
         }
     }
-    
+
     /**
      * Прорисовка размеров окна
      */
-    public void drawLineLength() {
+    public void lineLength1() {
 
         float h = iwin.heightAdd - iwin.height;
         if (this == root()) {  //главный контейнер
@@ -407,26 +420,7 @@ public abstract class AreaContainer extends Com5t {
         }
     }
 
-    private void drawTopFrame() {
-
-        if (TypeElem.ARCH == this.typeElem()) {
-            //TODO для прорисовки арки добавил один градус, а это не айс!
-            //Прорисовка арки
-            ElemFrame ef = mapFrame.get(LayoutArea.ARCH);
-            float dz = ef.articlRec.getFloat(eArtikl.height);
-            double r = ((AreaArch) root()).radiusArch;
-            int rgb = eColor.up.find(ef.color3).getInt(eColor.color);
-            double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * dz) / ((r - dz) * 2)));
-            strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-            strokeArc(width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-            strokeArc(width / 2 - r + dz / 2, dz / 2, (r - dz / 2) * 2, (r - dz / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, dz - 4); //прорисовка на сцену
-        } else {
-            mapFrame.get(LayoutArea.TOP).paint();
-        }
-    }
-
     public void print() {
         System.out.println(TypeElem.AREA + " owner.id=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2);
-    }    
+    }
 }
