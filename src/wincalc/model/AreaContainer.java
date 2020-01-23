@@ -66,10 +66,10 @@ public abstract class AreaContainer extends Com5t {
     private void initDimension(AreaContainer owner) {
         if (owner != null) {
             //Заполним по умолчанию
-            if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
+            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
                 dimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
 
-            } else if (LayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
+            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
                 dimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
@@ -77,10 +77,10 @@ public abstract class AreaContainer extends Com5t {
                 if (owner.listChild().get(index) instanceof AreaContainer) {
                     AreaContainer prevArea = (AreaContainer) owner.listChild().get(index);
 
-                    if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
+                    if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
                         dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
 
-                    } else if (LayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
+                    } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
                         dimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
@@ -167,13 +167,13 @@ public abstract class AreaContainer extends Com5t {
                 continue; //пропускаем если другая ареа
             }
             EnumMap<LayoutArea, ElemFrame> mapFrame = root().mapFrame;
-            if (index == 0 && owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.VERTICAL && root().typeElem() == TypeElem.ARCH) {
+            if (index == 0 && owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.VERT && root().typeElem() == TypeElem.ARCH) {
                 return mapFrame.get(TypeElem.ARCH);
-            } else if (owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.HORIZONTAL && root().typeElem() == TypeElem.ARCH) {
+            } else if (owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.HORIZ && root().typeElem() == TypeElem.ARCH) {
                 return mapFrame.get(TypeElem.ARCH);
             }
 
-            if (owner.equals(root()) && owner.layout() == LayoutArea.VERTICAL) {
+            if (owner.equals(root()) && owner.layout() == LayoutArea.VERT) {
                 if (layoutSide == LayoutArea.TOP) {
 
                     return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
@@ -182,7 +182,7 @@ public abstract class AreaContainer extends Com5t {
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
-            } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZONTAL) {
+            } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZ) {
                 if (layoutSide == LayoutArea.LEFT) {
                     return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.RIGHT) {
@@ -192,7 +192,7 @@ public abstract class AreaContainer extends Com5t {
                 }
 
             } else {
-                if (owner.layout() == LayoutArea.VERTICAL) {
+                if (owner.layout() == LayoutArea.VERT) {
                     if (layoutSide == LayoutArea.TOP) {
                         return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.BOTTOM) {
@@ -341,10 +341,16 @@ public abstract class AreaContainer extends Com5t {
                 strokeArc(width / 2 - r + dz / 2, dz / 2, (r - dz / 2) * 2, (r - dz / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, dz - 4); //прорисовка на сцену
             } else {
                 mapFrame.get(LayoutArea.TOP).paint();
+                mapFrame.get(LayoutArea.TOP).print();
             }
             mapFrame.get(LayoutArea.BOTTOM).paint();
+            mapFrame.get(LayoutArea.BOTTOM).print();
+            
             mapFrame.get(LayoutArea.LEFT).paint();
+            mapFrame.get(LayoutArea.LEFT).print();
+            
             mapFrame.get(LayoutArea.RIGHT).paint();
+            mapFrame.get(LayoutArea.RIGHT).print();
 //
 //            //Прорисовка створок
 //            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
@@ -385,9 +391,9 @@ public abstract class AreaContainer extends Com5t {
         } else {  //вложенный контейнер
             float moveV = (this.owner == root()) ? 120 : 60;
             if (this.height > 160 && this.width > 160) {
-                if (owner.listChild().size() > 1 && owner.layout() == LayoutArea.VERTICAL) {
+                if (owner.listChild().size() > 1 && owner.layout() == LayoutArea.VERT) {
                     lineLength2(String.format("%.0f", y2 - y1), (int) (x2 + moveV), (int) y1, (int) (x2 + moveV), (int) y2);
-                } else if (owner.listChild().size() > 1 && owner.layout() == LayoutArea.HORIZONTAL) {
+                } else if (owner.listChild().size() > 1 && owner.layout() == LayoutArea.HORIZ) {
                     lineLength2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + moveV), (int) x2, (int) (y2 + moveV));
                 }
             }
@@ -419,9 +425,5 @@ public abstract class AreaContainer extends Com5t {
             gc.rotate(Math.toRadians(0), x1 + (x2 - x1) / 2, y2 + 28 + h);
             gc.drawString(txt, x1 + (x2 - x1) / 2, y2 + 28 + h);
         }
-    }
-
-    public void print() {
-        System.out.println(TypeElem.AREA + " owner.id=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2);
     }
 }

@@ -53,7 +53,7 @@ public class AreaElem extends Element {
                 area.height = this.height;
             } else {
 
-                if (LayoutArea.VERTICAL == layoutArea) {
+                if (LayoutArea.VERT == layoutArea) {
                     area.height = area.lengthSide;
                     area.width = width;
                 } else {

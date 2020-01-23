@@ -26,7 +26,7 @@ public class ElemImpost extends ElemComp {
         super(id);
         this.owner = owner;
         this.iwin = owner.iwin;        
-        this.side = (owner.layout() == LayoutArea.HORIZONTAL) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;
+        this.side = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
         color1 = iwin.color1;
         color2 = iwin.color2;
         color3 = iwin.color3;
@@ -36,7 +36,7 @@ public class ElemImpost extends ElemComp {
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
                 float dh = articlRec.getFloat(eArtikl.height) / 2;     
-                owner.addElem(new AreaScene(iwin, owner, genId(), LayoutArea.HORIZONTAL, owner.width, dh));
+                owner.addElem(new AreaScene(iwin, owner, genId(), LayoutArea.HORIZ, owner.width, dh));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
@@ -44,11 +44,11 @@ public class ElemImpost extends ElemComp {
                 Com5t prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
                 float dx = articlRec.getFloat(eArtikl.size_centr);
 
-                if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
+                if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
                     dimension(owner.x1, prevArea.y2 - dx, prevArea.x2, prevArea.y2 + dx);
                     anglHoriz = 0;
 
-                } else if (LayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
+                } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
                     dimension(prevArea.x2 - dx, prevArea.y1, prevArea.x2 + dx, prevArea.y2);
                     anglHoriz = 90;
                 }
@@ -59,10 +59,10 @@ public class ElemImpost extends ElemComp {
 
     public void initСonstructiv() {
         
-        if (LayoutArea.VERTICAL.equals(owner.layout())) { //сверху вниз
+        if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
            sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Horiz);  
            
-        } else if (LayoutArea.HORIZONTAL.equals(owner.layout())) { //слева направо
+        } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
            sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Vert); 
         }
         articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
@@ -168,10 +168,10 @@ public class ElemImpost extends ElemComp {
 
         int rgb = eColor.up.find(color3).getInt(eColor.color);
         
-        if (LayoutArea.VERTICAL == owner.layout()) {
+        if (LayoutArea.VERT == owner.layout()) {
             strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
 
-        } else if (LayoutArea.HORIZONTAL == owner.layout()) {
+        } else if (LayoutArea.HORIZ == owner.layout()) {
             strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
         }
     }

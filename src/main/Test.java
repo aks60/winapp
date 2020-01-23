@@ -23,8 +23,8 @@ public class Test {
         Main.dev = true;
 
         try {                      
-            convert.Profstroy.script();
-            //query();
+            //convert.Profstroy.script();
+            query();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -32,7 +32,7 @@ public class Test {
 
     static void classToJson() {
 
-        AreaRoot rootArea = new AreaRoot("1", LayoutArea.VERTICAL, TypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
+        AreaRoot rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
         rootArea.setParam(8, "1");
         rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
         rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));

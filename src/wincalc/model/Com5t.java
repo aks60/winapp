@@ -91,7 +91,7 @@ public abstract class Com5t {
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
-                
+
                 if (jsonArr != null && jsonArr.isJsonArray()) {
                     mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
                     HashMap<Integer, Object[]> mapValue = new HashMap();
@@ -99,7 +99,7 @@ public abstract class Com5t {
                         JsonArray jsonRec = (JsonArray) jsonArr.get(index);
                         int p1 = jsonRec.get(0).getAsInt();
                         int p2 = jsonRec.get(1).getAsInt();
-                        Record record = eParams.find(p1, p2);                  
+                        Record record = eParams.find(p1, p2);
                         if (p1 < 0 && record != null) {
                             mapValue.put(p1, new Object[]{record.get(eParams.name), record.get(eParams.mixt), 0});
                         }
@@ -111,7 +111,7 @@ public abstract class Com5t {
             System.err.println("Ошибка Base.parsingParam() " + e);
         }
     }
-    
+
     public abstract TypeElem typeElem();
 
     public LinkedList<Com5t> listChild() {
@@ -133,7 +133,7 @@ public abstract class Com5t {
         float h = iwin.heightAdd - iwin.height;
         gc.drawLine((int) ((x1 + moveXY) * scale), (int) ((y1 + moveXY + h) * scale), (int) ((x2 + moveXY) * scale), (int) ((y2 + moveXY + h) * scale));
     }
-    
+
     protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
             float y2, float y3, float y4, int rgbFill, Color rdbStroke, double lineWidth) {
 
@@ -176,7 +176,11 @@ public abstract class Com5t {
         gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
                 new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
     }
-    
+
+    public void print() {
+        System.out.println("ELEMENT = owner.id=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2);
+    }
+
     public boolean equals(Object obj) {
         return id == ((Com5t) obj).id;
     }

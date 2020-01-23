@@ -150,7 +150,7 @@ public class Wincalc {
 
             //Определим напрвление построения окна
             String layoutObj = mainObj.get("layoutArea").getAsString();
-            LayoutArea layoutRoot = ("VERTICAL".equals(layoutObj)) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;
+            LayoutArea layoutRoot = ("VERTICAL".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
             if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
                 rootArea = new AreaSquare(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
@@ -235,11 +235,11 @@ public class Wincalc {
 
     private AreaContainer parsingAddArea(AreaContainer rootArea, AreaContainer ownerArea, JsonObject objArea) {
 
-        float width = (ownerArea.layout() == LayoutArea.VERTICAL) ? ownerArea.width() : objArea.get("width").getAsFloat();
-        float height = (ownerArea.layout() == LayoutArea.VERTICAL) ? objArea.get("height").getAsFloat() : ownerArea.height();
+        float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
+        float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
 
         String layoutObj = objArea.get("layoutArea").getAsString();
-        LayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? LayoutArea.VERTICAL : LayoutArea.HORIZONTAL;
+        LayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
         String id = objArea.get("id").getAsString();
         AreaScene sceneArea = new AreaScene(this, ownerArea, id, layoutArea, width, height);
         ownerArea.addElem(sceneArea);

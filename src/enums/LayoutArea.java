@@ -3,8 +3,8 @@ package enums;
 public enum LayoutArea {
     NONE("Любая"),
     FULL("Везде"),
-    HORIZONTAL("Горизонтальное"),
-    VERTICAL("Вертикальное"),
+    HORIZ("Горизонтальное"),
+    VERT("Вертикальное"),
     LEFT("Левая"),
     RIGHT("Правая"),
     TOP("Верхняя"),
@@ -13,7 +13,8 @@ public enum LayoutArea {
     RSKEW("Правый угол"),
     ARCH("Арка");
 
-    public String name = "";
+    public String name;
+    public int value; 
 
     LayoutArea(String name) {
         this.name = name;

@@ -5,6 +5,7 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
+import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
 import java.awt.Color;
@@ -30,19 +31,21 @@ public class ElemFrame extends ElemComp {
         color2 = owner.color2;
         color3 = owner.color3;
         initСonstructiv();
+        
+        Object obj = articlRec.getFloat(eArtikl.height);
         if (LayoutArea.LEFT == side) {
-            dimension(owner.x1, owner.y1, owner.x1 + articlRec.getInt(eArtikl.height), owner.y2);
+            dimension(owner.x1, owner.y1, owner.x1 + articlRec.getFloat(eArtikl.height), owner.y2);
 
         } else if (LayoutArea.RIGHT == side) {
-            dimension(owner.x2 - articlRec.getInt(eArtikl.height), owner.y1, owner.x2, owner.y2);
+            dimension(owner.x2 - articlRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
             anglHoriz = 90;
 
         } else if (LayoutArea.TOP == side) {
-            dimension(owner.x1, owner.y1, owner.x2, owner.y1 + articlRec.getInt(eArtikl.height));
+            dimension(owner.x1, owner.y1, owner.x2, owner.y1 + articlRec.getFloat(eArtikl.height));
             anglHoriz = 180;
 
         } else if (LayoutArea.BOTTOM == side) {
-            dimension(owner.x1, owner.y2 - articlRec.getInt(eArtikl.height), owner.x2, owner.y2);
+            dimension(owner.x1, owner.y2 - articlRec.getFloat(eArtikl.height), owner.x2, owner.y2);
             anglHoriz = 0;
 
         } else if (LayoutArea.ARCH == side) {
@@ -61,13 +64,8 @@ public class ElemFrame extends ElemComp {
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.query.select().stream()
-                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
-                && rec.getInt(eSysprof.types) == typeProfile().value).findFirst().orElse(null);
-
-        articlRec = eArtikl.query.select().stream()
-                .filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
-
+        sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.get(side));
+        articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArticlRec(articlRec);
     }
 
