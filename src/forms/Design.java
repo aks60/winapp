@@ -15,6 +15,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import wincalc.script.AreaRoot;
 import swing.DefTableModel;
+import wincalc.model.PaintPanel;
 
 public class Design extends javax.swing.JFrame {
 
@@ -33,11 +34,13 @@ public class Design extends javax.swing.JFrame {
         }
     };
     private AreaRoot rootArea;
+    private PaintPanel paintPanel = new  PaintPanel();
 
     public Design() {
         initComponents();
         initElements();
         
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         //loadTree();
     }
@@ -105,7 +108,7 @@ public class Design extends javax.swing.JFrame {
         pan2 = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
-        design = new javax.swing.JPanel();
+        panDesign = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
         pan8 = new javax.swing.JPanel();
         lab1 = new javax.swing.JLabel();
@@ -226,7 +229,7 @@ public class Design extends javax.swing.JFrame {
         pan3.setLayout(pan3Layout);
         pan3Layout.setHorizontalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addGap(0, 491, Short.MAX_VALUE)
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,20 +241,9 @@ public class Design extends javax.swing.JFrame {
         pan4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan4.setLayout(new java.awt.BorderLayout());
 
-        design.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 255, 255)));
-
-        javax.swing.GroupLayout designLayout = new javax.swing.GroupLayout(design);
-        design.setLayout(designLayout);
-        designLayout.setHorizontalGroup(
-            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
-        );
-        designLayout.setVerticalGroup(
-            designLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 461, Short.MAX_VALUE)
-        );
-
-        pan4.add(design, java.awt.BorderLayout.CENTER);
+        panDesign.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 255, 255)));
+        panDesign.setLayout(new java.awt.BorderLayout());
+        pan4.add(panDesign, java.awt.BorderLayout.CENTER);
 
         pan7.setPreferredSize(new java.awt.Dimension(700, 60));
 
@@ -259,7 +251,7 @@ public class Design extends javax.swing.JFrame {
         pan7.setLayout(pan7Layout);
         pan7Layout.setHorizontalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGap(0, 415, Short.MAX_VALUE)
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +319,7 @@ public class Design extends javax.swing.JFrame {
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
@@ -342,7 +334,7 @@ public class Design extends javax.swing.JFrame {
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
@@ -576,7 +568,7 @@ public class Design extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 721, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 588, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -603,9 +595,7 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-             pan10.setPreferredSize(new Dimension(100, 400));
-             pan4.repaint();
-             this.setVisible(true);
+             paintPanel.saveImage("img777", "png");
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
@@ -649,7 +639,6 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JButton btnTrapeze;
     private javax.swing.JButton btnTrapeze2;
     private javax.swing.JPanel centr;
-    private javax.swing.JPanel design;
     private javax.swing.JPanel east;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
@@ -667,6 +656,7 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
+    private javax.swing.JPanel panDesign;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;

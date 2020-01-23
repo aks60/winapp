@@ -12,7 +12,7 @@ import forms.Artikls;
 import forms.Rate;
 import forms.Color;
 import java.util.HashMap;
-import wincalc.Wincalc;
+import wincalc.model.PaintPanel;
 import wincalc.script.AreaElem;
 import wincalc.script.AreaRoot;
 import wincalc.script.Element;
@@ -22,9 +22,9 @@ public class Test {
     public static void main(String[] args) {
         Main.dev = true;
 
-        try {                      
+        try {   
             //convert.Profstroy.script();
-            query();
+            //query();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

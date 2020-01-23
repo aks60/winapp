@@ -23,6 +23,7 @@ import enums.LayoutArea;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -72,11 +73,11 @@ public class Wincalc {
         AreaContainer mainArea = parsingScript(productJson);
         img = new BufferedImage((int) (width + 260),
                 (int) (heightAdd + 260), BufferedImage.TYPE_INT_RGB); //инит. буфера рисунка
-        
+
         //Загрузим параметры по умолчанию
-        ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);        
+        ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
-        
+
         //Создание root окна
         if (mainArea instanceof AreaSquare) {
             rootArea = (AreaSquare) mainArea;  //калькуляция простого окна
@@ -93,7 +94,6 @@ public class Wincalc {
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
-        
         //Соединения рамы
         rootArea.joinFrame();  //обход соединений и кальк. углов рамы
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
@@ -105,10 +105,10 @@ public class Wincalc {
 
         //Список элементов
         LinkedList<AreaContainer> elemList = rootArea.listElem(TypeElem.FRAME_BOX,
-                 TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)        
+                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)        
 
-        rootArea.drawWin(0.1f, bufferFullImg, true);     //full рис.
-        
+        rootArea.drawWin((Graphics2D) img.getGraphics(), 0, 0, (int) width, (int) heightAdd + 260, true);     //full рис.
+
         //Тестирование
         if (Main.dev == true) {
             System.out.println(productJson); //вывод на консоль json

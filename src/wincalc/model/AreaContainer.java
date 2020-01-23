@@ -310,13 +310,11 @@ public abstract class AreaContainer extends Com5t {
         return elemList;
     }
 
-    public void drawWin(float scale, byte[] buffer, boolean line) {
+    //public void drawWin(float scale, byte[] buffer, boolean line) {
+    public void drawWin(Graphics2D gc, int x, int y, int width, int height, boolean line) {
         try {
-            iwin.scale = scale;
-            BufferedImage image = iwin.img;
-            Graphics2D gc = (Graphics2D) image.getGraphics();
             gc.setColor(java.awt.Color.WHITE);
-            gc.fillRect(0, 0, image.getWidth(), image.getHeight());
+            gc.fillRect(0, 0, width, height);
 
 //            //Прорисовка стеклопакетов
 //            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
@@ -325,30 +323,16 @@ public abstract class AreaContainer extends Com5t {
 //            //Прорисовка импостов
 //            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
 //            elemImpostList.stream().forEach(el -> el.drawElem());
-
             //Прорисовка рам
-            if (TypeElem.ARCH == this.typeElem()) {
-                //TODO для прорисовки арки добавил один градус, а это не айс!
-                //Прорисовка арки
-                ElemFrame ef = mapFrame.get(LayoutArea.ARCH);
-                float dz = ef.articlRec.getFloat(eArtikl.height);
-                double r = ((AreaArch) root()).radiusArch;
-                int rgb = eColor.up.find(ef.color3).getInt(eColor.color);
-                double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
-                double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * dz) / ((r - dz) * 2)));
-                strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-                strokeArc(width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-                strokeArc(width / 2 - r + dz / 2, dz / 2, (r - dz / 2) * 2, (r - dz / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, dz - 4); //прорисовка на сцену
-            } else {
-                mapFrame.get(LayoutArea.TOP).paint();
-                mapFrame.get(LayoutArea.TOP).print();
-            }
+            mapFrame.get(LayoutArea.TOP).paint();
+            mapFrame.get(LayoutArea.TOP).print();
+
             mapFrame.get(LayoutArea.BOTTOM).paint();
             mapFrame.get(LayoutArea.BOTTOM).print();
-            
+
             mapFrame.get(LayoutArea.LEFT).paint();
             mapFrame.get(LayoutArea.LEFT).print();
-            
+
             mapFrame.get(LayoutArea.RIGHT).paint();
             mapFrame.get(LayoutArea.RIGHT).print();
 //
@@ -362,16 +346,15 @@ public abstract class AreaContainer extends Com5t {
 //                LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
 //                areaList.stream().forEach(el -> el.drawLineLength());
 //            }
-            //Рисунок в память
-            ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", bosFill);
-            buffer = bosFill.toByteArray();
+//            //Рисунок в память
+//            ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
+//            ImageIO.write(image, "png", bosFill);
+//            buffer = bosFill.toByteArray();
 
-            if (Main.dev == true) {
-                File outputfile = new File("CanvasImage.png");
-                ImageIO.write(image, "png", outputfile);
-            }
-
+//            if (Main.dev == true) {
+//                File outputfile = new File("CanvasImage.png");
+//                ImageIO.write(image, "png", outputfile);
+//            }
         } catch (Exception s) {
             System.err.println("Ошибка AreaContainer.drawWin() " + s);
         }

@@ -1,6 +1,5 @@
 package wincalc.model;
 
-import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
@@ -9,7 +8,7 @@ import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
 import java.awt.Color;
-import static javafx.scene.paint.Color.rgb;
+import javafx.scene.shape.ArcType;
 import wincalc.constr.Specification;
 
 public class ElemFrame extends ElemComp {
@@ -144,36 +143,48 @@ public class ElemFrame extends ElemComp {
 
     @Override
     public void paint() {
-        float dz = articlRec.getFloat(eArtikl.height);
+        float d1z = articlRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd- iwin.height;
         float w = root().width;
         float y1h = y1 + h;
         float y2h = y2 + h;
 
         int rgb = eColor.up.find(color3).getInt(eColor.color);
-        if (LayoutArea.TOP == side) {
-            strokePolygon(x1, x2, x2 - dz, x1 + dz, y1, y1, y2, y2, rgb, Color.BLACK, 4);
-
+        if (LayoutArea.TOP == side) {           
+            if (TypeElem.ARCH == this.typeElem()) {  //прорисовка арки
+                //TODO для прорисовки арки добавил один градус, а это не айс!
+                ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
+                float d2z = ef.articlRec.getFloat(eArtikl.height);
+                double r = ((AreaArch) root()).radiusArch;
+                double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
+                double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * d2z) / ((r - d2z) * 2)));
+                strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+                strokeArc(width / 2 - r + d2z, d2z, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+                strokeArc(width / 2 - r + d2z / 2, d2z / 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 4); //прорисовка на сцену
+            } else {
+                strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+            }            
+            
         } else if (LayoutArea.BOTTOM == side) {
-            strokePolygon(x1 + dz, x2 - dz, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+            strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
 
         } else if (LayoutArea.LEFT == side) {
             if (root() instanceof AreaArch) {
                 double r = ((AreaArch) root()).radiusArch;
-                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * dz) / ((r - dz) * 2)));
-                double a = (r - dz) * Math.sin(Math.toRadians(ang2));
-                strokePolygon(x1, x2, x2, x1, y1, (float) (r - a - h), y2 - dz, y2, rgb, Color.BLACK, 4);
+                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
+                double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
+                strokePolygon(x1, x2, x2, x1, y1, (float) (r - a - h), y2 - d1z, y2, rgb, Color.BLACK, 4);
             } else {
-                strokePolygon(x1, x2, x2, x1, y1, y1 + dz, y2 - dz, y2, rgb, Color.BLACK, 4);
+                strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, Color.BLACK, 4);
             }
         } else if (LayoutArea.RIGHT == side) {
             if (root() instanceof AreaArch) {
                 double r = ((AreaArch) root()).radiusArch;
-                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * dz) / ((r - dz) * 2)));
-                double a = (r - dz) * Math.sin(Math.toRadians(ang2));
-                strokePolygon(x1, x2, x2, x1, (float) (r - a - h), y1, y2, y2 - dz, rgb, Color.BLACK, 4);
+                double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
+                double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
+                strokePolygon(x1, x2, x2, x1, (float) (r - a - h), y1, y2, y2 - d1z, rgb, Color.BLACK, 4);
             } else {
-                strokePolygon(x1, x2, x2, x1, y1 + dz, y1, y2, y2 - dz, rgb, Color.BLACK, 4);
+                strokePolygon(x1, x2, x2, x1, y1 + d1z, y1, y2, y2 - d1z, rgb, Color.BLACK, 4);
             }
 
         }
