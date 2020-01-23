@@ -20,7 +20,7 @@ import wincalc.script.Element;
 public class Test {
 
     public static void main(String[] args) {
-        Wincalc.dev = true;
+        Main.dev = true;
 
         try {                      
             convert.Profstroy.script();

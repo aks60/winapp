@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 import javax.swing.JTextField;
-import wincalc.Wincalc;
+import main.Main;
 
 /**
  * <p>
@@ -81,7 +81,7 @@ public enum eProp {
         load();
         String prop2 = prop.getProperty(this.name());
         //если свойство не записано локально
-        if (prop2 != null && prop.getProperty(this.name()).equals("") || Wincalc.dev == true) {
+        if (prop2 != null && prop.getProperty(this.name()).equals("") || Main.dev == true) {
             return this.value;
         } else {
             //иначе читаем с диска

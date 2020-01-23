@@ -45,7 +45,7 @@ public class PathToDb extends javax.swing.JDialog {
         edUser.setText(eProp.user.read());
         edPass.setText(eProp.password);
 
-        if (Wincalc.dev == false) {
+        if (Main.dev == false) {
             btnAdm.setVisible(false);
             btnUser.setVisible(false);
             btnFile.setVisible(false);
@@ -89,7 +89,7 @@ public class PathToDb extends javax.swing.JDialog {
             eProp.save();
 
         } else {
-            String mes = (Wincalc.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
+            String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
             labMes.setText(mes);
         }
     }

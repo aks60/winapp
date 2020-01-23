@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import javafx.scene.shape.ArcType;
 import javax.imageio.ImageIO;
+import main.Main;
 import wincalc.Wincalc;
 
 public abstract class AreaContainer extends Com5t {
@@ -360,7 +361,7 @@ public abstract class AreaContainer extends Com5t {
             ImageIO.write(image, "png", bosFill);
             buffer = bosFill.toByteArray();
 
-            if (Wincalc.dev == true) {
+            if (Main.dev == true) {
                 File outputfile = new File("CanvasImage.png");
                 ImageIO.write(image, "png", outputfile);
             }

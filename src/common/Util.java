@@ -226,13 +226,13 @@ public class Util {
     }
 
     public static void println(Object obj) {
-        if (Wincalc.dev == true) {
+        if (Main.dev == true) {
             System.out.println(obj);
         }
     }
 
     public static void println(Table table) {
-        if (Wincalc.dev == true) {
+        if (Main.dev == true) {
             for (Record record : table) {
                 System.out.println(record);
             }

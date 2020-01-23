@@ -28,11 +28,11 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
+import main.Main;
 import wincalc.constr.Constructive;
 
 public class Wincalc {
 
-    public static boolean dev = false;
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
@@ -110,7 +110,7 @@ public class Wincalc {
         rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
         
         //Тестирование
-        if (Wincalc.dev == true) {
+        if (Main.dev == true) {
             System.out.println(productJson); //вывод на консоль json
             //Specification.write_txt(constr, rootArea.specificList()); //вывод на тестирование в DLL
             //Specification.write_txt2(constr, rootArea.specificList()); //вывод уникального индекса

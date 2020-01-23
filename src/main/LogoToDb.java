@@ -23,7 +23,7 @@ public class LogoToDb extends javax.swing.JDialog {
         initComponents();
 
         new FrameToFile(this, btnClose);
-        if (Wincalc.dev == false) {
+        if (Main.dev == false) {
             btnAdm.setVisible(false);
             btnUser.setVisible(false);
             labUser.setPreferredSize(new java.awt.Dimension(120, 18));
