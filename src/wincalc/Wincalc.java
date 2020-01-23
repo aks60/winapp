@@ -107,7 +107,7 @@ public class Wincalc {
         LinkedList<AreaContainer> elemList = rootArea.listElem(TypeElem.FRAME_BOX,
                  TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)        
 
-        rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
+        rootArea.drawWin(0.1f, bufferFullImg, true);     //full рис.
         
         //Тестирование
         if (Main.dev == true) {
