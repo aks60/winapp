@@ -89,11 +89,11 @@ public class Profstroy {
             eCurrenc.up
         };
         try {
-            //String in = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251";
-            String in = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
-            cn1 = java.sql.DriverManager.getConnection(in, "sysdba", "masterkey"); //источник
+            cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
             Util.println("\u001B[32m" + "Подготовка методанных" + "\u001B[0m");
