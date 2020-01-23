@@ -164,7 +164,7 @@ public class ElemImpost extends ElemComp {
     }
     
     @Override
-    public void drawElem() {
+    public void paint() {
 
         int rgb = eColor.up.find(color3).getInt(eColor.color);
         

@@ -220,33 +220,33 @@ public abstract class AreaContainer extends Com5t {
         
         LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
         LinkedList<E> outElem = new LinkedList(); //выходной список
-        for (Map.Entry<LayoutArea, ElemFrame> elemRama : root().mapFrame.entrySet()) {
+        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : root().mapFrame.entrySet()) {
             
-            arrElem.add(elemRama.getValue());
+            arrElem.add(elemFrame.getValue());
         }        
         for (Com5t elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase instanceof AreaContainer) {
-                for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase).mapFrame.entrySet()) {
-                    arrElem.add(elemRama.getValue());
+                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase).mapFrame.entrySet()) {
+                    arrElem.add(elemFrame.getValue());
                 }
                 for (Com5t elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
                     if (elemBase2 instanceof AreaContainer) {
-                        for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase2).mapFrame.entrySet()) {
-                            arrElem.add(elemRama.getValue());
+                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase2).mapFrame.entrySet()) {
+                            arrElem.add(elemFrame.getValue());
                         }
                         for (Com5t elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
                             if (elemBase3 instanceof AreaContainer) {
-                                for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase3).mapFrame.entrySet()) {
-                                    arrElem.add(elemRama.getValue());
+                                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase3).mapFrame.entrySet()) {
+                                    arrElem.add(elemFrame.getValue());
                                 }
                                 for (Com5t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
                                     if (elemBase4 instanceof AreaContainer) {
-                                        for (Map.Entry<LayoutArea, ElemFrame> elemRama : ((AreaContainer) elemBase4).mapFrame.entrySet()) {
-                                            arrElem.add(elemRama.getValue());
+                                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase4).mapFrame.entrySet()) {
+                                            arrElem.add(elemFrame.getValue());
                                         }
                                         for (Com5t elemBase5 : elemBase4.listChild()) { //пятый уровень
                                             arrElem.add(elemBase5);
@@ -272,14 +272,14 @@ public abstract class AreaContainer extends Com5t {
         return outElem;
     }
 
-    public abstract void joinRama();
+    public abstract void joinFrame();
 
     @Override
     public LinkedList<Com5t> listChild() {
         return listChild;
     }
 
-    public void passJoinRama() {
+    public void passJoinFrame() {
     }
     
     public void addElem(Com5t element) {
@@ -327,9 +327,9 @@ public abstract class AreaContainer extends Com5t {
 
             //Прорисовка рам
             drawTopFrame();
-            mapFrame.get(LayoutArea.BOTTOM).drawElem();
-            mapFrame.get(LayoutArea.LEFT).drawElem();
-            mapFrame.get(LayoutArea.RIGHT).drawElem();
+            mapFrame.get(LayoutArea.BOTTOM).paint();
+            mapFrame.get(LayoutArea.LEFT).paint();
+            mapFrame.get(LayoutArea.RIGHT).paint();
 //
 //            //Прорисовка створок
 //            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
@@ -422,7 +422,7 @@ public abstract class AreaContainer extends Com5t {
             strokeArc(width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
             strokeArc(width / 2 - r + dz / 2, dz / 2, (r - dz / 2) * 2, (r - dz / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, dz - 4); //прорисовка на сцену
         } else {
-            mapFrame.get(LayoutArea.TOP).drawElem();
+            mapFrame.get(LayoutArea.TOP).paint();
         }
     }
 

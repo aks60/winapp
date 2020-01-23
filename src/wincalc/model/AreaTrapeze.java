@@ -18,7 +18,7 @@ public class AreaTrapeze extends AreaContainer {
     }
 
     @Override
-    public void joinRama() {
+    public void joinFrame() {
         System.out.println("Функция не определена");
     }
 }

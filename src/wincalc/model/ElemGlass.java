@@ -80,7 +80,7 @@ public class ElemGlass extends ElemComp {
     }
 
     @Override
-    public void drawElem() {
+    public void paint() {
         if (owner instanceof AreaArch) {
             ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
             float dz = ef.articlRec.getFloat(eArtikl.height);            

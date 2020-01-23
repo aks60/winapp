@@ -137,7 +137,7 @@ public class AreaStvorka extends AreaContainer {
     }
 
     @Override
-    public void passJoinRama() {
+    public void passJoinFrame() {
 
         //Угловое соединение левое верхнее
         ElemJoinig elemJoin1 = new ElemJoinig(iwin);
@@ -233,12 +233,12 @@ public class AreaStvorka extends AreaContainer {
     }
     
     @Override
-    public void drawElem() {
+    public void paint() {
 
-        mapFrame.get(LayoutArea.TOP).drawElem();
-        mapFrame.get(LayoutArea.BOTTOM).drawElem();
-        mapFrame.get(LayoutArea.LEFT).drawElem();
-        mapFrame.get(LayoutArea.RIGHT).drawElem();
+        mapFrame.get(LayoutArea.TOP).paint();
+        mapFrame.get(LayoutArea.BOTTOM).paint();
+        mapFrame.get(LayoutArea.LEFT).paint();
+        mapFrame.get(LayoutArea.RIGHT).paint();
 
         if (mapParam.get(ParamJson.typeOpen) != null) {
             float dx = 20, dy = 60, X1 = 0, Y1 = 0;
@@ -276,7 +276,7 @@ public class AreaStvorka extends AreaContainer {
     }
 
     @Override
-    public void joinRama() {
+    public void joinFrame() {
         System.out.println("Функция не определена");
     }
 }

@@ -95,13 +95,13 @@ public class Wincalc {
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
         //Соединения рамы
-        rootArea.joinRama();  //обход соединений и кальк. углов рамы
+        rootArea.joinFrame();  //обход соединений и кальк. углов рамы
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
         mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
 
         //Соединения створок
         stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinRama()); //обход соединений и кальк. углов створок
+        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
 
         //Список элементов
         LinkedList<AreaContainer> elemList = rootArea.listElem(TypeElem.FRAME_BOX,

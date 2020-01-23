@@ -118,8 +118,7 @@ public abstract class Com5t {
         return new LinkedList();
     }
 
-    //TODO переименовать в paint()
-    public void drawElem() {
+    public void paint() {
     }
 
     /**

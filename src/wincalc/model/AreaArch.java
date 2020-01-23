@@ -21,7 +21,7 @@ public class AreaArch extends AreaContainer {
     }
     
     @Override
-    public void joinRama() {
+    public void joinFrame() {
 
         String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
         String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
