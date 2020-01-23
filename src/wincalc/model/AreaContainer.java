@@ -317,30 +317,30 @@ public abstract class AreaContainer extends Com5t {
             gc.setColor(java.awt.Color.WHITE);
             gc.fillRect(0, 0, image.getWidth(), image.getHeight());
 
-            //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
-            elemGlassList.stream().forEach(el -> el.drawElem());
-
-            //Прорисовка импостов
-            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
-            elemImpostList.stream().forEach(el -> el.drawElem());
+//            //Прорисовка стеклопакетов
+//            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
+//            elemGlassList.stream().forEach(el -> el.drawElem());
+//
+//            //Прорисовка импостов
+//            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
+//            elemImpostList.stream().forEach(el -> el.drawElem());
 
             //Прорисовка рам
             drawTopFrame();
             mapFrame.get(LayoutArea.BOTTOM).drawElem();
             mapFrame.get(LayoutArea.LEFT).drawElem();
             mapFrame.get(LayoutArea.RIGHT).drawElem();
+//
+//            //Прорисовка створок
+//            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
+//            elemStvorkaList.stream().forEach(el -> el.drawElem());
 
-            //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
-            elemStvorkaList.stream().forEach(el -> el.drawElem());
-
-            if (line == true) {
-                //Прорисовка размера
-                this.drawLineLength();
-                LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
-                areaList.stream().forEach(el -> el.drawLineLength());
-            }
+//            if (line == true) {
+//                //Прорисовка размера
+//                this.drawLineLength();
+//                LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
+//                areaList.stream().forEach(el -> el.drawLineLength());
+//            }
 
             //Рисунок в память
             ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
