@@ -127,7 +127,7 @@ public abstract class Com5t {
     protected void strokeLine(float x1, float y1, float x2, float y2, Color rdbStroke, int lineWidth) {
 
         float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
+        Graphics2D gc = iwin.graphics2D;
         gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
@@ -138,7 +138,7 @@ public abstract class Com5t {
             float y2, float y3, float y4, int rgbFill, Color rdbStroke, double lineWidth) {
 
         float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
+        Graphics2D gc = iwin.graphics2D;
         gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
@@ -153,7 +153,7 @@ public abstract class Com5t {
             double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
 
         float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
+        Graphics2D gc = iwin.graphics2D;
         gc.setStroke(new BasicStroke((float) lineWidth * scale)); //толщина линии
         gc.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
         gc.drawArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
@@ -162,7 +162,7 @@ public abstract class Com5t {
     protected void fillArc(double x, double y, double w, double h, double startAngle, double arcExtent) {
 
         float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
+        Graphics2D gc = iwin.graphics2D;
         gc.setColor(new java.awt.Color(226, 255, 250));
         gc.fillArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
     }
@@ -170,7 +170,7 @@ public abstract class Com5t {
     protected void fillPoligon(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
 
         float scale = iwin.scale;
-        Graphics2D gc = iwin.img.createGraphics();
+        Graphics2D gc = iwin.graphics2D;
         gc.setColor(new java.awt.Color(226, 255, 250));
         float h = iwin.heightAdd - iwin.height;
         gc.fillPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},

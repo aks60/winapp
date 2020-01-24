@@ -13,7 +13,9 @@ public class PaintPanel extends JPanel {
     
     public PaintPanel() {
         
+        iwin.graphics2D = (Graphics2D) this.getGraphics();
         iwin.create(wincalc.script.Winscript.test(601002));
+        
     }
     
     public void saveImage(String name, String type) {
@@ -31,8 +33,12 @@ public class PaintPanel extends JPanel {
     public void paintComponent(Graphics g) {
         
         super.paintComponent(g);
-        Graphics2D gc = (Graphics2D) g;        
-        iwin.rootArea.drawWin(gc, getX(), getY(), getWidth(), getHeight(), true);
+        float max1 = (getHeight() > getWidth()) ? getHeight() : getWidth();
+        float max2 = (iwin.height > iwin.width) ? iwin.height : iwin.width;
+        iwin.scale = max1 / max2;
+        Graphics2D gc = (Graphics2D) g; 
+        iwin.graphics2D = gc;
+        iwin.rootArea.drawWin();
         
 //        gc.setColor(Color.GREEN);
 //        gc.drawRect(getX(), getY(), getWidth() - 20, getHeight() - 20);

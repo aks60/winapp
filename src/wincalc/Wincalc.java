@@ -40,21 +40,24 @@ public class Wincalc {
     public Record articlesRec = null;  //главный артикл системы профилей
     protected String prj = "empty";
     protected float percentMarkup = 0;  //процентная надбавка
+    
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public float width = 0.f;  //ширина окна
     public float height = 0.f;  //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
-    public float scale = .3f; //масштаб рисунка
     public int color1 = -1; //базовый цвет
     public int color2 = -1; //внутренний цвет
     public int color3 = -1; //внещний цвет
-    private byte[] bufferSmallImg = null; //рисунок без линий
-    private byte[] bufferFullImg = null; //полный рисунок
+
+    public float scale = .2f; //масштаб рисунка
+    public byte[] bufferByte = null; //буффер рисунка
+    public BufferedImage bufferImg = null;  //образ рисунка
+    public Graphics2D graphics2D = null; //графический котекст рисунка    
     protected String labelSketch = "empty"; //надпись на эскизе
+    
     public AreaContainer rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
     public Record sysconsRec = null; //константы
-    public BufferedImage img = null;  //образ рисунка
     protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию
     public HashMap<String, ElemJoinig> mapJoin = new HashMap(); //список соединений рам и створок
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
@@ -71,9 +74,11 @@ public class Wincalc {
 
         //Парсинг входного скрипта
         AreaContainer mainArea = parsingScript(productJson);
-        img = new BufferedImage((int) (width + 260),
-                (int) (heightAdd + 260), BufferedImage.TYPE_INT_RGB); //инит. буфера рисунка
-
+        
+        //Графика
+        bufferImg = new BufferedImage((int) (width + 260), (int) (heightAdd + 260), BufferedImage.TYPE_INT_RGB); //инит. буфера рисунка
+        graphics2D = (Graphics2D) bufferImg.getGraphics();
+        
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
@@ -105,9 +110,7 @@ public class Wincalc {
 
         //Список элементов
         LinkedList<AreaContainer> elemList = rootArea.listElem(TypeElem.FRAME_BOX,
-                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)        
-
-        rootArea.drawWin((Graphics2D) img.getGraphics(), 0, 0, (int) width, (int) heightAdd + 260, true);     //full рис.
+                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
 
         //Тестирование
         if (Main.dev == true) {

@@ -1,20 +1,18 @@
 package wincalc.model;
 
 import domain.eArtikl;
-import domain.eColor;
 import enums.LayoutArea;
 import enums.TypeElem;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import javafx.scene.shape.ArcType;
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import main.Main;
 import wincalc.Wincalc;
 
@@ -311,10 +309,11 @@ public abstract class AreaContainer extends Com5t {
     }
 
     //public void drawWin(float scale, byte[] buffer, boolean line) {
-    public void drawWin(Graphics2D gc, int x, int y, int width, int height, boolean line) {
+    public void drawWin() {
         try {
+            Graphics2D gc = iwin.graphics2D;            
             gc.setColor(java.awt.Color.WHITE);
-            gc.fillRect(0, 0, width, height);
+            gc.fillRect(0, 0, iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());
 
 //            //Прорисовка стеклопакетов
 //            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
@@ -341,20 +340,20 @@ public abstract class AreaContainer extends Com5t {
 //            elemStvorkaList.stream().forEach(el -> el.drawElem());
 
 //            if (line == true) {
-//                //Прорисовка размера
-//                this.drawLineLength();
-//                LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
-//                areaList.stream().forEach(el -> el.drawLineLength());
+                //Прорисовка размера
+                this.lineLength1();
+                LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
+                areaList.stream().forEach(el -> el.lineLength1());
 //            }
-//            //Рисунок в память
-//            ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
-//            ImageIO.write(image, "png", bosFill);
-//            buffer = bosFill.toByteArray();
+            //Рисунок в память
+            ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
+            ImageIO.write(iwin.bufferImg, "png", bosFill);
+            iwin.bufferByte = bosFill.toByteArray();
 
-//            if (Main.dev == true) {
-//                File outputfile = new File("CanvasImage.png");
-//                ImageIO.write(image, "png", outputfile);
-//            }
+            if (Main.dev == true) {
+                File outputfile = new File("CanvasImage.png");
+                ImageIO.write(iwin.bufferImg, "png", outputfile);
+            }
         } catch (Exception s) {
             System.err.println("Ошибка AreaContainer.drawWin() " + s);
         }
@@ -385,7 +384,7 @@ public abstract class AreaContainer extends Com5t {
 
     private void lineLength2(String txt, int x1, int y1, int x2, int y2) {
         float h = iwin.heightAdd - iwin.height;
-        Graphics2D gc = iwin.img.createGraphics();
+        Graphics2D gc = iwin.bufferImg.createGraphics();
         gc.setColor(java.awt.Color.BLACK);
         gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 40));
         strokeLine(x1, y1, x2, y2, Color.BLACK, 2);

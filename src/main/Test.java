@@ -24,7 +24,8 @@ public class Test {
 
         try {   
             //convert.Profstroy.script();
-            //query();
+            query();
+            
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -67,6 +68,7 @@ public class Test {
             
             wincalc.Wincalc wc = new wincalc.Wincalc();
             wc.create(wincalc.script.Winscript.test(601002));
+            wc.rootArea.drawWin(); //рисунок
             
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
