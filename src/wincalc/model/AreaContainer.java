@@ -307,8 +307,8 @@ public abstract class AreaContainer extends Com5t {
             //if (line == true) {
             //Прорисовка размера
             this.drawLine1();
-            //LinkedList<AreaContainer> areaList = listElem(root(), TypeElem.AREA);
-            //areaList.stream().forEach(el -> el.drawLine1());
+            LinkedList<AreaContainer> areaList = listElem(root(), TypeElem.AREA);
+            areaList.stream().forEach(el -> el.drawLine1());
             //}
             //Рисунок в память
             if (iwin.bufferImg != null) {
