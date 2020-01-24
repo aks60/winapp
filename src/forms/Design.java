@@ -246,7 +246,7 @@ public class Design extends javax.swing.JFrame {
         panDesign.setLayout(new java.awt.BorderLayout());
         pan4.add(panDesign, java.awt.BorderLayout.CENTER);
 
-        pan7.setPreferredSize(new java.awt.Dimension(700, 60));
+        pan7.setPreferredSize(new java.awt.Dimension(700, 40));
 
         javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
         pan7.setLayout(pan7Layout);
@@ -256,12 +256,12 @@ public class Design extends javax.swing.JFrame {
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         pan4.add(pan7, java.awt.BorderLayout.NORTH);
 
-        pan8.setPreferredSize(new java.awt.Dimension(744, 60));
+        pan8.setPreferredSize(new java.awt.Dimension(744, 40));
 
         lab1.setText("Ширина");
         lab1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -283,59 +283,56 @@ public class Design extends javax.swing.JFrame {
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan8Layout.createSequentialGroup()
-                        .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan8Layout.createSequentialGroup()
-                        .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(464, 464, 464))
+                .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lab1)
-                    .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab2)
-                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lab1)
+                        .addComponent(txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
         pan4.add(pan8, java.awt.BorderLayout.SOUTH);
 
-        pan9.setPreferredSize(new java.awt.Dimension(60, 376));
+        pan9.setPreferredSize(new java.awt.Dimension(40, 376));
 
         javax.swing.GroupLayout pan9Layout = new javax.swing.GroupLayout(pan9);
         pan9.setLayout(pan9Layout);
         pan9Layout.setHorizontalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 306, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
 
-        pan10.setPreferredSize(new java.awt.Dimension(60, 336));
+        pan10.setPreferredSize(new java.awt.Dimension(40, 336));
 
         javax.swing.GroupLayout pan10Layout = new javax.swing.GroupLayout(pan10);
         pan10.setLayout(pan10Layout);
         pan10Layout.setHorizontalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 306, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
