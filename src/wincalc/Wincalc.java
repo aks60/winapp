@@ -49,7 +49,7 @@ public class Wincalc {
     public int color2 = -1; //внутренний цвет
     public int color3 = -1; //внещний цвет
 
-    public float scale = .2f; //масштаб рисунка
+    public float scale = .8f; //масштаб рисунка
     public byte[] bufferByte = null; //буффер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D graphics2D = null; //графический котекст рисунка    
@@ -74,10 +74,6 @@ public class Wincalc {
 
         //Парсинг входного скрипта
         AreaContainer mainArea = parsingScript(productJson);
-        
-        //Графика
-        bufferImg = new BufferedImage((int) (width + 260), (int) (heightAdd + 260), BufferedImage.TYPE_INT_RGB); //инит. буфера рисунка
-        graphics2D = (Graphics2D) bufferImg.getGraphics();
         
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);

@@ -18,6 +18,5 @@ public class AreaScene extends AreaContainer {
     @Override
     public void joinFrame() {
         System.out.println("Функция не определена");
-    }
-        
+    }        
 }

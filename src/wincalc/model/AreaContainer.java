@@ -157,6 +157,7 @@ public abstract class AreaContainer extends Com5t {
      */
     protected ElemComp adjoinedElem(LayoutArea layoutSide) {
 
+        //LinkedList<Com5t> listElem = owner.listElem(TypeElem.AREA, TypeElem.IMPOST);   //areaOrImpostList();
         LinkedList<Com5t> listElem = areaOrImpostList();
         for (int index = 0; index < listElem.size(); ++index) {
 
@@ -278,9 +279,6 @@ public abstract class AreaContainer extends Com5t {
         return listChild;
     }
 
-    public void passJoinFrame() {
-    }
-
     public void addElem(Com5t element) {
         listChild.add(element);
     }
@@ -308,83 +306,77 @@ public abstract class AreaContainer extends Com5t {
         return elemList;
     }
 
-    //public void drawWin(float scale, byte[] buffer, boolean line) {
-    public void drawWin() {
+    /**
+     * Прорисовка окна
+     */    
+    public void drawWin(int width, int height) {
         try {
-            Graphics2D gc = iwin.graphics2D;            
+            Graphics2D gc = iwin.graphics2D;
             gc.setColor(java.awt.Color.WHITE);
-            gc.fillRect(0, 0, iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());
+            gc.fillRect(0, 0, width, height);
 
-//            //Прорисовка стеклопакетов
-//            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
-//            elemGlassList.stream().forEach(el -> el.drawElem());
-//
-//            //Прорисовка импостов
-//            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
-//            elemImpostList.stream().forEach(el -> el.drawElem());
+            //Прорисовка стеклопакетов
+            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
+            elemGlassList.stream().forEach(el -> el.paint());
+
+            //Прорисовка импостов
+            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
+            elemImpostList.stream().forEach(el -> el.paint());
             //Прорисовка рам
             mapFrame.get(LayoutArea.TOP).paint();
-            mapFrame.get(LayoutArea.TOP).print();
-
             mapFrame.get(LayoutArea.BOTTOM).paint();
-            mapFrame.get(LayoutArea.BOTTOM).print();
-
             mapFrame.get(LayoutArea.LEFT).paint();
-            mapFrame.get(LayoutArea.LEFT).print();
-
             mapFrame.get(LayoutArea.RIGHT).paint();
-            mapFrame.get(LayoutArea.RIGHT).print();
-//
-//            //Прорисовка створок
-//            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
-//            elemStvorkaList.stream().forEach(el -> el.drawElem());
 
-//            if (line == true) {
-                //Прорисовка размера
-                this.lineLength1();
-                LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
-                areaList.stream().forEach(el -> el.lineLength1());
-//            }
+            //Прорисовка створок
+            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
+            elemStvorkaList.stream().forEach(el -> el.paint());
+
+            //if (line == true) {
+            //Прорисовка размера
+            this.drawLine1();
+            LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
+            areaList.stream().forEach(el -> el.drawLine1());
+            //}
             //Рисунок в память
-            ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
-            ImageIO.write(iwin.bufferImg, "png", bosFill);
-            iwin.bufferByte = bosFill.toByteArray();
+            if (iwin.bufferImg != null) {
+                ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
+                ImageIO.write(iwin.bufferImg, "png", bosFill);
+                iwin.bufferByte = bosFill.toByteArray();
 
-            if (Main.dev == true) {
-                File outputfile = new File("CanvasImage.png");
-                ImageIO.write(iwin.bufferImg, "png", outputfile);
+                if (Main.dev == true) {
+                    File outputfile = new File("CanvasImage.png");
+                    ImageIO.write(iwin.bufferImg, "png", outputfile);
+                }
             }
         } catch (Exception s) {
             System.err.println("Ошибка AreaContainer.drawWin() " + s);
         }
     }
 
-    /**
-     * Прорисовка размеров окна
-     */
-    public void lineLength1() {
+    public void drawLine1() {
 
         float h = iwin.heightAdd - iwin.height;
         if (this == root()) {  //главный контейнер
             float moveV = 180;
-            lineLength2(String.format("%.0f", y2 - y1 + h), (int) (x2 + moveV), (int) (y1 - h), (int) (x2 + moveV), (int) y2); //высота окна
-            lineLength2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + moveV), (int) x2, (int) (y2 + moveV));  //ширина окна
+            drawLine2(String.format("%.0f", y2 - y1 + h), (int) (x2 + moveV), (int) (y1 - h), (int) (x2 + moveV), (int) y2); //высота окна
+            drawLine2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + moveV), (int) x2, (int) (y2 + moveV));  //ширина окна
 
         } else {  //вложенный контейнер
             float moveV = (this.owner == root()) ? 120 : 60;
             if (this.height > 160 && this.width > 160) {
                 if (owner.listChild().size() > 1 && owner.layout() == LayoutArea.VERT) {
-                    lineLength2(String.format("%.0f", y2 - y1), (int) (x2 + moveV), (int) y1, (int) (x2 + moveV), (int) y2);
+                    drawLine2(String.format("%.0f", y2 - y1), (int) (x2 + moveV), (int) y1, (int) (x2 + moveV), (int) y2);
                 } else if (owner.listChild().size() > 1 && owner.layout() == LayoutArea.HORIZ) {
-                    lineLength2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + moveV), (int) x2, (int) (y2 + moveV));
+                    drawLine2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + moveV), (int) x2, (int) (y2 + moveV));
                 }
             }
         }
     }
 
-    private void lineLength2(String txt, int x1, int y1, int x2, int y2) {
+    private void drawLine2(String txt, int x1, int y1, int x2, int y2) {
         float h = iwin.heightAdd - iwin.height;
-        Graphics2D gc = iwin.bufferImg.createGraphics();
+        Graphics2D gc = iwin.graphics2D;
         gc.setColor(java.awt.Color.BLACK);
         gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 40));
         strokeLine(x1, y1, x2, y2, Color.BLACK, 2);

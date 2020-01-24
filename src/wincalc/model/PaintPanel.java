@@ -33,16 +33,14 @@ public class PaintPanel extends JPanel {
     public void paintComponent(Graphics g) {
         
         super.paintComponent(g);
-        float max1 = (getHeight() > getWidth()) ? getHeight() : getWidth();
-        float max2 = (iwin.height > iwin.width) ? iwin.height : iwin.width;
-        iwin.scale = max1 / max2;
+        
+        float max1 = getWidth() + getHeight() - 200;
+        float max2 = iwin.width + iwin.height;
+        iwin.scale = max1 / max2;        
+        
         Graphics2D gc = (Graphics2D) g; 
         iwin.graphics2D = gc;
-        iwin.rootArea.drawWin();
-        
-//        gc.setColor(Color.GREEN);
-//        gc.drawRect(getX(), getY(), getWidth() - 20, getHeight() - 20);
-//        gc.fillRect(getX(), getY(), getWidth() - 20, getHeight() - 20);
+        iwin.rootArea.drawWin(getWidth(), getHeight());
         
     }
 }

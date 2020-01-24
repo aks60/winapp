@@ -136,7 +136,6 @@ public class AreaStvorka extends AreaContainer {
         return TypeOpen.OM_INVALID;
     }
 
-    @Override
     public void passJoinFrame() {
 
         //Угловое соединение левое верхнее
