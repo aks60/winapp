@@ -42,10 +42,10 @@ public class Design extends javax.swing.JFrame {
         
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        //loadTree();
+        loadTree1("xxxx");
     }
 
-    public void loadTree(String name) {
+    public void loadTree1(String name) {
         
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
@@ -57,17 +57,17 @@ public class Design extends javax.swing.JFrame {
                 treeNode1.add(node2);
             }
         }
-        ArrayList<DefaultMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
-        ArrayList<DefaultMutableTreeNode> treeList3 = addChild(treeList2, new ArrayList());
-        ArrayList<DefaultMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
-        ArrayList<DefaultMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
-        ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList2 = addChild1(treeList, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList3 = addChild1(treeList2, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList4 = addChild1(treeList3, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList5 = addChild1(treeList4, new ArrayList());
+        ArrayList<DefaultMutableTreeNode> treeList6 = addChild1(treeList5, new ArrayList());
         tree1.setModel(new DefaultTreeModel(treeNode1));
         scr1.setViewportView(tree1);
         tree1.setSelectionRow(0);
     }
 
-    private ArrayList<DefaultMutableTreeNode> addChild(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
+    private ArrayList<DefaultMutableTreeNode> addChild1(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
 
         Query q = qSystree.table(eSystree.up.tname());
         for (DefaultMutableTreeNode node : nodeList1) {
@@ -84,7 +84,8 @@ public class Design extends javax.swing.JFrame {
         return nodeList2;
     }
 
-    private void selectioTree(ListSelectionEvent event) {
+    
+    private void selectTree(ListSelectionEvent event) {
 
     }
 
@@ -613,7 +614,7 @@ public class Design extends javax.swing.JFrame {
 
     private void btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArea
         JButton btn = (JButton) evt.getSource();
-        loadTree(btn.getName());
+        loadTree1(btn.getName());
     }//GEN-LAST:event_btnArea
 
     private void btnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElem

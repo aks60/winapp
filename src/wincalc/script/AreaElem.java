@@ -11,7 +11,7 @@ import java.util.LinkedList;
  */
 public class AreaElem extends Element {
 
-    protected LayoutArea layoutArea = null;                  //ориентация при размещении area
+    protected LayoutArea layoutArea = null;                   //ориентация при размещении area
     protected float width = 0;                                //ширина area, мм
     protected float height = 0;                               //высота area, мм
     private LinkedList<Element> elements = new LinkedList();  //список элементов в area
@@ -20,19 +20,15 @@ public class AreaElem extends Element {
     public AreaElem() {
     }
 
-    /**
-     * Конструктор вложенной Area
-     */
+    //Конструктор вложенной Area
     public AreaElem(String id, LayoutArea layoutArea, TypeElem elemType, float lengthSide) {
         super.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
         this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
     }
-    
-    /**
-     * Конструктор створки
-     */
+
+    //Конструктор створки
     public AreaElem(String id, LayoutArea layoutArea, TypeElem elemType, String paramJson) {
         super.id = id;
         this.layoutArea = layoutArea;
@@ -40,9 +36,7 @@ public class AreaElem extends Element {
         this.paramJson = paramJson; //параметры элемента
     }
 
-    /**
-     * Добавление элемента в дерево
-     */
+    //Добавление элемента в дерево
     public Element add(Element element) {
         if (element instanceof AreaElem) {
 

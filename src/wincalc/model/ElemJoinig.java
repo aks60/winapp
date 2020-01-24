@@ -35,9 +35,7 @@ public class ElemJoinig {
         this.iwin = iwin;
     }
     
-    /**
-     * Инициализация вариантов соединения и первичная углов реза
-     */
+    //Инициализация вариантов соединения и первичная углов реза
     public void initJoin() {
 
         if (elemJoinLeft == null && elemJoinRight != null && elemJoinBottom != null && elemJoinTop == null) { //угловое соединение левое верхнее

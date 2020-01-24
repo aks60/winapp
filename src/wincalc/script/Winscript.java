@@ -7,30 +7,26 @@ import main.Main;
 
 public class Winscript {
 
-    public static String test(Integer id) {
-        if (id == 601002) {
-            //Montblanc-Nord-1 ОКНА-433
-            AreaRoot rootArea = new AreaRoot("1", LayoutArea.HORIZ, TypeElem.SQUARE, 1300, 1400, 1400, 1009, 10009, 1009, "");
-            rootArea.setParam(433, id.toString());
-            rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
-            rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
-            rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
-            rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
+    public static String p601002() { //Montblanc-Nord-1 ОКНА
+        
+        AreaRoot rootArea = new AreaRoot("1", LayoutArea.HORIZ, TypeElem.SQUARE, 1300, 1400, 1400, 1009, 10009, 1009, "");
+        rootArea.setParam(433, "601002");
+        rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
+        rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
+        rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
+        rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
 
-            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
-            rootArea.add(new Element("7", TypeElem.IMPOST));
-            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("8", LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
-            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
+        AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
+        rootArea.add(new Element("7", TypeElem.IMPOST));
+        AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("8", LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
+        AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
+        AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
 
-            area4.add(new Element("11", TypeElem.GLASS));
-            area5.add(new Element("12", TypeElem.GLASS));
-            return new Gson().toJson(rootArea);
-
-        }       
-        return null;
+        area4.add(new Element("11", TypeElem.GLASS));
+        area5.add(new Element("12", TypeElem.GLASS));
+        return new Gson().toJson(rootArea);
     }
-    
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     public static String test2(Integer id) {
         if (id == 601001) {

@@ -827,7 +827,7 @@
           <Dimension value="[220, 27]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[160, 27]"/>
+          <Dimension value="[170, 27]"/>
         </Property>
       </Properties>
 
@@ -987,7 +987,7 @@
       <Properties>
         <Property name="rollover" type="boolean" value="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[110, 27]"/>
+          <Dimension value="[100, 27]"/>
         </Property>
       </Properties>
 

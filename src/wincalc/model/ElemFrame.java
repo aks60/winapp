@@ -68,9 +68,7 @@ public class ElemFrame extends ElemComp {
         specificationRec.setArticlRec(articlRec);
     }
 
-    /**
-     * Добавление спесификаций зависимых элементов
-     */
+    //Добавление спесификаций зависимых элементов
     @Override
     public void addSpecifSubelem(Specification specif) {
    /*

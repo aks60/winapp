@@ -13,9 +13,7 @@ public class AreaRoot extends AreaElem {
     protected Integer color3 = null;   //внешняя текстура (PRO4_COLSLST.CCODE)    
     private String prj = null;         //номер тестируемого проекта, поле нужно только для тестов       
      
-    /**
-     * Контруктор главного окна
-     */
+    //Контруктор главного окна
     public AreaRoot(String id, LayoutArea layoutArea, TypeElem elemType, float width, float height, float heightLow, int color1, int color2, int color3, String paramJson) {
         super.id = id;
         this.layoutArea = layoutArea;

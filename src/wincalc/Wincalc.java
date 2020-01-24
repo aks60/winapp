@@ -40,7 +40,7 @@ public class Wincalc {
     public Record articlesRec = null;  //главный артикл системы профилей
     protected String prj = "empty";
     protected float percentMarkup = 0;  //процентная надбавка
-    
+
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public float width = 0.f;  //ширина окна
     public float height = 0.f;  //высота окна
@@ -54,7 +54,7 @@ public class Wincalc {
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D graphics2D = null; //графический котекст рисунка    
     protected String labelSketch = "empty"; //надпись на эскизе
-    
+
     public AreaContainer rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
     public Record sysconsRec = null; //константы
@@ -74,7 +74,7 @@ public class Wincalc {
 
         //Парсинг входного скрипта
         AreaContainer mainArea = parsingScript(productJson);
-        
+
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
@@ -88,8 +88,8 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        LinkedList<AreaContainer> areaList = rootArea.listElem(TypeElem.AREA); //список контейнеров
-        LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(TypeElem.FULLSTVORKA); //список створок
+        LinkedList<AreaContainer> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
+        LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
 
         //Калькуляция конструктива
@@ -105,7 +105,7 @@ public class Wincalc {
         stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
 
         //Список элементов
-        LinkedList<AreaContainer> elemList = rootArea.listElem(TypeElem.FRAME_BOX,
+        LinkedList<AreaContainer> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
                 TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
 
         //Тестирование
@@ -120,9 +120,7 @@ public class Wincalc {
         return rootArea;
     }
 
-    /**
-     * Парсим входное json окно и строим объектную модель окна
-     */
+    // Парсим входное json окно и строим объектную модель окна
     private AreaContainer parsingScript(String json) {
         AreaContainer rootArea = null;
         try {

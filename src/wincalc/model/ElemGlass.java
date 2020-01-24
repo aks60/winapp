@@ -93,10 +93,9 @@ public class ElemGlass extends ElemComp {
         }
     }
     
-    /**
-     * Добавление спесификаций зависимых элементов
-     */    
+       
     @Override
+    //Добавление спесификаций зависимых элементов
     public void addSpecifSubelem(Specification specif) {
     /*
         indexUniq(specif);

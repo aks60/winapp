@@ -121,9 +121,7 @@ public abstract class Com5t {
     public void paint() {
     }
 
-    /**
-     * Прорисовка замкнутой линии
-     */
+    //Прорисовка замкнутой линии
     protected void strokeLine(float x1, float y1, float x2, float y2, Color rdbStroke, int lineWidth) {
 
         float scale = iwin.scale;

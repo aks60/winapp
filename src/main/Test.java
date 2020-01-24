@@ -4,17 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import common.FrameToFile;
 import dataset.Query;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
-import forms.Artikls;
-import forms.Rate;
-import forms.Color;
+import forms.Design;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
-import static javax.swing.Spring.width;
 import wincalc.script.AreaElem;
 import wincalc.script.AreaRoot;
 import wincalc.script.Element;
@@ -27,7 +25,8 @@ public class Test {
         try {
             //convert.Profstroy.script();
             //query();
-            wincalc();
+            //wincalc();
+            frame();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -39,7 +38,7 @@ public class Test {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         wincalc.Wincalc iwin = new wincalc.Wincalc();
-        iwin.create(wincalc.script.Winscript.test(601002));
+        iwin.create(wincalc.script.Winscript.p601002());
         iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
         iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
         iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           
@@ -48,13 +47,12 @@ public class Test {
     static void frame() throws Exception {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-        App1 app = new App1();
-        Artikls art = new Artikls();
-        art.tree.setSelectionRow(2);
-        art.setVisible(true);
-        new Rate().setVisible(true);
-        new Color().setVisible(true);
+        App1 app = new App1();        
         app.setVisible(true);
+        Design frm = new Design();
+        FrameToFile.setFrameSize(frm);
+        frm.setVisible(true);
+ 
     }
 
     static void query() throws Exception {

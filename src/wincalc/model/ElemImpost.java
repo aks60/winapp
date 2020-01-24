@@ -118,11 +118,9 @@ public class ElemImpost extends ElemComp {
         specificationRec.anglCut1 = 90;
 */
     }
-    
-    /**
-     * Добавление спесификаций зависимых элементов
-     */    
+      
     @Override
+    //Добавление спесификаций зависимых элементов 
     public void addSpecifSubelem(Specification specif) {
 /*
         indexUniq(specif);

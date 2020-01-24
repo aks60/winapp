@@ -23,16 +23,12 @@ public abstract class AreaContainer extends Com5t {
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
-    /**
-     * Конструктор
-     */
+    //Конструктор
     public AreaContainer(String id) {
         super(id);
     }
 
-    /**
-     * Конструктор парсинга скрипта
-     */
+    //Конструктор парсинга скрипта
     public AreaContainer(Wincalc iwin, AreaContainer owner, String id, LayoutArea layout, float width, float height) {
         this(owner, id, layout, width, height, 1, 1, 1);
         this.iwin = iwin;
@@ -46,9 +42,7 @@ public abstract class AreaContainer extends Com5t {
         }
     }
 
-    /**
-     * Конструктор
-     */
+    //Конструктор
     public AreaContainer(AreaContainer owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
         this.owner = owner;
@@ -90,9 +84,7 @@ public abstract class AreaContainer extends Com5t {
         }
     }
 
-    /**
-     * Обход(схлопывание) соединений area
-     */
+    //Обход(схлопывание) соединений area
     public void passJoinArea(HashMap<String, ElemJoinig> hmJoin) {
 
         ElemJoinig elemJoinVal = null;
@@ -151,14 +143,10 @@ public abstract class AreaContainer extends Com5t {
         }
     }
 
-    /**
-     * Получить примыкающий элемент (используется при нахождении элементов
-     * соединений)
-     */
+    // Получить примыкающий элемент (используется при нахождении элементов соединений)
     protected ElemComp adjoinedElem(LayoutArea layoutSide) {
 
-        //LinkedList<Com5t> listElem = owner.listElem(TypeElem.AREA, TypeElem.IMPOST);   //areaOrImpostList();
-        LinkedList<Com5t> listElem = areaOrImpostList();
+        LinkedList<Com5t> listElem = owner.listElem(this, TypeElem.AREA, TypeElem.IMPOST);
         for (int index = 0; index < listElem.size(); ++index) {
 
             Com5t elemBase = listElem.get(index);
@@ -213,10 +201,8 @@ public abstract class AreaContainer extends Com5t {
         return null;
     }
 
-    /**
-     * Список элементов окна
-     */
-    public <E> LinkedList<E> listElem(TypeElem... type) {
+    //Список элементов окна
+    public <E> LinkedList<E> listElem(Com5t com5t, TypeElem... type) {
 
         LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
         LinkedList<E> outElem = new LinkedList(); //выходной список
@@ -260,9 +246,11 @@ public abstract class AreaContainer extends Com5t {
             }
         }
         //Цикл по входному списку элементов
-        for (int index = 0; index < type.length; ++index) {
-            TypeElem type2 = type[index];
-            for (Com5t elemBase : arrElem) {
+
+        for (Com5t elemBase : arrElem) {
+            for (int index = 0; index < type.length; ++index) {
+
+                TypeElem type2 = type[index];
                 if (elemBase.typeElem() == type2) {
                     E elem = (E) elemBase;
                     outElem.add(elem);
@@ -292,35 +280,19 @@ public abstract class AreaContainer extends Com5t {
         return layout;
     }
 
-    /**
-     * Список area и impost
-     */
-    public LinkedList<Com5t> areaOrImpostList() {
-
-        LinkedList<Com5t> elemList = new LinkedList();
-        for (Com5t elemBase : owner.listChild()) {
-            if (TypeElem.AREA == elemBase.typeElem() || TypeElem.IMPOST == elemBase.typeElem()) {
-                elemList.add(elemBase);
-            }
-        }
-        return elemList;
-    }
-
-    /**
-     * Прорисовка окна
-     */    
+    //Прорисовка окна
     public void drawWin(int width, int height) {
         try {
             Graphics2D gc = iwin.graphics2D;
-            gc.setColor(java.awt.Color.WHITE);
+            //gc.setColor(new java.awt.Color(212,208,200));
             gc.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
+            LinkedList<ElemGlass> elemGlassList = listElem(root(), TypeElem.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
+            LinkedList<ElemImpost> elemImpostList = listElem(root(), TypeElem.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
             //Прорисовка рам
             mapFrame.get(LayoutArea.TOP).paint();
@@ -329,14 +301,14 @@ public abstract class AreaContainer extends Com5t {
             mapFrame.get(LayoutArea.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = listElem(root(), TypeElem.FULLSTVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //if (line == true) {
             //Прорисовка размера
             this.drawLine1();
-            LinkedList<AreaContainer> areaList = listElem(TypeElem.AREA);
-            areaList.stream().forEach(el -> el.drawLine1());
+            //LinkedList<AreaContainer> areaList = listElem(root(), TypeElem.AREA);
+            //areaList.stream().forEach(el -> el.drawLine1());
             //}
             //Рисунок в память
             if (iwin.bufferImg != null) {
