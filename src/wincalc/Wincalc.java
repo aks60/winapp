@@ -49,7 +49,7 @@ public class Wincalc {
     public int color2 = -1; //внутренний цвет
     public int color3 = -1; //внещний цвет
 
-    public float scale = .8f; //масштаб рисунка
+    public float scale = 1f; //масштаб рисунка
     public byte[] bufferByte = null; //буффер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D graphics2D = null; //графический котекст рисунка    
