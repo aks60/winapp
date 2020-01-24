@@ -194,7 +194,7 @@ public class Design extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Конструктор окна");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(850, 600));
 
         pan1a.setPreferredSize(new java.awt.Dimension(260, 5));
 

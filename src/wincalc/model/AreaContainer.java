@@ -330,12 +330,12 @@ public abstract class AreaContainer extends Com5t {
 
         float h = iwin.heightAdd - iwin.height;
         if (this == root()) {  //главный контейнер
-            float moveV = 180;
+            float moveV = 80;
             drawLine2(String.format("%.0f", y2 - y1 + h), (int) (x2 + moveV), (int) (y1 - h), (int) (x2 + moveV), (int) y2); //высота окна
             drawLine2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + moveV), (int) x2, (int) (y2 + moveV));  //ширина окна
 
         } else {  //вложенный контейнер
-            float moveV = (this.owner == root()) ? 120 : 60;
+            float moveV = (this.owner == root()) ? 140 : 60;
             if (this.height > 160 && this.width > 160) {
                 if (owner.listChild().size() > 1 && owner.layout() == LayoutArea.VERT) {
                     drawLine2(String.format("%.0f", y2 - y1), (int) (x2 + moveV), (int) y1, (int) (x2 + moveV), (int) y2);
@@ -349,8 +349,9 @@ public abstract class AreaContainer extends Com5t {
     private void drawLine2(String txt, int x1, int y1, int x2, int y2) {
         float h = iwin.heightAdd - iwin.height;
         Graphics2D gc = iwin.graphics2D;
+        float scale = iwin.scale;
         gc.setColor(java.awt.Color.BLACK);
-        gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 40));
+        gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 12));
         strokeLine(x1, y1, x2, y2, Color.BLACK, 2);
         if (x1 == x2) {
             strokeLine(x1 - 24, y1, x1 + 24, y1, Color.BLACK, 2);
@@ -359,8 +360,9 @@ public abstract class AreaContainer extends Com5t {
             strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK, 2);
             strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK, 2);
             strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK, 2);
-            gc.rotate(Math.toRadians(270), x1 + 28, y1 + (y2 - y1) / 2 + h);
-            gc.drawString(txt, x1 + 28, y1 + (y2 - y1) / 2 + h);
+            gc.rotate(Math.toRadians(270), (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
+            gc.drawString(txt, (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
+            gc.rotate(Math.toRadians(-270), (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
         } else {
             strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK, 2);
             strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK, 2);
@@ -368,8 +370,8 @@ public abstract class AreaContainer extends Com5t {
             strokeLine(x1, y1, x1 + 24, y1 + 12, Color.BLACK, 2);
             strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK, 2);
             strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK, 2);
-            gc.rotate(Math.toRadians(0), x1 + (x2 - x1) / 2, y2 + 28 + h);
-            gc.drawString(txt, x1 + (x2 - x1) / 2, y2 + 28 + h);
+            //gc.rotate(Math.toRadians(0), (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
+            gc.drawString(txt, (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
         }
     }
 }
