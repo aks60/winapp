@@ -2,8 +2,8 @@ package enums;
 
 
 /**
- * Типы элементов приходящие на вход сервиса (json to model)
- * Тут объединены окно и все его элементы
+ * Типы элементов
+ * Тут объединены и TypeArea
  */
 public enum TypeElem {
 
@@ -18,6 +18,7 @@ public enum TypeElem {
     WOI_STVORKA(23, "Створка"), //без импоста
     SAND(100, "Сэндвич"),
     JALOUSIE(101, "Жалюзи"),
+    //--- TypeArea ------------------
     AREA(1000, "Контейнер компонентов"),
     SQUARE(1001, "Окно четырёхугольное в сборе"),
     TRAPEZE(1002, "Окно трапеция в сборе"),
@@ -33,20 +34,4 @@ public enum TypeElem {
         this.value = value;
         this.name = name;
     }
-
-    //public int value2() { return _value; }
-
-/*    public static ElemType FromInt(int value2) {
-
-        for (ElemType item : ElemType.values()) {
-            if (item.value2() == value2) {
-                return item;
-            }
-        }
-        return null;
-    }*/
-
-    //public Boolean isFilling() { return (this == GLASS || this == SAND); }
-
-    //private final int _value;
 }

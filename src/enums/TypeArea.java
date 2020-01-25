@@ -1,5 +1,6 @@
 package enums;
 
+//НЕ ИСПОЛЬЗУЮ!!!
 public enum TypeArea {
     AREA(1000, "Контейнер компонентов"),
     SQUARE(1001, "Окно четырёхугольное"),
