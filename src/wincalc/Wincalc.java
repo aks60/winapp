@@ -34,11 +34,14 @@ import wincalc.constr.Constructive;
 
 public class Wincalc {
 
+    ////////////////////////////////////////////////////////////////////////////
+    public static int prj = 601001;
+    ///////////////////////////////////////////////////////////////////////////
+    
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
     public Record articlesRec = null;  //главный артикл системы профилей
-    protected String prj = "empty";
     protected float percentMarkup = 0;  //процентная надбавка
 
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
@@ -119,7 +122,7 @@ public class Wincalc {
         }
         return rootArea;
     }
-
+    
     // Парсим входное json окно и строим объектную модель окна
     private AreaContainer parsingScript(String json) {
         AreaContainer rootArea = null;
@@ -130,9 +133,7 @@ public class Wincalc {
             String id = mainObj.get("id").getAsString();
             String paramJson = mainObj.get("paramJson").getAsString();
             nuni = mainObj.get("nuni").getAsInt();
-            if (mainObj.get("prj") != null) {
-                prj = mainObj.get("prj").getAsString();
-            }
+
             width = mainObj.get("width").getAsFloat();
             height = mainObj.get("heightLow").getAsFloat();
             heightAdd = mainObj.get("height").getAsFloat();
@@ -225,7 +226,7 @@ public class Wincalc {
                 }
             }
         } catch (Exception e2) {
-            System.out.println("Ошибка Wincala.parsingScript() " + e2);
+            System.out.println("Ошибка Wincalc.parsingScript() " + e2);
         }
         return rootArea;
     }

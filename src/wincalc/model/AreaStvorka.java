@@ -37,7 +37,8 @@ public class AreaStvorka extends AreaContainer {
             Gson gson = new Gson();
             JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
-            mapParam.put(ParamJson.typeOpen, jsonObj.get(ParamJson.funic.name()));
+            mapParam.put(ParamJson.typeOpen, jsonObj.get(ParamJson.typeOpen.name()));
+            mapParam.put(ParamJson.funic, jsonObj.get(ParamJson.funic.name()));           
             if (mapParam.get(ParamJson.typeOpen) != null) {
                 
                 int key = Integer.valueOf(mapParam.get(ParamJson.typeOpen).toString());

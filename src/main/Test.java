@@ -13,6 +13,7 @@ import forms.Design;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import wincalc.Wincalc;
 import wincalc.script.AreaElem;
 import wincalc.script.AreaRoot;
 import wincalc.script.Element;
@@ -38,7 +39,7 @@ public class Test {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         wincalc.Wincalc iwin = new wincalc.Wincalc();
-        iwin.create(wincalc.script.Winscript.p601002());
+        iwin.create(wincalc.script.Winscript.test(Wincalc.prj, null));
         iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
         iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
         iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           

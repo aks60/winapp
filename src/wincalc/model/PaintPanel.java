@@ -6,18 +6,19 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import wincalc.Wincalc;
+import wincalc.script.Winscript;
 
 public class PaintPanel extends JPanel {
 
-    private Wincalc iwin = new Wincalc();
-    
-    public PaintPanel() {
-        
+    private Wincalc iwin = null;
+
+    public PaintPanel(Wincalc iwin) {
+        this.iwin = iwin;
         iwin.graphics2D = (Graphics2D) this.getGraphics();
-        iwin.create(wincalc.script.Winscript.p601002());
-        
+        iwin.create(Winscript.test(Wincalc.prj, 433));
+
     }
-    
+
     public void saveImage(String name, String type) {
 
         BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -31,17 +32,18 @@ public class PaintPanel extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
-        
+
         super.paintComponent(g);
 
-        float max1 = getWidth() + getHeight() - 300;
-        float max2 = iwin.width + iwin.height;
-        iwin.scale = 1.2f * max1 / max2;        
-        
-        Graphics2D gc = (Graphics2D) g; 
-        gc.setColor(getBackground());
-        iwin.graphics2D = gc;
-        iwin.rootArea.drawWin(getWidth(), getHeight());
-        
+        if (iwin.rootArea != null) {
+            float max1 = getWidth() + getHeight() - 300;
+            float max2 = iwin.width + iwin.height;
+            iwin.scale = 1.1f * max1 / max2;
+
+            Graphics2D gc = (Graphics2D) g;
+            gc.setColor(getBackground());
+            iwin.graphics2D = gc;
+            iwin.rootArea.drawWin(getWidth(), getHeight());
+        }
     }
 }

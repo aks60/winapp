@@ -4,22 +4,26 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eSystree;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import swing.DefFieldRenderer;
 import wincalc.script.AreaRoot;
 import swing.DefTableModel;
+import wincalc.Wincalc;
 import wincalc.model.PaintPanel;
+import wincalc.script.Winscript;
 
 public class Design extends javax.swing.JFrame {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
+    private DefFieldRenderer rsvSystree;
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -34,19 +38,22 @@ public class Design extends javax.swing.JFrame {
         }
     };
     private AreaRoot rootArea;
-    private PaintPanel paintPanel = new  PaintPanel();
+    private Wincalc iwin = new Wincalc();
+    private PaintPanel paintPanel = new PaintPanel(iwin);
 
     public Design() {
         initComponents();
         initElements();
-        
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
+              
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);        
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
+        rsvSystree = new DefFieldRenderer(rsmSystree);
         loadTree1("xxxx");
+        
     }
 
     public void loadTree1(String name) {
-        
+
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
         Query q = qSystree.table(eSystree.up.tname());
@@ -84,12 +91,26 @@ public class Design extends javax.swing.JFrame {
         return nodeList2;
     }
 
-    
-    private void selectTree(ListSelectionEvent event) {
-
+    private void selectionTree() {
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof UserNode) {
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                int id = node.record.getInt(eSystree.id);
+                Query q = qSystree.table(eSystree.up.tname());
+                for (int i = 0; i < q.size(); i++) {
+                    if (id == q.get(i).getInt(eSystree.id)) {
+                        rsvSystree.write(i);
+                    }
+                }
+                if (selectedNode.isLeaf()) {
+                    iwin.create(Winscript.test(601002, id));
+                    System.out.println("forms.Design.selectionTree() = " + id );
+                }
+            }
+        }
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -591,12 +612,11 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-             paintPanel.saveImage("img777", "png");
+      iwin.create(Winscript.test(Wincalc.prj, 433));
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-      pan4.paintComponents(pan4.getGraphics());
-      this.setVisible(true);
+
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -669,9 +689,15 @@ public class Design extends javax.swing.JFrame {
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-    } 
+        tree1.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
+
+            public void valueChanged(TreeSelectionEvent tse) {
+                selectionTree();
+            }
+        });
+    }
 // </editor-fold> 
-    
+
     private class UserNode {
 
         Record record;
@@ -683,5 +709,5 @@ public class Design extends javax.swing.JFrame {
         public String toString() {
             return record.getStr(eSystree.name);
         }
-    }       
+    }
 }

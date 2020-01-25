@@ -608,6 +608,7 @@ public class Sysprof extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField5;
     private javax.swing.JFormattedTextField txtField6;
     // End of variables declaration//GEN-END:variables
+    
     private void initElements() {
 
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
