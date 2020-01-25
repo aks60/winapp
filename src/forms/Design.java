@@ -105,6 +105,8 @@ public class Design extends javax.swing.JFrame {
                 }
                 if (selectedNode.isLeaf()) {
                     iwin.create(Winscript.test(601002, id));
+                    panDesign.repaint();
+                    //paintPanel.setVisible(false);
                     System.out.println("forms.Design.selectionTree() = " + id );
                 }
             }
@@ -478,6 +480,11 @@ public class Design extends javax.swing.JFrame {
         btnSquare4.setMinimumSize(new java.awt.Dimension(32, 32));
         btnSquare4.setName("areaSquare"); // NOI18N
         btnSquare4.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnSquare4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSquare4ActionPerformed(evt);
+            }
+        });
         pan12.add(btnSquare4);
 
         btnSquare5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
@@ -486,6 +493,11 @@ public class Design extends javax.swing.JFrame {
         btnSquare5.setMinimumSize(new java.awt.Dimension(32, 32));
         btnSquare5.setName("areaSquare"); // NOI18N
         btnSquare5.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnSquare5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSquare5ActionPerformed(evt);
+            }
+        });
         pan12.add(btnSquare5);
 
         pan2.add(pan12, java.awt.BorderLayout.WEST);
@@ -613,6 +625,8 @@ public class Design extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
       iwin.create(Winscript.test(Wincalc.prj, 433));
+      panDesign.repaint();
+      
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
@@ -633,9 +647,16 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArea
 
     private void btnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElem
-        JButton btn = (JButton) evt.getSource();
-        //addTree(btn.getName());
+                
     }//GEN-LAST:event_btnElem
+
+    private void btnSquare4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare4ActionPerformed
+
+    }//GEN-LAST:event_btnSquare4ActionPerformed
+
+    private void btnSquare5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSquare5ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

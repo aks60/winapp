@@ -699,6 +699,9 @@
                   <Dimension value="[32, 32]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSquare4ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSquare5">
               <Properties>
@@ -721,6 +724,9 @@
                   <Dimension value="[32, 32]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSquare5ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
