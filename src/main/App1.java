@@ -10,7 +10,7 @@ import convert.Convert;
 import java.util.Locale;
 import javax.swing.SwingWorker;
 import forms.Artikls;
-import forms.Sysprof;
+import forms.Systree;
 import forms.Design;
 import forms.Element;
 import forms.Furn;
@@ -878,7 +878,7 @@ public class App1 extends javax.swing.JFrame {
         new FrameListener2() {
 
             public void request(Object obj) {
-                eApp1.Sysprof.createFrame(App1.this);
+                eApp1.Systree.createFrame(App1.this);
             }
         };
 }//GEN-LAST:event_mnConstr
@@ -1219,7 +1219,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     public enum eApp1 {
 
         App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param, 
-        Glass, Furn, Kits, Sysprof, Partner, Order, AboutBox, Syscons;
+        Glass, Furn, Kits, Systree, Partner, Order, AboutBox, Syscons;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1261,8 +1261,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Kits:
                         frame = new Kits();
                         break;
-                    case Sysprof:
-                        frame = new Sysprof();
+                    case Systree:
+                        frame = new Systree();
                         break;
                     case Partner:
                         frame = new Partner();

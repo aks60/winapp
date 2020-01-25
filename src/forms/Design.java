@@ -103,12 +103,15 @@ public class Design extends javax.swing.JFrame {
                         rsvSystree.write(i);
                     }
                 }
-                if (selectedNode.isLeaf()) {
-                    iwin.create(Winscript.test(601002, id));
-                    panDesign.repaint();
-                    //paintPanel.setVisible(false);
-                    System.out.println("forms.Design.selectionTree() = " + id );
+                int typeSys = node.record.getInt(eSystree.types);
+                if (selectedNode.isLeaf() && (typeSys == 1 || typeSys == 2)) {
+                    
+                    iwin.create(Winscript.test(601003, id));
+                    paintPanel.setVisible(true);                    
+                } else {
+                  paintPanel.setVisible(false);  
                 }
+                 panDesign.repaint();
             }
         }
     }

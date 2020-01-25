@@ -15,9 +15,7 @@ public class PaintPanel extends JPanel {
 
     public PaintPanel(Wincalc iwin) {
         this.iwin = iwin;
-        iwin.graphics2D = (Graphics2D) this.getGraphics();
-        //iwin.create(Winscript.test(Wincalc.prj, 433));
-
+        //iwin.graphics2D = (Graphics2D) this.getGraphics();
     }
 
     public void saveImage(String name, String type) {
