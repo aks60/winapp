@@ -18,12 +18,20 @@ public enum TypeSys implements Enam {
     ROLLT(8, "Роллета"),
     VITRAG(9, "Витраж");
 
-    public int value;
-    public String name;
+    public int key;
+    public String val;
 
-    TypeSys(int value, String name) {
-        this.value = value;
-        this.name = name;
+    TypeSys(int key, String val) {
+        this.key = key;
+        this.val = val;
+    }
+    
+    public Object key() {
+        return key;
+    }
+    
+    public String val() {
+       return val; 
     }
     
     public Enam[] enams() {

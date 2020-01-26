@@ -1,6 +1,5 @@
 /*
- * Класс для связывания полей JTextField
- * с моделью данных
+ * Связывание полей JTextField с моделью данных
  */
 package swing;
 
@@ -15,20 +14,18 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 import dataset.Field;
 import java.awt.Component;
-import java.util.ArrayList;
 
 /**
  * <p>
  * Визуализация полей </p>
- *
  */
 public class DefFieldRenderer {
 
-    private int index;
+    private int row;
     private DefTableModel tableModel = null;
-    private ArrayList<Enam> listEnam = new ArrayList(8);
-    private HashMap<JTextComponent, Enam> mapTxt = new HashMap(16);
-    private HashMap<Component, Enam> mapBtn = new HashMap(16);
+    private HashMap<Field, Enam[]> mapEnam = new HashMap(8);
+    private HashMap<JTextComponent, Field> mapTxt = new HashMap(16);
+    private HashMap<Component, Field> mapBtn = new HashMap(16);
     private static boolean update = false;
 
     //Конструктор 1
@@ -36,58 +33,65 @@ public class DefFieldRenderer {
         this.tableModel = tableModel;
     }
 
-    //Конструктор 2
-    public DefFieldRenderer(DefTableModel tableModel, Enam[]... enams) {
-        this.tableModel = tableModel;
-        for (Enam[] en : enams) {
-            for (Enam it : en) {
-                listEnam.add(it);
-            }
-        }
-    }
-
     //Добавить компонент отображения
-    public void add(Enam field, JTextComponent comp) {
-        add(field, comp, null);
-    }
+    public void add(Field field, JTextComponent comp) {
 
-    //Данные для отображения и слушатель DocListiner для отслеживания редактирования
-    public void add(Enam field, JTextComponent comp, Component btn) {
         mapTxt.put(comp, field);
-        if (btn != null) {
-            mapBtn.put(btn, field);
-        }
         //если редактирование запрещено
         if (field instanceof Field) {
-            if (((Field) field).meta().edit() == false) {
+            if (field.meta().edit() == false) {
                 comp.setEditable(false);
                 comp.setBackground(new java.awt.Color(255, 255, 255));
-            }            
+            }
         }
         comp.getDocument().addDocumentListener(new DocListiner(comp));
     }
-    
-    //Записать данные в компоненты из модели данных
-    public void write(Integer index) {
+
+    //Данные для отображения и слушатель DocListiner для отслеживания редактирования
+    public void add(Field field, JTextComponent comp, Component btn) {
+
+        add(field, comp);
+        mapBtn.put(btn, field);
+
+    }
+
+    public void add(Field field, JTextComponent comp, Enam[] enam) {
+
+        add(field, comp);
+        mapEnam.put(field, enam);
+    }
+
+    public void add(Field field, JTextComponent comp, Component btn, Enam[] enam) {
+        add(field, comp, btn);
+        mapEnam.put(field, enam);
+    }
+
+    //Записать в компоненты из модели данных
+    public void write(Integer row) {
+
         update = false;
-        this.index = index;
-        for (Map.Entry<JTextComponent, Enam> me : mapTxt.entrySet()) {
+        this.row = row;
+        for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
             JTextComponent comp = me.getKey();
-            if (me.getValue() instanceof Field) {
-                
-                Field field = (Field) me.getValue();
-                Object val = tableModel.query.table(field.tname()).getAs(index, field, "");
-                if (index == null || val == null) {
-                    comp.setText("");
-                } else if (field.meta().type().equals(Field.TYPE.DATE)) {
-                    comp.setText(Util.DateToStr(val));
-                } else {
-                    comp.setText(val.toString());
-                }                
+            Field field = me.getValue();
+            Object val = tableModel.query.table(field.tname()).getAs(row, field, "");
+
+            if (row == null || val == null) {
+                comp.setText("");
+
+            } else if (field.meta().type().equals(Field.TYPE.DATE)) {
+                comp.setText(Util.DateToStr(val));
+
+            } else if (mapEnam.containsKey(field)) {
+                for (Enam enam : mapEnam.get(field)) {
+                    if (enam.key().equals(val)) {
+                        comp.setText(enam.val());
+                    }
+                }
             } else {
-                
-                comp.setText("aksenov777");
+                comp.setText(val.toString());
             }
+
             comp.getCaret().setDot(1);
         }
         update = true;
@@ -119,11 +123,9 @@ public class DefFieldRenderer {
 
         //При редактированиии одного из полей
         public void fieldUpdate() {
-            if (mapTxt.get(comp) instanceof Field) {
-                if (update == true && index != -1) {
-                    if (tableModel.getRowCount() > 0) {
-                        tableModel.setValueAt(comp.getText(), index, (Field) mapTxt.get(comp));
-                    }
+            if (update == true && row != -1) {
+                if (tableModel.getRowCount() > 0) {
+                    tableModel.setValueAt(comp.getText(), row, mapTxt.get(comp));
                 }
             }
         }

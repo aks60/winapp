@@ -6,10 +6,18 @@ public interface Enam {
 
     public int ordinal();
 
-    default Field[] fields() {
+    default Object key() {
+        return null;
+    }
+
+    default String val() {
         return null;
     }
     
+    default Field[] fields() {
+        return null;
+    }
+
     default Enam[] enams() {
         return fields();
     }
