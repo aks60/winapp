@@ -35,8 +35,8 @@ import wincalc.constr.Constructive;
 public class Wincalc {
 
     ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601002;
-    ///////////////////////////////////////////////////////////////////////////
+    public static int prj = 601003;
+    ////////////////////////////////////////////////////////////////////////////
     
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
@@ -91,7 +91,7 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        LinkedList<AreaContainer> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
+        LinkedList<AreaScene> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
 

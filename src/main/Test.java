@@ -6,6 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.FrameToFile;
 import dataset.Query;
+import dataset.Record;
+import domain.eSysprof;
+import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
@@ -63,23 +66,16 @@ public class Test {
 
         //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
         //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-        //Entity.firebird(Query.connection, "LIS_ORD");
-        //Query sysprofRec = eSysprof.query.select(eSysprof.up, "where", eSysprof.systree_id, "=", 22, "and", eSysprof.types, "=", 44).table(eSysprof.up.tname());
-        //Quaery record = eSysprof.query.select().stream().filter(record -> record.get(eSysprof.id) != null);
-        //Record recs = eSysprof.query.newRecord(Query.SEL);
-        //Record record = eSysprof.query.select().stream()
-        //        .filter(rec -> rec.getInt(eSysprof.systree_id) == 39 && rec.getInt(eSysprof.types) == 2).findFirst().orElse(null);
-        //Query q1 = new Query(eArtikls.values()).table(eArtikls.up.tname());
-        //Query q1 = eArtikls.query.select(eArtikls.up, "order by", eArtikls.id);
-        //int id = q1.getInt(0, eArtikls.id);
-        //q1.select(eArtikls.up, "where", eArtikls.id, "= 2");
-        //int i2 = q1.getInt(0, eArtikls.id);
-        //Query q2 = new Query(eArtikls.values()).select(eArtikls.up, "where", eArtikls.id, "=", 2, "order by", eArtikls.code);
-        //Table yyy = q2.query(eArtikls.up.tname());
-        //Query qGrupcol = new Query(eGrupcol.id, eGrupcol.gnumb, eGrupcol.gunic, eGrupcol.gname, eGrupcol.gkoef).select("grupcol order by grupcol.gname");
-        //Query qColslst = new Query(eTexture.values());
-        //int cgrup = 1;
-        //qColslst.select("colslst where colslst.cgrup = " + cgrup + " order by colslst.cname");
+
+        Query q = new Query(eSysprof.values(), eSystree.values());
+        Query q2 = q.select(eSysprof.up, "left join", eSystree.up, "on", eSysprof.systree_id, "=", eSystree.id);
+        
+        Query q3 = q2.table(eSysprof.up.tname());
+        Query q4 = q2.table(eSystree.up.tname());
+        
+        int id = q2.getAs(1, eSystree.id, -1);
+        int id2 = q2.getAs(1, eSysprof.id, -1);
+        int mmm = 0;
     }
 
     static void parseJson() {

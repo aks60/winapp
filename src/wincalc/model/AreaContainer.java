@@ -84,65 +84,6 @@ public abstract class AreaContainer extends Com5t {
         }
     }
 
-    //Обход(схлопывание) соединений area
-    public void passJoinArea(HashMap<String, ElemJoinig> hmJoin) {
-
-        ElemJoinig elemJoinVal = null;
-        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
-        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
-        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
-        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
-
-        //if (getAdjoinedElem(LayoutArea.TOP) instanceof AreaSimple) {
-        elemJoinVal = hmJoin.get(key1);
-        if (elemJoinVal == null) {
-            hmJoin.put(key1, new ElemJoinig(iwin));
-            elemJoinVal = hmJoin.get(key1);
-        }
-        if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
-        }
-        if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
-        }
-
-        elemJoinVal = hmJoin.get(key2);
-        if (elemJoinVal == null) {
-            hmJoin.put(key2, new ElemJoinig(iwin));
-            elemJoinVal = hmJoin.get(key2);
-        }
-        if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
-        }
-        if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
-        }
-        //}
-        elemJoinVal = hmJoin.get(key3);
-        if (elemJoinVal == null) {
-            hmJoin.put(key3, new ElemJoinig(iwin));
-            elemJoinVal = hmJoin.get(key3);
-        }
-        if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
-        }
-        if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
-        }
-
-        elemJoinVal = hmJoin.get(key4);
-        if (elemJoinVal == null) {
-            hmJoin.put(key4, new ElemJoinig(iwin));
-            elemJoinVal = hmJoin.get(key4);
-        }
-        if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
-        }
-        if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
-        }
-    }
-
     // Получить примыкающий элемент (используется при нахождении элементов соединений)
     protected ElemComp adjoinedElem(LayoutArea layoutSide) {
 
