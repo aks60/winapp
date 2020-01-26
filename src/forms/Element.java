@@ -79,7 +79,7 @@ public class Element extends javax.swing.JFrame {
         record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
         qElemgrp.table(eElemgrp.up.tname()).add(0, record);
         for (int index = 0; index < qElemgrp.table(eElemgrp.up.tname()).size(); ++index) {
-            int level = qElemgrp.table(eElemgrp.up.tname()).getInt(index, eElemgrp.level);
+            int level = qElemgrp.table(eElemgrp.up.tname()).getAs(index, eElemgrp.level, -1);
             if (level == 5) {
                 Record record2 = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
                 record2.setNo(eElemgrp.id, -5);

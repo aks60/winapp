@@ -14,15 +14,11 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
-//TODO Удалить лишние проверки .equals("up") кроме конструктора
 public class Query extends Table {
-
-    private Query root = this;
-    private HashMap<String, Query> mapQuery = new HashMap();    
 
     private static String schema = "";
     public static Connection connection = null;
-    public static LinkedHashSet<Query> setOpenTable = new LinkedHashSet<Query>();
+    public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
     public static String INS = "INS";
     public static String SEL = "SEL";
     public static String UPD = "UPD";
@@ -72,10 +68,10 @@ public class Query extends Table {
     }
 
     public Query select() {
-        setOpenTable.add(root);
+        listOpenTable.add(root);
         return root.fields()[0].selectSql();
     }
-    
+
     public Query select(Object... s) {
         String sql = "";
         for (Object p : s) {
