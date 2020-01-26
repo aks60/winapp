@@ -2,7 +2,9 @@ package wincalc.model;
 
 import enums.LayoutArea;
 import enums.TypeElem;
+import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.LinkedList;
 import wincalc.Wincalc;
 
 public class AreaScene extends AreaContainer {
@@ -69,6 +71,64 @@ public class AreaScene extends AreaContainer {
         }
     }
     
+    // Получить примыкающий элемент (используется при нахождении элементов соединений)
+   /* protected ElemComp adjoinedElem(LayoutArea layoutSide) {
+
+        LinkedList<Com5t> listElem = owner.listElem(this, TypeElem.AREA, TypeElem.IMPOST);
+        for (int index = 0; index < listElem.size(); ++index) {
+
+            Com5t elemBase = listElem.get(index);
+            if (elemBase.id != id) {
+                continue; //пропускаем если другая ареа
+            }
+            EnumMap<LayoutArea, ElemFrame> mapFrame = root().mapFrame;
+            if (index == 0 && owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.VERT && root().typeElem() == TypeElem.ARCH) {
+                return mapFrame.get(TypeElem.ARCH);
+            } else if (owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.HORIZ && root().typeElem() == TypeElem.ARCH) {
+                return mapFrame.get(TypeElem.ARCH);
+            }
+
+            if (owner.equals(root()) && owner.layout() == LayoutArea.VERT) {
+                if (layoutSide == LayoutArea.TOP) {
+
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
+                } else if (layoutSide == LayoutArea.BOTTOM) {
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
+                } else {
+                    return root().mapFrame.get(layoutSide);
+                }
+            } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZ) {
+                if (layoutSide == LayoutArea.LEFT) {
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
+                } else if (layoutSide == LayoutArea.RIGHT) {
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
+                } else {
+                    return root().mapFrame.get(layoutSide);
+                }
+
+            } else {
+                if (owner.layout() == LayoutArea.VERT) {
+                    if (layoutSide == LayoutArea.TOP) {
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                    } else if (layoutSide == LayoutArea.BOTTOM) {
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                    } else {
+                        return owner.adjoinedElem(layoutSide);
+                    }
+                } else {
+                    if (layoutSide == LayoutArea.LEFT) {
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                    } else if (layoutSide == LayoutArea.RIGHT) {
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                    } else {
+                        return owner.adjoinedElem(layoutSide);
+                    }
+                }
+            }
+        }
+        return null;
+    }*/
+
     @Override
     public TypeElem typeElem() {
         return TypeElem.AREA;
