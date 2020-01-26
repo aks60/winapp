@@ -390,7 +390,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         jLabel20.setFont(common.Util.getFont(0,0));
-        jLabel20.setText("Тип изделия");
+        jLabel20.setText("Название изделия");
         jLabel20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel20.setPreferredSize(new java.awt.Dimension(160, 18));
 

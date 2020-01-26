@@ -634,7 +634,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="common.Util.getFont(0,0)" type="code"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&#x422;&#x438;&#x43f; &#x438;&#x437;&#x434;&#x435;&#x43b;&#x438;&#x44f;"/>
+                    <Property name="text" type="java.lang.String" value="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435; &#x438;&#x437;&#x434;&#x435;&#x43b;&#x438;&#x44f;"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                         <EtchetBorder bevelType="0"/>
