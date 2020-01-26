@@ -9,6 +9,7 @@ import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprof;
 import domain.eSystree;
+import enums.TypeSys;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JTable;
@@ -55,7 +56,7 @@ public class Systree extends javax.swing.JFrame {
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
         new DefTableModel(tab4, qSyspar1, eSyspar1.id, eSyspar1.val, eSyspar1.fixed);
 
-        rsvSystree = new DefFieldRenderer(rsmSystree);
+        rsvSystree = new DefFieldRenderer(rsmSystree, TypeSys.values());
         rsvSystree.add(eSystree.glas, txtField1);
         rsvSystree.add(eSystree.size, txtField2);
         rsvSystree.add(eSystree.col1, txtField3);

@@ -1,8 +1,11 @@
 
 package enums;
 
+import dataset.Enam;
+import dataset.Field;
 
-public enum TypeSys {
+
+public enum TypeSys implements Enam {
     
     EMPTY(0, "Не определено"),
     WIN_OPEN_IN(1, "Окно открывание внутрь"),
@@ -21,5 +24,9 @@ public enum TypeSys {
     TypeSys(int value, String name) {
         this.value = value;
         this.name = name;
+    }
+    
+    public Enam[] enams() {
+        return values();
     }   
 }

@@ -3,13 +3,9 @@ package dataset;
 import java.util.Date;
 import java.util.HashSet;
 
-/**
- *
- * @author Aksenov Sergey
- *
- * Поле таблицы
- */
-public interface Field {
+
+//Поле таблицы
+public interface Field extends Enam{
 
     public static enum TYPE {
 
@@ -60,13 +56,6 @@ public interface Field {
         }
         return str2.toString().toUpperCase();
     }
-
-    public Field[] fields();
-
-    public int ordinal();
-
-    public String name();
-   
     
     public MetaField meta();
     
@@ -86,18 +75,6 @@ public interface Field {
     default String deleteSql(Record record) {
         return null;
     }
-//    
-//    default Field[] key() {
-//      return new Field[]  {fields()[1]};  
-//    }
-//    
-//    default Field[] unique() {
-//        return null;
-//    }
-//    
-//    default Field[] foreign() {
-//        return null;
-//    }
     
     public boolean equals(Object other);    
 }
