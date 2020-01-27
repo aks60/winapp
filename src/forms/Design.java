@@ -91,7 +91,7 @@ public class Design extends javax.swing.JFrame {
                 int typeSys = node.record.getInt(eSystree.types);
                 if (selectedNode.isLeaf() && (typeSys == 1 || typeSys == 2)) {
 
-                    iwin.create(Winscript.test(601002, id));
+                    iwin.create(Winscript.test(Wincalc.prj, id));
                     paintPanel.setVisible(true);
                 } else {
                     paintPanel.setVisible(false);

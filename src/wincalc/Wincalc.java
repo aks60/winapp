@@ -5,7 +5,7 @@ import wincalc.model.ElemFrame;
 import wincalc.model.AreaStvorka;
 import wincalc.model.AreaArch;
 import wincalc.model.AreaTriangl;
-import wincalc.model.ElemJoinig;
+import wincalc.model.ElemJoining;
 import wincalc.model.AreaContainer;
 import wincalc.model.AreaSquare;
 import wincalc.model.AreaTrapeze;
@@ -35,7 +35,7 @@ import wincalc.constr.Constructive;
 public class Wincalc {
 
     ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601003;
+    public static int prj = 601001;
     ////////////////////////////////////////////////////////////////////////////
     
     protected final Constructive constr = null;
@@ -62,7 +62,7 @@ public class Wincalc {
     private HashMap<Integer, String> mapPro4Params = new HashMap();
     public Record sysconsRec = null; //константы
     protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию
-    public HashMap<String, ElemJoinig> mapJoin = new HashMap(); //список соединений рам и створок
+    public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
 
@@ -99,21 +99,21 @@ public class Wincalc {
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         //Соединения рамы
-        rootArea.joinFrame();  //обход соединений и кальк. углов рамы
+        rootArea.joinFrame();  //обход соединений и кальк. углов 
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
-        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
-
-        //Соединения створок
-        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
-
-        //Список элементов
-        LinkedList<AreaContainer> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
-                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
+//        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
+//
+//        //Соединения створок
+//        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
+//        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
+//
+//        //Список элементов
+//        LinkedList<AreaContainer> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
+//                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
 
         //Тестирование
         if (Main.dev == true) {
-            System.out.println(productJson); //вывод на консоль json
+            //System.out.println(productJson); //вывод на консоль json
             //Specification.write_txt(constr, rootArea.specificList()); //вывод на тестирование в DLL
             //Specification.write_txt2(constr, rootArea.specificList()); //вывод уникального индекса
             //CalcBase.test_param(ParamSpecific.paramSum); //тестирование парам. спецификации
@@ -148,7 +148,7 @@ public class Wincalc {
 
             //Определим напрвление построения окна
             String layoutObj = mainObj.get("layoutArea").getAsString();
-            LayoutArea layoutRoot = ("VERTICAL".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
+            LayoutArea layoutRoot = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
             if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
                 rootArea = new AreaSquare(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
@@ -237,7 +237,7 @@ public class Wincalc {
         float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
 
         String layoutObj = objArea.get("layoutArea").getAsString();
-        LayoutArea layoutArea = ("VERTICAL".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
+        LayoutArea layoutArea = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
         String id = objArea.get("id").getAsString();
         AreaScene sceneArea = new AreaScene(this, ownerArea, id, layoutArea, width, height);
         ownerArea.addElem(sceneArea);

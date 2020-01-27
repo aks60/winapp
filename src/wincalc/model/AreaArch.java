@@ -29,7 +29,7 @@ public class AreaArch extends AreaContainer {
         String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
 
         //Угловое соединение левое верхнее
-        ElemJoinig elemJoin1 = new ElemJoinig(iwin);
+        ElemJoining elemJoin1 = new ElemJoining(iwin);
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.ARCH);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
         iwin.mapJoin.put(key1, elemJoin1);
@@ -52,7 +52,7 @@ public class AreaArch extends AreaContainer {
         elemJoin1.elemJoinBottom.anglCut(ElemComp.SIDE_START, elemJoin1.cutAngl1);
 
         //Угловое соединение правое верхнее
-        ElemJoinig elemJoin2 = new ElemJoinig(iwin);
+        ElemJoining elemJoin2 = new ElemJoining(iwin);
         elemJoin2.elemJoinLeft = mapFrame.get(LayoutArea.ARCH);
         elemJoin2.elemJoinBottom = mapFrame.get(LayoutArea.RIGHT);
         iwin.mapJoin.put(key2, elemJoin2);
@@ -63,7 +63,7 @@ public class AreaArch extends AreaContainer {
         elemJoin2.elemJoinBottom.anglCut(ElemComp.SIDE_END, elemJoin2.cutAngl1);
 
         //Угловое соединение правое нижнее
-        ElemJoinig elemJoin3 = new ElemJoinig(iwin);
+        ElemJoining elemJoin3 = new ElemJoining(iwin);
         elemJoin3.elemJoinTop = mapFrame.get(LayoutArea.RIGHT);
         elemJoin3.elemJoinLeft = mapFrame.get(LayoutArea.BOTTOM);
         iwin.mapJoin.put(key3, elemJoin3);
@@ -74,7 +74,7 @@ public class AreaArch extends AreaContainer {
         elemJoin3.elemJoinLeft.anglCut(ElemComp.SIDE_END, elemJoin3.cutAngl2);
 
         //Угловое соединение левое нижнее
-        ElemJoinig elemJoin4 = new ElemJoinig(iwin);
+        ElemJoining elemJoin4 = new ElemJoining(iwin);
         elemJoin4.elemJoinRight = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin4.elemJoinTop = mapFrame.get(LayoutArea.LEFT);
         iwin.mapJoin.put(key4, elemJoin4);

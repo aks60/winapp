@@ -203,6 +203,75 @@ public abstract class AreaContainer extends Com5t {
 
     public abstract void joinFrame();
 
+    //Обход(схлопывание) соединений area
+    public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
+
+        String side = "LEFT";
+        
+        LinkedList<Com5t> listElem = root().listElem(this, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
+        for (Com5t com5t : listElem) {
+           if(com5t.inside(x2 + 1, y1 + 1) == true) {
+               if(side.equals("LEFT")) {
+                 System.out.println(com5t.id); 
+               }
+           } 
+        }       
+        
+//        ElemJoining elemJoinVal = null;
+//        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
+//        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
+//        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
+//        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
+//
+//        elemJoinVal = mapJoin.get(key1);
+//        if (elemJoinVal == null) {
+//            mapJoin.put(key1, new ElemJoining(iwin));
+//            elemJoinVal = mapJoin.get(key1);
+//        }
+//        if (elemJoinVal.elemJoinRight == null) {
+//            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
+//        }
+//        if (elemJoinVal.elemJoinBottom == null) {
+//            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
+//        }
+//
+//        elemJoinVal = mapJoin.get(key2);
+//        if (elemJoinVal == null) {
+//            mapJoin.put(key2, new ElemJoining(iwin));
+//            elemJoinVal = mapJoin.get(key2);
+//        }
+//        if (elemJoinVal.elemJoinLeft == null) {
+//            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
+//        }
+//        if (elemJoinVal.elemJoinBottom == null) {
+//            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
+//        }
+//        
+//        elemJoinVal = mapJoin.get(key3);
+//        if (elemJoinVal == null) {
+//            mapJoin.put(key3, new ElemJoining(iwin));
+//            elemJoinVal = mapJoin.get(key3);
+//        }
+//        if (elemJoinVal.elemJoinTop == null) {
+//            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
+//        }
+//        if (elemJoinVal.elemJoinLeft == null) {
+//            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
+//        }
+//
+//        elemJoinVal = mapJoin.get(key4);
+//        if (elemJoinVal == null) {
+//            mapJoin.put(key4, new ElemJoining(iwin));
+//            elemJoinVal = mapJoin.get(key4);
+//        }
+//        if (elemJoinVal.elemJoinTop == null) {
+//            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
+//        }
+//        if (elemJoinVal.elemJoinRight == null) {
+//            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
+//        }
+    }
+
     @Override
     public LinkedList<Com5t> listChild() {
         return listChild;
