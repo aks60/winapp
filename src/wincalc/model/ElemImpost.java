@@ -21,7 +21,7 @@ public class ElemImpost extends ElemSimple {
         super(id);
     }
 
-    public ElemImpost(AreaContainer owner, String id) {
+    public ElemImpost(AreaSimple owner, String id) {
 
         super(id);
         this.owner = owner;
@@ -36,11 +36,11 @@ public class ElemImpost extends ElemSimple {
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
                 float dh = articlRec.getFloat(eArtikl.height) / 2;     
-                owner.addElem(new AreaContainer(iwin, owner, genId(), LayoutArea.HORIZ, owner.width, dh));
+                owner.listChild.add(new AreaSimple(iwin, owner, genId(), LayoutArea.HORIZ, owner.width, dh));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
-            if (owner.listChild().get(index) instanceof AreaContainer) {
+            if (owner.listChild().get(index) instanceof AreaSimple) {
                 Com5t prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
                 float dx = articlRec.getFloat(eArtikl.size_centr);
 

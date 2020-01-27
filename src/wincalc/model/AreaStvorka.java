@@ -16,12 +16,12 @@ import java.awt.Color;
 import java.util.Map;
 import wincalc.Wincalc;
 
-public class AreaStvorka extends AreaContainer {
+public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
-    public AreaStvorka(Wincalc iwin, AreaContainer owner, String id, String param) {
+    public AreaStvorka(Wincalc iwin, AreaSimple owner, String id, String param) {
 
         super(id);
         this.iwin = iwin;

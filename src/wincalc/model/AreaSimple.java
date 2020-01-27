@@ -16,22 +16,21 @@ import java.io.ByteArrayOutputStream;
 import main.Main;
 import wincalc.Wincalc;
 
-public class AreaContainer extends Com5t {
+public class AreaSimple extends Com5t {
 
-    private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
+    public LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
 
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
     //Конструктор
-    public AreaContainer(String id) {
+    public AreaSimple(String id) {
         super(id);
     }
 
     //Конструктор парсинга скрипта
-    public AreaContainer(Wincalc iwin, AreaContainer owner, String id, LayoutArea layout, float width, float height) {
-        this(owner, id, layout, width, height, 1, 1, 1);
-        this.iwin = iwin;
+    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height) {
+        this(iwin, owner, id, layout, width, height, 1, 1, 1);        
         //Коррекция размера стеклопакета(створки) арки.
         //Уменьшение на величину добавленной подкладки над импостом.
         if (owner != null && TypeElem.ARCH == owner.typeElem()
@@ -43,8 +42,9 @@ public class AreaContainer extends Com5t {
     }
 
     //Конструктор
-    public AreaContainer(AreaContainer owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
+        this.iwin = iwin;
         this.owner = owner;
         this.layout = layout;
         this.width = width;
@@ -55,7 +55,7 @@ public class AreaContainer extends Com5t {
         initDimension(owner);
     }
 
-    private void initDimension(AreaContainer owner) {
+    private void initDimension(AreaSimple owner) {
         if (owner != null) {
             //Заполним по умолчанию
             if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
@@ -66,8 +66,8 @@ public class AreaContainer extends Com5t {
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
-                if (owner.listChild().get(index) instanceof AreaContainer) {
-                    AreaContainer prevArea = (AreaContainer) owner.listChild().get(index);
+                if (owner.listChild().get(index) instanceof AreaSimple) {
+                    AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
 
                     if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
                         dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
@@ -153,26 +153,26 @@ public class AreaContainer extends Com5t {
         }
         for (Com5t elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
-            if (elemBase instanceof AreaContainer) {
-                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase).mapFrame.entrySet()) {
+            if (elemBase instanceof AreaSimple) {
+                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase).mapFrame.entrySet()) {
                     arrElem.add(elemFrame.getValue());
                 }
                 for (Com5t elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
-                    if (elemBase2 instanceof AreaContainer) {
-                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase2).mapFrame.entrySet()) {
+                    if (elemBase2 instanceof AreaSimple) {
+                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase2).mapFrame.entrySet()) {
                             arrElem.add(elemFrame.getValue());
                         }
                         for (Com5t elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
-                            if (elemBase3 instanceof AreaContainer) {
-                                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase3).mapFrame.entrySet()) {
+                            if (elemBase3 instanceof AreaSimple) {
+                                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase3).mapFrame.entrySet()) {
                                     arrElem.add(elemFrame.getValue());
                                 }
                                 for (Com5t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
-                                    if (elemBase4 instanceof AreaContainer) {
-                                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase4).mapFrame.entrySet()) {
+                                    if (elemBase4 instanceof AreaSimple) {
+                                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase4).mapFrame.entrySet()) {
                                             arrElem.add(elemFrame.getValue());
                                         }
                                         for (Com5t elemBase5 : elemBase4.listChild()) { //пятый уровень
@@ -278,10 +278,6 @@ public class AreaContainer extends Com5t {
         return listChild;
     }
 
-    public void addElem(Com5t element) {
-        listChild.add(element);
-    }
-
     public ElemFrame addFrame(ElemFrame elemFrame) {
         mapFrame.put(elemFrame.layout(), elemFrame);
         return elemFrame;
@@ -323,7 +319,7 @@ public class AreaContainer extends Com5t {
             //if (line == true) {
             //Прорисовка размера
             this.drawLine1();
-            LinkedList<AreaContainer> areaList = listElem(root(), TypeElem.AREA);
+            LinkedList<AreaSimple> areaList = listElem(root(), TypeElem.AREA);
             areaList.stream().forEach(el -> el.drawLine1());
             //}
             //Рисунок в память

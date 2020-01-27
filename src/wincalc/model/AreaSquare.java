@@ -4,12 +4,10 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
 
-public class AreaSquare extends AreaContainer {
+public class AreaSquare extends AreaSimple {
 
     public AreaSquare(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(null, id, layout, width, height, color1, color2, color3);
-        this.iwin = iwin;
-        this.owner = this;
+        super(iwin, null, id, layout, width, height, color1, color2, color3); 
         parsing(param);
     }
 

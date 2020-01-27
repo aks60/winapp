@@ -21,7 +21,7 @@ public class ElemFrame extends ElemSimple {
         super(id);
     }
 
-    public ElemFrame(AreaContainer owner, String id, LayoutArea side) {
+    public ElemFrame(AreaSimple owner, String id, LayoutArea side) {
         super(id);
         this.owner = owner;
         this.side = side;

@@ -24,7 +24,7 @@ public abstract class Com5t {
     protected static float moveXY = 40;     //смещение рисунка
 
     protected String id = "0"; //идентификатор
-    protected AreaContainer owner = null; //владелец
+    protected AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area
@@ -50,7 +50,7 @@ public abstract class Com5t {
         return id;
     }
 
-    public AreaContainer root() {
+    public AreaSimple root() {
         return iwin.rootArea;
     }
 
