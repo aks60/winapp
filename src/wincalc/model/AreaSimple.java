@@ -147,36 +147,36 @@ public class AreaSimple extends Com5t {
     //Обход(схлопывание) соединений area
     public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
 
-        if (id.equals("6")) {
-            
-            LayoutArea side = LayoutArea.BOTTOM;
-            LayoutArea sideOwner = LayoutArea.NONE;
-            
-            float X = 0, Y = 0;
-            if (side == LayoutArea.TOP) {
-                sideOwner = LayoutArea.VERT;
-                X = (x2 - x1) / 2;
-                Y = y1;
-            } else if (side == LayoutArea.BOTTOM) {
-                sideOwner = LayoutArea.VERT;
-                X = (x2 - x1) / 2;
-                Y = y2;
-            } else if (side == LayoutArea.LEFT) {
-                sideOwner = LayoutArea.HORIZ;
-                X = x1;
-                Y = (y2 - y1) / 2;
-            } else if (side == LayoutArea.RIGHT) {
-                sideOwner = LayoutArea.HORIZ;
-                X = x2;
-                Y = (y2 - y1) / 2;
-            }
-            System.out.println("aks = " + X + "  " + Y);
-            LinkedList<Com5t> listElem = root().listElem(this, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
-            for (Com5t com5t : listElem) {
-                if (com5t.inside(X, Y) == true && owner.layout() == sideOwner) {
-                    com5t.print();
-                }
-            }
+        if (id.equals("7")) {
+
+//            LayoutArea side = LayoutArea.TOP;
+//
+//            float X = 0, Y = 0;
+//            if (side == LayoutArea.TOP) {
+//                X = (x2 - x1) / 2;
+//                Y = y1;
+//            } else if (side == LayoutArea.BOTTOM) {
+//                X = (x2 - x1) / 2;
+//                Y = y2;
+//            } else if (side == LayoutArea.LEFT) {
+//                X = x1;
+//                Y = (y2 - y1) / 2;
+//            } else if (side == LayoutArea.RIGHT) {
+//                X = x2;
+//                Y = (y2 - y1) / 2;
+//            }
+//            System.out.println("aks = " + X + "  " + Y);
+//            Com5t elemFrame = root().mapFrame.get(side);
+//            if (elemFrame.inside(X, Y) == true) {
+//                elemFrame.print();
+//            }
+//            for (Com5t com5t : owner.listChild()) {
+//                if (com5t.typeElem() == TypeElem.IMPOST) {
+//                    if (com5t.inside(X, Y) == true) {
+//                        com5t.print();
+//                    }
+//                }
+//            }
         }
 
 //        ElemJoining elemJoinVal = null;

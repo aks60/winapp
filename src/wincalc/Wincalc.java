@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import main.Main;
 import wincalc.constr.Constructive;
+import wincalc.model.Com5t;
 
 public class Wincalc {
 
@@ -93,7 +94,7 @@ public class Wincalc {
         LinkedList<AreaSimple> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
-
+                
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
