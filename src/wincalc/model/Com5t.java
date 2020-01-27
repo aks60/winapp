@@ -65,7 +65,7 @@ public abstract class Com5t {
 
     public boolean inside(float x, float y) {
         //return (x >= 0) && (x < width) && (y >= 0) && (y < height);
-        return (x >= 0) && (x < x2) && (y >= 0) && (y < y2);
+        return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
     }
 
     public float width() {

@@ -28,7 +28,7 @@ public class AreaSimple extends Com5t {
 
     //Конструктор парсинга скрипта
     public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height) {
-        this(iwin, owner, id, layout, width, height, 1, 1, 1);        
+        this(iwin, owner, id, layout, width, height, 1, 1, 1);
         //Коррекция размера стеклопакета(створки) арки.
         //Уменьшение на величину добавленной подкладки над импостом.
         if (owner != null && TypeElem.ARCH == owner.typeElem()
@@ -147,17 +147,38 @@ public class AreaSimple extends Com5t {
     //Обход(схлопывание) соединений area
     public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
 
-        String side = "LEFT";
-        
-        LinkedList<Com5t> listElem = root().listElem(this, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
-        for (Com5t com5t : listElem) {
-           if(com5t.inside(x2 + 1, y1 + 1) == true) {
-               if(side.equals("LEFT")) {
-                 System.out.println(com5t.id); 
-               }
-           } 
-        }       
-        
+        if (id.equals("6")) {
+            
+            LayoutArea side = LayoutArea.BOTTOM;
+            LayoutArea sideOwner = LayoutArea.NONE;
+            
+            float X = 0, Y = 0;
+            if (side == LayoutArea.TOP) {
+                sideOwner = LayoutArea.VERT;
+                X = (x2 - x1) / 2;
+                Y = y1;
+            } else if (side == LayoutArea.BOTTOM) {
+                sideOwner = LayoutArea.VERT;
+                X = (x2 - x1) / 2;
+                Y = y2;
+            } else if (side == LayoutArea.LEFT) {
+                sideOwner = LayoutArea.HORIZ;
+                X = x1;
+                Y = (y2 - y1) / 2;
+            } else if (side == LayoutArea.RIGHT) {
+                sideOwner = LayoutArea.HORIZ;
+                X = x2;
+                Y = (y2 - y1) / 2;
+            }
+            System.out.println("aks = " + X + "  " + Y);
+            LinkedList<Com5t> listElem = root().listElem(this, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
+            for (Com5t com5t : listElem) {
+                if (com5t.inside(X, Y) == true && owner.layout() == sideOwner) {
+                    com5t.print();
+                }
+            }
+        }
+
 //        ElemJoining elemJoinVal = null;
 //        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
 //        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
@@ -284,7 +305,7 @@ public class AreaSimple extends Com5t {
     public TypeElem typeElem() {
         return TypeElem.AREA;
     }
-    
+
     //Прорисовка окна
     public void drawWin(int width, int height) {
         try {
