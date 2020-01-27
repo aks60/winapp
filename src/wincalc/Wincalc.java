@@ -102,14 +102,14 @@ public class Wincalc {
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
 //        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
-//
-//        //Соединения створок
-//        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-//        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
-//
-//        //Список элементов
-//        LinkedList<AreaContainer> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
-//                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
+
+        //Соединения створок
+        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
+        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
+
+        //Список элементов
+        LinkedList<AreaContainer> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
+                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
 
         //Тестирование
         if (Main.dev == true) {
