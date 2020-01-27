@@ -11,7 +11,7 @@ import enums.TypeProfile;
 import java.awt.Color;
 import wincalc.constr.Specification;
 
-public class ElemImpost extends ElemComp {
+public class ElemImpost extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
     protected float anglCut1 = 90; //угол реза импоста
@@ -36,7 +36,7 @@ public class ElemImpost extends ElemComp {
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
                 float dh = articlRec.getFloat(eArtikl.height) / 2;     
-                owner.addElem(new AreaScene(iwin, owner, genId(), LayoutArea.HORIZ, owner.width, dh));
+                owner.addElem(new AreaContainer(iwin, owner, genId(), LayoutArea.HORIZ, owner.width, dh));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {

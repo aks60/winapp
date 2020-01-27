@@ -6,7 +6,7 @@ import enums.TypeArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import wincalc.model.Com5t;
-import wincalc.model.ElemComp;
+import wincalc.model.ElemSimple;
 
 
 /**

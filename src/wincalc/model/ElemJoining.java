@@ -13,14 +13,14 @@ public class ElemJoining {
 
     public String id = "0"; //идентификатор соединения
     private Wincalc iwin;
-    protected ElemComp elemJoinTop = null;      //
-    protected ElemComp elemJoinBottom = null;   // Элементы соединения, временно для
-    protected ElemComp elemJoinLeft = null;     // схлопывания повторяющихся обходов
-    protected ElemComp elemJoinRight = null;    //
+    protected ElemSimple elemJoinTop = null;      //
+    protected ElemSimple elemJoinBottom = null;   // Элементы соединения, временно для
+    protected ElemSimple elemJoinLeft = null;     // схлопывания повторяющихся обходов
+    protected ElemSimple elemJoinRight = null;    //
 
     protected VariantJoin varJoin = VariantJoin.EMPTY;    // Вариант соединения
-    protected ElemComp joinElement1 = null;  // Элемент соединения 1
-    protected ElemComp joinElement2 = null;  // Элемент соединения 2
+    protected ElemSimple joinElement1 = null;  // Элемент соединения 1
+    protected ElemSimple joinElement2 = null;  // Элемент соединения 2
 
     protected float cutAngl1 = 90;    //Угол реза1
     protected float cutAngl2 = 90;    //Угол реза2
@@ -42,53 +42,53 @@ public class ElemJoining {
             joinElement1 = elemJoinBottom;
             joinElement2 = elemJoinRight;
             varJoin = VariantJoin.VAR2;
-            elemJoinBottom.anglCut(ElemComp.SIDE_START, cutAngl1);
-            elemJoinRight.anglCut(ElemComp.SIDE_END, cutAngl2);
+            elemJoinBottom.anglCut(ElemSimple.SIDE_START, cutAngl1);
+            elemJoinRight.anglCut(ElemSimple.SIDE_END, cutAngl2);
 
         } else if (elemJoinLeft == null && elemJoinRight != null && elemJoinBottom == null && elemJoinTop != null) { //угловое соединение левое нижнее
             joinElement1 = elemJoinTop;
             joinElement2 = elemJoinRight;
             varJoin = VariantJoin.VAR2;
-            elemJoinTop.anglCut(ElemComp.SIDE_END, cutAngl1);
-            elemJoinRight.anglCut(ElemComp.SIDE_START, cutAngl2);
+            elemJoinTop.anglCut(ElemSimple.SIDE_END, cutAngl1);
+            elemJoinRight.anglCut(ElemSimple.SIDE_START, cutAngl2);
 
         } else if (elemJoinLeft != null && elemJoinRight == null && elemJoinBottom != null && elemJoinTop == null) { //угловое соединение правое верхнее
             joinElement2 = elemJoinLeft;
             joinElement1 = elemJoinBottom;
             varJoin = VariantJoin.VAR2;
-            elemJoinLeft.anglCut(ElemComp.SIDE_START, cutAngl2);
-            elemJoinBottom.anglCut(ElemComp.SIDE_END, cutAngl1);
+            elemJoinLeft.anglCut(ElemSimple.SIDE_START, cutAngl2);
+            elemJoinBottom.anglCut(ElemSimple.SIDE_END, cutAngl1);
 
         } else if (elemJoinLeft != null && elemJoinRight == null && elemJoinTop != null && elemJoinBottom == null) { //угловое соединение правое нижнее
             joinElement2 = elemJoinLeft;
             joinElement1 = elemJoinTop;
             varJoin = VariantJoin.VAR2;
-            elemJoinLeft.anglCut(ElemComp.SIDE_END, cutAngl2);
-            elemJoinTop.anglCut(ElemComp.SIDE_START, cutAngl1);
+            elemJoinLeft.anglCut(ElemSimple.SIDE_END, cutAngl2);
+            elemJoinTop.anglCut(ElemSimple.SIDE_START, cutAngl1);
 
         } else if ((elemJoinLeft != null && elemJoinBottom != null && elemJoinRight != null && elemJoinTop == null) && elemJoinLeft.equals(elemJoinRight)) { //T - соединение верхнее
             joinElement2 = elemJoinLeft;
             joinElement1 = elemJoinBottom;
             varJoin = VariantJoin.VAR4;
-            elemJoinBottom.anglCut(ElemComp.SIDE_START, cutAngl1);
+            elemJoinBottom.anglCut(ElemSimple.SIDE_START, cutAngl1);
 
         } else if (elemJoinLeft != null && elemJoinTop != null && elemJoinRight != null && elemJoinBottom == null && elemJoinLeft.equals(elemJoinRight)) { //T - соединение нижнее
             joinElement1 = elemJoinTop;
             joinElement2 = elemJoinLeft;
             varJoin = VariantJoin.VAR4;
-            elemJoinTop.anglCut(ElemComp.SIDE_END, cutAngl1);
+            elemJoinTop.anglCut(ElemSimple.SIDE_END, cutAngl1);
 
         } else if (elemJoinLeft == null && elemJoinTop != null && elemJoinRight != null && elemJoinBottom != null && elemJoinTop.equals(elemJoinBottom)) { //T - соединение левое
             joinElement2 = elemJoinTop;
             joinElement1 = elemJoinRight;
             varJoin = VariantJoin.VAR4;
-            elemJoinRight.anglCut(ElemComp.SIDE_START, cutAngl2);
+            elemJoinRight.anglCut(ElemSimple.SIDE_START, cutAngl2);
 
         } else if (elemJoinLeft != null && elemJoinTop != null && elemJoinRight == null && elemJoinBottom != null && elemJoinTop.equals(elemJoinBottom)) { //T - соединение правое
             joinElement2 = elemJoinTop;
             joinElement1 = elemJoinLeft;
             varJoin = VariantJoin.VAR4;
-            elemJoinLeft.anglCut(ElemComp.SIDE_END, cutAngl2);
+            elemJoinLeft.anglCut(ElemSimple.SIDE_END, cutAngl2);
 
         } else {
             System.out.println("Инициализация соединения не выполнена  - LEFT.id=" + elemJoinLeft.id + " - RIGHT.id=" + elemJoinRight.id + " - BOTT.id=" + elemJoinBottom.id + " - TOP.id=" + elemJoinTop.id);
@@ -103,7 +103,7 @@ public class ElemJoining {
         return varJoin;
     }
 
-    public ElemComp getJoinElement(int i) {
+    public ElemSimple getJoinElement(int i) {
         return (i == 1) ? joinElement1 : joinElement2;
     }       
 }

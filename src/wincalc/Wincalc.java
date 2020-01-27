@@ -10,7 +10,6 @@ import wincalc.model.AreaContainer;
 import wincalc.model.AreaSquare;
 import wincalc.model.AreaTrapeze;
 import wincalc.model.ElemImpost;
-import wincalc.model.AreaScene;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -35,7 +34,7 @@ import wincalc.constr.Constructive;
 public class Wincalc {
 
     ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601001;
+    public static int prj = 601002;
     ////////////////////////////////////////////////////////////////////////////
     
     protected final Constructive constr = null;
@@ -91,7 +90,7 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        LinkedList<AreaScene> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
+        LinkedList<AreaContainer> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
 
@@ -101,7 +100,7 @@ public class Wincalc {
         //Соединения рамы
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
-//        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
+        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
 
         //Соединения створок
         stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
@@ -239,7 +238,7 @@ public class Wincalc {
         String layoutObj = objArea.get("layoutArea").getAsString();
         LayoutArea layoutArea = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
         String id = objArea.get("id").getAsString();
-        AreaScene sceneArea = new AreaScene(this, ownerArea, id, layoutArea, width, height);
+        AreaContainer sceneArea = new AreaContainer(this, ownerArea, id, layoutArea, width, height);
         ownerArea.addElem(sceneArea);
         return sceneArea;
     }

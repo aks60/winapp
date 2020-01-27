@@ -11,7 +11,7 @@ import java.awt.Color;
 import javafx.scene.shape.ArcType;
 import wincalc.constr.Specification;
 
-public class ElemFrame extends ElemComp {
+public class ElemFrame extends ElemSimple {
 
     protected float length = 0; //Длина арки
     protected float anglCut1 = 0; //Угол реза рамы

@@ -72,7 +72,8 @@ public class AreaStvorka extends AreaContainer {
         //Коррекция створки с учётом нахлёста
         ElemJoining ownerLeftTop = iwin.mapJoin.get(x1 + ":" + y1);
         ElemJoining ownerRightBott = iwin.mapJoin.get(x2 + ":" + y2);
-        ElemComp elemLeft = null, elemTop = null, elemBott = null, elemRight = null;
+        ElemSimple elemLeft = null;
+        ElemSimple elemTop = null, elemBott = null, elemRight = null;
         //По умолчанию угловое на ус
         elemLeft = ownerLeftTop.joinElement1;
         elemTop = ownerLeftTop.joinElement2;
@@ -243,10 +244,10 @@ public class AreaStvorka extends AreaContainer {
         if (mapParam.get(ParamJson.typeOpen) != null) {
             float dx = 20, dy = 60, X1 = 0, Y1 = 0;
             String value = mapParam.get(ParamJson.typeOpen).toString();
-            ElemComp elemL = mapFrame.get(LayoutArea.LEFT);
-            ElemComp elemR = mapFrame.get(LayoutArea.RIGHT);
-            ElemComp elemT = mapFrame.get(LayoutArea.TOP);
-            ElemComp elemB = mapFrame.get(LayoutArea.BOTTOM);
+            ElemSimple elemL = mapFrame.get(LayoutArea.LEFT);
+            ElemSimple elemR = mapFrame.get(LayoutArea.RIGHT);
+            ElemSimple elemT = mapFrame.get(LayoutArea.TOP);
+            ElemSimple elemB = mapFrame.get(LayoutArea.BOTTOM);
             if (value.equals("1") || value.equals("3")) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;

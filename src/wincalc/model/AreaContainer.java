@@ -16,7 +16,7 @@ import java.io.ByteArrayOutputStream;
 import main.Main;
 import wincalc.Wincalc;
 
-public abstract class AreaContainer extends Com5t {
+public class AreaContainer extends Com5t {
 
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
 
@@ -85,7 +85,7 @@ public abstract class AreaContainer extends Com5t {
     }
 
     // Получить примыкающий элемент (используется при нахождении элементов соединений)
-    protected ElemComp adjoinedElem(LayoutArea layoutSide) {
+    protected ElemSimple adjoinedElem(LayoutArea layoutSide) {
 
         LinkedList<Com5t> listElem = owner.listElem(this, TypeElem.AREA, TypeElem.IMPOST);
         for (int index = 0; index < listElem.size(); ++index) {
@@ -104,17 +104,17 @@ public abstract class AreaContainer extends Com5t {
             if (owner.equals(root()) && owner.layout() == LayoutArea.VERT) {
                 if (layoutSide == LayoutArea.TOP) {
 
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.BOTTOM) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
             } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZ) {
                 if (layoutSide == LayoutArea.LEFT) {
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.RIGHT) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
@@ -122,17 +122,17 @@ public abstract class AreaContainer extends Com5t {
             } else {
                 if (owner.layout() == LayoutArea.VERT) {
                     if (layoutSide == LayoutArea.TOP) {
-                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.BOTTOM) {
-                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index + 1);
                     } else {
                         return owner.adjoinedElem(layoutSide);
                     }
                 } else {
                     if (layoutSide == LayoutArea.LEFT) {
-                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.RIGHT) {
-                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index + 1);
                     } else {
                         return owner.adjoinedElem(layoutSide);
                     }
@@ -201,7 +201,8 @@ public abstract class AreaContainer extends Com5t {
         return outElem;
     }
 
-    public abstract void joinFrame();
+    public void joinFrame() {
+    }
 
     //Обход(схлопывание) соединений area
     public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
@@ -290,6 +291,11 @@ public abstract class AreaContainer extends Com5t {
         return layout;
     }
 
+    @Override
+    public TypeElem typeElem() {
+        return TypeElem.AREA;
+    }
+    
     //Прорисовка окна
     public void drawWin(int width, int height) {
         try {
