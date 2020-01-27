@@ -21,7 +21,7 @@ public abstract class ElemSimple extends Com5t {
 
     //Добавить спецификацию в состав элемента
     public abstract void addSpecifSubelem(Specification specification);
-
+        
     public void anglCut(int side, float anglCut) {
     }
 

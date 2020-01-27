@@ -100,15 +100,15 @@ public class Wincalc {
         //Соединения рамы
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
-        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
-
-        //Соединения створок
-        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
-
-        //Список элементов
-        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
-                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
+//        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
+//
+//        //Соединения створок
+//        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
+//        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
+//
+//        //Список элементов
+//        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
+//                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
 
         //Тестирование
         if (Main.dev == true) {
@@ -239,34 +239,34 @@ public class Wincalc {
         LayoutArea layoutArea = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
         String id = objArea.get("id").getAsString();
         AreaSimple sceneArea = new AreaSimple(this, ownerArea, id, layoutArea, width, height);
-        ownerArea.listChild.add(sceneArea);
+        ownerArea.listChild().add(sceneArea);
         return sceneArea;
     }
 
     private void parsingAddElem(AreaSimple root, AreaSimple owner, JsonObject elem) {
 
         if (TypeElem.IMPOST.name().equals(elem.get("elemType").getAsString())) {
-            owner.listChild.add(new ElemImpost(owner, elem.get("id").getAsString()));
+            owner.listChild().add(new ElemImpost(owner, elem.get("id").getAsString()));
 
         } else if (TypeElem.GLASS.name().equals(elem.get("elemType").getAsString())) {
             if (elem.get("paramJson") != null) {
-                owner.listChild.add(new ElemGlass(owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
+                owner.listChild().add(new ElemGlass(owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
             } else {
-                owner.listChild.add(new ElemGlass(owner, elem.get("id").getAsString()));
+                owner.listChild().add(new ElemGlass(owner, elem.get("id").getAsString()));
             }
 
         } else if (TypeElem.FULLSTVORKA.name().equals(elem.get("elemType").getAsString())) {
 
             AreaStvorka elemStvorka = new AreaStvorka(this, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString());
-            owner.listChild.add(elemStvorka);
+            owner.listChild().add(elemStvorka);
             //Уровень ниже
             for (Object obj : elem.get("elements").getAsJsonArray()) { //т.к. может быть и глухарь
                 JsonObject elem2 = (JsonObject) obj;
                 if (TypeElem.GLASS.name().equals(elem2.get("elemType").getAsString())) {
                     if (elem2.get("paramJson") != null) {
-                        elemStvorka.listChild.add(new ElemGlass(elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
+                        elemStvorka.listChild().add(new ElemGlass(elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
                     } else {
-                        elemStvorka.listChild.add(new ElemGlass(elemStvorka, elem2.get("id").getAsString()));
+                        elemStvorka.listChild().add(new ElemGlass(elemStvorka, elem2.get("id").getAsString()));
                     }
                 }
             }

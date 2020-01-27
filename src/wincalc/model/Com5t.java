@@ -23,6 +23,8 @@ public abstract class Com5t {
     public static final int SIDE_END = 2;   //правая сторона 
     protected static float moveXY = 40;     //смещение рисунка
 
+    private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
+    
     protected String id = "0"; //идентификатор
     protected AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
@@ -113,11 +115,11 @@ public abstract class Com5t {
         }
     }
 
-    public abstract TypeElem typeElem();
-
     public LinkedList<Com5t> listChild() {
-        return new LinkedList();
+        return listChild;
     }
+    
+    public abstract TypeElem typeElem();
 
     public void paint() {
     }
