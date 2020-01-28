@@ -63,10 +63,10 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
-    public boolean inside(float x, float y) {
-        //return (x >= 0) && (x < width) && (y >= 0) && (y < height);
-        return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
-    }
+//    public boolean inside(float x, float y) {
+//        //return (x >= 0) && (x < width) && (y >= 0) && (y < height);
+//        return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
+//    }
 
     public float width() {
         return width;

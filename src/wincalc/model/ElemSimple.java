@@ -4,6 +4,7 @@ import enums.LayoutArea;
 import wincalc.constr.Specification;
 import enums.TypeElem;
 import enums.TypeProfile;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -16,6 +17,37 @@ public abstract class ElemSimple extends Com5t {
         super(id);
     }
 
+    public boolean inside(float x, float y) {
+        //return (x >= 0) && (x < width) && (y >= 0) && (y < height);
+        return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
+    }
+    
+//    public void passJoinElem(HashMap<String, String> map) {
+//
+//        String k1 = (int)owner.x1 + ":" + (int)owner.y1;
+//        if (map.get(k1) == null) {
+//            map.put(k1, "");
+//        }
+//        if (this.inside(x1, y1) == true) {
+//            map.put(k1, map.get(k1) + " " + id);
+//        }
+//        String k2 = (int)owner.x1 + ":" + (int)owner.y2;
+//        map.put(k2, "");
+//        if (this.inside(x1, y2) == true) {
+//            map.put(k2, map.get(k2) + " " + id);
+//        }
+//        String k3 = (int)owner.x2 + ":" + (int)owner.y2;
+//        map.put(k3, "");
+//        if (this.inside(x2, y2) == true) {
+//            map.put(k3, map.get(k3) + " " + id);
+//        }
+//        String k4 = (int)owner.x2 + ":" + (int)owner.y1;
+//        map.put(k4, "");
+//        if (this.inside(x2, y1) == true) {
+//            map.put(k4, map.get(k4) + " " + id);
+//        }
+//    }
+    
     //Типы профилей
     public abstract TypeProfile typeProfile();
 

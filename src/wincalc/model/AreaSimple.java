@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.util.HashSet;
 import main.Main;
 import wincalc.Wincalc;
 
@@ -127,7 +127,6 @@ public class AreaSimple extends Com5t {
             }
         }
         //Цикл по входному списку элементов
-
         for (Com5t elemBase : arrElem) {
             for (int index = 0; index < type.length; ++index) {
 
@@ -144,94 +143,102 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    //Обход(схлопывание) соединений area
+    public void pass(HashMap<String, HashSet> map, LinkedList<ElemSimple> elems) {
+
+        String k1 = x1 + ":" + y1;
+        if (map.get(k1) == null) {
+            map.put(k1, new HashSet());
+        }
+        for (ElemSimple elem : elems) {
+            if (elem.inside(x1, y1) == true) {
+                map.get(k1).add(elem.id);
+            }
+        }
+        String k2 = x1 + ":" + y2;
+        if (map.get(k2) == null) {
+            map.put(k2, new HashSet());
+        }
+        for (ElemSimple elem : elems) {
+            if (elem.inside(x1, y2) == true) {
+                map.get(k2).add(elem.id);
+            }
+        }
+        String k3 = x2 + ":" + y2;
+        if (map.get(k3) == null) {
+            map.put(k3, new HashSet());
+        }
+        for (ElemSimple elem : elems) {
+            if (elem.inside(x2, y2) == true) {
+                map.get(k3).add(elem.id);
+            }
+        }
+        String k4 = x2 + ":" + y1;
+        if (map.get(k4) == null) {
+            map.put(k4, new HashSet());
+        }
+        for (ElemSimple elem : elems) {
+            if (elem.inside(x2, y1) == true) {
+                map.get(k4).add(elem.id);
+            }
+        }
+    }
+
+//Обход(схлопывание) соединений area    
     public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
 
-        if (id.equals("7")) {
+        ElemJoining elemJoinVal = null;
+        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
+        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
+        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
+        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
 
-//            LayoutArea side = LayoutArea.TOP;
-//
-//            float X = 0, Y = 0;
-//            if (side == LayoutArea.TOP) {
-//                X = (x2 - x1) / 2;
-//                Y = y1;
-//            } else if (side == LayoutArea.BOTTOM) {
-//                X = (x2 - x1) / 2;
-//                Y = y2;
-//            } else if (side == LayoutArea.LEFT) {
-//                X = x1;
-//                Y = (y2 - y1) / 2;
-//            } else if (side == LayoutArea.RIGHT) {
-//                X = x2;
-//                Y = (y2 - y1) / 2;
-//            }
-//            System.out.println("aks = " + X + "  " + Y);
-//            Com5t elemFrame = root().mapFrame.get(side);
-//            if (elemFrame.inside(X, Y) == true) {
-//                elemFrame.print();
-//            }
-//            for (Com5t com5t : owner.listChild()) {
-//                if (com5t.typeElem() == TypeElem.IMPOST) {
-//                    if (com5t.inside(X, Y) == true) {
-//                        com5t.print();
-//                    }
-//                }
-//            }
+        elemJoinVal = mapJoin.get(key1);
+        if (elemJoinVal == null) {
+            mapJoin.put(key1, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key1);
+        }
+        if (elemJoinVal.elemJoinRight == null) {
+            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
+        }
+        if (elemJoinVal.elemJoinBottom == null) {
+            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
         }
 
-//        ElemJoining elemJoinVal = null;
-//        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
-//        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
-//        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
-//        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
-//
-//        elemJoinVal = mapJoin.get(key1);
-//        if (elemJoinVal == null) {
-//            mapJoin.put(key1, new ElemJoining(iwin));
-//            elemJoinVal = mapJoin.get(key1);
-//        }
-//        if (elemJoinVal.elemJoinRight == null) {
-//            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
-//        }
-//        if (elemJoinVal.elemJoinBottom == null) {
-//            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
-//        }
-//
-//        elemJoinVal = mapJoin.get(key2);
-//        if (elemJoinVal == null) {
-//            mapJoin.put(key2, new ElemJoining(iwin));
-//            elemJoinVal = mapJoin.get(key2);
-//        }
-//        if (elemJoinVal.elemJoinLeft == null) {
-//            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
-//        }
-//        if (elemJoinVal.elemJoinBottom == null) {
-//            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
-//        }
-//        
-//        elemJoinVal = mapJoin.get(key3);
-//        if (elemJoinVal == null) {
-//            mapJoin.put(key3, new ElemJoining(iwin));
-//            elemJoinVal = mapJoin.get(key3);
-//        }
-//        if (elemJoinVal.elemJoinTop == null) {
-//            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
-//        }
-//        if (elemJoinVal.elemJoinLeft == null) {
-//            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
-//        }
-//
-//        elemJoinVal = mapJoin.get(key4);
-//        if (elemJoinVal == null) {
-//            mapJoin.put(key4, new ElemJoining(iwin));
-//            elemJoinVal = mapJoin.get(key4);
-//        }
-//        if (elemJoinVal.elemJoinTop == null) {
-//            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
-//        }
-//        if (elemJoinVal.elemJoinRight == null) {
-//            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
-//        }
+        elemJoinVal = mapJoin.get(key2);
+        if (elemJoinVal == null) {
+            mapJoin.put(key2, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key2);
+        }
+        if (elemJoinVal.elemJoinLeft == null) {
+            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
+        }
+        if (elemJoinVal.elemJoinBottom == null) {
+            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
+        }
+
+        elemJoinVal = mapJoin.get(key3);
+        if (elemJoinVal == null) {
+            mapJoin.put(key3, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key3);
+        }
+        if (elemJoinVal.elemJoinTop == null) {
+            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
+        }
+        if (elemJoinVal.elemJoinLeft == null) {
+            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
+        }
+
+        elemJoinVal = mapJoin.get(key4);
+        if (elemJoinVal == null) {
+            mapJoin.put(key4, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key4);
+        }
+        if (elemJoinVal.elemJoinTop == null) {
+            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
+        }
+        if (elemJoinVal.elemJoinRight == null) {
+            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
+        }
     }
 
     // Получить примыкающий элемент (используется при нахождении элементов соединений)

@@ -27,10 +27,12 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 import main.Main;
 import wincalc.constr.Constructive;
-import wincalc.model.Com5t;
+import wincalc.model.ElemSimple;
 
 public class Wincalc {
 
@@ -100,7 +102,18 @@ public class Wincalc {
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         //Соединения рамы
         rootArea.joinFrame();  //обход соединений и кальк. углов 
-        areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
+        
+        LinkedList<ElemSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
+        HashMap<String, HashSet> map = new HashMap();
+        areaList.stream().forEach(area -> area.pass(map, elemList)); 
+        for (Map.Entry<String, HashSet> entry : map.entrySet()) {
+            String key = entry.getKey();
+            HashSet value = entry.getValue();
+            System.out.println(key + ":  " + value);
+            
+        } 
+        
+//        areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
 //        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
 //
 //        //Соединения створок
