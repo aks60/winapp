@@ -157,7 +157,7 @@ public class AreaSimple extends Com5t {
             area.passJoin(area.x2, area.y1, mapJoin, elemList);
         }
         //Обход соединений и получение соед. с импостами
-/*        for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin.entrySet()) {
+        for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin.entrySet()) {
 
             String pk = it.getKey();
             HashSet<ElemSimple> setElem = it.getValue();
@@ -182,20 +182,20 @@ public class AreaSimple extends Com5t {
                 //В соединении оба элемента импост   
             } else if ((arrElem[0].typeElem() == TypeElem.IMPOST && arrElem[1].typeElem() == TypeElem.IMPOST)) {
 
-//                if (arrElem[0].inside(arrElem[1].x1, arrElem[1].y1) || arrElem[1].inside(arrElem[0].x1, arrElem[0].y1)) {
-//                    if (arrElem[1].owner.layout == LayoutArea.VERT) {
-//                        System.out.println(pk + "    //T* - соединение верхнее");
-//                    } else {
-//                        System.out.println(pk + "    //T* - соединение левое");
-//                    }                   
-//                }
-//                if (arrElem[0].inside(arrElem[1].x2, arrElem[1].y2) || arrElem[1].inside(arrElem[0].x2, arrElem[0].y2)) {
-//                    if (arrElem[1].owner.layout == LayoutArea.VERT) {
-//                        System.out.println(pk + "    //T* - соединение нижнее");
-//                    } else {
-                        System.out.println(pk + "    //T*** - соединение правое");
-//                    }                   
-//                }
+                if (arrElem[0].inside(arrElem[1].x1, arrElem[1].y1) || arrElem[1].inside(arrElem[0].x1, arrElem[0].y1)) {
+                    if (arrElem[1].owner.layout == LayoutArea.VERT) {
+                        System.out.println(pk + "    //T* - соединение верхнее");
+                    } else {
+                        System.out.println(pk + "    //T* - соединение левое");
+                    }                   
+                }
+                if (arrElem[0].inside(arrElem[1].x2, arrElem[1].y2) || arrElem[1].inside(arrElem[0].x2, arrElem[0].y2)) {
+                    if (arrElem[1].owner.layout == LayoutArea.VERT) {
+                        System.out.println(pk + "    //T* - соединение нижнее");
+                    } else {
+                        System.out.println(pk + "    //T* - соединение правое");
+                    }                   
+                }
 
                 //Остались комбинации рамы и импоста
             } else {
@@ -217,7 +217,7 @@ public class AreaSimple extends Com5t {
                     }
                 }
             }
-        }*/
+        }
         for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin.entrySet()) {
             String key = entry.getKey();
             HashSet value = entry.getValue();
