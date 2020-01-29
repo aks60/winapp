@@ -100,18 +100,10 @@ public class Wincalc {
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
-        //Соединения рамы
-        rootArea.joinFrame();  //обход соединений и кальк. углов 
         
-        LinkedList<ElemSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
-        HashMap<String, HashSet> map = new HashMap();
-        areaList.stream().forEach(area -> area.pass(map, elemList)); 
-        for (Map.Entry<String, HashSet> entry : map.entrySet()) {
-            String key = entry.getKey();
-            HashSet value = entry.getValue();
-            System.out.println(key + ":  " + value);
-            
-        } 
+        //Соединения
+        rootArea.joinFrame();  //обход соединений и кальк. углов 
+        rootArea.joinImpost(); 
         
 //        areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
 //        mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения

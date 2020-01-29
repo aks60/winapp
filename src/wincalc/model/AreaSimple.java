@@ -143,47 +143,57 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void pass(HashMap<String, HashSet> map, LinkedList<ElemSimple> elems) {
+    public void joinImpost() {
+        
+        LinkedList<AreaSimple> areaList = root().listElem(root(), TypeElem.AREA); //список контейнеров
+        LinkedList<ElemSimple> elemList = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        HashMap<String, HashSet<ElemSimple>> mapJoinAll = new HashMap();   
+        HashMap<String, HashSet<ElemSimple>> mapJoinImpost = new HashMap();   
+        
+        //Обход всех соединений конструкции
+        areaList.stream().forEach(area -> area.passJoin(mapJoinAll, elemList));   
+        //Обход соединений и получение соед. с импостами
+        for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoinAll.entrySet()) {
+            
+            HashSet<ElemSimple> setElem = it.getValue();
+            if(setElem.stream().anyMatch(el -> el.typeElem() == TypeElem.IMPOST)) {
+                mapJoinImpost.put(it.getKey(), setElem);
+            }
+        } 
+        
+        for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoinImpost.entrySet()) {
+            String key = entry.getKey();
+            HashSet value = entry.getValue();
+            System.out.println(key + ":  " + value);
+        }        
+    }
+    
+    private void passJoin(HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
 
-        String k1 = x1 + ":" + y1;
-        if (map.get(k1) == null) {
-            map.put(k1, new HashSet());
+        passJoin(x1, y1, map, elems);
+        passJoin(x1, y2, map, elems);
+        passJoin(x2, y2, map, elems);
+        passJoin(x2, y1, map, elems);
+    }
+
+    private void passJoin(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
+
+        String k = x + ":" + y;
+        if (map.get(k) == null) {
+            map.put(k, new HashSet());
         }
         for (ElemSimple elem : elems) {
-            if (elem.inside(x1, y1) == true) {
-                map.get(k1).add(elem.id);
-            }
-        }
-        String k2 = x1 + ":" + y2;
-        if (map.get(k2) == null) {
-            map.put(k2, new HashSet());
-        }
-        for (ElemSimple elem : elems) {
-            if (elem.inside(x1, y2) == true) {
-                map.get(k2).add(elem.id);
-            }
-        }
-        String k3 = x2 + ":" + y2;
-        if (map.get(k3) == null) {
-            map.put(k3, new HashSet());
-        }
-        for (ElemSimple elem : elems) {
-            if (elem.inside(x2, y2) == true) {
-                map.get(k3).add(elem.id);
-            }
-        }
-        String k4 = x2 + ":" + y1;
-        if (map.get(k4) == null) {
-            map.put(k4, new HashSet());
-        }
-        for (ElemSimple elem : elems) {
-            if (elem.inside(x2, y1) == true) {
-                map.get(k4).add(elem.id);
+            if (elem.inside(x, y) == true) {
+                map.get(k).add(elem);
             }
         }
     }
+    
+    public void varJoin(HashMap<String, HashSet> map, LinkedList<ElemSimple> elems) {
 
+    }
 //Обход(схлопывание) соединений area    
+
     public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
 
         ElemJoining elemJoinVal = null;

@@ -89,5 +89,8 @@ public abstract class ElemSimple extends Com5t {
         }
         return String.valueOf(++maxId);
     }
-
+  
+    public String toString() {
+        return id;
+    } 
 }
