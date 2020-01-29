@@ -103,7 +103,7 @@ public class Wincalc {
         
         //Соединения
         rootArea.joinFrame();  //обход соединений и кальк. углов 
-        //rootArea.joinImpost();       
+        rootArea.joinElements(mapJoin);       
         areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
         mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
 

@@ -3,6 +3,7 @@ package wincalc.model;
 import domain.eArtikl;
 import enums.LayoutArea;
 import enums.TypeElem;
+import enums.VariantJoin;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
@@ -143,21 +144,22 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void joinImpost() {
+    public void joinElements(HashMap<String, ElemJoining> _mapJoin) {
 
-        LinkedList<AreaSimple> areaList = root().listElem(root(), TypeElem.AREA); //список контейнеров
-        LinkedList<ElemSimple> elemList = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
-        HashMap<String, HashSet<ElemSimple>> mapJoin = new HashMap();
+        HashMap<String, ElemJoining> mapJoin = new HashMap();
+        LinkedList<AreaSimple> listArea = root().listElem(root(), TypeElem.AREA); //список контейнеров
+        LinkedList<ElemSimple> listElem = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();
 
         //Обход всех соединений конструкции
-        for (AreaSimple area : areaList) {
-            area.passJoin(area.x1, area.y1, mapJoin, elemList);
-            area.passJoin(area.x1, area.y2, mapJoin, elemList);
-            area.passJoin(area.x2, area.y2, mapJoin, elemList);
-            area.passJoin(area.x2, area.y1, mapJoin, elemList);
+        for (AreaSimple area : listArea) {
+            area.passJoin(area.x1, area.y1, mapJoin2, listElem);
+            area.passJoin(area.x1, area.y2, mapJoin2, listElem);
+            area.passJoin(area.x2, area.y2, mapJoin2, listElem);
+            area.passJoin(area.x2, area.y1, mapJoin2, listElem);
         }
         //Обход соединений и получение соед. с импостами
-        for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin.entrySet()) {
+        for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin2.entrySet()) {
 
             String pk = it.getKey();
             HashSet<ElemSimple> setElem = it.getValue();
@@ -169,15 +171,35 @@ public class AreaSimple extends Com5t {
 
                 if (pk.equals(root().x1 + ":" + root().y1)) {
                     System.out.println(pk + "  //угловое соединение левое верхнее");
+                    ElemJoining el = new ElemJoining(iwin);
+                    el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
+                    el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
+                    el.varJoin = VariantJoin.VAR2;
+                    mapJoin.put(pk, el);
 
                 } else if (pk.equals(root().x1 + ":" + root().y2)) {
                     System.out.println(pk + "   //угловое соединение левое нижнее");
+                    ElemJoining el = new ElemJoining(iwin);
+                    el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
+                    el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
+                    el.varJoin = VariantJoin.VAR2;
+                    mapJoin.put(pk, el);
 
                 } else if (pk.equals(root().x2 + ":" + root().y2)) {
                     System.out.println(pk + "   //угловое соединение правое нижнее");
+                    ElemJoining el = new ElemJoining(iwin);
+                    el.joinElement1 = root().mapFrame.get(LayoutArea.RIGHT);
+                    el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
+                    el.varJoin = VariantJoin.VAR2;
+                    mapJoin.put(pk, el);
 
                 } else if (pk.equals(root().x2 + ":" + root().y1)) {
                     System.out.println(pk + "   //угловое соединение правое верхнее");
+                    ElemJoining el = new ElemJoining(iwin);
+                    el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
+                    el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
+                    el.varJoin = VariantJoin.VAR2;
+                    mapJoin.put(pk, el);
                 }
                 //В соединении оба элемента импост   
             } else if ((arrElem[0].typeElem() == TypeElem.IMPOST && arrElem[1].typeElem() == TypeElem.IMPOST)) {
@@ -187,14 +209,14 @@ public class AreaSimple extends Com5t {
                         System.out.println(pk + "    //T* - соединение верхнее");
                     } else {
                         System.out.println(pk + "    //T* - соединение левое");
-                    }                   
+                    }
                 }
                 if (arrElem[0].inside(arrElem[1].x2, arrElem[1].y2) || arrElem[1].inside(arrElem[0].x2, arrElem[0].y2)) {
                     if (arrElem[1].owner.layout == LayoutArea.VERT) {
                         System.out.println(pk + "    //T* - соединение нижнее");
                     } else {
                         System.out.println(pk + "    //T* - соединение правое");
-                    }                   
+                    }
                 }
 
                 //Остались комбинации рамы и импоста
@@ -204,21 +226,40 @@ public class AreaSimple extends Com5t {
 
                         if (((ElemFrame) elem).layout() == LayoutArea.TOP) {
                             System.out.println(pk + "    //T - соединение верхнее");
+                            ElemJoining el = new ElemJoining(iwin);
+                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
+                            el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
+                            el.varJoin = VariantJoin.VAR4;
+                            mapJoin.put(pk, el);
 
                         } else if (((ElemFrame) elem).layout() == LayoutArea.BOTTOM) {
                             System.out.println(pk + "    //T - соединение нижнее");
+                            ElemJoining el = new ElemJoining(iwin);
+                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
+                            el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
+                            el.varJoin = VariantJoin.VAR4;
+                            mapJoin.put(pk, el);
 
                         } else if (((ElemFrame) elem).layout() == LayoutArea.LEFT) {
                             System.out.println(pk + "    //T - соединение левое");
+                            ElemJoining el = new ElemJoining(iwin);
+                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
+                            el.joinElement2 = root().mapFrame.get(LayoutArea.LEFT);
+                            el.varJoin = VariantJoin.VAR4;
 
                         } else if (((ElemFrame) elem).layout() == LayoutArea.RIGHT) {
                             System.out.println(pk + "    //T - соединение правое");
+                            ElemJoining el = new ElemJoining(iwin);
+                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
+                            el.joinElement2 = root().mapFrame.get(LayoutArea.RIGHT);
+                            el.varJoin = VariantJoin.VAR4;
+                            mapJoin.put(pk, el);
                         }
                     }
                 }
             }
         }
-        for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin.entrySet()) {
+        for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin2.entrySet()) {
             String key = entry.getKey();
             HashSet value = entry.getValue();
             System.out.println(key + ":  " + value);
