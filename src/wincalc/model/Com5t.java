@@ -23,8 +23,10 @@ public abstract class Com5t {
     public static final int SIDE_END = 2;   //правая сторона 
     protected static float moveXY = 40;     //смещение рисунка
 
+    private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
+    
     protected String id = "0"; //идентификатор
-    protected AreaContainer owner = null; //владелец
+    protected AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area
@@ -50,7 +52,7 @@ public abstract class Com5t {
         return id;
     }
 
-    public AreaContainer root() {
+    public AreaSimple root() {
         return iwin.rootArea;
     }
 
@@ -61,9 +63,10 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
-    public boolean inside(int x, int y) {
-        return (x >= 0) && (x < width) && (y >= 0) && (y < height);
-    }
+//    public boolean inside(float x, float y) {
+//        //return (x >= 0) && (x < width) && (y >= 0) && (y < height);
+//        return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
+//    }
 
     public float width() {
         return width;
@@ -112,11 +115,11 @@ public abstract class Com5t {
         }
     }
 
-    public abstract TypeElem typeElem();
-
     public LinkedList<Com5t> listChild() {
-        return new LinkedList();
+        return listChild;
     }
+    
+    public abstract TypeElem typeElem();
 
     public void paint() {
     }

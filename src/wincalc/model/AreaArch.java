@@ -5,13 +5,12 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
 
-public class AreaArch extends AreaContainer {
+public class AreaArch extends AreaSimple {
     
     protected double radiusArch = 0; //радиус арки
 
     public AreaArch(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(null, id, layout, width, height, color1, color2, color3);
-        this.iwin = iwin;
+        super(iwin, null, id, layout, width, height, color1, color2, color3);
         parsing(param);
     }
 
@@ -29,7 +28,7 @@ public class AreaArch extends AreaContainer {
         String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
 
         //Угловое соединение левое верхнее
-        ElemJoinig elemJoin1 = new ElemJoinig(iwin);
+        ElemJoining elemJoin1 = new ElemJoining(iwin);
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.ARCH);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
         iwin.mapJoin.put(key1, elemJoin1);
@@ -48,41 +47,41 @@ public class AreaArch extends AreaContainer {
         elemJoin1.cutAngl1 = (float) ang3; //угол реза 1
         elemJoin1.cutAngl2 = (float) ang4; //угол реза 2
         elemJoin1.anglProf = (float) ang4;
-        elemJoin1.elemJoinRight.anglCut(ElemComp.SIDE_END, elemJoin1.cutAngl2);
-        elemJoin1.elemJoinBottom.anglCut(ElemComp.SIDE_START, elemJoin1.cutAngl1);
+        elemJoin1.elemJoinRight.anglCut(ElemSimple.SIDE_END, elemJoin1.cutAngl2);
+        elemJoin1.elemJoinBottom.anglCut(ElemSimple.SIDE_START, elemJoin1.cutAngl1);
 
         //Угловое соединение правое верхнее
-        ElemJoinig elemJoin2 = new ElemJoinig(iwin);
+        ElemJoining elemJoin2 = new ElemJoining(iwin);
         elemJoin2.elemJoinLeft = mapFrame.get(LayoutArea.ARCH);
         elemJoin2.elemJoinBottom = mapFrame.get(LayoutArea.RIGHT);
         iwin.mapJoin.put(key2, elemJoin2);
         elemJoin2.cutAngl1 = (float) ang3;
         elemJoin2.cutAngl2 = (float) ang4;
         elemJoin2.anglProf = (float) ang4;
-        elemJoin2.elemJoinLeft.anglCut(ElemComp.SIDE_START, elemJoin2.cutAngl2);
-        elemJoin2.elemJoinBottom.anglCut(ElemComp.SIDE_END, elemJoin2.cutAngl1);
+        elemJoin2.elemJoinLeft.anglCut(ElemSimple.SIDE_START, elemJoin2.cutAngl2);
+        elemJoin2.elemJoinBottom.anglCut(ElemSimple.SIDE_END, elemJoin2.cutAngl1);
 
         //Угловое соединение правое нижнее
-        ElemJoinig elemJoin3 = new ElemJoinig(iwin);
+        ElemJoining elemJoin3 = new ElemJoining(iwin);
         elemJoin3.elemJoinTop = mapFrame.get(LayoutArea.RIGHT);
         elemJoin3.elemJoinLeft = mapFrame.get(LayoutArea.BOTTOM);
         iwin.mapJoin.put(key3, elemJoin3);
         elemJoin3.cutAngl1 = 45;
         elemJoin3.cutAngl2 = 45;
         elemJoin3.anglProf = 90;
-        elemJoin3.elemJoinTop.anglCut(ElemComp.SIDE_START, elemJoin3.cutAngl1);
-        elemJoin3.elemJoinLeft.anglCut(ElemComp.SIDE_END, elemJoin3.cutAngl2);
+        elemJoin3.elemJoinTop.anglCut(ElemSimple.SIDE_START, elemJoin3.cutAngl1);
+        elemJoin3.elemJoinLeft.anglCut(ElemSimple.SIDE_END, elemJoin3.cutAngl2);
 
         //Угловое соединение левое нижнее
-        ElemJoinig elemJoin4 = new ElemJoinig(iwin);
+        ElemJoining elemJoin4 = new ElemJoining(iwin);
         elemJoin4.elemJoinRight = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin4.elemJoinTop = mapFrame.get(LayoutArea.LEFT);
         iwin.mapJoin.put(key4, elemJoin4);
         elemJoin4.cutAngl1 = 45;
         elemJoin4.cutAngl2 = 45;
         elemJoin4.anglProf = 90;
-        elemJoin4.elemJoinRight.anglCut(ElemComp.SIDE_START, elemJoin4.cutAngl2);
-        elemJoin4.elemJoinTop.anglCut(ElemComp.SIDE_END, elemJoin4.cutAngl1);
+        elemJoin4.elemJoinRight.anglCut(ElemSimple.SIDE_START, elemJoin4.cutAngl2);
+        elemJoin4.elemJoinTop.anglCut(ElemSimple.SIDE_END, elemJoin4.cutAngl1);
     }
 
 }

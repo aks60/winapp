@@ -53,9 +53,11 @@ public class Winscript {
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.HORIZ, TypeElem.AREA, 400));
             rootArea.add(new Element("7", TypeElem.IMPOST));
             AreaElem area4 = (AreaElem) rootArea.add(new AreaElem("8", LayoutArea.HORIZ, TypeElem.AREA, 1300));
+            
             AreaElem area5 = (AreaElem) area4.add(new AreaElem("9", LayoutArea.VERT, TypeElem.AREA, 720));
             area4.add(new Element("10", TypeElem.IMPOST));
             AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.AREA, 720));
+            
             AreaElem area8 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':337}"));
             AreaElem area9 = (AreaElem) area6.add(new AreaElem("13", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':336}"));
 

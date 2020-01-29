@@ -11,27 +11,24 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.util.HashSet;
 import main.Main;
 import wincalc.Wincalc;
 
-public abstract class AreaContainer extends Com5t {
-
-    private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
+public class AreaSimple extends Com5t {
 
     private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
     //Конструктор
-    public AreaContainer(String id) {
+    public AreaSimple(String id) {
         super(id);
     }
 
     //Конструктор парсинга скрипта
-    public AreaContainer(Wincalc iwin, AreaContainer owner, String id, LayoutArea layout, float width, float height) {
-        this(owner, id, layout, width, height, 1, 1, 1);
-        this.iwin = iwin;
+    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height) {
+        this(iwin, owner, id, layout, width, height, 1, 1, 1);
         //Коррекция размера стеклопакета(створки) арки.
         //Уменьшение на величину добавленной подкладки над импостом.
         if (owner != null && TypeElem.ARCH == owner.typeElem()
@@ -43,8 +40,9 @@ public abstract class AreaContainer extends Com5t {
     }
 
     //Конструктор
-    public AreaContainer(AreaContainer owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
+        this.iwin = iwin;
         this.owner = owner;
         this.layout = layout;
         this.width = width;
@@ -55,7 +53,7 @@ public abstract class AreaContainer extends Com5t {
         initDimension(owner);
     }
 
-    private void initDimension(AreaContainer owner) {
+    private void initDimension(AreaSimple owner) {
         if (owner != null) {
             //Заполним по умолчанию
             if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
@@ -66,8 +64,8 @@ public abstract class AreaContainer extends Com5t {
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
-                if (owner.listChild().get(index) instanceof AreaContainer) {
-                    AreaContainer prevArea = (AreaContainer) owner.listChild().get(index);
+                if (owner.listChild().get(index) instanceof AreaSimple) {
+                    AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
 
                     if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
                         dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
@@ -84,8 +82,219 @@ public abstract class AreaContainer extends Com5t {
         }
     }
 
+    //Список элементов окна
+    public <E> LinkedList<E> listElem(Com5t com5t, TypeElem... type) {
+
+        LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
+        LinkedList<E> outElem = new LinkedList(); //выходной список
+        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : root().mapFrame.entrySet()) {
+
+            arrElem.add(elemFrame.getValue());
+        }
+        for (Com5t elemBase : root().listChild()) { //первый уровень
+            arrElem.add(elemBase);
+            if (elemBase instanceof AreaSimple) {
+                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase).mapFrame.entrySet()) {
+                    arrElem.add(elemFrame.getValue());
+                }
+                for (Com5t elemBase2 : elemBase.listChild()) { //второй уровень
+                    arrElem.add(elemBase2);
+                    if (elemBase2 instanceof AreaSimple) {
+                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase2).mapFrame.entrySet()) {
+                            arrElem.add(elemFrame.getValue());
+                        }
+                        for (Com5t elemBase3 : elemBase2.listChild()) { //третий уровень
+                            arrElem.add(elemBase3);
+                            if (elemBase3 instanceof AreaSimple) {
+                                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase3).mapFrame.entrySet()) {
+                                    arrElem.add(elemFrame.getValue());
+                                }
+                                for (Com5t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
+                                    arrElem.add(elemBase4);
+                                    if (elemBase4 instanceof AreaSimple) {
+                                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase4).mapFrame.entrySet()) {
+                                            arrElem.add(elemFrame.getValue());
+                                        }
+                                        for (Com5t elemBase5 : elemBase4.listChild()) { //пятый уровень
+                                            arrElem.add(elemBase5);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //Цикл по входному списку элементов
+        for (Com5t elemBase : arrElem) {
+            for (int index = 0; index < type.length; ++index) {
+
+                TypeElem type2 = type[index];
+                if (elemBase.typeElem() == type2) {
+                    E elem = (E) elemBase;
+                    outElem.add(elem);
+                }
+            }
+        }
+        return outElem;
+    }
+
+    public void joinFrame() {
+    }
+
+    public void joinImpost() {
+
+        LinkedList<AreaSimple> areaList = root().listElem(root(), TypeElem.AREA); //список контейнеров
+        LinkedList<ElemSimple> elemList = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        HashMap<String, HashSet<ElemSimple>> mapJoin = new HashMap();
+
+        //Обход всех соединений конструкции
+        for (AreaSimple area : areaList) {
+            area.passJoin(area.x1, area.y1, mapJoin, elemList);
+            area.passJoin(area.x1, area.y2, mapJoin, elemList);
+            area.passJoin(area.x2, area.y2, mapJoin, elemList);
+            area.passJoin(area.x2, area.y1, mapJoin, elemList);
+        }
+        //Обход соединений и получение соед. с импостами
+        for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin.entrySet()) {
+
+            String pk = it.getKey();
+            HashSet<ElemSimple> setElem = it.getValue();
+            ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
+
+            //В соединении оба элемента рамы
+            if ((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
+                    || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) {
+
+                if (pk.equals(root().x1 + ":" + root().y1)) {
+                    System.out.println(pk + "  //угловое соединение левое верхнее");
+
+                } else if (pk.equals(root().x1 + ":" + root().y2)) {
+                    System.out.println(pk + "   //угловое соединение левое нижнее");
+
+                } else if (pk.equals(root().x2 + ":" + root().y2)) {
+                    System.out.println(pk + "   //угловое соединение правое нижнее");
+
+                } else if (pk.equals(root().x2 + ":" + root().y1)) {
+                    System.out.println(pk + "   //угловое соединение правое верхнее");
+                }
+                //В соединении оба элемента импост   
+            } else if ((arrElem[0].typeElem() == TypeElem.IMPOST && arrElem[1].typeElem() == TypeElem.IMPOST)) {
+                for(int index = 0; index < arrElem.length; ++index) {
+                    //if(index == 0 && )
+                }
+                if(arrElem[0].inside(arrElem[1].x1, arrElem[1].y1)) {
+                    if(arrElem[1].owner.layout == LayoutArea.VERT) {
+                        System.out.println(pk + "    //T - соединение верхнее");
+                    }
+                }                
+
+                //Остались комбинации рамы и импоста
+            } else {
+                for (ElemSimple elem : setElem) {
+                    if (elem.typeElem() == TypeElem.FRAME_BOX || elem.typeElem() == TypeElem.FRAME_STV) {
+
+                        if (((ElemFrame) elem).layout() == LayoutArea.TOP) {
+                            System.out.println(pk + "    //T - соединение верхнее");
+
+                        } else if (((ElemFrame) elem).layout() == LayoutArea.BOTTOM) {
+                            System.out.println(pk + "    //T - соединение нижнее");
+
+                        } else if (((ElemFrame) elem).layout() == LayoutArea.LEFT) {
+                            System.out.println(pk + "    //T - соединение левое");
+
+                        } else if (((ElemFrame) elem).layout() == LayoutArea.RIGHT) {
+                            System.out.println(pk + "    //T - соединение правое");
+                        }
+                    }
+                }
+            }
+        }
+        for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin.entrySet()) {
+            String key = entry.getKey();
+            HashSet value = entry.getValue();
+            System.out.println(key + ":  " + value);
+        }
+    }
+
+    private void passJoin(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
+
+        String k = x + ":" + y;
+        if (map.get(k) == null) {
+            map.put(k, new HashSet());
+        }
+        for (ElemSimple elem : elems) {
+            if (elem.inside(x, y) == true) {
+                map.get(k).add(elem);
+            }
+        }
+    }
+
+    public void varJoin(HashMap<String, HashSet> map, LinkedList<ElemSimple> elems) {
+
+    }
+//Обход(схлопывание) соединений area    
+
+    public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
+
+        ElemJoining elemJoinVal = null;
+        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
+        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
+        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
+        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
+
+        elemJoinVal = mapJoin.get(key1);
+        if (elemJoinVal == null) {
+            mapJoin.put(key1, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key1);
+        }
+        if (elemJoinVal.elemJoinRight == null) {
+            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
+        }
+        if (elemJoinVal.elemJoinBottom == null) {
+            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
+        }
+
+        elemJoinVal = mapJoin.get(key2);
+        if (elemJoinVal == null) {
+            mapJoin.put(key2, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key2);
+        }
+        if (elemJoinVal.elemJoinLeft == null) {
+            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
+        }
+        if (elemJoinVal.elemJoinBottom == null) {
+            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
+        }
+
+        elemJoinVal = mapJoin.get(key3);
+        if (elemJoinVal == null) {
+            mapJoin.put(key3, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key3);
+        }
+        if (elemJoinVal.elemJoinTop == null) {
+            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
+        }
+        if (elemJoinVal.elemJoinLeft == null) {
+            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
+        }
+
+        elemJoinVal = mapJoin.get(key4);
+        if (elemJoinVal == null) {
+            mapJoin.put(key4, new ElemJoining(iwin));
+            elemJoinVal = mapJoin.get(key4);
+        }
+        if (elemJoinVal.elemJoinTop == null) {
+            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
+        }
+        if (elemJoinVal.elemJoinRight == null) {
+            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
+        }
+    }
+
     // Получить примыкающий элемент (используется при нахождении элементов соединений)
-    protected ElemComp adjoinedElem(LayoutArea layoutSide) {
+    protected ElemSimple adjoinedElem(LayoutArea layoutSide) {
 
         LinkedList<Com5t> listElem = owner.listElem(this, TypeElem.AREA, TypeElem.IMPOST);
         for (int index = 0; index < listElem.size(); ++index) {
@@ -104,17 +313,17 @@ public abstract class AreaContainer extends Com5t {
             if (owner.equals(root()) && owner.layout() == LayoutArea.VERT) {
                 if (layoutSide == LayoutArea.TOP) {
 
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.BOTTOM) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
             } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZ) {
                 if (layoutSide == LayoutArea.LEFT) {
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index - 1);
+                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index - 1);
                 } else if (layoutSide == LayoutArea.RIGHT) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemComp) listElem.get(index + 1);
+                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index + 1);
                 } else {
                     return root().mapFrame.get(layoutSide);
                 }
@@ -122,17 +331,17 @@ public abstract class AreaContainer extends Com5t {
             } else {
                 if (owner.layout() == LayoutArea.VERT) {
                     if (layoutSide == LayoutArea.TOP) {
-                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.BOTTOM) {
-                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index + 1);
                     } else {
                         return owner.adjoinedElem(layoutSide);
                     }
                 } else {
                     if (layoutSide == LayoutArea.LEFT) {
-                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index - 1);
+                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index - 1);
                     } else if (layoutSide == LayoutArea.RIGHT) {
-                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemComp) listElem.get(index + 1);
+                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index + 1);
                     } else {
                         return owner.adjoinedElem(layoutSide);
                     }
@@ -142,144 +351,6 @@ public abstract class AreaContainer extends Com5t {
         return null;
     }
 
-    //Список элементов окна
-    public <E> LinkedList<E> listElem(Com5t com5t, TypeElem... type) {
-
-        LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
-        LinkedList<E> outElem = new LinkedList(); //выходной список
-        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : root().mapFrame.entrySet()) {
-
-            arrElem.add(elemFrame.getValue());
-        }
-        for (Com5t elemBase : root().listChild()) { //первый уровень
-            arrElem.add(elemBase);
-            if (elemBase instanceof AreaContainer) {
-                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase).mapFrame.entrySet()) {
-                    arrElem.add(elemFrame.getValue());
-                }
-                for (Com5t elemBase2 : elemBase.listChild()) { //второй уровень
-                    arrElem.add(elemBase2);
-                    if (elemBase2 instanceof AreaContainer) {
-                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase2).mapFrame.entrySet()) {
-                            arrElem.add(elemFrame.getValue());
-                        }
-                        for (Com5t elemBase3 : elemBase2.listChild()) { //третий уровень
-                            arrElem.add(elemBase3);
-                            if (elemBase3 instanceof AreaContainer) {
-                                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase3).mapFrame.entrySet()) {
-                                    arrElem.add(elemFrame.getValue());
-                                }
-                                for (Com5t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
-                                    arrElem.add(elemBase4);
-                                    if (elemBase4 instanceof AreaContainer) {
-                                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaContainer) elemBase4).mapFrame.entrySet()) {
-                                            arrElem.add(elemFrame.getValue());
-                                        }
-                                        for (Com5t elemBase5 : elemBase4.listChild()) { //пятый уровень
-                                            arrElem.add(elemBase5);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //Цикл по входному списку элементов
-
-        for (Com5t elemBase : arrElem) {
-            for (int index = 0; index < type.length; ++index) {
-
-                TypeElem type2 = type[index];
-                if (elemBase.typeElem() == type2) {
-                    E elem = (E) elemBase;
-                    outElem.add(elem);
-                }
-            }
-        }
-        return outElem;
-    }
-
-    public abstract void joinFrame();
-
-    //Обход(схлопывание) соединений area
-    public void passJoinArea(HashMap<String, ElemJoinig> mapJoin) {
-
-//        String side = "TOP";
-//        LinkedList<Com5t> listElem = root().listElem(this, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
-//        for (Com5t com5t : listElem) {
-//           if(com5t.inside((x2 - x1) / 2, y1) == true) {
-//               if(side.equals("TOP")) {
-//                 System.out.println(com5t.id); 
-//               }
-//           } 
-//        }       
-        
-        ElemJoinig elemJoinVal = null;
-        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
-        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
-        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
-        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
-
-        elemJoinVal = mapJoin.get(key1);
-        if (elemJoinVal == null) {
-            mapJoin.put(key1, new ElemJoinig(iwin));
-            elemJoinVal = mapJoin.get(key1);
-        }
-        if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
-        }
-        if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
-        }
-
-        elemJoinVal = mapJoin.get(key2);
-        if (elemJoinVal == null) {
-            mapJoin.put(key2, new ElemJoinig(iwin));
-            elemJoinVal = mapJoin.get(key2);
-        }
-        if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
-        }
-        if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
-        }
-        
-        elemJoinVal = mapJoin.get(key3);
-        if (elemJoinVal == null) {
-            mapJoin.put(key3, new ElemJoinig(iwin));
-            elemJoinVal = mapJoin.get(key3);
-        }
-        if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
-        }
-        if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
-        }
-
-        elemJoinVal = mapJoin.get(key4);
-        if (elemJoinVal == null) {
-            mapJoin.put(key4, new ElemJoinig(iwin));
-            elemJoinVal = mapJoin.get(key4);
-        }
-        if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
-        }
-        if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
-        }
-    }
-
-    @Override
-    public LinkedList<Com5t> listChild() {
-        return listChild;
-    }
-
-    public void addElem(Com5t element) {
-        listChild.add(element);
-    }
-
     public ElemFrame addFrame(ElemFrame elemFrame) {
         mapFrame.put(elemFrame.layout(), elemFrame);
         return elemFrame;
@@ -287,6 +358,11 @@ public abstract class AreaContainer extends Com5t {
 
     public LayoutArea layout() {
         return layout;
+    }
+
+    @Override
+    public TypeElem typeElem() {
+        return TypeElem.AREA;
     }
 
     //Прорисовка окна
@@ -316,7 +392,7 @@ public abstract class AreaContainer extends Com5t {
             //if (line == true) {
             //Прорисовка размера
             this.drawLine1();
-            LinkedList<AreaContainer> areaList = listElem(root(), TypeElem.AREA);
+            LinkedList<AreaSimple> areaList = listElem(root(), TypeElem.AREA);
             areaList.stream().forEach(el -> el.drawLine1());
             //}
             //Рисунок в память

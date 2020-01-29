@@ -16,12 +16,12 @@ import java.awt.Color;
 import java.util.Map;
 import wincalc.Wincalc;
 
-public class AreaStvorka extends AreaContainer {
+public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
-    public AreaStvorka(Wincalc iwin, AreaContainer owner, String id, String param) {
+    public AreaStvorka(Wincalc iwin, AreaSimple owner, String id, String param) {
 
         super(id);
         this.iwin = iwin;
@@ -70,9 +70,10 @@ public class AreaStvorka extends AreaContainer {
     public void setCorrection() {
 
         //Коррекция створки с учётом нахлёста
-        ElemJoinig ownerLeftTop = iwin.mapJoin.get(x1 + ":" + y1);
-        ElemJoinig ownerRightBott = iwin.mapJoin.get(x2 + ":" + y2);
-        ElemComp elemLeft = null, elemTop = null, elemBott = null, elemRight = null;
+        ElemJoining ownerLeftTop = iwin.mapJoin.get(x1 + ":" + y1);
+        ElemJoining ownerRightBott = iwin.mapJoin.get(x2 + ":" + y2);
+        ElemSimple elemLeft = null;
+        ElemSimple elemTop = null, elemBott = null, elemRight = null;
         //По умолчанию угловое на ус
         elemLeft = ownerLeftTop.joinElement1;
         elemTop = ownerLeftTop.joinElement2;
@@ -140,7 +141,7 @@ public class AreaStvorka extends AreaContainer {
     public void passJoinFrame() {
 
         //Угловое соединение левое верхнее
-        ElemJoinig elemJoin1 = new ElemJoinig(iwin);
+        ElemJoining elemJoin1 = new ElemJoining(iwin);
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.TOP);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
         elemJoin1.joinElement1 = mapFrame.get(LayoutArea.LEFT);
@@ -151,7 +152,7 @@ public class AreaStvorka extends AreaContainer {
         iwin.mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), elemJoin1);
 
         //Угловое соединение правое верхнее
-        ElemJoinig elemJoin2 = new ElemJoinig(iwin);
+        ElemJoining elemJoin2 = new ElemJoining(iwin);
         elemJoin2.elemJoinLeft = mapFrame.get(LayoutArea.TOP);
         elemJoin2.elemJoinBottom = mapFrame.get(LayoutArea.RIGHT);
         elemJoin2.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
@@ -162,7 +163,7 @@ public class AreaStvorka extends AreaContainer {
         iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), elemJoin2);
 
         //Угловое соединение правое нижнее
-        ElemJoinig elemJoin3 = new ElemJoinig(iwin);
+        ElemJoining elemJoin3 = new ElemJoining(iwin);
         elemJoin3.elemJoinTop = mapFrame.get(LayoutArea.RIGHT);
         elemJoin3.elemJoinLeft = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin3.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
@@ -173,7 +174,7 @@ public class AreaStvorka extends AreaContainer {
         iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), elemJoin3);
 
         //Угловое соединение левое нижнее
-        ElemJoinig elemJoin4 = new ElemJoinig(iwin);
+        ElemJoining elemJoin4 = new ElemJoining(iwin);
         elemJoin4.elemJoinRight = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin4.elemJoinTop = mapFrame.get(LayoutArea.LEFT);
         elemJoin4.joinElement1 = mapFrame.get(LayoutArea.LEFT);
@@ -184,7 +185,7 @@ public class AreaStvorka extends AreaContainer {
         iwin.mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), elemJoin4);
 
         //Прилигающее верхнее
-        ElemJoinig elemJoin_top = new ElemJoinig(iwin);
+        ElemJoining elemJoin_top = new ElemJoining(iwin);
         elemJoin_top.id = id;
         elemJoin_top.elemJoinTop = mapFrame.get(LayoutArea.TOP);
         elemJoin_top.elemJoinBottom = mapFrame.get(LayoutArea.TOP);
@@ -196,7 +197,7 @@ public class AreaStvorka extends AreaContainer {
         iwin.mapJoin.put(String.valueOf(x1 + width / 2) + ":" + String.valueOf(y1 + 1), elemJoin_top);
 
         //Прилигающее нижнее
-        ElemJoinig elemJoin_bottom = new ElemJoinig(iwin);
+        ElemJoining elemJoin_bottom = new ElemJoining(iwin);
         elemJoin_bottom.id = id;
         elemJoin_bottom.elemJoinTop = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin_bottom.elemJoinBottom = mapFrame.get(LayoutArea.BOTTOM);
@@ -208,7 +209,7 @@ public class AreaStvorka extends AreaContainer {
         iwin.mapJoin.put(String.valueOf(x1 + width / 2) + ":" + String.valueOf(y2 - 1), elemJoin_bottom);
 
         //Прилигающее левое
-        ElemJoinig elemJoin_left = new ElemJoinig(iwin);
+        ElemJoining elemJoin_left = new ElemJoining(iwin);
         elemJoin_left.id = id;
         elemJoin_left.elemJoinLeft = mapFrame.get(LayoutArea.LEFT);
         elemJoin_left.elemJoinRight = mapFrame.get(LayoutArea.LEFT);
@@ -220,7 +221,7 @@ public class AreaStvorka extends AreaContainer {
         iwin.mapJoin.put(String.valueOf(x1 + 1) + ":" + String.valueOf(y1 + height / 2), elemJoin_left);
 
         //Прилигающее правое
-        ElemJoinig elemJoin_right = new ElemJoinig(iwin);
+        ElemJoining elemJoin_right = new ElemJoining(iwin);
         elemJoin_right.id = id;
         elemJoin_right.elemJoinLeft = mapFrame.get(LayoutArea.RIGHT);
         elemJoin_right.elemJoinRight = mapFrame.get(LayoutArea.RIGHT);
@@ -243,10 +244,10 @@ public class AreaStvorka extends AreaContainer {
         if (mapParam.get(ParamJson.typeOpen) != null) {
             float dx = 20, dy = 60, X1 = 0, Y1 = 0;
             String value = mapParam.get(ParamJson.typeOpen).toString();
-            ElemComp elemL = mapFrame.get(LayoutArea.LEFT);
-            ElemComp elemR = mapFrame.get(LayoutArea.RIGHT);
-            ElemComp elemT = mapFrame.get(LayoutArea.TOP);
-            ElemComp elemB = mapFrame.get(LayoutArea.BOTTOM);
+            ElemSimple elemL = mapFrame.get(LayoutArea.LEFT);
+            ElemSimple elemR = mapFrame.get(LayoutArea.RIGHT);
+            ElemSimple elemT = mapFrame.get(LayoutArea.TOP);
+            ElemSimple elemB = mapFrame.get(LayoutArea.BOTTOM);
             if (value.equals("1") || value.equals("3")) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;

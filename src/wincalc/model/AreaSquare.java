@@ -4,12 +4,10 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
 
-public class AreaSquare extends AreaContainer {
+public class AreaSquare extends AreaSimple {
 
     public AreaSquare(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(null, id, layout, width, height, color1, color2, color3);
-        this.iwin = iwin;
-        this.owner = this;
+        super(iwin, null, id, layout, width, height, color1, color2, color3); 
         parsing(param);
     }
 
@@ -27,7 +25,7 @@ public class AreaSquare extends AreaContainer {
         String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
 
         //Угловое соединение левое верхнее
-        ElemJoinig elemJoin1 = new ElemJoinig(iwin);
+        ElemJoining elemJoin1 = new ElemJoining(iwin);
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.TOP);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
         elemJoin1.cutAngl1 = 45;
@@ -36,7 +34,7 @@ public class AreaSquare extends AreaContainer {
         iwin.mapJoin.put(key1, elemJoin1);
 
         //Угловое соединение правое верхнее
-        ElemJoinig elemJoin2 = new ElemJoinig(iwin);
+        ElemJoining elemJoin2 = new ElemJoining(iwin);
         elemJoin2.elemJoinLeft = mapFrame.get(LayoutArea.TOP);
         elemJoin2.elemJoinBottom = mapFrame.get(LayoutArea.RIGHT);
         elemJoin2.cutAngl1 = 45;
@@ -45,7 +43,7 @@ public class AreaSquare extends AreaContainer {
         iwin.mapJoin.put(key2, elemJoin2);
 
         //Угловое соединение правое нижнее
-        ElemJoinig elemJoin3 = new ElemJoinig(iwin);
+        ElemJoining elemJoin3 = new ElemJoining(iwin);
         elemJoin3.elemJoinTop = mapFrame.get(LayoutArea.RIGHT);
         elemJoin3.elemJoinLeft = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin3.cutAngl1 = 45;
@@ -54,7 +52,7 @@ public class AreaSquare extends AreaContainer {
         iwin.mapJoin.put(key3, elemJoin3);
 
         //Угловое соединение левое нижнее
-        ElemJoinig elemJoin4 = new ElemJoinig(iwin);
+        ElemJoining elemJoin4 = new ElemJoining(iwin);
         elemJoin4.elemJoinRight = mapFrame.get(LayoutArea.BOTTOM);
         elemJoin4.elemJoinTop = mapFrame.get(LayoutArea.LEFT);
         elemJoin4.cutAngl1 = 45;

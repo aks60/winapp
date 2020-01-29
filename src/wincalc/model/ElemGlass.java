@@ -17,7 +17,7 @@ import enums.TypeProfile;
 import wincalc.Wincalc;
 import wincalc.constr.Specification;
 
-public class ElemGlass extends ElemComp {
+public class ElemGlass extends ElemSimple {
 
     public static final String RECTANGL = "Прямоугольное";              //
     public static final String RECTANGU_NOT = "Не прямоугольное";       // Параметры
@@ -26,11 +26,11 @@ public class ElemGlass extends ElemComp {
 
     protected float radiusGlass = 0;
 
-    public ElemGlass(AreaContainer owner, String id) {
+    public ElemGlass(AreaSimple owner, String id) {
         this(owner, id, null);
     }
 
-    public ElemGlass(AreaContainer owner, String id, String param) {
+    public ElemGlass(AreaSimple owner, String id, String param) {
 
         super(id);
         this.owner = owner;
