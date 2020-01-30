@@ -236,8 +236,6 @@ public class AreaSimple extends Com5t {
                         }
                     }
                 }
-                //passjoin(arrElem[0], arrElem[1], pk);
-                //passjoin(arrElem[1], arrElem[0], pk);
             }
         }
         for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin2.entrySet()) {
