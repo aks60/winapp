@@ -39,7 +39,7 @@ public class Wincalc {
     ////////////////////////////////////////////////////////////////////////////
     public static int prj = 601002;
     ////////////////////////////////////////////////////////////////////////////
-    
+
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
@@ -93,45 +93,43 @@ public class Wincalc {
             rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
         }
         //Инициализация объектов калькуляции
-        LinkedList<AreaSimple> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
-        LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
+        LinkedList<AreaSimple> listArea = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
+        LinkedList<AreaStvorka> listStvorka = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
         LinkedList<ElemSimple> listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
 
-                
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
         //Соединения
-        //rootArea.joinFrame();  //обход соединений и кальк. углов 
         HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();     
-        areaList.stream().forEach(area -> area.joinElements(mapJoin, mapJoin2, listElem)); //обход(схлопывание) соединений рамы
-        for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin2.entrySet()) {
+        listArea.stream().forEach(area -> area.joinElements(mapJoin, mapJoin2, listElem)); //обход(схлопывание) соединений рамы
+        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
             String key = entry.getKey();
-            HashSet value = entry.getValue();
-            System.out.println(key + ":  " + value);
+            ElemJoining val = entry.getValue();
+            System.out.println(key + ":  " + val);
         }
+        
         //Соединения створок
-        stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
+        listStvorka.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         //stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
 
         //Список элементов
 //        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
 //                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
-
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
             //Specification.write_txt(constr, rootArea.specificList()); //вывод на тестирование в DLL
             //Specification.write_txt2(constr, rootArea.specificList()); //вывод уникального индекса
             //CalcBase.test_param(ParamSpecific.paramSum); //тестирование парам. спецификации
-            //Main.print_joining(hmJoinElem); //соединения на консоль
+            //AreaSimple.print_joining(mapJoin); //соединения на консоль
             //model.Main.compareIWin(rootArea.specificList(), prj, true); //сравнение спецификации с профстроем
         }
         return rootArea;
     }
-    
+
     // Парсим входное json окно и строим объектную модель окна
     private AreaSimple parsingScript(String json) {
         AreaSimple rootArea = null;
