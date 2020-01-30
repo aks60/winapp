@@ -22,9 +22,9 @@ public class ElemJoining {
     protected ElemSimple joinElement1 = null;  // Элемент соединения 1
     protected ElemSimple joinElement2 = null;  // Элемент соединения 2
 
-    protected float cutAngl1 = 90;    //Угол реза1
-    protected float cutAngl2 = 90;    //Угол реза2
-    protected float anglProf = 0;     //Угол между профилями
+    protected float cutAngl1 = 45;    //Угол реза1
+    protected float cutAngl2 = 45;    //Угол реза2
+    protected float anglProf = 90;    //Угол между профилями
     public String costsJoin = "";     //Трудозатраты, ч/ч. 
     
     protected Record foiningRec = null;

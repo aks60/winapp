@@ -72,8 +72,8 @@ public class AreaStvorka extends AreaSimple {
         //Коррекция створки с учётом нахлёста
         ElemJoining ownerLeftTop = iwin.mapJoin.get(x1 + ":" + y1);
         ElemJoining ownerRightBott = iwin.mapJoin.get(x2 + ":" + y2);
-        ElemSimple elemLeft = null;
-        ElemSimple elemTop = null, elemBott = null, elemRight = null;
+        ElemSimple elemLeft = null, elemTop = null, elemBott = null, elemRight = null;
+        
         //По умолчанию угловое на ус
         elemLeft = ownerLeftTop.joinElement1;
         elemTop = ownerLeftTop.joinElement2;

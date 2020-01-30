@@ -144,9 +144,8 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void joinElements(HashMap<String, ElemJoining> _mapJoin) {
+    public void joinElements(HashMap<String, ElemJoining> mapJoin) {
 
-        HashMap<String, ElemJoining> mapJoin = new HashMap();
         LinkedList<AreaSimple> listArea = root().listElem(root(), TypeElem.AREA); //список контейнеров
         LinkedList<ElemSimple> listElem = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();
@@ -161,45 +160,36 @@ public class AreaSimple extends Com5t {
         //Обход соединений (xy -> element1, element2)
         for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin2.entrySet()) {
 
-            String pk = it.getKey();
             HashSet<ElemSimple> setElem = it.getValue();
             ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
+            ElemJoining el = new ElemJoining(iwin);
+            String pk = it.getKey();
+            mapJoin.put(pk, el);
 
             //В соединении оба элемента рамы (угловые соединения)
             if ((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
                     || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) {
 
+                el.varJoin = VariantJoin.VAR2;
                 if (pk.equals(root().x1 + ":" + root().y1)) {
                     System.out.println(pk + "  //угловое соединение левое верхнее");
-                    ElemJoining el = new ElemJoining(iwin);
                     el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
-                    el.varJoin = VariantJoin.VAR2;
-                    mapJoin.put(pk, el);
 
                 } else if (pk.equals(root().x1 + ":" + root().y2)) {
                     System.out.println(pk + "   //угловое соединение левое нижнее");
-                    ElemJoining el = new ElemJoining(iwin);
                     el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
-                    el.varJoin = VariantJoin.VAR2;
-                    mapJoin.put(pk, el);
 
                 } else if (pk.equals(root().x2 + ":" + root().y2)) {
                     System.out.println(pk + "   //угловое соединение правое нижнее");
-                    ElemJoining el = new ElemJoining(iwin);
                     el.joinElement1 = root().mapFrame.get(LayoutArea.RIGHT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
-                    el.varJoin = VariantJoin.VAR2;
-                    mapJoin.put(pk, el);
 
                 } else if (pk.equals(root().x2 + ":" + root().y1)) {
                     System.out.println(pk + "   //угловое соединение правое верхнее");
-                    ElemJoining el = new ElemJoining(iwin);
                     el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
-                    el.varJoin = VariantJoin.VAR2;
-                    mapJoin.put(pk, el);
                 }
             } else {
                 //T - соединения
@@ -213,23 +203,21 @@ public class AreaSimple extends Com5t {
                     for (int side = 0; side < sides.length; side++) {
                         float[][] fs = sides[side];
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
-                            ElemJoining el = new ElemJoining(iwin);
                             el.varJoin = VariantJoin.VAR4;
-                            mapJoin.put(pk, el);
                             if (side == 0) {
-                                System.out.println(e1.id + "    //T - соединение левое"); 
+                                System.out.println(pk + "    //T - соединение левое");
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (side == 1) {
-                                System.out.println(e1.id + "    //T - соединение нижнее");
+                                System.out.println(pk + "    //T - соединение нижнее");
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (side == 2) {
-                                System.out.println(e1.id + "    //T - соединение правое");
+                                System.out.println(pk + "    //T - соединение правое");
                                 el.joinElement1 = e2;
-                                el.joinElement2 = e1;                              
+                                el.joinElement2 = e1;
                             } else if (side == 3) {
-                                System.out.println(e1.id + "    //T - соединение верхнее");
+                                System.out.println(pk + "    //T - соединение верхнее");
                                 el.joinElement1 = e1;
                                 el.joinElement2 = e2;
                             }
@@ -242,26 +230,6 @@ public class AreaSimple extends Com5t {
             String key = entry.getKey();
             HashSet value = entry.getValue();
             System.out.println(key + ":  " + value);
-        }
-    }
-
-    private void passjoin(ElemSimple e, ElemSimple e2, String pk) {
-        //index = 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
-        float point[][][] = {{{e.x1, e.y1}, {e.x1, e.y2}}, {{e.x1, e.y2}, {e.x2, e.y2}}, {{e.x2, e.y2}, {e.x2, e.y1}}, {{e.x1, e.y1}, {e.x2, e.y1}}};
-        for (int index = 0; index < point.length; index++) {
-            float[][] fs = point[index];
-            if (e2.inside(fs[0][0], fs[0][1]) && e2.inside(fs[1][0], fs[1][1])) {
-                if (index == 0) {
-                    System.out.println(pk + "    //T - соединение левое");
-                } else if (index == 1) {
-                    System.out.println(pk + "    //T - соединение нижнее");
-                } else if (index == 2) {
-                    System.out.println(pk + "    //T - соединение правое");
-                } else if (index == 3) {
-                    System.out.println(pk + "    //T - соединение верхнее");
-
-                }
-            }
         }
     }
 
@@ -278,11 +246,7 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    public void varJoin(HashMap<String, HashSet> map, LinkedList<ElemSimple> elems) {
-
-    }
-//Обход(схлопывание) соединений area    
-
+    //Обход(схлопывание) соединений area    
     public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
 
         ElemJoining elemJoinVal = null;
