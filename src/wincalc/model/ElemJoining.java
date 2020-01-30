@@ -13,6 +13,7 @@ public class ElemJoining {
 
     public String id = "0"; //идентификатор соединения
     private Wincalc iwin;
+    protected String name;
     protected ElemSimple elemJoinTop = null;      //
     protected ElemSimple elemJoinBottom = null;   // Элементы соединения, временно для
     protected ElemSimple elemJoinLeft = null;     // схлопывания повторяющихся обходов
@@ -105,5 +106,9 @@ public class ElemJoining {
 
     public ElemSimple getJoinElement(int i) {
         return (i == 1) ? joinElement1 : joinElement2;
-    }       
+    }
+    
+    public String toString() {
+        return name;
+    }
 }

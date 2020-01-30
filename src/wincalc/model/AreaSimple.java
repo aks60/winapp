@@ -144,11 +144,9 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void joinElements(HashMap<String, ElemJoining> mapJoin, LinkedList<ElemSimple> listElem) {
+    public void joinElements(HashMap<String, ElemJoining> mapJoin, HashMap<String, HashSet<ElemSimple>> mapJoin2, LinkedList<ElemSimple> listElem) {
 
-        
-        //Обход всех соединений текущей Area
-        HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();
+        //Обход всех соединений текущей Area        
         passjoin(x1, y1, mapJoin2, listElem);
         passjoin(x1, y2, mapJoin2, listElem);
         passjoin(x2, y2, mapJoin2, listElem);
@@ -169,22 +167,22 @@ public class AreaSimple extends Com5t {
 
                 el.varJoin = VariantJoin.VAR2;
                 if (pk.equals(root().x1 + ":" + root().y1)) {
-                    System.out.println(pk + "  //угловое соединение левое верхнее");
+                    el.name = "угловое соединение левое верхнее";
                     el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
 
                 } else if (pk.equals(root().x1 + ":" + root().y2)) {
-                    System.out.println(pk + "   //угловое соединение левое нижнее");
+                    el.name = "угловое соединение левое нижнее";
                     el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
 
                 } else if (pk.equals(root().x2 + ":" + root().y2)) {
-                    System.out.println(pk + "   //угловое соединение правое нижнее");
+                    el.name = "угловое соединение правое нижнее";
                     el.joinElement1 = root().mapFrame.get(LayoutArea.RIGHT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
 
                 } else if (pk.equals(root().x2 + ":" + root().y1)) {
-                    System.out.println(pk + "   //угловое соединение правое верхнее");
+                    el.name = "угловое соединение правое верхнее";
                     el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
                     el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
                 }
@@ -202,19 +200,19 @@ public class AreaSimple extends Com5t {
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
                             el.varJoin = VariantJoin.VAR4;
                             if (side == 0) {
-                                System.out.println(pk + "    //T - соединение левое");
+                                el.name = "T - соединение левое";
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (side == 1) {
-                                System.out.println(pk + "    //T - соединение нижнее");
+                                el.name = "T - соединение нижнее";
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (side == 2) {
-                                System.out.println(pk + "    //T - соединение правое");
+                                el.name = "T - соединение правое";
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (side == 3) {
-                                System.out.println(pk + "    //T - соединение верхнее");
+                                el.name = "T - соединение верхнее";
                                 el.joinElement1 = e1;
                                 el.joinElement2 = e2;
                             }
@@ -222,11 +220,6 @@ public class AreaSimple extends Com5t {
                     }
                 }
             }
-        }
-        for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin2.entrySet()) {
-            String key = entry.getKey();
-            HashSet value = entry.getValue();
-            System.out.println(key + ":  " + value);
         }
     }
 
@@ -467,4 +460,5 @@ public class AreaSimple extends Com5t {
             gc.drawString(txt, (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
         }
     }
+
 }

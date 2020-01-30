@@ -97,6 +97,7 @@ public class Wincalc {
         LinkedList<AreaStvorka> listStvorka = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
         LinkedList<ElemSimple> listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        LinkedList<ElemSimple> listElem2 = rootArea.listElem(rootArea, TypeElem.FRAME_STV); //список элементов
 
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
@@ -105,16 +106,21 @@ public class Wincalc {
         //Соединения
         HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();     
         listArea.stream().forEach(area -> area.joinElements(mapJoin, mapJoin2, listElem)); //обход(схлопывание) соединений рамы
+        
+        //Соединения створок
+        listStvorka.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
+        mapJoin.clear();
+        mapJoin2.clear();
+        listStvorka.stream().forEach(area -> area.joinElements(mapJoin, mapJoin2, listElem)); //обход(схлопывание) соединений рамы
+        
+        //listStvorka.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
+
         for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
             String key = entry.getKey();
             ElemJoining val = entry.getValue();
             System.out.println(key + ":  " + val);
         }
-        
-        //Соединения створок
-        listStvorka.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        //stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
-
+                
         //Список элементов
 //        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
 //                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
