@@ -105,13 +105,16 @@ public class Wincalc {
         
         //Соединения
         //rootArea.joinFrame();  //обход соединений и кальк. углов 
-             
-        areaList.stream().forEach(area -> area.joinElements(mapJoin, listElem)); //обход(схлопывание) соединений рамы
-        //mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
-
+        HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();     
+        areaList.stream().forEach(area -> area.joinElements(mapJoin, mapJoin2, listElem)); //обход(схлопывание) соединений рамы
+        for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin2.entrySet()) {
+            String key = entry.getKey();
+            HashSet value = entry.getValue();
+            System.out.println(key + ":  " + value);
+        }
         //Соединения створок
         stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
+        //stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
 
         //Список элементов
 //        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
