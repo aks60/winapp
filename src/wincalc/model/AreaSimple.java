@@ -204,23 +204,34 @@ public class AreaSimple extends Com5t {
             } else {
                 //T - соединения
                 ElemSimple arrElem2[][] = {{arrElem[0], arrElem[1]}, {arrElem[1], arrElem[0]}}; //варианты общих точек пересечения
-                for (ElemSimple[] i : arrElem2) {
-                    ElemSimple e = i[0];
-                    ElemSimple e2 = i[1];
-                    //Сторона пересечения одного из элементов, index -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
-                    float point[][][] = {{{e.x1, e.y1}, {e.x1, e.y2}}, {{e.x1, e.y2}, {e.x2, e.y2}}, {{e.x2, e.y2}, {e.x2, e.y1}}, {{e.x1, e.y1}, {e.x2, e.y1}}};
-                    for (int index = 0; index < point.length; index++) {
-                        float[][] fs = point[index];
-                        if (e2.inside(fs[0][0], fs[0][1]) && e2.inside(fs[1][0], fs[1][1])) {
-                            if (index == 0) {
-                                System.out.println(pk + "    //T - соединение левое");
-                            } else if (index == 1) {
-                                System.out.println(pk + "    //T - соединение нижнее");
-                            } else if (index == 2) {
-                                System.out.println(pk + "    //T - соединение правое");
-                            } else if (index == 3) {
-                                System.out.println(pk + "    //T - соединение верхнее");
-
+                for (ElemSimple[] indexEl : arrElem2) {
+                    ElemSimple e1 = indexEl[1];
+                    ElemSimple e2 = indexEl[0];
+                    //Сторона пересечения одного из элементов
+                    //sides[][ном.стороны][коорд.стороны], side -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
+                    float sides[][][] = {{{e2.x1, e2.y1}, {e2.x1, e2.y2}}, {{e2.x1, e2.y2}, {e2.x2, e2.y2}}, {{e2.x2, e2.y2}, {e2.x2, e2.y1}}, {{e2.x1, e2.y1}, {e2.x2, e2.y1}}};
+                    for (int side = 0; side < sides.length; side++) {
+                        float[][] fs = sides[side];
+                        if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
+                            ElemJoining el = new ElemJoining(iwin);
+                            el.varJoin = VariantJoin.VAR4;
+                            mapJoin.put(pk, el);
+                            if (side == 0) {
+                                System.out.println(e1.id + "    //T - соединение левое"); 
+                                el.joinElement1 = e2;
+                                el.joinElement2 = e1;
+                            } else if (side == 1) {
+                                System.out.println(e1.id + "    //T - соединение нижнее");
+                                el.joinElement1 = e2;
+                                el.joinElement2 = e1;
+                            } else if (side == 2) {
+                                System.out.println(e1.id + "    //T - соединение правое");
+                                el.joinElement1 = e2;
+                                el.joinElement2 = e1;                              
+                            } else if (side == 3) {
+                                System.out.println(e1.id + "    //T - соединение верхнее");
+                                el.joinElement1 = e1;
+                                el.joinElement2 = e2;
                             }
                         }
                     }
