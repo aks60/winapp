@@ -144,19 +144,16 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void joinElements(HashMap<String, ElemJoining> mapJoin) {
+    public void joinElements(HashMap<String, ElemJoining> mapJoin, LinkedList<ElemSimple> listElem) {
 
-        LinkedList<AreaSimple> listArea = root().listElem(root(), TypeElem.AREA); //список контейнеров
-        LinkedList<ElemSimple> listElem = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        
+        //Обход всех соединений текущей Area
         HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();
+        passjoin(x1, y1, mapJoin2, listElem);
+        passjoin(x1, y2, mapJoin2, listElem);
+        passjoin(x2, y2, mapJoin2, listElem);
+        passjoin(x2, y1, mapJoin2, listElem);
 
-        //Обход всех соединений конструкции
-        for (AreaSimple area : listArea) {
-            area.passjoin(area.x1, area.y1, mapJoin2, listElem);
-            area.passjoin(area.x1, area.y2, mapJoin2, listElem);
-            area.passjoin(area.x2, area.y2, mapJoin2, listElem);
-            area.passjoin(area.x2, area.y1, mapJoin2, listElem);
-        }
         //Обход соединений (xy -> element1, element2)
         for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin2.entrySet()) {
 

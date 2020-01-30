@@ -96,6 +96,8 @@ public class Wincalc {
         LinkedList<AreaSimple> areaList = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> stvorkaList = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
+        LinkedList<ElemSimple> listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+
                 
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
@@ -103,14 +105,13 @@ public class Wincalc {
         
         //Соединения
         //rootArea.joinFrame();  //обход соединений и кальк. углов 
-        HashMap<String, ElemJoining> _mapJoin = new HashMap();
-        rootArea.joinElements(mapJoin);       
-        //areaList.stream().forEach(area -> area.passJoinArea(mapJoin)); //обход(схлопывание) соединений рамы
+             
+        areaList.stream().forEach(area -> area.joinElements(mapJoin, listElem)); //обход(схлопывание) соединений рамы
         //mapJoin.entrySet().stream().forEach(elemJoin -> elemJoin.getValue().initJoin()); //инит. варианта соединения
 
         //Соединения створок
         stvorkaList.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-//        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
+        stvorkaList.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
 
         //Список элементов
 //        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,

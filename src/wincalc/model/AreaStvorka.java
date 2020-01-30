@@ -13,6 +13,7 @@ import enums.TypeOpen;
 import enums.TypeProfile;
 import enums.VariantJoin;
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.Map;
 import wincalc.Wincalc;
 
@@ -136,6 +137,59 @@ public class AreaStvorka extends AreaSimple {
         return TypeOpen.OM_INVALID;
     }
 
+    /*public void joinElements(HashMap<String, ElemJoining> mapJoin) {
+        
+        super.joinElements(mapJoin);
+        
+        //Прилигающее верхнее
+        ElemJoining elemJoin_top = new ElemJoining(iwin);
+        elemJoin_top.id = id;
+        elemJoin_top.elemJoinTop = mapFrame.get(LayoutArea.TOP);
+        elemJoin_top.elemJoinBottom = mapFrame.get(LayoutArea.TOP);
+        elemJoin_top.joinElement1 = mapFrame.get(LayoutArea.TOP);
+        elemJoin_top.joinElement2 = (owner == owner.root()) ? owner.mapFrame.get(LayoutArea.TOP) : owner.adjoinedElem(LayoutArea.TOP);
+        elemJoin_top.cutAngl1 = 0;
+        elemJoin_top.cutAngl2 = 0;
+        elemJoin_top.varJoin = VariantJoin.VAR1;
+        iwin.mapJoin.put(String.valueOf(x1 + width / 2) + ":" + String.valueOf(y1 + 1), elemJoin_top);
+
+        //Прилигающее нижнее
+        ElemJoining elemJoin_bottom = new ElemJoining(iwin);
+        elemJoin_bottom.id = id;
+        elemJoin_bottom.elemJoinTop = mapFrame.get(LayoutArea.BOTTOM);
+        elemJoin_bottom.elemJoinBottom = mapFrame.get(LayoutArea.BOTTOM);
+        elemJoin_bottom.joinElement1 = mapFrame.get(LayoutArea.BOTTOM);
+        elemJoin_bottom.joinElement2 = (owner == owner.root()) ? owner.mapFrame.get(LayoutArea.BOTTOM) : owner.adjoinedElem(LayoutArea.BOTTOM);
+        elemJoin_bottom.cutAngl1 = 0;
+        elemJoin_bottom.cutAngl2 = 0;
+        elemJoin_bottom.varJoin = VariantJoin.VAR1;
+        iwin.mapJoin.put(String.valueOf(x1 + width / 2) + ":" + String.valueOf(y2 - 1), elemJoin_bottom);
+
+        //Прилигающее левое
+        ElemJoining elemJoin_left = new ElemJoining(iwin);
+        elemJoin_left.id = id;
+        elemJoin_left.elemJoinLeft = mapFrame.get(LayoutArea.LEFT);
+        elemJoin_left.elemJoinRight = mapFrame.get(LayoutArea.LEFT);
+        elemJoin_left.joinElement1 = mapFrame.get(LayoutArea.LEFT);
+        elemJoin_left.joinElement2 = (owner == owner.root()) ? owner.mapFrame.get(LayoutArea.LEFT) : owner.adjoinedElem(LayoutArea.LEFT);
+        elemJoin_left.cutAngl1 = 0;
+        elemJoin_left.cutAngl2 = 0;
+        elemJoin_left.varJoin = VariantJoin.VAR1;
+        iwin.mapJoin.put(String.valueOf(x1 + 1) + ":" + String.valueOf(y1 + height / 2), elemJoin_left);
+
+        //Прилигающее правое
+        ElemJoining elemJoin_right = new ElemJoining(iwin);
+        elemJoin_right.id = id;
+        elemJoin_right.elemJoinLeft = mapFrame.get(LayoutArea.RIGHT);
+        elemJoin_right.elemJoinRight = mapFrame.get(LayoutArea.RIGHT);
+        elemJoin_right.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
+        elemJoin_right.joinElement2 = (owner == owner.root()) ? owner.mapFrame.get(LayoutArea.RIGHT) : owner.adjoinedElem(LayoutArea.RIGHT);
+        elemJoin_right.cutAngl1 = 0;
+        elemJoin_right.cutAngl2 = 0;
+        elemJoin_right.varJoin = VariantJoin.VAR1;
+        iwin.mapJoin.put(String.valueOf(x2 - 1) + ":" + String.valueOf(y1 + height / 2), elemJoin_right);        
+    }*/
+    
     public void passJoinFrame() {
 
         //Угловое соединение левое верхнее
