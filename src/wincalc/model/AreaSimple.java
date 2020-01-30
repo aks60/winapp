@@ -153,19 +153,19 @@ public class AreaSimple extends Com5t {
 
         //Обход всех соединений конструкции
         for (AreaSimple area : listArea) {
-            area.passJoin(area.x1, area.y1, mapJoin2, listElem);
-            area.passJoin(area.x1, area.y2, mapJoin2, listElem);
-            area.passJoin(area.x2, area.y2, mapJoin2, listElem);
-            area.passJoin(area.x2, area.y1, mapJoin2, listElem);
+            area.passjoin(area.x1, area.y1, mapJoin2, listElem);
+            area.passjoin(area.x1, area.y2, mapJoin2, listElem);
+            area.passjoin(area.x2, area.y2, mapJoin2, listElem);
+            area.passjoin(area.x2, area.y1, mapJoin2, listElem);
         }
-        //Обход соединений и получение соед. с импостами
+        //Обход соединений (xy -> element1, element2)
         for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin2.entrySet()) {
 
             String pk = it.getKey();
             HashSet<ElemSimple> setElem = it.getValue();
             ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
 
-            //В соединении оба элемента рамы
+            //В соединении оба элемента рамы (угловые соединения)
             if ((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
                     || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) {
 
@@ -201,62 +201,32 @@ public class AreaSimple extends Com5t {
                     el.varJoin = VariantJoin.VAR2;
                     mapJoin.put(pk, el);
                 }
-                //В соединении оба элемента импост   
-            } else if ((arrElem[0].typeElem() == TypeElem.IMPOST && arrElem[1].typeElem() == TypeElem.IMPOST)) {
-
-                if (arrElem[0].inside(arrElem[1].x1, arrElem[1].y1) || arrElem[1].inside(arrElem[0].x1, arrElem[0].y1)) {
-                    if (arrElem[1].owner.layout == LayoutArea.VERT) {
-                        System.out.println(pk + "    //T* - соединение верхнее");
-                    } else {
-                        System.out.println(pk + "    //T* - соединение левое");
-                    }
-                }
-                if (arrElem[0].inside(arrElem[1].x2, arrElem[1].y2) || arrElem[1].inside(arrElem[0].x2, arrElem[0].y2)) {
-                    if (arrElem[1].owner.layout == LayoutArea.VERT) {
-                        System.out.println(pk + "    //T* - соединение нижнее");
-                    } else {
-                        System.out.println(pk + "    //T* - соединение правое");
-                    }
-                }
-
-                //Остались комбинации рамы и импоста
             } else {
-                for (ElemSimple elem : setElem) {
-                    if (elem.typeElem() == TypeElem.FRAME_BOX || elem.typeElem() == TypeElem.FRAME_STV) {
+                //T - соединения
+                ElemSimple arrElem2[][] = {{arrElem[0], arrElem[1]}, {arrElem[1], arrElem[0]}}; //варианты общих точек пересечения
+                for (ElemSimple[] i : arrElem2) {
+                    ElemSimple e = i[0];
+                    ElemSimple e2 = i[1];
+                    //Сторона пересечения одного из элементов, index -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
+                    float point[][][] = {{{e.x1, e.y1}, {e.x1, e.y2}}, {{e.x1, e.y2}, {e.x2, e.y2}}, {{e.x2, e.y2}, {e.x2, e.y1}}, {{e.x1, e.y1}, {e.x2, e.y1}}};
+                    for (int index = 0; index < point.length; index++) {
+                        float[][] fs = point[index];
+                        if (e2.inside(fs[0][0], fs[0][1]) && e2.inside(fs[1][0], fs[1][1])) {
+                            if (index == 0) {
+                                System.out.println(pk + "    //T - соединение левое");
+                            } else if (index == 1) {
+                                System.out.println(pk + "    //T - соединение нижнее");
+                            } else if (index == 2) {
+                                System.out.println(pk + "    //T - соединение правое");
+                            } else if (index == 3) {
+                                System.out.println(pk + "    //T - соединение верхнее");
 
-                        if (((ElemFrame) elem).layout() == LayoutArea.TOP) {
-                            System.out.println(pk + "    //T - соединение верхнее");
-                            ElemJoining el = new ElemJoining(iwin);
-                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
-                            el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
-                            el.varJoin = VariantJoin.VAR4;
-                            mapJoin.put(pk, el);
-
-                        } else if (((ElemFrame) elem).layout() == LayoutArea.BOTTOM) {
-                            System.out.println(pk + "    //T - соединение нижнее");
-                            ElemJoining el = new ElemJoining(iwin);
-                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
-                            el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
-                            el.varJoin = VariantJoin.VAR4;
-                            mapJoin.put(pk, el);
-
-                        } else if (((ElemFrame) elem).layout() == LayoutArea.LEFT) {
-                            System.out.println(pk + "    //T - соединение левое");
-                            ElemJoining el = new ElemJoining(iwin);
-                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
-                            el.joinElement2 = root().mapFrame.get(LayoutArea.LEFT);
-                            el.varJoin = VariantJoin.VAR4;
-
-                        } else if (((ElemFrame) elem).layout() == LayoutArea.RIGHT) {
-                            System.out.println(pk + "    //T - соединение правое");
-                            ElemJoining el = new ElemJoining(iwin);
-                            el.joinElement1 = (arrElem[0] == elem) ? arrElem[1] : arrElem[0];
-                            el.joinElement2 = root().mapFrame.get(LayoutArea.RIGHT);
-                            el.varJoin = VariantJoin.VAR4;
-                            mapJoin.put(pk, el);
+                            }
                         }
                     }
                 }
+                //passjoin(arrElem[0], arrElem[1], pk);
+                //passjoin(arrElem[1], arrElem[0], pk);
             }
         }
         for (Map.Entry<String, HashSet<ElemSimple>> entry : mapJoin2.entrySet()) {
@@ -266,26 +236,27 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    private void passJoin(ElemSimple elem, String pk) {
+    private void passjoin(ElemSimple e, ElemSimple e2, String pk) {
         //index = 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
-        float point[][][] = {{{x1, y1}, {x1, y2}}, {{x1, y2}, {x2, y2}}, {{x2, y2}, {x2, y1}}, {{x1, y1}, {x2, y1}}};
+        float point[][][] = {{{e.x1, e.y1}, {e.x1, e.y2}}, {{e.x1, e.y2}, {e.x2, e.y2}}, {{e.x2, e.y2}, {e.x2, e.y1}}, {{e.x1, e.y1}, {e.x2, e.y1}}};
         for (int index = 0; index < point.length; index++) {
             float[][] fs = point[index];
-            if (elem.inside(fs[0][0], fs[0][1]) && elem.inside(fs[1][0], fs[1][1])) {
+            if (e2.inside(fs[0][0], fs[0][1]) && e2.inside(fs[1][0], fs[1][1])) {
                 if (index == 0) {
                     System.out.println(pk + "    //T - соединение левое");
-                } else if (index == 0) {
+                } else if (index == 1) {
                     System.out.println(pk + "    //T - соединение нижнее");
-                } else if (index == 0) {
+                } else if (index == 2) {
                     System.out.println(pk + "    //T - соединение правое");
-                } else if (index == 0) {
+                } else if (index == 3) {
                     System.out.println(pk + "    //T - соединение верхнее");
+
                 }
             }
         }
     }
 
-    private void passJoin(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
+    private void passjoin(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
 
         String k = x + ":" + y;
         if (map.get(k) == null) {
