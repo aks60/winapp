@@ -121,12 +121,10 @@ public class AreaStvorka extends AreaSimple {
 
         //Добавим рамы створки
         addFrame(new ElemFrame(this, "11", LayoutArea.LEFT));
-
         addFrame(new ElemFrame(this, "12", LayoutArea.RIGHT));
-
         addFrame(new ElemFrame(this, "13", LayoutArea.TOP));
-
         addFrame(new ElemFrame(this, "14", LayoutArea.BOTTOM));
+        
         for (Map.Entry<LayoutArea, ElemFrame> elem : mapFrame.entrySet()) {
             elem.getValue().anglCut1 = 45;
             elem.getValue().anglCut2 = 45;
