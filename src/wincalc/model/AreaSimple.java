@@ -266,6 +266,25 @@ public class AreaSimple extends Com5t {
         }
     }
 
+    private void passJoin(ElemSimple elem, String pk) {
+        //index = 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
+        float point[][][] = {{{x1, y1}, {x1, y2}}, {{x1, y2}, {x2, y2}}, {{x2, y2}, {x2, y1}}, {{x1, y1}, {x2, y1}}};
+        for (int index = 0; index < point.length; index++) {
+            float[][] fs = point[index];
+            if (elem.inside(fs[0][0], fs[0][1]) && elem.inside(fs[1][0], fs[1][1])) {
+                if (index == 0) {
+                    System.out.println(pk + "    //T - соединение левое");
+                } else if (index == 0) {
+                    System.out.println(pk + "    //T - соединение нижнее");
+                } else if (index == 0) {
+                    System.out.println(pk + "    //T - соединение правое");
+                } else if (index == 0) {
+                    System.out.println(pk + "    //T - соединение верхнее");
+                }
+            }
+        }
+    }
+
     private void passJoin(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
 
         String k = x + ":" + y;
