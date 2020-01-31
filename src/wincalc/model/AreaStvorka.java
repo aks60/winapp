@@ -84,19 +84,19 @@ public class AreaStvorka extends AreaSimple {
         elemBott = ownerRightBott.joinElement2;
         elemRight = ownerRightBott.joinElement1;
 
-//        if (ownerLeftTop.varJoin == VariantJoin.VAR4) {
-//            elemLeft = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement2 : ownerLeftTop.joinElement1;
-//            elemTop = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement1 : ownerLeftTop.joinElement2;
-//        }
-//        if (ownerRightBott.varJoin == VariantJoin.VAR4) {
-//            if (ownerRightBott.elemJoinTop == ownerRightBott.elemJoinBottom && ownerRightBott.elemJoinLeft != null && ownerRightBott.elemJoinRight == null) {
-//                elemBott = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
-//                elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement2 : ownerRightBott.joinElement1;
-//            } else {
-//                elemBott = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement2 : ownerRightBott.joinElement1;
-//                elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
-//            }
-//        }
+        if (ownerLeftTop.varJoin == VariantJoin.VAR4) {
+            elemLeft = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement2 : ownerLeftTop.joinElement1;
+            elemTop = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement1 : ownerLeftTop.joinElement2;
+        }
+        if (ownerRightBott.varJoin == VariantJoin.VAR4) {
+            if (ownerRightBott.elemJoinTop == ownerRightBott.elemJoinBottom && ownerRightBott.elemJoinLeft != null && ownerRightBott.elemJoinRight == null) {
+                elemBott = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
+                elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement2 : ownerRightBott.joinElement1;
+            } else {
+                elemBott = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement2 : ownerRightBott.joinElement1;
+                elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
+            }
+        }
         
         
         Float naxl = iwin.sysconsRec.getFloat(eSyscons.naxl);
