@@ -9,10 +9,10 @@ import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
-import enums.TypeJoin;
+import enums.JoinLocate;
 import enums.TypeOpen;
 import enums.TypeProfile;
-import enums.VariantJoin;
+import enums.JoinVariant;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -84,11 +84,11 @@ public class AreaStvorka extends AreaSimple {
         elemBott = ownerRightBott.joinElement2;
         elemRight = ownerRightBott.joinElement1;
 
-        if (ownerLeftTop.varJoin == VariantJoin.VAR4) {
+        if (ownerLeftTop.varJoin == JoinVariant.VAR4) {
             elemLeft = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement2 : ownerLeftTop.joinElement1;
             elemTop = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement1 : ownerLeftTop.joinElement2;
         }
-        if (ownerRightBott.varJoin == VariantJoin.VAR4) {
+        if (ownerRightBott.varJoin == JoinVariant.VAR4) {
             if (ownerRightBott.elemJoinTop == ownerRightBott.elemJoinBottom && ownerRightBott.elemJoinLeft != null && ownerRightBott.elemJoinRight == null) {
                 elemBott = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
                 elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement2 : ownerRightBott.joinElement1;
@@ -97,8 +97,7 @@ public class AreaStvorka extends AreaSimple {
                 elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
             }
         }
-        
-        
+                
         Float naxl = iwin.sysconsRec.getFloat(eSyscons.naxl);
         Float size_falz =  articlRec.getFloat(eArtikl.size_falz); 
         x1 = elemLeft.x2 - size_falz - naxl;
@@ -146,34 +145,34 @@ public class AreaStvorka extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.id = id + "." + (index + 1) + "V";
-            el.varJoin = VariantJoin.VAR2;
+            el.varJoin = JoinVariant.VAR2;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
             if (index == 0) {
                 el.name = "Угловое соединение левое верхнее";
-                el.typeJoin = TypeJoin.LTOP;
+                el.typeJoin = JoinLocate.LTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
                 iwin.mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);
 
             } else if (index == 1) {
                 el.name = "Угловое соединение левое нижнее";
-                el.typeJoin = TypeJoin.LBOT;
+                el.typeJoin = JoinLocate.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin.mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
 
             } else if (index == 2) {
                 el.name = "Угловое соединение правое нижнее";
-                el.typeJoin = TypeJoin.RBOT;
+                el.typeJoin = JoinLocate.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
 
             } else if (index == 3) {
                 el.name = "Угловое соединение правое верхнее";
-                el.typeJoin = TypeJoin.RTOP;
+                el.typeJoin = JoinLocate.RTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
                 iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
@@ -183,7 +182,7 @@ public class AreaStvorka extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.id = id + "." + (index + 1) + "Z";
-            el.varJoin = VariantJoin.VAR1;
+            el.varJoin = JoinVariant.VAR1;
             el.cutAngl1 = 0;
             el.cutAngl2 = 0;
 

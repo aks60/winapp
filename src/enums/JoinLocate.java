@@ -1,6 +1,6 @@
 package enums;
 
-public enum TypeJoin {
+public enum JoinLocate {
 
     NONE(1, "Не определено"),
     LTOP(1, "Угловое соединение левое верхнее"),
@@ -15,7 +15,7 @@ public enum TypeJoin {
     public int value;
     public String name;
 
-    TypeJoin(int value, String name) {
+    JoinLocate(int value, String name) {
         this.value = value;
         this.name = name;
     }    
