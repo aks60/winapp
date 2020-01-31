@@ -109,10 +109,10 @@ public class AreaStvorka extends AreaSimple {
         elemGlass.specificationRec.height = height;
 
         //Добавим рамы створки
-        addFrame(new ElemFrame(this, id + ".1S", LayoutArea.LEFT));
-        addFrame(new ElemFrame(this, id + ".2S", LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + ".3S", LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + ".4S", LayoutArea.BOTTOM));
+        addFrame(new ElemFrame(this, id + ".1R", LayoutArea.LEFT));
+        addFrame(new ElemFrame(this, id + ".2R", LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + ".3R", LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + ".4R", LayoutArea.BOTTOM));
     }
 
     @Override
