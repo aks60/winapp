@@ -39,7 +39,7 @@ public class ElemJoining {
         this.iwin = iwin;
     }
 
-    //Инициализация вариантов соединения и первичная углов реза
+  /*  //Инициализация вариантов соединения и первичная углов реза
     public void initJoin() {
 
         if (elemJoinLeft == null && elemJoinRight != null && elemJoinBottom != null && elemJoinTop == null) { //угловое соединение левое верхнее
@@ -97,7 +97,7 @@ public class ElemJoining {
         } else {
             System.out.println("Инициализация соединения не выполнена  - LEFT.id=" + elemJoinLeft.id + " - RIGHT.id=" + elemJoinRight.id + " - BOTT.id=" + elemJoinBottom.id + " - TOP.id=" + elemJoinTop.id);
         }
-    }
+    } */
 
     public float getAnglJoin(int side) {
         return (side == 1) ? cutAngl1 : cutAngl2;

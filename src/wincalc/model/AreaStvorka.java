@@ -24,6 +24,7 @@ public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
+    //private LinkedList<ElemSimple> listElem = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, String id, String param) {
 
