@@ -184,7 +184,7 @@ public class Winscript {
 
         } else if (prj == 604004) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1700, 1050, 1009, 1009, 1009, "");
-            rootArea.setParam(37, prj.toString());
+            rootArea.setParam(435, prj.toString()); //Rehau->Delight->1 ОКНА
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
