@@ -112,23 +112,13 @@ public class Wincalc {
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         listStvorka.stream().forEach(area -> area.joinFrame());
 
-        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
-            String key = entry.getKey();
-            ElemJoining val = entry.getValue();
-            System.out.println(key + ":  id=" + val.id + "  " + val);
-        }
+        //Список элементов, (важно! получаем после построения створки)
+        listElem = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
 
-        //Список элементов
-//        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
-//                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
-            //Specification.write_txt(constr, rootArea.specificList()); //вывод на тестирование в DLL
-            //Specification.write_txt2(constr, rootArea.specificList()); //вывод уникального индекса
-            //CalcBase.test_param(ParamSpecific.paramSum); //тестирование парам. спецификации
-            //AreaSimple.print_joining(mapJoin); //соединения на консоль
-            //model.Main.compareIWin(rootArea.specificList(), prj, true); //сравнение спецификации с профстроем
+            // mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
         }
         return rootArea;
     }
