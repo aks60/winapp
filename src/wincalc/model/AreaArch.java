@@ -6,7 +6,7 @@ import enums.TypeElem;
 import wincalc.Wincalc;
 
 public class AreaArch extends AreaSimple {
-    
+
     protected double radiusArch = 0; //радиус арки
 
     public AreaArch(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
@@ -14,11 +14,6 @@ public class AreaArch extends AreaSimple {
         parsing(param);
     }
 
-    @Override
-    public TypeElem typeElem() {
-        return TypeElem.ARCH;
-    }
-    
     @Override
     public void joinFrame() {
 
@@ -84,4 +79,8 @@ public class AreaArch extends AreaSimple {
         elemJoin4.elemJoinTop.anglCut(ElemSimple.SIDE_END, elemJoin4.cutAngl1);
     }
 
+    @Override
+    public TypeElem typeElem() {
+        return TypeElem.ARCH;
+    }
 }

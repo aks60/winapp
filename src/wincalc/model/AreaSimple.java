@@ -3,6 +3,7 @@ package wincalc.model;
 import domain.eArtikl;
 import enums.LayoutArea;
 import enums.TypeElem;
+import enums.TypeJoin;
 import enums.VariantJoin;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -19,7 +20,7 @@ import wincalc.Wincalc;
 
 public class AreaSimple extends Com5t {
 
-    private LayoutArea layout = LayoutArea.FULL; //порядок расположения компонентов в окне
+    private LayoutArea layout = LayoutArea.FULL; //направление расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
     //Конструктор
@@ -144,78 +145,61 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void joinElements(HashMap<String, ElemJoining> mapJoin, HashMap<String, HashSet<ElemSimple>> mapJoin2, LinkedList<ElemSimple> listElem) {
+    public void joinElem(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
 
         //Обход всех соединений текущей Area        
-        passjoin(x1, y1, mapJoin2, listElem);
-        passjoin(x1, y2, mapJoin2, listElem);
-        passjoin(x2, y2, mapJoin2, listElem);
-        passjoin(x2, y1, mapJoin2, listElem);
+        insideElem(x1, y1, mapClap, listElem);
+        insideElem(x1, y2, mapClap, listElem);
+        insideElem(x2, y2, mapClap, listElem);
+        insideElem(x2, y1, mapClap, listElem);
 
         //Обход соединений (xy -> element1, element2)
-        for (Map.Entry<String, HashSet<ElemSimple>> it : mapJoin2.entrySet()) {
+        for (Map.Entry<String, HashSet<ElemSimple>> it : mapClap.entrySet()) {
 
             HashSet<ElemSimple> setElem = it.getValue();
             ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
             ElemJoining el = new ElemJoining(iwin);
             String pk = it.getKey();
-            mapJoin.put(pk, el);
 
-            //В соединении оба элемента рамы (угловые соединения)
-            if ((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
-                    || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) {
+            //В соединении элемента рамы и импост (T - соединение)
+            if (((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
+                    || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) == false) {
 
-                el.varJoin = VariantJoin.VAR2;
-                if (pk.equals(root().x1 + ":" + root().y1)) {
-                    el.name = "угловое соединение левое верхнее";
-                    el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
-                    el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
-
-                } else if (pk.equals(root().x1 + ":" + root().y2)) {
-                    el.name = "угловое соединение левое нижнее";
-                    el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
-                    el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
-
-                } else if (pk.equals(root().x2 + ":" + root().y2)) {
-                    el.name = "угловое соединение правое нижнее";
-                    el.joinElement1 = root().mapFrame.get(LayoutArea.RIGHT);
-                    el.joinElement2 = root().mapFrame.get(LayoutArea.BOTTOM);
-
-                } else if (pk.equals(root().x2 + ":" + root().y1)) {
-                    el.name = "угловое соединение правое верхнее";
-                    el.joinElement1 = root().mapFrame.get(LayoutArea.LEFT);
-                    el.joinElement2 = root().mapFrame.get(LayoutArea.TOP);
-                }
-            } else {
-                //T - соединения
+                iwin.mapJoin.put(pk, el);
                 ElemSimple arrElem2[][] = {{arrElem[0], arrElem[1]}, {arrElem[1], arrElem[0]}}; //варианты общих точек пересечения
-                for (ElemSimple[] indexEl : arrElem2) {
+                for (ElemSimple[] indexEl : arrElem2) {                    
                     ElemSimple e1 = indexEl[1];
                     ElemSimple e2 = indexEl[0];
-                    //Сторона пересечения одного из элементов
-                    //sides[][ном.стороны][коорд.стороны], side -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
+                    
+                    //Сторона пересечения одного из элементов, sides[][ном.стороны][коорд.стороны], side -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
                     float sides[][][] = {{{e2.x1, e2.y1}, {e2.x1, e2.y2}}, {{e2.x1, e2.y2}, {e2.x2, e2.y2}}, {{e2.x2, e2.y2}, {e2.x2, e2.y1}}, {{e2.x1, e2.y1}, {e2.x2, e2.y1}}};
-                    for (int side = 0; side < sides.length; side++) {
-                        float[][] fs = sides[side];
+                    for (int index = 0; index < sides.length; index++) {
+                        
+                        el.id = id + "." + (index + 1) + "T";
+                        float[][] fs = sides[index];
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
                             el.varJoin = VariantJoin.VAR4;
-                            if (side == 0) {
-                                el.name = "T - соединение левое";
+                            if (index == 0) {
+                                el.name = "T - соединение левое";                                
+                                el.typeJoin = TypeJoin.TLEFT;
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
-                            } else if (side == 1) {
+                            } else if (index == 1) {
                                 el.name = "T - соединение нижнее";
+                                el.typeJoin = TypeJoin.TBOT;
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
-                            } else if (side == 2) {
+                            } else if (index == 2) {
                                 el.name = "T - соединение правое";
+                                el.typeJoin = TypeJoin.TRIGH;
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
-                            } else if (side == 3) {
+                            } else if (index == 3) {
                                 el.name = "T - соединение верхнее";
+                                el.typeJoin = TypeJoin.TTOP;
                                 el.joinElement1 = e1;
                                 el.joinElement2 = e2;
-                            }
+                            }                            
                         }
                     }
                 }
@@ -223,7 +207,7 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    private void passjoin(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
+    private void insideElem(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
 
         String k = x + ":" + y;
         if (map.get(k) == null) {
@@ -234,122 +218,6 @@ public class AreaSimple extends Com5t {
                 map.get(k).add(elem);
             }
         }
-    }
-
-    //Обход(схлопывание) соединений area    
-    public void passJoinArea(HashMap<String, ElemJoining> mapJoin) {
-
-        ElemJoining elemJoinVal = null;
-        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
-        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
-        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
-        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
-
-        elemJoinVal = mapJoin.get(key1);
-        if (elemJoinVal == null) {
-            mapJoin.put(key1, new ElemJoining(iwin));
-            elemJoinVal = mapJoin.get(key1);
-        }
-        if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.TOP);
-        }
-        if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.LEFT);
-        }
-
-        elemJoinVal = mapJoin.get(key2);
-        if (elemJoinVal == null) {
-            mapJoin.put(key2, new ElemJoining(iwin));
-            elemJoinVal = mapJoin.get(key2);
-        }
-        if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.TOP);
-        }
-        if (elemJoinVal.elemJoinBottom == null) {
-            elemJoinVal.elemJoinBottom = adjoinedElem(LayoutArea.RIGHT);
-        }
-
-        elemJoinVal = mapJoin.get(key3);
-        if (elemJoinVal == null) {
-            mapJoin.put(key3, new ElemJoining(iwin));
-            elemJoinVal = mapJoin.get(key3);
-        }
-        if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.RIGHT);
-        }
-        if (elemJoinVal.elemJoinLeft == null) {
-            elemJoinVal.elemJoinLeft = adjoinedElem(LayoutArea.BOTTOM);
-        }
-
-        elemJoinVal = mapJoin.get(key4);
-        if (elemJoinVal == null) {
-            mapJoin.put(key4, new ElemJoining(iwin));
-            elemJoinVal = mapJoin.get(key4);
-        }
-        if (elemJoinVal.elemJoinTop == null) {
-            elemJoinVal.elemJoinTop = adjoinedElem(LayoutArea.LEFT);
-        }
-        if (elemJoinVal.elemJoinRight == null) {
-            elemJoinVal.elemJoinRight = adjoinedElem(LayoutArea.BOTTOM);
-        }
-    }
-
-    // Получить примыкающий элемент (используется при нахождении элементов соединений)
-    protected ElemSimple adjoinedElem(LayoutArea layoutSide) {
-
-        LinkedList<Com5t> listElem = owner.listElem(this, TypeElem.AREA, TypeElem.IMPOST);
-        for (int index = 0; index < listElem.size(); ++index) {
-
-            Com5t elemBase = listElem.get(index);
-            if (elemBase.id != id) {
-                continue; //пропускаем если другая ареа
-            }
-            EnumMap<LayoutArea, ElemFrame> mapFrame = root().mapFrame;
-            if (index == 0 && owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.VERT && root().typeElem() == TypeElem.ARCH) {
-                return mapFrame.get(TypeElem.ARCH);
-            } else if (owner.equals(root()) && layoutSide == LayoutArea.TOP && owner.layout() == LayoutArea.HORIZ && root().typeElem() == TypeElem.ARCH) {
-                return mapFrame.get(TypeElem.ARCH);
-            }
-
-            if (owner.equals(root()) && owner.layout() == LayoutArea.VERT) {
-                if (layoutSide == LayoutArea.TOP) {
-
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index - 1);
-                } else if (layoutSide == LayoutArea.BOTTOM) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index + 1);
-                } else {
-                    return root().mapFrame.get(layoutSide);
-                }
-            } else if (owner.equals(root()) && owner.layout() == LayoutArea.HORIZ) {
-                if (layoutSide == LayoutArea.LEFT) {
-                    return (index == 0) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index - 1);
-                } else if (layoutSide == LayoutArea.RIGHT) {
-                    return (index == listElem.size() - 1) ? mapFrame.get(layoutSide) : (ElemSimple) listElem.get(index + 1);
-                } else {
-                    return root().mapFrame.get(layoutSide);
-                }
-
-            } else {
-                if (owner.layout() == LayoutArea.VERT) {
-                    if (layoutSide == LayoutArea.TOP) {
-                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index - 1);
-                    } else if (layoutSide == LayoutArea.BOTTOM) {
-                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index + 1);
-                    } else {
-                        return owner.adjoinedElem(layoutSide);
-                    }
-                } else {
-                    if (layoutSide == LayoutArea.LEFT) {
-                        return (index == 0) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index - 1);
-                    } else if (layoutSide == LayoutArea.RIGHT) {
-                        return (index == listElem.size() - 1) ? owner.adjoinedElem(layoutSide) : (ElemSimple) listElem.get(index + 1);
-                    } else {
-                        return owner.adjoinedElem(layoutSide);
-                    }
-                }
-            }
-        }
-        return null;
     }
 
     public ElemFrame addFrame(ElemFrame elemFrame) {

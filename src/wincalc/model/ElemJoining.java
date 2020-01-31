@@ -1,6 +1,7 @@
 package wincalc.model;
 
 import dataset.Record;
+import enums.TypeJoin;
 import enums.VariantJoin;
 import java.util.ArrayList;
 import wincalc.Wincalc;
@@ -14,28 +15,30 @@ public class ElemJoining {
     public String id = "0"; //идентификатор соединения
     private Wincalc iwin;
     protected String name;
+    protected TypeJoin typeJoin = TypeJoin.NONE;
+    protected VariantJoin varJoin = VariantJoin.EMPTY;    // Вариант соединения
+
     protected ElemSimple elemJoinTop = null;      //
     protected ElemSimple elemJoinBottom = null;   // Элементы соединения, временно для
     protected ElemSimple elemJoinLeft = null;     // схлопывания повторяющихся обходов
     protected ElemSimple elemJoinRight = null;    //
 
-    protected VariantJoin varJoin = VariantJoin.EMPTY;    // Вариант соединения
     protected ElemSimple joinElement1 = null;  // Элемент соединения 1
     protected ElemSimple joinElement2 = null;  // Элемент соединения 2
-
+    
     protected float cutAngl1 = 45;    //Угол реза1
     protected float cutAngl2 = 45;    //Угол реза2
     protected float anglProf = 90;    //Угол между профилями
     public String costsJoin = "";     //Трудозатраты, ч/ч. 
-    
+
     protected Record foiningRec = null;
     protected Record joinvarRec = null;
     protected ArrayList<Specification> specificationList = new ArrayList();
-    
+
     public ElemJoining(Wincalc iwin) {
         this.iwin = iwin;
     }
-    
+
     //Инициализация вариантов соединения и первичная углов реза
     public void initJoin() {
 
@@ -107,7 +110,7 @@ public class ElemJoining {
     public ElemSimple getJoinElement(int i) {
         return (i == 1) ? joinElement1 : joinElement2;
     }
-    
+
     public String toString() {
         return name;
     }

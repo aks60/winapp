@@ -48,10 +48,6 @@ public abstract class Com5t {
         specificationRec = new Specification(id, this);
     }
 
-    public String getId() {
-        return id;
-    }
-
     public AreaSimple root() {
         return iwin.rootArea;
     }
@@ -63,26 +59,12 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
-//    public boolean inside(float x, float y) {
-//        //return (x >= 0) && (x < width) && (y >= 0) && (y < height);
-//        return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
-//    }
-
     public float width() {
         return width;
     }
 
     public float height() {
         return height;
-    }
-
-    public float xy(int index) {
-        float xy[] = {x1, y1, x2, y2};
-        return xy[index - 1];
-    }
-
-    public int color(int index) {
-        return (index == 1) ? color1 : (index == 2) ? color2 : color3;
     }
 
     protected void parsing(String param) {

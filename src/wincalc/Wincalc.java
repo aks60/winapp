@@ -43,7 +43,7 @@ public class Wincalc {
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
-    public Record articlesRec = null;  //главный артикл системы профилей
+    public Record articlRec = null;  //главный артикл системы профилей
     protected float percentMarkup = 0;  //процентная надбавка
 
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
@@ -98,27 +98,24 @@ public class Wincalc {
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
         LinkedList<ElemSimple> listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         LinkedList<ElemSimple> listElem2 = rootArea.listElem(rootArea, TypeElem.FRAME_STV); //список элементов
+        HashMap<String, HashSet<ElemSimple>> mapClap= new HashMap(); //временно для схлопывания соединений
 
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
         
-        //Соединения
-        HashMap<String, HashSet<ElemSimple>> mapJoin2 = new HashMap();     
-        listArea.stream().forEach(area -> area.joinElements(mapJoin, mapJoin2, listElem)); //обход(схлопывание) соединений рамы
+        //Соединения рамы  
+        rootArea.joinFrame();  //обход соединений и кальк. углов 
+        listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы
         
         //Соединения створок
-        listStvorka.stream().forEach(stvorka -> stvorka.setCorrection()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        mapJoin.clear();
-        mapJoin2.clear();
-        listStvorka.stream().forEach(area -> area.joinElements(mapJoin, mapJoin2, listElem)); //обход(схлопывание) соединений рамы
-        
-        //listStvorka.stream().forEach(stvorka -> stvorka.passJoinFrame()); //обход соединений и кальк. углов створок
+        listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
+        listStvorka.stream().forEach(area -> area.joinFrame());
 
         for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
             String key = entry.getKey();
             ElemJoining val = entry.getValue();
-            System.out.println(key + ":  " + val);
+            System.out.println(key + ":  id=" + val.id + "  " + val);
         }
                 
         //Список элементов
@@ -152,8 +149,8 @@ public class Wincalc {
             heightAdd = mainObj.get("height").getAsFloat();
 
             Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.Left);
-            articlesRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-            sysconsRec = eSyscons.find(articlesRec.getInt(eArtikl.syscons_id));
+            articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+            sysconsRec = eSyscons.find(articlRec.getInt(eArtikl.syscons_id));
 
             color1 = mainObj.get("color1").getAsInt();
             color2 = mainObj.get("color2").getAsInt();

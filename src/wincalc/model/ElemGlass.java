@@ -66,8 +66,8 @@ public class ElemGlass extends ElemSimple {
         Object obj = articlRec.getDbl(eArtikl.size_falz);
         sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.Left); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
         if (articlRec.getDbl(eArtikl.size_falz) == 0) {
-            Object ooo = iwin.articlesRec.get(eArtikl.tech_code);
-            articlRec.set(eArtikl.tech_code, iwin.articlesRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
+            Object ooo = iwin.articlRec.get(eArtikl.tech_code);
+            articlRec.set(eArtikl.tech_code, iwin.articlRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
         Record artdetRec = eArtdet.up.find(articlRec.getInt(eArtikl.id));
@@ -93,7 +93,6 @@ public class ElemGlass extends ElemSimple {
         }
     }
     
-       
     @Override
     //Добавление спесификаций зависимых элементов
     public void addSpecifSubelem(Specification specif) {
