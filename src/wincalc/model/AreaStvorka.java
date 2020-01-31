@@ -24,7 +24,6 @@ public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
-    //private LinkedList<ElemSimple> listElem = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, String id, String param) {
 
@@ -73,34 +72,17 @@ public class AreaStvorka extends AreaSimple {
     }
 
     public void correction() {
-
+        
         //Коррекция створки с учётом нахлёста
         ElemJoining ownerLeftTop = iwin.mapJoin.get(x1 + ":" + y1);
         ElemJoining ownerRightBott = iwin.mapJoin.get(x2 + ":" + y2);
-        ElemSimple elemLeft = null, elemTop = null, elemBott = null, elemRight = null;
+        ElemSimple elemLeft = iwin.listElem.stream().filter(el2 -> el2.inside(x1, (y2 - y1) / 2) == true).findFirst().orElse(null),
+                elemTop = iwin.listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y1) == true).findFirst().orElse(null),
+                elemBott = iwin.listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y2) == true).findFirst().orElse(null),
+                elemRight = iwin.listElem.stream().filter(el2 -> el2.inside(x2, (y2 - y1) / 2) == true).findFirst().orElse(null);
 
-        //По умолчанию угловое на ус
-        elemLeft = ownerLeftTop.joinElement1;
-        elemTop = ownerLeftTop.joinElement2;
-        elemBott = ownerRightBott.joinElement2;
-        elemRight = ownerRightBott.joinElement1;
-
-        if (ownerLeftTop.varJoin == JoinVariant.VAR4) {
-            elemLeft = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement2 : ownerLeftTop.joinElement1;
-            elemTop = (ownerLeftTop.elemJoinTop == ownerLeftTop.elemJoinBottom) ? ownerLeftTop.joinElement1 : ownerLeftTop.joinElement2;
-        }
-        if (ownerRightBott.varJoin == JoinVariant.VAR4) {
-            if (ownerRightBott.elemJoinTop == ownerRightBott.elemJoinBottom && ownerRightBott.elemJoinLeft != null && ownerRightBott.elemJoinRight == null) {
-                elemBott = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
-                elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement2 : ownerRightBott.joinElement1;
-            } else {
-                elemBott = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement2 : ownerRightBott.joinElement1;
-                elemRight = (ownerRightBott.elemJoinLeft == ownerRightBott.elemJoinLeft) ? ownerRightBott.joinElement1 : ownerRightBott.joinElement2;
-            }
-        }
-                
         Float naxl = iwin.sysconsRec.getFloat(eSyscons.naxl);
-        Float size_falz =  articlRec.getFloat(eArtikl.size_falz); 
+        Float size_falz = articlRec.getFloat(eArtikl.size_falz);
         x1 = elemLeft.x2 - size_falz - naxl;
         y1 = elemTop.y2 - size_falz - naxl;
         x2 = elemRight.x1 + size_falz + naxl;
@@ -109,7 +91,7 @@ public class AreaStvorka extends AreaSimple {
         height = y2 - y1;
         specificationRec.width = width;
         specificationRec.height = height;
-        
+
         //Коррекция стеклопакета с учётом нахлёста створки
         ElemGlass elemGlass = null;
         for (Com5t com5t : listChild()) {
@@ -127,22 +109,15 @@ public class AreaStvorka extends AreaSimple {
         elemGlass.specificationRec.height = height;
 
         //Добавим рамы створки
-        addFrame(new ElemFrame(this, id + ".1a", LayoutArea.LEFT));
-        addFrame(new ElemFrame(this, id + ".2a", LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + ".3a", LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + ".4a", LayoutArea.BOTTOM));
-
-        for (Map.Entry<LayoutArea, ElemFrame> elem : mapFrame.entrySet()) {
-            elem.getValue().anglCut1 = 45;
-            elem.getValue().anglCut2 = 45;
-        }
-
+        addFrame(new ElemFrame(this, id + ".1S", LayoutArea.LEFT));
+        addFrame(new ElemFrame(this, id + ".2S", LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + ".3S", LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + ".4S", LayoutArea.BOTTOM));
     }
 
     @Override
     public void joinFrame() {
 
-        LinkedList<ElemSimple> listElem = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.id = id + "." + (index + 1) + "V";
@@ -179,7 +154,7 @@ public class AreaStvorka extends AreaSimple {
                 iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
             }
         }
-        
+
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.id = id + "." + (index + 1) + "Z";
@@ -190,26 +165,26 @@ public class AreaStvorka extends AreaSimple {
             if (index == 0) {
                 el.name = "Прилигающее верхнее";
                 el.joinElement1 = mapFrame.get(LayoutArea.TOP);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside((x2 -x1) / 2, y1) == true).findFirst().orElse(null);
+                el.joinElement2 = iwin.listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y1) == true).findFirst().orElse(null);
                 iwin.mapJoin.put(String.valueOf(x1 + width / 2) + ":" + String.valueOf(y1 + 1), el);
 
             } else if (index == 1) {
                 el.name = "Прилигающее нижнее";
                 el.joinElement1 = mapFrame.get(LayoutArea.BOTTOM);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside((x2 -x1) / 2, y2) == true).findFirst().orElse(null);
-                iwin.mapJoin.put(String.valueOf(x1 + width / 2) + ":" + String.valueOf(y2 - 1), el);               
+                el.joinElement2 = iwin.listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y2) == true).findFirst().orElse(null);
+                iwin.mapJoin.put(String.valueOf(x1 + width / 2) + ":" + String.valueOf(y2 - 1), el);
 
             } else if (index == 2) {
                 el.name = "Прилигающее левое";
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1, (y2 -y1) / 2) == true).findFirst().orElse(null);
-                iwin.mapJoin.put(String.valueOf(x1 + 1) + ":" + String.valueOf(y1 + height / 2), el);               
+                el.joinElement2 = iwin.listElem.stream().filter(el2 -> el2.inside(x1, (y2 - y1) / 2) == true).findFirst().orElse(null);
+                iwin.mapJoin.put(String.valueOf(x1 + 1) + ":" + String.valueOf(y1 + height / 2), el);
 
             } else if (index == 3) {
                 el.name = "Прилигающее правое";
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x2, (y2 -y1) / 2) == true).findFirst().orElse(null);
-                iwin.mapJoin.put(String.valueOf(x2 - 1) + ":" + String.valueOf(y1 + height / 2), el);              
+                el.joinElement2 = iwin.listElem.stream().filter(el2 -> el2.inside(x2, (y2 - y1) / 2) == true).findFirst().orElse(null);
+                iwin.mapJoin.put(String.valueOf(x2 - 1) + ":" + String.valueOf(y1 + height / 2), el);
             }
         }
     }
@@ -255,7 +230,7 @@ public class AreaStvorka extends AreaSimple {
     public TypeOpen typeOpen() {
         return TypeOpen.OM_INVALID;
     }
-    
+
     @Override
     public TypeElem typeElem() {
         return TypeElem.FULLSTVORKA;

@@ -65,6 +65,7 @@ public class Wincalc {
     public Record sysconsRec = null; //константы
     protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок
+    public LinkedList<ElemSimple> listElem; //список элементов
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
 
@@ -96,18 +97,17 @@ public class Wincalc {
         LinkedList<AreaSimple> listArea = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> listStvorka = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
-        LinkedList<ElemSimple> listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         LinkedList<ElemSimple> listElem2 = rootArea.listElem(rootArea, TypeElem.FRAME_STV); //список элементов
-        HashMap<String, HashSet<ElemSimple>> mapClap= new HashMap(); //временно для схлопывания соединений
+        HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
-        
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы
-        
+
         //Соединения створок
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         listStvorka.stream().forEach(area -> area.joinFrame());
@@ -117,7 +117,7 @@ public class Wincalc {
             ElemJoining val = entry.getValue();
             System.out.println(key + ":  id=" + val.id + "  " + val);
         }
-                
+
         //Список элементов
 //        LinkedList<AreaSimple> elemList = rootArea.listElem(mainArea, TypeElem.FRAME_BOX,
 //                TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);  //(важно! получаем после построения створки)                
