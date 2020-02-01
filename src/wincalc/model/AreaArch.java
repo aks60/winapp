@@ -1,6 +1,8 @@
 package wincalc.model;
 
 import domain.eArtikl;
+import enums.JoinLocate;
+import enums.JoinVariant;
 import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
@@ -17,16 +19,11 @@ public class AreaArch extends AreaSimple {
     @Override
     public void joinFrame() {
 
-        String key1 = String.valueOf(x1) + ":" + String.valueOf(y1);
-        String key2 = String.valueOf(x2) + ":" + String.valueOf(y1);
-        String key3 = String.valueOf(x2) + ":" + String.valueOf(y2);
-        String key4 = String.valueOf(x1) + ":" + String.valueOf(y2);
-
         //Угловое соединение левое верхнее
         ElemJoining elemJoin1 = new ElemJoining(iwin);
         elemJoin1.elemJoinRight = mapFrame.get(LayoutArea.ARCH);
         elemJoin1.elemJoinBottom = mapFrame.get(LayoutArea.LEFT);
-        iwin.mapJoin.put(key1, elemJoin1);
+        iwin.mapJoin.put(x1 + ":" + y1, elemJoin1);
         float dz = elemJoin1.elemJoinRight.articlRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd - height;
         float w = width;
@@ -49,34 +46,35 @@ public class AreaArch extends AreaSimple {
         ElemJoining elemJoin2 = new ElemJoining(iwin);
         elemJoin2.elemJoinLeft = mapFrame.get(LayoutArea.ARCH);
         elemJoin2.elemJoinBottom = mapFrame.get(LayoutArea.RIGHT);
-        iwin.mapJoin.put(key2, elemJoin2);
+        iwin.mapJoin.put(x2 + ":" + y1, elemJoin2);
         elemJoin2.cutAngl1 = (float) ang3;
         elemJoin2.cutAngl2 = (float) ang4;
         elemJoin2.anglProf = (float) ang4;
         elemJoin2.elemJoinLeft.anglCut(ElemSimple.SIDE_START, elemJoin2.cutAngl2);
         elemJoin2.elemJoinBottom.anglCut(ElemSimple.SIDE_END, elemJoin2.cutAngl1);
 
-        //Угловое соединение правое нижнее
-        ElemJoining elemJoin3 = new ElemJoining(iwin);
-        elemJoin3.elemJoinTop = mapFrame.get(LayoutArea.RIGHT);
-        elemJoin3.elemJoinLeft = mapFrame.get(LayoutArea.BOTTOM);
-        iwin.mapJoin.put(key3, elemJoin3);
-        elemJoin3.cutAngl1 = 45;
-        elemJoin3.cutAngl2 = 45;
-        elemJoin3.anglProf = 90;
-        elemJoin3.elemJoinTop.anglCut(ElemSimple.SIDE_START, elemJoin3.cutAngl1);
-        elemJoin3.elemJoinLeft.anglCut(ElemSimple.SIDE_END, elemJoin3.cutAngl2);
+        for (int index = 0; index < 2; index++) {
+            ElemJoining el = new ElemJoining(iwin);
+            el.varJoin = JoinVariant.VAR2;
+            el.id = id + "." + (index + 1) + "R";
+            el.cutAngl1 = 45;
+            el.cutAngl2 = 45;
 
-        //Угловое соединение левое нижнее
-        ElemJoining elemJoin4 = new ElemJoining(iwin);
-        elemJoin4.elemJoinRight = mapFrame.get(LayoutArea.BOTTOM);
-        elemJoin4.elemJoinTop = mapFrame.get(LayoutArea.LEFT);
-        iwin.mapJoin.put(key4, elemJoin4);
-        elemJoin4.cutAngl1 = 45;
-        elemJoin4.cutAngl2 = 45;
-        elemJoin4.anglProf = 90;
-        elemJoin4.elemJoinRight.anglCut(ElemSimple.SIDE_START, elemJoin4.cutAngl2);
-        elemJoin4.elemJoinTop.anglCut(ElemSimple.SIDE_END, elemJoin4.cutAngl1);
+            if (index == 1) {
+                el.name = "Угловое соединение левое нижнее";
+                el.typeJoin = JoinLocate.LBOT;
+                el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
+                el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
+                iwin.mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
+
+            } else if (index == 2) {
+                el.name = "Угловое соединение правое нижнее";
+                el.typeJoin = JoinLocate.RBOT;
+                el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
+                el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
+                iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
+            }
+        }        
     }
 
     @Override

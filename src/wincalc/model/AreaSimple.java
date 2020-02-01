@@ -328,5 +328,4 @@ public class AreaSimple extends Com5t {
             gc.drawString(txt, (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
         }
     }
-
 }
