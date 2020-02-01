@@ -35,7 +35,7 @@ public class ElemGlass extends ElemSimple {
         super(id);
         this.owner = owner;
         this.iwin = owner.iwin;
-        this.side = LayoutArea.FULL;
+        this.layout = LayoutArea.FULL;
         
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");

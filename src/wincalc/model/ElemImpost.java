@@ -26,7 +26,7 @@ public class ElemImpost extends ElemSimple {
         super(id);
         this.owner = owner;
         this.iwin = owner.iwin;        
-        this.side = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
+        this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
         color1 = iwin.color1;
         color2 = iwin.color2;
         color3 = iwin.color3;

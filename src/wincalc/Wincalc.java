@@ -74,6 +74,8 @@ public class Wincalc {
 
     public AreaSimple create(String productJson) {
 
+        System.out.println(productJson); 
+        
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
@@ -111,6 +113,7 @@ public class Wincalc {
         //Соединения створок
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         listStvorka.stream().forEach(area -> area.joinFrame());
+        listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
@@ -118,7 +121,7 @@ public class Wincalc {
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
-            // mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
+             mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
         }
         return rootArea;
     }

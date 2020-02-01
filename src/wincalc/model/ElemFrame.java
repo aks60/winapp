@@ -24,14 +24,13 @@ public class ElemFrame extends ElemSimple {
     public ElemFrame(AreaSimple owner, String id, LayoutArea side) {
         super(id);
         this.owner = owner;
-        this.side = side;
+        this.layout = side;
         this.iwin = owner.iwin;
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;
         initСonstructiv();
         
-        Object obj = articlRec.getFloat(eArtikl.height);
         if (LayoutArea.LEFT == side) {
             dimension(owner.x1, owner.y1, owner.x1 + articlRec.getFloat(eArtikl.height), owner.y2);
 
@@ -51,11 +50,11 @@ public class ElemFrame extends ElemSimple {
             anglHoriz = 180;
         }
 
-        if (LayoutArea.TOP == layout() || LayoutArea.BOTTOM == layout()) {
+        if (LayoutArea.TOP == side || LayoutArea.BOTTOM == side) {
             width = x2 - x1;
             height = y2 - y1;
 
-        } else if (LayoutArea.LEFT == layout() || LayoutArea.RIGHT == layout()) {
+        } else if (LayoutArea.LEFT == side || LayoutArea.RIGHT == side) {
             width = y2 - y1;
             height = x2 - x1;
         }
@@ -63,7 +62,7 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.get(side));
+        sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.get(layout));
         articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArticlRec(articlRec);
     }
@@ -134,10 +133,6 @@ public class ElemFrame extends ElemSimple {
         specificationRec.getSpecificationList().add(specif);
         */
     }
-    
-    public LayoutArea layout() {
-        return side;
-    }
 
     @Override
     public void paint() {
@@ -148,7 +143,7 @@ public class ElemFrame extends ElemSimple {
         float y2h = y2 + h;
 
         int rgb = eColor.up.find(color3).getInt(eColor.color);
-        if (LayoutArea.TOP == side) {           
+        if (LayoutArea.TOP == layout) {           
             if (TypeElem.ARCH == this.typeElem()) {  //прорисовка арки
                 //TODO для прорисовки арки добавил один градус, а это не айс!
                 ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
@@ -163,10 +158,10 @@ public class ElemFrame extends ElemSimple {
                 strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK, 4);
             }            
             
-        } else if (LayoutArea.BOTTOM == side) {
+        } else if (LayoutArea.BOTTOM == layout) {
             strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
 
-        } else if (LayoutArea.LEFT == side) {
+        } else if (LayoutArea.LEFT == layout) {
             if (root() instanceof AreaArch) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
@@ -175,7 +170,7 @@ public class ElemFrame extends ElemSimple {
             } else {
                 strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, Color.BLACK, 4);
             }
-        } else if (LayoutArea.RIGHT == side) {
+        } else if (LayoutArea.RIGHT == layout) {
             if (root() instanceof AreaArch) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));

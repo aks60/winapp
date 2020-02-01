@@ -11,7 +11,6 @@ import java.util.ListIterator;
 public abstract class ElemSimple extends Com5t {
 
     protected float anglHoriz = -1; //угол к горизонту
-    protected LayoutArea side = LayoutArea.NONE; //сторона расположения элемента
 
     public ElemSimple(String id) {
         super(id);

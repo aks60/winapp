@@ -20,7 +20,6 @@ import wincalc.Wincalc;
 
 public class AreaSimple extends Com5t {
 
-    private LayoutArea layout = LayoutArea.FULL; //направление расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
     //Конструктор
@@ -223,10 +222,6 @@ public class AreaSimple extends Com5t {
     public ElemFrame addFrame(ElemFrame elemFrame) {
         mapFrame.put(elemFrame.layout(), elemFrame);
         return elemFrame;
-    }
-
-    public LayoutArea layout() {
-        return layout;
     }
 
     @Override
