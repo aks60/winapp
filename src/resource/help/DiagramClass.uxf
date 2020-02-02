@@ -4,10 +4,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>252</x>
+      <x>279</x>
       <y>36</y>
       <w>126</w>
-      <h>225</h>
+      <h>243</h>
     </coordinates>
     <panel_attributes>Com5t
 --
@@ -24,15 +24,16 @@ root()
 listChild()
 typeElem()
 layout()
-layout()</panel_attributes>
+layout()
+paint()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>36</x>
+      <x>63</x>
       <y>36</y>
-      <w>135</w>
+      <w>117</w>
       <h>135</h>
     </coordinates>
     <panel_attributes>AreaSimple
@@ -44,13 +45,13 @@ joinFrame()
 joinElem()
 addFrame()
 typeElem()
-drawWin()</panel_attributes>
+draw()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
+      <x>27</x>
       <y>288</y>
       <w>90</w>
       <h>81</h>
@@ -59,15 +60,15 @@ drawWin()</panel_attributes>
 -
 
 -
-joinFrame()
 typeElem()
+joinFrame()
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>558</x>
+      <x>585</x>
       <y>36</y>
       <w>90</w>
       <h>99</h>
@@ -87,7 +88,7 @@ anglCut()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>369</x>
+      <x>396</x>
       <y>81</y>
       <w>207</w>
       <h>27</h>
@@ -98,7 +99,7 @@ anglCut()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>477</x>
+      <x>504</x>
       <y>126</y>
       <w>153</w>
       <h>171</h>
@@ -109,18 +110,18 @@ anglCut()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>162</x>
+      <x>171</x>
       <y>72</y>
-      <w>108</w>
+      <w>126</w>
       <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>108</x>
+      <x>135</x>
       <y>288</y>
       <w>90</w>
       <h>81</h>
@@ -129,15 +130,15 @@ anglCut()
 -
 
 -
-joinFrame()
 typeElem()
+joinFrame()
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>225</x>
+      <x>252</x>
       <y>288</y>
       <w>90</w>
       <h>108</h>
@@ -147,8 +148,8 @@ typeElem()
 handleHeight
 typeOpen
 -
-joinFrame()
 typeElem()
+joinFrame()
 paint()
 </panel_attributes>
     <additional_attributes/>
@@ -156,7 +157,7 @@ paint()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>441</x>
+      <x>468</x>
       <y>279</y>
       <w>90</w>
       <h>135</h>
@@ -177,7 +178,7 @@ paint()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>558</x>
+      <x>585</x>
       <y>279</y>
       <w>90</w>
       <h>108</h>
@@ -195,7 +196,7 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>603</x>
+      <x>630</x>
       <y>126</y>
       <w>27</w>
       <h>171</h>
@@ -206,7 +207,7 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>36</x>
+      <x>63</x>
       <y>162</y>
       <w>99</w>
       <h>144</h>
@@ -217,7 +218,7 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>117</x>
+      <x>144</x>
       <y>162</y>
       <w>54</w>
       <h>144</h>
@@ -228,7 +229,7 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>108</x>
+      <x>135</x>
       <y>162</y>
       <w>180</w>
       <h>144</h>
@@ -239,7 +240,7 @@ paint()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>675</x>
+      <x>702</x>
       <y>279</y>
       <w>90</w>
       <h>135</h>
@@ -259,7 +260,7 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>612</x>
+      <x>639</x>
       <y>126</y>
       <w>126</w>
       <h>171</h>
@@ -270,7 +271,7 @@ paint()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>693</x>
+      <x>720</x>
       <y>36</y>
       <w>90</w>
       <h>198</h>
@@ -296,7 +297,7 @@ joinElem()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
+      <x>27</x>
       <y>414</y>
       <w>90</w>
       <h>81</h>
@@ -305,8 +306,8 @@ joinElem()
 -
 
 -
-joinFrame()
 typeElem()
+joinFrame()
 
 
 </panel_attributes>
@@ -315,7 +316,7 @@ typeElem()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>54</x>
+      <x>81</x>
       <y>162</y>
       <w>90</w>
       <h>270</h>
@@ -326,7 +327,7 @@ typeElem()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>180</x>
+      <x>207</x>
       <y>414</y>
       <w>90</w>
       <h>81</h>
@@ -335,15 +336,15 @@ typeElem()
 -
 
 -
-joinFrame()
 typeElem()
+joinFrame()
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>117</x>
+      <x>144</x>
       <y>162</y>
       <w>135</w>
       <h>270</h>
@@ -354,7 +355,7 @@ typeElem()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>324</x>
+      <x>351</x>
       <y>468</y>
       <w>90</w>
       <h>99</h>
