@@ -136,10 +136,25 @@ m1=0..n</panel_attributes>
       <x>162</x>
       <y>117</y>
       <w>72</w>
-      <h>162</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..n</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;160.0</additional_attributes>
+    <additional_attributes>10.0;10.0;60.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>180</x>
+      <y>279</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>AreaArch
+-
+xx
+-
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
