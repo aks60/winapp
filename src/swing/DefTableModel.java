@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 
-public class DefTableModel extends DefaultTableModel {
+public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     private DefaultTableModel model;
     public Query query = null;
@@ -72,13 +72,14 @@ public class DefTableModel extends DefaultTableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
+        Object val = null;
         if (columns != null) {
-            String tname = columns[columnIndex].tname();
-            Table table = query.table(tname);
             if (getColumnClass(columnIndex) == Boolean.class) {
-                return (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
-            }
-            return table.get(rowIndex, columns[columnIndex]);
+                val = (query.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
+            } else {
+                val = query.get(rowIndex, columns[columnIndex]);
+                return preview(columns[columnIndex], val);
+            }            
         }
         return null;
     }

@@ -1,6 +1,7 @@
 package forms;
 
 import common.FrameListener;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -9,6 +10,7 @@ import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprof;
 import domain.eSystree;
+import enums.ProfileSide;
 import enums.TypeSys;
 import java.util.ArrayList;
 import javax.swing.Icon;
@@ -49,9 +51,17 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
 
-        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        new DefTableModel(tab2, qSysprof, eSysprof.id, eArtikl.id, eArtikl.code, eArtikl.name,
-                eSysprof.id, eSysprof.prio).addFrameListener(listenerModify);
+        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id) ;
+        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eArtikl.id, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
+            @Override
+            public Object preview(Field field, Object val) {
+                if(field == eSysprof.side) {
+                    //return ProfileSide.get(field.ordinal());
+                }
+                return val;
+            }          
+        };
+        rsmSysprof.addFrameListener(listenerModify);
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
         new DefTableModel(tab4, qSyspar1, eSyspar1.id, eSyspar1.val, eSyspar1.fixed);

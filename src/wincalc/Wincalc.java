@@ -138,7 +138,7 @@ public class Wincalc {
             height = mainObj.get("heightLow").getAsFloat();
             heightAdd = mainObj.get("height").getAsFloat();
 
-            Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.Left);
+            Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.LEFT);
             articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             sysconsRec = eSyscons.find(articlRec.getInt(eArtikl.syscons_id));
 

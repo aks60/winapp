@@ -30,7 +30,7 @@ public class ElemFrame extends ElemSimple {
         color2 = owner.color2;
         color3 = owner.color3;
         initСonstructiv();
-        
+
         if (LayoutArea.LEFT == layout) {
             dimension(owner.x1, owner.y1, owner.x1 + articlRec.getFloat(eArtikl.height), owner.y2);
 
@@ -62,7 +62,15 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.get(layout));
+        if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
+            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.TOP);
+        } else if (layout == LayoutArea.BOTTOM) {
+            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.BOTTOM);
+        } else if (layout == LayoutArea.LEFT) {
+            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.LEFT);
+        } else if (layout == LayoutArea.RIGHT) {
+            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.RIGHT);
+        }
         articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArticlRec(articlRec);
     }
@@ -70,7 +78,7 @@ public class ElemFrame extends ElemSimple {
     //Добавление спесификаций зависимых элементов
     @Override
     public void addSpecifSubelem(Specification specif) {
-   /*
+        /*
         indexUniq(specif);
         Artikls cpecifArtikls = specif.getArticRec();
 
@@ -131,19 +139,19 @@ public class ElemFrame extends ElemSimple {
         }
         quantityMaterials(specif);
         specificationRec.getSpecificationList().add(specif);
-        */
+         */
     }
 
     @Override
     public void paint() {
         float d1z = articlRec.getFloat(eArtikl.height);
-        float h = iwin.heightAdd- iwin.height;
+        float h = iwin.heightAdd - iwin.height;
         float w = root().width;
         float y1h = y1 + h;
         float y2h = y2 + h;
 
         int rgb = eColor.up.find(color3).getInt(eColor.color);
-        if (LayoutArea.TOP == layout) {           
+        if (LayoutArea.TOP == layout) {
             if (TypeElem.ARCH == this.typeElem()) {  //прорисовка арки
                 //TODO для прорисовки арки добавил один градус, а это не айс!
                 ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
@@ -156,8 +164,8 @@ public class ElemFrame extends ElemSimple {
                 strokeArc(width / 2 - r + d2z / 2, d2z / 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 4); //прорисовка на сцену
             } else {
                 strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK, 4);
-            }            
-            
+            }
+
         } else if (LayoutArea.BOTTOM == layout) {
             strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
 
@@ -182,7 +190,7 @@ public class ElemFrame extends ElemSimple {
 
         }
     }
-    
+
     @Override
     public TypeElem typeElem() {
         return (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;

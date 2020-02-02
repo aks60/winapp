@@ -64,7 +64,7 @@ public class ElemGlass extends ElemSimple {
             articlRec = eArtikl.up.find2(sysreeRec.getStr(eSystree.glas));
         }
         Object obj = articlRec.getDbl(eArtikl.size_falz);
-        sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.Left); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
+        sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
         if (articlRec.getDbl(eArtikl.size_falz) == 0) {
             Object ooo = iwin.articlRec.get(eArtikl.tech_code);
             articlRec.set(eArtikl.tech_code, iwin.articlRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя

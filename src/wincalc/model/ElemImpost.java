@@ -60,10 +60,10 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Horiz);  
+           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Vert); 
+           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
         }
         articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArticlRec(articlRec);  

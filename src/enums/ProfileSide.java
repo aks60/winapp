@@ -3,14 +3,14 @@ package enums;
 // Стороны для профилей (SYSPROA.ASETS)
 // select distinct ASETS from PRO4_SYSPROA where region_id = 177 order by ASETS
 public enum ProfileSide {
-    Vert(-3, "Вертикальная"),
-    Horiz(-2, "Горизонтальная"),
-    Any(-1, "Любая"),
-    Manual(0, "Вручную"),
-    Bottom(1, "Низ"),
-    Right(2, "Правая"),
-    Top(3, "Верх"),
-    Left(4, "Левая");
+    VERT(-3, "Вертикальная"),
+    HORIZ(-2, "Горизонтальная"),
+    ANY(-1, "Любая"),
+    MANUAL(0, "Вручную"),
+    BOTTOM(1, "Низ"),
+    RIGHT(2, "Правая"),
+    TOP(3, "Верх"),
+    LEFT(4, "Левая");
 
     public int value;
     public String name;
@@ -19,20 +19,20 @@ public enum ProfileSide {
         this.value = value;
         this.name = name;
     }
-
-    public static ProfileSide get(LayoutArea layout) {
-        if (layout.VERT == layout) {
-            return Vert;
-        } else if (layout.HORIZ == layout) {
-            return Horiz;
-        } else if (layout.BOTTOM == layout) {
-            return Bottom;
-        } else if (layout.RIGHT == layout) {
-            return Right;
-        } else if (layout.TOP == layout) {
-            return Top;
-        } else if (layout.LEFT == layout) {
-            return Left;
+     
+    public static ProfileSide get(int layout) {
+        if (VERT.ordinal() == layout) {
+            return VERT;
+        } else if (HORIZ.ordinal() == layout) {
+            return HORIZ;
+        } else if (BOTTOM.ordinal() == layout) {
+            return BOTTOM;
+        } else if (RIGHT.ordinal() == layout) {
+            return RIGHT;
+        } else if (TOP.ordinal() == layout) {
+            return TOP;
+        } else if (LEFT.ordinal() == layout) {
+            return LEFT;
         }
         return null;
     }
