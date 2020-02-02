@@ -47,7 +47,7 @@ public class PaintPanel extends JPanel {
             Graphics2D gc = (Graphics2D) g;
             gc.setColor(getBackground());
             iwin.graphics2D = gc;
-            iwin.rootArea.drawWin(getWidth(), getHeight());
+            iwin.rootArea.draw(getWidth(), getHeight());
 
         } else {
             g.clearRect(0, 0, getWidth(), getHeight());

@@ -229,8 +229,8 @@ public class AreaSimple extends Com5t {
         return TypeElem.AREA;
     }
 
-    //Прорисовка окна
-    public void drawWin(int width, int height) {
+    //Рисуем конструкцию
+    public void draw(int width, int height) {
         try {
             Graphics2D gc = iwin.graphics2D;
             //gc.setColor(new java.awt.Color(212,208,200));
@@ -275,7 +275,7 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    public void drawLine1() {
+    private void drawLine1() {
 
         float h = iwin.heightAdd - iwin.height;
         if (this == root()) {  //главный контейнер
