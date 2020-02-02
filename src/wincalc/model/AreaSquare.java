@@ -54,7 +54,8 @@ public class AreaSquare extends AreaSimple {
     }
     
     @Override
-    public TypeElem typeElem() {
+    public TypeElem 
+        typeElem() {
         return TypeElem.SQUARE;
     }    
 }
