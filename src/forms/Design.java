@@ -91,7 +91,7 @@ public class Design extends javax.swing.JFrame {
                 int typeSys = node.record.getInt(eSystree.types);
                 if (selectedNode.isLeaf() && (typeSys == 1 || typeSys == 2)) {
 
-                    iwin.create(Winscript.test(Wincalc.prj, id));
+                    iwin.create(Winscript.test(Winscript.prj, id));
                     paintPanel.setVisible(true);
                 } else {
                     paintPanel.setVisible(false);
@@ -649,7 +649,7 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        iwin.create(Winscript.test(Wincalc.prj, 433));
+        iwin.create(Winscript.test(Winscript.prj, 433));
         panDesign.repaint();
 
     }//GEN-LAST:event_btnRefresh

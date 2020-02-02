@@ -26,7 +26,7 @@ public class ElemImpost extends ElemSimple {
         super(id);
         this.owner = owner;
         this.iwin = owner.iwin;        
-        this.side = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
+        this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
         color1 = iwin.color1;
         color2 = iwin.color2;
         color3 = iwin.color3;
@@ -60,10 +60,10 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Horiz);  
+           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.Vert); 
+           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
         }
         articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArticlRec(articlRec);  
@@ -135,10 +135,10 @@ public class ElemImpost extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.value2 == specifArtikl.atypp && specifArtikl.atypm == 1) {
-            specif.element = side.name;
+            specif.element = layout.name;
 
-            //if (LayoutArea.HORIZONTAL == side) specif.width = owner.x2 - owner.x1;
-            //else if(LayoutArea.VERTICAL == side) specif.width = owner.y2 - owner.y1;
+            //if (LayoutArea.HORIZONTAL == layout) specif.width = owner.x2 - owner.x1;
+            //else if(LayoutArea.VERTICAL == layout) specif.width = owner.y2 - owner.y1;
 
             specif.width = specificationRec.width;
             specif.anglCut2 = 90;

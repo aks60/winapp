@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import wincalc.constr.Specification;
 import dataset.Record;
 import domain.eParams;
+import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
 import java.awt.BasicStroke;
@@ -24,7 +25,8 @@ public abstract class Com5t {
     protected static float moveXY = 40;     //смещение рисунка
 
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
-    
+    protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
+
     protected String id = "0"; //идентификатор
     protected AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
@@ -100,8 +102,12 @@ public abstract class Com5t {
     public LinkedList<Com5t> listChild() {
         return listChild;
     }
-    
+
     public abstract TypeElem typeElem();
+
+    public LayoutArea layout() {
+        return layout;
+    }
 
     public void paint() {
     }

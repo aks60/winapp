@@ -20,7 +20,6 @@ import wincalc.Wincalc;
 
 public class AreaSimple extends Com5t {
 
-    private LayoutArea layout = LayoutArea.FULL; //направление расположения компонентов в окне
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
     //Конструктор
@@ -171,7 +170,7 @@ public class AreaSimple extends Com5t {
                     ElemSimple e1 = indexEl[1];
                     ElemSimple e2 = indexEl[0];
                     
-                    //Сторона пересечения одного из элементов, sides[][ном.стороны][коорд.стороны], side -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
+                    //Сторона пересечения одного из элементов, sides[][ном.стороны][коорд.стороны], layout -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
                     float sides[][][] = {{{e2.x1, e2.y1}, {e2.x1, e2.y2}}, {{e2.x1, e2.y2}, {e2.x2, e2.y2}}, {{e2.x2, e2.y2}, {e2.x2, e2.y1}}, {{e2.x1, e2.y1}, {e2.x2, e2.y1}}};
                     for (int index = 0; index < sides.length; index++) {
                         
@@ -225,10 +224,6 @@ public class AreaSimple extends Com5t {
         return elemFrame;
     }
 
-    public LayoutArea layout() {
-        return layout;
-    }
-
     @Override
     public TypeElem typeElem() {
         return TypeElem.AREA;
@@ -276,7 +271,7 @@ public class AreaSimple extends Com5t {
                 }
             }
         } catch (Exception s) {
-            System.err.println("Ошибка AreaContainer.drawWin() " + s);
+            System.err.println("Ошибка AreaSimple.drawWin() " + s);
         }
     }
 

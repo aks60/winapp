@@ -77,7 +77,7 @@ public enum eSysprof implements Field {
 
         HashMap<Integer, Record> mapPrio = new HashMap();
         query.select().stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types)
-                && (_side.value == rec.getInt(side) || ProfileSide.Any.value == rec.getInt(side)))
+                && (_side.value == rec.getInt(side) || ProfileSide.ANY.value == rec.getInt(side)))
                 .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
         int minLevel = 32767;
         for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {

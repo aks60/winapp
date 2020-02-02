@@ -39,8 +39,8 @@ public class ElemJoining {
         this.iwin = iwin;
     }
 
-    public float getAnglJoin(int side) {
-        return (side == 1) ? cutAngl1 : cutAngl2;
+    public float getAnglJoin(int layout) {
+        return (layout == 1) ? cutAngl1 : cutAngl2;
     }
 
     public JoinVariant getVarJoin() {

@@ -36,10 +36,6 @@ import wincalc.model.ElemSimple;
 
 public class Wincalc {
 
-    ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601003;
-    ////////////////////////////////////////////////////////////////////////////
-
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
@@ -74,6 +70,8 @@ public class Wincalc {
 
     public AreaSimple create(String productJson) {
 
+        System.out.println(productJson); 
+        
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
@@ -104,6 +102,7 @@ public class Wincalc {
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
+        //
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы
@@ -111,6 +110,7 @@ public class Wincalc {
         //Соединения створок
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         listStvorka.stream().forEach(area -> area.joinFrame());
+        listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
@@ -118,7 +118,7 @@ public class Wincalc {
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
-            // mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
+             mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
         }
         return rootArea;
     }
@@ -138,7 +138,7 @@ public class Wincalc {
             height = mainObj.get("heightLow").getAsFloat();
             heightAdd = mainObj.get("height").getAsFloat();
 
-            Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.Left);
+            Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.LEFT);
             articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             sysconsRec = eSyscons.find(articlRec.getInt(eArtikl.syscons_id));
 
