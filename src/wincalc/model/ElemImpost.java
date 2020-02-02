@@ -135,10 +135,10 @@ public class ElemImpost extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.value2 == specifArtikl.atypp && specifArtikl.atypm == 1) {
-            specif.element = side.name;
+            specif.element = layout.name;
 
-            //if (LayoutArea.HORIZONTAL == side) specif.width = owner.x2 - owner.x1;
-            //else if(LayoutArea.VERTICAL == side) specif.width = owner.y2 - owner.y1;
+            //if (LayoutArea.HORIZONTAL == layout) specif.width = owner.x2 - owner.x1;
+            //else if(LayoutArea.VERTICAL == layout) specif.width = owner.y2 - owner.y1;
 
             specif.width = specificationRec.width;
             specif.anglCut2 = 90;

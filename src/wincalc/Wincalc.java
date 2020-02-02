@@ -36,10 +36,6 @@ import wincalc.model.ElemSimple;
 
 public class Wincalc {
 
-    ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601003;
-    ////////////////////////////////////////////////////////////////////////////
-
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
@@ -106,6 +102,7 @@ public class Wincalc {
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
         //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
+        //
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы

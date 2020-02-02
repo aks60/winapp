@@ -21,40 +21,40 @@ public class ElemFrame extends ElemSimple {
         super(id);
     }
 
-    public ElemFrame(AreaSimple owner, String id, LayoutArea side) {
+    public ElemFrame(AreaSimple owner, String id, LayoutArea layout) {
         super(id);
         this.owner = owner;
-        this.layout = side;
+        this.layout = layout;
         this.iwin = owner.iwin;
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;
         initСonstructiv();
         
-        if (LayoutArea.LEFT == side) {
+        if (LayoutArea.LEFT == layout) {
             dimension(owner.x1, owner.y1, owner.x1 + articlRec.getFloat(eArtikl.height), owner.y2);
 
-        } else if (LayoutArea.RIGHT == side) {
+        } else if (LayoutArea.RIGHT == layout) {
             dimension(owner.x2 - articlRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
             anglHoriz = 90;
 
-        } else if (LayoutArea.TOP == side) {
+        } else if (LayoutArea.TOP == layout) {
             dimension(owner.x1, owner.y1, owner.x2, owner.y1 + articlRec.getFloat(eArtikl.height));
             anglHoriz = 180;
 
-        } else if (LayoutArea.BOTTOM == side) {
+        } else if (LayoutArea.BOTTOM == layout) {
             dimension(owner.x1, owner.y2 - articlRec.getFloat(eArtikl.height), owner.x2, owner.y2);
             anglHoriz = 0;
 
-        } else if (LayoutArea.ARCH == side) {
+        } else if (LayoutArea.ARCH == layout) {
             anglHoriz = 180;
         }
 
-        if (LayoutArea.TOP == side || LayoutArea.BOTTOM == side) {
+        if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
             width = x2 - x1;
             height = y2 - y1;
 
-        } else if (LayoutArea.LEFT == side || LayoutArea.RIGHT == side) {
+        } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
             width = y2 - y1;
             height = x2 - x1;
         }
@@ -83,13 +83,13 @@ public class ElemFrame extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(cpecifArtikls)) {
-            specif.element = side.name;
+            specif.element = layout.name;
 
-            if (LayoutArea.TOP == side || LayoutArea.BOTTOM == side) {
+            if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
                 specif.width = x2 - x1;
 
             }
-            if (LayoutArea.LEFT == side || LayoutArea.RIGHT == side) {
+            if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
                 specif.width = y2 - y1;
             }
             if ("от внутреннего угла".equals(specif.getHmParam(null, 34010))) {
