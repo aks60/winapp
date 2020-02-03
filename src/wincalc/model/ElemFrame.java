@@ -163,7 +163,8 @@ public class ElemFrame extends ElemSimple {
             strokeArc(owner.width / 2 - r + d2z, d2z, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
             strokeArc(owner.width / 2 - r + d2z / 2, d2z / 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 4); //прорисовка на сцену          
 
-        } else if (LayoutArea.TOP == layout) {
+        } else 
+            if (LayoutArea.TOP == layout) {
             strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK, 4);
 
         } else if (LayoutArea.BOTTOM == layout) {
