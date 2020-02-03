@@ -20,9 +20,11 @@ public class AreaArch extends AreaSimple {
     public void joinFrame() {
 
         ElemJoining elem = new ElemJoining(iwin);
-        elem.name = "Угловое соединение левое верхнее";
-        elem.joinElement1 = mapFrame.get(LayoutArea.ARCH);
-        elem.joinElement2 = mapFrame.get(LayoutArea.LEFT);
+        elem.id = id + ".1S";
+        elem.name = "===Угловое соединение левое верхнее";
+        elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
+        elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
+        
         float dz = elem.joinElement1.articlRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd - height;
         float w = width;
@@ -35,6 +37,7 @@ public class AreaArch extends AreaSimple {
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dz)); //угол реза рамы
         double a3 = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dz, 2) - 2 * r * (r - dz) * Math.cos(Math.toRadians(ang2 - angl)));
         double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(a3, 2) + Math.pow(r, 2) - Math.pow(r - dz, 2)) / (2 * r * a3))));
+        
         elem.cutAngl1 = (float) ang3; //угол реза 1
         elem.cutAngl2 = (float) ang4; //угол реза 2
         elem.anglProf = (float) ang4;
@@ -45,14 +48,14 @@ public class AreaArch extends AreaSimple {
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.varJoin = JoinVariant.VAR2;
-            el.id = id + "." + (index + 1) + "R";
+            el.id = id + "." + (index + 2) + "S";
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
             if (index == 0) {
-                el.name = "Угловое соединение правое верхнее";
-                el.joinElement1 = mapFrame.get(LayoutArea.ARCH);
-                el.joinElement2 = mapFrame.get(LayoutArea.RIGHT);
+                el.name = "===Угловое соединение правое верхнее";
+                el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
+                el.joinElement2 = mapFrame.get(LayoutArea.ARCH);
                 el.cutAngl1 = (float) ang3;
                 el.cutAngl2 = (float) ang4;
                 el.anglProf = (float) ang4;

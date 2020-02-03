@@ -166,20 +166,20 @@ public class AreaSimple extends Com5t {
 
                 iwin.mapJoin.put(pk, el);
                 ElemSimple arrElem2[][] = {{arrElem[0], arrElem[1]}, {arrElem[1], arrElem[0]}}; //варианты общих точек пересечения
-                for (ElemSimple[] indexEl : arrElem2) {                    
+                for (ElemSimple[] indexEl : arrElem2) {
                     ElemSimple e1 = indexEl[1];
                     ElemSimple e2 = indexEl[0];
-                    
+
                     //Сторона пересечения одного из элементов, sides[][ном.стороны][коорд.стороны], layout -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
                     float sides[][][] = {{{e2.x1, e2.y1}, {e2.x1, e2.y2}}, {{e2.x1, e2.y2}, {e2.x2, e2.y2}}, {{e2.x2, e2.y2}, {e2.x2, e2.y1}}, {{e2.x1, e2.y1}, {e2.x2, e2.y1}}};
                     for (int index = 0; index < sides.length; index++) {
-                        
+
                         el.id = id + "." + (index + 1) + "T";
                         float[][] fs = sides[index];
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
                             el.varJoin = JoinVariant.VAR4;
                             if (index == 0) {
-                                el.name = "T - соединение левое";                                
+                                el.name = "T - соединение левое";
                                 el.typeJoin = JoinLocate.TLEFT;
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
@@ -198,7 +198,7 @@ public class AreaSimple extends Com5t {
                                 el.typeJoin = JoinLocate.TTOP;
                                 el.joinElement1 = e1;
                                 el.joinElement2 = e2;
-                            }                            
+                            }
                         }
                     }
                 }
@@ -243,8 +243,13 @@ public class AreaSimple extends Com5t {
             //Прорисовка импостов
             LinkedList<ElemImpost> elemImpostList = listElem(root(), TypeElem.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
+            
             //Прорисовка рам
-            mapFrame.get(LayoutArea.TOP).paint();
+            if (TypeElem.ARCH == typeElem()) {
+                mapFrame.get(LayoutArea.ARCH).paint();
+            } else {
+                mapFrame.get(LayoutArea.TOP).paint();
+            }
             mapFrame.get(LayoutArea.BOTTOM).paint();
             mapFrame.get(LayoutArea.LEFT).paint();
             mapFrame.get(LayoutArea.RIGHT).paint();

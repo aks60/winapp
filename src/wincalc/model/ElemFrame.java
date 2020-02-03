@@ -151,26 +151,26 @@ public class ElemFrame extends ElemSimple {
         float y2h = y2 + h;
 
         int rgb = eColor.up.find(color3).getInt(eColor.color);
-        if (LayoutArea.TOP == layout) {
-            if (TypeElem.ARCH == this.typeElem()) {  //прорисовка арки
-                //TODO для прорисовки арки добавил один градус, а это не айс!
-                ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
-                float d2z = ef.articlRec.getFloat(eArtikl.height);
-                double r = ((AreaArch) root()).radiusArch;
-                double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
-                double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * d2z) / ((r - d2z) * 2)));
-                strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-                strokeArc(width / 2 - r + d2z, d2z, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-                strokeArc(width / 2 - r + d2z / 2, d2z / 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 4); //прорисовка на сцену
-            } else {
-                strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK, 4);
-            }
+        if (LayoutArea.ARCH == layout) {
+            //if (TypeElem.ARCH == owner.typeElem()) {  //прорисовка арки
+            //TODO для прорисовки арки добавил один градус, а это не айс!
+            ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
+            float d2z = ef.articlRec.getFloat(eArtikl.height);
+            double r = ((AreaArch) root()).radiusArch;
+            double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * d2z) / ((r - d2z) * 2)));
+            strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+            strokeArc(width / 2 - r + d2z, d2z, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+            strokeArc(width / 2 - r + d2z / 2, d2z / 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 4); //прорисовка на сцену
+
+        } else if (LayoutArea.TOP == layout) {
+            strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK, 4);
 
         } else if (LayoutArea.BOTTOM == layout) {
             strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
 
         } else if (LayoutArea.LEFT == layout) {
-            if (root() instanceof AreaArch) {
+            if (TypeElem.ARCH == owner.typeElem()) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
@@ -179,7 +179,7 @@ public class ElemFrame extends ElemSimple {
                 strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, Color.BLACK, 4);
             }
         } else if (LayoutArea.RIGHT == layout) {
-            if (root() instanceof AreaArch) {
+            if (TypeElem.ARCH == owner.typeElem()) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
@@ -208,5 +208,9 @@ public class ElemFrame extends ElemSimple {
         } else {
             anglCut2 = anglCut;
         }
+    }
+
+    public String toString() {
+        return "ELEMENT = owner.id=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + "anglCut=" + anglCut1 + "anglCut=" + anglCut1;
     }
 }

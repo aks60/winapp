@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -50,11 +51,19 @@ public class Design extends javax.swing.JFrame {
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.types, txtField3, TypeSys.values());
-        loadTree1("xxxx");
-
+        loadTree1(); 
+        test();
     }
 
-    public void loadTree1(String name) {
+    private void test() {
+        tree1.expandRow(21);
+        tree1.setSelectionRow(26);
+//        for (int i = 0; i < tree1.getRowCount(); i++) {
+//            tree1.expandRow(i);
+//        }        
+    }
+    
+    public void loadTree1() {
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
@@ -77,6 +86,9 @@ public class Design extends javax.swing.JFrame {
     }
 
     private void selectionTree() {
+        int ind = tree1.getSelectionRows()[0];
+        txtField4.setText(String.valueOf(ind)); //TEST
+        
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
@@ -145,6 +157,8 @@ public class Design extends javax.swing.JFrame {
         pan7 = new javax.swing.JPanel();
         lab3 = new javax.swing.JLabel();
         txtField3 = new javax.swing.JFormattedTextField();
+        lab4 = new javax.swing.JLabel();
+        txtField4 = new javax.swing.JFormattedTextField();
         pan8 = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
@@ -315,6 +329,12 @@ public class Design extends javax.swing.JFrame {
         txtField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtField3.setPreferredSize(new java.awt.Dimension(180, 18));
 
+        lab4.setText("INDEX");
+        lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        txtField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
         javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
         pan7.setLayout(pan7Layout);
         pan7Layout.setHorizontalGroup(
@@ -324,7 +344,11 @@ public class Design extends javax.swing.JFrame {
                 .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,7 +356,9 @@ public class Design extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab4)
+                    .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -649,9 +675,9 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        iwin.create(Winscript.test(Winscript.prj, 433));
+        iwin.create(Winscript.test(Winscript.prj, 435));
         panDesign.repaint();
-
+        paintPanel.setVisible(true);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
@@ -668,7 +694,7 @@ public class Design extends javax.swing.JFrame {
 
     private void btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArea
         JButton btn = (JButton) evt.getSource();
-        loadTree1(btn.getName());
+        loadTree1();
     }//GEN-LAST:event_btnArea
 
     private void btnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElem
@@ -705,6 +731,7 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;
+    private javax.swing.JLabel lab4;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
@@ -728,6 +755,7 @@ public class Design extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField1;
     private javax.swing.JFormattedTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;
+    private javax.swing.JFormattedTextField txtField4;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 

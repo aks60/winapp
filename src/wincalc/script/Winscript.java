@@ -8,7 +8,7 @@ import main.Main;
 public class Winscript {
 
     ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601003;
+    public static int prj = 604005;
     ////////////////////////////////////////////////////////////////////////////
     
     public static AreaRoot rootArea;
@@ -71,7 +71,7 @@ public class Winscript {
 
         } else if (prj == 601004) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.SQUARE, 1440, 1700, 1700, 1009, 1009, 1009, "");
-            rootArea.setParam(8, prj.toString());
+            rootArea.setParam(387, prj.toString()); //KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
@@ -209,7 +209,7 @@ public class Winscript {
 
         } else if (prj == 604005) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
-            rootArea.setParam(135, prj.toString());
+            rootArea.setParam(79, prj.toString()); //Wintech->Termotech 742->1 ОКНА
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
