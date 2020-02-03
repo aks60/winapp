@@ -119,7 +119,7 @@ public class Wincalc {
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
              //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
-             //listElem.stream().forEach(el -> System.out.println(el));
+             listElem.stream().forEach(el -> System.out.println(el));
         }
         return rootArea;
     }
@@ -254,6 +254,8 @@ public class Wincalc {
             if (elem.get("paramJson") != null) {
                 owner.listChild().add(new ElemGlass(owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
             } else {
+                Object kjh = elem.get("id");
+                Object onh = new ElemGlass(owner, elem.get("id").getAsString());
                 owner.listChild().add(new ElemGlass(owner, elem.get("id").getAsString()));
             }
 

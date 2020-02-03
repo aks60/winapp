@@ -350,7 +350,7 @@ public class Profstroy {
             Util.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");  //textgrp_id
             sql("delete from artdet where not exists (select id from artikl a where a.code = artdet.anumb)");  //artikl_id
-            sql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_id
+            sql("delete from artdet where not exists (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");  //color_id
             sql("delete from element where not exists (select id from artikl a where a.code = element.anumb)");  //artikl_id
             sql("delete from elemdet where not exists (select id from artikl a where a.code = elemdet.anumb)");  //artikl_id
             sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");  //element_id
@@ -379,12 +379,12 @@ public class Profstroy {
             sql("delete from sysfurn where not exists (select id from systree a where a.nuni = sysfurn.nuni)");  //systree_id
             sql("delete from syspar1 where not exists (select id from systree a where a.nuni = syspar1.psss)");  //systree_id
             sql("delete from kits where not exists (select id from artikl a where a.code = kits.anumb)");  //artikl_id
-            //sql("delete from kits where not exists (select id from color a where a.cnumb = kits.clnum)");//color_id 
+            //sql("delete from kits where not exists (select id from color a where a.numb = kits.clnum)");//color_id 
             sql("delete from kitdet where not exists (select id from kits a where a.kunic = kitdet.kunic)");  //kits_id
             sql("delete from kitdet where not exists (select id from artikl a where a.code = kitdet.anumb)");  //artikl_id
-            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnum)");//color1_id 
-            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu1)");//color2_id 
-            //sql("delete from kitdet where not exists (select id from color a where a.cnumb = kitdet.clnu2)");//color3_id  
+            //sql("delete from kitdet where not exists (select id from color a where a.numb = kitdet.clnum)");//color1_id 
+            //sql("delete from kitdet where not exists (select id from color a where a.numb = kitdet.clnu1)");//color2_id 
+            //sql("delete from kitdet where not exists (select id from color a where a.numb = kitdet.clnu2)");//color3_id  
             sql("delete from kitpar1 where not exists (select id from kitdet a where a.kincr = kitpar1.psss)");  //kitdet_id
 
             Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
@@ -405,10 +405,9 @@ public class Profstroy {
                 record2.setNo(eColor.suffix2, 1);
                 record2.setNo(eColor.suffix3, 1);
                 q2.insert(record2);
-            }
-            sql("update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
+            }            
             sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
-            sql("update artdet set color_id = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
+            sql("update artdet set color_id = (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");
             sql("update artdet set color_id = artdet.clnum where artdet.clnum < 0");
 
             Query q3 = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
@@ -428,6 +427,7 @@ public class Profstroy {
             sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");
             sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
             if (versionPs == 4) {
+                sql("update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
                 sql("update artikl set syscons_id = (select id from syscons a where a.sunic = artikl.sunic)");
             }
             sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
@@ -461,12 +461,12 @@ public class Profstroy {
             sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");
             sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
             sql("update kits set artikl_id = (select id from artikl a where a.code = kits.anumb)");
-            sql("update kits set color_id = (select id from color a where a.cnumb = kits.clnum)");
+            sql("update kits set color_id = (select id from color a where a.numb = kits.clnum)");
             sql("update kitdet set kits_id = (select id from kits a where a.kunic = kitdet.kunic)");
             sql("update kitdet set artikl_id = (select id from artikl a where a.code = kitdet.anumb)");
-            sql("update kitdet set color1_id = (select id from color a where a.cnumb = kitdet.clnum)");
-            sql("update kitdet set color2_id = (select id from color a where a.cnumb = kitdet.clnu1)");
-            sql("update kitdet set color3_id = (select id from color a where a.cnumb = kitdet.clnu2)");
+            sql("update kitdet set color1_id = (select id from color a where a.numb = kitdet.clnum)");
+            sql("update kitdet set color2_id = (select id from color a where a.numb = kitdet.clnu1)");
+            sql("update kitdet set color3_id = (select id from color a where a.numb = kitdet.clnu2)");
             sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
 
             Util.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");

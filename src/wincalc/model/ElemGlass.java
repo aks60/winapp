@@ -63,7 +63,6 @@ public class ElemGlass extends ElemSimple {
             Record sysreeRec = eSystree.up.find(iwin.nuni); //по умолчанию стеклопакет
             articlRec = eArtikl.up.find2(sysreeRec.getStr(eSystree.glas));
         }
-        Object obj = articlRec.getDbl(eArtikl.size_falz);
         sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
         if (articlRec.getDbl(eArtikl.size_falz) == 0) {
             Object ooo = iwin.articlRec.get(eArtikl.tech_code);

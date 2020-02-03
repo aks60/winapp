@@ -8,6 +8,8 @@ import dataset.Record;
 public enum eColor implements Field {
     up("0", "0", "0", "Описание текстур", "COLSLST"),
     id("4", "10", "0", "Идентификатор", "id"),
+    code("4", "10", "1", "код текстуры", "CCODE"),
+    numb("4", "10", "1", "id", "CNUMB"),
     name("12", "32", "1", "название текстуры", "CNAME"),
     name2("12", "32", "1", "название у поставщика", "CNAMP"),
     color("4", "10", "1", "цвет отображения", "CVIEW"),
@@ -20,8 +22,6 @@ public enum eColor implements Field {
     orient("5", "5", "1", "ориентация", "CORIE"),
     pain("5", "5", "1", "покраска", "CTYPE"),
     colgrp_id("5", "5", "0", "группа", "colgrp_id");
-    //ccode("4", "10", "1", "код текстуры", "CCODE"),
-    //cnumb("4", "10", "1", "id", "CNUMB"),
     //cgrup("5", "5", "1", "группа", "CGRUP");    
     //cpict("-4", "80", "1", "null", "CPICT"),
     //xdepa("5", "5", "1", "null", "XDEPA"),
@@ -53,6 +53,10 @@ public enum eColor implements Field {
 
     public Record find(int _id) {
         return query.select().stream().filter(rec -> rec.getInt(eColor.id) == _id).findFirst().orElse(null);
+    }
+    
+    public Record find2(int _code) {
+        return query.select().stream().filter(rec -> rec.getInt(eColor.code) == _code).findFirst().orElse(null);
     }
 
     public String toString() {
