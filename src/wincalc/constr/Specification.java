@@ -101,7 +101,7 @@ public class Specification {
         return specificationList;
     }
 
-    public void setArticlRec(Record artiklRec) {
+    public void setArtiklRec(Record artiklRec) {
         this.artikl = artiklRec.getStr(eArtikl.code);
         this.name = artiklRec.getStr(eArtikl.name);
         this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);

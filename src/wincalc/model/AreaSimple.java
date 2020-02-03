@@ -35,7 +35,7 @@ public class AreaSimple extends Com5t {
         if (owner != null && TypeElem.ARCH == owner.typeElem()
                 && owner.listChild().size() == 2
                 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
-            float dh = owner.listChild().get(1).articlRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
+            float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
             dimension(x1, y1, x2, y2 - dh);
         }
     }

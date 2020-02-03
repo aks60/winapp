@@ -41,7 +41,7 @@ public abstract class Com5t {
     protected int color3 = -1;  //внешний
 
     protected Record sysprofRec = null; //профиль в системе
-    protected Record articlRec = null;  //мат. средства, основной профиль
+    protected Record artiklRec = null;  //мат. средства, основной профиль
     protected Specification specificationRec = null; //спецификация элемента
     protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 

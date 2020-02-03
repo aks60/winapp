@@ -58,31 +58,31 @@ public class ElemGlass extends ElemSimple {
     public void initСonstructiv() {
 
         Object code = mapParam.get(ParamJson.nunic_iwin);
-        articlRec = eArtikl.up.find2(String.valueOf(code));
-        if (articlRec == null) {
+        artiklRec = eArtikl.up.find2(String.valueOf(code));
+        if (artiklRec == null) {
             Record sysreeRec = eSystree.up.find(iwin.nuni); //по умолчанию стеклопакет
-            articlRec = eArtikl.up.find2(sysreeRec.getStr(eSystree.glas));
+            artiklRec = eArtikl.up.find2(sysreeRec.getStr(eSystree.glas));
         }
         sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
-        if (articlRec.getDbl(eArtikl.size_falz) == 0) {
-            Object ooo = iwin.articlRec.get(eArtikl.tech_code);
-            articlRec.set(eArtikl.tech_code, iwin.articlRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
+        if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
+            Object ooo = iwin.artiklRec.get(eArtikl.tech_code);
+            artiklRec.set(eArtikl.tech_code, iwin.artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
-        Record artdetRec = eArtdet.up.find(articlRec.getInt(eArtikl.id));
+        Record artdetRec = eArtdet.up.find(artiklRec.getInt(eArtikl.id));
         Record colorRec = eColor.up.find(artdetRec.getInt(eArtdet.color_id));  
         color1 = colorRec.getInt(eColor.color);
         color2 = colorRec.getInt(eColor.color);
         color3 = colorRec.getInt(eColor.color); 
         
-        specificationRec.setArticlRec(articlRec);
+        specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override
     public void paint() {
         if (owner instanceof AreaArch) {
             ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
-            float dz = ef.articlRec.getFloat(eArtikl.height);            
+            float dz = ef.artiklRec.getFloat(eArtikl.height);            
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width - 2 * dz) / ((r - dz) * 2)));

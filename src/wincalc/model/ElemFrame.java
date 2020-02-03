@@ -32,18 +32,18 @@ public class ElemFrame extends ElemSimple {
         initСonstructiv();
 
         if (LayoutArea.LEFT == layout) {
-            dimension(owner.x1, owner.y1, owner.x1 + articlRec.getFloat(eArtikl.height), owner.y2);
+            dimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
 
         } else if (LayoutArea.RIGHT == layout) {
-            dimension(owner.x2 - articlRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
+            dimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
             anglHoriz = 90;
 
         } else if (LayoutArea.TOP == layout) {
-            dimension(owner.x1, owner.y1, owner.x2, owner.y1 + articlRec.getFloat(eArtikl.height));
+            dimension(owner.x1, owner.y1, owner.x2, owner.y1 + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
 
         } else if (LayoutArea.BOTTOM == layout) {
-            dimension(owner.x1, owner.y2 - articlRec.getFloat(eArtikl.height), owner.x2, owner.y2);
+            dimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
             anglHoriz = 0;
 
         } else if (LayoutArea.ARCH == layout) {
@@ -71,8 +71,8 @@ public class ElemFrame extends ElemSimple {
         } else if (layout == LayoutArea.RIGHT) {
             sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.RIGHT);
         }
-        articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        specificationRec.setArticlRec(articlRec);
+        artiklRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        specificationRec.setArtiklRec(artiklRec);
     }
 
     //Добавление спесификаций зависимых элементов
@@ -86,7 +86,7 @@ public class ElemFrame extends ElemSimple {
         if (TypeArtikl.KOROBKA.isType(cpecifArtikls) || TypeArtikl.STVORKA.isType(cpecifArtikls)) {
 
             specificationRec.width = specificationRec.width + Float.valueOf(specif.getHmParam(0, 34051)); //Поправка, мм
-            specificationRec.setArticlRec(specif.getArticRec());
+            specificationRec.setArtiklRec(specif.getArticRec());
             return;  //сразу выход т.к. элем. сам является держателем состава
 
             //Теперь армирование
@@ -101,18 +101,18 @@ public class ElemFrame extends ElemSimple {
                 specif.width = y2 - y1;
             }
             if ("от внутреннего угла".equals(specif.getHmParam(null, 34010))) {
-                Double dw1 = articlesRec.aheig / Math.tan(Math.toRadians(anglCut1));
-                Double dw2 = articlesRec.aheig / Math.tan(Math.toRadians(anglCut2));
+                Double dw1 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut1));
+                Double dw2 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut2));
                 specif.width = specif.width + 2 * getRoot().iwin.syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue();
 
             } else {
                 Double dw1 = 0.0;
                 Double dw2 = 0.0;
                 if (getAnglCut(1) != 90) {
-                    dw1 = articlesRec.aheig / Math.tan(Math.toRadians(anglCut1));
+                    dw1 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut1));
                 }
                 if (getAnglCut(1) != 90) {
-                    dw2 = articlesRec.aheig / Math.tan(Math.toRadians(anglCut2));
+                    dw2 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut2));
                 }
                 //specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue(); //TODO тут код незакончен
             }
@@ -144,7 +144,7 @@ public class ElemFrame extends ElemSimple {
 
     @Override
     public void paint() {
-        float d1z = articlRec.getFloat(eArtikl.height);
+        float d1z = artiklRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd - iwin.height;
         float w = root().width;
         float y1h = y1 + h;
@@ -155,7 +155,7 @@ public class ElemFrame extends ElemSimple {
         if (LayoutArea.ARCH == layout) { //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
             //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
-            float d2z = articlRec.getFloat(eArtikl.height);
+            float d2z = artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(owner.width / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((owner.width - 2 * d2z) / ((r - d2z) * 2)));

@@ -63,12 +63,12 @@ public class AreaStvorka extends AreaSimple {
         sysprofRec = eSysprof.query.select().stream()
                 .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
                 && rec.getInt(eSysprof.types) == TypeProfile.STVORKA.value).findFirst().orElse(null);
-        articlRec = eArtikl.query.select().stream()
+        artiklRec = eArtikl.query.select().stream()
                 .filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
-        if (articlRec.getFloat(eArtikl.size_falz) == 0) {
-            articlRec.setNo(eArtikl.size_falz, iwin.articlRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
+        if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
+            artiklRec.setNo(eArtikl.size_falz, iwin.artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
         }
-        specificationRec.setArticlRec(articlRec);
+        specificationRec.setArtiklRec(artiklRec);
     }
 
     public void correction() {
@@ -82,7 +82,7 @@ public class AreaStvorka extends AreaSimple {
                 elemRight = iwin.listElem.stream().filter(el2 -> el2.inside(x2, (y2 - y1) / 2) == true).findFirst().orElse(null);
 
         Float naxl = iwin.sysconsRec.getFloat(eSyscons.naxl);
-        Float size_falz = articlRec.getFloat(eArtikl.size_falz);
+        Float size_falz = artiklRec.getFloat(eArtikl.size_falz);
         x1 = elemLeft.x2 - size_falz - naxl;
         y1 = elemTop.y2 - size_falz - naxl;
         x2 = elemRight.x1 + size_falz + naxl;

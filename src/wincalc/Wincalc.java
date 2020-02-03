@@ -39,7 +39,7 @@ public class Wincalc {
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
     public Integer nuni = 0;
-    public Record articlRec = null;  //главный артикл системы профилей
+    public Record artiklRec = null;  //главный артикл системы профилей
     protected float percentMarkup = 0;  //процентная надбавка
 
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
@@ -140,8 +140,8 @@ public class Wincalc {
             heightAdd = mainObj.get("height").getAsFloat();
 
             Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.LEFT);
-            articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-            sysconsRec = eSyscons.find(articlRec.getInt(eArtikl.syscons_id));
+            artiklRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+            sysconsRec = eSyscons.find(artiklRec.getInt(eArtikl.syscons_id));
 
             color1 = mainObj.get("color1").getAsInt();
             color2 = mainObj.get("color2").getAsInt();

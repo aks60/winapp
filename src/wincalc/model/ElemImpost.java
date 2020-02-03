@@ -35,14 +35,14 @@ public class ElemImpost extends ElemSimple {
         //Коррекция положения импоста арки
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
-                float dh = articlRec.getFloat(eArtikl.height) / 2;     
+                float dh = artiklRec.getFloat(eArtikl.height) / 2;     
                 owner.listChild().add(new AreaSimple(iwin, owner, owner.id + ".DX", LayoutArea.HORIZ, owner.width, dh));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
             if (owner.listChild().get(index) instanceof AreaSimple) {
                 Com5t prevArea = owner.listChild().get(index); //index указывает на предыдущий элемент
-                float dx = articlRec.getFloat(eArtikl.size_centr);
+                float dx = artiklRec.getFloat(eArtikl.size_centr);
 
                 if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
                     dimension(owner.x1, prevArea.y2 - dx, prevArea.x2, prevArea.y2 + dx);
@@ -65,15 +65,15 @@ public class ElemImpost extends ElemSimple {
         } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
            sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
         }
-        articlRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        specificationRec.setArticlRec(articlRec);  
+        artiklRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        specificationRec.setArtiklRec(artiklRec);  
     }
 
     public void setSpecifElement(Record sysproaRec) {
    /*
         indexUniq(specificationRec);
         specificationRec.element = (LayoutArea.HORIZONTAL == owner.getLayout()) ? LayoutArea.VERTICAL.name : LayoutArea.HORIZONTAL.name;
-        specificationRec.setArticlRec(Artikls.get(getConst(), sysproaRec.anumb, false));
+        specificationRec.setArtiklRec(Artikls.get(getConst(), sysproaRec.anumb, false));
         specificationRec.colorBase = colorBase;
         specificationRec.colorInternal = colorInternal;
         specificationRec.colorExternal = colorExternal;
@@ -94,8 +94,8 @@ public class ElemImpost extends ElemSimple {
             ElemBase elemRight = (joinRight.joinElement1.equals(this)) ? joinRight.joinElement2 : joinRight.joinElement1;
             y2 = elemRight.y1;
 
-            specificationRec.width = y2 - y1 + getRoot().iwin.syssizeRec.ssizi * 2 + elemLeft.articlesRec.asizn + elemRight.articlesRec.asizn;;
-            specificationRec.height = articlesRec.aheig;
+            specificationRec.width = y2 - y1 + getRoot().iwin.syssizeRec.ssizi * 2 + elemLeft.artiklesRec.asizn + elemRight.artiklesRec.asizn;;
+            specificationRec.height = artiklesRec.aheig;
 
         } else if (LayoutArea.VERTICAL == owner.getLayout()) { //сверху вниз
             ElemBase elemPrior = prevElem();
@@ -111,8 +111,8 @@ public class ElemImpost extends ElemSimple {
             ElemBase elemRight = (joinRight.joinElement1.equals(this)) ? joinRight.joinElement2 : joinRight.joinElement1;
             x2 = elemRight.x1;
 
-            specificationRec.width = x2 - x1 + getRoot().iwin.syssizeRec.ssizi * 2 + elemLeft.articlesRec.asizn + elemRight.articlesRec.asizn;
-            specificationRec.height = articlesRec.aheig;
+            specificationRec.width = x2 - x1 + getRoot().iwin.syssizeRec.ssizi * 2 + elemLeft.artiklesRec.asizn + elemRight.artiklesRec.asizn;
+            specificationRec.height = artiklesRec.aheig;
         }
         specificationRec.anglCut2 = 90;
         specificationRec.anglCut1 = 90;
@@ -128,9 +128,9 @@ public class ElemImpost extends ElemSimple {
 
         //Импост (если элемент включен в список состава)
         if (TypeArtikl.IMPOST.value2 == specifArtikl.atypp && specifArtikl.atypm == 1) {
-            specificationRec.setArticlRec(specif.getArticRec()); //= (specif.artikl.equals("-")) ? specif.artikl : "-";
+            specificationRec.setArtiklRec(specif.getArticRec()); //= (specif.artikl.equals("-")) ? specif.artikl : "-";
             specificationRec.name = (specif.name.equals("-")) ? specif.name : "-";
-            specificationRec.setArticlRec(specif.getArticRec());
+            specificationRec.setArtiklRec(specif.getArticRec());
             return;
 
             //Теперь армирование
