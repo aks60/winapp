@@ -150,18 +150,18 @@ public class ElemFrame extends ElemSimple {
         float y1h = y1 + h;
         float y2h = y2 + h;
 
-        int rgb = eColor.up.find(color3).getInt(eColor.color);
+        int rgb = eColor.up.find(color2).getInt(eColor.color);
         if (LayoutArea.ARCH == layout) {
             //if (TypeElem.ARCH == owner.typeElem()) {  //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
-            ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
-            float d2z = ef.articlRec.getFloat(eArtikl.height);
+            //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
+            float d2z = articlRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(width / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((width - 2 * d2z) / ((r - d2z) * 2)));
-            strokeArc(width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-            strokeArc(width / 2 - r + d2z, d2z, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
-            strokeArc(width / 2 - r + d2z / 2, d2z / 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 4); //прорисовка на сцену
+            double ang1 = 90 - Math.toDegrees(Math.asin(owner.width / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((owner.width - 2 * d2z) / ((r - d2z) * 2)));
+            strokeArc(owner.width / 2 - r, 0, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+            strokeArc(owner.width / 2 - r + d2z, d2z, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 3); //прорисовка на сцену
+            strokeArc(owner.width / 2 - r + d2z / 2, d2z / 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 4); //прорисовка на сцену          
 
         } else if (LayoutArea.TOP == layout) {
             strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK, 4);
