@@ -303,7 +303,6 @@ public class AreaSimple extends Com5t {
     private void drawLine2(String txt, int x1, int y1, int x2, int y2) {
         float h = iwin.heightAdd - iwin.height;
         Graphics2D gc = iwin.graphics2D;
-        float scale = iwin.scale;
         gc.setColor(java.awt.Color.BLACK);
         gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 12));
         strokeLine(x1, y1, x2, y2, Color.BLACK);
@@ -314,9 +313,9 @@ public class AreaSimple extends Com5t {
             strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK);
             strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK);
             strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK);
-            gc.rotate(Math.toRadians(270), (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
-            gc.drawString(txt, (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
-            gc.rotate(Math.toRadians(-270), (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
+            gc.rotate(Math.toRadians(270), x1 + 28, y1 + (y2 - y1) / 2 + h);
+            gc.drawString(txt, x1 + 28, y1 + (y2 - y1) / 2 + h);
+            gc.rotate(Math.toRadians(-270), x1 + 28, y1 + (y2 - y1) / 2 + h);
         } else {
             strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK);
             strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK);
@@ -325,7 +324,7 @@ public class AreaSimple extends Com5t {
             strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK);
             strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK);
             //gc.rotate(Math.toRadians(0), (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
-            gc.drawString(txt, (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
+            gc.drawString(txt, x1 + (x2 - x1) / 2, y2 + 28 + h);
         }
     }
 }
