@@ -160,8 +160,8 @@ public class ElemFrame extends ElemSimple {
             double ang1 = 90 - Math.toDegrees(Math.asin(owner.width / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((owner.width - 2 * d2z) / ((r - d2z) * 2)));
             strokeArc(owner.width / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 4); //прорисовка на сцену
-            //strokeArc(owner.width / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 4); //прорисовка на сцену
-            //strokeArc(owner.width / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z - 2); //прорисовка на сцену
+            strokeArc(owner.width / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 4); //прорисовка на сцену
+            strokeArc(owner.width / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z); //прорисовка на сцену
 
         } else if (LayoutArea.TOP == layout) {
             strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, Color.BLACK);
