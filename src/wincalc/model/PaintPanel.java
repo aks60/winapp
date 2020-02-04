@@ -44,7 +44,7 @@ public class PaintPanel extends JPanel {
             float max2 = iwin.width + iwin.height;
             Graphics2D gc = (Graphics2D) g;
             gc.setColor(getBackground());
-            float dx = max1 / max2;
+            float dx = max1 / max2 - .02f;
             gc.scale(dx, dx);
             iwin.graphics2D = gc;
             iwin.rootArea.draw(getWidth(), getHeight());

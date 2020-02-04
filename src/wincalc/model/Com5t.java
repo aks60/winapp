@@ -123,7 +123,7 @@ public abstract class Com5t {
 
     protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
             float y2, float y3, float y4, int rgbFill, Color rdbStroke) {
-        
+
         Graphics2D gc = iwin.graphics2D;
         gc.setStroke(new BasicStroke(8f)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
@@ -138,8 +138,8 @@ public abstract class Com5t {
     protected void strokeArc(double x, double y, double w, double h, double startAngle,
             double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
 
-       System.out.println("x= " + x + " y = " + y + " w= " + w + " h= " + h + " startAngle=" + startAngle 
-                + " arcExtent=" + arcExtent + " closure=" + closure + " rdbStroke=" + rdbStroke + " lineWidth=" + lineWidth);
+//        System.out.println("x= " + x + " y = " + y + " w= " + w + " h= " + h + " startAngle=" + startAngle
+//                + " arcExtent=" + arcExtent + " closure=" + closure + " rdbStroke=" + rdbStroke + " lineWidth=" + lineWidth);
         Graphics2D gc = iwin.graphics2D;
         gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
         gc.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
@@ -162,7 +162,7 @@ public abstract class Com5t {
                 new int[]{(int) (y1 + moveXY + h), (int) (y2 + moveXY + h), (int) (y3 + moveXY + h), (int) (y4 + moveXY + h)}, 4);
     }
 
-    public String toString() {           
+    public String toString() {
         return "ELEM: owner=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 

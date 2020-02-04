@@ -40,7 +40,7 @@ public class Design extends javax.swing.JFrame {
         }
     };
     private AreaRoot rootArea;
-    private Wincalc iwin = new Wincalc();
+    public Wincalc iwin = new Wincalc();
     private PaintPanel paintPanel = new PaintPanel(iwin);
 
     public Design() {
@@ -52,16 +52,6 @@ public class Design extends javax.swing.JFrame {
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.types, txtField3, TypeSys.values());
         loadTree1();
-        test();
-    }
-
-    private void test() {
-        iwin.create(Winscript.test(Winscript.prj, null));
-//        tree1.expandRow(21);
-//        tree1.setSelectionRow(26);
-//        for (int i = 0; i < tree1.getRowCount(); i++) {
-//            tree1.expandRow(i);
-//        }        
     }
 
     public void loadTree1() {

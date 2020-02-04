@@ -54,6 +54,7 @@ public class Test {
         App1 app = new App1();        
         app.setVisible(true);
         Design frm = new Design();
+        frm.iwin.create(Winscript.test(Winscript.prj, null));
         FrameToFile.setFrameSize(frm);
         frm.setVisible(true);
  
