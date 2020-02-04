@@ -51,18 +51,19 @@ public class Design extends javax.swing.JFrame {
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.types, txtField3, TypeSys.values());
-        loadTree1(); 
+        loadTree1();
         test();
     }
 
     private void test() {
-        tree1.expandRow(21);
-        tree1.setSelectionRow(26);
+        iwin.create(Winscript.test(Winscript.prj, null));
+//        tree1.expandRow(21);
+//        tree1.setSelectionRow(26);
 //        for (int i = 0; i < tree1.getRowCount(); i++) {
 //            tree1.expandRow(i);
 //        }        
     }
-    
+
     public void loadTree1() {
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
@@ -88,7 +89,7 @@ public class Design extends javax.swing.JFrame {
     private void selectionTree() {
         int ind = tree1.getSelectionRows()[0];
         txtField4.setText(String.valueOf(ind)); //TEST
-        
+
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
@@ -675,9 +676,10 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        iwin.create(Winscript.test(Winscript.prj, 435));
-        panDesign.repaint();
-        paintPanel.setVisible(true);
+//        iwin.create(Winscript.test(Winscript.prj, 435));
+//        panDesign.repaint();
+//        paintPanel.setVisible(true);
+        paintPanel.saveImage("XXXXX", "png");
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

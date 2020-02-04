@@ -123,4 +123,9 @@ public class ElemGlass extends ElemSimple {
     public TypeProfile typeProfile() {
         return TypeProfile.UNKNOWN;
     }
+    
+    @Override
+    public String toString() {
+        return super.toString() + ", radiusGlass=" + radiusGlass;
+    }    
 }

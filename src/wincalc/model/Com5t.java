@@ -112,22 +112,22 @@ public abstract class Com5t {
     public void paint() {
     }
 
-    protected void strokeLine(float x1, float y1, float x2, float y2, Color rdbStroke, int lineWidth) {
+    protected void strokeLine(float x1, float y1, float x2, float y2, Color rdbStroke) {
 
         float scale = iwin.scale;
         Graphics2D gc = iwin.graphics2D;
-        gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
+        gc.setStroke(new BasicStroke(4)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
         gc.drawLine((int) ((x1 + moveXY) * scale), (int) ((y1 + moveXY + h) * scale), (int) ((x2 + moveXY) * scale), (int) ((y2 + moveXY + h) * scale));
     }
 
     protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
-            float y2, float y3, float y4, int rgbFill, Color rdbStroke, double lineWidth) {
-
+            float y2, float y3, float y4, int rgbFill, Color rdbStroke) {
+        
         float scale = iwin.scale;
         Graphics2D gc = iwin.graphics2D;
-        gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
+        gc.setStroke(new BasicStroke(8f)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
         gc.drawPolygon(new int[]{(int) ((x1 + moveXY) * scale), (int) ((x2 + moveXY) * scale), (int) ((x3 + moveXY) * scale), (int) ((x4 + moveXY) * scale)},
@@ -140,6 +140,8 @@ public abstract class Com5t {
     protected void strokeArc(double x, double y, double w, double h, double startAngle,
             double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
 
+       System.out.println("x= " + x + " y = " + y + " w= " + w + " h= " + h + " startAngle=" + startAngle 
+                + " arcExtent=" + arcExtent + " closure=" + closure + " rdbStroke=" + rdbStroke + " lineWidth=" + lineWidth);
         float scale = iwin.scale;
         Graphics2D gc = iwin.graphics2D;
         gc.setStroke(new BasicStroke((float) lineWidth * scale)); //толщина линии
@@ -149,10 +151,10 @@ public abstract class Com5t {
 
     protected void fillArc(double x, double y, double w, double h, double startAngle, double arcExtent) {
 
-        float scale = iwin.scale;
-        Graphics2D gc = iwin.graphics2D;
-        gc.setColor(new java.awt.Color(226, 255, 250));
-        gc.fillArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
+//        float scale = iwin.scale;
+//        Graphics2D gc = iwin.graphics2D;
+//        gc.setColor(new java.awt.Color(226, 255, 250));
+//        gc.fillArc((int) ((x + moveXY) * scale), (int) ((y + moveXY) * scale), (int) (w * scale), (int) (h * scale), (int) startAngle, (int) arcExtent);
     }
 
     protected void fillPoligon(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
@@ -165,8 +167,8 @@ public abstract class Com5t {
                 new int[]{(int) ((y1 + moveXY + h) * scale), (int) ((y2 + moveXY + h) * scale), (int) ((y3 + moveXY + h) * scale), (int) ((y4 + moveXY + h) * scale)}, 4);
     }
 
-    public String toString() {
-        return "ELEMENT = owner.id=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
+    public String toString() {           
+        return "ELEM: owner=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 
     public boolean equals(Object obj) {

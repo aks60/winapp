@@ -69,8 +69,6 @@ public class Wincalc {
     }
 
     public AreaSimple create(String productJson) {
-
-        System.out.println(productJson); 
         
         mapParamDef.clear();
         mapJoin.clear();

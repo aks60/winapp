@@ -217,9 +217,11 @@ public class Winscript {
 
             rootArea.add(new Element("6", TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("7", LayoutArea.HORIZ, TypeElem.AREA, 1200));
+            
             AreaElem area4 = (AreaElem) area3.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 650));
             area3.add(new Element("9", TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 650));
+            
             AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
             AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
 

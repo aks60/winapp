@@ -306,24 +306,24 @@ public class AreaSimple extends Com5t {
         float scale = iwin.scale;
         gc.setColor(java.awt.Color.BLACK);
         gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 12));
-        strokeLine(x1, y1, x2, y2, Color.BLACK, 2);
+        strokeLine(x1, y1, x2, y2, Color.BLACK);
         if (x1 == x2) {
-            strokeLine(x1 - 24, y1, x1 + 24, y1, Color.BLACK, 2);
-            strokeLine(x2 - 24, y2, x2 + 24, y2, Color.BLACK, 2);
-            strokeLine(x1, y1, x1 + 12, y1 + 24, Color.BLACK, 2);
-            strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK, 2);
-            strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK, 2);
-            strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK, 2);
+            strokeLine(x1 - 24, y1, x1 + 24, y1, Color.BLACK);
+            strokeLine(x2 - 24, y2, x2 + 24, y2, Color.BLACK);
+            strokeLine(x1, y1, x1 + 12, y1 + 24, Color.BLACK);
+            strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK);
+            strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK);
+            strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK);
             gc.rotate(Math.toRadians(270), (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
             gc.drawString(txt, (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
             gc.rotate(Math.toRadians(-270), (x1 + 28) * scale, (y1 + (y2 - y1) / 2 + h) * scale);
         } else {
-            strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK, 2);
-            strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK, 2);
-            strokeLine(x1, y1, x1 + 24, y1 - 12, Color.BLACK, 2);
-            strokeLine(x1, y1, x1 + 24, y1 + 12, Color.BLACK, 2);
-            strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK, 2);
-            strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK, 2);
+            strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK);
+            strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK);
+            strokeLine(x1, y1, x1 + 24, y1 - 12, Color.BLACK);
+            strokeLine(x1, y1, x1 + 24, y1 + 12, Color.BLACK);
+            strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK);
+            strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK);
             //gc.rotate(Math.toRadians(0), (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
             gc.drawString(txt, (x1 + (x2 - x1) / 2) * scale, (y2 + 28 + h) * scale);
         }

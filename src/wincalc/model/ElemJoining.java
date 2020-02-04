@@ -25,7 +25,7 @@ public class ElemJoining {
 
     protected ElemSimple joinElement1 = null;  // Элемент соединения 1
     protected ElemSimple joinElement2 = null;  // Элемент соединения 2
-    
+
     protected float cutAngl1 = 45;    //Угол реза1
     protected float cutAngl2 = 45;    //Угол реза2
     protected float anglProf = 90;    //Угол между профилями
@@ -51,7 +51,12 @@ public class ElemJoining {
         return (i == 1) ? joinElement1 : joinElement2;
     }
 
+    public boolean equals(Object obj) {
+        return id == ((Com5t) obj).id;
+    }
+
     public String toString() {
-        return name;
+        return "ELEM: name=" + name + ", joinElement1=" + joinElement1.id + ", joinElement1=" + joinElement2.id
+                + ", cutAngl1=" + cutAngl1 + ", cutAngl2=" + cutAngl1 + ", typeJoin=" + typeJoin + ", varJoin=" + varJoin + ", anglProf=" + anglProf;
     }
 }

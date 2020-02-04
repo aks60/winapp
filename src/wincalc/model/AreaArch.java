@@ -24,7 +24,7 @@ public class AreaArch extends AreaSimple {
         elem.name = "===Угловое соединение левое верхнее";
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
-        
+
         float dz = elem.joinElement1.artiklRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd - height;
         float w = width;
@@ -37,7 +37,7 @@ public class AreaArch extends AreaSimple {
         double ang3 = 90 - Math.toDegrees(Math.atan((a1 - a2) / dz)); //угол реза рамы
         double a3 = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dz, 2) - 2 * r * (r - dz) * Math.cos(Math.toRadians(ang2 - angl)));
         double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(a3, 2) + Math.pow(r, 2) - Math.pow(r - dz, 2)) / (2 * r * a3))));
-        
+
         elem.cutAngl1 = (float) ang3; //угол реза 1
         elem.cutAngl2 = (float) ang4; //угол реза 2
         elem.anglProf = (float) ang4;
@@ -83,5 +83,10 @@ public class AreaArch extends AreaSimple {
     @Override
     public TypeElem typeElem() {
         return TypeElem.ARCH;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", radiusArch=" + radiusArch;
     }
 }

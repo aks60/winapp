@@ -47,7 +47,8 @@ public abstract class ElemSimple extends Com5t {
         return String.valueOf(++maxId);
     }
   
+    @Override
     public String toString() {
-        return id;
+        return super.toString() + ", anglHoriz=" + anglHoriz;
     } 
 }

@@ -97,7 +97,7 @@ public class Query extends Table {
             }
         }
         sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
-        Util.println("SQL-SELECT: " + sql);
+        //Util.println("SQL-SELECT: " + sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet recordset = statement.executeQuery(sql);
@@ -152,7 +152,7 @@ public class Query extends Table {
                 nameCols = nameCols.substring(0, nameCols.length() - 1);
                 nameVals = nameVals.substring(0, nameVals.length() - 1);
                 sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
-                Util.println("SQL-INSERT " + sql);
+                //Util.println("SQL-INSERT " + sql);
                 return statement.executeUpdate(sql);
                 //return 0;
             }
@@ -166,7 +166,7 @@ public class Query extends Table {
             statement = connection.createStatement();
             String sql = fields.get(0).updateSql(record);
             if (sql != null) {
-                Util.println("SQL-UPDATE " + sql);
+                //Util.println("SQL-UPDATE " + sql);
                 return statement.executeUpdate(sql);
             } else {
                 String nameCols = "";
@@ -182,7 +182,7 @@ public class Query extends Table {
                     nameCols = nameCols.substring(0, nameCols.length() - 1);
                     sql = "update " + schema + fields.get(0).tname() + " set "
                             + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-                    Util.println("SQL-UPDATE " + sql);
+                    //Util.println("SQL-UPDATE " + sql);
                     return statement.executeUpdate(sql);
                 }
             }
@@ -206,12 +206,12 @@ public class Query extends Table {
         String sql = fields.get(0).deleteSql(record);
         Statement statement = connection.createStatement();
         if (sql != null) {
-            Util.println("SQL-DELETE " + sql);
+            //Util.println("SQL-DELETE " + sql);
             return statement.executeUpdate(sql);
         } else {
             Field[] f = fields.get(0).fields();
             sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-            Util.println("SQL-DELETE " + sql);
+            //Util.println("SQL-DELETE " + sql);
             return statement.executeUpdate(sql);
         }
     }
@@ -223,7 +223,7 @@ public class Query extends Table {
                 for (Record record : query) {
                     if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
 
-                        Util.println(record);
+                        //Util.println(record);
                         if (record.validate(fields) != null) { //проверка на корректность ввода данных
                             JOptionPane.showMessageDialog(null, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                             return;

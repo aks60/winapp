@@ -12,7 +12,10 @@ import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
 import forms.Design;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 import wincalc.script.AreaElem;
 import wincalc.script.AreaRoot;
 import wincalc.script.Element;
@@ -26,8 +29,8 @@ public class Test {
         try {
             //convert.Profstroy.script();
             //query();
-            wincalc();
-            //frame();
+            //wincalc();
+            frame();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

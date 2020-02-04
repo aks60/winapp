@@ -167,10 +167,10 @@ public class ElemImpost extends ElemSimple {
         int rgb = eColor.up.find2(color2).getInt(eColor.color);
         
         if (LayoutArea.VERT == owner.layout()) {
-            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK);
 
         } else if (LayoutArea.HORIZ == owner.layout()) {
-            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK, 4);
+            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK);
         }
     }
     
@@ -192,4 +192,9 @@ public class ElemImpost extends ElemSimple {
             anglCut2 = anglCut;
         }
     }
+    
+    @Override
+    public String toString() {
+        return super.toString() + ", anglCut=" + anglCut1 + ", anglCut=" + anglCut1;
+    }     
 }
