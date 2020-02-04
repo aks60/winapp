@@ -13,6 +13,7 @@ import enums.TypeElem;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.util.HashMap;
 import java.util.LinkedList;
 import javafx.scene.shape.ArcType;
@@ -21,8 +22,7 @@ import wincalc.Wincalc;
 public abstract class Com5t {
 
     public static final int SIDE_START = 1; //левая сторона
-    public static final int SIDE_END = 2;   //правая сторона 
-    protected static float moveXY = 40;     //смещение рисунка
+    public static final int SIDE_END = 2;   //правая сторона     
 
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
@@ -118,7 +118,7 @@ public abstract class Com5t {
         gc.setStroke(new BasicStroke(4)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
-        gc.drawLine((int) (x1 + moveXY), (int) (y1 + moveXY + h), (int) (x2 + moveXY), (int) (y2 + moveXY + h));
+        gc.drawLine((int) x1, (int) (y1 + h), (int) x2, (int) (y2 + h));
     }
 
     protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
@@ -128,29 +128,29 @@ public abstract class Com5t {
         gc.setStroke(new BasicStroke(8f)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
-        gc.drawPolygon(new int[]{(int) (x1 + moveXY), (int) (x2 + moveXY), (int) (x3 + moveXY), (int) (x4 + moveXY)},
-                new int[]{(int) (y1 + moveXY + h), (int) (y2 + moveXY + h), (int) (y3 + moveXY + h), (int) (y4 + moveXY + h)}, 4);
+        gc.drawPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+                new int[]{(int) (y1 + h), (int) (y2 + h), (int) (y3 + h), (int) (y4 + h)}, 4);
         gc.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
-        gc.fillPolygon(new int[]{(int) (x1 + moveXY), (int) (x2 + moveXY), (int) (x3 + moveXY), (int) (x4 + moveXY)},
-                new int[]{(int) (y1 + moveXY + h), (int) (y2 + moveXY + h), (int) (y3 + moveXY + h), (int) (y4 + moveXY + h)}, 4);
+        gc.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+                new int[]{(int) (y1 + h), (int) (y2 + h), (int) (y3 + h), (int) (y4 + h)}, 4);
     }
 
     protected void strokeArc(double x, double y, double w, double h, double startAngle,
             double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
 
-//        System.out.println("x= " + x + " y = " + y + " w= " + w + " h= " + h + " startAngle=" + startAngle
-//                + " arcExtent=" + arcExtent + " closure=" + closure + " rdbStroke=" + rdbStroke + " lineWidth=" + lineWidth);
+        //System.out.println("x= " + x + " y = " + y + " w= " + w + " h= " + h + " startAngle=" + startAngle
+                //+ " arcExtent=" + arcExtent + " closure=" + closure + " rdbStroke=" + rdbStroke + " lineWidth=" + lineWidth);
         Graphics2D gc = iwin.graphics2D;
         gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
         gc.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
-        gc.drawArc((int) (x + moveXY), (int) (y + moveXY), (int) w, (int) h, (int) startAngle, (int) arcExtent);
+        gc.drawArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
     }
 
     protected void fillArc(double x, double y, double w, double h, double startAngle, double arcExtent) {
 
         Graphics2D gc = iwin.graphics2D;
         gc.setColor(new java.awt.Color(226, 255, 250));
-        gc.fillArc((int) (x + moveXY), (int) (y + moveXY), (int) w, (int) h, (int) startAngle, (int) arcExtent);
+        gc.fillArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
     }
 
     protected void fillPoligon(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
@@ -158,8 +158,8 @@ public abstract class Com5t {
         Graphics2D gc = iwin.graphics2D;
         gc.setColor(new java.awt.Color(226, 255, 250));
         float h = iwin.heightAdd - iwin.height;
-        gc.fillPolygon(new int[]{(int) (x1 + moveXY), (int) (x2 + moveXY), (int) (x3 + moveXY), (int) (x4 + moveXY)},
-                new int[]{(int) (y1 + moveXY + h), (int) (y2 + moveXY + h), (int) (y3 + moveXY + h), (int) (y4 + moveXY + h)}, 4);
+        gc.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+                new int[]{(int) (y1 + h), (int) (y2 + h), (int) (y3 + h), (int) (y4 + h)}, 4);
     }
 
     public String toString() {

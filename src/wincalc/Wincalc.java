@@ -116,7 +116,7 @@ public class Wincalc {
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
              //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
-             listElem.stream().forEach(el -> System.out.println(el));
+             //listElem.stream().forEach(el -> System.out.println(el));
         }
         return rootArea;
     }
