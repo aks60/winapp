@@ -1,41 +1,35 @@
-
 package forms;
 
 import common.FrameListener;
 import dataset.Query;
-import domain.eOrders;
+import dataset.Record;
+import domain.eArtikl;
+import domain.eElement;
+import domain.eElemgrp;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JTable;
-import swing.DefTableModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
-public class Order extends javax.swing.JFrame {
+public class BoxTypical extends javax.swing.JFrame {
 
-    private Query qOrders = new Query(eOrders.values()).select(eOrders.up, "order by", eOrders.numb);
-    
     private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border
-                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+    
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            tmActive = (TableModel) table.getModel();
-            btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
         }
 
         public void focusLost(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(null);
-            btnIns.setEnabled(false);
-            btnDel.setEnabled(false);
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(null);
+            }
         }
     };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
@@ -51,15 +45,55 @@ public class Order extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
-    
-    public Order() {
+
+    public BoxTypical() {
         initComponents();
         initElements();
-        
-         new DefTableModel(tab1, qOrders, eOrders.numb, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id, 
-                 eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2).addFrameListener(listenerModify);
+        loadDataTab1();
     }
 
+    private void loadDataTab1() {
+
+//        Record record = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
+//        record.setNo(eElemgrp.id, -1);
+//        record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
+//        qElemgrp.table(eElemgrp.up.tname()).add(0, record);
+//        for (int index = 0; index < qElemgrp.table(eElemgrp.up.tname()).size(); ++index) {
+//            int level = qElemgrp.table(eElemgrp.up.tname()).getAs(index, eElemgrp.level, -1);
+//            if (level == 5) {
+//                Record record2 = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
+//                record2.setNo(eElemgrp.id, -5);
+//                record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
+//                qElemgrp.table(eElemgrp.up.tname()).add(index, record2);
+//                break;
+//            }
+//        }
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+//        qElement.execsql();
+//        qElemdet.execsql();
+//        listenerModify.response(null);
+//        int row = tab1.getSelectedRow();
+//        if (row != -1) {
+//            Record record = qElemgrp.table(eElemgrp.up.tname()).get(row);
+//            Integer id = record.getInt(eElemgrp.id);
+//            if (id == -1) {
+//                qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+//                        "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=1");
+//            } else if (id == -5) {
+//                qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+//                        "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=5");
+//            } else {
+//                qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+//                        "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
+//            }
+//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+//            if (tab2.getRowCount() > 0) {
+//                tab2.setRowSelectionInterval(0, 0);
+//            }
+//        }
+    }    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,13 +105,11 @@ public class Order extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
-        panCentr = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Заказы");
+        setTitle("Типовые конструкции фиртуальных профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -172,7 +204,7 @@ public class Order extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 554, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 591, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -198,7 +230,7 @@ public class Order extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 717, Short.MAX_VALUE)
+            .addGap(0, 754, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,32 +238,6 @@ public class Order extends javax.swing.JFrame {
         );
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
-
-        panCentr.setLayout(new java.awt.BorderLayout());
-
-        scr1.setBorder(null);
-
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "1", "1", "1", "1", "1", "1", "1", "1", "1"},
-                {"2", "2", "2", "2", "2", "2", "2", "2", "2", "2"}
-            },
-            new String [] {
-                "Номер заказа", "Контрагент", "Менеджер", "Конструктор", "Продавец", "Площадь", "Вес", "Скидка", "Дата от...", "Дата до..."
-            }
-        ));
-        tab1.setFillsViewportHeight(true);
-        scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(120);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
-        }
-
-        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -256,24 +262,47 @@ public class Order extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnInsert
 
-// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+// <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
-    private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
-    private javax.swing.JScrollPane scr1;
-    private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-
     private void initElements() {
-        tab1.addFocusListener(listenerFocus);
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Заказы клиентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+//        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Категории составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+//        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Списки составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+//        scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Спецификация составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+//        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+//        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+//                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+//        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent event) {
+//                selectionTab1(event);
+//            }
+//        });
+//        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent event) {
+//                selectionTab2(event);
+//            }
+//        });
+//        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent event) {
+//                selectionTab3(event);
+//            }
+//        });
+//        tab1.addFocusListener(listenerFocus);
+//        tab2.addFocusListener(listenerFocus);
+//        tab3.addFocusListener(listenerFocus);
+//        tab4.addFocusListener(listenerFocus);
+//        tab5.addFocusListener(listenerFocus);        
     }
-// </editor-fold> 
+// </editor-fold>
 }
