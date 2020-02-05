@@ -666,10 +666,7 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-//        iwin.create(Winscript.test(Winscript.prj, 435));
-//        panDesign.repaint();
-//        paintPanel.setVisible(true);
-        paintPanel.saveImage("XXXXX", "png");
+
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

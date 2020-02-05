@@ -115,7 +115,7 @@ public abstract class Com5t {
     protected void strokeLine(float x1, float y1, float x2, float y2, Color rdbStroke) {
 
         Graphics2D gc = iwin.graphics2D;
-        gc.setStroke(new BasicStroke(4)); //толщина линии
+        gc.setStroke(new BasicStroke(2)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
         gc.drawLine((int) x1, (int) (y1 + h), (int) x2, (int) (y2 + h));
@@ -125,7 +125,7 @@ public abstract class Com5t {
             float y2, float y3, float y4, int rgbFill, Color rdbStroke) {
 
         Graphics2D gc = iwin.graphics2D;
-        gc.setStroke(new BasicStroke(8f)); //толщина линии
+        gc.setStroke(new BasicStroke(8)); //толщина линии
         gc.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
         gc.drawPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},

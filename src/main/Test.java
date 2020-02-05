@@ -53,11 +53,10 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         App1 app = new App1();        
         app.setVisible(true);
-        Design frm = new Design();
-        frm.iwin.create(Winscript.test(Winscript.prj, null));
+        Design frm = new Design();        
         FrameToFile.setFrameSize(frm);
+        frm.iwin.create(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);
- 
     }
 
     static void query() throws Exception {
