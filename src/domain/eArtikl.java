@@ -5,6 +5,8 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import static domain.eArtdet.query;
+import static domain.eSysprof.artikl_id;
+import static domain.eSysprof.query;
 
 public enum eArtikl implements Field {
     up("0", "0", "0", "Материальные цености", "ARTIKLS"),
@@ -86,6 +88,9 @@ public enum eArtikl implements Field {
     }
 
     public Record find(int _id, boolean _analog) {
+        if(_id == -1) {
+            return virtualRec();
+        }        
         Record articlRec = query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null); 
         
         if (_analog == false && articlRec.get(analog_id) != null) {
@@ -99,6 +104,17 @@ public enum eArtikl implements Field {
         return query.select().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
     }
 
+    public Record virtualRec() {
+        Record record = query.newRecord(Query.SEL);
+        record.set(id, -1);
+        record.set(height, 60);
+        record.set(size_centr, 30);
+        record.set(tech_code, "");
+        record.set(size_falz, 20);
+        record.set(syscons_id, -1);
+        return record;
+    }
+    
     public String toString() {
         return meta.getDescr();
     }

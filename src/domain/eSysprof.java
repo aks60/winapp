@@ -75,6 +75,9 @@ public enum eSysprof implements Field {
     
     public Record find3(int nuni, TypeProfile type, ProfileSide _side) {
 
+        if(nuni == -1) {
+            return virtualRec();
+        }
         HashMap<Integer, Record> mapPrio = new HashMap();
         query.select().stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types)
                 && (_side.value == rec.getInt(side) || ProfileSide.ANY.value == rec.getInt(side)))
@@ -95,6 +98,15 @@ public enum eSysprof implements Field {
         return mapPrio.get(minLevel);                
     }
 
+    public Record virtualRec() {
+        Record record = query.newRecord(Query.SEL);
+        record.set(id, -1);
+        record.set(types, 0);
+        record.set(systree_id, -1);
+        record.set(artikl_id, -1);
+        return record;
+    }
+    
     public String toString() {
         return meta.getDescr();
     }

@@ -5,6 +5,7 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import static domain.eArtikl.query;
+import static domain.eArtikl.syscons_id;
 
 public enum eSyscons implements Field {
     up("0", "0", "0", "Системные константы", "SYSSIZE"),
@@ -40,6 +41,15 @@ public enum eSyscons implements Field {
 
     public static Record find(int id) {
         return query.select().stream().filter(rec -> id == rec.getInt(eSyscons.id)).findFirst().orElse(null);
+    }
+    
+    public Record virtualRec() {
+        Record record = query.newRecord(Query.SEL);
+        record.set(prip, 3);
+        record.set(napl, 20);
+        record.set(naxl, 8);
+        record.set(zax, 6);
+        return record;
     }
     
     public String toString() {

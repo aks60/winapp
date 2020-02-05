@@ -3,11 +3,8 @@ package forms;
 import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikl;
-import domain.eColgrp;
-import domain.eElement;
-import domain.eElemgrp;
 import domain.eSysprod;
+import domain.eSysprof;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -15,10 +12,8 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import swing.DefTableModel;
 import wincalc.Wincalc;
 import wincalc.model.PaintPanel;
-import wincalc.script.Winscript;
 
 public class BoxTypical extends javax.swing.JFrame {
 
@@ -58,7 +53,7 @@ public class BoxTypical extends javax.swing.JFrame {
     public BoxTypical() {
         initComponents();
         initElements();
-       
+
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);        
         loadDataTab1();
         if (tab1.getRowCount() > 0) {
