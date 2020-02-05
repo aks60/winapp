@@ -158,7 +158,7 @@ public class ConnFb extends dataset.ConnApp {
     /**
      * Генератор ключа ID
      */
-    public int generstorId(String table) {        
+    public int generatorId(String table) {        
         int next_id = 0;
         try {
             Statement statement = connection.createStatement();

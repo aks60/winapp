@@ -1,5 +1,8 @@
 package convert;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import common.Util;
 import dataset.ConnApp;
 import dataset.Field;
@@ -58,6 +61,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import wincalc.script.Winscript;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
@@ -89,8 +93,8 @@ public class Profstroy {
             eCurrenc.up
         };
         try {
-            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251";
-            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251";
+            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
@@ -389,40 +393,11 @@ public class Profstroy {
 
             Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update color set colgrp_id = (select id from colgrp a where a.gnumb = color.cgrup)");
-            Query.connection = cn2;
-            Query q1 = new Query(eColgrp.values()).select(eColgrp.up).table(eColgrp.up.tname());
-            Query q2 = new Query(eColor.values()).table(eColor.up.tname());
-            for (Record record : q1) {
-                Record record2 = q2.newRecord(Query.INS);
-                record2.setNo(eColor.id, -1 * record.getInt(eColgrp.id));
-                record2.setNo(eColor.colgrp_id, record.getInt(eColgrp.id));
-                record2.setNo(eColor.name, "Все текстуры группы");
-                record2.setNo(eColor.name2, "Все текстуры группы");
-                record2.setNo(eColor.coef1, 1);
-                record2.setNo(eColor.coef2, 1);
-                record2.setNo(eColor.coef2, 1);
-                record2.setNo(eColor.suffix1, 1);
-                record2.setNo(eColor.suffix2, 1);
-                record2.setNo(eColor.suffix3, 1);
-                q2.insert(record2);
-            }            
+            updateColor();
             sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
             sql("update artdet set color_id = (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");
             sql("update artdet set color_id = artdet.clnum where artdet.clnum < 0");
-
-            Query q3 = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
-            ResultSet rs3 = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
-            ArrayList<Object[]> fieldList = new ArrayList();
-            while (rs3.next()) {
-                fieldList.add(new Object[]{rs3.getString("VPREF"), rs3.getInt("ATYPM")});
-            }
-            for (Object[] obj : fieldList) {
-                Record record = q3.newRecord(Query.INS);
-                record.setNo(eElemgrp.id, ConnApp.get().generstorId(eElemgrp.up.tname()));
-                record.setNo(eElemgrp.name, obj[0]);
-                record.setNo(eElemgrp.level, obj[1]);
-                q3.insert(record);
-            }
+            updateElemgrp();
             sql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");
             sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
@@ -454,12 +429,13 @@ public class Profstroy {
             sql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
-            sql("update systree set parent_id = id where npar = 0");           
+            sql("update systree set parent_id = id where npar = 0");
             sql("update sysprof set artikl_id = (select id from artikl a where a.code = sysprof.anumb)");
             sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
             sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
             sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");
             sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
+            updateSysprod();
             sql("update kits set artikl_id = (select id from artikl a where a.code = kits.anumb)");
             sql("update kits set color_id = (select id from color a where a.numb = kits.clnum)");
             sql("update kitdet set kits_id = (select id from kits a where a.kunic = kitdet.kunic)");
@@ -467,7 +443,7 @@ public class Profstroy {
             sql("update kitdet set color1_id = (select id from color a where a.numb = kitdet.clnum)");
             sql("update kitdet set color2_id = (select id from color a where a.numb = kitdet.clnu1)");
             sql("update kitdet set color3_id = (select id from color a where a.numb = kitdet.clnu2)");
-            sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
+            sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)"); 
 
             Util.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
             sql("alter table artikl add constraint fk_artikl1 foreign key (currenc_id) references currenc (id)");
@@ -498,7 +474,7 @@ public class Profstroy {
             sql("alter table furndet add constraint fk_furndet2 foreign key (artikl_id) references artikl (id)");
             sql("alter table furnpar2 add constraint fk_furnpar2 foreign key (furndet_id) references furndet (id)");
             sql("alter table sysprof add constraint fk_sysprof1 foreign key (artikl_id) references artikl (id)");
-            sql("alter table sysprof add constraint fk_sysprof2 foreign key (systree_id) references systree (id)");            
+            sql("alter table sysprof add constraint fk_sysprof2 foreign key (systree_id) references systree (id)");
             sql("alter table sysfurn add constraint fk_sysfurn1 foreign key (systree_id) references systree (id)");
             sql("alter table sysfurn add constraint fk_sysfurn2 foreign key (furniture_id) references furniture (id)");
             sql("alter table syspar1 add constraint fk_syspar1 foreign key (systree_id) references systree (id)");
@@ -524,5 +500,59 @@ public class Profstroy {
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
         }
+    }
+
+    private static void updateColor() throws SQLException {
+        Util.println("updateColor()");
+        Query.connection = cn2;
+        Query q1 = new Query(eColgrp.values()).select(eColgrp.up).table(eColgrp.up.tname());
+        Query q2 = new Query(eColor.values()).table(eColor.up.tname());
+        for (Record record : q1) {
+            Record record2 = q2.newRecord(Query.INS);
+            record2.setNo(eColor.id, -1 * record.getInt(eColgrp.id));
+            record2.setNo(eColor.colgrp_id, record.getInt(eColgrp.id));
+            record2.setNo(eColor.name, "Все текстуры группы");
+            record2.setNo(eColor.name2, "Все текстуры группы");
+            record2.setNo(eColor.coef1, 1);
+            record2.setNo(eColor.coef2, 1);
+            record2.setNo(eColor.coef2, 1);
+            record2.setNo(eColor.suffix1, 1);
+            record2.setNo(eColor.suffix2, 1);
+            record2.setNo(eColor.suffix3, 1);
+            q2.insert(record2);
+        }
+    }
+
+    private static void updateElemgrp() throws SQLException {
+        Util.println("updateElemgrp()");
+        Query q = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
+        ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
+        ArrayList<Object[]> fieldList = new ArrayList();
+        while (rs.next()) {
+            fieldList.add(new Object[]{rs.getString("VPREF"), rs.getInt("ATYPM")});
+        }
+        for (Object[] obj : fieldList) {
+            Record record = q.newRecord(Query.INS);
+            record.setNo(eElemgrp.id, ConnApp.get().generatorId(eElemgrp.up.tname()));
+            record.setNo(eElemgrp.name, obj[0]);
+            record.setNo(eElemgrp.level, obj[1]);
+            q.insert(record);
+        }
+    }
+
+    private static void updateSysprod() throws SQLException {
+        Util.println("updateSysprod()");
+        
+        String json = Winscript.test(601003, null);
+        JsonElement jsonElem = new Gson().fromJson(json, JsonElement.class);
+        JsonObject jsonObj = jsonElem.getAsJsonObject();
+        String name = jsonObj.get("name").getAsString();
+        
+        Query q = new Query(eSysprod.values()).table(eSysprod.up.tname());
+        Record record = q.newRecord(Query.INS);
+        record.setNo(eSysprod.id, ConnApp.get().generatorId(eSysprod.up.tname()));
+        record.setNo(eSysprod.name, name);
+        record.setNo(eSysprod.script, json);
+        q.insert(record);
     }
 }
