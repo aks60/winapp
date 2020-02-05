@@ -16,48 +16,54 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
+import wincalc.Wincalc;
+import wincalc.model.PaintPanel;
+import wincalc.script.Winscript;
 
 public class BoxTypical extends javax.swing.JFrame {
 
+    public Wincalc iwin = new Wincalc();
+    private PaintPanel paintPanel = new PaintPanel(iwin);
     private Query qSysprod = new Query(eSysprod.values()).select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up.tname());
-//    private FocusListener listenerFocus = new FocusListener() {
-//
-//        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-//
-//        public void focusGained(FocusEvent e) {
-//            if (e.getSource() instanceof JTable) {
-//                ((JTable) e.getSource()).setBorder(border);
-//            }
-//        }
-//
-//        public void focusLost(FocusEvent e) {
-//            if (e.getSource() instanceof JTable) {
-//                ((JTable) e.getSource()).setBorder(null);
-//            }
-//        }
-//    };
-//    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-//
-//        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-//            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-//
-//        public void request(Object obj) {
-//            btnSave.setIcon(btnIM[0]);
-//        }
-//
-//        public void response(Object obj) {
-//            btnSave.setIcon(btnIM[1]);
-//        }
-//    };
+    private FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
+        }
+
+        public void focusLost(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(null);
+            }
+        }
+    };
+    private FrameListener<Object, Object> listenerModify = new FrameListener() {
+
+        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
+            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
+
+        public void request(Object obj) {
+            btnSave.setIcon(btnIM[0]);
+        }
+
+        public void response(Object obj) {
+            btnSave.setIcon(btnIM[1]);
+        }
+    };
 
     public BoxTypical() {
         initComponents();
         initElements();
+       
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);        
         loadDataTab1();
-
-//        if (tab1.getRowCount() > 0) {
-//            tab1.setRowSelectionInterval(0, 0);
-//        }
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
     }
 
     private void loadDataTab1() {
@@ -72,13 +78,12 @@ public class BoxTypical extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-//        listenerModify.response(null);
-//        int row = tab1.getSelectedRow();
-//        if (row != -1) {
-//            //Object obj = tab1.getValueAt(row, 1);
-//            Object obj = qSysprod.get(row, eSysprod.script);
-//            System.out.println(obj);
-//        }
+        listenerModify.response(null);
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Object script = qSysprod.get(row, eSysprod.script);
+            iwin.create(script.toString());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -682,15 +687,16 @@ public class BoxTypical extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField4;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
-//        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                "Типовые конструкции", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Типовые конструкции", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                //selectionTab1(event);
-                System.out.println(".valueChanged()");
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }
             }
         });
-        //tab1.addFocusListener(listenerFocus);
+        tab1.addFocusListener(listenerFocus);
     }
 // </editor-fold>
 }

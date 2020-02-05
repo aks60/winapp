@@ -551,19 +551,25 @@ public class Furn extends javax.swing.JFrame {
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));                  
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab1(event);
+            public void valueChanged(ListSelectionEvent event) {                
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }                
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab2(event);
+            public void valueChanged(ListSelectionEvent event) {                
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab2(event);
+                }                
             }
         });        
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                selectionTab4(event);
+            public void valueChanged(ListSelectionEvent event) {                
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab4(event);
+                }                
             }
         });
         tab1.addFocusListener(listenerFocus);

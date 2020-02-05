@@ -521,24 +521,31 @@ public class Element extends javax.swing.JFrame {
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                selectionTab1(event);
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                selectionTab2(event);
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab2(event);
+                }
             }
         });
         tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 selectionTab3(event);
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab3(event);
+                }                
             }
         });
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
         tab3.addFocusListener(listenerFocus);
         tab4.addFocusListener(listenerFocus);
-        tab5.addFocusListener(listenerFocus);        
+        tab5.addFocusListener(listenerFocus);
     }
 // </editor-fold> 
 }

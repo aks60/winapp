@@ -167,7 +167,7 @@ public class Artikls extends javax.swing.JFrame
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
                 qArtikls.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "order by", eArtikl.level1, ",", eArtikl.code);
-            
+
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
                 qArtikls.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "where", eArtikl.level1, "=",
@@ -825,10 +825,10 @@ public class Artikls extends javax.swing.JFrame
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
-        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));        
+        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);        
+        tab2.addFocusListener(listenerFocus);
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -843,7 +843,9 @@ public class Artikls extends javax.swing.JFrame
         });
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                selectioTree(event);
+                if (event.getValueIsAdjusting() == false) {
+                    selectioTree(event);
+                }
             }
         });
     }
