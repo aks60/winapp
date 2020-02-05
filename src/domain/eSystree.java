@@ -5,6 +5,15 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import static domain.eArtdet.values;
+import static domain.eSysprof.artikl_id;
+import static domain.eSysprof.id;
+import static domain.eSysprof.query;
+import static domain.eSysprof.side;
+import static domain.eSysprof.systree_id;
+import static domain.eSysprof.types;
+import static domain.eSysprof.up;
+import enums.ProfileSide;
+import enums.TypeProfile;
 
 public enum eSystree implements Field {
     up("0", "0", "0", "Дерево системы профилей", "SYSPROF"),
@@ -49,6 +58,7 @@ public enum eSystree implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
+        virtualRec();
         return query;
     }
 
@@ -56,6 +66,13 @@ public enum eSystree implements Field {
         return query.select().stream().filter(rec -> nuni == rec.getInt(id)).findFirst().orElse(null);
     }
 
+    public void virtualRec() {
+        Query q = query.table(up.tname());
+        Record record = q.newRecord(Query.SEL);
+        record.setNo(id, -1);
+        record.setNo(glas, "4x10x4x10x4");
+        q.add(record);
+    }    
     public String toString() {
         return meta.getDescr();
     }

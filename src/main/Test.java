@@ -11,6 +11,7 @@ import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
+import forms.BoxTypical;
 import forms.Design;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public class Test {
             //convert.Profstroy.script();
             //query();
             //wincalc();
-            //frame();
+            frame();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -53,9 +54,9 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         App1 app = new App1();        
         app.setVisible(true);
-        Design frm = new Design();        
+        BoxTypical frm = new BoxTypical();        
         FrameToFile.setFrameSize(frm);
-        frm.iwin.create(Winscript.test(Winscript.prj, null));
+        //frm.iwin.create(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);
     }
 

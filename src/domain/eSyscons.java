@@ -6,6 +6,7 @@ import dataset.Query;
 import dataset.Record;
 import static domain.eArtikl.query;
 import static domain.eArtikl.syscons_id;
+import static domain.eArtikl.up;
 
 public enum eSyscons implements Field {
     up("0", "0", "0", "Системные константы", "SYSSIZE"),
@@ -36,6 +37,7 @@ public enum eSyscons implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
+        virtualRec();
         return query;
     }
 
@@ -43,13 +45,15 @@ public enum eSyscons implements Field {
         return query.select().stream().filter(rec -> id == rec.getInt(eSyscons.id)).findFirst().orElse(null);
     }
     
-    public Record virtualRec() {
-        Record record = query.newRecord(Query.SEL);
-        record.set(prip, 3);
-        record.set(napl, 20);
-        record.set(naxl, 8);
-        record.set(zax, 6);
-        return record;
+    public void virtualRec() {
+        Query q = query.table(up.tname());
+        Record record = q.newRecord(Query.SEL);
+        record.setNo(id, -1);
+        record.setNo(prip, 3);
+        record.setNo(napl, 20);
+        record.setNo(naxl, 8);
+        record.setNo(zax, 6);
+        q.add(record);
     }
     
     public String toString() {

@@ -7,6 +7,7 @@ import dataset.Record;
 import static domain.eArtdet.query;
 import static domain.eSysprof.artikl_id;
 import static domain.eSysprof.query;
+import static domain.eSysprof.up;
 
 public enum eArtikl implements Field {
     up("0", "0", "0", "Материальные цености", "ARTIKLS"),
@@ -84,16 +85,15 @@ public enum eArtikl implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
+        virtualRec();
         return query;
     }
 
     public Record find(int _id, boolean _analog) {
-        if(_id == -1) {
-            return virtualRec();
-        }        
-        Record articlRec = query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null); 
         
+        Record articlRec = query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);         
         if (_analog == false && articlRec.get(analog_id) != null) {
+            
             int _analog_id = articlRec.getInt(analog_id);
             articlRec = query.select().stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
         } 
@@ -104,15 +104,16 @@ public enum eArtikl implements Field {
         return query.select().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
     }
 
-    public Record virtualRec() {
-        Record record = query.newRecord(Query.SEL);
-        record.set(id, -1);
-        record.set(height, 60);
-        record.set(size_centr, 30);
-        record.set(tech_code, "");
-        record.set(size_falz, 20);
-        record.set(syscons_id, -1);
-        return record;
+    public void virtualRec() {
+        Query q = query.table(up.tname());
+        Record record = q.newRecord(Query.SEL);        
+        record.setNo(id, -1);
+        record.setNo(height, 60);
+        record.setNo(size_centr, 30);
+        record.setNo(tech_code, "");
+        record.setNo(size_falz, 20);
+        record.setNo(syscons_id, -1);
+        q.add(record);
     }
     
     public String toString() {

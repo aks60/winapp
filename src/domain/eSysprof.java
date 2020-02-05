@@ -42,6 +42,7 @@ public enum eSysprof implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", prio);
         }
+        virtualRec();
         return query;
     }
     
@@ -75,9 +76,6 @@ public enum eSysprof implements Field {
     
     public Record find3(int nuni, TypeProfile type, ProfileSide _side) {
 
-        if(nuni == -1) {
-            return virtualRec();
-        }
         HashMap<Integer, Record> mapPrio = new HashMap();
         query.select().stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types)
                 && (_side.value == rec.getInt(side) || ProfileSide.ANY.value == rec.getInt(side)))
@@ -98,13 +96,22 @@ public enum eSysprof implements Field {
         return mapPrio.get(minLevel);                
     }
 
-    public Record virtualRec() {
-        Record record = query.newRecord(Query.SEL);
-        record.set(id, -1);
-        record.set(types, 0);
-        record.set(systree_id, -1);
-        record.set(artikl_id, -1);
-        return record;
+    public void virtualRec() {
+        Query q = query.table(up.tname());
+        Record rec1 = q.newRecord(Query.SEL);
+        rec1.setNo(id, -1);
+        rec1.setNo(types, TypeProfile.FRAME.value);
+        rec1.setNo(side, ProfileSide.ANY.value);
+        rec1.setNo(systree_id, -1);
+        rec1.setNo(artikl_id, -1);
+        q.add(rec1);
+        Record rec2 = q.newRecord(Query.SEL);
+        rec2.setNo(id, -2);
+        rec2.setNo(types, TypeProfile.STVORKA.value);
+        rec2.setNo(side, ProfileSide.ANY.value);
+        rec2.setNo(systree_id, -1);
+        rec2.setNo(artikl_id, -1);
+        q.add(rec2);
     }
     
     public String toString() {

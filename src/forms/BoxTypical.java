@@ -55,7 +55,8 @@ public class BoxTypical extends javax.swing.JFrame {
         initComponents();
         initElements();
 
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);        
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER); 
+        paintPanel.setVisible(true);
         loadDataTab1();
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -78,7 +79,7 @@ public class BoxTypical extends javax.swing.JFrame {
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
-            //iwin.create(script.toString());
+            iwin.create(script.toString());
             //iwin.create(Winscript.test(Winscript.prj, null));
         }
     }
@@ -587,7 +588,7 @@ public class BoxTypical extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-       iwin.create(Winscript.test(Winscript.prj, null));
+                    iwin.create(Winscript.test(Winscript.prj, null));                    
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

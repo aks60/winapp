@@ -65,7 +65,6 @@ public class ElemGlass extends ElemSimple {
         }
         sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
-            Object ooo = iwin.artiklRec.get(eArtikl.tech_code);
             artiklRec.set(eArtikl.tech_code, iwin.artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
