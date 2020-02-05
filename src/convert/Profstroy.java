@@ -498,8 +498,7 @@ public class Profstroy {
             sql("alter table furndet add constraint fk_furndet2 foreign key (artikl_id) references artikl (id)");
             sql("alter table furnpar2 add constraint fk_furnpar2 foreign key (furndet_id) references furndet (id)");
             sql("alter table sysprof add constraint fk_sysprof1 foreign key (artikl_id) references artikl (id)");
-            sql("alter table sysprof add constraint fk_sysprof2 foreign key (systree_id) references systree (id)");
-            sql("alter table sysprod add constraint fk_sysprod1 foreign key (systree_id) references systree (id)");
+            sql("alter table sysprof add constraint fk_sysprof2 foreign key (systree_id) references systree (id)");            
             sql("alter table sysfurn add constraint fk_sysfurn1 foreign key (systree_id) references systree (id)");
             sql("alter table sysfurn add constraint fk_sysfurn2 foreign key (furniture_id) references furniture (id)");
             sql("alter table syspar1 add constraint fk_syspar1 foreign key (systree_id) references systree (id)");
