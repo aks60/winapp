@@ -97,6 +97,9 @@ public class App1 extends javax.swing.JFrame {
         btn26 = new javax.swing.JButton();
         btn27 = new javax.swing.JButton();
         btn28 = new javax.swing.JButton();
+        td5 = new javax.swing.JToolBar();
+        btn34 = new javax.swing.JButton();
+        btn35 = new javax.swing.JButton();
         td3 = new javax.swing.JToolBar();
         btn29 = new javax.swing.JButton();
         btn30 = new javax.swing.JButton();
@@ -347,6 +350,36 @@ public class App1 extends javax.swing.JFrame {
         tb2.add(btn28);
 
         getContentPane().add(tb2);
+
+        td5.setRollover(true);
+        td5.setPreferredSize(new java.awt.Dimension(60, 27));
+
+        btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019.gif"))); // NOI18N
+        btn34.setFocusable(false);
+        btn34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn34.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn34.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn34.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn34.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn34.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBoxTypical(evt);
+            }
+        });
+        td5.add(btn34);
+
+        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn35.setFocusable(false);
+        btn35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn35.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn35.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn35.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn35.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn35.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        td5.add(btn35);
+
+        getContentPane().add(td5);
 
         td3.setRollover(true);
         td3.setPreferredSize(new java.awt.Dimension(100, 27));
@@ -1156,6 +1189,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn31;
     private javax.swing.JButton btn32;
     private javax.swing.JButton btn33;
+    private javax.swing.JButton btn34;
+    private javax.swing.JButton btn35;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
@@ -1217,6 +1252,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JToolBar tb2;
     private javax.swing.JToolBar tb4;
     private javax.swing.JToolBar td3;
+    private javax.swing.JToolBar td5;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 

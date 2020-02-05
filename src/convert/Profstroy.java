@@ -443,7 +443,7 @@ public class Profstroy {
             sql("update kitdet set color1_id = (select id from color a where a.numb = kitdet.clnum)");
             sql("update kitdet set color2_id = (select id from color a where a.numb = kitdet.clnu1)");
             sql("update kitdet set color3_id = (select id from color a where a.numb = kitdet.clnu2)");
-            sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)"); 
+            sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
 
             Util.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
             sql("alter table artikl add constraint fk_artikl1 foreign key (currenc_id) references currenc (id)");
@@ -542,17 +542,22 @@ public class Profstroy {
 
     private static void updateSysprod() throws SQLException {
         Util.println("updateSysprod()");
-        
-        String json = Winscript.test(601003, null);
-        JsonElement jsonElem = new Gson().fromJson(json, JsonElement.class);
-        JsonObject jsonObj = jsonElem.getAsJsonObject();
-        String name = jsonObj.get("name").getAsString();
-        
-        Query q = new Query(eSysprod.values()).table(eSysprod.up.tname());
-        Record record = q.newRecord(Query.INS);
-        record.setNo(eSysprod.id, ConnApp.get().generatorId(eSysprod.up.tname()));
-        record.setNo(eSysprod.name, name);
-        record.setNo(eSysprod.script, json);
-        q.insert(record);
+        Integer prj[] = {601001, 601002, 6001003, 601004, 604004, 604005};
+        for (int index = 0; index < prj.length; ++index) {
+
+            String script = Winscript.test(prj[index], -1);
+            JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
+            JsonObject jsonObj = jsonElem.getAsJsonObject();
+            String name = jsonObj.get("prj").getAsString()
+                    + "-  " + jsonObj.get("name").getAsString();
+
+            Query q = new Query(eSysprod.values()).table(eSysprod.up.tname());
+            Record record = q.newRecord(Query.INS);
+            record.setNo(eSysprod.npp, index + 1);
+            record.setNo(eSysprod.id, ConnApp.get().generatorId(eSysprod.up.tname()));
+            record.setNo(eSysprod.name, name);
+            record.setNo(eSysprod.script, script);
+            q.insert(record);
+        }
     }
 }
