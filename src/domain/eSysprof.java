@@ -98,20 +98,27 @@ public enum eSysprof implements Field {
 
     public void virtualRec() {
         Query q = query.table(up.tname());
-        Record rec1 = q.newRecord(Query.SEL);
-        rec1.setNo(id, -1);
-        rec1.setNo(types, TypeProfile.FRAME.value);
-        rec1.setNo(side, ProfileSide.ANY.value);
-        rec1.setNo(systree_id, -1);
-        rec1.setNo(artikl_id, -1);
-        q.add(rec1);
-        Record rec2 = q.newRecord(Query.SEL);
-        rec2.setNo(id, -2);
-        rec2.setNo(types, TypeProfile.STVORKA.value);
-        rec2.setNo(side, ProfileSide.ANY.value);
-        rec2.setNo(systree_id, -1);
-        rec2.setNo(artikl_id, -1);
-        q.add(rec2);
+        Record record = q.newRecord(Query.SEL);
+        record.setNo(id, -1);
+        record.setNo(types, TypeProfile.FRAME.value);
+        record.setNo(side, ProfileSide.ANY.value);
+        record.setNo(systree_id, -1);
+        record.setNo(artikl_id, -1);
+        q.add(record);
+        record = q.newRecord(Query.SEL);
+        record.setNo(id, -2);
+        record.setNo(types, TypeProfile.STVORKA.value);
+        record.setNo(side, ProfileSide.ANY.value);
+        record.setNo(systree_id, -1);
+        record.setNo(artikl_id, -1);
+        q.add(record);
+        record = q.newRecord(Query.SEL);
+        record.setNo(id, -2);
+        record.setNo(types, TypeProfile.IMPOST.value);
+        record.setNo(side, ProfileSide.ANY.value);
+        record.setNo(systree_id, -1);
+        record.setNo(artikl_id, -1);
+        q.add(record);
     }
     
     public String toString() {

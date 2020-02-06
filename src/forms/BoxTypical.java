@@ -80,7 +80,7 @@ public class BoxTypical extends javax.swing.JFrame {
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
             iwin.create(script.toString());
-            //iwin.create(Winscript.test(Winscript.prj, null));
+            paintPanel.repaint();
         }
     }
 
@@ -588,7 +588,8 @@ public class BoxTypical extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-                    iwin.create(Winscript.test(Winscript.prj, null));                    
+        iwin.create(Winscript.test(601003, null));  
+        paintPanel.repaint();
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
