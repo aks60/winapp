@@ -14,7 +14,10 @@ import java.util.LinkedList;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import main.Main;
 import wincalc.Wincalc;
 
@@ -258,13 +261,36 @@ public class AreaSimple extends Com5t {
             LinkedList<AreaStvorka> elemStvorkaList = listElem(root(), TypeElem.FULLSTVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
-            //Прорисовка размера
-            float h = iwin.heightAdd - iwin.height;
-            drawLine2(String.format("%.0f", y2 - y1 + h), (int) (x2 + 60), (int) (y1 - h), (int) (x2 + 60), (int) y2); //высота окна
-            drawLine2(String.format("%.0f", x2 - x1), (int) x1, (int) (y2 + 60), (int) x2, (int) (y2 + 60));  //ширина окна
-            LinkedList<AreaSimple> areaList = listElem(root(), TypeElem.AREA);
-            int dx = 80;
-            areaList.stream().forEach(el -> el.drawLine1(dx + 60));
+            //Прорисовка размера 
+            int move = 80;
+            LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2));
+            LinkedList<Float> ls2 = new LinkedList(Arrays.asList(y1, y2));
+            LinkedList<ElemImpost> impostList = listElem(root(), TypeElem.IMPOST);
+            for (ElemSimple el : impostList) {
+                
+                if (LayoutArea.HORIZ == el.owner.layout) {
+                    ls1.add(el.x1 + (el.x2 - el.x1) / 2);
+                } else {
+                    ls2.add(el.y1 + (el.y2 - el.y1) / 2);
+                }
+            }
+            Collections.sort(ls1);
+            Collections.sort(ls2);
+            
+            for (int i = 1; i < ls1.size(); i++) {
+                float x1 = ls1.get(i - 1), x2 = ls1.get(i);
+                drawLine((int) x1, (int) (this.y2 + move), (int) x2, (int) (this.y2 + move));
+            }
+            for (int i = 1; i < ls2.size(); i++) {
+                float y1 = ls2.get(i - 1), y2 = ls2.get(i);
+                drawLine((int) (this.x2 + move), (int) y1, (int) (this.x2 + move), (int) y2);
+            }
+            if (ls1.size() > 2) {
+                drawLine((int) this.x1, (int) this.y2 + move * 2, (int) this.x2, (int) this.y2 + move * 2);
+            }
+            if (ls2.size() > 2) {
+                drawLine((int) this.x2 + move * 2, (int) this.y1, (int) this.x2 + move * 2, (int) this.y2);
+            }
 
             //Рисунок в память
             if (iwin.bufferImg != null) {
@@ -282,67 +308,30 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    private void drawLine1(float moveV) {
-
+    private void drawLine(int x1, int y1, int x2, int y2) {
         float h = iwin.heightAdd - iwin.height;
         Graphics2D gc = iwin.graphics2D;
         gc.setColor(java.awt.Color.BLACK);
         gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 50));
-
-        //вложенный контейнер
-        if (this.height > 160 && this.width > 160) {
-            if (owner.layout() == LayoutArea.VERT) {
-
-                int x1a = (int) (x2 + moveV), y1a = (int) y1, x2a = (int) (x2 + moveV), y2a = (int) y2;
-                strokeLine(x1a, y1a, x2a, y2a, Color.BLACK);
-                strokeLine(x1a - 24, y1a, x1a + 24, y1a, Color.BLACK);
-                strokeLine(x2a - 24, y2a, x2a + 24, y2a, Color.BLACK);
-                strokeLine(x1a, y1a, x1a + 12, y1a + 24, Color.BLACK);
-                strokeLine(x1a, y1a, x1a - 12, y1a + 24, Color.BLACK);
-                strokeLine(x2a, y2a, x2a + 12, y2a - 24, Color.BLACK);
-                strokeLine(x2a, y2a, x2a - 12, y2a - 24, Color.BLACK);
-                gc.rotate(Math.toRadians(270), x1a + 60, y1a + (y2a - y1a) / 2 + h);
-                gc.drawString(String.format("%.0f", y2 - y1), x1a + 60, y1a + (y2a - y1a) / 2 + h);
-                gc.rotate(Math.toRadians(-270), x1a + 60, y1a + (y2a - y1a) / 2 + h);
-
-            } else if (owner.layout() == LayoutArea.HORIZ) {              
-                int x1b = (int) x1, y1b = (int) (y2 + moveV), x2b = (int) x2, y2b = (int) (y2 + moveV);
-                strokeLine(x1b, y1b, x2b, y2b, Color.BLACK);
-                strokeLine(x1b, y1b - 24, x1b, y1b + 24, Color.BLACK);
-                strokeLine(x2b, y2b - 24, x2b, y2b + 24, Color.BLACK);
-                strokeLine(x1b, y1b, x1b + 24, y1b - 12, Color.BLACK);
-                strokeLine(x1b, y1b, x1b + 24, y1b + 12, Color.BLACK);
-                strokeLine(x2b, y2b, x2b - 24, y2b - 12, Color.BLACK);
-                strokeLine(x2b, y2b, x2b - 24, y2b + 12, Color.BLACK);
-                gc.drawString(String.format("%.0f", x2 - x1), x1b + (x2b - x1b) / 2, y2b + 60 + h);
-            }
-        }
-    }
-
-    private void drawLine2(String txt, int x1b, int y1b, int x2b, int y2b) {
-        float h = iwin.heightAdd - iwin.height;
-        Graphics2D gc = iwin.graphics2D;
-        gc.setColor(java.awt.Color.BLACK);
-        gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 50));
-        strokeLine(x1b, y1b, x2b, y2b, Color.BLACK);
-        if (x1b == x2b) {
-            strokeLine(x1b - 24, y1b, x1b + 24, y1b, Color.BLACK);
-            strokeLine(x2b - 24, y2b, x2b + 24, y2b, Color.BLACK);
-            strokeLine(x1b, y1b, x1b + 12, y1b + 24, Color.BLACK);
-            strokeLine(x1b, y1b, x1b - 12, y1b + 24, Color.BLACK);
-            strokeLine(x2b, y2b, x2b + 12, y2b - 24, Color.BLACK);
-            strokeLine(x2b, y2b, x2b - 12, y2b - 24, Color.BLACK);
-            gc.rotate(Math.toRadians(270), x1b + 60, y1b + (y2b - y1b) / 2 + h);
-            gc.drawString(txt, x1b + 60, y1b + (y2b - y1b) / 2 + h);
-            gc.rotate(Math.toRadians(-270), x1b + 60, y1b + (y2b - y1b) / 2 + h);
+        strokeLine(x1, y1, x2, y2, Color.BLACK);
+        if (x1 == x2) {
+            strokeLine(x1 - 24, y1, x1 + 24, y1, Color.BLACK);
+            strokeLine(x2 - 24, y2, x2 + 24, y2, Color.BLACK);
+            strokeLine(x1, y1, x1 + 12, y1 + 24, Color.BLACK);
+            strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK);
+            strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK);
+            strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK);
+            gc.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2 + h);
+            gc.drawString(String.valueOf(y2 - y1), x1 + 60, y1 + (y2 - y1) / 2 + h);
+            gc.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2 + h);
         } else {
-            strokeLine(x1b, y1b - 24, x1b, y1b + 24, Color.BLACK);
-            strokeLine(x2b, y2b - 24, x2b, y2b + 24, Color.BLACK);
-            strokeLine(x1b, y1b, x1b + 24, y1b - 12, Color.BLACK);
-            strokeLine(x1b, y1b, x1b + 24, y1b + 12, Color.BLACK);
-            strokeLine(x2b, y2b, x2b - 24, y2b - 12, Color.BLACK);
-            strokeLine(x2b, y2b, x2b - 24, y2b + 12, Color.BLACK);
-            gc.drawString(txt, x1b + (x2b - x1b) / 2, y2b + 60 + h);
+            strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK);
+            strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK);
+            strokeLine(x1, y1, x1 + 24, y1 - 12, Color.BLACK);
+            strokeLine(x1, y1, x1 + 24, y1 + 12, Color.BLACK);
+            strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK);
+            strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK);
+            gc.drawString(String.valueOf(x2 - x1), x1 + (x2 - x1) / 2, y2 + 60 + h);
         }
     }
 }
