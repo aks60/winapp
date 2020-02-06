@@ -151,22 +151,6 @@ public abstract class Com5t {
         gc.drawArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
     }
 
-    protected void fillArc(double x, double y, double w, double h, double startAngle, double arcExtent) {
-
-        Graphics2D gc = iwin.graphics2D;
-        gc.setColor(new java.awt.Color(226, 255, 250));
-        gc.fillArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
-    }
-
-    protected void fillPoligon(float x1, float x2, float x3, float x4, float y1, float y2, float y3, float y4) {
-
-        Graphics2D gc = iwin.graphics2D;
-        gc.setColor(new java.awt.Color(226, 255, 250));
-        float h = iwin.heightAdd - iwin.height;
-        gc.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
-                new int[]{(int) (y1 + h), (int) (y2 + h), (int) (y3 + h), (int) (y4 + h)}, 4);
-    }
-
     public String toString() {
         return "ELEM: owner=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }

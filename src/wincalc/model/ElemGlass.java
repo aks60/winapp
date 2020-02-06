@@ -79,15 +79,18 @@ public class ElemGlass extends ElemSimple {
 
     @Override
     public void paint() {
+        iwin.graphics2D.setColor(new java.awt.Color(226, 255, 250));
         if (owner instanceof AreaArch) {
             ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
             float dz = ef.artiklRec.getFloat(eArtikl.height);            
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((root().width - 2 * dz) / ((r - dz) * 2)));
-            fillArc(root().width / 2 - r + dz, dz, (r - dz) * 2, (r - dz) * 2, ang2, (90 - ang2) * 2); //прорисовка на сцену
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width - 2 * dz) / ((r - dz) * 2)));            
+            iwin.graphics2D.fillArc((int) (root().width / 2 - r + dz), (int)dz, (int)((r - dz) * 2), (int)((r - dz) * 2), (int)ang2, (int)((90 - ang2) * 2));
         } else {
-            fillPoligon(x1, x2, x2, x1, y1, y1, y2, y2);
+            float h = iwin.heightAdd - iwin.height;
+            iwin.graphics2D.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);            
         }
     }
     
