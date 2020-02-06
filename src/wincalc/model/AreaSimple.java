@@ -286,10 +286,10 @@ public class AreaSimple extends Com5t {
                 drawLine((int) (this.x2 + move), (int) y1, (int) (this.x2 + move), (int) y2);
             }
             if (ls1.size() > 2) {
-                drawLine((int) this.x1, (int) this.y2 + move * 2, (int) this.x2, (int) this.y2 + move * 2);
+                drawLine((int) root().x1, (int) root().y2 + move * 2, (int) root().x2, (int) root().y2 + move * 2);
             }
             if (ls2.size() > 2) {
-                drawLine((int) this.x2 + move * 2, (int) this.y1, (int) this.x2 + move * 2, (int) this.y2);
+                drawLine((int) root().x2 + move * 2, (int) root().y1, (int) root().x2 + move * 2, (int) root().y2);
             }
 
             //Рисунок в память
