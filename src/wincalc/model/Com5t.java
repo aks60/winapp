@@ -119,36 +119,31 @@ public abstract class Com5t {
 
     protected void strokeLine(float x1, float y1, float x2, float y2, Color rdbStroke) {
 
-        Graphics2D gc = iwin.graphics2D;
-        gc.setStroke(new BasicStroke(2)); //толщина линии
-        gc.setColor(java.awt.Color.BLACK);
+        iwin.graphics2D.setStroke(new BasicStroke(2)); //толщина линии
+        iwin.graphics2D.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
-        gc.drawLine((int) x1, (int) (y1 + h), (int) x2, (int) (y2 + h));
+        iwin.graphics2D.drawLine((int) x1, (int) (y1 + h), (int) x2, (int) (y2 + h));
     }
 
     protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
             float y2, float y3, float y4, int rgbFill, Color rdbStroke) {
 
-        Graphics2D gc = iwin.graphics2D;
-        gc.setStroke(new BasicStroke(8)); //толщина линии
-        gc.setColor(java.awt.Color.BLACK);
+        iwin.graphics2D.setStroke(new BasicStroke(8)); //толщина линии
+        iwin.graphics2D.setColor(java.awt.Color.BLACK);
         float h = iwin.heightAdd - iwin.height;
-        gc.drawPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+        iwin.graphics2D.drawPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
                 new int[]{(int) (y1 + h), (int) (y2 + h), (int) (y3 + h), (int) (y4 + h)}, 4);
-        gc.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
-        gc.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+        iwin.graphics2D.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
+        iwin.graphics2D.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
                 new int[]{(int) (y1 + h), (int) (y2 + h), (int) (y3 + h), (int) (y4 + h)}, 4);
     }
 
     protected void strokeArc(double x, double y, double w, double h, double startAngle,
             double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
 
-        //System.out.println("x= " + x + " y = " + y + " w= " + w + " h= " + h + " startAngle=" + startAngle
-                //+ " arcExtent=" + arcExtent + " closure=" + closure + " rdbStroke=" + rdbStroke + " lineWidth=" + lineWidth);
-        Graphics2D gc = iwin.graphics2D;
-        gc.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
-        gc.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
-        gc.drawArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
+        iwin.graphics2D.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
+        iwin.graphics2D.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
+        iwin.graphics2D.drawArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
     }
 
     public String toString() {

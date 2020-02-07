@@ -235,9 +235,7 @@ public class AreaSimple extends Com5t {
     //Рисуем конструкцию
     public void draw(int width, int height) {
         try {
-            Graphics2D gc = iwin.graphics2D;
-            //gc.setColor(new java.awt.Color(212,208,200));
-            gc.fillRect(0, 0, width, height);
+            iwin.graphics2D.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
             LinkedList<ElemGlass> elemGlassList = listElem(root(), TypeElem.GLASS);
@@ -263,11 +261,9 @@ public class AreaSimple extends Com5t {
 
             //Прорисовка размера 
             int move = 80;
-            LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2));
-            LinkedList<Float> ls2 = new LinkedList(Arrays.asList(y1, y2));
+            LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
             LinkedList<ElemImpost> impostList = listElem(root(), TypeElem.IMPOST);
             for (ElemSimple el : impostList) {
-                
                 if (LayoutArea.HORIZ == el.owner.layout) {
                     ls1.add(el.x1 + (el.x2 - el.x1) / 2);
                 } else {
@@ -310,9 +306,8 @@ public class AreaSimple extends Com5t {
 
     private void drawLine(int x1, int y1, int x2, int y2) {
         float h = iwin.heightAdd - iwin.height;
-        Graphics2D gc = iwin.graphics2D;
-        gc.setColor(java.awt.Color.BLACK);
-        gc.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 50));
+        iwin.graphics2D.setColor(java.awt.Color.BLACK);
+        iwin.graphics2D.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 50));
         strokeLine(x1, y1, x2, y2, Color.BLACK);
         if (x1 == x2) {
             strokeLine(x1 - 24, y1, x1 + 24, y1, Color.BLACK);
@@ -321,9 +316,9 @@ public class AreaSimple extends Com5t {
             strokeLine(x1, y1, x1 - 12, y1 + 24, Color.BLACK);
             strokeLine(x2, y2, x2 + 12, y2 - 24, Color.BLACK);
             strokeLine(x2, y2, x2 - 12, y2 - 24, Color.BLACK);
-            gc.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2 + h);
-            gc.drawString(String.valueOf(y2 - y1), x1 + 60, y1 + (y2 - y1) / 2 + h);
-            gc.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2 + h);
+            iwin.graphics2D.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2 + h);
+            iwin.graphics2D.drawString(String.valueOf(y2 - y1), x1 + 60, y1 + (y2 - y1) / 2 + h);
+            iwin.graphics2D.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2 + h);
         } else {
             strokeLine(x1, y1 - 24, x1, y1 + 24, Color.BLACK);
             strokeLine(x2, y2 - 24, x2, y2 + 24, Color.BLACK);
@@ -331,7 +326,7 @@ public class AreaSimple extends Com5t {
             strokeLine(x1, y1, x1 + 24, y1 + 12, Color.BLACK);
             strokeLine(x2, y2, x2 - 24, y2 - 12, Color.BLACK);
             strokeLine(x2, y2, x2 - 24, y2 + 12, Color.BLACK);
-            gc.drawString(String.valueOf(x2 - x1), x1 + (x2 - x1) / 2, y2 + 60 + h);
+            iwin.graphics2D.drawString(String.valueOf(x2 - x1), x1 + (x2 - x1) / 2, y2 + 60 + h);
         }
     }
 }
