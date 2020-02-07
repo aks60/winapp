@@ -542,7 +542,8 @@ public class Profstroy {
 
     private static void updateSysprod() throws SQLException {
         Util.println("updateSysprod()");
-        Integer prj[] = {601001, 601002, 601003, 601004, 604004, 604005};
+        Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
+            601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010, 605001};
         for (int index = 0; index < prj.length; ++index) {
 
             String script = Winscript.test(prj[index], -1);
