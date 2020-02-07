@@ -588,7 +588,7 @@ public class BoxTypical extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        iwin.create(Winscript.test(604005, null));  
+        iwin.create(Winscript.test(Winscript.prj, null));  
         paintPanel.repaint();
     }//GEN-LAST:event_btnRefresh
 

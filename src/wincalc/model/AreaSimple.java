@@ -150,6 +150,7 @@ public class AreaSimple extends Com5t {
 
     public void joinElem(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
 
+        //if (id.equals("13")) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
         //Обход всех соединений текущей Area        
         insideElem(x1, y1, mapClap, listElem);
         insideElem(x1, y2, mapClap, listElem);
@@ -160,6 +161,10 @@ public class AreaSimple extends Com5t {
         for (Map.Entry<String, HashSet<ElemSimple>> it : mapClap.entrySet()) {
 
             HashSet<ElemSimple> setElem = it.getValue();
+            if (setElem.size() == 0) {
+                System.out.println("ТЕСТОВАЯ ЗАПЛАТКА-1");
+                continue;
+            }
             ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
             ElemJoining el = new ElemJoining(iwin);
             String pk = it.getKey();
@@ -263,7 +268,7 @@ public class AreaSimple extends Com5t {
             //Прорисовка размера            
             LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
             LinkedList<ElemImpost> impostList = listElem(root(), TypeElem.IMPOST);
-            for (ElemSimple el : impostList) {
+            for (ElemSimple el : impostList) { //по импостам определим точки разрыва линии
                 if (LayoutArea.VERT == el.owner.layout) {
                     ls2.add(el.y1);
                 } else {
@@ -282,10 +287,10 @@ public class AreaSimple extends Com5t {
                 float y1 = ls2.get(i - 1), y2 = ls2.get(i);
                 line((int) (this.x2 + mov), (int) y1, (int) (this.x2 + mov), (int) y2, (int) dy);
             }
-            if (ls1.size() > 2) {
+            if (ls1.size() > 2) { //линия общей ширины
                 line((int) root().x1, (int) iwin.heightAdd + mov * 2, (int) root().x2, (int) iwin.heightAdd + mov * 2, (int) 0);
             }
-            if (ls2.size() > 2) {
+            if (ls2.size() > 2) { //линия общей высоты
                 line((int) iwin.width + mov * 2, 0, (int) iwin.width + mov * 2, (int) iwin.heightAdd, 0);
             }
 
@@ -322,8 +327,8 @@ public class AreaSimple extends Com5t {
             iwin.gc2d.drawLine(x2, y2, x2 - 12, y2 - 24);
             iwin.gc2d.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
             iwin.gc2d.drawString(String.valueOf(y2 - y1), x1 + 60, y1 + (y2 - y1) / 2);
-            iwin.gc2d.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);       
-        } else if(y1 == y2 && x2 - x1 != 0) {
+            iwin.gc2d.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
+        } else if (y1 == y2 && x2 - x1 != 0) {
             iwin.gc2d.drawLine(x1, y1 - 24, x1, y1 + 24);
             iwin.gc2d.drawLine(x2, y2 - 24, x2, y2 + 24);
             iwin.gc2d.drawLine(x1, y1, x1 + 24, y1 - 12);
