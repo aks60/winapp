@@ -107,7 +107,6 @@ public class App1 extends javax.swing.JFrame {
         tb4 = new javax.swing.JToolBar();
         btn31 = new javax.swing.JButton();
         btn32 = new javax.swing.JButton();
-        progressBar = new javax.swing.JProgressBar();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
         mn11 = new javax.swing.JMenu();
@@ -464,11 +463,6 @@ public class App1 extends javax.swing.JFrame {
         tb4.add(btn32);
 
         getContentPane().add(tb4);
-
-        progressBar.setBorder(null);
-        progressBar.setMinimumSize(new java.awt.Dimension(120, 4));
-        progressBar.setPreferredSize(new java.awt.Dimension(146, 6));
-        getContentPane().add(progressBar);
 
         mn0.setPreferredSize(new java.awt.Dimension(800, 25));
 
@@ -1247,7 +1241,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn84;
     private javax.swing.JMenuItem mn91;
     private javax.swing.JMenuItem mn92;
-    private javax.swing.JProgressBar progressBar;
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
     private javax.swing.JToolBar tb4;
@@ -1267,7 +1260,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 new SwingWorker() {
 
                     protected Object doInBackground() throws Exception {
-                        progressBar.setIndeterminate(true);
+                        //progressBar.setIndeterminate(true);
 
                         //это создание формы
                         request(null);
@@ -1275,7 +1268,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     }
 
                     public void done() {
-                        progressBar.setIndeterminate(false);
+                        //progressBar.setIndeterminate(false);
                     }
                 }.execute();
             }

@@ -66,7 +66,7 @@ public class AreaSimple extends Com5t {
             } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
                 dimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
             }
-            //Проверим есть ещё ареа перед текущей, т.к. this area ущё не создана начнём с конца
+            //Проверим есть ещё ареа перед текущей, т.к. this area ёщё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
                 if (owner.listChild().get(index) instanceof AreaSimple) {
                     AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
