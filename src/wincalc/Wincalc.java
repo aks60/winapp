@@ -52,7 +52,7 @@ public class Wincalc {
 
     public byte[] bufferByte = null; //буффер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
-    public Graphics2D graphics2D = null; //графический котекст рисунка    
+    public Graphics2D gc2d = null; //графический котекст рисунка    
     protected String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;

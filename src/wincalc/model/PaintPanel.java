@@ -16,7 +16,7 @@ public class PaintPanel extends JPanel {
 
     public PaintPanel(Wincalc iwin) {
         this.iwin = iwin;
-        iwin.graphics2D = (Graphics2D) this.getGraphics();
+        iwin.gc2d = (Graphics2D) this.getGraphics();
     }
 
     public void saveImage(String name, String type) {
@@ -48,7 +48,7 @@ public class PaintPanel extends JPanel {
             gc.setColor(getBackground());
             gc.scale(dx, dx);
             gc.translate(80, 20);
-            iwin.graphics2D = gc;
+            iwin.gc2d = gc;
             iwin.rootArea.draw(getWidth(), getHeight());
 
         } else {
