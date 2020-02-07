@@ -42,7 +42,7 @@ public class PaintPanel extends JPanel {
         if (iwin.rootArea != null && visible == true) {
             
             float max1 = (getWidth() > getHeight()) ? getHeight() : getWidth();
-            float max2 = (iwin.width > iwin.heightAdd) ? iwin.width + 200 : iwin.heightAdd + 200;
+            float max2 = (iwin.width > iwin.heightAdd) ? iwin.width + 200 : iwin.heightAdd + 240;
             float dx = max1 / max2;
             Graphics2D gc = (Graphics2D) g;
             gc.setColor(getBackground());
