@@ -22,7 +22,7 @@ public class AreaArch extends AreaSimple {
 
         ElemJoining elem = new ElemJoining(iwin);
         elem.id = id + ".1S";
-        elem.name = "===Угловое соединение левое верхнее";
+        elem.name = "Угловое соединение левое верхнее";
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
 

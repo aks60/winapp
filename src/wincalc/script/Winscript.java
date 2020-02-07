@@ -92,7 +92,8 @@ public class Winscript {
 
         } else if (prj == 601005) {
             rootArea = new AreaRoot("1", LayoutArea.HORIZ, TypeElem.SQUARE, 1600, 1700, 1700, 1009, 1009, 1009, "");
-            rootArea.setParam(prj.toString(), 8);
+            ////////////////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 8, "KBE->KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
@@ -109,7 +110,8 @@ public class Winscript {
 
         } else if (prj == 601006) {
             rootArea = new AreaRoot("1", LayoutArea.HORIZ, TypeElem.SQUARE, 900, 1400, 1400, 1009, 1009, 1009, "");
-            rootArea.setParam(prj.toString(), 110);
+            ///////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 110, "RAZIO->RAZIO 58 N->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
@@ -119,7 +121,8 @@ public class Winscript {
 
         } else if (prj == 601007) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.SQUARE, 1100, 1400, 1400, 1009, 10018, 10018, "");
-            rootArea.setParam(prj.toString(), 87);
+            /////////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 87, "NOVOTEX->Techno 58->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
@@ -140,7 +143,8 @@ public class Winscript {
 
         } else if (prj == 601008) {
             rootArea = new AreaRoot("1", LayoutArea.HORIZ, TypeElem.SQUARE, 1200, 1700, 1700, 1009, 28014, 21057, "");
-            rootArea.setParam(prj.toString(), 99);
+            //////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 99, "Rehau->Blitz new->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
@@ -160,7 +164,8 @@ public class Winscript {
 
         } else if (prj == 601009) {
             rootArea = new AreaRoot("1", LayoutArea.HORIZ, TypeElem.SQUARE, 700, 1400, 1400, 1009, 1009, 1009, "");
-            rootArea.setParam(prj.toString(), 54);
+            ////////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 54, "KBE->KBE Эксперт->1 ОКНА->Открывание внутрь (ств. Z 77)");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
@@ -170,7 +175,8 @@ public class Winscript {
 
         } else if (prj == 601010) {
             rootArea = new AreaRoot("1", LayoutArea.HORIZ, TypeElem.SQUARE, 1300, 1400, 1400, 1009, 1009, 1009, "{'pro4Params':[[-862071,295],[-862065,314],[-862062,325],[-862131,17],[-862097,195],[-862060,335]]}");
-            rootArea.setParam(prj.toString(), 54);
+            rootArea.setParam(prj.toString(), 54, "KBE->KBE Эксперт->1 ОКНА->Открывание внутрь (ств. Z 77)");
+            ///////////////////////////////////////////////////
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
@@ -231,7 +237,8 @@ public class Winscript {
 
         } else if (prj == 604006) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1100, 1220, 1600, 1009, 1009, 10012, "");
-            rootArea.setParam(prj.toString(), 135);
+            //////////////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 135, "Wintech->Termotech 742->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
@@ -251,7 +258,8 @@ public class Winscript {
 
         } else if (prj == 604007) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1400, 1300, 1700, 1009, 1009, 10001, "");
-            rootArea.setParam(prj.toString(), 99);
+            //////////////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 99, "Rehau->Blitz new->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
@@ -271,7 +279,8 @@ public class Winscript {
 
         } else if (prj == 604008) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
-            rootArea.setParam(prj.toString(), 8);
+            /////////////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 8, "KBE->KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
@@ -291,7 +300,8 @@ public class Winscript {
 
         } else if (prj == 604009) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
-            rootArea.setParam(prj.toString(), 8);
+            /////////////////////////////////////
+            rootArea.setParam(prj.toString(), 8, "KBE->KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
@@ -305,7 +315,8 @@ public class Winscript {
 
         } else if (prj == 604010) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1400, 1700, 1009, 10009, 1009, "");
-            rootArea.setParam(prj.toString(), 29);
+            ///////////////////////////////////////////////
+            rootArea.setParam(prj.toString(), 29, "Montblanc->Nord->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
@@ -328,7 +339,7 @@ public class Winscript {
 
         } else if (prj == 605001) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.TRAPEZE, 1300, 1200, 1500, 1009, 10009, 1009, "");
-            rootArea.setParam(prj.toString(), 8);
+            rootArea.setParam(prj.toString(), 8, "KBE->KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.ARCH));
