@@ -368,7 +368,7 @@ public class App1 extends javax.swing.JFrame {
         });
         td5.add(btn34);
 
-        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
         btn35.setFocusable(false);
         btn35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn35.setMaximumSize(new java.awt.Dimension(25, 25));
