@@ -187,7 +187,7 @@ public class Winscript {
             area5.add(new Element("12", TypeElem.GLASS, "{'nunic_iwin':'1685457539'}"));
 
         } else if (prj == 604004) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1700, 1050, 1009, 1009, 1009, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1050, 1700, 1009, 1009, 1009, "");
             rootArea.setParam(prj.toString(), 435, "Rehau->Delight->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
@@ -208,7 +208,7 @@ public class Winscript {
             area6.add(new Element("14", TypeElem.GLASS));
 
         } else if (prj == 604005) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
             rootArea.setParam(prj.toString(), 79, "Wintech->Termotech 742->1 ОКНА");
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
@@ -230,7 +230,7 @@ public class Winscript {
             area7.add(new Element("15", TypeElem.GLASS));
 
         } else if (prj == 604006) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1100, 1600, 1220, 1009, 1009, 10012, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1100, 1220, 1600, 1009, 1009, 10012, "");
             rootArea.setParam(prj.toString(), 135);
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
@@ -250,7 +250,7 @@ public class Winscript {
             area7.add(new Element("15", TypeElem.GLASS));
 
         } else if (prj == 604007) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1400, 1700, 1300, 1009, 1009, 10001, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1400, 1300, 1700, 1009, 1009, 10001, "");
             rootArea.setParam(prj.toString(), 99);
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
@@ -270,7 +270,7 @@ public class Winscript {
             area7.add(new Element("15", TypeElem.GLASS));
 
         } else if (prj == 604008) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
             rootArea.setParam(prj.toString(), 8);
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
@@ -290,7 +290,7 @@ public class Winscript {
             area7.add(new Element("15", TypeElem.GLASS));
 
         } else if (prj == 604009) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1200, 1500, 1009, 10009, 1009, "");
             rootArea.setParam(prj.toString(), 8);
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
@@ -304,7 +304,7 @@ public class Winscript {
             area3.add(new Element("9", TypeElem.GLASS));
 
         } else if (prj == 604010) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1700, 1400, 1009, 10009, 1009, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.ARCH, 1300, 1400, 1700, 1009, 10009, 1009, "");
             rootArea.setParam(prj.toString(), 29);
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
@@ -327,7 +327,7 @@ public class Winscript {
             area8.add(new Element("18", TypeElem.GLASS));
 
         } else if (prj == 605001) {
-            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.TRAPEZE, 1300, 1500, 1200, 1009, 10009, 1009, "");
+            rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.TRAPEZE, 1300, 1200, 1500, 1009, 10009, 1009, "");
             rootArea.setParam(prj.toString(), 8);
             rootArea.add(new Element("2", TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));

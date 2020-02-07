@@ -133,8 +133,8 @@ public class Wincalc {
             nuni = mainObj.get("nuni").getAsInt();
 
             width = mainObj.get("width").getAsFloat();
-            height = mainObj.get("heightLow").getAsFloat();
-            heightAdd = mainObj.get("height").getAsFloat();
+            height = mainObj.get("height").getAsFloat();
+            heightAdd = mainObj.get("heightAdd").getAsFloat();
 
             Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.LEFT);
             artiklRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
