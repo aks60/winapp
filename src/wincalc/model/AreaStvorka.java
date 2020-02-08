@@ -74,8 +74,6 @@ public class AreaStvorka extends AreaSimple {
     public void correction() {
 
         //Коррекция створки с учётом нахлёста
-        ElemJoining ownerLeftTop = iwin.mapJoin.get(x1 + ":" + y1);
-        ElemJoining ownerRightBott = iwin.mapJoin.get(x2 + ":" + y2);
         ElemSimple elemLeft = iwin.listElem.stream().filter(el2 -> el2.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
                 elemTop = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
                 elemBott = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),

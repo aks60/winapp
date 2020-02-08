@@ -47,6 +47,9 @@ public class AreaSimple extends Com5t {
     //Конструктор
     public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
+        if (id.equals("13")) {
+            int mm = 0;
+        }
         this.iwin = iwin;
         this.owner = owner;
         this.layout = layout;
@@ -150,7 +153,7 @@ public class AreaSimple extends Com5t {
 
     public void joinElem(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
 
-        //if (id.equals("13")) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
+        //if (id.equals("13")) System.out.println("ТЕСТ-2");
         //Обход всех соединений текущей Area        
         insideElem(x1, y1, mapClap, listElem);
         insideElem(x1, y2, mapClap, listElem);
@@ -162,7 +165,6 @@ public class AreaSimple extends Com5t {
 
             HashSet<ElemSimple> setElem = it.getValue();
             if (setElem.size() == 0) {
-                System.out.println("ТЕСТОВАЯ ЗАПЛАТКА-1");
                 continue;
             }
             ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);

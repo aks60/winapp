@@ -80,7 +80,7 @@ public class BoxTypical extends javax.swing.JFrame {
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
             iwin.create(script.toString());
-            paintPanel.repaint();
+            paintPanel.repaint();            
         }
     }
 

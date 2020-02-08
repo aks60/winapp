@@ -14,6 +14,7 @@ import enums.ParamJson;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
+import java.util.LinkedList;
 import wincalc.Wincalc;
 import wincalc.constr.Specification;
 
@@ -36,7 +37,7 @@ public class ElemGlass extends ElemSimple {
         this.owner = owner;
         this.iwin = owner.iwin;
         this.layout = LayoutArea.FULL;
-        
+
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
             JsonElement jsonElem = new Gson().fromJson(str, JsonElement.class);
@@ -69,35 +70,37 @@ public class ElemGlass extends ElemSimple {
         }
         //Цвет стекла
         Record artdetRec = eArtdet.up.find(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.up.find(artdetRec.getInt(eArtdet.color_id));  
+        Record colorRec = eColor.up.find(artdetRec.getInt(eArtdet.color_id));
         color1 = colorRec.getInt(eColor.color);
         color2 = colorRec.getInt(eColor.color);
-        color3 = colorRec.getInt(eColor.color); 
-        
+        color3 = colorRec.getInt(eColor.color);
+
         specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override
-    public void paint() {
+    public void paint() { //рисуём стёкла
         iwin.gc2d.setColor(new java.awt.Color(226, 255, 250));
-        if (owner instanceof AreaArch) {
+
+        if (owner.typeElem() == TypeElem.ARCH) {
             ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
-            float dz = ef.artiklRec.getFloat(eArtikl.height);            
+            float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((root().width - 2 * dz) / ((r - dz) * 2)));            
-            iwin.gc2d.fillArc((int) (root().width / 2 - r + dz), (int)dz, (int)((r - dz) * 2), (int)((r - dz) * 2), (int)ang2, (int)((90 - ang2) * 2));
-        } else {
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width - 2 * dz) / ((r - dz) * 2)));
+            iwin.gc2d.fillArc((int) (root().width / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+
+        } else  {
             float h = iwin.heightAdd - iwin.height;
             iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);            
-        }
+                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
+        } 
     }
-    
+
     @Override
     //Добавление спесификаций зависимых элементов
     public void addSpecifSubelem(Specification specif) {
-    /*
+        /*
         indexUniq(specif);
         specif.element = "ЗАП";
         if (TypeArtikl.GLASS.value2 == specif.getArticRec().atypp && specif.getArticRec().atypm == 5) { //стеклопакет
@@ -115,7 +118,7 @@ public class ElemGlass extends ElemSimple {
         quantityMaterials(specif);
         specificationRec.getSpecificationList().add(specif);*/
     }
-    
+
     @Override
     public TypeElem typeElem() {
         return TypeElem.GLASS;
@@ -125,9 +128,9 @@ public class ElemGlass extends ElemSimple {
     public TypeProfile typeProfile() {
         return TypeProfile.UNKNOWN;
     }
-    
+
     @Override
     public String toString() {
         return super.toString() + ", radiusGlass=" + radiusGlass;
-    }    
+    }
 }
