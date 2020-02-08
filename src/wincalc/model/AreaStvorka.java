@@ -36,6 +36,7 @@ public class AreaStvorka extends AreaSimple {
         this.color1 = iwin.color1;
         this.color2 = iwin.color2;
         this.color3 = iwin.color3;
+        this.typeElem = TypeElem.FULLSTVORKA;
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
             Gson gson = new Gson();
@@ -231,10 +232,5 @@ public class AreaStvorka extends AreaSimple {
 
     public TypeOpen typeOpen() {
         return TypeOpen.OM_INVALID;
-    }
-
-    @Override
-    public TypeElem typeElem() {
-        return TypeElem.FULLSTVORKA;
     }
 }

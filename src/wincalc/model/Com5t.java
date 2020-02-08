@@ -24,6 +24,7 @@ public abstract class Com5t {
     public static final int SIDE_START = 1; //левая сторона
     public static final int SIDE_END = 2;   //правая сторона     
 
+    protected TypeElem typeElem = TypeElem.NONE;
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
@@ -108,7 +109,9 @@ public abstract class Com5t {
         return listChild;
     }
 
-    public abstract TypeElem typeElem();
+    public TypeElem typeElem() {
+        return typeElem;
+    }
 
     public LayoutArea layout() {
         return layout;

@@ -11,6 +11,7 @@ public class AreaSquare extends AreaSimple {
     public AreaSquare(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, null, id, layout, width, height, color1, color2, color3);
         this.owner = this;
+        this.typeElem = TypeElem.SQUARE;
         parsing(param);
     }
 
@@ -52,11 +53,5 @@ public class AreaSquare extends AreaSimple {
                 iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
             }
         }
-    }
-    
-    @Override
-    public TypeElem 
-        typeElem() {
-        return TypeElem.SQUARE;
     }    
 }

@@ -19,6 +19,7 @@ public class ElemFrame extends ElemSimple {
 
     public ElemFrame(String id) {
         super(id);
+        this.typeElem = (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
     }
 
     public ElemFrame(AreaSimple owner, String id, LayoutArea layout) {
@@ -29,6 +30,7 @@ public class ElemFrame extends ElemSimple {
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;
+        this.typeElem = (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
         initСonstructiv();
 
         if (LayoutArea.LEFT == layout) {
@@ -189,11 +191,6 @@ public class ElemFrame extends ElemSimple {
             }
 
         }
-    }
-
-    @Override
-    public TypeElem typeElem() {
-        return (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
     }
 
     @Override

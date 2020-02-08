@@ -29,11 +29,13 @@ public class AreaSimple extends Com5t {
     //Конструктор
     public AreaSimple(String id) {
         super(id);
+        this.typeElem = TypeElem.AREA;
     }
 
     //Конструктор парсинга скрипта
     public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height) {
         this(iwin, owner, id, layout, width, height, 1, 1, 1);
+        this.typeElem = TypeElem.AREA;
         //Коррекция размера стеклопакета(створки) арки.
         //Уменьшение на величину добавленной подкладки над импостом.
         if (owner != null && TypeElem.ARCH == owner.typeElem()
@@ -90,6 +92,17 @@ public class AreaSimple extends Com5t {
         }
     }
 
+    public void test() {
+        ElemSimple elemLeft = iwin.listElem.stream().filter(el2 -> el2.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
+                elemTop = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
+                elemBott = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
+                elemRight = iwin.listElem.stream().filter(el2 -> el2.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+        System.out.println("====" + id + "=====");        
+        System.out.println(elemLeft);        
+        System.out.println(elemRight);        
+        System.out.println(elemTop);        
+        System.out.println(elemBott);        
+    }
     //Список элементов окна
     public <E> LinkedList<E> listElem(Com5t com5t, TypeElem... type) {
 
@@ -233,11 +246,6 @@ public class AreaSimple extends Com5t {
     public ElemFrame addFrame(ElemFrame elemFrame) {
         mapFrame.put(elemFrame.layout(), elemFrame);
         return elemFrame;
-    }
-
-    @Override
-    public TypeElem typeElem() {
-        return TypeElem.AREA;
     }
 
     //Рисуем конструкцию

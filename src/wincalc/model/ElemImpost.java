@@ -19,6 +19,7 @@ public class ElemImpost extends ElemSimple {
 
     public ElemImpost(String id) {
         super(id);
+        this.typeElem = TypeElem.IMPOST;
     }
 
     public ElemImpost(AreaSimple owner, String id) {
@@ -30,6 +31,7 @@ public class ElemImpost extends ElemSimple {
         color1 = iwin.color1;
         color2 = iwin.color2;
         color3 = iwin.color3;
+        this.typeElem = TypeElem.IMPOST;
         initСonstructiv();
 
         //Коррекция положения импоста арки
@@ -172,11 +174,6 @@ public class ElemImpost extends ElemSimple {
         } else if (LayoutArea.HORIZ == owner.layout()) {
             strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, Color.BLACK);
         }
-    }
-    
-    @Override
-    public TypeElem typeElem() {
-        return TypeElem.IMPOST;
     }
 
     @Override

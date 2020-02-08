@@ -37,6 +37,7 @@ public class ElemGlass extends ElemSimple {
         this.owner = owner;
         this.iwin = owner.iwin;
         this.layout = LayoutArea.FULL;
+        this.typeElem = TypeElem.GLASS;
 
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
@@ -117,11 +118,6 @@ public class ElemGlass extends ElemSimple {
         }
         quantityMaterials(specif);
         specificationRec.getSpecificationList().add(specif);*/
-    }
-
-    @Override
-    public TypeElem typeElem() {
-        return TypeElem.GLASS;
     }
 
     @Override
