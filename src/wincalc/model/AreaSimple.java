@@ -26,18 +26,29 @@ public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
+    public static AreaSimple getInstanc(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height) {
+
+        if (TypeElem.SQUARE == iwin.rootArea.typeElem) { //root().typeElem) {
+            return new AreaSquare(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //простое
+
+        } else if (TypeElem.TRAPEZE == iwin.rootArea.typeElem) {
+            return new AreaTrapeze(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //трапеция
+
+        } else if (TypeElem.TRIANGL == iwin.rootArea.typeElem) {
+            return new AreaTriangl(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //треугольник
+
+        } else if (TypeElem.ARCH == iwin.rootArea.typeElem) {
+            return new AreaArch(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //арка
+        }
+        return null;
+    }
+
     //Конструктор
     public AreaSimple(String id) {
         super(id);
-        this.typeElem = TypeElem.AREA;
     }
 
-    //Конструктор парсинга скрипта
-    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height) {
-        this(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1);        
-    }
-
-    //Конструктор построения AreaArch, AreaSquare, AreaTrapeze...
+    //Конструктор 
     public AreaSimple(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
         this.iwin = iwin;
@@ -49,11 +60,11 @@ public class AreaSimple extends Com5t {
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        initDimension(owner);         
+        initDimension();
     }
 
-    protected void initDimension(AreaSimple owner) {
-                 
+    protected void initDimension() {
+
         if (owner != null) {
             //Заполним по умолчанию
             if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
@@ -64,7 +75,7 @@ public class AreaSimple extends Com5t {
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ёщё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
-                if (owner.listChild().get(index) instanceof AreaSimple) {
+                if (owner.listChild().get(index).typeElem == TypeElem.AREA) {
                     AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
 
                     if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
@@ -80,12 +91,6 @@ public class AreaSimple extends Com5t {
             x2 = x1 + width;
             y2 = y1 + height;
         }
-//        //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
-//        if (owner != null && TypeElem.ARCH == owner.typeElem()
-//                && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
-//            float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
-//            setDimension(x1, y1, x2, y2 - dh);
-//        }        
     }
 
     public void test() {
@@ -93,11 +98,11 @@ public class AreaSimple extends Com5t {
                 elemTop = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
                 elemBott = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
                 elemRight = iwin.listElem.stream().filter(el2 -> el2.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-        System.out.println("====" + id + "=====");
         System.out.println(elemLeft);
         System.out.println(elemRight);
         System.out.println(elemTop);
         System.out.println(elemBott);
+        System.out.println();
     }
 
     //Список элементов окна
@@ -109,27 +114,27 @@ public class AreaSimple extends Com5t {
 
             arrElem.add(elemFrame.getValue());
         }
-        for (Com5t elemBase : root().listChild()) { //первый уровень
+        for (Com5t elemBase : com5t.listChild()) { //первый уровень
             arrElem.add(elemBase);
-            if (elemBase instanceof AreaSimple) {
+            if (elemBase.typeElem == TypeElem.AREA) {
                 for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase).mapFrame.entrySet()) {
                     arrElem.add(elemFrame.getValue());
                 }
                 for (Com5t elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
-                    if (elemBase2 instanceof AreaSimple) {
+                    if (elemBase2.typeElem == TypeElem.AREA) {
                         for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase2).mapFrame.entrySet()) {
                             arrElem.add(elemFrame.getValue());
                         }
                         for (Com5t elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
-                            if (elemBase3 instanceof AreaSimple) {
+                            if (elemBase3.typeElem == TypeElem.AREA) {
                                 for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase3).mapFrame.entrySet()) {
                                     arrElem.add(elemFrame.getValue());
                                 }
                                 for (Com5t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
-                                    if (elemBase4 instanceof AreaSimple) {
+                                    if (elemBase4.typeElem == TypeElem.AREA) {
                                         for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase4).mapFrame.entrySet()) {
                                             arrElem.add(elemFrame.getValue());
                                         }
@@ -320,7 +325,7 @@ public class AreaSimple extends Com5t {
     private void line(int x1, int y1, int x2, int y2, int dy) {
 
         iwin.gc2d.setColor(java.awt.Color.BLACK);
-        iwin.gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 50));
+        iwin.gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
         iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
         y1 = y1 + dy;
         y2 = y2 + dy;

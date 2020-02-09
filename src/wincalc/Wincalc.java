@@ -68,60 +68,56 @@ public class Wincalc {
     }
 
     public AreaSimple create(String productJson) {
-        
+
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
 
         //Парсинг входного скрипта
-        AreaSimple mainArea = parsingScript(productJson);
-
+        parsingScript(productJson);
+        //System.out.println(productJson); //вывод на консоль json
+        
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
 
-        //Создание root окна
-        if (mainArea instanceof AreaSquare) {
-            rootArea = (AreaSquare) mainArea;  //калькуляция простого окна
-        } else if (mainArea instanceof AreaArch) {
-            rootArea = (AreaArch) mainArea;    //калькуляция арки
-        } else if (mainArea instanceof AreaTrapeze) {
-            rootArea = (AreaTrapeze) mainArea; //калькуляция трапеции
-        }
         //Инициализация объектов калькуляции
-        LinkedList<AreaSimple> listArea = rootArea.listElem(mainArea, TypeElem.AREA); //список контейнеров
-        LinkedList<AreaStvorka> listStvorka = rootArea.listElem(mainArea, TypeElem.FULLSTVORKA); //список створок
+        LinkedList<AreaSimple> listArea = rootArea.listElem(rootArea, TypeElem.AREA); //список контейнеров
+        LinkedList<AreaStvorka> listStvorka = rootArea.listElem(rootArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
         listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         LinkedList<ElemSimple> listElem2 = rootArea.listElem(rootArea, TypeElem.FRAME_STV); //список элементов
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
-        //listArea.stream().forEach(area -> area.test());
+        listArea.stream().forEach(area -> {
+            area.print();
+            area.test();
+        });
 
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы
-
+        
         //Соединения створок
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         listStvorka.stream().forEach(area -> area.joinFrame());
         listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
-
+        
         //Список элементов, (важно! получаем после построения створки)
         //listElem = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
-
+        
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
-             //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
-             //listElem.stream().forEach(el -> System.out.println(el));
+            //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
+            //listElem.stream().forEach(el -> System.out.println(el));
         }
         return rootArea;
     }
 
     // Парсим входное json окно и строим объектную модель окна
-    private AreaSimple parsingScript(String json) {
-        AreaSimple rootArea = null;
+    private void parsingScript(String json) {
+        //AreaSimple rootArea = null;
         try {
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = jsonElement.getAsJsonObject();
@@ -148,17 +144,16 @@ public class Wincalc {
             LayoutArea layoutRoot = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
             if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaSquare(this, id, TypeElem.SQUARE, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
+                rootArea = new AreaSquare(this, null, id, TypeElem.SQUARE, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
 
             } else if ("TRAPEZE".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaTrapeze(this, id, TypeElem.TRAPEZE, layoutRoot, width, height, color1, color2, color3, paramJson); //трапеция
+                rootArea = new AreaTrapeze(this, null, id, TypeElem.TRAPEZE, layoutRoot, width, height, color1, color2, color3, paramJson); //трапеция
 
             } else if ("TRIANGL".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaTriangl(this, id, TypeElem.TRIANGL, layoutRoot, width, height, color1, color2, color3, paramJson); //треугольник
+                rootArea = new AreaTriangl(this, null, id, TypeElem.TRIANGL, layoutRoot, width, height, color1, color2, color3, paramJson); //треугольник
 
             } else if ("ARCH".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaArch(this, id, TypeElem.ARCH, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
-
+                rootArea = new AreaArch(this, null, id, TypeElem.ARCH, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
             }
 
             //Добавим рамы
@@ -225,9 +220,9 @@ public class Wincalc {
         } catch (Exception e2) {
             System.out.println("Ошибка Wincalc.parsingScript() " + e2);
         }
-        return rootArea;
     }
 
+    //Добавление AREA в конструцию
     private AreaSimple parsingAddArea(AreaSimple rootArea, AreaSimple ownerArea, JsonObject objArea) {
 
         float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
@@ -236,11 +231,12 @@ public class Wincalc {
         String layoutObj = objArea.get("layoutArea").getAsString();
         LayoutArea layoutArea = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
         String id = objArea.get("id").getAsString();
-        AreaSimple sceneArea = new AreaSimple(this, ownerArea, id, TypeElem.AREA, layoutArea, width, height);
+        AreaSimple sceneArea = AreaSimple.getInstanc(this, ownerArea, id, TypeElem.AREA, layoutArea, width, height);
         ownerArea.listChild().add(sceneArea);
         return sceneArea;
     }
 
+    //Добавление Element в конструцию
     private void parsingAddElem(AreaSimple root, AreaSimple owner, JsonObject elem) {
 
         if (TypeElem.IMPOST.name().equals(elem.get("elemType").getAsString())) {

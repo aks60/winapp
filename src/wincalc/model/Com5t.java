@@ -101,7 +101,7 @@ public abstract class Com5t {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка Base.parsingParam() " + e);
+            System.err.println("Ошибка Com5t.parsingParam() " + e);
         }
     }
 
@@ -139,6 +139,10 @@ public abstract class Com5t {
         iwin.gc2d.drawArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
     }
 
+    public void print() {
+        System.out.println("ELEM: id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2);  
+    }
+    
     public String toString() {
         return "ELEM: owner=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
