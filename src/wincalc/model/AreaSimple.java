@@ -117,25 +117,25 @@ public class AreaSimple extends Com5t {
         }
         for (Com5t elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
-            if (elemBase.typeElem == TypeElem.AREA) {
+            if (elemBase instanceof AreaSimple) {
                 for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase).mapFrame.entrySet()) {
                     arrElem.add(elemFrame.getValue());
                 }
                 for (Com5t elemBase2 : elemBase.listChild()) { //второй уровень
                     arrElem.add(elemBase2);
-                    if (elemBase2.typeElem == TypeElem.AREA) {
+                    if (elemBase2 instanceof AreaSimple) {
                         for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase2).mapFrame.entrySet()) {
                             arrElem.add(elemFrame.getValue());
                         }
                         for (Com5t elemBase3 : elemBase2.listChild()) { //третий уровень
                             arrElem.add(elemBase3);
-                            if (elemBase3.typeElem == TypeElem.AREA) {
+                            if (elemBase3 instanceof AreaSimple) {
                                 for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase3).mapFrame.entrySet()) {
                                     arrElem.add(elemFrame.getValue());
                                 }
                                 for (Com5t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
                                     arrElem.add(elemBase4);
-                                    if (elemBase4.typeElem == TypeElem.AREA) {
+                                    if (elemBase4 instanceof AreaSimple) {
                                         for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase4).mapFrame.entrySet()) {
                                             arrElem.add(elemFrame.getValue());
                                         }
@@ -163,7 +163,7 @@ public class AreaSimple extends Com5t {
         }
         return outElem;
     }
-
+    
     public void joinFrame() {
     }
 
