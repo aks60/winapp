@@ -114,7 +114,7 @@ public class AreaSimple extends Com5t {
 
             arrElem.add(elemFrame.getValue());
         }
-        for (Com5t elemBase : com5t.listChild()) { //первый уровень
+        for (Com5t elemBase : root().listChild()) { //первый уровень
             arrElem.add(elemBase);
             if (elemBase.typeElem == TypeElem.AREA) {
                 for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase).mapFrame.entrySet()) {
