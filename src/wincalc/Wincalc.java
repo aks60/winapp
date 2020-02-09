@@ -148,6 +148,7 @@ public class Wincalc {
 
             //Определим напрвление построения окна
             String layoutObj = mainObj.get("layoutArea").getAsString();
+            String elemType = mainObj.get("elemType").getAsString();
             LayoutArea layoutRoot = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
             if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
