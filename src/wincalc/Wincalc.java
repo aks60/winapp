@@ -246,9 +246,7 @@ public class Wincalc {
             if (elem.get("paramJson") != null) {
                 owner.listChild().add(new ElemGlass(owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString()));
             } else {
-                Object kjh = elem.get("id");
-                Object onh = new ElemGlass(owner, elem.get("id").getAsString());
-                owner.listChild().add(new ElemGlass(owner, elem.get("id").getAsString()));
+                owner.listChild().add(new ElemGlass(owner, elem.get("id").getAsString(), null));
             }
 
         } else if (TypeElem.FULLSTVORKA.name().equals(elem.get("elemType").getAsString())) {
@@ -262,7 +260,7 @@ public class Wincalc {
                     if (elem2.get("paramJson") != null) {
                         elemStvorka.listChild().add(new ElemGlass(elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
                     } else {
-                        elemStvorka.listChild().add(new ElemGlass(elemStvorka, elem2.get("id").getAsString()));
+                        elemStvorka.listChild().add(new ElemGlass(elemStvorka, elem2.get("id").getAsString(), null));
                     }
                 }
             }

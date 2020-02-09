@@ -27,10 +27,6 @@ public class ElemGlass extends ElemSimple {
 
     protected float radiusGlass = 0;
 
-    public ElemGlass(AreaSimple owner, String id) {
-        this(owner, id, null);
-    }
-
     public ElemGlass(AreaSimple owner, String id, String param) {
 
         super(id);
