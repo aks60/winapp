@@ -275,10 +275,7 @@ public class AreaSimple extends Com5t {
 
             //Прорисовка створок
             LinkedList<AreaStvorka> elemStvorkaList = listElem(root(), TypeElem.FULLSTVORKA);
-            for (AreaStvorka areaStvorka : elemStvorkaList) {
-                areaStvorka.paint();
-            }
-            //elemStvorkaList.stream().forEach(el -> el.paint());
+            elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера            
             LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
