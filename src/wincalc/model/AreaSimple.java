@@ -36,22 +36,20 @@ public class AreaSimple extends Com5t {
     public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height) {
         this(iwin, owner, id, layout, width, height, 1, 1, 1);
         this.typeElem = TypeElem.AREA;
-        //Коррекция размера стеклопакета(створки) арки.
-        //Уменьшение на величину добавленной подкладки над импостом.
+        if (id.equals("11")) {
+            int mm = 0;
+        }
+        //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
         if (owner != null && TypeElem.ARCH == owner.typeElem()
-                && owner.listChild().size() == 2
-                && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
+                && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
             float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
             dimension(x1, y1, x2, y2 - dh);
         }
     }
 
-    //Конструктор
+    //Конструктор построения AreaArch, AreaSquare, AreaTrapeze...
     public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
-        if (id.equals("13")) {
-            int mm = 0;
-        }
         this.iwin = iwin;
         this.owner = owner;
         this.layout = layout;
@@ -60,6 +58,9 @@ public class AreaSimple extends Com5t {
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
+        if (id.equals("11")) {
+            int mm = 0;
+        }
         initDimension(owner);
     }
 
@@ -78,10 +79,10 @@ public class AreaSimple extends Com5t {
                     AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
 
                     if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                        dimension(prevArea.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
+                        dimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
 
                     } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                        dimension(prevArea.x2, prevArea.y1, prevArea.x2 + width, owner.y2);
+                        dimension(prevArea.x2, owner.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
                 }
@@ -97,12 +98,13 @@ public class AreaSimple extends Com5t {
                 elemTop = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
                 elemBott = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
                 elemRight = iwin.listElem.stream().filter(el2 -> el2.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-        System.out.println("====" + id + "=====");        
-        System.out.println(elemLeft);        
-        System.out.println(elemRight);        
-        System.out.println(elemTop);        
-        System.out.println(elemBott);        
+        System.out.println("====" + id + "=====");
+        System.out.println(elemLeft);
+        System.out.println(elemRight);
+        System.out.println(elemTop);
+        System.out.println(elemBott);
     }
+
     //Список элементов окна
     public <E> LinkedList<E> listElem(Com5t com5t, TypeElem... type) {
 

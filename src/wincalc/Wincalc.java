@@ -96,7 +96,7 @@ public class Wincalc {
         LinkedList<ElemSimple> listElem2 = rootArea.listElem(rootArea, TypeElem.FRAME_STV); //список элементов
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
-        listArea.stream().forEach(area -> area.test());
+        //listArea.stream().forEach(area -> area.test());
         
         //Калькуляция конструктива
         //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив

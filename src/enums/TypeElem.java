@@ -25,6 +25,7 @@ public enum TypeElem {
     TRIANGL(1003, "Треугольное окно в сборе"),
     ARCH(1004, "Арочное окно в сборе"),
     FULLSTVORKA(1005, "Створка в сборе"), //см. ElemFrame.typeProfile, ElemFrame.typeElem
+    SUPPORT(1006, "Подкладка"),
     NONE(0, "Не определено");
 
     public int value;
