@@ -105,6 +105,7 @@ public class AreaSimple extends Com5t {
         System.out.println();
     }
 
+    //TODO надо убрать Com5t com5t,...
     //Список элементов окна
     public <E> LinkedList<E> listElem(Com5t com5t, TypeElem... type) {
 
