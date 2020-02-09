@@ -104,8 +104,8 @@ public class Wincalc {
 
         //Соединения створок
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        //listStvorka.stream().forEach(area -> area.joinFrame());
-        //listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
+        listStvorka.stream().forEach(area -> area.joinFrame());
+        listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
 
         //Список элементов, (важно! получаем после построения створки)
         //listElem = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
