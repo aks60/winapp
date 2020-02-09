@@ -91,7 +91,7 @@ public class Wincalc {
 
         listArea.stream().forEach(area -> {
             area.print();
-            area.test();
+            //area.test();
         });
 
         //Соединения рамы  
