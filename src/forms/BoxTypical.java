@@ -58,9 +58,9 @@ public class BoxTypical extends javax.swing.JFrame {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER); 
         paintPanel.setVisible(true);
         loadDataTab1();
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
+//        if (tab1.getRowCount() > 0) {
+//            tab1.setRowSelectionInterval(0, 0);
+//        }
     }
 
     private void loadDataTab1() {

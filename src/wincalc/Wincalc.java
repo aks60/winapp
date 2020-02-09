@@ -97,19 +97,15 @@ public class Wincalc {
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
         //listArea.stream().forEach(area -> area.test());
-        
-        //Калькуляция конструктива
-        //CalcConstructiv constructiv = new CalcConstructiv(mainArea); //конструктив
-        //CalcTariffication tariffic = new CalcTariffication(mainArea); //класс тарификации
-        //
+
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы
 
         //Соединения створок
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
-        listStvorka.stream().forEach(area -> area.joinFrame());
-        listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
+        //listStvorka.stream().forEach(area -> area.joinFrame());
+        //listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
 
         //Список элементов, (важно! получаем после построения створки)
         //listElem = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
@@ -152,16 +148,16 @@ public class Wincalc {
             LayoutArea layoutRoot = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
             if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaSquare(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
+                rootArea = new AreaSquare(this, id, TypeElem.SQUARE, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
 
             } else if ("TRAPEZE".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaTrapeze(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //трапеция
+                rootArea = new AreaTrapeze(this, id, TypeElem.TRAPEZE, layoutRoot, width, height, color1, color2, color3, paramJson); //трапеция
 
             } else if ("TRIANGL".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaTriangl(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //треугольник
+                rootArea = new AreaTriangl(this, id, TypeElem.TRIANGL, layoutRoot, width, height, color1, color2, color3, paramJson); //треугольник
 
             } else if ("ARCH".equals(mainObj.get("elemType").getAsString())) {
-                rootArea = new AreaArch(this, id, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
+                rootArea = new AreaArch(this, id, TypeElem.ARCH, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
 
             }
 
@@ -240,7 +236,7 @@ public class Wincalc {
         String layoutObj = objArea.get("layoutArea").getAsString();
         LayoutArea layoutArea = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
         String id = objArea.get("id").getAsString();
-        AreaSimple sceneArea = new AreaSimple(this, ownerArea, id, layoutArea, width, height);
+        AreaSimple sceneArea = new AreaSimple(this, ownerArea, id, TypeElem.AREA, layoutArea, width, height);
         ownerArea.listChild().add(sceneArea);
         return sceneArea;
     }

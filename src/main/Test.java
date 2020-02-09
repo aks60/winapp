@@ -28,10 +28,10 @@ public class Test {
         Main.dev = true;
 
         try {
-            convert.Profstroy.script();
+            //convert.Profstroy.script();
             //query();
             //wincalc();
-            //frame();
+            frame();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -76,7 +76,6 @@ public class Test {
         
         int id = q2.getAs(1, eSystree.id, -1);
         int id2 = q2.getAs(1, eSysprof.id, -1);
-        int mmm = 0;
     }
 
     static void parseJson() {

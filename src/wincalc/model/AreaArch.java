@@ -11,12 +11,23 @@ public class AreaArch extends AreaSimple {
 
     protected double radiusArch = 0; //радиус арки
 
-    public AreaArch(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, null, id, layout, width, height, color1, color2, color3);
-        this.typeElem = TypeElem.ARCH;
+    public AreaArch(Wincalc iwin, String id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+        super(iwin, null, id, typeElem, layout, width, height, color1, color2, color3);
         parsing(param);
     }
-
+    
+    @Override
+    protected void initDimension(AreaSimple owner) {
+        super.initDimension(owner);
+        
+        //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
+        if (owner != null && TypeElem.ARCH == owner.typeElem()
+                && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
+            float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
+            setDimension(x1, y1, x2, y2 - dh);
+        } 
+    }
+    
     @Override
     public void joinFrame() {
 

@@ -32,7 +32,7 @@ public class AreaStvorka extends AreaSimple {
         this.owner = owner;
         this.width = owner.width;
         this.height = owner.height;
-        dimension(owner.x1, owner.y1, owner.x2, owner.y2);
+        setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
         this.color1 = iwin.color1;
         this.color2 = iwin.color2;
         this.color3 = iwin.color3;

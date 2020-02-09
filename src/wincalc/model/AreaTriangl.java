@@ -6,9 +6,8 @@ import wincalc.Wincalc;
 
 public class AreaTriangl extends AreaSimple {
 
-    public AreaTriangl(Wincalc iwin, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, null, id, layout, width, height, color1, color2, color3);
-        this.typeElem = TypeElem.TRIANGL;
+    public AreaTriangl(Wincalc iwin, String id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+        super(iwin, null, id, typeElem, layout, width, height, color1, color2, color3);
         parsing(param);
     }
 

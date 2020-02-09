@@ -55,7 +55,7 @@ public abstract class Com5t {
         return iwin.rootArea;
     }
 
-    public void dimension(float x1, float y1, float x2, float y2) {
+    public void setDimension(float x1, float y1, float x2, float y2) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;

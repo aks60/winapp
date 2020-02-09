@@ -38,9 +38,7 @@ public class ElemImpost extends ElemSimple {
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
                 float dh = artiklRec.getFloat(eArtikl.height) / 2;  
-                AreaSimple as = new AreaSimple(iwin, owner, owner.id + ".DX", LayoutArea.HORIZ, owner.width, dh);
-                as.typeElem = TypeElem.SUPPORT;
-                owner.listChild().add(as);
+                owner.listChild().add(new AreaSimple(iwin, owner, owner.id + ".DX", TypeElem.SUPPORT, LayoutArea.HORIZ, owner.width, dh));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
@@ -49,11 +47,11 @@ public class ElemImpost extends ElemSimple {
                 float dx = artiklRec.getFloat(eArtikl.size_centr);
 
                 if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                    dimension(owner.x1, prevArea.y2 - dx, prevArea.x2, prevArea.y2 + dx);
+                    setDimension(owner.x1, prevArea.y2 - dx, prevArea.x2, prevArea.y2 + dx);
                     anglHoriz = 0;
 
                 } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                    dimension(prevArea.x2 - dx, prevArea.y1, prevArea.x2 + dx, prevArea.y2);
+                    setDimension(prevArea.x2 - dx, prevArea.y1, prevArea.x2 + dx, prevArea.y2);
                     anglHoriz = 90;
                 }
                 break;

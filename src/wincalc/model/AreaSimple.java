@@ -33,45 +33,34 @@ public class AreaSimple extends Com5t {
     }
 
     //Конструктор парсинга скрипта
-    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height) {
-        this(iwin, owner, id, layout, width, height, 1, 1, 1);
-        this.typeElem = TypeElem.AREA;
-        if (id.equals("11")) {
-            int mm = 0;
-        }
-        //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
-        if (owner != null && TypeElem.ARCH == owner.typeElem()
-                && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
-            float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
-            dimension(x1, y1, x2, y2 - dh);
-        }
+    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height) {
+        this(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1);        
     }
 
     //Конструктор построения AreaArch, AreaSquare, AreaTrapeze...
-    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
         this.iwin = iwin;
         this.owner = owner;
+        this.typeElem = typeElem;
         this.layout = layout;
         this.width = width;
         this.height = height;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        if (id.equals("11")) {
-            int mm = 0;
-        }
-        initDimension(owner);
+        initDimension(owner);         
     }
 
-    private void initDimension(AreaSimple owner) {
+    protected void initDimension(AreaSimple owner) {
+                 
         if (owner != null) {
             //Заполним по умолчанию
             if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                dimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
+                setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
 
             } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                dimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
+                setDimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ёщё не создана начнём с конца
             for (int index = owner.listChild().size() - 1; index >= 0; --index) {
@@ -79,10 +68,10 @@ public class AreaSimple extends Com5t {
                     AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
 
                     if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                        dimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
+                        setDimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
 
                     } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                        dimension(prevArea.x2, owner.y1, prevArea.x2 + width, owner.y2);
+                        setDimension(prevArea.x2, owner.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
                 }
@@ -91,6 +80,12 @@ public class AreaSimple extends Com5t {
             x2 = x1 + width;
             y2 = y1 + height;
         }
+//        //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
+//        if (owner != null && TypeElem.ARCH == owner.typeElem()
+//                && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
+//            float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
+//            setDimension(x1, y1, x2, y2 - dh);
+//        }        
     }
 
     public void test() {

@@ -34,18 +34,18 @@ public class ElemFrame extends ElemSimple {
         initСonstructiv();
 
         if (LayoutArea.LEFT == layout) {
-            dimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
+            setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
 
         } else if (LayoutArea.RIGHT == layout) {
-            dimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
+            setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
             anglHoriz = 90;
 
         } else if (LayoutArea.TOP == layout) {
-            dimension(owner.x1, owner.y1, owner.x2, owner.y1 + artiklRec.getFloat(eArtikl.height));
+            setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
 
         } else if (LayoutArea.BOTTOM == layout) {
-            dimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
+            setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
             anglHoriz = 0;
 
         } else if (LayoutArea.ARCH == layout) {
