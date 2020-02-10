@@ -16,17 +16,30 @@ public abstract class ElemSimple extends Com5t {
         super(id);
     }
 
+    //Попадание точки в элемент
+    public boolean contains(int X, int Y) {
+        int x = (int) (X / iwin.scaleDxy) - Com5t.TRANSLATE_X;
+        int y = (int) (Y / iwin.scaleDxy) - Com5t.TRANSLATE_Y;
+        return inside(x, y);
+    }
+
     //Точка попадает в контур элемента
     public boolean inside(float x, float y) {
-        return (x >= x1) && (x <= x2) && (y >= y1) && (y <= y2);
+        if (((int) x2 | (int) y2) < 0) {
+            return false;
+        }
+        if (x < x1 || y < y1) {
+            return false;
+        }
+        return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
     }
-    
+
     //Типы профилей
     public abstract TypeProfile typeProfile();
 
     //Добавить спецификацию в состав элемента
     public abstract void addSpecifSubelem(Specification specification);
-        
+
     public void anglCut(int layout, float anglCut) {
     }
 
@@ -46,9 +59,9 @@ public abstract class ElemSimple extends Com5t {
         }
         return String.valueOf(++maxId);
     }
-  
+
     @Override
     public String toString() {
         return super.toString() + ", anglHoriz=" + anglHoriz;
-    } 
+    }
 }

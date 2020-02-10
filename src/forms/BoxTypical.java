@@ -4,22 +4,32 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
-import domain.eSysprof;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import wincalc.Wincalc;
+import wincalc.model.ElemSimple;
 import wincalc.model.PaintPanel;
 import wincalc.script.Winscript;
 
 public class BoxTypical extends javax.swing.JFrame {
 
     public Wincalc iwin = new Wincalc();
-    private PaintPanel paintPanel = new PaintPanel(iwin);
+    private PaintPanel paintPanel = new PaintPanel(iwin) {
+
+        public void response(MouseEvent evt) {
+            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
+            if (elem != null) {
+                //System.out.println(elem);
+                txtField5.setText(elem.getId());
+            }
+        }
+    };
     private Query qSysprod = new Query(eSysprod.values()).select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up.tname());
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -55,7 +65,7 @@ public class BoxTypical extends javax.swing.JFrame {
         initComponents();
         initElements();
 
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER); 
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
         loadDataTab1();
 //        if (tab1.getRowCount() > 0) {
@@ -80,7 +90,7 @@ public class BoxTypical extends javax.swing.JFrame {
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
             iwin.create(script.toString());
-            paintPanel.repaint();            
+            paintPanel.repaint();
         }
     }
 
@@ -110,6 +120,8 @@ public class BoxTypical extends javax.swing.JFrame {
         txtField3 = new javax.swing.JFormattedTextField();
         lab4 = new javax.swing.JLabel();
         txtField4 = new javax.swing.JFormattedTextField();
+        lab5 = new javax.swing.JLabel();
+        txtField5 = new javax.swing.JFormattedTextField();
         pan8 = new javax.swing.JPanel();
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
@@ -135,6 +147,11 @@ public class BoxTypical extends javax.swing.JFrame {
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
         panNorth.setPreferredSize(new java.awt.Dimension(600, 29));
+        panNorth.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panMouseClicked(evt);
+            }
+        });
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -225,7 +242,7 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 687, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 635, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -306,7 +323,7 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,13 +353,21 @@ public class BoxTypical extends javax.swing.JFrame {
 
         txtField3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        txtField3.setPreferredSize(new java.awt.Dimension(180, 18));
+        txtField3.setPreferredSize(new java.awt.Dimension(120, 18));
 
         lab4.setText("INDEX");
         lab4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab4.setPreferredSize(new java.awt.Dimension(40, 18));
 
         txtField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        lab5.setText("INDEX");
+        lab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        lab5.setPreferredSize(new java.awt.Dimension(40, 18));
+
+        txtField5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
         javax.swing.GroupLayout pan7Layout = new javax.swing.GroupLayout(pan7);
         pan7.setLayout(pan7Layout);
@@ -354,10 +379,14 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,8 +395,10 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addGroup(pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lab4)
-                    .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -379,7 +410,7 @@ public class BoxTypical extends javax.swing.JFrame {
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 474, Short.MAX_VALUE)
+            .addGap(0, 422, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,7 +602,7 @@ public class BoxTypical extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
+            .addGap(0, 798, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -588,7 +619,7 @@ public class BoxTypical extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        iwin.create(Winscript.test(Winscript.prj, null));  
+        iwin.create(Winscript.test(Winscript.prj, null));
         paintPanel.repaint();
     }//GEN-LAST:event_btnRefresh
 
@@ -629,7 +660,7 @@ public class BoxTypical extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSquare1btnArea
 
     private void btnImpostVertbtnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpostVertbtnElem
-
+        iwin.listElem.stream().forEach(el -> el.print());
     }//GEN-LAST:event_btnImpostVertbtnElem
 
     private void btnImpostGorizbtnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpostGorizbtnElem
@@ -643,6 +674,10 @@ public class BoxTypical extends javax.swing.JFrame {
     private void btnSquare5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSquare5ActionPerformed
+
+    private void panMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panMouseClicked
+        System.out.println(evt.getX() + " " + evt.getY());
+    }//GEN-LAST:event_panMouseClicked
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -665,6 +700,7 @@ public class BoxTypical extends javax.swing.JFrame {
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;
     private javax.swing.JLabel lab4;
+    private javax.swing.JLabel lab5;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan3;
@@ -684,6 +720,7 @@ public class BoxTypical extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;
     private javax.swing.JFormattedTextField txtField4;
+    private javax.swing.JFormattedTextField txtField5;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

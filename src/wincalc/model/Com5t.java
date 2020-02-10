@@ -21,8 +21,12 @@ import wincalc.Wincalc;
 
 public abstract class Com5t {
 
-    public static final int SIDE_START = 1; //левая сторона
-    public static final int SIDE_END = 2;   //правая сторона     
+    public static final int SIDE_START = 1;   //левая сторона
+    public static final int SIDE_END = 2;     //правая сторона     
+    public static final int TRANSLATE_X = 80; //сдвиг графика   
+    public static final int TRANSLATE_Y = 20; //сдвиг графика    
+    public static final int SPACE_DX = 200;   //пространство для линий    
+    public static final int SPACE_DY = 240;   //пространство для линий   
 
     protected TypeElem typeElem = TypeElem.NONE;
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
@@ -51,6 +55,10 @@ public abstract class Com5t {
         specificationRec = new Specification(id, this);
     }
 
+    public String getId() {
+        return id;
+    }
+
     public AreaSimple root() {
         return iwin.rootArea;
     }
@@ -62,11 +70,11 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
-        public float xy(int index) {
+    public float xy(int index) {
         float xy[] = {x1, y1, x2, y2};
         return xy[index - 1];
     }
-        
+
     public float width() {
         return width;
     }
@@ -140,9 +148,9 @@ public abstract class Com5t {
     }
 
     public void print() {
-        System.out.println("ELEM: id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2);  
+        System.out.println("ELEM: id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2);
     }
-    
+
     public String toString() {
         return "ELEM: owner=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }

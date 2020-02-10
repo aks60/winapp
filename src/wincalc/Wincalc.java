@@ -25,11 +25,12 @@ import enums.TypeProfile;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import main.Main;
 import wincalc.constr.Constructive;
 import wincalc.model.ElemSimple;
@@ -52,7 +53,8 @@ public class Wincalc {
 
     public byte[] bufferByte = null; //буффер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
-    public Graphics2D gc2d = null; //графический котекст рисунка    
+    public Graphics2D gc2d = null; //графический котекст рисунка  
+    public float scaleDxy = 1; //коэффициент сжатия
     protected String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
@@ -61,6 +63,7 @@ public class Wincalc {
     protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок
     public LinkedList<ElemSimple> listElem; //список элементов
+    LinkedList<AreaSimple> listArea; //список area
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
 
@@ -76,7 +79,7 @@ public class Wincalc {
         //Парсинг входного скрипта
         parsingScript(productJson);
         //System.out.println(productJson); //вывод на консоль json
-        
+
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
@@ -86,26 +89,23 @@ public class Wincalc {
         LinkedList<AreaStvorka> listStvorka = rootArea.listElem(rootArea, TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
         listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
-        LinkedList<ElemSimple> listElem2 = rootArea.listElem(rootArea, TypeElem.FRAME_STV); //список элементов
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
-
-        listArea.stream().forEach(area -> {
-            area.print();
-            //area.test();
-        });
 
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов 
         listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы
-        
+
         //Соединения створок
         listStvorka.stream().forEach(stvorka -> stvorka.correction()); //коррекция размера створки с учётом нахлёста и построение рамы створки
         listStvorka.stream().forEach(area -> area.joinFrame());
         listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
-        
+
         //Список элементов, (важно! получаем после построения створки)
-        //listElem = rootArea.listElem(mainArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
-        
+        listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);          
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> {
+            return a.getId().compareTo(b.getId());
+        }));
+
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json

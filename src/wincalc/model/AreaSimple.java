@@ -169,8 +169,7 @@ public class AreaSimple extends Com5t {
 
     public void joinElem(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
 
-        //if (id.equals("13")) System.out.println("ТЕСТ-2");
-        //Обход всех соединений текущей Area        
+        //Обход всех угловых соединений текущей Area        
         insideElem(x1, y1, mapClap, listElem);
         insideElem(x1, y2, mapClap, listElem);
         insideElem(x2, y2, mapClap, listElem);
@@ -180,14 +179,14 @@ public class AreaSimple extends Com5t {
         for (Map.Entry<String, HashSet<ElemSimple>> it : mapClap.entrySet()) {
 
             HashSet<ElemSimple> setElem = it.getValue();
-            if (setElem.size() == 0) {
-                continue;
+            if (setElem.size() < 2) {
+                continue; //такая ситуация встречается в подкладке Area в арке
             }
             ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
             ElemJoining el = new ElemJoining(iwin);
             String pk = it.getKey();
 
-            //В соединении элемента рамы и импост (T - соединение)
+            //В соединении только комбинация элемента рамы и импоста (T - соединение)
             if (((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
                     || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) == false) {
 
