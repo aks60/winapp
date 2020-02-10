@@ -38,7 +38,7 @@ public class ElemImpost extends ElemSimple {
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
 
                 float dh = artiklRec.getFloat(eArtikl.height) / 2;  
-                owner.listChild().add(AreaSimple.getInstanc(iwin, owner, owner.id + ".DX", TypeElem.AREA, LayoutArea.HORIZ, owner.width, dh));
+                owner.listChild().add(AreaSimple.getInstanc(iwin, owner, owner.id + ".DX", TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {

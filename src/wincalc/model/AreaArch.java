@@ -17,8 +17,8 @@ public class AreaArch extends AreaSimple {
     }
     
     @Override
-    protected void initDimension() {
-        super.initDimension();
+    protected void initDimension(float width, float height) {
+        super.initDimension(width, height);
         
         //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
         if (owner != null && TypeElem.ARCH == owner.typeElem()
@@ -38,8 +38,8 @@ public class AreaArch extends AreaSimple {
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
 
         float dz = elem.joinElement1.artiklRec.getFloat(eArtikl.height);
-        float h = iwin.heightAdd - height;
-        float w = width;
+        float h = iwin.heightAdd - height();
+        float w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки
         radiusArch = r; //запишем радиус дуги в AreaArch
         double angl = 90 - Math.toDegrees(Math.asin(w / (r * 2))); // Math.toDegrees() — преобразование радианов в градусы ... Math.asin() — арксинус

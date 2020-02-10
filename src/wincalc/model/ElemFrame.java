@@ -51,15 +51,6 @@ public class ElemFrame extends ElemSimple {
         } else if (LayoutArea.ARCH == layout) {
             anglHoriz = 180;
         }
-
-        if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-            width = x2 - x1;
-            height = y2 - y1;
-
-        } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
-            width = y2 - y1;
-            height = x2 - x1;
-        }
     }
 
     public void initСonstructiv() {
@@ -148,7 +139,7 @@ public class ElemFrame extends ElemSimple {
     public void paint() {
         float d1z = artiklRec.getFloat(eArtikl.height);
         float h = iwin.heightAdd - iwin.height;
-        float w = root().width;
+        float w = root().width();
         float y1h = y1 + h;
         float y2h = y2 + h;
 
@@ -159,11 +150,11 @@ public class ElemFrame extends ElemSimple {
             //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
             float d2z = artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(owner.width / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((owner.width - 2 * d2z) / ((r - d2z) * 2)));
-            strokeArc(owner.width / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 4); //прорисовка на сцену
-            strokeArc(owner.width / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 4); //прорисовка на сцену
-            strokeArc(owner.width / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z); //прорисовка на сцену
+            double ang1 = 90 - Math.toDegrees(Math.asin(owner.width() / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((owner.width() - 2 * d2z) / ((r - d2z) * 2)));
+            strokeArc(owner.width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, ArcType.OPEN, 0, 4); //прорисовка на сцену
+            strokeArc(owner.width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, 0, 4); //прорисовка на сцену
+            strokeArc(owner.width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, ArcType.OPEN, rgb, d2z); //прорисовка на сцену
 
         } else if (LayoutArea.TOP == layout) {
             strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, borderColor);

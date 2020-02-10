@@ -55,15 +55,13 @@ public class AreaSimple extends Com5t {
         this.owner = owner;
         this.typeElem = typeElem;
         this.layout = layout;
-        this.width = width;
-        this.height = height;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
-        initDimension();
+        initDimension(width, height);
     }
 
-    protected void initDimension() {
+    protected void initDimension(float width, float height) {
 
         if (owner != null) {
             //Заполним по умолчанию
