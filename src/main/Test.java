@@ -28,10 +28,10 @@ public class Test {
         Main.dev = true;
 
         try {
-            //convert.Profstroy.script();
+            convert.Profstroy.script();
             //query();
             //wincalc();
-            frame();
+            //frame();
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
