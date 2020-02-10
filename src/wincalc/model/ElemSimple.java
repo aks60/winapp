@@ -1,26 +1,28 @@
 package wincalc.model;
 
-import enums.LayoutArea;
 import wincalc.constr.Specification;
 import enums.TypeElem;
 import enums.TypeProfile;
-import java.util.HashMap;
+import java.awt.Color;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 public abstract class ElemSimple extends Com5t {
 
     protected float anglHoriz = -1; //угол к горизонту
+    protected Color borderColor = Color.BLACK;
 
     public ElemSimple(String id) {
         super(id);
     }
 
     //Попадание точки в элемент
-    public boolean contains(int X, int Y) {
+    public boolean contains(int X, int Y) {  
+        
+        iwin.listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
         int x = (int) (X / iwin.scaleDxy) - Com5t.TRANSLATE_X;
-        int y = (int) (Y / iwin.scaleDxy) - Com5t.TRANSLATE_Y;
-        return inside(x, y);
+        int y = (int) (Y / iwin.scaleDxy) - Com5t.TRANSLATE_Y;        
+        borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;                
+        return inside(x, y);        
     }
 
     //Точка попадает в контур элемента

@@ -90,6 +90,10 @@ public class ElemGlass extends ElemSimple {
         } else  {
             float h = iwin.heightAdd - iwin.height;
             iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);   
+            
+            iwin.gc2d.setColor(borderColor);
+            iwin.gc2d.drawPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
         } 
     }

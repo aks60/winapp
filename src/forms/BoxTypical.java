@@ -25,8 +25,8 @@ public class BoxTypical extends javax.swing.JFrame {
         public void response(MouseEvent evt) {
             ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
             if (elem != null) {
-                //System.out.println(elem);
                 txtField5.setText(elem.getId());
+                repaint();
             }
         }
     };

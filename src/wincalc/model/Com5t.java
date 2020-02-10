@@ -39,7 +39,7 @@ public abstract class Com5t {
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area
 
     protected float width = 0;  //ширина
-    protected float height = 0; //высота     
+    protected float height = 0; //высота      
 
     protected int color1 = -1;  //базовый 
     protected int color2 = -1;  //внутренний
@@ -131,11 +131,12 @@ public abstract class Com5t {
     protected void strokePolygon(float x1, float x2, float x3, float x4, float y1,
             float y2, float y3, float y4, int rgbFill, Color rdbStroke) {
         iwin.gc2d.setStroke(new BasicStroke(8)); //толщина линии
-        iwin.gc2d.setColor(java.awt.Color.BLACK);
+        iwin.gc2d.setColor(rdbStroke);
         float dy = iwin.heightAdd - iwin.height;
         iwin.gc2d.drawPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
                 new int[]{(int) (y1 + dy), (int) (y2 + dy), (int) (y3 + dy), (int) (y4 + dy)}, 4);
         iwin.gc2d.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
+        //iwin.gc2d.setColor(new java.awt.Color(rgbFill, false));
         iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
                 new int[]{(int) (y1 + dy), (int) (y2 + dy), (int) (y3 + dy), (int) (y4 + dy)}, 4);
     }
@@ -144,6 +145,7 @@ public abstract class Com5t {
             double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
         iwin.gc2d.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
         iwin.gc2d.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
+        //iwin.gc2d.setColor(new java.awt.Color(rdbStroke, false));
         iwin.gc2d.drawArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
     }
 
