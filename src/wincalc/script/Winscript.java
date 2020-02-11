@@ -314,21 +314,21 @@ public class Winscript {
             rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
 
             rootArea.add(new Element("6", TypeElem.IMPOST));
-            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("7", LayoutArea.HORIZ, TypeElem.AREA, 1400));
+            AreaElem area7 = (AreaElem) rootArea.add(new AreaElem("7", LayoutArea.HORIZ, TypeElem.AREA, 1400));
             
-            AreaElem area4 = (AreaElem) area3.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 650));
-            area3.add(new Element("9", TypeElem.IMPOST));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 650));
+            AreaElem area8 = (AreaElem) area7.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 650));
+            area7.add(new Element("9", TypeElem.IMPOST));
+            AreaElem area10 = (AreaElem) area7.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 650));
             
-            AreaElem area6 = (AreaElem) area5.add(new AreaElem("11", LayoutArea.VERT, TypeElem.AREA, 550));
-            area5.add(new Element("12", TypeElem.IMPOST));
-            AreaElem area7 = (AreaElem) area5.add(new AreaElem("13", LayoutArea.VERT, TypeElem.AREA, 850));
+            AreaElem area11 = (AreaElem) area10.add(new AreaElem("11", LayoutArea.VERT, TypeElem.AREA, 550));
+            area10.add(new Element("12", TypeElem.IMPOST));
+            AreaElem area13 = (AreaElem) area10.add(new AreaElem("13", LayoutArea.VERT, TypeElem.AREA, 850));
 
-            AreaElem area8 = (AreaElem) area6.add(new AreaElem("14", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area14 = (AreaElem) area11.add(new AreaElem("14", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
             rootArea.add(new Element("15", TypeElem.GLASS));
-            area4.add(new Element("16", TypeElem.GLASS));
-            area7.add(new Element("17", TypeElem.GLASS));
-            area8.add(new Element("18", TypeElem.GLASS));
+            area8.add(new Element("16", TypeElem.GLASS));
+            area13.add(new Element("17", TypeElem.GLASS));
+            area14.add(new Element("18", TypeElem.GLASS));
 
         } else if (prj == 605001) {
             rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.TRAPEZE, 1300, 1200, 1500, 1009, 10009, 1009, "");
