@@ -184,12 +184,12 @@ public class Wincalc {
             for (Object objL1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
                 JsonObject elemL1 = (JsonObject) objL1;
                 if (TypeElem.AREA.name().equals(elemL1.get("elemType").getAsString())) {
-                    AreaSimple areaContainer = addArea(rootArea, rootArea, elemL1);
+                    AreaSimple areaSimple1 = addArea(rootArea, rootArea, elemL1);
 
                     for (Object objL2 : elemL1.get("elements").getAsJsonArray()) { //второй уровень
                         JsonObject elemL2 = (JsonObject) objL2;
                         if (TypeElem.AREA.name().equals(elemL2.get("elemType").getAsString())) {
-                            AreaSimple areaSimple2 = addArea(rootArea, areaContainer, elemL2);
+                            AreaSimple areaSimple2 = addArea(rootArea, areaSimple1, elemL2);
 
                             for (Object objL3 : elemL2.get("elements").getAsJsonArray()) {  //третий уровень
                                 JsonObject elemL3 = (JsonObject) objL3;
@@ -210,7 +210,7 @@ public class Wincalc {
                                 }
                             }
                         } else {
-                            addElem(rootArea, areaContainer, elemL2);
+                            addElem(rootArea, areaSimple1, elemL2);
                         }
                     }
                 } else {

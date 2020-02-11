@@ -26,7 +26,7 @@ public class Winscript {
             rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
             rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
-            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
+            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
             area2.add(new Element("7", TypeElem.GLASS));
 
         } else if (prj == 601002) { 
@@ -41,8 +41,8 @@ public class Winscript {
             rootArea.add(new Element("7", TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("8", LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
             
-            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
 
             area4.add(new Element("11", TypeElem.GLASS));
             area5.add(new Element("12", TypeElem.GLASS));
@@ -63,8 +63,8 @@ public class Winscript {
             area4.add(new Element("10", TypeElem.IMPOST));
             AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.AREA, 720));
             
-            AreaElem area8 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':337}"));
-            AreaElem area9 = (AreaElem) area6.add(new AreaElem("13", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':336}"));
+            AreaElem area8 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.HORIZ, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':337}"));
+            AreaElem area9 = (AreaElem) area6.add(new AreaElem("13", LayoutArea.HORIZ, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':336}"));
 
             area2.add(new Element("14", TypeElem.GLASS));
             area8.add(new Element("15", TypeElem.GLASS));
@@ -84,8 +84,8 @@ public class Winscript {
             AreaElem area5 = (AreaElem) area4.add(new AreaElem("9", LayoutArea.VERT, TypeElem.AREA, 720));
             area4.add(new Element("10", TypeElem.IMPOST));
             AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.AREA, 720));
-            AreaElem area8 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
-            AreaElem area9 = (AreaElem) area6.add(new AreaElem("13", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area8 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
+            AreaElem area9 = (AreaElem) area6.add(new AreaElem("13", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
 
             area2.add(new Element("14", TypeElem.GLASS));
             area8.add(new Element("15", TypeElem.GLASS));
@@ -102,8 +102,8 @@ public class Winscript {
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.VERT, TypeElem.AREA, 800));
             rootArea.add(new Element("7", TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 800));
-            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
 
             area4.add(new Element("11", TypeElem.GLASS));
             area5.add(new Element("12", TypeElem.GLASS));
@@ -132,8 +132,8 @@ public class Winscript {
             AreaElem area5 = (AreaElem) area4.add(new AreaElem("9", LayoutArea.VERT, TypeElem.AREA, 550));
             area4.add(new Element("10", TypeElem.IMPOST));
             AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.AREA, 550));
-            AreaElem area8 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':93}"));
-            AreaElem area9 = (AreaElem) area6.add(new AreaElem("13", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':92}"));
+            AreaElem area8 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':93}"));
+            AreaElem area9 = (AreaElem) area6.add(new AreaElem("13", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':92}"));
 
             area2.add(new Element("14", TypeElem.GLASS));
             area8.add(new Element("15", TypeElem.GLASS));
@@ -155,7 +155,7 @@ public class Winscript {
             area3.add(new Element("10", TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem("11", LayoutArea.VERT, TypeElem.AREA, 1150));
             
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem("12", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
             area2.add(new Element("13", TypeElem.GLASS));
             area6.add(new Element("14", TypeElem.GLASS));
             area5.add(new Element("15", TypeElem.GLASS));
@@ -182,8 +182,8 @@ public class Winscript {
             rootArea.add(new Element("7", TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 650));
 
-            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1,'funic':23, 'pro4Params': [[-862107,826],[-862106,830]]}"));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4,'funic':20, 'pro4Params': [[-862107,184],[-862106,186]]}"));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem("9", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1,'funic':23, 'pro4Params': [[-862107,826],[-862106,830]]}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4,'funic':20, 'pro4Params': [[-862107,184],[-862106,186]]}"));
 
             area4.add(new Element("11", TypeElem.GLASS, "{'nunic_iwin':'1685457539'}"));
             area5.add(new Element("12", TypeElem.GLASS, "{'nunic_iwin':'1685457539'}"));
@@ -203,7 +203,7 @@ public class Winscript {
             area3.add(new Element("9", TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 650));
 
-            AreaElem area6 = (AreaElem) area5.add(new AreaElem("11", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area6 = (AreaElem) area5.add(new AreaElem("11", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
 
             rootArea.add(new Element("12", TypeElem.GLASS));
             area4.add(new Element("13", TypeElem.GLASS));
@@ -224,8 +224,8 @@ public class Winscript {
             area3.add(new Element("9", TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 650));
             
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
-            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
+            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
 
             rootArea.add(new Element("13", TypeElem.GLASS));
             area6.add(new Element("14", TypeElem.GLASS));
@@ -244,8 +244,8 @@ public class Winscript {
             AreaElem area4 = (AreaElem) area3.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 550));
             area3.add(new Element("9", TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 550));
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
-            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
+            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
 
             rootArea.add(new Element("13", TypeElem.GLASS));
             area6.add(new Element("14", TypeElem.GLASS));
@@ -264,8 +264,8 @@ public class Winscript {
             AreaElem area4 = (AreaElem) area3.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 700));
             area3.add(new Element("9", TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 700));
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
-            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
+            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':20}"));
 
             rootArea.add(new Element("13", TypeElem.GLASS));
             area6.add(new Element("14", TypeElem.GLASS));
@@ -284,8 +284,8 @@ public class Winscript {
             AreaElem area4 = (AreaElem) area3.add(new AreaElem("8", LayoutArea.VERT, TypeElem.AREA, 650));
             area3.add(new Element("9", TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem("10", LayoutArea.VERT, TypeElem.AREA, 650));
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':-1}"));
-            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':-1}"));
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem("11", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':-1}"));
+            AreaElem area7 = (AreaElem) area5.add(new AreaElem("12", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':3, 'funic':-1}"));
 
             rootArea.add(new Element("13", TypeElem.GLASS));
             area6.add(new Element("14", TypeElem.GLASS));
@@ -324,7 +324,7 @@ public class Winscript {
             area5.add(new Element("12", TypeElem.IMPOST));
             AreaElem area7 = (AreaElem) area5.add(new AreaElem("13", LayoutArea.VERT, TypeElem.AREA, 850));
 
-            AreaElem area8 = (AreaElem) area6.add(new AreaElem("14", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
+            AreaElem area8 = (AreaElem) area6.add(new AreaElem("14", LayoutArea.VERT, TypeElem.FULLSTVORKA, "{'typeOpen':4, 'funic':20}"));
             rootArea.add(new Element("15", TypeElem.GLASS));
             area4.add(new Element("16", TypeElem.GLASS));
             area7.add(new Element("17", TypeElem.GLASS));
