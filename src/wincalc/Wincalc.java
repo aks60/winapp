@@ -232,10 +232,9 @@ public class Wincalc {
         try {
             float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
             float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
-            String paramArea = String.valueOf(objArea.get("paramJson"));
+            String paramArea = String.valueOf(objArea.get("paramJson"));            
             TypeElem typeArea = (TypeElem.AREA.name().equals(objArea.get("elemType").getAsString()) == true) ? TypeElem.AREA : TypeElem.FULLSTVORKA;            
             LayoutArea layoutArea = ("VERT".equals(objArea.get("layoutArea").getAsString())) ? LayoutArea.VERT : LayoutArea.HORIZ;
-            
             AreaSimple simpleArea = AreaSimple.getInstanc(this, ownerArea, objArea.get("id").getAsString(), typeArea, layoutArea, width, height, paramArea);
             ownerArea.listChild().add(simpleArea);
             return simpleArea;
@@ -263,8 +262,8 @@ public class Wincalc {
             
             /*else if (TypeElem.FULLSTVORKA.name().equals(elem.get("elemType").getAsString())) {
 
-            AreaStvorka elemStvorka = (AreaStvorka) owner;
-            //owner.listChild().add(elemStvorka);
+            AreaStvorka elemStvorka = new AreaStvorka(this, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString());
+            owner.listChild().add(elemStvorka);
             //Уровень ниже
             for (Object obj : elem.get("elements").getAsJsonArray()) { //т.к. может быть и глухарь
                 JsonObject elem2 = (JsonObject) obj;
