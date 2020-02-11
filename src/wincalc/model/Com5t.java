@@ -78,10 +78,10 @@ public abstract class Com5t {
     }
 
     protected void parsing(String param) {
-        try {
+        try {      
             Gson gson = new Gson();
-            if (param != null && param.isEmpty() == false) {
-
+            if (param != null && param.isEmpty() == false && param.equals("null") == false) {
+                
                 String str = param.replace("'", "\"");
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
