@@ -26,6 +26,7 @@ public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
+    //Фабрика объектов
     public static AreaSimple getInstanc(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height) {
 
         if (TypeElem.SQUARE == iwin.rootArea.typeElem) { //root().typeElem) {
@@ -103,9 +104,8 @@ public class AreaSimple extends Com5t {
         System.out.println();
     }
 
-    //TODO надо убрать Com5t com5t,...
     //Список элементов окна
-    public <E> LinkedList<E> listElem(Com5t com5t, TypeElem... type) {
+    public <E> LinkedList<E> listElem(TypeElem... type) {
 
         LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
         LinkedList<E> outElem = new LinkedList(); //выходной список
@@ -254,11 +254,11 @@ public class AreaSimple extends Com5t {
             iwin.gc2d.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = listElem(root(), TypeElem.GLASS);
+            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemImpost> elemImpostList = listElem(root(), TypeElem.IMPOST);
+            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -272,12 +272,12 @@ public class AreaSimple extends Com5t {
             mapFrame.get(LayoutArea.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = listElem(root(), TypeElem.FULLSTVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера            
             LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-            LinkedList<ElemImpost> impostList = listElem(root(), TypeElem.IMPOST);
+            LinkedList<ElemImpost> impostList = listElem(TypeElem.IMPOST);
             for (ElemSimple el : impostList) { //по импостам определим точки разрыва линии
                 if (LayoutArea.VERT == el.owner.layout) {
                     ls2.add(el.y1);

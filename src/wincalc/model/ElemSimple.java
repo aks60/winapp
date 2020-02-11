@@ -48,7 +48,7 @@ public abstract class ElemSimple extends Com5t {
     //Генерация нового ключа
     public String genId() {
         int maxId = 0;
-        LinkedList<ElemSimple> elemList = root().listElem(root(), TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
+        LinkedList<ElemSimple> elemList = root().listElem(TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
         for (ElemSimple elemBase : elemList) {
             for (Specification specification : elemBase.specificationRec.specificationList()) {
                 if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {

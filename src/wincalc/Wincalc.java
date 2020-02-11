@@ -85,10 +85,10 @@ public class Wincalc {
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
 
         //Инициализация объектов калькуляции
-        LinkedList<AreaSimple> listArea = rootArea.listElem(rootArea, TypeElem.AREA); //список контейнеров
-        LinkedList<AreaStvorka> listStvorka = rootArea.listElem(rootArea, TypeElem.FULLSTVORKA); //список створок
+        LinkedList<AreaSimple> listArea = rootArea.listElem(TypeElem.AREA); //список контейнеров
+        LinkedList<AreaStvorka> listStvorka = rootArea.listElem(TypeElem.FULLSTVORKA); //список створок
         EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
-        listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
         //Соединения рамы  
@@ -101,7 +101,7 @@ public class Wincalc {
         listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
 
         //Список элементов, (важно! получаем после построения створки)
-        listElem = rootArea.listElem(rootArea, TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);          
+        listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);          
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> {
             return a.getId().compareTo(b.getId());
         }));
