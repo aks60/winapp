@@ -117,7 +117,7 @@ public class Wincalc {
 
     // Парсим входное json окно и строим объектную модель окна
     private void parsingScript(String json) {
-        //AreaSimple rootArea = null;
+        
         try {
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = jsonElement.getAsJsonObject();
@@ -184,60 +184,59 @@ public class Wincalc {
             for (Object objL1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
                 JsonObject elemL1 = (JsonObject) objL1;
                 if (TypeElem.AREA.name().equals(elemL1.get("elemType").getAsString())) {
-                    AreaSimple areaContainer = parsingAddArea(rootArea, rootArea, elemL1);
+                    AreaSimple areaContainer = addArea(rootArea, rootArea, elemL1);
 
                     for (Object objL2 : elemL1.get("elements").getAsJsonArray()) { //второй уровень
                         JsonObject elemL2 = (JsonObject) objL2;
                         if (TypeElem.AREA.name().equals(elemL2.get("elemType").getAsString())) {
-                            AreaSimple areaSimple2 = parsingAddArea(rootArea, areaContainer, elemL2);
+                            AreaSimple areaSimple2 = addArea(rootArea, areaContainer, elemL2);
 
                             for (Object objL3 : elemL2.get("elements").getAsJsonArray()) {  //третий уровень
                                 JsonObject elemL3 = (JsonObject) objL3;
                                 if (TypeElem.AREA.name().equals(elemL3.get("elemType").getAsString())) {
-                                    AreaSimple areaSimple3 = parsingAddArea(rootArea, areaSimple2, elemL3);
+                                    AreaSimple areaSimple3 = addArea(rootArea, areaSimple2, elemL3);
 
                                     for (Object objL4 : elemL3.get("elements").getAsJsonArray()) {  //четвёртый уровень
                                         JsonObject elemL4 = (JsonObject) objL4;
                                         if (TypeElem.AREA.name().equals(elemL4.get("elemType").getAsString())) {
-                                            AreaSimple areaSinple4 = parsingAddArea(rootArea, areaSimple3, elemL4);
+                                            AreaSimple areaSinple4 = addArea(rootArea, areaSimple3, elemL4);
                                         } else {
-                                            parsingAddElem(rootArea, areaSimple3, elemL4);
+                                            addElem(rootArea, areaSimple3, elemL4);
                                         }
                                     }
 
                                 } else {
-                                    parsingAddElem(rootArea, areaSimple2, elemL3);
+                                    addElem(rootArea, areaSimple2, elemL3);
                                 }
                             }
                         } else {
-                            parsingAddElem(rootArea, areaContainer, elemL2);
+                            addElem(rootArea, areaContainer, elemL2);
                         }
                     }
                 } else {
-                    parsingAddElem(rootArea, rootArea, elemL1);
+                    addElem(rootArea, rootArea, elemL1);
                 }
-            }
+            }           
         } catch (Exception e2) {
             System.out.println("Ошибка Wincalc.parsingScript() " + e2);
         }
     }
 
     //Добавление AREA в конструцию
-    private AreaSimple parsingAddArea(AreaSimple rootArea, AreaSimple ownerArea, JsonObject objArea) {
+    private AreaSimple addArea(AreaSimple rootArea, AreaSimple ownerArea, JsonObject objArea) {
 
         float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
         float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
 
         String layoutObj = objArea.get("layoutArea").getAsString();
         LayoutArea layoutArea = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
-        String id = objArea.get("id").getAsString();
-        AreaSimple sceneArea = AreaSimple.getInstanc(this, ownerArea, id, TypeElem.AREA, layoutArea, width, height);
-        ownerArea.listChild().add(sceneArea);
-        return sceneArea;
+        AreaSimple simpleArea = AreaSimple.getInstanc(this, ownerArea, objArea.get("id").getAsString(), TypeElem.AREA, layoutArea, width, height);
+        ownerArea.listChild().add(simpleArea);
+        return simpleArea;
     }
 
     //Добавление Element в конструцию
-    private void parsingAddElem(AreaSimple root, AreaSimple owner, JsonObject elem) {
+    private void addElem(AreaSimple root, AreaSimple owner, JsonObject elem) {
 
         if (TypeElem.IMPOST.name().equals(elem.get("elemType").getAsString())) {
             owner.listChild().add(new ElemImpost(owner, elem.get("id").getAsString()));

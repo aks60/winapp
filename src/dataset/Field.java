@@ -13,7 +13,7 @@ public interface Field extends Enam{
         INTfp(Integer.class), STR(String.class, -9, -1, 1, 12), DBL(Double.class, 8), FLT(Float.class, 6), LONG(Long.class, -5),
         DATE(Date.class, 91, 92, 93), BOOL(Boolean.class, 16), BLOB(String.class, -2, -3, -4, 2004);
         Class type;
-        public HashSet<Integer> hsConv = new HashSet();
+        public HashSet<Integer> hsConv = new HashSet<Integer>();
 
         TYPE(Class type, Integer... v) {
             this.type = type;

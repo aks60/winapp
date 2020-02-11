@@ -24,7 +24,7 @@ public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
-
+    
     public AreaStvorka(Wincalc iwin, AreaSimple owner, String id, String param) {
 
         super(id);
@@ -56,6 +56,73 @@ public class AreaStvorka extends AreaSimple {
         initСonstructiv();
         parsing(param);
     }
+    
+    /*public AreaStvorka(Wincalc iwin, AreaSimple owner, String id, String param) {
+        super(iwin, owner, id, TypeElem.FULLSTVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
+
+        if (param != null && param.isEmpty() == false) {
+            String str = param.replace("'", "\"");
+            Gson gson = new Gson();
+            JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
+            JsonObject jsonObj = jsonElem.getAsJsonObject();
+            mapParam.put(ParamJson.typeOpen, jsonObj.get(ParamJson.typeOpen.name()));
+            mapParam.put(ParamJson.funic, jsonObj.get(ParamJson.funic.name()));
+            if (mapParam.get(ParamJson.typeOpen) != null) {
+
+                int key = Integer.valueOf(mapParam.get(ParamJson.typeOpen).toString());
+                for (TypeOpen typeOpen : TypeOpen.values()) {
+                    if (typeOpen.value == key) {
+                        this.typeOpen = typeOpen;
+                    }
+                }
+            }
+        }
+        initСonstructiv();
+        parsing(param);
+        
+        //Коррекция створки с учётом нахлёста
+        LinkedList<ElemSimple>  listElem = root().listElem(TypeElem.FRAME_BOX, TypeElem.IMPOST); //список элементов
+        ElemSimple elemLeft = listElem.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
+                elemTop = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
+                elemBott = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
+                elemRight = listElem.stream().filter(el -> el.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+
+        System.out.println("vvvvv");
+        System.out.println(elemLeft);
+        System.out.println(elemRight);
+        System.out.println(elemTop);
+        System.out.println(elemBott);
+        System.out.println("vvvvv");
+
+        Float naxl = iwin.sysconsRec.getFloat(eSyscons.naxl);
+        Float size_falz = artiklRec.getFloat(eArtikl.size_falz);
+        x1 = elemLeft.x2 - size_falz - naxl;
+        y1 = elemTop.y2 - size_falz - naxl;
+        x2 = elemRight.x1 + size_falz + naxl;
+        y2 = elemBott.y1 + size_falz + naxl;
+        specificationRec.width = width();
+        specificationRec.height = height();
+
+//        //Коррекция стеклопакета с учётом нахлёста створки
+//        ElemGlass elemGlass = null;
+//        for (Com5t com5t : listChild()) {
+//            if (TypeElem.GLASS == com5t.typeElem()) {
+//                elemGlass = (ElemGlass) com5t;
+//            }
+//        }
+//        elemGlass.x1 = x1;
+//        elemGlass.x2 = x2;
+//        elemGlass.y1 = y1;
+//        elemGlass.y2 = y2;
+//        elemGlass.specificationRec.width = width();
+//        elemGlass.specificationRec.height = height();
+
+        //Добавим рамы створки        
+        addFrame(new ElemFrame(this, id + ".1R", LayoutArea.BOTTOM));
+        addFrame(new ElemFrame(this, id + ".2R", LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + ".3R", LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + ".4R", LayoutArea.LEFT));        
+    }*/
 
     public void initСonstructiv() {
 
@@ -71,12 +138,22 @@ public class AreaStvorka extends AreaSimple {
     }
 
     public void correction() {
-
+//    @Override
+//    protected void initDimension(float width, float height) {
+//        super.initDimension(width, height);
+        
         //Коррекция створки с учётом нахлёста
-        ElemSimple elemLeft = iwin.listElem.stream().filter(el2 -> el2.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
-                elemTop = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
-                elemBott = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
-                elemRight = iwin.listElem.stream().filter(el2 -> el2.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+        LinkedList<ElemSimple>  listElem = listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        ElemSimple elemLeft = listElem.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
+                elemTop = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
+                elemBott = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
+                elemRight = listElem.stream().filter(el -> el.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+
+//        System.out.println(elemLeft);
+//        System.out.println(elemRight);
+//        System.out.println(elemTop);
+//        System.out.println(elemBott);
+//        System.out.println();
 
         Float naxl = iwin.sysconsRec.getFloat(eSyscons.naxl);
         Float size_falz = artiklRec.getFloat(eArtikl.size_falz);

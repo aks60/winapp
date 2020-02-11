@@ -14,11 +14,11 @@ import java.util.TreeMap;
 public class Table extends ArrayList<Record> {
 
     protected Query root = null;
-    protected HashMap<String, Query> mapQuery = new HashMap();
+    protected HashMap<String, Query> mapQuery = new HashMap<String, Query>();
 
     private static SimpleDateFormat fd = new SimpleDateFormat("dd.MM.yyyy");
 
-    protected ArrayList<Field> fields = new ArrayList();
+    protected ArrayList<Field> fields = new ArrayList<Field>();
 
     public Table() {
     }
