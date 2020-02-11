@@ -263,6 +263,7 @@ public class Wincalc {
                     simpleArea = new AreaArch(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //арка
                 }
             }
+            System.out.println(simpleArea.getId());
             ownerArea.listChild().add(simpleArea);
             return simpleArea;
 
@@ -280,11 +281,13 @@ public class Wincalc {
 
             if (TypeElem.IMPOST.name().equals(elemType)) {
                 ElemSimple elemSimple = new ElemImpost(owner, id);
+                System.out.println(elemSimple.getId());
                 owner.listChild().add(elemSimple);
 
             } else if (TypeElem.GLASS.name().equals(elemType)) {
                 String paramElem = (objElem.get("paramJson") != null) ? objElem.get("paramJson").getAsString() : null;
                 ElemSimple elemSimple = new ElemGlass(owner, id, paramElem);
+                System.out.println(elemSimple.getId());
                 owner.listChild().add(elemSimple);
             }
         } catch (Exception e) {
