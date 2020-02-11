@@ -236,20 +236,16 @@ public class Wincalc {
             TypeElem typeArea = (TypeElem.AREA.name().equals(objArea.get("elemType").getAsString()) == true) ? TypeElem.AREA : TypeElem.FULLSTVORKA;
             LayoutArea layoutArea = ("VERT".equals(objArea.get("layoutArea").getAsString())) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
-            AreaSimple simpleArea = null; //фабрика объектов Area
+            AreaSimple simpleArea = null;
             if (TypeElem.FULLSTVORKA == typeArea) {
-                simpleArea = new AreaStvorka(this, ownerArea, id, paramArea); //створка  //TODO в створку можно передать  ширину и высоту
-
+                simpleArea = new AreaStvorka(this, ownerArea, id, paramArea);
             } else {
                 if (TypeElem.SQUARE == this.rootArea.typeElem()) { 
                     simpleArea = new AreaSquare(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //простое
-
                 } else if (TypeElem.TRAPEZE == this.rootArea.typeElem()) {
                     simpleArea = new AreaTrapeze(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //трапеция
-
                 } else if (TypeElem.TRIANGL == this.rootArea.typeElem()) {
                     simpleArea = new AreaTriangl(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //треугольник
-
                 } else if (TypeElem.ARCH == this.rootArea.typeElem()) {
                     simpleArea = new AreaArch(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //арка
                 }
@@ -266,10 +262,13 @@ public class Wincalc {
     //Добавление Element в конструцию
     private void addElem(AreaSimple root, AreaSimple owner, JsonObject objElem) {
         try {
-            if (TypeElem.IMPOST.name().equals(objElem.get("elemType").getAsString())) {
+            String id = objElem.get("id").getAsString();
+            String elemType = objElem.get("elemType").getAsString();
+            
+            if (TypeElem.IMPOST.name().equals(elemType)) {
                 owner.listChild().add(new ElemImpost(owner, objElem.get("id").getAsString()));
 
-            } else if (TypeElem.GLASS.name().equals(objElem.get("elemType").getAsString())) {
+            } else if (TypeElem.GLASS.name().equals(elemType)) {
                 String paramElem = (objElem.get("paramJson") != null) ? objElem.get("paramJson").getAsString() : null;
                 owner.listChild().add(new ElemGlass(owner, objElem.get("id").getAsString(), paramElem));
             }
