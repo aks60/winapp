@@ -148,7 +148,9 @@ public abstract class Com5t {
     }
 
     public String toString() {
-        return "ELEM: owner=" + owner.id + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
+        //TODO owner не должен быть null
+        String ownerID = (owner == null) ?"null" : owner.id;
+        return "ELEM: owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 
     public boolean equals(Object obj) {

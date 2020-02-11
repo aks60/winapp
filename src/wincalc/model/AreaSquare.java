@@ -18,7 +18,7 @@ public class AreaSquare extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.varJoin = JoinVariant.VAR2;
-            el.id = id + "." + (index + 1) + "R";
+            el.id = id + "." + (index + 1);
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 

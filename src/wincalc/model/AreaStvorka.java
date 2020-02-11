@@ -118,10 +118,10 @@ public class AreaStvorka extends AreaSimple {
 //        elemGlass.specificationRec.height = height();
 
         //Добавим рамы створки        
-        addFrame(new ElemFrame(this, id + ".1R", LayoutArea.BOTTOM));
-        addFrame(new ElemFrame(this, id + ".2R", LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + ".3R", LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + ".4R", LayoutArea.LEFT));        
+        addFrame(new ElemFrame(this, id + ".1", LayoutArea.BOTTOM));
+        addFrame(new ElemFrame(this, id + ".2", LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + ".3", LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + ".4", LayoutArea.LEFT));        
     }*/
 
     public void initСonstructiv() {
@@ -179,10 +179,10 @@ public class AreaStvorka extends AreaSimple {
         elemGlass.specificationRec.height = height();
 
         //Добавим рамы створки        
-        addFrame(new ElemFrame(this, id + ".1R", LayoutArea.BOTTOM));
-        addFrame(new ElemFrame(this, id + ".2R", LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + ".3R", LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + ".4R", LayoutArea.LEFT));
+        addFrame(new ElemFrame(this, id + ".1", LayoutArea.BOTTOM));
+        addFrame(new ElemFrame(this, id + ".2", LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + ".3", LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + ".4", LayoutArea.LEFT));
     }
 
     @Override
@@ -190,7 +190,7 @@ public class AreaStvorka extends AreaSimple {
 
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
-            el.id = id + "." + (index + 1) + "V";
+            el.id = id + "." + (index + 1);
             el.varJoin = JoinVariant.VAR2;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
@@ -227,7 +227,7 @@ public class AreaStvorka extends AreaSimple {
 
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
-            el.id = id + "." + (index + 1) + "Z";
+            el.id = id + "." + (index + 1);
             el.varJoin = JoinVariant.VAR1;
             el.cutAngl1 = 0;
             el.cutAngl2 = 0;

@@ -31,8 +31,11 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 import main.Main;
 import wincalc.constr.Constructive;
+import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 
 public class Wincalc {
@@ -66,6 +69,12 @@ public class Wincalc {
     LinkedList<AreaSimple> listArea; //список area
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
+    protected TreeMap<AreaSimple, JsonObject> treeMap = new TreeMap(new Comparator<Com5t>() {
+        @Override
+        public int compare(Com5t e1, Com5t e2) {
+            return e1.getId().compareTo(e2.getId());
+        }
+    });
 
     public Wincalc() {
     }
@@ -80,6 +89,9 @@ public class Wincalc {
         parsingScript(productJson);
         //System.out.println(productJson); //вывод на консоль json
 
+        for(Map.Entry<AreaSimple, JsonObject> entry : treeMap.entrySet()){
+            System.out.println(entry.getKey());
+        }
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
@@ -239,6 +251,7 @@ public class Wincalc {
     //Добавление AREA в конструцию
     private AreaSimple addArea(AreaSimple ownerArea, JsonObject objArea) {
         try {
+            treeMap.put(ownerArea, objArea);
             float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
             float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
             String id = objArea.get("id").getAsString();
@@ -252,19 +265,19 @@ public class Wincalc {
             } else {
                 if (TypeElem.SQUARE == this.rootArea.typeElem()) {
                     simpleArea = new AreaSquare(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //простое
-                    
+
                 } else if (TypeElem.TRAPEZE == this.rootArea.typeElem()) {
                     simpleArea = new AreaTrapeze(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //трапеция
-                    
+
                 } else if (TypeElem.TRIANGL == this.rootArea.typeElem()) {
                     simpleArea = new AreaTriangl(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //треугольник
-                    
+
                 } else if (TypeElem.ARCH == this.rootArea.typeElem()) {
                     simpleArea = new AreaArch(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //арка
                 }
             }
-            System.out.println(simpleArea.getId());
-            ownerArea.listChild().add(simpleArea);
+            //System.out.println(simpleArea.getId());
+            ownerArea.listChild().add(simpleArea);            
             return simpleArea;
 
         } catch (Exception e) {
@@ -276,18 +289,19 @@ public class Wincalc {
     //Добавление Element в конструцию
     private void addElem(AreaSimple ownerArea, JsonObject objElem) {
         try {
+            treeMap.put(ownerArea, objElem);
             String id = objElem.get("id").getAsString();
             String elemType = objElem.get("elemType").getAsString();
 
             if (TypeElem.IMPOST.name().equals(elemType)) {
                 ElemSimple elemSimple = new ElemImpost(ownerArea, id);
-                System.out.println(elemSimple.getId());
+                //System.out.println(elemSimple.getId());
                 ownerArea.listChild().add(elemSimple);
 
             } else if (TypeElem.GLASS.name().equals(elemType)) {
                 String paramElem = (objElem.get("paramJson") != null) ? objElem.get("paramJson").getAsString() : null;
                 ElemSimple elemSimple = new ElemGlass(ownerArea, id, paramElem);
-                System.out.println(elemSimple.getId());
+                //System.out.println(elemSimple.getId());                
                 ownerArea.listChild().add(elemSimple);
             }
         } catch (Exception e) {
