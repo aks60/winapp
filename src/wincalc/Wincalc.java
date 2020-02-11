@@ -252,10 +252,13 @@ public class Wincalc {
             } else {
                 if (TypeElem.SQUARE == this.rootArea.typeElem()) {
                     simpleArea = new AreaSquare(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //простое
+                    
                 } else if (TypeElem.TRAPEZE == this.rootArea.typeElem()) {
                     simpleArea = new AreaTrapeze(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //трапеция
+                    
                 } else if (TypeElem.TRIANGL == this.rootArea.typeElem()) {
                     simpleArea = new AreaTriangl(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //треугольник
+                    
                 } else if (TypeElem.ARCH == this.rootArea.typeElem()) {
                     simpleArea = new AreaArch(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //арка
                 }
@@ -276,13 +279,12 @@ public class Wincalc {
             String elemType = objElem.get("elemType").getAsString();
 
             if (TypeElem.IMPOST.name().equals(elemType)) {
-                ElemSimple elemSimple = new ElemImpost(owner, objElem.get("id").getAsString());
+                ElemSimple elemSimple = new ElemImpost(owner, id);
                 owner.listChild().add(elemSimple);
 
             } else if (TypeElem.GLASS.name().equals(elemType)) {
-                System.out.println("xxxx " + id);
                 String paramElem = (objElem.get("paramJson") != null) ? objElem.get("paramJson").getAsString() : null;
-                ElemSimple elemSimple = new ElemGlass(owner, objElem.get("id").getAsString(), paramElem);
+                ElemSimple elemSimple = new ElemGlass(owner, id, paramElem);
                 owner.listChild().add(elemSimple);
             }
         } catch (Exception e) {
