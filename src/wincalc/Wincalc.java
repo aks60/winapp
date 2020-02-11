@@ -228,14 +228,32 @@ public class Wincalc {
 
     //Добавление AREA в конструцию
     private AreaSimple addArea(AreaSimple rootArea, AreaSimple ownerArea, JsonObject objArea) {
-        System.out.println("area: " + objArea.get("id").getAsString());
         try {
             float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
             float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
-            String paramArea = String.valueOf(objArea.get("paramJson"));            
-            TypeElem typeArea = (TypeElem.AREA.name().equals(objArea.get("elemType").getAsString()) == true) ? TypeElem.AREA : TypeElem.FULLSTVORKA;            
+            String id = objArea.get("id").getAsString();
+            String paramArea = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
+            TypeElem typeArea = (TypeElem.AREA.name().equals(objArea.get("elemType").getAsString()) == true) ? TypeElem.AREA : TypeElem.FULLSTVORKA;
             LayoutArea layoutArea = ("VERT".equals(objArea.get("layoutArea").getAsString())) ? LayoutArea.VERT : LayoutArea.HORIZ;
-            AreaSimple simpleArea = AreaSimple.getInstanc(this, ownerArea, objArea.get("id").getAsString(), typeArea, layoutArea, width, height, paramArea);
+
+            AreaSimple simpleArea = null; //фабрика объектов Area
+            if (TypeElem.FULLSTVORKA == typeArea) {
+                simpleArea = new AreaStvorka(this, ownerArea, id, paramArea); //створка  //TODO в створку можно передать  ширину и высоту
+
+            } else {
+                if (TypeElem.SQUARE == this.rootArea.typeElem()) { 
+                    simpleArea = new AreaSquare(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //простое
+
+                } else if (TypeElem.TRAPEZE == this.rootArea.typeElem()) {
+                    simpleArea = new AreaTrapeze(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //трапеция
+
+                } else if (TypeElem.TRIANGL == this.rootArea.typeElem()) {
+                    simpleArea = new AreaTriangl(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //треугольник
+
+                } else if (TypeElem.ARCH == this.rootArea.typeElem()) {
+                    simpleArea = new AreaArch(this, ownerArea, id, typeArea, layoutArea, width, height, -1, -1, -1, null); //арка
+                }
+            }
             ownerArea.listChild().add(simpleArea);
             return simpleArea;
 
@@ -247,35 +265,14 @@ public class Wincalc {
 
     //Добавление Element в конструцию
     private void addElem(AreaSimple root, AreaSimple owner, JsonObject objElem) {
-        System.out.println("elem: " + objElem.get("id").getAsString());
         try {
             if (TypeElem.IMPOST.name().equals(objElem.get("elemType").getAsString())) {
                 owner.listChild().add(new ElemImpost(owner, objElem.get("id").getAsString()));
 
-            } else if (TypeElem.GLASS.name().equals(objElem.get("elemType").getAsString())) {                
-                if (objElem.get("paramJson") != null) {
-                    owner.listChild().add(new ElemGlass(owner, objElem.get("id").getAsString(), objElem.get("paramJson").getAsString()));
-                } else {
-                    owner.listChild().add(new ElemGlass(owner, objElem.get("id").getAsString(), null));
-                }
-            } 
-            
-            /*else if (TypeElem.FULLSTVORKA.name().equals(elem.get("elemType").getAsString())) {
-
-            AreaStvorka elemStvorka = new AreaStvorka(this, owner, elem.get("id").getAsString(), elem.get("paramJson").getAsString());
-            owner.listChild().add(elemStvorka);
-            //Уровень ниже
-            for (Object obj : elem.get("elements").getAsJsonArray()) { //т.к. может быть и глухарь
-                JsonObject elem2 = (JsonObject) obj;
-                if (TypeElem.GLASS.name().equals(elem2.get("elemType").getAsString())) {
-                    if (elem2.get("paramJson") != null) {
-                        elemStvorka.listChild().add(new ElemGlass(elemStvorka, elem2.get("id").getAsString(), elem2.get("paramJson").getAsString()));
-                    } else {
-                        elemStvorka.listChild().add(new ElemGlass(elemStvorka, elem2.get("id").getAsString(), null));
-                    }
-                }
+            } else if (TypeElem.GLASS.name().equals(objElem.get("elemType").getAsString())) {
+                String paramElem = (objElem.get("paramJson") != null) ? objElem.get("paramJson").getAsString() : null;
+                owner.listChild().add(new ElemGlass(owner, objElem.get("id").getAsString(), paramElem));
             }
-        }*/
         } catch (Exception e) {
             System.out.println("Ошибка Wincalc.addElem() " + e);
         }

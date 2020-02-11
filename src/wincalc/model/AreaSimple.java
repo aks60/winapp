@@ -26,31 +26,6 @@ public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
-    //Фабрика объектов Area
-    public static AreaSimple getInstanc(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height, String param) {
-
-        if (TypeElem.FULLSTVORKA == typeElem) {
-            //TODO в створку можно передать  ширину и высоту
-            return new AreaStvorka(iwin, owner, id, param); //створка
-            
-        } else {
-            if (TypeElem.SQUARE == iwin.rootArea.typeElem) { //root().typeElem) {
-                return new AreaSquare(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //простое
-
-            } else if (TypeElem.TRAPEZE == iwin.rootArea.typeElem) {
-                return new AreaTrapeze(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //трапеция
-
-            } else if (TypeElem.TRIANGL == iwin.rootArea.typeElem) {
-                return new AreaTriangl(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //треугольник
-
-            } else if (TypeElem.ARCH == iwin.rootArea.typeElem) {
-                return new AreaArch(iwin, owner, id, typeElem, layout, width, height, 1, 1, 1, null); //арка
-
-            }
-        }
-        return null;
-    }
-
     //Конструктор
     public AreaSimple(String id) {
         super(id);
