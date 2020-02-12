@@ -25,14 +25,14 @@ import enums.TypeProfile;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.List;
 import main.Main;
 import wincalc.constr.Constructive;
 import wincalc.model.Com5t;
@@ -66,7 +66,8 @@ public class Wincalc {
     protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок
     public LinkedList<ElemSimple> listElem; //список элементов
-    LinkedList<AreaSimple> listArea; //список area
+    public LinkedList<Com5t> listCom5t = new LinkedList(); //Список всех элементов конструкции
+    public LinkedList<AreaSimple> listArea; //список area
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
 
@@ -78,6 +79,7 @@ public class Wincalc {
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
+        listCom5t.clear();
 
         //Парсинг входного скрипта
         parsingScript(productJson);
@@ -108,6 +110,8 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> {
             return a.getId().compareTo(b.getId());
         }));
+
+        allCom5t(rootArea, listCom5t, Arrays.asList(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS));
 
         //Тестирование
         if (Main.dev == true) {
@@ -307,16 +311,21 @@ public class Wincalc {
         }
     }
 
-    public <T> T find(Com5t com5T, String id) {
-        
-        for (Com5t com5t : com5T.listChild()) {
-            if(id.equals(com5t.getId())) {
-                return (T) com5t;
-            } 
-            if(com5t.listChild().size() > 0) {
-                find(com5t, id);
-            } 
+    public void allCom5t(Com5t com5t, LinkedList<Com5t> list, List<TypeElem> type) {
+
+        if (type.contains(com5t.typeElem())) {
+            list.add(com5t);
         }
-        return null;
+        if (com5t instanceof AreaSimple) {
+            Collection<ElemFrame> set = ((AreaSimple) com5t).mapFrame.values();
+            for (ElemFrame frm : set) {
+                if (type.contains(frm.typeElem())) {
+                    list.add(frm);
+                }
+            }
+        }
+        for (Com5t com5t2 : com5t.listChild()) {
+            allCom5t(com5t2, list, type);
+        }
     }
 }
