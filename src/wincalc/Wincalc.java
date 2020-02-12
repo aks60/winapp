@@ -65,6 +65,7 @@ public class Wincalc {
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
 
+    
     public AreaSimple create(String productJson) {
 
         mapParamDef.clear();
