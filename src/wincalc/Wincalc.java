@@ -182,61 +182,87 @@ public class Wincalc {
                     }
                 }
             }
-
-            //Элементы окна
-            AreaSimple areaSimple = null;
-            //for (int i = 1; i < 6; i++) {
-                for (Object obj1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
-                    JsonObject elem1 = (JsonObject) obj1;
-                    String type1 = elem1.get("elemType").getAsString();
-                    if (TypeElem.AREA.name().equals(type1) || TypeElem.FULLSTVORKA.name().equals(type1)) {
-                         areaSimple = addArea(rootArea, elem1);
-
-                        for (Object obj2 : elem1.get("elements").getAsJsonArray()) { //второй уровень
-                            JsonObject elem2 = (JsonObject) obj2;
-                            String type2 = elem2.get("elemType").getAsString();
-                            if (TypeElem.AREA.name().equals(type2) || TypeElem.FULLSTVORKA.name().equals(type2)) {
-                                areaSimple = addArea(areaSimple, elem2);
-
-                                for (Object obj3 : elem2.get("elements").getAsJsonArray()) {  //третий уровень
-                                    JsonObject elem3 = (JsonObject) obj3;
-                                    String type3 = elem3.get("elemType").getAsString();
-                                    if (TypeElem.AREA.name().equals(type3) || TypeElem.FULLSTVORKA.name().equals(type3)) {
-                                        areaSimple = addArea(areaSimple, elem3);
-
-                                        for (Object obj4 : elem3.get("elements").getAsJsonArray()) {  //четвёртый уровень
-                                            JsonObject elem4 = (JsonObject) obj4;
-                                            String type4 = elem4.get("elemType").getAsString();
-                                            if (TypeElem.AREA.name().equals(type4) || TypeElem.FULLSTVORKA.name().equals(type4)) {
-                                                areaSimple = addArea(areaSimple, elem4);
-
-                                                for (Object obj5 : elem4.get("elements").getAsJsonArray()) {  //пятый уровень
-                                                    JsonObject elem5 = (JsonObject) obj5;
-                                                    String type5 = elem5.get("elemType").getAsString();
-                                                    if (TypeElem.AREA.name().equals(type5) || TypeElem.FULLSTVORKA.name().equals(type5)) {
-                                                        addArea(areaSimple, elem5);
-
-                                                    } else {
-                                                        addElem(areaSimple, elem5);
-                                                    }
-                                                }
-                                            } else {
-                                                addElem(areaSimple, elem4);
-                                            }
-                                        }
-                                    } else {
-                                        addElem(areaSimple, elem3);
-                                    }
-                                }
-                            } else {
-                                addElem(areaSimple, elem2);
-                            }
-                        }
-                    } else {
-                        addElem(rootArea, elem1);
+            String type = TypeElem.AREA.name();
+            String[] types = {TypeElem.AREA.name(), TypeElem.FULLSTVORKA.name()};
+            //Элементы окна(всё кроме створок)
+            for (Object obj1 : mainObj.get("elements").getAsJsonArray()) { //первый уровень
+                JsonObject elem1 = (JsonObject) obj1;
+                String type1 = elem1.get("elemType").getAsString();
+                if (TypeElem.AREA.name().equals(type1) || TypeElem.FULLSTVORKA.name().equals(type1)) {
+                    if (type.equals(type1)) {
+                        continue;
                     }
+                    AreaSimple areaSimple1 = addArea(rootArea, elem1);
+
+                    for (Object obj2 : elem1.get("elements").getAsJsonArray()) { //второй уровень
+                        JsonObject elem2 = (JsonObject) obj2;
+                        String type2 = elem2.get("elemType").getAsString();
+                        if (TypeElem.AREA.name().equals(type2) || TypeElem.FULLSTVORKA.name().equals(type2)) {
+                            if (type.equals(type2)) {
+                                continue;
+                            }
+                            AreaSimple areaSimple2 = addArea(areaSimple1, elem2);
+
+                            for (Object obj3 : elem2.get("elements").getAsJsonArray()) {  //третий уровень
+                                JsonObject elem3 = (JsonObject) obj3;
+                                String type3 = elem3.get("elemType").getAsString();
+                                if (TypeElem.AREA.name().equals(type3) || TypeElem.FULLSTVORKA.name().equals(type3)) {
+                                    if (type.equals(type3)) {
+                                        continue;
+                                    }
+                                    AreaSimple areaSimple3 = addArea(areaSimple2, elem3);
+
+                                    for (Object obj4 : elem3.get("elements").getAsJsonArray()) {  //четвёртый уровень
+                                        JsonObject elem4 = (JsonObject) obj4;
+                                        String type4 = elem4.get("elemType").getAsString();
+                                        if (TypeElem.AREA.name().equals(type4) || TypeElem.FULLSTVORKA.name().equals(type4)) {
+                                            if (type.equals(type4)) {
+                                                continue;
+                                            }
+                                            AreaSimple areaSimple4 = addArea(areaSimple3, elem4);
+
+                                            for (Object obj5 : elem4.get("elements").getAsJsonArray()) {  //пятый уровень
+                                                JsonObject elem5 = (JsonObject) obj5;
+                                                String type5 = elem5.get("elemType").getAsString();
+                                                if (TypeElem.AREA.name().equals(type5) || TypeElem.FULLSTVORKA.name().equals(type5)) {
+                                                    if (type.equals(type5)) {
+                                                        continue;
+                                                    }
+                                                    AreaSimple areaSimple5 = addArea(areaSimple4, elem5);
+
+                                                    for (Object obj6 : elem4.get("elements").getAsJsonArray()) {  //шестой уровень
+                                                        JsonObject elem6 = (JsonObject) obj6;
+                                                        String type6 = elem6.get("elemType").getAsString();
+                                                        if (TypeElem.AREA.name().equals(type6) || TypeElem.FULLSTVORKA.name().equals(type6)) {
+                                                            if (type.equals(type6)) {
+                                                                continue;
+                                                            }
+                                                            AreaSimple areaSinple6 = addArea(areaSimple5, elem6);
+
+                                                        } else {
+                                                            addElem(areaSimple5, elem6);
+                                                        }
+                                                    }
+                                                } else {
+                                                    addElem(areaSimple4, elem5);
+                                                }
+                                            }
+                                        } else {
+                                            addElem(areaSimple3, elem4);
+                                        }
+                                    }
+                                } else {
+                                    addElem(areaSimple2, elem3);
+                                }
+                            }
+                        } else {
+                            addElem(areaSimple1, elem2);
+                        }
+                    }
+                } else {
+                    addElem(rootArea, elem1);
                 }
-            //}
+            }
         } catch (Exception e) {
             System.out.println("Ошибка Wincalc.parsingScript() " + e);
         }
