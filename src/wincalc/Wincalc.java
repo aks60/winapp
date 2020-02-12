@@ -25,14 +25,11 @@ import enums.TypeProfile;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import main.Main;
 import wincalc.constr.Constructive;
 import wincalc.model.Com5t;
@@ -40,12 +37,15 @@ import wincalc.model.ElemSimple;
 
 public class Wincalc {
 
+    protected Gson gson = new Gson(); //библиотека json
     protected final Constructive constr = null;
     protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
+    protected float percentMarkup = 0;  //процентная надбавка
+    
     public Integer nuni = 0;
     public Record artiklRec = null;  //главный артикл системы профилей
-    protected float percentMarkup = 0;  //процентная надбавка
-
+    public Record sysconsRec = null; //константы
+    
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public float width = 0.f;  //ширина окна
     public float height = 0.f;  //высота окна
@@ -59,17 +59,16 @@ public class Wincalc {
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public float scaleDxy = 1; //коэффициент сжатия
     protected String labelSketch = "empty"; //надпись на эскизе
+    protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
 
     public AreaSimple rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
-    public Record sysconsRec = null; //константы
-    protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию
-    public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок
-    public LinkedList<ElemSimple> listElem; //список элементов
-    public LinkedList<Com5t> listCom5t = new LinkedList(); //Список всех элементов конструкции
-    public LinkedList<AreaSimple> listArea; //список area
-    protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
-    protected Gson gson = new Gson(); //библиотека json
+    protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию       
+
+    public LinkedList<Com5t> listCom5t; //список всех Com5t
+    public LinkedList<ElemSimple> listElem; //список ElemSimple
+    public LinkedList<AreaSimple> listArea; //список AreaSimple
+    public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
 
     public Wincalc() {
     }
@@ -79,11 +78,9 @@ public class Wincalc {
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
-        listCom5t.clear();
 
         //Парсинг входного скрипта
         parsingScript(productJson);
-        //System.out.println(productJson); //вывод на консоль json
 
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
@@ -110,8 +107,6 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> {
             return a.getId().compareTo(b.getId());
         }));
-
-        allCom5t(rootArea, listCom5t, Arrays.asList(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS));
 
         //Тестирование
         if (Main.dev == true) {
@@ -308,24 +303,6 @@ public class Wincalc {
             }
         } catch (Exception e) {
             System.out.println("Ошибка Wincalc.addElem() " + e);
-        }
-    }
-
-    public void allCom5t(Com5t com5t, LinkedList<Com5t> list, List<TypeElem> type) {
-
-        if (type.contains(com5t.typeElem())) {
-            list.add(com5t);
-        }
-        if (com5t instanceof AreaSimple) {
-            Collection<ElemFrame> set = ((AreaSimple) com5t).mapFrame.values();
-            for (ElemFrame frm : set) {
-                if (type.contains(frm.typeElem())) {
-                    list.add(frm);
-                }
-            }
-        }
-        for (Com5t com5t2 : com5t.listChild()) {
-            allCom5t(com5t2, list, type);
         }
     }
 }

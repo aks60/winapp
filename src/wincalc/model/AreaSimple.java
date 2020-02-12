@@ -1,13 +1,10 @@
 package wincalc.model;
 
-import domain.eArtikl;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.JoinLocate;
 import enums.JoinVariant;
 import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.io.File;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -16,6 +13,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -26,12 +24,10 @@ public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
-    //Конструктор
     public AreaSimple(String id) {
         super(id);
     }
 
-    //Конструктор 
     public AreaSimple(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
         this.iwin = iwin;
@@ -76,61 +72,28 @@ public class AreaSimple extends Com5t {
 
     //Список элементов окна
     public <E> LinkedList<E> listElem(TypeElem... type) {
-
-        LinkedList<Com5t> arrElem = new LinkedList(); //список элементов
-        LinkedList<E> outElem = new LinkedList(); //выходной список
-        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : root().mapFrame.entrySet()) {
-
-            arrElem.add(elemFrame.getValue());
-        }
-        for (Com5t elemBase : root().listChild()) { //первый уровень
-            arrElem.add(elemBase);
-            if (elemBase instanceof AreaSimple) {
-                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase).mapFrame.entrySet()) {
-                    arrElem.add(elemFrame.getValue());
-                }
-                for (Com5t elemBase2 : elemBase.listChild()) { //второй уровень
-                    arrElem.add(elemBase2);
-                    if (elemBase2 instanceof AreaSimple) {
-                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase2).mapFrame.entrySet()) {
-                            arrElem.add(elemFrame.getValue());
-                        }
-                        for (Com5t elemBase3 : elemBase2.listChild()) { //третий уровень
-                            arrElem.add(elemBase3);
-                            if (elemBase3 instanceof AreaSimple) {
-                                for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase3).mapFrame.entrySet()) {
-                                    arrElem.add(elemFrame.getValue());
-                                }
-                                for (Com5t elemBase4 : elemBase3.listChild()) { //четвёртый уровень
-                                    arrElem.add(elemBase4);
-                                    if (elemBase4 instanceof AreaSimple) {
-                                        for (Map.Entry<LayoutArea, ElemFrame> elemFrame : ((AreaSimple) elemBase4).mapFrame.entrySet()) {
-                                            arrElem.add(elemFrame.getValue());
-                                        }
-                                        for (Com5t elemBase5 : elemBase4.listChild()) { //пятый уровень
-                                            arrElem.add(elemBase5);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //Цикл по входному списку элементов
-        for (Com5t elemBase : arrElem) {
-            for (int index = 0; index < type.length; ++index) {
-
-                TypeElem type2 = type[index];
-                if (elemBase.typeElem() == type2) {
-                    E elem = (E) elemBase;
-                    outElem.add(elem);
-                }
-            }
-        }
-        return outElem;
+        LinkedList<E> list = new LinkedList();
+        allCom5t(this, list, Arrays.asList(type));
+        return list;
     }
+        
+    public <E> void allCom5t(Com5t com5t, LinkedList<E> list, List<TypeElem> type) {
+
+        if (type.contains(com5t.typeElem())) {
+            list.add((E)com5t);
+        }
+        if (com5t instanceof AreaSimple) {
+            Collection<ElemFrame> set = ((AreaSimple) com5t).mapFrame.values();
+            for (ElemFrame frm : set) {
+                if (type.contains(frm.typeElem())) {
+                    list.add((E)frm);
+                }
+            }
+        }
+        for (Com5t com5t2 : com5t.listChild()) {
+            allCom5t(com5t2, list, type);
+        }
+    }    
 
     public void joinFrame() {
     }
@@ -224,11 +187,11 @@ public class AreaSimple extends Com5t {
             iwin.gc2d.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = listElem(TypeElem.GLASS);
+            LinkedList<ElemGlass> elemGlassList = root().listElem(TypeElem.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemImpost> elemImpostList = listElem(TypeElem.IMPOST);
+            LinkedList<ElemImpost> elemImpostList = root().listElem(TypeElem.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -242,12 +205,12 @@ public class AreaSimple extends Com5t {
             mapFrame.get(LayoutArea.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = listElem(TypeElem.FULLSTVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера            
             LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-            LinkedList<ElemImpost> impostList = listElem(TypeElem.IMPOST);
+            LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST);
             for (ElemSimple el : impostList) { //по импостам определим точки разрыва линии
                 if (LayoutArea.VERT == el.owner.layout) {
                     ls2.add(el.y1);
