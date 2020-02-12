@@ -41,8 +41,8 @@ public class Wincalc {
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
 
-    public float width = 0.f;  //ширина окна
-    public float height = 0.f;  //высота окна
+    public float width = 0.f;     //ширина окна
+    public float height = 0.f;    //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public int color1 = -1; //базовый цвет
