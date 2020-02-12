@@ -69,12 +69,12 @@ public class Wincalc {
     LinkedList<AreaSimple> listArea; //список area
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
     protected Gson gson = new Gson(); //библиотека json
-    protected TreeMap<AreaSimple, JsonObject> treeMap = new TreeMap(new Comparator<Com5t>() {
-        @Override
-        public int compare(Com5t e1, Com5t e2) {
-            return e1.getId().compareTo(e2.getId());
-        }
-    });
+//    protected TreeMap<AreaSimple, JsonObject> treeMap = new TreeMap(new Comparator<Com5t>() {
+//        @Override
+//        public int compare(Com5t e1, Com5t e2) {
+//            return e1.getId().compareTo(e2.getId());
+//        }
+//    });
 
     public Wincalc() {
     }
@@ -89,9 +89,9 @@ public class Wincalc {
         parsingScript(productJson);
         //System.out.println(productJson); //вывод на консоль json
 
-        for(Map.Entry<AreaSimple, JsonObject> entry : treeMap.entrySet()){
-            System.out.println(entry.getKey());
-        }
+//        for(Map.Entry<AreaSimple, JsonObject> entry : treeMap.entrySet()){
+//            System.out.println(entry.getKey());
+//        }
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
@@ -251,7 +251,6 @@ public class Wincalc {
     //Добавление AREA в конструцию
     private AreaSimple addArea(AreaSimple ownerArea, JsonObject objArea) {
         try {
-            treeMap.put(ownerArea, objArea);
             float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
             float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
             String id = objArea.get("id").getAsString();
@@ -289,7 +288,6 @@ public class Wincalc {
     //Добавление Element в конструцию
     private void addElem(AreaSimple ownerArea, JsonObject objElem) {
         try {
-            treeMap.put(ownerArea, objElem);
             String id = objElem.get("id").getAsString();
             String elemType = objElem.get("elemType").getAsString();
 
