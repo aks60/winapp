@@ -29,7 +29,10 @@ public abstract class Com5t {
     public static final int SPACE_DY = 240;   //пространство для линий   
 
     protected TypeElem typeElem = TypeElem.NONE;
-    private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
+    private LinkedList<Com5t> listChild = new LinkedList() {
+        ;
+    } 
+    //список компонентов в окне
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
     protected String id = "0"; //идентификатор
