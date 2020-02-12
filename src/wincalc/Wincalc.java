@@ -37,19 +37,14 @@ import wincalc.model.ElemSimple;
 
 public class Wincalc {
 
-    protected Gson gson = new Gson(); //библиотека json
-    protected final Constructive constr = null;
-    protected static final HashMap<Short, Constructive> constrMap = new HashMap<>();
-    protected float percentMarkup = 0;  //процентная надбавка
-    
     public Integer nuni = 0;
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
-    
-    protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
+        
     public float width = 0.f;  //ширина окна
     public float height = 0.f;  //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
+    protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public int color1 = -1; //базовый цвет
     public int color2 = -1; //внутренний цвет
     public int color3 = -1; //внещний цвет
@@ -69,9 +64,6 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
-
-    public Wincalc() {
-    }
 
     public AreaSimple create(String productJson) {
 
@@ -121,6 +113,7 @@ public class Wincalc {
     private void parsingScript(String json) {
 
         try {
+            Gson gson = new Gson(); //библиотека jso
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = jsonElement.getAsJsonObject();
 
