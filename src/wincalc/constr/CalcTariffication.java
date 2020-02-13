@@ -2,7 +2,7 @@ package wincalc.constr;
 
 
 
-import java.util.LinkedList;
+import wincalc.model.AreaSimple;
 
 /**
  * Расчёт стоимости элементов окна
@@ -26,12 +26,12 @@ import java.util.LinkedList;
 public class CalcTariffication extends CalcBase {
 
 //    private Sysprof sysprofRec = null;
-//
-//    public CalcTariffication(AreaSimple root) {
-//        super(root);
-//        sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
-//    }
-//
+
+    public CalcTariffication(AreaSimple root) {
+        super(root);
+        //sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
+    }
+
 //    /**
 //     * @param elemList - список элементов окна рамы, импосты, стеклопакеты...
 //     */

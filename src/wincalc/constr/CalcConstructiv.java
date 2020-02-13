@@ -1,7 +1,7 @@
 package wincalc.constr;
 
 
-import java.util.*;
+import wincalc.model.AreaSimple;
 
 /**
  * Расчёт конструктива окна.
@@ -13,12 +13,12 @@ public class CalcConstructiv extends CalcBase {
 //
 //    public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
 //
-//    public CalcConstructiv(AreaSimple root) {
-//
-//        super(root);
-//        paramVariant = new ParamVariant(root, this);
-//        paramSpecific = new ParamSpecific(root, this);
-//    }
+    public CalcConstructiv(AreaSimple root) {
+
+        super(root);
+        //paramVariant = new ParamVariant(root, this);
+        //paramSpecific = new ParamSpecific(root, this);
+    }
 //
 //    /**
 //     * Фурнитура

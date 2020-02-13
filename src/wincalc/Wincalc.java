@@ -31,7 +31,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import main.Main;
-import wincalc.constr.Constructive;
+import wincalc.constr.CalcConstructiv;
+import wincalc.constr.CalcTariffication;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 
@@ -109,6 +110,25 @@ public class Wincalc {
         return rootArea;
     }
 
+    //Конструктив
+    public void const5v() {
+        try {
+        CalcConstructiv constructiv = new CalcConstructiv(rootArea); //конструктив
+        CalcTariffication tariffic = new CalcTariffication(rootArea); //класс тарификации
+//            constructiv.compositionFirst();                //составы
+//            constructiv.joiningFirst();                    //соединения
+//            constructiv.fillingFirst();                    //заполнения
+//            constructiv.fittingFirst();                    //фурнитура
+//            constructiv.kitsFirst();                       //комплекты
+//            tariffic.calculate(elemList);                  //тарификация
+//            rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
+//            //rootArea.drawWin(.3f, bufferSmallImg, false);  //small рис.
+//            rootArea.resposeParamJson();                   //выходные пар.
+        } catch (Exception e) {
+            System.out.println("Ошибка калькуляции конструктива IWin.const5v() " + e);
+        }        
+    }
+    
     // Парсим входное json окно и строим объектную модель окна
     private void parsingScript(String json) {
 
