@@ -183,7 +183,7 @@ public class Wincalc {
         }
     }
 
-    //Рекурсия дерева окна
+    //Рекурсия дерева скрипта
     private void buildWin(JsonObject jso, AreaSimple ars) {
 
         for (Object obj : jso.get("elements").getAsJsonArray()) {
