@@ -42,8 +42,8 @@ public class Wincalc {
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
 
-    public float width = 0.f;  //ширина окна
-    public float height = 0.f;  //высота окна
+    public float width = 0.f;     //ширина окна
+    public float height = 0.f;    //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
     protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public int color1 = -1; //базовый цвет
@@ -66,6 +66,7 @@ public class Wincalc {
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
 
+    
     public AreaSimple create(String productJson) {
 
         mapParamDef.clear();
@@ -80,9 +81,8 @@ public class Wincalc {
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
 
         //Инициализация объектов калькуляции
-        LinkedList<AreaSimple> listArea = rootArea.listElem(TypeElem.AREA); //список контейнеров
+        listArea = rootArea.listElem(TypeElem.AREA); //список контейнеров
         LinkedList<AreaStvorka> listStvorka = rootArea.listElem(TypeElem.FULLSTVORKA); //список створок
-        EnumMap<LayoutArea, ElemFrame> mapElemRama = rootArea.mapFrame; //список рам
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
@@ -158,6 +158,7 @@ public class Wincalc {
             String elemType = mainObj.get("elemType").getAsString();
             LayoutArea layoutRoot = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
+            //Главное окно
             if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
                 rootArea = new AreaSquare(this, null, id, TypeElem.SQUARE, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
 
@@ -171,7 +172,7 @@ public class Wincalc {
                 rootArea = new AreaArch(this, null, id, TypeElem.ARCH, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
             }
 
-            //Добавим рамы
+            //Добавим рамы в гпавное окно
             for (Object elemFrame : mainObj.get("elements").getAsJsonArray()) {
                 JsonObject jsonFrame = (JsonObject) elemFrame;
 
@@ -194,16 +195,16 @@ public class Wincalc {
                     }
                 }
             }
-            //Элементы окна
-            passWin(mainObj, rootArea);
+            //Добавим все остальные элементы
+            buildWin(mainObj, rootArea);
 
         } catch (Exception e) {
             System.out.println("Ошибка Wincalc.parsingScript() " + e);
         }
     }
 
-    //Рекурсия дерева окна
-    private void passWin(JsonObject jso, AreaSimple ars) {
+    //Рекурсия дерева скрипта
+    private void buildWin(JsonObject jso, AreaSimple ars) {
 
         for (Object obj : jso.get("elements").getAsJsonArray()) {
             JsonObject elem = (JsonObject) obj;
@@ -211,7 +212,7 @@ public class Wincalc {
 
             if (TypeElem.AREA.name().equals(type) || TypeElem.FULLSTVORKA.name().equals(type)) {
                 AreaSimple ars2 = addArea(ars, elem);
-                passWin(elem, ars2);
+                buildWin(elem, ars2);
             } else {
                 addElem(ars, elem);
             }
