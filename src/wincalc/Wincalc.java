@@ -38,6 +38,9 @@ import wincalc.model.ElemSimple;
 
 public class Wincalc {
 
+    public static boolean production = false;
+    public Constructive constr;
+    
     public Integer nuni = 0;
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
