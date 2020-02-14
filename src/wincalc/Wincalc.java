@@ -26,13 +26,13 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import main.Main;
 import wincalc.constr.CalcConstructiv;
 import wincalc.constr.CalcTariffication;
+import wincalc.constr.Constructive;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 
@@ -116,10 +116,10 @@ public class Wincalc {
     //Конструктив
     public void const5v() {
         try {
-            constr = Constructive.getConstructive((short) 177);
+            //constr = Constructive.getConstructive((short) 177);
             CalcConstructiv constructiv = new CalcConstructiv(rootArea); //конструктив
             CalcTariffication tariffic = new CalcTariffication(rootArea); //класс тарификации
-//            constructiv.compositionFirst();                //составы
+            constructiv.compositionFirst();                //составы
 //            constructiv.joiningFirst();                    //соединения
 //            constructiv.fillingFirst();                    //заполнения
 //            constructiv.fittingFirst();                    //фурнитура

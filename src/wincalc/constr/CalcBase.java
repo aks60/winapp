@@ -19,9 +19,9 @@ public class CalcBase {
     public CalcBase(AreaSimple root) {
 
         this.root = root;
-//        this.iwin = root.getIwin();
-//        this.constr = root.getIwin().getConstr();
-//        this.nuni = root.getIwin().getNuni();
+        this.iwin = root.getIwin();
+        this.constr = root.getIwin().getConstr();
+        this.nuni = root.getIwin().getNuni();
     }
 
     //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
