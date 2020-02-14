@@ -184,7 +184,7 @@ public class Wincalc {
                         ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.ARCH));
                     }
                     //String name, String id, Intermediate parent, AreaSimple owner, LayoutArea layout, TypeElem elemType
-                    Intermediate mmm = new Intermediate("", jsonFrame.get("id").getAsString(), rootArea, rootArea, LayoutArea.LEFT);
+                    //Intermediate mmm = new Intermediate("", jsonFrame.get("id").getAsString(), rootArea, rootArea, LayoutArea.LEFT);
                     //imd.add())
                 }
             }
