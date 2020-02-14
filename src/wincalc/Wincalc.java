@@ -119,7 +119,7 @@ public class Wincalc {
             //constr = Constructive.getConstructive((short) 177);
             CalcConstructiv constructiv = new CalcConstructiv(this); //конструктив
             CalcTariffication tariffic = new CalcTariffication(this); //класс тарификации
-            constructiv.compositionFirst();                //составы
+            //constructiv.compositionFirst();                //составы
 //            constructiv.joiningFirst();                    //соединения
 //            constructiv.fillingFirst();                    //заполнения
 //            constructiv.fittingFirst();                    //фурнитура
