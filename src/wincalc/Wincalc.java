@@ -113,8 +113,9 @@ public class Wincalc {
     //Конструктив
     public void const5v() {
         try {
-        CalcConstructiv constructiv = new CalcConstructiv(rootArea); //конструктив
-        CalcTariffication tariffic = new CalcTariffication(rootArea); //класс тарификации
+            constr = Constructive.getConstructive((short) 177);
+            CalcConstructiv constructiv = new CalcConstructiv(rootArea); //конструктив
+            CalcTariffication tariffic = new CalcTariffication(rootArea); //класс тарификации
 //            constructiv.compositionFirst();                //составы
 //            constructiv.joiningFirst();                    //соединения
 //            constructiv.fillingFirst();                    //заполнения
@@ -126,7 +127,7 @@ public class Wincalc {
 //            rootArea.resposeParamJson();                   //выходные пар.
         } catch (Exception e) {
             System.out.println("Ошибка калькуляции конструктива IWin.const5v() " + e);
-        }        
+        }
     }
     
     // Парсим входное json окно и строим объектную модель окна
