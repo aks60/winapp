@@ -4,9 +4,9 @@ package wincalc.constr;
 import wincalc.Wincalc;
 
 
-public class SubFilling extends CalcBase {
+public class Filling extends Cal5e {
     
-    public SubFilling(Wincalc iwin) {
+    public Filling(Wincalc iwin) {
         super(iwin);
     }     
 //    /**

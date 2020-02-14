@@ -2,8 +2,9 @@ package wincalc.constr;
 
 
 
+import java.util.LinkedList;
 import wincalc.Wincalc;
-import wincalc.model.AreaSimple;
+import wincalc.model.Com5t;
 
 /**
  * Расчёт стоимости элементов окна
@@ -24,19 +25,19 @@ import wincalc.model.AreaSimple;
  * расчёта произвожу расчёт собес-сти с отходом При завершении итерации перехожу к новому
  * элементу конструкции и т.д.
  */
-public class CalcTariffication extends CalcBase {
+public class Tariffication extends Cal5e {
 
 //    private Sysprof sysprofRec = null;
 
-    public CalcTariffication(Wincalc iwin) {
+    public Tariffication(Wincalc iwin) {
         super(iwin);
         //sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
     }
 
-//    /**
-//     * @param elemList - список элементов окна рамы, импосты, стеклопакеты...
-//     */
-//    public void calculate(LinkedList<ElemBase> elemList) {
+    /**
+     * @param elemList - список элементов окна рамы, импосты, стеклопакеты...
+     */
+    public void calculate(LinkedList<Com5t> elemList) {
 //
 //        //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
 //        for (ElemBase elemBase : elemList) {
@@ -112,7 +113,7 @@ public class CalcTariffication extends CalcBase {
 //                spec.weight = spec.quantity * spec.getArticRec().amass;
 //            }
 //        }
-//    }
+    }
 //
 //    /**
 //     * Фильтр по полю riskl, colorXXX таблицы rulecls

@@ -11,9 +11,9 @@ import wincalc.Wincalc;
 import wincalc.model.ElemFrame;
 import wincalc.model.ElemImpost;
 
-public class SubСomposition extends CalcBase {
+public class Сomposition extends Cal5e {
 
-    public SubСomposition(Wincalc iwin) {
+    public Сomposition(Wincalc iwin) {
         super(iwin);
     }
 

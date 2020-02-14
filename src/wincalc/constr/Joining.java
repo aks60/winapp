@@ -2,9 +2,9 @@ package wincalc.constr;
 
 import wincalc.Wincalc;
 
-public class SubJoining extends CalcBase {
+public class Joining extends Cal5e {
     
-    public SubJoining(Wincalc iwin) {
+    public Joining(Wincalc iwin) {
         super(iwin);
     } 
     

@@ -3,9 +3,9 @@ package wincalc.constr;
 
 import wincalc.Wincalc;
 
-public class SubAccessory extends CalcBase {
+public class Accessory extends Cal5e {
     
-    public SubAccessory(Wincalc iwin) {
+    public Accessory(Wincalc iwin) {
         super(iwin);
     }    
 //

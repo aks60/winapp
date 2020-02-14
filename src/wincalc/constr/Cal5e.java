@@ -4,7 +4,7 @@ import java.util.*;
 import wincalc.Wincalc;
 import wincalc.model.AreaSimple;
 
-public class CalcBase {
+public class Cal5e {
 
     protected Wincalc iwin = null;
 
@@ -13,10 +13,9 @@ public class CalcBase {
     protected static final int PAR4 = 4;   //профиль с радиусом
     protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
     protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
-    protected Constructive constr = null;
 
 
-    public CalcBase(Wincalc iwin) {
+    public Cal5e(Wincalc iwin) {
         this.iwin = iwin;
     }
 

@@ -2,9 +2,9 @@ package wincalc.constr;
 
 import wincalc.Wincalc;
 
-public class SubKits extends CalcBase {
+public class Kits extends Cal5e {
 
-    public SubKits(Wincalc iwin) {
+    public Kits(Wincalc iwin) {
         super(iwin);
     }
 }

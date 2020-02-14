@@ -14,7 +14,7 @@ import wincalc.model.ElemImpost;
 /**
  * Расчёт конструктива окна.
  */
-public class CalcConstructiv extends CalcBase {
+public class Constructiv extends Cal5e {
 
     private ParamVariant paramVariant = null;
     private ParamSpecific paramSpecific = null;
@@ -22,12 +22,21 @@ public class CalcConstructiv extends CalcBase {
 //    public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
 //
 
-    public CalcConstructiv(Wincalc iwin) {
+    public Constructiv(Wincalc iwin) {
 
         super(iwin);
         paramVariant = new ParamVariant(iwin, this);
         paramSpecific = new ParamSpecific(iwin, this);
     }
+    
+public void calculate() {
+    
+            //constructiv.compositionFirst();                //составы
+//            constructiv.joiningFirst();                    //соединения
+//            constructiv.fillingFirst();                    //заполнения
+//            constructiv.fittingFirst();                    //фурнитура
+//            constructiv.kitsFirst();                       //комплекты    
+}    
 //    /**
 //     * Список допустимых параметров
 //     */

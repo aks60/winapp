@@ -11,9 +11,9 @@ import wincalc.model.AreaSimple;
 public class ParamVariant {
 
    protected Wincalc iwin = null;
-   protected CalcConstructiv calcConstr = null;
+   protected Constructiv calcConstr = null;
 
-    public ParamVariant(Wincalc iwin, CalcConstructiv calcConstr) {
+    public ParamVariant(Wincalc iwin, Constructiv calcConstr) {
         this.iwin = iwin;
         this.calcConstr = calcConstr;
     }
