@@ -24,23 +24,23 @@ import enums.TypeElem;
 import enums.TypeProfile;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import main.Main;
-import wincalc.constr.CalcConstructiv;
-import wincalc.constr.CalcTariffication;
-import wincalc.constr.Constructive;
+import wincalc.constr.Constructiv;
+import wincalc.constr.Tariffication;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 
 public class Wincalc {
 
     public static boolean production = false;
-    public Constructive constr;
-    
+    public Connection conn;
+
     public Integer nuni = 0;
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
@@ -69,7 +69,6 @@ public class Wincalc {
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
 
-    
     public AreaSimple create(String productJson) {
 
         mapParamDef.clear();
@@ -104,6 +103,12 @@ public class Wincalc {
             return a.getId().compareTo(b.getId());
         }));
 
+        //Конструктив и тарификация
+        //Constructiv constructiv = new Constructiv(this); //конструктив
+        //constructiv.calculate();
+        //Tariffication tariffic = new Tariffication(this); //тарификации
+        //tariffic.calculate(listCom5t);
+
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
@@ -113,26 +118,6 @@ public class Wincalc {
         return rootArea;
     }
 
-    //Конструктив
-    public void const5v() {
-        try {
-            //constr = Constructive.getConstructive((short) 177);
-            CalcConstructiv constructiv = new CalcConstructiv(this); //конструктив
-            CalcTariffication tariffic = new CalcTariffication(this); //класс тарификации
-            //constructiv.compositionFirst();                //составы
-//            constructiv.joiningFirst();                    //соединения
-//            constructiv.fillingFirst();                    //заполнения
-//            constructiv.fittingFirst();                    //фурнитура
-//            constructiv.kitsFirst();                       //комплекты
-//            tariffic.calculate(elemList);                  //тарификация
-//            rootArea.drawWin(1f, bufferFullImg, true);     //full рис.
-//            //rootArea.drawWin(.3f, bufferSmallImg, false);  //small рис.
-//            rootArea.resposeParamJson();                   //выходные пар.
-        } catch (Exception e) {
-            System.out.println("Ошибка калькуляции конструктива IWin.const5v() " + e);
-        }
-    }
-    
     // Парсим входное json окно и строим объектную модель окна
     private void parsingScript(String json) {
 
