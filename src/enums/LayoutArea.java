@@ -1,5 +1,7 @@
 package enums;
 
+import java.util.Arrays;
+
 public enum LayoutArea {
     NONE("Любая"),
     FULL("Везде"),
@@ -14,7 +16,7 @@ public enum LayoutArea {
     ARCH("Арка");
 
     public String name;
-    public int value; 
+    public int value;
 
     LayoutArea(String name) {
         this.name = name;

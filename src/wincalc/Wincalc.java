@@ -68,6 +68,9 @@ public class Wincalc {
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
 
+    protected Intermediate intermediate = null;
+    protected LinkedList<Intermediate> listIntermediate = new LinkedList();
+
     public AreaSimple create(String productJson) {
 
         mapParamDef.clear();
@@ -107,12 +110,11 @@ public class Wincalc {
         //constructiv.calculate();
         //Tariffication tariffic = new Tariffication(this); //тарификации
         //tariffic.calculate(listCom5t);
-
         //Тестирование
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
             //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
-            //listElem.stream().forEach(el -> System.out.println(el));
+            listIntermediate.stream().forEach(el -> System.out.println(el));
         }
         return rootArea;
     }
@@ -121,8 +123,6 @@ public class Wincalc {
     private void parsingScript(String json) {
 
         try {
-            LinkedList<Intermediate> imd = new LinkedList();
-            
             Gson gson = new Gson(); //библиотека jso
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = jsonElement.getAsJsonObject();
@@ -149,47 +149,50 @@ public class Wincalc {
             LayoutArea layoutRoot = ("VERT".equals(layoutObj)) ? LayoutArea.VERT : LayoutArea.HORIZ;
 
             //Главное окно
-            if ("SQUARE".equals(mainObj.get("elemType").getAsString())) {
+            if ("SQUARE".equals(elemType)) {
                 rootArea = new AreaSquare(this, null, id, TypeElem.SQUARE, layoutRoot, width, height, color1, color2, color3, paramJson); //простое
 
-            } else if ("TRAPEZE".equals(mainObj.get("elemType").getAsString())) {
+            } else if ("TRAPEZE".equals(elemType)) {
                 rootArea = new AreaTrapeze(this, null, id, TypeElem.TRAPEZE, layoutRoot, width, height, color1, color2, color3, paramJson); //трапеция
 
-            } else if ("TRIANGL".equals(mainObj.get("elemType").getAsString())) {
+            } else if ("TRIANGL".equals(elemType)) {
                 rootArea = new AreaTriangl(this, null, id, TypeElem.TRIANGL, layoutRoot, width, height, color1, color2, color3, paramJson); //треугольник
 
-            } else if ("ARCH".equals(mainObj.get("elemType").getAsString())) {
+            } else if ("ARCH".equals(elemType)) {
                 rootArea = new AreaArch(this, null, id, TypeElem.ARCH, layoutRoot, width, height, color1, color2, color3, paramJson); //арка
             }
+
+            intermediate = new Intermediate(null, id, elemType, layoutObj, width, height, paramJson);
 
             //Добавим рамы в гпавное окно
             for (Object elemFrame : mainObj.get("elements").getAsJsonArray()) {
                 JsonObject jsonFrame = (JsonObject) elemFrame;
 
                 if (TypeElem.FRAME_BOX.name().equals(jsonFrame.get("elemType").getAsString())) {
+                    String layourFrame = jsonFrame.get("layoutFrame").getAsString();
 
-                    if (LayoutArea.LEFT.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                    if (LayoutArea.LEFT.name().equals(layourFrame)) {
                         ElemFrame frameLeft = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.LEFT));
 
-                    } else if (LayoutArea.RIGHT.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                    } else if (LayoutArea.RIGHT.name().equals(layourFrame)) {
                         ElemFrame frameRight = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.RIGHT));
 
-                    } else if (LayoutArea.TOP.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                    } else if (LayoutArea.TOP.name().equals(layourFrame)) {
                         ElemFrame frameTop = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.TOP));
 
-                    } else if (LayoutArea.BOTTOM.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                    } else if (LayoutArea.BOTTOM.name().equals(layourFrame)) {
                         ElemFrame frameBottom = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.BOTTOM));
 
-                    } else if (LayoutArea.ARCH.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
+                    } else if (LayoutArea.ARCH.name().equals(layourFrame)) {
                         ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.ARCH));
                     }
-                    //String name, String id, Intermediate parent, AreaSimple owner, LayoutArea layout, TypeElem elemType
-                    //Intermediate mmm = new Intermediate("", jsonFrame.get("id").getAsString(), rootArea, rootArea, LayoutArea.LEFT);
-                    //imd.add())
+
+                    listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsString(), TypeElem.FRAME_BOX.name, layourFrame, ""));
                 }
             }
             //Добавим все остальные элементы
             buildWin(mainObj, rootArea);
+            buildWin2(mainObj, intermediate);
 
         } catch (Exception e) {
             System.out.println("Ошибка Wincalc.parsingScript() " + e);
@@ -197,17 +200,40 @@ public class Wincalc {
     }
 
     //Рекурсия дерева скрипта
-    private void buildWin(JsonObject jso, AreaSimple ars) {
+    private void buildWin(JsonObject jso, AreaSimple ownerArea) {
 
         for (Object obj : jso.get("elements").getAsJsonArray()) {
-            JsonObject elem = (JsonObject) obj;
-            String type = elem.get("elemType").getAsString();
+            JsonObject jsonObject = (JsonObject) obj;
+            String type = jsonObject.get("elemType").getAsString();
 
             if (TypeElem.AREA.name().equals(type) || TypeElem.FULLSTVORKA.name().equals(type)) {
-                AreaSimple ars2 = addArea(ars, elem);
-                buildWin(elem, ars2);
+                AreaSimple ownerArea2 = addArea(ownerArea, jsonObject);
+                buildWin(jsonObject, ownerArea2);
             } else {
-                addElem(ars, elem);
+                addElem(ownerArea, jsonObject);
+            }
+        }
+    }
+
+    private void buildWin2(JsonObject jso, Intermediate owner) {
+
+        for (Object obj : jso.get("elements").getAsJsonArray()) {
+            JsonObject objArea = (JsonObject) obj;
+            String id = objArea.get("id").getAsString();
+            String type = objArea.get("elemType").getAsString();
+            String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;           
+            if (TypeElem.AREA.name().equals(type) || TypeElem.FULLSTVORKA.name().equals(type)) {
+
+                float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
+                float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;                
+                String layout = objArea.get("layoutArea").getAsString();
+                Intermediate intermediate = new Intermediate(owner, id, type, layout, width, height, param);
+                listIntermediate.add(intermediate);
+                buildWin2(objArea, intermediate);
+            } else {
+
+                Intermediate intermediate = new Intermediate(owner, id, type, LayoutArea.NONE.name, param);
+                listIntermediate.add(intermediate);
             }
         }
     }
