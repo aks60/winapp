@@ -31,10 +31,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import main.Main;
-import wincalc.constr.Constructiv;
-import wincalc.constr.Tariffication;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
+import wincalc.script.Intermediate;
 
 public class Wincalc {
 
@@ -122,6 +121,8 @@ public class Wincalc {
     private void parsingScript(String json) {
 
         try {
+            LinkedList<Intermediate> imd = new LinkedList();
+            
             Gson gson = new Gson(); //библиотека jso
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = jsonElement.getAsJsonObject();
@@ -182,6 +183,9 @@ public class Wincalc {
                     } else if (LayoutArea.ARCH.name().equals(jsonFrame.get("layoutFrame").getAsString())) {
                         ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.ARCH));
                     }
+                    //String name, String id, Intermediate parent, AreaSimple owner, LayoutArea layout, TypeElem elemType
+                    Intermediate mmm = new Intermediate("", jsonFrame.get("id").getAsString(), rootArea, rootArea, LayoutArea.LEFT);
+                    //imd.add())
                 }
             }
             //Добавим все остальные элементы
