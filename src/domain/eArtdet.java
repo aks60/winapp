@@ -48,7 +48,7 @@ public enum eArtdet implements Field {
         return query;
     }
 
-    public Record find(int id) {
+    public static Record find(int id) {
         return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
     }
 

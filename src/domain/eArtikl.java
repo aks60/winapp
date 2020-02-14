@@ -89,7 +89,7 @@ public enum eArtikl implements Field {
         return query;
     }
 
-    public Record find(int _id, boolean _analog) {
+    public static Record find(int _id, boolean _analog) {
         
         Record articlRec = query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);         
         if (_analog == false && articlRec.get(analog_id) != null) {
@@ -100,7 +100,7 @@ public enum eArtikl implements Field {
         return articlRec;
     }
 
-    public Record find2(String _code) {
+    public static Record find2(String _code) {
         return query.select().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
     }
 

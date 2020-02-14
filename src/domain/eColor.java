@@ -51,11 +51,11 @@ public enum eColor implements Field {
         return query;
     }
 
-    public Record find(int _id) {
+    public static Record find(int _id) {
         return query.select().stream().filter(rec -> rec.getInt(eColor.id) == _id).findFirst().orElse(null);
     }
     
-    public Record find2(int _code) {
+    public static Record find2(int _code) {
         return query.select().stream().filter(rec -> rec.getInt(eColor.code) == _code).findFirst().orElse(null);
     }
 

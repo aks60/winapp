@@ -45,15 +45,15 @@ public enum eSysprof implements Field {
         virtualRec();
         return query;
     }
-    
-    public  ArrayList<Record> find(int nuni) {
+
+    public static ArrayList<Record> find(int nuni) {
 
         ArrayList<Record> sysproaList = new ArrayList();
         query.select().stream().filter(rec -> nuni == rec.getInt(id)).forEach(rec -> sysproaList.add(rec));
         return sysproaList;
     }
 
-    public Record find2(int nuni, TypeProfile type) {
+    public static Record find2(int nuni, TypeProfile type) {
 
         HashMap<Integer, Record> mapPrio = new HashMap();
         query.select().stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types))
@@ -71,10 +71,10 @@ public enum eSysprof implements Field {
         if (mapPrio.size() == 0) {
             return null;
         }
-        return mapPrio.get(minLevel);                
+        return mapPrio.get(minLevel);
     }
-    
-    public Record find3(int nuni, TypeProfile type, ProfileSide _side) {
+
+    public static Record find3(int nuni, TypeProfile type, ProfileSide _side) {
 
         HashMap<Integer, Record> mapPrio = new HashMap();
         query.select().stream().filter(rec -> rec.getInt(systree_id) == nuni && type.value == rec.getInt(types)
@@ -93,10 +93,10 @@ public enum eSysprof implements Field {
         if (mapPrio.size() == 0) {
             return null;
         }
-        return mapPrio.get(minLevel);                
+        return mapPrio.get(minLevel);
     }
 
-    public void virtualRec() {
+    public static void virtualRec() {
         Query q = query.table(up.tname());
         Record record = q.newRecord(Query.SEL);
         record.setNo(id, -1);
@@ -120,7 +120,7 @@ public enum eSysprof implements Field {
         record.setNo(artikl_id, -1);
         q.add(record);
     }
-    
+
     public String toString() {
         return meta.getDescr();
     }

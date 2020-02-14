@@ -1,24 +1,22 @@
 package wincalc.constr;
 
-
-import java.util.*;
+import wincalc.Wincalc;
+import wincalc.model.AreaSimple;
 
 /**
- * Перечень параметров спецификаций (составов, заполнений...)
- * Параметры нижней части формы конструктива (составов, заполнений...)
+ * Перечень параметров спецификаций (составов, заполнений...) Параметры нижней
+ * части формы конструктива (составов, заполнений...)
  */
 public class ParamSpecific {
 
-//    private final Constructive constr;
-//    private final AreaSimple root; //главное окно
-//    private CalcConstructiv calcConstr = null;
-//    public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
-//
-//    public ParamSpecific(AreaSimple root, CalcConstructiv calcConstr) {
-//        this.root = root;
-//        this.constr = root.getIwin().getConstr();
-//        this.calcConstr = calcConstr;
-//    }
+    protected Wincalc iwin = null;
+    protected CalcConstructiv calcConstr = null;
+    public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
+
+    public ParamSpecific(Wincalc iwin, CalcConstructiv calcConstr) {
+        this.iwin = iwin;
+        this.calcConstr = calcConstr;
+    }
 //
 //    /**
 //     * Фильтр параметров по уьолчанию и i-okna

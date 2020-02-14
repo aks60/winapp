@@ -56,18 +56,18 @@ public class ElemGlass extends ElemSimple {
     public void initСonstructiv() {
 
         Object code = mapParam.get(ParamJson.nunic_iwin);
-        artiklRec = eArtikl.up.find2(String.valueOf(code));
+        artiklRec = eArtikl.find2(String.valueOf(code));
         if (artiklRec == null) {
-            Record sysreeRec = eSystree.up.find(iwin.nuni); //по умолчанию стеклопакет
-            artiklRec = eArtikl.up.find2(sysreeRec.getStr(eSystree.glas));
+            Record sysreeRec = eSystree.find(iwin.nuni); //по умолчанию стеклопакет
+            artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
-        sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
+        sysprofRec = eSysprof.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
             artiklRec.set(eArtikl.tech_code, iwin.artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
-        Record artdetRec = eArtdet.up.find(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.up.find(artdetRec.getInt(eArtdet.color_id));
+        Record artdetRec = eArtdet.find(artiklRec.getInt(eArtikl.id));
+        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_id));
         color1 = colorRec.getInt(eColor.color);
         color2 = colorRec.getInt(eColor.color);
         color3 = colorRec.getInt(eColor.color);

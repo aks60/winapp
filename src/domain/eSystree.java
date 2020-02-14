@@ -62,7 +62,7 @@ public enum eSystree implements Field {
         return query;
     }
 
-    public Record find(int nuni) {
+    public static Record find(int nuni) {
         return query.select().stream().filter(rec -> nuni == rec.getInt(id)).findFirst().orElse(null);
     }
 

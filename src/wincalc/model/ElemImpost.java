@@ -61,12 +61,12 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.HORIZ);  
+           sysprofRec = eSysprof.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-           sysprofRec = eSysprof.up.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
+           sysprofRec = eSysprof.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
         }
-        artiklRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);  
     }
 
@@ -165,7 +165,7 @@ public class ElemImpost extends ElemSimple {
     @Override
     public void paint() {
         
-        int rgb = eColor.up.find2(color2).getInt(eColor.color);        
+        int rgb = eColor.find2(color2).getInt(eColor.color);        
         if (LayoutArea.VERT == owner.layout()) {
             strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 

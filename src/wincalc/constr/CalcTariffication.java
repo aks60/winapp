@@ -2,6 +2,7 @@ package wincalc.constr;
 
 
 
+import wincalc.Wincalc;
 import wincalc.model.AreaSimple;
 
 /**
@@ -27,8 +28,8 @@ public class CalcTariffication extends CalcBase {
 
 //    private Sysprof sysprofRec = null;
 
-    public CalcTariffication(AreaSimple root) {
-        super(root);
+    public CalcTariffication(Wincalc iwin) {
+        super(iwin);
         //sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
     }
 

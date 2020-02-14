@@ -1,5 +1,8 @@
 package wincalc.constr;
 
+import wincalc.Wincalc;
+import wincalc.model.AreaSimple;
+
 
 /**
  * Перечень параметров конструктива (составов, заполнений...)
@@ -7,15 +10,13 @@ package wincalc.constr;
  */
 public class ParamVariant {
 
-//    private final Constructive constr;
-//    private final AreaSimple root; //главное окно
-//    private CalcConstructiv calcConstr = null;
-//
-//    public ParamVariant(AreaSimple root, CalcConstructiv calcConstr) {
-//        this.root = root;
-//        this.constr = root.getIwin().getConstr();
-//        this.calcConstr = calcConstr;
-//    }
+   protected Wincalc iwin = null;
+   protected CalcConstructiv calcConstr = null;
+
+    public ParamVariant(Wincalc iwin, CalcConstructiv calcConstr) {
+        this.iwin = iwin;
+        this.calcConstr = calcConstr;
+    }
 //
 //    private boolean filterParamDef(ITParam param) {
 //        if (param.pnumb() < 0) {

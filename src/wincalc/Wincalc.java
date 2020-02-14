@@ -80,7 +80,7 @@ public class Wincalc {
         parsingScript(productJson);
 
         //Загрузим параметры по умолчанию
-        ArrayList<Record> syspar1List = eSyspar1.up.find(nuni);
+        ArrayList<Record> syspar1List = eSyspar1.find(nuni);
         syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.pnumb), record));
 
         //Инициализация объектов калькуляции
@@ -117,8 +117,8 @@ public class Wincalc {
     public void const5v() {
         try {
             //constr = Constructive.getConstructive((short) 177);
-            CalcConstructiv constructiv = new CalcConstructiv(rootArea); //конструктив
-            CalcTariffication tariffic = new CalcTariffication(rootArea); //класс тарификации
+            CalcConstructiv constructiv = new CalcConstructiv(this); //конструктив
+            CalcTariffication tariffic = new CalcTariffication(this); //класс тарификации
             constructiv.compositionFirst();                //составы
 //            constructiv.joiningFirst();                    //соединения
 //            constructiv.fillingFirst();                    //заполнения
@@ -149,8 +149,8 @@ public class Wincalc {
             height = mainObj.get("height").getAsFloat();
             heightAdd = mainObj.get("heightAdd").getAsFloat();
 
-            Record sysprofRec = eSysprof.up.find3(nuni, TypeProfile.FRAME, ProfileSide.LEFT);
-            artiklRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+            Record sysprofRec = eSysprof.find3(nuni, TypeProfile.FRAME, ProfileSide.LEFT);
+            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             sysconsRec = eSyscons.find(artiklRec.getInt(eArtikl.syscons_id));
 
             color1 = mainObj.get("color1").getAsInt();

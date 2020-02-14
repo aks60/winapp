@@ -56,15 +56,15 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.TOP);
+            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.TOP);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.BOTTOM);
+            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.BOTTOM);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.LEFT);
+            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.LEFT);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.up.find3(iwin.nuni, typeProfile(), ProfileSide.RIGHT);
+            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.RIGHT);
         }
-        artiklRec = eArtikl.up.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
     }
 
@@ -143,8 +143,8 @@ public class ElemFrame extends ElemSimple {
         float y1h = y1 + h;
         float y2h = y2 + h;
 
-        Object obj = eColor.up.find2(color2);
-        int rgb = eColor.up.find2(color2).getInt(eColor.color);
+        Object obj = eColor.find2(color2);
+        int rgb = eColor.find2(color2).getInt(eColor.color);
         if (LayoutArea.ARCH == layout) { //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
             //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);

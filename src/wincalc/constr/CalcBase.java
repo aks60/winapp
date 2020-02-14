@@ -1,12 +1,12 @@
 package wincalc.constr;
 
 import java.util.*;
+import wincalc.Wincalc;
 import wincalc.model.AreaSimple;
 
 public class CalcBase {
 
-    protected AreaSimple root = null; //главное окно
-    protected int nuni = -1; //id профиля
+    protected Wincalc iwin = null;
 
     //В прфстрое используюеся только 0, 4, 10, 12 параметры
     protected static final int PAR0 = 0;   //не проверять форму
@@ -16,12 +16,8 @@ public class CalcBase {
     protected Constructive constr = null;
 
 
-    public CalcBase(AreaSimple root) {
-
-        this.root = root;
-        this.iwin = root.getIwin();
-        this.constr = root.getIwin().getConstr();
-        this.nuni = root.getIwin().getNuni();
+    public CalcBase(Wincalc iwin) {
+        this.iwin = iwin;
     }
 
     //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
