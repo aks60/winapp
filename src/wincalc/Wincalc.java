@@ -101,9 +101,8 @@ public class Wincalc {
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> {
-            return (a.getId() - b.getId());
-        }));
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> a.getId() - b.getId()));
+        Collections.sort(listIntermediate, (o1, o2) -> o1.id - o2.id);
 
         //Конструктив и тарификация
         //Constructiv constructiv = new Constructiv(this); //конструктив
@@ -222,21 +221,24 @@ public class Wincalc {
             JsonObject objArea = (JsonObject) obj;
             int id = objArea.get("id").getAsInt();
             String type = objArea.get("elemType").getAsString();
-            String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;           
+            String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
             if (TypeElem.AREA.name().equals(type) || TypeElem.FULLSTVORKA.name().equals(type)) {
 
                 float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
-                float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;                
+                float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;
                 String layout = objArea.get("layoutArea").getAsString();
-                
+
                 Intermediate intermediate = new Intermediate(owner, id, type, layout, width, height, param);
                 listIntermediate.add(intermediate);
-                
+
                 buildWin2(objArea, intermediate);
             } else {
-
-                Intermediate intermediate = new Intermediate(owner, id, type, LayoutArea.NONE.name, param);
-                listIntermediate.add(intermediate);
+                
+                if (TypeElem.IMPOST.name().equals(type)) {
+                    listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.NONE.name(), param));
+                } else if (TypeElem.GLASS.name().equals(type)) {
+                    listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.NONE.name(), param));
+                }
             }
         }
     }
