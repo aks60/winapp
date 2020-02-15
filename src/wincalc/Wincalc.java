@@ -163,6 +163,7 @@ public class Wincalc {
             }
 
             intermediate = new Intermediate(null, id, elemType, layoutObj, width, height, paramJson);
+            listIntermediate.add(intermediate);
 
             //Добавим рамы в гпавное окно
             for (Object elemFrame : mainObj.get("elements").getAsJsonArray()) {
@@ -187,7 +188,7 @@ public class Wincalc {
                         ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.ARCH));
                     }
 
-                    listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsString(), TypeElem.FRAME_BOX.name, layourFrame, ""));
+                    listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsString(), TypeElem.FRAME_BOX.name(), layourFrame, null));
                 }
             }
             //Добавим все остальные элементы
@@ -227,8 +228,10 @@ public class Wincalc {
                 float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
                 float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;                
                 String layout = objArea.get("layoutArea").getAsString();
+                
                 Intermediate intermediate = new Intermediate(owner, id, type, layout, width, height, param);
                 listIntermediate.add(intermediate);
+                
                 buildWin2(objArea, intermediate);
             } else {
 

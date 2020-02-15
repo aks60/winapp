@@ -21,8 +21,8 @@ public class Intermediate {
 
         this.id = id;
         this.owner = owner;
-        this.layout = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name.equals(layout)).findFirst().orElse(null);
-        this.type = Arrays.asList(TypeElem.values()).stream().filter(it -> it.name.equals(type)).findFirst().orElse(null);
+        this.type = Arrays.asList(TypeElem.values()).stream().filter(it -> it.name().equals(type)).findFirst().orElse(null);
+        this.layout = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name().equals(layout)).findFirst().orElse(null);
         this.param = param;
     }
 
@@ -35,7 +35,8 @@ public class Intermediate {
     }
 
     public String toString() {
-        return "owner=" + owner.id + ", id=" + id + ", type=" + type + ", layout="
+        String owner2 = (owner == null) ?null :owner.id; 
+        return "owner=" + owner2 + ", id=" + id + ", type=" + type + ", layout="
                 + layout + ", width= " + width + ", height=" + height + ", param=" + param;
     }
 }
