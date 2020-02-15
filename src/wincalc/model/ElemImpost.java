@@ -17,12 +17,12 @@ public class ElemImpost extends ElemSimple {
     protected float anglCut1 = 90; //угол реза импоста
     protected float anglCut2 = 90; //угол реза импоста
 
-    public ElemImpost(String id) {
+    public ElemImpost(int id) {
         super(id);
         this.typeElem = TypeElem.IMPOST;
     }
 
-    public ElemImpost(AreaSimple owner, String id) {
+    public ElemImpost(AreaSimple owner, int id) {
 
         super(id);
         this.owner = owner;
@@ -37,7 +37,7 @@ public class ElemImpost extends ElemSimple {
         //Коррекция положения импоста арки
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
                 float dh = artiklRec.getFloat(eArtikl.height) / 2;  
-                owner.listChild().add(new AreaSquare(iwin, owner, owner.id + ".1", TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
+                owner.listChild().add(new AreaSquare(iwin, owner, owner.id + 1, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {

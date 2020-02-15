@@ -11,7 +11,7 @@ public abstract class ElemSimple extends Com5t {
     protected float anglHoriz = -1; //угол к горизонту
     protected Color borderColor = Color.BLACK;
 
-    public ElemSimple(String id) {
+    public ElemSimple(int id) {
         super(id);
     }
 

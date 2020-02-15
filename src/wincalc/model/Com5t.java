@@ -32,7 +32,7 @@ public abstract class Com5t {
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
-    protected String id = "0"; //идентификатор
+    protected int id = -1; //идентификатор
     protected AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
@@ -44,12 +44,12 @@ public abstract class Com5t {
     protected Specification specificationRec = null; //спецификация элемента
     protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
-    public Com5t(String id) {
+    public Com5t(int id) {
         this.id = id;
         specificationRec = new Specification(id, this);
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -78,10 +78,10 @@ public abstract class Com5t {
     }
 
     protected void parsing(String param) {
-        try {      
+        try {
             Gson gson = new Gson();
             if (param != null && param.isEmpty() == false && param.equals("null") == false) {
-                
+
                 String str = param.replace("'", "\"");
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
@@ -149,7 +149,7 @@ public abstract class Com5t {
 
     public String toString() {
         //TODO owner не должен быть null
-        String ownerID = (owner == null) ?"null" : owner.id;
+        int ownerID = (owner == null) ? -1 : owner.id;
         return "ELEM: owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 

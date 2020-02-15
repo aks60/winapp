@@ -21,16 +21,16 @@ public class AreaElem extends Element {
     }
 
     //Конструктор вложенной Area
-    public AreaElem(String id, LayoutArea layoutArea, TypeElem elemType, float lengthSide) {
-        super.id = id;
+    public AreaElem(int id, LayoutArea layoutArea, TypeElem elemType, float lengthSide) {
+        super.id = id * 10;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
         this.lengthSide = lengthSide; //длина стороны, сторона зависит от направлени расположения area
     }
 
     //Конструктор створки
-    public AreaElem(String id, LayoutArea layoutArea, TypeElem elemType, String paramJson) {
-        super.id = id;
+    public AreaElem(int id, LayoutArea layoutArea, TypeElem elemType, String paramJson) {
+        super.id = id * 10;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
         this.paramJson = paramJson; //параметры элемента

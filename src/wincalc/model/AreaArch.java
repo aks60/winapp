@@ -11,7 +11,7 @@ public class AreaArch extends AreaSimple {
 
     protected double radiusArch = 0; //радиус арки
 
-    public AreaArch(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaArch(Wincalc iwin, AreaSimple owner, int id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3);
         parsing(param);
     }
@@ -32,7 +32,7 @@ public class AreaArch extends AreaSimple {
     public void joinFrame() {
 
         ElemJoining elem = new ElemJoining(iwin);
-        elem.id = id + ".1";
+        elem.id = id + 1;
         elem.name = "Угловое соединение левое верхнее";
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
@@ -60,7 +60,7 @@ public class AreaArch extends AreaSimple {
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.varJoin = JoinVariant.VAR2;
-            el.id = id + "." + (index + 2);
+            el.id = id + (index + 2);
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 

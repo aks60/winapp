@@ -24,11 +24,11 @@ public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне    
 
-    public AreaSimple(String id) {
+    public AreaSimple(int id) {
         super(id);
     }
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, String id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, int id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
         this.iwin = iwin;
         this.owner = owner;
@@ -131,7 +131,7 @@ public class AreaSimple extends Com5t {
                     float sides[][][] = {{{e2.x1, e2.y1}, {e2.x1, e2.y2}}, {{e2.x1, e2.y2}, {e2.x2, e2.y2}}, {{e2.x2, e2.y2}, {e2.x2, e2.y1}}, {{e2.x1, e2.y1}, {e2.x2, e2.y1}}};
                     for (int index = 0; index < sides.length; index++) {
 
-                        el.id = id + "." + (index + 1);
+                        el.id = id + (index + 1);
                         float[][] fs = sides[index];
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
                             el.varJoin = JoinVariant.VAR4;

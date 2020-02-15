@@ -15,8 +15,8 @@ public class AreaRoot extends AreaElem {
     private String prj = null;         //номер тестируемого проекта, поле нужно только для тестов       
 
     //Контруктор главного окна
-    public AreaRoot(String id, LayoutArea layoutArea, TypeElem elemType, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
-        super.id = id;
+    public AreaRoot(int id, LayoutArea layoutArea, TypeElem elemType, float width, float height, float heightAdd, int color1, int color2, int color3, String paramJson) {
+        super.id = id * 10;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
         this.width = width;        

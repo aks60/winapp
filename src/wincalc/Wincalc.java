@@ -102,7 +102,7 @@ public class Wincalc {
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> {
-            return a.getId().compareTo(b.getId());
+            return (a.getId() - b.getId());
         }));
 
         //Конструктив и тарификация
@@ -127,7 +127,7 @@ public class Wincalc {
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject mainObj = jsonElement.getAsJsonObject();
 
-            String id = mainObj.get("id").getAsString();
+            int id = mainObj.get("id").getAsInt();
             String paramJson = mainObj.get("paramJson").getAsString();
             nuni = mainObj.get("nuni").getAsInt();
 
@@ -173,22 +173,22 @@ public class Wincalc {
                     String layourFrame = jsonFrame.get("layoutFrame").getAsString();
 
                     if (LayoutArea.LEFT.name().equals(layourFrame)) {
-                        ElemFrame frameLeft = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.LEFT));
+                        ElemFrame frameLeft = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsInt(), LayoutArea.LEFT));
 
                     } else if (LayoutArea.RIGHT.name().equals(layourFrame)) {
-                        ElemFrame frameRight = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.RIGHT));
+                        ElemFrame frameRight = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsInt(), LayoutArea.RIGHT));
 
                     } else if (LayoutArea.TOP.name().equals(layourFrame)) {
-                        ElemFrame frameTop = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.TOP));
+                        ElemFrame frameTop = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsInt(), LayoutArea.TOP));
 
                     } else if (LayoutArea.BOTTOM.name().equals(layourFrame)) {
-                        ElemFrame frameBottom = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.BOTTOM));
+                        ElemFrame frameBottom = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsInt(), LayoutArea.BOTTOM));
 
                     } else if (LayoutArea.ARCH.name().equals(layourFrame)) {
-                        ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsString(), LayoutArea.ARCH));
+                        ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsInt(), LayoutArea.ARCH));
                     }
 
-                    listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsString(), TypeElem.FRAME_BOX.name(), layourFrame, null));
+                    listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_BOX.name(), layourFrame, null));
                 }
             }
             //Добавим все остальные элементы
@@ -220,7 +220,7 @@ public class Wincalc {
 
         for (Object obj : jso.get("elements").getAsJsonArray()) {
             JsonObject objArea = (JsonObject) obj;
-            String id = objArea.get("id").getAsString();
+            int id = objArea.get("id").getAsInt();
             String type = objArea.get("elemType").getAsString();
             String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;           
             if (TypeElem.AREA.name().equals(type) || TypeElem.FULLSTVORKA.name().equals(type)) {
@@ -246,7 +246,7 @@ public class Wincalc {
         try {
             float width = (ownerArea.layout() == LayoutArea.VERT) ? ownerArea.width() : objArea.get("width").getAsFloat();
             float height = (ownerArea.layout() == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : ownerArea.height();
-            String id = objArea.get("id").getAsString();
+            int id = objArea.get("id").getAsInt();
             String paramArea = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
             TypeElem typeArea = (TypeElem.AREA.name().equals(objArea.get("elemType").getAsString()) == true) ? TypeElem.AREA : TypeElem.FULLSTVORKA;
             LayoutArea layoutArea = ("VERT".equals(objArea.get("layoutArea").getAsString())) ? LayoutArea.VERT : LayoutArea.HORIZ;
@@ -281,7 +281,7 @@ public class Wincalc {
     //Добавление Element в конструцию
     private void addElem(AreaSimple ownerArea, JsonObject objElem) {
         try {
-            String id = objElem.get("id").getAsString();
+            int id = objElem.get("id").getAsInt();
             String elemType = objElem.get("elemType").getAsString();
 
             if (TypeElem.IMPOST.name().equals(elemType)) {

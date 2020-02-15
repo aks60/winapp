@@ -25,7 +25,7 @@ public class AreaStvorka extends AreaSimple {
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
-    public AreaStvorka(Wincalc iwin, AreaSimple owner, String id, String param) {
+    public AreaStvorka(Wincalc iwin, AreaSimple owner, int id, String param) {
         super(iwin, owner, id, TypeElem.FULLSTVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
 
         if (param != null && param.isEmpty() == false) {
@@ -96,10 +96,10 @@ public class AreaStvorka extends AreaSimple {
         elemGlass.specificationRec.height = height();
 
         //Добавим рамы створки        
-        addFrame(new ElemFrame(this, id + ".1", LayoutArea.BOTTOM));
-        addFrame(new ElemFrame(this, id + ".2", LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + ".3", LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + ".4", LayoutArea.LEFT));
+        addFrame(new ElemFrame(this, id + 1, LayoutArea.BOTTOM));
+        addFrame(new ElemFrame(this, id + 2, LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + 3, LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + 4, LayoutArea.LEFT));
     }
 
     @Override
@@ -107,7 +107,7 @@ public class AreaStvorka extends AreaSimple {
 
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
-            el.id = id + "." + (index + 1);
+            el.id = id + (index + 1);
             el.varJoin = JoinVariant.VAR2;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
@@ -144,7 +144,7 @@ public class AreaStvorka extends AreaSimple {
 
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
-            el.id = id + "." + (index + 1);
+            el.id = id + (index + 1);
             el.varJoin = JoinVariant.VAR1;
             el.cutAngl1 = 0;
             el.cutAngl2 = 0;
