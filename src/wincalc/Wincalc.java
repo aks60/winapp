@@ -78,7 +78,7 @@ public class Wincalc {
         drawMapLineList.clear();
 
         //Парсинг входного скрипта
-        parsingScript(productJson);
+        parsingScript2(productJson);
 
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.find(nuni);
@@ -113,7 +113,8 @@ public class Wincalc {
         if (Main.dev == true) {
             //System.out.println(productJson); //вывод на консоль json
             //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));
-            listIntermediate.stream().forEach(el -> System.out.println(el));
+            
+            //listIntermediate.stream().forEach(el -> System.out.println(el));
         }
         return rootArea;
     }
@@ -186,12 +187,55 @@ public class Wincalc {
                     } else if (LayoutArea.ARCH.name().equals(layourFrame)) {
                         ElemFrame frameArch = rootArea.addFrame(new ElemFrame(rootArea, jsonFrame.get("id").getAsInt(), LayoutArea.ARCH));
                     }
-
-                    listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_BOX.name(), layourFrame, null));
                 }
             }
             //Добавим все остальные элементы
             buildWin(mainObj, rootArea);
+
+        } catch (Exception e) {
+            System.out.println("Ошибка Wincalc.parsingScript() " + e);
+        }
+    }
+
+    private void parsingScript2(String json) {
+        try {
+            Gson gson = new Gson(); //библиотека jso
+            JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
+            JsonObject mainObj = jsonElement.getAsJsonObject();
+
+            int id = mainObj.get("id").getAsInt();
+            String paramJson = mainObj.get("paramJson").getAsString();
+            nuni = mainObj.get("nuni").getAsInt();
+
+            width = mainObj.get("width").getAsFloat();
+            height = mainObj.get("height").getAsFloat();
+            heightAdd = mainObj.get("heightAdd").getAsFloat();
+
+            Record sysprofRec = eSysprof.find3(nuni, TypeProfile.FRAME, ProfileSide.LEFT);
+            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+            sysconsRec = eSyscons.find(artiklRec.getInt(eArtikl.syscons_id));
+
+            color1 = mainObj.get("color1").getAsInt();
+            color2 = mainObj.get("color2").getAsInt();
+            color3 = mainObj.get("color3").getAsInt();
+
+            //Главное окно
+            String layoutObj = mainObj.get("layoutArea").getAsString();
+            String elemType = mainObj.get("elemType").getAsString();
+            intermediate = new Intermediate(null, id, elemType, layoutObj, width, height, paramJson);
+            listIntermediate.add(intermediate);
+
+            //Добавим рамы в список
+            for (Object elemFrame : mainObj.get("elements").getAsJsonArray()) {
+                JsonObject jsonFrame = (JsonObject) elemFrame;
+                if (TypeElem.FRAME_BOX.name().equals(jsonFrame.get("elemType").getAsString())) {
+
+                    String layourFrame = jsonFrame.get("layoutFrame").getAsString();
+                    listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_BOX.name(), layourFrame, null));
+                }
+            }
+            
+            //Добавим все остальные элементы
             buildWin2(mainObj, intermediate);
 
         } catch (Exception e) {
@@ -217,27 +261,50 @@ public class Wincalc {
 
     private void buildWin2(JsonObject jso, Intermediate owner) {
 
-        for (Object obj : jso.get("elements").getAsJsonArray()) {
-            JsonObject objArea = (JsonObject) obj;
-            int id = objArea.get("id").getAsInt();
-            String type = objArea.get("elemType").getAsString();
-            String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
-            if (TypeElem.AREA.name().equals(type) || TypeElem.FULLSTVORKA.name().equals(type)) {
+        //Главное окно        
+        Intermediate imf = listIntermediate.getFirst();
+        if (TypeElem.SQUARE == listIntermediate.getFirst().type) {
+            rootArea = new AreaSquare(this, null, imf.id, TypeElem.SQUARE, imf.layout, imf.width, imf.height, color1, color2, color3, imf.param); //простое
+        } else if (TypeElem.TRAPEZE == listIntermediate.getFirst().type) {
+            rootArea = new AreaTrapeze(this, null, imf.id, TypeElem.TRAPEZE, imf.layout, imf.width, imf.height, color1, color2, color3, imf.param); //трапеция
+        } else if (TypeElem.TRIANGL == listIntermediate.getFirst().type) {
+            rootArea = new AreaTriangl(this, null, imf.id, TypeElem.TRIANGL, imf.layout, imf.width, imf.height, color1, color2, color3, imf.param); //треугольник
+        } else if (TypeElem.ARCH == listIntermediate.getFirst().type) {
+            rootArea = new AreaArch(this, null, imf.id, TypeElem.ARCH, imf.layout, imf.width, imf.height, color1, color2, color3, imf.param); //арка
+        }
 
-                float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
-                float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;
-                String layout = objArea.get("layoutArea").getAsString();
+        for (Intermediate imd : listIntermediate) {
 
-                Intermediate intermediate = new Intermediate(owner, id, type, layout, width, height, param);
-                listIntermediate.add(intermediate);
+            //Добавим рамы в гпавное окно
+            if (TypeElem.FRAME_BOX.name().equals(imd.type)) {
+                rootArea.addFrame(new ElemFrame(rootArea, imd.id, imd.layout));
+                continue;
+            }
+            //Остальные
+            if (TypeElem.AREA == imd.type || TypeElem.FULLSTVORKA == imd.type) {
 
-                buildWin2(objArea, intermediate);
+                if (TypeElem.FULLSTVORKA == imd.type) {
+                    imd.addArea(new AreaStvorka(this, imd.owner.parent, imd.id, imd.param));
+                } else {
+                    if (TypeElem.SQUARE == imd.type) {
+                        imd.addArea(new AreaSquare(this, imd.owner.parent, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //простое
+
+                    } else if (TypeElem.TRAPEZE == imd.type) {
+                        imd.addArea(new AreaTrapeze(this, imd.owner.parent, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //трапеция
+
+                    } else if (TypeElem.TRIANGL == imd.type) {
+                        imd.addArea(new AreaTriangl(this, imd.owner.parent, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //треугольник
+
+                    } else if (TypeElem.ARCH == imd.type) {
+                        imd.addArea(new AreaArch(this, imd.owner.parent, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //арка
+                    }
+                }
             } else {
-                
-                if (TypeElem.IMPOST.name().equals(type)) {
-                    listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.NONE.name(), param));
-                } else if (TypeElem.GLASS.name().equals(type)) {
-                    listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.NONE.name(), param));
+                if (TypeElem.IMPOST == imd.type) {
+                    imd.addElem(new ElemImpost(imd.parent, imd.id));
+
+                } else if (TypeElem.GLASS == imd.type) {
+                    imd.addElem(new ElemGlass(imd.parent, imd.id, imd.param));
                 }
             }
         }

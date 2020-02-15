@@ -1,11 +1,10 @@
 package wincalc.script;
 
 import enums.LayoutArea;
-import static enums.LayoutArea.values;
 import enums.TypeElem;
 import java.util.Arrays;
-import java.util.LinkedList;
 import wincalc.model.AreaSimple;
+import wincalc.model.ElemSimple;
 
 public class Intermediate {
 
@@ -16,6 +15,8 @@ public class Intermediate {
     public float width = 0;  //ширина area, мм
     public float height = 0; //высота area, мм   
     public String param = null;
+    
+    public AreaSimple parent = null;
 
     public Intermediate(Intermediate owner, int id, String type, String layout, String param) {
 
@@ -33,7 +34,18 @@ public class Intermediate {
         this.width = width;
         this.height = height;
     }
+    
+    public AreaSimple addArea(AreaSimple area) {
+        owner.parent.listChild().add(area);
+        parent = area;
+        return area;
+    }
 
+    public ElemSimple addElem(ElemSimple elem) {
+        owner.parent.listChild().add(elem);
+        return elem;
+    }
+    
     public String toString() {
         int owner2 = (owner == null) ?-1 :owner.id; 
         return "owner=" + owner2 + ", id=" + id + ", type=" + type + ", layout="
