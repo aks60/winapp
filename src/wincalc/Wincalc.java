@@ -31,6 +31,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import main.Main;
+import wincalc.constr.Constructiv;
+import wincalc.constr.Tariffication;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 import wincalc.script.Intermediate;
@@ -67,6 +69,9 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
+    
+    protected Constructiv constructiv = new Constructiv(this); //конструктив
+    protected Tariffication tariffication = new Tariffication(this); //тарификация
 
     public AreaSimple create(String productJson) {
 
@@ -99,9 +104,8 @@ public class Wincalc {
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(),b.getId())));
 
-        //Конструктив и тарификация
-        //Constructiv constructiv = new Constructiv(this); //конструктив
-        //constructiv.calculate();
+        //Конструктив и тарификация        
+        constructiv.calculate(this);
         //Tariffication tariffic = new Tariffication(this); //тарификации
         //tariffic.calculate(listCom5t);
         //Тестирование

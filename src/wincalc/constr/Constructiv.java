@@ -1,15 +1,6 @@
 package wincalc.constr;
 
-import dataset.Record;
-import domain.eArtdet;
-import domain.eSysprof;
-import enums.TypeElem;
-import enums.TypeProfile;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import wincalc.Wincalc;
-import wincalc.model.ElemFrame;
-import wincalc.model.ElemImpost;
 
 /**
  * Расчёт конструктива окна.
@@ -29,9 +20,10 @@ public class Constructiv extends Cal5e {
         paramSpecific = new ParamSpecific(iwin, this);
     }
     
-public void calculate() {
+public void calculate(Wincalc iwin) {
     
-            //constructiv.compositionFirst();                //составы
+            Сomposition composition = new Сomposition(iwin);
+            composition.compositionFirst();                //составы
 //            constructiv.joiningFirst();                    //соединения
 //            constructiv.fillingFirst();                    //заполнения
 //            constructiv.fittingFirst();                    //фурнитура

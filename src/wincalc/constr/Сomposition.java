@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import wincalc.Wincalc;
 import wincalc.model.ElemFrame;
-import wincalc.model.ElemImpost;
 
 public class Сomposition extends Cal5e {
 
@@ -20,7 +19,7 @@ public class Сomposition extends Cal5e {
     //Составы.
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
     //Но при проверке параметров использую вирт. мат. ценность.
-/*    public void compositionFirst() {
+    public void compositionFirst() {
 
         ArrayList<Record> sysprofList = eSysprof.find(iwin.nuni);
 
@@ -30,7 +29,7 @@ public class Сomposition extends Cal5e {
             int typeId = sysprofRec.getInt(eSysprof.types);
             if (TypeProfile.FRAME.value == typeId) {
                 //ArrayList<Artsvst> svstList = Artsvst.find(constr, sysprofRec.anumb); //подбор текстуры, ищем не на аналоге
-                ArrayList<Record> artdetList = eArtdet.find(sysprofRec.get(eSysprof.artikl_id)); //подбор текстуры, ищем не на аналоге
+                ArrayList<Record> artdetList = eArtdet.find(sysprofRec.getInt(eSysprof.artikl_id)); //подбор текстуры, ищем не на аналоге
                 for (Artsvst svst : artdetList) {
                     if (svst.clcod == iwin.getColorProfile(1)) {
                         is = true;
@@ -51,7 +50,7 @@ public class Сomposition extends Cal5e {
                 break;
             }
         }
-        for (Sysproa sysproaRec : sysproaList) {
+/*        for (Sysproa sysproaRec : sysproaList) {
             boolean is = false;
             if (TypeProfile.IMPOST.value == sysproaRec.atype) {
                 ArrayList<Artsvst> svstList = Artsvst.find(constr, sysproaRec.anumb); //подбор текстуры, ищем не на аналоге
@@ -93,9 +92,9 @@ public class Сomposition extends Cal5e {
             }
             if (is == true) {
                 break;
-            }
+            }*/
         }
-    }*/
+    }
 //
 //    /**
 //     * Соcтавы
@@ -128,6 +127,5 @@ public class Сomposition extends Cal5e {
 //            }
 //        }
 //        return false;
-//    }
-//
+    }
 }
