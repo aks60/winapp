@@ -48,6 +48,7 @@ public class AreaStvorka extends AreaSimple {
         }
         initСonstructiv();
         parsing(param);
+        //correction();
     }
 
     public void initСonstructiv() {
