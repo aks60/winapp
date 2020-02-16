@@ -178,7 +178,7 @@ public class Wincalc {
                 Intermediate intermediate = new Intermediate(owner, id, type, layout, width, height, param);
                 listIntermediate.add(intermediate);
 
-                intermBuild(objArea, intermediate, listIntermediate);
+                intermBuild(objArea, intermediate, listIntermediate); //рекурсия
             } else {
 
                 if (TypeElem.IMPOST.name().equals(type)) {
@@ -206,6 +206,7 @@ public class Wincalc {
         }
         imf.area = rootArea;
 
+        //Цыкл по элементам конструкции ранж. по ключам.
         for (int index = 1; index < listIntermediate.size(); index++) {
             Intermediate imd = listIntermediate.get(index);
 
