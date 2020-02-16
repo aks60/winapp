@@ -696,7 +696,7 @@ public class Design extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSquare4ActionPerformed
 
     private void btnSquare5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare5ActionPerformed
-        // TODO add your handling code here:
+   
     }//GEN-LAST:event_btnSquare5ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

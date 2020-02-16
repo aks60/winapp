@@ -47,25 +47,7 @@ public class AreaStvorka extends AreaSimple {
 
         }
         initСonstructiv();
-        parsing(param);
-        //correction();
-    }
-
-    public void initСonstructiv() {
-
-        sysprofRec = eSysprof.query.select().stream()
-                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
-                && rec.getInt(eSysprof.types) == TypeProfile.STVORKA.value).findFirst().orElse(null);
-        artiklRec = eArtikl.query.select().stream()
-                .filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
-        if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
-            artiklRec.setNo(eArtikl.size_falz, iwin.artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
-        }
-        specificationRec.setArtiklRec(artiklRec);
-    }
-
-    public void correction() {
-
+        
         //Коррекция створки с учётом нахлёста
         LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
@@ -81,26 +63,27 @@ public class AreaStvorka extends AreaSimple {
         y2 = insideBott.y1 + size_falz + naxl;
         specificationRec.width = width();
         specificationRec.height = height();
-
-        //Коррекция стеклопакета с учётом нахлёста створки
-        ElemGlass elemGlass = null;
-        for (Com5t com5t : listChild()) {
-            if (TypeElem.GLASS == com5t.typeElem()) {
-                elemGlass = (ElemGlass) com5t;
-            }
-        }
-        elemGlass.x1 = x1;
-        elemGlass.x2 = x2;
-        elemGlass.y1 = y1;
-        elemGlass.y2 = y2;
-        elemGlass.specificationRec.width = width();
-        elemGlass.specificationRec.height = height();
-
+        
         //Добавим рамы створки        
         addFrame(new ElemFrame(this, id + .1f, LayoutArea.BOTTOM));
         addFrame(new ElemFrame(this, id + .2f, LayoutArea.RIGHT));
         addFrame(new ElemFrame(this, id + .3f, LayoutArea.TOP));
         addFrame(new ElemFrame(this, id + .4f, LayoutArea.LEFT));
+        
+        parsing(param);        
+    }
+
+    public void initСonstructiv() {
+
+        sysprofRec = eSysprof.query.select().stream()
+                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
+                && rec.getInt(eSysprof.types) == TypeProfile.STVORKA.value).findFirst().orElse(null);
+        artiklRec = eArtikl.query.select().stream()
+                .filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+        if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
+            artiklRec.setNo(eArtikl.size_falz, iwin.artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
+        }
+        specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override

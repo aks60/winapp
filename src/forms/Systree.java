@@ -652,19 +652,19 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void txtField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField6ActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_txtField6ActionPerformed
 
     private void txtField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField7ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txtField7ActionPerformed
 
     private void txtField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField8ActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_txtField8ActionPerformed
 
     private void txtField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField9ActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_txtField9ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
