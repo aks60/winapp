@@ -8,7 +8,7 @@ import enums.TypeElem;
  */
 public class Element {
 
-    protected int id = -1;  // идентификатор элемента
+    protected float id = -1;  // идентификатор элемента
     protected LayoutArea layoutFrame = null; //сторона располодения эл. рамы
     protected TypeElem elemType = TypeElem.NONE; //тип элемента
     protected String paramJson = null; //параметры элемента
@@ -18,21 +18,21 @@ public class Element {
     }
 
     //Конструктор
-    public Element(int id, TypeElem elemType) {
-        this.id = id * 10;
+    public Element(float id, TypeElem elemType) {
+        this.id = id;
         this.elemType = elemType;
     }
 
     //Конструктор
-    public Element(int id, TypeElem elemType, String paramJson) {
-        this.id = id * 10;
+    public Element(float id, TypeElem elemType, String paramJson) {
+        this.id = id;
         this.elemType = elemType;
         this.paramJson = paramJson;
     }
 
     //Конструктор
-    public Element(int id, TypeElem elemType, LayoutArea layoutRama) {
-        this.id = id * 10;
+    public Element(float id, TypeElem elemType, LayoutArea layoutRama) {
+        this.id = id;
         this.elemType = elemType;
         this.layoutFrame = layoutRama;
     }

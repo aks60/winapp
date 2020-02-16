@@ -99,7 +99,7 @@ public class Wincalc {
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> a.getId() - b.getId()));
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(),b.getId())));
 
         //Конструктив и тарификация
         //Constructiv constructiv = new Constructiv(this); //конструктив
@@ -156,7 +156,7 @@ public class Wincalc {
 
             
             buildInterm(mainObj, intermediate, listIntermediate); //добавим все остальные Intermediate
-            Collections.sort(listIntermediate, (o1, o2) -> o1.id - o2.id);
+            Collections.sort(listIntermediate, (o1, o2) -> Float.compare(o1.id, o2.id));
             //listIntermediate.stream().forEach(el -> System.out.println(el));
             buildWindows(listIntermediate);
 

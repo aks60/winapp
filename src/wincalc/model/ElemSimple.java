@@ -11,7 +11,7 @@ public abstract class ElemSimple extends Com5t {
     protected float anglHoriz = -1; //угол к горизонту
     protected Color borderColor = Color.BLACK;
 
-    public ElemSimple(int id) {
+    public ElemSimple(float id) {
         super(id);
     }
 
@@ -46,21 +46,21 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Генерация нового ключа
-    public String genId() {
-        int maxId = 0;
-        LinkedList<ElemSimple> elemList = root().listElem(TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
-        for (ElemSimple elemBase : elemList) {
-            for (Specification specification : elemBase.specificationRec.specificationList()) {
-                if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {
-                    maxId = Integer.valueOf(elemBase.specificationRec.id);
-                }
-                if (Integer.valueOf(specification.id) > maxId) {
-                    maxId = Integer.valueOf(specification.id);
-                }
-            }
-        }
-        return String.valueOf(++maxId);
-    }
+//    public String genId() {
+//        int maxId = 0;
+//        LinkedList<ElemSimple> elemList = root().listElem(TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
+//        for (ElemSimple elemBase : elemList) {
+//            for (Specification specification : elemBase.specificationRec.specificationList()) {
+//                if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {
+//                    maxId = Integer.valueOf(elemBase.specificationRec.id);
+//                }
+//                if (Integer.valueOf(specification.id) > maxId) {
+//                    maxId = Integer.valueOf(specification.id);
+//                }
+//            }
+//        }
+//        return String.valueOf(++maxId);
+//    }
 
     @Override
     public String toString() {

@@ -17,12 +17,12 @@ public class ElemFrame extends ElemSimple {
     protected float anglCut1 = 45; //Угол реза рамы
     protected float anglCut2 = 45; //Угол реза рамы
 
-    public ElemFrame(int id) {
+    public ElemFrame(float id) {
         super(id);
         this.typeElem = (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
     }
 
-    public ElemFrame(AreaSimple owner, int id, LayoutArea layout) {
+    public ElemFrame(AreaSimple owner, float id, LayoutArea layout) {
         super(id);
         this.owner = owner;
         this.layout = layout;

@@ -25,7 +25,7 @@ public class AreaStvorka extends AreaSimple {
     public String handleHeight = ""; //высота ручки
     protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
 
-    public AreaStvorka(Wincalc iwin, AreaSimple owner, int id, String param) {
+    public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.FULLSTVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
 
         if (param != null && param.isEmpty() == false) {
@@ -96,10 +96,10 @@ public class AreaStvorka extends AreaSimple {
         elemGlass.specificationRec.height = height();
 
         //Добавим рамы створки        
-        addFrame(new ElemFrame(this, id + 1, LayoutArea.BOTTOM));
-        addFrame(new ElemFrame(this, id + 2, LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + 3, LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + 4, LayoutArea.LEFT));
+        addFrame(new ElemFrame(this, id + .1f, LayoutArea.BOTTOM));
+        addFrame(new ElemFrame(this, id + .2f, LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + .3f, LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + .4f, LayoutArea.LEFT));
     }
 
     @Override

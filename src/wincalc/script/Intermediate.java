@@ -8,7 +8,7 @@ import wincalc.model.ElemSimple;
 
 public class Intermediate {
 
-    public int id = -1;  // идентификатор элемента
+    public float id = -1;  // идентификатор элемента
     public Intermediate owner = null; //владелец
     public TypeElem type = TypeElem.NONE; //тип элемента
     public LayoutArea layout = LayoutArea.NONE;  //ориентация при располодении      
@@ -18,7 +18,7 @@ public class Intermediate {
     
     public AreaSimple area = null;
 
-    public Intermediate(Intermediate owner, int id, String type, String layout, String param) {
+    public Intermediate(Intermediate owner, float id, String type, String layout, String param) {
 
         this.id = id;
         this.owner = owner;
@@ -27,7 +27,7 @@ public class Intermediate {
         this.param = param;
     }
 
-    public Intermediate(Intermediate owner, int id, String type, String layout,
+    public Intermediate(Intermediate owner, float id, String type, String layout,
             float width, float height, String param) {
 
         this(owner, id, type, layout, param);
@@ -47,7 +47,7 @@ public class Intermediate {
     }
     
     public String toString() {
-        int owner2 = (owner == null) ?-1 :owner.id; 
+        float owner2 = (owner == null) ?-1 :owner.id; 
         return "owner=" + owner2 + ", id=" + id + ", type=" + type + ", layout="
                 + layout + ", width= " + width + ", height=" + height + ", param=" + param;
     }

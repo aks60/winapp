@@ -19,7 +19,7 @@ public class Specification {
     protected HashMap<Integer, String> hmParam = null; //параметры спецификации
     private Record artiklesRec = null; //профиль в спецификации
 
-    public int id = -1;  //ID
+    public float id = -1;  //ID
     public String areaId = "0"; //ID area
     public String elemId = "0"; //ID elem
     public String elemType = "0"; //TypeElem
@@ -52,7 +52,7 @@ public class Specification {
      * @param id
      * @param elemBase
      */
-    public Specification(int id, Com5t elemBase) {
+    public Specification(float id, Com5t elemBase) {
         this.id = id;
         this.elemOwnerSpecif = elemBase;
         this.hmParam = new HashMap();

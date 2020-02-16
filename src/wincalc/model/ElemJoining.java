@@ -12,7 +12,7 @@ public class ElemJoining {
     public static final int FIRST_SIDE = 1; //первая сторона
     public static final int SECOND_SIDE = 2; //вторая сторона
 
-    public int id = -1; //идентификатор соединения
+    public float id = -1; //идентификатор соединения
     private Wincalc iwin;
     protected String name;
     protected JoinLocate typeJoin = JoinLocate.NONE;

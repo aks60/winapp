@@ -32,7 +32,7 @@ public abstract class Com5t {
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
-    protected int id = -1; //идентификатор
+    protected float id = -1; //идентификатор
     protected AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
@@ -44,12 +44,12 @@ public abstract class Com5t {
     protected Specification specificationRec = null; //спецификация элемента
     protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
-    public Com5t(int id) {
+    public Com5t(float id) {
         this.id = id;
         specificationRec = new Specification(id, this);
     }
 
-    public int getId() {
+    public float getId() {
         return id;
     }
 
@@ -149,7 +149,7 @@ public abstract class Com5t {
 
     public String toString() {
         //TODO owner не должен быть null
-        int ownerID = (owner == null) ? -1 : owner.id;
+        float ownerID = (owner == null) ? -1 : owner.id;
         return "ELEM: owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 

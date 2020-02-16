@@ -8,7 +8,7 @@ import wincalc.Wincalc;
 
 public class AreaSquare extends AreaSimple {
 
-    public AreaSquare(Wincalc iwin, AreaSimple owner, int id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaSquare(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3);
         parsing(param);
     }
@@ -18,7 +18,7 @@ public class AreaSquare extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.varJoin = JoinVariant.VAR2;
-            el.id = id + (index + 1);
+            el.id = id + (index + 1) / 100;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
@@ -51,5 +51,5 @@ public class AreaSquare extends AreaSimple {
                 iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
             }
         }
-    }    
+    }
 }

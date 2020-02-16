@@ -28,7 +28,7 @@ public class AreaSimple extends Com5t {
         super(id);
     }
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, int id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id);
         this.iwin = iwin;
         this.owner = owner;
@@ -76,24 +76,24 @@ public class AreaSimple extends Com5t {
         listCom5t(this, list, Arrays.asList(type));
         return list;
     }
-        
+
     public <E> void listCom5t(Com5t com5t, LinkedList<E> list, List<TypeElem> type) {
 
         if (type.contains(com5t.typeElem())) {
-            list.add((E)com5t);
+            list.add((E) com5t);
         }
         if (com5t instanceof AreaSimple) {
             Collection<ElemFrame> set = ((AreaSimple) com5t).mapFrame.values();
             for (ElemFrame frm : set) {
                 if (type.contains(frm.typeElem())) {
-                    list.add((E)frm);
+                    list.add((E) frm);
                 }
             }
         }
         for (Com5t com5t2 : com5t.listChild()) {
             listCom5t(com5t2, list, type);
         }
-    }    
+    }
 
     public void joinFrame() {
     }
@@ -131,7 +131,7 @@ public class AreaSimple extends Com5t {
                     float sides[][][] = {{{e2.x1, e2.y1}, {e2.x1, e2.y2}}, {{e2.x1, e2.y2}, {e2.x2, e2.y2}}, {{e2.x2, e2.y2}, {e2.x2, e2.y1}}, {{e2.x1, e2.y1}, {e2.x2, e2.y1}}};
                     for (int index = 0; index < sides.length; index++) {
 
-                        el.id = id + (index + 1);
+                        el.id = id + (index + 1) / 100;
                         float[][] fs = sides[index];
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
                             el.varJoin = JoinVariant.VAR4;

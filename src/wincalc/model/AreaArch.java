@@ -11,28 +11,28 @@ public class AreaArch extends AreaSimple {
 
     protected double radiusArch = 0; //радиус арки
 
-    public AreaArch(Wincalc iwin, AreaSimple owner, int id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaArch(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3);
         parsing(param);
     }
-    
+
     @Override
     protected void initDimension(float width, float height) {
         super.initDimension(width, height);
-        
+
         //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
         if (owner != null && TypeElem.ARCH == owner.typeElem()
                 && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
             float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
             setDimension(x1, y1, x2, y2 - dh);
-        } 
+        }
     }
-    
+
     @Override
     public void joinFrame() {
 
         ElemJoining elem = new ElemJoining(iwin);
-        elem.id = id + 1;
+        elem.id = id + .1f;
         elem.name = "Угловое соединение левое верхнее";
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
@@ -60,7 +60,7 @@ public class AreaArch extends AreaSimple {
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin);
             el.varJoin = JoinVariant.VAR2;
-            el.id = id + (index + 2);
+            el.id = id + (index + 2) / 10;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
