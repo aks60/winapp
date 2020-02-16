@@ -16,7 +16,7 @@ public class Intermediate {
     public float height = 0; //высота area, мм   
     public String param = null;
     
-    public AreaSimple parent = null;
+    public AreaSimple area = null;
 
     public Intermediate(Intermediate owner, int id, String type, String layout, String param) {
 
@@ -35,14 +35,14 @@ public class Intermediate {
         this.height = height;
     }
     
-    public AreaSimple addArea(AreaSimple area) {
-        owner.parent.listChild().add(area);
-        parent = area;
-        return area;
+    public AreaSimple addArea(AreaSimple area2) {
+        owner.area.listChild().add(area2);
+        this.area = area2;
+        return area2;
     }
 
     public ElemSimple addElem(ElemSimple elem) {
-        owner.parent.listChild().add(elem);
+        owner.area.listChild().add(elem);
         return elem;
     }
     
