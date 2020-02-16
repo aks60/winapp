@@ -150,7 +150,7 @@ public abstract class Com5t {
     public String toString() {
         //TODO owner не должен быть null
         float ownerID = (owner == null) ? -1 : owner.id;
-        return "ELEM: owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
+        return "ELEM " + typeElem.name() + ", owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 
     public boolean equals(Object obj) {

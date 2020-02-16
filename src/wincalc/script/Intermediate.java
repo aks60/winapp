@@ -48,7 +48,7 @@ public class Intermediate {
     
     public String toString() {
         float owner2 = (owner == null) ?-1 :owner.id; 
-        return "owner=" + owner2 + ", id=" + id + ", type=" + type + ", layout="
+        return "ELEM- " + type.name() + ", owner=" + owner2 + ", id=" + id + ", type=" + type + ", layout="
                 + layout + ", width= " + width + ", height=" + height + ", param=" + param;
     }
 }

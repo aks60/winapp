@@ -75,8 +75,13 @@ public class Wincalc {
         drawMapLineList.clear();
 
         //Парсинг входного скрипта
-        parsingScript(productJson);
-        //parsingScript2(productJson);
+        //parsingScript(productJson);
+        parsingScript2(productJson);
+        
+        //LinkedList<ElemSimple> ls = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
+        //LinkedList<ElemSimple> ls = rootArea.listElem(TypeElem.AREA);
+        //Collections.sort(ls, Collections.reverseOrder((a, b) -> Float.compare(a.getId(),b.getId()))); 
+        //ls.stream().forEach(el -> System.out.println(el));
 
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.find(nuni);
@@ -223,16 +228,16 @@ public class Wincalc {
                     imd.addArea(new AreaStvorka(this, imd.owner.area, imd.id, imd.param));
                 } else {
                     if (TypeElem.SQUARE == rootArea.typeElem()) {
-                        imd.addArea(new AreaSquare(this, imd.owner.area, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //простое
+                        imd.addArea(new AreaSquare(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //простое
 
                     } else if (TypeElem.TRAPEZE == rootArea.typeElem()) {
-                        imd.addArea(new AreaTrapeze(this, imd.owner.area, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //трапеция
+                        imd.addArea(new AreaTrapeze(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //трапеция
 
                     } else if (TypeElem.TRIANGL == rootArea.typeElem()) {
-                        imd.addArea(new AreaTriangl(this, imd.owner.area, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //треугольник
+                        imd.addArea(new AreaTriangl(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //треугольник
 
                     } else if (TypeElem.ARCH == rootArea.typeElem()) {
-                        imd.addArea(new AreaArch(this, imd.owner.area, imd.id, imd.type, imd.layout, width, height, -1, -1, -1, null)); //арка
+                        imd.addArea(new AreaArch(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //арка
                     }
                 }
             } else {
