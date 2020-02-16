@@ -236,7 +236,7 @@ public class Wincalc {
             }
             
             //Добавим все остальные элементы
-            buildWin2(mainObj, intermediate);
+            //buildWin2(mainObj, intermediate);
 
         } catch (Exception e) {
             System.out.println("Ошибка Wincalc.parsingScript() " + e);
