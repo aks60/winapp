@@ -8,7 +8,7 @@ import dataset.Record;
 public enum eJoindet implements Field {
     up("0", "0", "0", "Спецификация вариантов соединения", "CONNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
-    match("5", "5", "1", "подбор", "CTYPE"),
+    types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     color_id("4", "10", "1", "ссылка", "color_id"),
     artikl_id("4", "10", "1", "ссылка", "artikl_id"),
     joinvar_id("4", "10", "1", "ссылка", "joinvar_id");

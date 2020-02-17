@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.ArrayList;
 
 public enum eArtdet implements Field {
     up("0", "0", "0", "Тариф. мат. цености", "ARTSVST"),
@@ -32,6 +33,10 @@ public enum eArtdet implements Field {
         meta.init(p);
     }
 
+    public Object get(Record record) {
+        return record.get(this);
+    }
+    
     public MetaField meta() {
         return meta;
     }
@@ -48,7 +53,10 @@ public enum eArtdet implements Field {
         return query;
     }
 
-    public static Record find(int id) {
+    public static Record find2(int id) {
+        return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
+    }
+    public static ArrayList<Record> find(int id) {
         return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
     }
 

@@ -45,23 +45,6 @@ public abstract class ElemSimple extends Com5t {
     public void anglCut(int layout, float anglCut) {
     }
 
-    //Генерация нового ключа
-//    public String genId() {
-//        int maxId = 0;
-//        LinkedList<ElemSimple> elemList = root().listElem(TypeElem.FRAME_BOX, TypeElem.IMPOST, TypeElem.GLASS, TypeElem.FRAME_STV);
-//        for (ElemSimple elemBase : elemList) {
-//            for (Specification specification : elemBase.specificationRec.specificationList()) {
-//                if (Integer.valueOf(elemBase.specificationRec.id) > maxId) {
-//                    maxId = Integer.valueOf(elemBase.specificationRec.id);
-//                }
-//                if (Integer.valueOf(specification.id) > maxId) {
-//                    maxId = Integer.valueOf(specification.id);
-//                }
-//            }
-//        }
-//        return String.valueOf(++maxId);
-//    }
-
     @Override
     public String toString() {
         return super.toString() + ", anglHoriz=" + anglHoriz;

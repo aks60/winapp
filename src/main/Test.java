@@ -6,21 +6,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.FrameToFile;
 import dataset.Query;
+import dataset.Record;
+import domain.eArtdet;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.LayoutArea;
 import enums.ParamJson;
-import enums.TypeElem;
 import forms.BoxTypical;
-import forms.Design;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-import wincalc.model.ElemSimple;
-import wincalc.script.AreaElem;
-import wincalc.script.AreaRoot;
-import wincalc.script.Element;
 import wincalc.script.Winscript;
 
 public class Test {
@@ -29,11 +21,11 @@ public class Test {
         Main.dev = true;
 
         try {
-            //convert.Profstroy.script();
+            convert.Profstroy.script();
             //query();
-            wincalc();
+            //wincalc();
             //frame();
-
+                        
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

@@ -66,11 +66,16 @@ public class ElemGlass extends ElemSimple {
             artiklRec.set(eArtikl.tech_code, iwin.artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
-        Record artdetRec = eArtdet.find(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_id));
-        color1 = colorRec.getInt(eColor.color);
-        color2 = colorRec.getInt(eColor.color);
-        color3 = colorRec.getInt(eColor.color);
+//        Record artdetRec = eArtdet.find(artiklRec.getInt(eArtikl.id));
+//        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_id));
+//        color1 = colorRec.getInt(eColor.color);
+//        color2 = colorRec.getInt(eColor.color);
+//        color3 = colorRec.getInt(eColor.color);
+        
+        //TODO Разобраться с цветом стекла
+        color1 = iwin.colorNone;
+        color2 = iwin.colorNone;
+        color3 = iwin.colorNone;
 
         specificationRec.setArtiklRec(artiklRec);
     }

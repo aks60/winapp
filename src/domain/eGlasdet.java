@@ -8,6 +8,7 @@ import dataset.Record;
 public enum eGlasdet implements Field {
     up("0", "0", "0", "Спецификация групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),
+    types("5", "5", "1", "Подбор текстуры", "CTYPE"), 
     depth("8", "15", "1", "Толщина", "AFRIC"),
     artikl_id("4", "10", "0", "Ссылка", "artikl_id"),
     color_id("4", "10", "0", "Ссылка", "color_id"),
@@ -16,7 +17,6 @@ public enum eGlasdet implements Field {
     //gunic("4", "10", "1", "null", "GUNIC"), 
     //anumb("12", "32", "1", "Артикул элемента", "ANUMB"),
     //clnum("4", "10", "1", "Текстура", "CLNUM"),
-    //ctype("5", "5", "1", "null", "CTYPE"),    
     private MetaField meta = new MetaField(this);
     public static Query query = new Query(values()).table(up.tname());
 

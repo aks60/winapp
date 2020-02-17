@@ -45,11 +45,12 @@ public class Wincalc {
     public Integer nuni = 0;
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
+    public float specId = 0; //генерация ключа спецификации
 
     public float width = 0.f;     //ширина окна
     public float height = 0.f;    //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
-    protected final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
+    public final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
     public int color1 = -1; //базовый цвет
     public int color2 = -1; //внутренний цвет
     public int color3 = -1; //внещний цвет
@@ -78,6 +79,7 @@ public class Wincalc {
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
+        specId = 100;
 
         //Парсинг входного скрипта
         parsingScript(productJson);

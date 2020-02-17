@@ -68,9 +68,50 @@ public class ElemFrame extends ElemSimple {
         specificationRec.setArtiklRec(artiklRec);
     }
 
-    //Добавление спесификаций зависимых элементов
+       /* public void setSpecifElement(Sysproa sysproaRec) {  //добавление основной спесификации
+
+        specificationRec.element = side.name;
+        float ssizp = getRoot().iwin.syssizeRec.ssizp;
+        Artikls articlesRec = Artikls.get(getConst(), sysproaRec.anumb, false);
+        specificationRec.setArticlRec(articlesRec);
+        specificationRec.colorBase = colorBase;
+        specificationRec.colorInternal = colorInternal;
+        specificationRec.colorExternal = colorExternal;
+        specificationRec.discount = 0;
+        specificationRec.anglHoriz = anglHoriz;
+        indexUniq(specificationRec);
+
+        //Простое окно
+        if (LayoutArea.TOP == side) {
+            specificationRec.width = x2 - x1 + ssizp * 2;
+            specificationRec.height = articlesRec.aheig;
+
+        } else if (LayoutArea.BOTTOM == side) {
+            specificationRec.width = x2 - x1 + ssizp * 2;
+            specificationRec.height = articlesRec.aheig;
+
+        } else if (LayoutArea.LEFT == side) {
+            specificationRec.width = y2 - y1 + getRoot().iwin.syssizeRec.ssizp * 2;
+            specificationRec.height = articlesRec.aheig;
+
+        } else if (LayoutArea.RIGHT == side) {
+            specificationRec.width = y2 - y1 + ssizp * 2;
+            specificationRec.height = articlesRec.aheig;
+        }
+
+        // Коррекция формы окна
+        owner.setSpecifElement(this, sysproaRec);
+
+        width = specificationRec.width;
+        height = specificationRec.height;
+
+        specificationRec.anglCut2 = anglCut2;
+        specificationRec.anglCut1 = anglCut1;
+    }*/
+        
+    
     @Override
-    public void addSpecifSubelem(Specification specif) {
+    public void addSpecifSubelem(Specification specif) { //добавление спесификаций зависимых элементов
         /*
         indexUniq(specif);
         Artikls cpecifArtikls = specif.getArticRec();

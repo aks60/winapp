@@ -65,7 +65,7 @@ public class Joining extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
-        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_id, eJoindet.match);
+        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_id, eJoindet.types);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.pnumb, eJoinpar1.val);
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.pnumb, eJoinpar2.val);
 

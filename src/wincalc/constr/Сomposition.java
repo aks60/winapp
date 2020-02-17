@@ -8,7 +8,9 @@ import enums.TypeProfile;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import wincalc.Wincalc;
+import wincalc.model.AreaStvorka;
 import wincalc.model.ElemFrame;
+import wincalc.model.ElemSimple;
 
 public class Сomposition extends Cal5e {
 
@@ -24,32 +26,32 @@ public class Сomposition extends Cal5e {
         ArrayList<Record> sysprofList = eSysprof.find(iwin.nuni);
 
         //Цыкл по профилям системы
-        for (Record sysprofRec : sysprofList) {
-            boolean is = false;
-            int typeId = sysprofRec.getInt(eSysprof.types);
-            if (TypeProfile.FRAME.value == typeId) {
-                //ArrayList<Artsvst> svstList = Artsvst.find(constr, sysprofRec.anumb); //подбор текстуры, ищем не на аналоге
-                ArrayList<Record> artdetList = eArtdet.find(sysprofRec.getInt(eSysprof.artikl_id)); //подбор текстуры, ищем не на аналоге
-                for (Artsvst svst : artdetList) {
-                    if (svst.clcod == iwin.getColorProfile(1)) {
-                        is = true;
-                        LinkedList<ElemFrame> elemRamaList = root.getElemList(TypeElem.FRAME);
-                        for (ElemFrame elemRama : elemRamaList) {
-                            elemRama.setSpecifElement(sysprofRec);
-                            ArrayList<Vstalst> vstalstList2 = Vstalst.find2(constr, elemRama.getArticlesRec().aseri); //состав для серии профилей
-                            compositionSecond(vstalstList2, elemRama);
-                            ArrayList<Vstalst> vstalstList = Vstalst.find(constr, elemRama.getArticlesRec().anumb); //состав для артикула профиля
-                            compositionSecond(vstalstList, elemRama);
-
-                            elemRama.getSpecificationRec().width = elemRama.getSpecificationRec().width + Float.valueOf(elemRama.getHmParam(0, 31052));
-                        }
-                    }
-                }
-            }
-            if (is == true) {
-                break;
-            }
-        }
+//        for (Record sysprofRec : sysprofList) {
+//            boolean is = false;
+//            int typeId = sysprofRec.getInt(eSysprof.types);
+//            if (TypeProfile.FRAME.value == typeId) {
+//                ArrayList<Record> artdetList = eArtdet.find(sysprofRec.getInt(eSysprof.artikl_id)); //подбор текстуры, ищем не на аналоге
+//                for (Record artdetRec : artdetList) {
+//                    if (artdetRec.getInt(eArtdet.id) == iwin.color1) {
+//                        is = true;
+//                        LinkedList<ElemFrame> listFrame = iwin.rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV);
+//                        for (ElemFrame recFrame: listFrame) {
+//                            
+//                            recFrame.setSpecifElement(sysprofRec);
+//                            ArrayList<Vstalst> vstalstList2 = Vstalst.find2(constr, recFrame.getArticlesRec().aseri); //состав для серии профилей
+//                            compositionSecond(vstalstList2, recFrame);
+//                            ArrayList<Vstalst> vstalstList = Vstalst.find(constr, recFrame.getArticlesRec().anumb); //состав для артикула профиля
+//                            compositionSecond(vstalstList, recFrame);
+//
+//                            recFrame.getSpecificationRec().width = recFrame.getSpecificationRec().width + Float.valueOf(recFrame.getHmParam(0, 31052));
+//                        }
+//                    }
+//                }
+//            }
+//            if (is == true) {
+//                break;
+//            }
+//        }
 /*        for (Sysproa sysproaRec : sysproaList) {
             boolean is = false;
             if (TypeProfile.IMPOST.value == sysproaRec.atype) {
@@ -93,7 +95,7 @@ public class Сomposition extends Cal5e {
             if (is == true) {
                 break;
             }*/
-        }
+        //}
     }
 //
 //    /**
@@ -127,5 +129,5 @@ public class Сomposition extends Cal5e {
 //            }
 //        }
 //        return false;
-    }
+//    }
 }
