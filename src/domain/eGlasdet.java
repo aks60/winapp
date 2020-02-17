@@ -8,11 +8,11 @@ import dataset.Record;
 public enum eGlasdet implements Field {
     up("0", "0", "0", "Спецификация групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),
-    types("5", "5", "1", "Подбор текстуры", "CTYPE"), 
+    types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
-    artikl_id("4", "10", "0", "Ссылка", "artikl_id"),
     color_id("4", "10", "0", "Ссылка", "color_id"),
-    glasgrp_id("4", "10", "0", "Ссылка", "glassgrp_id");
+    glasgrp_id("4", "10", "0", "Ссылка", "glassgrp_id"),
+    artikl_id("4", "10", "0", "Ссылка", "artikl_id");
     //gnumb("4", "10", "1", "ID группы заполнения", "GNUMB"),
     //gunic("4", "10", "1", "null", "GUNIC"), 
     //anumb("12", "32", "1", "Артикул элемента", "ANUMB"),
