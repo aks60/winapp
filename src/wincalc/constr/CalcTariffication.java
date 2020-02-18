@@ -25,11 +25,11 @@ import wincalc.model.Com5t;
  * расчёта произвожу расчёт собес-сти с отходом При завершении итерации перехожу к новому
  * элементу конструкции и т.д.
  */
-public class Tariffication extends Cal5e {
+public class CalcTariffication extends Cal5e {
 
 //    private Sysprof sysprofRec = null;
 
-    public Tariffication(Wincalc iwin) {
+    public CalcTariffication(Wincalc iwin) {
         super(iwin);
         //sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
     }

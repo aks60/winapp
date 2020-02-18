@@ -30,8 +30,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import wincalc.constr.CalcConstructiv;
 import wincalc.constr.Specification;
-import wincalc.constr.Tariffication;
+import wincalc.constr.CalcTariffication;
 import wincalc.constr.Сomposition;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
@@ -71,6 +72,10 @@ public class Wincalc {
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList();; //спецификация конструкции
+    
+    protected CalcConstructiv constructiv = new CalcConstructiv(this); //конструктив
+    protected CalcTariffication tariffication = new CalcTariffication(this); //тарификация
+    
 
     public AreaSimple create(String productJson) {
 
@@ -118,14 +123,7 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv() {
         
-        Сomposition composition = new Сomposition(this);
-        composition.compositionFirst();                //составы
-//            constructiv.joiningFirst();                    //соединения
-//            constructiv.fillingFirst();                    //заполнения
-//            constructiv.fittingFirst();                    //фурнитура
-//            constructiv.kitsFirst();                       //комплекты 
-        //Tariffication tariffic = new Tariffication(this); //тарификации
-        //tariffic.calculate(listCom5t);  
+        constructiv.calculate(this); 
         for (Com5t elemRec : listElem) {
             listSpec.add(elemRec.specificationRec);
             listSpec.addAll(elemRec.specificationRec.specificationList());
