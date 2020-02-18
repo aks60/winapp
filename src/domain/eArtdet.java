@@ -5,6 +5,7 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public enum eArtdet implements Field {
     up("0", "0", "0", "Тариф. мат. цености", "ARTSVST"),
@@ -57,7 +58,7 @@ public enum eArtdet implements Field {
         return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
     }
     public static ArrayList<Record> find(int id) {
-        return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
+        return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).collect(Collectors);
     }
 
     public String toString() {
