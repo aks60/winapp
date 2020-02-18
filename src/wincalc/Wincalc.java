@@ -70,6 +70,7 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
+    public ArrayList<Specification> listSpec; //спецификация конструкции
 
     protected Constructiv constructiv = new Constructiv(this); //конструктив
     protected Tariffication tariffication = new Tariffication(this); //тарификация
@@ -112,12 +113,12 @@ public class Wincalc {
         //tariffic.calculate(listCom5t);
 
         //Тестирование
-        ArrayList<Specification> specList = new ArrayList();
+        listSpec = new ArrayList();
         for (Com5t elemRec : listElem) {
-            specList.add(elemRec.specificationRec);
-            specList.addAll(elemRec.specificationRec.specificationList());
+            listSpec.add(elemRec.specificationRec);
+            listSpec.addAll(elemRec.specificationRec.specificationList());
         }
-        specList.stream().forEach(rec -> System.out.println(rec));
+        listSpec.stream().forEach(rec -> System.out.println(rec));
         
         //System.out.println(productJson); //вывод на консоль json
         //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));            

@@ -24,6 +24,7 @@ import forms.Rate;
 import forms.Color;
 import forms.Order;
 import forms.Partner;
+import forms.RepoSpecific;
 import forms.Syscons;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -104,6 +105,9 @@ public class App1 extends javax.swing.JFrame {
         btn29 = new javax.swing.JButton();
         btn30 = new javax.swing.JButton();
         btn33 = new javax.swing.JButton();
+        tb6 = new javax.swing.JToolBar();
+        btn61 = new javax.swing.JButton();
+        btn62 = new javax.swing.JButton();
         tb4 = new javax.swing.JToolBar();
         btn31 = new javax.swing.JButton();
         btn32 = new javax.swing.JButton();
@@ -368,7 +372,7 @@ public class App1 extends javax.swing.JFrame {
         });
         td5.add(btn34);
 
-        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
+        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn35.setFocusable(false);
         btn35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn35.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -429,6 +433,40 @@ public class App1 extends javax.swing.JFrame {
         td3.add(btn33);
 
         getContentPane().add(td3);
+
+        tb6.setRollover(true);
+
+        btn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
+        btn61.setFocusable(false);
+        btn61.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn61.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn61.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn61.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn61.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn61.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn61.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn41(evt);
+            }
+        });
+        tb6.add(btn61);
+
+        btn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn62.setFocusable(false);
+        btn62.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn62.setMaximumSize(new java.awt.Dimension(25, 25));
+        btn62.setMinimumSize(new java.awt.Dimension(25, 25));
+        btn62.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn62.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn62.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn62.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn62mHelp(evt);
+            }
+        });
+        tb6.add(btn62);
+
+        getContentPane().add(tb6);
 
         tb4.setRollover(true);
 
@@ -589,7 +627,7 @@ public class App1 extends javax.swing.JFrame {
         mn02.setFont(common.Util.getFont(1,1));
 
         mn26.setFont(common.Util.getFont(1,1));
-        mn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
         mn26.setText("Константы");
         mn26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -599,7 +637,7 @@ public class App1 extends javax.swing.JFrame {
         mn02.add(mn26);
 
         mn21.setFont(common.Util.getFont(1,1));
-        mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
         mn21.setText("Текстуры");
         mn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,7 +647,7 @@ public class App1 extends javax.swing.JFrame {
         mn02.add(mn21);
 
         mn24.setFont(common.Util.getFont(1,1));
-        mn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
         mn24.setText("Валюты");
         mn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -619,7 +657,7 @@ public class App1 extends javax.swing.JFrame {
         mn02.add(mn24);
 
         mn23.setFont(common.Util.getFont(1,1));
-        mn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
         mn23.setText("Параметры");
         mn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -630,7 +668,7 @@ public class App1 extends javax.swing.JFrame {
         mn02.add(mn22);
 
         mn25.setFont(common.Util.getFont(1,1));
-        mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
         mn25.setText("Артикулы");
         mn25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -731,7 +769,7 @@ public class App1 extends javax.swing.JFrame {
         mn08.setFont(common.Util.getFont(1,1));
 
         mn81.setFont(common.Util.getFont(1,1));
-        mn81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn81.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn81.setText("Контрагенты");
         mn81.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -741,7 +779,7 @@ public class App1 extends javax.swing.JFrame {
         mn08.add(mn81);
 
         mn82.setFont(common.Util.getFont(1,1));
-        mn82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn82.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn82.setText("Заказы");
         mn82.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -752,7 +790,7 @@ public class App1 extends javax.swing.JFrame {
         mn08.add(mn83);
 
         mn84.setFont(common.Util.getFont(1,1));
-        mn84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
+        mn84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
         mn84.setText("Конструктор");
         mn84.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -767,17 +805,17 @@ public class App1 extends javax.swing.JFrame {
         mn04.setFont(common.Util.getFont(1,1));
 
         mn41.setFont(common.Util.getFont(1,1));
-        mn41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
+        mn41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn41.setText("Спецификация");
         mn41.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn41mAdminUserToDb(evt);
+                mn41(evt);
             }
         });
         mn04.add(mn41);
 
         mn43.setFont(common.Util.getFont(1,1));
-        mn43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
+        mn43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn43.setText("Задание в цех");
         mn43.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -787,7 +825,7 @@ public class App1 extends javax.swing.JFrame {
         mn04.add(mn43);
 
         mn42.setFont(common.Util.getFont(1,1));
-        mn42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b058.gif"))); // NOI18N
+        mn42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b057.gif"))); // NOI18N
         mn42.setText("Паспорт изделия");
         mn42.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -995,9 +1033,14 @@ private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn
     eProp.save();
 }//GEN-LAST:event_mnLookAndFeel
 
-private void mn41mAdminUserToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41mAdminUserToDb
+private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
+    new FrameListener2() {
 
-}//GEN-LAST:event_mn41mAdminUserToDb
+        public void request(Object obj) {
+            eApp1.RepoSpecific.createFrame(App1.this);
+        }
+    };
+}//GEN-LAST:event_mn41
 
 private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
@@ -1165,6 +1208,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         }; 
     }//GEN-LAST:event_mnBoxTypical
+
+    private void btn62mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn62mHelp
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn62mHelp
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1185,6 +1232,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn33;
     private javax.swing.JButton btn34;
     private javax.swing.JButton btn35;
+    private javax.swing.JButton btn61;
+    private javax.swing.JButton btn62;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;
@@ -1244,6 +1293,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JToolBar tb1;
     private javax.swing.JToolBar tb2;
     private javax.swing.JToolBar tb4;
+    private javax.swing.JToolBar tb6;
     private javax.swing.JToolBar td3;
     private javax.swing.JToolBar td5;
     // End of variables declaration//GEN-END:variables
@@ -1286,7 +1336,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param, 
         Glass, Furn, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
-        BoxCustom;
+        BoxCustom, RepoSpecific;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1345,6 +1395,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case BoxCustom:
                         frame = new BoxCustom();
+                        break;
+                    case RepoSpecific:
+                        frame = new RepoSpecific();
                         break;
                 }
                 frame.setName(this.name());
