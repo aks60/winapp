@@ -30,9 +30,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import wincalc.constr.Constructiv;
 import wincalc.constr.Specification;
 import wincalc.constr.Tariffication;
+import wincalc.constr.Сomposition;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 import wincalc.script.Intermediate;
@@ -70,16 +70,14 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
-    public ArrayList<Specification> listSpec; //спецификация конструкции
-
-    protected Constructiv constructiv = new Constructiv(this); //конструктив
-    protected Tariffication tariffication = new Tariffication(this); //тарификация
+    public ArrayList<Specification> listSpec = new ArrayList();; //спецификация конструкции
 
     public AreaSimple create(String productJson) {
 
         mapParamDef.clear();
         mapJoin.clear();
         drawMapLineList.clear();
+        listSpec.clear();
         specId = 100;
 
         //Парсинг входного скрипта
@@ -110,14 +108,8 @@ public class Wincalc {
         //Конструктив и тарификация        
         constructiv();
 
-        //Тестирование
-        listSpec = new ArrayList();
-        for (Com5t elemRec : listElem) {
-            listSpec.add(elemRec.specificationRec);
-            listSpec.addAll(elemRec.specificationRec.specificationList());
-        }
-        listSpec.stream().forEach(rec -> System.out.println(rec));
-
+        //Тестирование                
+        //listSpec.stream().forEach(rec -> System.out.println(rec));
         //System.out.println(productJson); //вывод на консоль json
         //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));            
         return rootArea;
@@ -125,9 +117,19 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv() {
-        constructiv.calculate(this);
+        
+        Сomposition composition = new Сomposition(this);
+        composition.compositionFirst();                //составы
+//            constructiv.joiningFirst();                    //соединения
+//            constructiv.fillingFirst();                    //заполнения
+//            constructiv.fittingFirst();                    //фурнитура
+//            constructiv.kitsFirst();                       //комплекты 
         //Tariffication tariffic = new Tariffication(this); //тарификации
-        //tariffic.calculate(listCom5t);       
+        //tariffic.calculate(listCom5t);  
+        for (Com5t elemRec : listElem) {
+            listSpec.add(elemRec.specificationRec);
+            listSpec.addAll(elemRec.specificationRec.specificationList());
+        }        
     }
 
     // Парсим входное json окно и строим объектную модель окна
