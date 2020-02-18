@@ -3,15 +3,21 @@ package forms;
 import common.FrameListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Collections;
+import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import wincalc.constr.Specification;
+import wincalc.script.Winscript;
 
 public class RepoSpecific extends javax.swing.JFrame {
 
+    private wincalc.Wincalc iwin = new wincalc.Wincalc();
+
     private FocusListener listenerFocus = new FocusListener() {
 
-        javax.swing.border.Border border
-                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
             JTable table = (JTable) e.getSource();
@@ -48,6 +54,24 @@ public class RepoSpecific extends javax.swing.JFrame {
 
     public RepoSpecific() {
         initComponents();
+        initElements();
+
+        load();
+    }
+
+    private void load() {
+
+        iwin.create(wincalc.script.Winscript.test(Winscript.prj, null));
+        iwin.constructiv();
+        Collections.sort(iwin.listSpec, (o1, o2) -> Float.compare(o1.id, o2.id));
+                
+        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
+        dtm.getDataVector().clear();
+        for (Specification specRec : iwin.listSpec) {
+
+            Vector vector = specRec.getVector();
+            dtm.addRow(vector);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -69,11 +93,11 @@ public class RepoSpecific extends javax.swing.JFrame {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1600, 800));
+        setPreferredSize(new java.awt.Dimension(1200, 700));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(1600, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(1200, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -242,7 +266,7 @@ public class RepoSpecific extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(1600, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(1200, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
@@ -272,6 +296,12 @@ public class RepoSpecific extends javax.swing.JFrame {
         ));
         tab1.setFillsViewportHeight(true);
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(5).setMinWidth(120);
+            tab1.getColumnModel().getColumn(6).setMinWidth(169);
+            tab1.getColumnModel().getColumn(10).setMinWidth(40);
+            tab1.getColumnModel().getColumn(11).setMinWidth(40);
+        }
 
         panCentr.add(scr1, java.awt.BorderLayout.CENTER);
 

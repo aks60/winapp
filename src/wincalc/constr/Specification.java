@@ -3,6 +3,7 @@ package wincalc.constr;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
+import static domain.eSyspar1.npp;
 import enums.MeasUnit;
 import enums.TypeArtikl;
 import java.io.BufferedWriter;
@@ -12,11 +13,14 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Formatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import wincalc.model.Com5t;
 
 /**
@@ -103,6 +107,14 @@ public class Specification {
 
     public ArrayList<Specification> specificationList() {
         return specificationList;
+    }
+
+    public Vector getVector() {
+
+        List list = Arrays.asList(id, areaId, elemId, elemType, element, artikl, name, color1, color2, 
+                color3, width, height, weight, anglCut1, anglCut2, count, unit, quantity, wastePrc, 
+                quantity2, inPrice, outPrice, inCost, outCost, discount, anglHoriz);
+        return new Vector(list);
     }
 
     public void setArtiklRec(Record artiklRec) {

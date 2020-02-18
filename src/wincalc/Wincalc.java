@@ -108,9 +108,7 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(), b.getId())));
 
         //Конструктив и тарификация        
-        constructiv.calculate(this);
-        //Tariffication tariffic = new Tariffication(this); //тарификации
-        //tariffic.calculate(listCom5t);
+        constructiv();
 
         //Тестирование
         listSpec = new ArrayList();
@@ -119,11 +117,17 @@ public class Wincalc {
             listSpec.addAll(elemRec.specificationRec.specificationList());
         }
         listSpec.stream().forEach(rec -> System.out.println(rec));
-        
+
         //System.out.println(productJson); //вывод на консоль json
         //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));            
-
         return rootArea;
+    }
+
+    //Конструктив и тарификация 
+    public void constructiv() {
+        constructiv.calculate(this);
+        //Tariffication tariffic = new Tariffication(this); //тарификации
+        //tariffic.calculate(listCom5t);       
     }
 
     // Парсим входное json окно и строим объектную модель окна
