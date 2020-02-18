@@ -11,11 +11,11 @@ import wincalc.model.AreaSimple;
 public class ParamVariant {
 
    protected Wincalc iwin = null;
-   protected Constructiv calcConstr = null;
+   //protected Constructiv calcConstr = null;
 
-    public ParamVariant(Wincalc iwin, Constructiv calcConstr) {
+    public ParamVariant(Wincalc iwin) {
         this.iwin = iwin;
-        this.calcConstr = calcConstr;
+        //this.calcConstr = calcConstr;
     }
 //
 //    private boolean filterParamDef(ITParam param) {

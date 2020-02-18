@@ -10,12 +10,12 @@ import wincalc.model.AreaSimple;
 public class ParamSpecific {
 
     protected Wincalc iwin = null;
-    protected Constructiv calcConstr = null;
+    //protected Constructiv calcConstr = null;
     public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
 
-    public ParamSpecific(Wincalc iwin, Constructiv calcConstr) {
+    public ParamSpecific(Wincalc iwin) {
         this.iwin = iwin;
-        this.calcConstr = calcConstr;
+        //this.calcConstr = calcConstr;
     }
 //
 //    /**

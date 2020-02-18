@@ -134,10 +134,10 @@ public class Specification {
     }
 
     //TODO ВАЖНО необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
-    public void setColor(Constructiv constructiv, Com5t com5t, Record paramRec) {
-        color1 = constructiv.determineColorCodeForArt(com5t, 1, paramRec, this);
-        color2 = constructiv.determineColorCodeForArt(com5t, 2, paramRec, this);
-        color3 = constructiv.determineColorCodeForArt(com5t, 3, paramRec, this);
+    public void setColor(Com5t com5t, Record paramRec) {
+//        color1 = determineColorCodeForArt(com5t, 1, paramRec, this);
+//        color2 = determineColorCodeForArt(com5t, 2, paramRec, this);
+//        color3 = determineColorCodeForArt(com5t, 3, paramRec, this);
     }
 
     protected void setAnglCut() {
@@ -205,7 +205,7 @@ public class Specification {
         }
     }
 
-    public static void write_txt(Constructiv constructive, ArrayList<Specification> specList) {
+    public static void write_txt(ArrayList<Specification> specList) {
 
         String path = "C:\\Java\\specific_compare.txt";
         try (PrintStream printStream = new PrintStream(path, "windows-1251")) {
@@ -246,7 +246,7 @@ public class Specification {
         }
     }
 
-    public static void write_txt2(Constructiv constructive, ArrayList<Specification> specList) {
+    public static void write_txt2(ArrayList<Specification> specList) {
 
         Specification.sort(specList);
         int npp = 0;
