@@ -1,13 +1,14 @@
 package wincalc.model;
 
+import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
+import domain.eSyscons;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
-import java.awt.Color;
 import javafx.scene.shape.ArcType;
 import wincalc.constr.Specification;
 
@@ -68,46 +69,43 @@ public class ElemFrame extends ElemSimple {
         specificationRec.setArtiklRec(artiklRec);
     }
 
-       /* public void setSpecifElement(Sysproa sysproaRec) {  //добавление основной спесификации
+     public void setSpecifElement(Record sysprofRec) {  //добавление основной спесификации
 
-        specificationRec.element = side.name;
-        float ssizp = getRoot().iwin.syssizeRec.ssizp;
-        Artikls articlesRec = Artikls.get(getConst(), sysproaRec.anumb, false);
-        specificationRec.setArticlRec(articlesRec);
-        specificationRec.colorBase = colorBase;
-        specificationRec.colorInternal = colorInternal;
-        specificationRec.colorExternal = colorExternal;
+        specificationRec.element = layout.name;
+        float napl = iwin.sysconsRec.getFloat(eSyscons.napl);
+        Record artiklRec = eArtikl.query.select().stream().filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+        specificationRec.setArtiklRec(artiklRec);
+        specificationRec.color1 = color1;
+        specificationRec.color2 = color2;
+        specificationRec.color3 = color3;
         specificationRec.discount = 0;
         specificationRec.anglHoriz = anglHoriz;
-        indexUniq(specificationRec);
+        specificationRec.id = ++iwin.specId;
 
         //Простое окно
-        if (LayoutArea.TOP == side) {
-            specificationRec.width = x2 - x1 + ssizp * 2;
-            specificationRec.height = articlesRec.aheig;
+        if (LayoutArea.TOP == layout) {
+            specificationRec.width = x2 - x1 + napl * 2;
+            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.BOTTOM == side) {
-            specificationRec.width = x2 - x1 + ssizp * 2;
-            specificationRec.height = articlesRec.aheig;
+        } else if (LayoutArea.BOTTOM == layout) {
+            specificationRec.width = x2 - x1 + napl * 2;
+            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.LEFT == side) {
-            specificationRec.width = y2 - y1 + getRoot().iwin.syssizeRec.ssizp * 2;
-            specificationRec.height = articlesRec.aheig;
+        } else if (LayoutArea.LEFT == layout) {
+            specificationRec.width = y2 - y1 +  iwin.sysconsRec.getFloat(eSyscons.prip);
+            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.RIGHT == side) {
-            specificationRec.width = y2 - y1 + ssizp * 2;
-            specificationRec.height = articlesRec.aheig;
+        } else if (LayoutArea.RIGHT == layout) {
+            specificationRec.width = y2 - y1 + napl * 2;
+            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
         }
 
         // Коррекция формы окна
-        owner.setSpecifElement(this, sysproaRec);
-
-        width = specificationRec.width;
-        height = specificationRec.height;
+        //owner.setSpecifElement(this, sysprofRec);
 
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
-    }*/
+    }
         
     
     @Override
@@ -185,7 +183,7 @@ public class ElemFrame extends ElemSimple {
         float y2h = y2 + h;
 
         Object obj = eColor.find2(color2);
-        int rgb = eColor.find2(color2).getInt(eColor.color);
+        int rgb = eColor.find2(color2).getInt(eColor.code_rgb);
         if (LayoutArea.ARCH == layout) { //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
             //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);

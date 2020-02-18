@@ -30,8 +30,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import main.Main;
 import wincalc.constr.Constructiv;
+import wincalc.constr.Specification;
 import wincalc.constr.Tariffication;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
@@ -45,7 +45,7 @@ public class Wincalc {
     public Integer nuni = 0;
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
-    public float specId = 0; //генерация ключа спецификации
+    public float specId = 100; //генерация ключа спецификации
 
     public float width = 0.f;     //ширина окна
     public float height = 0.f;    //высота окна
@@ -70,7 +70,7 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
-    
+
     protected Constructiv constructiv = new Constructiv(this); //конструктив
     protected Tariffication tariffication = new Tariffication(this); //тарификация
 
@@ -104,17 +104,24 @@ public class Wincalc {
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(),b.getId())));
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(), b.getId())));
 
         //Конструктив и тарификация        
         constructiv.calculate(this);
         //Tariffication tariffic = new Tariffication(this); //тарификации
         //tariffic.calculate(listCom5t);
+
         //Тестирование
-        if (Main.dev == true) {
-            //System.out.println(productJson); //вывод на консоль json
-            //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));            
+        ArrayList<Specification> specList = new ArrayList();
+        for (Com5t elemRec : listElem) {
+            specList.add(elemRec.specificationRec);
+            specList.addAll(elemRec.specificationRec.specificationList());
         }
+        specList.stream().forEach(rec -> System.out.println(rec));
+        
+        //System.out.println(productJson); //вывод на консоль json
+        //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));            
+
         return rootArea;
     }
 
@@ -157,7 +164,7 @@ public class Wincalc {
                     listIntermediate.add(new Intermediate(intermediate, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_BOX.name(), layourFrame, null));
                 }
             }
-           
+
             intermBuild(mainObj, intermediate, listIntermediate); //добавим все остальные Intermediate
             Collections.sort(listIntermediate, (o1, o2) -> Float.compare(o1.id, o2.id));
             windowsBuild(listIntermediate); //строим конструкцию из промежуточного списка

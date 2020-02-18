@@ -41,7 +41,7 @@ public abstract class Com5t {
 
     protected Record sysprofRec = null; //профиль в системе
     protected Record artiklRec = null;  //мат. средства, основной профиль
-    protected Specification specificationRec = null; //спецификация элемента
+    public Specification specificationRec = null; //спецификация элемента
     protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
     public Com5t(float id) {

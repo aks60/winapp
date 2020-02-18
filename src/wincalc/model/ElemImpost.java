@@ -165,7 +165,7 @@ public class ElemImpost extends ElemSimple {
     @Override
     public void paint() {
         
-        int rgb = eColor.find2(color2).getInt(eColor.color);        
+        int rgb = eColor.find2(color2).getInt(eColor.code_rgb);        
         if (LayoutArea.VERT == owner.layout()) {
             strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
