@@ -134,7 +134,6 @@ public abstract class Com5t {
         iwin.gc2d.drawPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
                 new int[]{(int) (y1 + dy), (int) (y2 + dy), (int) (y3 + dy), (int) (y4 + dy)}, 4);
         iwin.gc2d.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
-        //iwin.gc2d.setColor(new java.awt.Color(rgbFill, false));
         iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
                 new int[]{(int) (y1 + dy), (int) (y2 + dy), (int) (y3 + dy), (int) (y4 + dy)}, 4);
     }
@@ -143,7 +142,6 @@ public abstract class Com5t {
             double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
         iwin.gc2d.setStroke(new BasicStroke((float) lineWidth)); //толщина линии
         iwin.gc2d.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
-        //iwin.gc2d.setColor(new java.awt.Color(rdbStroke, false));
         iwin.gc2d.drawArc((int) x, (int) y, (int) w, (int) h, (int) startAngle, (int) arcExtent);
     }
 
