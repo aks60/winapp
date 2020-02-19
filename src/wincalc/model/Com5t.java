@@ -122,7 +122,7 @@ public abstract class Com5t {
     }
 
     public void setStroke(int s) {
-        int sw = (int)(s + 1 - iwin.scale2 * .37);
+        int sw = (int)(s + 1 - iwin.scale2 * .5);
         iwin.gc2d.setStroke(new BasicStroke(sw));
     }
 
