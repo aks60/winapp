@@ -111,7 +111,7 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(), b.getId())));
 
         //Конструктив и тарификация        
-        constructiv();
+        //constructiv();
 
         //Тестирование                
         //listSpec.stream().forEach(rec -> System.out.println(rec));

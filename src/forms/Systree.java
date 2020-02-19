@@ -12,6 +12,7 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.ProfileSide;
 import enums.TypeSys;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JTable;
@@ -23,6 +24,10 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import swing.DefFieldRenderer;
 import swing.DefTableModel;
+import wincalc.Wincalc;
+import wincalc.model.ElemSimple;
+import wincalc.model.PaintPanel;
+import wincalc.script.Winscript;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -33,6 +38,17 @@ public class Systree extends javax.swing.JFrame {
 
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
+    public Wincalc iwin = new Wincalc();
+    private PaintPanel paintPanel = new PaintPanel(iwin) {
+
+        public void response(MouseEvent evt) {
+//            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
+//            if (elem != null) {
+//                txtField5.setText(String.valueOf(elem.getId()));
+//                repaint();
+//            }
+        }
+    };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -51,15 +67,15 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
 
-        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id) ;
+        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eArtikl.id, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
             @Override
             public Object preview(Field field, Object val) {
-                if(field == eSysprof.side) {
+                if (field == eSysprof.side) {
                     //return ProfileSide.get(field.ordinal());
                 }
                 return val;
-            }          
+            }
         };
         rsmSysprof.addFrameListener(listenerModify);
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
@@ -75,6 +91,9 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.col2, txtField4);
         rsvSystree.add(eSystree.col3, txtField5);
         rsvSystree.add(eSystree.id, txtField6);
+
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
+        paintPanel.setVisible(true);
 
         loadTree();
     }
@@ -119,7 +138,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void selectionTree() {
-        
+
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
@@ -187,6 +206,7 @@ public class Systree extends javax.swing.JFrame {
         txtField8 = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
         txtField9 = new javax.swing.JFormattedTextField();
+        panDesign = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -332,7 +352,7 @@ public class Systree extends javax.swing.JFrame {
         pan2.setPreferredSize(new java.awt.Dimension(692, 240));
         pan2.setLayout(new java.awt.BorderLayout());
 
-        pan6.setPreferredSize(new java.awt.Dimension(658, 240));
+        pan6.setPreferredSize(new java.awt.Dimension(374, 240));
 
         jLabel13.setFont(common.Util.getFont(0,0));
         jLabel13.setText("Заполнение по умолчанию");
@@ -521,7 +541,20 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        pan2.add(pan6, java.awt.BorderLayout.CENTER);
+        pan2.add(pan6, java.awt.BorderLayout.WEST);
+
+        javax.swing.GroupLayout panDesignLayout = new javax.swing.GroupLayout(panDesign);
+        panDesign.setLayout(panDesignLayout);
+        panDesignLayout.setHorizontalGroup(
+            panDesignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panDesignLayout.setVerticalGroup(
+            panDesignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 240, Short.MAX_VALUE)
+        );
+
+        pan2.add(panDesign, java.awt.BorderLayout.CENTER);
 
         pan1.add(pan2, java.awt.BorderLayout.NORTH);
 
@@ -643,7 +676,8 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        iwin.create(Winscript.test(Winscript.prj, null));
+        paintPanel.repaint();
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
@@ -659,19 +693,19 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void txtField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField6ActionPerformed
-    
+
     }//GEN-LAST:event_txtField6ActionPerformed
 
     private void txtField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField7ActionPerformed
-       
+
     }//GEN-LAST:event_txtField7ActionPerformed
 
     private void txtField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField8ActionPerformed
-      
+
     }//GEN-LAST:event_txtField8ActionPerformed
 
     private void txtField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField9ActionPerformed
-     
+
     }//GEN-LAST:event_txtField9ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -697,6 +731,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel panCentr;
+    private javax.swing.JPanel panDesign;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;

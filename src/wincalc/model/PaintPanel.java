@@ -59,5 +59,6 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
         } else {
             g.clearRect(0, 0, getWidth(), getHeight());
         }
+        System.out.println("AKS wincalc.model.PaintPanel.paintComponent()");
     }
 }
