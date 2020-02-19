@@ -603,17 +603,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan2.add(pan6, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout panDesignLayout = new javax.swing.GroupLayout(panDesign);
-        panDesign.setLayout(panDesignLayout);
-        panDesignLayout.setHorizontalGroup(
-            panDesignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panDesignLayout.setVerticalGroup(
-            panDesignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
-        );
-
+        panDesign.setLayout(new java.awt.BorderLayout());
         pan2.add(panDesign, java.awt.BorderLayout.CENTER);
 
         pan1.add(pan2, java.awt.BorderLayout.NORTH);

@@ -68,11 +68,6 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
-    public float xy(int index) {
-        float xy[] = {x1, y1, x2, y2};
-        return xy[index - 1];
-    }
-
     public float width() {
         return x2 - x1;
     }

@@ -60,6 +60,7 @@ public class Wincalc {
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public float scaleDxy = 1; //коэффициент сжатия
+    public float scale = 1; //коэффициент сжатия
     protected String labelSketch = "empty"; //надпись на эскизе
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
 
