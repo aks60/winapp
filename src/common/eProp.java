@@ -28,11 +28,12 @@ public enum eProp {
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
     path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),
     path_bekap(System.getProperty("user.home") + "/Acron/Backup", "C:\\Acron\\Backup"),
-    url_src("http://aks.acron.ru:8080"),      
+    url_src("http://aks.acron.ru:8080"),   
+    sys_nuni("-1"),
     cmd_word("libreoffice -writer ", "cmd /c start winword.exe "), 
     cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
     cmd_html("firefox ", "cmd /c start iexplore.exe "),
-    fontname("Dialog"),
+    fontname("Dialog"),    
     fontsize("11");
     private static Properties prop = null;
     //это значение по умолчанию
@@ -44,39 +45,18 @@ public enum eProp {
 
     public static boolean open_dict = true;
 
-    /**
-     * Значение по умолчанию
-     */
+    //Значение по умолчанию
     eProp(String value) {
         this.value = value;
     }
 
-    /**
-     * Значение по умолчанию для конкретной OS
-     */
+    //Значение по умолчанию для конкретной OS
     eProp(String value1, String value2) {
         String os = System.getProperty("os.name");
         this.value = os.equals("Linux") ? value1 : value2;
     }
 
-    /**
-     * Чтение значения по умолчанию
-     */
-    public String readdef() {
-        return this.value;
-    }
-
-    /**
-     * Запись значения по умолчанию
-     */
-    public void writedef(String str) {
-        this.value = str;
-    }
-
-    /**
-     * Возвращает конкретное значение от выбранного экземпляра enum например
-     * eProp.base.Value
-     */
+    //Возвращает конкретное значение от выбранного экземпляра enum
     public String read() {
         load();
         String prop2 = prop.getProperty(this.name());
@@ -89,9 +69,7 @@ public enum eProp {
         }
     }
 
-    /**
-     * Запись str в Property
-     */
+    //Запись str в Property
     public void write(String str) {
         load();
         if (this.name().equals("user")) {
@@ -100,9 +78,7 @@ public enum eProp {
         prop.setProperty(this.name(), str.trim());
     }
 
-    /**
-     * @return Properties
-     */
+    //Чтение property из файла
     public static Properties load() {
         if (prop == null) {
             prop = new Properties();
@@ -135,9 +111,7 @@ public enum eProp {
         return prop;
     }
 
-    /**
-     * Запись property в файл
-     */
+    //Сохранение property в файл
     public static void save() {
         try {
             File file = new File(path_prop.value, eProfile.filename);
@@ -149,20 +123,7 @@ public enum eProp {
         }
     }
 
-    /**
-     * Закрытие лог файла
-     */
-    public static void logclose() {
-        try {
-            if (logconv != null) {
-                logconv.close();
-            }
-        } catch (IOException e) {
-            System.err.println("Ошибка закрытия log.conv файла " + e);
-        }
-    }
-
-    public static void logdef(boolean adm, JTextField... val) {
+    public static void logindef(boolean adm, JTextField... val) {
         if (typedb.read().equals(fb)) {
             if (adm == true) {
                 val[0].setText("sysdba"); //user

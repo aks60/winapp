@@ -49,7 +49,8 @@ public class Winscript {
 
         } else if (prj == 601003) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.SQUARE, 1440, 1700, 1700, 1009, 1009, 1009, "");
-            rootArea.setParam(prj.toString(), 4, "Darrio->DARRIO 200->1 ОКНА");
+            rootArea.setParam(prj.toString(), -1, "Darrio->DARRIO 200->1 ОКНА");
+//            rootArea.setParam(prj.toString(), 4, "Darrio->DARRIO 200->1 ОКНА");
             rootArea.add(new Element(2, TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_BOX, LayoutArea.TOP));

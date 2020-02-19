@@ -32,7 +32,7 @@ public class LogoToDb extends javax.swing.JDialog {
             edPass.setPreferredSize(new java.awt.Dimension(120, 18));
 
         } else {
-            eProp.logdef(false, edUser, edPass);
+            eProp.logindef(false, edUser, edPass);
             ConnectToDb();
         }
         labMes.setText("");
@@ -321,12 +321,12 @@ public class LogoToDb extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnAdmConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmConnect
-        eProp.logdef(true, edUser, edPass);
+        eProp.logindef(true, edUser, edPass);
         ConnectToDb();
     }//GEN-LAST:event_btnAdmConnect
 
     private void btnUserConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserConnect
-        eProp.logdef(false, edUser, edPass);
+        eProp.logindef(false, edUser, edPass);
         ConnectToDb();
     }//GEN-LAST:event_btnUserConnect
 

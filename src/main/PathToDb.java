@@ -445,7 +445,7 @@ public class PathToDb extends javax.swing.JDialog {
     //Нажал кнопку "ADM"
     private void btnAdmDef(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef
 
-        eProp.logdef(true, edUser, edPass, edHost, edPort, edPath);
+        eProp.logindef(true, edUser, edPass, edHost, edPort, edPath);
         ConnectToDb();
 }//GEN-LAST:event_btnAdmDef
     //Нажал кнопку "user"
@@ -456,7 +456,7 @@ public class PathToDb extends javax.swing.JDialog {
         if (edPass.getPassword() == null) {
             edPass.setText("");
         }
-        eProp.logdef(false, edUser, edPass);
+        eProp.logindef(false, edUser, edPass);
         ConnectToDb();
 }//GEN-LAST:event_btnUserDef
     //Нажал кнопку "ОК"
