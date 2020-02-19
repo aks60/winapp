@@ -56,7 +56,7 @@ public abstract class Com5t {
     public AreaSimple root() {
         return iwin.rootArea;
     }
-    
+
     public Wincalc iwin() {
         return iwin;
     }
@@ -75,7 +75,7 @@ public abstract class Com5t {
     public float height() {
         return y2 - y1;
     }
-    
+
     protected void parsing(String param) {
         try {
             Gson gson = new Gson();
@@ -125,8 +125,9 @@ public abstract class Com5t {
             float y2, float y3, float y4, int rgbFill, Color rdbStroke) {
         iwin.gc2d.setStroke(new BasicStroke(8)); //толщина линии
         iwin.gc2d.setColor(rdbStroke);
+        float sc = iwin.scale;
         float dy = iwin.heightAdd - iwin.height;
-        iwin.gc2d.drawPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
+        iwin.gc2d.drawPolygon(new int[]{(int) (x1 / sc), (int) (x2 / sc), (int) (x3 / sc), (int) (x4 / sc)},
                 new int[]{(int) (y1 + dy), (int) (y2 + dy), (int) (y3 + dy), (int) (y4 + dy)}, 4);
         iwin.gc2d.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
         iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},
