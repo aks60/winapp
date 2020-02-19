@@ -47,7 +47,7 @@ public class AreaStvorka extends AreaSimple {
 
         }
         initСonstructiv();
-        
+
         //Коррекция створки с учётом нахлёста
         LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
@@ -63,14 +63,14 @@ public class AreaStvorka extends AreaSimple {
         y2 = insideBott.y1 + size_falz + naxl;
         specificationRec.width = width();
         specificationRec.height = height();
-        
+
         //Добавим рамы створки        
         addFrame(new ElemFrame(this, id + .1f, LayoutArea.BOTTOM));
         addFrame(new ElemFrame(this, id + .2f, LayoutArea.RIGHT));
         addFrame(new ElemFrame(this, id + .3f, LayoutArea.TOP));
         addFrame(new ElemFrame(this, id + .4f, LayoutArea.LEFT));
-        
-        parsing(param);        
+
+        parsing(param);
     }
 
     public void initСonstructiv() {
@@ -177,23 +177,22 @@ public class AreaStvorka extends AreaSimple {
             ElemSimple elemB = mapFrame.get(LayoutArea.BOTTOM);
 
             float dy = iwin.heightAdd - iwin.height;
-            //iwin.gc2d.drawLine((int) x1, (int) (y1 + dy), (int) x2, (int) (y2 + dy));
 
             if (value.equals("1") || value.equals("3")) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
-                iwin.gc2d.drawLine((int) elemL.x1, (int) (elemL.y1 + dy), (int) elemR.x2, (int) (elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2));
-                iwin.gc2d.drawLine((int) elemL.x1, (int) (elemL.y2 + dy), (int) elemR.x2, (int) (elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2));
+                drawLine(elemL.x1, elemL.y1 + dy, elemR.x2, elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2);
+                drawLine(elemL.x1, elemL.y2 + dy, elemR.x2, elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2);
 
             } else if (value.equals("2") || value.equals("4")) {
                 X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
                 Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
-                iwin.gc2d.drawLine((int) elemR.x2, (int) (elemR.y1 + dy), (int) elemL.x1, (int) (elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2));
-                iwin.gc2d.drawLine((int) elemR.x2, (int) (elemR.y2 + dy), (int) elemL.x1, (int) (elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2));
+                drawLine(elemR.x2, elemR.y1 + dy, elemL.x1, elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2);
+                drawLine(elemR.x2, elemR.y2 + dy, elemL.x1, elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2);
             }
             if (value.equals("3") || value.equals("4")) {
-                iwin.gc2d.drawLine((int) elemB.x1, (int) (elemB.y2 + dy), (int) (elemT.x1 + (elemT.x2 - elemT.x1) / 2), (int) (elemT.y1 + dy));
-                iwin.gc2d.drawLine((int) elemB.x2, (int) (elemB.y2 + dy), (int) elemT.x1 + (int) ((elemT.x2 - elemT.x1) / 2), (int) (elemT.y1 + dy));
+                drawLine(elemB.x1, elemB.y2 + dy, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1 + dy);
+                drawLine(elemB.x2, elemB.y2 + dy, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1 + dy);
             }
             strokePolygon(X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
             DX = DX - 12;

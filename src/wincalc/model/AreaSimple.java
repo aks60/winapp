@@ -224,17 +224,17 @@ public class AreaSimple extends Com5t {
             int mov = 80;
             for (int i = 1; i < ls1.size(); i++) {
                 float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-                line((int) x1, (int) (iwin.heightAdd + mov), (int) x2, (int) (iwin.heightAdd + mov), 0);
+                line( x1, (iwin.heightAdd + mov),  x2,  (iwin.heightAdd + mov), 0);
             }
             for (int i = 1; i < ls2.size(); i++) {
                 float y1 = ls2.get(i - 1), y2 = ls2.get(i);
-                line((int) (this.x2 + mov), (int) y1, (int) (this.x2 + mov), (int) y2, (int) dy);
+                line( (this.x2 + mov),  y1, (this.x2 + mov),  y2, dy);
             }
             if (ls1.size() > 2) { //линия общей ширины
-                line((int) root().x1, (int) iwin.heightAdd + mov * 2, (int) root().x2, (int) iwin.heightAdd + mov * 2, (int) 0);
+                line(root().x1, iwin.heightAdd + mov * 2,  root().x2,  iwin.heightAdd + mov * 2, 0);
             }
             if (ls2.size() > 2) { //линия общей высоты
-                line((int) iwin.width + mov * 2, 0, (int) iwin.width + mov * 2, (int) iwin.heightAdd, 0);
+                line( iwin.width + mov * 2, 0, iwin.width + mov * 2, iwin.heightAdd, 0);
             }
 
             //Рисунок в память
@@ -253,32 +253,32 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    private void line(int x1, int y1, int x2, int y2, int dy) {
-
+    private void line(float x1, float y1, float x2, float y2, float dy) {
+/*
         iwin.gc2d.setColor(java.awt.Color.BLACK);
         iwin.gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
-        iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
+        setStroke(2); //толщина линии
         y1 = y1 + dy;
         y2 = y2 + dy;
-        iwin.gc2d.drawLine(x1, y1, x2, y2);
+        drawLine(x1, y1, x2, y2);
         if (x1 == x2 && y2 - y1 != 0) {
-            iwin.gc2d.drawLine(x1 - 24, y1, x1 + 24, y1);
-            iwin.gc2d.drawLine(x2 - 24, y2, x2 + 24, y2);
-            iwin.gc2d.drawLine(x1, y1, x1 + 12, y1 + 24);
-            iwin.gc2d.drawLine(x1, y1, x1 - 12, y1 + 24);
-            iwin.gc2d.drawLine(x2, y2, x2 + 12, y2 - 24);
-            iwin.gc2d.drawLine(x2, y2, x2 - 12, y2 - 24);
-            iwin.gc2d.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
-            iwin.gc2d.drawString(String.valueOf(y2 - y1), x1 + 60, y1 + (y2 - y1) / 2);
-            iwin.gc2d.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
+            drawLine(x1 - 24, y1, x1 + 24, y1);
+            drawLine(x2 - 24, y2, x2 + 24, y2);
+            drawLine(x1, y1, x1 + 12, y1 + 24);
+            drawLine(x1, y1, x1 - 12, y1 + 24);
+            drawLine(x2, y2, x2 + 12, y2 - 24);
+            drawLine(x2, y2, x2 - 12, y2 - 24);
+            rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
+            drawString(String.valueOf((int)(y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
+            rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
         } else if (y1 == y2 && x2 - x1 != 0) {
-            iwin.gc2d.drawLine(x1, y1 - 24, x1, y1 + 24);
-            iwin.gc2d.drawLine(x2, y2 - 24, x2, y2 + 24);
-            iwin.gc2d.drawLine(x1, y1, x1 + 24, y1 - 12);
-            iwin.gc2d.drawLine(x1, y1, x1 + 24, y1 + 12);
-            iwin.gc2d.drawLine(x2, y2, x2 - 24, y2 - 12);
-            iwin.gc2d.drawLine(x2, y2, x2 - 24, y2 + 12);
-            iwin.gc2d.drawString(String.valueOf(x2 - x1), x1 + (x2 - x1) / 2, y2 + 60);
-        }
+            drawLine(x1, y1 - 24, x1, y1 + 24);
+            drawLine(x2, y2 - 24, x2, y2 + 24);
+            drawLine(x1, y1, x1 + 24, y1 - 12);
+            drawLine(x1, y1, x1 + 24, y1 + 12);
+            drawLine(x2, y2, x2 - 24, y2 - 12);
+            drawLine(x2, y2, x2 - 24, y2 + 12);
+            drawString(String.valueOf((int)(x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
+        }*/
     }
 }

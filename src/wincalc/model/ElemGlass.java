@@ -71,7 +71,7 @@ public class ElemGlass extends ElemSimple {
 //        color1 = colorRec.getInt(eColor.color);
 //        color2 = colorRec.getInt(eColor.color);
 //        color3 = colorRec.getInt(eColor.color);
-        
+
         //TODO Разобраться с цветом стекла
         color1 = iwin.colorNone;
         color2 = iwin.colorNone;
@@ -89,18 +89,18 @@ public class ElemGlass extends ElemSimple {
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
-            iwin.gc2d.fillArc((int) (root().width() / 2 - r + dz), (int) dz, (int) ((r - dz) * 2), (int) ((r - dz) * 2), (int) ang2, (int) ((90 - ang2) * 2));
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2))); 
+            fillArc((float)(root().width() / 2 - r + dz), dz, (float)((r - dz) * 2), (float)((r - dz) * 2), (float)ang2, (float)((90 - ang2) * 2));
 
-        } else  {
+        } else {
             float h = iwin.heightAdd - iwin.height;
-            iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);   
-            
-            iwin.gc2d.setColor(borderColor);
-            iwin.gc2d.drawPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+            fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
-        } 
+
+            iwin.gc2d.setColor(borderColor);
+            drawPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
+        }
     }
 
     @Override
