@@ -175,7 +175,7 @@ public abstract class Com5t {
         iwin.gc2d.drawPolygon(new int[]{(int) (x1 / sc), (int) (x2 / sc), (int) (x3 / sc), (int) (x4 / sc)},
                 new int[]{(int) (y1 / sc + dy), (int) (y2 / sc + dy), (int) (y3 / sc + dy), (int) (y4 / sc + dy)}, 4);
         iwin.gc2d.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
-        fillPolygon(new int[]{(int) (x1 / sc), (int) (x2 / sc), (int) (x3 / sc), (int) (x4 / sc)},
+        iwin.gc2d.fillPolygon(new int[]{(int) (x1 / sc), (int) (x2 / sc), (int) (x3 / sc), (int) (x4 / sc)},
                 new int[]{(int) (y1 / sc + dy), (int) (y2 / sc + dy), (int) (y3 / sc + dy), (int) (y4 / sc + dy)}, 4);
     }
 

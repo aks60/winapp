@@ -79,7 +79,7 @@ public class BoxTypical extends javax.swing.JFrame {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-        iwinMin.scale2 = 24;
+        iwinMin.scale2 = 25;
         
 //            float max1 = (getWidth() > getHeight()) ? getHeight() : getWidth();
 //            float max2 = (iwin.width > iwin.heightAdd) ? iwin.width + Com5t.SPACE_DX : iwin.heightAdd + Com5t.SPACE_DY;
