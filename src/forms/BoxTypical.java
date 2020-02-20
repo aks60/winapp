@@ -28,11 +28,12 @@ import wincalc.script.Winscript;
 
 public class BoxTypical extends javax.swing.JFrame {
 
-    public Wincalc iwin = new Wincalc();
-    private PaintPanel paintPanel = new PaintPanel(iwin) {
+    public Wincalc iwinMax = new Wincalc();
+    public Wincalc iwinMin = new Wincalc();
+    private PaintPanel paintPanel = new PaintPanel(iwinMax) {
 
         public void response(MouseEvent evt) {
-            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
+            ElemSimple elem = iwinMax.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
             if (elem != null) {
                 txtField5.setText(String.valueOf(elem.getId()));
                 repaint();
@@ -78,14 +79,31 @@ public class BoxTypical extends javax.swing.JFrame {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-
+        iwinMin.scale2 = 24;
+        
+//            float max1 = (getWidth() > getHeight()) ? getHeight() : getWidth();
+//            float max2 = (iwin.width > iwin.heightAdd) ? iwin.width + Com5t.SPACE_DX : iwin.heightAdd + Com5t.SPACE_DY;
+//            iwin.scale1 = (iwin.scale2 == 1) ? max1 / max2 : 1;
+//            Graphics2D gc = (Graphics2D) g;
+//            gc.setColor(getBackground());
+//            gc.scale(iwin.scale1, iwin.scale1);        
+        
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
+            public int length = 70;
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
                     label.setIcon(image);
+                    Object script = qSysprod.get(row, eSysprod.script);                                        
+                    iwinMin.create(script.toString());
+                    BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+                    iwinMin.gc2d = bi.createGraphics();
+                    iwinMin.rootArea.draw(length, length);
+                    ImageIcon image = new ImageIcon(bi);
+                    label.setIcon(image);
+
                 } else {
                     label.setIcon(null);
                 }
@@ -103,7 +121,7 @@ public class BoxTypical extends javax.swing.JFrame {
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().removeAllElements();
         for (Record record : qSysprod) {
-            Object obj[] = {record.get(eSysprod.npp), record.get(eSysprod.name), "*"};
+            Object obj[] = {record.get(eSysprod.npp), record.get(eSysprod.name), ""};
             dm.addRow(obj);
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -114,7 +132,7 @@ public class BoxTypical extends javax.swing.JFrame {
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
-            iwin.create(script.toString());
+            iwinMax.create(script.toString());
             paintPanel.repaint(true, 1);
         }
     }
@@ -163,7 +181,6 @@ public class BoxTypical extends javax.swing.JFrame {
         btnSquare4 = new javax.swing.JButton();
         btnSquare5 = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
-        lab = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Типовые конструкции фиртуальных профилей");
@@ -300,23 +317,15 @@ public class BoxTypical extends javax.swing.JFrame {
             new String [] {
                 "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tab1.setRowHeight(80);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(0).setMaxWidth(20);
-            tab1.getColumnModel().getColumn(2).setResizable(false);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(64);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         panWest.add(scr1, java.awt.BorderLayout.CENTER);
@@ -462,7 +471,7 @@ public class BoxTypical extends javax.swing.JFrame {
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 353, Short.MAX_VALUE)
+            .addGap(0, 413, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
@@ -477,7 +486,7 @@ public class BoxTypical extends javax.swing.JFrame {
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 353, Short.MAX_VALUE)
+            .addGap(0, 413, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
@@ -630,22 +639,16 @@ public class BoxTypical extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(857, 80));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSouthLayout.createSequentialGroup()
-                .addContainerGap(280, Short.MAX_VALUE)
-                .addComponent(lab, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(298, 298, 298))
+            .addGap(0, 853, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panSouthLayout.createSequentialGroup()
-                .addComponent(lab, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 16, Short.MAX_VALUE)
         );
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
@@ -658,20 +661,12 @@ public class BoxTypical extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        iwin.create(Winscript.test(Winscript.prj, null));
+        iwinMax.create(Winscript.test(Winscript.prj, null));
         paintPanel.repaint(true, 24);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
 
-        iwin.scale2 = 24;
-        int length = 70;
-        iwin.create(Winscript.test(Winscript.prj, null));
-        BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-        iwin.gc2d = bi.createGraphics();
-        iwin.rootArea.draw(length, length);
-        ImageIcon image = new ImageIcon(bi);
-        lab.setIcon(image);
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -707,7 +702,7 @@ public class BoxTypical extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSquare1btnArea
 
     private void btnImpostVertbtnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpostVertbtnElem
-        iwin.listElem.stream().forEach(el -> el.print());
+        iwinMax.listElem.stream().forEach(el -> el.print());
     }//GEN-LAST:event_btnImpostVertbtnElem
 
     private void btnImpostGorizbtnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpostGorizbtnElem
@@ -743,7 +738,6 @@ public class BoxTypical extends javax.swing.JFrame {
     private javax.swing.JButton btnSquare5;
     private javax.swing.JButton btnTrapeze;
     private javax.swing.JButton btnTrapeze2;
-    private javax.swing.JLabel lab;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;
