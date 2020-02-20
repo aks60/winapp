@@ -4,13 +4,22 @@ import common.FrameListener;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
+import java.awt.Component;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import wincalc.Wincalc;
 import wincalc.model.ElemSimple;
@@ -61,19 +70,35 @@ public class BoxTypical extends javax.swing.JFrame {
         }
     };
 
+    private Icon image = new ImageIcon(getClass().getResource("/resource/img16/b055.gif"));
+
     public BoxTypical() {
         initComponents();
         initElements();
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-        loadDataTab1();
-//        if (tab1.getRowCount() > 0) {
-//            tab1.setRowSelectionInterval(0, 0);
-//        }
+
+        tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 2) {
+                    label.setIcon(image);
+                } else {
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        });
+        loadTab1();
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
     }
 
-    private void loadDataTab1() {
+    private void loadTab1() {
 
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().removeAllElements();
@@ -90,7 +115,7 @@ public class BoxTypical extends javax.swing.JFrame {
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
             iwin.create(script.toString());
-            paintPanel.repaint();
+            paintPanel.repaint(true, 1);
         }
     }
 
@@ -138,6 +163,7 @@ public class BoxTypical extends javax.swing.JFrame {
         btnSquare4 = new javax.swing.JButton();
         btnSquare5 = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
+        lab = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Типовые конструкции фиртуальных профилей");
@@ -242,7 +268,7 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 635, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 690, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -274,22 +300,29 @@ public class BoxTypical extends javax.swing.JFrame {
             new String [] {
                 "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
             }
-        ));
-        tab1.setRowHeight(40);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab1.setRowHeight(80);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(0).setMaxWidth(20);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(50);
+            tab1.getColumnModel().getColumn(2).setResizable(false);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(64);
         }
 
         panWest.add(scr1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(560, 585));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -323,7 +356,7 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(313, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,7 +419,7 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +443,7 @@ public class BoxTypical extends javax.swing.JFrame {
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+            .addGap(0, 477, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -429,7 +462,7 @@ public class BoxTypical extends javax.swing.JFrame {
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGap(0, 353, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
@@ -444,7 +477,7 @@ public class BoxTypical extends javax.swing.JFrame {
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGap(0, 353, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
@@ -597,16 +630,22 @@ public class BoxTypical extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(857, 80));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panSouthLayout.createSequentialGroup()
+                .addContainerGap(280, Short.MAX_VALUE)
+                .addComponent(lab, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(298, 298, 298))
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
+            .addGroup(panSouthLayout.createSequentialGroup()
+                .addComponent(lab, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
@@ -620,11 +659,19 @@ public class BoxTypical extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         iwin.create(Winscript.test(Winscript.prj, null));
-        paintPanel.repaint();
+        paintPanel.repaint(true, 24);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
 
+        iwin.scale2 = 24;
+        int length = 70;
+        iwin.create(Winscript.test(Winscript.prj, null));
+        BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+        iwin.gc2d = bi.createGraphics();
+        iwin.rootArea.draw(length, length);
+        ImageIcon image = new ImageIcon(bi);
+        lab.setIcon(image);
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -696,6 +743,7 @@ public class BoxTypical extends javax.swing.JFrame {
     private javax.swing.JButton btnSquare5;
     private javax.swing.JButton btnTrapeze;
     private javax.swing.JButton btnTrapeze2;
+    private javax.swing.JLabel lab;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;

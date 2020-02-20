@@ -15,6 +15,7 @@ import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.event.TreeSelectionEvent;
@@ -35,7 +36,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-
+    
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
     public Wincalc iwin = new Wincalc();
@@ -91,7 +92,7 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.col2, txtField4);
         rsvSystree.add(eSystree.col3, txtField5);
         rsvSystree.add(eSystree.id, txtField6);
-
+               
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
 
@@ -227,7 +228,6 @@ public class Systree extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Системы профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(896, 608));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -725,7 +725,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         iwin.create(Winscript.test(Winscript.prj, null));
-        paintPanel.repaint();
+        paintPanel.repaint(true, 20);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

@@ -95,11 +95,10 @@ public class Design extends javax.swing.JFrame {
                 if (selectedNode.isLeaf() && (typeSys == 1 || typeSys == 2)) {
 
                     iwin.create(Winscript.test(Winscript.prj, id));
-                    paintPanel.setVisible(true);
+                    paintPanel.repaint(true, 1f);
                 } else {
-                    paintPanel.setVisible(false);
-                }
-                panDesign.repaint();
+                    paintPanel.repaint(false, 1f);
+                }                
             }
         }
     }
