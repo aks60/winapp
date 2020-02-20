@@ -36,7 +36,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    
+
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
     public Wincalc iwin = new Wincalc();
@@ -92,7 +92,7 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.col2, txtField4);
         rsvSystree.add(eSystree.col3, txtField5);
         rsvSystree.add(eSystree.id, txtField6);
-               
+
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
 
@@ -348,7 +348,7 @@ public class Systree extends javax.swing.JFrame {
         btnCard3.setPreferredSize(new java.awt.Dimension(25, 25));
         btnCard3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard3btnCard(evt);
+                btnCard(evt);
             }
         });
 
@@ -360,7 +360,7 @@ public class Systree extends javax.swing.JFrame {
         btnCard4.setPreferredSize(new java.awt.Dimension(25, 25));
         btnCard4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard4btnCard(evt);
+                btnCard(evt);
             }
         });
 
@@ -373,7 +373,7 @@ public class Systree extends javax.swing.JFrame {
         btnCard5.setPreferredSize(new java.awt.Dimension(25, 25));
         btnCard5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard5btnCard(evt);
+                btnCard(evt);
             }
         });
 
@@ -386,7 +386,7 @@ public class Systree extends javax.swing.JFrame {
         btnCard6.setPreferredSize(new java.awt.Dimension(25, 25));
         btnCard6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard6btnCard(evt);
+                btnCard(evt);
             }
         });
 
@@ -826,26 +826,10 @@ public class Systree extends javax.swing.JFrame {
         JToggleButton btn = (JToggleButton) evt.getSource();
         if (btn == btnCard1) {
             ((CardLayout) panCard.getLayout()).show(panCard, "panCard1");
-        } else if (btn == btnCard2) {
+        } else if (btn == btnCard6) {
             ((CardLayout) panCard.getLayout()).show(panCard, "panCard2");
-        }    
+        }
     }//GEN-LAST:event_btnCard
-
-    private void btnCard3btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard3btnCard
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCard3btnCard
-
-    private void btnCard4btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard4btnCard
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCard4btnCard
-
-    private void btnCard5btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard5btnCard
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCard5btnCard
-
-    private void btnCard6btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard6btnCard
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCard6btnCard
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
