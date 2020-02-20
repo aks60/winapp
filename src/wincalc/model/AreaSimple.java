@@ -224,17 +224,17 @@ public class AreaSimple extends Com5t {
             int mov = 80;
             for (int i = 1; i < ls1.size(); i++) {
                 float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-                line( x1, (iwin.heightAdd + mov),  x2,  (iwin.heightAdd + mov), 0);
+                line(x1, (iwin.heightAdd + mov), x2, (iwin.heightAdd + mov), 0);
             }
             for (int i = 1; i < ls2.size(); i++) {
                 float y1 = ls2.get(i - 1), y2 = ls2.get(i);
-                line( (this.x2 + mov),  y1, (this.x2 + mov),  y2, dy);
+                line((this.x2 + mov), y1, (this.x2 + mov), y2, dy);
             }
             if (ls1.size() > 2) { //линия общей ширины
-                line(root().x1, iwin.heightAdd + mov * 2,  root().x2,  iwin.heightAdd + mov * 2, 0);
+                line(root().x1, iwin.heightAdd + mov * 2, root().x2, iwin.heightAdd + mov * 2, 0);
             }
             if (ls2.size() > 2) { //линия общей высоты
-                line( iwin.width + mov * 2, 0, iwin.width + mov * 2, iwin.heightAdd, 0);
+                line(iwin.width + mov * 2, 0, iwin.width + mov * 2, iwin.heightAdd, 0);
             }
 
             //Рисунок в память
@@ -254,31 +254,33 @@ public class AreaSimple extends Com5t {
     }
 
     private void line(float x1, float y1, float x2, float y2, float dy) {
-/*
-        iwin.gc2d.setColor(java.awt.Color.BLACK);
-        iwin.gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
-        setStroke(2); //толщина линии
-        y1 = y1 + dy;
-        y2 = y2 + dy;
-        drawLine(x1, y1, x2, y2);
-        if (x1 == x2 && y2 - y1 != 0) {
-            drawLine(x1 - 24, y1, x1 + 24, y1);
-            drawLine(x2 - 24, y2, x2 + 24, y2);
-            drawLine(x1, y1, x1 + 12, y1 + 24);
-            drawLine(x1, y1, x1 - 12, y1 + 24);
-            drawLine(x2, y2, x2 + 12, y2 - 24);
-            drawLine(x2, y2, x2 - 12, y2 - 24);
-            rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
-            drawString(String.valueOf((int)(y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
-            rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
-        } else if (y1 == y2 && x2 - x1 != 0) {
-            drawLine(x1, y1 - 24, x1, y1 + 24);
-            drawLine(x2, y2 - 24, x2, y2 + 24);
-            drawLine(x1, y1, x1 + 24, y1 - 12);
-            drawLine(x1, y1, x1 + 24, y1 + 12);
-            drawLine(x2, y2, x2 - 24, y2 - 12);
-            drawLine(x2, y2, x2 - 24, y2 + 12);
-            drawString(String.valueOf((int)(x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
-        }*/
+
+        if (iwin.scale2 == 1) {
+            iwin.gc2d.setColor(java.awt.Color.BLACK);
+            iwin.gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
+            setStroke(6); //толщина линии
+            y1 = y1 + dy;
+            y2 = y2 + dy;
+            drawLine(x1, y1, x2, y2);
+            if (x1 == x2 && y2 - y1 != 0) {
+                drawLine(x1 - 24, y1, x1 + 24, y1);
+                drawLine(x2 - 24, y2, x2 + 24, y2);
+                drawLine(x1, y1, x1 + 12, y1 + 24);
+                drawLine(x1, y1, x1 - 12, y1 + 24);
+                drawLine(x2, y2, x2 + 12, y2 - 24);
+                drawLine(x2, y2, x2 - 12, y2 - 24);
+                rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
+                drawString(String.valueOf((int) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
+                rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
+            } else if (y1 == y2 && x2 - x1 != 0) {
+                drawLine(x1, y1 - 24, x1, y1 + 24);
+                drawLine(x2, y2 - 24, x2, y2 + 24);
+                drawLine(x1, y1, x1 + 24, y1 - 12);
+                drawLine(x1, y1, x1 + 24, y1 + 12);
+                drawLine(x2, y2, x2 - 24, y2 - 12);
+                drawLine(x2, y2, x2 - 24, y2 + 12);
+                drawString(String.valueOf((int) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
+            }
+        }
     }
 }

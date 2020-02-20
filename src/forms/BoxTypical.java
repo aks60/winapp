@@ -79,14 +79,7 @@ public class BoxTypical extends javax.swing.JFrame {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-        iwinMin.scale2 = 25;
-        
-//            float max1 = (getWidth() > getHeight()) ? getHeight() : getWidth();
-//            float max2 = (iwin.width > iwin.heightAdd) ? iwin.width + Com5t.SPACE_DX : iwin.heightAdd + Com5t.SPACE_DY;
-//            iwin.scale1 = (iwin.scale2 == 1) ? max1 / max2 : 1;
-//            Graphics2D gc = (Graphics2D) g;
-//            gc.setColor(getBackground());
-//            gc.scale(iwin.scale1, iwin.scale1);        
+        iwinMin.scale2 = 25;     
         
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
@@ -304,7 +297,7 @@ public class BoxTypical extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panWest.setPreferredSize(new java.awt.Dimension(300, 499));
+        panWest.setPreferredSize(new java.awt.Dimension(340, 499));
         panWest.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -365,7 +358,7 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,7 +421,7 @@ public class BoxTypical extends javax.swing.JFrame {
                 .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,7 +445,7 @@ public class BoxTypical extends javax.swing.JFrame {
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 437, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
