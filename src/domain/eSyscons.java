@@ -42,7 +42,7 @@ public enum eSyscons implements Field {
     }
 
     public static Record find(int id) {
-        return query.select().stream().filter(rec -> id == rec.getInt(eSyscons.id)).findFirst().orElse(null);
+        return query.stream().filter(rec -> id == rec.getInt(eSyscons.id)).findFirst().orElse(null);
     }
     
     public void virtualRec() {

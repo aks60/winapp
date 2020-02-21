@@ -23,7 +23,7 @@ public class Test {
         try {
             //convert.Profstroy.script();
             //query();
-            //wincalc();
+            wincalc();
             //frame();
                         
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         wincalc.Wincalc iwin = new wincalc.Wincalc();
         iwin.create(wincalc.script.Winscript.test(Winscript.prj, null));
-        
+        iwin.constructiv();
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
 //        iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           

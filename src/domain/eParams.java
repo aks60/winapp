@@ -53,7 +53,7 @@ public enum eParams implements Field {
     }
 
     public static Record find(int numb, int mixt) {
-        return query.select().stream().filter(rec -> numb == rec.getInt(eParams.numb) && mixt == rec.getInt(eParams.mixt)).findFirst().orElse(null);
+        return query.stream().filter(rec -> numb == rec.getInt(eParams.numb) && mixt == rec.getInt(eParams.mixt)).findFirst().orElse(null);
     }
 
     public String toString() {

@@ -40,9 +40,9 @@ public abstract class Com5t {
     public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 
 
     protected Record sysprofRec = null; //профиль в системе
-    protected Record artiklRec = null;  //мат. средства, основной профиль
+    public Record artiklRec = null;  //мат. средства, основной профиль
     public Specification specificationRec = null; //спецификация элемента
-    protected HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
+    public HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
     public Com5t(float id) {
         this.id = id;

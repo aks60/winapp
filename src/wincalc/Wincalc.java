@@ -110,9 +110,6 @@ public class Wincalc {
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(), b.getId())));
 
-        //Конструктив и тарификация        
-        //constructiv();
-
         //Тестирование                
         //listSpec.stream().forEach(rec -> System.out.println(rec));
         //System.out.println(productJson); //вывод на консоль json

@@ -2,10 +2,9 @@ package wincalc.constr;
 
 import dataset.Record;
 import domain.eArtdet;
-import static domain.eArtdet.artikl_id;
-import static domain.eArtdet.query;
 import domain.eArtikl;
 import domain.eColor;
+import domain.eElement;
 import domain.eSysprof;
 import enums.TypeElem;
 import enums.TypeProfile;
@@ -14,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import wincalc.Wincalc;
+import wincalc.model.Com5t;
 import wincalc.model.ElemFrame;
 
 public class Сomposition extends Cal5e {
@@ -36,25 +36,28 @@ public class Сomposition extends Cal5e {
                 if (TypeProfile.FRAME.value == types) {
 
                     int id = sysprofRec.getInt(eSysprof.artikl_id); //подбор текстуры, ищем не на аналоге                
-                    List<Record> artdetList = eArtdet.query.select().stream().filter(rec -> rec.getInt(eArtdet.artikl_id) == id).collect(toList());
+                    List<Record> artdetList = eArtdet.find(id);
                     //Цыкл по цветам артикулов
                     for (Record artdetRec : artdetList) {
 
                         int color_id = artdetRec.getInt(eArtdet.color_id);
-                        Record colorRec = eColor.query.select().stream().filter(rec -> rec.getInt(eColor.id) == color_id).findFirst().orElse(null);
+                        Record colorRec = eColor.find(color_id);
                         int color_code = colorRec.getInt(eColor.code);
                         if (color_code == iwin.color1) {
                             is = true;
                             LinkedList<ElemFrame> listFrame = iwin.rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV);
                             for (ElemFrame recordFrame : listFrame) {
 
-//                                recordFrame.setSpecifElement(sysprofRec);
-//                                ArrayList<Vstalst> vstalstList2 = Vstalst.find2(constr, recordFrame.getArticlesRec().aseri); //состав для серии профилей
-//                                compositionSecond(vstalstList2, recordFrame);
-//                                ArrayList<Vstalst> vstalstList = Vstalst.find(constr, recordFrame.getArticlesRec().anumb); //состав для артикула профиля
-//                                compositionSecond(vstalstList, recordFrame);
-//
-//                                recordFrame.getSpecificationRec().width = recordFrame.getSpecificationRec().width + Float.valueOf(recordFrame.getHmParam(0, 31052));
+                                recordFrame.setSpecifElement(sysprofRec);
+                                String series = recordFrame.artiklRec.getStr(eArtikl.series);
+                                ArrayList<eElement> vstalstList2 = (ArrayList) eElement.find(series); //состав для серии профилей
+                                compositionSecond(vstalstList2, recordFrame);
+                                String code = recordFrame.artiklRec.getStr(eArtikl.code);
+                                ArrayList<eElement> vstalstList = (ArrayList) eElement.find2(code); //состав для артикула профиля
+                                compositionSecond(vstalstList, recordFrame);
+
+                                recordFrame.specificationRec.width = recordFrame.specificationRec.width
+                                        + Float.valueOf(String.valueOf(recordFrame.specificationRec.getParam(0, 31052)));
                             }
                         }
                     }
@@ -111,13 +114,11 @@ public class Сomposition extends Cal5e {
             System.out.println("Ошибка wincalc.constr.Сomposition.compositionFirst()");
         }
     }
-//
-//    /**
-//     * Соcтавы
-//     */
-//    protected boolean compositionSecond(ArrayList<Vstalst> vstalstList, ElemBase elemBase) {
-//
-//        //цикл по составам
+
+    //Соcтавы
+    protected boolean compositionSecond(ArrayList<eElement> vstalstList, Com5t elemBase) {
+
+        //цикл по составам
 //        for (Vstalst vstalstRec : vstalstList) {
 //
 //            ArrayList<ITParam> parvstmList = Parvstm.find(constr, vstalstRec.vnumb);
@@ -142,6 +143,6 @@ public class Сomposition extends Cal5e {
 //                }
 //            }
 //        }
-//        return false;
-//    }
+        return false;
+    }
 }

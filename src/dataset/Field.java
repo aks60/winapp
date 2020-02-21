@@ -7,6 +7,8 @@ import java.util.HashSet;
 //Поле таблицы
 public interface Field extends Enam{
 
+    public static String conf = "app";
+    
     public static enum TYPE {
 
         OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), INTsp(Integer.class),

@@ -73,7 +73,7 @@ public class ElemFrame extends ElemSimple {
 
         specificationRec.element = layout.name;
         float napl = iwin.sysconsRec.getFloat(eSyscons.napl);
-        Record artiklRec = eArtikl.query.select().stream().filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+        Record artiklRec =  eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
         specificationRec.color1 = color1;
         specificationRec.color2 = color2;

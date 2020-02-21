@@ -91,17 +91,17 @@ public enum eArtikl implements Field {
 
     public static Record find(int _id, boolean _analog) {
         
-        Record articlRec = query.select().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);         
-        if (_analog == false && articlRec.get(analog_id) != null) {
+        Record articlRec = query.stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);         
+        if (_analog == true && articlRec.get(analog_id) != null) {
             
             int _analog_id = articlRec.getInt(analog_id);
-            articlRec = query.select().stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
+            articlRec = query.stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
         } 
         return articlRec;
     }
 
     public static Record find2(String _code) {
-        return query.select().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
+        return query.stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
     }
 
     public void virtualRec() {

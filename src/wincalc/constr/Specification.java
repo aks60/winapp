@@ -30,7 +30,7 @@ public class Specification {
 
     protected Com5t owner = null; //элемент пораждающий спецификацию
     protected ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
-    protected HashMap<Integer, String> hmParam = null; //параметры спецификации
+    protected HashMap<Integer, String> mapParam = null; //параметры спецификации
     protected Record artiklRec = null; //профиль в спецификации
 
     public float id = -1;  //ID
@@ -69,14 +69,14 @@ public class Specification {
     public Specification(float id, Com5t com5t) {
         this.id = id;
         this.owner = com5t;
-        this.hmParam = new HashMap();
+        this.mapParam = new HashMap();
     }
 
     //Конструктор для элементов спецификации окна
     public Specification(Record artiklRec, Com5t com5t, HashMap<Integer, String> hmParam) {
         this.id = com5t.iwin().specId;
         this.owner = com5t;
-        this.hmParam = hmParam;
+        this.mapParam = hmParam;
         setArtiklRec(artiklRec);
     }
 
@@ -101,7 +101,7 @@ public class Specification {
         this.outPrice = spec.outPrice;
         this.discount = spec.discount;
         this.anglHoriz = spec.anglHoriz;
-        this.hmParam = spec.hmParam;
+        this.mapParam = spec.mapParam;
         this.artiklRec = spec.artiklRec;
     }
 
@@ -155,6 +155,25 @@ public class Specification {
         }
     }
 
+
+    public void putParam(Integer key, String val) {
+        mapParam.put(key, val);
+    }
+
+    public String getParam(Object def, int... p) {
+
+        if (mapParam == null) System.out.println("ОШИБКА getHmParam() hmParamJson = null");
+
+        for (int index = 0; index < p.length; ++index) {
+            int key = p[index];
+            String str = mapParam.get(Integer.valueOf(key));
+            if (str != null) {
+                return str;
+            }
+        }
+        return String.valueOf(def);
+    }
+    
     @Override
     public boolean equals(Object specification) {
         Specification spec = (Specification) specification;

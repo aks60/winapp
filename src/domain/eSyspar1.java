@@ -42,7 +42,7 @@ public enum eSyspar1 implements Field {
     public static ArrayList<Record> find(int nuni) {
 
         ArrayList<Record> recordList = new ArrayList();
-        for (Record record : query.select()) {
+        for (Record record : query) {
             if (nuni == record.getInt(systree_id)) {
                 recordList.add(record);
             }

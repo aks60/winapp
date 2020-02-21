@@ -3,7 +3,8 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
-import dataset.Record;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum eElement implements Field {
     up("0", "0", "0", "Составы", "VSTALST"),
@@ -11,7 +12,7 @@ public enum eElement implements Field {
     name("12", "64", "1", "наименование состав", "VNAME"),
     vtype("12", "16", "1", "тип состава (1 - внутренний, 5 - состав_С/П)", "VTYPE"),
     markup("8", "15", "1", "наценка %", "VPERC"),
-    binding("5", "5", "1", "установка обязательности: 0  - умолчание нет, обязательно нет 1 - умолчание да, обязательно да 2 - умолчание да, обязательно нет", "VSETS"),
+    binding("5", "5", "1", "установка обязательности", "VSETS"), //0  - умолчание нет, обязательно нет 1 - умолчание да, обязательно да 2 - умолчание да, обязательно нет"
     elemgrp_id("4", "10", "0", "Внешний ключ", "elemgrp_id"),
     artikl_id("4", "10", "0", "Внешний ключ", "artikl_id");
 
@@ -48,6 +49,14 @@ public enum eElement implements Field {
             query.select(up, "order by", id);
         }
         return query;
+    }
+
+    public static List<eElement> find(String series) {
+        return query.stream().filter(rec -> series.equals(rec.getStr(eArtikl.series))).findAny().orElse(null);
+    }
+
+    public static List<eElement> find2(String code) {
+        return query.stream().filter(rec -> code.equals(rec.getStr(eArtikl.code))).findAny().orElse(null); 
     }
 
     public String toString() {

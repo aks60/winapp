@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
@@ -37,7 +38,7 @@ public enum eArtdet implements Field {
     public Object get(Record record) {
         return record.get(this);
     }
-    
+
     public MetaField meta() {
         return meta;
     }
@@ -54,12 +55,16 @@ public enum eArtdet implements Field {
         return query;
     }
 
-    public static Record find2(int id) {
-        return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
+    public static List<Record> find(int _id) {
+        if (Conf.comp(Conf.calc)) {
+            return query.stream().filter(rec -> rec.getInt(artikl_id) == _id).collect(toList());
+        }
+        return new Query(values()).select(up, "where", artikl_id, "=", _id , "order by", id).table(up.tname()); 
     }
-//    public static List<Record> find(int id) {
-//        return query.select().stream().filter(rec -> rec.getInt(artikl_id) == id).collect(toList());
-//    }
+
+    public static Record find2(int id) {
+        return query.stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
+    }
 
     public String toString() {
         return meta.getDescr();

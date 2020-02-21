@@ -75,12 +75,10 @@ public class AreaStvorka extends AreaSimple {
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.query.select().stream()
-                .filter(rec -> rec.getInt(eSysprof.systree_id) == iwin.nuni
-                && rec.getInt(eSysprof.types) == TypeProfile.STVORKA.value).findFirst().orElse(null);
-        artiklRec = eArtikl.query.select().stream()
-                .filter(rec -> rec.getInt(eArtikl.id) == sysprofRec.getInt(eSysprof.artikl_id)).findFirst().orElse(null);
+        sysprofRec = eSysprof.find4(iwin.nuni, TypeProfile.STVORKA);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
+            
             artiklRec.setNo(eArtikl.size_falz, iwin.artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
         }
         specificationRec.setArtiklRec(artiklRec);
