@@ -21,8 +21,8 @@ public class Test {
 
         try {
             //convert.Profstroy.script();
-            query();
-            //wincalc();
+            //query();
+            wincalc();
             //frame();
 
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         wincalc.Wincalc iwin = new wincalc.Wincalc();
         iwin.create(wincalc.script.Winscript.test(Winscript.prj, null));
-        iwin.constructiv();
+//        iwin.constructiv();
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
 //        iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           
@@ -116,17 +116,5 @@ public class Test {
 //        rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
 //        AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
 //        area2.add(new Element("7", TypeElem.GLASS));
-    }
-
-//    public void test() {
-//        ElemSimpleElemSimpleElemSimpleElemSimple elemLeft = iwin.listElem.stream().filter(el2 -> el2.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
-//                elemTop = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
-//                elemBott = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
-//                elemRight = iwin.listElem.stream().filter(el2 -> el2.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-//        System.out.println(elemLeft);
-//        System.out.println(elemRight);
-//        System.out.println(elemTop);
-//        System.out.println(elemBott);
-//        System.out.println();
-//    }    
+    }  
 }
