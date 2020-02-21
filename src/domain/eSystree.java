@@ -5,6 +5,9 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import static domain.eArtdet.values;
+import static domain.eArtikl.code;
+import static domain.eArtikl.up;
+import static domain.eArtikl.values;
 import static domain.eSysprof.artikl_id;
 import static domain.eSysprof.id;
 import static domain.eSysprof.query;
@@ -62,8 +65,12 @@ public enum eSystree implements Field {
         return query;
     }
 
-    public static Record find(int nuni) {
-        return query.stream().filter(rec -> nuni == rec.getInt(id)).findFirst().orElse(null);
+    public static Record find(int _nuni) {
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _nuni).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public void virtualRec() {
@@ -72,7 +79,8 @@ public enum eSystree implements Field {
         record.setNo(id, -1);
         record.setNo(glas, "4x10x4x10x4");
         q.add(record);
-    }    
+    }
+
     public String toString() {
         return meta.getDescr();
     }

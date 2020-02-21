@@ -66,7 +66,7 @@ public enum eColor implements Field {
         if (conf.equals("calc")) {
             return query.stream().filter(rec -> rec.getInt(eColor.code) == _code).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", code, "=", _code).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", code, "= '", _code, "'").table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

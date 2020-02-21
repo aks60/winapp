@@ -55,7 +55,7 @@ public enum eElement implements Field {
         if (conf.equals("calc")) {
             return query.stream().filter(rec -> _series.equals(rec.getStr(series)) && rec.getInt(bind) > 0).findAny().orElse(null);
         }
-        return new Query(values()).select(up, "where", series, "=", _series, "and", bind, "> 0").table(up.tname());
+        return new Query(values()).select(up, "where", series, "= '", _series, "' and", bind, "> 0").table(up.tname());
     }
 
     public static List<Record> find2(String _artikl_id) {
