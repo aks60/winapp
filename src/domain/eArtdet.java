@@ -56,14 +56,18 @@ public enum eArtdet implements Field {
     }
 
     public static List<Record> find(int _id) {
-        if (Conf.comp(Conf.calc)) {
+        if (conf.equals("calc")) {
             return query.stream().filter(rec -> rec.getInt(artikl_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", _id , "order by", id).table(up.tname()); 
+        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id).table(up.tname());
     }
 
-    public static Record find2(int id) {
-        return query.stream().filter(rec -> rec.getInt(artikl_id) == id).findFirst().orElse(null);
+    public static Record find2(int _id) {
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> rec.getInt(artikl_id) == _id).findFirst().orElse(null);
+        }
+        List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _id).table(up.tname());    
+        return record.get(0);
     }
 
     public String toString() {

@@ -73,31 +73,35 @@ public class Query extends Table {
     }
 
     public Query select(Object... s) {
-        String sql = "";
-        for (Object p : s) {
-            if (p instanceof Field) {
-                Field f = (Field) p;
-                if ("up".equals(f.name())) {
-                    sql = sql + " " + f.tname();
+
+        String sql = String.valueOf(s[0]);
+        if (String.valueOf(s[0]).substring(0, 6).equalsIgnoreCase("select") == false) {
+            sql = "";
+            for (Object p : s) {
+                if (p instanceof Field) {
+                    Field f = (Field) p;
+                    if ("up".equals(f.name())) {
+                        sql = sql + " " + f.tname();
+                    } else {
+                        sql = sql + " " + f.tname() + "." + f.name();
+                    }
                 } else {
-                    sql = sql + " " + f.tname() + "." + f.name();
-                }
-            } else {
-                sql = sql + " " + p;
-            }
-        }
-        String str = "";
-        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
-            Query table = q.getValue();
-            table.clear();
-            for (Field field : table.fields) {
-                if (!field.name().equals("up")) {
-                    str = str + ", " + field.tname() + "." + field.name();
+                    sql = sql + " " + p;
                 }
             }
+            String str = "";
+            for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
+                Query table = q.getValue();
+                table.clear();
+                for (Field field : table.fields) {
+                    if (!field.name().equals("up")) {
+                        str = str + ", " + field.tname() + "." + field.name();
+                    }
+                }
+            }
+            sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
         }
-        sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
-        //Util.println("SQL-SELECT: " + sql);
+        Util.println("SQL-SELECT: " + sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet recordset = statement.executeQuery(sql);

@@ -63,7 +63,7 @@ public class Element extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
         new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name,
-                eElement.name, eElement.vtype, eArtikl.series, eElement.binding, eElement.binding, eElement.markup).addFrameListener(listenerModify);
+                eElement.name, eElement.vtype, eArtikl.series, eElement.bind, eElement.bind, eElement.markup).addFrameListener(listenerModify);
         new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eParams.name, eParams.id).addFrameListener(listenerModify);
         new DefTableModel(tab4, qElempar1, eParams.name, eElempar1.val).addFrameListener(listenerModify);
         new DefTableModel(tab5, qElempar2, eParams.name, eElempar2.val).addFrameListener(listenerModify);

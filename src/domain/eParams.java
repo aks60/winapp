@@ -4,6 +4,9 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.code;
+import static domain.eArtikl.up;
+import static domain.eArtikl.values;
 
 public enum eParams implements Field {
     up("0", "0", "0", "Список параметров", "PARLIST"),
@@ -52,8 +55,12 @@ public enum eParams implements Field {
         return query;
     }
 
-    public static Record find(int numb, int mixt) {
-        return query.stream().filter(rec -> numb == rec.getInt(eParams.numb) && mixt == rec.getInt(eParams.mixt)).findFirst().orElse(null);
+    public static Record find(int _numb, int _mixt) {
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> _numb == rec.getInt(numb) && _mixt == rec.getInt(mixt)).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", numb, "=", _numb, "and", mixt, "=", _mixt).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public String toString() {

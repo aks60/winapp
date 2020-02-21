@@ -6,11 +6,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.FrameToFile;
 import dataset.Query;
-import dataset.Record;
-import domain.eArtdet;
-import domain.eSysprof;
-import domain.eSystree;
+import domain.*;
 import enums.ParamJson;
+import enums.ProfileSide;
+import enums.TypeProfile;
 import forms.BoxTypical;
 import java.util.HashMap;
 import wincalc.script.Winscript;
@@ -22,10 +21,10 @@ public class Test {
 
         try {
             //convert.Profstroy.script();
-            //query();
-            wincalc();
+            query();
+            //wincalc();
             //frame();
-                        
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -46,9 +45,9 @@ public class Test {
     static void frame() throws Exception {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-        App1 app = new App1();        
+        App1 app = new App1();
         app.setVisible(true);
-        BoxTypical frm = new BoxTypical();        
+        BoxTypical frm = new BoxTypical();
         FrameToFile.setFrameSize(frm);
         //frm.iwin.create(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);
@@ -57,19 +56,28 @@ public class Test {
     static void query() throws Exception {
 
         Query.connection = java.sql.DriverManager.getConnection(
-               // "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
-        "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
+        //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
         //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+        
+        
+        //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
+        //int _nuni, TypeProfile _type, ProfileSide _side
+        Object obj = eSysprof.find3(4, TypeProfile.FRAME, ProfileSide.LEFT);
+        //Object q = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.id, "=", 99933).table(eArtikl.up.tname());
+        int mmm = 0;
 
-        Query q = new Query(eSysprof.values(), eSystree.values());
-        Query q2 = q.select(eSysprof.up, "left join", eSystree.up, "on", eSysprof.systree_id, "=", eSystree.id);
         
-        Query q3 = q2.table(eSysprof.up.tname());
-        Query q4 = q2.table(eSystree.up.tname());
         
-        int id = q2.getAs(1, eSystree.id, -1);
-        int id2 = q2.getAs(1, eSysprof.id, -1);
+//        Query q2 = q.select(eSysprof.up, "left join", eSystree.up, "on", eSysprof.systree_id, "=", eSystree.id);
+//        
+//        Query q3 = q2.table(eSysprof.up.tname());
+//        Query q4 = q2.table(eSystree.up.tname());
+//        
+//        int id = q2.getAs(1, eSystree.id, -1);
+//        int id2 = q2.getAs(1, eSysprof.id, -1);
     }
 
     static void parseJson() {
@@ -97,7 +105,7 @@ public class Test {
             mapParam.put(ParamJson.pro4Params2, hmValue); //второй вариант                
         }
     }
-    
+
     static void classToJson() {
 
 //        AreaRoot rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
@@ -108,8 +116,8 @@ public class Test {
 //        rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
 //        AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
 //        area2.add(new Element("7", TypeElem.GLASS));
-    } 
-    
+    }
+
 //    public void test() {
 //        ElemSimpleElemSimpleElemSimpleElemSimple elemLeft = iwin.listElem.stream().filter(el2 -> el2.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
 //                elemTop = iwin.listElem.stream().filter(el2 -> el2.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),

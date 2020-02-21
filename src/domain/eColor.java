@@ -4,6 +4,9 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.code;
+import static domain.eArtikl.up;
+import static domain.eArtikl.values;
 
 public enum eColor implements Field {
     up("0", "0", "0", "Описание текстур", "COLSLST"),
@@ -52,15 +55,27 @@ public enum eColor implements Field {
     }
 
     public static Record find(int _id) {
-        return query.stream().filter(rec -> rec.getInt(eColor.id) == _id).findFirst().orElse(null);
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> rec.getInt(eColor.id) == _id).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
-    
-    public static Record find2(int code) {
-        return query.stream().filter(rec -> rec.getInt(eColor.code) == code).findFirst().orElse(null);
+
+    public static Record find2(int _code) {
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> rec.getInt(eColor.code) == _code).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", code, "=", _code).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
-    
-    public static Record find3(int numb) {
-        return query.stream().filter(rec -> rec.getInt(eColor.numb) == numb).findFirst().orElse(null);
+
+    public static Record find3(int _numb) {
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> rec.getInt(eColor.numb) == _numb).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", numb, "=", _numb).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public String toString() {

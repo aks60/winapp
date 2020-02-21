@@ -10,7 +10,7 @@ import static domain.eArtikl.up;
 
 public enum eSyscons implements Field {
     up("0", "0", "0", "Системные константы", "SYSSIZE"),
-    id("4", "10", "0", "Идентификатор", "id"),    
+    id("4", "10", "0", "Идентификатор", "id"),
     name("12", "32", "1", "Система артикулов", "SNAME"),
     prip("8", "15", "1", "Припуск на сварку", "SSIZP"),
     napl("8", "15", "1", "Наплав системы", "SSIZN"),
@@ -41,10 +41,14 @@ public enum eSyscons implements Field {
         return query;
     }
 
-    public static Record find(int id) {
-        return query.stream().filter(rec -> id == rec.getInt(eSyscons.id)).findFirst().orElse(null);
+    public static Record find(int _id) {
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
-    
+
     public void virtualRec() {
         Query q = query.table(up.tname());
         Record record = q.newRecord(Query.SEL);
@@ -55,7 +59,7 @@ public enum eSyscons implements Field {
         record.setNo(zax, 6);
         q.add(record);
     }
-    
+
     public String toString() {
         return meta.getDescr();
     }

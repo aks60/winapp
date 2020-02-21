@@ -75,7 +75,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.find4(iwin.nuni, TypeProfile.STVORKA);
+        sysprofRec = eSysprof.find2(iwin.nuni, TypeProfile.STVORKA);
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
             

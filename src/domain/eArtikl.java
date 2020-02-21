@@ -90,23 +90,36 @@ public enum eArtikl implements Field {
     }
 
     public static Record find(int _id, boolean _analog) {
-        
-        Record articlRec = query.stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);         
-        if (_analog == true && articlRec.get(analog_id) != null) {
-            
-            int _analog_id = articlRec.getInt(analog_id);
-            articlRec = query.stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
-        } 
-        return articlRec;
+        if (conf.equals("calc")) {
+            Record recordRec = query.stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+            if (_analog == true && recordRec.get(analog_id) != null) {
+
+                int _analog_id = recordRec.getInt(analog_id);
+                recordRec = query.stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
+            }
+            return recordRec;
+        }
+
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        if (_analog == true && recordList.isEmpty() == false && recordList.get(0, analog_id) != null) {
+
+            int _analog_id = recordList.getAs(0, analog_id, -1);
+            recordList = new Query(values()).select(up, "where", id, "=", _analog_id).table(up.tname());
+        }
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public static Record find2(String _code) {
-        return query.stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
+        if (conf.equals("calc")) {
+            return query.stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", code, "=", _code).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public void virtualRec() {
         Query q = query.table(up.tname());
-        Record record = q.newRecord(Query.SEL);        
+        Record record = q.newRecord(Query.SEL);
         record.setNo(id, -1);
         record.setNo(height, 60);
         record.setNo(size_centr, 30);
@@ -115,7 +128,7 @@ public enum eArtikl implements Field {
         record.setNo(syscons_id, -1);
         q.add(record);
     }
-    
+
     public String toString() {
         return meta.getDescr();
     }
