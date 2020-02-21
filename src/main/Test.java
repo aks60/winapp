@@ -21,8 +21,8 @@ public class Test {
 
         try {
             //convert.Profstroy.script();
-            query();
-            //wincalc();
+            //query();
+            wincalc();
             //frame();
 
         } catch (Exception e) {
