@@ -65,7 +65,7 @@ public class Test {
         //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
         //int _nuni, TypeProfile _type, ProfileSide _side
-        Object obj = eElement.find("55");
+        Object obj = eArtikl.find2("55");
         //Object q = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.id, "=", 99933).table(eArtikl.up.tname());
         int mmm = 0;
 

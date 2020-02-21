@@ -113,8 +113,7 @@ public enum eArtikl implements Field {
         if (conf.equals("calc")) {
             return query.stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
         }
-        Object ooo = query.select().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
-        Query recordList = new Query(values()).select(up, "where", code, "= '", _code, "'").table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", code, "='", _code, "'").table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

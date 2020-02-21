@@ -100,6 +100,8 @@ public class Query extends Table {
                 }
             }
             sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
+            sql = sql.replace("' ", "'");
+            sql = sql.replace(" '", "'");
         }
         Util.println("SQL-SELECT: " + sql);
         try {
