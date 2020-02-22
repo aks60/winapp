@@ -84,7 +84,7 @@ public class BoxTypical extends javax.swing.JFrame {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    Icon icon = listIcon.get(column);
+                    Icon icon = listIcon.get(row);
                     label.setIcon(icon);
                 } else {
                     label.setIcon(null);
