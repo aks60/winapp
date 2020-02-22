@@ -35,8 +35,11 @@ public enum eArtdet implements Field {
         meta.init(p);
     }
 
-    public Object get(Record record) {
-        return record.get(this);
+    public static Query query() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
     }
 
     public MetaField meta() {

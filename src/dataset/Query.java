@@ -18,7 +18,6 @@ public class Query extends Table {
 
     private static String schema = "";
     public static Connection connection = null;
-    public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
     public static String INS = "INS";
     public static String SEL = "SEL";
     public static String UPD = "UPD";
@@ -65,11 +64,6 @@ public class Query extends Table {
 
     public Query table(String name_table) {
         return root.mapQuery.get(name_table);
-    }
-
-    public Query select() {
-        listOpenTable.add(root);
-        return root.fields()[0].selectSql();
     }
 
     public Query select(Object... s) {
