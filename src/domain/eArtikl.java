@@ -4,9 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtdet.query;
 import static domain.eSysprof.artikl_id;
-import static domain.eSysprof.query;
 import static domain.eSysprof.up;
 import java.sql.SQLException;
 
@@ -67,7 +65,7 @@ public enum eArtikl implements Field {
     //abits("4", "10", "1", "null", "ABITS"),
 
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eArtikl(Object... p) {
         meta.init(p);
@@ -81,8 +79,7 @@ public enum eArtikl implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
@@ -91,11 +88,11 @@ public enum eArtikl implements Field {
 
     public static Record find(int _id, boolean _analog) {
         if (conf.equals("calc")) {
-            Record recordRec = query.stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+            Record recordRec = query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
             if (_analog == true && recordRec.get(analog_id) != null) {
 
                 int _analog_id = recordRec.getInt(analog_id);
-                recordRec = query.stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
+                recordRec = query().stream().filter(rec -> _analog_id == rec.getInt(id)).findFirst().orElse(null);
             }
             return recordRec;
         }
@@ -111,7 +108,7 @@ public enum eArtikl implements Field {
 
     public static Record find2(String _code) {
         if (conf.equals("calc")) {
-            return query.stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
+            return query().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
         }
         Query recordList = new Query(values()).select(up, "where", code, "='", _code, "'").table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
@@ -119,7 +116,7 @@ public enum eArtikl implements Field {
 
     @Override
     public void virtualRec() throws SQLException {
-        Query q = query.table(up.tname());
+        Query q = query().table(up.tname());
         Record record = q.newRecord(Query.INS);
         record.setNo(id, -1);
         record.setNo(height, 60);
@@ -127,7 +124,7 @@ public enum eArtikl implements Field {
         record.setNo(tech_code, "");
         record.setNo(size_falz, 20);
         record.setNo(syscons_id, -1);
-        q.insert(record);        
+        q.insert(record);
     }
 
     public String toString() {

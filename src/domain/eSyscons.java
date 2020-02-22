@@ -4,7 +4,6 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtikl.query;
 import static domain.eArtikl.syscons_id;
 import static domain.eArtikl.up;
 import java.sql.SQLException;
@@ -19,7 +18,7 @@ public enum eSyscons implements Field {
     zax("8", "15", "1", "Заход импоста", "SSIZI");
     //sunic("4", "10", "1", "ID системы", "SUNIC"),
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eSyscons(Object... p) {
         meta.init(p);
@@ -33,8 +32,7 @@ public enum eSyscons implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
@@ -43,7 +41,7 @@ public enum eSyscons implements Field {
 
     public static Record find(int _id) {
         if (conf.equals("calc")) {
-            return query.stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);

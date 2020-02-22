@@ -15,7 +15,7 @@ public enum eFurnside1 implements Field {
     //fincr("4", "10", "1", "null", "FINCR"),    
     //ftype("12", "16", "1", "Тип стороны", "FTYPE"); //1-сторона, 2-ось поворота, 3-крепление петель
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eFurnside1(Object... p) {
         meta.init(p);
@@ -29,8 +29,7 @@ public enum eFurnside1 implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }

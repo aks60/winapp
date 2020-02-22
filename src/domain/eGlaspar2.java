@@ -15,7 +15,7 @@ public enum eGlaspar2 implements Field {
     glasdet_id("4", "10", "1", "ссылка", "glasdet_id");
 
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eGlaspar2(Object... p) {
         meta.init(p);
@@ -29,8 +29,7 @@ public enum eGlaspar2 implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }

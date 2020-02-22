@@ -21,7 +21,7 @@ public enum eSyspar1 implements Field {
     systree_id("4", "10", "1", "ссылка", "systree_id");
 
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eSyspar1(Object... p) {
         meta.init(p);
@@ -35,8 +35,7 @@ public enum eSyspar1 implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }

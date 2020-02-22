@@ -10,7 +10,6 @@ import static domain.eArtikl.up;
 import static domain.eArtikl.values;
 import static domain.eSysprof.artikl_id;
 import static domain.eSysprof.id;
-import static domain.eSysprof.query;
 import static domain.eSysprof.side;
 import static domain.eSysprof.systree_id;
 import static domain.eSysprof.types;
@@ -43,7 +42,7 @@ public enum eSystree implements Field {
     //pnumn("5", "5", "1", "null", "PNUMN"),
     //nuni("4", "10", "1", "ID ветки дерева", "NUNI"),
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eSystree(Object... p) {
         meta.init(p);
@@ -57,8 +56,7 @@ public enum eSystree implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
@@ -67,7 +65,7 @@ public enum eSystree implements Field {
 
     public static Record find(int _nuni) {
         if (conf.equals("calc")) {
-            return query.stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(null);
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _nuni).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);

@@ -13,7 +13,7 @@ public enum eSysprod implements Field {
     script("12", "2048", "0", "Скрипт построения окна", "script");
 
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eSysprod(Object... p) {
         meta.init(p);
@@ -27,8 +27,7 @@ public enum eSysprod implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }

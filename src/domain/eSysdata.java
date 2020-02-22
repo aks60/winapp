@@ -13,7 +13,7 @@ public enum eSysdata implements Field {
     stext("12", "128", "1", "null", "STEXT"),
     sflot("8", "15", "1", "значение параметра", "SFLOT");
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eSysdata(Object... p) {
         meta.init(p);
@@ -27,8 +27,7 @@ public enum eSysdata implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }

@@ -18,7 +18,7 @@ public enum eFurnside2 implements Field {
     //funic("4", "10", "1", "ID фурнитурного набора", "FUNIC"),
     //lunic("4", "10", "1", "null", "LUNIC"),    
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eFurnside2(Object... p) {
         meta.init(p);
@@ -32,8 +32,7 @@ public enum eFurnside2 implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }

@@ -29,7 +29,7 @@ public enum eElement implements Field {
     //pnump("5", "5", "1", "null", "PNUMP"),
     //vcomp("5", "5", "1", "null", "VCOMP");
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eElement(Object... p) {
         meta.init(p);
@@ -43,8 +43,7 @@ public enum eElement implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+        public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
@@ -53,14 +52,14 @@ public enum eElement implements Field {
 
     public static List<Record> find(String _series) {
         if (conf.equals("calc")) {
-            return query.stream().filter(rec -> _series.equals(rec.getStr(series)) && rec.getInt(bind) > 0).findAny().orElse(null);
+            return query().stream().filter(rec -> _series.equals(rec.getStr(series)) && rec.getInt(bind) > 0).findAny().orElse(null);
         }
         return new Query(values()).select(up, "where", series, "= '", _series, "' and", bind, "> 0").table(up.tname());
     }
 
     public static List<Record> find2(String _artikl_id) {
         if (conf.equals("calc")) {
-            return query.stream().filter(rec -> _artikl_id.equals(rec.getStr(artikl_id))).findAny().orElse(null);
+            return query().stream().filter(rec -> _artikl_id.equals(rec.getStr(artikl_id))).findAny().orElse(null);
         }
         return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id).table(up.tname());
     }

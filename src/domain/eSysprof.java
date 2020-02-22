@@ -30,7 +30,7 @@ public enum eSysprof implements Field {
     //anumb("12", "32", "1", "артикул", "ANUMB"),
     //cflag("5", "5", "1", "Свои текстуры", "CFLAG");
     private MetaField meta = new MetaField(this);
-    public static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values()).table(up.tname());
 
     eSysprof(Object... p) {
         meta.init(p);
@@ -44,8 +44,7 @@ public enum eSysprof implements Field {
         return values();
     }
 
-    @Override
-    public Query select() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", prio);
         }
@@ -55,7 +54,7 @@ public enum eSysprof implements Field {
     public static ArrayList<Record> find(int _nuni) {
         if (conf.equals("calc")) {
             ArrayList<Record> sysproaList = new ArrayList();
-            query.stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
+            query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
             return sysproaList;
         }
         return new Query(values()).select(up, "where", systree_id, "=", _nuni).table(up.tname());
@@ -64,7 +63,7 @@ public enum eSysprof implements Field {
     public static Record find2(int _nuni, TypeProfile _type) {
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
-            query.stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types))
+            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types))
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
@@ -89,7 +88,7 @@ public enum eSysprof implements Field {
     public static Record find3(int _nuni, TypeProfile _type, ProfileSide _side) {
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
-            query.stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types)
+            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types)
                     && (_side.value == rec.getInt(side) || ProfileSide.ANY.value == rec.getInt(side)))
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
