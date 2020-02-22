@@ -12,10 +12,8 @@ import enums.ParamJson;
 import enums.TypeElem;
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import javafx.scene.shape.ArcType;
 import wincalc.Wincalc;
 
@@ -180,7 +178,7 @@ public abstract class Com5t {
     }
 
     protected void strokeArc(double x, double y, double w, double h, double startAngle,
-            double arcExtent, ArcType closure, int rdbStroke, double lineWidth) {
+            double arcExtent, int rdbStroke, double lineWidth) {
         float sc = iwin.scale2;
         int sw = (int)(lineWidth /iwin.scale2);
         iwin.gc2d.setStroke(new BasicStroke(sw)); //толщина линии
