@@ -9,7 +9,6 @@ import enums.LayoutArea;
 import enums.ProfileSide;
 import enums.TypeElem;
 import enums.TypeProfile;
-import javafx.scene.shape.ArcType;
 import wincalc.constr.Specification;
 
 public class ElemFrame extends ElemSimple {

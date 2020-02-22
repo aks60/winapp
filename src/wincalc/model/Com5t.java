@@ -14,7 +14,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.LinkedList;
-import javafx.scene.shape.ArcType;
 import wincalc.Wincalc;
 
 public abstract class Com5t {
