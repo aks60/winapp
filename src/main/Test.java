@@ -9,10 +9,8 @@ import dataset.Field;
 import dataset.Query;
 import domain.*;
 import enums.ParamJson;
-import enums.ProfileSide;
-import enums.TypeProfile;
 import forms.BoxTypical;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.HashMap;
 import wincalc.script.Winscript;
 
@@ -23,7 +21,7 @@ public class Test {
 
         try {
             //convert.Profstroy.script();
-            query();
+            //query();
             //wincalc();
             //frame();
 
@@ -55,19 +53,20 @@ public class Test {
         frm.setVisible(true);
     }
 
-    static void query() throws Exception {
+    static void query() {
+        try {
+            Query.connection = java.sql.DriverManager.getConnection(
+                    "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
 
-        Query.connection = java.sql.DriverManager.getConnection(
-                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-
-        //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
-        //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-        //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
-        //int _nuni, TypeProfile _type, ProfileSide _side
-        Field[] viirtualRec = {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up};
-        Arrays.asList(viirtualRec).forEach(field -> field.virtualRec());
-        int mmm = 0;
+            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
+            //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
+            //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
+            //int _nuni, TypeProfile _type, ProfileSide _side
+            
+            for (Field field : new Field[] {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up}) {
+                field.virtualRec();
+            }
 
 //        Query q2 = q.select(eSysprof.up, "left join", eSystree.up, "on", eSysprof.systree_id, "=", eSystree.id);
 //        
@@ -76,6 +75,10 @@ public class Test {
 //        
 //        int id = q2.getAs(1, eSystree.id, -1);
 //        int id2 = q2.getAs(1, eSysprof.id, -1);
+
+        } catch (SQLException e) {
+            System.out.println("main.Test.query()");
+        }
     }
 
     static void parseJson() {

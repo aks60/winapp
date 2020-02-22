@@ -8,6 +8,7 @@ import static domain.eArtdet.query;
 import static domain.eSysprof.artikl_id;
 import static domain.eSysprof.query;
 import static domain.eSysprof.up;
+import java.sql.SQLException;
 
 public enum eArtikl implements Field {
     up("0", "0", "0", "Материальные цености", "ARTIKLS"),
@@ -117,16 +118,16 @@ public enum eArtikl implements Field {
     }
 
     @Override
-    public void virtualRec() {
+    public void virtualRec() throws SQLException {
         Query q = query.table(up.tname());
-        Record record = q.newRecord(Query.SEL);
+        Record record = q.newRecord(Query.INS);
         record.setNo(id, -1);
         record.setNo(height, 60);
         record.setNo(size_centr, 30);
         record.setNo(tech_code, "");
         record.setNo(size_falz, 20);
         record.setNo(syscons_id, -1);
-        q.add(record);
+        q.insert(record);        
     }
 
     public String toString() {

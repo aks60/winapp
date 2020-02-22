@@ -180,8 +180,9 @@ public class Profstroy {
                 }
             }
             Util.println("\u001B[32m" + "Создание виртуальных профилей" + "\u001B[0m");
-            Field[] viirtualRec = {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up};
-            Arrays.asList(viirtualRec).forEach(field -> field.virtualRec());
+            for (Field field : new Field[] {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up}) {
+                field.virtualRec();
+            }
             
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 

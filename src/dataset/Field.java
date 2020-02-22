@@ -1,5 +1,6 @@
 package dataset;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -61,7 +62,7 @@ public interface Field extends Enam{
     
     public MetaField meta();
     
-    default void virtualRec() {        
+    default void virtualRec() throws SQLException {        
     }
     
     default Query selectSql() {

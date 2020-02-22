@@ -17,6 +17,7 @@ import static domain.eSysprof.types;
 import static domain.eSysprof.up;
 import enums.ProfileSide;
 import enums.TypeProfile;
+import java.sql.SQLException;
 
 public enum eSystree implements Field {
     up("0", "0", "0", "Дерево системы профилей", "SYSPROF"),
@@ -73,12 +74,12 @@ public enum eSystree implements Field {
     }
 
     @Override
-    public void virtualRec() {
+    public void virtualRec() throws SQLException {
         Query q = query.table(up.tname());
-        Record record = q.newRecord(Query.SEL);
+        Record record = q.newRecord(Query.INS);
         record.setNo(id, -1);
         record.setNo(glas, "4x10x4x10x4");
-        q.add(record);
+        q.insert(record);
     }
 
     public String toString() {

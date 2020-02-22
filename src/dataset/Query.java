@@ -152,7 +152,7 @@ public class Query extends Table {
                 nameCols = nameCols.substring(0, nameCols.length() - 1);
                 nameVals = nameVals.substring(0, nameVals.length() - 1);
                 sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
-                //Util.println("SQL-INSERT " + sql);
+                Util.println("SQL-INSERT " + sql);
                 return statement.executeUpdate(sql);
                 //return 0;
             }

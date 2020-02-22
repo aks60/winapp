@@ -12,6 +12,7 @@ import static domain.eSyspar1.up;
 import static domain.eSyspar1.values;
 import enums.ProfileSide;
 import enums.TypeProfile;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,29 +114,29 @@ public enum eSysprof implements Field {
     }
 
     @Override
-    public void virtualRec() {
+    public void virtualRec() throws SQLException {
         Query q = query.table(up.tname());
-        Record record = q.newRecord(Query.SEL);
+        Record record = q.newRecord(Query.INS);
         record.setNo(id, -1);
         record.setNo(types, TypeProfile.FRAME.value);
         record.setNo(side, ProfileSide.ANY.value);
         record.setNo(systree_id, -1);
         record.setNo(artikl_id, -1);
-        q.add(record);
-        record = q.newRecord(Query.SEL);
+        q.insert(record);
+        record = q.newRecord(Query.INS);
         record.setNo(id, -2);
         record.setNo(types, TypeProfile.STVORKA.value);
         record.setNo(side, ProfileSide.ANY.value);
         record.setNo(systree_id, -1);
         record.setNo(artikl_id, -1);
-        q.add(record);
-        record = q.newRecord(Query.SEL);
-        record.setNo(id, -2);
+        q.insert(record);
+        record = q.newRecord(Query.INS);
+        record.setNo(id, -3);
         record.setNo(types, TypeProfile.IMPOST.value);
         record.setNo(side, ProfileSide.ANY.value);
         record.setNo(systree_id, -1);
         record.setNo(artikl_id, -1);
-        q.add(record);
+        q.insert(record);
     }
 
     public String toString() {
