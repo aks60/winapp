@@ -5,14 +5,12 @@ import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
 import java.awt.Component;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -30,6 +28,7 @@ public class BoxTypical extends javax.swing.JFrame {
 
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
+    private ArrayList<Icon> listIcon = new ArrayList<Icon>();
     private PaintPanel paintPanel = new PaintPanel(iwinMax) {
 
         public void response(MouseEvent evt) {
@@ -71,32 +70,22 @@ public class BoxTypical extends javax.swing.JFrame {
         }
     };
 
-    private Icon image = new ImageIcon(getClass().getResource("/resource/img16/b055.gif"));
-
     public BoxTypical() {
         initComponents();
         initElements();
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-        iwinMin.scale2 = 25;     
-        
+        iwinMin.scale2 = 25;
+
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
-            public int length = 70;
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    label.setIcon(image);
-                    Object script = qSysprod.get(row, eSysprod.script);                                        
-                    iwinMin.create(script.toString());
-                    BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
-                    iwinMin.gc2d = bi.createGraphics();
-                    iwinMin.rootArea.draw(length, length);
-                    ImageIcon image = new ImageIcon(bi);
-                    label.setIcon(image);
-
+                    Icon icon = listIcon.get(column);
+                    label.setIcon(icon);
                 } else {
                     label.setIcon(null);
                 }
@@ -113,9 +102,21 @@ public class BoxTypical extends javax.swing.JFrame {
 
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().removeAllElements();
+        int length = 70;
         for (Record record : qSysprod) {
-            Object obj[] = {record.get(eSysprod.npp), record.get(eSysprod.name), ""};
-            dm.addRow(obj);
+            try {
+                Object obj[] = {record.get(eSysprod.npp), record.get(eSysprod.name), ""};
+                Object script = record.get(eSysprod.script);
+                iwinMin.create(script.toString());
+                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+                iwinMin.gc2d = bi.createGraphics();
+                iwinMin.rootArea.draw(length, length);
+                ImageIcon image = new ImageIcon(bi);
+                listIcon.add(image);
+                dm.addRow(obj);
+            } catch (Exception e) {
+
+            }
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
     }
@@ -757,6 +758,7 @@ public class BoxTypical extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField4;
     private javax.swing.JFormattedTextField txtField5;
     // End of variables declaration//GEN-END:variables
+   
     private void initElements() {
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типовые конструкции", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
