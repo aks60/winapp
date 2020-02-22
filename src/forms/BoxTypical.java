@@ -99,12 +99,12 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }
 
     public void request(Object obj) {
-        new App1.FrameListener2() {
-
-            public void request(Object obj) {
-                //App1.eApp1.BoxTypical.createFrame(App1.this);
-            }
-        };
+//        new App1.FrameListener2() {
+//
+//            public void request(Object obj) {
+//                //App1.eApp1.BoxTypical.createFrame(App1.this);
+//            }
+//        };
     }
 
     private void loadTab1() {

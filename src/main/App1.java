@@ -956,21 +956,20 @@ public class App1 extends javax.swing.JFrame {
 
     private void mDictColor(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictColor
 
-        new FrameListener2() {
-
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Color.createFrame(App1.this);
             }
-        };
+        });
 }//GEN-LAST:event_mDictColor
 
     private void mnConstr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConstr
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Systree.createFrame(App1.this);
             }
-        };
+        });
 }//GEN-LAST:event_mnConstr
 
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
@@ -990,12 +989,8 @@ private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDi
 }//GEN-LAST:event_mDictDicAddr
 
 private void mnAboutBox(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAboutBox
-//        new FrameListener2() {
-//
-//            public void request(Object obj) {
-                eApp1.AboutBox.createFrame(App1.this);
-//            }
-//        };
+
+    eApp1.AboutBox.createFrame(App1.this);
 }//GEN-LAST:event_mnAboutBox
 
 private void mn51ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn51ActionPerformed
@@ -1034,22 +1029,21 @@ private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn
 }//GEN-LAST:event_mnLookAndFeel
 
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
-    new FrameListener2() {
 
+    FrameProgress.create(App1.this, new FrameListener() {
         public void request(Object obj) {
             eApp1.RepoSpecific.createFrame(App1.this);
         }
-    };
+    });
 }//GEN-LAST:event_mn41
 
 private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
-    new FrameListener2() {
-
+    FrameProgress.create(App1.this, new FrameListener() {
         public void request(Object obj) {
             eApp1.Artikls.createFrame(App1.this);
         }
-    };
+    });
 }//GEN-LAST:event_mn25
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -1076,30 +1070,30 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mn0116
 
     private void mn24(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn24
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Rate.createFrame(App1.this);
             }
-        };
+        });
     }//GEN-LAST:event_mn24
 
     private void mnElement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnElement
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Elements.createFrame(App1.this);
             }
-        };
+        });
     }//GEN-LAST:event_mnElement
 
     private void mnFurnityra(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFurnityra
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Furn.createFrame(App1.this);
             }
-        };
+        });
     }//GEN-LAST:event_mnFurnityra
 
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
@@ -1116,75 +1110,74 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
 
-        new FrameListener2() {
-
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Partner.createFrame(App1.this);
             }
-        }; 
+        });
     }//GEN-LAST:event_mnPartner
 
     private void parametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parametr
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Param.createFrame(App1.this);
             }
-        };
+        });
     }//GEN-LAST:event_parametr
 
     private void mJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mJoining
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Joining.createFrame(App1.this);
             }
-        };
+        });
     }//GEN-LAST:event_mJoining
 
     private void mnGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGlass
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Glass.createFrame(App1.this);
             }
-        };      
+        });
     }//GEN-LAST:event_mnGlass
 
     private void mnDesign(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDesign
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Design.createFrame(App1.this);
             }
-        }; 
+        });
     }//GEN-LAST:event_mnDesign
 
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Kits.createFrame(App1.this);
             }
-        }; 
+        });
     }//GEN-LAST:event_mnKits
 
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Convert.createFrame(App1.this);
             }
-        }; 
+        });
     }//GEN-LAST:event_mnConvert
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Order.createFrame(App1.this);
             }
-        }; 
+        });
     }//GEN-LAST:event_mnOrder
 
     private void mn444mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn444mnLookAndFeel
@@ -1192,25 +1185,25 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mn444mnLookAndFeel
 
     private void mnSysconst(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSysconst
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.Syscons.createFrame(App1.this);
             }
-        }; 
+        });
     }//GEN-LAST:event_mnSysconst
 
     private void mnBoxTypical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBoxTypical
-        new FrameListener2() {
 
+        FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
                 eApp1.BoxTypical.createFrame(App1.this);
             }
-        }; 
+        });
     }//GEN-LAST:event_mnBoxTypical
 
     private void btn62mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn62mHelp
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btn62mHelp
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1299,35 +1292,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
-    public class FrameListener2 implements FrameListener {
-
-        public FrameListener2() {
-            if (Util.progressFrame) {
-                //прогресс бар это специальная дополнительная форма
-                FrameProgress.create(App1.this, this);
-            } else {
-                //прогресс бар находится на самой форме
-                new SwingWorker() {
-
-                    protected Object doInBackground() throws Exception {
-                        //progressBar.setIndeterminate(true);
-
-                        //это создание формы
-                        request(null);
-                        return null;
-                    }
-
-                    public void done() {
-                        //progressBar.setIndeterminate(false);
-                    }
-                }.execute();
-            }
-        }
-    }
-
     public enum eApp1 {
 
-        App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param, 
+        App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param,
         Glass, Furn, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
         BoxCustom, RepoSpecific;
         java.awt.Frame frame;
