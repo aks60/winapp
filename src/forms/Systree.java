@@ -792,7 +792,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         iwin.create(Winscript.test(Winscript.prj, null));
-        paintPanel.repaint(true, 20);
+        paintPanel.repaint(true, 12);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
