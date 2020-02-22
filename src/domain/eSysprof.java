@@ -48,7 +48,6 @@ public enum eSysprof implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", prio);
         }
-        virtualRec();
         return query;
     }
 
@@ -113,7 +112,8 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static void virtualRec() {
+    @Override
+    public void virtualRec() {
         Query q = query.table(up.tname());
         Record record = q.newRecord(Query.SEL);
         record.setNo(id, -1);

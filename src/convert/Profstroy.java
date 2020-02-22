@@ -57,6 +57,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -178,6 +179,10 @@ public class Profstroy {
                     sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
+            Util.println("\u001B[32m" + "Создание виртуальных профилей" + "\u001B[0m");
+            Field[] viirtualRec = {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up};
+            Arrays.asList(viirtualRec).forEach(field -> field.virtualRec());
+            
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
         } catch (Exception e) {
@@ -561,4 +566,5 @@ public class Profstroy {
             q.insert(record);
         }
     }
+
 }

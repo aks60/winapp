@@ -61,6 +61,9 @@ public interface Field extends Enam{
     
     public MetaField meta();
     
+    default void virtualRec() {        
+    }
+    
     default Query selectSql() {
         return null;
     }

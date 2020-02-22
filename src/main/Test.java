@@ -5,12 +5,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.FrameToFile;
+import dataset.Field;
 import dataset.Query;
 import domain.*;
 import enums.ParamJson;
 import enums.ProfileSide;
 import enums.TypeProfile;
 import forms.BoxTypical;
+import java.util.Arrays;
 import java.util.HashMap;
 import wincalc.script.Winscript;
 
@@ -21,8 +23,8 @@ public class Test {
 
         try {
             //convert.Profstroy.script();
-            //query();
-            wincalc();
+            query();
+            //wincalc();
             //frame();
 
         } catch (Exception e) {
@@ -60,17 +62,13 @@ public class Test {
 
         //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
         //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-        
-        
         //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
         //int _nuni, TypeProfile _type, ProfileSide _side
-        Object obj = eArtikl.find2("55");
-        //Object q = new Query(eArtikl.values()).select(eArtikl.up, "where", eArtikl.id, "=", 99933).table(eArtikl.up.tname());
+        Field[] viirtualRec = {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up};
+        Arrays.asList(viirtualRec).forEach(field -> field.virtualRec());
         int mmm = 0;
 
-        
-        
 //        Query q2 = q.select(eSysprof.up, "left join", eSystree.up, "on", eSysprof.systree_id, "=", eSystree.id);
 //        
 //        Query q3 = q2.table(eSysprof.up.tname());
@@ -116,5 +114,5 @@ public class Test {
 //        rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
 //        AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
 //        area2.add(new Element("7", TypeElem.GLASS));
-    }  
+    }
 }

@@ -37,7 +37,6 @@ public enum eSyscons implements Field {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
-        virtualRec();
         return query;
     }
 
@@ -49,6 +48,7 @@ public enum eSyscons implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
+    @Override
     public void virtualRec() {
         Query q = query.table(up.tname());
         Record record = q.newRecord(Query.SEL);
