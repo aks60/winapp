@@ -36,8 +36,7 @@ import javax.swing.JFrame;
  */
 public class App1 extends javax.swing.JFrame {
 
-    javax.swing.Timer timer = null;
-
+    private javax.swing.Timer timer = null;
     private Locale locale = null;
     private FrameListener listenerMenu;
     private FrameListener<Object, Object> listenerDate = new FrameListener() {
@@ -1292,7 +1291,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
-    public enum eApp1 {
+    public static enum eApp1 {
 
         App1, Convert, Rate, Color, Artikls, Joining, Design, Elements, Param,
         Glass, Furn, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,

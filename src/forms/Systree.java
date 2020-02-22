@@ -1,6 +1,7 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameProgress;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -15,7 +16,6 @@ import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.event.TreeSelectionEvent;
@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import main.App1;
 import swing.DefFieldRenderer;
 import swing.DefTableModel;
 import wincalc.Wincalc;
@@ -795,7 +796,11 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
+        FrameProgress.create(this, new FrameListener() {
+            public void request(Object obj) {
+                App1.eApp1.Elements.createFrame(Systree.this);
+            }
+        });
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
