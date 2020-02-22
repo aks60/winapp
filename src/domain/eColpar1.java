@@ -29,7 +29,7 @@ public enum eColpar1 implements Field {
     }
 
     @Override
-    public Query selectSql() {
+    public Query select() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }

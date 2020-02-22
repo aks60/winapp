@@ -132,7 +132,7 @@ public class Query extends Table {
         if (Query.INS.equals(record.get(f[0])) == false) {
             return 0;
         }
-        String sql = fields.get(0).insertSql(record);
+        String sql = fields.get(0).insert(record);
         Statement statement = connection.createStatement();
         //если есть insert утверждение
         if (sql != null) {
@@ -164,7 +164,7 @@ public class Query extends Table {
         Statement statement = null;
         try {
             statement = connection.createStatement();
-            String sql = fields.get(0).updateSql(record);
+            String sql = fields.get(0).update(record);
             if (sql != null) {
                 //Util.println("SQL-UPDATE " + sql);
                 return statement.executeUpdate(sql);
@@ -203,7 +203,7 @@ public class Query extends Table {
 
     public int delete(Record record) throws SQLException {
         //if (Query.DEL.equals(record.get(fields[0])) == false) {  return 0;  }
-        String sql = fields.get(0).deleteSql(record);
+        String sql = fields.get(0).delete(record);
         Statement statement = connection.createStatement();
         if (sql != null) {
             //Util.println("SQL-DELETE " + sql);

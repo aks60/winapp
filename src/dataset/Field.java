@@ -65,20 +65,20 @@ public interface Field extends Enam{
     default void virtualRec() throws SQLException {        
     }
     
-    default Query selectSql() {
+    default Query select() {
         return null;
     }
     
-    default String updateSql(Record record) {
+    default String update(Record record) {
         
         return null;
     }
 
-    default String insertSql(Record record) {
+    default String insert(Record record) {
         return null;
     }
 
-    default String deleteSql(Record record) {
+    default String delete(Record record) {
         return null;
     }
     
