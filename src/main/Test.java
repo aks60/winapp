@@ -11,6 +11,7 @@ import domain.*;
 import enums.ParamJson;
 import forms.BoxTypical;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import wincalc.script.Winscript;
 
@@ -21,8 +22,8 @@ public class Test {
 
         try {
             //convert.Profstroy.script();
-            query();
-            //wincalc();
+            //query();
+            wincalc();
             //frame();
 
         } catch (Exception e) {
@@ -63,10 +64,6 @@ public class Test {
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
             //int _nuni, TypeProfile _type, ProfileSide _side
-            
-            for (Field field : new Field[] {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up}) {
-                field.virtualRec();
-            }
 
 //        Query q2 = q.select(eSysprof.up, "left join", eSystree.up, "on", eSysprof.systree_id, "=", eSystree.id);
 //        
