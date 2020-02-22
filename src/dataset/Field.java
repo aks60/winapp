@@ -8,7 +8,7 @@ import java.util.HashSet;
 //Поле таблицы
 public interface Field extends Enam{
 
-    public static String conf = "app";
+    public static String conf = "calc";
     
     public static enum TYPE {
 

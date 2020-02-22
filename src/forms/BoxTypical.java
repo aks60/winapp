@@ -5,7 +5,6 @@ import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
 import java.awt.Component;
-import java.awt.Image;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
@@ -19,12 +18,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import main.App1;
 import wincalc.Wincalc;
 import wincalc.model.ElemSimple;
 import wincalc.model.PaintPanel;
 import wincalc.script.Winscript;
 
-public class BoxTypical extends javax.swing.JFrame {
+public class BoxTypical extends javax.swing.JFrame implements FrameListener<Object, Record> {
 
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
@@ -96,6 +96,15 @@ public class BoxTypical extends javax.swing.JFrame {
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
+    }
+
+    public void request(Object obj) {
+        new App1.FrameListener2() {
+
+            public void request(Object obj) {
+                //App1.eApp1.BoxTypical.createFrame(App1.this);
+            }
+        };
     }
 
     private void loadTab1() {
@@ -758,7 +767,7 @@ public class BoxTypical extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField4;
     private javax.swing.JFormattedTextField txtField5;
     // End of variables declaration//GEN-END:variables
-   
+
     private void initElements() {
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типовые конструкции", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));

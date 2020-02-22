@@ -1323,13 +1323,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 }.execute();
             }
         }
-
-        //тут то в наследнике и создаётся форма
-        public void request(Object obj) {
-        }
-
-        public void response(Object obj) {
-        }
     }
 
     public enum eApp1 {
