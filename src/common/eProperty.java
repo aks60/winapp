@@ -17,19 +17,18 @@ import main.Main;
 public enum eProperty {
 
     lookandfeel("Metal", "Windows"),
+    url_src("http://aks.acron.ru:8080"),
     web_port("8080"),
     web_start("false"),
     typedb("fb"),
     port("3050"),
     user("sysdba"),
     server("localhost"),
+    sys_nuni("-1"),
     base("C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\winbase\\BASE.FDB?encoding=win1251"),
-    //base("D:\\Okna\\Database\\Sialbase2\\base2.gdb?encoding=win1251", "D:\\Okna\\Database\\Sialbase2\\base2.gdb?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
     path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"), //C:\ProgramData\Acron\Okno\v30.properties
-    path_bekap(System.getProperty("user.home") + "/Acron/Backup", "C:\\Acron\\Backup"),
-    url_src("http://aks.acron.ru:8080"),   
-    sys_nuni("-1"),
+    path_bekap(System.getProperty("user.home") + "/Acron/Backup", "C:\\Acron\\Backup"),           
     cmd_word("libreoffice -writer ", "cmd /c start winword.exe "), 
     cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
     cmd_html("firefox ", "cmd /c start iexplore.exe "),
