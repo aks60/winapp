@@ -20,7 +20,7 @@ public abstract class Com5t {
 
     public static final int SIDE_START = 1;   //левая сторона
     public static final int SIDE_END = 2;     //правая сторона     
-    public static final int TRANSLATE_X = 80; //сдвиг графика   
+    public static final int TRANSLATE_X = 20; //сдвиг графика   
     public static final int TRANSLATE_Y = 20; //сдвиг графика    
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий   

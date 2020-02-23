@@ -39,7 +39,7 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
 
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 stop();
-                btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px24/c007.gif")));
+                btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif")));
             }
         });
     }
@@ -47,7 +47,7 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
     public void actionPerformed(java.awt.event.ActionEvent evt) {
         Dimension frameSize = frame.getSize();
         try {
-            btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/image/px24/c033.gif")));
+            btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif")));
             String dy = String.valueOf(frame.getSize().height);
             String dx = String.valueOf(frame.getSize().width);
             eProp.load().setProperty(frame.getName() + "_height", dy);
