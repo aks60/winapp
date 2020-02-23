@@ -1,7 +1,7 @@
 package dataset;
 
 import common.Util;
-import common.eProp;
+import common.eProperty;
 import static dataset.Query.connection;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,9 +33,9 @@ public class ConnFb extends dataset.ConnApp {
             if (Class.forName(driver) == null) {
                 return eExcep.loadDrive; //Ошибка загрузки файла драйвера;
             }
-            String url = fbserver + "//" + eProp.server.read() + ":" + eProp.port.read() + "/" + eProp.base.read();
-            String user2 = eProp.user.read();
-            String passw = eProp.password;
+            String url = fbserver + "//" + eProperty.server.read() + ":" + eProperty.port.read() + "/" + eProperty.base.read();
+            String user2 = eProperty.user.read();
+            String passw = eProperty.password;
             connection = DriverManager.getConnection(url, user2, passw);  
             connection.setAutoCommit(true);
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -132,7 +132,7 @@ public class ConnFb extends dataset.ConnApp {
         try {
             connection.createStatement().executeUpdate("delete from school.uchusers where user2 = '" + user + "'");
             connection.createStatement().executeUpdate("REVOKE SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA school, logger from " + user);
-            connection.createStatement().executeUpdate("REVOKE GRANT OPTION FOR ALL PRIVILEGES ON DATABASE " + eProp.base.read() + " FROM " + user);
+            connection.createStatement().executeUpdate("REVOKE GRANT OPTION FOR ALL PRIVILEGES ON DATABASE " + eProperty.base.read() + " FROM " + user);
             connection.createStatement().executeUpdate("REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA school, logger FROM " + user);
             connection.createStatement().executeUpdate("REVOKE USAGE ON SCHEMA school, logger FROM " + user);
             connection.createStatement().executeUpdate("DROP USER " + user);

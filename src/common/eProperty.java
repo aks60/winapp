@@ -11,10 +11,10 @@ import javax.swing.JTextField;
 import main.Main;
 
 /**
- * <p>
- * Параметры программы </p>
+ * 
+ * Параметры программы 
  */
-public enum eProp {
+public enum eProperty {
 
     lookandfeel("Metal", "Windows"),
     web_port("8080"),
@@ -26,7 +26,7 @@ public enum eProp {
     base("C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\winbase\\BASE.FDB?encoding=win1251"),
     //base("D:\\Okna\\Database\\Sialbase2\\base2.gdb?encoding=win1251", "D:\\Okna\\Database\\Sialbase2\\base2.gdb?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
-    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),
+    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"), //C:\ProgramData\Acron\Okno\v30.properties
     path_bekap(System.getProperty("user.home") + "/Acron/Backup", "C:\\Acron\\Backup"),
     url_src("http://aks.acron.ru:8080"),   
     sys_nuni("-1"),
@@ -36,22 +36,22 @@ public enum eProp {
     fontname("Dialog"),    
     fontsize("11");
     private static Properties prop = null;
-    //это значение по умолчанию
+    
+    //Значения по умолчанию
     private String value;
+    
     public static String password = "******";
     public static FileWriter logconv = null;
     public static String fb = "fb";
     public static String pg = "pg";
-
-    public static boolean open_dict = true;
-
+    
     //Значение по умолчанию
-    eProp(String value) {
+    eProperty(String value) {
         this.value = value;
     }
 
     //Значение по умолчанию для конкретной OS
-    eProp(String value1, String value2) {
+    eProperty(String value1, String value2) {
         String os = System.getProperty("os.name");
         this.value = os.equals("Linux") ? value1 : value2;
     }
@@ -59,13 +59,12 @@ public enum eProp {
     //Возвращает конкретное значение от выбранного экземпляра enum
     public String read() {
         load();
-        String prop2 = prop.getProperty(this.name());
-        //если свойство не записано локально
-        if (prop2 != null && prop.getProperty(this.name()).equals("") || Main.dev == true) {
+        String prop2 = prop.getProperty(this.name());       
+        if (prop2 != null && prop.getProperty(this.name()).equals("") || Main.dev == true) { //если свойство не записано локально
+            
             return this.value;
-        } else {
-            //иначе читаем с диска
-            return prop.getProperty(this.name(), this.value);
+        } else {            
+            return prop.getProperty(this.name(), this.value); //читаем с диска
         }
     }
 
@@ -85,20 +84,18 @@ public enum eProp {
             try {
                 File file = new File(System.getProperty("user.dir"), eProfile.filename);
                 if (file.exists() == true) {
-                    //сохраним путь к файлу в path_prop
-                    path_prop.value = System.getProperty("user.dir");
-                } else {
-                    //если файла нет создадим его
-                    file = new File(path_prop.value, eProfile.filename);
+                    
+                    path_prop.value = System.getProperty("user.dir"); //сохраним путь к файлу в path_prop
+                } else {                    
+                    file = new File(path_prop.value, eProfile.filename); //если файла нет создадим его
                 }
-                if (file.exists() == false) {
-                    //если файл создать так и не удалось
-                    File mydir = new File(path_prop.value);
+                if (file.exists() == false) {                   
+                    File mydir = new File(path_prop.value); //если файл создать так и не удалось
                     mydir.mkdirs();
                     file.createNewFile();
-                } else {
-                    //теперь можно грузить файл
-                    FileInputStream inStream = new FileInputStream(file);
+                    
+                } else {                    
+                    FileInputStream inStream = new FileInputStream(file); //теперь можно грузить файл
                     prop.load(inStream);
                     inStream.close();
                 }
@@ -112,7 +109,7 @@ public enum eProp {
     }
 
     //Сохранение property в файл
-    public static void save() {
+    public static void store() {
         try {
             File file = new File(path_prop.value, eProfile.filename);
             FileOutputStream outStream = new FileOutputStream(file);

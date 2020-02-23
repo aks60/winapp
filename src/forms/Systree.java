@@ -890,13 +890,14 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCard
 
     private void btnTK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTK
+
+        FrameProgress.create(Systree.this, new FrameListener() {
+            public void request(Object obj) {
+                App1.eApp1.BoxTypical.createFrame(Systree.this);
+            }
+        });
         iwin.create(Winscript.test(Winscript.prj, null));
-        paintPanel.repaint(true, 12);
-//        FrameProgress.create(Systree.this, new FrameListener() {
-//            public void request(Object obj) {
-//                App1.eApp1.BoxTypical.createFrame(Systree.this);
-//            }
-//        });
+        paintPanel.repaint(true, 12);        
     }//GEN-LAST:event_btnTK
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

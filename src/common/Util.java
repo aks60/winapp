@@ -21,57 +21,21 @@ import wincalc.Wincalc;
  */
 public class Util {
 
-    public static boolean progressFrame = true;
-    /**
-     * Календарь программы
-     */
-    private static GregorianCalendar appCalendar = new GregorianCalendar();
-    /**
-     * Формат даты
-     */
-    private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
-    //"yyyy-MM-dd" формат только для баз где даты utf8
-    private static SimpleDateFormat simpledateFormat = null;
-
-    /**
-     * Разврашает ввод данных через карточку ввода
-     */
-    private static boolean cardFormat = true;
-    /**
-     * Для тестирования
-     */
-    //public static boolean dev = false;
+    public static boolean progressFrame = true;   
+    private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
+    private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM); //формат даты
+    private static SimpleDateFormat simpledateFormat = null; //"yyyy-MM-dd" формат только для баз где даты utf8
     private static int mes = 0;
-
-    /**
-     * Font по умолчанию
-     */
-    private enum font {
-
-        name("Dialog"),
-        size("11");
-        String value;
-
-        font(String value) {
-            this.value = value;
-        }
-    }
 
     public static void setSimpleDateFormat(SimpleDateFormat _simpledateFormat) {
         simpledateFormat = _simpledateFormat;
-    }
-
-    public static boolean isDataCardFormat() {
-        return cardFormat;
     }
 
     public static DateFormat getDateFormat() {
         return dateFormat;
     }
 
-    /**
-     * Преобразование даты в строку
-     */
+    // Преобразование даты в строку
     public static String getDateStr(Object obj) {
         if (obj == null) {
             return dateFormat.format(appCalendar.getTime());
@@ -89,9 +53,7 @@ public class Util {
         }
     }
 
-    /**
-     * Преобразование текущей даты в строку
-     */
+    //Преобразование текущей даты в строку
     public static int getDateField(Object obj, int field) {
         if (obj instanceof Date) {
             GregorianCalendar gk = new GregorianCalendar();
@@ -102,29 +64,12 @@ public class Util {
         }
     }
 
-    /**
-     * Текущая дата
-     */
+    // Текущая дата
     public static Date getDateCur() {
         return appCalendar.getTime();
     }
 
-    /**
-     * Дата перехода на другой уч. год
-     */
-    public static Date getDatePass(int dxYear) {
-        /*int index = eSystem.query().locate(eSystem.sp.meta().push(1));
-        int year = getYearSchool() + dxYear;
-        int month = eSystem.query().getInt(index, eSystem.val1);
-        int day = eSystem.query().getInt(index, eSystem.val2);
-        GregorianCalendar schoolCalendar = new GregorianCalendar(year, month - 1, day);
-        return schoolCalendar.getTime();*/
-        return null;
-    }
-
-    /**
-     * Преобразование string в date
-     */
+    //Преобразование string в date
     public static Date StrToDate(String str) {
         try {
             return (Date) dateFormat.parse(str);
@@ -133,16 +78,12 @@ public class Util {
         }
     }
 
-    /**
-     * Преобразование date в string
-     */
+    // Преобразование date в string
     public static String DateToStr(Object date) {
         return (date instanceof java.util.Date) ? dateFormat.format(date) : "";
     }
 
-    /**
-     * Преобразование date в string
-     */
+    //Преобразование date в string
     public static String DateToSql(Object date) {
         if (date == null) {
             return simpledateFormat.format(appCalendar.getTime());
@@ -153,9 +94,7 @@ public class Util {
         return "";
     }
 
-    /**
-     * Текущий год
-     */
+    //Текущий год
     public static int getYearCur() {
         return appCalendar.get(Calendar.YEAR);
     }
@@ -176,7 +115,7 @@ public class Util {
     }
 
     public static Font getFont(int size, int bold) {
-        return new Font(eProp.fontname.read(), bold, Integer.valueOf(eProp.fontsize.read()) + size);
+        return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }
 
     public static String typeSql(Field.TYPE type, Object size) {
@@ -225,20 +164,7 @@ public class Util {
         }
     }
 
-    public static void println(Object obj) {
-        if (Main.dev == true) {
-            System.out.println(obj);
-        }
-    }
-
-    public static void println(Table table) {
-        if (Main.dev == true) {
-            for (Record record : table) {
-                System.out.println(record);
-            }
-        }
-    }
-
+    //Рекурсия поиска родителя
     public static Record findParent(Query table, int key) {
         for (Record record : table) {
             if (key == record.getInt(eSystree.id)) {

@@ -4,7 +4,7 @@ import dataset.ConnApp;
 import dataset.eExcep;
 import common.FrameToFile;
 import common.eProfile;
-import common.eProp;
+import common.eProperty;
 import dataset.Query;
 import javax.swing.SwingWorker;
 import wincalc.Wincalc;
@@ -32,11 +32,11 @@ public class LogoToDb extends javax.swing.JDialog {
             edPass.setPreferredSize(new java.awt.Dimension(120, 18));
 
         } else {
-            eProp.logindef(false, edUser, edPass);
+            eProperty.logindef(false, edUser, edPass);
             ConnectToDb();
         }
         labMes.setText("");
-        edUser.setText(eProp.user.read());
+        edUser.setText(eProperty.user.read());
         edPass.requestFocus();
         getRootPane().setDefaultButton(btnOk);
     }
@@ -58,8 +58,8 @@ public class LogoToDb extends javax.swing.JDialog {
 
                 progressBar.setIndeterminate(true);
                 //Загрузка параметров входа
-                eProp.user.write(edUser.getText());
-                eProp.password = String.valueOf(edPass.getPassword());
+                eProperty.user.write(edUser.getText());
+                eProperty.password = String.valueOf(edPass.getPassword());
                 //создание соединения
                 labMes.setText("Установка соединения с базой данных");
                 ConnApp con = ConnApp.initConnect();
@@ -70,7 +70,7 @@ public class LogoToDb extends javax.swing.JDialog {
                     App1.eApp1.createApp(eProfile.profile);
                     dispose();
                     //тут мы сохраняем в файл текущего пользователя
-                    eProp.save();
+                    eProperty.store();
                 } else if (pass == eExcep.noLogin) {
                     labMes.setText(eExcep.noLogin.mes);
                 } else if (pass == eExcep.noGrant) {
@@ -321,12 +321,12 @@ public class LogoToDb extends javax.swing.JDialog {
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnAdmConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmConnect
-        eProp.logindef(true, edUser, edPass);
+        eProperty.logindef(true, edUser, edPass);
         ConnectToDb();
     }//GEN-LAST:event_btnAdmConnect
 
     private void btnUserConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserConnect
-        eProp.logindef(false, edUser, edPass);
+        eProperty.logindef(false, edUser, edPass);
         ConnectToDb();
     }//GEN-LAST:event_btnUserConnect
 
