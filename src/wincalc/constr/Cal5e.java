@@ -11,13 +11,6 @@ public class Cal5e {
 
     protected Wincalc iwin = null;
 
-    //В прфстрое используюеся только 0, 4, 10, 12 параметры
-    protected static final int PAR0 = 0;   //не проверять форму
-    protected static final int PAR4 = 4;   //профиль с радиусом
-    protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
-    protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
-
-
     public Cal5e(Wincalc iwin) {
         this.iwin = iwin;
     }

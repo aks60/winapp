@@ -5,12 +5,16 @@ import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eElement;
+import domain.eElempar1;
 import domain.eSysprof;
 import enums.TypeElem;
 import enums.TypeProfile;
+import forms.Artikls;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import static main.App1.eApp1.Artikls;
 import wincalc.Wincalc;
 import wincalc.model.Com5t;
 import wincalc.model.ElemFrame;
@@ -126,13 +130,13 @@ public class Сomposition extends Cal5e {
     protected boolean compositionSecond(List<Record> elementList, Com5t elemBase) {
 
         //цикл по составам
-        for (Record vstalstRec : elementList) {
+     /*   for (Record elementRec : elementList) {
 
-            ArrayList<ITParam> parvstmList = Parvstm.find(constr, vstalstRec.vnumb);
-            boolean out = paramVariant.checkParvstm(elemBase, parvstmList); //ФИЛЬТР вариантов
+            ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
+            boolean out = paramVariant.checkParvstm(elemBase, elempar1List); //ФИЛЬТР вариантов
             if (out == true) {
                 //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
-                ArrayList<Vstaspc> vstaspcList = Vstaspc.find(constr, vstalstRec.vnumb);
+                ArrayList<Vstaspc> vstaspcList = Vstaspc.find(constr, elementRec.vnumb);
                 //Цикл по спецификации
                 for (Vstaspc vstaspcRec : vstaspcList) {
 
@@ -149,7 +153,7 @@ public class Сomposition extends Cal5e {
                     }
                 }
             }
-        }
+        }*/
         return false;
     }
 }
