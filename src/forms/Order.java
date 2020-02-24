@@ -2,6 +2,7 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameToFile;
 import dataset.Query;
 import domain.eOrders;
 import java.awt.event.FocusEvent;
@@ -272,6 +273,7 @@ public class Order extends javax.swing.JFrame {
 
     private void initElements() {
         
+        new FrameToFile(this, btnClose);
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Заказы клиентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));

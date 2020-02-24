@@ -1,6 +1,7 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eSystree;
@@ -750,6 +751,7 @@ public class Design extends javax.swing.JFrame {
 
     private void initElements() {
 
+        new FrameToFile(this, btnClose);
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree1.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

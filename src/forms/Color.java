@@ -1,6 +1,7 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -508,6 +509,8 @@ public class Color extends javax.swing.JFrame
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
+        
+        new FrameToFile(this, btnClose);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

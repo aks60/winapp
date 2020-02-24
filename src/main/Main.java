@@ -1,6 +1,6 @@
 package main;
 
-import common.eProp;
+import common.eProperty;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import wincalc.Wincalc;
@@ -12,7 +12,7 @@ public class Main {
     //Конструктор
     public Main() {
         LogoToDb.logoToDb();
-        eProp.save();
+        eProperty.store();
     }
 
     public static void main(String[] args) {

@@ -101,7 +101,7 @@ public class Profstroy {
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
-            Util.println("\u001B[32m" + "Подготовка методанных" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Подготовка методанных" + "\u001B[0m");
             st1 = cn1.createStatement(); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
@@ -128,7 +128,7 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
-            Util.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
             //Цыкл по доменам приложения
             for (Field fieldUp : fieldsUp) {
                 //Поля не вошедшие в eEnum.values()
@@ -166,20 +166,20 @@ public class Profstroy {
             }
             //cn1.close();  //Закроем соединение источника
 
-            Util.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
             for (Field field : fieldsUp) {
                 sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
             }
             updateDb(cn2, st2);
 
-            Util.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
             for (Field fieldUp : fieldsUp) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
-            Util.println("\u001B[32m" + "Создание виртуальных профилей" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Создание виртуальных профилей" + "\u001B[0m");
             for (Field field : new Field[] {eSyscons.up, eArtikl.up, eSystree.up, eSysprof.up}) {
                 field.virtualRec();
             }
@@ -243,7 +243,7 @@ public class Profstroy {
             //Цыкл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
-                Util.println("Таблица:" + tname2 + " пакет:" + index_page);
+                System.out.println("Таблица:" + tname2 + " пакет:" + index_page);
                 String nameCols2 = "";
                 rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + tname1);
                 ResultSetMetaData md1 = rs1.getMetaData();
@@ -357,7 +357,7 @@ public class Profstroy {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
-            Util.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");  //textgrp_id
             sql("delete from artdet where not exists (select id from artikl a where a.code = artdet.anumb)");  //artikl_id
             sql("delete from artdet where not exists (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");  //color_id
@@ -397,7 +397,7 @@ public class Profstroy {
             //sql("delete from kitdet where not exists (select id from color a where a.numb = kitdet.clnu2)");//color3_id  
             sql("delete from kitpar1 where not exists (select id from kitdet a where a.kincr = kitpar1.psss)");  //kitdet_id
 
-            Util.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update color set colgrp_id = (select id from colgrp a where a.gnumb = color.cgrup)");
             updateColor();
             sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
@@ -451,7 +451,7 @@ public class Profstroy {
             sql("update kitdet set color3_id = (select id from color a where a.numb = kitdet.clnu2)");
             sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
 
-            Util.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
+            System.out.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
             sql("alter table artikl add constraint fk_artikl1 foreign key (currenc_id) references currenc (id)");
             sql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
             sql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikl (id)");
@@ -501,7 +501,7 @@ public class Profstroy {
 
     private static void sql(String str) {
         try {
-            Util.println(str);
+            System.out.println(str);
             st2.execute(str);
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
@@ -509,7 +509,7 @@ public class Profstroy {
     }
 
     private static void updateColor() throws SQLException {
-        Util.println("updateColor()");
+        System.out.println("updateColor()");
         Query.connection = cn2;
         Query q1 = new Query(eColgrp.values()).select(eColgrp.up).table(eColgrp.up.tname());
         Query q2 = new Query(eColor.values()).table(eColor.up.tname());
@@ -530,7 +530,7 @@ public class Profstroy {
     }
 
     private static void updateElemgrp() throws SQLException {
-        Util.println("updateElemgrp()");
+        System.out.println("updateElemgrp()");
         Query q = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
         ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
         ArrayList<Object[]> fieldList = new ArrayList();
@@ -547,7 +547,7 @@ public class Profstroy {
     }
 
     private static void updateSysprod() throws SQLException {
-        Util.println("updateSysprod()");
+        System.out.println("updateSysprod()");
         Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
             601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
         for (int index = 0; index < prj.length; ++index) {

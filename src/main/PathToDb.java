@@ -2,7 +2,7 @@ package main;
 
 import common.FrameToFile;
 import common.eProfile;
-import common.eProp;
+import common.eProperty;
 import dataset.ConnApp;
 import dataset.Query;
 import java.io.File;
@@ -34,16 +34,16 @@ public class PathToDb extends javax.swing.JDialog {
         //Загрузка параметров входа
         labMes.setText("");
 
-        if (eProp.typedb.read().equals(eProp.fb)) {
+        if (eProperty.typedb.read().equals(eProperty.fb)) {
             cboxDB.setSelectedIndex(3);
-        } else if (eProp.typedb.read().equals(eProp.pg)) {
+        } else if (eProperty.typedb.read().equals(eProperty.pg)) {
             cboxDB.setSelectedIndex(4);
         }
-        edHost.setText(eProp.server.read());
-        edPort.setText(eProp.port.read());
-        edPath.setText(eProp.base.read());
-        edUser.setText(eProp.user.read());
-        edPass.setText(eProp.password);
+        edHost.setText(eProperty.server.read());
+        edPort.setText(eProperty.port.read());
+        edPath.setText(eProperty.base.read());
+        edUser.setText(eProperty.user.read());
+        edPass.setText(eProperty.password);
 
         if (Main.dev == false) {
             btnAdm.setVisible(false);
@@ -52,7 +52,7 @@ public class PathToDb extends javax.swing.JDialog {
 //            labDB.setVisible(false);
 //            cboxDB.setVisible(false);
         }
-        if (eProp.typedb.read().equals(eProp.fb)) {
+        if (eProperty.typedb.read().equals(eProperty.fb)) {
             btnFile.setVisible(false);
         }
         onCaretUpdate(null);
@@ -64,18 +64,18 @@ public class PathToDb extends javax.swing.JDialog {
     private void ConnectToDb() {
 
         //Устанавливаем параметры входа
-        eProp.server.write(edHost.getText());
-        eProp.port.write(edPort.getText());
-        eProp.base.write(edPath.getText());
-        eProp.user.write(edUser.getText().trim());
-        eProp.password = String.valueOf(edPass.getPassword());
+        eProperty.server.write(edHost.getText());
+        eProperty.port.write(edPort.getText());
+        eProperty.base.write(edPath.getText());
+        eProperty.user.write(edUser.getText().trim());
+        eProperty.password = String.valueOf(edPass.getPassword());
 
         String file = edPath.getText();
         int index = file.lastIndexOf(".") + 1;
         if (index == 0 && cboxDB.getSelectedIndex() == 1) {
-            eProp.typedb.write(eProp.fb);
+            eProperty.typedb.write(eProperty.fb);
         } else if (index == 0 && cboxDB.getSelectedIndex() == 4) {
-            eProp.typedb.write(eProp.pg);
+            eProperty.typedb.write(eProperty.pg);
         }
         //создание соединения
         ConnApp con = ConnApp.initConnect();
@@ -86,7 +86,7 @@ public class PathToDb extends javax.swing.JDialog {
             App1.eApp1.createApp(eProfile.profile);
             dispose();
             //тут мы сохраняем в файл текущего пользователя
-            eProp.save();
+            eProperty.store();
 
         } else {
             String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
@@ -445,7 +445,7 @@ public class PathToDb extends javax.swing.JDialog {
     //Нажал кнопку "ADM"
     private void btnAdmDef(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef
 
-        eProp.logindef(true, edUser, edPass, edHost, edPort, edPath);
+        eProperty.logindef(true, edUser, edPass, edHost, edPort, edPath);
         ConnectToDb();
 }//GEN-LAST:event_btnAdmDef
     //Нажал кнопку "user"
@@ -456,7 +456,7 @@ public class PathToDb extends javax.swing.JDialog {
         if (edPass.getPassword() == null) {
             edPass.setText("");
         }
-        eProp.logindef(false, edUser, edPass);
+        eProperty.logindef(false, edUser, edPass);
         ConnectToDb();
 }//GEN-LAST:event_btnUserDef
     //Нажал кнопку "ОК"

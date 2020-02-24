@@ -5,7 +5,7 @@ import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import common.eProfile;
-import common.eProp;
+import common.eProperty;
 import convert.Convert;
 import java.util.Locale;
 import javax.swing.SwingWorker;
@@ -57,11 +57,11 @@ public class App1 extends javax.swing.JFrame {
 
         initComponents();
 
-        if (eProp.lookandfeel.read().equals("Metal")) {
+        if (eProperty.lookandfeel.read().equals("Metal")) {
             mn0443.setSelected(true);
-        } else if (eProp.lookandfeel.read().equals("Nimbus")) {
+        } else if (eProperty.lookandfeel.read().equals("Nimbus")) {
             mn0442.setSelected(true);
-        } else if (eProp.lookandfeel.read().equals("Windows")) {
+        } else if (eProperty.lookandfeel.read().equals("Windows")) {
             mn0441.setSelected(true);
         } else if (System.getProperty("os.name").equals("Linux")) {
             mn0443.setSelected(true);
@@ -1018,13 +1018,13 @@ private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLookAndFeel
     if (evt.getSource() == mn0441) {
-        eProp.lookandfeel.write("Window");
+        eProperty.lookandfeel.write("Window");
     } else if (evt.getSource() == mn0443) {
-        eProp.lookandfeel.write("Metal");
+        eProperty.lookandfeel.write("Metal");
     } else if (evt.getSource() == mn0442) {
-        eProp.lookandfeel.write("Nimbus");
+        eProperty.lookandfeel.write("Nimbus");
     }
-    eProp.save();
+    eProperty.store();
 }//GEN-LAST:event_mnLookAndFeel
 
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
@@ -1375,7 +1375,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             if (profile.equals(eProfile.P16)) {
-                eProp.open_dict = false;
                 eProfile.role_user = "user";
                 App1.frame = new App1();
                 App1.frame.setName(eProfile.P16.name());

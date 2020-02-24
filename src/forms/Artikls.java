@@ -1,6 +1,7 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameToFile;
 import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
@@ -822,6 +823,8 @@ public class Artikls extends javax.swing.JFrame
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
+        
+        new FrameToFile(this, btnClose);
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

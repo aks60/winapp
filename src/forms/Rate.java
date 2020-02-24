@@ -1,6 +1,7 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -315,6 +316,8 @@ public class Rate extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
+        
+        new FrameToFile(this, btnClose);
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Курсы валют", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
