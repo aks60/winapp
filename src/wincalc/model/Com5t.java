@@ -24,6 +24,12 @@ public abstract class Com5t {
     public static final int TRANSLATE_Y = 20; //сдвиг графика    
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий   
+    
+    public static final int PNUMB = 1;   //пространство для линий   
+    public static final int ZNUMB = 2;   //пространство для линий   
+    public static final int PTEXT = 3;   //пространство для линий   
+    
+    
 
     protected TypeElem typeElem = TypeElem.NONE;
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне

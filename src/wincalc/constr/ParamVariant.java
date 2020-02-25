@@ -3,13 +3,13 @@ package wincalc.constr;
 import wincalc.Wincalc;
 import wincalc.model.AreaSimple;
 
-
-/**
- * Перечень параметров конструктива (составов, заполнений...)
- * Параметры верхней части формы конструктива (составов, заполнений...)
- */
+ //Перечень параметров конструктива (составов, заполнений...)
+ //Параметры верхней части формы конструктива (составов, заполнений...)
 public class ParamVariant {
 
+    private ParamVariant paramVariant = null;
+    private ParamSpecific paramSpecific = null;
+    
    protected Wincalc iwin = null;
    //protected Constructiv calcConstr = null;
 
