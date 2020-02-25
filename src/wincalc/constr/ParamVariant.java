@@ -93,7 +93,7 @@ public class ParamVariant {
                     boolean ret = false;
                     for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
                         ElemJoining el = elemJoin.getValue();
-                        if (JoinVariant.VAR4 == el.joinVar() &&
+                        if (JoinVariant.VAR4 == el.varJoin &&
                                 el.joinElement1.artiklRec.equals(com5t.artiklRec) &&
                                 el.joinElement2.artiklRec.equals(paramRec.getStr(PAR3))) {
                             ret = true;
@@ -358,14 +358,14 @@ public class ParamVariant {
                     return false; //Т. к. есть системные константы
                 case "085":
                     System.out.println("надпись на элем. записать");
-                    elemJoin.joinElement1.iwin().setLabelSketch(paramRec.getStr(PAR3));
+                    elemJoin.joinElement1.iwin().labelSketch = paramRec.getStr(PAR3);
                     break;
                 case "095": //Если признак системы конструкции
-                    Sysprof sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
-                    String[] arr = paramRec.getStr(PAR3).split(";");
+                    Record systreeRec = eSystree.find(iwin.nuni);
+                    String[] arrPar3 = paramRec.getStr(PAR3).split(";");
                     boolean empty = true;
-                    for (int i = 0; i < arr.length; i++) {
-                        if (sysprofRec.typew == Integer.valueOf(arr[i])) {
+                    for (int i = 0; i < arrPar3.length; i++) {
+                        if (systreeRec.getInt(eSystree.types) == Integer.valueOf(arrPar3[i])) {
                             empty = false;
                         }
                     }

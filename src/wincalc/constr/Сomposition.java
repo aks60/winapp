@@ -56,8 +56,8 @@ public class Сomposition extends Cal5e {
                                 String series = recordFrame.artiklRec.getStr(eArtikl.series);
                                 List<Record> elementList2 = eElement.find(series); //состав для серии профилей
                                 compositionSecond(elementList2, recordFrame);
-                                String code = recordFrame.artiklRec.getStr(eArtikl.code);
-                                List<Record> elementList = eElement.find2(code); //состав для артикула профиля
+                                int artikl_id = recordFrame.artiklRec.getInt(eArtikl.id);
+                                List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
                                 compositionSecond(elementList, recordFrame);
 
                                 recordFrame.specificationRec.width = recordFrame.specificationRec.width
