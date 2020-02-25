@@ -67,8 +67,8 @@ public class Joining extends javax.swing.JFrame {
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_id, eJoindet.types);
-        new DefTableModel(tab3, qJoinpar1, eJoinpar1.pnumb, eJoinpar1.val);
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.pnumb, eJoinpar2.val);
+        new DefTableModel(tab3, qJoinpar1, eJoinpar1.par1, eJoinpar1.par3);
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.par1, eJoinpar2.par3);
 
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -94,7 +94,7 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinvar.table(eJoinvar.up.tname()).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
-            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.pnumb);
+            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.par1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
@@ -111,7 +111,7 @@ public class Joining extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qJoindet.table(eJoindet.up.tname()).get(row);
             Integer id = record.getInt(eJoindet.id);
-            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.pnumb);
+            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.par1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             if (tab5.getRowCount() > 0) {
                 tab5.setRowSelectionInterval(0, 0);

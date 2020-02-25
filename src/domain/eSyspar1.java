@@ -4,19 +4,19 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eParams.mixt;
-import static domain.eParams.numb;
 import static domain.eParams.up;
 import static domain.eParams.values;
 import java.util.ArrayList;
+import static domain.eParams.par1;
+import static domain.eParams.par2;
 
 public enum eSyspar1 implements Field {
     up("0", "0", "0", "Парамметры системы профилей", "PARSYSP"),
     id("4", "10", "0", "Идентификатор", "id"),
     npp("5", "5", "1", "нпп параметра", "PPORN"),
-    pnumb("4", "10", "1", "номер параметра", "PNUMB"), //см. eEnum параметры
-    znumb("4", "10", "1", "номер параметра", "ZNUMB"), //пар. вводимые пользователем в системе профилей
-    val("12", "64", "1", "наименование значения параметра", "PTEXT"),
+    par1("4", "10", "1", "номер параметра", "PNUMB"), //см. eEnum параметры
+    par2("4", "10", "1", "номер параметра", "ZNUMB"), //пар. вводимые пользователем в системе профилей
+    par3("12", "64", "1", "наименование значения параметра", "PTEXT"),
     fixed("5", "5", "1", "закреплено", "PFIXX"),
     systree_id("4", "10", "1", "ссылка", "systree_id");
 

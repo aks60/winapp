@@ -10,6 +10,10 @@ public interface Field extends Enam{
 
     public static String conf = "calc";
     
+    public static final int PAR1 = 3;   //Ключ 1  
+    public static final int PAR2 = 4;   //Ключ 2   
+    public static final int PAR3 = 5;   //Значение      
+    
     public static enum TYPE {
 
         OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), INTsp(Integer.class),

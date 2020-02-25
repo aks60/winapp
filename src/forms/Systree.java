@@ -83,7 +83,7 @@ public class Systree extends javax.swing.JFrame {
         rsmSysprof.addFrameListener(listenerModify);
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
-        new DefTableModel(tab4, qSyspar1, eSyspar1.id, eSyspar1.val, eSyspar1.fixed);
+        new DefTableModel(tab4, qSyspar1, eSyspar1.id, eSyspar1.par3, eSyspar1.fixed);
 
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.name, txtField8);
