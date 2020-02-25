@@ -30,13 +30,13 @@ public abstract class Com5t {
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
     protected float id = -1; //идентификатор    
-    protected AreaSimple owner = null; //владелец
+    public AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 
 
-    protected Record sysprofRec = null; //профиль в системе
+    public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства, основной профиль
     public Specification specificationRec = null; //спецификация элемента
     public HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       

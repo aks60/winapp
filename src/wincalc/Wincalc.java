@@ -65,7 +65,7 @@ public class Wincalc {
 
     public AreaSimple rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
-    protected HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию       
+    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию       
 
     public LinkedList<Com5t> listCom5t; //список всех Com5t
     public LinkedList<ElemSimple> listElem; //список ElemSimple

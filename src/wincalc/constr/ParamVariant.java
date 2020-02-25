@@ -1,133 +1,153 @@
 package wincalc.constr;
 
+import dataset.Record;
+import domain.eArtikl;
+import domain.eSysprof;
+import enums.JoinVariant;
+import enums.LayoutArea;
+import enums.TypeElem;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import wincalc.Wincalc;
-import wincalc.model.AreaSimple;
+import wincalc.model.Com5t;
+import wincalc.model.ElemJoining;
+import wincalc.model.ElemSimple;
 
- //Перечень параметров конструктива (составов, заполнений...)
- //Параметры верхней части формы конструктива (составов, заполнений...)
+//Перечень параметров конструктива (составов, заполнений...)
+//Параметры верхней части формы конструктива (составов, заполнений...)
 public class ParamVariant {
 
     private ParamVariant paramVariant = null;
     private ParamSpecific paramSpecific = null;
     
-   protected Wincalc iwin = null;
-   //protected Constructiv calcConstr = null;
+    public static final int PAR1 = 3;   //Ключ 1  
+    public static final int PAR2 = 4;   //Ключ 2   
+    public static final int PAR3 = 5;   //Значение     
+
+    protected Wincalc iwin = null;
+    //protected Constructiv calcConstr = null;
 
     public ParamVariant(Wincalc iwin) {
         this.iwin = iwin;
         //this.calcConstr = calcConstr;
     }
-//
-//    private boolean filterParamDef(ITParam param) {
-//        if (param.pnumb() < 0) {
-//            if (root.getIwin().getHmParamDef().get(param.pnumb()) == null) return false;
-//            if (root.getIwin().getHmParamDef().get(param.pnumb())[1].equals(param.znumb()) == false) return false;
-//        }
-//        return true;
-//    }
-//
-//    // Составы
-//    // int[] parVstm = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050,
-//    //31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
-//    protected boolean checkParvstm(ElemBase elemBase, ArrayList<ITParam> tableList) {
-//
-//        //Цикл по параметрам состава
-//        for (ITParam param : tableList) {
-//
-//            if (filterParamDef(param) == false) return false;
-//            switch (param.pnumb()) {
-//                case 31000: //Для технологического кода контейнера
-//                    Sysproa sproaRec = elemBase.getSysproaRec();
-//                    Artikls articlesVRec = Artikls.get(constr, sproaRec.anumb, false);
-//                    if (articlesVRec.atech == null) return false;
-//                    String[] strList = param.ptext().split(";");
-//                    String[] strList2 = articlesVRec.atech.split(";");
-//                    boolean ret2 = false;
-//                    for (String str : strList) {
-//                        for (String str2 : strList2) {
-//                            if (str.equals(str2)) {
-//                                ret2 = true;
-//                            }
-//                        }
-//                    }
-//                    if (ret2 == false) return false;
-//                    break;
-//                case 31002://Если профиль прямой, арочный
-//                case 37002:
-//                    Object obj = elemBase.getLayout();
-//                    if (LayoutArea.ARCH == elemBase.getLayout() && "арочный".equals(param.ptext()) == false) {
-//                        return false;
-//                    } else if (LayoutArea.ARCH != elemBase.getLayout() && "прямой".equals(param.ptext()) == false) {
-//                        return false;
-//                    }
-//                    break;
-//                case 31004: //Если прилегающий артикул
-//                    HashMap<String, ElemJoinig> hmJoinElem = elemBase.getRoot().getHmJoinElem();
-//                    boolean ret = false;
-//                    for (Map.Entry<String, ElemJoinig> elemJoin : hmJoinElem.entrySet()) {
-//                        ElemJoinig el = elemJoin.getValue();
-//                        if (VariantJoin.VAR4 == el.getVarJoin() &&
-//                                el.getJoinElement(1).getArticlesRec().equals(elemBase.getArticlesRec()) &&
-//                                el.getJoinElement(2).getArticlesRec().equals(param.ptext())) {
-//                            ret = true;
-//                        }
-//                    }
-//                    if (ret == false) return false;
-//                    break;
-//                case 31005: //Коды основной текстуры контейнера
-//                    if (CalcConstructiv.compareInt(param.ptext(), elemBase.getColor(1)) == false) return false;
-//                    break;
-//                case 31006: //Коды внутр. текстуры контейнера
-//                    if (CalcConstructiv.compareInt(param.ptext(), elemBase.getColor(2)) == false) return false;
-//                    break;
-//                case 31007://Коды внешн. текстуры контейнера
-//                    if (CalcConstructiv.compareInt(param.ptext(), elemBase.getColor(3)) == false) return false;
-//                    break;
-//                case 31015: //Форма заполнения
-//                    Object objx = elemBase.getHmParam("empty", 13015);
-//                    if (param.ptext().equals(elemBase.getHmParam("empty", 13015)) == false) return false;
-//                    break;
-//                case 31020: //Ограничение угла к горизонту
-//                    if (CalcConstructiv.compareFloat(param.ptext(), elemBase.getAnglHoriz()) == false) return false;
-//                    break;
-//                case 31037:  //Название фурнитуры содержит
-//                    if (TypeElem.FULLSTVORKA == elemBase.getOwner().getTypeElem()) {
-//                        return param.ptext().contains(elemBase.getOwner().getArticlesRec().aname);
-//                    } else return false;
-//                case 31041: //Ограничение длины профиля, мм
-//                    if (CalcConstructiv.compareFloat(param.ptext(), elemBase.getWidth()) == false) return false;
-//                    break;
-//                case 31050: //Контейнер имеет тип
-//                    TypeElem type = elemBase.getTypeElem();
-//                    if (type.value != Integer.valueOf(param.ptext())) return false;
-//                    break;
-//                case 31052:
-//                    if(elemBase.getLayout() == LayoutArea.ARCH) {
-//                        elemBase.putHmParam(param.pnumb(), param.ptext());
-//                    }
-//                    break;
-//                case 31055: //Коды внутр. и внешн. текстуры изд
-//                    if ((CalcConstructiv.compareInt(param.ptext(), elemBase.getColor(2)) == true &&
-//                            CalcConstructiv.compareInt(param.ptext(), elemBase.getColor(3)) == true) == false)
-//                        return false;
-//                    break;
-//                case 31056: //Коды внутр. или внеш. текстуры изд
-//                case 37056:
-//                    if ((CalcConstructiv.compareInt(param.ptext(), elemBase.getColor(2)) == true ||
-//                            CalcConstructiv.compareInt(param.ptext(), elemBase.getColor(3)) == true) == false)
-//                        return false;
-//                    break;
-//                case 31099:  //Трудозатраты, ч/ч.
-//                case 37099:
-//                    break;
-//                default:
-//                    paramMessage(param.pnumb());
-//                    break;
-//            }
-//        }
-//        return true;
-//    }
-//
+
+    private boolean filterParamDef(Record paramRec) {
+        if (paramRec.getInt(PAR1) < 0) {
+            if (iwin.mapParamDef.get(paramRec.getInt(PAR1)) == null) {
+                return false;
+            }
+            int id1 = iwin.mapParamDef.get(paramRec.getInt(PAR1)).getInt(PAR2);
+            int id2 = paramRec.getInt(PAR2);
+            if ((id1 == id2) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Составы
+    //int[] parVstm = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050,
+    //31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
+    protected boolean checkParvstm(Com5t com5t, ArrayList<Record> tableList) {
+
+        //Цикл по параметрам состава
+        for (Record paramRec : tableList) {
+
+            if (filterParamDef(paramRec) == false) return false;
+            switch (paramRec.getInt(PAR1)) {
+                case 31000: //Для технологического кода контейнера
+                    Record sysprofRec = com5t.sysprofRec;
+                    Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+                    if (artiklVRec.get(eArtikl.tech_code) == null) return false;
+                    String[] strList = paramRec.getStr(PAR3).split(";");
+                    String[] strList2 = artiklVRec.getStr(PAR3).split(";");
+                    boolean ret2 = false;
+                    for (String str : strList) {
+                        for (String str2 : strList2) {
+                            if (str.equals(str2)) {
+                                ret2 = true;
+                            }
+                        }
+                    }
+                    if (ret2 == false) return false;
+                    break;
+                case 31002://Если профиль прямой, арочный
+                case 37002:
+                    Object obj = com5t.layout();
+                    if (LayoutArea.ARCH == com5t.layout() && "арочный".equals(paramRec.getStr(PAR3)) == false) {
+                        return false;
+                    } else if (LayoutArea.ARCH != com5t.layout() && "прямой".equals(paramRec.getStr(PAR3)) == false) {
+                        return false;
+                    }
+                    break;
+                case 31004: //Если прилегающий артикул
+                    HashMap<String, ElemJoining> mapJoin = com5t.iwin().mapJoin;
+                    boolean ret = false;
+                    for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
+                        ElemJoining el = elemJoin.getValue();
+                        if (JoinVariant.VAR4 == el.joinVar() &&
+                                el.joinElement1.artiklRec.equals(com5t.artiklRec) &&
+                                el.joinElement2.artiklRec.equals(paramRec.getStr(PAR3))) {
+                            ret = true;
+                        }
+                    }
+                    if (ret == false) return false;
+                    break;
+                case 31005: //Коды основной текстуры контейнера
+                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color1) == false) return false;
+                    break;
+                case 31006: //Коды внутр. текстуры контейнера
+                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color2) == false) return false;
+                    break;
+                case 31007://Коды внешн. текстуры контейнера
+                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color3) == false) return false;
+                    break;
+                case 31015: //Форма заполнения
+                    if (paramRec.getStr(PAR3).equals(com5t.specificationRec.getParam("empty", 13015)) == false) return false;
+                    break;
+                case 31020: //Ограничение угла к горизонту
+                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple)com5t).anglHoriz) == false) return false;
+                    break;
+                case 31037:  //Название фурнитуры содержит
+                    if (TypeElem.FULLSTVORKA == com5t.owner.typeElem()) {
+                        return paramRec.getStr(PAR3).contains(com5t.owner.artiklRec.getStr(eArtikl.name));
+                    } else return false;
+                case 31041: //Ограничение длины профиля, мм
+                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), com5t.width()) == false) return false;
+                    break;
+                case 31050: //Контейнер имеет тип
+                    TypeElem type = com5t.typeElem();
+                    if (type.value != Integer.valueOf(paramRec.getStr(PAR3))) return false;
+                    break;
+                case 31052:
+                    if(com5t.layout() == LayoutArea.ARCH) {
+                        com5t.specificationRec.putParam(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    }
+                    break;
+                case 31055: //Коды внутр. и внешн. текстуры изд
+                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color2) == true &&
+                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color3) == true) == false)
+                        return false;
+                    break;
+                case 31056: //Коды внутр. или внеш. текстуры изд
+                case 37056:
+                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color2) == true ||
+                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color3) == true) == false)
+                        return false;
+                    break;
+                case 31099:  //Трудозатраты, ч/ч.
+                case 37099:
+                    break;
+                default:
+                    paramMessage(paramRec.getInt(PAR1));
+                    break;
+            }
+        }
+        return true;
+    }
+
 //    // Заполнения
 //    //int[] parGrup = {13015, 13017, 13081, 13099};
 //    protected boolean checkPargrup(ElemBase elemBase, ArrayList<ITParam> tableList) {
@@ -139,11 +159,11 @@ public class ParamVariant {
 //            switch (param.pnumb()) {
 //                case 13015: //Форма заполнения
 //                    Object objx = elemBase.getHmParam("empty", 13015);
-//                    if (param.ptext().equals(elemBase.getHmParam("empty", 13015)) == false) return false;
+//                    if (param.getStr(PAR3).equals(elemBase.getHmParam("empty", 13015)) == false) return false;
 //                    break;
 //                case 13017: //Код системы содержит строку
 //                    Sysprof sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
-//                    if (sysprofRec.npref.contains(param.ptext()) == false)
+//                    if (sysprofRec.npref.contains(param.getStr(PAR3)) == false)
 //                        return false;
 //                    break;
 //                case 13099: //Трудозатраты, ч/ч.
@@ -167,12 +187,12 @@ public class ParamVariant {
 //
 //            switch (param.pnumb()) {
 //                case 21001: //Форма контура прямоугольная трапециевидная
-//                    if (TypeElem.FULLSTVORKA == elemBase.getTypeElem() && "прямоугольная".equals(param.ptext()) == false) {
+//                    if (TypeElem.FULLSTVORKA == elemBase.getTypeElem() && "прямоугольная".equals(param.getStr(PAR3)) == false) {
 //                        return false;
 //                    }
 //                    break;
 //                case 21004: //Артикул створки
-//                    if (elemBase.getArticlesRec().anumb.equals(param.ptext()) == false) {
+//                    if (elemBase.getArticlesRec().anumb.equals(param.getStr(PAR3)) == false) {
 //                        return false;
 //                    }
 //                    break;
@@ -207,12 +227,12 @@ public class ParamVariant {
 //            String code = (String.valueOf(param.pnumb()).length() == 4) ? String.valueOf(param.pnumb()).substring(1, 4) : String.valueOf(param.pnumb()).substring(2, 5);
 //            switch (code) {
 //                case "002": //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.)
-//                    if (elemJoin.getVarJoin() == VariantJoin.VAR4 && "Простое Т-обр.".equals(param.ptext()) == false)
+//                    if (elemJoin.getVarJoin() == VariantJoin.VAR4 && "Простое Т-обр.".equals(param.getStr(PAR3)) == false)
 //                        return false;
 //                    break;
 //                case "005": //Контейнер имеет тип Артикула1/Артикула2
 //                    try {
-//                        strTxt = param.ptext();
+//                        strTxt = param.getStr(PAR3);
 //                        int type1 = joinElement1.getTypeElem().value;
 //                        int type2 = joinElement2.getTypeElem().value;
 //
@@ -254,7 +274,7 @@ public class ParamVariant {
 //                    }
 //                    break;
 //                case "011": //Для Артикула 1 указан состав
-//                    strTxt = param.ptext();
+//                    strTxt = param.getStr(PAR3);
 //                    ArrayList<Vstalst> vstalstList1 = Vstalst.find(constr, joinElement1.getArticlesRec().anumb, joinElement1.getArticlesRec().aseri);
 //                    boolean substr1 = false;
 //                    for (Vstalst vstalst1 : vstalstList1) {
@@ -269,7 +289,7 @@ public class ParamVariant {
 //                    }
 //                    break;
 //                case "012": //Для Артикула 2 указан состав
-//                    strTxt = param.ptext();
+//                    strTxt = param.getStr(PAR3);
 //                    boolean substr2 = false;
 //                    ArrayList<Vstalst> vstalstList2 = Vstalst.find(constr, joinElement2.getArticlesRec().anumb, joinElement1.getArticlesRec().aseri);
 //                    for (Vstalst vstalst2 : vstalstList2) {
@@ -284,7 +304,7 @@ public class ParamVariant {
 //                    }
 //                    break;
 //                case "013": //Для Артикулов не указан состав
-//                    strTxt = param.ptext();
+//                    strTxt = param.getStr(PAR3);
 //                    ArrayList<Vstalst> vstalstList1a = Vstalst.find(constr, joinElement1.getArticlesRec().anumb, joinElement1.getArticlesRec().aseri);
 //                    boolean substr1a = false;
 //                    for (Vstalst vstalst1 : vstalstList1a) {
@@ -308,10 +328,10 @@ public class ParamVariant {
 //                    }
 //                    break;
 //                case "020":  //Ограничение угла
-//                    if (CalcConstructiv.compareFloat(param.ptext(), angl) == false) return false;
+//                    if (CalcConstructiv.compareFloat(param.getStr(PAR3), angl) == false) return false;
 //                    break;
 //                case "030":  //Припуск Артикула1/Артикула2 , мм
-//                    strTxt = param.ptext();
+//                    strTxt = param.getStr(PAR3);
 //                    char symmetry = strTxt.charAt(strTxt.length() - 1);
 //                    if (symmetry == '@') {
 //                        strTxt = strTxt.substring(0, strTxt.length() - 1);
@@ -333,11 +353,11 @@ public class ParamVariant {
 //                    return false; //Т. к. есть системные константы
 //                case "085":
 //                    System.out.println("надпись на элем. записать");
-//                    elemJoin.getJoinElement(1).getRoot().getIwin().setLabelSketch(param.ptext());
+//                    elemJoin.getJoinElement(1).getRoot().getIwin().setLabelSketch(param.getStr(PAR3));
 //                    break;
 //                case "095": //Если признак системы конструкции
 //                    Sysprof sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
-//                    String[] arr = param.ptext().split(";");
+//                    String[] arr = param.getStr(PAR3).split(";");
 //                    boolean empty = true;
 //                    for (int i = 0; i < arr.length; i++) {
 //                        if (sysprofRec.typew == Integer.valueOf(arr[i])) {
@@ -348,7 +368,7 @@ public class ParamVariant {
 //                        return false;
 //                    }
 //                case "099":  //Трудозатраты, ч/ч.
-//                    elemJoin.costsJoin = param.ptext();
+//                    elemJoin.costsJoin = param.getStr(PAR3);
 //                    break;
 //                default:
 //                    paramMessage(param.pnumb());
@@ -357,10 +377,10 @@ public class ParamVariant {
 //        }
 //        return result;
 //    }
-//
-//    private void paramMessage(int code) {
-//        //System.out.println("ParamVariant ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
-//    }
+
+    private void paramMessage(int code) {
+        System.out.println("ParamVariant ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+    }
 
     /* Все варианты вместе
     public static int[] paramSum = {13015, 13017, 13081, 13099, 31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020,

@@ -23,8 +23,8 @@ public class ElemJoining {
     protected ElemSimple elemJoinLeft = null;     // схлопывания повторяющихся обходов
     protected ElemSimple elemJoinRight = null;    //
 
-    protected ElemSimple joinElement1 = null;  // Элемент соединения 1
-    protected ElemSimple joinElement2 = null;  // Элемент соединения 2
+    public ElemSimple joinElement1 = null;  // Элемент соединения 1
+    public ElemSimple joinElement2 = null;  // Элемент соединения 2
 
     protected float cutAngl1 = 45;    //Угол реза1
     protected float cutAngl2 = 45;    //Угол реза2
@@ -45,10 +45,6 @@ public class ElemJoining {
 
     public JoinVariant joinVar() {
         return varJoin;
-    }
-
-    public ElemSimple joinElem(int i) {
-        return (i == 1) ? joinElement1 : joinElement2;
     }
 
     public boolean equals(Object obj) {
