@@ -127,13 +127,13 @@ public class Сomposition extends Cal5e {
     }
 
     //Соcтавы
-    protected boolean compositionSecond(List<Record> elementList, Com5t elemBase) {
-
+    protected boolean compositionSecond(List<Record> elementList, Com5t com5t) {
+/*
         //цикл по составам
-     /*   for (Record elementRec : elementList) {
+        for (Record elementRec : elementList) {
 
             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-            boolean out = paramVariant.checkParvstm(elemBase, elempar1List); //ФИЛЬТР вариантов
+            boolean out = paramVariant.checkParvstm(com5t, elempar1List); //ФИЛЬТР вариантов
             if (out == true) {
                 //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
                 ArrayList<Vstaspc> vstaspcList = Vstaspc.find(constr, elementRec.vnumb);
@@ -141,15 +141,15 @@ public class Сomposition extends Cal5e {
                 for (Vstaspc vstaspcRec : vstaspcList) {
 
                     HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
-                    ArrayList<ITParam> parvstsList = Parvsts.find(constr, vstaspcRec.aunic);
-                    boolean out2 = paramSpecific.checkSpecific(hmParam, elemBase, parvstsList);//ФИЛЬТР спецификаций
+                    ArrayList<Record> parvstsList = Parvsts.find(constr, vstaspcRec.aunic);
+                    boolean out2 = paramSpecific.checkSpecific(hmParam, com5t, parvstsList);//ФИЛЬТР спецификаций
                     if (out2 == true) {
 
                         Artikls artikl = Artikls.get(constr, vstaspcRec.anumb, false);
-                        Specification specif = new Specification(artikl, elemBase, hmParam);
-                        specif.setColor(this, elemBase, vstaspcRec);
+                        Specification specif = new Specification(artikl, com5t, hmParam);
+                        specif.setColor(this, com5t, vstaspcRec);
                         specif.element = "СОСТ";
-                        elemBase.addSpecifSubelem(specif); //добавим спецификацию в элемент
+                        com5t.addSpecifSubelem(specif); //добавим спецификацию в элемент
                     }
                 }
             }

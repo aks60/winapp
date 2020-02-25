@@ -10,7 +10,11 @@ import wincalc.model.AreaSimple;
 public class ParamSpecific {
 
     protected Wincalc iwin = null;
-    //protected Constructiv calcConstr = null;
+    
+    public static final int PAR1 = 3;   //Ключ 1  
+    public static final int PAR2 = 4;   //Ключ 2   
+    public static final int PAR3 = 5;   //Значение 
+    
     public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
 
     public ParamSpecific(Wincalc iwin) {
