@@ -44,7 +44,15 @@ import static domain.eArtikl.values;
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", id, "='", _id, "'").table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+    
+    public static Record find2(int _par1) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> _par1 == rec.getInt(par1)).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", par1, "=", _par1).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     

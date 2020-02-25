@@ -16,7 +16,7 @@ public class ElemJoining {
     private Wincalc iwin;
     protected String name;
     protected JoinLocate typeJoin = JoinLocate.NONE;
-    protected JoinVariant varJoin = JoinVariant.EMPTY;    // Вариант соединения
+    public JoinVariant varJoin = JoinVariant.EMPTY;    // Вариант соединения
 
     protected ElemSimple elemJoinTop = null;      //
     protected ElemSimple elemJoinBottom = null;   // Элементы соединения, временно для
@@ -41,10 +41,6 @@ public class ElemJoining {
 
     public float joinAngl(int layout) {
         return (layout == 1) ? cutAngl1 : cutAngl2;
-    }
-
-    public JoinVariant joinVar() {
-        return varJoin;
     }
 
     public boolean equals(Object obj) {

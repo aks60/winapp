@@ -43,7 +43,7 @@ public enum eElement implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
@@ -57,11 +57,19 @@ public enum eElement implements Field {
         return new Query(values()).select(up, "where", series, "= '", _series, "' and", bind, "> 0").table(up.tname());
     }
 
-    public static List<Record> find2(String _artikl_id) {
+    public static List<Record> find2(int _artikl_id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _artikl_id.equals(rec.getStr(artikl_id))).findAny().orElse(null);
+            return query().stream().filter(rec -> _artikl_id == rec.getInt(artikl_id)).findAny().orElse(null);
         }
         return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id).table(up.tname());
+    }
+
+    public static List<Record> find3(int _artikl_id, String _series) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> _artikl_id == rec.getInt(artikl_id)
+                    && _series.equals(rec.getStr(series)) && rec.getInt(bind) > 0).findAny().orElse(null);
+        }
+        return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id, "and '", series, "'='", _series, "'").table(up.tname());
     }
 
     public String toString() {
