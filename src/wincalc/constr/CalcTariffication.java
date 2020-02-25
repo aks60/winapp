@@ -1,7 +1,5 @@
 package wincalc.constr;
 
-
-
 import java.util.LinkedList;
 import wincalc.Wincalc;
 import wincalc.model.Com5t;
@@ -27,6 +25,12 @@ import wincalc.model.Com5t;
  */
 public class CalcTariffication extends Cal5e {
 
+    //В прфстрое используюеся только 0, 4, 10, 12 параметры
+    protected static final int PAR0 = 0;   //не проверять форму
+    protected static final int PAR4 = 4;   //профиль с радиусом
+    protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
+    protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
+    
 //    private Sysprof sysprofRec = null;
 
     public CalcTariffication(Wincalc iwin) {
