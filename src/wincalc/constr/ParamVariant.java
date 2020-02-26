@@ -32,11 +32,11 @@ public class ParamVariant {
     public static final int PAR3 = 5;   //Значение     
 
     protected Wincalc iwin = null;
-    //protected Constructiv calcConstr = null;
+    private CalcConstructiv calcConstr = null;
 
-    public ParamVariant(Wincalc iwin) {
+    public ParamVariant(Wincalc iwin, CalcConstructiv calcConstr) {
         this.iwin = iwin;
-        //this.calcConstr = calcConstr;
+        this.calcConstr = calcConstr;
     }
 
     private boolean filterParamDef(Record paramRec) {

@@ -19,8 +19,8 @@ public class CalcConstructiv extends Cal5e {
     public CalcConstructiv(Wincalc iwin) {
 
         super(iwin);
-        paramVariant = new ParamVariant(iwin);
-        paramSpecific = new ParamSpecific(iwin);
+        paramVariant = new ParamVariant(iwin, this);
+        paramSpecific = new ParamSpecific(iwin, this);
     }
 
     public void calculate(Wincalc iwin) {
