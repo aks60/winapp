@@ -184,7 +184,7 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
-        tb1.setPreferredSize(new java.awt.Dimension(140, 27));
+        tb1.setPreferredSize(new java.awt.Dimension(136, 27));
 
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
         btn14.setFocusable(false);
@@ -261,7 +261,7 @@ public class App1 extends javax.swing.JFrame {
         tb2.setRollover(true);
         tb2.setMaximumSize(new java.awt.Dimension(220, 27));
         tb2.setMinimumSize(new java.awt.Dimension(220, 27));
-        tb2.setPreferredSize(new java.awt.Dimension(170, 27));
+        tb2.setPreferredSize(new java.awt.Dimension(160, 27));
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
         btn23.setFocusable(false);
@@ -384,7 +384,7 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(td5);
 
         td3.setRollover(true);
-        td3.setPreferredSize(new java.awt.Dimension(100, 27));
+        td3.setPreferredSize(new java.awt.Dimension(88, 27));
 
         btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
         btn29.setFocusable(false);
@@ -434,6 +434,7 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(td3);
 
         tb6.setRollover(true);
+        tb6.setPreferredSize(new java.awt.Dimension(120, 27));
 
         btn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
         btn61.setFocusable(false);
