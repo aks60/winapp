@@ -5,8 +5,8 @@ import wincalc.Wincalc;
 
 public class Accessory extends Cal5e {
     
-    public Accessory(Wincalc iwin) {
-        super(iwin);
+    public Accessory(Wincalc iwin, CalcConstructiv calcConstructiv) {
+        super(iwin, calcConstructiv);
     }    
 //
 //    /**

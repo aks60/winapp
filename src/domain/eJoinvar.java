@@ -1,9 +1,16 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtdet.artikl_id;
+import static domain.eArtdet.id;
+import static domain.eArtdet.up;
+import static domain.eArtdet.values;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public enum eJoinvar implements Field {
     up("0", "0", "0", "Варианты соединений", "CONNVAR"),
@@ -35,11 +42,25 @@ public enum eJoinvar implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
         return query;
+    }
+
+    public static List<Record> find(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == _id).collect(toList());
+        }
+        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id).table(up.tname());
+    }
+
+    public static List<Record> find2(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(joining_id) == _id).collect(toList());
+        }
+        return new Query(values()).select(up, "where", joining_id, "=", _id, "order by", id).table(up.tname());
     }
 
     public String toString() {

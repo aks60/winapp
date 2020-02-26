@@ -23,7 +23,7 @@ import wincalc.model.Com5t;
  * расчёта произвожу расчёт собес-сти с отходом При завершении итерации перехожу к новому
  * элементу конструкции и т.д.
  */
-public class CalcTariffication extends Cal5e {
+public class CalcTariffication {
 
     //В прфстрое используюеся только 0, 4, 10, 12 параметры
     protected static final int PAR0 = 0;   //не проверять форму
@@ -34,7 +34,6 @@ public class CalcTariffication extends Cal5e {
 //    private Sysprof sysprofRec = null;
 
     public CalcTariffication(Wincalc iwin) {
-        super(iwin);
         //sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
     }
 

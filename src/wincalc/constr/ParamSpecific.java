@@ -33,7 +33,7 @@ public class ParamSpecific {
     public static final int PAR1 = 3;   //Ключ 1  
     public static final int PAR2 = 4;   //Ключ 2   
     public static final int PAR3 = 5;   //Значение 
-    private CalcConstructiv calcConstr = null;
+    protected CalcConstructiv calcConstr = null;
 
     public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
 
@@ -43,7 +43,7 @@ public class ParamSpecific {
     }
 
     //Фильтр параметров по уьолчанию и i-okna
-    protected boolean filterParamJson(Com5t com5t, ArrayList<Record> paramList) {
+    protected boolean filterParamJson(Com5t com5t, List<Record> paramList) {
 
         HashMap<Integer, Object[]> paramJson = new HashMap();
         HashMap<Integer, Object[]> paramTotal = new HashMap();
@@ -99,7 +99,7 @@ public class ParamSpecific {
     }
 
     //Cоединения, составы
-    protected boolean checkSpecific(HashMap<Integer, String> hmParam, Com5t com5t, ArrayList<Record> tableList) {
+    protected boolean checkSpecific(HashMap<Integer, String> hmParam, Com5t com5t, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {

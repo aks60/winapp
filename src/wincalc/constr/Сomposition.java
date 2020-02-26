@@ -4,26 +4,27 @@ import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
+import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
+import domain.eElempar2;
 import domain.eSysprof;
 import enums.TypeElem;
 import enums.TypeProfile;
-import forms.Artikls;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import static main.App1.eApp1.Artikls;
 import wincalc.Wincalc;
 import wincalc.model.Com5t;
 import wincalc.model.ElemFrame;
 import wincalc.model.ElemImpost;
+import wincalc.model.ElemSimple;
 
 public class Сomposition extends Cal5e {
-
-    public Сomposition(Wincalc iwin) {
-        super(iwin);
+      
+    public Сomposition(Wincalc iwin, CalcConstructiv calc) {
+        super(iwin, calc);        
     }
 
     //Составы.
@@ -128,32 +129,32 @@ public class Сomposition extends Cal5e {
 
     //Соcтавы
     protected boolean compositionSecond(List<Record> elementList, Com5t com5t) {
-/*
+
         //цикл по составам
         for (Record elementRec : elementList) {
 
             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-            boolean out = paramVariant.checkParvstm(com5t, elempar1List); //ФИЛЬТР вариантов
+            boolean out = calc.paramVariant.checkParvstm(com5t, elempar1List); //ФИЛЬТР вариантов
             if (out == true) {
                 //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
-                ArrayList<Vstaspc> vstaspcList = Vstaspc.find(constr, elementRec.vnumb);
+                List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));
                 //Цикл по спецификации
-                for (Vstaspc vstaspcRec : vstaspcList) {
+                for (Record elendetRec : elemdetList) {
 
                     HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
-                    ArrayList<Record> parvstsList = Parvsts.find(constr, vstaspcRec.aunic);
-                    boolean out2 = paramSpecific.checkSpecific(hmParam, com5t, parvstsList);//ФИЛЬТР спецификаций
+                    ArrayList<Record> parvstsList = eElempar2.find(elendetRec.getInt(eElemdet.element_id));
+                    boolean out2 = calc.paramSpecific.checkSpecific(hmParam, com5t, parvstsList);//ФИЛЬТР спецификаций
                     if (out2 == true) {
 
-                        Artikls artikl = Artikls.get(constr, vstaspcRec.anumb, false);
+                        Record artikl = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
                         Specification specif = new Specification(artikl, com5t, hmParam);
-                        specif.setColor(this, com5t, vstaspcRec);
+                        specif.setColor(com5t, elendetRec);
                         specif.element = "СОСТ";
-                        com5t.addSpecifSubelem(specif); //добавим спецификацию в элемент
+                        ((ElemSimple) com5t).addSpecifSubelem(specif); //добавим спецификацию в элемент
                     }
                 }
             }
-        }*/
+        }
         return false;
     }
 }

@@ -6,8 +6,8 @@ import wincalc.Wincalc;
 
 public class Filling extends Cal5e {
     
-    public Filling(Wincalc iwin) {
-        super(iwin);
+    public Filling(Wincalc iwin, CalcConstructiv calcConstructiv) {
+        super(iwin, calcConstructiv);
     }     
 //    /**
 //     * Заполнения

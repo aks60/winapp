@@ -1,9 +1,13 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtikl.code;
+import static domain.eArtikl.up;
+import static domain.eArtikl.values;
 
 public enum eJoining implements Field {
     up("0", "0", "0", "Соединения", "CONNLST"), //или CONNECT"),
@@ -33,7 +37,24 @@ public enum eJoining implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Record find(int _artikl_id1, int _artikl_id2) {
+
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> _artikl_id1 == rec.getInt(artikl_id1) && _artikl_id2 == rec.getInt(artikl_id2)).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", artikl_id1, "=", _artikl_id1, "and", artikl_id2, "=", _artikl_id2).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+
+    public static Record find2(String _analog) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> _analog.equals(rec.getStr(analog))).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "'").table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+    
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
