@@ -65,17 +65,17 @@ public class Wincalc {
 
     public AreaSimple rootArea = null;
     private HashMap<Integer, String> mapPro4Params = new HashMap();
-    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию       
+    public HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию       
 
     public LinkedList<Com5t> listCom5t; //список всех Com5t
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
-    public ArrayList<Specification> listSpec = new ArrayList();; //спецификация конструкции
+    public ArrayList<Specification> listSpec = new ArrayList();
+    ; //спецификация конструкции
     
     protected CalcConstructiv constructiv = new CalcConstructiv(this); //конструктив
     protected CalcTariffication tariffication = new CalcTariffication(this); //тарификация
-    
 
     public AreaSimple create(String productJson) {
 
@@ -90,7 +90,8 @@ public class Wincalc {
 
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.find(nuni);
-        syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.par1), record));
+        syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.par1),
+                new Object[]{record.getStr(eSyspar1.par3), record.getInt(eSyspar1.par2)}));
 
         //Инициализация объектов калькуляции
         listArea = rootArea.listElem(TypeElem.AREA); //список контейнеров
@@ -119,12 +120,12 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv() {
-        
-        constructiv.calculate(this); 
+
+        constructiv.calculate(this);
         for (Com5t elemRec : listElem) {
             listSpec.add(elemRec.specificationRec);
             listSpec.addAll(elemRec.specificationRec.specificationList());
-        }        
+        }
     }
 
     // Парсим входное json окно и строим объектную модель окна

@@ -44,7 +44,7 @@ public class ParamVariant {
             if (iwin.mapParamDef.get(paramRec.getInt(PAR1)) == null) {
                 return false;
             }
-            int id1 = iwin.mapParamDef.get(paramRec.getInt(PAR1)).getInt(PAR2);
+            int id1 = Integer.valueOf(iwin.mapParamDef.get(paramRec.getInt(PAR1))[1].toString());
             int id2 = paramRec.getInt(PAR2);
             if ((id1 == id2) == false) {
                 return false;
