@@ -74,10 +74,12 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object val = null;
         if (columns != null) {
+            Table table = query.table(columns[columnIndex].tname());
             if (getColumnClass(columnIndex) == Boolean.class) {
-                val = (query.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
+                val = (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
+                System.out.println(val);
             } else {
-                val = query.get(rowIndex, columns[columnIndex]);
+                val = table.get(rowIndex, columns[columnIndex]);
                 return preview(columns[columnIndex], val);
             }            
         }

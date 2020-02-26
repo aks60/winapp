@@ -44,15 +44,13 @@ public class Table extends ArrayList<Record> {
         if (v != null && value != null && v.equals(value)) {
             return;
         }
-        Table table = table(field.tname());
-        ArrayList record = table.get(index);
+        ArrayList record = get(index);
         record.set(field.ordinal(), value);
     }
 
     public Object get(int index, Field field) {
         if (index != -1) {
-            Table table = table(field.tname());
-            Record record = table.get(index);
+            Record record = get(index);
             return (record == null) ? null : record.get(field);
         }
         return null;
