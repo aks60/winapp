@@ -30,11 +30,18 @@ public enum eGlasgrp implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
         return query;
+    }
+
+    public static Query select() {
+        if (conf.equals("calc")) {
+            return query();
+        }
+        return new Query(values()).select(up).table(up.tname());
     }
 
     public String toString() {

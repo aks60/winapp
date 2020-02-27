@@ -4,12 +4,14 @@ import wincalc.constr.Specification;
 import enums.TypeElem;
 import enums.TypeProfile;
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public abstract class ElemSimple extends Com5t {
 
     public float anglHoriz = -1; //угол к горизонту
     protected Color borderColor = Color.BLACK;
+    public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id) {
         super(id);
