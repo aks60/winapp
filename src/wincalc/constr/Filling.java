@@ -101,10 +101,10 @@ public class Filling extends Cal5e {
                     Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
 
                     //Стеклопакет
-                    if (TypeArtikl.X502.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         //Штапик
-                    } else if (TypeArtikl.X108.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         Record art = eArtikl.find(clasdetRec.getInt(eGlasdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner.typeElem()) {
@@ -180,7 +180,7 @@ public class Filling extends Cal5e {
                         }
 
                         //Уплотнитель
-                    } else if (TypeArtikl.X135.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
+                    } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
                         Record art = eArtikl.find(clasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner.typeElem()) { //если уплотнитель в арке
                             //По основанию арки
@@ -292,10 +292,10 @@ public class Filling extends Cal5e {
                 Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
                 if (out == true) {
                     //Стеклопакет
-                    if (TypeArtikl.X502.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         //Штапик
-                    } else if (TypeArtikl.X108.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner.typeElem()) {
@@ -371,7 +371,7 @@ public class Filling extends Cal5e {
                         }
 
                         //Уплотнитель
-                    } else if (TypeArtikl.X135.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
+                    } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner.typeElem()) { //если уплотнитель в арке
                             //По основанию арки
