@@ -2,6 +2,7 @@ package enums;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class ParamList {
 
@@ -513,9 +514,9 @@ public class ParamList {
         }
 
         public static List<List> list() {
-            List<List> list = new ArrayList();
+            List<List> list = new Vector();
             for (P31000 it : values()) {
-                List rec = new ArrayList();
+                List rec = new Vector();
                 rec.add(it.value);
                 rec.add(it.name);
                 list.add(rec);

@@ -14,6 +14,7 @@ import domain.eElempar2;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
+import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -471,6 +472,9 @@ public class Element extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
 
+        Parameters frame = new Parameters();
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
@@ -510,7 +514,7 @@ public class Element extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Категории составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
@@ -541,7 +545,7 @@ public class Element extends javax.swing.JFrame {
                 selectionTab3(event);
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab3(event);
-                }                
+                }
             }
         });
         tab1.addFocusListener(listenerFocus);
