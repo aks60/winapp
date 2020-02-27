@@ -292,10 +292,10 @@ public class Filling extends Cal5e {
                 Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
                 if (out == true) {
                     //Стеклопакет
-                    if (TypeArtikl.GLASS.value2 == artiklRec.getInt(eArtikl.level2)) {
+                    if (TypeArtikl.X502.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         //Штапик
-                    } else if (TypeArtikl.SHTAPIK.value2 == artiklRec.getInt(eArtikl.level2)) {
+                    } else if (TypeArtikl.X108.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner.typeElem()) {
