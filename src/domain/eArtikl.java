@@ -27,7 +27,7 @@ public enum eArtikl implements Field {
     unit("5", "5", "1", "Ед.измерения", "ATYPI"),
     len_unit("8", "15", "1", "Длина ед. поставки", "ALENG"),
     height("8", "15", "1", "Ширина", "AHEIG"),
-    thick("8", "15", "1", "Толщина", "AFRIC"),
+    depth("8", "15", "1", "Толщина", "AFRIC"),
     density("8", "15", "1", "Удельный вес", "AMASS"),
     section("8", "15", "1", "Сечение", "ASECH"),
     noopt("5", "5", "1", "Не оптимизировать", "NOOPT"),

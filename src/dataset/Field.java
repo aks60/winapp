@@ -68,19 +68,19 @@ public interface Field extends Enam{
 //    default Query select() {
 //        return null;
 //    }
-//    
-//    default String update(Record record) {
-//        
-//        return null;
-//    }
-//
-//    default String insert(Record record) {
-//        return null;
-//    }
-//
-//    default String delete(Record record) {
-//        return null;
-//    }
+    
+    default String update(Record record) {
+        
+        return null;
+    }
+
+    default String insert(Record record) {
+        return null;
+    }
+
+    default String delete(Record record) {
+        return null;
+    }
     
     public boolean equals(Object other);    
 }

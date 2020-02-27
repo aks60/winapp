@@ -25,7 +25,7 @@ public class ElemGlass extends ElemSimple {
     public static final String ARCHED = "Арочное";                      // формы заполнения
     public static final String ARCHED_NOT = "Не арочное";               //
 
-    protected float radiusGlass = 0;
+    public float radiusGlass = 0;
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 

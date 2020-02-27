@@ -1,9 +1,13 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eColor.id;
+import static domain.eColor.up;
+import static domain.eColor.values;
 
 public enum eGlasdet implements Field {
     up("0", "0", "0", "Спецификация групп заполнения", "GLASART"),
@@ -39,6 +43,14 @@ public enum eGlasdet implements Field {
         return query;
     }
 
+    public static Record find(int _id, float _depth) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(glasgrp_id) == _id && rec.getFloat(depth) == _depth).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", glasgrp_id, "and", depth, "=", _depth).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+    
     public String toString() {
         return meta.getDescr();
     }

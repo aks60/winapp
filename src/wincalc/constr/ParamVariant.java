@@ -156,7 +156,7 @@ public class ParamVariant {
 
     // Заполнения
     //int[] parGrup = {13015, 13017, 13081, 13099};
-    protected boolean checkPargrup(Com5t elemBase, ArrayList<Record> tableList) {
+    protected boolean checkPargrup(Com5t elemBase, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {

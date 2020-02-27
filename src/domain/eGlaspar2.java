@@ -1,9 +1,13 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eGlaspar1.glasgrp_id;
+import static domain.eGlaspar1.up;
+import static domain.eGlaspar1.values;
 
 public enum eGlaspar2 implements Field {
     up("0", "0", "0", "Параметры спецификаций групп заполнения", "PARGLAS"),
@@ -36,6 +40,14 @@ public enum eGlaspar2 implements Field {
         return query;
     }
 
+    public static Record find(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(glasdet_id) == _id).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", glasdet_id, "=", _id).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+    
     public String toString() {
         return meta.getDescr();
     }

@@ -231,7 +231,7 @@ public class ParamSpecific {
     //public static int[]  parGlas = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};
     //Заполнения
     protected boolean checkFilling(HashMap<Integer, String> hmParam, Com5t
-            com5t, ArrayList<Record> tableList) {
+            com5t, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
