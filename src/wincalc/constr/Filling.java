@@ -31,7 +31,7 @@ public class Filling extends Cal5e {
         super(iwin, calcConstructiv);
     }
 
-    public void fillingFirst() {
+    public void build() {
         for (calc.paramSpecific.pass = 1; calc.paramSpecific.pass < 4; calc.paramSpecific.pass++) {
 
             int systree_artikl_id = -1;
@@ -62,7 +62,7 @@ public class Filling extends Cal5e {
                         if (systree_artikl_id != -1 && systree_artikl_id == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
 
                             elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                            fillingSecond(elemGlass, glasgrpRec);
+                            nested(elemGlass, glasgrpRec);
                         }
                     }
                 }
@@ -70,10 +70,7 @@ public class Filling extends Cal5e {
         }
     }
 
-    /**
-     * Заполнения
-     */
-    protected boolean fillingSecond(ElemGlass elemGlass, Record glasgrpRec) {
+    protected boolean nested(ElemGlass elemGlass, Record glasgrpRec) {
 
         //TODO в заполненииях текстура подбирается неправильно
         ArrayList<Record> pargrupList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
@@ -271,7 +268,7 @@ public class Filling extends Cal5e {
         return true;
     }
 
-    protected boolean fillingSecond2(ElemGlass elemGlass, Record glasgrpRec) {
+    protected boolean nested2(ElemGlass elemGlass, Record glasgrpRec) {
 
         //TODO в заполненииях текстура подбирается неправильно
         List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));

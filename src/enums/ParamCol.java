@@ -7,11 +7,15 @@ import java.util.ArrayList;
  *
  * @author aks
  */
-public class ParamCol extends ArrayList<Record> {
+public class ParamCol extends Record {
 
     int par1;
     int par2;
     String par3;
+
+    ParamCol() {
+        super(3);
+    }
 
     public enum E {
         PAR1(3, "Ключ 1"),

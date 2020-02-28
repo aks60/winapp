@@ -24,7 +24,7 @@ public class Joining extends Cal5e {
         super(iwin, calcConstructiv);
     }
 
-    public void joiningFirst() {
+    public void build() {
 
         HashMap<String, ElemJoining> hmJoinElem = iwin.mapJoin; //список соединений
         //Цикл по списку соединений

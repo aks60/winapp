@@ -33,13 +33,12 @@ public class CalcConstructiv {
     public void calculate(Wincalc iwin) {
 
         Сomposition composition = new Сomposition(iwin, this); //составы
-        composition.compositionFirst();
-        Joining joining = new Joining(iwin, this); //соединения
-        joining.joiningFirst();
-        Filling filling = new Filling(iwin, this); //заполнения
-        filling.fillingFirst();
-        Accessory accessory = new Accessory(iwin, this); //фурнитура
-        
+        composition.build();
+//        Joining joining = new Joining(iwin, this); //соединения
+//        joining.build();
+//        Filling filling = new Filling(iwin, this); //заполнения
+//        filling.build();
+//        Accessory accessory = new Accessory(iwin, this); //фурнитура        
 //            constructiv.kitsFirst();                       //комплекты    
     }
 

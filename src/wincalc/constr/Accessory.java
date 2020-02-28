@@ -29,7 +29,7 @@ public class Accessory extends Cal5e {
         super(iwin, calcConstructiv);
     }
 
-    public void fittingFirst() {
+    public void build() {
         for (calc.paramSpecific.pass = 1; calc.paramSpecific.pass < 4; calc.paramSpecific.pass++) {
 
             LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
@@ -73,31 +73,28 @@ public class Accessory extends Cal5e {
                 }
                 if (out == false) continue;
 
-                fittingMidle(fullStvorka, furnityreRec, 1);
+                nested(fullStvorka, furnityreRec, 1);
             }
         }
     }
 
-    /**
-     * Фурнитура
-     */
-    protected void fittingMidle(AreaStvorka fullStvorka, Record furnitureRec, int count) {
+    protected void nested(AreaStvorka fullStvorka, Record furnitureRec, int count) {
 
         List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
         for (Record furndetRec : furndetList) {
 
             if (furndetRec.getInt(eFurndet.level) == 1) {
-                boolean ret1 = fittingSecond(fullStvorka, furndetRec, count);
+                boolean ret1 = nested2(fullStvorka, furndetRec, count);
                 if (ret1 == true) {
 
                     for (Record furndetRec2 : furndetList) {
                         if (furndetRec2.getInt(eFurndet.level) == 2 && furndetRec.getInt(eFurndet.fincb) == furndetRec2.getInt(eFurndet.fincs)) {
-                            boolean ret2 = fittingSecond(fullStvorka, furndetRec2, count);
+                            boolean ret2 = nested2(fullStvorka, furndetRec2, count);
                             if (ret2 == true) {
 
                                 for (Record furndetRec3 : furndetList) {
                                     if (furndetRec3.getInt(eFurndet.level) == 3 && furndetRec2.getInt(eFurndet.fincb) == furndetRec3.getInt(eFurndet.fincs)) {
-                                        boolean ret3 = fittingSecond(fullStvorka, furndetRec3, count);
+                                        boolean ret3 = nested2(fullStvorka, furndetRec3, count);
                                     }
                                 }
                             }
@@ -108,7 +105,7 @@ public class Accessory extends Cal5e {
         }
     }
 
-    protected boolean fittingSecond(AreaStvorka elStvorka, Record furndetRec, int count) {
+    protected boolean nested2(AreaStvorka elStvorka, Record furndetRec, int count) {
 
     /*    HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
         //подбор текстуры ручки

@@ -21,16 +21,18 @@ import wincalc.model.ElemFrame;
 import wincalc.model.ElemImpost;
 import wincalc.model.ElemSimple;
 
+/**
+ * Составы.
+ */
 public class Сomposition extends Cal5e {
       
     public Сomposition(Wincalc iwin, CalcConstructiv calc) {
         super(iwin, calc);        
     }
 
-    //Составы.
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
     //Но при проверке параметров использую вирт. мат. ценность.
-    public void compositionFirst() {
+    public void build() {
         try {
             ArrayList<Record> sysprofList = eSysprof.find(iwin.nuni);
 
@@ -56,10 +58,10 @@ public class Сomposition extends Cal5e {
                                 recordFrame.setSpecifElement(sysprofRec);
                                 String series = recordFrame.artiklRec.getStr(eArtikl.series);
                                 List<Record> elementList2 = eElement.find(series); //состав для серии профилей
-                                compositionSecond(elementList2, recordFrame);
+                                nested(elementList2, recordFrame);
                                 int artikl_id = recordFrame.artiklRec.getInt(eArtikl.id);
                                 List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
-                                compositionSecond(elementList, recordFrame);
+                                nested(elementList, recordFrame);
 
                                 recordFrame.specificationRec.width = recordFrame.specificationRec.width
                                         + Float.valueOf(String.valueOf(recordFrame.specificationRec.getParam(0, 31052)));
@@ -86,9 +88,9 @@ public class Сomposition extends Cal5e {
                                 String series = elemInpost.artiklRec.getStr(eArtikl.series);
                                 elemInpost.setSpecifElement(record);
                                 List<Record> elementList2 = eElement.find(series); //состав для серии профилей
-                                compositionSecond(elementList2, elemInpost);
+                                nested(elementList2, elemInpost);
                                 List<Record> elementList = eElement.find(series); //.anumb); //состав для артикула профиля
-                                compositionSecond(elementList, elemInpost);
+                                nested(elementList, elemInpost);
                             }
                         }
                     }
@@ -111,9 +113,9 @@ public class Сomposition extends Cal5e {
 
                                 elemInpost.setSpecifElement(record);
                                 List<Record> elementList2 = eElement.find(elemInpost.artiklRec.getStr(eArtikl.series)); //состав для серии профилей
-                                compositionSecond(elementList2, elemInpost);
+                                nested(elementList2, elemInpost);
                                 List<Record> elementList = eElement.find(elemInpost.artiklRec.getStr(eArtikl.code)); //.anumb); //состав для артикула профиля
-                                compositionSecond(elementList, elemInpost);
+                                nested(elementList, elemInpost);
                             }
                         }
                     }
@@ -127,8 +129,7 @@ public class Сomposition extends Cal5e {
         }
     }
 
-    //Соcтавы
-    protected boolean compositionSecond(List<Record> elementList, Com5t com5t) {
+    protected boolean nested(List<Record> elementList, Com5t com5t) {
 
         //цикл по составам
         for (Record elementRec : elementList) {
