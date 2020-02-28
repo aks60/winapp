@@ -12,60 +12,62 @@ import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class Parameters extends javax.swing.JFrame {
 
-//    private FocusListener listenerFocus = new FocusListener() {
-//
-//        javax.swing.border.Border border
-//                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-//
-//        public void focusGained(FocusEvent e) {
-//            JTable table = (JTable) e.getSource();
-//            table.setBorder(border);
-////            tabList.add(table);
-////            tabActive = table;
-////            tmActive = (TableModel) table.getModel();
-//            btnCouse.setEnabled(true);
-////            if (table != treeMat) {
-////                btnDel.setEnabled(true);
-////            }
-//        }
-//
-//        public void focusLost(FocusEvent e) {
-//            JTable table = (JTable) e.getSource();
-//            table.setBorder(null);
-//            btnCouse.setEnabled(false);
-//        }
-//    };
-//    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-//
-//        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-//            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-//
-//        public void request(Object obj) {
-//            btnCouse.setIcon(btnIM[0]);
-//        }
-//
-//        public void response(Object obj) {
-//            btnCouse.setIcon(btnIM[1]);
-//        }
-//    };
-//        
-    public Parameters() {
+public class DicParam extends javax.swing.JDialog {
+
+    private FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border
+                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+            JTable table = (JTable) e.getSource();
+            table.setBorder(border);
+//            tabList.add(table);
+//            tabActive = table;
+//            tmActive = (TableModel) table.getModel();
+            btnCouse.setEnabled(true);
+//            if (table != treeMat) {
+//                btnDel.setEnabled(true);
+//            }
+        }
+
+        public void focusLost(FocusEvent e) {
+            JTable table = (JTable) e.getSource();
+            table.setBorder(null);
+            btnCouse.setEnabled(false);
+        }
+    };
+    private FrameListener<Object, Object> listenerModify = new FrameListener() {
+
+        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
+            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
+
+        public void request(Object obj) {
+            btnCouse.setIcon(btnIM[0]);
+        }
+
+        public void response(Object obj) {
+            btnCouse.setIcon(btnIM[1]);
+        }
+    };
+    
+    public DicParam(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        //initElements();
+        initElements();
         
-        //load();
+        load();
     }
 
-//    public void load() {
-//       DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
-//       dm.getDataVector().clear();
-//       List<List> list = ParamList.P31000.list();
-//        for (List record : list) {
-//            dm.addRow((Vector) record);            
-//        }
-//    }
+    public void load() {
+        DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
+        dm.getDataVector().clear();
+        List<List> list = ParamList.P31000.list();
+        for (List record : list) {
+            dm.addRow((Vector) record);
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -79,12 +81,12 @@ public class Parameters extends javax.swing.JFrame {
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 438));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(340, 500));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(300, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(340, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -124,7 +126,7 @@ public class Parameters extends javax.swing.JFrame {
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 313, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -141,13 +143,13 @@ public class Parameters extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(300, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(340, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 383, Short.MAX_VALUE)
+            .addGap(0, 379, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +158,7 @@ public class Parameters extends javax.swing.JFrame {
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
+        panCentr.setPreferredSize(new java.awt.Dimension(360, 400));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -191,7 +194,6 @@ public class Parameters extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCouseert
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnCouse;
@@ -201,12 +203,11 @@ public class Parameters extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-
     private void initElements() {
-        
-//        new FrameToFile(this, btnClose);
-//        tab1.addFocusListener(listenerFocus);
-//        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                "Справочник параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+
+        new FrameToFile(this, btnClose);
+        tab1.addFocusListener(listenerFocus);
+        //scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+        //        "Справочник параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
 }

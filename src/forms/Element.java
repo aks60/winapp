@@ -472,7 +472,7 @@ public class Element extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
 
-        Parameters frame = new Parameters();
+        DicParam frame = new DicParam(this, true);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }//GEN-LAST:event_btnRefresh
