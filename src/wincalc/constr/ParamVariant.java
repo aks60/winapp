@@ -184,7 +184,7 @@ public class ParamVariant {
 
     // Фурнитура
     //int[] parFurl = {2101, 2104, 2140, 2185};
-    protected boolean checkParfurl(Com5t com5t, ArrayList<Record> tableList) {
+    protected boolean checkParfurl(Com5t com5t, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {

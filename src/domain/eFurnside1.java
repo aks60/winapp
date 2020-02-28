@@ -1,9 +1,13 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eFurniture.id;
+import static domain.eFurniture.up;
+import static domain.eFurniture.values;
 
 public enum eFurnside1 implements Field {
     up("0", "0", "0", "Ограничение сторон фурнитуры", "FURNLEN"),
@@ -36,6 +40,14 @@ public enum eFurnside1 implements Field {
         return query;
     }
 
+    public static Record find(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(furniture_id) == _id).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", furniture_id, "=", _id).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+    
     public String toString() {
         return meta.getDescr();
     }

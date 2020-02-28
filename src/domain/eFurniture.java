@@ -1,9 +1,13 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eSysfurn.systree_id;
+import static domain.eSysfurn.up;
+import static domain.eSysfurn.values;
 
 public enum eFurniture implements Field {
     up("0", "0", "0", "Список фурнитуры", "FURNLST"),
@@ -41,11 +45,19 @@ public enum eFurniture implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
         return query;
+    }
+
+    public static Record find(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(null);
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public String toString() {

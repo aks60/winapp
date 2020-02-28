@@ -16,5 +16,9 @@ public class Cal5e {
     public Cal5e(Wincalc iwin, CalcConstructiv calc) {
         this.iwin = iwin;
         this.calc = calc;
-    }  
+    } 
+
+    public AreaSimple root() {
+        return iwin.rootArea;
+    }
 }
