@@ -16,17 +16,17 @@ public class AreaArch extends AreaSimple {
         parsing(param);
     }
 
-    @Override
-    protected void initDimension(float width, float height) {
-        super.initDimension(width, height);
-
-        //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
-        if (owner != null && TypeElem.ARCH == owner.typeElem()
-                && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
-            float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
-            setDimension(x1, y1, x2, y2 - dh);
-        }
-    }
+//    @Override
+//    protected void initDimension(float width, float height) {
+//        super.initDimension(width, height);
+//
+//        //Коррекция размера стеклопакета(створки) арки.Уменьшение на величину добавленной подкладки над импостом.
+//        if (owner != null && TypeElem.ARCH == owner.typeElem()
+//                && owner.listChild().size() == 2 && TypeElem.IMPOST == owner.listChild().get(1).typeElem()) {
+//            float dh = owner.listChild().get(1).artiklRec.getFloat(eArtikl.height) / 2;  //.aheig / 2;
+//            setDimension(x1, y1, x2, y2 - dh);
+//        }
+//    }
 
     @Override
     public void joinFrame() {

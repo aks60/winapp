@@ -42,7 +42,10 @@ public class AreaSimple extends Com5t {
 
     protected void initDimension(float width, float height) {
 
-        if (owner != null) {
+        if (owner == null) { //для root area
+            setDimension(0, 0, width, height);
+
+        } else {
             //Заполним по умолчанию
             if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
                 setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
@@ -56,17 +59,16 @@ public class AreaSimple extends Com5t {
                     AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
 
                     if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                        setDimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
+                        float dy = (prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
+                        setDimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height - dy);
 
                     } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                        setDimension(prevArea.x2, owner.y1, prevArea.x2 + width, owner.y2);
+                        float dx = (prevArea.width() < 120) ? prevArea.width(): 0; //поправка на величину добавленной подкладки над импостом
+                        setDimension(prevArea.x2, owner.y1, prevArea.x2 + width - dx, owner.y2);
                     }
                     break; //как только нашел сразу выход
                 }
             }
-        } else { //для root area
-            x2 = x1 + width;
-            y2 = y1 + height;
         }
     }
 
