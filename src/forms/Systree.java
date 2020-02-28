@@ -851,7 +851,7 @@ public class Systree extends javax.swing.JFrame {
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
         FrameProgress.create(this, new FrameListener() {
             public void request(Object obj) {
-                App1.eApp1.Elements.createFrame(Systree.this);
+                App1.eApp1.Composition.createFrame(Systree.this);
             }
         });
     }//GEN-LAST:event_btnSave

@@ -21,7 +21,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Element extends javax.swing.JFrame {
+public class Composition extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
     private Query qElement = new Query(eElement.values(), eArtikl.values());
@@ -58,7 +58,7 @@ public class Element extends javax.swing.JFrame {
         }
     };
 
-    public Element() {
+    public Composition() {
         initComponents();
         initElements();
         loadDataTab1();
@@ -178,7 +178,6 @@ public class Element extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(978, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
