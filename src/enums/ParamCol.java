@@ -1,16 +1,19 @@
 package enums;
 
+import dataset.Record;
+import java.util.ArrayList;
+
 /**
  *
  * @author aks
  */
-public class ParamCol {
+public class ParamCol extends ArrayList<Record> {
 
     int par1;
     int par2;
     String par3;
-    
-    public enum P {
+
+    public enum E {
         PAR1(3, "Ключ 1"),
         PAR2(4, "Ключ 2"),
         PAR3(5, "Значение");
@@ -18,7 +21,7 @@ public class ParamCol {
         String name = "";
         int value = -1;
 
-        P(int valuse, String name) {
+        E(int valuse, String name) {
             this.name = name;
             this.value = value;
         }
