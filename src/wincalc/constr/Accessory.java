@@ -1,19 +1,18 @@
-
 package wincalc.constr;
 
 import wincalc.Wincalc;
 
+/**
+ * Фурнитура
+ */
 public class Accessory extends Cal5e {
-    
+
     public Accessory(Wincalc iwin, CalcConstructiv calcConstructiv) {
         super(iwin, calcConstructiv);
-    }    
-//
-//    /**
-//     * Фурнитура
-//     */
+    }
+
 //    public void fittingFirst() {
-//        for (paramSpecific.pass = 1; paramSpecific.pass < 4; paramSpecific.pass++) {
+//        for (calc.paramSpecific.pass = 1; calc.paramSpecific.pass < 4; calc.paramSpecific.pass++) {
 //
 //            LinkedList<AreaStvorka> elemStvorkaList = root.getElemList(TypeElem.FULLSTVORKA);
 //            //цикл по створкам
@@ -136,7 +135,7 @@ public class Accessory extends Cal5e {
 //        }
 //        //Фильтр параметров
 //        ArrayList<ITParam> parfursList = Parfurs.find(constr, furnspcRec.fincb);
-//        if (paramSpecific.checkParfurs(hmParam, elStvorka, parfursList) == false) return false; //параметры спецификаций
+//        if (calc.paramSpecific.checkParfurs(hmParam, elStvorka, parfursList) == false) return false; //параметры спецификаций
 //
 //        //Наборы
 //        if ("НАБОР".equals(furnspcRec.anumb)) {
@@ -148,7 +147,7 @@ public class Accessory extends Cal5e {
 //                System.out.println("Ошибка CalcConstructiv.fittingMidle() " + e);
 //            }
 //
-//        } else if (paramSpecific.pass == 2) {
+//        } else if (calc.paramSpecific.pass == 2) {
 //            //Спецификация
 //            Artikls artikl = Artikls.get(constr, furnspcRec.anumb, false);
 //            if (artikl != null && furnspcRec.anumb.charAt(0) != '@') {

@@ -32,6 +32,7 @@ public class AreaSimple extends Com5t {
         super(id);
         this.iwin = iwin;
         this.owner = owner;
+        this.root = iwin.rootArea;
         this.typeElem = typeElem;
         this.layout = layout;
         this.color1 = color1;

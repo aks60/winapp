@@ -32,6 +32,7 @@ public abstract class Com5t {
     protected float id = -1; //идентификатор    
     public AreaSimple owner = null; //владелец
     protected Wincalc iwin = null; //главный класс калькуляции 
+    protected AreaSimple root = null; //главное окно 
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 

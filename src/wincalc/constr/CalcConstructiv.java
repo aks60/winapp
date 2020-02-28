@@ -25,18 +25,21 @@ public class CalcConstructiv {
 
     public CalcConstructiv(Wincalc iwin) {
         this.iwin = iwin;
-        
+
         paramVariant = new ParamVariant(iwin, this);
         paramSpecific = new ParamSpecific(iwin, this);
     }
 
     public void calculate(Wincalc iwin) {
 
-        Сomposition composition = new Сomposition(iwin, this);//составы
-        composition.compositionFirst();                  
-        Joining joining = new Joining(iwin, this);//соединения
-//            constructiv.fillingFirst();                    //заполнения
-//            constructiv.fittingFirst();                    //фурнитура
+        Сomposition composition = new Сomposition(iwin, this); //составы
+        composition.compositionFirst();
+        Joining joining = new Joining(iwin, this); //соединения
+        joining.joiningFirst();
+        Filling filling = new Filling(iwin, this); //заполнения
+        filling.fillingFirst();
+        Accessory accessory = new Accessory(iwin, this); //фурнитура
+        
 //            constructiv.kitsFirst();                       //комплекты    
     }
 
@@ -120,9 +123,13 @@ public class CalcConstructiv {
     private int getColorFromProduct(Com5t com5t, int colorSide, int type, int clnum) {
         // Получаем код варианта подбора текстуры (см. "SVN\iWin_Doc\trunk\Профстрой\Значения GLASART.CTYPE.xlsx").
         int colorType = 0;
-        if (colorSide == 1) colorType = type % 16;
-        else if (colorSide == 2) colorType = (type / 16) % 16;
-        else if (colorSide == 3) colorType = (type / (16 * 16)) % 16;
+        if (colorSide == 1) {
+            colorType = type % 16;
+        } else if (colorSide == 2) {
+            colorType = (type / 16) % 16;
+        } else if (colorSide == 3) {
+            colorType = (type / (16 * 16)) % 16;
+        }
         switch (colorType) {
             case 0:  //указана
                 return eColor.find2(clnum).getInt(eColor.code);
@@ -143,7 +150,7 @@ public class CalcConstructiv {
                 return iwin.colorNone;
         }
     }
-    
+
     //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
 //    protected boolean IsArtTariffAppliesForColor(Artsvst artsvstRec, Colslst colslstRec) {
 //        if (artsvstRec.clnum < 0) {    //этот тариф задан для группы текстур
@@ -173,7 +180,6 @@ public class CalcConstructiv {
 //    protected boolean CanBeUsedAsBaseColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
 //        return (artsvst.cways & 4) != 0;
 //    }
-
     protected boolean DblNotZero(Object p) {
         float p2 = (float) p;
         return p2 > 0.00005;
@@ -238,7 +244,9 @@ public class CalcConstructiv {
 
     protected static boolean compareFloat(String ptext, float value) {
 
-        if (ptext == null) return true;
+        if (ptext == null) {
+            return true;
+        }
         ptext = ptext.replace(",", "."); //парсинг параметра
         char symmetry = ptext.charAt(ptext.length() - 1);
         if (symmetry == '@') {
@@ -251,12 +259,16 @@ public class CalcConstructiv {
             String[] p = str.split("-");
             if (p.length == 1) {
                 Float valueOne = Float.valueOf(p[0]);
-                if (value == valueOne) return true;
+                if (value == valueOne) {
+                    return true;
+                }
 
             } else if (p.length == 2) {
                 Float valueMin = Float.valueOf(p[0]);
                 Float valueMax = Float.valueOf(p[1]);
-                if (valueMin <= value && valueMax >= value) return true;
+                if (valueMin <= value && valueMax >= value) {
+                    return true;
+                }
             }
         }
         return false;
@@ -264,7 +276,9 @@ public class CalcConstructiv {
 
     protected static boolean compareInt(String ptext, int value) {
 
-        if (ptext == null) return true;
+        if (ptext == null) {
+            return true;
+        }
         ptext = ptext.replace(",", "."); //парсинг параметра
         char symmetry = ptext.charAt(ptext.length() - 1);
         if (symmetry == '@') {
@@ -277,11 +291,15 @@ public class CalcConstructiv {
             String[] p = str.split("-");
             if (p.length == 1) {
                 Integer valueOne = Integer.valueOf(p[0]);
-                if (value == valueOne) return true;
+                if (value == valueOne) {
+                    return true;
+                }
             } else if (p.length == 2) {
                 Integer valueMin = Integer.valueOf(p[0]);
                 Integer valueMax = Integer.valueOf(p[1]);
-                if (valueMin <= value && valueMax >= value) return true;
+                if (valueMin <= value && valueMax >= value) {
+                    return true;
+                }
             }
         }
         return false;
@@ -329,7 +347,8 @@ public class CalcConstructiv {
                 return (Integer) a.get(0) - (Integer) b.get(0);
             }
         });
-        for (ArrayList el : arr)
+        for (ArrayList el : arr) {
             System.out.println(el);
-    }     
+        }
+    }
 }

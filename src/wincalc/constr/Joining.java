@@ -17,6 +17,7 @@ import wincalc.model.Com5t;
 import wincalc.model.ElemJoining;
 import wincalc.model.ElemSimple;
 
+//Соединения
 public class Joining extends Cal5e {
 
     public Joining(Wincalc iwin, CalcConstructiv calcConstructiv) {

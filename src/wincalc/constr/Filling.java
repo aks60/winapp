@@ -455,7 +455,6 @@ public class Filling extends Cal5e {
                             specif.setColor(elemGlass, glasdetRec);
                             elemGlass.addSpecifSubelem(specif);
                         }
-                        //if (specif != null)specif.element = "ЗАП";
                     }
                 }
             }
