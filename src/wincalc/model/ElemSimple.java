@@ -17,25 +17,14 @@ public abstract class ElemSimple extends Com5t {
         super(id);
     }
 
-    //Попадание точки в элемент
-    public boolean contains(int X, int Y) {  
+    //Клик мышки попадает в контур элемента
+    public boolean mouseClick(int X, int Y) {  
         
         iwin.listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
         int x = (int) (X / iwin.scale1) - Com5t.TRANSLATE_X;
         int y = (int) (Y / iwin.scale1) - Com5t.TRANSLATE_Y;        
         borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;                
         return inside(x, y);        
-    }
-
-    //Точка попадает в контур элемента
-    public boolean inside(float x, float y) {
-        if (((int) x2 | (int) y2) < 0) {
-            return false;
-        }
-        if (x < x1 || y < y1) {
-            return false;
-        }
-        return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
     }
 
     //Типы профилей

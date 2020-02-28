@@ -59,17 +59,25 @@ public class AreaSimple extends Com5t {
                     AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
 
                     if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                        float dy = (prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
-                        setDimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height - dy);
+                        setDimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
 
                     } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                        float dx = (prevArea.width() < 120) ? prevArea.width(): 0; //поправка на величину добавленной подкладки над импостом
-                        setDimension(prevArea.x2, owner.y1, prevArea.x2 + width - dx, owner.y2);
+                        setDimension(prevArea.x2, owner.y1, prevArea.x2 + width, owner.y2);
                     }
                     break; //как только нашел сразу выход
                 }
             }
         }
+//            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
+//                AreaSimple prevArea = iwin.listArea.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null);
+//                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
+//                setDimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height - dy);
+//
+//            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
+//                AreaSimple prevArea = iwin.listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+//                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
+//                setDimension(prevArea.x2, owner.y1, prevArea.x2 + width - dx, owner.y2);
+//            }        
     }
 
     //Список элементов окна
