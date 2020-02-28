@@ -29,9 +29,9 @@ import wincalc.model.Com5t;
 public class Specification {
 
     protected Com5t owner = null; //элемент пораждающий спецификацию
-    protected ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
-    protected HashMap<Integer, String> mapParam = null; //параметры спецификации
-    protected Record artiklRec = null; //профиль в спецификации
+    public ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
+    public HashMap<Integer, String> mapParam = null; //параметры спецификации
+    public Record artiklRec = null; //профиль в спецификации
 
     public float id = -1;  //ID
     public String areaId = "0"; //ID area
@@ -103,10 +103,6 @@ public class Specification {
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
         this.artiklRec = spec.artiklRec;
-    }
-
-    public ArrayList<Specification> specificationList() {
-        return specificationList;
     }
 
     public Vector getVector() {

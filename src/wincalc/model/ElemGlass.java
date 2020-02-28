@@ -4,18 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
-import domain.eArtdet;
 import domain.eArtikl;
-import domain.eColor;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.ProfileSide;
+import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.TypeProfile;
-import java.util.LinkedList;
-import wincalc.Wincalc;
 import wincalc.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
@@ -162,23 +159,23 @@ public class ElemGlass extends ElemSimple {
     @Override
     //Добавление спесификаций зависимых элементов
     public void addSpecifSubelem(Specification specif) {
-        /*
-        indexUniq(specif);
+   
+        //indexUniq(specif);
         specif.element = "ЗАП";
-        if (TypeArtikl.GLASS.value2 == specif.getArticRec().atypp && specif.getArticRec().atypm == 5) { //стеклопакет
+        if (TypeArtikl.GLASS.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 5) { //стеклопакет
             return;
 
-        } else if (TypeArtikl.SHTAPIK.value2 == specif.getArticRec().atypp && specif.getArticRec().atypm == 1) { //штапик
+        } else if (TypeArtikl.SHTAPIK.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 1) { //штапик
             specif.id = getId();
 
-        } else if (TypeArtikl.KONZEVPROF.value2 == specif.getArticRec().atypp && specif.getArticRec().atypm == 3) { //уплотнитель
+        } else if (TypeArtikl.KONZEVPROF.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 3) { //уплотнитель
             specif.id = getId();
 
         } else {
             specif.id = getId();
         }
-        quantityMaterials(specif);
-        specificationRec.getSpecificationList().add(specif);*/
+        quantityMaterials(specif);        
+        specificationRec.specificationList.add(specif);
     }
 
     @Override

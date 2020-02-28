@@ -124,7 +124,7 @@ public class Wincalc {
         constructiv.calculate(this);
         for (Com5t elemRec : listElem) {
             listSpec.add(elemRec.specificationRec);
-            listSpec.addAll(elemRec.specificationRec.specificationList());
+            listSpec.addAll(elemRec.specificationRec.specificationList);
         }
     }
 
