@@ -26,14 +26,9 @@ public class AreaSimple extends Com5t {
     protected float deltaX = 0;
     protected float deltaY = 0;
 
-    public AreaSimple(int id) {
-        super(id);
-    }
-
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
-        super(id);
+        super(id, iwin, owner);
         this.iwin = iwin;
-        this.owner = owner;
         this.typeElem = typeElem;
         this.layout = layout;
         this.color1 = color1;
@@ -48,22 +43,22 @@ public class AreaSimple extends Com5t {
             setDimension(0, 0, width, height);
 
         } else {
-            if(id == 11) {
-                //
-            }
-            LinkedList<AreaSimple> listArea = listElem(TypeElem.AREA);
-            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(owner.x1 + (owner.x2 - owner.x1) / 2, owner.y1 + 1) == true).findFirst().orElse(null);
-                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
-                //System.out.println(prevArea);
-                //height = height - dy;
-
-            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
-                width = width - dx;
-                //System.out.println(id + "  " + dx);
-            }
+//            if(id == 11) {
+//                int mm = 0;
+//            }
+//            LinkedList<AreaSimple> listArea = root().listElem(TypeElem.AREA);
+//            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
+//                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(owner.x1 + (owner.x2 - owner.x1) / 2, owner.y1  - 5) == true).findFirst().orElse(null);
+//                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
+//                //System.out.println(prevArea);
+//                //height = height - dy;
+//
+//            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
+//                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+//                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
+//                width = width - dx;
+//                //System.out.println(id + "  " + dx);
+//            }
 
             //Заполним по умолчанию
             if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
@@ -206,11 +201,11 @@ public class AreaSimple extends Com5t {
             iwin.gc2d.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
-            LinkedList<ElemGlass> elemGlassList = root().listElem(TypeElem.GLASS);
+            LinkedList<ElemGlass> elemGlassList = root.listElem(TypeElem.GLASS);
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
-            LinkedList<ElemImpost> elemImpostList = root().listElem(TypeElem.IMPOST);
+            LinkedList<ElemImpost> elemImpostList = root.listElem(TypeElem.IMPOST);
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
@@ -224,12 +219,12 @@ public class AreaSimple extends Com5t {
             mapFrame.get(LayoutArea.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = root.listElem(TypeElem.FULLSTVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера            
             LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-            LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST);
+            LinkedList<ElemImpost> impostList = root.listElem(TypeElem.IMPOST);
             for (ElemSimple el : impostList) { //по импостам определим точки разрыва линии
                 if (LayoutArea.VERT == el.owner.layout) {
                     ls2.add(el.y1);
@@ -250,7 +245,7 @@ public class AreaSimple extends Com5t {
                 line((this.x2 + mov), y1, (this.x2 + mov), y2, dy);
             }
             if (ls1.size() > 2) { //линия общей ширины
-                line(root().x1, iwin.heightAdd + mov * 2, root().x2, iwin.heightAdd + mov * 2, 0);
+                line(root.x1, iwin.heightAdd + mov * 2, root.x2, iwin.heightAdd + mov * 2, 0);
             }
             if (ls2.size() > 2) { //линия общей высоты
                 line(iwin.width + mov * 2, 0, iwin.width + mov * 2, iwin.heightAdd, 0);

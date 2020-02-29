@@ -6,6 +6,7 @@ import wincalc.constr.Specification;
 import enums.TypeProfile;
 import java.awt.Color;
 import java.util.HashMap;
+import wincalc.Wincalc;
 
 public abstract class ElemSimple extends Com5t {
 
@@ -13,8 +14,8 @@ public abstract class ElemSimple extends Com5t {
     protected Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
-    public ElemSimple(float id) {
-        super(id);
+    public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
+        super(id, iwin, owner);
     }
 
     //Клик мышки попадает в контур элемента

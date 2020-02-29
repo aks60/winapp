@@ -26,9 +26,7 @@ public class ElemGlass extends ElemSimple {
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
-        super(id);
-        this.owner = owner;
-        this.iwin = owner.iwin;
+        super(id, owner.iwin, owner);
         this.layout = LayoutArea.FULL;
         this.typeElem = TypeElem.GLASS;
 
@@ -84,9 +82,9 @@ public class ElemGlass extends ElemSimple {
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
         if (owner instanceof AreaArch) { //если арка
 
-            ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
+            ElemFrame elemArch = root.mapFrame.get(LayoutArea.ARCH);
             ElemImpost elemImpost = null;  //первый импост в стеклопакете снизу;
-            for (Com5t elemBase : root().listChild()) {
+            for (Com5t elemBase : root.listChild()) {
                 if (TypeElem.IMPOST == elemBase.typeElem()) {
                     elemImpost = (ElemImpost) elemBase;
                     break;
@@ -96,7 +94,7 @@ public class ElemGlass extends ElemSimple {
             y2 = y2 + elemImpost.artiklRec.getInt(eArtikl.size_falz) - gzazo;
             //height = y2 - y1;
             specificationRec.height = height();
-            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getInt(eArtikl.height) + elemArch.artiklRec.getInt(eArtikl.size_falz) - gzazo;
+            double r = ((AreaArch) root).radiusArch - elemArch.artiklRec.getInt(eArtikl.height) + elemArch.artiklRec.getInt(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner.width() / 2) - (float) l;
             x2 = owner.width() - x1;
@@ -142,12 +140,12 @@ public class ElemGlass extends ElemSimple {
         iwin.gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner.typeElem() == TypeElem.ARCH) {
-            ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
+            ElemFrame ef = root.mapFrame.get(LayoutArea.ARCH);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
-            double r = ((AreaArch) root()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2))); 
-            fillArc((float)(root().width() / 2 - r + dz), dz, (float)((r - dz) * 2), (float)((r - dz) * 2), (float)ang2, (float)((90 - ang2) * 2));
+            double r = ((AreaArch) root).radiusArch;
+            double ang1 = 90 - Math.toDegrees(Math.asin(root.width() / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((root.width() - 2 * dz) / ((r - dz) * 2))); 
+            fillArc((float)(root.width() / 2 - r + dz), dz, (float)((r - dz) * 2), (float)((r - dz) * 2), (float)ang2, (float)((90 - ang2) * 2));
 
         } else {
             float h = iwin.heightAdd - iwin.height;

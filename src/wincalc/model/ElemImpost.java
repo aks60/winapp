@@ -17,16 +17,9 @@ public class ElemImpost extends ElemSimple {
     protected float anglCut1 = 90; //угол реза импоста
     protected float anglCut2 = 90; //угол реза импоста
 
-    public ElemImpost(float id) {
-        super(id);
-        this.typeElem = TypeElem.IMPOST;
-    }
-
     public ElemImpost(AreaSimple owner, float id) {
 
-        super(id);
-        this.owner = owner;
-        this.iwin = owner.iwin;        
+        super(id, owner.iwin, owner);      
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
         color1 = iwin.color1;
         color2 = iwin.color2;
