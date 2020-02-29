@@ -7,6 +7,7 @@ import domain.eSyscons;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ProfileSide;
+import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.TypeProfile;
 import wincalc.constr.Specification;
@@ -102,19 +103,19 @@ public class ElemFrame extends ElemSimple {
     
     @Override
     public void addSpecifSubelem(Specification specif) { //добавление спесификаций зависимых элементов
-        /*
-        indexUniq(specif);
-        Artikls cpecifArtikls = specif.getArticRec();
+        
+        //indexUniq(specif);
+        Record artiklRec = specif.artiklRec;
 
         //Просто рама (если элемент включен в список состава)
-        if (TypeArtikl.KOROBKA.isType(cpecifArtikls) || TypeArtikl.STVORKA.isType(cpecifArtikls)) {
+        if (TypeArtikl.KOROBKA.isType(artiklRec) || TypeArtikl.STVORKA.isType(artiklRec)) {
 
-            specificationRec.width = specificationRec.width + Float.valueOf(specif.getHmParam(0, 34051)); //Поправка, мм
-            specificationRec.setArtiklRec(specif.getArticRec());
+            specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //Поправка, мм
+            specificationRec.setArtiklRec(specif.artiklRec);
             return;  //сразу выход т.к. элем. сам является держателем состава
 
             //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.isType(cpecifArtikls)) {
+        } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
             specif.element = layout.name;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
@@ -124,19 +125,19 @@ public class ElemFrame extends ElemSimple {
             if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
                 specif.width = y2 - y1;
             }
-            if ("от внутреннего угла".equals(specif.getHmParam(null, 34010))) {
-                Double dw1 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut1));
-                Double dw2 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut2));
-                specif.width = specif.width + 2 * getRoot().iwin.syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue();
+            if ("от внутреннего угла".equals(specif.getParam(null, 34010))) {
+                Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
+                Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
+                specif.width = specif.width + 2 * iwin().sysconsRec.getFloat(eSyscons.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
                 Double dw1 = 0.0;
                 Double dw2 = 0.0;
-                if (getAnglCut(1) != 90) {
-                    dw1 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut1));
+                if (anglCut1 != 90) {
+                    dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
                 }
-                if (getAnglCut(1) != 90) {
-                    dw2 = artiklRec.aheig / Math.tan(Math.toRadians(anglCut2));
+                if (anglCut1 != 90) {
+                    dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
                 }
                 //specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue(); //TODO тут код незакончен
             }
@@ -144,26 +145,25 @@ public class ElemFrame extends ElemSimple {
             specif.anglCut2 = 90;
 
             //Концевой профиль
-        } else if (TypeArtikl.KONZEVPROF.isType(cpecifArtikls) == true) {
-            String str = specif.getHmParam(0, 12030);
+        } else if (TypeArtikl.KONZEVPROF.isType(artiklRec) == true) {
+            String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
-            float ssizf = getRoot().getIwin().syssizeRec.ssizf;
-            specif.width = (getWidth() - ssizf) + (getWidth() - ssizf) * koef;
+            float ssizf = iwin().sysconsRec.getFloat(eSyscons.naxl);
+            specif.width = (width() - ssizf) + (width() - ssizf) * koef;
 
             //Соединитель
-        } else if (TypeArtikl.SOEDINITEL.isType(cpecifArtikls) == true) {
-
-            specif.colorBase = getRoot().getIwin().getColorNone();
-            specif.colorInternal = getRoot().getIwin().getColorNone();
-            specif.colorExternal = getRoot().getIwin().getColorNone();
+        } else if (TypeArtikl.SOEDINITEL.isType(artiklRec) == true) {
+            specif.color1 = iwin().colorNone;
+            specif.color2 = iwin().colorNone;
+            specif.color3 = iwin().colorNone;
+            
             //Всё остальное
         } else {
             //specif.element = "ЗАП";
         }
         quantityMaterials(specif);
-        specificationRec.getSpecificationList().add(specif);
-         */
+        specificationRec.specificationList.add(specif);
     }
 
     @Override

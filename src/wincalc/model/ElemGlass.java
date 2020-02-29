@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
+import domain.eArtdet;
 import domain.eArtikl;
+import domain.eColor;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
@@ -61,11 +63,11 @@ public class ElemGlass extends ElemSimple {
             artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
-//        Record artdetRec = eArtdet.find(artiklRec.getInt(eArtikl.id));
-//        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_id));
-//        color1 = colorRec.getInt(eColor.color);
-//        color2 = colorRec.getInt(eColor.color);
-//        color3 = colorRec.getInt(eColor.color);
+        Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_id));
+        color1 = colorRec.getInt(eColor.code);
+        color2 = colorRec.getInt(eColor.code);
+        color3 = colorRec.getInt(eColor.code);
 
         //TODO Разобраться с цветом стекла
         color1 = iwin().colorNone;

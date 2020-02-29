@@ -6,6 +6,7 @@ import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ProfileSide;
+import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.TypeProfile;
 import java.awt.Color;
@@ -116,34 +117,31 @@ public class ElemImpost extends ElemSimple {
     @Override
     //Добавление спесификаций зависимых элементов 
     public void addSpecifSubelem(Specification specif) {
-/*
-        indexUniq(specif);
-        Artikls specifArtikl = specif.getArticRec();
+
+        //indexUniq(specif);
+        Record artiklRec = specif.artiklRec;
 
         //Импост (если элемент включен в список состава)
-        if (TypeArtikl.IMPOST.value2 == specifArtikl.atypp && specifArtikl.atypm == 1) {
-            specificationRec.setArtiklRec(specif.getArticRec()); //= (specif.artikl.equals("-")) ? specif.artikl : "-";
+        if (TypeArtikl.IMPOST.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
+            specificationRec.setArtiklRec(specif.artiklRec); //= (specif.artikl.equals("-")) ? specif.artikl : "-";
             specificationRec.name = (specif.name.equals("-")) ? specif.name : "-";
-            specificationRec.setArtiklRec(specif.getArticRec());
+            specificationRec.setArtiklRec(specif.artiklRec);
             return;
 
             //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.value2 == specifArtikl.atypp && specifArtikl.atypm == 1) {
+        } else if (TypeArtikl.ARMIROVANIE.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
             specif.element = layout.name;
-
             //if (LayoutArea.HORIZONTAL == layout) specif.width = owner.x2 - owner.x1;
             //else if(LayoutArea.VERTICAL == layout) specif.width = owner.y2 - owner.y1;
-
             specif.width = specificationRec.width;
             specif.anglCut2 = 90;
             specif.anglCut1 = 90;
 
             //Соединитель
-        } else if(TypeArtikl.SOEDINITEL.isType(specifArtikl) == true) {
-
-            //specif.colorBase = getRoot().getIwin().getColorNone();
-            //specif.colorInternal = getRoot().getIwin().getColorNone();
-            //specif.colorExternal = getRoot().getIwin().getColorNone();
+        } else if(TypeArtikl.SOEDINITEL.isType(artiklRec) == true) {
+            specif.color1 = iwin().colorNone;
+            specif.color2 = iwin().colorNone;
+            specif.color3 = iwin().colorNone;
 
             //Остальные
         } else {
@@ -151,8 +149,7 @@ public class ElemImpost extends ElemSimple {
         }
 
         quantityMaterials(specif);
-        specificationRec.getSpecificationList().add(specif);
-        */
+        specificationRec.specificationList.add(specif);        
     }
     
     @Override

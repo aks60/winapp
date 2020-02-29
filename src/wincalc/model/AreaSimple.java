@@ -44,12 +44,11 @@ public class AreaSimple extends Com5t {
             if (owner().listChild.isEmpty() == true) {
                 if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
                     setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + height);
-
                 } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
                     setDimension(owner().x1, owner().y1, owner().x1 + width, owner().y2);
                 }
-            } else {
-                //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
+                
+            } else { //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
                 for (int index = owner().listChild.size() - 1; index >= 0; --index) {
                     if (owner().listChild.get(index).type == TypeElem.AREA) {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
