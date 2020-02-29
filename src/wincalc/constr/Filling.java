@@ -44,7 +44,7 @@ public class Filling extends Cal5e {
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.select()) {
 
-                    TypeProfile typeProf = (elemGlass.owner.typeElem() == TypeElem.FULLSTVORKA) ? TypeProfile.STVORKA : TypeProfile.FRAME;
+                    TypeProfile typeProf = (elemGlass.owner().typeElem() == TypeElem.FULLSTVORKA) ? TypeProfile.STVORKA : TypeProfile.FRAME;
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.value == sysprofRec.getInt(eSysprof.types)) {
@@ -104,7 +104,7 @@ public class Filling extends Cal5e {
                     } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         Record art = eArtikl.find(clasdetRec.getInt(eGlasdet.artikl_id), false);
-                        if (TypeElem.ARCH == elemGlass.owner.typeElem()) {
+                        if (TypeElem.ARCH == elemGlass.owner().typeElem()) {
 
                             //По основанию арки
                             specif = new Specification(art, elemGlass, hmParam);
@@ -179,7 +179,7 @@ public class Filling extends Cal5e {
                         //Уплотнитель
                     } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
                         Record art = eArtikl.find(clasdetRec.getInt(eArtdet.artikl_id), false);
-                        if (TypeElem.ARCH == elemGlass.owner.typeElem()) { //если уплотнитель в арке
+                        if (TypeElem.ARCH == elemGlass.owner().typeElem()) { //если уплотнитель в арке
                             //По основанию арки
                             specif = new Specification(art, elemGlass, hmParam);
 
@@ -241,16 +241,16 @@ public class Filling extends Cal5e {
                         //Всё остальное
                     } else {
                         Record art = eArtikl.find(clasdetRec.getInt(eArtdet.artikl_id), false);
-                        if (TypeElem.AREA == elemGlass.owner.typeElem()
-                                || TypeElem.SQUARE == elemGlass.owner.typeElem()
-                                || TypeElem.FULLSTVORKA == elemGlass.owner.typeElem()) {
+                        if (TypeElem.AREA == elemGlass.owner().typeElem()
+                                || TypeElem.SQUARE == elemGlass.owner().typeElem()
+                                || TypeElem.FULLSTVORKA == elemGlass.owner().typeElem()) {
 
                             for (int index = 0; index < 4; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, clasdetRec);
                                 elemGlass.addSpecifSubelem(specif);
                             }
-                        } else if (TypeElem.ARCH == elemGlass.owner.typeElem()) {
+                        } else if (TypeElem.ARCH == elemGlass.owner().typeElem()) {
                             for (int index = 0; index < 2; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, clasdetRec);
@@ -295,7 +295,7 @@ public class Filling extends Cal5e {
                     } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
-                        if (TypeElem.ARCH == elemGlass.owner.typeElem()) {
+                        if (TypeElem.ARCH == elemGlass.owner().typeElem()) {
 
                             //По основанию арки
                             specif = new Specification(art, elemGlass, hmParam);
@@ -370,7 +370,7 @@ public class Filling extends Cal5e {
                         //Уплотнитель
                     } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
-                        if (TypeElem.ARCH == elemGlass.owner.typeElem()) { //если уплотнитель в арке
+                        if (TypeElem.ARCH == elemGlass.owner().typeElem()) { //если уплотнитель в арке
                             //По основанию арки
                             specif = new Specification(art, elemGlass, hmParam);
 
@@ -432,16 +432,16 @@ public class Filling extends Cal5e {
                         //Всё остальное
                     } else {
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
-                        if (TypeElem.AREA == elemGlass.owner.typeElem()
-                                || TypeElem.SQUARE == elemGlass.owner.typeElem()
-                                || TypeElem.FULLSTVORKA == elemGlass.owner.typeElem()) {
+                        if (TypeElem.AREA == elemGlass.owner().typeElem()
+                                || TypeElem.SQUARE == elemGlass.owner().typeElem()
+                                || TypeElem.FULLSTVORKA == elemGlass.owner().typeElem()) {
 
                             for (int index = 0; index < 4; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, glasdetRec);
                                 elemGlass.addSpecifSubelem(specif);
                             }
-                        } else if (TypeElem.ARCH == elemGlass.owner.typeElem()) {
+                        } else if (TypeElem.ARCH == elemGlass.owner().typeElem()) {
                             for (int index = 0; index < 2; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, glasdetRec);

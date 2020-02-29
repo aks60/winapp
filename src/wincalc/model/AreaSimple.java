@@ -38,7 +38,7 @@ public class AreaSimple extends Com5t {
 
     protected void initDimension(float width, float height) {
 
-        if (owner == null) { //для root area
+        if (owner() == null) { //для root area
             setDimension(0, 0, width, height);
 
         } else {
@@ -60,22 +60,22 @@ public class AreaSimple extends Com5t {
 //            }
 
             //Заполним по умолчанию
-            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + height);
+            if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + height);
 
-            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                setDimension(owner.x1, owner.y1, owner.x1 + width, owner.y2);
+            } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                setDimension(owner().x1, owner().y1, owner().x1 + width, owner().y2);
             }
             //Проверим есть ещё ареа перед текущей, т.к. this area ёщё не создана начнём с конца
-            for (int index = owner.listChild().size() - 1; index >= 0; --index) {
-                if (owner.listChild().get(index).typeElem == TypeElem.AREA) {
-                    AreaSimple prevArea = (AreaSimple) owner.listChild().get(index);
+            for (int index = owner().listChild().size() - 1; index >= 0; --index) {
+                if (owner().listChild().get(index).typeElem == TypeElem.AREA) {
+                    AreaSimple prevArea = (AreaSimple) owner().listChild().get(index);
 
-                    if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                        setDimension(owner.x1, prevArea.y2, owner.x2, prevArea.y2 + height);
+                    if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                        setDimension(owner().x1, prevArea.y2, owner().x2, prevArea.y2 + height);
 
-                    } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                        setDimension(prevArea.x2, owner.y1, prevArea.x2 + width, owner.y2);
+                    } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                        setDimension(prevArea.x2, owner().y1, prevArea.x2 + width, owner().y2);
                     }
                     break; //как только нашел сразу выход
                 }
@@ -225,7 +225,7 @@ public class AreaSimple extends Com5t {
             LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
             LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST);
             for (ElemSimple el : impostList) { //по импостам определим точки разрыва линии
-                if (LayoutArea.VERT == el.owner.layout) {
+                if (LayoutArea.VERT == el.owner().layout) {
                     ls2.add(el.y1);
                 } else {
                     ls1.add(el.x1 + (el.x2 - el.x1) / 2);

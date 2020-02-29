@@ -181,11 +181,11 @@ public class ElemFrame extends ElemSimple {
             //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);
             float d2z = artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
-            double ang1 = 90 - Math.toDegrees(Math.asin(owner.width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((owner.width() - 2 * d2z) / ((r - d2z) * 2)));
-            strokeArc(owner.width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4); //прорисовка на сцену
-            strokeArc(owner.width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4); //прорисовка на сцену
-            strokeArc(owner.width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z); //прорисовка на сцену
+            double ang1 = 90 - Math.toDegrees(Math.asin(owner().width() / (r * 2)));
+            double ang2 = 90 - Math.toDegrees(Math.asin((owner().width() - 2 * d2z) / ((r - d2z) * 2)));
+            strokeArc(owner().width() / 2 - r, -4, r * 2, r * 2, ang1, (90 - ang1) * 2 + 1, 0, 4); //прорисовка на сцену
+            strokeArc(owner().width() / 2 - r + d2z, d2z - 2, (r - d2z) * 2, (r - d2z) * 2, ang2, (90 - ang2) * 2 + 1, 0, 4); //прорисовка на сцену
+            strokeArc(owner().width() / 2 - r + d2z / 2, d2z / 2 - 2, (r - d2z / 2) * 2, (r - d2z / 2) * 2, ang2, (90 - ang2) * 2 + 1, rgb, d2z); //прорисовка на сцену
 
         } else if (LayoutArea.TOP == layout) {
             strokePolygon(x1, x2, x2 - d1z, x1 + d1z, y1, y1, y2, y2, rgb, borderColor);
@@ -194,7 +194,7 @@ public class ElemFrame extends ElemSimple {
             strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (LayoutArea.LEFT == layout) {
-            if (TypeElem.ARCH == owner.typeElem()) {
+            if (TypeElem.ARCH == owner().typeElem()) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
@@ -203,7 +203,7 @@ public class ElemFrame extends ElemSimple {
                 strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, borderColor);
             }
         } else if (LayoutArea.RIGHT == layout) {
-            if (TypeElem.ARCH == owner.typeElem()) {
+            if (TypeElem.ARCH == owner().typeElem()) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
@@ -216,7 +216,7 @@ public class ElemFrame extends ElemSimple {
 
     @Override
     public TypeProfile typeProfile() {
-        return (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeProfile.STVORKA : TypeProfile.FRAME;
+        return (TypeElem.FULLSTVORKA == owner().typeElem()) ? TypeProfile.STVORKA : TypeProfile.FRAME;
     }
 
     @Override

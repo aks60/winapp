@@ -54,7 +54,7 @@ public class ParamSpecific {
         Com5t el = com5t;
         ownerList.add(el);
         do {
-            el = el.owner;
+            el = el.owner();
             ownerList.add(el);
         } while (el != iwin.rootArea);
 

@@ -80,7 +80,7 @@ public class ElemGlass extends ElemSimple {
         //indexUniq(specificationRec);
 
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
-        if (owner instanceof AreaArch) { //если арка
+        if (owner() instanceof AreaArch) { //если арка
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
             ElemImpost elemImpost = null;  //первый импост в стеклопакете снизу;
@@ -96,8 +96,8 @@ public class ElemGlass extends ElemSimple {
             specificationRec.height = height();
             double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getInt(eArtikl.height) + elemArch.artiklRec.getInt(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
-            x1 = (owner.width() / 2) - (float) l;
-            x2 = owner.width() - x1;
+            x1 = (owner().width() / 2) - (float) l;
+            x2 = owner().width() - x1;
             radiusGlass = (float) r;
             //width = x2 - x1;
             
@@ -112,16 +112,16 @@ public class ElemGlass extends ElemSimple {
 
         } else {
 
-            Com5t elemTop = owner.iwin().mapJoin.get(owner.x1 + ":" + owner.y1).elemJoinRight;
+            Com5t elemTop = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinRight;
             y1 = elemTop.y2 - elemTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            Com5t elemBottom = owner.iwin().mapJoin.get(owner.x1 + ":" + owner.y2).elemJoinRight;
+            Com5t elemBottom = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y2).elemJoinRight;
             y2 = elemBottom.y1 + elemBottom.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
-            Com5t elemLeft = owner.iwin().mapJoin.get(owner.x1 + ":" + owner.y1).elemJoinBottom;
+            Com5t elemLeft = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinBottom;
             x1 = elemLeft.x2 - elemLeft.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            Com5t elemRight = owner.iwin().mapJoin.get(owner.x2 + ":" + owner.y1).elemJoinBottom;
+            Com5t elemRight = owner().iwin().mapJoin.get(owner().x2 + ":" + owner().y1).elemJoinBottom;
             x2 = elemRight.x1 + elemRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
             specificationRec.width = width();
@@ -139,7 +139,7 @@ public class ElemGlass extends ElemSimple {
     public void paint() { //рисуём стёкла
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
-        if (owner.typeElem() == TypeElem.ARCH) {
+        if (owner().typeElem() == TypeElem.ARCH) {
             ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;

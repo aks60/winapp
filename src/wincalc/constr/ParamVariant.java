@@ -117,8 +117,8 @@ public class ParamVariant {
                     if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple)com5t).anglHoriz) == false) return false;
                     break;
                 case 31037:  //Название фурнитуры содержит
-                    if (TypeElem.FULLSTVORKA == com5t.owner.typeElem()) {
-                        return paramRec.getStr(PAR3).contains(com5t.owner.artiklRec.getStr(eArtikl.name));
+                    if (TypeElem.FULLSTVORKA == com5t.owner().typeElem()) {
+                        return paramRec.getStr(PAR3).contains(com5t.owner().artiklRec.getStr(eArtikl.name));
                     } else return false;
                 case 31041: //Ограничение длины профиля, мм
                     if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), com5t.width()) == false) return false;

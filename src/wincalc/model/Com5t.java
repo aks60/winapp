@@ -30,7 +30,7 @@ public abstract class Com5t {
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
     protected float id = -1; //идентификатор    
-    public AreaSimple owner = null; //владелец
+    private AreaSimple owner = null; //владелец
     private Wincalc iwin = null; //главный класс калькуляции
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
@@ -52,6 +52,10 @@ public abstract class Com5t {
         return id;
     }
 
+    public AreaSimple owner() {
+        return owner;
+    }
+    
     public Wincalc iwin() {
         return iwin;
     }
