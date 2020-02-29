@@ -36,13 +36,13 @@ public class Intermediate {
     }
     
     public AreaSimple addArea(AreaSimple area2) {
-        owner.area.listChild().add(area2);
+        owner.area.listChild.add(area2);
         this.area = area2;
         return area2;
     }
 
     public ElemSimple addElem(ElemSimple elem) {
-        owner.area.listChild().add(elem);
+        owner.area.listChild.add(elem);
         return elem;
     }
     

@@ -28,7 +28,7 @@ public class ElemGlass extends ElemSimple {
 
         super(id, owner.iwin(), owner);
         this.layout = LayoutArea.FULL;
-        this.typeElem = TypeElem.GLASS;
+        this.type = TypeElem.GLASS;
 
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
@@ -39,7 +39,7 @@ public class ElemGlass extends ElemSimple {
         initСonstructiv();
         parsing(param);
 
-        if (TypeElem.ARCH == owner.typeElem()) {
+        if (TypeElem.ARCH == owner.type) {
             setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
             //TODO putHmParam(13015, ARCHED);
         } else {
@@ -84,8 +84,8 @@ public class ElemGlass extends ElemSimple {
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
             ElemImpost elemImpost = null;  //первый импост в стеклопакете снизу;
-            for (Com5t elemBase : root().listChild()) {
-                if (TypeElem.IMPOST == elemBase.typeElem()) {
+            for (Com5t elemBase : root().listChild) {
+                if (TypeElem.IMPOST == elemBase.type) {
                     elemImpost = (ElemImpost) elemBase;
                     break;
                 }
@@ -139,7 +139,7 @@ public class ElemGlass extends ElemSimple {
     public void paint() { //рисуём стёкла
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
-        if (owner().typeElem() == TypeElem.ARCH) {
+        if (owner().type == TypeElem.ARCH) {
             ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;

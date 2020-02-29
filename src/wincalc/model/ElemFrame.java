@@ -23,7 +23,7 @@ public class ElemFrame extends ElemSimple {
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;
-        this.typeElem = (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
+        this.type = (TypeElem.FULLSTVORKA == owner.type) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
         initСonstructiv();
 
         if (LayoutArea.LEFT == layout) {
@@ -194,7 +194,7 @@ public class ElemFrame extends ElemSimple {
             strokePolygon(x1 + d1z, x2 - d1z, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (LayoutArea.LEFT == layout) {
-            if (TypeElem.ARCH == owner().typeElem()) {
+            if (TypeElem.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
@@ -203,7 +203,7 @@ public class ElemFrame extends ElemSimple {
                 strokePolygon(x1, x2, x2, x1, y1, y1 + d1z, y2 - d1z, y2, rgb, borderColor);
             }
         } else if (LayoutArea.RIGHT == layout) {
-            if (TypeElem.ARCH == owner().typeElem()) {
+            if (TypeElem.ARCH == owner().type) {
                 double r = ((AreaArch) root()).radiusArch;
                 double ang2 = 90 - Math.toDegrees(Math.asin((w - 2 * d1z) / ((r - d1z) * 2)));
                 double a = (r - d1z) * Math.sin(Math.toRadians(ang2));
@@ -216,7 +216,7 @@ public class ElemFrame extends ElemSimple {
 
     @Override
     public TypeProfile typeProfile() {
-        return (TypeElem.FULLSTVORKA == owner().typeElem()) ? TypeProfile.STVORKA : TypeProfile.FRAME;
+        return (TypeElem.FULLSTVORKA == owner().type) ? TypeProfile.STVORKA : TypeProfile.FRAME;
     }
 
     @Override

@@ -23,12 +23,10 @@ import wincalc.Wincalc;
 public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
-    protected float deltaX = 0;
-    protected float deltaY = 0;
 
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
         super(id, iwin, owner);
-        this.typeElem = typeElem;
+        this.type = typeElem;
         this.layout = layout;
         this.color1 = color1;
         this.color2 = color2;
@@ -42,44 +40,41 @@ public class AreaSimple extends Com5t {
             setDimension(0, 0, width, height);
 
         } else {
-//            if(id == 11) {
-//                int mm = 0;
-//            }
-//            LinkedList<AreaSimple> listArea = root().listElem(TypeElem.AREA);
-//            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-//                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(owner.x1 + (owner.x2 - owner.x1) / 2, owner.y1  - 5) == true).findFirst().orElse(null);
-//                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
-//                //System.out.println(prevArea);
-//                //height = height - dy;
-//
-//            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-//                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-//                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
-//                width = width - dx;
-//                //System.out.println(id + "  " + dx);
-//            }
+            //Первая добавляемая area
+            if (owner().listChild.isEmpty() == true) {
+                if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                    setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + height);
 
-            //Заполним по умолчанию
-            if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-                setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + height);
+                } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                    setDimension(owner().x1, owner().y1, owner().x1 + width, owner().y2);
+                }
+            } else {
+                //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
+                for (int index = owner().listChild.size() - 1; index >= 0; --index) {
+                    if (owner().listChild.get(index).type == TypeElem.AREA) {
+                        AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
 
-            } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-                setDimension(owner().x1, owner().y1, owner().x1 + width, owner().y2);
-            }
-            //Проверим есть ещё ареа перед текущей, т.к. this area ёщё не создана начнём с конца
-            for (int index = owner().listChild().size() - 1; index >= 0; --index) {
-                if (owner().listChild().get(index).typeElem == TypeElem.AREA) {
-                    AreaSimple prevArea = (AreaSimple) owner().listChild().get(index);
+                        if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                            setDimension(owner().x1, prevArea.y2, owner().x2, prevArea.y2 + height);
 
-                    if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-                        setDimension(owner().x1, prevArea.y2, owner().x2, prevArea.y2 + height);
-
-                    } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-                        setDimension(prevArea.x2, owner().y1, prevArea.x2 + width, owner().y2);
+                        } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                            setDimension(prevArea.x2, owner().y1, prevArea.x2 + width, owner().y2);
+                        }
+                        break; //как только нашел сразу выход
                     }
-                    break; //как только нашел сразу выход
                 }
             }
+            //Поправка на подкладу
+            LinkedList<AreaSimple> listArea = root().listElem(TypeElem.AREA);
+            if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null);
+                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
+                y2 = y2 - dy;
+            }  else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
+                x2 = x2 - dx;
+            }            
         }
     }
 
@@ -92,18 +87,18 @@ public class AreaSimple extends Com5t {
 
     public <E> void listCom5t(Com5t com5t, LinkedList<E> list, List<TypeElem> type) {
 
-        if (type.contains(com5t.typeElem())) {
+        if (type.contains(com5t.this.type)) {
             list.add((E) com5t);
         }
         if (com5t instanceof AreaSimple) {
             Collection<ElemFrame> set = ((AreaSimple) com5t).mapFrame.values();
             for (ElemFrame frm : set) {
-                if (type.contains(frm.typeElem())) {
+                if (type.contains(frm.this.type)) {
                     list.add((E) frm);
                 }
             }
         }
-        for (Com5t com5t2 : com5t.listChild()) {
+        for (Com5t com5t2 : com5t.listChild) {
             listCom5t(com5t2, list, type);
         }
     }
@@ -131,8 +126,8 @@ public class AreaSimple extends Com5t {
             String pk = it.getKey();
 
             //В соединении только комбинация элемента рамы и импоста (T - соединение)
-            if (((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
-                    || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) == false) {
+            if (((arrElem[0].type == TypeElem.FRAME_BOX && arrElem[1].type == TypeElem.FRAME_BOX)
+                    || (arrElem[0].type == TypeElem.FRAME_STV && arrElem[1].type == TypeElem.FRAME_STV)) == false) {
 
                 iwin().mapJoin.put(pk, el);
                 ElemSimple arrElem2[][] = {{arrElem[0], arrElem[1]}, {arrElem[1], arrElem[0]}}; //варианты общих точек пересечения
@@ -208,7 +203,7 @@ public class AreaSimple extends Com5t {
             elemImpostList.stream().forEach(el -> el.paint());
 
             //Прорисовка рам
-            if (TypeElem.ARCH == typeElem()) {
+            if (TypeElem.ARCH == type) {
                 mapFrame.get(LayoutArea.ARCH).paint();
             } else {
                 mapFrame.get(LayoutArea.TOP).paint();

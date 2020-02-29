@@ -25,8 +25,8 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
-    protected TypeElem typeElem = TypeElem.NONE;
-    private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
+    protected TypeElem type = TypeElem.NONE;
+    public LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
     private float id = -1; //идентификатор    
@@ -109,12 +109,12 @@ public abstract class Com5t {
         }
     }
 
-    public LinkedList<Com5t> listChild() {
-        return listChild;
-    }
+//    public LinkedList<Com5t> listChild() {
+//        return listChild;
+//    }
 
-    public TypeElem typeElem() {
-        return typeElem;
+    public TypeElem type() {
+        return type;
     }
 
     public LayoutArea layout() {
@@ -208,7 +208,7 @@ public abstract class Com5t {
 
     public String toString() {
         float ownerID = (owner == null) ? -1 : owner.id();
-        return "ELEM " + typeElem.name() + ", owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
+        return "ELEM " + type.name() + ", owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 
     public boolean equals(Object obj) {

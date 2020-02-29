@@ -347,7 +347,7 @@ public class ParamSpecific {
             //if (compare(param) == false) return false;
             switch (paramRec.getInt(PAR1)) {
                 case 24001: //Форма контура
-                    if (TypeElem.FULLSTVORKA == com5t.typeElem() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
+                    if (TypeElem.FULLSTVORKA == com5t.type() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
                         return false;
                     }
                     break;

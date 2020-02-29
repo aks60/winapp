@@ -117,14 +117,14 @@ public class ParamVariant {
                     if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple)com5t).anglHoriz) == false) return false;
                     break;
                 case 31037:  //Название фурнитуры содержит
-                    if (TypeElem.FULLSTVORKA == com5t.owner().typeElem()) {
+                    if (TypeElem.FULLSTVORKA == com5t.owner().type()) {
                         return paramRec.getStr(PAR3).contains(com5t.owner().artiklRec.getStr(eArtikl.name));
                     } else return false;
                 case 31041: //Ограничение длины профиля, мм
                     if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), com5t.width()) == false) return false;
                     break;
                 case 31050: //Контейнер имеет тип
-                    TypeElem type = com5t.typeElem();
+                    TypeElem type = com5t.type();
                     if (type.value != Integer.valueOf(paramRec.getStr(PAR3))) return false;
                     break;
                 case 31052:
@@ -193,7 +193,7 @@ public class ParamVariant {
 
             switch (paramRec.getInt(PAR1)) {
                 case 21001: //Форма контура прямоугольная трапециевидная
-                    if (TypeElem.FULLSTVORKA == com5t.typeElem() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
+                    if (TypeElem.FULLSTVORKA == com5t.type() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
                         return false;
                     }
                     break;
@@ -238,8 +238,8 @@ public class ParamVariant {
                 case "005": //Контейнер имеет тип Артикула1/Артикула2
                     try {
                         strTxt = paramRec.getStr(PAR3);
-                        int type1 = joinElement1.typeElem().value;
-                        int type2 = joinElement2.typeElem().value;
+                        int type1 = joinElement1.type().value;
+                        int type2 = joinElement2.type().value;
 
                         char symmetry = strTxt.charAt(strTxt.length() - 1);
                         if (symmetry == '@') {
