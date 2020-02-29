@@ -44,76 +44,76 @@ public class CalcConstructiv {
 
     protected int determineColorCodeForArt(Com5t elem, int color_side, Record paramRec, Specification specif) {
 
-        //int colorCode = getColorFromProduct(elem, color_side, paramRec);
-        /*    Colslst clslstRecr = Colslst.get2(constr, colorCode);
-        //Фвтоподбор текстуры
-        if (paramRec.clnum() == 0) {
-            // Если этот цвет не подходит для данного артикула, то берем первую имеющуюся текстуру в тарифе
-            // материальных ценностей указанного артикула (см. "Автоподбор" на http://help.profsegment.ru/?id=1107).
-            boolean colorOK = false;
-            int firstFoundColorNumber = 0;
-            for (Artsvst artsvstRec : constr.artsvstMap.get(specif.artikl)) {
-                if ((color_side == 1 && CanBeUsedAsBaseColor(artsvstRec))
-                        || (color_side == 2 && CanBeUsedAsInsideColor(artsvstRec))
-                        || (color_side == 3 && CanBeUsedAsOutsideColor(artsvstRec))) {
-
-                    if (IsArtTariffAppliesForColor(artsvstRec, clslstRecr)) {
-                        colorOK = true;
-                        break;
-                    } else if (firstFoundColorNumber == 0)
-                        firstFoundColorNumber = artsvstRec.clnum;
-                }
-            }
-            if (colorOK) return colorCode;
-            else if (firstFoundColorNumber > 0) return Colslst.get(constr, firstFoundColorNumber).ccode;
-            else return root.getIwin().getColorNone();
-
-            //указана
-            //} else if (vstaspcRec.clnum() == 1) {
-            //    return colorCode;
-
-        } else if (paramRec.clnum() == 100000) {
-            return colorCode;
-
-
-            //Текстура задана через параметр
-        } else if (paramRec.clnum() < 0) {
-            if (colorCode == root.getIwin().getColorNone()) {
-                for (Parcols parcolsRec : constr.parcolsList) {
-                    if (parcolsRec.pnumb == paramRec.clnum()) {
-                        int code = Colslst.get3(constr, parcolsRec.ptext).ccode;
-                        if (code != -1) return code;
-                    }
-                }
-            }
-            return colorCode;
-
-            //В clnum указан цвет.
-        } else {
-            if (colorCode == root.getIwin().getColorNone()) {    //видимо во всех текстурах стоит значение "Указана"
-                // Подбираем цвет так (придумала Л.Цветкова):
-                // Если основная текстура изделия может быть основной текстурой для данного артикула (по тарифу мат.ценностей), то используем ее.
-                // Иначе - используем CLNUM как основную текстуру. Аналогично для внутренней и внешней текстур.
-
-                int colorNumber = Colslst.get2(constr, root.getIwin().getColorProfile(color_side)).cnumb;
-                boolean colorFound = false;
-                for (Artsvst artsvst : constr.artsvstMap.get(specif.artikl)) {
-
-                    if ((color_side == 1 && CanBeUsedAsBaseColor(artsvst)) ||
-                            (color_side == 2 && CanBeUsedAsInsideColor(artsvst)) ||
-                            (color_side == 3 && CanBeUsedAsOutsideColor(artsvst))) {
-
-                        if (IsArtTariffAppliesForColor(artsvst, clslstRecr) == true) {
-                            for (Parcols parcolsRec : constr.parcolsList) {
-                                if (parcolsRec.pnumb == paramRec.clnum()) {
-                                    return Integer.valueOf(parcolsRec.ptext);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
+//        //int colorCode = getColorFromProduct(elem, color_side, paramRec);
+//            Colslst clslstRecr = Colslst.get2(constr, colorCode);
+//        //Фвтоподбор текстуры
+//        if (paramRec.clnum() == 0) {
+//            // Если этот цвет не подходит для данного артикула, то берем первую имеющуюся текстуру в тарифе
+//            // материальных ценностей указанного артикула (см. "Автоподбор" на http://help.profsegment.ru/?id=1107).
+//            boolean colorOK = false;
+//            int firstFoundColorNumber = 0;
+//            for (Artsvst artsvstRec : constr.artsvstMap.get(specif.artikl)) {
+//                if ((color_side == 1 && CanBeUsedAsBaseColor(artsvstRec))
+//                        || (color_side == 2 && CanBeUsedAsInsideColor(artsvstRec))
+//                        || (color_side == 3 && CanBeUsedAsOutsideColor(artsvstRec))) {
+//
+//                    if (IsArtTariffAppliesForColor(artsvstRec, clslstRecr)) {
+//                        colorOK = true;
+//                        break;
+//                    } else if (firstFoundColorNumber == 0)
+//                        firstFoundColorNumber = artsvstRec.clnum;
+//                }
+//            }
+//            if (colorOK) return colorCode;
+//            else if (firstFoundColorNumber > 0) return Colslst.get(constr, firstFoundColorNumber).ccode;
+//            else return root.getIwin().getColorNone();
+//
+//            //указана
+//            //} else if (vstaspcRec.clnum() == 1) {
+//            //    return colorCode;
+//
+//        } else if (paramRec.clnum() == 100000) {
+//            return colorCode;
+//
+//
+//            //Текстура задана через параметр
+//        } else if (paramRec.clnum() < 0) {
+//            if (colorCode == root.getIwin().getColorNone()) {
+//                for (Parcols parcolsRec : constr.parcolsList) {
+//                    if (parcolsRec.pnumb == paramRec.clnum()) {
+//                        int code = Colslst.get3(constr, parcolsRec.ptext).ccode;
+//                        if (code != -1) return code;
+//                    }
+//                }
+//            }
+//            return colorCode;
+//
+//            //В clnum указан цвет.
+//        } else {
+//            if (colorCode == root.getIwin().getColorNone()) {    //видимо во всех текстурах стоит значение "Указана"
+//                // Подбираем цвет так (придумала Л.Цветкова):
+//                // Если основная текстура изделия может быть основной текстурой для данного артикула (по тарифу мат.ценностей), то используем ее.
+//                // Иначе - используем CLNUM как основную текстуру. Аналогично для внутренней и внешней текстур.
+//
+//                int colorNumber = Colslst.get2(constr, root.getIwin().getColorProfile(color_side)).cnumb;
+//                boolean colorFound = false;
+//                for (Artsvst artsvst : constr.artsvstMap.get(specif.artikl)) {
+//
+//                    if ((color_side == 1 && CanBeUsedAsBaseColor(artsvst)) ||
+//                            (color_side == 2 && CanBeUsedAsInsideColor(artsvst)) ||
+//                            (color_side == 3 && CanBeUsedAsOutsideColor(artsvst))) {
+//
+//                        if (IsArtTariffAppliesForColor(artsvst, clslstRecr) == true) {
+//                            for (Parcols parcolsRec : constr.parcolsList) {
+//                                if (parcolsRec.pnumb == paramRec.clnum()) {
+//                                    return Integer.valueOf(parcolsRec.ptext);
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
         //return colorCode;
         return -1;
     }
