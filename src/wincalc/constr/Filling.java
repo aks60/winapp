@@ -32,7 +32,7 @@ public class Filling extends Cal5e {
     }
 
     public void build() {
-        for (calc.paramSpecific.pass = 1; calc.paramSpecific.pass < 4; calc.paramSpecific.pass++) {
+        for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
 
             int systree_artikl_id = -1;
             List<Record> sysprofList = eSysprof.find(iwin.nuni);
@@ -74,10 +74,10 @@ public class Filling extends Cal5e {
 
         //TODO в заполненииях текстура подбирается неправильно
         ArrayList<Record> pargrupList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
-        boolean out = calc.paramVariant.checkPargrup(elemGlass, pargrupList); //ФИЛЬТР вариантов
+        boolean out = calc().paramVariant.checkPargrup(elemGlass, pargrupList); //ФИЛЬТР вариантов
         if (out == true) {
 
-            if (calc.paramSpecific.pass == 2) {
+            if (calc().paramSpecific.pass == 2) {
                 elemGlass.setSpecifElement(); //заполним спецификацию элемента
             }
             ArrayList<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
@@ -87,9 +87,9 @@ public class Filling extends Cal5e {
 
                 HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
                 List<Record> glaspar2List = eGlaspar2.find(clasdetRec.getInt(eGlasdet.id)); //список параметров спецификации
-                if (calc.paramSpecific.checkFilling(hmParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР спец.
+                if (calc().paramSpecific.checkFilling(hmParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР спец.
 
-                    if (calc.paramSpecific.pass == 1 || calc.paramSpecific.pass == 3) {
+                    if (calc().paramSpecific.pass == 1 || calc().paramSpecific.pass == 3) {
                         continue; //если нулевой и второй цыкл ничего не создаём
                     }
                     Specification specif = null;
@@ -272,7 +272,7 @@ public class Filling extends Cal5e {
 
         //TODO в заполненииях текстура подбирается неправильно
         List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
-        boolean out = calc.paramVariant.checkPargrup(elemGlass, glaspar1List); //ФИЛЬТР вариантов
+        boolean out = calc().paramVariant.checkPargrup(elemGlass, glaspar1List); //ФИЛЬТР вариантов
         if (out == true) {
 
             elemGlass.setSpecifElement(); //заполним спецификацию элемента
@@ -285,7 +285,7 @@ public class Filling extends Cal5e {
                 Record artiklRec = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), true);
                 float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
                 List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров спецификации
-                out = calc.paramSpecific.checkSpecific(hmParam, elemGlass, glaspar2List); //ФИЛЬТР спецификаций
+                out = calc().paramSpecific.checkSpecific(hmParam, elemGlass, glaspar2List); //ФИЛЬТР спецификаций
                 Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
                 if (out == true) {
                     //Стеклопакет

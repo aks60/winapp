@@ -30,7 +30,7 @@ public class Accessory extends Cal5e {
     }
 
     public void build() {
-        for (calc.paramSpecific.pass = 1; calc.paramSpecific.pass < 4; calc.paramSpecific.pass++) {
+        for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
 
             LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
             //цикл по створкам
@@ -68,7 +68,7 @@ public class Accessory extends Cal5e {
                 for (Record furnside1Rec : furnside1List) {
 
                     List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
-                    out = calc.paramVariant.checkParfurl(fullStvorka, parfurlList); //параметры вариантов
+                    out = calc().paramVariant.checkParfurl(fullStvorka, parfurlList); //параметры вариантов
                     if (out == false) break;
                 }
                 if (out == false) continue;
