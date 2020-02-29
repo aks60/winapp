@@ -54,13 +54,13 @@ public abstract class Com5t {
         return id;
     }
 
-//    public AreaSimple root() {
-//        return iwin.rootArea;
-//    }
-//
-//    public Wincalc iwin() {
-//        return iwin;
-//    }
+    public AreaSimple root() {
+        return iwin.rootArea;
+    }
+
+    public Wincalc iwin() {
+        return iwin;
+    }
 
     public void setDimension(float x1, float y1, float x2, float y2) {
         this.x1 = x1;
