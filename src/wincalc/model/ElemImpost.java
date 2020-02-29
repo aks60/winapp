@@ -19,18 +19,18 @@ public class ElemImpost extends ElemSimple {
 
     public ElemImpost(AreaSimple owner, float id) {
 
-        super(id, owner.iwin, owner);      
+        super(id, owner.iwin(), owner);      
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
-        color1 = iwin.color1;
-        color2 = iwin.color2;
-        color3 = iwin.color3;
+        color1 = iwin().color1;
+        color2 = iwin().color2;
+        color3 = iwin().color3;
         this.typeElem = TypeElem.IMPOST;
         initСonstructiv();
 
         //Коррекция положения импоста арки
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
                 float dh = artiklRec.getFloat(eArtikl.height) / 2;  
-                owner.listChild().add(new AreaSquare(iwin, owner, owner.id + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
+                owner.listChild().add(new AreaSquare(iwin(), owner, owner.id + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {
@@ -54,10 +54,10 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-           sysprofRec = eSysprof.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.HORIZ);  
+           sysprofRec = eSysprof.find3(iwin().nuni, TypeProfile.IMPOST, ProfileSide.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-           sysprofRec = eSysprof.find3(iwin.nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
+           sysprofRec = eSysprof.find3(iwin().nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);  

@@ -21,9 +21,9 @@ public abstract class ElemSimple extends Com5t {
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {  
         
-        iwin.listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
-        int x = (int) (X / iwin.scale1) - Com5t.TRANSLATE_X;
-        int y = (int) (Y / iwin.scale1) - Com5t.TRANSLATE_Y;        
+        iwin().listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
+        int x = (int) (X / iwin().scale1) - Com5t.TRANSLATE_X;
+        int y = (int) (Y / iwin().scale1) - Com5t.TRANSLATE_Y;        
         borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;                
         return inside(x, y);        
     }

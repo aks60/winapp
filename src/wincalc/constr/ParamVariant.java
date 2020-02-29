@@ -89,7 +89,7 @@ public class ParamVariant {
                     }
                     break;
                 case 31004: //Если прилегающий артикул
-                    HashMap<String, ElemJoining> mapJoin = com5t.iwin.mapJoin;
+                    HashMap<String, ElemJoining> mapJoin = com5t.iwin().mapJoin;
                     boolean ret = false;
                     for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
                         ElemJoining el = elemJoin.getValue();
@@ -358,7 +358,7 @@ public class ParamVariant {
                     return false; //Т. к. есть системные константы
                 case "085":
                     System.out.println("надпись на элем. записать");
-                    elemJoin.joinElement1.iwin.labelSketch = paramRec.getStr(PAR3);
+                    elemJoin.joinElement1.iwin().labelSketch = paramRec.getStr(PAR3);
                     break;
                 case "095": //Если признак системы конструкции
                     Record systreeRec = eSystree.find(iwin.nuni);
