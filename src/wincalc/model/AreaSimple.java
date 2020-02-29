@@ -87,13 +87,13 @@ public class AreaSimple extends Com5t {
 
     public <E> void listCom5t(Com5t com5t, LinkedList<E> list, List<TypeElem> type) {
 
-        if (type.contains(com5t.this.type)) {
+        if (type.contains(com5t.type)) {
             list.add((E) com5t);
         }
         if (com5t instanceof AreaSimple) {
             Collection<ElemFrame> set = ((AreaSimple) com5t).mapFrame.values();
             for (ElemFrame frm : set) {
-                if (type.contains(frm.this.type)) {
+                if (type.contains(frm.type)) {
                     list.add((E) frm);
                 }
             }

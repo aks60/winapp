@@ -237,16 +237,16 @@ public class Wincalc {
                 if (TypeElem.FULLSTVORKA == imd.type) {
                     imd.addArea(new AreaStvorka(this, imd.owner.area, imd.id, imd.param));
                 } else {
-                    if (TypeElem.SQUARE == rootArea.type) {
+                    if (TypeElem.SQUARE == rootArea.type()) {
                         imd.addArea(new AreaSquare(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //простое
 
-                    } else if (TypeElem.TRAPEZE == rootArea.type) {
+                    } else if (TypeElem.TRAPEZE == rootArea.type()) {
                         imd.addArea(new AreaTrapeze(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //трапеция
 
-                    } else if (TypeElem.TRIANGL == rootArea.type) {
+                    } else if (TypeElem.TRIANGL == rootArea.type()) {
                         imd.addArea(new AreaTriangl(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //треугольник
 
-                    } else if (TypeElem.ARCH == rootArea.type) {
+                    } else if (TypeElem.ARCH == rootArea.type()) {
                         imd.addArea(new AreaArch(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //арка
                     }
                 }
