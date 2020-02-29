@@ -71,6 +71,10 @@ public abstract class Com5t {
         this.y2 = y2;
     }
 
+    public int color(int i) {
+      return 1;  
+    }
+    
     public float width() {
         return x2 - x1;
     }
