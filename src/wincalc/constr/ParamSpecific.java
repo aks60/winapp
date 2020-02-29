@@ -128,19 +128,19 @@ public class ParamSpecific {
                     }
                     break;
                 case "005":
-                    int m1 = com5t.iwin.color1;
+                    int m1 = com5t.iwin().color1;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m1) == false) {
                         return false;
                     }
                     break;
                 case "006":
-                    int m2 = com5t.iwin.color2;
+                    int m2 = com5t.iwin().color2;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m2) == false) {
                         return false;
                     }
                     break;
                 case "007":
-                    int m3 = com5t.iwin.color3;
+                    int m3 = com5t.iwin().color3;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m3) == false) {
                         return false;
                     }
@@ -180,19 +180,19 @@ public class ParamSpecific {
                     }
                     break;
                 case "067": //Коды основной текстуры изделия
-                    int c1 = com5t.iwin.color1;
+                    int c1 = com5t.iwin().color1;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
                         return false;
                     }
                     break;
                 case "068": //Код внутренней структуры изделия
-                    int c2 = com5t.iwin.color2;
+                    int c2 = com5t.iwin().color2;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
                         return false;
                     }
                     break;
                 case "069"://Коды внешн. текстуры изделия
-                    int c3 = com5t.iwin.color3;
+                    int c3 = com5t.iwin().color3;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
                         return false;
                     }
@@ -257,15 +257,15 @@ public class ParamSpecific {
                     if (ret2 == false) return false;
                     break;
                 case "005":
-                    int m1 = com5t.iwin.color1;
+                    int m1 = com5t.iwin().color1;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m1) == false) return false;
                     break;
                 case "006":
-                    int m2 = com5t.iwin.color2;
+                    int m2 = com5t.iwin().color2;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m2) == false) return false;
                     break;
                 case "007":
-                    int m3 = com5t.iwin.color3;
+                    int m3 = com5t.iwin().color3;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m3) == false) return false;
                     break;
                 case "010": //Расчёт армирования
@@ -301,15 +301,15 @@ public class ParamSpecific {
                         return false;
                     break;
                 case "067": //Коды основной текстуры изделия
-                    int c1 = com5t.iwin.color1;
+                    int c1 = com5t.iwin().color1;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c1) == false) return false;
                     break;
                 case "068": //Код внутренней структуры изделия
-                    int c2 = com5t.iwin.color2;
+                    int c2 = com5t.iwin().color2;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c2) == false) return false;
                     break;
                 case "069"://Коды внешн. текстуры изделия
-                    int c3 = com5t.iwin.color3;
+                    int c3 = com5t.iwin().color3;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
                     break;
                 case "070": //Длина, мм
@@ -400,7 +400,7 @@ public class ParamSpecific {
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));  //УЧЕСТ В СПЕЦИФИКАЦИИ!!!
                     break;
                 case 24069://Коды внешн. текстуры изделия
-                    int c3 = com5t.iwin.color3;
+                    int c3 = com5t.iwin().color3;
                     if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
                     break;
                 case 24070://Если высота ручки

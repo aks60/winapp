@@ -26,14 +26,8 @@ public class AreaSimple extends Com5t {
     protected float deltaX = 0;
     protected float deltaY = 0;
 
-    public AreaSimple(int id) {
-        super(id);
-    }
-
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
-        super(id);
-        this.iwin = iwin;
-        this.owner = owner;
+        super(id, iwin, owner);
         this.typeElem = typeElem;
         this.layout = layout;
         this.color1 = color1;
@@ -48,22 +42,22 @@ public class AreaSimple extends Com5t {
             setDimension(0, 0, width, height);
 
         } else {
-            if(id == 11) {
-                //
-            }
-            LinkedList<AreaSimple> listArea = listElem(TypeElem.AREA);
-            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(owner.x1 + (owner.x2 - owner.x1) / 2, owner.y1 + 1) == true).findFirst().orElse(null);
-                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
-                //System.out.println(prevArea);
-                //height = height - dy;
-
-            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
-                width = width - dx;
-                //System.out.println(id + "  " + dx);
-            }
+//            if(id == 11) {
+//                int mm = 0;
+//            }
+//            LinkedList<AreaSimple> listArea = root().listElem(TypeElem.AREA);
+//            if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
+//                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(owner.x1 + (owner.x2 - owner.x1) / 2, owner.y1  - 5) == true).findFirst().orElse(null);
+//                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
+//                //System.out.println(prevArea);
+//                //height = height - dy;
+//
+//            } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
+//                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
+//                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
+//                width = width - dx;
+//                //System.out.println(id + "  " + dx);
+//            }
 
             //Заполним по умолчанию
             if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
@@ -133,14 +127,14 @@ public class AreaSimple extends Com5t {
                 continue; //такая ситуация встречается в подкладке Area в арке
             }
             ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
-            ElemJoining el = new ElemJoining(iwin);
+            ElemJoining el = new ElemJoining(iwin());
             String pk = it.getKey();
 
             //В соединении только комбинация элемента рамы и импоста (T - соединение)
             if (((arrElem[0].typeElem() == TypeElem.FRAME_BOX && arrElem[1].typeElem() == TypeElem.FRAME_BOX)
                     || (arrElem[0].typeElem() == TypeElem.FRAME_STV && arrElem[1].typeElem() == TypeElem.FRAME_STV)) == false) {
 
-                iwin.mapJoin.put(pk, el);
+                iwin().mapJoin.put(pk, el);
                 ElemSimple arrElem2[][] = {{arrElem[0], arrElem[1]}, {arrElem[1], arrElem[0]}}; //варианты общих точек пересечения
                 for (ElemSimple[] indexEl : arrElem2) {
                     ElemSimple e1 = indexEl[1];
@@ -203,7 +197,7 @@ public class AreaSimple extends Com5t {
     //Рисуем конструкцию
     public void draw(int width, int height) {
         try {
-            iwin.gc2d.fillRect(0, 0, width, height);
+            iwin().gc2d.fillRect(0, 0, width, height);
 
             //Прорисовка стеклопакетов
             LinkedList<ElemGlass> elemGlassList = root().listElem(TypeElem.GLASS);
@@ -239,32 +233,32 @@ public class AreaSimple extends Com5t {
             }
             Collections.sort(ls1);
             Collections.sort(ls2);
-            float dy = iwin.heightAdd - iwin.height;
+            float dy = iwin().heightAdd - iwin().height;
             int mov = 80;
             for (int i = 1; i < ls1.size(); i++) {
                 float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-                line(x1, (iwin.heightAdd + mov), x2, (iwin.heightAdd + mov), 0);
+                line(x1, (iwin().heightAdd + mov), x2, (iwin().heightAdd + mov), 0);
             }
             for (int i = 1; i < ls2.size(); i++) {
                 float y1 = ls2.get(i - 1), y2 = ls2.get(i);
                 line((this.x2 + mov), y1, (this.x2 + mov), y2, dy);
             }
             if (ls1.size() > 2) { //линия общей ширины
-                line(root().x1, iwin.heightAdd + mov * 2, root().x2, iwin.heightAdd + mov * 2, 0);
+                line(root().x1, iwin().heightAdd + mov * 2, root().x2, iwin().heightAdd + mov * 2, 0);
             }
             if (ls2.size() > 2) { //линия общей высоты
-                line(iwin.width + mov * 2, 0, iwin.width + mov * 2, iwin.heightAdd, 0);
+                line(iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().heightAdd, 0);
             }
 
             //Рисунок в память
-            if (iwin.bufferImg != null) {
+            if (iwin().bufferImg != null) {
                 ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
-                ImageIO.write(iwin.bufferImg, "png", bosFill);
-                iwin.bufferByte = bosFill.toByteArray();
+                ImageIO.write(iwin().bufferImg, "png", bosFill);
+                iwin().bufferByte = bosFill.toByteArray();
 
                 if (Main.dev == true) {
                     File outputfile = new File("CanvasImage.png");
-                    ImageIO.write(iwin.bufferImg, "png", outputfile);
+                    ImageIO.write(iwin().bufferImg, "png", outputfile);
                 }
             }
         } catch (Exception s) {
@@ -274,9 +268,9 @@ public class AreaSimple extends Com5t {
 
     private void line(float x1, float y1, float x2, float y2, float dy) {
 
-        if (iwin.scale2 == 1) {
-            iwin.gc2d.setColor(java.awt.Color.BLACK);
-            iwin.gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
+        if (iwin().scale2 == 1) {
+            iwin().gc2d.setColor(java.awt.Color.BLACK);
+            iwin().gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
             setStroke(6); //толщина линии
             y1 = y1 + dy;
             y2 = y2 + dy;

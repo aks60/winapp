@@ -26,9 +26,7 @@ public class ElemGlass extends ElemSimple {
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
-        super(id);
-        this.owner = owner;
-        this.iwin = owner.iwin;
+        super(id, owner.iwin(), owner);
         this.layout = LayoutArea.FULL;
         this.typeElem = TypeElem.GLASS;
 
@@ -42,7 +40,7 @@ public class ElemGlass extends ElemSimple {
         parsing(param);
 
         if (TypeElem.ARCH == owner.typeElem()) {
-            setDimension(owner.x1, owner.y1, owner.x2, iwin.heightAdd - owner.y2);
+            setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
             //TODO putHmParam(13015, ARCHED);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
@@ -55,12 +53,12 @@ public class ElemGlass extends ElemSimple {
         Object code = mapParam.get(ParamJson.nunic_iwin);
         artiklRec = eArtikl.find2(String.valueOf(code));
         if (artiklRec == null) {
-            Record sysreeRec = eSystree.find(iwin.nuni); //по умолчанию стеклопакет
+            Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
-        sysprofRec = eSysprof.find3(iwin.nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
+        sysprofRec = eSysprof.find3(iwin().nuni, TypeProfile.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
-            artiklRec.set(eArtikl.tech_code, iwin.artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
+            artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
         //Цвет стекла
 //        Record artdetRec = eArtdet.find(artiklRec.getInt(eArtikl.id));
@@ -70,9 +68,9 @@ public class ElemGlass extends ElemSimple {
 //        color3 = colorRec.getInt(eColor.color);
 
         //TODO Разобраться с цветом стекла
-        color1 = iwin.colorNone;
-        color2 = iwin.colorNone;
-        color3 = iwin.colorNone;
+        color1 = iwin().colorNone;
+        color2 = iwin().colorNone;
+        color3 = iwin().colorNone;
 
         specificationRec.setArtiklRec(artiklRec);
     }
@@ -114,16 +112,16 @@ public class ElemGlass extends ElemSimple {
 
         } else {
 
-            Com5t elemTop = owner.iwin.mapJoin.get(owner.x1 + ":" + owner.y1).elemJoinRight;
+            Com5t elemTop = owner.iwin().mapJoin.get(owner.x1 + ":" + owner.y1).elemJoinRight;
             y1 = elemTop.y2 - elemTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            Com5t elemBottom = owner.iwin.mapJoin.get(owner.x1 + ":" + owner.y2).elemJoinRight;
+            Com5t elemBottom = owner.iwin().mapJoin.get(owner.x1 + ":" + owner.y2).elemJoinRight;
             y2 = elemBottom.y1 + elemBottom.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
-            Com5t elemLeft = owner.iwin.mapJoin.get(owner.x1 + ":" + owner.y1).elemJoinBottom;
+            Com5t elemLeft = owner.iwin().mapJoin.get(owner.x1 + ":" + owner.y1).elemJoinBottom;
             x1 = elemLeft.x2 - elemLeft.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            Com5t elemRight = owner.iwin.mapJoin.get(owner.x2 + ":" + owner.y1).elemJoinBottom;
+            Com5t elemRight = owner.iwin().mapJoin.get(owner.x2 + ":" + owner.y1).elemJoinBottom;
             x2 = elemRight.x1 + elemRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
             specificationRec.width = width();
@@ -139,7 +137,7 @@ public class ElemGlass extends ElemSimple {
     
     @Override
     public void paint() { //рисуём стёкла
-        iwin.gc2d.setColor(new java.awt.Color(226, 255, 250));
+        iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
         if (owner.typeElem() == TypeElem.ARCH) {
             ElemFrame ef = root().mapFrame.get(LayoutArea.ARCH);
@@ -150,7 +148,7 @@ public class ElemGlass extends ElemSimple {
             fillArc((float)(root().width() / 2 - r + dz), dz, (float)((r - dz) * 2), (float)((r - dz) * 2), (float)ang2, (float)((90 - ang2) * 2));
 
         } else {
-            float h = iwin.heightAdd - iwin.height;
+            float h = iwin().heightAdd - iwin().height;
             fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
         }

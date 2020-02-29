@@ -17,16 +17,9 @@ public class ElemFrame extends ElemSimple {
     protected float anglCut1 = 45; //Угол реза рамы
     protected float anglCut2 = 45; //Угол реза рамы
 
-    public ElemFrame(float id) {
-        super(id);
-        this.typeElem = (TypeElem.FULLSTVORKA == owner.typeElem()) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
-    }
-
     public ElemFrame(AreaSimple owner, float id, LayoutArea layout) {
-        super(id);
-        this.owner = owner;
+        super(id, owner.iwin(), owner);
         this.layout = layout;
-        this.iwin = owner.iwin;
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;
@@ -56,13 +49,13 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.TOP);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.TOP);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.BOTTOM);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.BOTTOM);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.LEFT);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.LEFT);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin.nuni, typeProfile(), ProfileSide.RIGHT);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.RIGHT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
@@ -71,7 +64,7 @@ public class ElemFrame extends ElemSimple {
      public void setSpecifElement(Record sysprofRec) {  //добавление основной спесификации
 
         specificationRec.element = layout.name;
-        float napl = iwin.sysconsRec.getFloat(eSyscons.napl);
+        float napl = iwin().sysconsRec.getFloat(eSyscons.napl);
         Record artiklRec =  eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
         specificationRec.color1 = color1;
@@ -79,7 +72,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.color3 = color3;
         specificationRec.discount = 0;
         specificationRec.anglHoriz = anglHoriz;
-        specificationRec.id = ++iwin.specId;
+        specificationRec.id = ++iwin().specId;
 
         //Простое окно
         if (LayoutArea.TOP == layout) {
@@ -91,7 +84,7 @@ public class ElemFrame extends ElemSimple {
             specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-            specificationRec.width = y2 - y1 +  iwin.sysconsRec.getFloat(eSyscons.prip);
+            specificationRec.width = y2 - y1 +  iwin().sysconsRec.getFloat(eSyscons.prip);
             specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
@@ -176,7 +169,7 @@ public class ElemFrame extends ElemSimple {
     @Override
     public void paint() {
         float d1z = artiklRec.getFloat(eArtikl.height);
-        float h = iwin.heightAdd - iwin.height;
+        float h = iwin().heightAdd - iwin().height;
         float w = root().width();
         float y1h = y1 + h;
         float y2h = y2 + h;

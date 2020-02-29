@@ -6,6 +6,7 @@ import wincalc.constr.Specification;
 import enums.TypeProfile;
 import java.awt.Color;
 import java.util.HashMap;
+import wincalc.Wincalc;
 
 public abstract class ElemSimple extends Com5t {
 
@@ -13,16 +14,16 @@ public abstract class ElemSimple extends Com5t {
     protected Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
-    public ElemSimple(float id) {
-        super(id);
+    public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
+        super(id, iwin, owner);
     }
 
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {  
         
-        iwin.listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
-        int x = (int) (X / iwin.scale1) - Com5t.TRANSLATE_X;
-        int y = (int) (Y / iwin.scale1) - Com5t.TRANSLATE_Y;        
+        iwin().listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
+        int x = (int) (X / iwin().scale1) - Com5t.TRANSLATE_X;
+        int y = (int) (Y / iwin().scale1) - Com5t.TRANSLATE_Y;        
         borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;                
         return inside(x, y);        
     }

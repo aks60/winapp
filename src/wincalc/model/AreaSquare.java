@@ -16,7 +16,7 @@ public class AreaSquare extends AreaSimple {
     @Override
     public void joinFrame() {
         for (int index = 0; index < 4; index++) {
-            ElemJoining el = new ElemJoining(iwin);
+            ElemJoining el = new ElemJoining(iwin());
             el.varJoin = JoinVariant.VAR2;
             el.id = id + (index + 1) / 100;
             el.cutAngl1 = 45;
@@ -27,28 +27,28 @@ public class AreaSquare extends AreaSimple {
                 el.typeJoin = JoinLocate.LTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
-                iwin.mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);
+                iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);
 
             } else if (index == 1) {
                 el.name = "Угловое соединение левое нижнее";
                 el.typeJoin = JoinLocate.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
-                iwin.mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
+                iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
 
             } else if (index == 2) {
                 el.name = "Угловое соединение правое нижнее";
                 el.typeJoin = JoinLocate.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
-                iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
+                iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
 
             } else if (index == 3) {
                 el.name = "Угловое соединение правое верхнее";
                 el.typeJoin = JoinLocate.RTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
-                iwin.mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
+                iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
             }
         }
     }

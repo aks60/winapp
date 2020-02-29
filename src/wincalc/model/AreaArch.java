@@ -31,14 +31,14 @@ public class AreaArch extends AreaSimple {
     @Override
     public void joinFrame() {
 
-        ElemJoining elem = new ElemJoining(iwin);
+        ElemJoining elem = new ElemJoining(iwin());
         elem.id = id + .1f;
         elem.name = "Угловое соединение левое верхнее";
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
 
         float dz = elem.joinElement1.artiklRec.getFloat(eArtikl.height);
-        float h = iwin.heightAdd - height();
+        float h = iwin().heightAdd - height();
         float w = width();
         double r = (Math.pow(w / 2, 2) + Math.pow(h, 2)) / (2 * h);  //R = (L2 + H2) / 2H - радиус арки
         radiusArch = r; //запишем радиус дуги в AreaArch
@@ -55,10 +55,10 @@ public class AreaArch extends AreaSimple {
         elem.anglProf = (float) ang4;
         elem.joinElement1.anglCut(ElemSimple.SIDE_END, elem.cutAngl2);
         elem.joinElement2.anglCut(ElemSimple.SIDE_START, elem.cutAngl1);
-        iwin.mapJoin.put(x1 + ":" + y1, elem);
+        iwin().mapJoin.put(x1 + ":" + y1, elem);
 
         for (int index = 0; index < 3; index++) {
-            ElemJoining el = new ElemJoining(iwin);
+            ElemJoining el = new ElemJoining(iwin());
             el.varJoin = JoinVariant.VAR2;
             el.id = id + (index + 2) / 10;
             el.cutAngl1 = 45;
@@ -73,21 +73,21 @@ public class AreaArch extends AreaSimple {
                 el.anglProf = (float) ang4;
                 el.joinElement1.anglCut(ElemSimple.SIDE_START, el.cutAngl2);
                 el.joinElement2.anglCut(ElemSimple.SIDE_END, el.cutAngl1);
-                iwin.mapJoin.put(x2 + ":" + y1, el);
+                iwin().mapJoin.put(x2 + ":" + y1, el);
 
             } else if (index == 1) {
                 el.name = "Угловое соединение левое нижнее";
                 el.typeJoin = JoinLocate.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
-                iwin.mapJoin.put(x1 + ":" + y2, el);
+                iwin().mapJoin.put(x1 + ":" + y2, el);
 
             } else if (index == 2) {
                 el.name = "Угловое соединение правое нижнее";
                 el.typeJoin = JoinLocate.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
-                iwin.mapJoin.put(x2 + ":" + y2, el);
+                iwin().mapJoin.put(x2 + ":" + y2, el);
             }
         }
     }
