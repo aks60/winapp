@@ -32,7 +32,7 @@ public class AreaArch extends AreaSimple {
     public void joinFrame() {
 
         ElemJoining elem = new ElemJoining(iwin());
-        elem.id = id + .1f;
+        elem.id = id() + .1f;
         elem.name = "Угловое соединение левое верхнее";
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
@@ -60,7 +60,7 @@ public class AreaArch extends AreaSimple {
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.varJoin = JoinVariant.VAR2;
-            el.id = id + (index + 2) / 10;
+            el.id = id() + (index + 2) / 10;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 

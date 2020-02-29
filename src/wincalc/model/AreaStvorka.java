@@ -89,7 +89,7 @@ public class AreaStvorka extends AreaSimple {
 
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.id = id + (index + 1);
+            el.id = id() + (index + 1);
             el.varJoin = JoinVariant.VAR2;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
@@ -126,7 +126,7 @@ public class AreaStvorka extends AreaSimple {
 
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.id = id + (index + 1);
+            el.id = id() + (index + 1);
             el.varJoin = JoinVariant.VAR1;
             el.cutAngl1 = 0;
             el.cutAngl2 = 0;

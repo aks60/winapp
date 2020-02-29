@@ -29,7 +29,7 @@ public abstract class Com5t {
     private LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
-    protected float id = -1; //идентификатор    
+    private float id = -1; //идентификатор    
     private AreaSimple owner = null; //владелец
     private Wincalc iwin = null; //главный класс калькуляции
 
@@ -48,7 +48,7 @@ public abstract class Com5t {
         specificationRec = new Specification(id, this);
     }
 
-    public float getId() {
+    public float id() {
         return id;
     }
 
@@ -207,7 +207,7 @@ public abstract class Com5t {
     }
 
     public String toString() {
-        float ownerID = (owner == null) ? -1 : owner.id;
+        float ownerID = (owner == null) ? -1 : owner.id();
         return "ELEM " + typeElem.name() + ", owner=" + ownerID + ", id=" + id + ", x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2;
     }
 

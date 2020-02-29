@@ -103,7 +103,7 @@ public class ElemGlass extends ElemSimple {
             
             specificationRec.width = width();
 
-            specificationRec.id = id;
+            specificationRec.id = id();
             specificationRec.element = "Арочное";
             specificationRec.setArtiklRec(artiklRec);
             specificationRec.color1 = color1;
@@ -126,7 +126,7 @@ public class ElemGlass extends ElemSimple {
 
             specificationRec.width = width();
             specificationRec.height = height();
-            specificationRec.id = id;
+            specificationRec.id = id();
             specificationRec.element = "Прямоугольное";
             specificationRec.setArtiklRec(artiklRec);
             specificationRec.color1 = color1;
@@ -164,13 +164,13 @@ public class ElemGlass extends ElemSimple {
             return;
 
         } else if (TypeArtikl.SHTAPIK.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 1) { //штапик
-            specif.id = getId();
+            specif.id = id();
 
         } else if (TypeArtikl.KONZEVPROF.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 3) { //уплотнитель
-            specif.id = getId();
+            specif.id = id();
 
         } else {
-            specif.id = getId();
+            specif.id = id();
         }
         quantityMaterials(specif);        
         specificationRec.specificationList.add(specif);

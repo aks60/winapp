@@ -44,11 +44,11 @@ public class ElemJoining {
     }
 
     public boolean equals(Object obj) {
-        return id == ((Com5t) obj).id;
+        return id == ((Com5t) obj).id();
     }
 
     public String toString() {
-        return "ELEM: name=" + name + ", joinElement1=" + joinElement1.id + ", joinElement1=" + joinElement2.id
+        return "ELEM: name=" + name + ", joinElement1=" + joinElement1.id() + ", joinElement1=" + joinElement2.id()
                 + ", cutAngl1=" + cutAngl1 + ", cutAngl2=" + cutAngl1 + ", typeJoin=" + typeJoin + ", varJoin=" + varJoin + ", anglProf=" + anglProf;
     }
 }

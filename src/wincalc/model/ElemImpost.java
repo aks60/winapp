@@ -30,7 +30,7 @@ public class ElemImpost extends ElemSimple {
         //Коррекция положения импоста арки
         if ((TypeElem.ARCH == owner.typeElem() || TypeElem.TRAPEZE == owner.typeElem()) && owner.listChild().isEmpty()) {
                 float dh = artiklRec.getFloat(eArtikl.height) / 2;  
-                owner.listChild().add(new AreaSquare(iwin(), owner, owner.id + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
+                owner.listChild().add(new AreaSquare(iwin(), owner, owner.id() + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
         //Установка координат
         for (int index = owner.listChild().size() - 1; index >= 0; --index) {

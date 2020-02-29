@@ -109,7 +109,7 @@ public class Wincalc {
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.getId(), b.getId())));
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
 
         //Тестирование                
         //listSpec.stream().forEach(rec -> System.out.println(rec));
