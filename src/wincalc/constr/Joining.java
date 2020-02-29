@@ -26,7 +26,7 @@ public class Joining extends Cal5e {
 
     public void build() {
 
-        HashMap<String, ElemJoining> hmJoinElem = iwin.mapJoin; //список соединений
+        HashMap<String, ElemJoining> hmJoinElem = iwin().mapJoin; //список соединений
         //Цикл по списку соединений
         for (Map.Entry<String, ElemJoining> hmElemJoin : hmJoinElem.entrySet()) {
 

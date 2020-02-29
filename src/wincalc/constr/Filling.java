@@ -35,8 +35,8 @@ public class Filling extends Cal5e {
         for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
 
             int systree_artikl_id = -1;
-            List<Record> sysprofList = eSysprof.find(iwin.nuni);
-            LinkedList<ElemGlass> elemGlassList = iwin.rootArea.listElem(TypeElem.GLASS);
+            List<Record> sysprofList = eSysprof.find(iwin().nuni);
+            LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
             
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
@@ -137,8 +137,8 @@ public class Filling extends Cal5e {
                             //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
                             double koef = 2;
                             Com5t ramaArch = elemGlass.root().mapFrame.get(LayoutArea.ARCH);
-                            double R2 = ((AreaArch) iwin.rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getDbl(eArtikl.height);
-                            double L2 = iwin.rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getDbl(eArtikl.height) * 2 - koef;
+                            double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getDbl(eArtikl.height);
+                            double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getDbl(eArtikl.height) * 2 - koef;
                             double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
                             double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
                             double Z = 3 * gzazo;
@@ -328,8 +328,8 @@ public class Filling extends Cal5e {
                             //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
                             double koef = 2;
                             Com5t ramaArch = elemGlass.root().mapFrame.get(LayoutArea.ARCH);
-                            double R2 = ((AreaArch) iwin.rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getFloat(eArtikl.height);
-                            double L2 = iwin.rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getFloat(eArtikl.height) * 2 - koef;
+                            double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getFloat(eArtikl.height);
+                            double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getFloat(eArtikl.height) * 2 - koef;
                             double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
                             double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
                             double Z = 3 * gzazo;

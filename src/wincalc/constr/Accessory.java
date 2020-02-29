@@ -37,7 +37,7 @@ public class Accessory extends Cal5e {
             for (AreaStvorka fullStvorka : elemStvorkaList) {
 
                 //Подбор фурнитуры
-                List<Record> sysfurnList = eSysfurn.find(iwin.nuni);
+                List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
                 Record sysfurnRec = sysfurnList.get(0);
                 int funic = Integer.valueOf(fullStvorka.mapParam.get(ParamJson.funic).toString());
                 if (funic != -1) {
@@ -51,7 +51,7 @@ public class Accessory extends Cal5e {
                 //Подбор текстуры ручки створки
                 Object colorHandl = fullStvorka.mapParam.get(ParamJson.colorHandl);
                 if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
-                    fullStvorka.mapParam.put(ParamJson.colorHandl, iwin.color1);
+                    fullStvorka.mapParam.put(ParamJson.colorHandl, iwin().color1);
                 }
 
                 if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("по середине"))

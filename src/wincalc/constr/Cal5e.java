@@ -9,7 +9,7 @@ import wincalc.model.Com5t;
 
 public class Cal5e {
 
-    protected Wincalc iwin = null;
+    private Wincalc iwin = null;
     private CalcConstructiv calc = null;
 
     public Cal5e(Wincalc iwin, CalcConstructiv calc) {

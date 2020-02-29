@@ -34,7 +34,7 @@ public class Сomposition extends Cal5e {
     //Но при проверке параметров использую вирт. мат. ценность.
     public void build() {
         try {
-            ArrayList<Record> sysprofList = eSysprof.find(iwin.nuni);
+            ArrayList<Record> sysprofList = eSysprof.find(iwin().nuni);
 
             //Цыкл по профилям системы
             for (Record sysprofRec : sysprofList) {
@@ -50,9 +50,9 @@ public class Сomposition extends Cal5e {
                         int color_id = artdetRec.getInt(eArtdet.color_id);
                         Record colorRec = eColor.find(color_id);
                         int color_code = colorRec.getInt(eColor.code);
-                        if (color_code == iwin.color1) {
+                        if (color_code == iwin().color1) {
                             is = true;
-                            LinkedList<ElemFrame> listFrame = iwin.rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV);
+                            LinkedList<ElemFrame> listFrame = iwin().rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV);
                             for (ElemFrame recordFrame : listFrame) {
 
                                 recordFrame.setSpecifElement(sysprofRec);
@@ -80,9 +80,9 @@ public class Сomposition extends Cal5e {
                     for (Record artdetRec : artdetList) {
 
                         Record artiklCol = eColor.find(artdetRec.getInt(eColor.id));
-                        if (artiklCol.getInt(eColor.code) == iwin.color1) {
+                        if (artiklCol.getInt(eColor.code) == iwin().color1) {
                             is = true;
-                            LinkedList<ElemImpost> impostList = iwin.rootArea.listElem(TypeElem.IMPOST);
+                            LinkedList<ElemImpost> impostList = iwin().rootArea.listElem(TypeElem.IMPOST);
                             for (ElemImpost elemInpost : impostList) {
 
                                 String series = elemInpost.artiklRec.getStr(eArtikl.series);
@@ -106,9 +106,9 @@ public class Сomposition extends Cal5e {
                     for (Record artdetRec : artdetList) {
 
                         Record artiklCol = eColor.find(artdetRec.getInt(eColor.id));
-                        if (artiklCol.getInt(eColor.code) == iwin.color1) {
+                        if (artiklCol.getInt(eColor.code) == iwin().color1) {
                             is = true;
-                            LinkedList<ElemImpost> impostList = iwin.rootArea.listElem(TypeElem.IMPOST);
+                            LinkedList<ElemImpost> impostList = iwin().rootArea.listElem(TypeElem.IMPOST);
                             for (ElemImpost elemInpost : impostList) {
 
                                 elemInpost.setSpecifElement(record);
