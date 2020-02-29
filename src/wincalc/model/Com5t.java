@@ -25,8 +25,8 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
-    protected TypeElem type = TypeElem.NONE;
     public LinkedList<Com5t> listChild = new LinkedList(); //список компонентов в окне
+    protected TypeElem type = TypeElem.NONE;    
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
 
     private float id = -1; //идентификатор    
@@ -70,10 +70,6 @@ public abstract class Com5t {
         this.x2 = x2;
         this.y2 = y2;
     }
-
-    public int color(int i) {
-      return 1;  
-    }
     
     public float width() {
         return x2 - x1;
@@ -112,10 +108,6 @@ public abstract class Com5t {
             System.err.println("Ошибка Com5t.parsingParam() " + e);
         }
     }
-
-//    public LinkedList<Com5t> listChild() {
-//        return listChild;
-//    }
 
     public TypeElem type() {
         return type;
