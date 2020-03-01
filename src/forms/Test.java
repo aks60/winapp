@@ -58,7 +58,7 @@ public class Test extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jPanel8);
 
-        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel9.setLayout(new java.awt.GridLayout());
 
         jPanel6.setPreferredSize(new java.awt.Dimension(275, 385));
 
@@ -73,7 +73,7 @@ public class Test extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(jButton2)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addGap(0, 100, Short.MAX_VALUE)
