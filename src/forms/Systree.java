@@ -10,15 +10,18 @@ import domain.eArtikl;
 import domain.eFurniture;
 import domain.eSysfurn;
 import domain.eSyspar1;
+import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.TypeSys;
 import java.awt.CardLayout;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +35,7 @@ import wincalc.Wincalc;
 import wincalc.model.PaintPanel;
 import wincalc.script.Winscript;
 
-public class Systree extends javax.swing.JFrame {
+public class Systree extends javax.swing.JFrame implements FrameListener<Object, Integer> {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
@@ -68,7 +71,7 @@ public class Systree extends javax.swing.JFrame {
 
     public Systree() {
         initComponents();
-        initElements();        
+        initElements();
 
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eArtikl.id, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
@@ -147,6 +150,10 @@ public class Systree extends javax.swing.JFrame {
             if (selectedNode.getUserObject() instanceof UserNode) {
                 UserNode node = (UserNode) selectedNode.getUserObject();
                 int id = node.record.getInt(eSystree.id);
+                int sysprod_id = node.record.getInt(eSystree.sysprod_id);
+
+                createWincalc(sysprod_id);
+
                 Query q = qSystree.table(eSystree.up.tname());
                 for (int i = 0; i < q.size(); i++) {
                     if (id == q.get(i).getInt(eSystree.id)) {
@@ -171,6 +178,34 @@ public class Systree extends javax.swing.JFrame {
                 if (tab4.getRowCount() > 0) {
                     tab4.setRowSelectionInterval(0, 0);
                 }
+            }
+        }
+    }
+
+    private void createWincalc(int sysprod_id) {
+        if (sysprod_id != -1) {
+
+            String script = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id)
+                    .table(eSysprod.up.tname()).getAs(0, eSysprod.script, "");
+            if (script.isEmpty() == false) {
+                iwin.create(script);
+                paintPanel.repaint(true, 12);
+            }
+        } else {
+            Graphics2D g = (Graphics2D) paintPanel.getGraphics();
+            g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
+        }
+    }
+
+    @Override
+    public void response(Integer id) {
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof UserNode) {
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                 Record record = node.record;
+                 record.set(eSystree.sysprod_id, id);
+                 qSystree.table(eSystree.up.tname()).update(record);
             }
         }
     }
@@ -891,13 +926,9 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnTK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTK
 
-        FrameProgress.create(Systree.this, new FrameListener() {
-            public void request(Object obj) {
-                App1.eApp1.BoxTypical.createFrame(Systree.this);
-            }
-        });
-        iwin.create(Winscript.test(Winscript.prj, null));
-        paintPanel.repaint(true, 12);        
+        BoxTypical frame = new BoxTypical(this);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnTK
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

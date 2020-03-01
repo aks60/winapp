@@ -164,11 +164,11 @@ public class Query extends Table {
         Statement statement = null;
         try {
             statement = connection.createStatement();
-            String sql = fields.get(0).update(record);
-            if (sql != null) {
-                //Util.println("SQL-UPDATE " + sql);
-                return statement.executeUpdate(sql);
-            } else {
+//            String sql = fields.get(0).update(record);
+//            if (sql != null) {
+//                //Util.println("SQL-UPDATE " + sql);
+//                return statement.executeUpdate(sql);
+//            } else {
                 String nameCols = "";
                 //цикл по полям таблицы
                 for (int k = 1; k < fields.size(); k++) {
@@ -180,12 +180,12 @@ public class Query extends Table {
                 Field[] f = fields.get(0).fields();
                 if (nameCols.isEmpty() == false) {
                     nameCols = nameCols.substring(0, nameCols.length() - 1);
-                    sql = "update " + schema + fields.get(0).tname() + " set "
+                    String sql = "update " + schema + fields.get(0).tname() + " set "
                             + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-                    //Util.println("SQL-UPDATE " + sql);
+                    System.out.println("SQL-UPDATE " + sql);
                     return statement.executeUpdate(sql);
                 }
-            }
+//            }
         } catch (Exception e) {
             System.out.println(fields.get(0).tname() + ".update() " + e);
             return -1;

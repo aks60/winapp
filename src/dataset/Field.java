@@ -69,8 +69,7 @@ public interface Field extends Enam{
 //        return null;
 //    }
     
-    default String update(Record record) {
-        
+    default String update(Record record) {        
         return null;
     }
 
