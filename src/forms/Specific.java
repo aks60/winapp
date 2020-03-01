@@ -2,6 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Collections;
@@ -12,9 +13,11 @@ import javax.swing.table.DefaultTableModel;
 import wincalc.constr.Specification;
 import wincalc.script.Winscript;
 
-public class RepoSpecific extends javax.swing.JFrame {
+public class Specific extends javax.swing.JFrame {
 
     private wincalc.Wincalc iwin = new wincalc.Wincalc();
+    private FrameListener listenerFrame = null;
+    private Window owner = null;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -53,11 +56,18 @@ public class RepoSpecific extends javax.swing.JFrame {
         }
     };
 
-    public RepoSpecific() {
+    public Specific() {
         initComponents();
         initElements();
 
         load();
+    }
+
+    public Specific(java.awt.Window owner) {
+        this();
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
     }
 
     private void load() {
@@ -65,7 +75,7 @@ public class RepoSpecific extends javax.swing.JFrame {
         iwin.create(wincalc.script.Winscript.test(Winscript.prj, null));
         iwin.constructiv();
         Collections.sort(iwin.listSpec, (o1, o2) -> Float.compare(o1.id, o2.id));
-                
+
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         dtm.getDataVector().clear();
         for (Specification specRec : iwin.listSpec) {
@@ -95,6 +105,11 @@ public class RepoSpecific extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 700));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -342,6 +357,10 @@ public class RepoSpecific extends javax.swing.JFrame {
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
 
     }//GEN-LAST:event_btnReportChoice
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        owner.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables

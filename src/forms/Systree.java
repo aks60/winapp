@@ -14,14 +14,12 @@ import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.TypeSys;
-import java.awt.CardLayout;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -215,22 +213,20 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGroup = new javax.swing.ButtonGroup();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        btnCard1 = new javax.swing.JToggleButton();
-        btnCard2 = new javax.swing.JToggleButton();
-        btnCard3 = new javax.swing.JToggleButton();
-        btnCard4 = new javax.swing.JToggleButton();
-        btnCard5 = new javax.swing.JToggleButton();
-        btnCard6 = new javax.swing.JToggleButton();
+        btnNon = new javax.swing.JToggleButton();
+        btnFill = new javax.swing.JToggleButton();
+        btnJoin = new javax.swing.JToggleButton();
+        btnElem = new javax.swing.JToggleButton();
+        btnFurn = new javax.swing.JToggleButton();
+        btnSpec = new javax.swing.JToggleButton();
         panSouth = new javax.swing.JPanel();
-        panCard = new javax.swing.JPanel();
-        panCard1 = new javax.swing.JPanel();
+        panCentr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
@@ -270,11 +266,11 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         pan5 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        panCard2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Системы профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(806, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -356,79 +352,73 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             }
         });
 
-        btnGroup.add(btnCard1);
-        btnCard1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
-        btnCard1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard1.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnCard1.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnCard1.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnCard1.addActionListener(new java.awt.event.ActionListener() {
+        btnNon.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnNon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
+        btnNon.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnNon.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnNon.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnNon.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnNon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard(evt);
+                btnForm(evt);
             }
         });
 
-        btnGroup.add(btnCard2);
-        btnCard2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
-        btnCard2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard2.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnCard2.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnCard2.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnCard2.addActionListener(new java.awt.event.ActionListener() {
+        btnFill.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
+        btnFill.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFill.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFill.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFill.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard(evt);
+                btnForm(evt);
             }
         });
 
-        btnGroup.add(btnCard3);
-        btnCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
-        btnCard3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard3.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnCard3.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnCard3.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnCard3.addActionListener(new java.awt.event.ActionListener() {
+        btnJoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
+        btnJoin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnJoin.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnJoin.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnJoin.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnJoin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard(evt);
+                btnForm(evt);
             }
         });
 
-        btnGroup.add(btnCard4);
-        btnCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
-        btnCard4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard4.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnCard4.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnCard4.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnCard4.addActionListener(new java.awt.event.ActionListener() {
+        btnElem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
+        btnElem.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnElem.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnElem.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnElem.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnElem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard(evt);
+                btnForm(evt);
             }
         });
 
-        btnGroup.add(btnCard5);
-        btnCard5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
-        btnCard5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard5.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnCard5.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnCard5.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnCard5.addActionListener(new java.awt.event.ActionListener() {
+        btnFurn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnFurn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
+        btnFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFurn.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFurn.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFurn.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard(evt);
+                btnForm(evt);
             }
         });
 
-        btnGroup.add(btnCard6);
-        btnCard6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
-        btnCard6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnCard6.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnCard6.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnCard6.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnCard6.addActionListener(new java.awt.event.ActionListener() {
+        btnSpec.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnSpec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
+        btnSpec.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSpec.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnSpec.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnSpec.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnSpec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCard(evt);
+                btnForm(evt);
             }
         });
 
@@ -445,19 +435,19 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136)
-                .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(167, 167, 167)
+                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnElem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCard4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCard5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSpec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCard6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 299, Short.MAX_VALUE)
+                .addComponent(btnNon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -473,12 +463,12 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                             .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCard4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCard5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCard6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnElem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSpec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -493,7 +483,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 778, Short.MAX_VALUE)
+            .addGap(0, 817, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -502,17 +492,15 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
-        panCard.setLayout(new java.awt.CardLayout());
-
-        panCard1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panCard1.setPreferredSize(new java.awt.Dimension(896, 409));
-        panCard1.setLayout(new java.awt.BorderLayout());
+        panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panCentr.setPreferredSize(new java.awt.Dimension(896, 409));
+        panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(260, 564));
         scr1.setViewportView(tree);
 
-        panCard1.add(scr1, java.awt.BorderLayout.WEST);
+        panCentr.add(scr1, java.awt.BorderLayout.WEST);
 
         pan1.setPreferredSize(new java.awt.Dimension(602, 565));
         pan1.setLayout(new java.awt.BorderLayout());
@@ -552,7 +540,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 .addContainerGap()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, 158, Short.MAX_VALUE)
+                .addComponent(jComboBox1, 0, 197, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pam9Layout.setVerticalGroup(
@@ -760,7 +748,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         tabb1.addTab("Основные параметры", pan6);
@@ -852,24 +840,9 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
         pan1.add(tabb1, java.awt.BorderLayout.CENTER);
 
-        panCard1.add(pan1, java.awt.BorderLayout.CENTER);
+        panCentr.add(pan1, java.awt.BorderLayout.CENTER);
 
-        panCard.add(panCard1, "panCard1");
-
-        javax.swing.GroupLayout panCard2Layout = new javax.swing.GroupLayout(panCard2);
-        panCard2.setLayout(panCard2Layout);
-        panCard2Layout.setHorizontalGroup(
-            panCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
-        );
-        panCard2Layout.setVerticalGroup(
-            panCard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 453, Short.MAX_VALUE)
-        );
-
-        panCard.add(panCard2, "panCard2");
-
-        getContentPane().add(panCard, java.awt.BorderLayout.CENTER);
+        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -915,14 +888,29 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
     }//GEN-LAST:event_txtField9ActionPerformed
 
-    private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
+    private void btnForm(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForm
+
         JToggleButton btn = (JToggleButton) evt.getSource();
-        if (btn == btnCard1) {
-            ((CardLayout) panCard.getLayout()).show(panCard, "panCard1");
-        } else if (btn == btnCard6) {
-            ((CardLayout) panCard.getLayout()).show(panCard, "panCard2");
-        }
-    }//GEN-LAST:event_btnCard
+        FrameProgress.create(Systree.this, new FrameListener() {
+            public void request(Object obj) {
+
+                java.awt.Frame frame = null;
+                if (btn == btnJoin) {
+                    frame = new Joining(Systree.this);
+                } else if (btn == btnElem) {
+                    frame = new Composition(Systree.this);
+                } else if (btn == btnFill) {
+                    frame = new Glass(Systree.this);
+                } else if (btn == btnFurn) {
+                    frame = new Furn(Systree.this);
+                } else if (btn == btnSpec) {
+                    frame = new Specific(Systree.this);
+                }
+                FrameToFile.setFrameSize(frame);
+                frame.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btnForm
 
     private void btnTK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTK
 
@@ -937,18 +925,17 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnCard1;
-    private javax.swing.JToggleButton btnCard2;
-    private javax.swing.JToggleButton btnCard3;
-    private javax.swing.JToggleButton btnCard4;
-    private javax.swing.JToggleButton btnCard5;
-    private javax.swing.JToggleButton btnCard6;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.ButtonGroup btnGroup;
+    private javax.swing.JToggleButton btnElem;
+    private javax.swing.JToggleButton btnFill;
+    private javax.swing.JToggleButton btnFurn;
     private javax.swing.JButton btnIns;
+    private javax.swing.JToggleButton btnJoin;
+    private javax.swing.JToggleButton btnNon;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.JToggleButton btnSpec;
     private javax.swing.JButton btnTK;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel13;
@@ -969,9 +956,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
-    private javax.swing.JPanel panCard;
-    private javax.swing.JPanel panCard1;
-    private javax.swing.JPanel panCard2;
+    private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panDesign;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;

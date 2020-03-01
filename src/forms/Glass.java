@@ -12,6 +12,7 @@ import domain.eGlaspar2;
 import domain.eGlasprof;
 import domain.eJoining;
 import domain.eJoinvar;
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -28,6 +29,8 @@ public class Glass extends javax.swing.JFrame {
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values()).select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
     private Query qGlaspar1 = new Query(eGlaspar1.values()).select(eGlaspar1.up, "order by", eGlaspar1.id);
     private Query qGlaspar2 = new Query(eGlaspar2.values()).select(eGlaspar2.up, "order by", eGlaspar2.id);
+    private FrameListener listenerFrame = null;
+    private Window owner = null;     
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -73,7 +76,14 @@ public class Glass extends javax.swing.JFrame {
             tab1.setRowSelectionInterval(0, 0);
         }
     }
-
+    
+    public Glass(java.awt.Window owner) {
+        this();
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
+    }
+    
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
@@ -140,6 +150,11 @@ public class Glass extends javax.swing.JFrame {
         setTitle("Заполнения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(800, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -421,6 +436,10 @@ public class Glass extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
     }//GEN-LAST:event_btnInsert
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        owner.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

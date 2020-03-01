@@ -11,6 +11,7 @@ import domain.eJoining;
 import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eJoinvar;
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -29,6 +30,8 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
+    private FrameListener listenerFrame = null;
+    private Window owner = null;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -73,6 +76,13 @@ public class Joining extends javax.swing.JFrame {
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
+    }
+
+    public Joining(java.awt.Window owner) {
+        this();
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -167,6 +177,11 @@ public class Joining extends javax.swing.JFrame {
         setTitle("Соединения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(1034, 607));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -448,6 +463,10 @@ public class Joining extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
     }//GEN-LAST:event_btnInsert
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        owner.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -477,7 +496,7 @@ public class Joining extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
@@ -490,25 +509,25 @@ public class Joining extends javax.swing.JFrame {
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
-                }                
+                }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab2(event);
-                }                
+                }
             }
         });
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab4(event);
-                }                
+                }
             }
         });
         tab1.addFocusListener(listenerFocus);

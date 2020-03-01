@@ -11,6 +11,7 @@ import domain.eFurnpar1;
 import domain.eFurnpar2;
 import domain.eFurnside1;
 import domain.eColor;
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -27,6 +28,8 @@ public class Furn extends javax.swing.JFrame {
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurndet = new Query(eFurndet.values(), eArtikl.values(), eColor.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
+    private FrameListener listenerFrame = null;
+    private Window owner = null;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -81,6 +84,13 @@ public class Furn extends javax.swing.JFrame {
         }
     }
 
+    public Furn(java.awt.Window owner) {
+        this();
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
+    }
+
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
@@ -113,7 +123,7 @@ public class Furn extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void selectionTab4(ListSelectionEvent event) {
         int row = tab4.getSelectedRow();
         if (row != -1) {
@@ -504,12 +514,7 @@ public class Furn extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
-//        if (qRate.isUpdate() && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
-//                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-//            qRate.execsql();
-//            listenerModify.response(null);
-//        }
+        owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -543,36 +548,36 @@ public class Furn extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));         
+                "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Спецификация фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));         
+                "Спецификация фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));         
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));                  
+                "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
-                }                
+                }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab2(event);
-                }                
+                }
             }
-        });        
+        });
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab4(event);
-                }                
+                }
             }
         });
         tab1.addFocusListener(listenerFocus);

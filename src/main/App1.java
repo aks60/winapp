@@ -23,7 +23,7 @@ import forms.Rate;
 import forms.Color;
 import forms.Order;
 import forms.Partner;
-import forms.RepoSpecific;
+import forms.Specific;
 import forms.Syscons;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -1032,7 +1032,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
     FrameProgress.create(App1.this, new FrameListener() {
         public void request(Object obj) {
-            eApp1.RepoSpecific.createFrame(App1.this);
+            eApp1.Specific.createFrame(App1.this);
         }
     });
 }//GEN-LAST:event_mn41
@@ -1296,7 +1296,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         App1, Convert, Rate, Color, Artikls, Joining, Design, Composition, Param,
         Glass, Furn, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
-        BoxCustom, RepoSpecific;
+        BoxCustom, Specific;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1356,8 +1356,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case BoxCustom:
                         frame = new BoxCustom();
                         break;
-                    case RepoSpecific:
-                        frame = new RepoSpecific();
+                    case Specific:
+                        frame = new Specific();
                         break;
                 }
                 frame.setName(this.name());
