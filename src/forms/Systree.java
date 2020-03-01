@@ -203,9 +203,10 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
                 UserNode node = (UserNode) selectedNode.getUserObject();
-                 Record record = node.record;
-                 record.set(eSystree.sysprod_id, id);
-                 qSystree.table(eSystree.up.tname()).update(record);
+                Record record = node.record;
+                record.set(eSystree.sysprod_id, id);
+                qSystree.table(eSystree.up.tname()).update(record);
+                createWincalc(id);
             }
         }
     }
@@ -926,9 +927,13 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
     private void btnTK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTK
 
-        BoxTypical frame = new BoxTypical(this);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
+        FrameProgress.create(Systree.this, new FrameListener() {
+            public void request(Object obj) {
+                BoxTypical frame = new BoxTypical(Systree.this);
+                FrameToFile.setFrameSize(frame);
+                frame.setVisible(true);
+            }
+        });
     }//GEN-LAST:event_btnTK
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

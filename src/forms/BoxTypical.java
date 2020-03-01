@@ -6,6 +6,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
 import java.awt.Component;
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
@@ -19,7 +20,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import main.App1;
 import wincalc.Wincalc;
 import wincalc.model.ElemSimple;
 import wincalc.model.PaintPanel;
@@ -29,6 +29,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
+    private Window owner = null;
     private ArrayList<Icon> listIcon = new ArrayList<Icon>();
     private FrameListener listenerFrame = null;
     private PaintPanel paintPanel = new PaintPanel(iwinMax) {
@@ -97,12 +98,14 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         loadTab1();
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
-        }
+        }        
     }
 
     public BoxTypical(java.awt.Window owner) {
         this();
+        this.owner = owner;
         listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
     }
 
     private void loadTab1() {
@@ -188,6 +191,11 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         setTitle("Типовые конструкции фиртуальных профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(800, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -749,6 +757,10 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             this.dispose();
         }        
     }//GEN-LAST:event_btnChoiceresh
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        owner.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
