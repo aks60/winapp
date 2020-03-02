@@ -80,9 +80,7 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up.tname());
-        for (Record record : query) {
-            subsql = subsql + "," + record.getStr(eSysprof.artikl_id);
-        }
+        query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";        
         qJoining.select(eJoining.up, "where", eJoining.artikl_id1, "in", subsql, "and", eJoining.artikl_id2, "in", subsql, "order by", eJoining.name); 
         initDatamodel();        

@@ -12,6 +12,7 @@ import domain.eGlaspar2;
 import domain.eGlasprof;
 import domain.eJoining;
 import domain.eJoinvar;
+import domain.eSysprof;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -24,13 +25,15 @@ import swing.DefTableModel;
 
 public class Glass extends javax.swing.JFrame {
 
-    private Query qGlasgrp = new Query(eGlasgrp.values()).select(eGlasgrp.up, "order by", eGlasgrp.name);
-    private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values()).select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+    private Query qGlasgrp = new Query(eGlasgrp.values());
+    private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values()).select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
     private Query qGlaspar1 = new Query(eGlaspar1.values()).select(eGlaspar1.up, "order by", eGlaspar1.id);
     private Query qGlaspar2 = new Query(eGlaspar2.values()).select(eGlaspar2.up, "order by", eGlaspar2.id);
     private FrameListener listenerFrame = null;
-    private Window owner = null;     
+    private String subsql = "";
+    private int nuni = -1;
+    private Window owner = null;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -65,25 +68,39 @@ public class Glass extends javax.swing.JFrame {
     public Glass() {
         initComponents();
         initElements();
+        qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
+        qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+        initDatamodel();
+    }
 
+    public Glass(java.awt.Window owner, int nuni) {
+        initComponents();
+        initElements();
+        this.nuni = nuni;
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
+        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up.tname());
+        query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
+        subsql = "(" + subsql.substring(1) + ")";
+        qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up.tname(), 
+                "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
+        qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+
+        initDatamodel();
+    }
+
+    private void initDatamodel() {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.id, eGlasdet.id);
         new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
         new DefTableModel(tab3, qGlaspar1, eGlaspar1.par1, eGlaspar1.par3);
         new DefTableModel(tab4, qGlaspar2, eGlaspar2.par1, eGlaspar2.par3);
-
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
     }
-    
-    public Glass(java.awt.Window owner) {
-        this();
-        this.owner = owner;
-        listenerFrame = (FrameListener) owner;
-        owner.setEnabled(false);
-    }
-    
+
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
@@ -119,7 +136,7 @@ public class Glass extends javax.swing.JFrame {
             }
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -467,30 +484,30 @@ public class Glass extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Группы заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));          
+                "Группы заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Спецификация групп заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));          
+                "Спецификация групп заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));          
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));          
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Профили в группе заполнения", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));          
+                "Профили в группе заполнения", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
-                }                
+                }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab2(event);
-                }                
+                }
             }
         });
         tab4.addFocusListener(listenerFocus);

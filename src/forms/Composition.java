@@ -32,7 +32,7 @@ public class Composition extends javax.swing.JFrame {
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private FrameListener listenerFrame = null;
-    private String subsql = "";
+    private  String subsql = "";
     private int nuni = -1;
     private Window owner = null;
     private FocusListener listenerFocus = new FocusListener() {
@@ -80,9 +80,7 @@ public class Composition extends javax.swing.JFrame {
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
         Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up.tname());
-        for (Record record : query) {
-            subsql = subsql + "," + record.getStr(eSysprof.artikl_id);
-        }
+        query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";
         initDatamodel();
         loadDataTab1();
@@ -90,6 +88,7 @@ public class Composition extends javax.swing.JFrame {
 
     private void initDatamodel() {
 
+        tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
         new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name,
                 eElement.name, eElement.vtype, eArtikl.series, eElement.bind, eElement.bind, eElement.markup).addFrameListener(listenerModify);
