@@ -20,7 +20,6 @@ public enum eElement implements Field {
     //anumb("12", "32", "1", "артикул", "ANUMB"),    
     //atypm("5", "5", "1", "тип артикула  1 - профили  5 - заполнение", "ATYPM"),    
     //vnumb("4", "10", "0", "ID", "VNUMB"),
-    //vpref("12", "32", "1", "категория", "VPREF"),    
     //vpict("12", "64", "1", "чертеж состава", "VPICT"),
     //vgrup("12", "32", "1", "группа", "VGRUP")
     //vsign("12", "32", "1", "null", "VSIGN"),

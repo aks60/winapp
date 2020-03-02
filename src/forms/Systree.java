@@ -18,6 +18,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.event.TreeSelectionEvent;
@@ -191,12 +192,14 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
+            g.setColor(new java.awt.Color(212,208,200));
             g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
         }
     }
 
     @Override
     public void response(Integer id) {
+        
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
@@ -890,37 +893,50 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
     private void btnForm(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForm
 
-        JToggleButton btn = (JToggleButton) evt.getSource();
-        FrameProgress.create(Systree.this, new FrameListener() {
-            public void request(Object obj) {
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof UserNode) {
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                int nuni = node.record.getInt(eSystree.id);
+                JToggleButton btn = (JToggleButton) evt.getSource();
+                FrameProgress.create(Systree.this, new FrameListener() {
+                    public void request(Object obj) {
 
-                java.awt.Frame frame = null;
-                if (btn == btnJoin) {
-                    frame = new Joining(Systree.this);
-                } else if (btn == btnElem) {
-                    frame = new Composition(Systree.this);
-                } else if (btn == btnFill) {
-                    frame = new Glass(Systree.this);
-                } else if (btn == btnFurn) {
-                    frame = new Furn(Systree.this);
-                } else if (btn == btnSpec) {
-                    frame = new Specific(Systree.this);
-                }
-                FrameToFile.setFrameSize(frame);
-                frame.setVisible(true);
+                        java.awt.Frame frame = null;
+                        if (btn == btnJoin) {
+                            frame = new Joining(Systree.this);
+                        } else if (btn == btnElem) {
+                            frame = new Composition(Systree.this, nuni);
+                        } else if (btn == btnFill) {
+                            frame = new Glass(Systree.this);
+                        } else if (btn == btnFurn) {
+                            frame = new Furn(Systree.this);
+                        } else if (btn == btnSpec) {
+                            frame = new Specific(Systree.this);
+                        }
+                        FrameToFile.setFrameSize(frame);
+                        frame.setVisible(true);
+                    }
+                });
+            } else {
+                JOptionPane.showMessageDialog(this, "Выберите систему профилей", "Предупреждение", JOptionPane.OK_OPTION);
             }
-        });
+        }
     }//GEN-LAST:event_btnForm
 
     private void btnTK(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTK
-
-        FrameProgress.create(Systree.this, new FrameListener() {
-            public void request(Object obj) {
-                BoxTypical frame = new BoxTypical(Systree.this);
-                FrameToFile.setFrameSize(frame);
-                frame.setVisible(true);
-            }
-        });
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null && selectedNode.isLeaf()) {
+            FrameProgress.create(Systree.this, new FrameListener() {
+                public void request(Object obj) {
+                    BoxTypical frame = new BoxTypical(Systree.this);
+                    FrameToFile.setFrameSize(frame);
+                    frame.setVisible(true);
+                }
+            });
+        } else {
+            JOptionPane.showMessageDialog(this, "Выберите систему профилей", "Предупреждение", JOptionPane.OK_OPTION);
+        }
     }//GEN-LAST:event_btnTK
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

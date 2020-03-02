@@ -11,6 +11,7 @@ import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
+import domain.eSysprof;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -24,13 +25,15 @@ import swing.DefTableModel;
 
 public class Composition extends javax.swing.JFrame {
 
-    private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
+    private Query qElemgrp = new Query(eElemgrp.values());
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values(), eParams.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private FrameListener listenerFrame = null;
-    private Window owner = null;    
+    private String subsql = "";
+    private int nuni = -1;
+    private Window owner = null;
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -64,7 +67,29 @@ public class Composition extends javax.swing.JFrame {
     public Composition() {
         initComponents();
         initElements();
+        qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
+        initData();
         loadDataTab1();
+    }
+
+    public Composition(java.awt.Window owner, int nuni) {
+        initComponents();
+        initElements();
+        loadDataTab1();
+        this.nuni = nuni;
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
+        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up.tname());
+        for (Record record : query) {
+            subsql = subsql + "," + record.getStr(eSysprof.artikl_id);
+        }
+        subsql = "(" + subsql.substring(1) + ")";
+        initData();
+        loadDataTab1();
+    }
+
+    private void initData() {
 
         new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
         new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name,
@@ -76,15 +101,8 @@ public class Composition extends javax.swing.JFrame {
             tab1.setRowSelectionInterval(0, 0);
         }
     }
-    
-    public Composition(java.awt.Window owner) {
-        this();
-        this.owner = owner;
-        listenerFrame = (FrameListener) owner;
-        owner.setEnabled(false);
-    }     
 
-    private void loadDataTab1() {
+        private void loadDataTab1() {
 
         Record record = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
@@ -126,6 +144,41 @@ public class Composition extends javax.swing.JFrame {
             }
         }
     }
+    
+//    private void loadDataTab1() {
+//
+//        if (categArt.getSelectedIndex() == 0) {
+//            qElemgrp.select(eElemgrp.up, "where level = 1", "order by", eElemgrp.level, ",", eElemgrp.name);
+//        } else {
+//            qElemgrp.select(eElemgrp.up, "where level = 5", "order by", eElemgrp.level, ",", eElemgrp.name);
+//        }
+//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+//        if (tab1.getRowCount() > 0) {
+//            tab1.setRowSelectionInterval(0, 0);
+//        }
+//    }
+//
+//    private void selectionTab1(ListSelectionEvent event) {
+//        qElement.execsql();
+//        qElemdet.execsql();
+//        listenerModify.response(null);
+//        int row = tab1.getSelectedRow();
+//        if (row != -1) {
+//            Record record = qElemgrp.table(eElemgrp.up.tname()).get(row);
+//            Integer id = Math.abs(record.getInt(eElemgrp.id));
+//            if (subsql.isEmpty() == true) {
+//                qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+//                        "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
+//            } else {
+//                qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+//                        "where", eElement.elemgrp_id, "=", id, "and", eElement.artikl_id, "in " + subsql, "order by", eElement.name);
+//            }
+//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+//            if (tab2.getRowCount() > 0) {
+//                tab2.setRowSelectionInterval(0, 0);
+//            }
+//        }
+//    }
 
     private void selectionTab2(ListSelectionEvent event) {
         //qElement.execsql();
@@ -184,6 +237,7 @@ public class Composition extends javax.swing.JFrame {
         panWest = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        categArt = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
@@ -287,7 +341,7 @@ public class Composition extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 523, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 638, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -313,7 +367,7 @@ public class Composition extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 686, Short.MAX_VALUE)
+            .addGap(0, 801, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -475,6 +529,17 @@ public class Composition extends javax.swing.JFrame {
 
         panWest.add(scr1, java.awt.BorderLayout.CENTER);
 
+        categArt.setFont(common.Util.getFont(0, 1));
+        categArt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ПРОФИЛИ", "ЗАПОЛНЕНИЯ" }));
+        categArt.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        categArt.setPreferredSize(new java.awt.Dimension(95, 18));
+        categArt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categArtAction(evt);
+            }
+        });
+        panWest.add(categArt, java.awt.BorderLayout.PAGE_START);
+
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
 
         pack();
@@ -504,8 +569,13 @@ public class Composition extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        owner.setEnabled(true);
+        if (owner != null)
+            owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void categArtAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categArtAction
+        loadDataTab1();
+    }//GEN-LAST:event_categArtAction
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -513,6 +583,7 @@ public class Composition extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> categArt;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panCentr2;
     private javax.swing.JPanel panNorth;
@@ -534,8 +605,6 @@ public class Composition extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Категории составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

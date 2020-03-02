@@ -359,7 +359,8 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportChoice
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        owner.setEnabled(true);
+        if (owner != null)
+            owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     

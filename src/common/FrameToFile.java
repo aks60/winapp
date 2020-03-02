@@ -67,12 +67,12 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         frameUp = frame;
         String dy = eProperty.load().getProperty(frame.getName() + "_height", "nul");
         String dx = eProperty.load().getProperty(frame.getName() + "_width", "nul");
-        if (!dy.equals("nul")) {
-            frameSize.height = Integer.valueOf(dy);
-        }
-        if (!dx.equals("nul")) {
-            frameSize.width = Integer.valueOf(dx);
-        }
+//        if (!dy.equals("nul")) {
+//            frameSize.height = Integer.valueOf(dy);
+//        }
+//        if (!dx.equals("nul")) {
+//            frameSize.width = Integer.valueOf(dx);
+//        }
         if (frameSize.height > screenSize.height) {
             frameSize.height = screenSize.height;
         }
@@ -81,8 +81,6 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         }
         if (frame.getName().equals("Property")) {
             frame.setLocation(20, 140);
-       // } else if (frame.getName().equals("DicDate") && mMenu.window.equals(frame.getParent())) {
-         //   frame.setLocation(10, 90);
         } else {
             frame.setLocation((screenSize.width - frameSize.width) / 2,
                     (screenSize.height - frameSize.height - 48) / 2 + 48);
