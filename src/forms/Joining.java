@@ -11,6 +11,7 @@ import domain.eJoining;
 import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eJoinvar;
+import domain.eSysprof;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -23,7 +24,7 @@ import swing.DefTableModel;
 
 public class Joining extends javax.swing.JFrame {
 
-    private Query qJoining = new Query(eJoining.values()).select(eJoining.up, "order by", eJoining.name);
+    private Query qJoining = new Query(eJoining.values());
     private Query qArtikls1 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id1);
     private Query qArtikls2 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id2);
     private Query qJoinvar = new Query(eJoinvar.values());
@@ -31,6 +32,8 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private FrameListener listenerFrame = null;
+    private String subsql = "";
+    private int nuni = -1;
     private Window owner = null;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -66,23 +69,35 @@ public class Joining extends javax.swing.JFrame {
     public Joining() {
         initComponents();
         initElements();
+        qJoining.select(eJoining.up, "order by", eJoining.name);                    
+        initDatamodel();
+    }
 
+    public Joining(java.awt.Window owner, int nuni) {
+        this.owner = owner;
+        this.nuni = nuni;
+        listenerFrame = (FrameListener) owner;
+        initComponents();
+        initElements();
+        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up.tname());
+        for (Record record : query) {
+            subsql = subsql + "," + record.getStr(eSysprof.artikl_id);
+        }
+        subsql = "(" + subsql.substring(1) + ")";        
+        qJoining.select(eJoining.up, "where", eJoining.artikl_id1, "in", subsql, "and", eJoining.artikl_id2, "in", subsql, "order by", eJoining.name); 
+        initDatamodel();        
+        owner.setEnabled(false);
+    }
+
+    private void initDatamodel() {
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_id, eJoindet.types);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.par1, eJoinpar1.par3);
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.par1, eJoinpar2.par3);
-
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
-    }
-
-    public Joining(java.awt.Window owner) {
-        this();
-        this.owner = owner;
-        listenerFrame = (FrameListener) owner;
-        owner.setEnabled(false);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -465,7 +480,8 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        owner.setEnabled(true);
+        if (owner != null)
+            owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

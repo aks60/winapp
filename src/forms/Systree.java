@@ -904,7 +904,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
                         java.awt.Frame frame = null;
                         if (btn == btnJoin) {
-                            frame = new Joining(Systree.this);
+                            frame = new Joining(Systree.this, nuni);
                         } else if (btn == btnElem) {
                             frame = new Composition(Systree.this, nuni);
                         } else if (btn == btnFill) {
