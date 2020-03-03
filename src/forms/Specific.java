@@ -2,6 +2,9 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import dataset.Query;
+import domain.eSysprod;
+import domain.eSystree;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,6 +21,7 @@ public class Specific extends javax.swing.JFrame {
     private wincalc.Wincalc iwin = new wincalc.Wincalc();
     private FrameListener listenerFrame = null;
     private Window owner = null;
+    //private int nuni = -1;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -59,20 +63,23 @@ public class Specific extends javax.swing.JFrame {
     public Specific() {
         initComponents();
         initElements();
-
         load();
     }
 
-    public Specific(java.awt.Window owner) {
-        this();
+    public Specific(java.awt.Window owner, int nuni) {
+        initComponents();
+        initElements();
         this.owner = owner;
+        //this.nuni = nuni;
+        createWincalc(nuni);
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
+        load();
     }
 
     private void load() {
 
-        iwin.create(wincalc.script.Winscript.test(Winscript.prj, null));
+        //iwin.create(wincalc.script.Winscript.test(Winscript.prj, nuni));
         iwin.constructiv();
         Collections.sort(iwin.listSpec, (o1, o2) -> Float.compare(o1.id, o2.id));
 
@@ -82,6 +89,18 @@ public class Specific extends javax.swing.JFrame {
 
             Vector vector = specRec.getVector();
             dtm.addRow(vector);
+        }
+    }
+
+    private void createWincalc(int nuni) {
+        if (nuni != -1) {
+            Query query = new Query(eSystree.sysprod_id).select(eSystree.up, "where", eSystree.id, "=", nuni);
+            String sysprod_id = query.table(eSystree.up.tname()).get(0, eSystree.sysprod_id).toString();
+            String script = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id)
+                    .table(eSysprod.up.tname()).getAs(0, eSysprod.script, "");
+            if (script.isEmpty() == false) {
+                iwin.create(script);
+            }
         }
     }
 

@@ -76,6 +76,23 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     public BoxTypical() {
         initComponents();
         initElements();
+        initDatamodel();
+        btnChoice.setVisible(false);
+        btnRemov.setVisible(false);
+        loadTab1();
+    }
+
+    public BoxTypical(java.awt.Window owner) {
+        initComponents();
+        initElements();
+        initDatamodel();
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
+        loadTab1();
+    }
+
+    private void initDatamodel() {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
@@ -95,17 +112,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 return label;
             }
         });
-        loadTab1();
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
-    }
 
-    public BoxTypical(java.awt.Window owner) {
-        this();
-        this.owner = owner;
-        listenerFrame = (FrameListener) owner;
-        owner.setEnabled(false);
     }
 
     private void loadTab1() {
@@ -125,10 +132,13 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 listIcon.add(image);
                 dm.addRow(obj);
             } catch (Exception e) {
-
+                System.out.println(e);
             }
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -152,6 +162,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
+        btnRemov = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -297,6 +308,21 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             }
         });
 
+        btnRemov.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c042.gif"))); // NOI18N
+        btnRemov.setToolTipText(bundle.getString("Обновить")); // NOI18N
+        btnRemov.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRemov.setFocusable(false);
+        btnRemov.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRemov.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnRemov.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnRemov.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnRemov.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnRemov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemovresh(evt);
+            }
+        });
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -312,7 +338,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(147, 147, 147)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 518, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRemov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 487, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -326,7 +354,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnChoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRemov, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -763,6 +792,10 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
+    private void btnRemovresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovresh
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemovresh
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArch2;
@@ -774,6 +807,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JButton btnImpostVert;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JButton btnRemov;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSquare;
     private javax.swing.JButton btnSquare1;

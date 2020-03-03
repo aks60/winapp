@@ -108,14 +108,9 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
         new DefTableModel(tab4, qSyspar1, eSyspar1.par1, eSyspar1.par3, eSyspar1.fixed) {
             public Object preview(Field field, int row, Object val) {
-                if (field == eSyspar1.par1) {
-                    if (val != null) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.par1).equals(val)).findFirst().orElse(null);
-                        return record;
-//                        if (record != null) {
-//                           return record.getStr(eParams.par3);
-//                        }
-                    }
+                if (val != null && field == eSyspar1.par1) {
+                    return qParams.stream().filter(rec -> (rec.get(eParams.par1).equals(val)
+                            && rec.getInt(eParams.par2) == 0)).findFirst().orElse(qParams.newRecord(Query.SEL)).getStr(eParams.par3);
                 }
                 return val;
             }
@@ -206,7 +201,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                         eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
                 qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
-                        //"and", eSyspar1.par2, "= 0");
+                //"and", eSyspar1.par2, "= 0");
 
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -963,7 +958,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                         } else if (btn == btnFurn) {
                             frame = new Furniture(Systree.this, nuni);
                         } else if (btn == btnSpec) {
-                            frame = new Specific(Systree.this);
+                            frame = new Specific(Systree.this, nuni);
                         }
                         FrameToFile.setFrameSize(frame);
                         frame.setVisible(true);
