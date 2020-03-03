@@ -80,7 +80,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                 System.out.println(val);
             } else {
                 val = table.get(rowIndex, columns[columnIndex]);
-                return preview(columns[columnIndex], val);
+                return preview(columns[columnIndex], rowIndex, val);
             }            
         }
         return null;

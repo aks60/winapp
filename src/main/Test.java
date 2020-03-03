@@ -5,13 +5,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.FrameToFile;
-import dataset.Field;
+import common.eProperty;
 import dataset.Query;
-import domain.*;
 import enums.ParamJson;
 import forms.BoxTypical;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.HashMap;
 import wincalc.script.Winscript;
 
@@ -21,6 +19,11 @@ public class Test {
         Main.dev = true;
 
         try {
+//            Object obj1 = eProperty.systree_nuni.read();
+//            eProperty.systree_nuni.write(String.valueOf(77));
+//            Object obj2 = eProperty.systree_nuni.read();
+//            eProperty.store();
+            
             //convert.Profstroy.script();
             //query();
             //wincalc();

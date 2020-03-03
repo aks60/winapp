@@ -12,7 +12,7 @@ public class Main {
     //Конструктор
     public Main() {
         LogoToDb.logoToDb();
-        eProperty.store();
+        eProperty.storeProperty();
     }
 
     public static void main(String[] args) {
@@ -44,10 +44,9 @@ public class Main {
 
                     public void run() {
                         try {
-                            //Query.autoexecSql();
-
+                            eProperty.storeProperty();
                         } catch (Exception e) {
-                            System.err.println(e);
+                            System.out.println(e);
                         }
                     }
                 };

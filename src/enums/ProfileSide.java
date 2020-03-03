@@ -19,20 +19,12 @@ public enum ProfileSide {
         this.value = value;
         this.name = name;
     }
-     
-    public static ProfileSide get(int layout) {
-        if (VERT.ordinal() == layout) {
-            return VERT;
-        } else if (HORIZ.ordinal() == layout) {
-            return HORIZ;
-        } else if (BOTTOM.ordinal() == layout) {
-            return BOTTOM;
-        } else if (RIGHT.ordinal() == layout) {
-            return RIGHT;
-        } else if (TOP.ordinal() == layout) {
-            return TOP;
-        } else if (LEFT.ordinal() == layout) {
-            return LEFT;
+
+    public static ProfileSide get(int side) {
+        for (ProfileSide profileSide : values()) {
+            if (profileSide.value == side) {
+                return profileSide;
+            }
         }
         return null;
     }

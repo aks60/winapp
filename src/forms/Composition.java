@@ -2,6 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -32,7 +33,7 @@ public class Composition extends javax.swing.JFrame {
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private FrameListener listenerFrame = null;
-    private  String subsql = "";
+    private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
     private FocusListener listenerFocus = new FocusListener() {

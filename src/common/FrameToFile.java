@@ -50,9 +50,9 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
             btn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif")));
             String dy = String.valueOf(frame.getSize().height);
             String dx = String.valueOf(frame.getSize().width);
-            eProperty.load().setProperty(frame.getName() + "_height", dy);
-            eProperty.load().setProperty(frame.getName() + "_width", dx);
-            eProperty.store();
+            eProperty.getProperty().setProperty(frame.getName() + "_height", dy);
+            eProperty.getProperty().setProperty(frame.getName() + "_width", dx);
+            eProperty.storeProperty();
         } finally {
             stop();
         }
@@ -65,8 +65,8 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize = frame.getSize();
         frameUp = frame;
-        String dy = eProperty.load().getProperty(frame.getName() + "_height", "nul");
-        String dx = eProperty.load().getProperty(frame.getName() + "_width", "nul");
+        String dy = eProperty.getProperty().getProperty(frame.getName() + "_height", "nul");
+        String dx = eProperty.getProperty().getProperty(frame.getName() + "_width", "nul");
         if (!dy.equals("nul")) {
             frameSize.height = Integer.valueOf(dy);
         }
@@ -99,7 +99,7 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         if (dy != 0) {
             frameSize.height = dy;
         } else {
-            String dy2 = eProperty.load().getProperty(frame.getName() + "_height", "nul");
+            String dy2 = eProperty.getProperty().getProperty(frame.getName() + "_height", "nul");
             if (!dy2.equals("nul")) {
                 frameSize.height = Integer.valueOf(dy2);
             }
@@ -107,7 +107,7 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         if (dx != 0) {
             frameSize.width = dx;
         } else {
-            String dx2 = eProperty.load().getProperty(frame.getName() + "_width", "nul");
+            String dx2 = eProperty.getProperty().getProperty(frame.getName() + "_width", "nul");
             if (!dx2.equals("nul")) {
                 frameSize.width = Integer.valueOf(dx2);
             }

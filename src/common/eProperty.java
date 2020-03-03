@@ -24,7 +24,7 @@ public enum eProperty {
     port("3050"),
     user("sysdba"),
     server("localhost"),
-    nuni("-1"),
+    systree_nuni("-1"),
     base("C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\winbase\\BASE.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
     path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),     
@@ -56,10 +56,8 @@ public enum eProperty {
 
     //Возвращает конкретное значение от выбранного экземпляра enum
     public String read() {
-        load();
-        String prop2 = prop.getProperty(this.name());       
-        if (prop2 != null && prop.getProperty(this.name()).equals("") || Main.dev == true) { //если свойство не записано локально
-            
+        getProperty();
+        if (prop.getProperty(this.name()) != null && prop.getProperty(this.name()).equals("")) { //свойство не записано           
             return this.value;
         } else {            
             return prop.getProperty(this.name(), this.value); //читаем с диска
@@ -68,15 +66,12 @@ public enum eProperty {
 
     //Запись str в Property
     public void write(String str) {
-        load();
-        if (this.name().equals("user")) {
-            str = str.toLowerCase();
-        }
+        getProperty();
         prop.setProperty(this.name(), str.trim());
     }
 
     //Чтение property из файла
-    public static Properties load() {
+    public static Properties getProperty() {
         if (prop == null) {
             prop = new Properties();
             try {
@@ -107,7 +102,7 @@ public enum eProperty {
     }
 
     //Сохранение property в файл
-    public static void store() {
+    public static void storeProperty() {
         try {
             File file = new File(path_prop.value, eProfile.filename);
             FileOutputStream outStream = new FileOutputStream(file);

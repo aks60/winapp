@@ -3,6 +3,7 @@ package forms;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
+import common.eProperty;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -13,6 +14,8 @@ import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
+import enums.ProfileSide;
+import enums.TypeProfile;
 import enums.TypeSys;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -27,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import main.App1;
 import swing.DefFieldRenderer;
@@ -44,7 +48,9 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
-    public Wincalc iwin = new Wincalc();
+    private Wincalc iwin = new Wincalc();
+    private int nuni;
+    private TreeNode[] treeNode = null;
     private PaintPanel paintPanel = new PaintPanel(iwin) {
 
         public void response(MouseEvent evt) {
@@ -72,22 +78,36 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     public Systree() {
         initComponents();
         initElements();
+        initDatamodel();
+        loadTree();
+    }
 
+    private void initDatamodel() {
+        
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eArtikl.id, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
+        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.types, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
             @Override
-            public Object preview(Field field, Object val) {
-                if (field == eSysprof.side) {
-                    //return ProfileSide.get(field.ordinal());
+            public Object preview(Field field, int row, Object val) {
+                if (field == eSysprof.side && val != null) {
+                    ProfileSide en = ProfileSide.get(Integer.valueOf(val.toString()));
+                    if (en != null) {
+                        return en.name;
+                    }
+                } else if (field == eSysprof.types && val != null) {
+                    TypeProfile en = TypeProfile.get(Integer.valueOf(val.toString()));
+                    if (en != null) {
+                        return en.name;
+                    }
                 }
                 return val;
             }
         };
-        rsmSysprof.addFrameListener(listenerModify);
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
-        new DefTableModel(tab4, qSyspar1, eSyspar1.id, eSyspar1.par3, eSyspar1.fixed);
+        new DefTableModel(tab4, qSyspar1, eSyspar1.par2, eSyspar1.par3, eSyspar1.fixed);
 
+        nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        rsmSysprof.addFrameListener(listenerModify);
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.name, txtField8);
         rsvSystree.add(eSystree.types, txtField7, TypeSys.values());
@@ -100,29 +120,18 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-
-        loadTree();
-//        String[] str = {"Дерево системы профилей", "KBE"};
-//        TreePath tp = new TreePath(str);
-//        tree.setSelectionPath(tp);
     }
 
     private void loadTree() {
 
-        int nuni = 59;
-        DefaultMutableTreeNode nodeSel = null;
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
         Query q = qSystree.table(eSystree.up.tname());
         for (Record record : q) {
-            int nuni2 = record.getInt(eSystree.id);
-            if (record.getInt(eSystree.parent_id) == nuni2) {
+            if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
                 DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record));
                 treeList.add(node2);
                 treeNode1.add(node2);
-                if (nuni == nuni2) {
-                    nodeSel = node2;
-                }
             }
         }
         ArrayList<DefaultMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
@@ -132,9 +141,8 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
         tree.setModel(new DefaultTreeModel(treeNode1));
         scr1.setViewportView(tree);
-        if (nodeSel != null) {
-            tree.setSelectionPath(new TreePath(nodeSel.getPath()));
-            //tree.expandPath(new TreePath(nodeSel.getPath()));
+        if (treeNode != null) {
+            tree.setSelectionPath(new TreePath(treeNode));
         } else {
             tree.setSelectionRow(0);
         }
@@ -142,15 +150,18 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
     private ArrayList<DefaultMutableTreeNode> addChild(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
 
-        Query q = qSystree.table(eSystree.up.tname());
+        Query systreeList = qSystree.table(eSystree.up.tname());
         for (DefaultMutableTreeNode node : nodeList1) {
             UserNode userNode = (UserNode) node.getUserObject();
-            for (Record record2 : q) {
+            for (Record record2 : systreeList) {
                 if (record2.getInt(eSystree.parent_id) == userNode.record.getInt(eSystree.id)
                         && record2.getInt(eSystree.parent_id) != record2.getInt(eSystree.id)) {
                     DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record2));
                     node.add(node2);
                     nodeList2.add(node2);
+                    if (record2.getInt(eSystree.id) == nuni) {
+                        treeNode = node2.getPath();
+                    }
                 }
             }
         }
@@ -163,14 +174,15 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
                 UserNode node = (UserNode) selectedNode.getUserObject();
-                int id = node.record.getInt(eSystree.id);
+                int nuni = node.record.getInt(eSystree.id);
+                eProperty.systree_nuni.write(String.valueOf(nuni));
                 int sysprod_id = node.record.getInt(eSystree.sysprod_id);
 
                 createWincalc(sysprod_id);
 
                 Query q = qSystree.table(eSystree.up.tname());
                 for (int i = 0; i < q.size(); i++) {
-                    if (id == q.get(i).getInt(eSystree.id)) {
+                    if (nuni == q.get(i).getInt(eSystree.id)) {
                         rsvSystree.write(i);
                     }
                 }
@@ -192,7 +204,6 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 if (tab4.getRowCount() > 0) {
                     tab4.setRowSelectionInterval(0, 0);
                 }
-                System.out.println(tree.getSelectionPath());
             }
         }
     }
@@ -867,7 +878,6 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
-        System.out.println(tree.getSelectionPath());
         this.dispose();
     }//GEN-LAST:event_btnCloseClose
 

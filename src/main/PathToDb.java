@@ -86,7 +86,7 @@ public class PathToDb extends javax.swing.JDialog {
             App1.eApp1.createApp(eProfile.profile);
             dispose();
             //тут мы сохраняем в файл текущего пользователя
-            eProperty.store();
+            eProperty.storeProperty();
 
         } else {
             String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
