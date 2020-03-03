@@ -9,8 +9,8 @@ public interface FrameListener<A, B> {
 
     default void response(B obj) {
     }
-    
-    default Object preview(Field field, int row, Object obj) {
-        return obj;
+
+    default Object preview(Field field, int row, Object val) {
+        return val;
     }
 }

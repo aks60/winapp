@@ -9,6 +9,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eFurniture;
+import domain.eParams;
 import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprod;
@@ -41,6 +42,7 @@ import wincalc.script.Winscript;
 
 public class Systree extends javax.swing.JFrame implements FrameListener<Object, Integer> {
 
+    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.par1, "< 0").table(eParams.up.tname());
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
@@ -83,7 +85,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     }
 
     private void initDatamodel() {
-        
+
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.types, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
             @Override
@@ -104,7 +106,20 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         };
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
-        new DefTableModel(tab4, qSyspar1, eSyspar1.par1, eSyspar1.par3, eSyspar1.fixed);
+        new DefTableModel(tab4, qSyspar1, eSyspar1.par1, eSyspar1.par3, eSyspar1.fixed) {
+            public Object preview(Field field, int row, Object val) {
+                if (field == eSyspar1.par1) {
+                    if (val != null) {
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.par1).equals(val)).findFirst().orElse(null);
+                        return record;
+//                        if (record != null) {
+//                           return record.getStr(eParams.par3);
+//                        }
+                    }
+                }
+                return val;
+            }
+        };
 
         nuni = Integer.valueOf(eProperty.systree_nuni.read());
         rsmSysprof.addFrameListener(listenerModify);
@@ -191,6 +206,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                         eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
                 qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
+                        //"and", eSyspar1.par2, "= 0");
 
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -477,7 +493,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 .addComponent(btnSpec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -513,7 +529,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 817, Short.MAX_VALUE)
+            .addGap(0, 764, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,7 +586,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 .addContainerGap()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, 197, Short.MAX_VALUE)
+                .addComponent(jComboBox1, 0, 144, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pam9Layout.setVerticalGroup(
@@ -856,7 +872,15 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             new String [] {
                 "Параметр", "Значение по умолчанию", "Закреплено"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab4.setFillsViewportHeight(true);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
