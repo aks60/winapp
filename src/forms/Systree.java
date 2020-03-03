@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import main.App1;
 import swing.DefFieldRenderer;
 import swing.DefTableModel;
@@ -101,18 +102,27 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         paintPanel.setVisible(true);
 
         loadTree();
+//        String[] str = {"Дерево системы профилей", "KBE"};
+//        TreePath tp = new TreePath(str);
+//        tree.setSelectionPath(tp);
     }
 
     private void loadTree() {
 
+        int nuni = 59;
+        DefaultMutableTreeNode nodeSel = null;
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
         Query q = qSystree.table(eSystree.up.tname());
         for (Record record : q) {
-            if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
+            int nuni2 = record.getInt(eSystree.id);
+            if (record.getInt(eSystree.parent_id) == nuni2) {
                 DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record));
                 treeList.add(node2);
                 treeNode1.add(node2);
+                if (nuni == nuni2) {
+                    nodeSel = node2;
+                }
             }
         }
         ArrayList<DefaultMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
@@ -122,7 +132,12 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
         tree.setModel(new DefaultTreeModel(treeNode1));
         scr1.setViewportView(tree);
-        tree.setSelectionRow(0);
+        if (nodeSel != null) {
+            tree.setSelectionPath(new TreePath(nodeSel.getPath()));
+            //tree.expandPath(new TreePath(nodeSel.getPath()));
+        } else {
+            tree.setSelectionRow(0);
+        }
     }
 
     private ArrayList<DefaultMutableTreeNode> addChild(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
@@ -177,6 +192,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 if (tab4.getRowCount() > 0) {
                     tab4.setRowSelectionInterval(0, 0);
                 }
+                System.out.println(tree.getSelectionPath());
             }
         }
     }
@@ -192,14 +208,14 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
-            g.setColor(new java.awt.Color(212,208,200));
+            g.setColor(new java.awt.Color(212, 208, 200));
             g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
         }
     }
 
     @Override
     public void response(Integer id) {
-        
+
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
@@ -703,16 +719,16 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan6Layout.createSequentialGroup()
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pan6Layout.createSequentialGroup()
                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(137, 137, 137))
+                        .addComponent(txtField9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pan6Layout.createSequentialGroup()
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(126, 126, 126))
         );
         pan6Layout.setVerticalGroup(
             pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -851,6 +867,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+        System.out.println(tree.getSelectionPath());
         this.dispose();
     }//GEN-LAST:event_btnCloseClose
 

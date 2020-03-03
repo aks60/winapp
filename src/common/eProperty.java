@@ -24,11 +24,10 @@ public enum eProperty {
     port("3050"),
     user("sysdba"),
     server("localhost"),
-    sys_nuni("-1"),
+    nuni("-1"),
     base("C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\winbase\\BASE.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
-    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"), //C:\ProgramData\Acron\Okno\v30.properties
-    path_bekap(System.getProperty("user.home") + "/Acron/Backup", "C:\\Acron\\Backup"),           
+    path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),     
     cmd_word("libreoffice -writer ", "cmd /c start winword.exe "), 
     cmd_excel("libreoffice -calc ", "cmd /c start excel.exe "),
     cmd_html("firefox ", "cmd /c start iexplore.exe "),

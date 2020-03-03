@@ -98,7 +98,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         loadTab1();
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
-        }        
+        }
     }
 
     public BoxTypical(java.awt.Window owner) {
@@ -755,11 +755,12 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             Object id = qSysprod.get(row, eSysprod.id);
             listenerFrame.response(id);
             this.dispose();
-        }        
+        }
     }//GEN-LAST:event_btnChoiceresh
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        owner.setEnabled(true);
+        if (owner != null)
+            owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
