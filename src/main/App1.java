@@ -14,7 +14,7 @@ import forms.BoxTypical;
 import forms.Systree;
 import forms.Design;
 import forms.Composition;
-import forms.Furn;
+import forms.Furniture;
 import forms.Glass;
 import forms.Joining;
 import forms.Kits;
@@ -1091,7 +1091,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void request(Object obj) {
-                eApp1.Furn.createFrame(App1.this);
+                eApp1.Furniture.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnFurnityra
@@ -1295,7 +1295,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     public static enum eApp1 {
 
         App1, Convert, Rate, Color, Artikls, Joining, Design, Composition, Param,
-        Glass, Furn, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
+        Glass, Furniture, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
         BoxCustom, Specific;
         java.awt.Frame frame;
 
@@ -1332,8 +1332,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Glass:
                         frame = new Glass();
                         break;
-                    case Furn:
-                        frame = new Furn();
+                    case Furniture:
+                        frame = new Furniture();
                         break;
                     case Kits:
                         frame = new Kits();

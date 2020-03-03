@@ -910,7 +910,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                         } else if (btn == btnFill) {
                             frame = new Glass(Systree.this, nuni);
                         } else if (btn == btnFurn) {
-                            frame = new Furn(Systree.this);
+                            frame = new Furniture(Systree.this, nuni);
                         } else if (btn == btnSpec) {
                             frame = new Specific(Systree.this);
                         }

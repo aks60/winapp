@@ -11,6 +11,8 @@ import domain.eFurnpar1;
 import domain.eFurnpar2;
 import domain.eFurnside1;
 import domain.eColor;
+import domain.eSysfurn;
+import domain.eSysprof;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -21,14 +23,16 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Furn extends javax.swing.JFrame {
+public class Furniture extends javax.swing.JFrame {
 
-    private Query qFurniture = new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name);
+    private Query qFurniture = new Query(eFurniture.values());
     private Query qFurnside1 = new Query(eFurnside1.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurndet = new Query(eFurndet.values(), eArtikl.values(), eColor.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
     private FrameListener listenerFrame = null;
+    private String subsql = "";
+    private int nuni = -1;
     private Window owner = null;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -69,10 +73,28 @@ public class Furn extends javax.swing.JFrame {
         }
     };
 
-    public Furn() {
+    public Furniture() {
         initComponents();
         initElements();
+        qFurniture.select(eFurniture.up, "order by", eFurniture.name);
+        initDatamodel();
+    }
 
+    public Furniture(java.awt.Window owner, int nuni) {
+        initComponents();
+        initElements();
+        this.owner = owner;
+        this.nuni = nuni;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
+        Query query = new Query(eSysfurn.furniture_id).select(eSysfurn.up, "where", eSysfurn.systree_id, "=", nuni).table(eSysfurn.up.tname());
+        query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysfurn.furniture_id));
+        subsql = "(" + subsql.substring(1) + ")";
+        qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "order by", eFurniture.name);
+        initDatamodel();
+    }
+
+    private void initDatamodel() {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
                 eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim).addFrameListener(listenerModify);
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side).addFrameListener(listenerModify);
@@ -82,13 +104,6 @@ public class Furn extends javax.swing.JFrame {
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
-    }
-
-    public Furn(java.awt.Window owner) {
-        this();
-        this.owner = owner;
-        listenerFrame = (FrameListener) owner;
-        owner.setEnabled(false);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -172,7 +187,6 @@ public class Furn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(800, 601));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);

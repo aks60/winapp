@@ -116,25 +116,25 @@ public class Artikls extends javax.swing.JFrame
         DefaultMutableTreeNode treeNode2 = null;
         for (TypeArtikl it : TypeArtikl.values()) {
             if (it.id1 == 1 && it.id2 == 0) {
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X100); //"Профили"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.PPROFIL); //"Профили"
 
             } else if (it.id1 == 2 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X200); //"Аксессуары"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR); //"Аксессуары"
 
             } else if (it.id1 == 3 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X300); //"Погонаж"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.POGONAG); //"Погонаж"
 
             } else if (it.id1 == 4 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X400); //"Инструмент"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
 
             } else if (it.id1 == 5 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.X500); //"Заполнения"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.ZAPOLNEN); //"Заполнения"
 
-            } else if (it.id2 > 0) {
+            } else if (it.id2 > 0) {   //остальное       
                 treeNode1.add(treeNode2);
                 treeNode2.add(new javax.swing.tree.DefaultMutableTreeNode(it));
             }
