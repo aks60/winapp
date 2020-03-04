@@ -11,9 +11,9 @@ import static domain.eArtikl.values;
 public enum eParams implements Field {
     up("0", "0", "0", "Список параметров", "PARLIST"),
     id("4", "10", "0", "Идентификатор", "id"),    
-    group("4", "10", "1", "Параметр 1", "PNUMB"),
-    numb("4", "10", "1", "Параметр 2", "ZNUMB"),
-    text("12", "64", "1", "Название параметра или его значения", "PNAME"),     
+    grup("4", "10", "1", "Группа", "PNUMB"),
+    numb("4", "10", "1", "Параметр", "ZNUMB"),
+    text("12", "64", "1", "Название или его значения", "PNAME"),     
     joint("16", "5", "1", "Параметры соединений 0 - не влияют  1 - влияют ", "PCONN"),
     elem("16", "5", "1", " Парметры составов 0 - не влияют  1 - влияют ", "PVSTA"),
     glas("16", "5", "1", " Параметры стеклопакетов 0 - не влияют  1 - влияют ", "PGLAS"),
@@ -60,9 +60,9 @@ public enum eParams implements Field {
 
     public static Record find(int _numb, int _mixt) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _numb == rec.getInt(group) && _mixt == rec.getInt(numb)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _numb == rec.getInt(grup) && _mixt == rec.getInt(numb)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", group, "=", _numb, "and", numb, "=", _mixt).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _numb, "and", numb, "=", _mixt).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

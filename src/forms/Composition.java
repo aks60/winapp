@@ -159,9 +159,9 @@ public class Composition extends javax.swing.JFrame {
             Record record = qElement.table(eElement.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id,
-                    "left join", eParams.up, "on", eElemdet.param_id, "=", eParams.group, "where", eElemdet.element_id, "=", p1);
+                    "left join", eParams.up, "on", eElemdet.param_id, "=", eParams.grup, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on",
-                    eParams.group, "=", eElempar1.par1, "and (", eParams.group, ">=31000 and", eParams.group, "< 32000)", "where", eElempar1.element_id, "=", p1);
+                    eParams.grup, "=", eElempar1.par1, "and (", eParams.grup, ">=31000 and", eParams.grup, "< 32000)", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
@@ -178,7 +178,7 @@ public class Composition extends javax.swing.JFrame {
             Record record = qElemdet.table(eElemdet.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on",
-                    eParams.group, "=", eElempar2.par1, "and", eParams.group, ">= 33000 and", eParams.group, "< 41000", "where", eElempar2.elemdet_id, "=", p1);
+                    eParams.grup, "=", eElempar2.par1, "and", eParams.grup, ">= 33000 and", eParams.grup, "< 41000", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
     }

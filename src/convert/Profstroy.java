@@ -358,7 +358,7 @@ public class Profstroy {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
             System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
-            sql("delete from params where group > 0");  //group > 0
+            sql("delete from params where grup > 0");  //group > 0
             sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");  //textgrp_id
             sql("delete from artdet where not exists (select id from artikl a where a.code = artdet.anumb)");  //artikl_id
             sql("delete from artdet where not exists (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");  //color_id

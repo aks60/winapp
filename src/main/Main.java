@@ -3,7 +3,7 @@ package main;
 import common.eProperty;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import wincalc.Wincalc;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Main {
 
@@ -26,12 +26,13 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
-                String lafName = "Windows"; //eProp.lookandfeel.read();
-                try {
+                UIManager.put("OptionPane.yesButtonText", "Да");
+                UIManager.put("OptionPane.noButtonText", "Нет");
+                try { 
+                    String lafName = eProperty.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-                        if (lafName.equals(laf.getName())) {
+                    for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+                        if (lafName.equals(laf.getName())) { //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
                             UIManager.setLookAndFeel(laf.getClassName());
                         }
                     }

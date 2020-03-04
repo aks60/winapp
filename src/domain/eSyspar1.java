@@ -7,8 +7,8 @@ import dataset.Record;
 import static domain.eParams.up;
 import static domain.eParams.values;
 import java.util.ArrayList;
-import static domain.eParams.group;
 import static domain.eParams.numb;
+import static domain.eParams.grup;
 
 public enum eSyspar1 implements Field {
     up("0", "0", "0", "Парамметры системы профилей", "PARSYSP"),

@@ -558,7 +558,7 @@
             <Menu class="javax.swing.JMenu" name="mn62">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/resource/img16/b031.gif"/>
+                  <Image iconType="3" name="/resource/img16/b061.gif"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x412;&#x438;&#x434; &#x438;&#x43d;&#x442;&#x435;&#x440;&#x444;&#x435;&#x439;&#x441;&#x430;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -608,7 +608,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnLookAndFeel"/>
                   </Events>
                 </MenuItem>
-                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="mn444">
+                <MenuItem class="javax.swing.JCheckBoxMenuItem" name="mn0444">
                   <Properties>
                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                       <ComponentRef name="buttonLookAndFiilGroup"/>
@@ -617,9 +617,10 @@
                       <Connection code="common.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="CDE/Motif"/>
+                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mn444mnLookAndFeel"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnLookAndFeel"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

@@ -17,7 +17,7 @@ import swing.DefTableModel;
 public class Param extends javax.swing.JFrame {
 
     private Query qParam = new Query(eParams.values()).select(eParams.up, "where",
-            eParams.group, "< 0", "and", eParams.numb, "= 0", "order by", eParams.text);
+            eParams.grup, "< 0", "and", eParams.numb, "= 0", "order by", eParams.text);
     private Query qPardet = new Query(eParams.values());
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -75,8 +75,8 @@ public class Param extends javax.swing.JFrame {
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qParam.table(eParams.up.tname()).get(row);
-            Integer p1 = record.getInt(eParams.group);
-            qPardet.select(eParams.up, "where", eParams.group, "=", p1, "and", eParams.numb, "!= 0", "order by", eParams.text);
+            Integer p1 = record.getInt(eParams.grup);
+            qPardet.select(eParams.up, "where", eParams.grup, "=", p1, "and", eParams.numb, "!= 0", "order by", eParams.text);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
                 tab2.setRowSelectionInterval(0, 0);
