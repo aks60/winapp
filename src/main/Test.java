@@ -5,8 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.FrameToFile;
-import common.eProperty;
 import dataset.Query;
+import domain.eSystree;
 import enums.ParamJson;
 import forms.BoxTypical;
 import java.sql.SQLException;
@@ -18,12 +18,7 @@ public class Test {
     public static void main(String[] args) {
         Main.dev = true;
 
-        try {
-//            Object obj1 = eProperty.systree_nuni.read();
-//            eProperty.systree_nuni.write(String.valueOf(77));
-//            Object obj2 = eProperty.systree_nuni.read();
-//            eProperty.store();
-            
+        try {    
             //convert.Profstroy.script();
             //query();
             //wincalc();
@@ -67,7 +62,11 @@ public class Test {
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
             //int _nuni, TypeProfile _type, ProfileSide _side
-
+             int nnn = 0;
+             String str = eSystree.patch(4);
+             System.out.println(str);
+             int mmm = 0;
+             
 //        Query q2 = q.select(eSysprof.up, "left join", eSystree.up, "on", eSysprof.systree_id, "=", eSystree.id);
 //        
 //        Query q3 = q2.table(eSysprof.up.tname());

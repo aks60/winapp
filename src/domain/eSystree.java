@@ -58,11 +58,23 @@ public enum eSystree implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
         return query;
+    }
+
+    private static String patch = "";
+
+    public static String patch(int _nuni) {
+        Query recordList = new Query(values()).select(up, "where", id, "=", _nuni).table(up.tname());
+        Record record = recordList.get(0);
+        if (record.getInt(id) == record.getInt(parent_id)) {
+            return patch + record.getStr(name);
+        }
+        patch = patch + patch(record.getInt(parent_id));
+        return patch + " / " + record.getStr(name);
     }
 
     public static Record find(int _nuni) {

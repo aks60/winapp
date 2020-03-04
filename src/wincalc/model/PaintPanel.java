@@ -14,6 +14,7 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
 
     private boolean visible = true;
     private Wincalc iwin = null;
+    private Graphics2D gc = null;
 
     public PaintPanel(Wincalc iwin) {
         this.iwin = iwin;
@@ -51,7 +52,7 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
             float max1 = (getWidth() > getHeight()) ? getHeight() : getWidth();
             float max2 = (iwin.width > iwin.heightAdd) ? iwin.width + Com5t.SPACE_DX : iwin.heightAdd + Com5t.SPACE_DY;
             iwin.scale1 = (iwin.scale2 == 1) ? max1 / max2 : 1;
-            Graphics2D gc = (Graphics2D) g;
+            gc = (Graphics2D) g;
             gc.setColor(getBackground());
             gc.scale(iwin.scale1, iwin.scale1);
             gc.translate(Com5t.TRANSLATE_X, Com5t.TRANSLATE_Y);

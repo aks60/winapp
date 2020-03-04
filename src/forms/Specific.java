@@ -2,7 +2,9 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import common.eProperty;
 import dataset.Query;
+import dataset.Record;
 import domain.eSysprod;
 import domain.eSystree;
 import java.awt.Window;
@@ -13,15 +15,14 @@ import java.util.Vector;
 import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import wincalc.Wincalc;
 import wincalc.constr.Specification;
-import wincalc.script.Winscript;
 
 public class Specific extends javax.swing.JFrame {
 
-    private wincalc.Wincalc iwin = new wincalc.Wincalc();
+    private wincalc.Wincalc iwin = null;
     private FrameListener listenerFrame = null;
     private Window owner = null;
-    //private int nuni = -1;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -63,15 +64,15 @@ public class Specific extends javax.swing.JFrame {
     public Specific() {
         initComponents();
         initElements();
-        load();
+        createWincalc();
+//        load();
     }
 
-    public Specific(java.awt.Window owner, int nuni) {
+    public Specific(java.awt.Window owner, Wincalc iwin) {
         initComponents();
         initElements();
         this.owner = owner;
-        //this.nuni = nuni;
-        createWincalc(nuni);
+        this.iwin = iwin;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
         load();
@@ -79,7 +80,6 @@ public class Specific extends javax.swing.JFrame {
 
     private void load() {
 
-        //iwin.create(wincalc.script.Winscript.test(Winscript.prj, nuni));
         iwin.constructiv();
         Collections.sort(iwin.listSpec, (o1, o2) -> Float.compare(o1.id, o2.id));
 
@@ -92,16 +92,21 @@ public class Specific extends javax.swing.JFrame {
         }
     }
 
-    private void createWincalc(int nuni) {
-        if (nuni != -1) {
-            Query query = new Query(eSystree.sysprod_id).select(eSystree.up, "where", eSystree.id, "=", nuni);
-            String sysprod_id = query.table(eSystree.up.tname()).get(0, eSystree.sysprod_id).toString();
-            String script = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id)
-                    .table(eSysprod.up.tname()).getAs(0, eSysprod.script, "");
-            if (script.isEmpty() == false) {
+    private void createWincalc() {
+
+        iwin = new Wincalc();
+        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        setTitle(getTitle() + ".    Система: <<" + eSystree.patch(nuni) + ">>");
+        Record record = eSystree.find(nuni); 
+        int sysprod_id = record.getInt(eSystree.sysprod_id);
+        Record record2 = eSysprod.find(sysprod_id);
+        if (record2 != null) {
+            String script = record2.getStr(eSysprod.script);
+            if (script != null) {
                 iwin.create(script);
             }
         }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -123,6 +128,7 @@ public class Specific extends javax.swing.JFrame {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Спецификация");
         setPreferredSize(new java.awt.Dimension(1200, 700));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {

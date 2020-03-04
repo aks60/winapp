@@ -72,7 +72,7 @@ public class Wincalc {
     public LinkedList<AreaSimple> listArea; //список AreaSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList();
-    
+
     //спецификация конструкции
     protected CalcConstructiv constructiv = new CalcConstructiv(this); //конструктив
     protected CalcTariffication tariffication = new CalcTariffication(this); //тарификация

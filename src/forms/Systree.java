@@ -1,5 +1,8 @@
 package forms;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
@@ -21,6 +24,7 @@ import enums.TypeSys;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import static javax.management.Query.value;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -51,7 +55,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
     private Wincalc iwin = new Wincalc();
-    private int nuni;
+    private int nuni = -1;
     private TreeNode[] treeNode = null;
     private PaintPanel paintPanel = new PaintPanel(iwin) {
 
@@ -184,7 +188,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
                 UserNode node = (UserNode) selectedNode.getUserObject();
-                int nuni = node.record.getInt(eSystree.id);
+                nuni = node.record.getInt(eSystree.id);
                 eProperty.systree_nuni.write(String.valueOf(nuni));
                 int sysprod_id = node.record.getInt(eSystree.sysprod_id);
 
@@ -216,6 +220,8 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                     tab4.setRowSelectionInterval(0, 0);
                 }
             }
+        } else {
+            createWincalc(-1);
         }
     }
 
@@ -225,27 +231,29 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             String script = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id)
                     .table(eSysprod.up.tname()).getAs(0, eSysprod.script, "");
             if (script.isEmpty() == false) {
-                iwin.create(script);
+
+                JsonElement je = new Gson().fromJson(script, JsonElement.class);
+                je.getAsJsonObject().addProperty("nuni", nuni);
+                iwin.create(je.toString());
                 paintPanel.repaint(true, 12);
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
-            g.setColor(new java.awt.Color(212, 208, 200));
             g.clearRect(0, 0, paintPanel.getWidth(), paintPanel.getHeight());
         }
     }
 
     @Override
-    public void response(Integer id) {
+    public void response(Integer sysprod_id) {
 
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
                 UserNode node = (UserNode) selectedNode.getUserObject();
                 Record record = node.record;
-                record.set(eSystree.sysprod_id, id);
+                record.set(eSystree.sysprod_id, sysprod_id);
                 qSystree.table(eSystree.up.tname()).update(record);
-                createWincalc(id);
+                createWincalc(sysprod_id);
             }
         }
     }
@@ -958,7 +966,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                         } else if (btn == btnFurn) {
                             frame = new Furniture(Systree.this, nuni);
                         } else if (btn == btnSpec) {
-                            frame = new Specific(Systree.this, nuni);
+                            frame = new Specific(Systree.this, iwin);
                         }
                         FrameToFile.setFrameSize(frame);
                         frame.setVisible(true);
