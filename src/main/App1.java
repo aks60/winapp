@@ -63,11 +63,9 @@ public class App1 extends javax.swing.JFrame {
             mn0442.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("Windows")) {
             mn0441.setSelected(true);
-        } else if (System.getProperty("os.name").equals("Linux")) {
-            mn0443.setSelected(true);
-        } else {
-            mn0441.setSelected(true);
-        }
+        } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
+            mn0444.setSelected(true);
+        } 
         btn11.setText(Util.getDateStr(null));
 //        if (Main.dev == true) {
 //            new FrameListener2() {
@@ -160,7 +158,7 @@ public class App1 extends javax.swing.JFrame {
         mn0441 = new javax.swing.JCheckBoxMenuItem();
         mn0442 = new javax.swing.JCheckBoxMenuItem();
         mn0443 = new javax.swing.JCheckBoxMenuItem();
-        mn444 = new javax.swing.JCheckBoxMenuItem();
+        mn0444 = new javax.swing.JCheckBoxMenuItem();
         mn05 = new javax.swing.JMenu();
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
@@ -864,7 +862,7 @@ public class App1 extends javax.swing.JFrame {
         });
         mn06.add(mn61);
 
-        mn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
+        mn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b061.gif"))); // NOI18N
         mn62.setText("Вид интерфейса");
         mn62.setFont(common.Util.getFont(1,1));
 
@@ -898,15 +896,16 @@ public class App1 extends javax.swing.JFrame {
         });
         mn62.add(mn0443);
 
-        buttonLookAndFiilGroup.add(mn444);
-        mn444.setFont(common.Util.getFont(1,1));
-        mn444.setText("CDE/Motif");
-        mn444.addActionListener(new java.awt.event.ActionListener() {
+        buttonLookAndFiilGroup.add(mn0444);
+        mn0444.setFont(common.Util.getFont(1,1));
+        mn0444.setText("CDE/Motif");
+        mn0444.setName(""); // NOI18N
+        mn0444.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn444mnLookAndFeel(evt);
+                mnLookAndFeel(evt);
             }
         });
-        mn62.add(mn444);
+        mn62.add(mn0444);
 
         mn06.add(mn62);
 
@@ -1024,6 +1023,8 @@ private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn
         eProperty.lookandfeel.write("Metal");
     } else if (evt.getSource() == mn0442) {
         eProperty.lookandfeel.write("Nimbus");
+    } else if (evt.getSource() == mn0444) {
+        eProperty.lookandfeel.write("CDE/Motif");
     }
     eProperty.storeProperty();
 }//GEN-LAST:event_mnLookAndFeel
@@ -1180,10 +1181,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnOrder
 
-    private void mn444mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn444mnLookAndFeel
-        //
-    }//GEN-LAST:event_mn444mnLookAndFeel
-
     private void mnSysconst(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSysconst
 
         FrameProgress.create(App1.this, new FrameListener() {
@@ -1245,6 +1242,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JCheckBoxMenuItem mn0441;
     private javax.swing.JCheckBoxMenuItem mn0442;
     private javax.swing.JCheckBoxMenuItem mn0443;
+    private javax.swing.JCheckBoxMenuItem mn0444;
     private javax.swing.JMenu mn05;
     private javax.swing.JMenu mn06;
     private javax.swing.JMenu mn07;
@@ -1270,7 +1268,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn41;
     private javax.swing.JMenuItem mn42;
     private javax.swing.JMenuItem mn43;
-    private javax.swing.JCheckBoxMenuItem mn444;
     private javax.swing.JMenuItem mn51;
     private javax.swing.JMenuItem mn52;
     private javax.swing.JMenuItem mn54;

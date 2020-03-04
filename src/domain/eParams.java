@@ -10,20 +10,21 @@ import static domain.eArtikl.values;
 
 public enum eParams implements Field {
     up("0", "0", "0", "Список параметров", "PARLIST"),
-    id("4", "10", "0", "Идентификатор", "id"),
-    npp("5", "5", "1", "Номер параметра", "PPORN"),
-    par1("4", "10", "1", "Параметр 1", "PNUMB"),
-    par2("4", "10", "1", "Параметр 2", "ZNUMB"),
-    par3("12", "64", "1", "Название параметра или его значения", "PNAME"),     
+    id("4", "10", "0", "Идентификатор", "id"),    
+    grup("4", "10", "1", "Группа", "PNUMB"),
+    numb("4", "10", "1", "Параметр", "ZNUMB"),
+    text("12", "64", "1", "Название или его значения", "PNAME"),     
     joint("16", "5", "1", "Параметры соединений 0 - не влияют  1 - влияют ", "PCONN"),
     elem("16", "5", "1", " Парметры составов 0 - не влияют  1 - влияют ", "PVSTA"),
     glas("16", "5", "1", " Параметры стеклопакетов 0 - не влияют  1 - влияют ", "PGLAS"),
     furn("16", "5", "1", " Параметры фурнитуры 0 - не влияют  1 - влияют ", "PFURN"),
     otkos("16", "5", "1", " Параметры откосов 0 - не влияют  1 - влияют ", "POTKO"),
     komp("16", "5", "1", " Парметры комплектов 0 - не влияют  1 - влияют ", "PKOMP"),
-    text("16", "5", "1", " Парметры текстур 0 - не влияют  1 - влияют ", "PCOLL"),
+    color("16", "5", "1", " Парметры текстур 0 - не влияют  1 - влияют ", "PCOLL"),
     label("12", "32", "1", "Надпись на эскизе", "PMACR"),
-    prog("16", "5", "1", "Системные (вшитые в систему)", "VPROG"); 
+    prog("16", "5", "1", "Системные (вшитые в систему)", "VPROG");
+    
+    //npp("5", "5", "1", "Номер параметра", "PPORN"),
     //ptype("16", "5", "1", "Количество тысяч par1", "PTYPF"),
     //pmacr("12", "32", "1", "null", "PMACR"),
     //xdepa("5", "5", "1", "null", "XDEPA"),
@@ -59,9 +60,9 @@ public enum eParams implements Field {
 
     public static Record find(int _numb, int _mixt) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _numb == rec.getInt(par1) && _mixt == rec.getInt(par2)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _numb == rec.getInt(grup) && _mixt == rec.getInt(numb)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", par1, "=", _numb, "and", par2, "=", _mixt).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _numb, "and", numb, "=", _mixt).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

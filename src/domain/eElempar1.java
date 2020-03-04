@@ -11,12 +11,12 @@ import static domain.eArtikl.values;
 
  public enum eElempar1 implements Field {
     up("0", "0", "0", "Параметры составов", "PARVSTM"),
-    id("4", "10", "0", "Идентификатор", "id"),  
-    npp("5", "5", "1", "Нпп параметра", "PPORN"),
-    par1("4", "10", "1", "Параметр 1", "PNUMB"), //см. eEnum параметры
-    par2("4", "10", "1", "Параметр 2", "ZNUMB"), //пар. вводимые пользователем в системе профилей
-    par3("12", "64", "1", "Значения параметра", "PTEXT"),
+    id("4", "10", "0", "Идентификатор", "id"),      
+    grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
+    numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
+    text("12", "64", "1", "Значения параметра", "PTEXT"),
     element_id("4", "10", "1", "Состав", "element_id");
+    //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values()).table(up.tname());
@@ -50,9 +50,9 @@ import static domain.eArtikl.values;
     
     public static Record find2(int _par1) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _par1 == rec.getInt(par1)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _par1 == rec.getInt(grup)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", par1, "=", _par1).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _par1).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     

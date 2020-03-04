@@ -60,7 +60,7 @@ public class Kits extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ).addFrameListener(listenerModify);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.par3);
+        new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -88,7 +88,7 @@ public class Kits extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qKitdet.table(eKitdet.up.tname()).get(row);
             Integer id = record.getInt(eKitdet.id);
-            qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.par1);
+            qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
                 tab3.setRowSelectionInterval(0, 0);

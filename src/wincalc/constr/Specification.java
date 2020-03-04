@@ -3,7 +3,6 @@ package wincalc.constr;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
-import static domain.eSyspar1.npp;
 import enums.MeasUnit;
 import enums.TypeArtikl;
 import java.io.BufferedWriter;
