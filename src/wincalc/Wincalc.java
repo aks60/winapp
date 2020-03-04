@@ -90,8 +90,8 @@ public class Wincalc {
 
         //Загрузим параметры по умолчанию
         ArrayList<Record> syspar1List = eSyspar1.find(nuni);
-        syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.par1),
-                new Object[]{record.getStr(eSyspar1.par3), record.getInt(eSyspar1.par2)}));
+        syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.grup),
+                new Object[]{record.getStr(eSyspar1.text), record.getInt(eSyspar1.numb)}));
 
         //Инициализация объектов калькуляции
         listArea = rootArea.listElem(TypeElem.AREA); //список контейнеров

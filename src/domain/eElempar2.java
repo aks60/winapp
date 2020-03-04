@@ -6,18 +6,18 @@ import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
 import static domain.eElempar1.id;
-import static domain.eElempar1.par1;
 import static domain.eElempar1.up;
 import static domain.eElempar1.values;
+import static domain.eElempar1.grup;
 
 public enum eElempar2 implements Field {
     up("0", "0", "0", "Параметры спецификаций составов", "PARVSTS"),
-    id("4", "10", "0", "Идентификатор", "id"),
-    npp("5", "5", "1", "Нпп параметра", "PPORN"),
-    par1("4", "10", "1", "Параметр 1", "PNUMB"), //см. eEnum параметры
-    par2("4", "10", "1", "Параметр 2", "ZNUMB"), //пар. вводимые пользователем в системе профилей
-    par3("12", "64", "1", "Наименование значения параметра", "PTEXT"),
+    id("4", "10", "0", "Идентификатор", "id"),    
+    grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
+    numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
+    text("12", "64", "1", "Значения параметра", "PTEXT"),
     elemdet_id("4", "10", "1", "Спецификацмя", "element_id");
+    //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values()).table(up.tname());
@@ -51,9 +51,9 @@ public enum eElempar2 implements Field {
     
     public static Record find2(int _par1) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _par1 == rec.getInt(par1)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _par1 == rec.getInt(grup)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", par1, "=", _par1).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _par1).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     
