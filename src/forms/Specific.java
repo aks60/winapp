@@ -1,5 +1,7 @@
 package forms;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import common.FrameListener;
 import common.FrameToFile;
 import common.eProperty;
@@ -65,7 +67,7 @@ public class Specific extends javax.swing.JFrame {
         initComponents();
         initElements();
         createWincalc();
-//        load();
+        load();
     }
 
     public Specific(java.awt.Window owner, Wincalc iwin) {
@@ -97,16 +99,15 @@ public class Specific extends javax.swing.JFrame {
         iwin = new Wincalc();
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         setTitle(getTitle() + ".    Система: <<" + eSystree.patch(nuni) + ">>");
-        Record record = eSystree.find(nuni); 
+        Record record = eSystree.find(nuni);
         int sysprod_id = record.getInt(eSystree.sysprod_id);
         Record record2 = eSysprod.find(sysprod_id);
         if (record2 != null) {
             String script = record2.getStr(eSysprod.script);
-            if (script != null) {
-                iwin.create(script);
-            }
+            JsonElement je = new Gson().fromJson(script, JsonElement.class);
+            je.getAsJsonObject().addProperty("nuni", nuni);
+            iwin.create(je.toString());
         }
-
     }
 
     @SuppressWarnings("unchecked")
