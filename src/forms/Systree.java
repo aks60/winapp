@@ -46,7 +46,7 @@ import wincalc.script.Winscript;
 
 public class Systree extends javax.swing.JFrame implements FrameListener<Object, Integer> {
 
-    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.par1, "< 0").table(eParams.up.tname());
+    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.group, "< 0").table(eParams.up.tname());
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
@@ -113,8 +113,8 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         new DefTableModel(tab4, qSyspar1, eSyspar1.par1, eSyspar1.par3, eSyspar1.fixed) {
             public Object preview(Field field, int row, Object val) {
                 if (val != null && field == eSyspar1.par1) {
-                    return qParams.stream().filter(rec -> (rec.get(eParams.par1).equals(val)
-                            && rec.getInt(eParams.par2) == 0)).findFirst().orElse(qParams.newRecord(Query.SEL)).getStr(eParams.par3);
+                    return qParams.stream().filter(rec -> (rec.get(eParams.group).equals(val)
+                            && rec.getInt(eParams.numb) == 0)).findFirst().orElse(qParams.newRecord(Query.SEL)).getStr(eParams.text);
                 }
                 return val;
             }

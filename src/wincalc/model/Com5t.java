@@ -98,7 +98,7 @@ public abstract class Com5t {
                         int p2 = jsonRec.get(1).getAsInt();
                         Record record = eParams.find(p1, p2);
                         if (p1 < 0 && record != null) {
-                            mapValue.put(p1, new Object[]{record.get(eParams.par3), record.get(eParams.par2), 0});
+                            mapValue.put(p1, new Object[]{record.get(eParams.text), record.get(eParams.numb), 0});
                         }
                     }
                     mapParam.put(ParamJson.pro4Params2, mapValue); //второй вариант                
