@@ -21,7 +21,7 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
         iwin.gc2d = (Graphics2D) this.getGraphics();
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                response(evt);
+                actionResponse(evt);
             }
         });
     }

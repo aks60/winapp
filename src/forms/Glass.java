@@ -56,11 +56,11 @@ public class Glass extends javax.swing.JFrame {
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
             new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
 
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             btnSave.setIcon(btnIM[0]);
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             btnSave.setIcon(btnIM[1]);
         }
     };

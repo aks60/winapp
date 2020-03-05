@@ -84,7 +84,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                 return val;
             } else {
                 val = table.get(rowIndex, columns[columnIndex]);
-                return preview(columns[columnIndex], rowIndex, val);
+                return actionPreview(columns[columnIndex], rowIndex, val);
             }
         }
         return null;
@@ -132,7 +132,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         }
         table.set(value, row, field);
         if (listenerModify != null) {
-            listenerModify.request(null);
+            listenerModify.actionRequest(null);
         }
     }
 

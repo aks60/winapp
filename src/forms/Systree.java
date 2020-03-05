@@ -59,7 +59,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     private TreeNode[] treeNode = null;
     private PaintPanel paintPanel = new PaintPanel(iwin) {
 
-        public void response(MouseEvent evt) {
+        public void actionResponse(MouseEvent evt) {
 //            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
 //            if (elem != null) {
 //                txtField5.setText(String.valueOf(elem.getId()));
@@ -72,11 +72,11 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
             new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
 
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             btnSave.setIcon(btnIM[0]);
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             btnSave.setIcon(btnIM[1]);
         }
     };
@@ -93,7 +93,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.types, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
             @Override
-            public Object preview(Field field, int row, Object val) {
+            public Object actionPreview(Field field, int row, Object val) {
                 if (field == eSysprof.side && val != null) {
                     ProfileSide en = ProfileSide.get(Integer.valueOf(val.toString()));
                     if (en != null) {
@@ -111,7 +111,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
         new DefTableModel(tab4, qSyspar1, eSyspar1.grup, eSyspar1.text, eSyspar1.fixed) {
-            public Object preview(Field field, int row, Object val) {
+            public Object actionPreview(Field field, int row, Object val) {
                 if (val != null && field == eSyspar1.grup) {
                     return qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
                             && rec.getInt(eParams.numb) == 0)).findFirst().orElse(qParams.newRecord(Query.SEL)).getStr(eParams.text);
@@ -244,7 +244,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     }
 
     @Override
-    public void response(Integer sysprod_id) {
+    public void actionResponse(Integer sysprod_id) {
 
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
@@ -915,7 +915,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
         FrameProgress.create(this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 App1.eApp1.Composition.createFrame(Systree.this);
             }
         });
@@ -954,7 +954,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 int nuni = node.record.getInt(eSystree.id);
                 JToggleButton btn = (JToggleButton) evt.getSource();
                 FrameProgress.create(Systree.this, new FrameListener() {
-                    public void request(Object obj) {
+                    public void actionRequest(Object obj) {
 
                         java.awt.Frame frame = null;
                         if (btn == btnJoin) {
@@ -982,7 +982,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null && selectedNode.isLeaf()) {
             FrameProgress.create(Systree.this, new FrameListener() {
-                public void request(Object obj) {
+                public void actionRequest(Object obj) {
                     BoxTypical frame = new BoxTypical(Systree.this);
                     FrameToFile.setFrameSize(frame);
                     frame.setVisible(true);

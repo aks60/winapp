@@ -59,22 +59,22 @@ public class Color extends javax.swing.JFrame
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
             new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
 
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             btnSave.setIcon(btnIM[0]);
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             btnSave.setIcon(btnIM[1]);
         }
     };
     private FrameListener<Object, Object> listenerTable = new FrameListener() {
 
         //actionPassage
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             System.out.println(".request()");
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             System.out.println(".response()");
         }
 
@@ -109,7 +109,7 @@ public class Color extends javax.swing.JFrame
 
     private void selectionTab1(ListSelectionEvent event) {
         qColor.execsql();
-        listenerModify.response(null);
+        listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qСolgrup.table(eColgrp.up.tname()).get(row);
@@ -469,7 +469,7 @@ public class Color extends javax.swing.JFrame
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
         qСolgrup.execsql();
         qColor.execsql();
-        listenerModify.response(null);
+        listenerModify.actionResponse(null);
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

@@ -186,9 +186,9 @@ public class DefFieldEditor extends AbstractCellEditor
         }
         if (editorTable.getModel() instanceof TableModel) {
             TableModel rsm = (TableModel) editorTable.getModel();
-            listenerFrame.request(rsm);
+            listenerFrame.actionRequest(rsm);
         } else {
-            listenerFrame.request(null);
+            listenerFrame.actionRequest(null);
         }
     }
 

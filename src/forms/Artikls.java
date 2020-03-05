@@ -70,11 +70,11 @@ public class Artikls extends javax.swing.JFrame
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
             new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
 
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             btnSave.setIcon(btnIM[0]);
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             btnSave.setIcon(btnIM[1]);
         }
     };
@@ -743,7 +743,7 @@ public class Artikls extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             qArtikls.execsql();
             qArtdet.execsql();
-            listenerModify.response(null);
+            listenerModify.actionResponse(null);
         }
     }//GEN-LAST:event_formWindowClosed
 
@@ -767,7 +767,7 @@ public class Artikls extends javax.swing.JFrame
 
         qArtikls.execsql();
         qArtdet.execsql();
-        listenerModify.response(null);
+        listenerModify.actionResponse(null);
     }//GEN-LAST:event_btnSave
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh

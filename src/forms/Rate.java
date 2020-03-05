@@ -49,11 +49,11 @@ public class Rate extends javax.swing.JFrame {
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
             new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
 
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             btnSave.setIcon(btnIM[0]);
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             btnSave.setIcon(btnIM[1]);
         }
     };
@@ -263,7 +263,7 @@ public class Rate extends javax.swing.JFrame {
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
 
         qRate.execsql();
-        listenerModify.response(null);
+        listenerModify.actionResponse(null);
         //((DefTableModel) tab1.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnSave
 
@@ -299,7 +299,7 @@ public class Rate extends javax.swing.JFrame {
         if (qRate.isUpdate() && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             qRate.execsql();
-            listenerModify.response(null);
+            listenerModify.actionResponse(null);
         }
     }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

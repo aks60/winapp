@@ -146,7 +146,7 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
     }//GEN-LAST:event_btnCloseClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-       listenet.response(null);
+       listenet.actionResponse(null);
        this.dispose();
     }//GEN-LAST:event_btnChoice
 

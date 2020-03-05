@@ -41,10 +41,10 @@ public class App1 extends javax.swing.JFrame {
     private FrameListener listenerMenu;
     private FrameListener<Object, Object> listenerDate = new FrameListener() {
 
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             Util.setGregorianCalendar(obj);
             btn11.setText(Util.getDateStr(null));
         }
@@ -956,7 +956,7 @@ public class App1 extends javax.swing.JFrame {
     private void mDictColor(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictColor
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Color.createFrame(App1.this);
             }
         });
@@ -965,7 +965,7 @@ public class App1 extends javax.swing.JFrame {
     private void mnConstr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConstr
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Systree.createFrame(App1.this);
             }
         });
@@ -1032,7 +1032,7 @@ private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 
     FrameProgress.create(App1.this, new FrameListener() {
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             eApp1.Specific.createFrame(App1.this);
         }
     });
@@ -1041,7 +1041,7 @@ private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
 private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     FrameProgress.create(App1.this, new FrameListener() {
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             eApp1.Artikls.createFrame(App1.this);
         }
     });
@@ -1073,7 +1073,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mn24(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn24
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Rate.createFrame(App1.this);
             }
         });
@@ -1082,7 +1082,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnElement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnElement
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Composition.createFrame(App1.this);
             }
         });
@@ -1091,7 +1091,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnFurnityra(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFurnityra
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Furniture.createFrame(App1.this);
             }
         });
@@ -1112,7 +1112,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Partner.createFrame(App1.this);
             }
         });
@@ -1121,7 +1121,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void parametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parametr
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Param.createFrame(App1.this);
             }
         });
@@ -1130,7 +1130,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mJoining
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Joining.createFrame(App1.this);
             }
         });
@@ -1139,7 +1139,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnGlass(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGlass
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Glass.createFrame(App1.this);
             }
         });
@@ -1148,7 +1148,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnDesign(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDesign
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.BoxCustom.createFrame(App1.this);
             }
         });
@@ -1157,7 +1157,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Kits.createFrame(App1.this);
             }
         });
@@ -1166,7 +1166,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Convert.createFrame(App1.this);
             }
         });
@@ -1175,7 +1175,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Order.createFrame(App1.this);
             }
         });
@@ -1184,7 +1184,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnSysconst(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSysconst
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.Syscons.createFrame(App1.this);
             }
         });
@@ -1193,7 +1193,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnBoxTypical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBoxTypical
 
         FrameProgress.create(App1.this, new FrameListener() {
-            public void request(Object obj) {
+            public void actionRequest(Object obj) {
                 eApp1.BoxTypical.createFrame(App1.this);
             }
         });

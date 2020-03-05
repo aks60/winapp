@@ -34,7 +34,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private FrameListener listenerFrame = null;
     private PaintPanel paintPanel = new PaintPanel(iwinMax) {
 
-        public void response(MouseEvent evt) {
+        public void actionResponse(MouseEvent evt) {
             ElemSimple elem = iwinMax.listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);
             if (elem != null) {
                 txtField5.setText(String.valueOf(elem.id()));
@@ -64,11 +64,11 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
             new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
 
-        public void request(Object obj) {
+        public void actionRequest(Object obj) {
             btnSave.setIcon(btnIM[0]);
         }
 
-        public void response(Object obj) {
+        public void actionResponse(Object obj) {
             btnSave.setIcon(btnIM[1]);
         }
     };
@@ -142,7 +142,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        listenerModify.response(null);
+        listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
@@ -782,7 +782,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Object id = qSysprod.get(row, eSysprod.id);
-            listenerFrame.response(id);
+            listenerFrame.actionResponse(id);
             this.dispose();
         }
     }//GEN-LAST:event_btnChoiceresh
