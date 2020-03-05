@@ -68,8 +68,7 @@ public class Color extends javax.swing.JFrame
         }
     };
     private FrameListener<Object, Object> listenerTable = new FrameListener() {
-
-        //actionPassage
+        
         public void actionRequest(Object obj) {
             System.out.println(".request()");
         }

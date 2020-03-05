@@ -4,6 +4,9 @@ import dataset.Field;
 
 public interface FrameListener<A, B> extends java.awt.event.ActionListener {
 
+    //
+    //public void actionPassed();
+    //
     default void actionRequest(A obj) {
     }
 
