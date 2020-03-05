@@ -202,7 +202,6 @@ public class Artikls extends javax.swing.JFrame
         btnFind = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         panCenter = new javax.swing.JPanel();
-        pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -225,9 +224,12 @@ public class Artikls extends javax.swing.JFrame
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
-        jSplitPane1 = new javax.swing.JSplitPane();
+        pan6 = new javax.swing.JPanel();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
+        pan5 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
@@ -403,7 +405,7 @@ public class Artikls extends javax.swing.JFrame
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 561, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 532, Short.MAX_VALUE)
                 .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,10 +430,6 @@ public class Artikls extends javax.swing.JFrame
         getContentPane().add(panNorth, java.awt.BorderLayout.PAGE_START);
 
         panCenter.setLayout(new java.awt.BorderLayout());
-
-        pan1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan1.setLayout(new java.awt.BorderLayout());
-        panCenter.add(pan1, java.awt.BorderLayout.CENTER);
 
         pan2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan2.setPreferredSize(new java.awt.Dimension(300, 500));
@@ -606,13 +604,13 @@ public class Artikls extends javax.swing.JFrame
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addContainerGap(197, Short.MAX_VALUE))
         );
 
         panCenter.add(pan2, java.awt.BorderLayout.EAST);
 
         pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan3.setPreferredSize(new java.awt.Dimension(600, 90));
+        pan3.setPreferredSize(new java.awt.Dimension(600, 100));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
@@ -647,9 +645,16 @@ public class Artikls extends javax.swing.JFrame
 
         panCenter.add(pan3, java.awt.BorderLayout.SOUTH);
 
-        jSplitPane1.setBorder(null);
+        pan6.setPreferredSize(new java.awt.Dimension(600, 400));
+        pan6.setLayout(new java.awt.BorderLayout());
+
+        jSplitPane2.setPreferredSize(new java.awt.Dimension(600, 25));
+
+        pan4.setPreferredSize(new java.awt.Dimension(200, 430));
+        pan4.setLayout(new java.awt.BorderLayout());
 
         scrTree.setBorder(null);
+        scrTree.setPreferredSize(new java.awt.Dimension(200, 400));
 
         tree.setFont(common.Util.getFont(0,0));
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
@@ -662,9 +667,15 @@ public class Artikls extends javax.swing.JFrame
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree.setMaximumSize(new java.awt.Dimension(200, 400));
         scrTree.setViewportView(tree);
 
-        jSplitPane1.setLeftComponent(scrTree);
+        pan4.add(scrTree, java.awt.BorderLayout.CENTER);
+
+        jSplitPane2.setLeftComponent(pan4);
+
+        pan5.setPreferredSize(new java.awt.Dimension(201, 430));
+        pan5.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
 
@@ -687,15 +698,20 @@ public class Artikls extends javax.swing.JFrame
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setPreferredSize(new java.awt.Dimension(400, 400));
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
 
-        jSplitPane1.setRightComponent(scr1);
+        pan5.add(scr1, java.awt.BorderLayout.CENTER);
 
-        panCenter.add(jSplitPane1, java.awt.BorderLayout.CENTER);
+        jSplitPane2.setRightComponent(pan5);
+
+        pan6.add(jSplitPane2, java.awt.BorderLayout.CENTER);
+
+        panCenter.add(pan6, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panCenter, java.awt.BorderLayout.CENTER);
 
@@ -707,7 +723,7 @@ public class Artikls extends javax.swing.JFrame
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 913, Short.MAX_VALUE)
+            .addGap(0, 884, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -792,12 +808,14 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JMenuItem menList;
     private javax.swing.JMenuItem menOne;
-    private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
+    private javax.swing.JPanel pan5;
+    private javax.swing.JPanel pan6;
     private javax.swing.JPanel panCenter;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
