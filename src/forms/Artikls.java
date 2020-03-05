@@ -82,10 +82,14 @@ public class Artikls extends javax.swing.JFrame
     public Artikls() {
         initComponents();
         initElements();
-        //treeMat.setRootVisible(false);
+        initDatamodel();
+        loadTree();
+    }
 
+    private void initDatamodel() {
         DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikl.code, eArtikl.name, eCurrenc.design);
-        DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+        DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1,
+                eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
         rsmArtikls.addFrameListener(listenerModify);
         rsmArtsvst.addFrameListener(listenerModify);
 
@@ -106,8 +110,6 @@ public class Artikls extends javax.swing.JFrame
             }
         });
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnColor));
-
-        loadTree();
     }
 
     private void loadTree() {
@@ -838,7 +840,7 @@ public class Artikls extends javax.swing.JFrame
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));

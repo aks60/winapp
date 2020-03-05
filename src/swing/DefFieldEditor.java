@@ -17,28 +17,20 @@ import common.Util;
 import dataset.Field;
 
 /**
- * <p>
- * Специальный редактор сложных компонентов. </p>
- * <p>
- * Конструктор передаёт в объект FrameListener. После чего передаётся событие
- * клика на кнопке в FrameListener (listenerFrame.request(rsm)).</p>
+ * Специальный редактор сложных компонентов. Конструктор передаёт объект в
+ * FrameListener. После чего передаётся событие клика на кнопке в FrameListener
+ * (listenerFrame.request(rsm)).
  */
 public class DefFieldEditor extends AbstractCellEditor
         implements TableCellEditor, ActionListener {
 
     protected FrameListener listenerFrame = null;
-    // Таблица редактирования
-    protected JTable editorTable = null;
-    // Компонента отображения
-    protected JComponent editorComponent;
-    // Кнопка выбора из справочника
-    protected JButton editorButton;
-    // Компонента редактирования
-    protected JTextField editorText;
-    // Количество кликов для перехода в режим редактирования.
-    private static int clickCountToStart = 2;
-    // Делегат редактора
-    protected RsEditorDelegate delegate;
+    protected JTable editorTable = null;  //таблица редактирования    
+    protected JComponent editorComponent;  //компонента отображения    
+    protected JButton editorButton;  //кнопка выбора из справочника    
+    protected JTextField editorText; //компонента редактирования
+    private static int clickCountToStart = 2; //количество кликов для перехода в режим редактирования.
+    protected RsEditorDelegate delegate; //делегат редактора
 
     //Конструктор 1 редактора JTextField.
     public DefFieldEditor(final JTextField textField) {
@@ -147,8 +139,7 @@ public class DefFieldEditor extends AbstractCellEditor
 
     }
 
-    //см. FrameAdapter.initTable()
-    //Устанавливает редактор ячеек.
+    //Устанавливает редактор ячеек. см. FrameAdapter.initTable()
     public static void initCellEditor(FrameListener listener, JTable table) {
 
         DefTableModel model = (DefTableModel) table.getModel();

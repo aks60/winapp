@@ -136,7 +136,8 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         }
     }
 
-    public void addFrameListener(FrameListener listenerModify) {
+    public DefTableModel addFrameListener(FrameListener listenerModify) {
         this.listenerModify = listenerModify;
+        return this;
     }
 }

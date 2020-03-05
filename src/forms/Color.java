@@ -1,30 +1,36 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameProgress;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
 import domain.eColgrp;
+import domain.eColpar1;
+import domain.eParams;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import swing.DefFieldEditor;
 import swing.DefTableModel;
 
 public class Color extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Component focusComp = null;
-    private Query qGrupcol = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
-    private Query qColslst = new Query(eColor.values());
+    private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
+    private Query qColor = new Query(eColor.values());
+    private Query qColpar1 = new Query(eColpar1.values(), eParams.values());
 
     private FocusListener listenerFocus = new FocusListener() {
         javax.swing.border.Border border
@@ -61,13 +67,40 @@ public class Color extends javax.swing.JFrame
             btnSave.setIcon(btnIM[1]);
         }
     };
+    private FrameListener<Object, Object> listenerTable = new FrameListener() {
+
+        //actionPassage
+        public void request(Object obj) {
+            System.out.println(".request()");
+        }
+
+        public void response(Object obj) {
+            System.out.println(".response()");
+        }
+
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            System.out.println(".actionPerformed()");
+            DicList1 frame = new DicList1(Color.this, true, this);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        }
+    };
 
     public Color() {
         initComponents();
         initElements();
+        initDatamodel();
+    }
 
-        new DefTableModel(tab1, qGrupcol, eColgrp.name).addFrameListener(listenerModify);
-        new DefTableModel(tab2, qColslst, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3).addFrameListener(listenerModify);
+    private void initDatamodel() {
+
+        new DefTableModel(tab1, qСolgrup, eColgrp.name).addFrameListener(listenerModify);
+        new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text).addFrameListener(listenerModify);
+
+        JButton btnT3C0 = new JButton("...");
+        btnT3C0.addActionListener(listenerTable);
+        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT3C0));
 
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -75,13 +108,13 @@ public class Color extends javax.swing.JFrame
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        qColslst.execsql();
+        qColor.execsql();
         listenerModify.response(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qGrupcol.table(eColgrp.up.tname()).get(row);
+            Record record = qСolgrup.table(eColgrp.up.tname()).get(row);
             Integer cgrup = record.getInt(eColgrp.id);
-            qColslst.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup + "order by", eColor.name);
+            qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup + "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
                 tab2.setRowSelectionInterval(0, 0);
@@ -92,10 +125,21 @@ public class Color extends javax.swing.JFrame
         }
     }
 
-    public void request(DefTableModel tm) {
-    }
-
-    public void response(Object obj) {
+    private void selectionTab2(ListSelectionEvent event) {
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qColor.table(eColor.up.tname()).get(row);
+            int id = record.getInt(eColor.id);
+            qColpar1.select(eColpar1.up, "left join", eParams.up.tname(), "on", eParams.grup, "=",
+                    eColpar1.grup, "and", eParams.numb, "= 0", "where", eColpar1.numb, "=", id);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            if (tab3.getRowCount() > 0) {
+                tab3.setRowSelectionInterval(0, 0);
+                btnDel.setEnabled(false);
+            } else {
+                btnDel.setEnabled(true);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -414,7 +458,7 @@ public class Color extends javax.swing.JFrame
     }//GEN-LAST:event_btnHelp
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qGrupcol.select(eColgrp.up, "order by", eColgrp.name);
+        qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -423,8 +467,8 @@ public class Color extends javax.swing.JFrame
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-        qGrupcol.execsql();
-        qColslst.execsql();
+        qСolgrup.execsql();
+        qColor.execsql();
         listenerModify.response(null);
     }//GEN-LAST:event_btnSave
 
@@ -434,17 +478,17 @@ public class Color extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             try {
                 if (focusComp == tab1) {
-                    Query query = qGrupcol.table(eColgrp.up.tname());
+                    Query query = qСolgrup.table(eColgrp.up.tname());
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
-                    qGrupcol.select(eColgrp.up, "order by", eColgrp.name);
+                    qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
                 } else if (focusComp == tab2) {
-                    Query query = qColslst.table(eColor.up.tname());
+                    Query query = qColor.table(eColor.up.tname());
                     Record record = query.get(tab2.getSelectedRow());
                     query.delete(record);
-                    qColslst.select(eColgrp.up, "order by", eColgrp.name);
+                    qColor.select(eColgrp.up, "order by", eColgrp.name);
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 }
             } catch (Exception e) {
@@ -456,7 +500,7 @@ public class Color extends javax.swing.JFrame
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (focusComp == tab1) {
-            Query query = qGrupcol.table(eColgrp.up.tname());
+            Query query = qСolgrup.table(eColgrp.up.tname());
             Record record = query.newRecord(Query.INS);
             int id = ConnApp.get().generatorId(eColgrp.up.tname());
             record.setNo(eColgrp.id, id);
@@ -468,8 +512,8 @@ public class Color extends javax.swing.JFrame
 
         } else if (focusComp == tab2) {
             int row = tab1.getSelectedRow();
-            Query query1 = qGrupcol.table(eColgrp.up.tname());
-            Query query2 = qColslst.table(eColor.up.tname());
+            Query query1 = qСolgrup.table(eColgrp.up.tname());
+            Query query2 = qColor.table(eColor.up.tname());
             Record record1 = query1.get(row);
             Record record2 = query2.newRecord(Query.INS);
             int id = ConnApp.get().generatorId(eColor.up.tname());
@@ -509,7 +553,7 @@ public class Color extends javax.swing.JFrame
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
@@ -517,6 +561,13 @@ public class Color extends javax.swing.JFrame
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
+                }
+            }
+        });
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab2(event);
                 }
             }
         });
