@@ -1,16 +1,24 @@
 package forms;
 
 import common.FrameListener;
-import swing.DefTableModel;
+import dataset.Field;
+import dataset.Query;
 
 public class DicList1 extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
     private FrameListener listenet;
 
-    public DicList1(java.awt.Frame parent, boolean modal, FrameListener listenet) {
-        super(parent, modal);
+    public DicList1(java.awt.Frame parent, FrameListener listenet) {
+        super(parent, true);
         initComponents();
         this.listenet = listenet;
+    }
+    
+    public DicList1(java.awt.Frame parent, FrameListener listenet, Query query, Field... field) {
+        super(parent, true);
+        initComponents();
+        this.listenet = listenet;
+        //DefTableModel dm = new DefTableModel(tab1, qСolgrup, eColgrp.name)
     }
 
 
@@ -24,6 +32,8 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
         btnRemove = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(300, 500));
@@ -124,17 +134,22 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
         panCentr.setPreferredSize(new java.awt.Dimension(300, 450));
+        panCentr.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout panCentrLayout = new javax.swing.GroupLayout(panCentr);
-        panCentr.setLayout(panCentrLayout);
-        panCentrLayout.setHorizontalGroup(
-            panCentrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
-        );
-        panCentrLayout.setVerticalGroup(
-            panCentrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 446, Short.MAX_VALUE)
-        );
+        jScrollPane1.setBorder(null);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Name 1", "Value 1"},
+                {"Name 2", "Value 2"}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        panCentr.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
@@ -158,6 +173,8 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;

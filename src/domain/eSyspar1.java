@@ -56,6 +56,6 @@ public enum eSyspar1 implements Field {
     }
 
     public String toString() {
-        return meta.getDescr();
+        return meta.descr();
     }
 }

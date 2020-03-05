@@ -34,6 +34,6 @@ public enum eElemgrp implements Field {
     }
 
     public String toString() {
-        return meta.getDescr();
+        return meta.descr();
     }
 }

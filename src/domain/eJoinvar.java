@@ -64,6 +64,6 @@ public enum eJoinvar implements Field {
     }
 
     public String toString() {
-        return meta.getDescr();
+        return meta.descr();
     }
 }

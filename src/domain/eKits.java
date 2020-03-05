@@ -48,6 +48,6 @@ public enum eKits implements Field {
     }
 
     public String toString() {
-        return meta.getDescr();
+        return meta.descr();
     }
 }

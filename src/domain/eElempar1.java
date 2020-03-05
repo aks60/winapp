@@ -57,6 +57,6 @@ import static domain.eArtikl.values;
     }
     
     public String toString() {
-        return meta.getDescr();
+        return meta.descr();
     }
 }

@@ -40,6 +40,6 @@ public enum eFurnside2 implements Field {
     }
 
     public String toString() {
-        return meta.getDescr();
+        return meta.descr();
     }
 }

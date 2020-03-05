@@ -69,6 +69,9 @@ public class Color extends javax.swing.JFrame
     };
     private FrameListener<Object, Object> listenerTable = new FrameListener() {
         
+        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
+            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
+        
         public void actionRequest(Object obj) {
             System.out.println(".request()");
         }
@@ -79,7 +82,9 @@ public class Color extends javax.swing.JFrame
 
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             System.out.println(".actionPerformed()");
-            DicList1 frame = new DicList1(Color.this, true, this);
+            Query query = new Query(eParams.values()).select(eParams.up);
+            eParams.text.meta().descr("Название параметра");
+            DicList1 frame = new DicList1(Color.this, this, query, eParams.text);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         }
@@ -95,10 +100,11 @@ public class Color extends javax.swing.JFrame
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name).addFrameListener(listenerModify);
         new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text).addFrameListener(listenerTable);
 
         JButton btnT3C0 = new JButton("...");
         btnT3C0.addActionListener(listenerTable);
+        btnFind.addActionListener(listenerTable);
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT3C0));
 
         if (tab1.getRowCount() > 0) {
@@ -147,7 +153,6 @@ public class Color extends javax.swing.JFrame
 
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
-        btnHelp = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -186,21 +191,6 @@ public class Color extends javax.swing.JFrame
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCloseClose(evt);
-            }
-        });
-
-        btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif"))); // NOI18N
-        btnHelp.setToolTipText(bundle.getString("Справка")); // NOI18N
-        btnHelp.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnHelp.setFocusable(false);
-        btnHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnHelp.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnHelp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHelp(evt);
             }
         });
 
@@ -314,9 +304,7 @@ public class Color extends javax.swing.JFrame
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 421, Short.MAX_VALUE)
-                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -329,7 +317,6 @@ public class Color extends javax.swing.JFrame
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -452,10 +439,6 @@ public class Color extends javax.swing.JFrame
         this.dispose();
     }//GEN-LAST:event_btnCloseClose
 
-    private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-        //ExecuteCmd.startHelp(this.getClass().getName());
-    }//GEN-LAST:event_btnHelp
-
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -534,7 +517,6 @@ public class Color extends javax.swing.JFrame
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnFind;
-    private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;

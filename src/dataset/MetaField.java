@@ -19,7 +19,7 @@ public class MetaField {
     private boolean isnull = false; //запретить null в таблице
     private Field field = null; //enum
     public String fname = null; //служебное для переопределение имени поля
-    public String descr = ""; //описание поля
+    private String descr = ""; //описание поля
     private TYPE type = TYPE.OBJ; //тип поля
     private Integer size = 0; //размер поля
     private Field.EDIT edit = Field.EDIT.TRUE; //запретить редактирование в визуальном комроненте
@@ -86,7 +86,11 @@ public class MetaField {
         return null;
     }
 
-    public String getDescr() {
+    public void descr(String descr) {
+        this.descr = descr;
+    }
+    
+    public String descr() {
         return descr;
     }
 

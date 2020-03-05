@@ -168,7 +168,7 @@ public class Profstroy {
 
             System.out.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
             for (Field field : fieldsUp) {
-                sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr + "'"); //DDL описание таблиц
+                sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
             updateDb(cn2, st2);
 
@@ -213,7 +213,7 @@ public class Profstroy {
         ddl = ddl.substring(0, ddl.length() - 1) + ");";
         batch.add(ddl);
         for (int i = 1; i < f.length; ++i) {
-            batch.add("COMMENT ON COLUMN \"" + f[i].tname() + "\"." + f[i].name() + " IS '" + f[i].meta().descr + "';");
+            batch.add("COMMENT ON COLUMN \"" + f[i].tname() + "\"." + f[i].name() + " IS '" + f[i].meta().descr() + "';");
         }
         return batch;
     }
