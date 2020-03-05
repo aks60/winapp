@@ -81,8 +81,9 @@ public class Color extends javax.swing.JFrame
         }
 
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            System.out.println(".actionPerformed()");
-            Query query = new Query(eParams.values()).select(eParams.up);
+
+            Query query = new Query(eParams.values()).select(eParams.up, 
+                    "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up.tname());
             eParams.text.meta().descr("Название параметра");
             DicList1 frame = new DicList1(Color.this, this, query, eParams.text);
             FrameToFile.setFrameSize(frame);

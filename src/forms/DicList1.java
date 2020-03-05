@@ -3,24 +3,41 @@ package forms;
 import common.FrameListener;
 import dataset.Field;
 import dataset.Query;
+import dataset.Record;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Vector;
+import java.util.stream.Collectors;
+import javax.swing.table.DefaultTableModel;
 
 public class DicList1 extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
     private FrameListener listenet;
 
-    public DicList1(java.awt.Frame parent, FrameListener listenet) {
+    public DicList1(java.awt.Frame parent, FrameListener listenet, Query query, Field... fields) {
         super(parent, true);
         initComponents();
         this.listenet = listenet;
-    }
-    
-    public DicList1(java.awt.Frame parent, FrameListener listenet, Query query, Field... field) {
-        super(parent, true);
-        initComponents();
-        this.listenet = listenet;
-        //DefTableModel dm = new DefTableModel(tab1, qСolgrup, eColgrp.name)
+        initDatamodel(query, fields);
     }
 
+    private void initDatamodel(Query query, Field... fields) {
+
+        Vector<Vector> dataList = new Vector();
+        Vector colList = new Vector();
+        for (Field field : fields) {
+            colList.add(field.meta().descr());
+        }
+        for (Record record : query) {
+            Vector rec = new Vector();
+            for (Field field : fields) {
+                rec.add(record.getStr(field));
+            }
+            dataList.add(rec);
+        }
+        tab1.setModel(new DefaultTableModel(dataList, colList));
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -32,8 +49,8 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
         btnRemove = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(300, 500));
@@ -136,9 +153,9 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
         panCentr.setPreferredSize(new java.awt.Dimension(300, 450));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        jScrollPane1.setBorder(null);
+        scr1.setBorder(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Name 1", "Value 1"},
                 {"Name 2", "Value 2"}
@@ -147,9 +164,15 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
                 "Title 1", "Title 2"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setHeaderValue("Title 1");
+            tab1.getColumnModel().getColumn(1).setHeaderValue("Title 2");
+        }
 
-        panCentr.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
@@ -161,8 +184,8 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
     }//GEN-LAST:event_btnCloseClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-       listenet.actionResponse(null);
-       this.dispose();
+        listenet.actionResponse(null);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
@@ -173,10 +196,10 @@ public class DicList1 extends javax.swing.JDialog implements FrameListener<Objec
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
+    private javax.swing.JScrollPane scr1;
+    private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 }
