@@ -201,13 +201,8 @@ public class Artikls extends javax.swing.JFrame
         btnIns = new javax.swing.JButton();
         btnFind = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        panWest = new javax.swing.JPanel();
-        scrTree = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
         panCenter = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -230,6 +225,11 @@ public class Artikls extends javax.swing.JFrame
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        scrTree = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         menOne.setFont(common.Util.getFont(0,0));
@@ -427,63 +427,10 @@ public class Artikls extends javax.swing.JFrame
 
         getContentPane().add(panNorth, java.awt.BorderLayout.PAGE_START);
 
-        panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panWest.setPreferredSize(new java.awt.Dimension(200, 550));
-        panWest.setLayout(new java.awt.BorderLayout());
-
-        scrTree.setBorder(null);
-
-        tree.setFont(common.Util.getFont(0,0));
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Мат. ценности");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Профили");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Aксессуары");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("БлаБла");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        scrTree.setViewportView(tree);
-
-        panWest.add(scrTree, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(panWest, java.awt.BorderLayout.WEST);
-
         panCenter.setLayout(new java.awt.BorderLayout());
 
         pan1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan1.setLayout(new java.awt.BorderLayout());
-
-        scr1.setBorder(null);
-
-        tab1.setFont(common.Util.getFont(0,0));
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "111"},
-                {"2", "222"}
-            },
-            new String [] {
-                "Актикул", "Наименование"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab1.setFillsViewportHeight(true);
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
-
-        pan1.add(scr1, java.awt.BorderLayout.CENTER);
-
         panCenter.add(pan1, java.awt.BorderLayout.CENTER);
 
         pan2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -700,6 +647,56 @@ public class Artikls extends javax.swing.JFrame
 
         panCenter.add(pan3, java.awt.BorderLayout.SOUTH);
 
+        jSplitPane1.setBorder(null);
+
+        scrTree.setBorder(null);
+
+        tree.setFont(common.Util.getFont(0,0));
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Мат. ценности");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Профили");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Aксессуары");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("БлаБла");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        scrTree.setViewportView(tree);
+
+        jSplitPane1.setLeftComponent(scrTree);
+
+        scr1.setBorder(null);
+
+        tab1.setFont(common.Util.getFont(0,0));
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "111"},
+                {"2", "222"}
+            },
+            new String [] {
+                "Актикул", "Наименование"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
+
+        jSplitPane1.setRightComponent(scr1);
+
+        panCenter.add(jSplitPane1, java.awt.BorderLayout.CENTER);
+
         getContentPane().add(panCenter, java.awt.BorderLayout.CENTER);
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -795,6 +792,7 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JMenuItem menList;
     private javax.swing.JMenuItem menOne;
     private javax.swing.JPanel pan1;
@@ -803,7 +801,6 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JPanel panCenter;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
-    private javax.swing.JPanel panWest;
     private javax.swing.JPopupMenu ppmReport;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
