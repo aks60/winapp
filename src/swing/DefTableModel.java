@@ -51,6 +51,10 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         }
     }
 
+    public Field getColumn(int index) {
+        return columns[index];
+    }
+
     public int getColumnCount() {
         return model.getColumnCount();
     }
@@ -81,7 +85,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             } else {
                 val = table.get(rowIndex, columns[columnIndex]);
                 return preview(columns[columnIndex], rowIndex, val);
-            }            
+            }
         }
         return null;
     }

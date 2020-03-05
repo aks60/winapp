@@ -6,21 +6,14 @@ import javax.swing.table.*;
 import java.util.EventObject;
 import java.io.Serializable;
 import javax.swing.AbstractCellEditor;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import common.Util;
 import common.FrameListener;
-import java.awt.Color;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import javax.swing.JFormattedTextField;
-import javax.swing.text.NumberFormatter;
+import common.Util;
 import dataset.Field;
 
 /**
@@ -30,7 +23,8 @@ import dataset.Field;
  * Конструктор передаёт в объект FrameListener. После чего передаётся событие
  * клика на кнопке в FrameListener (listenerFrame.request(rsm)).</p>
  */
-public class DefFieldEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+public class DefFieldEditor extends AbstractCellEditor
+        implements TableCellEditor, ActionListener {
 
     protected FrameListener listenerFrame = null;
     // Таблица редактирования
@@ -41,12 +35,12 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
     protected JButton editorButton;
     // Компонента редактирования
     protected JTextField editorText;
+    // Количество кликов для перехода в режим редактирования.
+    private static int clickCountToStart = 2;
     // Делегат редактора
     protected RsEditorDelegate delegate;
 
-    /**
-     * Конструктор 1 редактора JTextField.
-     */
+    //Конструктор 1 редактора JTextField.
     public DefFieldEditor(final JTextField textField) {
         textField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         editorComponent = textField;
@@ -63,9 +57,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
         textField.addActionListener(delegate);
     }
 
-    /**
-     * Конструктор 2 редактора JCheckBox.
-     */
+    //Конструктор 2 редактора JCheckBox.
     public DefFieldEditor(final JCheckBox checkBox) {
         editorComponent = checkBox;
         delegate = new RsEditorDelegate() {
@@ -88,9 +80,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
         checkBox.setRequestFocusEnabled(false);
     }
 
-    /**
-     * Конструктор 3 редактора JComboBox.
-     */
+    //Конструктор 3 редактора JComboBox.
     public DefFieldEditor(final JComboBox comboBox) {
         editorComponent = comboBox;
         comboBox.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
@@ -123,9 +113,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
         comboBox.addActionListener(delegate);
     }
 
-    /**
-     * Конструктор 4 редактора JButton.
-     */
+    //Конструктор 4 редактора JButton.
     public DefFieldEditor(FrameListener listener, JButton editorButton) {
         listenerFrame = listener;
         this.editorButton = editorButton;
@@ -159,57 +147,93 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
 
     }
 
-    /**
-     * Получить результат редактирования.
-     */
+    //см. FrameAdapter.initTable()
+    //Устанавливает редактор ячеек.
+    public static void initCellEditor(FrameListener listener, JTable table) {
+
+        DefTableModel model = (DefTableModel) table.getModel();
+        TableColumnModel columnModel = table.getColumnModel();
+        for (int index = 0; index < columnModel.getColumnCount(); index++) {
+
+            Field field = model.getColumn(index);
+            if (field.meta().type().equals(Field.TYPE.INTsp)) {
+                columnModel.getColumn(index).setCellEditor(new DefFieldEditor(listener, new JButton("...")));
+
+            } else if (field.meta().type().equals(Field.TYPE.DATE)) {
+                columnModel.getColumn(index).setCellEditor(new DefFieldEditor(listener, new JButton("...")));
+
+            } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
+                String str[] = {"+", "-"};
+                columnModel.getColumn(index).setCellEditor(new DefFieldEditor(new JComboBox(str)));
+
+            } else {
+                JTextField jTextField = new JTextField();
+                columnModel.getColumn(index).setCellEditor(new DefFieldEditor(jTextField));
+            }
+        }
+    }
+
+    // Определение количество кликов чтобы начать редактировать ячейку.
+    public static void setClickCountToStart(int count) {
+        clickCountToStart = count;
+    }
+
+    //Получить результат редактирования.
     public Object getCellEditorValue() {
         return delegate.getCellEditorValue();
     }
 
-    /**
-     * Признак редактирования.
-     */
+    //Признак редактирования.
     public boolean isCellEditable(EventObject anEvent) {
         return delegate.isCellEditable(anEvent);
     }
 
-    /**
-     * Передаёт в фрейм событие клика на ячейке с кнопкой.
-     */
+    //Передаёт в фрейм событие клика на ячейке с кнопкой.
     public void actionPerformed(ActionEvent e) {
-        /*if (listenerFrame == null) {
+        if (listenerFrame == null) {
             return;
         }
-        if (editorTable.getModel() instanceof DefTableModel) {
+        if (editorTable.getModel() instanceof TableModel) {
             TableModel rsm = (TableModel) editorTable.getModel();
             listenerFrame.request(rsm);
         } else {
             listenerFrame.request(null);
-        }*/
+        }
     }
 
-    /**
-     * Главная функция редактирования.
-     */
+    //Выбор ячейки при редактировании.
+    public boolean shouldSelectCell(EventObject anEvent) {
+        return delegate.shouldSelectCell(anEvent);
+    }
+
+    //Остановить редактирование
+    public boolean stopCellEditing() {
+        return delegate.stopCellEditing();
+    }
+
+    //Отменить редактирование.
+    public void cancelCellEditing() {
+        delegate.cancelCellEditing();
+    }
+
+    //Главная функция редактирования.
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
-//        editorTable = table;
-//        TableModel rsm = (TableModel) table.getModel();
-//        Field field = rsm.getColumns()[column];
-//        if (field.meta().type().equals(Field.TYPE.DATE)) {
-//            delegate.setValue(Utils.DateToStr(value));
-////        } else if (field.meta().type().equals(eField.TYPE.DBL) || field.meta().type().equals(eField.TYPE.FLT)) {
-////            String val = String.valueOf(value).replace(',', '.');
-////            delegate.setValue(val);
-//        } else {
+        editorTable = table;
+        DefTableModel rsm = (DefTableModel) table.getModel();
+        Field field = rsm.getColumn(column);
+        if (field.meta().type().equals(Field.TYPE.DATE)) {
+            delegate.setValue(Util.DateToStr(value));
+//        } else if (field.meta().type().equals(eField.TYPE.DBL) || field.meta().type().equals(eField.TYPE.FLT)) {
+//            String val = String.valueOf(value).replace(',', '.');
+//            delegate.setValue(val);
+        } else {
             delegate.setValue(value);
-//        }
+        }
         return editorComponent;
     }
 
-    /**
-     * Делегирование редактора компонентов.
-     */
+    //Делегирование редактора компонентов.
     protected class RsEditorDelegate implements ActionListener, ItemListener, Serializable {
 
         protected Object value;
@@ -232,8 +256,15 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
          * Признак редактирования.
          */
         public boolean isCellEditable(EventObject anEvent) {
-                boolean editable = ((MouseEvent) anEvent).getClickCount() >= 2;
+            if (anEvent instanceof MouseEvent == true) {
+                boolean editable = ((MouseEvent) anEvent).getClickCount() >= clickCountToStart;
+//                if (editable == true) {
+//                    clickCountToStart = 1;
+//                    startCellEditing(null);
+//                }
                 return editable;
+            }
+            return true;
         }
 
         /**
@@ -246,6 +277,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
         /**
          * Начать редактирование.
          */
+        //public boolean startCellEditing(EventObject anEvent) {
         public void startCellEditing(EventObject anEvent) {
             //listenerEditor.initStartEditing(null);
         }
