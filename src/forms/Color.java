@@ -4,6 +4,7 @@ import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
 import dataset.ConnApp;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
@@ -67,27 +68,10 @@ public class Color extends javax.swing.JFrame
             btnSave.setIcon(btnIM[1]);
         }
     };
-    private FrameListener<Object, Object> listenerTable = new FrameListener() {
-        
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-        
+    private FrameListener<Object, Object> listenerDictionary = new FrameListener() {
+
         public void actionRequest(Object obj) {
             System.out.println(".request()");
-        }
-
-        public void actionResponse(Object obj) {
-            System.out.println(".response()");
-        }
-
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-
-            Query query = new Query(eParams.values()).select(eParams.up, 
-                    "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up.tname());
-            eParams.text.meta().descr("Название параметра");
-            DicList1 frame = new DicList1(Color.this, this, query, eParams.text);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         }
     };
 
@@ -101,11 +85,10 @@ public class Color extends javax.swing.JFrame
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name).addFrameListener(listenerModify);
         new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text).addFrameListener(listenerTable);
+        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text).addFrameListener(listenerModify);
 
         JButton btnT3C0 = new JButton("...");
-        btnT3C0.addActionListener(listenerTable);
-        btnFind.addActionListener(listenerTable);
+        btnT3C0.addActionListener(event -> remoteForms(event));
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT3C0));
 
         if (tab1.getRowCount() > 0) {
@@ -148,6 +131,16 @@ public class Color extends javax.swing.JFrame
         }
     }
 
+    public void remoteForms(java.awt.event.ActionEvent evt) {
+        
+        Query query = new Query(eParams.values()).select(eParams.up,
+                "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up.tname());
+        eParams.text.meta().descr("Название параметра");
+        DicList frame = new DicList(this, listenerDictionary, query, eParams.text);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -158,7 +151,7 @@ public class Color extends javax.swing.JFrame
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        btnFind = new javax.swing.JButton();
+        btnFilter = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -258,18 +251,18 @@ public class Color extends javax.swing.JFrame
             }
         });
 
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btnFind.setToolTipText(bundle.getString("Поиск")); // NOI18N
-        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFind.setFocusable(false);
-        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
+        btnFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        btnFilter.setToolTipText(bundle.getString("Поиск")); // NOI18N
+        btnFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFilter.setFocusable(false);
+        btnFilter.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFilter.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFilter.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFilter.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFilter.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindChoice(evt);
+                btnFilterChoice(evt);
             }
         });
 
@@ -302,7 +295,7 @@ public class Color extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94)
-                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
@@ -320,7 +313,7 @@ public class Color extends javax.swing.JFrame
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -506,9 +499,9 @@ public class Color extends javax.swing.JFrame
         }
     }//GEN-LAST:event_btnInsert
 
-    private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
+    private void btnFilterChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterChoice
 
-    }//GEN-LAST:event_btnFindChoice
+    }//GEN-LAST:event_btnFilterChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
 
@@ -517,7 +510,7 @@ public class Color extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnFind;
+    private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;

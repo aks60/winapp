@@ -63,7 +63,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnRef" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                  <Component id="btnFind" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnFilter" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnReport" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="456" max="32767" attributes="0"/>
@@ -84,7 +84,7 @@
                       <Component id="btnClose" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnRef" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnReport" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnFind" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnFilter" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -245,7 +245,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInsert"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnFind">
+        <Component class="javax.swing.JButton" name="btnFilter">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c054.gif"/>
@@ -272,7 +272,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFindChoice"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFilterChoice"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnReport">

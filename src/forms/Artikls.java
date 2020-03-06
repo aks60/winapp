@@ -2,6 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import dataset.Field;
 import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
@@ -10,6 +11,7 @@ import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
+import domain.eParams;
 import enums.TypeArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -78,6 +80,11 @@ public class Artikls extends javax.swing.JFrame
             btnSave.setIcon(btnIM[1]);
         }
     };
+    private FrameListener<Object, Record> listenerDictionary = new FrameListener<Object, Record>() {
+        public void actionResponse(Record record) {
+            listenerRemote(record);
+        }
+    };
 
     public Artikls() {
         initComponents();
@@ -87,13 +94,13 @@ public class Artikls extends javax.swing.JFrame
     }
 
     private void initDatamodel() {
-        DefTableModel rsmArtikls = new DefTableModel(tab1, qArtikls, eArtikl.code, eArtikl.name, eCurrenc.design);
-        DefTableModel rsmArtsvst = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1,
-                eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
-        rsmArtikls.addFrameListener(listenerModify);
-        rsmArtsvst.addFrameListener(listenerModify);
 
-        rsvArtikls = new DefFieldRenderer(rsmArtikls);
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikls, eArtikl.code, eArtikl.name, eCurrenc.design);
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+        rsmArtikl.addFrameListener(listenerModify);
+        rsmArtdet.addFrameListener(listenerModify);
+
+        rsvArtikls = new DefFieldRenderer(rsmArtikl);
         rsvArtikls.add(eArtikl.len_unit, txtField1);
         rsvArtikls.add(eArtikl.height, txtField2);
         rsvArtikls.add(eArtikl.depth, txtField3);
@@ -103,13 +110,15 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikls.add(eCurrenc.par_case1, txtField7);
         rsvArtikls.add(eArtikl.size_centr, txtField8);
 
-        JButton btnColor = new JButton("...");
-        btnColor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                System.out.println("btnTEST actionPerformed()");
-            }
+        JButton btnT2C1 = new JButton("...");
+        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
+        btnT2C1.addActionListener(event -> {
+
+            DicColor frame = new DicColor(this, listenerDictionary);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
         });
-        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnColor));
+
     }
 
     private void loadTree() {
@@ -147,25 +156,8 @@ public class Artikls extends javax.swing.JFrame
         tree.setSelectionRow(0);
     }
 
-    private void selectioTree(ListSelectionEvent event) {
+    private void selectionTree() {
 
-        int row = tab1.getSelectedRow();
-        if (row != -1) {
-            Record record = qArtikls.table(eArtikl.up.tname()).get(row);
-            //System.out.println(record);
-            int id = record.getInt(eArtikl.id);
-            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_id, "=", eColor.id,
-                    "left join", eColgrp.up, "on", eColor.colgrp_id, "=", eColgrp.id, "where", eArtdet.artikl_id, "=", id);
-
-            rsvArtikls.write(row);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-            }
-        }
-    }
-
-    private void selectionTab1() {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
@@ -184,6 +176,35 @@ public class Artikls extends javax.swing.JFrame
             if (tab1.getRowCount() > 0) {
                 tab1.setRowSelectionInterval(0, 0);
             }
+        }
+    }
+
+    private void selectioTab1(ListSelectionEvent event) {
+
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            Record record = qArtikls.table(eArtikl.up.tname()).get(row);
+            int id = record.getInt(eArtikl.id);
+            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_id, "=", eColor.id,
+                    "left join", eColgrp.up, "on", eColor.colgrp_id, "=", eColgrp.id, "where", eArtdet.artikl_id, "=", id);
+            rsvArtikls.write(row);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab2.getRowCount() > 0) {
+                tab2.setRowSelectionInterval(0, 0);
+            }
+        }
+    }
+
+    public void listenerRemote(Record record) {
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            int color_id = record.getInt(eColor.id);
+            String name = record.getStr(eColor.name);
+            System.out.println(qArtdet.table(eColor.up.tname()));
+            qArtdet.table(eColor.up.tname()).set(row, record);
+            qArtdet.table(eArtdet.up.tname()).set(color_id, row, eArtdet.color_id);
+            System.out.println(qArtdet.table(eColor.up.tname()));
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }
     }
 
@@ -223,17 +244,15 @@ public class Artikls extends javax.swing.JFrame
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         txtField9 = new javax.swing.JFormattedTextField();
-        pan3 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
-        pan6 = new javax.swing.JPanel();
-        jSplitPane2 = new javax.swing.JSplitPane();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         pan5 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        pan3 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         menOne.setFont(common.Util.getFont(0,0));
@@ -258,6 +277,7 @@ public class Artikls extends javax.swing.JFrame
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setMinimumSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(new java.awt.Dimension(900, 649));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -266,7 +286,7 @@ public class Artikls extends javax.swing.JFrame
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -407,7 +427,7 @@ public class Artikls extends javax.swing.JFrame
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 532, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 475, Short.MAX_VALUE)
                 .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,8 +449,9 @@ public class Artikls extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
+        panCenter.setPreferredSize(new java.awt.Dimension(900, 600));
         panCenter.setLayout(new java.awt.BorderLayout());
 
         pan2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -606,13 +627,69 @@ public class Artikls extends javax.swing.JFrame
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
 
         panCenter.add(pan2, java.awt.BorderLayout.EAST);
 
+        pan4.setPreferredSize(new java.awt.Dimension(200, 500));
+        pan4.setLayout(new java.awt.BorderLayout());
+
+        scrTree.setBorder(null);
+        scrTree.setPreferredSize(new java.awt.Dimension(200, 400));
+
+        tree.setFont(common.Util.getFont(0,0));
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Мат. ценности");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Профили");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Aксессуары");
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("БлаБла");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree.setMaximumSize(new java.awt.Dimension(200, 400));
+        scrTree.setViewportView(tree);
+
+        pan4.add(scrTree, java.awt.BorderLayout.CENTER);
+
+        panCenter.add(pan4, java.awt.BorderLayout.WEST);
+
+        pan5.setPreferredSize(new java.awt.Dimension(400, 500));
+        pan5.setLayout(new java.awt.BorderLayout());
+
+        tab1.setFont(common.Util.getFont(0,0));
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "111"},
+                {"2", "222"}
+            },
+            new String [] {
+                "Актикул", "Наименование"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
+        }
+
+        pan5.add(scr1, java.awt.BorderLayout.CENTER);
+
+        panCenter.add(pan5, java.awt.BorderLayout.CENTER);
+
         pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan3.setPreferredSize(new java.awt.Dimension(600, 100));
+        pan3.setPreferredSize(new java.awt.Dimension(800, 100));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
@@ -647,85 +724,17 @@ public class Artikls extends javax.swing.JFrame
 
         panCenter.add(pan3, java.awt.BorderLayout.SOUTH);
 
-        pan6.setPreferredSize(new java.awt.Dimension(600, 400));
-        pan6.setLayout(new java.awt.BorderLayout());
-
-        jSplitPane2.setPreferredSize(new java.awt.Dimension(600, 25));
-
-        pan4.setPreferredSize(new java.awt.Dimension(200, 430));
-        pan4.setLayout(new java.awt.BorderLayout());
-
-        scrTree.setBorder(null);
-        scrTree.setPreferredSize(new java.awt.Dimension(200, 400));
-
-        tree.setFont(common.Util.getFont(0,0));
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Мат. ценности");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Профили");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Aксессуары");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("БлаБла");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        tree.setMaximumSize(new java.awt.Dimension(200, 400));
-        scrTree.setViewportView(tree);
-
-        pan4.add(scrTree, java.awt.BorderLayout.CENTER);
-
-        jSplitPane2.setLeftComponent(pan4);
-
-        pan5.setPreferredSize(new java.awt.Dimension(201, 430));
-        pan5.setLayout(new java.awt.BorderLayout());
-
-        scr1.setBorder(null);
-
-        tab1.setFont(common.Util.getFont(0,0));
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "111"},
-                {"2", "222"}
-            },
-            new String [] {
-                "Актикул", "Наименование"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tab1.setFillsViewportHeight(true);
-        tab1.setPreferredSize(new java.awt.Dimension(400, 400));
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
-
-        pan5.add(scr1, java.awt.BorderLayout.CENTER);
-
-        jSplitPane2.setRightComponent(pan5);
-
-        pan6.add(jSplitPane2, java.awt.BorderLayout.CENTER);
-
-        panCenter.add(pan6, java.awt.BorderLayout.CENTER);
-
         getContentPane().add(panCenter, java.awt.BorderLayout.CENTER);
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(800, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(800, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 884, Short.MAX_VALUE)
+            .addGap(0, 827, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -779,8 +788,7 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
-        //ppmReport.show(toolBar, btnReport.getX(), btnReport.getY() + 18);
-        menOneActionPerformed(null);
+       ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnReportChoice
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
@@ -810,14 +818,12 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JMenuItem menList;
     private javax.swing.JMenuItem menOne;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
-    private javax.swing.JPanel pan6;
     private javax.swing.JPanel panCenter;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
@@ -858,13 +864,13 @@ public class Artikls extends javax.swing.JFrame
         tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent tse) {
-                selectionTab1();
+                selectionTree();
             }
         });
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectioTree(event);
+                    selectioTab1(event);
                 }
             }
         });

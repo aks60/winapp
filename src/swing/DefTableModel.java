@@ -55,26 +55,32 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         return columns[index];
     }
 
+    @Override
     public int getColumnCount() {
         return model.getColumnCount();
     }
 
+    @Override
     public String getColumnName(int columnIndex) {
         return model.getColumnName(columnIndex);
     }
 
+    @Override
     public Class<?> getColumnClass(int columnIndex) {
         return model.getColumnClass(columnIndex);
     }
 
+    @Override
     public int getRowCount() {
         return (columns != null) ? query.table(columns[0].tname()).size() : 0;
     }
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return editable[columnIndex];
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object val = null;
         if (columns != null) {
@@ -90,14 +96,12 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         return null;
     }
 
+    @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         setValueAt(aValue, rowIndex, columns[columnIndex]);
     }
 
-    /**
-     * Записать значение элемента от row и field, тут делаются проверки на ввод
-     * данных расширенного типа.
-     */
+    //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
     public void setValueAt(Object value, int row, Field field) {
 
         Table table = query.table(field.tname());
