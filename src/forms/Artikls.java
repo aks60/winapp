@@ -789,6 +789,7 @@ public class Artikls extends javax.swing.JFrame
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+       System.out.println(qArtdet.table(eColor.up.tname()));
     }//GEN-LAST:event_btnReportChoice
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
