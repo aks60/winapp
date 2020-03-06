@@ -62,9 +62,10 @@ public class Test {
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
              
-        Query qColpar1 = new Query(eColpar1.values(), eParams.values());
-        qColpar1.select(eColpar1.up, "left join", eParams.up.tname(), "on", eParams.grup, "=", 
-                    eColpar1.grup, "and", eParams.numb, "= 0", "where", eColpar1.numb, "=", 5);
+        Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up, 
+                "where", eArtdet.id, "= 8").table(eArtdet.up.tname());
+        qArtdet.set(454, 0, eArtdet.color_id);
+        qArtdet.execsql();
         
         int mmm = 0;
 //        Query q3 = q2.table(eSysprof.up.tname());

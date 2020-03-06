@@ -27,7 +27,7 @@ import swing.DefTableModel;
 public class Composition extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-    ;
+    
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values(), eParams.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());

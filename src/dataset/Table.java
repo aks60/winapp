@@ -40,11 +40,11 @@ public class Table extends ArrayList<Record> {
     }
 
     public void set(Object value, int index, Field field) {
-        Object v = get(index, field);
-        if (v != null && value != null && v.equals(value)) {
+        Object value2 = get(index, field);
+        if (value2 != null && value != null && value2.equals(value)) {
             return;
         }
-        ArrayList record = get(index);
+        Record record = get(index);
         record.set(field.ordinal(), value);
     }
 

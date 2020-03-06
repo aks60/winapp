@@ -196,15 +196,14 @@ public class Artikls extends javax.swing.JFrame
     }
 
     public void listenerRemote(Record record) {
+
         int row = tab2.getSelectedRow();
         if (row != -1) {
             int color_id = record.getInt(eColor.id);
-            String name = record.getStr(eColor.name);
-            System.out.println(qArtdet.table(eColor.up.tname()));
+            tab2.editingStopped(null);
             qArtdet.table(eColor.up.tname()).set(row, record);
             qArtdet.table(eArtdet.up.tname()).set(color_id, row, eArtdet.color_id);
-            System.out.println(qArtdet.table(eColor.up.tname()));
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(row, row);
         }
     }
 
@@ -748,12 +747,12 @@ public class Artikls extends javax.swing.JFrame
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-        if ((qArtikls.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            qArtikls.execsql();
-            qArtdet.execsql();
-            listenerModify.actionResponse(null);
-        }
+//        if ((qArtikls.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
+//                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+//            qArtikls.execsql();
+//            qArtdet.execsql();
+//            listenerModify.actionResponse(null);
+//        }
     }//GEN-LAST:event_formWindowClosed
 
     private void menListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListActionPerformed
@@ -784,12 +783,16 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnRefresh
 
     private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
-
+        if (tab2.getRowCount() > 0) {
+            tab2.editingStopped(null);
+            qArtdet.table(eColor.up.tname()).set("777", 0, eColor.name);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        }
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
-       ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-       System.out.println(qArtdet.table(eColor.up.tname()));
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        System.out.println(qArtdet.table(eColor.up.tname()));
     }//GEN-LAST:event_btnReportChoice
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp

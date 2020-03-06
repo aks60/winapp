@@ -129,7 +129,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                 value = Float.valueOf(str);
             } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
                 value = Boolean.valueOf(String.valueOf(value));
-            }
+            } 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
