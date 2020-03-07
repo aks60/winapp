@@ -38,7 +38,9 @@ import javax.swing.event.TreeSelectionListener;
 public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private enum focusPass {TREE, TAB1, TAB2};
+    private enum focusPass {
+        TREE, TAB1, TAB2
+    };
     private focusPass focusTab = focusPass.TREE;
     private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
     private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2,
@@ -51,10 +53,10 @@ public class Artikls extends javax.swing.JFrame
 
         public void focusGained(FocusEvent e) {
             if (e.getSource() instanceof JTable) {
-                if(((JTable) e.getSource()).getName().equals("tab1")) {
-                  focusTab = focusPass.TAB1;  
-                } else if(((JTable) e.getSource()).getName().equals("tab2")) {
-                  focusTab = focusPass.TAB2;    
+                if (((JTable) e.getSource()).getName().equals("tab1")) {
+                    focusTab = focusPass.TAB1;
+                } else if (((JTable) e.getSource()).getName().equals("tab2")) {
+                    focusTab = focusPass.TAB2;
                 }
                 ((JTable) e.getSource()).setBorder(border);
                 btnIns.setEnabled(true);
@@ -118,7 +120,7 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
         rsvArtikl.add(eCurrenc.par_case1, txtField7);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
-
+       
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
         btnT2C1.addActionListener(event -> {
@@ -765,7 +767,7 @@ public class Artikls extends javax.swing.JFrame
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-        if ((qArtikl.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
+        if ((qArtikl.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.\n    Сохранить изменения?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             qArtikl.execsql();
             qArtdet.execsql();
@@ -782,20 +784,35 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_menOneActionPerformed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        int row = tab1.getSelectedRow();
-        if (row != -1) {
-            Record rec = qArtikl.get(row);
-            Record record = qArtdet.newRecord(Query.INS);
-            Record record1 = qArtdet.table(eColgrp.up.tname()).newRecord(Query.SEL);
-            Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.SEL);
+        if (focusTab == focusPass.TREE) {
 
-            record.setNo(eArtdet.id, ConnApp.ins().generatorId(eArtdet.up.tname()));
-            record.setNo(eArtdet.artikl_id, rec.get(eArtikl.id));
-            qArtdet.add(row, record);
-            qArtdet.table(eColgrp.up.tname()).add(row, record1);
-            qArtdet.table(eColor.up.tname()).add(row, record2);
+        } else if (focusTab == focusPass.TAB1) {
+            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+            if (selectedNode != null && selectedNode.isLeaf()) {
+                int row = (tab1.getSelectedRow() == -1) ? 0 : tab1.getSelectedRow();
+                TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
+                Record record = qArtikl.newRecord(Query.INS);
+                record.setNo(eArtikl.id, ConnApp.ins().generatorId(eArtikl.up.tname()));
+                record.setNo(eArtikl.level1, typeArtikl.id1);
+                record.setNo(eArtikl.level2, typeArtikl.id2);
+                qArtikl.add(row, record);
+                ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(row, row);
+            }
+        } else if (focusTab == focusPass.TAB2) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                Record rec = qArtikl.get(row);
+                Record record = qArtdet.newRecord(Query.INS);
+                Record record1 = qArtdet.table(eColgrp.up.tname()).newRecord(Query.SEL);
+                Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.SEL);
 
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                record.setNo(eArtdet.id, ConnApp.ins().generatorId(eArtdet.up.tname()));
+                record.setNo(eArtdet.artikl_id, rec.get(eArtikl.id));
+                qArtdet.add(record);
+                qArtdet.table(eColgrp.up.tname()).add(record1);
+                qArtdet.table(eColor.up.tname()).add(record2);
+                ((DefaultTableModel) tab2.getModel()).fireTableRowsInserted(qArtdet.size(), qArtdet.size());
+            }
         }
     }//GEN-LAST:event_btnInsert
 
