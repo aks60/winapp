@@ -29,6 +29,7 @@ public class Query extends Table {
 
     public Query(Field... fields) {
         this.root = this;
+        mapQuery.put(fields[0].tname(), this);
         for (Field field : fields) {
             if (!field.name().equals("up")) {
                 if (mapQuery.get(field.tname()) == null) {
@@ -41,6 +42,7 @@ public class Query extends Table {
 
     public Query(Field[]... fieldsArr) {
         this.root = this;
+        mapQuery.put(fieldsArr[0][0].tname(), this);
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {
                 if (!field.name().equals("up")) {
@@ -52,15 +54,15 @@ public class Query extends Table {
             }
         }
     }
-
-    public Field[] fields() {
-        ArrayList<Field> arr = new ArrayList();
-        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
-            Query q2 = q.getValue();
-            arr.addAll(q2.fields);
-        }
-        return arr.toArray(new Field[arr.size()]);
-    }
+    
+//    public Field[] fields() {
+//        ArrayList<Field> arr = new ArrayList();
+//        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
+//            Query q2 = q.getValue();
+//            arr.addAll(q2.fields);
+//        }
+//        return arr.toArray(new Field[arr.size()]);
+//    }
 
     public Query table(String name_table) {
         return root.mapQuery.get(name_table);
@@ -88,9 +90,7 @@ public class Query extends Table {
                 Query table = q.getValue();
                 table.clear();
                 for (Field field : table.fields) {
-                    if (!field.name().equals("up")) {
-                        str = str + ", " + field.tname() + "." + field.name();
-                    }
+                    str = str + ", " + field.tname() + "." + field.name();
                 }
             }
             sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
@@ -109,11 +109,8 @@ public class Query extends Table {
                     table.add(record);
                     for (int index = 0; index < table.fields.size(); index++) {
                         Field field = table.fields.get(index);
-                        if (!field.name().equals("up")) {
-
-                            Object value = recordset.getObject(1 + index + selector);
-                            record.setNo(field, value);
-                        }
+                        Object value = recordset.getObject(1 + index + selector);
+                        record.setNo(field, value);
                     }
                     selector = selector + table.fields.size();
                 }
@@ -160,7 +157,7 @@ public class Query extends Table {
             statement = connection.createStatement();
             String nameCols = "";
             //цикл по полям таблицы
-            for (Field field : fields.get(0).fields()) {
+            for (Field field : fields) {
                 if (field.meta().type() != Field.TYPE.OBJ) {
                     nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
                 }

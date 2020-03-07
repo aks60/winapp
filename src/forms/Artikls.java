@@ -39,7 +39,8 @@ public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
     private Query qArtikls = new Query(eArtikl.values(), eCurrenc.values());
-    private Query qArtdet = new Query(eArtdet.id, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
+    private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2, 
+            eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_id, eArtdet.artikl_id, eColgrp.name, eColor.name);
     DefFieldRenderer rsvArtikls;
 
     private FocusListener listenerFocus = new FocusListener() {

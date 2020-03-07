@@ -15,10 +15,9 @@ public class Table extends ArrayList<Record> {
 
     protected Query root = null;
     protected HashMap<String, Query> mapQuery = new HashMap<String, Query>();
-
-    private static SimpleDateFormat fd = new SimpleDateFormat("dd.MM.yyyy");
-
     protected ArrayList<Field> fields = new ArrayList<Field>();
+    
+    private static SimpleDateFormat fd = new SimpleDateFormat("dd.MM.yyyy");
 
     public Table() {
     }

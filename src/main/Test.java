@@ -20,7 +20,7 @@ public class Test {
 
         try {    
             //convert.Profstroy.script();
-            query();
+            //query();
             //wincalc();
             //frame();
 
@@ -62,10 +62,10 @@ public class Test {
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
              
-        Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up, 
-                "where", eArtdet.id, "= 8").table(eArtdet.up.tname());
-        qArtdet.set(454, 0, eArtdet.color_id);
-        qArtdet.execsql();
+        Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
+        Query qArtdet2 = new Query(eArtdet.values()).select(eArtdet.up).table(eArtdet.up.tname());
+        //qArtdet.set(454, 0, eArtdet.color_id);
+        //qArtdet.execsql();
         
         int mmm = 0;
 //        Query q3 = q2.table(eSysprof.up.tname());
