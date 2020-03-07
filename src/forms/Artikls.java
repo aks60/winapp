@@ -38,8 +38,10 @@ import javax.swing.event.TreeSelectionListener;
 public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
+    private enum focusPass {TREE, TAB1, TAB2};
+    private focusPass focusTab = focusPass.TREE;
     private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
-    private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2, 
+    private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2,
             eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_id, eArtdet.artikl_id, eColgrp.name, eColor.name);
     DefFieldRenderer rsvArtikl;
 
@@ -49,10 +51,16 @@ public class Artikls extends javax.swing.JFrame
 
         public void focusGained(FocusEvent e) {
             if (e.getSource() instanceof JTable) {
+                if(((JTable) e.getSource()).getName().equals("tab1")) {
+                  focusTab = focusPass.TAB1;  
+                } else if(((JTable) e.getSource()).getName().equals("tab2")) {
+                  focusTab = focusPass.TAB2;    
+                }
                 ((JTable) e.getSource()).setBorder(border);
                 btnIns.setEnabled(true);
                 btnDel.setEnabled(true);
             } else if (e.getSource() instanceof JTree) {
+                focusTab = focusPass.TREE;
                 ((JTree) e.getSource()).setBorder(border);
                 btnIns.setEnabled(true);
                 btnDel.setEnabled(false);
@@ -677,6 +685,7 @@ public class Artikls extends javax.swing.JFrame
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
@@ -720,6 +729,7 @@ public class Artikls extends javax.swing.JFrame
         });
         tab2.setColumnSelectionAllowed(true);
         tab2.setFillsViewportHeight(true);
+        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -777,8 +787,8 @@ public class Artikls extends javax.swing.JFrame
             Record rec = qArtikl.get(row);
             Record record = qArtdet.newRecord(Query.INS);
             Record record1 = qArtdet.table(eColgrp.up.tname()).newRecord(Query.SEL);
-            Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.SEL); 
-            
+            Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.SEL);
+
             record.setNo(eArtdet.id, ConnApp.ins().generatorId(eArtdet.up.tname()));
             record.setNo(eArtdet.artikl_id, rec.get(eArtikl.id));
             qArtdet.add(row, record);
@@ -790,13 +800,16 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        int row = tab2.getSelectedRow();
-        if (row != -1) {
-            Record record = qArtdet.get(row);
-            record.set(eArtdet.up, Query.DEL);
-            qArtdet.delete(record);
-            qArtdet.removeRec(row);
-            ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
+        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
+                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            int row = tab2.getSelectedRow();
+            if (row != -1) {
+                Record record = qArtdet.get(row);
+                record.set(eArtdet.up, Query.DEL);
+                qArtdet.delete(record);
+                qArtdet.removeRec(row);
+                ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
