@@ -29,6 +29,7 @@ public class Query extends Table {
 
     public Query(Field... fields) {
         this.root = this;
+        mapQuery.put(fields[0].tname(), this);
         for (Field field : fields) {
             if (!field.name().equals("up")) {
                 if (mapQuery.get(field.tname()) == null) {
@@ -41,6 +42,7 @@ public class Query extends Table {
 
     public Query(Field[]... fieldsArr) {
         this.root = this;
+        mapQuery.put(fieldsArr[0][0].tname(), this);
         for (Field[] fields : fieldsArr) {
             for (Field field : fields) {
                 if (!field.name().equals("up")) {
@@ -52,15 +54,15 @@ public class Query extends Table {
             }
         }
     }
-
-    public Field[] fields() {
-        ArrayList<Field> arr = new ArrayList();
-        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
-            Query q2 = q.getValue();
-            arr.addAll(q2.fields);
-        }
-        return arr.toArray(new Field[arr.size()]);
-    }
+    
+//    public Field[] fields() {
+//        ArrayList<Field> arr = new ArrayList();
+//        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
+//            Query q2 = q.getValue();
+//            arr.addAll(q2.fields);
+//        }
+//        return arr.toArray(new Field[arr.size()]);
+//    }
 
     public Query table(String name_table) {
         return root.mapQuery.get(name_table);
@@ -88,9 +90,7 @@ public class Query extends Table {
                 Query table = q.getValue();
                 table.clear();
                 for (Field field : table.fields) {
-                    if (!field.name().equals("up")) {
-                        str = str + ", " + field.tname() + "." + field.name();
-                    }
+                    str = str + ", " + field.tname() + "." + field.name();
                 }
             }
             sql = "select " + str.toLowerCase().substring(1, str.length()) + " from " + sql;
@@ -109,11 +109,8 @@ public class Query extends Table {
                     table.add(record);
                     for (int index = 0; index < table.fields.size(); index++) {
                         Field field = table.fields.get(index);
-                        if (!field.name().equals("up")) {
-
-                            Object value = recordset.getObject(1 + index + selector);
-                            record.setNo(field, value);
-                        }
+                        Object value = recordset.getObject(1 + index + selector);
+                        record.setNo(field, value);
                     }
                     selector = selector + table.fields.size();
                 }
@@ -132,30 +129,24 @@ public class Query extends Table {
         if (Query.INS.equals(record.get(f[0])) == false) {
             return 0;
         }
-        String sql = fields.get(0).insert(record);
+        String sql = "";
         Statement statement = connection.createStatement();
-        //если есть insert утверждение
-        if (sql != null) {
+        //если нет, генерю сам
+        String nameCols = "", nameVals = "";
+        //цикл по полям таблицы
+        for (int k = 0; k < fields.size(); k++) {
+            Field field = fields.get(k);
+            if (field.meta().type() != Field.TYPE.OBJ) {
+                nameCols = nameCols + field.name() + ",";
+                nameVals = nameVals + wrapper(record, field) + ",";
+            }
+        }
+        if (nameCols != null && nameVals != null) {
+            nameCols = nameCols.substring(0, nameCols.length() - 1);
+            nameVals = nameVals.substring(0, nameVals.length() - 1);
+            sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+            System.out.println("SQL-INSERT " + sql);
             return statement.executeUpdate(sql);
-        } else {
-            //если нет, генерю сам
-            String nameCols = "", nameVals = "";
-            //цикл по полям таблицы
-            for (int k = 0; k < fields.size(); k++) {
-                Field field = fields.get(k);
-                if (field.meta().type() != Field.TYPE.OBJ) {
-                    nameCols = nameCols + field.name() + ",";
-                    nameVals = nameVals + wrapper(record, field) + ",";
-                }
-            }
-            if (nameCols != null && nameVals != null) {
-                nameCols = nameCols.substring(0, nameCols.length() - 1);
-                nameVals = nameVals.substring(0, nameVals.length() - 1);
-                sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
-                System.out.println("SQL-INSERT " + sql);
-                return statement.executeUpdate(sql);
-                //return 0;
-            }
         }
         return 0;
     }
@@ -164,28 +155,21 @@ public class Query extends Table {
         Statement statement = null;
         try {
             statement = connection.createStatement();
-//            String sql = fields.get(0).update(record);
-//            if (sql != null) {
-//                //Util.println("SQL-UPDATE " + sql);
-//                return statement.executeUpdate(sql);
-//            } else {
-                String nameCols = "";
-                //цикл по полям таблицы
-                for (int k = 1; k < fields.size(); k++) {
-                    Field field = fields.get(k);
-                    if (field.meta().type() != Field.TYPE.OBJ) {
-                        nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
-                    }
+            String nameCols = "";
+            //цикл по полям таблицы
+            for (Field field : fields) {
+                if (field.meta().type() != Field.TYPE.OBJ) {
+                    nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
                 }
-                Field[] f = fields.get(0).fields();
-                if (nameCols.isEmpty() == false) {
-                    nameCols = nameCols.substring(0, nameCols.length() - 1);
-                    String sql = "update " + schema + fields.get(0).tname() + " set "
-                            + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-                    System.out.println("SQL-UPDATE " + sql);
-                    return statement.executeUpdate(sql);
-                }
-//            }
+            }
+            Field[] f = fields.get(0).fields();
+            if (nameCols.isEmpty() == false) {
+                nameCols = nameCols.substring(0, nameCols.length() - 1);
+                String sql = "update " + schema + fields.get(0).tname() + " set "
+                        + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+                //System.out.println("SQL-UPDATE " + sql);
+                return statement.executeUpdate(sql);
+            }
         } catch (Exception e) {
             System.out.println(fields.get(0).tname() + ".update() " + e);
             return -1;
@@ -205,25 +189,24 @@ public class Query extends Table {
         //if (Query.DEL.equals(record.get(fields[0])) == false) {  return 0;  }
         String sql = fields.get(0).delete(record);
         Statement statement = connection.createStatement();
-        if (sql != null) {
-            //Util.println("SQL-DELETE " + sql);
+        if (sql != null) {            
             return statement.executeUpdate(sql);
         } else {
             Field[] f = fields.get(0).fields();
             sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-            //Util.println("SQL-DELETE " + sql);
             return statement.executeUpdate(sql);
         }
+        //System.out.println("SQL-DELETE " + sql);
     }
 
     public void execsql() {
         try {
-            for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
+            for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
                 Query query = q.getValue();
                 for (Record record : query) {
                     if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
 
-                        //Util.println(record);
+                        //System.out.println(record);
                         if (record.validate(fields) != null) { //проверка на корректность ввода данных
                             JOptionPane.showMessageDialog(null, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                             return;

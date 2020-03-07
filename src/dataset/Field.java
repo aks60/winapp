@@ -81,5 +81,5 @@ public interface Field extends Enam{
         return null;
     }
     
-    public boolean equals(Object other);    
+   public boolean equals(Object other);    
 }
