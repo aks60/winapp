@@ -16,7 +16,7 @@ public class Table extends ArrayList<Record> {
     protected Query root = null;
     protected HashMap<String, Query> mapQuery = new HashMap<String, Query>();
     protected ArrayList<Field> fields = new ArrayList<Field>();
-    
+
     private static SimpleDateFormat fd = new SimpleDateFormat("dd.MM.yyyy");
 
     public Table() {
@@ -26,17 +26,20 @@ public class Table extends ArrayList<Record> {
         return null;
     }
 
-    public Record remove(int index) {
-        return super.remove(index);
-    }
-
-    public void add() {
+    public void removeRec(int index) {
         for (Map.Entry<String, Query> entry : mapQuery.entrySet()) {
-            Query table = entry.getValue();
-            Record record = table.newRecord("UPD");
-            table.add(record);
+            Table table = entry.getValue();
+            table.remove(index);
         }
     }
+
+//    public void add() {
+//        for (Map.Entry<String, Query> entry : mapQuery.entrySet()) {
+//            Table table = entry.getValue();
+//            Record record = table.newRecord("UPD");
+//            table.add(record);
+//        }
+//    }
 
     public void set(Object value, int index, Field field) {
         Object value2 = get(index, field);

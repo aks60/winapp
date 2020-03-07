@@ -772,7 +772,7 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_menOneActionPerformed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        int row = tab2.getSelectedRow();
+        int row = tab1.getSelectedRow();
         if (row != -1) {
             Record rec = qArtikl.get(row);
             Record record = qArtdet.newRecord(Query.INS);
@@ -790,7 +790,14 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qArtdet.get(row);
+            record.set(eArtdet.up, Query.DEL);
+            qArtdet.delete(record);
+            qArtdet.removeRec(row);
+            ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

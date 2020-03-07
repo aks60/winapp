@@ -116,27 +116,26 @@ public class Query extends Table {
 
     public void insert(Record record) {
         try {
-            Field[] f = fields.get(0).fields();
-            if (Query.INS.equals(record.get(f[0])) == false) {
-                return;
-            }
-            Statement statement = connection.createStatement();
-            //если нет, генерю сам
-            String nameCols = "", nameVals = "";
-            //цикл по полям таблицы
-            for (int k = 0; k < fields.size(); k++) {
-                Field field = fields.get(k);
-                if (field.meta().type() != Field.TYPE.OBJ) {
-                    nameCols = nameCols + field.name() + ",";
-                    nameVals = nameVals + wrapper(record, field) + ",";
+            if (Query.INS.equals(record.getStr(0))) {
+                Field[] f = fields.get(0).fields();
+                Statement statement = connection.createStatement();
+                //если нет, генерю сам
+                String nameCols = "", nameVals = "";
+                //цикл по полям таблицы
+                for (int k = 0; k < fields.size(); k++) {
+                    Field field = fields.get(k);
+                    if (field.meta().type() != Field.TYPE.OBJ) {
+                        nameCols = nameCols + field.name() + ",";
+                        nameVals = nameVals + wrapper(record, field) + ",";
+                    }
                 }
-            }
-            if (nameCols != null && nameVals != null) {
-                nameCols = nameCols.substring(0, nameCols.length() - 1);
-                nameVals = nameVals.substring(0, nameVals.length() - 1);
-                String sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
-                System.out.println("SQL-INSERT " + sql);
-                statement.executeUpdate(sql);
+                if (nameCols != null && nameVals != null) {
+                    nameCols = nameCols.substring(0, nameCols.length() - 1);
+                    nameVals = nameVals.substring(0, nameVals.length() - 1);
+                    String sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+                    System.out.println("SQL-INSERT " + sql);
+                    statement.executeUpdate(sql);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Query.insert() " + e);
@@ -145,21 +144,23 @@ public class Query extends Table {
 
     public void update(Record record) {
         try {
-            String nameCols = "";
-            Statement statement = statement = connection.createStatement();
-            //цикл по полям таблицы
-            for (Field field : fields) {
-                if (field.meta().type() != Field.TYPE.OBJ) {
-                    nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
+            if (Query.UPD.equals(record.getStr(0))) {
+                String nameCols = "";
+                Statement statement = statement = connection.createStatement();
+                //цикл по полям таблицы
+                for (Field field : fields) {
+                    if (field.meta().type() != Field.TYPE.OBJ) {
+                        nameCols = nameCols + field.name() + " = " + wrapper(record, field) + ",";
+                    }
                 }
-            }
-            Field[] f = fields.get(0).fields();
-            if (nameCols.isEmpty() == false) {
-                nameCols = nameCols.substring(0, nameCols.length() - 1);
-                String sql = "update " + schema + fields.get(0).tname() + " set "
-                        + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-                //System.out.println("SQL-UPDATE " + sql);
-                statement.executeUpdate(sql);
+                Field[] f = fields.get(0).fields();
+                if (nameCols.isEmpty() == false) {
+                    nameCols = nameCols.substring(0, nameCols.length() - 1);
+                    String sql = "update " + schema + fields.get(0).tname() + " set "
+                            + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+                    System.out.println("SQL-UPDATE " + sql);
+                    statement.executeUpdate(sql);
+                }
             }
         } catch (SQLException e) {
             System.out.println("Query.update() " + e);
@@ -168,11 +169,13 @@ public class Query extends Table {
 
     public void delete(Record record) {
         try {
-            Statement statement = connection.createStatement();
-            Field[] f = fields.get(0).fields();
-            String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-            //System.out.println("SQL-DELETE " + sql);
-            statement.executeUpdate(sql);
+            if (Query.DEL.equals(record.getStr(0))) {
+                Statement statement = connection.createStatement();
+                Field[] f = fields.get(0).fields();
+                String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+                System.out.println("SQL-DELETE " + sql);
+                statement.executeUpdate(sql);
+            }
         } catch (SQLException e) {
             System.out.println("Query.delete() " + e);
         }
@@ -188,13 +191,13 @@ public class Query extends Table {
                         return;
                     }
                 }
-                if ("INS".equals(record.getStr(0))) {
+                if (Query.INS.equals(record.getStr(0))) {
                     insert(record);
                     record.setNo(0, Query.SEL);
-                } else if ("UPD".equals(record.getStr(0))) {
+                } else if (Query.UPD.equals(record.getStr(0))) {
                     update(record);
                     record.setNo(0, Query.SEL);
-                } else if ("DEL".equals(record.getStr(0))) {
+                } else if (Query.DEL.equals(record.getStr(0))) {
                     delete(record);
                     //entry.getValue().remove(record);
                 }
