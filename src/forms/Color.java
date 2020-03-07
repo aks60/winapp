@@ -478,7 +478,7 @@ public class Color extends javax.swing.JFrame
         if (focusComp == tab1) {
             Query query = qСolgrup.table(eColgrp.up.tname());
             Record record = query.newRecord(Query.INS);
-            int id = ConnApp.get().generatorId(eColgrp.up.tname());
+            int id = ConnApp.ins().generatorId(eColgrp.up.tname());
             record.setNo(eColgrp.id, id);
             //record.setNo(eTextGrp.groups, id);
             //record.setNo(eTextGrp.gunic, id);
@@ -492,7 +492,7 @@ public class Color extends javax.swing.JFrame
             Query query2 = qColor.table(eColor.up.tname());
             Record record1 = query1.get(row);
             Record record2 = query2.newRecord(Query.INS);
-            int id = ConnApp.get().generatorId(eColor.up.tname());
+            int id = ConnApp.ins().generatorId(eColor.up.tname());
             record2.setNo(eColor.id, id);
             query2.add(record2);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

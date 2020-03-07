@@ -17,7 +17,7 @@ public abstract class ConnApp {
         return instanceClass;
     }
 
-    public static ConnApp get() {
+    public static ConnApp ins() {
         return instanceClass;
     }
 

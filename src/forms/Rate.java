@@ -287,7 +287,7 @@ public class Rate extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         Query query = qRate.table(eCurrenc.up.tname());
         Record record = query.newRecord(Query.INS);
-        int id = ConnApp.get().generatorId(eCurrenc.up.tname());
+        int id = ConnApp.ins().generatorId(eCurrenc.up.tname());
         record.setNo(eCurrenc.id, id);
         record.setNo(eCurrenc.id, id);
         query.add(record);

@@ -12,9 +12,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
- *
- * <p>
- * Соединение через PostgresSQL </p>
+ * Соединение через PostgresSQL
  */
 public class ConnFb extends dataset.ConnApp {
 
@@ -72,9 +70,7 @@ public class ConnFb extends dataset.ConnApp {
         return eExcep.yesConn;
     }
 
-    /**
-     * Добавление нового пользователя
-     */
+    //Добавление нового пользователя
     public void addUser(String user, String password, String uchId, String role, boolean readwrite) {
         try {
             //создание пользователя
@@ -106,9 +102,7 @@ public class ConnFb extends dataset.ConnApp {
         }
     }
 
-    /**
-     * Изменение привилегий пользователя
-     */
+    //Изменение привилегий пользователя
     public void grantUser(String user, String password, String role, boolean readwrite) {
         String sql;
         if (readwrite == true) {
@@ -125,9 +119,7 @@ public class ConnFb extends dataset.ConnApp {
         }
     }
 
-    /**
-     * Удаление пользователя
-     */
+    //Удаление пользователя
     public void deleteUser(String user) {
         try {
             connection.createStatement().executeUpdate("delete from school.uchusers where user2 = '" + user + "'");
@@ -142,9 +134,7 @@ public class ConnFb extends dataset.ConnApp {
         }
     }
 
-    /**
-     * Изменение параметров пользователя
-     */
+    //Изменение параметров пользователя
     public void modifyPassword(String user, String pass) {
         try {
             user = user.toLowerCase();
@@ -155,12 +145,11 @@ public class ConnFb extends dataset.ConnApp {
         }
     }
 
-    /**
-     * Генератор ключа ID
-     */
-    public int generatorId(String table) {        
-        int next_id = 0;
+    //Генератор ключа ID
+    @Override
+    public int generatorId(String table) {                
         try {
+            int next_id = 0;
             Statement statement = connection.createStatement();
             String sql = "SELECT GEN_ID(gen_" + table + ", 1) FROM RDB$DATABASE";
             ResultSet rs = statement.executeQuery(sql);

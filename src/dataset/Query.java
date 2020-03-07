@@ -55,14 +55,6 @@ public class Query extends Table {
         }
     }
 
-//    public Field[] fields() {
-//        ArrayList<Field> arr = new ArrayList();
-//        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
-//            Query q2 = q.getValue();
-//            arr.addAll(q2.fields);
-//        }
-//        return arr.toArray(new Field[arr.size()]);
-//    }
     public Query table(String name_table) {
         return root.mapQuery.get(name_table);
     }
@@ -122,38 +114,39 @@ public class Query extends Table {
         }
     }
 
-    public int insert(Record record) throws SQLException {
-
-        Field[] f = fields.get(0).fields();
-        if (Query.INS.equals(record.get(f[0])) == false) {
-            return 0;
-        }
-        Statement statement = connection.createStatement();
-        //если нет, генерю сам
-        String nameCols = "", nameVals = "";
-        //цикл по полям таблицы
-        for (int k = 0; k < fields.size(); k++) {
-            Field field = fields.get(k);
-            if (field.meta().type() != Field.TYPE.OBJ) {
-                nameCols = nameCols + field.name() + ",";
-                nameVals = nameVals + wrapper(record, field) + ",";
+    public void insert(Record record) {
+        try {
+            Field[] f = fields.get(0).fields();
+            if (Query.INS.equals(record.get(f[0])) == false) {
+                return;
             }
+            Statement statement = connection.createStatement();
+            //если нет, генерю сам
+            String nameCols = "", nameVals = "";
+            //цикл по полям таблицы
+            for (int k = 0; k < fields.size(); k++) {
+                Field field = fields.get(k);
+                if (field.meta().type() != Field.TYPE.OBJ) {
+                    nameCols = nameCols + field.name() + ",";
+                    nameVals = nameVals + wrapper(record, field) + ",";
+                }
+            }
+            if (nameCols != null && nameVals != null) {
+                nameCols = nameCols.substring(0, nameCols.length() - 1);
+                nameVals = nameVals.substring(0, nameVals.length() - 1);
+                String sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+                System.out.println("SQL-INSERT " + sql);
+                statement.executeUpdate(sql);
+            }
+        } catch (SQLException e) {
+            System.out.println("Query.insert() " + e);
         }
-        if (nameCols != null && nameVals != null) {
-            nameCols = nameCols.substring(0, nameCols.length() - 1);
-            nameVals = nameVals.substring(0, nameVals.length() - 1);
-            String sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
-            System.out.println("SQL-INSERT " + sql);
-            return statement.executeUpdate(sql);
-        }
-        return 0;
     }
 
-    public int update(Record record) {
-        Statement statement = null;
+    public void update(Record record) {
         try {
-            statement = connection.createStatement();
             String nameCols = "";
+            Statement statement = statement = connection.createStatement();
             //цикл по полям таблицы
             for (Field field : fields) {
                 if (field.meta().type() != Field.TYPE.OBJ) {
@@ -166,36 +159,29 @@ public class Query extends Table {
                 String sql = "update " + schema + fields.get(0).tname() + " set "
                         + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
                 //System.out.println("SQL-UPDATE " + sql);
-                return statement.executeUpdate(sql);
+                statement.executeUpdate(sql);
             }
-        } catch (Exception e) {
-            System.out.println(fields.get(0).tname() + ".update() " + e);
-            return -1;
-        } finally {
-            try {
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Query.update() " + e);
-            }
+        } catch (SQLException e) {
+            System.out.println("Query.update() " + e);
         }
-        return 0;
     }
 
-    public int delete(Record record) throws SQLException {
-        Statement statement = connection.createStatement();
-        Field[] f = fields.get(0).fields();
-        String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-        return statement.executeUpdate(sql);
-        //System.out.println("SQL-DELETE " + sql);
+    public void delete(Record record) {
+        try {
+            Statement statement = connection.createStatement();
+            Field[] f = fields.get(0).fields();
+            String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+            //System.out.println("SQL-DELETE " + sql);
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println("Query.delete() " + e);
+        }
     }
 
     public void execsql() {
         try {
             for (Record record : this) {
                 if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
-
                     //System.out.println(record);
                     if (record.validate(fields) != null) { //проверка на корректность ввода данных
                         JOptionPane.showMessageDialog(null, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
@@ -241,11 +227,9 @@ public class Query extends Table {
     }
 
     public boolean isUpdate() {
-        for (Map.Entry<String, Query> q : mapQuery.entrySet()) {
-            for (Record record : q.getValue()) {
-                if ("UPD".equals(record.getStr(0)) || "INS".equals(record.getStr(0))) {
-                    return true;
-                }
+        for (Record record : this) {
+            if ("UPD".equals(record.getStr(0)) || "INS".equals(record.getStr(0))) {
+                return true;
             }
         }
         return false;
