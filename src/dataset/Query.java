@@ -54,7 +54,7 @@ public class Query extends Table {
             }
         }
     }
-    
+
 //    public Field[] fields() {
 //        ArrayList<Field> arr = new ArrayList();
 //        for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
@@ -63,7 +63,6 @@ public class Query extends Table {
 //        }
 //        return arr.toArray(new Field[arr.size()]);
 //    }
-
     public Query table(String name_table) {
         return root.mapQuery.get(name_table);
     }
@@ -129,7 +128,6 @@ public class Query extends Table {
         if (Query.INS.equals(record.get(f[0])) == false) {
             return 0;
         }
-        String sql = "";
         Statement statement = connection.createStatement();
         //если нет, генерю сам
         String nameCols = "", nameVals = "";
@@ -144,7 +142,7 @@ public class Query extends Table {
         if (nameCols != null && nameVals != null) {
             nameCols = nameCols.substring(0, nameCols.length() - 1);
             nameVals = nameVals.substring(0, nameVals.length() - 1);
-            sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
+            String sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
             System.out.println("SQL-INSERT " + sql);
             return statement.executeUpdate(sql);
         }
@@ -186,42 +184,33 @@ public class Query extends Table {
     }
 
     public int delete(Record record) throws SQLException {
-        //if (Query.DEL.equals(record.get(fields[0])) == false) {  return 0;  }
-        String sql = fields.get(0).delete(record);
         Statement statement = connection.createStatement();
-        if (sql != null) {            
-            return statement.executeUpdate(sql);
-        } else {
-            Field[] f = fields.get(0).fields();
-            sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-            return statement.executeUpdate(sql);
-        }
+        Field[] f = fields.get(0).fields();
+        String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
+        return statement.executeUpdate(sql);
         //System.out.println("SQL-DELETE " + sql);
     }
 
     public void execsql() {
         try {
-            for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
-                Query query = q.getValue();
-                for (Record record : query) {
-                    if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
+            for (Record record : this) {
+                if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
 
-                        //System.out.println(record);
-                        if (record.validate(fields) != null) { //проверка на корректность ввода данных
-                            JOptionPane.showMessageDialog(null, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                            return;
-                        }
+                    //System.out.println(record);
+                    if (record.validate(fields) != null) { //проверка на корректность ввода данных
+                        JOptionPane.showMessageDialog(null, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        return;
                     }
-                    if ("INS".equals(record.getStr(0))) {
-                        query.insert(record);
-                        record.setNo(0, Query.SEL);
-                    } else if ("UPD".equals(record.getStr(0))) {
-                        query.update(record);
-                        record.setNo(0, Query.SEL);
-                    } else if ("DEL".equals(record.getStr(0))) {
-                        query.delete(record);
-                        //entry.getValue().remove(record);
-                    }
+                }
+                if ("INS".equals(record.getStr(0))) {
+                    insert(record);
+                    record.setNo(0, Query.SEL);
+                } else if ("UPD".equals(record.getStr(0))) {
+                    update(record);
+                    record.setNo(0, Query.SEL);
+                } else if ("DEL".equals(record.getStr(0))) {
+                    delete(record);
+                    //entry.getValue().remove(record);
                 }
             }
         } catch (Exception e) {

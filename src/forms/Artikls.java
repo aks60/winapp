@@ -277,7 +277,6 @@ public class Artikls extends javax.swing.JFrame
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setMinimumSize(new java.awt.Dimension(600, 600));
-        setPreferredSize(new java.awt.Dimension(900, 649));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -707,11 +706,19 @@ public class Artikls extends javax.swing.JFrame
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        tab2.setColumnSelectionAllowed(true);
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
@@ -769,9 +776,8 @@ public class Artikls extends javax.swing.JFrame
         if (row != -1) {
             
             Record record = qArtdet.newRecord(Query.INS);
-            Record record1 = qArtdet.table(eColgrp.up.tname()).newRecord(Query.INS);
-            Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.INS);
-            
+            Record record1 = qArtdet.table(eColgrp.up.tname()).newRecord(Query.SEL);
+            Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.SEL);           
             qArtdet.add(row, record);
             qArtdet.table(eColgrp.up.tname()).add(row, record1);
             qArtdet.table(eColor.up.tname()).add(row, record2);
