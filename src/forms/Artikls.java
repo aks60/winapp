@@ -765,7 +765,19 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_menOneActionPerformed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            
+            Record record = qArtdet.newRecord(Query.INS);
+            Record record1 = qArtdet.table(eColgrp.up.tname()).newRecord(Query.INS);
+            Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.INS);
+            
+            qArtdet.add(row, record);
+            qArtdet.table(eColgrp.up.tname()).add(row, record1);
+            qArtdet.table(eColor.up.tname()).add(row, record2);
 
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        }
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -788,8 +800,8 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
-       ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-       System.out.println(qArtdet.table(eColor.up.tname()));
+//       ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+//       System.out.println(qArtdet.table(eColor.up.tname()));
     }//GEN-LAST:event_btnReportChoice
 
     private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
