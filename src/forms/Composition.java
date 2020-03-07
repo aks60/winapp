@@ -2,7 +2,6 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
-import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -17,7 +16,6 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
-import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -65,6 +63,12 @@ public class Composition extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
+    private FrameListener<Object, Object> listenerDict = new FrameListener() {
+
+        public void actionRequest(Object obj) {
+            System.out.println(".request()");
+        }
+    };    
 
     public Composition() {
         initComponents();
@@ -511,7 +515,7 @@ public class Composition extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
 
-        DicParam frame = new DicParam(this, true);
+        DicEnums frame = new DicEnums(this, listenerDict);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }//GEN-LAST:event_btnRefresh

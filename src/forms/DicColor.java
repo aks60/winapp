@@ -1,6 +1,7 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eColgrp;
@@ -11,15 +12,16 @@ import swing.DefTableModel;
 
 public class DicColor extends javax.swing.JDialog {
 
-    private FrameListener listenet;
+    private FrameListener listener;
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up.tname());
     private Query qColor = new Query(eColor.values()).table(eColor.up.tname());
 
     public DicColor(Frame parent, FrameListener listenet) {
         super(parent, true);
         initComponents();
-        this.listenet = listenet;
+        this.listener = listenet;
         initDatamodel();
+        new FrameToFile(this, btnClose);
     }
 
     private void initDatamodel() {
@@ -80,7 +82,7 @@ public class DicColor extends javax.swing.JDialog {
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -151,11 +153,24 @@ public class DicColor extends javax.swing.JDialog {
                 {"name2"}
             },
             new String [] {
-                "Группа текстур"
+                "Группы текстур"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab1MouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
 
         panCentr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -175,9 +190,22 @@ public class DicColor extends javax.swing.JDialog {
             new String [] {
                 "Название текстур"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab2MouseClicked(evt);
+            }
+        });
         scr2.setViewportView(tab2);
 
         panSouth.add(scr2, java.awt.BorderLayout.CENTER);
@@ -187,25 +215,36 @@ public class DicColor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-
         int row1 = tab1.getSelectedRow();
         int row2 = tab2.getSelectedRow();
         if (row2 != -1) {
             Record record1 = qColgrp.table(eColgrp.up.tname()).get(row1);
             Record record2 = qColor.table(eColor.up.tname()).get(row2);
-            listenet.actionResponse(new Record[]{record1, record2});
+            listener.actionResponse(new Record[]{record1, record2});
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnRemoveert
+
+    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+       if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {
+            btnChoice(null);
+        }       
+    }//GEN-LAST:event_tab1MouseClicked
+
+    private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
+       if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        } 
+    }//GEN-LAST:event_tab2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;

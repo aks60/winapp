@@ -1,10 +1,8 @@
 package forms;
 
 import common.FrameListener;
-import common.FrameProgress;
 import common.FrameToFile;
 import dataset.ConnApp;
-import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
@@ -68,7 +66,7 @@ public class Color extends javax.swing.JFrame
             btnSave.setIcon(btnIM[1]);
         }
     };
-    private FrameListener<Object, Object> listenerDictionary = new FrameListener() {
+    private FrameListener<Object, Object> listenerDict = new FrameListener() {
 
         public void actionRequest(Object obj) {
             System.out.println(".request()");
@@ -136,7 +134,7 @@ public class Color extends javax.swing.JFrame
         Query query = new Query(eParams.values()).select(eParams.up,
                 "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up.tname());
         eParams.text.meta().descr("Название параметра");
-        DicList frame = new DicList(this, listenerDictionary, query, eParams.text);
+        DicParam frame = new DicParam(this, listenerDict, query, eParams.text);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }

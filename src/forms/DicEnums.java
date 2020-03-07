@@ -1,42 +1,36 @@
 package forms;
 
 import common.FrameListener;
+import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import enums.ParamList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
-public class DicList extends javax.swing.JDialog implements FrameListener<Object, Object> {
+public class DicEnums extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
     private FrameListener listenet;
 
-    public DicList(java.awt.Frame parent, FrameListener listenet, Query query, Field... fields) {
+    public DicEnums(java.awt.Frame parent, FrameListener listenet) {
         super(parent, true);
         initComponents();
         this.listenet = listenet;
-        initDatamodel(query, fields);
+        load();
+        new FrameToFile(this, btnClose);
     }
 
-    private void initDatamodel(Query query, Field... fields) {
-
-        Vector<Vector> dataList = new Vector();
-        Vector colList = new Vector();
-        for (Field field : fields) {
-            colList.add(field.meta().descr());
+    public void load() {
+        DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
+        dm.getDataVector().clear();
+        List<List> list = ParamList.P31000.list();
+        for (List record : list) {
+            dm.addRow((Vector) record);
         }
-        for (Record record : query) {
-            Vector rec = new Vector();
-            for (Field field : fields) {
-                rec.add(record.getStr(field));
-            }
-            dataList.add(rec);
-        }
-        tab1.setModel(new DefaultTableModel(dataList, colList));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
     }
 
     @SuppressWarnings("unchecked")
@@ -71,7 +65,7 @@ public class DicList extends javax.swing.JDialog implements FrameListener<Object
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -157,19 +151,32 @@ public class DicList extends javax.swing.JDialog implements FrameListener<Object
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Name 1", "Value 1"},
-                {"Name 2", "Value 2"}
+                {null, "Name 1"},
+                {null, "Name 2"}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Параметр", "Название параметра"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab1MouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setHeaderValue("Title 1");
-            tab1.getColumnModel().getColumn(1).setHeaderValue("Title 2");
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(40);
         }
 
         panCentr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -179,9 +186,9 @@ public class DicList extends javax.swing.JDialog implements FrameListener<Object
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         listenet.actionResponse(null);
@@ -191,6 +198,12 @@ public class DicList extends javax.swing.JDialog implements FrameListener<Object
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoveert
+
+    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
