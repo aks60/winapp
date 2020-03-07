@@ -193,10 +193,12 @@ public class DicColor extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
-        int row = tab2.getSelectedRow();
-        if (row != -1) {
-            Record record = qColor.table(eColor.up.tname()).get(row);
-            listenet.actionResponse(record);
+        int row1 = tab1.getSelectedRow();
+        int row2 = tab2.getSelectedRow();
+        if (row2 != -1) {
+            Record record1 = qColgrp.table(eColgrp.up.tname()).get(row1);
+            Record record2 = qColor.table(eColor.up.tname()).get(row2);
+            listenet.actionResponse(new Record[]{record1, record2});
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

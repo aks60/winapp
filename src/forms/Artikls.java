@@ -81,9 +81,9 @@ public class Artikls extends javax.swing.JFrame
             btnSave.setIcon(btnIM[1]);
         }
     };
-    private FrameListener<Object, Record> listenerDictionary = new FrameListener<Object, Record>() {
-        public void actionResponse(Record record) {
-            listenerRemote(record);
+    private FrameListener<Object, Record[]> listenerDict = new FrameListener<Object, Record[]>() {
+        public void actionResponse(Record[] record) {
+            listenerDict(record);
         }
     };
 
@@ -115,7 +115,7 @@ public class Artikls extends javax.swing.JFrame
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
         btnT2C1.addActionListener(event -> {
 
-            DicColor frame = new DicColor(this, listenerDictionary);
+            DicColor frame = new DicColor(this, listenerDict);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
@@ -196,14 +196,14 @@ public class Artikls extends javax.swing.JFrame
         }
     }
 
-    public void listenerRemote(Record record) {
+    public void listenerDict(Record[] record) {
 
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            int color_id = record.getInt(eColor.id);
             tab2.editingStopped(null);
-            qArtdet.table(eColor.up.tname()).set(row, record);
-            qArtdet.table(eArtdet.up.tname()).set(color_id, row, eArtdet.color_id);
+            qArtdet.table(eColgrp.up.tname()).set(row, record[0]);
+            qArtdet.table(eColor.up.tname()).set(row, record[1]);
+            qArtdet.set(record[1].getInt(eColor.id), row, eArtdet.color_id);
             ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(row, row);
         }
     }
@@ -748,12 +748,12 @@ public class Artikls extends javax.swing.JFrame
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-//        if ((qArtikls.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
-//                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-//            qArtikls.execsql();
-//            qArtdet.execsql();
-//            listenerModify.actionResponse(null);
-//        }
+        if ((qArtikls.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            qArtikls.execsql();
+            qArtdet.execsql();
+            listenerModify.actionResponse(null);
+        }
     }//GEN-LAST:event_formWindowClosed
 
     private void menListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListActionPerformed
