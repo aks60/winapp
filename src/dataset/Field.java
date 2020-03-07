@@ -62,8 +62,5 @@ public interface Field extends Enam{
     
     public MetaField meta();
     
-    default void virtualRec() throws SQLException {        
-    }
-    
    public boolean equals(Object other);    
 }

@@ -20,8 +20,8 @@ import java.util.Map;
 public enum eSysprof implements Field {
     up("0", "0", "0", "Профили, системы профилей", "SYSPROA"),
     id("4", "10", "0", "Идентификатор", "id"),
-    prio("4", "10", "1", "Приоритет","APRIO"),  //0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - "
-    side("5", "5", "1", "Сторона", "ASETS"),  //(см.ProfileSide)
+    prio("4", "10", "1", "Приоритет", "APRIO"), //0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - "
+    side("5", "5", "1", "Сторона", "ASETS"), //(см.ProfileSide)
     types("5", "5", "1", "Тип профиля (см.TypeProfile)", "ATYPE"),
     artikl_id("4", "10", "0", "Артикл", "artikl_id"),
     sysprod_id("4", "10", "1", "Продукция", "sysprod_id"),
@@ -52,7 +52,7 @@ public enum eSysprof implements Field {
         return query;
     }
 
-    public static ArrayList<Record> find(int _nuni) {
+    public static ArrayList<Record> find(int _nuni) {      
         if (conf.equals("calc")) {
             ArrayList<Record> sysproaList = new ArrayList();
             query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
@@ -62,6 +62,9 @@ public enum eSysprof implements Field {
     }
 
     public static Record find2(int _nuni, TypeProfile _type) {
+        if (_nuni == -1) {
+            return record(_type);
+        }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
             query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types))
@@ -81,12 +84,15 @@ public enum eSysprof implements Field {
             }
             return mapPrio.get(minLevel);
         }
-        Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where " + 
-                systree_id.name() + " = " + _nuni + " and " + types.name() + " = " + _type.value + " order by " + prio.name()).table(up.tname());       
+        Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where "
+                + systree_id.name() + " = " + _nuni + " and " + types.name() + " = " + _type.value + " order by " + prio.name()).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
     public static Record find3(int _nuni, TypeProfile _type, ProfileSide _side) {
+        if (_nuni == -1) {
+            return record(_type);
+        }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
             query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types)
@@ -113,30 +119,15 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    @Override
-    public void virtualRec() throws SQLException {
-        Query q = query.table(up.tname());
-        Record record = q.newRecord(Query.INS);
+    public static Record record(TypeProfile _type) {
+
+        Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
-        record.setNo(types, TypeProfile.FRAME.value);
+        record.setNo(types, _type.value);
         record.setNo(side, ProfileSide.ANY.value);
         record.setNo(systree_id, -1);
         record.setNo(artikl_id, -1);
-        q.insert(record);
-        record = q.newRecord(Query.INS);
-        record.setNo(id, -2);
-        record.setNo(types, TypeProfile.STVORKA.value);
-        record.setNo(side, ProfileSide.ANY.value);
-        record.setNo(systree_id, -1);
-        record.setNo(artikl_id, -1);
-        q.insert(record);
-        record = q.newRecord(Query.INS);
-        record.setNo(id, -3);
-        record.setNo(types, TypeProfile.IMPOST.value);
-        record.setNo(side, ProfileSide.ANY.value);
-        record.setNo(systree_id, -1);
-        record.setNo(artikl_id, -1);
-        q.insert(record);
+        return record;
     }
 
     public String toString() {

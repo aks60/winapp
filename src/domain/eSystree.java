@@ -6,6 +6,7 @@ import dataset.Query;
 import dataset.Record;
 import static domain.eArtdet.values;
 import static domain.eArtikl.code;
+import static domain.eArtikl.record;
 import static domain.eArtikl.up;
 import static domain.eArtikl.values;
 import static domain.eSysprof.artikl_id;
@@ -78,6 +79,9 @@ public enum eSystree implements Field {
     }
 
     public static Record find(int _nuni) {
+        if (_nuni == -1) {
+            return record();
+        }
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(null);
         }
@@ -85,13 +89,11 @@ public enum eSystree implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    @Override
-    public void virtualRec() throws SQLException {
-        Query q = query.table(up.tname());
-        Record record = q.newRecord(Query.INS);
+    public static Record record() {
+        Record record = query.newRecord(Query.INS);
         record.setNo(id, -1);
         record.setNo(glas, "4x10x4x10x4");
-        q.insert(record);
+        return record;
     }
 
     public String toString() {

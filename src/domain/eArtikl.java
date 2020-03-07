@@ -87,6 +87,9 @@ public enum eArtikl implements Field {
     }
 
     public static Record find(int _id, boolean _analog) {
+        if (_id == -1) {
+            return record();
+        }        
         if (conf.equals("calc")) {
             Record recordRec = query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
             if (_analog == true && recordRec.get(analog_id) != null) {
@@ -114,17 +117,15 @@ public enum eArtikl implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    @Override
-    public void virtualRec() throws SQLException {
-        Query q = query().table(up.tname());
-        Record record = q.newRecord(Query.INS);
+    public static Record record() {
+        Record record = query.newRecord(Query.INS);
         record.setNo(id, -1);
         record.setNo(height, 60);
         record.setNo(size_centr, 30);
         record.setNo(tech_code, "");
         record.setNo(size_falz, 20);
         record.setNo(syscons_id, -1);
-        q.insert(record);
+        return record;
     }
 
     public String toString() {
