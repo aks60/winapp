@@ -523,7 +523,7 @@ public class ParamList {
             }
             return list;
         }
-    }
+    } 
 
     //Параметры специф. составов
     public static enum P33000 {
