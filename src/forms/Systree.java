@@ -43,6 +43,7 @@ import swing.DefTableModel;
 import wincalc.Wincalc;
 import wincalc.model.PaintPanel;
 import wincalc.script.Winscript;
+import static javax.management.Query.value;
 
 public class Systree extends javax.swing.JFrame implements FrameListener<Object, Integer> {
 

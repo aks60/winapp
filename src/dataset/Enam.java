@@ -1,16 +1,16 @@
 package dataset;
 
 public interface Enam {
-
+    
     public String name();
 
     public int ordinal();
 
-    default Object key() {
-        return null;
+    default int numb() {
+        return -1;
     }
 
-    default String val() {
+    default String text() {
         return null;
     }
     

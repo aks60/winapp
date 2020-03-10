@@ -84,8 +84,8 @@ public class DefFieldRenderer {
 
             } else if (mapEnam.containsKey(field)) {
                 for (Enam enam : mapEnam.get(field)) {
-                    if (enam.key().equals(val)) {
-                        comp.setText(enam.val());
+                    if (val.equals(enam.numb())) {
+                        comp.setText(enam.text());
                     }
                 }
             } else {

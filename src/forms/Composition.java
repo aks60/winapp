@@ -2,6 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -12,20 +13,23 @@ import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
+import enums.ParamList;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import swing.DefFieldEditor;
 import swing.DefTableModel;
 
 public class Composition extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-    
+
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values(), eParams.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
@@ -68,7 +72,7 @@ public class Composition extends javax.swing.JFrame {
         public void actionRequest(Object obj) {
             System.out.println(".request()");
         }
-    };    
+    };
 
     public Composition() {
         initComponents();
@@ -98,8 +102,31 @@ public class Composition extends javax.swing.JFrame {
         new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name,
                 eElement.name, eElement.vtype, eArtikl.series, eElement.bind, eElement.bind, eElement.markup).addFrameListener(listenerModify);
         new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eParams.text, eParams.id).addFrameListener(listenerModify);
-        new DefTableModel(tab4, qElempar1, eParams.text, eElempar1.text).addFrameListener(listenerModify);
-        new DefTableModel(tab5, qElempar2, eParams.text, eElempar2.text).addFrameListener(listenerModify);
+        new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
+
+            public Object actionPreview(Field field, int row, Object val) {
+
+                if (field == eElempar1.grup && Integer.valueOf(String.valueOf(val)) < 0) {
+                    return qElempar1.table(eParams.up.tname()).get(row).get(eParams.text);
+                } else {
+                    for (ParamList.P31000 en : ParamList.P31000.values()) {
+                        
+                        //if(en.numb() == Integer.va)
+                    }
+                    return null;
+                }
+            }
+        }.addFrameListener(listenerModify);
+        new DefTableModel(tab5, qElempar2, eParams.numb, eElempar2.text).addFrameListener(listenerModify);
+
+        JButton btnT4C0 = new JButton("...");
+        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C0));
+        btnT4C0.addActionListener(event -> {
+
+            DicEnums frame = new DicEnums(this, ParamList.P1000.values(), listenerDict);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
     }
 
     private void loadDataTab1() {
@@ -165,7 +192,7 @@ public class Composition extends javax.swing.JFrame {
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id,
                     "left join", eParams.up, "on", eElemdet.param_id, "=", eParams.grup, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on",
-                    eParams.grup, "=", eElempar1.grup, "and (", eParams.grup, ">=31000 and", eParams.grup, "< 32000)", "where", eElempar1.element_id, "=", p1);
+                    eParams.grup, "=", eElempar1.grup, "and", eParams.grup, " < 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
@@ -515,7 +542,7 @@ public class Composition extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
 
-        DicEnums frame = new DicEnums(this, listenerDict);
+        DicEnums frame = new DicEnums(this, ParamList.P1000.values(), listenerDict);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }//GEN-LAST:event_btnRefresh

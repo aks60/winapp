@@ -2,32 +2,36 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import dataset.Enam;
 import dataset.Field;
-import dataset.Query;
-import dataset.Record;
 import enums.ParamList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
-import java.util.stream.Collectors;
 import javax.swing.table.DefaultTableModel;
 
 public class DicEnums extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
     private FrameListener listenet;
+    private Enam[] enam;
 
-    public DicEnums(java.awt.Frame parent, FrameListener listenet) {
+    public DicEnums(java.awt.Frame parent, Enam[] enam, FrameListener listenet) {
         super(parent, true);
         initComponents();
         this.listenet = listenet;
-        load();
+        this.enam = enam;
+        load(enam);
         new FrameToFile(this, btnClose);
     }
 
-    public void load() {
+    public void load(Enam[] enams) {
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
-        List<List> list = ParamList.P31000.list();
+        List<List> list = new Vector();
+        for (Enam enam : enams) {
+            List rec = new Vector();
+            rec.add(enam.text());
+            list.add(rec);
+        }
         for (List record : list) {
             dm.addRow((Vector) record);
         }
@@ -151,15 +155,15 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "Name 1"},
-                {null, "Name 2"}
+                {"Name 1"},
+                {"Name 2"}
             },
             new String [] {
-                "Параметр", "Название параметра"
+                "Название параметра"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -174,10 +178,6 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
             }
         });
         scr1.setViewportView(tab1);
-        if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(40);
-        }
 
         panCentr.add(scr1, java.awt.BorderLayout.CENTER);
 

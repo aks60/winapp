@@ -1,13 +1,14 @@
 package enums;
 
-import java.util.ArrayList;
+import dataset.Enam;
+import dataset.Field;
 import java.util.List;
 import java.util.Vector;
 
 public class ParamList {
 
     //Пилегающее соединение
-    public static enum P1000 {
+    public static enum P1000 implements Enam {
         P1(1005, "Контейнер имеет тип Артикула1/Артикула2"),
         P2(1008, "Эффективное заполнение изд., мм"),
         P3(1010, "Внешнее соединение"),
@@ -26,17 +27,25 @@ public class ParamList {
         //P17(1098, "Бригада (участок)"),
         P18(1099, "Трудозатраты, ч/ч.");
 
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P1000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P1000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }     
     }
 
     //Угловое соединение ус
-    public static enum P2000 {
+    public static enum P2000 implements Enam {
         //P1(2003, "Угол варианта"),
         P2(2005, "Контейнер имеет тип Артикула1/Артикула2"),
         P3(2012, "Для Артикулов указан состав"),
@@ -54,17 +63,25 @@ public class ParamList {
         //P15(2098, "Бригада (участок)"),
         P16(2099, "Трудозатраты, ч/ч.");
 
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P2000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P2000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
     //Угловое соединение (левое, правое)
-    public static enum P3000 {
+    public static enum P3000 implements Enam {
         P1(3002, "Вид L-образного варианта"),
         P2(3003, "Угол варианта"),
         P3(3005, "Контейнер имеет тип Артикула1/Артикула2"),
@@ -85,17 +102,25 @@ public class ParamList {
         //P18(3098, "ПБригада (участок)"),
         P19(3099, "Трудозатраты, ч/ч.");
 
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P3000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P3000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
     //Т - образное соединение (импост, створка, ригель
-    public static enum P4000 {
+    public static enum P4000 implements Enam {
         P1(4002, "Вид Т-образного варианта"),
         P2(4005, "Контейнер имеет тип Артикула1/Артикула2"),
         P3(4010, "Внешнее соединение"),
@@ -119,16 +144,24 @@ public class ParamList {
         P22(4085, "Надпись на элементе"),
         P23(4800, "Код обработки (;)"),
         P24(4801, "Доп.обработки (;)");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P4000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P4000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P7000 {
+    public static enum P7000 implements Enam {
         P1(7030, "Количество"),
         P2(7040, "Порог расчета, мм"),
         P3(7050, "Шаг, мм"),
@@ -137,16 +170,24 @@ public class ParamList {
         P6(7081, "Если ширина комплекта, мм"),
         P7(7098, "Бригада (участок)"),
         P8(7099, "Трудозатраты, ч/ч.");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P7000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P7000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P8000 {
+    public static enum P8000 implements Enam {
         P1(8050, "Поправка, мм"),
         P2(8060, "Количество"),
         P3(8065, "Длина, мм"),
@@ -157,16 +198,24 @@ public class ParamList {
         P8(8098, "Бригада (участок)"),
         P9(8099, "Трудозатраты, ч/ч."),
         P10(8097, "Трудозатраты по длине");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P8000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P8000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P9000 {
+    public static enum P9000 implements Enam {
         P1(9050, "Поправка длины, мм"),
         P2(9055, "Поправка ширины, мм"),
         P3(9060, "Количество"),
@@ -177,16 +226,24 @@ public class ParamList {
         P8(9098, "Бригада (участок)"),
         P9(9099, "Трудозатраты, ч/ч."),
         P10(9097, "Трудозатраты по площади");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P9000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P9000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P11000 {
+    public static enum P11000 implements Enam {
         P1(11000, "Для технологического кода контейнера (1/2)"),
         P2(11001, "Если признак состава Арт.1"),
         P3(11002, "Если признак состава Арт.2"),
@@ -208,16 +265,24 @@ public class ParamList {
         P19(11070, "Ставить однократно"),
         P20(11072, "Расчет по стороне"),
         P21(11095, "Если признак системы конструкции");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P11000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P11000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P12000 {
+    public static enum P12000 implements Enam {
         P1(12000, "Для технологического кода контейнера (1/2)"),
         P2(12001, "Если признак состава Арт.1"),
         P3(12002, "Если признак состава Арт.2"),
@@ -241,16 +306,24 @@ public class ParamList {
         P21(12072, "Расчет по стороне"),
         P22(12075, "Углы реза"),
         P23(12095, "Если признак системы конструкции");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P12000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P12000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P13000 {
+    public static enum P13000 implements Enam {
         P1(13001, "Если признак состава"),
         P2(13003, "Тип проема"),
         P3(13005, "Заполнение типа"),
@@ -262,16 +335,24 @@ public class ParamList {
         P9(13098, "Бригада (участок)"),
         P10(13099, "Трудозатраты, ч/ч."),
         P11(13097, "Трудозатраты по длине");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P13000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P13000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P14000 {
+    public static enum P14000 implements Enam {
         P1(14000, "Для технологического кода контейнера"),
         P2(14001, "Если признак состава"),
         P3(14005, "Тип проема"),
@@ -288,16 +369,24 @@ public class ParamList {
         P14(14069, "Коды внешн. текстуры изделия"),
         P15(14081, "Если артикул профиля контура"),
         P16(14095, "Если признак системы конструкции");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P14000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P14000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P15000 {
+    public static enum P15000 implements Enam {
         P1(15000, "Для технологического кода контейнера"),
         P2(15001, "Если признак состава"),
         P3(15005, "Тип проема"),
@@ -319,16 +408,24 @@ public class ParamList {
         P19(15069, "Коды внешн. текстуры изделия"),
         P20(15081, "Если артикул профиля контура"),
         P21(15095, "Если признак системы конструкции");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P15000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P15000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P21000 {
+    public static enum P21000 implements Enam {
         P1(21001, "Форма контура"),
         P2(21004, "Артикул створки"),
         P3(21005, "Артикул заполнения по умолчанию"),
@@ -340,16 +437,24 @@ public class ParamList {
         P9(21040, "Ограничение угла, °"),
         P10(21050, "Ориентация стороны, °"),
         P11(21085, "Надпись на эскизе");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P21000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P21000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P24000 {
+    public static enum P24000 implements Enam {
         P1(24001, "Форма контура"),
         P2(24002, "Если артикул створки"),
         P3(24003, "Если артикул цоколя"),
@@ -393,16 +498,24 @@ public class ParamList {
         P41(24801, "Доп.основная обработка (;)"),
         P42(24802, "Код симметр. обработки (;)"),
         P43(24803, "Доп.симметр. обработка (;)");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P24000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P24000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P25000 {
+    public static enum P25000 implements Enam {
         P1(25001, "Форма контура"),
         P2(25002, "Если артикул створки"),
         P3(25003, "Если артикул цоколя"),
@@ -438,31 +551,47 @@ public class ParamList {
         P33(25801, "Доп.основная обработка (;)"),
         P34(25802, "Код симметр. обработки (;)"),
         P35(25803, "Доп.симметр. обработка (;)");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P25000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P25000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P30000 {
+    public static enum P30000 implements Enam {
 
         P1(1, ""),
         P2(2, "");
 
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P30000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P30000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
     //Параметры составов
-    public static enum P31000 {
+    public static enum P31000 implements Enam {
         P000(31000, "Для технологического кода контейнера"),
         P001(31001, "Максимальное заполнение изделия, мм"),
         P002(31002, "Если профиль"),
@@ -505,28 +634,25 @@ public class ParamList {
         P097(31097, "Трудозатраты по длине"),
         P800(31800, "Код обработки (;)"),
         P801(31801, "Доп.обработки (;)");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P31000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P31000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
 
-        public static List<List> list() {
-            List<List> list = new Vector();
-            for (P31000 it : values()) {
-                List rec = new Vector();
-                rec.add(it.value);
-                rec.add(it.name);
-                list.add(rec);
-            }
-            return list;
+        public int numb() {
+            return numb;
         }
-    } 
+        
+        public String text() {
+            return text;
+        }        
+    }
 
     //Параметры специф. составов
-    public static enum P33000 {
+    public static enum P33000 implements Enam {
         P1(33000, "Для технологического кода контейнера"),
         P2(33001, "Если признак состава"),
         P3(33002, "Расчет пролетов соединений"),
@@ -561,17 +687,25 @@ public class ParamList {
         P32(33073, "Отправочная марка фасада"),
         P33(33095, "Если признак системы конструкции"),
         P34(33099, "Трудозатраты, ч/ч.");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P33000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P33000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
     //Параметры специф. составов
-    public static enum P34000 {
+    public static enum P34000 implements Enam {
         P1(34000, "Для технологического кода контейнера"),
         P2(34001, "Если признак состава"),
         P3(34002, "Расчет пролетов соединений"),
@@ -616,16 +750,24 @@ public class ParamList {
         P42(34095, "Если признак системы конструкции"),
         P43(34097, "Трудозатраты по длине"),
         P44(34099, "Трудозатраты, ч/ч.");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P34000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P34000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P37000 {
+    public static enum P37000 implements Enam {
         P1(37001, "Установка жалюзи"),
         P2(37002, "Если артикул профиля контура"),
         P3(37005, "Коды основной текстуры контейнера"),
@@ -653,16 +795,24 @@ public class ParamList {
         P25(37340, "Коэффициент пропускания света"),
         P26(37350, "Сопротивление ветровым нагрузкам, Па"),
         P27(37351, "Номер поверхности");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P37000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P37000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P38000 {
+    public static enum P38000 implements Enam {
         P1(38004, "Расчет"),
         P2(38010, "Номер стороны"),
         P3(38017, "Код системы содержит строку"),
@@ -681,16 +831,24 @@ public class ParamList {
         P16(38108, "Применять коэффициенты АКЦИИ для МЦ"),
         P17(38109, "Возможное управление жалюзи"),
         P18(38113, "Установить текстуру по");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P38000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P38000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P39000 {
+    public static enum P39000 implements Enam {
         P1(39002, "Номер стороны"),
         P2(39005, "Расчет"),
         P3(39017, "Код системы содержит строку"),
@@ -715,16 +873,24 @@ public class ParamList {
         P22(39108, "Применять коэффициенты АКЦИИ для МЦ"),
         P23(39109, "Возможное управление жалюзи"),
         P24(39113, "Установить текстуру по");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P39000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P39000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P40000 {
+    public static enum P40000 implements Enam {
         P1(40004, "Ширина заполнения, мм"),
         P2(40005, "Поправка ширины/высоты, мм"),
         P3(40006, "Высота заполнения, мм"),
@@ -739,16 +905,24 @@ public class ParamList {
         P12(40108, "Применять коэффициенты АКЦИИ для МЦ"),
         P13(40109, "Возможное управление жалюзи"),
         P14(40113, "Установить текстуру по");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P40000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P40000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P50000 {
+    public static enum P50000 implements Enam {
         P1(50010, "Расчет сторон"),
         P2(50013, "Выполняется условие"),
         P3(50017, "Код системы содержит строку"),
@@ -756,16 +930,24 @@ public class ParamList {
         P5(50030, "Количество"),
         P6(50095, "Если признак системы конструкции"),
         P7(50090, "Диапазон макс. ширины откоса, мм");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P50000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P50000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P51000 {
+    public static enum P51000 implements Enam {
         P1(51010, "Расчет сторон"),
         P2(51013, "Выполняется условие"),
         P3(51017, "Код системы содержит строку"),
@@ -777,16 +959,24 @@ public class ParamList {
         P9(51085, "Округление длины/ширины с шагом, мм"),
         P10(51095, "Если признак системы конструкции"),
         P11(51090, "Диапазон макс. ширины откоса, мм");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P51000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P51000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 
-    public static enum P52000 {
+    public static enum P52000 implements Enam {
         P1(52010, "Расчет сторон"),
         P2(52013, "Выполняется условие"),
         P3(52017, "Код системы содержит строку"),
@@ -796,12 +986,20 @@ public class ParamList {
         P7(52085, "Округление длины/ширины с шагом, мм"),
         P8(52095, "Если признак системы конструкции"),
         P9(52090, "Диапазон макс. ширины откоса, мм");
-        public String name = "";
-        public int value = 0;
+        public String text = "";
+        public int numb = 0;
 
-        P52000(int value, String name) {
-            this.name = name;
-            this.value = value;
+        P52000(int numb, String text) {
+            this.text = text;
+            this.numb = numb;
         }
+
+        public int numb() {
+            return numb;
+        }
+        
+        public String text() {
+            return text;
+        }        
     }
 }

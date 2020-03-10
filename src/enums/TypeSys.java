@@ -26,11 +26,11 @@ public enum TypeSys implements Enam {
         this.val = val;
     }
     
-    public Object key() {
+    public int numb() {
         return key;
     }
     
-    public String val() {
+    public String text() {
        return val; 
     }
     
