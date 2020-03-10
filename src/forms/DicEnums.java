@@ -3,7 +3,6 @@ package forms;
 import common.FrameListener;
 import common.FrameToFile;
 import dataset.Enam;
-import dataset.Field;
 import enums.ParamList;
 import java.util.List;
 import java.util.Vector;
@@ -25,10 +24,15 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
         List<List> list = new Vector();
-        for (ParamList enam : ParamList.values()) {
-            List rec = new Vector();
-            rec.add(enam.text);
-            list.add(rec);
+        for (Enam el : ParamList.values()) {
+            for (int it : part) {
+                if (el.numb() >= it && el.numb() < it + 1000) {
+                    
+                    List rec = new Vector();
+                    rec.add(el.text());
+                    list.add(rec);
+                }
+            }
         }
         for (List record : list) {
             dm.addRow((Vector) record);

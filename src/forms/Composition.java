@@ -2,6 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import dataset.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -112,9 +113,9 @@ public class Composition extends javax.swing.JFrame {
 
                     } else {
                         int numb = qElempar1.getAs(row, eElempar1.numb, -1);
-                        for (ParamList en : ParamList.values()) {
-                            if (en.numb == Integer.valueOf(String.valueOf(val))) {
-                                return en.text;
+                        for (Enam en : ParamList.values()) {
+                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
+                                return en.text();
                             }
                         }
                     }
@@ -132,9 +133,9 @@ public class Composition extends javax.swing.JFrame {
 
                     } else {
                         int numb = qElempar2.getAs(row, eElempar2.numb, -1);
-                        for (ParamList en : ParamList.values()) {
-                            if (en.numb == Integer.valueOf(String.valueOf(val))) {
-                                return en.text;
+                        for (Enam en : ParamList.values()) {
+                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
+                                return en.text();
                             }
                         }
                     }

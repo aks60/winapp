@@ -25,6 +25,7 @@ public enum eProperty {
     user("sysdba"),
     server("localhost"),
     systree_nuni("-1"),
+    versionDb("4"),
     base("C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "C:\\Okna\\winbase\\BASE.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
     path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),     
