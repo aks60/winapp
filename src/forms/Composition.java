@@ -148,7 +148,16 @@ public class Composition extends javax.swing.JFrame {
         tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C0));
         btnT4C0.addActionListener(event -> {
 
-            DicEnums frame = new DicEnums(this, listenerDict, 31000);
+            DicEnums frame = new DicEnums(this, listenerDict, 31000, 37000);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
+        
+        JButton btnT5C0 = new JButton("...");
+        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT5C0));
+        btnT5C0.addActionListener(event -> {
+
+            DicEnums frame = new DicEnums(this, listenerDict, 33000, 34000, 38000, 39000, 40000);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });

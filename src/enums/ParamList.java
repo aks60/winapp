@@ -6,12 +6,7 @@ import dataset.Enam;
 public class ParamList {
 
     public static Enam[] values() {
-
-        if (eProperty.versionDb.read().equals("3")) {
-            return Ps3.values();
-        } else {
-            return Ps4.values();
-        }
+        return (eProperty.versionDb.read().equals("3") == true) ? Ps3.values() : Ps4.values();
     }
 
     public static enum Ps3 implements Enam {

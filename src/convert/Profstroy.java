@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.Util;
+import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
@@ -117,7 +118,10 @@ public class Profstroy {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
                     versionPs = 3;
+                    eProperty.versionDb.write("3");
                     eJoining.up.meta().fname = "CONNECT";
+                } else {
+                    eProperty.versionDb.write("4");
                 }
             }
             while (resultSet2.next()) {
