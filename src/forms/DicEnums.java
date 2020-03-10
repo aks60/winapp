@@ -12,24 +12,22 @@ import javax.swing.table.DefaultTableModel;
 public class DicEnums extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
     private FrameListener listenet;
-    private Enam[] enam;
 
-    public DicEnums(java.awt.Frame parent, Enam[] enam, FrameListener listenet) {
+    public DicEnums(java.awt.Frame parent, FrameListener listenet, int... part) {
         super(parent, true);
         initComponents();
         this.listenet = listenet;
-        this.enam = enam;
-        load(enam);
+        load(part);
         new FrameToFile(this, btnClose);
     }
 
-    public void load(Enam[] enams) {
+    public void load(int... part) {
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
         List<List> list = new Vector();
-        for (Enam enam : enams) {
+        for (ParamList enam : ParamList.values()) {
             List rec = new Vector();
-            rec.add(enam.text());
+            rec.add(enam.text);
             list.add(rec);
         }
         for (List record : list) {

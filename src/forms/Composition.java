@@ -106,24 +106,48 @@ public class Composition extends javax.swing.JFrame {
 
             public Object actionPreview(Field field, int row, Object val) {
 
-                if (field == eElempar1.grup && Integer.valueOf(String.valueOf(val)) < 0) {
-                    return qElempar1.table(eParams.up.tname()).get(row).get(eParams.text);
-                } else {
-                    for (ParamList.P31000 en : ParamList.P31000.values()) {
-                        
-                        //if(en.numb() == Integer.va)
+                if (field == eElempar1.grup && val != null) {
+                    if (Integer.valueOf(String.valueOf(val)) < 0) {
+                        return qElempar1.table(eParams.up.tname()).get(row).get(eParams.text);
+
+                    } else {
+                        int numb = qElempar1.getAs(row, eElempar1.numb, -1);
+                        for (ParamList en : ParamList.values()) {
+                            if (en.numb == Integer.valueOf(String.valueOf(val))) {
+                                return en.text;
+                            }
+                        }
                     }
-                    return null;
                 }
+                return val;
             }
         }.addFrameListener(listenerModify);
-        new DefTableModel(tab5, qElempar2, eParams.numb, eElempar2.text).addFrameListener(listenerModify);
+        new DefTableModel(tab5, qElempar2, eElempar2.grup, eElempar2.text) {
+
+            public Object actionPreview(Field field, int row, Object val) {
+
+                if (field == eElempar2.grup && val != null) {
+                    if (Integer.valueOf(String.valueOf(val)) < 0) {
+                        return qElempar2.table(eParams.up.tname()).get(row).get(eParams.text);
+
+                    } else {
+                        int numb = qElempar2.getAs(row, eElempar2.numb, -1);
+                        for (ParamList en : ParamList.values()) {
+                            if (en.numb == Integer.valueOf(String.valueOf(val))) {
+                                return en.text;
+                            }
+                        }
+                    }
+                }
+                return val;
+            }
+        }.addFrameListener(listenerModify);
 
         JButton btnT4C0 = new JButton("...");
         tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C0));
         btnT4C0.addActionListener(event -> {
 
-            DicEnums frame = new DicEnums(this, ParamList.P1000.values(), listenerDict);
+            DicEnums frame = new DicEnums(this, listenerDict, 31000);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
@@ -191,8 +215,8 @@ public class Composition extends javax.swing.JFrame {
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id,
                     "left join", eParams.up, "on", eElemdet.param_id, "=", eParams.grup, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eParams.up, "on",
-                    eParams.grup, "=", eElempar1.grup, "and", eParams.grup, " < 0", "where", eElempar1.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup, 
+                    "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             if (tab3.getRowCount() > 0) {
@@ -207,9 +231,9 @@ public class Composition extends javax.swing.JFrame {
         int row = tab3.getSelectedRow();
         if (row != -1) {
             Record record = qElemdet.table(eElemdet.up.tname()).get(row);
-            Integer p1 = record.getInt(eElement.id);
-            qElempar2.select(eElempar2.up, "left join", eParams.up, "on",
-                    eParams.grup, "=", eElempar2.grup, "and", eParams.grup, ">= 33000 and", eParams.grup, "< 41000", "where", eElempar2.elemdet_id, "=", p1);
+            Integer p1 = record.getInt(eElemdet.id);
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup, 
+                    "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);            
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
     }
@@ -542,7 +566,7 @@ public class Composition extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
 
-        DicEnums frame = new DicEnums(this, ParamList.P1000.values(), listenerDict);
+        DicEnums frame = new DicEnums(this, listenerDict, 31000);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }//GEN-LAST:event_btnRefresh

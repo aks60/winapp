@@ -85,9 +85,10 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         Object val = null;
         if (columns != null) {
             Table table = query.table(columns[columnIndex].tname());
+            
             if (getColumnClass(columnIndex) == Boolean.class) {
-                val = (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
-                return val;
+                return (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
+                
             } else {
                 val = table.get(rowIndex, columns[columnIndex]);
                 return actionPreview(columns[columnIndex], rowIndex, val);
