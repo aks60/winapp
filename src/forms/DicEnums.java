@@ -29,6 +29,7 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
                 if (el.numb() >= it && el.numb() < it + 1000) {
                     
                     List rec = new Vector();
+                    rec.add(el.numb());
                     rec.add(el.text());
                     list.add(rec);
                 }
@@ -157,15 +158,15 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Name 1"},
-                {"Name 2"}
+                {null, "Name 1"},
+                {null, "Name 2"}
             },
             new String [] {
-                "Название параметра"
+                "numb", "Название параметра"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -180,6 +181,10 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
             }
         });
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(40);
+        }
 
         panCentr.add(scr1, java.awt.BorderLayout.CENTER);
 

@@ -3,7 +3,7 @@ package enums;
 
 /**
  * Типы элементов
- * Тут объединены и TypeArea
+ * Тут объединены TypeElem и TypeArea
  */
 public enum TypeElem {
 

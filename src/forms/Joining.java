@@ -16,10 +16,12 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import swing.DefFieldEditor;
 import swing.DefTableModel;
 
 public class Joining extends javax.swing.JFrame {
@@ -65,11 +67,17 @@ public class Joining extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
+    private FrameListener<Object, Object> listenerDict = new FrameListener() {
+
+        public void actionRequest(Object obj) {
+            System.out.println(".request()");
+        }
+    };
 
     public Joining() {
         initComponents();
         initElements();
-        qJoining.select(eJoining.up, "order by", eJoining.name);                    
+        qJoining.select(eJoining.up, "order by", eJoining.name);
         initDatamodel();
     }
 
@@ -81,9 +89,9 @@ public class Joining extends javax.swing.JFrame {
         initElements();
         Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up.tname());
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
-        subsql = "(" + subsql.substring(1) + ")";        
-        qJoining.select(eJoining.up, "where", eJoining.artikl_id1, "in", subsql, "and", eJoining.artikl_id2, "in", subsql, "order by", eJoining.name); 
-        initDatamodel();        
+        subsql = "(" + subsql.substring(1) + ")";
+        qJoining.select(eJoining.up, "where", eJoining.artikl_id1, "in", subsql, "and", eJoining.artikl_id2, "in", subsql, "order by", eJoining.name);
+        initDatamodel();
         owner.setEnabled(false);
     }
 
@@ -93,6 +101,29 @@ public class Joining extends javax.swing.JFrame {
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_id, eJoindet.types);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text);
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
+
+        JButton btnT3C0 = new JButton("...");
+        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT3C0));
+        btnT3C0.addActionListener(event -> {
+            int row = tab2.getSelectedRow();
+            if (row != -1) {
+                Record record = qJoinvar.get(row);
+                int joinVar = record.getInt(eJoinvar.types);
+                DicEnums frame = new DicEnums(this, listenerDict, joinVar * 1000);
+                FrameToFile.setFrameSize(frame);
+                frame.setVisible(true);
+
+            }
+        });
+        
+        JButton btnT5C0 = new JButton("...");
+        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT5C0));
+        btnT5C0.addActionListener(event -> {
+                DicEnums frame = new DicEnums(this, listenerDict, 11000);
+                FrameToFile.setFrameSize(frame);
+                frame.setVisible(true);
+        });
+
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
