@@ -115,13 +115,27 @@ public class Joining extends javax.swing.JFrame {
 
             }
         });
-        
+
         JButton btnT5C0 = new JButton("...");
         tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT5C0));
         btnT5C0.addActionListener(event -> {
-                DicEnums frame = new DicEnums(this, listenerDict, 11000);
+            int row = tab4.getSelectedRow();
+            if (row != -1) {
+                Record recordJoin = qJoindet.get(row);
+                int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
+                Record recordArt = eArtikl.find(artikl_id, false);
+                int level = recordArt.getInt(eArtikl.level1);
+                
+                if (level == 1 || level == 3) {
+                    level = 12000;
+                    
+                } else if (level == 2 || level == 4) {
+                    level = 11000;
+                }
+                DicEnums frame = new DicEnums(this, listenerDict, level);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
+            }
         });
 
         if (tab1.getRowCount() > 0) {
