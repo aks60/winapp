@@ -11,7 +11,7 @@ import enums.ParamJson;
 import enums.TypeElem;
 import enums.JoinLocate;
 import enums.TypeOpen;
-import enums.TypeProfile;
+import enums.TypeUse;
 import enums.JoinVariant;
 import java.awt.Color;
 import java.util.HashMap;
@@ -75,7 +75,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.find2(iwin().nuni, TypeProfile.STVORKA);
+        sysprofRec = eSysprof.find2(iwin().nuni, TypeUse.STVORKA);
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
             

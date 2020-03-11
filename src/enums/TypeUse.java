@@ -5,7 +5,7 @@ import static enums.ProfileSide.values;
 /**
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций
  */
-public enum TypeProfile {
+public enum TypeUse {
     UNKNOWN(0, "любой тип"),
     FRAME(1, "коробка"),
     STVORKA(2, "створка"),
@@ -19,13 +19,13 @@ public enum TypeProfile {
     public int value;
     public String name;
 
-    TypeProfile(int value, String name) {
+    TypeUse(int value, String name) {
         this.value = value;
         this.name = name;
     }
     
-    public static TypeProfile get(int side) {
-        for (TypeProfile profileSide : values()) {
+    public static TypeUse get(int side) {
+        for (TypeUse profileSide : values()) {
             if (profileSide.value == side) {
                 return profileSide;
             }

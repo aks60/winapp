@@ -11,7 +11,7 @@ import static domain.eSyspar1.systree_id;
 import static domain.eSyspar1.up;
 import static domain.eSyspar1.values;
 import enums.ProfileSide;
-import enums.TypeProfile;
+import enums.TypeUse;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +61,7 @@ public enum eSysprof implements Field {
         return new Query(values()).select(up, "where", systree_id, "=", _nuni).table(up.tname());
     }
 
-    public static Record find2(int _nuni, TypeProfile _type) {
+    public static Record find2(int _nuni, TypeUse _type) {
         if (_nuni == -1) {
             return record(_type);
         }
@@ -89,7 +89,7 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static Record find3(int _nuni, TypeProfile _type, ProfileSide _side) {
+    public static Record find3(int _nuni, TypeUse _type, ProfileSide _side) {
         if (_nuni == -1) {
             return record(_type);
         }
@@ -119,7 +119,7 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static Record record(TypeProfile _type) {
+    public static Record record(TypeUse _type) {
 
         Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);

@@ -8,7 +8,7 @@ import enums.LayoutArea;
 import enums.ProfileSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import enums.TypeProfile;
+import enums.TypeUse;
 import java.awt.Color;
 import wincalc.constr.Specification;
 
@@ -55,10 +55,10 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-           sysprofRec = eSysprof.find3(iwin().nuni, TypeProfile.IMPOST, ProfileSide.HORIZ);  
+           sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.IMPOST, ProfileSide.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-           sysprofRec = eSysprof.find3(iwin().nuni, TypeProfile.IMPOST, ProfileSide.VERT); 
+           sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.IMPOST, ProfileSide.VERT); 
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);  
@@ -165,8 +165,8 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override
-    public TypeProfile typeProfile() {
-        return TypeProfile.IMPOST;
+    public TypeUse typeProfile() {
+        return TypeUse.IMPOST;
     }
 
     @Override

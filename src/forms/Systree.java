@@ -19,7 +19,7 @@ import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.ProfileSide;
-import enums.TypeProfile;
+import enums.TypeUse;
 import enums.TypeSys;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -101,7 +101,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                         return en.name;
                     }
                 } else if (field == eSysprof.types && val != null) {
-                    TypeProfile en = TypeProfile.get(Integer.valueOf(val.toString()));
+                    TypeUse en = TypeUse.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.name;
                     }

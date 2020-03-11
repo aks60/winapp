@@ -10,7 +10,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
 import enums.TypeElem;
-import enums.TypeProfile;
+import enums.TypeUse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -40,7 +40,7 @@ public class Сomposition extends Cal5e {
             for (Record sysprofRec : sysprofList) {
                 boolean is = false;
                 int types = sysprofRec.getInt(eSysprof.types);
-                if (TypeProfile.FRAME.value == types) {
+                if (TypeUse.FRAME.value == types) {
 
                     int id = sysprofRec.getInt(eSysprof.artikl_id); //подбор текстуры, ищем не на аналоге                
                     List<Record> artdetList = eArtdet.find(id);
@@ -75,7 +75,7 @@ public class Сomposition extends Cal5e {
             }
             for (Record record : sysprofList) {
                 boolean is = false;
-                if (TypeProfile.IMPOST.value == record.getInt(eSysprof.types)) {
+                if (TypeUse.IMPOST.value == record.getInt(eSysprof.types)) {
                     List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
                     for (Record artdetRec : artdetList) {
 
@@ -101,7 +101,7 @@ public class Сomposition extends Cal5e {
             }
             for (Record record : sysprofList) {
                 boolean is = false;
-                if (TypeProfile.STVORKA.value == record.getInt(eSysprof.types)) {
+                if (TypeUse.STVORKA.value == record.getInt(eSysprof.types)) {
                     List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
                     for (Record artdetRec : artdetList) {
 

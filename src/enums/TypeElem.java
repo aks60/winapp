@@ -1,24 +1,21 @@
 package enums;
 
-
-/**
- * Типы элементов
- * Тут объединены TypeElem и TypeArea
- */
+//Типы элементов
 public enum TypeElem {
 
-    MOSKITKA_SET(-13, "Москитка"),
-    GLASS(1, "Стеклопакет"),
+    //TypeElem
     FRAME_BOX(2, "Рама коробки"),
     IMPOST(3, "Импост"),
     FRAME_STV(4, "Рама створки"), //элемент FULLSTVORKA
+    GLASS(5, "Стеклопакет"),
     SHTULP(10, "Штульп"),
     MOSKITKA(13, "Москитка"),
     RASKLADKA(14, "Раскладка"),
-    WOI_STVORKA(23, "Створка"), //без импоста
+    MOSKITKA_SET(15, "Москитка"),
+    STVORKA(23, "Створка"), //без импоста
     SAND(100, "Сэндвич"),
     JALOUSIE(101, "Жалюзи"),
-    //--- TypeArea ------------------
+    //TypeArea
     AREA(1000, "Контейнер компонентов"),
     SQUARE(1001, "Окно четырёхугольное в сборе"),
     TRAPEZE(1002, "Окно трапеция в сборе"),
