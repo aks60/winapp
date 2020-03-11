@@ -223,8 +223,7 @@ public class Composition extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qElement.table(eElement.up.tname()).get(row);
             Integer p1 = record.getInt(eElement.id);
-            qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id,
-                    "left join", eParams.up, "on", eElemdet.param_id, "=", eParams.grup, "where", eElemdet.element_id, "=", p1);
+            qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup, 
                     "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();

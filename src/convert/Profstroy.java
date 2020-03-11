@@ -412,15 +412,13 @@ public class Profstroy {
                 sql("update artikl set syscons_id = (select id from syscons a where a.sunic = artikl.sunic)");
             }
             sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
-            sql("update elemdet set param_id = clnum where clnum < 0");
- ///////sql("update elemdet set color_fk = clnum where clnum > 0");
             sql("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)");
             sql("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)");
             sql("update joining set artikl_id1 = (select id from artikl a where a.code = joining.anum1)");
             sql("update joining set artikl_id2 = (select id from artikl a where a.code = joining.anum2)"); // where exists  (select id from artikl a where a.code = joining.anum2)")); 
             sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
             sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");           
-            sql("update joindet set artikl_id = (select id from artikl a where a.anumb = joindet.anumb)");            
+            sql("update joindet set artikl_id = (select id from artikl a where a.code = joindet.anumb)");            
             sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
             sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
             sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
