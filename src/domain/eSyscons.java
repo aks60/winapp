@@ -40,9 +40,9 @@ public enum eSyscons implements Field {
     }
 
     public static Record find(int _id) {
-//        if (_id == -1) {
-//            return record();
-//        }
+        if (_id == -1) {
+            return record();
+        }
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
@@ -50,15 +50,15 @@ public enum eSyscons implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-//    public static Record record() {
-//        Record record = query.newRecord(Query.INS);
-//        record.setNo(id, -1);
-//        record.setNo(prip, 3);
-//        record.setNo(napl, 20);
-//        record.setNo(naxl, 8);
-//        record.setNo(zax, 6);
-//        return record;
-//    }
+    public static Record record() {
+        Record record = query.newRecord(Query.INS);
+        record.setNo(id, -1);
+        record.setNo(prip, 3);
+        record.setNo(napl, 20);
+        record.setNo(naxl, 8);
+        record.setNo(zax, 6);
+        return record;
+    }
 
     public String toString() {
         return meta.descr();
