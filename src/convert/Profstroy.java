@@ -95,8 +95,8 @@ public class Profstroy {
             eCurrenc.up
         };
         try {
-            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
-            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
+            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
@@ -420,6 +420,10 @@ public class Profstroy {
             sql("update joining set artikl_id2 = (select id from artikl a where a.code = joining.anum2)"); // where exists  (select id from artikl a where a.code = joining.anum2)")); 
             sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
             sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");
+            
+            sql("update joindet set artikl_id = (select id from artikl a where a.anumb = joindet.anumb)");
+            sql("update joindet set color_id = (select id from color a where joindet.clnum > 0 and a.cnumb = joindet.clnum)");
+            
             sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
             sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
             sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");

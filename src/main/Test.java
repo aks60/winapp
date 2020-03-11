@@ -19,7 +19,7 @@ public class Test {
         Main.dev = true;
 
         try {    
-            //convert.Profstroy.script();
+            convert.Profstroy.script();
             //query();
             //wincalc();
             //frame();
