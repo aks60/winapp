@@ -16,12 +16,10 @@ public enum eFurndet implements Field {
     level("5", "5", "1", "Уровень вложения", "FLEVE"), //(1 - основная, 2 - зависимая, 3 - вложенная)
     fincs("4", "10", "1", "ID зависимого фурнитурного набора из  FINCB  по данной фурнитуре", "FINCS"), //TODO Изменить бред      
     fincb("4", "10", "1", "Ссылка на параметры и на зависимую/вложенную спецификацию фурнитуры:", "FINCB"), //TODO Изменить бред    
-    artikl_id("4", "10", "0", "Артико", "artikl_id"),
+    color_fk("4", "10", "1", "Текстура", "CLNUM"),
+    artikl_id("4", "10", "0", "Артикл", "artikl_id"),
     furniture_id("4", "10", "0", "Фурнитура", "furniture_id");
 
-    //clnum("4", "10", "1", "Текстура (COLSLST.CNUMB). Но если это НАБОР, то тут FURNSPC.FUNIC набора.", "CLNUM"),
-    //funic("4", "10", "1", "ID фурнитурного набора (из FURNLST.FUNIC )", "FUNIC"),
-    //anumb("12", "32", "1", "Артикул материала или слово  НАБОР .", "ANUMB"),
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values()).table(up.tname());
 
@@ -37,7 +35,7 @@ public enum eFurndet implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
@@ -51,7 +49,7 @@ public enum eFurndet implements Field {
         Query recordList = new Query(values()).select(up, "where", furniture_id, "=", _id).table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
-    
+
     public String toString() {
         return meta.descr();
     }

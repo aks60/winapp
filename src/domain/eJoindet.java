@@ -16,13 +16,12 @@ public enum eJoindet implements Field {
     up("0", "0", "0", "Спецификация вариантов соединения", "CONNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
-    color_id("4", "10", "1", "Текстура", "color_id"),
+    color_fk("4", "10", "1", "Текстура", "CLNUM"),
     artikl_id("4", "10", "1", "Артикл", "artikl_id"),
     joinvar_id("4", "10", "1", "Вариант соединения", "joinvar_id");
     //anumb("12", "32", "1", "артикул", "ANUMB"),
     //cunic("4", "10", "1", "null", "CUNIC"),
-    //aunic("4", "10", "1", "ID", "AUNIC"),  
-    //clnum("4", "10", "1", "null", "CLNUM");    
+    //aunic("4", "10", "1", "ID", "AUNIC"),     
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values()).table(up.tname());
 
