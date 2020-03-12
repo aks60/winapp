@@ -50,7 +50,7 @@ public class Artikls extends javax.swing.JFrame
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
     private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
     private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2,
-            eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_fk, eArtdet.artikl_id, eColgrp.name, eColor.name);
+            eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_fk, eArtdet.artikl_id, eColor.colgrp_id, eColor.name);
     DefFieldRenderer rsvArtikl;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -113,14 +113,22 @@ public class Artikls extends javax.swing.JFrame
     private void initDatamodel() {
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eCurrenc.design).addFrameListener(listenerModify);;
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1,
-                eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
 
             public Object actionPreview(Field field, int row, Object val) {
-
                 if (field == eArtdet.color_fk && val != null) {
+
                     if (Integer.valueOf(val.toString()) > 0) {
-                        //Record record = qArtdet.table(e)
+                        Record colorRec = qArtdet.table(eColor.up).get(row);
+                        Record colgrpRec = qColgrp.stream().filter(rec
+                                -> rec.getInt(eColgrp.id) == colorRec.getInt(eColor.colgrp_id)).findFirst().orElse(null);
+                        return colgrpRec.getStr(eColgrp.name) + ":  " +  colorRec.getStr(eColor.name);
+
+                    }  else if (Integer.valueOf(val.toString()) < 0) {
+                        
+                        Record colgroupRec = qColgrp.stream().filter(rec
+                                -> rec.getInt(eColgrp.id) == Integer.valueOf(val.toString())).findFirst().orElse(null);
+                        return colgroupRec.getStr(eColgrp.name) + ": Все текстуры группы";
                     }
                 }
                 return val;
@@ -724,18 +732,18 @@ public class Artikls extends javax.swing.JFrame
         tab2.setFont(common.Util.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Группа", "Название", "Основная", "Внутренняя", "Внешняя", "За ед. веса"
+                "Группа/Название", "Основная", "Внутренняя", "Внешняя", "За ед. веса"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
+                false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -752,9 +760,6 @@ public class Artikls extends javax.swing.JFrame
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(200);
-        }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
