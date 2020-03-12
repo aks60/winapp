@@ -68,9 +68,9 @@ public class Joining extends Cal5e {
                         //specif.setColor(this, joinElement1, connspc);
                         //TODO Непонятное назначение цвета, надо разобратьца.
                         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-                        specif.color1 = artdetRec.getInt(eArtdet.color_id);
-                        specif.color2 = artdetRec.getInt(eArtdet.color_id);
-                        specif.color3 = artdetRec.getInt(eArtdet.color_id);
+                        specif.color1 = artdetRec.getInt(eArtdet.color_fk);
+                        specif.color2 = artdetRec.getInt(eArtdet.color_fk);
+                        specif.color3 = artdetRec.getInt(eArtdet.color_fk);
                         specif.element = "СОЕД";
                         ((ElemSimple) joinElement1).addSpecifSubelem(specif);
                     }

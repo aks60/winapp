@@ -95,8 +95,8 @@ public class Profstroy {
             eCurrenc.up
         };
         try {
-            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
-            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
+            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
@@ -123,6 +123,7 @@ public class Profstroy {
                 } else {
                     eProperty.versionDb.write("4");
                 }
+                eProperty.storeProperty();
             }
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
@@ -174,7 +175,10 @@ public class Profstroy {
             for (Field field : fieldsUp) {
                 sql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
-            updateDb(cn2, st2);
+            deletePart(cn2, st2);
+            updatePart(cn2, st2);
+            alterdbPart(cn2, st2);
+            //updateDb(cn2, st2);
 
             System.out.println("\u001B[32m" + "Удаление столбцов не вошедших в eEnum.values()" + "\u001B[0m");
             for (Field fieldUp : fieldsUp) {
@@ -182,7 +186,7 @@ public class Profstroy {
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     sql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
-            }            
+            }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
 
         } catch (Exception e) {
@@ -352,15 +356,15 @@ public class Profstroy {
         }
     }
 
-    private static void updateDb(Connection cn2, Statement st2) {
+    private static void deletePart(Connection cn2, Statement st2) {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
             System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             sql("delete from params where grup > 0");  //group > 0
-            sql("delete from color where not exists (select id from colgrp a where a.gnumb = color.cgrup)");  //textgrp_id
+            sql("delete from color where not exists (select id from colgrp a where a.id = color.cgrup)");  //colgrp_id
             sql("delete from artdet where not exists (select id from artikl a where a.code = artdet.anumb)");  //artikl_id
-            sql("delete from artdet where not exists (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");  //color_id
+            sql("delete from artdet where not exists (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");  //color_fk
             sql("delete from element where not exists (select id from artikl a where a.code = element.anumb)");  //artikl_id
             sql("delete from elemdet where not exists (select id from artikl a where a.code = elemdet.anumb)");  //artikl_id
             sql("delete from elemdet where not exists (select id from element a where a.vnumb = elemdet.vnumb)");  //element_id
@@ -396,13 +400,21 @@ public class Profstroy {
             //sql("delete from kitdet where not exists (select id from color a where a.numb = kitdet.clnu1)");//color2_id 
             //sql("delete from kitdet where not exists (select id from color a where a.numb = kitdet.clnu2)");//color3_id  
             sql("delete from kitpar1 where not exists (select id from kitdet a where a.kincr = kitpar1.psss)");  //kitdet_id
+        } catch (Exception e) {
+            System.out.println("\u001B[31m" + "DELETE-PART:  " + e + "\u001B[0m");
+        }
+    }
 
+    private static void updatePart(Connection cn2, Statement st2) {
+        try {
+            ConnApp con = ConnApp.initConnect();
+            con.setConnection(cn2);
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
-            sql("update color set colgrp_id = (select id from colgrp a where a.gnumb = color.cgrup)");
+            sql("update color set colgrp_id = (select id from colgrp a where a.id = color.cgrup)");
             updateColor();
             sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
-            sql("update artdet set color_id = (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");
-            sql("update artdet set color_id = artdet.clnum where artdet.clnum < 0");
+            sql("update artdet set color_fk = (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");
+            sql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
             sql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");
@@ -417,8 +429,8 @@ public class Profstroy {
             sql("update joining set artikl_id1 = (select id from artikl a where a.code = joining.anum1)");
             sql("update joining set artikl_id2 = (select id from artikl a where a.code = joining.anum2)"); // where exists  (select id from artikl a where a.code = joining.anum2)")); 
             sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
-            sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");           
-            sql("update joindet set artikl_id = (select id from artikl a where a.code = joindet.anumb)");            
+            sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");
+            sql("update joindet set artikl_id = (select id from artikl a where a.code = joindet.anumb)");
             sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
             sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
             sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
@@ -449,12 +461,18 @@ public class Profstroy {
             sql("update kitdet set color2_id = (select id from color a where a.numb = kitdet.clnu1)");
             sql("update kitdet set color3_id = (select id from color a where a.numb = kitdet.clnu2)");
             sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
+        } catch (Exception e) {
+            System.out.println("\u001B[31m" + "UPDATE-PART:  " + e + "\u001B[0m");
+        }
+    }
 
+    private static void alterdbPart(Connection cn2, Statement st2) {
+        try {
             System.out.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
             sql("alter table artikl add constraint fk_artikl1 foreign key (currenc_id) references currenc (id)");
             sql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
             sql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikl (id)");
-            sql("alter table artdet add constraint fk_artdet2 foreign key (color_id) references color (id)");
+            //sql("alter table artdet add constraint fk_artdet2 foreign key (color_fk) references color (id)");
             sql("alter table element add constraint fk_element1 foreign key (elemgrp_id) references elemgrp (id)");
             sql("alter table element add constraint fk_element2 foreign key (artikl_id) references artikl (id)");
             sql("alter table elemdet add constraint fk_elemdet1 foreign key (artikl_id) references artikl (id)");
@@ -492,18 +510,8 @@ public class Profstroy {
             sql("alter table kitdet add constraint fk_kitdet5 foreign key (color3_id) references color (id)");
             sql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)");
             //sql("alter table mmm add constraint fk_mmm foreign key (yyy_id) references yyy (id)"); 
-
         } catch (Exception e) {
-            System.out.println("\u001B[31m" + "UPDATE-DB:  " + e + "\u001B[0m");
-        }
-    }
-
-    private static void sql(String str) {
-        try {
-            System.out.println(str);
-            st2.execute(str);
-        } catch (Exception e) {
-            System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
+            System.out.println("\u001B[31m" + "ALTERDB-PERT:  " + e + "\u001B[0m");
         }
     }
 
@@ -567,4 +575,12 @@ public class Profstroy {
         }
     }
 
+    private static void sql(String str) {
+        try {
+            System.out.println(str);
+            st2.execute(str);
+        } catch (Exception e) {
+            System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
+        }
+    }    
 }

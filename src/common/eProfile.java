@@ -8,7 +8,7 @@ public enum eProfile {
     
     
     P02(1, "1.1", "SA-OKNA <АРМ Технолог>", "ROLE1", "ROLE2"),// admin
-    P16(9, "9.1", "SA-OKNA <АРММенеджер>", "ROLE1", "ROLE2"); // client
+    P16(9, "9.1", "SA-OKNA <АРМ Менеджер>", "ROLE1", "ROLE2"); // client
 
     public final static int[] version = {1, 0}; //версия программы
     public final static eProfile profile = eProfile.P16; //профиль пользователя   

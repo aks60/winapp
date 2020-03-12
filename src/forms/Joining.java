@@ -4,8 +4,8 @@ import common.FrameListener;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
+import domain.eArtdet;
 import domain.eArtikl;
-import domain.eElemgrp;
 import domain.eJoindet;
 import domain.eJoining;
 import domain.eJoinpar1;
@@ -15,6 +15,7 @@ import domain.eSysprof;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -96,7 +97,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void initDatamodel() {
-        
+
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types);
@@ -116,7 +117,19 @@ public class Joining extends javax.swing.JFrame {
 
             }
         });
-
+        JButton btnT4C2 = new JButton("...");
+        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C2));
+        btnT4C2.addActionListener(event -> {
+            int row = tab4.getSelectedRow();
+            Record record = qJoindet.get(row);
+            int artikl_id = record.getInt(eJoindet.artikl_id);
+            List<Record> artdetRec = eArtdet.find(artikl_id);
+            
+            
+            DicColor frame = new DicColor(this, listenerDict);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
         JButton btnT5C0 = new JButton("...");
         tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT5C0));
         btnT5C0.addActionListener(event -> {
@@ -126,10 +139,10 @@ public class Joining extends javax.swing.JFrame {
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
-                
+
                 if (level == 1 || level == 3) {
                     level = 12000;
-                    
+
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }

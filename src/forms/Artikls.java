@@ -44,7 +44,7 @@ public class Artikls extends javax.swing.JFrame
     private focusPass focusTab = focusPass.TREE;
     private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
     private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2,
-            eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_id, eArtdet.artikl_id, eColgrp.name, eColor.name);
+            eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_fk, eArtdet.artikl_id, eColgrp.name, eColor.name);
     DefFieldRenderer rsvArtikl;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -196,7 +196,7 @@ public class Artikls extends javax.swing.JFrame
         if (row != -1) {
             Record record = qArtikl.table(eArtikl.up.tname()).get(row);
             int id = record.getInt(eArtikl.id);
-            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_id, "=", eColor.id,
+            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_fk, "=", eColor.id,
                     "left join", eColgrp.up, "on", eColor.colgrp_id, "=", eColgrp.id, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.write(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -213,7 +213,7 @@ public class Artikls extends javax.swing.JFrame
             tab2.editingStopped(null);
             qArtdet.table(eColgrp.up.tname()).set(row, record[0]);
             qArtdet.table(eColor.up.tname()).set(row, record[1]);
-            qArtdet.set(record[1].getInt(eColor.id), row, eArtdet.color_id);
+            qArtdet.set(record[1].getInt(eColor.id), row, eArtdet.color_fk);
             ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(row, row);
         }
     }

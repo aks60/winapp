@@ -66,7 +66,7 @@ public class ElemGlass extends ElemSimple {
         }
         //Цвет стекла
         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_id));
+        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
         color1 = colorRec.getInt(eColor.code);
         color2 = colorRec.getInt(eColor.code);
         color3 = colorRec.getInt(eColor.code);
