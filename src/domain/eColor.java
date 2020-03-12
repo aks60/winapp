@@ -78,20 +78,12 @@ public enum eColor implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static Record find3(int _numb) {
-        if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(eColor.numb) == _numb).findFirst().orElse(null);
-        }
-        Query recordList = new Query(values()).select(up, "where", numb, "=", _numb).table(up.tname());
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
-    }
-
     public static Record record() {
         Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
-        record.setNo(code, 240);
+        record.setNo(code, 33240);
         record.setNo(name, "Виртуал");
-        record.setNo(code_rgb, -1);
+        record.setNo(code_rgb, 33240);
         return record;
     }
     

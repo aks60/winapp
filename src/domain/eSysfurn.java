@@ -5,9 +5,6 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eColor.code;
-import static domain.eColor.up;
-import static domain.eColor.values;
 
 public enum eSysfurn implements Field {
     up("0", "0", "0", "Фурнитуры системы профилей", "SYSPROS"),
