@@ -131,7 +131,7 @@ public class CalcConstructiv {
         }
         switch (colorType) {
             case 0:  //указана
-                return eColor.find2(colorId).getInt(eColor.code);
+                return colorId;
             case 1:        // по основе изделия
             case 6:        // по основе в серии
                 return iwin.color1; //elem.getColor(1);

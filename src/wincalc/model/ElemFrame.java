@@ -174,9 +174,7 @@ public class ElemFrame extends ElemSimple {
         float y1h = y1 + h;
         float y2h = y2 + h;
 
-        Object obj = eColor.find2(color2);
-        
-        int rgb = eColor.find2(color2).getInt(eColor.code_rgb);
+        int rgb = eColor.find(color2).getInt(eColor.code_rgb);
         if (LayoutArea.ARCH == layout) { //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
             //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);

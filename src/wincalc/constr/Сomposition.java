@@ -48,9 +48,8 @@ public class Сomposition extends Cal5e {
                     for (Record artdetRec : artdetList) {
 
                         int color_fk = artdetRec.getInt(eArtdet.color_fk);
-                        Record colorRec = eColor.find(color_fk);
-                        int color_code = colorRec.getInt(eColor.code);
-                        if (color_code == iwin().color1) {
+                        //TODO Нужна проверка для color_fk < 0
+                        if (color_fk == iwin().color1) {
                             is = true;
                             LinkedList<ElemFrame> listFrame = iwin().rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV);
                             for (ElemFrame recordFrame : listFrame) {
@@ -79,8 +78,9 @@ public class Сomposition extends Cal5e {
                     List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
                     for (Record artdetRec : artdetList) {
 
-                        Record artiklCol = eColor.find(artdetRec.getInt(eColor.id));
-                        if (artiklCol.getInt(eColor.code) == iwin().color1) {
+                        int color_fk = artdetRec.getInt(eArtdet.color_fk);
+                        //TODO Нужна проверка для color_fk < 0
+                        if (color_fk == iwin().color1) {
                             is = true;
                             LinkedList<ElemImpost> impostList = iwin().rootArea.listElem(TypeElem.IMPOST);
                             for (ElemImpost elemInpost : impostList) {
@@ -105,8 +105,9 @@ public class Сomposition extends Cal5e {
                     List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
                     for (Record artdetRec : artdetList) {
 
-                        Record artiklCol = eColor.find(artdetRec.getInt(eColor.id));
-                        if (artiklCol.getInt(eColor.code) == iwin().color1) {
+                        int color_fk = artdetRec.getInt(eArtdet.color_fk);
+                        //TODO Нужна проверка для color_fk < 0
+                        if (color_fk == iwin().color1) {
                             is = true;
                             LinkedList<ElemImpost> impostList = iwin().rootArea.listElem(TypeElem.IMPOST);
                             for (ElemImpost elemInpost : impostList) {

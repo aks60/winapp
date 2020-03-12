@@ -236,9 +236,9 @@ public class Specification {
             for (Specification s : specList) {
 
                 Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
-                    eColor.find2(s.color1).getInt(eColor.name),
-                    eColor.find2(s.color2).getInt(eColor.name),
-                    eColor.find2(s.color3).getInt(eColor.name),
+                    eColor.find(s.color1).getInt(eColor.name),
+                    eColor.find(s.color2).getInt(eColor.name),
+                    eColor.find(s.color3).getInt(eColor.name),
                     String.valueOf(s.count), String.valueOf(s.quantity),
                     MeasUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
                     String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",

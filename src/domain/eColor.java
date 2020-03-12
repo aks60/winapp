@@ -14,7 +14,6 @@ import static domain.eArtikl.values;
 public enum eColor implements Field {
     up("0", "0", "0", "Описание текстур", "COLSLST"),
     id("4", "10", "0", "Идентификатор", "id"),
-    code("4", "10", "1", "Код текстуры", "CCODE"),
     name("12", "32", "1", "Название текстуры", "CNAME"),
     name2("12", "32", "1", "Название у поставщика", "CNAMP"),
     code_rgb("4", "10", "1", "Цвет отображения", "CVIEW"),
@@ -63,17 +62,6 @@ public enum eColor implements Field {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(null);
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
-    }
-
-    public static Record find2(int _code) {
-        if(_code == -1) {
-            return record();
-        }        
-        if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(code) == _code).findFirst().orElse(null);
-        }
-        Query recordList = new Query(values()).select(up, "where", code, "= '", _code, "'").table(up.tname());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
