@@ -19,7 +19,7 @@ public class AreaRoot extends AreaElem {
         super.id = id;
         this.layoutArea = layoutArea;
         this.elemType = elemType;
-        this.width = width;        
+        this.width = width;
         this.height = height;
         this.heightAdd = heightAdd;
         this.color1 = color1;
@@ -31,6 +31,11 @@ public class AreaRoot extends AreaElem {
     public void setParam(String prj, int nuni) {
         this.nuni = nuni;
         this.prj = prj;
+        if (nuni == -1) {
+            this.color1 = -1;
+            this.color2 = -1;
+            this.color3 = -1;
+        }
     }
 
     public void setParam(String prj, int nuni, String name) {

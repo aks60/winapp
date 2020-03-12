@@ -47,8 +47,8 @@ public class Сomposition extends Cal5e {
                     //Цыкл по цветам артикулов
                     for (Record artdetRec : artdetList) {
 
-                        int color_id = artdetRec.getInt(eArtdet.color_fk);
-                        Record colorRec = eColor.find(color_id);
+                        int color_fk = artdetRec.getInt(eArtdet.color_fk);
+                        Record colorRec = eColor.find(color_fk);
                         int color_code = colorRec.getInt(eColor.code);
                         if (color_code == iwin().color1) {
                             is = true;

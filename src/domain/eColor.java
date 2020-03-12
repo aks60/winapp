@@ -4,6 +4,9 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtdet.artikl_id;
+import static domain.eArtdet.color_fk;
+import static domain.eArtdet.id;
 import static domain.eArtikl.code;
 import static domain.eArtikl.up;
 import static domain.eArtikl.values;
@@ -54,6 +57,9 @@ public enum eColor implements Field {
     }
 
     public static Record find(int _id) {
+        if(_id == -1) {
+            return record();
+        }
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(null);
         }
@@ -77,6 +83,15 @@ public enum eColor implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
+    public static Record record() {
+        Record record = query.newRecord(Query.SEL);
+        record.setNo(id, -1);
+        record.setNo(code, 240);
+        record.setNo(name, "Виртуал");
+        record.setNo(code_rgb, -1);
+        return record;
+    }
+    
     public String toString() {
         return meta.descr();
     }
