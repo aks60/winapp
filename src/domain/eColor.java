@@ -68,6 +68,9 @@ public enum eColor implements Field {
     }
 
     public static Record find2(int _code) {
+        if(_code == -1) {
+            return record();
+        }        
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(code) == _code).findFirst().orElse(null);
         }

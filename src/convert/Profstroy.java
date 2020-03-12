@@ -411,7 +411,6 @@ public class Profstroy {
             con.setConnection(cn2);
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update color set colgrp_id = (select id from colgrp a where a.id = color.cgrup)");
-            updateColor();
             sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
             sql("update artdet set color_fk = (select id from color a where a.code = artdet.clcod and a.numb = artdet.clnum)");
             sql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
@@ -515,29 +514,9 @@ public class Profstroy {
         }
     }
 
-    private static void updateColor() throws SQLException {
-        System.out.println("updateColor()");
-        Query.connection = cn2;
-        Query q1 = new Query(eColgrp.values()).select(eColgrp.up).table(eColgrp.up.tname());
-        Query q2 = new Query(eColor.values()).table(eColor.up.tname());
-        for (Record record : q1) {
-            Record record2 = q2.newRecord(Query.INS);
-            record2.setNo(eColor.id, -1 * record.getInt(eColgrp.id));
-            record2.setNo(eColor.colgrp_id, record.getInt(eColgrp.id));
-            record2.setNo(eColor.name, "Все текстуры группы");
-            record2.setNo(eColor.name2, "Все текстуры группы");
-            record2.setNo(eColor.coef1, 1);
-            record2.setNo(eColor.coef2, 1);
-            record2.setNo(eColor.coef2, 1);
-            record2.setNo(eColor.suffix1, 1);
-            record2.setNo(eColor.suffix2, 1);
-            record2.setNo(eColor.suffix3, 1);
-            q2.insert(record2);
-        }
-    }
-
     private static void updateElemgrp() throws SQLException {
         System.out.println("updateElemgrp()");
+        Query.connection = cn2;
         Query q = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
         ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
         ArrayList<Object[]> fieldList = new ArrayList();
@@ -582,5 +561,5 @@ public class Profstroy {
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
         }
-    }    
+    }
 }
