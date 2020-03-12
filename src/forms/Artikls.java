@@ -106,10 +106,9 @@ public class Artikls extends javax.swing.JFrame
 
     private void initDatamodel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eCurrenc.design);
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit);
-        rsmArtikl.addFrameListener(listenerModify);
-        rsmArtdet.addFrameListener(listenerModify);
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eCurrenc.design).addFrameListener(listenerModify);;
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1, 
+                eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit).addFrameListener(listenerModify);
 
         rsvArtikl = new DefFieldRenderer(rsmArtikl);
         rsvArtikl.add(eArtikl.len_unit, txtField1);
@@ -196,8 +195,8 @@ public class Artikls extends javax.swing.JFrame
         if (row != -1) {
             Record record = qArtikl.table(eArtikl.up.tname()).get(row);
             int id = record.getInt(eArtikl.id);
-            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_fk, "=", eColor.id,
-                    "left join", eColgrp.up, "on", eColor.colgrp_id, "=", eColgrp.id, "where", eArtdet.artikl_id, "=", id);
+            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_fk, "=", eColor.id, "and", eArtdet.color_fk, " > 0" ,
+                    "left join", eColgrp.up, "on", eArtdet.color_fk, "=", eColgrp.id, "and", eArtdet.color_fk, " < 0 where", eArtdet.artikl_id, "=", id);
             rsvArtikl.write(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
