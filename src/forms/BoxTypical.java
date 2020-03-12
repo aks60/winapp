@@ -112,7 +112,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 return label;
             }
         });
-
     }
 
     private void loadTab1() {

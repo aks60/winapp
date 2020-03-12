@@ -4,6 +4,8 @@ import common.FrameListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.ConnFb;
+import dataset.Enam;
+import dataset.Field;
 import swing.DefFieldEditor;
 import dataset.Query;
 import dataset.Record;
@@ -12,6 +14,9 @@ import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
+import domain.eElempar2;
+import domain.eParams;
+import enums.ParamList;
 import enums.TypeArtikl;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -42,6 +47,7 @@ public class Artikls extends javax.swing.JFrame
         TREE, TAB1, TAB2
     };
     private focusPass focusTab = focusPass.TREE;
+    private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
     private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
     private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2,
             eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_fk, eArtdet.artikl_id, eColgrp.name, eColor.name);
@@ -107,8 +113,19 @@ public class Artikls extends javax.swing.JFrame
     private void initDatamodel() {
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eCurrenc.design).addFrameListener(listenerModify);;
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1, 
-                eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit).addFrameListener(listenerModify);
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eColgrp.name, eColor.name, eArtdet.cost_cl1,
+                eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
+
+            public Object actionPreview(Field field, int row, Object val) {
+
+                if (field == eArtdet.color_fk && val != null) {
+                    if (Integer.valueOf(val.toString()) > 0) {
+                        //Record record = qArtdet.table(e)
+                    }
+                }
+                return val;
+            }
+        }.addFrameListener(listenerModify);
 
         rsvArtikl = new DefFieldRenderer(rsmArtikl);
         rsvArtikl.add(eArtikl.len_unit, txtField1);
@@ -119,7 +136,7 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
         rsvArtikl.add(eCurrenc.par_case1, txtField7);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
-       
+
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
         btnT2C1.addActionListener(event -> {
@@ -195,7 +212,8 @@ public class Artikls extends javax.swing.JFrame
         if (row != -1) {
             Record record = qArtikl.table(eArtikl.up.tname()).get(row);
             int id = record.getInt(eArtikl.id);
-            qArtdet.select(eArtdet.up, "left join", eColor.up, "on", eArtdet.color_fk, "=", eColor.id, "and", eArtdet.color_fk, " > 0" ,
+            qArtdet.select(eArtdet.up,
+                    "left join", eColor.up, "on", eArtdet.color_fk, "=", eColor.id, "and", eArtdet.color_fk, " > 0",
                     "left join", eColgrp.up, "on", eArtdet.color_fk, "=", eColgrp.id, "and", eArtdet.color_fk, " < 0 where", eArtdet.artikl_id, "=", id);
             rsvArtikl.write(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
