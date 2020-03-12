@@ -718,8 +718,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        iwinMax.create(Winscript.test(Winscript.prj, null));
-        paintPanel.repaint(true, 24);
+        //iwinMax.create(Winscript.test(Winscript.prj, null));
+        //paintPanel.repaint(true, 24);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

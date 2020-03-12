@@ -538,7 +538,7 @@ public class Profstroy {
             601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
         for (int index = 0; index < prj.length; ++index) {
 
-            String script = Winscript.test(prj[index], -1);
+            String script = Winscript.test(prj[index], -1, -1, -1, -1);
             JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
             String name = jsonObj.get("prj").getAsString()
