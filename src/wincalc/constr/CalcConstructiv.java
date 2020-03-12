@@ -119,7 +119,7 @@ public class CalcConstructiv {
     }
 
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры (dll->GetColorCodeFromProduct() - см. "SVN\iWin_Doc\trunk\Профстрой\Значения GLASART.CTYPE.xlsx".
-    private int getColorFromProduct(Com5t com5t, int colorSide, int type, int clnum) {
+    private int getColorFromProduct(Com5t com5t, int colorSide, int type, int colorId) {
         // Получаем код варианта подбора текстуры (см. "SVN\iWin_Doc\trunk\Профстрой\Значения GLASART.CTYPE.xlsx").
         int colorType = 0;
         if (colorSide == 1) {
@@ -131,7 +131,7 @@ public class CalcConstructiv {
         }
         switch (colorType) {
             case 0:  //указана
-                return eColor.find2(clnum).getInt(eColor.code);
+                return eColor.find2(colorId).getInt(eColor.code);
             case 1:        // по основе изделия
             case 6:        // по основе в серии
                 return iwin.color1; //elem.getColor(1);
