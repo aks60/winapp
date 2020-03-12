@@ -517,7 +517,7 @@ public class Profstroy {
     private static void updateElemgrp() throws SQLException {
         System.out.println("updateElemgrp()");
         Query.connection = cn2;
-        Query q = new Query(eElemgrp.values()).table(eElemgrp.up.tname());
+        Query q = new Query(eElemgrp.values()).table(eElemgrp.up);
         ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
         ArrayList<Object[]> fieldList = new ArrayList();
         while (rs.next()) {
@@ -544,7 +544,7 @@ public class Profstroy {
             String name = jsonObj.get("prj").getAsString()
                     + "-  " + jsonObj.get("name").getAsString();
 
-            Query q = new Query(eSysprod.values()).table(eSysprod.up.tname());
+            Query q = new Query(eSysprod.values()).table(eSysprod.up);
             Record record = q.newRecord(Query.INS);
             record.setNo(eSysprod.npp, index + 1);
             record.setNo(eSysprod.id, ConnApp.ins().generatorId(eSysprod.up.tname()));

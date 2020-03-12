@@ -47,7 +47,7 @@ import static javax.management.Query.value;
 
 public class Systree extends javax.swing.JFrame implements FrameListener<Object, Integer> {
 
-    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.grup, "< 0").table(eParams.up.tname());
+    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.grup, "< 0").table(eParams.up);
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
@@ -141,7 +141,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
-        Query q = qSystree.table(eSystree.up.tname());
+        Query q = qSystree.table(eSystree.up);
         for (Record record : q) {
             if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
                 DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record));
@@ -165,7 +165,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
     private ArrayList<DefaultMutableTreeNode> addChild(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
 
-        Query systreeList = qSystree.table(eSystree.up.tname());
+        Query systreeList = qSystree.table(eSystree.up);
         for (DefaultMutableTreeNode node : nodeList1) {
             UserNode userNode = (UserNode) node.getUserObject();
             for (Record record2 : systreeList) {
@@ -195,7 +195,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
                 createWincalc(sysprod_id);
 
-                Query q = qSystree.table(eSystree.up.tname());
+                Query q = qSystree.table(eSystree.up);
                 for (int i = 0; i < q.size(); i++) {
                     if (nuni == q.get(i).getInt(eSystree.id)) {
                         rsvSystree.write(i);
@@ -230,7 +230,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         if (sysprod_id != -1) {
 
             String script = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id)
-                    .table(eSysprod.up.tname()).getAs(0, eSysprod.script, "");
+                    .table(eSysprod.up).getAs(0, eSysprod.script, "");
             if (script.isEmpty() == false) {
 
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
@@ -253,7 +253,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 UserNode node = (UserNode) selectedNode.getUserObject();
                 Record record = node.record;
                 record.set(eSystree.sysprod_id, sysprod_id);
-                qSystree.table(eSystree.up.tname()).update(record);
+                qSystree.table(eSystree.up).update(record);
                 createWincalc(sysprod_id);
             }
         }

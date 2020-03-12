@@ -62,7 +62,7 @@ public class Test {
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
              
         Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
-        Query qArtdet2 = new Query(eArtdet.values()).select(eArtdet.up).table(eArtdet.up.tname());
+        Query qArtdet2 = new Query(eArtdet.values()).select(eArtdet.up).table(eArtdet.up);
         //qArtdet.set(454, 0, eArtdet.color_id);
         //qArtdet.execsql();
         

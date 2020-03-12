@@ -22,7 +22,7 @@ public enum eGlasdet implements Field {
     //anumb("12", "32", "1", "Артикул элемента", "ANUMB"),
     //clnum("4", "10", "1", "Текстура", "CLNUM"),
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eGlasdet(Object... p) {
         meta.init(p);
@@ -47,7 +47,7 @@ public enum eGlasdet implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(glasgrp_id) == _id && rec.getFloat(depth) == _depth).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", id, "=", glasgrp_id, "and", depth, "=", _depth).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", glasgrp_id, "and", depth, "=", _depth);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     

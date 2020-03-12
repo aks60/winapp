@@ -28,7 +28,7 @@ public enum eJoinvar implements Field {
     //cpict("12", "64", "1", "Чертеж варианта", "CPICT"),    
     //cdiff("8", "15", "1", "null", "CDIFF");
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eJoinvar(Object... p) {
         meta.init(p);
@@ -53,14 +53,14 @@ public enum eJoinvar implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(artikl_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id).table(up.tname());
+        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id);
     }
 
     public static List<Record> find2(int _id) {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(joining_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", joining_id, "=", _id, "order by", id).table(up.tname());
+        return new Query(values()).select(up, "where", joining_id, "=", _id, "order by", id);
     }
 
     public String toString() {

@@ -45,7 +45,7 @@ public enum eSystree implements Field {
     //pnumn("5", "5", "1", "null", "PNUMN"),
     //nuni("4", "10", "1", "ID ветки дерева", "NUNI"),
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eSystree(Object... p) {
         meta.init(p);
@@ -69,7 +69,7 @@ public enum eSystree implements Field {
     private static String patch = "";
 
     public static String patch(int _nuni) {
-        Query recordList = new Query(values()).select(up, "where", id, "=", _nuni).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", _nuni);
         Record record = recordList.get(0);
         if (record.getInt(id) == record.getInt(parent_id)) {
             return patch + record.getStr(name);
@@ -85,7 +85,7 @@ public enum eSystree implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", id, "=", _nuni).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", _nuni);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

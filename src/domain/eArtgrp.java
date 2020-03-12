@@ -14,7 +14,7 @@ public enum eArtgrp implements Field {
     mkoef("8", "15", "1", "Ценовой коэффицент", "MKOEF"),
     ugrup("4", "10", "1", "Группа_пользователей", "UGRUP");
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eArtgrp(Object... p) {
         meta.init(p);

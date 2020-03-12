@@ -14,7 +14,7 @@ public enum eColpar1 implements Field {
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eColpar1(Object... p) {
         meta.init(p);

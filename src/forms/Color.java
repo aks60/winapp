@@ -99,7 +99,7 @@ public class Color extends javax.swing.JFrame
         listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qСolgrup.table(eColgrp.up.tname()).get(row);
+            Record record = qСolgrup.table(eColgrp.up).get(row);
             Integer cgrup = record.getInt(eColgrp.id);
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup + "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -115,7 +115,7 @@ public class Color extends javax.swing.JFrame
     private void selectionTab2(ListSelectionEvent event) {
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qColor.table(eColor.up.tname()).get(row);
+            Record record = qColor.table(eColor.up).get(row);
             int id = record.getInt(eColor.id);
             qColpar1.select(eColpar1.up, "left join", eParams.up.tname(), "on", eParams.grup, "=",
                     eColpar1.grup, "and", eParams.numb, "= 0", "where", eColpar1.numb, "=", id);
@@ -132,7 +132,7 @@ public class Color extends javax.swing.JFrame
     public void remoteForms(java.awt.event.ActionEvent evt) {
         
         Query query = new Query(eParams.values()).select(eParams.up,
-                "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up.tname());
+                "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
         eParams.text.meta().descr("Название параметра");
         DicParam frame = new DicParam(this, listenerDict, query, eParams.text);
         FrameToFile.setFrameSize(frame);
@@ -452,14 +452,14 @@ public class Color extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             try {
                 if (focusComp == tab1) {
-                    Query query = qСolgrup.table(eColgrp.up.tname());
+                    Query query = qСolgrup.table(eColgrp.up);
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
                     qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
                 } else if (focusComp == tab2) {
-                    Query query = qColor.table(eColor.up.tname());
+                    Query query = qColor.table(eColor.up);
                     Record record = query.get(tab2.getSelectedRow());
                     query.delete(record);
                     qColor.select(eColgrp.up, "order by", eColgrp.name);
@@ -474,7 +474,7 @@ public class Color extends javax.swing.JFrame
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (focusComp == tab1) {
-            Query query = qСolgrup.table(eColgrp.up.tname());
+            Query query = qСolgrup.table(eColgrp.up);
             Record record = query.newRecord(Query.INS);
             int id = ConnApp.ins().generatorId(eColgrp.up.tname());
             record.setNo(eColgrp.id, id);
@@ -486,8 +486,8 @@ public class Color extends javax.swing.JFrame
 
         } else if (focusComp == tab2) {
             int row = tab1.getSelectedRow();
-            Query query1 = qСolgrup.table(eColgrp.up.tname());
-            Query query2 = qColor.table(eColor.up.tname());
+            Query query1 = qСolgrup.table(eColgrp.up);
+            Query query2 = qColor.table(eColor.up);
             Record record1 = query1.get(row);
             Record record2 = query2.newRecord(Query.INS);
             int id = ConnApp.ins().generatorId(eColor.up.tname());

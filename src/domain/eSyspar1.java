@@ -21,7 +21,7 @@ public enum eSyspar1 implements Field {
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eSyspar1(Object... p) {
         meta.init(p);
@@ -52,7 +52,7 @@ public enum eSyspar1 implements Field {
             }
             return recordList;
         }
-        return new Query(values()).select(up, "where", systree_id, "=", _nuni).table(up.tname());
+        return new Query(values()).select(up, "where", systree_id, "=", _nuni);
     }
 
     public String toString() {

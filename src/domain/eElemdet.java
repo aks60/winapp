@@ -24,7 +24,7 @@ public enum eElemdet implements Field {
     //vnumb("4", "10", "1", "ИД состава", "VNUMB"),
     //aunic("4", "10", "1", "ИД компонента", "AUNIC"),    
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eElemdet(Object... p) {
         meta.init(p);
@@ -42,7 +42,7 @@ public enum eElemdet implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(element_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", element_id.name(), "=", _id).table(up.tname());
+        return new Query(values()).select(up, "where", element_id.name(), "=", _id);
     }
 
     public static Query query() {

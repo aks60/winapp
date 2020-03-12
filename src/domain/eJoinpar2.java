@@ -22,7 +22,7 @@ public enum eJoinpar2 implements Field {
     //npp("5", "5", "1", "нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eJoinpar2(Object... p) {
         meta.init(p);
@@ -47,7 +47,7 @@ public enum eJoinpar2 implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(joindet_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", joindet_id, "=", _id, "order by", id).table(up.tname());
+        return new Query(values()).select(up, "where", joindet_id, "=", _id, "order by", id);
     }
 
     public String toString() {

@@ -199,8 +199,8 @@ public class DicParam extends javax.swing.JDialog {
 //        int row1 = tab1.getSelectedRow();
 //        int row2 = tab2.getSelectedRow();
 //        if (row2 != -1) {
-//            Record record1 = qColgrp.table(eColgrp.up.tname()).get(row1);
-//            Record record2 = qColor.table(eColor.up.tname()).get(row2);
+//            Record record1 = qColgrp.table(eColgrp.up).get(row1);
+//            Record record2 = qColor.table(eColor.up).get(row2);
 //            listenet.actionResponse(new Record[]{record1, record2});
 //        }
 //        this.dispose();

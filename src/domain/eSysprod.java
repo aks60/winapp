@@ -17,7 +17,7 @@ public enum eSysprod implements Field {
     script("12", "2048", "0", "Скрипт построения окна", "script");
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eSysprod(Object... p) {
         meta.init(p);
@@ -42,7 +42,7 @@ public enum eSysprod implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

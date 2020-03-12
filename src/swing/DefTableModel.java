@@ -72,7 +72,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public int getRowCount() {
-        return (columns != null) ? query.table(columns[0].tname()).size() : 0;
+        return (columns != null) ? query.table(columns[0]).size() : 0;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object val = null;
         if (columns != null) {
-            Table table = query.table(columns[columnIndex].tname());
+            Table table = query.table(columns[columnIndex]);
             
             if (getColumnClass(columnIndex) == Boolean.class) {
                 return (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
@@ -105,7 +105,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
     public void setValueAt(Object value, int row, Field field) {
 
-        Table table = query.table(field.tname());
+        Table table = query.table(field);
         if (field.meta().edit() == false || value.equals(table.get(row, field))) {
             return;
         }

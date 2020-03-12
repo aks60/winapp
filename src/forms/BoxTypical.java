@@ -42,7 +42,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             }
         }
     };
-    private Query qSysprod = new Query(eSysprod.values()).select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up.tname());
+    private Query qSysprod = new Query(eSysprod.values()).select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up);
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));

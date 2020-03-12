@@ -107,7 +107,7 @@ public enum eOrders implements Field {
 //    date2("93", "19", "1", "null", "DATE2"),
 //    date3("93", "19", "1", "null", "DATE3");
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eOrders(Object... p) {
         meta.init(p);

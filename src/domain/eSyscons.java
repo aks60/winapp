@@ -18,7 +18,7 @@ public enum eSyscons implements Field {
     zax("8", "15", "1", "Заход импоста", "SSIZI");
     //sunic("4", "10", "1", "ID системы", "SUNIC"),
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eSyscons(Object... p) {
         meta.init(p);
@@ -46,7 +46,7 @@ public enum eSyscons implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

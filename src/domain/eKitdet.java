@@ -20,7 +20,7 @@ public enum eKitdet implements Field {
 //    anumb("12", "32", "1", "Артикул, входящий в состав комплекта", "ANUMB"),
 //    kincr("4", "10", "1", "ID набора параметров комплекта для артикула", "KINCR"),    
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eKitdet(Object... p) {
         meta.init(p);

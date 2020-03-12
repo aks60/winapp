@@ -70,7 +70,7 @@ public enum ePartner implements Field {
 //    gnumb("5", "5", "1", "null", "GNUMB"),
 //    cuser("4", "10", "1", "null", "CUSER");    
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     ePartner(Object... p) {
         meta.init(p);

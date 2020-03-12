@@ -20,7 +20,7 @@ public enum eGlasprof implements Field {
     //anumb("12", "32", "1", "Артикул", "ANUMB"),
     //gnumb("4", "10", "1", "ID группы", "GNUMB"),
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eGlasprof(Object... p) {
         meta.init(p);
@@ -45,7 +45,7 @@ public enum eGlasprof implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(glasgrp_id) == _id).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", glasgrp_id, "=", _id).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", glasgrp_id, "=", _id);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     

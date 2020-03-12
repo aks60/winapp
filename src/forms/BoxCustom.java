@@ -59,7 +59,7 @@ public class BoxCustom extends javax.swing.JFrame {
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
-        Query q = qSystree.table(eSystree.up.tname());
+        Query q = qSystree.table(eSystree.up);
         for (Record record : q) {
             if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
                 DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new BoxCustom.UserNode(record));
@@ -86,7 +86,7 @@ public class BoxCustom extends javax.swing.JFrame {
             if (selectedNode.getUserObject() instanceof UserNode) {
                 UserNode node = (UserNode) selectedNode.getUserObject();
                 int id = node.record.getInt(eSystree.id);
-                Query q = qSystree.table(eSystree.up.tname());
+                Query q = qSystree.table(eSystree.up);
                 for (int i = 0; i < q.size(); i++) {
                     if (id == q.get(i).getInt(eSystree.id)) {
                         rsvSystree.write(i);
@@ -106,7 +106,7 @@ public class BoxCustom extends javax.swing.JFrame {
 
     private ArrayList<DefaultMutableTreeNode> addChild1(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
 
-        Query q = qSystree.table(eSystree.up.tname());
+        Query q = qSystree.table(eSystree.up);
         for (DefaultMutableTreeNode node : nodeList1) {
             BoxCustom.UserNode userNode = (BoxCustom.UserNode) node.getUserObject();
             for (Record record2 : q) {

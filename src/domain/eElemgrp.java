@@ -12,7 +12,7 @@ public enum eElemgrp implements Field {
     level("5", "5", "1", "Тип артикула", "ATYPM");
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eElemgrp(Object... p) {
         meta.init(p);

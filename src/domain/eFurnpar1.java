@@ -19,7 +19,7 @@ public enum eFurnpar1 implements Field {
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eFurnpar1(Object... p) {
         meta.init(p);
@@ -44,7 +44,7 @@ public enum eFurnpar1 implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(furnside_id) == _id).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", furnside_id, "=", _id).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", furnside_id, "=", _id);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     

@@ -31,7 +31,7 @@ public enum eSysprof implements Field {
     //anumb("12", "32", "1", "артикул", "ANUMB"),
     //cflag("5", "5", "1", "Свои текстуры", "CFLAG");
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eSysprof(Object... p) {
         meta.init(p);
@@ -58,7 +58,7 @@ public enum eSysprof implements Field {
             query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
             return sysproaList;
         }
-        return new Query(values()).select(up, "where", systree_id, "=", _nuni).table(up.tname());
+        return new Query(values()).select(up, "where", systree_id, "=", _nuni);
     }
 
     public static Record find2(int _nuni, TypeUse _type) {
@@ -85,7 +85,7 @@ public enum eSysprof implements Field {
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where "
-                + systree_id.name() + " = " + _nuni + " and " + types.name() + " = " + _type.value + " order by " + prio.name()).table(up.tname());
+                + systree_id.name() + " = " + _nuni + " and " + types.name() + " = " + _type.value + " order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
@@ -115,7 +115,7 @@ public enum eSysprof implements Field {
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
                 + " where " + systree_id.name() + " = " + _nuni + " and types = " + _type.value + " and ("
-                + side.name() + " = " + _side.value + " or " + side.name() + " = " + ProfileSide.ANY.value + ") order by " + prio.name()).table(up.tname());
+                + side.name() + " = " + _side.value + " or " + side.name() + " = " + ProfileSide.ANY.value + ") order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

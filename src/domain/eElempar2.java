@@ -20,7 +20,7 @@ public enum eElempar2 implements Field {
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eElempar2(Object... p) {
         meta.init(p);
@@ -45,7 +45,7 @@ public enum eElempar2 implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     
@@ -53,7 +53,7 @@ public enum eElempar2 implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _par1 == rec.getInt(grup)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", grup, "=", _par1).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _par1);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     

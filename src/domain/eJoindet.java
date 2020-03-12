@@ -23,7 +23,7 @@ public enum eJoindet implements Field {
     //cunic("4", "10", "1", "null", "CUNIC"),
     //aunic("4", "10", "1", "ID", "AUNIC"),     
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eJoindet(Object... p) {
         meta.init(p);
@@ -48,7 +48,7 @@ public enum eJoindet implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(joinvar_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", joinvar_id, "=", _id, "order by", id).table(up.tname());
+        return new Query(values()).select(up, "where", joinvar_id, "=", _id, "order by", id);
     }
 
     public String toString() {

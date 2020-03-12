@@ -210,7 +210,7 @@ public class Artikls extends javax.swing.JFrame
 
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qArtikl.table(eArtikl.up.tname()).get(row);
+            Record record = qArtikl.table(eArtikl.up).get(row);
             int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up,
                     "left join", eColor.up, "on", eArtdet.color_fk, "=", eColor.id, "and", eArtdet.color_fk, " > 0",
@@ -228,8 +228,8 @@ public class Artikls extends javax.swing.JFrame
         int row = tab2.getSelectedRow();
         if (row != -1) {
             tab2.editingStopped(null);
-            qArtdet.table(eColgrp.up.tname()).set(row, record[0]);
-            qArtdet.table(eColor.up.tname()).set(row, record[1]);
+            qArtdet.table(eColgrp.up).set(row, record[0]);
+            qArtdet.table(eColor.up).set(row, record[1]);
             qArtdet.set(record[1].getInt(eColor.id), row, eArtdet.color_fk);
             ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(row, row);
         }
@@ -820,14 +820,14 @@ public class Artikls extends javax.swing.JFrame
             if (row != -1) {
                 Record rec = qArtikl.get(row);
                 Record record = qArtdet.newRecord(Query.INS);
-                Record record1 = qArtdet.table(eColgrp.up.tname()).newRecord(Query.SEL);
-                Record record2 = qArtdet.table(eColor.up.tname()).newRecord(Query.SEL);
+                Record record1 = qArtdet.table(eColgrp.up).newRecord(Query.SEL);
+                Record record2 = qArtdet.table(eColor.up).newRecord(Query.SEL);
 
                 record.setNo(eArtdet.id, ConnApp.ins().generatorId(eArtdet.up.tname()));
                 record.setNo(eArtdet.artikl_id, rec.get(eArtikl.id));
                 qArtdet.add(record);
-                qArtdet.table(eColgrp.up.tname()).add(record1);
-                qArtdet.table(eColor.up.tname()).add(record2);
+                qArtdet.table(eColgrp.up).add(record1);
+                qArtdet.table(eColor.up).add(record2);
                 ((DefaultTableModel) tab2.getModel()).fireTableRowsInserted(qArtdet.size(), qArtdet.size());
             }
         }
@@ -861,14 +861,14 @@ public class Artikls extends javax.swing.JFrame
     private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
         if (tab2.getRowCount() > 0) {
             tab2.editingStopped(null);
-            qArtdet.table(eColor.up.tname()).set("777", 0, eColor.name);
+            qArtdet.table(eColor.up).set("777", 0, eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        System.out.println(qArtdet.table(eColor.up.tname()));
+        System.out.println(qArtdet.table(eColor.up));
 //       ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 //       System.out.println(qArtdet.table(eColor.up.tname()));
     }//GEN-LAST:event_btnReportChoice

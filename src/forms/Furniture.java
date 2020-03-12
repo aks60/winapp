@@ -87,7 +87,7 @@ public class Furniture extends javax.swing.JFrame {
         this.nuni = nuni;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
-        Query query = new Query(eSysfurn.furniture_id).select(eSysfurn.up, "where", eSysfurn.systree_id, "=", nuni).table(eSysfurn.up.tname());
+        Query query = new Query(eSysfurn.furniture_id).select(eSysfurn.up, "where", eSysfurn.systree_id, "=", nuni).table(eSysfurn.up);
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysfurn.furniture_id));
         subsql = "(" + subsql.substring(1) + ")";
         qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "order by", eFurniture.name);
@@ -109,7 +109,7 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qFurniture.table(eFurniture.up.tname()).get(row);
+            Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.npp);
             qFurndet.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
@@ -129,7 +129,7 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab2(ListSelectionEvent event) {
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qFurndet.table(eFurndet.up.tname()).get(row);
+            Record record = qFurndet.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
             qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -142,7 +142,7 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab4(ListSelectionEvent event) {
         int row = tab4.getSelectedRow();
         if (row != -1) {
-            Record record = qFurnside1.table(eFurnside1.up.tname()).get(row);
+            Record record = qFurnside1.table(eFurnside1.up).get(row);
             Integer id = record.getInt(eFurnside1.id);
             qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.grup);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();

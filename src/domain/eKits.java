@@ -26,7 +26,7 @@ public enum eKits implements Field {
 //    kunic("4", "10", "1", "ID комплекта", "KUNIC"),
 //    kblob("-4", "null", "1", "Примечания BLOB", "KBLOB"),    
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eKits(Object... p) {
         meta.init(p);

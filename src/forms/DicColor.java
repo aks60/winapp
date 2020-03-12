@@ -13,8 +13,8 @@ import swing.DefTableModel;
 public class DicColor extends javax.swing.JDialog {
 
     private FrameListener listener;
-    private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up.tname());
-    private Query qColor = new Query(eColor.values()).table(eColor.up.tname());
+    private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up);
+    private Query qColor = new Query(eColor.values()).table(eColor.up);
 
     public DicColor(Frame parent, FrameListener listenet) {
         super(parent, true);
@@ -36,7 +36,7 @@ public class DicColor extends javax.swing.JDialog {
     private void selectionTab1() {
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qColgrp.table(eColgrp.up.tname()).get(row);
+            Record record = qColgrp.table(eColgrp.up).get(row);
             int id = record.getInt(eColgrp.id);
 
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=", id, "order by", eColor.name);
@@ -223,8 +223,8 @@ public class DicColor extends javax.swing.JDialog {
         int row1 = tab1.getSelectedRow();
         int row2 = tab2.getSelectedRow();
         if (row2 != -1) {
-            Record record1 = qColgrp.table(eColgrp.up.tname()).get(row1);
-            Record record2 = qColor.table(eColor.up.tname()).get(row2);
+            Record record1 = qColgrp.table(eColgrp.up).get(row1);
+            Record record2 = qColor.table(eColor.up).get(row2);
             listener.actionResponse(new Record[]{record1, record2});
         }
         this.dispose();

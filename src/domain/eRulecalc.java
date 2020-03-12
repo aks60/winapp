@@ -25,7 +25,7 @@ public enum eRulecalc implements Field {
     sebes("5", "5", "1", "Себестоимость", "RSEBE"),
     calk("5", "5", "1", "Калькуляция", "RCALK");
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eRulecalc(Object... p) {
         meta.init(p);

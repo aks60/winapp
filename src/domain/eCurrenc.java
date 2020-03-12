@@ -18,7 +18,7 @@ public enum eCurrenc implements Field {
     check2("5", "5", "1", "Флаг  Внутренняя ", "CINTO");
     //cnumb("4", "10", "1", "ID валюты", "CNUMB"),
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eCurrenc(Object... p) {
         meta.init(p);

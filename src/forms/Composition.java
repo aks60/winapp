@@ -89,7 +89,7 @@ public class Composition extends javax.swing.JFrame {
         this.owner = owner;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
-        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up.tname());
+        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";
         initDatamodel();
@@ -109,7 +109,7 @@ public class Composition extends javax.swing.JFrame {
 
                 if (field == eElempar1.grup && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qElempar1.table(eParams.up.tname()).get(row).get(eParams.text);
+                        return qElempar1.table(eParams.up).get(row).get(eParams.text);
 
                     } else {
                         int numb = qElempar1.getAs(row, eElempar1.numb, -1);
@@ -129,7 +129,7 @@ public class Composition extends javax.swing.JFrame {
 
                 if (field == eElempar2.grup && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qElempar2.table(eParams.up.tname()).get(row).get(eParams.text);
+                        return qElempar2.table(eParams.up).get(row).get(eParams.text);
 
                     } else {
                         int numb = qElempar2.getAs(row, eElempar2.numb, -1);
@@ -165,17 +165,17 @@ public class Composition extends javax.swing.JFrame {
 
     private void loadDataTab1() {
 
-        Record record = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
+        Record record = qElemgrp.table(eElemgrp.up).newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
         record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
-        qElemgrp.table(eElemgrp.up.tname()).add(0, record);
-        for (int index = 0; index < qElemgrp.table(eElemgrp.up.tname()).size(); ++index) {
-            int level = qElemgrp.table(eElemgrp.up.tname()).getAs(index, eElemgrp.level, -1);
+        qElemgrp.table(eElemgrp.up).add(0, record);
+        for (int index = 0; index < qElemgrp.table(eElemgrp.up).size(); ++index) {
+            int level = qElemgrp.table(eElemgrp.up).getAs(index, eElemgrp.level, -1);
             if (level == 5) {
-                Record record2 = qElemgrp.table(eElemgrp.up.tname()).newRecord(Query.SEL);
+                Record record2 = qElemgrp.table(eElemgrp.up).newRecord(Query.SEL);
                 record2.setNo(eElemgrp.id, -5);
                 record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
-                qElemgrp.table(eElemgrp.up.tname()).add(index, record2);
+                qElemgrp.table(eElemgrp.up).add(index, record2);
                 break;
             }
         }
@@ -190,7 +190,7 @@ public class Composition extends javax.swing.JFrame {
         listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qElemgrp.table(eElemgrp.up.tname()).get(row);
+            Record record = qElemgrp.table(eElemgrp.up).get(row);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1 || id == -5) {
                 if (subsql.isEmpty() == false) {
@@ -221,7 +221,7 @@ public class Composition extends javax.swing.JFrame {
         listenerModify.actionResponse(null);
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qElement.table(eElement.up.tname()).get(row);
+            Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup, 
@@ -239,7 +239,7 @@ public class Composition extends javax.swing.JFrame {
         listenerModify.actionResponse(null);
         int row = tab3.getSelectedRow();
         if (row != -1) {
-            Record record = qElemdet.table(eElemdet.up.tname()).get(row);
+            Record record = qElemdet.table(eElemdet.up).get(row);
             Integer p1 = record.getInt(eElemdet.id);
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup, 
                     "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);            

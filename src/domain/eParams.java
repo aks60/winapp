@@ -37,7 +37,7 @@ public enum eParams implements Field {
     //types - Тип параметра, с znum = -1 : -1 -  значение для с znum > 0  0 -   значение для с znum = 0  1 - параметры спецификаций соединений 2 - параметры спецификаций соединений 3 - параметры спецификаций соединений 4 - параметры спецификаций соединений 7 - параметры комплектов 8 - параметры комплектов 9 - параметры комплектов 11 - параметры соединений 12 - параметры соединений 13 - параметры групп заполнения 14 - параметры заполнения 15 - параметры заполнения 21 - параметры фурнитуры 24 -параметры спецификаций фурнитуры 25 - 31 - параметры составов профилей 33 - параметры  спецификаций составов профилей 34 - параметры спецификаций составов профилей 37 - параметры составовстеклопакетов 38 - параметры спецификаций составов стеклопакетов 39 - параметры спецификаций составов стеклопакетов 40 - "
     //
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eParams(Object... p) {
         meta.init(p);
@@ -62,7 +62,7 @@ public enum eParams implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _numb == rec.getInt(grup) && _mixt == rec.getInt(numb)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", grup, "=", _numb, "and", numb, "=", _mixt).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _numb, "and", numb, "=", _mixt);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

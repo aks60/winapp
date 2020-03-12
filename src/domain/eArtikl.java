@@ -65,7 +65,7 @@ public enum eArtikl implements Field {
     //abits("4", "10", "1", "null", "ABITS"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eArtikl(Object... p) {
         meta.init(p);
@@ -100,11 +100,11 @@ public enum eArtikl implements Field {
             return recordRec;
         }
 
-        Query recordList = new Query(values()).select(up, "where", id, "=", _id).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         if (_analog == true && recordList.isEmpty() == false && recordList.get(0, analog_id) != null) {
 
             int _analog_id = recordList.getAs(0, analog_id, -1);
-            recordList = new Query(values()).select(up, "where", id, "=", _analog_id).table(up.tname());
+            recordList = new Query(values()).select(up, "where", id, "=", _analog_id);
         }
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
@@ -116,7 +116,7 @@ public enum eArtikl implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", code, "='", _code, "'").table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", code, "='", _code, "'");
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

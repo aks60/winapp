@@ -71,7 +71,7 @@ public class Kits extends javax.swing.JFrame {
         listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qKits.table(eKits.up.tname()).get(row);
+            Record record = qKits.table(eKits.up).get(row);
             Integer id = record.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -86,7 +86,7 @@ public class Kits extends javax.swing.JFrame {
         listenerModify.actionResponse(null);
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qKitdet.table(eKitdet.up.tname()).get(row);
+            Record record = qKitdet.table(eKitdet.up).get(row);
             Integer id = record.getInt(eKitdet.id);
             qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();

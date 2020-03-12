@@ -29,7 +29,7 @@ public enum eArtdet implements Field {
     //cminp("8", "15", "1", "минимальный тариф", "CMINP"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eArtdet(Object... p) {
         meta.init(p);
@@ -54,7 +54,7 @@ public enum eArtdet implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(artikl_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id).table(up.tname());
+        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id);
     }
 
     public static Record find2(int _id) {
@@ -64,7 +64,7 @@ public enum eArtdet implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(artikl_id) == _id).findFirst().orElse(null);
         }
-        List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _id).table(up.tname());
+        List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _id);
         return record.get(0);
     }
 

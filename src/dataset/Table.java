@@ -22,7 +22,7 @@ public class Table extends ArrayList<Record> {
     public Table() {
     }
 
-    public Query table(String name_table) {
+    public Query table(Field field) {
         return null;
     }
 

@@ -22,7 +22,7 @@ public enum eSysfurn implements Field {
     //anumbt("12", "32", "1", "Артикул ручки по умолчанию", "ARUCH"),
     //apetl("12", "32", "1", "Артиккул подвеса (петли) по умолчанию", "APETL");    
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eSysfurn(Object... p) {
         meta.init(p);
@@ -47,7 +47,7 @@ public enum eSysfurn implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 

@@ -55,8 +55,9 @@ public class Query extends Table {
         }
     }
 
-    public Query table(String name_table) {
-        return root.mapQuery.get(name_table);
+    @Override
+    public Query table(Field field) {
+        return root.mapQuery.get(field.tname());
     }
 
     public Query select(Object... s) {

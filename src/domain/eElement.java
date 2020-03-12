@@ -28,7 +28,7 @@ public enum eElement implements Field {
     //pnump("5", "5", "1", "null", "PNUMP"),
     //vcomp("5", "5", "1", "null", "VCOMP");
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eElement(Object... p) {
         meta.init(p);
@@ -53,14 +53,14 @@ public enum eElement implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _series.equals(rec.getStr(series)) && rec.getInt(bind) > 0).findAny().orElse(null);
         }
-        return new Query(values()).select(up, "where", series, "= '", _series, "' and", bind, "> 0").table(up.tname());
+        return new Query(values()).select(up, "where", series, "= '", _series, "' and", bind, "> 0");
     }
 
     public static List<Record> find2(int _artikl_id) {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _artikl_id == rec.getInt(artikl_id)).findAny().orElse(null);
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id).table(up.tname());
+        return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id);
     }
 
     public static List<Record> find3(int _artikl_id, String _series) {
@@ -68,7 +68,7 @@ public enum eElement implements Field {
             return query().stream().filter(rec -> _artikl_id == rec.getInt(artikl_id)
                     && _series.equals(rec.getStr(series)) && rec.getInt(bind) > 0).findAny().orElse(null);
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id, "and '", series, "'='", _series, "'").table(up.tname());
+        return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id, "and '", series, "'='", _series, "'");
     }
 
     public String toString() {

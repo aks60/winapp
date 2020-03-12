@@ -23,7 +23,7 @@ public enum eJoining implements Field {
     //cpref("12", "32", "1", "Категория", "CPREF"),
 
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eJoining(Object... p) {
         meta.init(p);
@@ -42,7 +42,7 @@ public enum eJoining implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _artikl_id1 == rec.getInt(artikl_id1) && _artikl_id2 == rec.getInt(artikl_id2)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", artikl_id1, "=", _artikl_id1, "and", artikl_id2, "=", _artikl_id2).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", artikl_id1, "=", _artikl_id1, "and", artikl_id2, "=", _artikl_id2);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
@@ -50,7 +50,7 @@ public enum eJoining implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _analog.equals(rec.getStr(analog))).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "'").table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "'");
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     

@@ -19,7 +19,7 @@ public enum eFurnside1 implements Field {
     //fincr("4", "10", "1", "null", "FINCR"),    
     //ftype("12", "16", "1", "Тип стороны", "FTYPE"); //1-сторона, 2-ось поворота, 3-крепление петель
     private MetaField meta = new MetaField(this);
-    private static Query query = new Query(values()).table(up.tname());
+    private static Query query = new Query(values());
 
     eFurnside1(Object... p) {
         meta.init(p);
@@ -44,7 +44,7 @@ public enum eFurnside1 implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(furniture_id) == _id).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", furniture_id, "=", _id).table(up.tname());
+        Query recordList = new Query(values()).select(up, "where", furniture_id, "=", _id);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     
