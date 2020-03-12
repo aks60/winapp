@@ -106,8 +106,8 @@ public class Specification {
 
     public Vector getVector() {
 
-        List list = Arrays.asList(id, areaId, elemId, elemType, element, artikl, name, color1, color2, 
-                color3, width, height, weight, anglCut1, anglCut2, count, unit, quantity, wastePrc, 
+        List list = Arrays.asList(id, areaId, elemId, elemType, element, artikl, name, color1, color2,
+                color3, width, height, weight, anglCut1, anglCut2, count, unit, quantity, wastePrc,
                 quantity2, inPrice, outPrice, inCost, outCost, discount, anglHoriz);
         return new Vector(list);
     }
@@ -150,15 +150,15 @@ public class Specification {
         }
     }
 
-
     public void putParam(Integer key, String val) {
         mapParam.put(key, val);
     }
 
     public String getParam(Object def, int... p) {
 
-        if (mapParam == null) System.out.println("ОШИБКА getHmParam() hmParamJson = null");
-
+        if (mapParam == null) {
+            System.err.println("ОШИБКА getHmParam() hmParamJson = null");
+        }
         for (int index = 0; index < p.length; ++index) {
             int key = p[index];
             String str = mapParam.get(Integer.valueOf(key));
@@ -168,7 +168,7 @@ public class Specification {
         }
         return String.valueOf(def);
     }
-    
+
     @Override
     public boolean equals(Object specification) {
         Specification spec = (Specification) specification;
@@ -208,13 +208,13 @@ public class Specification {
                 writer.write(str);
             }
         } catch (Exception ex) {
-            System.out.println("Ошибка Specification.write_csv() " + ex);
+            System.err.println("Ошибка Specification.write_csv() " + ex);
         } finally {
             try {
                 writer.flush();
                 writer.close();
             } catch (Exception ex2) {
-                System.out.println("Ошибка Specification.write_csv() " + ex2);
+                System.err.println("Ошибка Specification.write_csv() " + ex2);
             }
         }
     }
@@ -256,7 +256,7 @@ public class Specification {
             System.out.println(str4);
 
         } catch (IOException ex) {
-            System.out.println("Ошибка Specification.write_txt() " + ex);
+            System.err.println("Ошибка Specification.write_txt() " + ex);
         }
     }
 

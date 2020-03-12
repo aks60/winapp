@@ -125,7 +125,7 @@ public class Сomposition extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Ошибка wincalc.constr.Сomposition.compositionFirst()");
+            System.err.println("Ошибка wincalc.constr.Сomposition.compositionFirst()");
         }
     }
 

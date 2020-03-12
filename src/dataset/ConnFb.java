@@ -130,7 +130,7 @@ public class ConnFb extends dataset.ConnApp {
             connection.createStatement().executeUpdate("DROP USER " + user);
 
         } catch (SQLException e) {
-            System.out.println("Ошибка удаления пользователя" + e);
+            System.err.println("Ошибка удаления пользователя" + e);
         }
     }
 
@@ -161,7 +161,7 @@ public class ConnFb extends dataset.ConnApp {
             rs.close();
             return next_id;
         } catch (SQLException e) {
-            System.out.println("Ошибка генерации ключа " + e);
+            System.err.println("Ошибка генерации ключа " + e);
             return 0;
         }        
     }

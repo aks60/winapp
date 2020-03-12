@@ -53,12 +53,14 @@ public class ElemGlass extends ElemSimple {
     public void initСonstructiv() {
 
         Object code = mapParam.get(ParamJson.nunic_iwin);
-        artiklRec = eArtikl.find2(String.valueOf(code));
-        if (artiklRec == null) {
+        if (code != null) {
+            artiklRec = eArtikl.find2(String.valueOf(code));
+        } 
+        if(artiklRec == null){
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
-        sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.FRAME, ProfileSide.LEFT); //у стеклопакет нет записи в Sysproa пэтому идёт подмена на Frame
+        sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.FRAME, ProfileSide.LEFT); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
             artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
@@ -80,7 +82,6 @@ public class ElemGlass extends ElemSimple {
     public void setSpecifElement() {
 
         //indexUniq(specificationRec);
-
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
         if (owner() instanceof AreaArch) { //если арка
 
@@ -102,7 +103,7 @@ public class ElemGlass extends ElemSimple {
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
             //width = x2 - x1;
-            
+
             specificationRec.width = width();
 
             specificationRec.id = id();
@@ -136,7 +137,7 @@ public class ElemGlass extends ElemSimple {
             specificationRec.color3 = color3;
         }
     }
-    
+
     @Override
     public void paint() { //рисуём стёкла
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
@@ -146,8 +147,8 @@ public class ElemGlass extends ElemSimple {
             float dz = ef.artiklRec.getFloat(eArtikl.height);
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
-            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2))); 
-            fillArc((float)(root().width() / 2 - r + dz), dz, (float)((r - dz) * 2), (float)((r - dz) * 2), (float)ang2, (float)((90 - ang2) * 2));
+            double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
+            fillArc((float) (root().width() / 2 - r + dz), dz, (float) ((r - dz) * 2), (float) ((r - dz) * 2), (float) ang2, (float) ((90 - ang2) * 2));
 
         } else {
             float h = iwin().heightAdd - iwin().height;
@@ -159,7 +160,7 @@ public class ElemGlass extends ElemSimple {
     @Override
     //Добавление спесификаций зависимых элементов
     public void addSpecifSubelem(Specification specif) {
-   
+
         //indexUniq(specif);
         specif.element = "ЗАП";
         if (TypeArtikl.GLASS.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 5) { //стеклопакет
@@ -174,7 +175,7 @@ public class ElemGlass extends ElemSimple {
         } else {
             specif.id = id();
         }
-        quantityMaterials(specif);        
+        quantityMaterials(specif);
         specificationRec.specificationList.add(specif);
     }
 

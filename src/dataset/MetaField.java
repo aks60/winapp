@@ -34,7 +34,7 @@ public class MetaField {
     public void init(Object... p) {
 
         if (p.length < 5) {
-            System.out.println("MetaField.init() - ОШИБКА! Количество параметров меньше 4. Поле <" + p[0].toString() + ">");
+            System.err.println("MetaField.init() - ОШИБКА! Количество параметров меньше 4. Поле <" + p[0].toString() + ">");
             return;
         }
         type(Integer.valueOf(p[Entity.type.ordinal()].toString())); //тип поля

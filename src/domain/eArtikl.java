@@ -89,7 +89,7 @@ public enum eArtikl implements Field {
     public static Record find(int _id, boolean _analog) {
         if (_id == -1) {
             return record();
-        }        
+        }
         if (conf.equals("calc")) {
             Record recordRec = query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
             if (_analog == true && recordRec.get(analog_id) != null) {
@@ -110,6 +110,9 @@ public enum eArtikl implements Field {
     }
 
     public static Record find2(String _code) {
+        if (_code.equals("0x0x0x0")) {
+            return record2();
+        }
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(null);
         }
@@ -118,13 +121,23 @@ public enum eArtikl implements Field {
     }
 
     public static Record record() {
-        Record record = query.newRecord(Query.INS);
+        Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
+        record.setNo(name, "Рама");
         record.setNo(height, 60);
         record.setNo(size_centr, 30);
         record.setNo(tech_code, "");
         record.setNo(size_falz, 20);
         record.setNo(syscons_id, -1);
+        return record;
+    }
+
+    //[SEL, 2633, 4x10x4x10x4, 5, 2, 8, null, 32 Стеклопакет двухкамерный, null, null, 0.0, 1СП-1,5 все, 0.0, 10.0, 0.0, 2, 2250.0, 1605.0, 32.0, 30.0, 10.0, 0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 2, 0, 0, null, 3, null]
+    public static Record record2() {
+        Record record = query.newRecord(Query.SEL);
+        record.setNo(id, -1);
+        record.setNo(code, "0x0x0x0");
+        record.setNo(name, "Стеклопакет");
         return record;
     }
 

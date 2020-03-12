@@ -274,7 +274,7 @@ public class ParamVariant {
                             }
                         }
                     } catch (Exception e) {
-                        System.out.println("Ошибка ParamVariant.checkParconv() " + e);
+                        System.err.println("Ошибка ParamVariant.checkParconv() " + e);
                         return false;
                     }
                     break;
@@ -384,7 +384,7 @@ public class ParamVariant {
     }
 
     private void paramMessage(int code) {
-        System.out.println("ParamVariant ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+        System.err.println("ParamVariant ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
     }
 
     /* Все варианты вместе

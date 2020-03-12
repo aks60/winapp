@@ -426,7 +426,7 @@ public class ParamSpecific {
     }
 
     private void paramMessage(int code) {
-        //System.out.println("ParamSpecific ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+        //System.err.println("ParamSpecific ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
     }
 
     //Все спецификации вместе

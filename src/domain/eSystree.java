@@ -90,9 +90,9 @@ public enum eSystree implements Field {
     }
 
     public static Record record() {
-        Record record = query.newRecord(Query.INS);
+        Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
-        record.setNo(glas, "4x10x4x10x4");
+        record.setNo(glas, "0x0x0x0");
         return record;
     }
 

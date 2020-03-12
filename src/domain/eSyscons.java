@@ -51,7 +51,7 @@ public enum eSyscons implements Field {
     }
 
     public static Record record() {
-        Record record = query.newRecord(Query.INS);
+        Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
         record.setNo(prip, 3);
         record.setNo(napl, 20);

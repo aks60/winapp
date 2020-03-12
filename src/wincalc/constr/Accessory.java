@@ -159,7 +159,7 @@ public class Accessory extends Cal5e {
             try {
                 fittingMidle(elStvorka, furnlstRec2, count2); //рекурсия обработки наборов
             } catch (Exception e) {
-                System.out.println("Ошибка CalcConstructiv.fittingMidle() " + e);
+                System.err.println("Ошибка CalcConstructiv.fittingMidle() " + e);
             }
 
         } else if (calc.paramSpecific.pass == 2) {
