@@ -574,10 +574,9 @@ public class DetElems extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
-        DicEnums frame = new DicEnums(this, listenerDict, 31000);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
+            DicArtikl frame = new DicArtikl(this, listenerDict);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
