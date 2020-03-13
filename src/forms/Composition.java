@@ -32,7 +32,7 @@ public class Composition extends javax.swing.JFrame {
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
 
     private Query qElement = new Query(eElement.values(), eArtikl.values());
-    private Query qElemdet = new Query(eElemdet.values(), eArtikl.values(), eParams.values());
+    private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private FrameListener listenerFrame = null;
@@ -102,7 +102,7 @@ public class Composition extends javax.swing.JFrame {
         new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
         new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name,
                 eElement.name, eElement.vtype, eArtikl.series, eElement.bind, eElement.bind, eElement.markup).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eParams.text, eParams.id).addFrameListener(listenerModify);
+        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types).addFrameListener(listenerModify);
         new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
 
             public Object actionPreview(Field field, int row, Object val) {

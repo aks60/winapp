@@ -16,7 +16,7 @@ public enum eColor implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "32", "1", "Название текстуры", "CNAME"),
     name2("12", "32", "1", "Название у поставщика", "CNAMP"),
-    code_rgb("4", "10", "1", "Цвет отображения", "CVIEW"),
+    rgb("4", "10", "1", "Цвет отображения", "CVIEW"),
     coef1("8", "15", "1", "Ценовой коэффицент основной", "CKOEF"),
     coef2("8", "15", "1", "Ценовой коэффицент внутренний", "KOEF1"),
     coef3("8", "15", "1", "Ценовой коэффицент внешний", "KOEF2"),
@@ -26,6 +26,7 @@ public enum eColor implements Field {
     orient("5", "5", "1", "Ориентация", "CORIE"),
     pain("5", "5", "1", "Покраска", "CTYPE"),
     colgrp_id("5", "5", "0", "Группа", "colgrp_id");
+    //numb("4", "10", "1", "id", "CNUMB"),
     //cgrup("5", "5", "1", "группа", "CGRUP");    
     //cpict("-4", "80", "1", "null", "CPICT"),
     //xdepa("5", "5", "1", "null", "XDEPA"),
@@ -70,7 +71,7 @@ public enum eColor implements Field {
         record.setNo(id, -1);
         record.setNo(code, 33240);
         record.setNo(name, "Виртуал");
-        record.setNo(code_rgb, 33240);
+        record.setNo(rgb, 33240);
         return record;
     }
     
