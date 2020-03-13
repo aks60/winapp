@@ -48,9 +48,9 @@ public class Artikls extends javax.swing.JFrame
     };
     private focusPass focusTab = focusPass.TREE;
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
+    private Query qColor = new Query(eColor.values()).select(eColor.up);
     private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
-    private Query qArtdet = new Query(eArtdet.id, eArtdet.cost_cl1, eArtdet.cost_cl2,
-            eArtdet.cost_cl3, eArtdet.cost_unit, eArtdet.color_fk, eArtdet.artikl_id, eColor.colgrp_id, eColor.name);
+    private Query qArtdet = new Query(eArtdet.values());
     DefFieldRenderer rsvArtikl;
 
     private FocusListener listenerFocus = new FocusListener() {
@@ -113,22 +113,33 @@ public class Artikls extends javax.swing.JFrame
     private void initDatamodel() {
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eCurrenc.design).addFrameListener(listenerModify);;
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
 
             public Object actionPreview(Field field, int row, Object val) {
-                if (field == eArtdet.color_fk && val != null) {
+                if (field == eArtdet.id || field == eArtdet.color_fk) {
+                    Record artdetRec = qArtdet.get(row);
+                    Integer color_fk = artdetRec.getInt(eArtdet.color_fk);
+                    System.out.println(color_fk);
 
-                    if (Integer.valueOf(val.toString()) > 0) {
-                        Record colorRec = qArtdet.table(eColor.up).get(row);
-                        Record colgrpRec = qColgrp.stream().filter(rec
-                                -> rec.getInt(eColgrp.id) == colorRec.getInt(eColor.colgrp_id)).findFirst().orElse(null);
-                        return colgrpRec.getStr(eColgrp.name) + ":  " +  colorRec.getStr(eColor.name);
+                    if (field == eArtdet.id) {
+                        if (color_fk > 0) {
+                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
+                            int colgrp_id = colorRec.getInt(eColor.colgrp_id);
+                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == colgrp_id).findFirst().orElse(null);
+                            return colgrpRec.getStr(eColgrp.name);
 
-                    }  else if (Integer.valueOf(val.toString()) < 0) {
-                        
-                        Record colgroupRec = qColgrp.stream().filter(rec
-                                -> rec.getInt(eColgrp.id) == Integer.valueOf(val.toString())).findFirst().orElse(null);
-                        return colgroupRec.getStr(eColgrp.name) + ": Все текстуры группы";
+                        } else if (color_fk < 0) {
+                            Record colgroupRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == Math.abs(color_fk)).findFirst().orElse(null);
+                            return colgroupRec.getStr(eColgrp.name);
+                        }
+                    }  else if (field == eArtdet.color_fk) {
+                        if (color_fk > 0) {
+                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
+                            return colorRec.getStr(eColor.name);
+
+                        } else if (color_fk < 0) {
+                            return "Все текстуры группы";
+                        }
                     }
                 }
                 return val;
@@ -153,7 +164,6 @@ public class Artikls extends javax.swing.JFrame
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
-
     }
 
     private void loadTree() {
@@ -220,9 +230,7 @@ public class Artikls extends javax.swing.JFrame
         if (row != -1) {
             Record record = qArtikl.table(eArtikl.up).get(row);
             int id = record.getInt(eArtikl.id);
-            qArtdet.select(eArtdet.up,
-                    "left join", eColor.up, "on", eArtdet.color_fk, "=", eColor.id, "and", eArtdet.color_fk, " > 0",
-                    "left join", eColgrp.up, "on", eArtdet.color_fk, "=", eColgrp.id, "and", eArtdet.color_fk, " < 0 where", eArtdet.artikl_id, "=", id);
+            qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.write(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
@@ -233,14 +241,14 @@ public class Artikls extends javax.swing.JFrame
 
     public void listenerDict(Record[] record) {
 
-        int row = tab2.getSelectedRow();
-        if (row != -1) {
-            tab2.editingStopped(null);
-            qArtdet.table(eColgrp.up).set(row, record[0]);
-            qArtdet.table(eColor.up).set(row, record[1]);
-            qArtdet.set(record[1].getInt(eColor.id), row, eArtdet.color_fk);
-            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(row, row);
-        }
+//        int row = tab2.getSelectedRow();
+//        if (row != -1) {
+//            tab2.editingStopped(null);
+//            qArtdet.table(eColgrp.up).set(row, record[0]);
+//            qArtdet.table(eColor.up).set(row, record[1]);
+//            qArtdet.set(record[1].getInt(eColor.id), row, eArtdet.color_fk);
+//            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(row, row);
+//        }
     }
 
     @SuppressWarnings("unchecked")
@@ -732,18 +740,18 @@ public class Artikls extends javax.swing.JFrame
         tab2.setFont(common.Util.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Группа/Название", "Основная", "Внутренняя", "Внешняя", "За ед. веса"
+                "Группа", "Название", "Основная", "Внутренняя", "Внешняя", "За ед. веса"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
