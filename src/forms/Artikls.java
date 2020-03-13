@@ -119,7 +119,6 @@ public class Artikls extends javax.swing.JFrame
                 if (field == eArtdet.id || field == eArtdet.color_fk) {
                     Record artdetRec = qArtdet.get(row);
                     Integer color_fk = artdetRec.getInt(eArtdet.color_fk);
-                    System.out.println(color_fk);
 
                     if (field == eArtdet.id) {
                         if (color_fk > 0) {
