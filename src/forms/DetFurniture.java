@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Furniture extends javax.swing.JFrame {
+public class DetFurniture extends javax.swing.JFrame {
 
     private Query qFurniture = new Query(eFurniture.values());
     private Query qFurnside1 = new Query(eFurnside1.values());
@@ -73,14 +73,14 @@ public class Furniture extends javax.swing.JFrame {
         }
     };
 
-    public Furniture() {
+    public DetFurniture() {
         initComponents();
         initElements();
         qFurniture.select(eFurniture.up, "order by", eFurniture.name);
         initDatamodel();
     }
 
-    public Furniture(java.awt.Window owner, int nuni) {
+    public DetFurniture(java.awt.Window owner, int nuni) {
         initComponents();
         initElements();
         this.owner = owner;

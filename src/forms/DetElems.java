@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
-public class Composition extends javax.swing.JFrame {
+public class DetElems extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
 
@@ -75,14 +75,14 @@ public class Composition extends javax.swing.JFrame {
         }
     };
 
-    public Composition() {
+    public DetElems() {
         initComponents();
         initElements();
         initDatamodel();
         loadDataTab1();
     }
 
-    public Composition(java.awt.Window owner, int nuni) {
+    public DetElems(java.awt.Window owner, int nuni) {
         initComponents();
         initElements();
         this.nuni = nuni;

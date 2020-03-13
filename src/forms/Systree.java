@@ -917,7 +917,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App1.eApp1.Composition.createFrame(Systree.this);
+                App1.eApp1.DetElems.createFrame(Systree.this);
             }
         });
     }//GEN-LAST:event_btnSave
@@ -959,13 +959,13 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
                         java.awt.Frame frame = null;
                         if (btn == btnJoin) {
-                            frame = new Joining(Systree.this, nuni);
+                            frame = new DetJoining(Systree.this, nuni);
                         } else if (btn == btnElem) {
-                            frame = new Composition(Systree.this, nuni);
+                            frame = new DetElems(Systree.this, nuni);
                         } else if (btn == btnFill) {
-                            frame = new Glass(Systree.this, nuni);
+                            frame = new DetGlass(Systree.this, nuni);
                         } else if (btn == btnFurn) {
-                            frame = new Furniture(Systree.this, nuni);
+                            frame = new DetFurniture(Systree.this, nuni);
                         } else if (btn == btnSpec) {
                             frame = new Specific(Systree.this, iwin);
                         }

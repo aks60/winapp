@@ -2,13 +2,18 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
-import common.Util;
 import dataset.Query;
 import dataset.Record;
-import domain.eJoinpar1;
-import domain.eKitdet;
-import domain.eKitpar1;
-import domain.eKits;
+import domain.eArtikl;
+import domain.eGlasdet;
+import domain.eGlasgrp;
+import domain.eGlaspar1;
+import domain.eGlaspar2;
+import domain.eGlasprof;
+import domain.eJoining;
+import domain.eJoinvar;
+import domain.eSysprof;
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -18,11 +23,17 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Kits extends javax.swing.JFrame {
+public class DetGlass extends javax.swing.JFrame {
 
-    private Query qKits = new Query(eKits.values()).select(eKits.up, "order by", eKits.name);
-    private Query qKitdet = new Query(eKitdet.values());
-    private Query qKitpar1 = new Query(eKitpar1.values());
+    private Query qGlasgrp = new Query(eGlasgrp.values());
+    private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
+    private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values()).select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
+    private Query qGlaspar1 = new Query(eGlaspar1.values()).select(eGlaspar1.up, "order by", eGlaspar1.id);
+    private Query qGlaspar2 = new Query(eGlaspar2.values()).select(eGlaspar2.up, "order by", eGlaspar2.id);
+    private FrameListener listenerFrame = null;
+    private String subsql = "";
+    private int nuni = -1;
+    private Window owner = null;
 
     private FocusListener listenerFocus = new FocusListener() {
 
@@ -54,86 +65,117 @@ public class Kits extends javax.swing.JFrame {
         }
     };
 
-    public Kits() {
+    public DetGlass() {
         initComponents();
         initElements();
+        qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
+        qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+        initDatamodel();
+    }
 
-        new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ).addFrameListener(listenerModify);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
+    public DetGlass(java.awt.Window owner, int nuni) {
+        initComponents();
+        initElements();
+        this.nuni = nuni;
+        this.owner = owner;
+        listenerFrame = (FrameListener) owner;
+        owner.setEnabled(false);
+        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
+        query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
+        subsql = "(" + subsql.substring(1) + ")";
+        qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up.tname(), 
+                "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
+        qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+
+        initDatamodel();
+    }
+
+    private void initDatamodel() {
+        new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
+        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.id, eGlasdet.id);
+        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text);
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-
-        listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qKits.table(eKits.up).get(row);
-            Integer id = record.getInt(eKits.id);
-            qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
+            Record record = qGlasgrp.table(eGlasgrp.up).get(row);
+            Integer id = record.getInt(eGlasgrp.id);
+            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "where", eGlaspar1.glasgrp_id, "=", id, "order by", eGlaspar1.id);
+            qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
                 tab2.setRowSelectionInterval(0, 0);
+            }
+            if (tab3.getRowCount() > 0) {
+                tab3.setRowSelectionInterval(0, 0);
+            }
+            if (tab5.getRowCount() > 0) {
+                tab5.setRowSelectionInterval(0, 0);
             }
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        
-        listenerModify.actionResponse(null);
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qKitdet.table(eKitdet.up).get(row);
-            Integer id = record.getInt(eKitdet.id);
-            qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.grup);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            if (tab3.getRowCount() > 0) {
-                tab3.setRowSelectionInterval(0, 0);
+            Record record = qGlasdet.table(eGlasdet.up).get(row);
+            Integer id = record.getInt(eJoinvar.id);
+            qGlaspar2.select(eGlaspar2.up, "where", eGlaspar2.glasdet_id, "=", id, "order by", eGlaspar2.id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            if (tab4.getRowCount() > 0) {
+                tab4.setRowSelectionInterval(0, 0);
             }
         }
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnGroup1 = new javax.swing.ButtonGroup();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
         panCentr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        pan2 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        tabb1 = new javax.swing.JTabbedPane();
+        pan4 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
+        pan3 = new javax.swing.JPanel();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Комплекты");
+        setTitle("Заполнения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(700, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(700, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -211,35 +253,6 @@ public class Kits extends javax.swing.JFrame {
             }
         });
 
-        btnGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(Util.getFont(0, 0));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Продажа");
-        jRadioButton1.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton1.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton1.setPreferredSize(new java.awt.Dimension(96, 25));
-
-        btnGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(Util.getFont(0, 0));
-        jRadioButton2.setText("Скатка");
-        jRadioButton2.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton2.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton2.setPreferredSize(new java.awt.Dimension(96, 25));
-
-        btnGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(Util.getFont(0, 0));
-        jRadioButton3.setText("Стеклопакет");
-        jRadioButton3.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton3.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton3.setPreferredSize(new java.awt.Dimension(96, 25));
-
-        btnGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(Util.getFont(0, 0));
-        jRadioButton4.setText("Ламинация");
-        jRadioButton4.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton4.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton4.setPreferredSize(new java.awt.Dimension(96, 25));
-
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -253,15 +266,7 @@ public class Kits extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -270,83 +275,53 @@ public class Kits extends javax.swing.JFrame {
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createSequentialGroup()
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(700, 560));
+        panCentr.setPreferredSize(new java.awt.Dimension(800, 560));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(null);
+        pan1.setPreferredSize(new java.awt.Dimension(700, 200));
+        pan1.setLayout(new java.awt.BorderLayout());
+
+        scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {"Мммммммммм", "1", "111"},
+                {"Ррррррррррр", "2", "222"}
             },
             new String [] {
-                "Название комплекта", "Артикул", "Текстура", "Количество", "Скрыт", "Категория"
+                "Название", "Зазор", "Толщины доступные"
             }
         ));
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(3).setMaxWidth(80);
-            tab1.getColumnModel().getColumn(4).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(4).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(160);
         }
 
-        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        pan2.setPreferredSize(new java.awt.Dimension(700, 200));
-        pan2.setLayout(new java.awt.BorderLayout());
-
-        scr2.setBorder(null);
-        scr2.setPreferredSize(new java.awt.Dimension(450, 200));
-
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Артикул", "Название", "Основная текстура", "Внутренняя текстура", "Внешняя текстура", "Основной элемент"
-            }
-        ));
-        tab2.setFillsViewportHeight(true);
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(60);
-        }
-
-        pan2.add(scr2, java.awt.BorderLayout.CENTER);
-
-        scr3.setBorder(null);
-        scr3.setPreferredSize(new java.awt.Dimension(200, 200));
+        scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr3.setPreferredSize(new java.awt.Dimension(300, 200));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+                {"kkkkkkkkkkk", "77"},
+                {"hhhhhhhhh", "88"}
             },
             new String [] {
                 "Параметр", "Значение"
@@ -357,30 +332,104 @@ public class Kits extends javax.swing.JFrame {
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab3.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
-        pan2.add(scr3, java.awt.BorderLayout.EAST);
+        pan1.add(scr3, java.awt.BorderLayout.EAST);
 
-        panCentr.add(pan2, java.awt.BorderLayout.SOUTH);
+        panCentr.add(pan1, java.awt.BorderLayout.CENTER);
+
+        tabb1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+        tabb1.setToolTipText("");
+        tabb1.setPreferredSize(new java.awt.Dimension(800, 300));
+
+        pan4.setLayout(new java.awt.BorderLayout());
+
+        scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr2.setPreferredSize(new java.awt.Dimension(500, 300));
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"eeeeeeeeee", "22", null, null, null},
+                {"mmmmmmm", "44", null, null, null}
+            },
+            new String [] {
+                "Толщина", "Артикул", "Название", "Текстура", "Подбор"
+            }
+        ));
+        tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(4).setMaxWidth(120);
+        }
+
+        pan4.add(scr2, java.awt.BorderLayout.CENTER);
+
+        scr4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr4.setPreferredSize(new java.awt.Dimension(300, 300));
+
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"zzzzz", "aaaaa"},
+                {"ccccc", "vvvvv"}
+            },
+            new String [] {
+                "Параметр", "Значение"
+            }
+        ));
+        tab4.setFillsViewportHeight(true);
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(1).setMaxWidth(120);
+        }
+
+        pan4.add(scr4, java.awt.BorderLayout.EAST);
+
+        tabb1.addTab("Спецификация", pan4);
+
+        pan3.setPreferredSize(new java.awt.Dimension(454, 304));
+        pan3.setLayout(new java.awt.BorderLayout());
+
+        scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        scr5.setPreferredSize(new java.awt.Dimension(454, 304));
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"yyyyyyyy", "fffffffffffffff", "44", "7", "2"},
+                {"rrrrrrrrrrr", "pppppppppp", "77", "2", "4"}
+            },
+            new String [] {
+                "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее"
+            }
+        ));
+        tab5.setFillsViewportHeight(true);
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(4).setMaxWidth(120);
+        }
+
+        pan3.add(scr5, java.awt.BorderLayout.CENTER);
+
+        tabb1.addTab("Прфили в группе", pan3);
+
+        panCentr.add(tabb1, java.awt.BorderLayout.SOUTH);
+        tabb1.getAccessibleContext().setAccessibleName("");
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
-
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(700, 20));
-
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -405,53 +454,67 @@ public class Kits extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnInsert
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (owner != null)
+            owner.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
+// <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.ButtonGroup btnGroup1;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
+    private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
+    private javax.swing.JTable tab4;
+    private javax.swing.JTable tab5;
+    private javax.swing.JTabbedPane tabb1;
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+                "Группы заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Спецификация комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+                "Спецификация групп заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                "Профили в группе заполнения", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
-                }                
+                }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
-                selectionTab2(event);
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab2(event);
+                }
             }
         });
+        tab4.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
+        tab5.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
     }
-// </editor-fold>     
+// </editor-fold> 
 }
