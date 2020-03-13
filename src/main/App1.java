@@ -13,11 +13,11 @@ import forms.BoxCustom;
 import forms.BoxTypical;
 import forms.Systree;
 import forms.BoxCustom;
-import forms.DetElems;
-import forms.DetFurniture;
-import forms.DetGlass;
-import forms.DetJoining;
-import forms.DetKits;
+import forms.Element;
+import forms.Furniture;
+import forms.Glass;
+import forms.Joining;
+import forms.Kits;
 import forms.Param;
 import forms.Rate;
 import forms.Color;
@@ -1083,7 +1083,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.DetElems.createFrame(App1.this);
+                eApp1.Element.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnElement
@@ -1092,7 +1092,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.DetFurniture.createFrame(App1.this);
+                eApp1.Furniture.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnFurnityra
@@ -1131,7 +1131,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.DetJoining.createFrame(App1.this);
+                eApp1.Joining.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mJoining
@@ -1140,7 +1140,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.DetGlass.createFrame(App1.this);
+                eApp1.Glass.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnGlass
@@ -1158,7 +1158,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.DetKits.createFrame(App1.this);
+                eApp1.Kits.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnKits
@@ -1291,8 +1291,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public static enum eApp1 {
 
-        App1, Convert, Rate, Color, Artikls, DetJoining, DetElems, Param,
-        DetGlass, DetFurniture, DetKits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
+        App1, Convert, Rate, Color, Artikls, Joining, Element, Param,
+        Glass, Furniture, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
         BoxCustom, Specific;
         java.awt.Frame frame;
 
@@ -1311,26 +1311,26 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Color:
                         frame = new Color();
                         break;
-                    case DetJoining:
-                        frame = new DetJoining();
+                    case Joining:
+                        frame = new Joining();
                         break;
                     case Rate:
                         frame = new Rate();
                         break;
-                    case DetElems:
-                        frame = new DetElems();
+                    case Element:
+                        frame = new Element();
                         break;
                     case Param:
                         frame = new Param();
                         break;
-                    case DetGlass:
-                        frame = new DetGlass();
+                    case Glass:
+                        frame = new Glass();
                         break;
-                    case DetFurniture:
-                        frame = new DetFurniture();
+                    case Furniture:
+                        frame = new Furniture();
                         break;
-                    case DetKits:
-                        frame = new DetKits();
+                    case Kits:
+                        frame = new Kits();
                         break;
                     case Systree:
                         frame = new Systree();

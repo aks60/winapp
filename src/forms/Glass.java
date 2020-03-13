@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class DetGlass extends javax.swing.JFrame {
+public class Glass extends javax.swing.JFrame {
 
     private Query qGlasgrp = new Query(eGlasgrp.values());
     private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
@@ -65,7 +65,7 @@ public class DetGlass extends javax.swing.JFrame {
         }
     };
 
-    public DetGlass() {
+    public Glass() {
         initComponents();
         initElements();
         qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
@@ -73,7 +73,7 @@ public class DetGlass extends javax.swing.JFrame {
         initDatamodel();
     }
 
-    public DetGlass(java.awt.Window owner, int nuni) {
+    public Glass(java.awt.Window owner, int nuni) {
         initComponents();
         initElements();
         this.nuni = nuni;
@@ -166,7 +166,6 @@ public class DetGlass extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Заполнения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
