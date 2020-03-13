@@ -331,10 +331,7 @@
                           <Data value="aaaa"/>
                           <Data value="aaaa"/>
                         </Column>
-                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435; &#x430;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x430;" type="java.lang.String">
-                          <Data value="xxxxxxxxxxxxx"/>
-                          <Data value="zzzzzzzzzzzzzzz"/>
-                        </Column>
+                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
                         <Column editable="true" title="&#x41d;&#x430;&#x438;&#x43c;&#x435;&#x43d;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.String">
                           <Data value="vvvvvvvvvvvvvvv"/>
                           <Data value="hhhhhhhhhhhhhh"/>
@@ -560,10 +557,7 @@
                           <Data value="xxxxxxxx"/>
                           <Data value="zzzzzzzzz"/>
                         </Column>
-                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object">
-                          <Data value="vvvvvvvv"/>
-                          <Data value="vvvvvvvv"/>
-                        </Column>
+                        <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
                         <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object">
                           <Data value="mmmmm"/>
                           <Data value="mmmmm"/>
@@ -581,7 +575,7 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="160" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>

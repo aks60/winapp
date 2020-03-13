@@ -2,8 +2,8 @@ package enums;
 
 import dataset.Record;
 import domain.eArtikl;
-import static domain.eSpecific.atypm;
-import static javax.management.Query.value;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Типы мат. ценностей
@@ -108,6 +108,10 @@ public enum TypeArtikl {
     public boolean isType(Record artiklsRec) {
         if (id1 == artiklsRec.getInt(eArtikl.code) && id2 == artiklsRec.getInt(eArtikl.level2)) return true;
         return false;
+    }
+    
+    public static String find(int _id1, int _id2) {
+        return Arrays.asList(values()).stream().filter(el -> (el.id1 == _id1 && el.id2 == _id2)).findFirst().orElse(PPROFIL).name;
     }
     
     public String toString() {

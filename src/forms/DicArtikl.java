@@ -2,23 +2,51 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import dataset.Field;
+import dataset.Query;
+import dataset.Record;
+import domain.eArtikl;
+import domain.eColgrp;
+import enums.TypeArtikl;
+import java.util.Arrays;
+import swing.DefTableModel;
 
 public class DicArtikl extends javax.swing.JDialog {
 
-    private FrameListener listener;
-    
-    public DicArtikl(java.awt.Frame parent, FrameListener listenet) {
+    private FrameListener<Object, Record> listener;
+    private Query qArtikl = new Query(eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
+
+    public DicArtikl(java.awt.Frame parent, FrameListener<Object, Record> listenet, int... level) {
         super(parent, true);
         initComponents();
         this.listener = listenet;
         initDatamodel();
-        new FrameToFile(this, btnClose);        
+        loadTab2(level);
+        new FrameToFile(this, btnClose);
     }
-    
+
     private void initDatamodel() {
 
-    } 
-    
+        new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
+            public Object actionPreview(Field field, int row, Object val) {
+                if (field == eArtikl.level2) {
+                    Record record = qArtikl.get(row);
+                    return TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                }
+                return val;
+            }
+        };
+    }
+
+    private void loadTab2(int... level) {
+
+        String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
+        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
+        if (tab2.getRowCount() > 0) {
+            tab2.setRowSelectionInterval(0, 0);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,18 +57,16 @@ public class DicArtikl extends javax.swing.JDialog {
         btnRemove = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
-        pan2 = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tab1 = new javax.swing.JTable();
-        pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Список артикулов");
+        setPreferredSize(new java.awt.Dimension(460, 600));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(300, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(460, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -97,7 +123,7 @@ public class DicArtikl extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -118,13 +144,13 @@ public class DicArtikl extends javax.swing.JDialog {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(300, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(460, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGap(0, 447, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,52 +159,39 @@ public class DicArtikl extends javax.swing.JDialog {
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
+        panCentr.setPreferredSize(new java.awt.Dimension(460, 500));
         panCentr.setLayout(new java.awt.BorderLayout());
-
-        pan2.setPreferredSize(new java.awt.Dimension(412, 180));
-        pan2.setLayout(new java.awt.BorderLayout());
-
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"name1"},
-                {"name2"}
-            },
-            new String [] {
-                "Типы артикулов"
-            }
-        ));
-        tab1.setFillsViewportHeight(true);
-        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr1.setViewportView(tab1);
-
-        pan2.add(scr1, java.awt.BorderLayout.CENTER);
-
-        panCentr.add(pan2, java.awt.BorderLayout.NORTH);
-
-        pan1.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Name 1", "Value 1"},
-                {"Name 2", "Value 2"}
+                {"Nmae 0", "Name 1", "Value 1"},
+                {"Name 0", "Name 2", "Value 2"}
             },
             new String [] {
-                "Код арикула", "Наименование артикула"
+                "Тип артикула", "Код арикула", "Наименование артикула"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(160);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(160);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(110);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(160);
         }
 
-        pan1.add(scr2, java.awt.BorderLayout.CENTER);
-
-        panCentr.add(pan1, java.awt.BorderLayout.CENTER);
+        panCentr.add(scr2, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
@@ -190,8 +203,12 @@ public class DicArtikl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-//        listenet.actionResponse(null);
-//        this.dispose();
+        int row = tab2.getSelectedRow();
+        if (row != -1) {
+            Record record = qArtikl.get(row);
+            listener.actionResponse(record);            
+        }
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
@@ -203,14 +220,10 @@ public class DicArtikl extends javax.swing.JDialog {
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JPanel pan1;
-    private javax.swing.JPanel pan2;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
-    private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
-    private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
 }

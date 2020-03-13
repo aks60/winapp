@@ -30,7 +30,6 @@ import swing.DefTableModel;
 public class DetElems extends javax.swing.JFrame {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
@@ -68,10 +67,10 @@ public class DetElems extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
-    private FrameListener<Object, Object> listenerDict = new FrameListener() {
-
-        public void actionRequest(Object obj) {
-            System.out.println(".request()");
+    private FrameListener<Object, Record> listenerDict = new FrameListener<Object, Record>() {
+        @Override
+        public void actionResponse(Record record) {
+            System.out.println(record);
         }
     };
 
@@ -100,8 +99,8 @@ public class DetElems extends javax.swing.JFrame {
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name,
-                eElement.name, eElement.vtype, eArtikl.series, eElement.bind, eElement.bind, eElement.markup).addFrameListener(listenerModify);
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.vtype,
+                eArtikl.series, eElement.bind, eElement.bind, eElement.markup).addFrameListener(listenerModify);
         new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types).addFrameListener(listenerModify);
         new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
 
@@ -144,6 +143,15 @@ public class DetElems extends javax.swing.JFrame {
             }
         }.addFrameListener(listenerModify);
 
+        JButton btnT2C1 = new JButton("...");
+        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerDict, btnT2C1));
+        btnT2C1.addActionListener(event -> {
+
+            DicArtikl frame = new DicArtikl(this, listenerDict, 1, 2, 3);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
+        
         JButton btnT4C0 = new JButton("...");
         tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C0));
         btnT4C0.addActionListener(event -> {
@@ -224,7 +232,7 @@ public class DetElems extends javax.swing.JFrame {
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup, 
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup,
                     "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -241,8 +249,8 @@ public class DetElems extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qElemdet.table(eElemdet.up).get(row);
             Integer p1 = record.getInt(eElemdet.id);
-            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup, 
-                    "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);            
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup,
+                    "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
         }
     }
@@ -422,15 +430,15 @@ public class DetElems extends javax.swing.JFrame {
         tab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"aaaa", "xxxxxxxxxxxxx", "vvvvvvvvvvvvvvv", "ddd", null, null, null,  new Double(0.0)},
-                {"aaaa", "zzzzzzzzzzzzzzz", "hhhhhhhhhhhhhh", "fff", null, null, null,  new Double(0.0)}
+                {"aaaa", null, "vvvvvvvvvvvvvvv", "ddd", null, null, null,  new Double(0.0)},
+                {"aaaa", null, "hhhhhhhhhhhhhh", "fff", null, null, null,  new Double(0.0)}
             },
             new String [] {
-                "Артикул", "Название артикула", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка"
+                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -519,8 +527,8 @@ public class DetElems extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxxxx", "vvvvvvvv", "mmmmm", "kkkkkkk"},
-                {"zzzzzzzzz", "vvvvvvvv", "mmmmm", "kkkkkkk"}
+                {"xxxxxxxx", null, "mmmmm", "kkkkkkk"},
+                {"zzzzzzzzz", null, "mmmmm", "kkkkkkk"}
             },
             new String [] {
                 "Артикул", "Название", "Текстура", "Подбор"
@@ -528,9 +536,6 @@ public class DetElems extends javax.swing.JFrame {
         ));
         tab3.setFillsViewportHeight(true);
         scr3.setViewportView(tab3);
-        if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(1).setMinWidth(160);
-        }
 
         panCentr2.add(scr3, java.awt.BorderLayout.CENTER);
 
@@ -574,9 +579,9 @@ public class DetElems extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-            DicArtikl frame = new DicArtikl(this, listenerDict);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
+        DicArtikl frame = new DicArtikl(this, listenerDict, 1, 2, 3);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

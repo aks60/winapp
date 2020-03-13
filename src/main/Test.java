@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import wincalc.script.Winscript;
 
@@ -17,8 +18,8 @@ public class Test {
 
     public static void main(String[] args) {
         Main.dev = true;
-        try {    
-            convert.Profstroy.script();
+        try {
+            //convert.Profstroy.script();
             //query();
             //wincalc();
             //frame();
@@ -60,13 +61,12 @@ public class Test {
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
-             
-        Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
-        Query qArtdet2 = new Query(eArtdet.values()).select(eArtdet.up).table(eArtdet.up);
-        //qArtdet.set(454, 0, eArtdet.color_id);
-        //qArtdet.execsql();
-        
-        int mmm = 0;
+            Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
+            Query qArtdet2 = new Query(eArtdet.values()).select(eArtdet.up).table(eArtdet.up);
+            //qArtdet.set(454, 0, eArtdet.color_id);
+            //qArtdet.execsql();
+
+            int mmm = 0;
 //        Query q3 = q2.table(eSysprof.up.tname());
 //        Query q4 = q2.table(eSystree.up.tname());
 //        
