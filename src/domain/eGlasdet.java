@@ -14,13 +14,13 @@ public enum eGlasdet implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
-    color_fk("4", "10", "0", "Текстура", "CLNUM"),
+    color_fk("4", "10", "0", "Текстура", "color_fk"),
     glasgrp_id("4", "10", "0", "Заполнение", "glassgrp_id"),
     artikl_id("4", "10", "0", "Артикл", "artikl_id");
-    //gnumb("4", "10", "1", "ID группы заполнения", "GNUMB"),
-    //gunic("4", "10", "1", "null", "GUNIC"), 
-    //anumb("12", "32", "1", "Артикул элемента", "ANUMB"),
-    //clnum("4", "10", "1", "Текстура", "CLNUM"),
+    //gnumb("4", "10", "1", "GLASS_ID", "GNUMB"),
+    //gunic("4", "10", "1", "ID_GLASDET", "GUNIC"), 
+    //anumb("12", "32", "1", "Артикул", "ANUMB"), // ANUMB->ARTIKL.ANUMB
+    //clnum("4", "10", "1", "текстура 0-Авто_подб 100000-Точн.подбор 1-. -ХХХ-ручн.парам.", "CLNUM"), //CLNUM=>COLOT.CNUMB
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
