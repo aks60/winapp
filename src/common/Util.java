@@ -2,9 +2,7 @@ package common;
 
 import dataset.Field;
 import dataset.Query;
-import main.Main;
 import dataset.Record;
-import dataset.Table;
 import domain.eSystree;
 import java.awt.Font;
 import java.text.DateFormat;
@@ -13,7 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import wincalc.Wincalc;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  * <p>
@@ -21,7 +20,7 @@ import wincalc.Wincalc;
  */
 public class Util {
 
-    public static boolean progressFrame = true;   
+    public static boolean progressFrame = true;
     private static GregorianCalendar appCalendar = new GregorianCalendar(); //календарь программы    
     private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM); //формат даты
     private static SimpleDateFormat simpledateFormat = null; //"yyyy-MM-dd" формат только для баз где даты utf8

@@ -1,16 +1,14 @@
 package dataset;
 
-import common.Util;
 import static dataset.Query.INS;
 import static dataset.Query.connection;
+import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.Arrays;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -205,6 +203,23 @@ public class Query extends Table {
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    public static void execsql(Frame parent, Query... queryList) {
+        if (parent != null) {
+            boolean f = false;
+            for (Query query : queryList) {
+                if (query.isUpdate() == true) {
+                    f = true;
+                }
+            }
+            if (f == true && JOptionPane.showConfirmDialog(parent, "Данные были изменены.\nСохранить изменения?", "Предупреждение",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                Arrays.asList(queryList).forEach(query -> query.execsql());
+            }
+        } else {
+           Arrays.asList(queryList).forEach(query -> query.execsql());
         }
     }
 

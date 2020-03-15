@@ -1,7 +1,9 @@
 package forms;
 
+import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.ConnApp;
 import dataset.Field;
 import swing.DefFieldEditor;
@@ -108,7 +110,9 @@ public class Artikls extends javax.swing.JFrame
                 if (field == eArtdet.id || field == eArtdet.color_fk) {
                     Record artdetRec = qArtdet.get(row);
                     Integer color_fk = artdetRec.getInt(eArtdet.color_fk);
-
+                    if (color_fk == -1) {
+                        return null;
+                    }
                     if (field == eArtdet.id) {
                         if (color_fk >= 0) {
                             Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
@@ -117,8 +121,8 @@ public class Artikls extends javax.swing.JFrame
                             return colgrpRec.getStr(eColgrp.name);
 
                         } else if (color_fk < 0) {
-                            Record colgroupRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == Math.abs(color_fk)).findFirst().orElse(null);
-                            return colgroupRec.getStr(eColgrp.name);
+                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == Math.abs(color_fk)).findFirst().orElse(null);
+                            return colgrpRec.getStr(eColgrp.name);
                         }
                     } else if (field == eArtdet.color_fk) {
                         if (color_fk >= 0) {
@@ -214,6 +218,8 @@ public class Artikls extends javax.swing.JFrame
 
     private void selectioTab1(ListSelectionEvent event) {
 
+        FrameAdapter.stopCellEditing(tab1, tab2);
+        Query.execsql(this, qArtdet);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qArtikl.table(eArtikl.up).get(row);
@@ -228,18 +234,17 @@ public class Artikls extends javax.swing.JFrame
     }
 
     public void listenerDict(Record record) {
+        FrameAdapter.stopCellEditing(tab1, tab2);
 
         if (tab1.getBorder() != null) {
 
         } else if (tab2.getBorder() != null) {
             if (eColgrp.values().length == record.size()) {
                 qArtdet.set(-1 * record.getInt(eColgrp.id), tab2.getSelectedRow(), eArtdet.color_fk);
-                
+
             } else if (eColor.values().length == record.size()) {
                 qArtdet.set(record.getInt(eColor.id), tab2.getSelectedRow(), eArtdet.color_fk);
             }
-            tab2.editingStopped(null);
-            qArtdet.execsql();
         }
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
     }
@@ -672,7 +677,7 @@ public class Artikls extends javax.swing.JFrame
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         panCenter.add(pan2, java.awt.BorderLayout.EAST);
@@ -735,7 +740,7 @@ public class Artikls extends javax.swing.JFrame
         panCenter.add(pan5, java.awt.BorderLayout.CENTER);
 
         pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan3.setPreferredSize(new java.awt.Dimension(800, 100));
+        pan3.setPreferredSize(new java.awt.Dimension(800, 130));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
@@ -765,9 +770,10 @@ public class Artikls extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        tab2.setColumnSelectionAllowed(true);
+        tab2.setCellSelectionEnabled(false);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
+        tab2.setRowSelectionAllowed(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -800,11 +806,7 @@ public class Artikls extends javax.swing.JFrame
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-        if ((qArtikl.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.\nСохранить изменения?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            qArtikl.execsql();
-            qArtdet.execsql();            
-        }
+        Query.execsql(this, qArtikl, qArtdet);
     }//GEN-LAST:event_formWindowClosed
 
     private void menListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListActionPerformed
@@ -818,7 +820,6 @@ public class Artikls extends javax.swing.JFrame
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tree.getBorder() != null) {
 
-            
         } else if (tab1.getBorder() != null) {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode != null && selectedNode.isLeaf()) {
@@ -834,14 +835,13 @@ public class Artikls extends javax.swing.JFrame
                 qArtikl.table(eCurrenc.up).add(currencRec);
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 listenerModify.actionRequest(null);
-
                 Rectangle cellRect = tab1.getCellRect(qArtikl.size() - 1, 0, false);
                 tab1.scrollRectToVisible(cellRect);
                 rsvArtikl.write(qArtikl.size() - 1);
             } else {
                 JOptionPane.showMessageDialog(this, "Не выбран элемент артикула");
             }
-            
+
         } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
             if (row != -1) {
@@ -855,7 +855,7 @@ public class Artikls extends javax.swing.JFrame
                 if (tab2.getRowCount() > 1) {
                     Rectangle cellRect = tab2.getCellRect(qArtdet.size() - 1, 0, false);
                     tab2.scrollRectToVisible(cellRect);
-                }                
+                }
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -876,8 +876,8 @@ public class Artikls extends javax.swing.JFrame
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
 
-        qArtikl.execsql();
-        qArtdet.execsql();
+        FrameAdapter.stopCellEditing(tab1, tab2);
+        Query.execsql(null, qArtikl, qArtdet);
         listenerModify.actionResponse(null);
     }//GEN-LAST:event_btnSave
 
@@ -888,7 +888,8 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnRefresh
 
     private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
-       
+
+       listenerModify.actionRequest(null);
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
@@ -970,6 +971,8 @@ public class Artikls extends javax.swing.JFrame
         tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
+//        tab1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+//        tab2.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

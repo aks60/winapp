@@ -100,6 +100,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        System.out.println(aValue);
         if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
@@ -107,12 +108,15 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
     public void setValueAt(Object value, int row, Field field) {
-
-        Table table = query.table(field);
-        if (field.meta().edit() == false || value.equals(table.get(row, field)) || String.valueOf(value).isEmpty()) {
+        
+        if(value == null) {
             return;
         }
-        try {
+        Table table = query.table(field);
+        if (field.meta().edit() == false || value.equals(table.get(row, field))) {
+            return;
+        }
+        try {          
             if (field.meta().type().equals(Field.TYPE.DATE)) {
                 Date d = Util.StrToDate(value.toString());
                 if (d != null) {

@@ -1,6 +1,7 @@
 package common;
 
 import dataset.Field;
+import dataset.Query;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Window;
@@ -81,4 +82,12 @@ public class FrameAdapter {
             }
         }
     }
+
+    public static void stopCellEditing(JTable... tableList) {
+        for (JTable table : tableList) {
+            if (table.isEditing()) {
+                table.getCellEditor().stopCellEditing();
+            }
+        }
+    }   
 }
