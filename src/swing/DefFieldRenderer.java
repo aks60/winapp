@@ -74,11 +74,15 @@ public class DefFieldRenderer {
         for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
             JTextComponent comp = me.getKey();
             Field field = me.getValue();
-            Object val = tableModel.query.table(field).getAs(row, field, "");
+            Object val = tableModel.query.table(field).get(row, field);
 
-            if (row == null || val == null) {
-                comp.setText("");
-
+            if (val == null || row == -1) {
+                if (field.meta().type().equals(Field.TYPE.STR)) {
+                    comp.setText("");
+                } 
+                else {                    
+                    comp.setText("0");
+                }
             } else if (field.meta().type().equals(Field.TYPE.DATE)) {
                 comp.setText(Util.DateToStr(val));
 

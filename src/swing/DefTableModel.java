@@ -8,7 +8,6 @@ import dataset.Table;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +16,7 @@ import javax.swing.table.TableRowSorter;
 
 public class DefTableModel extends DefaultTableModel implements FrameListener {
 
+    private JTable table = null;
     private DefaultTableModel model;
     public Query query = null;
     private Field[] columns = null;
@@ -25,6 +25,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     private FrameListener<Object, Object> listenerModify = null;
 
     public DefTableModel(JTable table, Query query, Field... columns) {
+        this.table = table;
         this.model = (DefaultTableModel) table.getModel();
         this.query = query;
         this.columns = columns;
@@ -85,10 +86,10 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         Object val = null;
         if (columns != null) {
             Table table = query.table(columns[columnIndex]);
-            
+
             if (getColumnClass(columnIndex) == Boolean.class) {
                 return (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
-                
+
             } else {
                 val = table.get(rowIndex, columns[columnIndex]);
                 return actionPreview(columns[columnIndex], rowIndex, val);
@@ -99,14 +100,16 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        setValueAt(aValue, rowIndex, columns[columnIndex]);
+        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
+            setValueAt(aValue, rowIndex, columns[columnIndex]);
+        }
     }
 
     //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
     public void setValueAt(Object value, int row, Field field) {
 
         Table table = query.table(field);
-        if (field.meta().edit() == false || value.equals(table.get(row, field))) {
+        if (field.meta().edit() == false || value.equals(table.get(row, field)) || String.valueOf(value).isEmpty()) {
             return;
         }
         try {
@@ -130,8 +133,9 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                 value = Float.valueOf(str);
             } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
                 value = Boolean.valueOf(String.valueOf(value));
-            } 
+            }
         } catch (NumberFormatException e) {
+            System.out.println(value + "- " + e);
             JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }

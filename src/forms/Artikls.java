@@ -3,8 +3,6 @@ package forms;
 import common.FrameListener;
 import common.FrameToFile;
 import dataset.ConnApp;
-import dataset.ConnFb;
-import dataset.Enam;
 import dataset.Field;
 import swing.DefFieldEditor;
 import dataset.Query;
@@ -14,10 +12,8 @@ import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
-import domain.eElempar2;
-import domain.eParams;
-import enums.ParamList;
 import enums.TypeArtikl;
+import java.awt.Rectangle;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
@@ -29,6 +25,7 @@ import javax.swing.tree.DefaultTreeModel;
 import swing.DefTableModel;
 import swing.DefFieldRenderer;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.ListSelectionEvent;
@@ -43,10 +40,6 @@ import javax.swing.event.TreeSelectionListener;
 public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private enum focusPass {
-        TREE, TAB1, TAB2
-    };
-    private focusPass focusTab = focusPass.TREE;
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
     private Query qColor = new Query(eColor.values()).select(eColor.up);
     private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
@@ -58,30 +51,25 @@ public class Artikls extends javax.swing.JFrame
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
+
+            tree.setBorder(null);
+            tab1.setBorder(null);
+            tab2.setBorder(null);
+            tab1.editingStopped(null);
+            tab2.editingStopped(null);
+
             if (e.getSource() instanceof JTable) {
-                if (((JTable) e.getSource()).getName().equals("tab1")) {
-                    focusTab = focusPass.TAB1;
-                } else if (((JTable) e.getSource()).getName().equals("tab2")) {
-                    focusTab = focusPass.TAB2;
-                }
-                ((JTable) e.getSource()).setBorder(border);
+                ((JComponent) e.getSource()).setBorder(border);
                 btnIns.setEnabled(true);
                 btnDel.setEnabled(true);
             } else if (e.getSource() instanceof JTree) {
-                focusTab = focusPass.TREE;
-                ((JTree) e.getSource()).setBorder(border);
+                ((JComponent) e.getSource()).setBorder(null);
                 btnIns.setEnabled(true);
                 btnDel.setEnabled(false);
             }
         }
 
         public void focusLost(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(null);
-
-            } else if (e.getSource() instanceof JTree) {
-                ((JTree) e.getSource()).setBorder(null);
-            }
         }
     };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
@@ -97,8 +85,9 @@ public class Artikls extends javax.swing.JFrame
             btnSave.setIcon(btnIM[1]);
         }
     };
-    private FrameListener<Object, Record[]> listenerDict = new FrameListener<Object, Record[]>() {
-        public void actionResponse(Record[] record) {
+    private FrameListener<Object, Record> listenerDict = new FrameListener<Object, Record>() {
+        @Override
+        public void actionResponse(Record record) {
             listenerDict(record);
         }
     };
@@ -114,14 +103,14 @@ public class Artikls extends javax.swing.JFrame
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eCurrenc.design).addFrameListener(listenerModify);;
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
-
+            @Override
             public Object actionPreview(Field field, int row, Object val) {
                 if (field == eArtdet.id || field == eArtdet.color_fk) {
                     Record artdetRec = qArtdet.get(row);
                     Integer color_fk = artdetRec.getInt(eArtdet.color_fk);
 
                     if (field == eArtdet.id) {
-                        if (color_fk > 0) {
+                        if (color_fk >= 0) {
                             Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
                             int colgrp_id = colorRec.getInt(eColor.colgrp_id);
                             Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == colgrp_id).findFirst().orElse(null);
@@ -131,8 +120,8 @@ public class Artikls extends javax.swing.JFrame
                             Record colgroupRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == Math.abs(color_fk)).findFirst().orElse(null);
                             return colgroupRec.getStr(eColgrp.name);
                         }
-                    }  else if (field == eArtdet.color_fk) {
-                        if (color_fk > 0) {
+                    } else if (field == eArtdet.color_fk) {
+                        if (color_fk >= 0) {
                             Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
                             return colorRec.getStr(eColor.name);
 
@@ -238,16 +227,21 @@ public class Artikls extends javax.swing.JFrame
         }
     }
 
-    public void listenerDict(Record[] record) {
+    public void listenerDict(Record record) {
 
-//        int row = tab2.getSelectedRow();
-//        if (row != -1) {
-//            tab2.editingStopped(null);
-//            qArtdet.table(eColgrp.up).set(row, record[0]);
-//            qArtdet.table(eColor.up).set(row, record[1]);
-//            qArtdet.set(record[1].getInt(eColor.id), row, eArtdet.color_fk);
-//            ((DefaultTableModel) tab2.getModel()).fireTableRowsUpdated(row, row);
-//        }
+        if (tab1.getBorder() != null) {
+
+        } else if (tab2.getBorder() != null) {
+            if (eColgrp.values().length == record.size()) {
+                qArtdet.set(-1 * record.getInt(eColgrp.id), tab2.getSelectedRow(), eArtdet.color_fk);
+                
+            } else if (eColor.values().length == record.size()) {
+                qArtdet.set(record.getInt(eColor.id), tab2.getSelectedRow(), eArtdet.color_fk);
+            }
+            tab2.editingStopped(null);
+            qArtdet.execsql();
+        }
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
     }
 
     @SuppressWarnings("unchecked")
@@ -272,7 +266,6 @@ public class Artikls extends javax.swing.JFrame
         jLabel14 = new javax.swing.JLabel();
         txtField5 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        txtField6 = new javax.swing.JTextField();
         txtField1 = new javax.swing.JFormattedTextField();
         txtField2 = new javax.swing.JFormattedTextField();
         txtField3 = new javax.swing.JFormattedTextField();
@@ -286,6 +279,7 @@ public class Artikls extends javax.swing.JFrame
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         txtField9 = new javax.swing.JFormattedTextField();
+        txtField6 = new javax.swing.JFormattedTextField();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -517,13 +511,14 @@ public class Artikls extends javax.swing.JFrame
         jLabel15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel15.setPreferredSize(new java.awt.Dimension(108, 18));
 
-        txtField6.setFont(common.Util.getFont(0,0));
-        txtField6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField6.setPreferredSize(new java.awt.Dimension(60, 18));
-
         txtField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField1.setPreferredSize(new java.awt.Dimension(60, 18));
+        txtField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtField1ActionPerformed(evt);
+            }
+        });
 
         txtField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
@@ -541,6 +536,11 @@ public class Artikls extends javax.swing.JFrame
         txtField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField4.setPreferredSize(new java.awt.Dimension(60, 18));
+        txtField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtField4ActionPerformed(evt);
+            }
+        });
 
         jLabel17.setFont(common.Util.getFont(0,0));
         jLabel17.setText("Ед.измерения");
@@ -583,6 +583,10 @@ public class Artikls extends javax.swing.JFrame
         txtField9.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField9.setPreferredSize(new java.awt.Dimension(60, 18));
 
+        txtField6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtField6.setPreferredSize(new java.awt.Dimension(60, 18));
+
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
         pan2Layout.setHorizontalGroup(
@@ -606,10 +610,10 @@ public class Artikls extends javax.swing.JFrame
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(pan2Layout.createSequentialGroup()
+                    .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan2Layout.createSequentialGroup()
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(pan2Layout.createSequentialGroup()
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -654,8 +658,8 @@ public class Artikls extends javax.swing.JFrame
                     .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -796,11 +800,10 @@ public class Artikls extends javax.swing.JFrame
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-        if ((qArtikl.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.\n    Сохранить изменения?", "Предупреждение",
+        if ((qArtikl.isUpdate() || qArtdet.isUpdate()) && JOptionPane.showConfirmDialog(this, "Данные были изменены.\nСохранить изменения?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             qArtikl.execsql();
-            qArtdet.execsql();
-            listenerModify.actionResponse(null);
+            qArtdet.execsql();            
         }
     }//GEN-LAST:event_formWindowClosed
 
@@ -813,34 +816,46 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_menOneActionPerformed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        if (focusTab == focusPass.TREE) {
+        if (tree.getBorder() != null) {
 
-        } else if (focusTab == focusPass.TAB1) {
+            
+        } else if (tab1.getBorder() != null) {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode != null && selectedNode.isLeaf()) {
-                int row = (tab1.getSelectedRow() == -1) ? 0 : tab1.getSelectedRow();
                 TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
-                Record record = qArtikl.newRecord(Query.INS);
-                record.setNo(eArtikl.id, ConnApp.ins().generatorId(eArtikl.up.tname()));
-                record.setNo(eArtikl.level1, typeArtikl.id1);
-                record.setNo(eArtikl.level2, typeArtikl.id2);
-                qArtikl.add(row, record);
-                ((DefaultTableModel) tab1.getModel()).fireTableRowsInserted(row, row);
+
+                Record artiklRec = qArtikl.newRecord(Query.INS);
+                Query table = qArtikl.table(eCurrenc.up);
+                Record currencRec = qArtikl.table(eCurrenc.up).newRecord(Query.SEL);
+                artiklRec.setNo(eArtikl.id, ConnApp.instanc().generatorId(eArtikl.up.tname()));
+                artiklRec.setNo(eArtikl.level1, typeArtikl.id1);
+                artiklRec.setNo(eArtikl.level2, typeArtikl.id2);
+                qArtikl.add(artiklRec);
+                qArtikl.table(eCurrenc.up).add(currencRec);
+                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+                listenerModify.actionRequest(null);
+
+                Rectangle cellRect = tab1.getCellRect(qArtikl.size() - 1, 0, false);
+                tab1.scrollRectToVisible(cellRect);
+                rsvArtikl.write(qArtikl.size() - 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "Не выбран элемент артикула");
             }
-        } else if (focusTab == focusPass.TAB2) {
+            
+        } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
             if (row != -1) {
-                Record rec = qArtikl.get(row);
-                Record record = qArtdet.newRecord(Query.INS);
-                Record record1 = qArtdet.table(eColgrp.up).newRecord(Query.SEL);
-                Record record2 = qArtdet.table(eColor.up).newRecord(Query.SEL);
-
-                record.setNo(eArtdet.id, ConnApp.ins().generatorId(eArtdet.up.tname()));
-                record.setNo(eArtdet.artikl_id, rec.get(eArtikl.id));
-                qArtdet.add(record);
-                qArtdet.table(eColgrp.up).add(record1);
-                qArtdet.table(eColor.up).add(record2);
-                ((DefaultTableModel) tab2.getModel()).fireTableRowsInserted(qArtdet.size(), qArtdet.size());
+                Record artiklRec = qArtikl.get(row);
+                Record artdetRec = qArtdet.newRecord(Query.INS);
+                artdetRec.setNo(eArtdet.id, ConnApp.instanc().generatorId(eArtdet.up.tname()));
+                artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
+                qArtdet.add(artdetRec);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                listenerModify.actionRequest(null);
+                if (tab2.getRowCount() > 1) {
+                    Rectangle cellRect = tab2.getCellRect(qArtdet.size() - 1, 0, false);
+                    tab2.scrollRectToVisible(cellRect);
+                }                
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -867,15 +882,13 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnSave
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+//        if (tab1.getRowCount() > 1) {
+//            tab1.setRowSelectionInterval(qArtikl.size() - 1, qArtikl.size() - 1);
+//        }
     }//GEN-LAST:event_btnRefresh
 
     private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
-        if (tab2.getRowCount() > 0) {
-            tab2.editingStopped(null);
-            qArtdet.table(eColor.up).set("777", 0, eColor.name);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        }
+       
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
@@ -892,6 +905,14 @@ public class Artikls extends javax.swing.JFrame
     private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
         this.dispose();
     }//GEN-LAST:event_btnCloseClose
+
+    private void txtField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField4ActionPerformed
+
+    }//GEN-LAST:event_txtField4ActionPerformed
+
+    private void txtField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField1ActionPerformed
+
+    }//GEN-LAST:event_txtField1ActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -933,7 +954,7 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JFormattedTextField txtField3;
     private javax.swing.JFormattedTextField txtField4;
     private javax.swing.JTextField txtField5;
-    private javax.swing.JTextField txtField6;
+    private javax.swing.JFormattedTextField txtField6;
     private javax.swing.JTextField txtField7;
     private javax.swing.JFormattedTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;

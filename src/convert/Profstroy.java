@@ -528,7 +528,7 @@ public class Profstroy {
         }
         for (Object[] obj : fieldList) {
             Record record = q.newRecord(Query.INS);
-            record.setNo(eElemgrp.id, ConnApp.ins().generatorId(eElemgrp.up.tname()));
+            record.setNo(eElemgrp.id, ConnApp.instanc().generatorId(eElemgrp.up.tname()));
             record.setNo(eElemgrp.name, obj[0]);
             record.setNo(eElemgrp.level, obj[1]);
             q.insert(record);
@@ -550,7 +550,7 @@ public class Profstroy {
             Query q = new Query(eSysprod.values()).table(eSysprod.up);
             Record record = q.newRecord(Query.INS);
             record.setNo(eSysprod.npp, index + 1);
-            record.setNo(eSysprod.id, ConnApp.ins().generatorId(eSysprod.up.tname()));
+            record.setNo(eSysprod.id, ConnApp.instanc().generatorId(eSysprod.up.tname()));
             record.setNo(eSysprod.name, name);
             record.setNo(eSysprod.script, script);
             q.insert(record);

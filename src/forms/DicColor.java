@@ -7,6 +7,9 @@ import dataset.Record;
 import domain.eColgrp;
 import domain.eColor;
 import java.awt.Frame;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
@@ -16,12 +19,29 @@ public class DicColor extends javax.swing.JDialog {
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up);
     private Query qColor = new Query(eColor.values()).table(eColor.up);
 
+    private FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+            ((JTable) e.getSource()).setBorder(border);
+        }
+
+        public void focusLost(FocusEvent e) {
+            ((JTable) e.getSource()).setBorder(null);
+            JTable table = (JTable) e.getSource();
+            if (table == tab2) {
+                ((JTable) e.getSource()).clearSelection();
+            }
+        }
+    };
+
     public DicColor(Frame parent, FrameListener listenet) {
         super(parent, true);
         initComponents();
+        initElements();
         this.listener = listenet;
         initDatamodel();
-        new FrameToFile(this, btnClose);
     }
 
     private void initDatamodel() {
@@ -38,13 +58,8 @@ public class DicColor extends javax.swing.JDialog {
         if (row != -1) {
             Record record = qColgrp.table(eColgrp.up).get(row);
             int id = record.getInt(eColgrp.id);
-
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=", id, "order by", eColor.name);
-
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-            }
         }
     }
 
@@ -220,30 +235,35 @@ public class DicColor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row1 = tab1.getSelectedRow();
-        int row2 = tab2.getSelectedRow();
-        if (row2 != -1) {
-            Record record1 = qColgrp.table(eColgrp.up).get(row1);
-            Record record2 = qColor.table(eColor.up).get(row2);
-            listener.actionResponse(new Record[]{record1, record2});
+
+        if (tab1.getBorder() != null) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                listener.actionResponse(qColgrp.get(row));
+            }
+        } else if (tab2.getBorder() != null) {
+            int row = tab2.getSelectedRow();
+            if (row != -1) {
+                listener.actionResponse(qColor.get(row));
+            }
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-      
+
     }//GEN-LAST:event_btnRemoveert
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-       if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {
+        if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {
             btnChoice(null);
-        }       
+        }
     }//GEN-LAST:event_tab1MouseClicked
 
     private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
-       if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
             btnChoice(null);
-        } 
+        }
     }//GEN-LAST:event_tab2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -259,4 +279,10 @@ public class DicColor extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
 
+    private void initElements() {
+
+        new FrameToFile(this, btnClose);
+        tab1.addFocusListener(listenerFocus);
+        tab2.addFocusListener(listenerFocus);
+    }
 }

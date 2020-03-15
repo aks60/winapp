@@ -26,9 +26,8 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                UIManager.put("OptionPane.yesButtonText", "Да");
-                UIManager.put("OptionPane.noButtonText", "Нет");
                 try { 
+                    AppRus.runRussifier();
                     String lafName = eProperty.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
