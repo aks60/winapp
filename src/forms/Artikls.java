@@ -101,18 +101,7 @@ public class Artikls extends javax.swing.JFrame
 
     private void initDatamodel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name).addFrameListener(listenerModify); 
-//        {
-//            @Override
-//            public Object actionPreview(Field field, int row, Object val) {
-//                if (field == eArtikl.unit.id) {
-//                    Record currencRec = qCurrenc.stream().filter(rec -> val.equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
-//                    return currencRec.getStr(eCurrenc.name);
-//                }
-//                return val;
-//            }
-//        }.addFrameListener(listenerModify);
-
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name).addFrameListener(listenerModify);
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
             @Override
             public Object actionPreview(Field field, int row, Object val) {
@@ -155,8 +144,9 @@ public class Artikls extends javax.swing.JFrame
                 int id = artiklRec.getInt(eArtikl.currenc_id);
                 Record currencRec = qCurrenc.stream().filter(rec -> artiklRec.get(eArtikl.currenc_id).equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
                 System.out.println(currencRec);
-                if(currencRec != null)
-                  txtField7.setText(currencRec.getStr(eCurrenc.name));
+                if (currencRec != null) {
+                    txtField7.setText(currencRec.getStr(eCurrenc.name));
+                }
             }
         };
         rsvArtikl.add(eArtikl.len_unit, txtField1);
@@ -165,7 +155,6 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikl.add(eArtikl.depth, txtField4);
         rsvArtikl.add(eArtikl.depth, txtField5);
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
-        //rsvArtikl.add(eArtikl.unit, txtField7);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
 
         JButton btnT2C1 = new JButton("...");
@@ -235,10 +224,10 @@ public class Artikls extends javax.swing.JFrame
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
-           
+
             } else {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikl.select(eArtikl.up, "where",  eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
+                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             if (tab1.getRowCount() > 0) {
@@ -557,7 +546,6 @@ public class Artikls extends javax.swing.JFrame
 
         txtField7.setFont(common.Util.getFont(0,0));
         txtField7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField7.setEnabled(false);
         txtField7.setPreferredSize(new java.awt.Dimension(36, 18));
 
         txtField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -969,6 +957,8 @@ public class Artikls extends javax.swing.JFrame
                 selectionTab1(event);
             }
         });
+        txtField7.setEditable(false);
+        txtField7.setBackground(new java.awt.Color(255, 255, 255));
     }
 // </editor-fold> 
 }
