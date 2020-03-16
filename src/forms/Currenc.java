@@ -1,47 +1,37 @@
 package forms;
 
+import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eCurrenc;
+import java.awt.Frame;
+import java.awt.Rectangle;
+import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Rate extends javax.swing.JFrame {
+public class Currenc extends javax.swing.JFrame {
 
-    private Query qRate = new Query(eCurrenc.values()).select(eCurrenc.up, "order by", eCurrenc.name);
-
+    private FrameListener<Object, Record> listener = null;
+    private Window owner = null;
+    private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up, "order by", eCurrenc.name);
     private FocusListener listenerFocus = new FocusListener() {
 
-        javax.swing.border.Border border
-                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            tmActive = (TableModel) table.getModel();
-            btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
+            ((JTable) e.getSource()).setBorder(border);
         }
 
         public void focusLost(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(null);
-            btnIns.setEnabled(false);
-            btnDel.setEnabled(false);
         }
     };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
@@ -58,10 +48,25 @@ public class Rate extends javax.swing.JFrame {
         }
     };
 
-    public Rate() {
+    public Currenc() {
         initComponents();
-        initElements();     
-        new DefTableModel(tab1, qRate, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour).addFrameListener(listenerModify);
+        initElements();
+        initDatamodel();
+        btnChoice.setVisible(false);
+    }
+
+    public Currenc(Frame owner, FrameListener<Object, Record> listener) {
+        initComponents();
+        initElements();
+        initDatamodel();
+        this.owner = owner;
+        owner.setEnabled(false);
+        this.listener = listener;
+        btnChoice.setVisible(true);
+    }
+
+    private void initDatamodel() {
+        new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour).addFrameListener(listenerModify);
     }
 
     @SuppressWarnings("unchecked")
@@ -74,6 +79,7 @@ public class Rate extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
+        btnChoice = new javax.swing.JButton();
         panSentr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -104,7 +110,7 @@ public class Rate extends javax.swing.JFrame {
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -168,6 +174,21 @@ public class Rate extends javax.swing.JFrame {
             }
         });
 
+        btnChoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
+        btnChoice.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnChoice.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnChoice.setFocusable(false);
+        btnChoice.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChoice.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChoice(evt);
+            }
+        });
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -181,7 +202,9 @@ public class Rate extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 390, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -190,11 +213,15 @@ public class Rate extends javax.swing.JFrame {
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panNorthLayout.createSequentialGroup()
+                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -240,7 +267,7 @@ public class Rate extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
+            .addGap(0, 596, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,58 +279,66 @@ public class Rate extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        qCurrenc.select(eCurrenc.up);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
-        qRate.execsql();
+        FrameAdapter.stopCellEditing(tab1);
+        Query.execsql(null, qCurrenc);
         listenerModify.actionResponse(null);
-        //((DefTableModel) tab1.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            if (tab1.getSelectedRow() != -1) {
-                try {
-                    Query query = qRate.table(eCurrenc.up);
-                    Record record = query.get(tab1.getSelectedRow());
-                    query.delete(record);
-                    qRate.select(eCurrenc.up, "order by", eCurrenc.name);
-                    ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
+
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                Record record = qCurrenc.get(row);
+                record.set(eCurrenc.up, Query.DEL);
+                qCurrenc.delete(record);
+                qCurrenc.removeRec(row);
+                ((DefTableModel) tab1.getModel()).fireTableDataChanged();
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Query query = qRate.table(eCurrenc.up);
-        Record record = query.newRecord(Query.INS);
-        int id = ConnApp.instanc().generatorId(eCurrenc.up.tname());
-        record.setNo(eCurrenc.id, id);
-        record.setNo(eCurrenc.id, id);
-        query.add(record);
+        Record currencRec = qCurrenc.newRecord(Query.INS);
+        currencRec.setNo(eCurrenc.id, ConnApp.instanc().generatorId(eCurrenc.up.tname()));
+        qCurrenc.add(currencRec);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        listenerModify.actionRequest(null);
+        if (tab1.getRowCount() > 1) {
+            Rectangle cellRect = tab1.getCellRect(qCurrenc.size() - 1, 0, false);
+            tab1.scrollRectToVisible(cellRect);
+        }
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
-        if (qRate.isUpdate() && JOptionPane.showConfirmDialog(this, "Данные были изменены.Сохранить изменения?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            qRate.execsql();
+        FrameAdapter.stopCellEditing(tab1, tab1);
+        if (Query.execsql(this, qCurrenc)) {
             listenerModify.actionResponse(null);
         }
+        if (owner != null)
+            owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
+        int row = tab1.getSelectedRow();
+        if (row != -1) {
+            listener.actionResponse(qCurrenc.get(row));
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnChoice
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
@@ -316,7 +351,7 @@ public class Rate extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

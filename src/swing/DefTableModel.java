@@ -140,7 +140,6 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        System.out.println("swing.DefTableModel.setValueAt() " + value);
         table.set(value, row, field);
         if (listenerModify != null) {
             listenerModify.actionRequest(null);
