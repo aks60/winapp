@@ -100,7 +100,6 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        System.out.println(aValue);
         if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
@@ -108,35 +107,33 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
     public void setValueAt(Object value, int row, Field field) {
-        
-        if(value == null) {
-            return;
-        }
         Table table = query.table(field);
         if (field.meta().edit() == false || value.equals(table.get(row, field))) {
             return;
         }
-        try {          
-            if (field.meta().type().equals(Field.TYPE.DATE)) {
-                Date d = Util.StrToDate(value.toString());
-                if (d != null) {
-                    GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
-                    GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);
-                    if (d.after(d2.getTime()) || d.before(d1.getTime())) {
-                        return;
+        try {
+            if (value != null && String.valueOf(value).isEmpty() == false) {
+                if (field.meta().type().equals(Field.TYPE.DATE)) {
+                    Date d = Util.StrToDate(value.toString());
+                    if (d != null) {
+                        GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
+                        GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);
+                        if (d.after(d2.getTime()) || d.before(d1.getTime())) {
+                            return;
+                        }
                     }
+                    value = d;
+                } else if (field.meta().type().equals(Field.TYPE.INT)) {
+                    value = Integer.valueOf(String.valueOf(value));
+                } else if (field.meta().type().equals(Field.TYPE.DBL)) {
+                    String str = String.valueOf(value).replace(',', '.');
+                    value = Double.valueOf(str);
+                } else if (field.meta().type().equals(Field.TYPE.FLT)) {
+                    String str = String.valueOf(value).replace(',', '.');
+                    value = Float.valueOf(str);
+                } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
+                    value = Boolean.valueOf(String.valueOf(value));
                 }
-                value = d;
-            } else if (field.meta().type().equals(Field.TYPE.INT)) {
-                value = Integer.valueOf(String.valueOf(value));
-            } else if (field.meta().type().equals(Field.TYPE.DBL)) {
-                String str = String.valueOf(value).replace(',', '.');
-                value = Double.valueOf(str);
-            } else if (field.meta().type().equals(Field.TYPE.FLT)) {
-                String str = String.valueOf(value).replace(',', '.');
-                value = Float.valueOf(str);
-            } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
-                value = Boolean.valueOf(String.valueOf(value));
             }
         } catch (NumberFormatException e) {
             System.out.println(value + "- " + e);

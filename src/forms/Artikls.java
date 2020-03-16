@@ -54,12 +54,10 @@ public class Artikls extends javax.swing.JFrame
 
         public void focusGained(FocusEvent e) {
 
+            FrameAdapter.stopCellEditing(tab1, tab2);
             tree.setBorder(null);
             tab1.setBorder(null);
             tab2.setBorder(null);
-            tab1.editingStopped(null);
-            tab2.editingStopped(null);
-
             if (e.getSource() instanceof JTable) {
                 ((JComponent) e.getSource()).setBorder(border);
                 btnIns.setEnabled(true);
@@ -156,6 +154,14 @@ public class Artikls extends javax.swing.JFrame
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
+        JButton btnT2C0 = new JButton("...");
+        tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT2C0));
+        btnT2C0.addActionListener(event -> {
+
+            DicColor frame = new DicColor(this, listenerDict);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
     }
 
     private void loadTree() {
@@ -195,6 +201,10 @@ public class Artikls extends javax.swing.JFrame
 
     private void selectionTree() {
 
+        FrameAdapter.stopCellEditing(tab1, tab2);
+        Query.execsql(this, qArtikl, qArtdet);
+        listenerModify.actionResponse(null);
+
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
@@ -216,10 +226,12 @@ public class Artikls extends javax.swing.JFrame
         }
     }
 
-    private void selectioTab1(ListSelectionEvent event) {
+    private void selectionTab1(ListSelectionEvent event) {
 
         FrameAdapter.stopCellEditing(tab1, tab2);
-        Query.execsql(this, qArtdet);
+        Query.execsql(this, qArtikl, qArtdet);
+        listenerModify.actionResponse(null);
+
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qArtikl.table(eArtikl.up).get(row);
@@ -519,11 +531,6 @@ public class Artikls extends javax.swing.JFrame
         txtField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField1.setPreferredSize(new java.awt.Dimension(60, 18));
-        txtField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtField1ActionPerformed(evt);
-            }
-        });
 
         txtField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
@@ -541,11 +548,6 @@ public class Artikls extends javax.swing.JFrame
         txtField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField4.setPreferredSize(new java.awt.Dimension(60, 18));
-        txtField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtField4ActionPerformed(evt);
-            }
-        });
 
         jLabel17.setFont(common.Util.getFont(0,0));
         jLabel17.setText("Ед.измерения");
@@ -758,22 +760,14 @@ public class Artikls extends javax.swing.JFrame
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
         });
-        tab2.setCellSelectionEnabled(false);
+        tab2.setColumnSelectionAllowed(true);
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
-        tab2.setRowSelectionAllowed(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -818,9 +812,7 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_menOneActionPerformed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        if (tree.getBorder() != null) {
-
-        } else if (tab1.getBorder() != null) {
+        if (tab1.getBorder() != null) {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode != null && selectedNode.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
@@ -889,7 +881,7 @@ public class Artikls extends javax.swing.JFrame
 
     private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
 
-       listenerModify.actionRequest(null);
+        listenerModify.actionRequest(null);
     }//GEN-LAST:event_btnFindChoice
 
     private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
@@ -906,14 +898,6 @@ public class Artikls extends javax.swing.JFrame
     private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
         this.dispose();
     }//GEN-LAST:event_btnCloseClose
-
-    private void txtField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField4ActionPerformed
-
-    }//GEN-LAST:event_txtField4ActionPerformed
-
-    private void txtField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtField1ActionPerformed
-
-    }//GEN-LAST:event_txtField1ActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -988,7 +972,7 @@ public class Artikls extends javax.swing.JFrame
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectioTab1(event);
+                    selectionTab1(event);
                 }
             }
         });

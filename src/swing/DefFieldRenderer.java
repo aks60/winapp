@@ -66,7 +66,7 @@ public class DefFieldRenderer {
         mapEnam.put(field, enam);
     }
 
-    //Записать в компоненты из модели данных
+    //Загрузить данные в компоненты из модели данных
     public void write(Integer row) {
 
         update = false;

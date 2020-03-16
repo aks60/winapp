@@ -206,7 +206,7 @@ public class Query extends Table {
         }
     }
 
-    public static void execsql(Frame parent, Query... queryList) {
+    public static boolean execsql(Frame parent, Query... queryList) {
         if (parent != null) {
             boolean f = false;
             for (Query query : queryList) {
@@ -217,9 +217,12 @@ public class Query extends Table {
             if (f == true && JOptionPane.showConfirmDialog(parent, "Данные были изменены.\nСохранить изменения?", "Предупреждение",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
                 Arrays.asList(queryList).forEach(query -> query.execsql());
+                return true;
             }
+            return false;
         } else {
            Arrays.asList(queryList).forEach(query -> query.execsql());
+           return true;
         }
     }
 
