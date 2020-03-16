@@ -153,11 +153,10 @@ public class Artikls extends javax.swing.JFrame
                 super.load(row);
                 Record artiklRec = qArtikl.get(row);
                 int id = artiklRec.getInt(eArtikl.currenc_id);
-                Record currencRec = qCurrenc.stream().filter(rec -> artiklRec.get(eArtikl.id).equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
-                System.out.println(artiklRec);
+                Record currencRec = qCurrenc.stream().filter(rec -> artiklRec.get(eArtikl.currenc_id).equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
+                System.out.println(currencRec);
                 if(currencRec != null)
-                  //txtField7.setText(currencRec.getStr(eCurrenc.name));
-                  txtField7.setText("xxx");
+                  txtField7.setText(currencRec.getStr(eCurrenc.name));
             }
         };
         rsvArtikl.add(eArtikl.len_unit, txtField1);
@@ -558,6 +557,7 @@ public class Artikls extends javax.swing.JFrame
 
         txtField7.setFont(common.Util.getFont(0,0));
         txtField7.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField7.setEnabled(false);
         txtField7.setPreferredSize(new java.awt.Dimension(36, 18));
 
         txtField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

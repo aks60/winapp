@@ -41,7 +41,7 @@ public enum eArtikl implements Field {
     sel_color("5", "5", "1", "Подбор текстур", "ACOLL"),
     analog_id("4", "10", "1", "Артикул аналога?", "analog_id"),
     syscons_id("4", "10", "1", "Константы", "syscons_id"),
-    currenc_id("4", "10", "1", "Валюта", "ATYPI");
+    currenc_id("4", "10", "1", "Валюта", "CNUMB");
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
     //cut_perim2("8", "15", "1", "null", "APER1"),
     //cut_perim3("8", "15", "1", "null", "APER2"),    
