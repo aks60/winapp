@@ -152,7 +152,7 @@ public class Artikls extends javax.swing.JFrame
             public void load(Integer row) {
                 super.load(row);
                 Record artiklRec = qArtikl.get(row);
-                int id = artiklRec.getInt(eArtikl.unit);
+                int id = artiklRec.getInt(eArtikl.currenc_id);
                 Record currencRec = qCurrenc.stream().filter(rec -> artiklRec.get(eArtikl.id).equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
                 System.out.println(artiklRec);
                 if(currencRec != null)
@@ -284,7 +284,7 @@ public class Artikls extends javax.swing.JFrame
             int row = tab1.getSelectedRow();
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
-                artiklRec.set(eArtikl.unit, record.get(eCurrenc.id));
+                artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
             }
             System.out.println("forms.Artikls.listenerDict()");
         }

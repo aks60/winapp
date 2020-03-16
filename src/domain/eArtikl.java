@@ -23,8 +23,7 @@ public enum eArtikl implements Field {
     series("12", "32", "1", "Серия", "ASERI"),
     size_falz("8", "15", "1", "n - глубина до фальца (размер n/t)", "ASIZN"),
     size_centr("8", "15", "1", "Смещение оси от центра", "ASIZB"),
-    size_f("8", "15", "1", "Размер F мм", "ASIZF"),
-    unit("5", "5", "1", "Ед.измерения", "ATYPI"),
+    size_f("8", "15", "1", "Размер F мм", "ASIZF"),    
     len_unit("8", "15", "1", "Длина ед. поставки", "ALENG"),
     height("8", "15", "1", "Ширина", "AHEIG"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
@@ -42,7 +41,7 @@ public enum eArtikl implements Field {
     sel_color("5", "5", "1", "Подбор текстур", "ACOLL"),
     analog_id("4", "10", "1", "Артикул аналога?", "analog_id"),
     syscons_id("4", "10", "1", "Константы", "syscons_id"),
-    currenc_id("4", "10", "1", "Валюта", "currenc_id");
+    currenc_id("4", "10", "1", "Валюта", "ATYPI");
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
     //cut_perim2("8", "15", "1", "null", "APER1"),
     //cut_perim3("8", "15", "1", "null", "APER2"),    
