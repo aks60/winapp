@@ -143,7 +143,7 @@ public class Artikls extends javax.swing.JFrame
                 Record artiklRec = qArtikl.get(row);
                 int id = artiklRec.getInt(eArtikl.currenc_id);
                 Record currencRec = qCurrenc.stream().filter(rec -> artiklRec.get(eArtikl.currenc_id).equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
-                System.out.println(currencRec);
+                //System.out.println(currencRec);
                 if (currencRec != null) {
                     txtField7.setText(currencRec.getStr(eCurrenc.name));
                 }
@@ -876,7 +876,9 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnRefresh
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-
+        DicSyssize frame = new DicSyssize(this, listenerDict);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnFilter
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -888,7 +890,7 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnClose
 
     private void btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrenc
-        Currenc frame = new Currenc(this, listenerDict);
+        DicCurrenc frame = new DicCurrenc(this, listenerDict);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }//GEN-LAST:event_btnCurrenc

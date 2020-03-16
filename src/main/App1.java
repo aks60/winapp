@@ -9,7 +9,6 @@ import common.eProperty;
 import convert.Convert;
 import java.util.Locale;
 import forms.Artikls;
-import forms.BoxCustom;
 import forms.BoxTypical;
 import forms.Systree;
 import forms.BoxCustom;
@@ -19,14 +18,13 @@ import forms.Glass;
 import forms.Joining;
 import forms.Kits;
 import forms.Param;
-import forms.Currenc;
+import forms.DicCurrenc;
 import forms.Color;
+import forms.DicSyssize;
 import forms.Order;
 import forms.Partner;
 import forms.Specific;
-import forms.Syscons;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
@@ -194,7 +192,7 @@ public class App1 extends javax.swing.JFrame {
         btn14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnSysconst(evt);
+                mnSyssize(evt);
             }
         });
         tb1.add(btn14);
@@ -629,7 +627,7 @@ public class App1 extends javax.swing.JFrame {
         mn26.setText("Константы");
         mn26.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnSysconst(evt);
+                mnSyssize(evt);
             }
         });
         mn02.add(mn26);
@@ -1074,7 +1072,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Currenc.createFrame(App1.this);
+                eApp1.DicCurrenc.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mn24
@@ -1181,14 +1179,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnOrder
 
-    private void mnSysconst(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSysconst
+    private void mnSyssize(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSyssize
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Syscons.createFrame(App1.this);
+                eApp1.DicSyssize.createFrame(App1.this);
             }
         });
-    }//GEN-LAST:event_mnSysconst
+    }//GEN-LAST:event_mnSyssize
 
     private void mnBoxTypical(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBoxTypical
 
@@ -1291,9 +1289,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public static enum eApp1 {
 
-        App1, Convert, Currenc, Color, Artikls, Joining, Element, Param,
-        Glass, Furniture, Kits, Systree, Partner, Order, AboutBox, Syscons, BoxTypical,
-        BoxCustom, Specific;
+        App1, Convert, DicCurrenc, Color, Artikls, Joining, Element, Param,
+        Glass, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
+        BoxCustom, Specific, DicSyssize;
         java.awt.Frame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1314,8 +1312,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Joining:
                         frame = new Joining();
                         break;
-                    case Currenc:
-                        frame = new Currenc();
+                    case DicCurrenc:
+                        frame = new DicCurrenc();
                         break;
                     case Element:
                         frame = new Element();
@@ -1341,9 +1339,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Order:
                         frame = new Order();
                         break;
-                    case Syscons:
-                        frame = new Syscons();
-                        break;
                     case BoxTypical:
                         frame = new BoxTypical();
                         break;
@@ -1352,6 +1347,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         break;
                     case Specific:
                         frame = new Specific();
+                        break;
+                    case DicSyssize:
+                        frame = new DicSyssize();
                         break;
                 }
                 frame.setName(this.name());

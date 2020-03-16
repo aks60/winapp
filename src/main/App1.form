@@ -209,7 +209,7 @@
                 <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x430;&#x43d;&#x442;&#x44b;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnSysconst"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnSyssize"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mn21">
@@ -753,7 +753,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnSysconst"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnSyssize"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn12">

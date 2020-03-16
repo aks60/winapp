@@ -18,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class Currenc extends javax.swing.JFrame {
+public class DicCurrenc extends javax.swing.JFrame {
 
     private FrameListener<Object, Record> listener = null;
     private Window owner = null;
@@ -48,14 +48,14 @@ public class Currenc extends javax.swing.JFrame {
         }
     };
 
-    public Currenc() {
+    public DicCurrenc() {
         initComponents();
         initElements();
         initDatamodel();
         btnChoice.setVisible(false);
     }
 
-    public Currenc(Frame owner, FrameListener<Object, Record> listener) {
+    public DicCurrenc(Frame owner, FrameListener<Object, Record> listener) {
         initComponents();
         initElements();
         initDatamodel();
