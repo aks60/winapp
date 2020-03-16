@@ -44,7 +44,7 @@ import domain.eOrders;
 import domain.eParams;
 import domain.ePartner;
 import domain.eRulecalc;
-import domain.eSyscons;
+import domain.eSyssize;
 import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -83,7 +83,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //порядок записи определён в ссответсвии с зависимостями
-            eSyscons.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
+            eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
@@ -419,7 +419,7 @@ public class Profstroy {
             sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
             if (versionPs == 4) {
                 sql("update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
-                sql("update artikl set syscons_id = (select id from syscons a where a.sunic = artikl.sunic)");
+                sql("update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
             }
             sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
             sql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");           

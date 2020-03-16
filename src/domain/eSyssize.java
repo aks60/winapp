@@ -4,11 +4,10 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtikl.syscons_id;
 import static domain.eArtikl.up;
 import java.sql.SQLException;
 
-public enum eSyscons implements Field {
+public enum eSyssize implements Field {
     up("0", "0", "0", "Системные константы", "SYSSIZE"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "32", "1", "Система артикулов", "SNAME"),
@@ -20,7 +19,7 @@ public enum eSyscons implements Field {
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    eSyscons(Object... p) {
+    eSyssize(Object... p) {
         meta.init(p);
     }
 

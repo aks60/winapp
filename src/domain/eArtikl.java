@@ -40,7 +40,7 @@ public enum eArtikl implements Field {
     noskl("5", "5", "1", "Не для склада", "NOSKL"),
     sel_color("5", "5", "1", "Подбор текстур", "ACOLL"),
     analog_id("4", "10", "1", "Артикул аналога?", "analog_id"),
-    syscons_id("4", "10", "1", "Константы", "syscons_id"),
+    syssize_id("4", "10", "1", "Константы", "syssize_id"),
     currenc_id("4", "10", "1", "Валюта", "CNUMB");
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
     //cut_perim2("8", "15", "1", "null", "APER1"),
@@ -127,7 +127,7 @@ public enum eArtikl implements Field {
         record.setNo(size_centr, 30);
         record.setNo(tech_code, "");
         record.setNo(size_falz, 20);
-        record.setNo(syscons_id, -1);
+        record.setNo(syssize_id, -1);
         return record;
     }
 
@@ -137,6 +137,7 @@ public enum eArtikl implements Field {
         record.setNo(id, -1);
         record.setNo(code, "0x0x0x0");
         record.setNo(name, "Стеклопакет");
+        record.setNo(syssize_id, -1);
         return record;
     }
 

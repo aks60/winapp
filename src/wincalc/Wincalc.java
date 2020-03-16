@@ -15,7 +15,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
-import domain.eSyscons;
+import domain.eSyssize;
 import domain.eSyspar1;
 import domain.eSysprof;
 import enums.LayoutArea;
@@ -146,7 +146,7 @@ public class Wincalc {
 
             Record sysprofRec = eSysprof.find3(nuni, TypeUse.FRAME, ProfileSide.LEFT);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-            sysconsRec = eSyscons.find(artiklRec.getInt(eArtikl.syscons_id));
+            sysconsRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
 
             color1 = mainObj.get("color1").getAsInt();
             color2 = mainObj.get("color2").getAsInt();

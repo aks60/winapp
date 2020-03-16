@@ -3,7 +3,7 @@ package wincalc.model;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eSyscons;
+import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ProfileSide;
@@ -65,7 +65,7 @@ public class ElemFrame extends ElemSimple {
      public void setSpecifElement(Record sysprofRec) {  //добавление основной спесификации
 
         specificationRec.element = layout.name;
-        float napl = iwin().sysconsRec.getFloat(eSyscons.napl);
+        float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
         Record artiklRec =  eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
         specificationRec.color1 = color1;
@@ -85,7 +85,7 @@ public class ElemFrame extends ElemSimple {
             specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-            specificationRec.width = y2 - y1 +  iwin().sysconsRec.getFloat(eSyscons.prip);
+            specificationRec.width = y2 - y1 +  iwin().sysconsRec.getFloat(eSyssize.prip);
             specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
@@ -128,7 +128,7 @@ public class ElemFrame extends ElemSimple {
             if ("от внутреннего угла".equals(specif.getParam(null, 34010))) {
                 Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
                 Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
-                specif.width = specif.width + 2 * iwin().sysconsRec.getFloat(eSyscons.prip) - dw1.floatValue() - dw2.floatValue();
+                specif.width = specif.width + 2 * iwin().sysconsRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
                 Double dw1 = 0.0;
@@ -149,7 +149,7 @@ public class ElemFrame extends ElemSimple {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
-            float ssizf = iwin().sysconsRec.getFloat(eSyscons.naxl);
+            float ssizf = iwin().sysconsRec.getFloat(eSyssize.naxl);
             specif.width = (width() - ssizf) + (width() - ssizf) * koef;
 
             //Соединитель

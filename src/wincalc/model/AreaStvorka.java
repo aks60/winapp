@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import domain.eArtikl;
-import domain.eSyscons;
+import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ParamJson;
@@ -55,7 +55,7 @@ public class AreaStvorka extends AreaSimple {
                 insideBott = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
                 insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
 
-        Float naxl = iwin.sysconsRec.getFloat(eSyscons.naxl);
+        Float naxl = iwin.sysconsRec.getFloat(eSyssize.naxl);
         Float size_falz = artiklRec.getFloat(eArtikl.size_falz);
         x1 = insideLeft.x2 - size_falz - naxl;
         y1 = insideTop.y2 - size_falz - naxl;
