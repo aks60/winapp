@@ -43,7 +43,8 @@ public class Artikls extends javax.swing.JFrame
 
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
     private Query qColor = new Query(eColor.values()).select(eColor.up);
-    private Query qArtikl = new Query(eArtikl.values(), eCurrenc.values());
+    private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
+    private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
     DefFieldRenderer rsvArtikl;
 
@@ -100,7 +101,18 @@ public class Artikls extends javax.swing.JFrame
 
     private void initDatamodel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eCurrenc.design).addFrameListener(listenerModify);;
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name).addFrameListener(listenerModify); 
+//        {
+//            @Override
+//            public Object actionPreview(Field field, int row, Object val) {
+//                if (field == eArtikl.unit.id) {
+//                    Record currencRec = qCurrenc.stream().filter(rec -> val.equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
+//                    return currencRec.getStr(eCurrenc.name);
+//                }
+//                return val;
+//            }
+//        }.addFrameListener(listenerModify);
+
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
             @Override
             public Object actionPreview(Field field, int row, Object val) {
@@ -135,14 +147,26 @@ public class Artikls extends javax.swing.JFrame
             }
         }.addFrameListener(listenerModify);
 
-        rsvArtikl = new DefFieldRenderer(rsmArtikl);
+        rsvArtikl = new DefFieldRenderer(rsmArtikl) {
+            @Override
+            public void load(Integer row) {
+                super.load(row);
+                Record artiklRec = qArtikl.get(row);
+                int id = artiklRec.getInt(eArtikl.unit);
+                Record currencRec = qCurrenc.stream().filter(rec -> artiklRec.get(eArtikl.id).equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
+                System.out.println(artiklRec);
+                if(currencRec != null)
+                  //txtField7.setText(currencRec.getStr(eCurrenc.name));
+                  txtField7.setText("xxx");
+            }
+        };
         rsvArtikl.add(eArtikl.len_unit, txtField1);
         rsvArtikl.add(eArtikl.height, txtField2);
         rsvArtikl.add(eArtikl.depth, txtField3);
-        rsvArtikl.add(eArtikl.unit, txtField4);
-        rsvArtikl.add(eArtikl.unit, txtField5);
+        rsvArtikl.add(eArtikl.depth, txtField4);
+        rsvArtikl.add(eArtikl.depth, txtField5);
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
-        rsvArtikl.add(eCurrenc.par_case1, txtField7);
+        //rsvArtikl.add(eArtikl.unit, txtField7);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
 
         JButton btnT2C1 = new JButton("...");
@@ -207,16 +231,15 @@ public class Artikls extends javax.swing.JFrame
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                qArtikl.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "order by", eArtikl.level1, ",", eArtikl.code);
+                qArtikl.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
 
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikl.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "where", eArtikl.level1, "=",
-                        e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+                qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+           
             } else {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikl.select(eArtikl.up, "left join", eCurrenc.up, "on", eArtikl.currenc_id, "=", eCurrenc.id, "where",
-                        eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
+                qArtikl.select(eArtikl.up, "where",  eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             if (tab1.getRowCount() > 0) {
@@ -233,7 +256,7 @@ public class Artikls extends javax.swing.JFrame
 
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qArtikl.table(eArtikl.up).get(row);
+            Record record = qArtikl.get(row);
             int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load(row);
@@ -258,6 +281,11 @@ public class Artikls extends javax.swing.JFrame
             listenerModify.actionResponse(null);
 
         } else if (eCurrenc.values().length == record.size()) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                Record artiklRec = qArtikl.get(row);
+                artiklRec.set(eArtikl.unit, record.get(eCurrenc.id));
+            }
             System.out.println("forms.Artikls.listenerDict()");
         }
     }
@@ -788,13 +816,10 @@ public class Artikls extends javax.swing.JFrame
                 TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
 
                 Record artiklRec = qArtikl.newRecord(Query.INS);
-                Query table = qArtikl.table(eCurrenc.up);
-                Record currencRec = qArtikl.table(eCurrenc.up).newRecord(Query.SEL);
                 artiklRec.setNo(eArtikl.id, ConnApp.instanc().generatorId(eArtikl.up.tname()));
                 artiklRec.setNo(eArtikl.level1, typeArtikl.id1);
                 artiklRec.setNo(eArtikl.level2, typeArtikl.id2);
                 qArtikl.add(artiklRec);
-                qArtikl.table(eCurrenc.up).add(currencRec);
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 listenerModify.actionRequest(null);
                 Rectangle cellRect = tab1.getCellRect(qArtikl.size() - 1, 0, false);
@@ -858,6 +883,7 @@ public class Artikls extends javax.swing.JFrame
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qColgrp.select(eColgrp.up);
         qColor.select(eColor.up);
+        qCurrenc.select(eCurrenc.up);
         selectionTree();
     }//GEN-LAST:event_btnRefresh
 
