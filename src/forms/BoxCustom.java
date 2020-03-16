@@ -89,7 +89,7 @@ public class BoxCustom extends javax.swing.JFrame {
                 Query q = qSystree.table(eSystree.up);
                 for (int i = 0; i < q.size(); i++) {
                     if (id == q.get(i).getInt(eSystree.id)) {
-                        rsvSystree.write(i);
+                        rsvSystree.load(i);
                     }
                 }
                 int typeSys = node.record.getInt(eSystree.types);

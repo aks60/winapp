@@ -67,7 +67,7 @@ public class DefFieldRenderer {
     }
 
     //Загрузить данные в компоненты из модели данных
-    public void write(Integer row) {
+    public void load(Integer row) {
 
         update = false;
         this.row = row;

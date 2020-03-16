@@ -198,7 +198,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
                 Query q = qSystree.table(eSystree.up);
                 for (int i = 0; i < q.size(); i++) {
                     if (nuni == q.get(i).getInt(eSystree.id)) {
-                        rsvSystree.write(i);
+                        rsvSystree.load(i);
                     }
                 }
                 qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",

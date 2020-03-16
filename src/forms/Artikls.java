@@ -36,8 +36,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 /**
- * <p>
- * Материальные ценности </p>
+ * Материальные ценности
  */
 public class Artikls extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
@@ -202,7 +201,7 @@ public class Artikls extends javax.swing.JFrame
     private void selectionTree() {
 
         FrameAdapter.stopCellEditing(tab1, tab2);
-        Query.execsql(this, qArtikl, qArtdet);
+        Query.execsql(null, qArtikl, qArtdet);
         listenerModify.actionResponse(null);
 
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
@@ -229,7 +228,7 @@ public class Artikls extends javax.swing.JFrame
     private void selectionTab1(ListSelectionEvent event) {
 
         FrameAdapter.stopCellEditing(tab1, tab2);
-        Query.execsql(this, qArtikl, qArtdet);
+        Query.execsql(null, qArtikl, qArtdet);
         listenerModify.actionResponse(null);
 
         int row = tab1.getSelectedRow();
@@ -237,7 +236,7 @@ public class Artikls extends javax.swing.JFrame
             Record record = qArtikl.table(eArtikl.up).get(row);
             int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
-            rsvArtikl.write(row);
+            rsvArtikl.load(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
                 tab2.setRowSelectionInterval(0, 0);
@@ -265,12 +264,8 @@ public class Artikls extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ppmReport = new javax.swing.JPopupMenu();
-        menOne = new javax.swing.JMenuItem();
-        menList = new javax.swing.JMenuItem();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
-        btnHelp = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -308,24 +303,6 @@ public class Artikls extends javax.swing.JFrame
         tab2 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
-        menOne.setFont(common.Util.getFont(0,0));
-        menOne.setText("Только по выбранному сотруднику");
-        menOne.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menOneActionPerformed(evt);
-            }
-        });
-        ppmReport.add(menOne);
-
-        menList.setFont(common.Util.getFont(0,0));
-        menList.setText("С выбором полей по всем сотрудникам");
-        menList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menListActionPerformed(evt);
-            }
-        });
-        ppmReport.add(menList);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
@@ -353,21 +330,6 @@ public class Artikls extends javax.swing.JFrame
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCloseClose(evt);
-            }
-        });
-
-        btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif"))); // NOI18N
-        btnHelp.setToolTipText(bundle.getString("Справка")); // NOI18N
-        btnHelp.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnHelp.setFocusable(false);
-        btnHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnHelp.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnHelp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHelp(evt);
             }
         });
 
@@ -443,7 +405,7 @@ public class Artikls extends javax.swing.JFrame
         btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindChoice(evt);
+                btnFilter(evt);
             }
         });
 
@@ -458,7 +420,7 @@ public class Artikls extends javax.swing.JFrame
         btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportChoice(evt);
+                btnReport(evt);
             }
         });
 
@@ -477,11 +439,9 @@ public class Artikls extends javax.swing.JFrame
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94)
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 475, Short.MAX_VALUE)
-                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 502, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -494,7 +454,6 @@ public class Artikls extends javax.swing.JFrame
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -799,17 +758,9 @@ public class Artikls extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
+        FrameAdapter.stopCellEditing(tab1, tab2);
         Query.execsql(this, qArtikl, qArtdet);
     }//GEN-LAST:event_formWindowClosed
-
-    private void menListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menListActionPerformed
-
-    }//GEN-LAST:event_menListActionPerformed
-
-    private void menOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menOneActionPerformed
-
-    }//GEN-LAST:event_menOneActionPerformed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
@@ -829,7 +780,7 @@ public class Artikls extends javax.swing.JFrame
                 listenerModify.actionRequest(null);
                 Rectangle cellRect = tab1.getCellRect(qArtikl.size() - 1, 0, false);
                 tab1.scrollRectToVisible(cellRect);
-                rsvArtikl.write(qArtikl.size() - 1);
+                rsvArtikl.load(qArtikl.size() - 1);
             } else {
                 JOptionPane.showMessageDialog(this, "Не выбран элемент артикула");
             }
@@ -855,13 +806,25 @@ public class Artikls extends javax.swing.JFrame
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            int row = tab2.getSelectedRow();
-            if (row != -1) {
-                Record record = qArtdet.get(row);
-                record.set(eArtdet.up, Query.DEL);
-                qArtdet.delete(record);
-                qArtdet.removeRec(row);
-                ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
+
+            if (tab1.getBorder() != null) {
+                int row = tab1.getSelectedRow();
+                if (row != -1) {
+                    Record record = qArtikl.get(row);
+                    record.set(eArtikl.up, Query.DEL);
+                    qArtikl.delete(record);
+                    qArtikl.removeRec(row);
+                    ((DefTableModel) tab1.getModel()).fireTableRowsDeleted(row, row);
+                }
+            } else if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                if (row != -1) {
+                    Record record = qArtdet.get(row);
+                    record.set(eArtdet.up, Query.DEL);
+                    qArtdet.delete(record);
+                    qArtdet.removeRec(row);
+                    ((DefTableModel) tab2.getModel()).fireTableRowsDeleted(row, row);
+                }
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -874,37 +837,27 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnSave
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-//        if (tab1.getRowCount() > 1) {
-//            tab1.setRowSelectionInterval(qArtikl.size() - 1, qArtikl.size() - 1);
-//        }
+        qColgrp.select(eColgrp.up);
+        qColor.select(eColor.up);
+        selectionTree();
     }//GEN-LAST:event_btnRefresh
 
-    private void btnFindChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindChoice
+    private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
 
-        listenerModify.actionRequest(null);
-    }//GEN-LAST:event_btnFindChoice
+    }//GEN-LAST:event_btnFilter
 
-    private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
-        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        System.out.println(qArtdet.table(eColor.up));
-//       ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-//       System.out.println(qArtdet.table(eColor.up.tname()));
-    }//GEN-LAST:event_btnReportChoice
+    private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
 
-    private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-        //ExecuteCmd.startHelp(this.getClass().getName());
-    }//GEN-LAST:event_btnHelp
+    }//GEN-LAST:event_btnReport
 
     private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
         this.dispose();
     }//GEN-LAST:event_btnCloseClose
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnFind;
-    private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
@@ -918,8 +871,6 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JMenuItem menList;
-    private javax.swing.JMenuItem menOne;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
@@ -927,7 +878,6 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JPanel panCenter;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
-    private javax.swing.JPopupMenu ppmReport;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scrTree;
@@ -955,25 +905,16 @@ public class Artikls extends javax.swing.JFrame
         tree.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-//        tab1.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
-//        tab2.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Свойства артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Текстура артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
-        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
-
-            public void valueChanged(TreeSelectionEvent tse) {
-                selectionTree();
-            }
-        });
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectionTab1(event);
-                }
+        tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
+        tab1.getSelectionModel().addListSelectionListener(event -> {
+            if (event.getValueIsAdjusting() == false) {
+                selectionTab1(event);
             }
         });
     }
