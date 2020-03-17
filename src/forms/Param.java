@@ -5,13 +5,19 @@ import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
+import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Arrays;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import swing.BooleanRenderer;
 import swing.DefTableModel;
 
 public class Param extends javax.swing.JFrame {
@@ -59,12 +65,17 @@ public class Param extends javax.swing.JFrame {
         new DefTableModel(tab2, qPardet, eParams.text, eParams.komp,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
-                }                
+                }
             }
         });
+        BooleanRenderer br = new BooleanRenderer();
+        Arrays.asList(1,2,3,4,5,6,7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
+        Arrays.asList(1,2,3,4,5,6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+        tab1.getColumnModel().getColumn(1).setCellRenderer(br);
+
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -247,16 +258,18 @@ public class Param extends javax.swing.JFrame {
         );
         panNorthLayout.setVerticalGroup(
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panNorthLayout.createSequentialGroup()
+                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHelp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panNorthLayout.createSequentialGroup()
+                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -409,28 +422,56 @@ public class Param extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));        
+                "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                   //selectionTab1(event);
-                }                
+                    //selectionTab1(event);
+                }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                     //selectionTab2(event);
-                }                
+                    //selectionTab2(event);
+                }
             }
         });
         tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);        
+        tab2.addFocusListener(listenerFocus);
+    }
+
+    public class CustomBooleanCellRenderer extends JCheckBox implements TableCellRenderer {
+
+        private ImageIcon sad = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif"));
+        private ImageIcon happy = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"));
+
+        public CustomBooleanCellRenderer() {
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            super.setSelected(selected);
+            if (selected) {
+                setIcon(happy);
+            } else {
+                setIcon(sad);
+            }
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (value instanceof Boolean) {
+                boolean selected = (boolean) value;
+                setSelected(selected);
+            }
+            return this;
+        }
     }
 // </editor-fold> 
 }
