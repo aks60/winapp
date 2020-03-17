@@ -100,6 +100,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        
         if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
@@ -132,7 +133,13 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                     String str = String.valueOf(value).replace(',', '.');
                     value = Float.valueOf(str);
                 } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
-                    value = Boolean.valueOf(String.valueOf(value));
+                    //value = Boolean.valueOf(String.valueOf(value));
+                    Boolean bb = Boolean.valueOf(String.valueOf(value));
+                    if(bb) {
+                        value = 1;
+                    } else {
+                        value = 0;
+                    }
                 }
             }
         } catch (NumberFormatException e) {
@@ -140,6 +147,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        System.out.println(value);
         table.set(value, row, field);
         if (listenerModify != null) {
             listenerModify.actionRequest(null);
