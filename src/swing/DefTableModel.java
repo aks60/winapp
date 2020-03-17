@@ -100,7 +100,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        
+
         if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
@@ -133,13 +133,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                     String str = String.valueOf(value).replace(',', '.');
                     value = Float.valueOf(str);
                 } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
-                    //value = Boolean.valueOf(String.valueOf(value));
-                    Boolean bb = Boolean.valueOf(String.valueOf(value));
-                    if(bb) {
-                        value = 1;
-                    } else {
-                        value = 0;
-                    }
+                    value = (Boolean.valueOf(String.valueOf(value))) ? 1 : 0;
                 }
             }
         } catch (NumberFormatException e) {

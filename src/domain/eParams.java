@@ -24,6 +24,8 @@ public enum eParams implements Field {
     label("12", "32", "1", "Надпись на эскизе", "PMACR"),
     prog("16", "5", "1", "Системные (вшитые в систему)", "VPROG");
     
+    //[INS, 603, -603, null, null, 0, 0, 0, 0, 0, 0, null, null, null]
+    
     //npp("5", "5", "1", "Номер параметра", "PPORN"),
     //ptype("16", "5", "1", "Количество тысяч par1", "PTYPF"),
     //pmacr("12", "32", "1", "null", "PMACR"),

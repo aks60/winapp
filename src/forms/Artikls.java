@@ -96,7 +96,7 @@ public class Artikls extends javax.swing.JFrame
         initComponents();
         initElements();
         initDatamodel();
-        loadTree();
+        loadingTree();
     }
 
     private void initDatamodel() {
@@ -175,7 +175,7 @@ public class Artikls extends javax.swing.JFrame
         });
     }
 
-    private void loadTree() {
+    private void loadingTree() {
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Мат. ценности");
         DefaultMutableTreeNode treeNode2 = null;
