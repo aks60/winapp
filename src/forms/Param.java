@@ -343,7 +343,11 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+
+        qParams.select(eParams.up);
+        if (tab1.getRowCount() > 0) {
+            tab1.setRowSelectionInterval(0, 0);
+        }
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
@@ -399,7 +403,7 @@ public class Param extends javax.swing.JFrame {
         } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
             if (row != -1) {
-                Record paramRec = qPardet.get(row);
+                Record paramRec = qParams.get(row);
                 Record pardetRec = qPardet.newRecord(Query.INS);
                 int grup = paramRec.getInt(eParams.grup);
                 int id = ConnApp.instanc().generatorId(eParams.up.tname());
