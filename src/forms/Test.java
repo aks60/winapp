@@ -1,7 +1,11 @@
 package forms;
 
 import java.awt.Component;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.AbstractCellEditor;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -9,13 +13,34 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.UIResource;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 public class Test extends javax.swing.JFrame {
 
     public Test() {
         initComponents();
+        BooleanRenderer br = new BooleanRenderer();
+        tab1.getColumnModel().getColumn(1).setCellRenderer(br);
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {"1", true, null},
+                    {"1", null, true},
+                    {"1", true, null},
+                    {"1", null, null}
+                },
+                new String[]{
+                    "Title 1", "Title 2", "Title 3"
+                }
+        ) {
+            Class[] types = new Class[]{
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -161,4 +186,101 @@ public class Test extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 
+    static class BooleanRenderer extends JCheckBox implements TableCellRenderer, UIResource {
+
+        private Icon ico = new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"));
+
+        private static final Border noFocusBorder = new EmptyBorder(1, 1, 1, 1);
+
+        public BooleanRenderer() {
+            super();
+            setHorizontalAlignment(JLabel.CENTER);
+            setBorderPainted(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                boolean isSelected, boolean hasFocus, int row, int column) {
+            if (isSelected) {
+                setForeground(table.getSelectionForeground());
+                super.setBackground(table.getSelectionBackground());
+            } else {
+                setForeground(table.getForeground());
+                setBackground(table.getBackground());
+            }
+            setSelected((value != null && ((Boolean) value).booleanValue()));
+            Icon ic = ((value != null && ((Boolean) value).booleanValue())) ? ico : null;
+            setIcon(ic);
+
+            if (hasFocus) {
+                setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
+            } else {
+                setBorder(noFocusBorder);
+            }
+            setBorderPaintedFlat(true);
+            return this;
+        }
+    }
+
+    public class CustomCheckBox extends JCheckBox {
+
+        private ImageIcon sad;
+        private ImageIcon happy;
+
+        public CustomCheckBox() {
+            try {
+                happy = new ImageIcon(ImageIO.read(getClass().getResource("/Happy.png")));
+                sad = new ImageIcon(ImageIO.read(getClass().getResource("/Sad.png")));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        @Override
+        public void setSelected(boolean selected) {
+            super.setSelected(selected);
+            if (selected) {
+                setIcon(happy);
+            } else {
+                setIcon(sad);
+            }
+        }
+
+    }
+
+    public class CustomBooleanCellRenderer extends CustomCheckBox implements TableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            if (value instanceof Boolean) {
+                boolean selected = (boolean) value;
+                setSelected(selected);
+            }
+            return this;
+        }
+
+    }
+
+    public class CustomBooleanCellEditor extends AbstractCellEditor implements TableCellEditor {
+
+        private CustomCheckBox editor;
+
+        public CustomBooleanCellEditor() {
+            editor = new CustomCheckBox();
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            if (value instanceof Boolean) {
+                boolean selected = (boolean) value;
+                editor.setSelected(selected);
+            }
+            return editor;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return editor.isSelected();
+        }
+
+    }
 }

@@ -71,10 +71,10 @@ public class Param extends javax.swing.JFrame {
                 }
             }
         });
+        
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(1,2,3,4,5,6,7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
         Arrays.asList(1,2,3,4,5,6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
-        tab1.getColumnModel().getColumn(1).setCellRenderer(br);
 
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);

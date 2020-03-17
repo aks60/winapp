@@ -33,8 +33,7 @@ public class BooleanRenderer extends JCheckBox implements TableCellRenderer, UIR
             setBackground(table.getBackground());
         }
         setSelected((value != null && ((Boolean) value).booleanValue()));
-        Icon ic = ((value != null && ((Boolean) value).booleanValue())) ? ico : null;
-        setIcon(ic);
+        setIcon(((value != null && ((Boolean) value).booleanValue())) ? ico : null);
 
         if (hasFocus) {
             setBorder(UIManager.getBorder("Table.focusCellHighlightBorder"));
