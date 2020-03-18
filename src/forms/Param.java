@@ -351,8 +351,7 @@ public class Param extends javax.swing.JFrame {
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
         FrameAdapter.stopCellEditing(tab1, tab2);
-        Query.execsql(null, qParams, qPardet);
-        listenerModify.actionResponse(null);
+        Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

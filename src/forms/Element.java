@@ -23,6 +23,7 @@ import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Arrays;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -612,7 +613,7 @@ public class Element extends javax.swing.JFrame
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
         FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Query.execsql(null, qElemgrp, qElement, qElemdet, qElempar1, qElempar2);
+        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         listenerModify.actionResponse(null);
     }//GEN-LAST:event_btnSave
 

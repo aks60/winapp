@@ -289,7 +289,7 @@ public class DicCurrenc extends javax.swing.JFrame {
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
         FrameAdapter.stopCellEditing(tab1);
-        Query.execsql(null, qCurrenc);
+        qCurrenc.execsql();
         listenerModify.actionResponse(null);
     }//GEN-LAST:event_btnSave
 
@@ -322,9 +322,7 @@ public class DicCurrenc extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         FrameAdapter.stopCellEditing(tab1, tab1);
-        if (Query.execsql(this, qCurrenc)) {
-            listenerModify.actionResponse(null);
-        }
+        qCurrenc.execsql();
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed

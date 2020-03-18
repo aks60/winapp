@@ -34,7 +34,7 @@ public class Test {
             //query();
             //wincalc();
             frame();
-
+  
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -57,7 +57,7 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         App1 app = new App1();
         app.setVisible(true);
-        forms.Test frm = new forms.Test();
+        forms.Artikls frm = new forms.Artikls();
         FrameToFile.setFrameSize(frm);
         //frm.iwin.create(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);

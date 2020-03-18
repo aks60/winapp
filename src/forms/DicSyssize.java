@@ -3,6 +3,7 @@ package forms;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -13,7 +14,6 @@ import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -35,19 +35,6 @@ public class DicSyssize extends javax.swing.JFrame {
         public void focusLost(FocusEvent e) {
         }
     };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public DicSyssize() {
         initComponents();
@@ -65,11 +52,11 @@ public class DicSyssize extends javax.swing.JFrame {
         this.listener = listener;
         btnChoice.setVisible(true);
     }
-    
+
     private void initDatamodel() {
-        new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.napl, eSyssize.naxl, eSyssize.zax).addFrameListener(listenerModify);
+        new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.napl, eSyssize.naxl, eSyssize.zax);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -77,7 +64,6 @@ public class DicSyssize extends javax.swing.JFrame {
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
@@ -127,21 +113,6 @@ public class DicSyssize extends javax.swing.JFrame {
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefresh(evt);
-            }
-        });
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
             }
         });
 
@@ -200,12 +171,10 @@ public class DicSyssize extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 361, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 515, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -213,7 +182,6 @@ public class DicSyssize extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createSequentialGroup()
@@ -235,7 +203,7 @@ public class DicSyssize extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 567, Short.MAX_VALUE)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,24 +258,18 @@ public class DicSyssize extends javax.swing.JFrame {
         qSyssize.select(eCurrenc.up);
     }//GEN-LAST:event_btnRefresh
 
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-        FrameAdapter.stopCellEditing(tab1);
-        Query.execsql(null, qSyssize);
-        listenerModify.actionResponse(null);
-    }//GEN-LAST:event_btnSave
-
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-        int row = tab1.getSelectedRow();
-        if (row != -1) {
-            Record record = qSyssize.get(row);
-            record.set(eCurrenc.up, Query.DEL);
-            qSyssize.delete(record);
-            qSyssize.removeRec(row);
-            ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-        }
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                Record record = qSyssize.get(row);
+                record.set(eCurrenc.up, Query.DEL);
+                qSyssize.delete(record);
+                qSyssize.removeRec(row);
+                ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -316,11 +278,7 @@ public class DicSyssize extends javax.swing.JFrame {
         currencRec.setNo(eCurrenc.id, ConnApp.instanc().generatorId(eCurrenc.up.tname()));
         qSyssize.add(currencRec);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        listenerModify.actionRequest(null);
-        if (tab1.getRowCount() > 1) {
-            Rectangle cellRect = tab1.getCellRect(qSyssize.size() - 1, 0, false);
-            tab1.scrollRectToVisible(cellRect);
-        }
+        Util.scrollRectToVisible(qSyssize, tab1);
     }//GEN-LAST:event_btnInsert
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
@@ -332,10 +290,8 @@ public class DicSyssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChoice
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab1);
-        if (Query.execsql(this, qSyssize)) {
-            listenerModify.actionResponse(null);
-        }
+        FrameAdapter.stopCellEditing(tab1);
+        qSyssize.execsql();
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
@@ -346,7 +302,6 @@ public class DicSyssize extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSentr;
     private javax.swing.JPanel panSouth;
@@ -356,6 +311,9 @@ public class DicSyssize extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));        
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Системнык константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
