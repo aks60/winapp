@@ -362,6 +362,7 @@ public class Profstroy {
             System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             sql("delete from params where grup > 0");  //group > 0
             sql("delete from color where not exists (select id from colgrp a where a.id = color.cgrup)");  //colgrp_id
+            sql("delete from colpar1 where not exists (select id from color a where a.cnumb = colpar1.psss)"); //color_id
             sql("delete from artdet where not exists (select id from artikl a where a.code = artdet.anumb)");  //artikl_id
             sql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk
             sql("delete from element where not exists (select id from artikl a where a.code = element.anumb)");  //artikl_id
@@ -410,8 +411,9 @@ public class Profstroy {
             con.setConnection(cn2);
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             sql("update color set colgrp_id = (select id from colgrp a where a.id = color.cgrup)");
-            sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");            
-            sql("update artdet set color_fk = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");           
+            sql("update colpar1 set color_id = (select id from color a where a.cnumb = colpar1.psss)");
+            sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
+            sql("update artdet set color_fk = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
             sql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
             sql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
@@ -422,22 +424,22 @@ public class Profstroy {
                 sql("update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
             }
             sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
-            sql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");           
+            sql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
             sql("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)");
             sql("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)");
             sql("update joining set artikl_id1 = (select id from artikl a where a.code = joining.anum1)");
-            sql("update joining set artikl_id2 = (select id from artikl a where a.code = joining.anum2)"); 
+            sql("update joining set artikl_id2 = (select id from artikl a where a.code = joining.anum2)");
             sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
             sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");
-            sql("update joindet set artikl_id = (select id from artikl a where a.code = joindet.anumb)");           
-            sql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");                  
+            sql("update joindet set artikl_id = (select id from artikl a where a.code = joindet.anumb)");
+            sql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
             sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
             sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
             sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
             sql("update glasprof set artikl_id = (select id from artikl a where a.code = glasprof.anumb)");
             sql("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
-            sql("update glasdet set artikl_id = (select id from artikl a where a.code = glasdet.anumb)"); 
-            sql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");       
+            sql("update glasdet set artikl_id = (select id from artikl a where a.code = glasdet.anumb)");
+            sql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
             sql("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)");
             sql("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)");
             sql("update furnside1 set furniture_id = (select id from furniture a where a.funic = furnside1.funic)");

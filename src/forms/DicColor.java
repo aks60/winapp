@@ -159,7 +159,7 @@ public class DicColor extends javax.swing.JDialog {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(412, 160));
+        panCentr.setPreferredSize(new java.awt.Dimension(412, 200));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(

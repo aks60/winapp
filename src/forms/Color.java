@@ -29,11 +29,10 @@ public class Color extends javax.swing.JFrame
 
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
     private Query qColor = new Query(eColor.values());
-    private Query qColpar1 = new Query(eColpar1.values(), eParams.values());
+    private Query qColpar1 = new Query(eColpar1.values());
 
     private FocusListener listenerFocus = new FocusListener() {
-        javax.swing.border.Border border
-                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
 
@@ -66,10 +65,10 @@ public class Color extends javax.swing.JFrame
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name);
         new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3);
-        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text);
+        new DefTableModel(tab3, qColpar1, eColpar1.numb, eColpar1.text);
 
         JButton btnT3C0 = new JButton("...");
-        btnT3C0.addActionListener(event -> remoteForms(event));
+        btnT3C0.addActionListener(event -> listenerDict(event));
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT3C0));
         Util.selectRecord(tab1);
 
@@ -91,16 +90,15 @@ public class Color extends javax.swing.JFrame
         FrameAdapter.stopCellEditing(tab1, tab2, tab3);
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qColor.table(eColor.up).get(row);
-            int id = record.getInt(eColor.id);
-            qColpar1.select(eColpar1.up, "left join", eParams.up.tname(), "on", eParams.grup, "=",
-                    eColpar1.grup, "and", eParams.numb, "= 0", "where", eColpar1.numb, "=", id);
+            Record colorRec = qColor.table(eColor.up).get(row);
+            int id = colorRec.getInt(eColor.id);
+            qColpar1.select(eColpar1.up, "where", eColpar1.color_id, "=", id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.selectRecord(tab3);
         }
     }
 
-    public void remoteForms(java.awt.event.ActionEvent evt) {
+    public void listenerDict(java.awt.event.ActionEvent evt) {
 
         Query query = new Query(eParams.values()).select(eParams.up,
                 "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
@@ -359,18 +357,25 @@ public class Color extends javax.swing.JFrame
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             try {
                 if (tab1.getBorder() != null) {
-                    Query query = qСolgrup.table(eColgrp.up);
-                    Record record = query.get(tab1.getSelectedRow());
-                    query.delete(record);
-                    qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
+                    Record colgrpRec = qСolgrup.get(tab1.getSelectedRow());
+                    colgrpRec.set(eColgrp.up, Query.DEL);
+                    qСolgrup.delete(colgrpRec);
+                    qСolgrup.removeRec(tab1.getSelectedRow());
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
                 } else if (tab2.getBorder() != null) {
-                    Query query = qColor.table(eColor.up);
-                    Record record = query.get(tab2.getSelectedRow());
-                    query.delete(record);
-                    qColor.select(eColgrp.up, "order by", eColgrp.name);
+                    Record colorRec = qColor.get(tab2.getSelectedRow());
+                    colorRec.set(eColor.up, Query.DEL);
+                    qColor.delete(colorRec);
+                    qColor.removeRec(tab2.getSelectedRow());
                     ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+
+                } else if (tab3.getBorder() != null) {
+                    Record colpar1Rec = qColpar1.get(tab3.getSelectedRow());
+                    colpar1Rec.set(eColpar1.up, Query.DEL);
+                    qColpar1.delete(colpar1Rec);
+                    qColpar1.removeRec(tab3.getSelectedRow());
+                    ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -398,16 +403,16 @@ public class Color extends javax.swing.JFrame
             qColor.add(recorRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qColor, tab2);
-            
+
         } else if (tab3.getBorder() != null) {
             int row = tab2.getSelectedRow();
-            Record colorRec = qСolgrup.table(eColor.up).get(row);
+            Record colorRec = qColor.get(row);
             Record colpar1Rec = qColpar1.newRecord(Query.INS);
             colpar1Rec.setNo(eColpar1.id, ConnApp.instanc().generatorId(eColpar1.up.tname()));
-            colpar1Rec.setNo(eColpar1.grup, colorRec.getInt(eColgrp.id));
-            qColor.add(colpar1Rec);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qColor, tab2);
+            colpar1Rec.setNo(eColpar1.color_id, colorRec.getInt(eColor.id));
+            qColpar1.add(colpar1Rec);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qColpar1, tab3);
         }
     }//GEN-LAST:event_btnInsert
 

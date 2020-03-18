@@ -33,7 +33,7 @@ public class Test {
             //convert.Profstroy.script();
             //query();
             //wincalc();
-            frame();
+            //frame();
   
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
