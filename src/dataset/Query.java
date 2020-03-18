@@ -209,26 +209,6 @@ public class Query extends Table {
         }
     }
 
-//    public static boolean execsql(Frame parent, Query... queryList) {
-//        if (parent != null) {
-//            boolean f = false;
-//            for (Query query : queryList) {
-//                if (query.isUpdate() == true) {
-//                    f = true;
-//                }
-//            }
-//            if (f == true && JOptionPane.showConfirmDialog(parent, "Данные были изменены.\nСохранить изменения?", "Предупреждение",
-//                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-//                Arrays.asList(queryList).forEach(query -> query.execsql());
-//                return true;
-//            }
-//            return false;
-//        } else {
-//           Arrays.asList(queryList).forEach(query -> query.execsql());
-//           return true;
-//        }
-//    }
-
     public String wrapper(Record record, Field field) {
         try {
             if (record.get(field) == null) {

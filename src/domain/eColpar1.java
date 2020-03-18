@@ -10,7 +10,8 @@ public enum eColpar1 implements Field {
     id("4", "10", "0", "Идентификатор", "id"),    
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
-    text("12", "64", "1", "Значения параметра", "PTEXT");
+    text("12", "64", "1", "Значения параметра", "PTEXT"),
+    color_id("4", "10", "1", "Текстура", "color_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);

@@ -1,7 +1,9 @@
 package forms;
 
+import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -9,10 +11,9 @@ import domain.eColor;
 import domain.eColgrp;
 import domain.eColpar1;
 import domain.eParams;
-import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.Icon;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -26,7 +27,6 @@ import swing.DefTableModel;
 public class Color extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    //private Component focusComp = null;
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values(), eParams.values());
@@ -36,32 +36,17 @@ public class Color extends javax.swing.JFrame
                 = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
-            
-            JTable table = (JTable) e.getSource();
-            ((JComponent) e.getSource()).setBorder(border);
 
-            btnIns.setEnabled(true);
-            if (table == tab1 && tab2.getModel().getRowCount() > 0) {
-                btnDel.setEnabled(false);
-            } else {
-                btnDel.setEnabled(true);
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+            tab1.setBorder(null);
+            tab2.setBorder(null);
+            tab3.setBorder(null);
+            if (e.getSource() instanceof JTable) {
+                ((JComponent) e.getSource()).setBorder(border);
             }
         }
 
         public void focusLost(FocusEvent e) {
-        }
-    };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
         }
     };
     private FrameListener<Object, Object> listenerDict = new FrameListener() {
@@ -79,38 +64,31 @@ public class Color extends javax.swing.JFrame
 
     private void initDatamodel() {
 
-        new DefTableModel(tab1, qСolgrup, eColgrp.name).addFrameListener(listenerModify);
-        new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text).addFrameListener(listenerModify);
+        new DefTableModel(tab1, qСolgrup, eColgrp.name);
+        new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3);
+        new DefTableModel(tab3, qColpar1, eParams.text, eColpar1.text);
 
         JButton btnT3C0 = new JButton("...");
         btnT3C0.addActionListener(event -> remoteForms(event));
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT3C0));
+        Util.selectRecord(tab1);
 
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        qColor.execsql();
-        listenerModify.actionResponse(null);
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qСolgrup.table(eColgrp.up).get(row);
             Integer cgrup = record.getInt(eColgrp.id);
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup + "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-                btnDel.setEnabled(false);
-            } else {
-                btnDel.setEnabled(true);
-            }
+            Util.selectRecord(tab2);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
         int row = tab2.getSelectedRow();
         if (row != -1) {
             Record record = qColor.table(eColor.up).get(row);
@@ -118,17 +96,12 @@ public class Color extends javax.swing.JFrame
             qColpar1.select(eColpar1.up, "left join", eParams.up.tname(), "on", eParams.grup, "=",
                     eColpar1.grup, "and", eParams.numb, "= 0", "where", eColpar1.numb, "=", id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            if (tab3.getRowCount() > 0) {
-                tab3.setRowSelectionInterval(0, 0);
-                btnDel.setEnabled(false);
-            } else {
-                btnDel.setEnabled(true);
-            }
+            Util.selectRecord(tab3);
         }
     }
 
     public void remoteForms(java.awt.event.ActionEvent evt) {
-        
+
         Query query = new Query(eParams.values()).select(eParams.up,
                 "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
         eParams.text.meta().descr("Название параметра");
@@ -146,8 +119,6 @@ public class Color extends javax.swing.JFrame
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        btnFilter = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
         panWest = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -162,6 +133,11 @@ public class Color extends javax.swing.JFrame
         setTitle("Текстура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(740, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -179,7 +155,7 @@ public class Color extends javax.swing.JFrame
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -201,7 +177,6 @@ public class Color extends javax.swing.JFrame
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
         btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
         btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnDel.setEnabled(false);
         btnDel.setFocusable(false);
         btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -217,7 +192,6 @@ public class Color extends javax.swing.JFrame
         btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
         btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
         btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnIns.setEnabled(false);
         btnIns.setFocusable(false);
         btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -230,36 +204,6 @@ public class Color extends javax.swing.JFrame
             }
         });
 
-        btnFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btnFilter.setToolTipText(bundle.getString("Поиск")); // NOI18N
-        btnFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFilter.setFocusable(false);
-        btnFilter.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFilter.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnFilter.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnFilter.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnFilter.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilterChoice(evt);
-            }
-        });
-
-        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
-        btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnReport.setFocusable(false);
-        btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnReport.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnReport.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnReport.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportChoice(evt);
-            }
-        });
-
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -269,13 +213,9 @@ public class Color extends javax.swing.JFrame
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
-                .addComponent(btnFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 456, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 641, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -287,9 +227,7 @@ public class Color extends javax.swing.JFrame
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -405,17 +343,14 @@ public class Color extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
-
+        Util.selectRecord(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -423,14 +358,14 @@ public class Color extends javax.swing.JFrame
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             try {
-                if (focusComp == tab1) {
+                if (tab1.getBorder() != null) {
                     Query query = qСolgrup.table(eColgrp.up);
                     Record record = query.get(tab1.getSelectedRow());
                     query.delete(record);
                     qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
                     ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
-                } else if (focusComp == tab2) {
+                } else if (tab2.getBorder() != null) {
                     Query query = qColor.table(eColor.up);
                     Record record = query.get(tab2.getSelectedRow());
                     query.delete(record);
@@ -445,45 +380,47 @@ public class Color extends javax.swing.JFrame
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
-        if (focusComp == tab1) {
+        if (tab1.getBorder() != null) {
             Query query = qСolgrup.table(eColgrp.up);
             Record record = query.newRecord(Query.INS);
             int id = ConnApp.instanc().generatorId(eColgrp.up.tname());
             record.setNo(eColgrp.id, id);
-            //record.setNo(eTextGrp.groups, id);
-            //record.setNo(eTextGrp.gunic, id);
             record.setNo(eColgrp.coeff, 1);
             query.add(record);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
-        } else if (focusComp == tab2) {
+        } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
-            Query query1 = qСolgrup.table(eColgrp.up);
-            Query query2 = qColor.table(eColor.up);
-            Record record1 = query1.get(row);
-            Record record2 = query2.newRecord(Query.INS);
-            int id = ConnApp.instanc().generatorId(eColor.up.tname());
-            record2.setNo(eColor.id, id);
-            query2.add(record2);
+            Record colgrpRec = qСolgrup.table(eColgrp.up).get(row);
+            Record recorRec = qColor.newRecord(Query.INS);
+            recorRec.setNo(eColor.id, ConnApp.instanc().generatorId(eColor.up.tname()));
+            recorRec.setNo(eColor.colgrp_id, colgrpRec.getInt(eColgrp.id));
+            qColor.add(recorRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qColor, tab2);
+            
+        } else if (tab3.getBorder() != null) {
+            int row = tab2.getSelectedRow();
+            Record colorRec = qСolgrup.table(eColor.up).get(row);
+            Record colpar1Rec = qColpar1.newRecord(Query.INS);
+            colpar1Rec.setNo(eColpar1.id, ConnApp.instanc().generatorId(eColpar1.up.tname()));
+            colpar1Rec.setNo(eColpar1.grup, colorRec.getInt(eColgrp.id));
+            qColor.add(colpar1Rec);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qColor, tab2);
         }
     }//GEN-LAST:event_btnInsert
 
-    private void btnFilterChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterChoice
-
-    }//GEN-LAST:event_btnFilterChoice
-
-    private void btnReportChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportChoice
-
-    }//GEN-LAST:event_btnReportChoice
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+        Arrays.asList(qСolgrup, qColor, qColpar1).forEach(q -> q.execsql());
+    }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnFilter;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnReport;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
@@ -499,8 +436,12 @@ public class Color extends javax.swing.JFrame
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

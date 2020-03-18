@@ -35,7 +35,6 @@ import javax.swing.JFrame;
 public class App1 extends javax.swing.JFrame {
 
     private javax.swing.Timer timer = null;
-    private Locale locale = null;
     private FrameListener listenerMenu;
     private FrameListener<Object, Object> listenerDate = new FrameListener() {
 
@@ -167,14 +166,8 @@ public class App1 extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-            public void windowDeiconified(java.awt.event.WindowEvent evt) {
-                formWindowDeiconified(evt);
-            }
-            public void windowIconified(java.awt.event.WindowEvent evt) {
-                formWindowIconified(evt);
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
@@ -970,7 +963,8 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mnConstr
 
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
-        System.exit(0);
+        eApp1.disposeFrame();
+        dispose();
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
@@ -1045,13 +1039,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     });
 }//GEN-LAST:event_mn25
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        if (locale != null) {
-            this.setLocale(locale);
-            this.getInputContext().selectInputMethod(locale);
-        }
-    }//GEN-LAST:event_formWindowClosed
-
     private void mn0122ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn0122ActionPerformed
 
     }//GEN-LAST:event_mn0122ActionPerformed
@@ -1098,14 +1085,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
         //
     }//GEN-LAST:event_mn61ActionPerformed
-
-    private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
-        eApp1.disposeFrame();
-    }//GEN-LAST:event_formWindowIconified
-
-    private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
-        System.out.println("winapp.App1.formWindowDeiconified()");
-    }//GEN-LAST:event_formWindowDeiconified
 
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
 
@@ -1200,6 +1179,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void btn62mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn62mHelp
 
     }//GEN-LAST:event_btn62mHelp
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        mExit(null);
+    }//GEN-LAST:event_formWindowClosing
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1380,7 +1363,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         public static void disposeFrame() {
             for (eApp1 e : values()) {
                 if (e.frame != null) {
-                    e.frame.setState(JFrame.ICONIFIED);
+                    e.frame.dispose();
                 }
             }
         }

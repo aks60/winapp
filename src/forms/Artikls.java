@@ -118,7 +118,6 @@ public class Artikls extends javax.swing.JFrame
                 super.load(row);
                 Record artiklRec = qArtikl.get(row);
                 Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc_id))).findFirst().orElse(null);
-                //System.out.println(currencRec);
                 if (currencRec != null) {
                     txtField7.setText(currencRec.getStr(eCurrenc.name));
                 }
