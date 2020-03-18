@@ -90,7 +90,6 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qParams.table(eParams.up).get(row);

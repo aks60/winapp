@@ -66,6 +66,19 @@ public class DefFieldRenderer {
         mapEnam.put(field, enam);
     }
 
+    public void clear() {
+        for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
+            JTextComponent comp = me.getKey();
+            Field field = me.getValue();
+            comp.setText(null);
+            if (field.meta().type().equals(Field.TYPE.STR)) {
+                comp.setText("");
+            } else {
+                comp.setText("0");
+            }
+        }
+    }
+
     //Загрузить данные в компоненты из модели данных
     public void load(Integer row) {
 
@@ -79,8 +92,7 @@ public class DefFieldRenderer {
             if (val == null || row == -1) {
                 if (field.meta().type().equals(Field.TYPE.STR)) {
                     comp.setText("");
-                } 
-                else {                    
+                } else {
                     comp.setText("0");
                 }
             } else if (field.meta().type().equals(Field.TYPE.DATE)) {

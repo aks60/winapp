@@ -5,6 +5,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eSystree;
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -175,5 +176,18 @@ public class Util {
             }
         }
         return null;
+    }
+
+    public static void selectRecord(JTable table) {
+        if (table.getRowCount() > 0) {
+            table.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    public static void scrollRectToVisible(Query query, JTable table) {
+        if (table.getRowCount() > 1) {
+            Rectangle cellRect = table.getCellRect(query.size() - 1, 0, false);
+            table.scrollRectToVisible(cellRect);
+        }
     }
 }

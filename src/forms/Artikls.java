@@ -31,9 +31,6 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
 
 /**
  * Материальные ценности
@@ -97,6 +94,7 @@ public class Artikls extends javax.swing.JFrame
         initElements();
         initDatamodel();
         loadingTree();
+        //System.out.println("forms.Artikls.<init>()");
     }
 
     private void initDatamodel() {
@@ -141,8 +139,7 @@ public class Artikls extends javax.swing.JFrame
             public void load(Integer row) {
                 super.load(row);
                 Record artiklRec = qArtikl.get(row);
-                int id = artiklRec.getInt(eArtikl.currenc_id);
-                Record currencRec = qCurrenc.stream().filter(rec -> artiklRec.get(eArtikl.currenc_id).equals(rec.get(eCurrenc.id))).findFirst().orElse(null);
+                Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc_id))).findFirst().orElse(null);
                 //System.out.println(currencRec);
                 if (currencRec != null) {
                     txtField7.setText(currencRec.getStr(eCurrenc.name));
@@ -802,17 +799,14 @@ public class Artikls extends javax.swing.JFrame
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode != null && selectedNode.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
-
                 Record artiklRec = qArtikl.newRecord(Query.INS);
                 artiklRec.setNo(eArtikl.id, ConnApp.instanc().generatorId(eArtikl.up.tname()));
                 artiklRec.setNo(eArtikl.level1, typeArtikl.id1);
                 artiklRec.setNo(eArtikl.level2, typeArtikl.id2);
                 qArtikl.add(artiklRec);
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                listenerModify.actionRequest(null);
-                Rectangle cellRect = tab1.getCellRect(qArtikl.size() - 1, 0, false);
-                tab1.scrollRectToVisible(cellRect);
-                rsvArtikl.load(qArtikl.size() - 1);
+                Util.scrollRectToVisible(qArtikl, tab1);
+                rsvArtikl.clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Не выбран элемент артикула");
             }
@@ -826,13 +820,10 @@ public class Artikls extends javax.swing.JFrame
                 artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
                 qArtdet.add(artdetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                listenerModify.actionRequest(null);
-                if (tab2.getRowCount() > 1) {
-                    Rectangle cellRect = tab2.getCellRect(qArtdet.size() - 1, 0, false);
-                    tab2.scrollRectToVisible(cellRect);
-                }
+                Util.scrollRectToVisible(qArtdet, tab2);
             }
         }
+        listenerModify.actionRequest(null);
     }//GEN-LAST:event_btnInsert
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

@@ -1,7 +1,11 @@
 package forms;
 
+import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
+import static common.Util.scrollRectToVisible;
+import dataset.ConnApp;
 import dataset.Enam;
 import dataset.Field;
 import dataset.Query;
@@ -15,11 +19,13 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
 import enums.ParamList;
+import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,7 +33,8 @@ import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
-public class Element extends javax.swing.JFrame {
+public class Element extends javax.swing.JFrame
+        implements FrameListener<DefTableModel, Object> {
 
     private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
     private Query qElement = new Query(eElement.values(), eArtikl.values());
@@ -43,15 +50,17 @@ public class Element extends javax.swing.JFrame {
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
+            tab1.setBorder(null);
+            tab2.setBorder(null);
+            tab3.setBorder(null);
+            tab4.setBorder(null);
+            tab5.setBorder(null);
             if (e.getSource() instanceof JTable) {
                 ((JTable) e.getSource()).setBorder(border);
             }
         }
 
         public void focusLost(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(null);
-            }
         }
     };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
@@ -78,7 +87,7 @@ public class Element extends javax.swing.JFrame {
         initComponents();
         initElements();
         initDatamodel();
-        loadDataTab1();
+        loadingTab1();
     }
 
     public Element(java.awt.Window owner, int nuni) {
@@ -92,7 +101,7 @@ public class Element extends javax.swing.JFrame {
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";
         initDatamodel();
-        loadDataTab1();
+        loadingTab1();
     }
 
     private void initDatamodel() {
@@ -151,7 +160,7 @@ public class Element extends javax.swing.JFrame {
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
-        
+
         JButton btnT4C0 = new JButton("...");
         tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C0));
         btnT4C0.addActionListener(event -> {
@@ -160,7 +169,7 @@ public class Element extends javax.swing.JFrame {
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
-        
+
         JButton btnT5C0 = new JButton("...");
         tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT5C0));
         btnT5C0.addActionListener(event -> {
@@ -171,7 +180,7 @@ public class Element extends javax.swing.JFrame {
         });
     }
 
-    private void loadDataTab1() {
+    private void loadingTab1() {
 
         Record record = qElemgrp.table(eElemgrp.up).newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
@@ -187,18 +196,16 @@ public class Element extends javax.swing.JFrame {
                 break;
             }
         }
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
+        Util.selectRecord(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        qElement.execsql();
-        qElemdet.execsql();
-        listenerModify.actionResponse(null);
+//        qElement.execsql();
+//        qElemdet.execsql();
+//        listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qElemgrp.table(eElemgrp.up).get(row);
+            Record record = qElemgrp.get(row);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1 || id == -5) {
                 if (subsql.isEmpty() == false) {
@@ -226,7 +233,7 @@ public class Element extends javax.swing.JFrame {
 
     private void selectionTab2(ListSelectionEvent event) {
         //qElement.execsql();
-        listenerModify.actionResponse(null);
+        //listenerModify.actionResponse(null);
         int row = tab2.getSelectedRow();
         if (row != -1) {
             Record record = qElement.table(eElement.up).get(row);
@@ -244,7 +251,7 @@ public class Element extends javax.swing.JFrame {
 
     private void selectionTab3(ListSelectionEvent event) {
         //qElemdet.execsql();
-        listenerModify.actionResponse(null);
+        ///listenerModify.actionResponse(null);
         int row = tab3.getSelectedRow();
         if (row != -1) {
             Record record = qElemdet.table(eElemdet.up).get(row);
@@ -265,6 +272,7 @@ public class Element extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
+        btnFind = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
         panNorth2 = new javax.swing.JPanel();
@@ -370,6 +378,21 @@ public class Element extends javax.swing.JFrame {
             }
         });
 
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        btnFind.setToolTipText(bundle.getString("Поиск")); // NOI18N
+        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFind.setFocusable(false);
+        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFindbtnFilter(evt);
+            }
+        });
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -383,7 +406,9 @@ public class Element extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 638, Short.MAX_VALUE)
+                .addGap(122, 122, 122)
+                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -396,7 +421,8 @@ public class Element extends javax.swing.JFrame {
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFind, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -543,7 +569,7 @@ public class Element extends javax.swing.JFrame {
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
-        panWest.setPreferredSize(new java.awt.Dimension(120, 560));
+        panWest.setPreferredSize(new java.awt.Dimension(140, 560));
         panWest.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -579,31 +605,83 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        DicArtikl frame = new DicArtikl(this, listenerDict, 1, 2, 3);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
+        qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
+        loadingTab1();
+        Util.selectRecord(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Query.execsql(null, qElemgrp, qElement, qElemdet, qElempar1, qElempar2);
+        listenerModify.actionResponse(null);
     }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-
+        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
+                "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            if (tab1.getBorder() != null) {
+                int row = tab1.getSelectedRow();
+                if (row != -1) {
+                    Record record = qElemgrp.get(row);
+                    record.set(eElemgrp.up, Query.DEL);
+                    qElemgrp.delete(record);
+                    qElemgrp.removeRec(row);
+                    ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+                }
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-
+        if (tab1.getBorder() != null) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                int level = qElemgrp.getAs(row, eElemgrp.level, -999);
+                Record elemgrpRec = qElemgrp.newRecord(Query.INS);
+                elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().generatorId(eElemgrp.up.tname()));
+                elemgrpRec.setNo(eElemgrp.level, level);
+                for (int index = 0; index < qElemgrp.size(); index++) {
+                    if ((int) qElemgrp.getAs(index, eElemgrp.id, -999) == -1 * level) {
+                        qElemgrp.add(++index, elemgrpRec);
+                        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+                        Rectangle cellRect = tab1.getCellRect(index, 0, false);
+                        tab1.scrollRectToVisible(cellRect);
+                    }
+                }
+            }
+        } else if (tab2.getBorder() != null) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                int elegrp_id = qElemgrp.getAs(row, eElemgrp.id, -999);
+                Record elementRec = qElement.newRecord(Query.INS);
+                elementRec.setNo(eElement.id, ConnApp.instanc().generatorId(eElement.up.tname()));
+                elementRec.setNo(eElement.elemgrp_id, elegrp_id);
+                qElement.add(elementRec);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                //scrollRectToVisible(qElement, tab2);
+                listenerModify.actionRequest(null);
+                if (tab2.getRowCount() > 1) {
+                    Rectangle cellRect = tab2.getCellRect(qElement.size() - 1, 0, false);
+                    tab2.scrollRectToVisible(cellRect);
+                }                
+            }
+        }
+        listenerModify.actionRequest(null);
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnFindbtnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindbtnFilter
+        listenerModify.actionRequest(null);
+    }//GEN-LAST:event_btnFindbtnFilter
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;

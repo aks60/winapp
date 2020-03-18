@@ -59,7 +59,8 @@ public class Query extends Table {
     }
 
     public Query select(Object... s) {
-
+        
+        execsql(); //сохраним все изменения в базе       
         String sql = String.valueOf(s[0]);
         if (String.valueOf(s[0]).substring(0, 6).equalsIgnoreCase("select") == false) {
             sql = "";
@@ -78,7 +79,9 @@ public class Query extends Table {
             String str = "";
             for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
                 Query table = q.getValue();
-                table.clear();
+                
+                table.clear(); //удаляем данные
+                
                 for (Field field : table.fields) {
                     str = str + ", " + field.tname() + "." + field.name();
                 }
