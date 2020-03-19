@@ -49,6 +49,6 @@ public abstract class ConnApp {
 
     public abstract void modifyPassword(String user, String pass);
 
-    public abstract int generatorId(Field field);
+    public abstract int genId(Field field);
 
 }

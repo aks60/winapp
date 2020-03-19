@@ -10,6 +10,10 @@ public class Record<E> extends ArrayList<E> {
     public static boolean DIRTY = false;
     private Table table = null;
 
+    public Record() {
+        super();
+    }
+    
     public Record(Table table) {
         super();
         this.table = table;

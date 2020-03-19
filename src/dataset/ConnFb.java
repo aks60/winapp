@@ -147,7 +147,7 @@ public class ConnFb extends dataset.ConnApp {
 
     //Генератор ключа ID
     @Override
-    public int generatorId(Field field) {                
+    public int genId(Field field) {                
         try {
             int next_id = 0;
             Statement statement = connection.createStatement();

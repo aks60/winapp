@@ -746,7 +746,7 @@ public class Artikls extends javax.swing.JFrame
             if (selectedNode != null && selectedNode.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
                 Record artiklRec = qArtikl.newRecord(Query.INS);
-                artiklRec.setNo(eArtikl.id, ConnApp.instanc().generatorId(eArtikl.up));
+                artiklRec.setNo(eArtikl.id, ConnApp.instanc().genId(eArtikl.up));
                 artiklRec.setNo(eArtikl.level1, typeArtikl.id1);
                 artiklRec.setNo(eArtikl.level2, typeArtikl.id2);
                 qArtikl.add(artiklRec);
@@ -762,7 +762,7 @@ public class Artikls extends javax.swing.JFrame
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 Record artdetRec = qArtdet.newRecord(Query.INS);
-                artdetRec.setNo(eArtdet.id, ConnApp.instanc().generatorId(eArtdet.up));
+                artdetRec.setNo(eArtdet.id, ConnApp.instanc().genId(eArtdet.up));
                 artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
                 qArtdet.add(artdetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
