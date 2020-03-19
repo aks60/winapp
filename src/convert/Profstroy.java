@@ -476,6 +476,7 @@ public class Profstroy {
             sql("alter table artikl add constraint fk_artikl1 foreign key (currenc_id) references currenc (id)");
             sql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
             sql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikl (id)");
+            sql("alter table systree add constraint fk_systree1 foreign key (parent_id) references systree (id)");
             //sql("alter table artdet add constraint fk_artdet2 foreign key (color_fk) references color (id)");
             sql("alter table element add constraint fk_element1 foreign key (elemgrp_id) references elemgrp (id)");
             sql("alter table element add constraint fk_element2 foreign key (artikl_id) references artikl (id)");
