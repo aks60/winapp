@@ -28,14 +28,6 @@ public class Table extends ArrayList<Record> {
         }
     }
 
-//    public void add() {
-//        for (Map.Entry<String, Query> entry : mapQuery.entrySet()) {
-//            Table table = entry.getValue();
-//            Record record = table.newRecord("UPD");
-//            table.add(record);
-//        }
-//    }
-
     public void set(Object value, int index, Field field) {
         Object value2 = get(index, field);
         if (value2 != null && value != null && value2.equals(value)) {

@@ -21,13 +21,4 @@ public interface Enam {
     default Enam[] enams() {
         return fields();
     }
-
-    default Record newRecord(String up) {
-        Record record = new Record();
-        for (Field field : fields()) {
-            record.add(null);
-        }
-        record.set(0, up);
-        return record;
-    }
 }

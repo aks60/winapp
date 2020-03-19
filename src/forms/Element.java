@@ -577,13 +577,48 @@ public class Element extends javax.swing.JFrame
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getBorder() != null) {
                 int row = tab1.getSelectedRow();
-                if (row != -1) {
-                    Record record = qElemgrp.get(row);
-                    record.set(eElemgrp.up, Query.DEL);
-                    qElemgrp.delete(record);
-                    qElemgrp.removeRec(row);
-                    ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                }
+                Record record = qElemgrp.get(row);
+                record.set(eElemgrp.up, Query.DEL);
+                qElemgrp.delete(record);
+                qElemgrp.removeRec(row);
+                ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab1, 0);
+
+            } else if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                Record record = qElement.get(row);
+                record.set(eElement.up, Query.DEL);
+                qElement.delete(record);
+                qElement.removeRec(row);
+                ((DefTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab2, 0);
+                
+            } else if (tab3.getBorder() != null) {
+                int row = tab3.getSelectedRow();
+                Record record = qElemdet.get(row);
+                record.set(eElemdet.up, Query.DEL);
+                qElemdet.delete(record);
+                qElemdet.removeRec(row);
+                ((DefTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab3, 0);
+                
+            } else if (tab4.getBorder() != null) {
+                int row = tab4.getSelectedRow();
+                Record record = qElempar1.get(row);
+                record.set(eElempar1.up, Query.DEL);
+                qElempar1.delete(record);
+                qElempar1.removeRec(row);
+                ((DefTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab4, 0);
+                
+            } else if (tab5.getBorder() != null) {
+                int row = tab5.getSelectedRow();
+                Record record = qElempar2.get(row);
+                record.set(eElempar2.up, Query.DEL);
+                qElempar2.delete(record);
+                qElempar2.removeRec(row);
+                ((DefTableModel) tab5.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab5, 0);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -623,9 +658,11 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 Record elementRec = qElement.get(row);
                 Record elemdetRec = qElemdet.newRecord(Query.INS);
+                Record artiklRec = eArtikl.up.newRecord(Query.SEL);
                 elemdetRec.setNo(eElemdet.id, ConnApp.instanc().genId(eElemdet.up));
                 elemdetRec.setNo(eElemdet.element_id, elementRec.getInt(eElement.id));
                 qElemdet.add(elemdetRec);
+                qElemdet.table(eArtikl.up).add(artiklRec);
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.scrollRectToVisible(qElemdet, tab3);
             }

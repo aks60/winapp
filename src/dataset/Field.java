@@ -4,12 +4,11 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
 
-
 //Поле таблицы
-public interface Field extends Enam{
+public interface Field extends Enam {
 
-    public static String conf = "calc";             
-    
+    public static String conf = "calc";
+
     public static enum TYPE {
 
         OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), INTsp(Integer.class),
@@ -24,11 +23,11 @@ public interface Field extends Enam{
                 hsConv.add(i);
             }
         }
-        
+
         public static TYPE type(Object index) {
             index = Integer.valueOf(index.toString());
             for (TYPE type : values()) {
-                if(type.hsConv.contains(index)) {
+                if (type.hsConv.contains(index)) {
                     return type;
                 }
             }
@@ -59,8 +58,17 @@ public interface Field extends Enam{
         }
         return str2.toString().toUpperCase();
     }
-    
+
+    default Record newRecord(String up) {
+        Record record = new Record();
+        for (Field field : fields()) {
+            record.add(null);
+        }
+        record.set(0, up);
+        return record;
+    }
+
     public MetaField meta();
-    
-   public boolean equals(Object other);    
+
+    public boolean equals(Object other);
 }
