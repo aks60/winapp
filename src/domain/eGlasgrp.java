@@ -11,7 +11,7 @@ public enum eGlasgrp implements Field {
     name("12", "64", "1", "Название группы", "GNAME"),
     gap("8", "15", "1", "Зазор", "GZAZO"),
     thick("12", "128", "1", "Доступные толщины", "BFRIC"),
-    artikl_id("4", "10", "0", "Артикд", "artikl_id");
+    artikl_id("4", "10", "1", "Артикд", "artikl_id");
     //gnumb("4", "10", "1", "id группы", "GNUMB"),    
     //gdiff("8", "15", "1", "null", "GDIFF"),
     //pnump("5", "5", "1", "null", "PNUMP");

@@ -14,9 +14,9 @@ public enum eGlasdet implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
-    color_fk("4", "10", "0", "Текстура", "CLNUM"),
-    glasgrp_id("4", "10", "0", "Заполнение", "glassgrp_id"),
-    artikl_id("4", "10", "0", "Артикл", "artikl_id");
+    color_fk("4", "10", "1", "Текстура", "CLNUM"),
+    artikl_id("4", "10", "1", "Артикл", "artikl_id"),
+    glasgrp_id("4", "10", "0", "Заполнение", "glassgrp_id");
     //gnumb("4", "10", "1", "GLASS_ID", "GNUMB"),
     //gunic("4", "10", "1", "ID_GLASDET", "GUNIC"), 
     //anumb("12", "32", "1", "Артикул", "ANUMB"), // ANUMB->ARTIKL.ANUMB

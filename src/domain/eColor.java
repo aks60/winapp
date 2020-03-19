@@ -25,7 +25,7 @@ public enum eColor implements Field {
     suffix3("12", "8", "1", "Суффикс внешний текстуры", "COUTS"),
     orient("5", "5", "1", "Ориентация", "CORIE"),
     pain("5", "5", "1", "Покраска", "CTYPE"),
-    colgrp_id("5", "5", "0", "Группа", "colgrp_id");
+    colgrp_id("5", "5", "1", "Группа", "colgrp_id");
     //numb("4", "10", "1", "id", "CNUMB"),
     //cgrup("5", "5", "1", "группа", "CGRUP");    
     //cpict("-4", "80", "1", "null", "CPICT"),

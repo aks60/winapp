@@ -16,7 +16,7 @@ public enum eGlaspar1 implements Field {
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
-    glasgrp_id("4", "10", "1", "Глуппа", "glasgrp_id");
+    glasgrp_id("4", "10", "0", "Глуппа", "glasgrp_id");
     //npp("5", "5", "1", "нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);

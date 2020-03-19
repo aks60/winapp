@@ -1,22 +1,27 @@
 package forms;
 
+import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
+import static common.Util.scrollRectToVisible;
+import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eElement;
+import domain.eElemgrp;
 import domain.eGlasdet;
 import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
-import domain.eJoining;
 import domain.eJoinvar;
 import domain.eSysprof;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.Icon;
+import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -51,25 +56,11 @@ public class Glass extends javax.swing.JFrame {
             }
         }
     };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public Glass() {
         initComponents();
         initElements();
-        qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
-        qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+        loadingTab();
         initDatamodel();
     }
 
@@ -80,13 +71,7 @@ public class Glass extends javax.swing.JFrame {
         this.owner = owner;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
-        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
-        query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
-        subsql = "(" + subsql.substring(1) + ")";
-        qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up.tname(), 
-                "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
-        qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
-
+        loadingTab();
         initDatamodel();
     }
 
@@ -98,6 +83,20 @@ public class Glass extends javax.swing.JFrame {
         new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    private void loadingTab() {
+        if (owner == null) {
+            qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
+            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+        } else {
+            Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
+            query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
+            subsql = "(" + subsql.substring(1) + ")";
+            qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up.tname(),
+                    "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
+            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
         }
     }
 
@@ -144,7 +143,6 @@ public class Glass extends javax.swing.JFrame {
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         panCentr = new javax.swing.JPanel();
@@ -207,21 +205,6 @@ public class Glass extends javax.swing.JFrame {
             }
         });
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
-            }
-        });
-
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
         btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
         btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -262,10 +245,8 @@ public class Glass extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 564, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 765, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -273,7 +254,6 @@ public class Glass extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -438,22 +418,40 @@ public class Glass extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        loadingTab();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
-
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
-    }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+        if (tab1.getBorder() != null) {
+            Record glasgrpRec = qGlasgrp.newRecord(Query.INS);
+            glasgrpRec.setNo(eGlasgrp.id, ConnApp.instanc().genId(eGlasgrp.up));
+            qGlasgrp.add(glasgrpRec);
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            scrollRectToVisible(qGlasgrp, tab1);
 
+        } else if (tab2.getBorder() != null) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                Record glasdetRec = qGlasdet.newRecord(Query.INS);
+                Record artiklRec = eArtikl.up.newRecord(Query.SEL);
+                glasdetRec.setNo(eGlasgrp.id, ConnApp.instanc().genId(eGlasgrp.up));
+                qGlasdet.add(glasdetRec);
+                qGlasdet.table(eArtikl.up).add(artiklRec);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                scrollRectToVisible(qGlasdet, tab2);
+            }
+        }
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        FrameAdapter.stopCellEditing(tab1, tab2);
+        Arrays.asList(qGlasgrp, qGlasdet, qGlasprof, qGlaspar1, qGlaspar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
@@ -463,7 +461,6 @@ public class Glass extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;

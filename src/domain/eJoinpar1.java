@@ -18,7 +18,7 @@ public enum eJoinpar1 implements Field {
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
-    joinvar_id("4", "10", "1", "Вариант соединения", "joinvar_id");
+    joinvar_id("4", "10", "0", "Вариант соединения", "joinvar_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);

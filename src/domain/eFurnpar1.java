@@ -15,7 +15,7 @@ public enum eFurnpar1 implements Field {
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
-    furnside_id("4", "10", "1", "Фурнитура", "furnside_id");
+    furnside_id("4", "10", "0", "Фурнитура", "furnside_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);

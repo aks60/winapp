@@ -17,7 +17,7 @@ public enum eFurndet implements Field {
     fincs("4", "10", "1", "ID зависимого фурнитурного набора из  FINCB  по данной фурнитуре", "FINCS"), //TODO Изменить бред      
     fincb("4", "10", "1", "Ссылка на параметры и на зависимую/вложенную спецификацию фурнитуры:", "FINCB"), //TODO Изменить бред    
     color_fk("4", "10", "1", "Текстура", "CLNUM"),
-    artikl_id("4", "10", "0", "Артикл", "artikl_id"),
+    artikl_id("4", "10", "1", "Артикл", "artikl_id"),
     furniture_id("4", "10", "0", "Фурнитура", "furniture_id");
 
     private MetaField meta = new MetaField(this);
