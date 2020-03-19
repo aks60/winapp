@@ -3,6 +3,7 @@ package forms;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -34,19 +35,6 @@ public class DicCurrenc extends javax.swing.JFrame {
         public void focusLost(FocusEvent e) {
         }
     };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public DicCurrenc() {
         initComponents();
@@ -66,7 +54,7 @@ public class DicCurrenc extends javax.swing.JFrame {
     }
 
     private void initDatamodel() {
-        new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour).addFrameListener(listenerModify);
+        new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour);
     }
 
     @SuppressWarnings("unchecked")
@@ -76,7 +64,6 @@ public class DicCurrenc extends javax.swing.JFrame {
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
@@ -126,21 +113,6 @@ public class DicCurrenc extends javax.swing.JFrame {
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefresh(evt);
-            }
-        });
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
             }
         });
 
@@ -199,10 +171,8 @@ public class DicCurrenc extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(49, 49, 49)
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 390, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,7 +182,6 @@ public class DicCurrenc extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createSequentialGroup()
@@ -285,13 +254,8 @@ public class DicCurrenc extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qCurrenc.select(eCurrenc.up);
+        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
-
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-        FrameAdapter.stopCellEditing(tab1);
-        qCurrenc.execsql();
-        listenerModify.actionResponse(null);
-    }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
@@ -304,6 +268,7 @@ public class DicCurrenc extends javax.swing.JFrame {
                 qCurrenc.delete(record);
                 qCurrenc.removeRec(row);
                 ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab1, 0);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -313,11 +278,7 @@ public class DicCurrenc extends javax.swing.JFrame {
         currencRec.setNo(eCurrenc.id, ConnApp.instanc().generatorId(eCurrenc.up.tname()));
         qCurrenc.add(currencRec);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        listenerModify.actionRequest(null);
-        if (tab1.getRowCount() > 1) {
-            Rectangle cellRect = tab1.getCellRect(qCurrenc.size() - 1, 0, false);
-            tab1.scrollRectToVisible(cellRect);
-        }
+        Util.scrollRectToVisible(qCurrenc, tab1);
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -341,7 +302,6 @@ public class DicCurrenc extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSentr;
     private javax.swing.JPanel panSouth;
@@ -349,7 +309,9 @@ public class DicCurrenc extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
-
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         new FrameToFile(this, btnClose);
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

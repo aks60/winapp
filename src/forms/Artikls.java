@@ -783,6 +783,7 @@ public class Artikls extends javax.swing.JFrame
                     qArtikl.delete(record);
                     qArtikl.removeRec(row);
                     ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+                    Util.selectRecord(tab1, 0);
                 }
             } else if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
@@ -792,6 +793,7 @@ public class Artikls extends javax.swing.JFrame
                     qArtdet.delete(record);
                     qArtdet.removeRec(row);
                     ((DefTableModel) tab2.getModel()).fireTableDataChanged();
+                    Util.selectRecord(tab1, 0);
                 }
             }
         }
@@ -864,7 +866,7 @@ public class Artikls extends javax.swing.JFrame
     private javax.swing.JFormattedTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
@@ -892,5 +894,4 @@ public class Artikls extends javax.swing.JFrame
         txtField7.setEditable(false);
         txtField7.setBackground(new java.awt.Color(255, 255, 255));
     }
-// </editor-fold> 
 }

@@ -178,9 +178,9 @@ public class Util {
         return null;
     }
 
-    public static void selectRecord(JTable table) {
-        if (table.getRowCount() > 0) {
-            table.setRowSelectionInterval(0, 0);
+    public static void selectRecord(JTable table, int row) {
+        if (table.getRowCount() > row) {
+            table.setRowSelectionInterval(row, row);
         }
     }
 

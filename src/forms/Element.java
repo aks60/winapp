@@ -17,6 +17,8 @@ import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
+import domain.eJoindet;
+import domain.eJoinvar;
 import domain.eSysprof;
 import enums.ParamList;
 import java.awt.Rectangle;
@@ -51,30 +53,18 @@ public class Element extends javax.swing.JFrame
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             tab1.setBorder(null);
             tab2.setBorder(null);
             tab3.setBorder(null);
             tab4.setBorder(null);
-            tab5.setBorder(null);
+            tab4.setBorder(null);
             if (e.getSource() instanceof JTable) {
                 ((JTable) e.getSource()).setBorder(border);
             }
         }
 
         public void focusLost(FocusEvent e) {
-        }
-    };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
         }
     };
     private FrameListener<Object, Record> listenerDict = new FrameListener<Object, Record>() {
@@ -108,10 +98,10 @@ public class Element extends javax.swing.JFrame
     private void initDatamodel() {
 
         tab1.getTableHeader().setEnabled(false);
-        new DefTableModel(tab1, qElemgrp, eElemgrp.name).addFrameListener(listenerModify);
+        new DefTableModel(tab1, qElemgrp, eElemgrp.name);
         new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.vtype,
-                eArtikl.series, eElement.bind, eElement.bind, eElement.markup).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types).addFrameListener(listenerModify);
+                eArtikl.series, eElement.bind, eElement.bind, eElement.markup);
+        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types);
         new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
 
             public Object actionPreview(Field field, int row, Object val) {
@@ -131,7 +121,7 @@ public class Element extends javax.swing.JFrame
                 }
                 return val;
             }
-        }.addFrameListener(listenerModify);
+        };
         new DefTableModel(tab5, qElempar2, eElempar2.grup, eElempar2.text) {
 
             public Object actionPreview(Field field, int row, Object val) {
@@ -151,7 +141,7 @@ public class Element extends javax.swing.JFrame
                 }
                 return val;
             }
-        }.addFrameListener(listenerModify);
+        };
 
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerDict, btnT2C1));
@@ -197,13 +187,10 @@ public class Element extends javax.swing.JFrame
                 break;
             }
         }
-        Util.selectRecord(tab1);
+        Util.selectRecord(tab1, 0);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-//        qElement.execsql();
-//        qElemdet.execsql();
-//        listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qElemgrp.get(row);
@@ -226,15 +213,11 @@ public class Element extends javax.swing.JFrame
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-            }
+            Util.selectRecord(tab2, 0);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        //qElement.execsql();
-        //listenerModify.actionResponse(null);
         int row = tab2.getSelectedRow();
         if (row != -1) {
             Record record = qElement.table(eElement.up).get(row);
@@ -244,15 +227,12 @@ public class Element extends javax.swing.JFrame
                     "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            if (tab3.getRowCount() > 0) {
-                tab3.setRowSelectionInterval(0, 0);
-            }
+            Util.selectRecord(tab3, 0);
+            Util.selectRecord(tab4, 0);
         }
     }
 
     private void selectionTab3(ListSelectionEvent event) {
-        //qElemdet.execsql();
-        ///listenerModify.actionResponse(null);
         int row = tab3.getSelectedRow();
         if (row != -1) {
             Record record = qElemdet.table(eElemdet.up).get(row);
@@ -260,6 +240,7 @@ public class Element extends javax.swing.JFrame
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup,
                     "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            Util.selectRecord(tab5, 0);
         }
     }
 
@@ -270,7 +251,6 @@ public class Element extends javax.swing.JFrame
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnFind = new javax.swing.JButton();
@@ -315,7 +295,7 @@ public class Element extends javax.swing.JFrame
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -331,21 +311,6 @@ public class Element extends javax.swing.JFrame
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefresh(evt);
-            }
-        });
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
             }
         });
 
@@ -404,10 +369,8 @@ public class Element extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122)
+                .addGap(153, 153, 153)
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -417,7 +380,6 @@ public class Element extends javax.swing.JFrame
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -601,21 +563,15 @@ public class Element extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         loadingTab1();
-        Util.selectRecord(tab1);
+        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
-
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
-        listenerModify.actionResponse(null);
-    }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
@@ -659,24 +615,54 @@ public class Element extends javax.swing.JFrame
                 elementRec.setNo(eElement.elemgrp_id, elegrp_id);
                 qElement.add(elementRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                //scrollRectToVisible(qElement, tab2);
-                listenerModify.actionRequest(null);
-                if (tab2.getRowCount() > 1) {
-                    Rectangle cellRect = tab2.getCellRect(qElement.size() - 1, 0, false);
-                    tab2.scrollRectToVisible(cellRect);
-                }                
+                scrollRectToVisible(qElement, tab2);
+            }
+        } else if (tab3.getBorder() != null) {
+            int row = tab2.getSelectedRow();
+            if (row != -1) {
+                Record elementRec = qElement.get(row);
+                Record elemdetRec = qElemdet.newRecord(Query.INS);
+                elemdetRec.setNo(eElemdet.id, ConnApp.instanc().generatorId(eElemdet.up.tname()));
+                elemdetRec.setNo(eElemdet.element_id, elementRec.getInt(eElement.id));
+                qElemdet.add(elemdetRec);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qElemdet, tab3);
+            }
+        } else if (tab4.getBorder() != null) {
+            int row = tab2.getSelectedRow();
+            if (row != -1) {
+                Record elementRec = qElement.get(row);
+                Record elempar1Rec = qElempar1.newRecord(Query.INS);
+                elempar1Rec.setNo(eElempar1.id, ConnApp.instanc().generatorId(eElempar1.up.tname()));
+                elempar1Rec.setNo(eElempar1.element_id, elementRec.getInt(eElement.id));
+                qElempar1.add(elempar1Rec);
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qElempar1, tab4);
+            }
+        } else if (tab5.getBorder() != null) {
+            int row = tab3.getSelectedRow();
+            if (row != -1) {
+                Record elemdetRec = qElemdet.get(row);
+                Record elempar2Rec = qElempar2.newRecord(Query.INS);
+                elempar2Rec.setNo(eElempar2.id, ConnApp.instanc().generatorId(eElempar2.up.tname()));
+                elempar2Rec.setNo(eElempar1.element_id, elemdetRec.getInt(eElement.id));
+                qElempar2.add(elempar2Rec);
+                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qElempar2, tab5);
             }
         }
-        listenerModify.actionRequest(null);
+
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
     private void btnFindbtnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindbtnFilter
-        listenerModify.actionRequest(null);
+
     }//GEN-LAST:event_btnFindbtnFilter
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -685,7 +671,6 @@ public class Element extends javax.swing.JFrame
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panCentr2;
     private javax.swing.JPanel panNorth;
@@ -703,10 +688,13 @@ public class Element extends javax.swing.JFrame
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Категории составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -745,5 +733,4 @@ public class Element extends javax.swing.JFrame
         tab4.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
     }
-// </editor-fold> 
 }

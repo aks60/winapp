@@ -1,17 +1,21 @@
 package forms;
 
-import common.FrameListener;
+import common.FrameAdapter;
 import common.FrameToFile;
 import common.Util;
+import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
-import domain.eJoinpar1;
+import domain.eColgrp;
+import domain.eColor;
+import domain.eColpar1;
 import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.Icon;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -29,70 +33,51 @@ public class Kits extends javax.swing.JFrame {
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+            tab1.setBorder(null);
+            tab2.setBorder(null);
+            tab3.setBorder(null);
             if (e.getSource() instanceof JTable) {
                 ((JTable) e.getSource()).setBorder(border);
             }
         }
 
         public void focusLost(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(null);
-            }
-        }
-    };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
         }
     };
 
     public Kits() {
         initComponents();
         initElements();
+        initDatamodel();
+    }
 
-        new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ).addFrameListener(listenerModify);
-        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag).addFrameListener(listenerModify);
+    private void initDatamodel() {
+        new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ);
+        new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag);
         new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
+        Util.selectRecord(tab1, 0);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-
-        listenerModify.actionResponse(null);
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            Record record = qKits.table(eKits.up).get(row);
+            Record record = qKits.get(row);
             Integer id = record.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-            }
+            Util.selectRecord(tab2, 0);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        
-        listenerModify.actionResponse(null);
         int row = tab2.getSelectedRow();
         if (row != -1) {
-            Record record = qKitdet.table(eKitdet.up).get(row);
+            Record record = qKitdet.get(row);
             Integer id = record.getInt(eKitdet.id);
             qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            if (tab3.getRowCount() > 0) {
-                tab3.setRowSelectionInterval(0, 0);
-            }
+            Util.selectRecord(tab3, 0);
         }
     }
 
@@ -109,13 +94,12 @@ public class Kits extends javax.swing.JFrame {
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rbtn1 = new javax.swing.JRadioButton();
+        rbtn2 = new javax.swing.JRadioButton();
+        rbn3 = new javax.swing.JRadioButton();
+        rbtn4 = new javax.swing.JRadioButton();
         panCentr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -129,6 +113,11 @@ public class Kits extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Комплекты");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -146,7 +135,7 @@ public class Kits extends javax.swing.JFrame {
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -162,21 +151,6 @@ public class Kits extends javax.swing.JFrame {
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefresh(evt);
-            }
-        });
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
             }
         });
 
@@ -210,34 +184,34 @@ public class Kits extends javax.swing.JFrame {
             }
         });
 
-        btnGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(Util.getFont(0, 0));
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Продажа");
-        jRadioButton1.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton1.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton1.setPreferredSize(new java.awt.Dimension(96, 25));
+        btnGroup1.add(rbtn1);
+        rbtn1.setFont(Util.getFont(0, 0));
+        rbtn1.setSelected(true);
+        rbtn1.setText("Продажа");
+        rbtn1.setMaximumSize(new java.awt.Dimension(96, 25));
+        rbtn1.setMinimumSize(new java.awt.Dimension(96, 25));
+        rbtn1.setPreferredSize(new java.awt.Dimension(96, 25));
 
-        btnGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(Util.getFont(0, 0));
-        jRadioButton2.setText("Скатка");
-        jRadioButton2.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton2.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton2.setPreferredSize(new java.awt.Dimension(96, 25));
+        btnGroup1.add(rbtn2);
+        rbtn2.setFont(Util.getFont(0, 0));
+        rbtn2.setText("Скатка");
+        rbtn2.setMaximumSize(new java.awt.Dimension(96, 25));
+        rbtn2.setMinimumSize(new java.awt.Dimension(96, 25));
+        rbtn2.setPreferredSize(new java.awt.Dimension(96, 25));
 
-        btnGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(Util.getFont(0, 0));
-        jRadioButton3.setText("Стеклопакет");
-        jRadioButton3.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton3.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton3.setPreferredSize(new java.awt.Dimension(96, 25));
+        btnGroup1.add(rbn3);
+        rbn3.setFont(Util.getFont(0, 0));
+        rbn3.setText("Стеклопакет");
+        rbn3.setMaximumSize(new java.awt.Dimension(96, 25));
+        rbn3.setMinimumSize(new java.awt.Dimension(96, 25));
+        rbn3.setPreferredSize(new java.awt.Dimension(96, 25));
 
-        btnGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(Util.getFont(0, 0));
-        jRadioButton4.setText("Ламинация");
-        jRadioButton4.setMaximumSize(new java.awt.Dimension(96, 25));
-        jRadioButton4.setMinimumSize(new java.awt.Dimension(96, 25));
-        jRadioButton4.setPreferredSize(new java.awt.Dimension(96, 25));
+        btnGroup1.add(rbtn4);
+        rbtn4.setFont(Util.getFont(0, 0));
+        rbtn4.setText("Ламинация");
+        rbtn4.setMaximumSize(new java.awt.Dimension(96, 25));
+        rbtn4.setMinimumSize(new java.awt.Dimension(96, 25));
+        rbtn4.setPreferredSize(new java.awt.Dimension(96, 25));
 
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
@@ -249,18 +223,16 @@ public class Kits extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91)
+                .addComponent(rbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(rbn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -268,20 +240,19 @@ public class Kits extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createSequentialGroup()
                         .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jRadioButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(rbn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(rbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -340,7 +311,7 @@ public class Kits extends javax.swing.JFrame {
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(null);
-        scr3.setPreferredSize(new java.awt.Dimension(200, 200));
+        scr3.setPreferredSize(new java.awt.Dimension(260, 200));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -372,7 +343,7 @@ public class Kits extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
+            .addGap(0, 952, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,25 +355,81 @@ public class Kits extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        qKits.select(eKits.up, "order by", eKits.name);
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
-    }//GEN-LAST:event_btnSave
-
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
+        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
+            if (tab1.getBorder() != null) {
+                Record kitsRec = qKits.get(tab1.getSelectedRow());
+                kitsRec.set(eKits.up, Query.DEL);
+                qKits.delete(kitsRec);
+                qKits.removeRec(tab1.getSelectedRow());
+                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab1, 0);
+
+            } else if (tab2.getBorder() != null) {
+                Record kitdetRc = qKitdet.get(tab2.getSelectedRow());
+                kitdetRc.set(eColor.up, Query.DEL);
+                qKitdet.delete(kitdetRc);
+                qKitdet.removeRec(tab2.getSelectedRow());
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab2, 0);
+
+            } else if (tab3.getBorder() != null) {
+                Record kitpar1Rec = qKitpar1.get(tab3.getSelectedRow());
+                kitpar1Rec.set(eColpar1.up, Query.DEL);
+                qKitpar1.delete(kitpar1Rec);
+                qKitpar1.removeRec(tab3.getSelectedRow());
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab3, 0);
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+        if (tab1.getBorder() != null) {
+            Record record = qKits.newRecord(Query.INS);
+            int id = ConnApp.instanc().generatorId(eKits.up.tname());
+            record.setNo(eKits.id, id);
+            qKits.add(record);
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
+        } else if (tab2.getBorder() != null) {
+            int row = tab1.getSelectedRow();
+            Record kitsRec = qKits.get(row);
+            Record kitdetRec = qKitdet.newRecord(Query.INS);
+            kitdetRec.setNo(eKitdet.id, ConnApp.instanc().generatorId(eKitdet.up.tname()));
+            kitdetRec.setNo(eKitdet.kits_id, kitsRec.getInt(eKits.id));
+            qKitdet.add(kitdetRec);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qKitdet, tab2);
+
+        } else if (tab3.getBorder() != null) {
+            int row = tab2.getSelectedRow();
+            Record kitdetRec = qKitdet.get(row);
+            Record kitpar1Rec = qKitpar1.newRecord(Query.INS);
+            kitpar1Rec.setNo(eColpar1.id, ConnApp.instanc().generatorId(eColpar1.up.tname()));
+            kitpar1Rec.setNo(eKitpar1.kitdet_id, kitdetRec.getInt(eKitdet.id));
+            qKitpar1.add(kitpar1Rec);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qKitpar1, tab3);
+        }
     }//GEN-LAST:event_btnInsert
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+        Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
+    }//GEN-LAST:event_formWindowClosed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -411,15 +438,14 @@ public class Kits extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroup1;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
+    private javax.swing.JRadioButton rbn3;
+    private javax.swing.JRadioButton rbtn1;
+    private javax.swing.JRadioButton rbtn2;
+    private javax.swing.JRadioButton rbtn4;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
@@ -427,9 +453,11 @@ public class Kits extends javax.swing.JFrame {
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
-        
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
@@ -438,10 +466,10 @@ public class Kits extends javax.swing.JFrame {
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {                
+            public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);
-                }                
+                }
             }
         });
         tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -451,6 +479,6 @@ public class Kits extends javax.swing.JFrame {
         });
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
+        tab3.addFocusListener(listenerFocus);
     }
-// </editor-fold>     
 }

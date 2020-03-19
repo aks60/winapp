@@ -70,7 +70,7 @@ public class Color extends javax.swing.JFrame
         JButton btnT3C0 = new JButton("...");
         btnT3C0.addActionListener(event -> listenerDict(event));
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT3C0));
-        Util.selectRecord(tab1);
+        Util.selectRecord(tab1, 0);
 
     }
 
@@ -82,7 +82,7 @@ public class Color extends javax.swing.JFrame
             Integer cgrup = record.getInt(eColgrp.id);
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup + "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab2);
+            Util.selectRecord(tab2, 0);
         }
     }
 
@@ -94,7 +94,7 @@ public class Color extends javax.swing.JFrame
             int id = colorRec.getInt(eColor.id);
             qColpar1.select(eColpar1.up, "where", eColpar1.color_id, "=", id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab3);
+            Util.selectRecord(tab3, 0);
         }
     }
 
@@ -348,37 +348,37 @@ public class Color extends javax.swing.JFrame
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectRecord(tab1);
+        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            try {
-                if (tab1.getBorder() != null) {
-                    Record colgrpRec = qСolgrup.get(tab1.getSelectedRow());
-                    colgrpRec.set(eColgrp.up, Query.DEL);
-                    qСolgrup.delete(colgrpRec);
-                    qСolgrup.removeRec(tab1.getSelectedRow());
-                    ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 
-                } else if (tab2.getBorder() != null) {
-                    Record colorRec = qColor.get(tab2.getSelectedRow());
-                    colorRec.set(eColor.up, Query.DEL);
-                    qColor.delete(colorRec);
-                    qColor.removeRec(tab2.getSelectedRow());
-                    ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            if (tab1.getBorder() != null) {
+                Record colgrpRec = qСolgrup.get(tab1.getSelectedRow());
+                colgrpRec.set(eColgrp.up, Query.DEL);
+                qСolgrup.delete(colgrpRec);
+                qСolgrup.removeRec(tab1.getSelectedRow());
+                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab1, 0);
 
-                } else if (tab3.getBorder() != null) {
-                    Record colpar1Rec = qColpar1.get(tab3.getSelectedRow());
-                    colpar1Rec.set(eColpar1.up, Query.DEL);
-                    qColpar1.delete(colpar1Rec);
-                    qColpar1.removeRec(tab3.getSelectedRow());
-                    ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                }
-            } catch (Exception e) {
-                System.out.println(e);
+            } else if (tab2.getBorder() != null) {
+                Record colorRec = qColor.get(tab2.getSelectedRow());
+                colorRec.set(eColor.up, Query.DEL);
+                qColor.delete(colorRec);
+                qColor.removeRec(tab2.getSelectedRow());
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab2, 0);
+
+            } else if (tab3.getBorder() != null) {
+                Record colpar1Rec = qColpar1.get(tab3.getSelectedRow());
+                colpar1Rec.set(eColpar1.up, Query.DEL);
+                qColpar1.delete(colpar1Rec);
+                qColpar1.removeRec(tab3.getSelectedRow());
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab3, 0);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -393,6 +393,7 @@ public class Color extends javax.swing.JFrame
             record.setNo(eColgrp.coeff, 1);
             query.add(record);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qСolgrup, tab1);
 
         } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
@@ -437,7 +438,7 @@ public class Color extends javax.swing.JFrame
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
@@ -468,5 +469,4 @@ public class Color extends javax.swing.JFrame
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры текстур", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
-// </editor-fold> 
 }

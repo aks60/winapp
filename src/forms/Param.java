@@ -3,6 +3,7 @@ package forms;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -44,19 +45,6 @@ public class Param extends javax.swing.JFrame {
         }
 
         public void focusLost(FocusEvent e) {
-        }
-    };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
         }
     };
 
@@ -110,7 +98,6 @@ public class Param extends javax.swing.JFrame {
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         panCentr = new javax.swing.JPanel();
@@ -131,6 +118,11 @@ public class Param extends javax.swing.JFrame {
         setTitle("Параметры");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(740, 602));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -164,21 +156,6 @@ public class Param extends javax.swing.JFrame {
         btnRef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRefresh(evt);
-            }
-        });
-
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
             }
         });
 
@@ -222,10 +199,8 @@ public class Param extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 757, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 788, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -233,7 +208,6 @@ public class Param extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panNorthLayout.createSequentialGroup()
@@ -342,17 +316,9 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
         qParams.select(eParams.up);
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
+        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
-
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-        FrameAdapter.stopCellEditing(tab1, tab2);
-        Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
-    }//GEN-LAST:event_btnSave
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
@@ -366,6 +332,7 @@ public class Param extends javax.swing.JFrame {
                     qParams.delete(record);
                     qParams.removeRec(row);
                     ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+                    Util.selectRecord(tab1, 0);
                 }
             } else if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
@@ -375,6 +342,7 @@ public class Param extends javax.swing.JFrame {
                     qPardet.delete(record);
                     qPardet.removeRec(row);
                     ((DefTableModel) tab2.getModel()).fireTableDataChanged();
+                    Util.selectRecord(tab2, 0);
                 }
             }
         }
@@ -390,14 +358,10 @@ public class Param extends javax.swing.JFrame {
             paramlRec.setNo(eParams.numb, 0);
             Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                     eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramlRec.set(index, 0));
-            //System.out.println(paramlRec);
             qParams.add(paramlRec);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            listenerModify.actionRequest(null);
-            if (tab1.getRowCount() > 1) {
-                Rectangle cellRect = tab1.getCellRect(qParams.size() - 1, 0, false);
-                tab1.scrollRectToVisible(cellRect);
-            }
+            Util.scrollRectToVisible(qParams, tab1);
+            
         } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
             if (row != -1) {
@@ -412,21 +376,21 @@ public class Param extends javax.swing.JFrame {
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> pardetRec.set(index, 0));
                 qPardet.add(pardetRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                listenerModify.actionRequest(null);
-                if (tab2.getRowCount() > 1) {
-                    Rectangle cellRect = tab2.getCellRect(qPardet.size() - 1, 0, false);
-                    tab2.scrollRectToVisible(cellRect);
-                }
+                Util.scrollRectToVisible(qPardet, tab2);
             }
         }
     }//GEN-LAST:event_btnInsert
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        FrameAdapter.stopCellEditing(tab1, tab2);
+        Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
+    }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -438,9 +402,11 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
-
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
         new FrameToFile(this, btnClose);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
@@ -491,5 +457,4 @@ public class Param extends javax.swing.JFrame {
             return this;
         }
     }
-// </editor-fold> 
 }
