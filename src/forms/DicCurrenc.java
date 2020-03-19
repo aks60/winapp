@@ -275,7 +275,7 @@ public class DicCurrenc extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         Record currencRec = qCurrenc.newRecord(Query.INS);
-        currencRec.setNo(eCurrenc.id, ConnApp.instanc().generatorId(eCurrenc.up.tname()));
+        currencRec.setNo(eCurrenc.id, ConnApp.instanc().generatorId(eCurrenc.up));
         qCurrenc.add(currencRec);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.scrollRectToVisible(qCurrenc, tab1);

@@ -595,7 +595,7 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 int level = qElemgrp.getAs(row, eElemgrp.level, -999);
                 Record elemgrpRec = qElemgrp.newRecord(Query.INS);
-                elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().generatorId(eElemgrp.up.tname()));
+                elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().generatorId(eElemgrp.up));
                 elemgrpRec.setNo(eElemgrp.level, level);
                 for (int index = 0; index < qElemgrp.size(); index++) {
                     if ((int) qElemgrp.getAs(index, eElemgrp.id, -999) == -1 * level) {
@@ -611,7 +611,7 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 int elegrp_id = qElemgrp.getAs(row, eElemgrp.id, -999);
                 Record elementRec = qElement.newRecord(Query.INS);
-                elementRec.setNo(eElement.id, ConnApp.instanc().generatorId(eElement.up.tname()));
+                elementRec.setNo(eElement.id, ConnApp.instanc().generatorId(eElement.up));
                 elementRec.setNo(eElement.elemgrp_id, elegrp_id);
                 qElement.add(elementRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -622,7 +622,7 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 Record elementRec = qElement.get(row);
                 Record elemdetRec = qElemdet.newRecord(Query.INS);
-                elemdetRec.setNo(eElemdet.id, ConnApp.instanc().generatorId(eElemdet.up.tname()));
+                elemdetRec.setNo(eElemdet.id, ConnApp.instanc().generatorId(eElemdet.up));
                 elemdetRec.setNo(eElemdet.element_id, elementRec.getInt(eElement.id));
                 qElemdet.add(elemdetRec);
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -633,7 +633,7 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 Record elementRec = qElement.get(row);
                 Record elempar1Rec = qElempar1.newRecord(Query.INS);
-                elempar1Rec.setNo(eElempar1.id, ConnApp.instanc().generatorId(eElempar1.up.tname()));
+                elempar1Rec.setNo(eElempar1.id, ConnApp.instanc().generatorId(eElempar1.up));
                 elempar1Rec.setNo(eElempar1.element_id, elementRec.getInt(eElement.id));
                 qElempar1.add(elempar1Rec);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -644,7 +644,7 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 Record elemdetRec = qElemdet.get(row);
                 Record elempar2Rec = qElempar2.newRecord(Query.INS);
-                elempar2Rec.setNo(eElempar2.id, ConnApp.instanc().generatorId(eElempar2.up.tname()));
+                elempar2Rec.setNo(eElempar2.id, ConnApp.instanc().generatorId(eElempar2.up));
                 elempar2Rec.setNo(eElempar1.element_id, elemdetRec.getInt(eElement.id));
                 qElempar2.add(elempar2Rec);
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();

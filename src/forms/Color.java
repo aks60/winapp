@@ -388,7 +388,7 @@ public class Color extends javax.swing.JFrame
         if (tab1.getBorder() != null) {
             Query query = qСolgrup.table(eColgrp.up);
             Record record = query.newRecord(Query.INS);
-            int id = ConnApp.instanc().generatorId(eColgrp.up.tname());
+            int id = ConnApp.instanc().generatorId(eColgrp.up);
             record.setNo(eColgrp.id, id);
             record.setNo(eColgrp.coeff, 1);
             query.add(record);
@@ -399,7 +399,7 @@ public class Color extends javax.swing.JFrame
             int row = tab1.getSelectedRow();
             Record colgrpRec = qСolgrup.table(eColgrp.up).get(row);
             Record recorRec = qColor.newRecord(Query.INS);
-            recorRec.setNo(eColor.id, ConnApp.instanc().generatorId(eColor.up.tname()));
+            recorRec.setNo(eColor.id, ConnApp.instanc().generatorId(eColor.up));
             recorRec.setNo(eColor.colgrp_id, colgrpRec.getInt(eColgrp.id));
             qColor.add(recorRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -409,7 +409,7 @@ public class Color extends javax.swing.JFrame
             int row = tab2.getSelectedRow();
             Record colorRec = qColor.get(row);
             Record colpar1Rec = qColpar1.newRecord(Query.INS);
-            colpar1Rec.setNo(eColpar1.id, ConnApp.instanc().generatorId(eColpar1.up.tname()));
+            colpar1Rec.setNo(eColpar1.id, ConnApp.instanc().generatorId(eColpar1.up));
             colpar1Rec.setNo(eColpar1.color_id, colorRec.getInt(eColor.id));
             qColpar1.add(colpar1Rec);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();

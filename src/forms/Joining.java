@@ -556,7 +556,7 @@ public class Joining extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
          if (tab1.getBorder() != null) {
             Record record = qJoining.newRecord(Query.INS);
-            record.setNo(eColgrp.id, ConnApp.instanc().generatorId(eJoining.up.tname()));
+            record.setNo(eColgrp.id, ConnApp.instanc().generatorId(eJoining.up));
             qJoining.add(record);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qJoining, tab1);
@@ -565,7 +565,7 @@ public class Joining extends javax.swing.JFrame {
             int row = tab1.getSelectedRow();
             Record joiningRec = qJoining.get(row);
             Record joinvarRec = qJoinvar.newRecord(Query.INS);
-            joinvarRec.setNo(eJoinvar.id, ConnApp.instanc().generatorId(eJoinvar.up.tname()));
+            joinvarRec.setNo(eJoinvar.id, ConnApp.instanc().generatorId(eJoinvar.up));
             joinvarRec.setNo(eJoinvar.joining_id, joiningRec.getInt(eJoining.id));
             qJoinvar.add(joinvarRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -575,7 +575,7 @@ public class Joining extends javax.swing.JFrame {
             int row = tab2.getSelectedRow();
             Record joinvarRec = qJoinvar.get(row);
             Record joinpar1Rec = qJoinpar1.newRecord(Query.INS);
-            joinpar1Rec.setNo(eJoinpar1.id, ConnApp.instanc().generatorId(eJoinpar1.up.tname()));
+            joinpar1Rec.setNo(eJoinpar1.id, ConnApp.instanc().generatorId(eJoinpar1.up));
             joinpar1Rec.setNo(eJoinpar1.joinvar_id, joinvarRec.getInt(eJoinpar1.id));
             qJoinpar1.add(joinpar1Rec);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -585,7 +585,7 @@ public class Joining extends javax.swing.JFrame {
             int row = tab2.getSelectedRow();
             Record joinvarRec = qJoinvar.get(row);
             Record joindetRec = qJoindet.newRecord(Query.INS);
-            joindetRec.setNo(eJoindet.id, ConnApp.instanc().generatorId(eJoindet.up.tname()));
+            joindetRec.setNo(eJoindet.id, ConnApp.instanc().generatorId(eJoindet.up));
             joindetRec.setNo(eJoindet.joinvar_id, joinvarRec.getInt(eJoinvar.id));
             qJoindet.add(joindetRec);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -595,7 +595,7 @@ public class Joining extends javax.swing.JFrame {
             int row = tab2.getSelectedRow();
             Record joindetRec = qJoindet.get(row);
             Record joinpar2Rec = qJoinpar2.newRecord(Query.INS);
-            joinpar2Rec.setNo(eJoinpar2.id, ConnApp.instanc().generatorId(eJoinpar2.up.tname()));
+            joinpar2Rec.setNo(eJoinpar2.id, ConnApp.instanc().generatorId(eJoinpar2.up));
             joinpar2Rec.setNo(eJoinpar2.joindet_id, joindetRec.getInt(eJoinpar2.id));
             qJoinpar2.add(joinpar2Rec);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();

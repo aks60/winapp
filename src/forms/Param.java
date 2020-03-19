@@ -352,7 +352,7 @@ public class Param extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             Record paramlRec = qParams.newRecord(Query.INS);
-            int id = ConnApp.instanc().generatorId(eParams.up.tname());
+            int id = ConnApp.instanc().generatorId(eParams.up);
             paramlRec.setNo(eParams.id, id);
             paramlRec.setNo(eParams.grup, -1 * id);
             paramlRec.setNo(eParams.numb, 0);
@@ -368,7 +368,7 @@ public class Param extends javax.swing.JFrame {
                 Record paramRec = qParams.get(row);
                 Record pardetRec = qPardet.newRecord(Query.INS);
                 int grup = paramRec.getInt(eParams.grup);
-                int id = ConnApp.instanc().generatorId(eParams.up.tname());
+                int id = ConnApp.instanc().generatorId(eParams.up);
                 pardetRec.setNo(eParams.id, id);
                 pardetRec.setNo(eParams.grup, grup);
                 pardetRec.setNo(eParams.numb, id);

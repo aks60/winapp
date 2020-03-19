@@ -147,11 +147,11 @@ public class ConnFb extends dataset.ConnApp {
 
     //Генератор ключа ID
     @Override
-    public int generatorId(String table) {                
+    public int generatorId(Field field) {                
         try {
             int next_id = 0;
             Statement statement = connection.createStatement();
-            String sql = "SELECT GEN_ID(gen_" + table + ", 1) FROM RDB$DATABASE";
+            String sql = "SELECT GEN_ID(gen_" + field.tname() + ", 1) FROM RDB$DATABASE";
             ResultSet rs = statement.executeQuery(sql);
             /*String mySeqv = table_name + "_id_seq";
             ResultSet rs = statement.executeQuery("SELECT nextval('" + mySeqv + "')");*/

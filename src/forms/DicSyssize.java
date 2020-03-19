@@ -275,7 +275,7 @@ public class DicSyssize extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         Record currencRec = qSyssize.newRecord(Query.INS);
-        currencRec.setNo(eCurrenc.id, ConnApp.instanc().generatorId(eCurrenc.up.tname()));
+        currencRec.setNo(eCurrenc.id, ConnApp.instanc().generatorId(eCurrenc.up));
         qSyssize.add(currencRec);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.scrollRectToVisible(qSyssize, tab1);

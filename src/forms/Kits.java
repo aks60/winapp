@@ -399,7 +399,7 @@ public class Kits extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
             Record record = qKits.newRecord(Query.INS);
-            int id = ConnApp.instanc().generatorId(eKits.up.tname());
+            int id = ConnApp.instanc().generatorId(eKits.up);
             record.setNo(eKits.id, id);
             qKits.add(record);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -408,7 +408,7 @@ public class Kits extends javax.swing.JFrame {
             int row = tab1.getSelectedRow();
             Record kitsRec = qKits.get(row);
             Record kitdetRec = qKitdet.newRecord(Query.INS);
-            kitdetRec.setNo(eKitdet.id, ConnApp.instanc().generatorId(eKitdet.up.tname()));
+            kitdetRec.setNo(eKitdet.id, ConnApp.instanc().generatorId(eKitdet.up));
             kitdetRec.setNo(eKitdet.kits_id, kitsRec.getInt(eKits.id));
             qKitdet.add(kitdetRec);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -418,7 +418,7 @@ public class Kits extends javax.swing.JFrame {
             int row = tab2.getSelectedRow();
             Record kitdetRec = qKitdet.get(row);
             Record kitpar1Rec = qKitpar1.newRecord(Query.INS);
-            kitpar1Rec.setNo(eColpar1.id, ConnApp.instanc().generatorId(eColpar1.up.tname()));
+            kitpar1Rec.setNo(eColpar1.id, ConnApp.instanc().generatorId(eColpar1.up));
             kitpar1Rec.setNo(eKitpar1.kitdet_id, kitdetRec.getInt(eKitdet.id));
             qKitpar1.add(kitpar1Rec);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
