@@ -1,5 +1,6 @@
 package forms;
 
+import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
 import dataset.Query;
@@ -59,19 +60,6 @@ public class Furniture extends javax.swing.JFrame {
             btnDel.setEnabled(false);
         }
     };
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public Furniture() {
         initComponents();
@@ -96,11 +84,11 @@ public class Furniture extends javax.swing.JFrame {
 
     private void initDatamodel() {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
-                eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim).addFrameListener(listenerModify);
-        new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side).addFrameListener(listenerModify);
-        new DefTableModel(tab5, qFurnpar1, eFurnpar1.grup, eFurnpar1.text).addFrameListener(listenerModify);
-        new DefTableModel(tab2, qFurndet, eArtikl.code, eArtikl.code, eArtikl.name, eColor.name, eFurndet.types).addFrameListener(listenerModify);
-        new DefTableModel(tab3, qFurnpar2, eFurnpar2.grup, eFurnpar2.text).addFrameListener(listenerModify);
+                eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim);
+        new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side);
+        new DefTableModel(tab5, qFurnpar1, eFurnpar1.grup, eFurnpar1.text);
+        new DefTableModel(tab2, qFurndet, eArtikl.code, eArtikl.code, eArtikl.name, eColor.name, eFurndet.types);
+        new DefTableModel(tab3, qFurnpar2, eFurnpar2.grup, eFurnpar2.text);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -162,7 +150,6 @@ public class Furniture extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         rdb1 = new javax.swing.JRadioButton();
         rdb2 = new javax.swing.JRadioButton();
         rdb3 = new javax.swing.JRadioButton();
@@ -258,21 +245,6 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
-            }
-        });
-
         grour1.add(rdb1);
         rdb1.setSelected(true);
         rdb1.setText("Основная");
@@ -302,10 +274,8 @@ public class Furniture extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addGap(109, 109, 109)
                 .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,7 +290,6 @@ public class Furniture extends javax.swing.JFrame {
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panNorthLayout.createSequentialGroup()
@@ -515,10 +484,6 @@ public class Furniture extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnRefresh
 
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
-    }//GEN-LAST:event_btnSave
-
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
     }//GEN-LAST:event_btnDelete
@@ -537,7 +502,6 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnSave;
     private javax.swing.ButtonGroup grour1;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -561,10 +525,13 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -601,5 +568,4 @@ public class Furniture extends javax.swing.JFrame {
         tab4.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
     }
-// </editor-fold> 
 }
