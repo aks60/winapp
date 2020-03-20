@@ -101,6 +101,7 @@ public class Glass extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qGlasgrp.table(eGlasgrp.up).get(row);
@@ -124,6 +125,7 @@ public class Glass extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4);
         int row = tab2.getSelectedRow();
         if (row != -1) {
             Record record = qGlasdet.table(eGlasdet.up).get(row);
@@ -482,6 +484,9 @@ public class Glass extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));           
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Группы заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
