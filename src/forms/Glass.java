@@ -438,9 +438,11 @@ public class Glass extends javax.swing.JFrame {
         } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
             if (row != -1) {
+                Record glasgrpRec = qGlasgrp.get(row);
                 Record glasdetRec = qGlasdet.newRecord(Query.INS);
                 Record artiklRec = eArtikl.up.newRecord(Query.SEL);
-                glasdetRec.setNo(eGlasgrp.id, ConnApp.instanc().genId(eGlasgrp.up));
+                glasdetRec.setNo(eGlasdet.id, ConnApp.instanc().genId(eGlasdet.up));
+                glasdetRec.setNo(eGlasdet.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
                 qGlasdet.add(glasdetRec);
                 qGlasdet.table(eArtikl.up).add(artiklRec);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -478,10 +480,13 @@ public class Glass extends javax.swing.JFrame {
     private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold>
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));        
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Группы заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -511,6 +516,5 @@ public class Glass extends javax.swing.JFrame {
         tab3.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-    }
-// </editor-fold> 
+    } 
 }
