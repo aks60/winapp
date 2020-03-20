@@ -520,21 +520,29 @@ public class Furniture extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-            if (tab3.getBorder() != null) {
-                Record urnpar2Rec = qFurnpar2.get(tab3.getSelectedRow());
+            if (tab2.getBorder() != null) {
+                Record furndetRec = qFurndet.get(tab2.getSelectedRow());
+                furndetRec.set(eFurndet.up, Query.DEL);
+                qFurndet.delete(furndetRec);
+                qFurndet.removeRec(tab2.getSelectedRow());
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab2, 0);
+
+            } else if (tab3.getBorder() != null) {
+                Record urnpar2Rec = qFurndet.get(tab3.getSelectedRow());
                 urnpar2Rec.set(eFurnpar2.up, Query.DEL);
-                qFurnpar2.delete(urnpar2Rec);
-                qFurnpar2.removeRec(tab3.getSelectedRow());
+                qFurndet.delete(urnpar2Rec);
+                qFurndet.removeRec(tab3.getSelectedRow());
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.selectRecord(tab3, 0);
-                
-            } else if (tab5.getBorder() != null) {
-                Record urnpar2Rec = qFurnside2.get(tab5.getSelectedRow());
-                urnpar2Rec.set(eFurnside2.up, Query.DEL);
-                qFurnside2.delete(urnpar2Rec);
-                qFurnside2.removeRec(tab5.getSelectedRow());
-                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab5, 0);
+
+            } else if (tab6.getBorder() != null) {
+                Record furnside2Rec = qFurnside2.get(tab6.getSelectedRow());
+                furnside2Rec.set(eFurnside2.up, Query.DEL);
+                qFurnside2.delete(furnside2Rec);
+                qFurnside2.removeRec(tab6.getSelectedRow());
+                ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab6, 0);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -609,7 +617,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
-        Arrays.asList(qFurniture, qFurnside1, qFurnpar1, qFurnside1, qFurnpar2).forEach(q -> q.execsql());
+        Arrays.asList(qFurniture, qFurndet, qFurnside1, qFurnpar1, qFurnside2, qFurnpar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
@@ -649,9 +657,9 @@ public class Furniture extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
