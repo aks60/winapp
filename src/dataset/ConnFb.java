@@ -1,6 +1,7 @@
 package dataset;
 
 import common.Util;
+import common.eProfile;
 import common.eProperty;
 import static dataset.Query.connection;
 import java.sql.Connection;
@@ -51,7 +52,7 @@ public class ConnFb extends dataset.ConnApp {
     public eExcep createConnection(String server, String port, String base, String user, char[] password) {
         try {
             if (Class.forName(driver) == null) {
-                JOptionPane.showMessageDialog(null, "Ошибка загрузки файла драйвера",
+                JOptionPane.showMessageDialog(eProfile.appframe, "Ошибка загрузки файла драйвера",
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
             String url = fbserver + "//" + server + ":" + port + "/" + base + "?characterEncoding=cp1251";
@@ -78,7 +79,7 @@ public class ConnFb extends dataset.ConnApp {
             String sql = "select a.user2 from school.uchusers a where a.user2 = '" + user + "'";
             ResultSet rs = connection.createStatement().executeQuery(sql);
             if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Есть уже такой пользователь в базе данных !", "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(eProfile.appframe, "Есть уже такой пользователь в базе данных !", "Сообщение", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 String sql1 = "create user " + user + " with password '" + password + "'";
                 connection.createStatement().executeUpdate(sql1);

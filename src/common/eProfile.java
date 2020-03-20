@@ -15,6 +15,8 @@ public enum eProfile {
     public final static String filename = "v" + String.valueOf(eProfile.profile.id) + ".properties"; //имя файла properties
     public static String role_user = "null"; //права пользователя
     
+    public static java.awt.Frame appframe = null;
+    
     public int id;
     public String config;
     public String role_name;

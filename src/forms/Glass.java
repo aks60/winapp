@@ -9,8 +9,6 @@ import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
-import domain.eElement;
-import domain.eElemgrp;
 import domain.eGlasdet;
 import domain.eGlasgrp;
 import domain.eGlaspar1;
@@ -22,6 +20,8 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -45,15 +45,18 @@ public class Glass extends javax.swing.JFrame {
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
         public void focusGained(FocusEvent e) {
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            tab1.setBorder(null);
+            tab2.setBorder(null);
+            tab3.setBorder(null);
+            tab4.setBorder(null);
+            tab5.setBorder(null);
             if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(border);
+                ((JComponent) e.getSource()).setBorder(border);
             }
         }
 
         public void focusLost(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(null);
-            }
         }
     };
 
@@ -78,9 +81,9 @@ public class Glass extends javax.swing.JFrame {
     private void initDatamodel() {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.id, eGlasdet.id);
-        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
         new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text);
         new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text);
+        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -101,6 +104,7 @@ public class Glass extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         int row = tab1.getSelectedRow();
         if (row != -1) {
             Record record = qGlasgrp.table(eGlasgrp.up).get(row);
@@ -111,19 +115,15 @@ public class Glass extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-            }
-            if (tab3.getRowCount() > 0) {
-                tab3.setRowSelectionInterval(0, 0);
-            }
-            if (tab5.getRowCount() > 0) {
-                tab5.setRowSelectionInterval(0, 0);
-            }
+            Util.selectRecord(tab2, 0);
+            Util.selectRecord(tab3, 0);
+            Util.selectRecord(tab4, 0);
+            Util.selectRecord(tab5, 0);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         int row = tab2.getSelectedRow();
         if (row != -1) {
             Record record = qGlasdet.table(eGlasdet.up).get(row);
@@ -424,7 +424,50 @@ public class Glass extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
+        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
+            if (tab1.getBorder() != null) {
+                Record glasgrpRec = qGlasgrp.get(tab1.getSelectedRow());
+                glasgrpRec.set(eGlasgrp.up, Query.DEL);
+                qGlasgrp.delete(glasgrpRec);
+                qGlasgrp.removeRec(tab1.getSelectedRow());
+                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab1, 0);
+
+            } else if (tab2.getBorder() != null) {
+                Record glasdetRec = qGlasdet.get(tab2.getSelectedRow());
+                glasdetRec.set(eGlasdet.up, Query.DEL);
+                qGlasdet.delete(glasdetRec);
+                qGlasdet.removeRec(tab2.getSelectedRow());
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab2, 0);
+
+            } else if (tab3.getBorder() != null) {
+                Record glaspar1Rec = qGlaspar1.get(tab3.getSelectedRow());
+                glaspar1Rec.set(eGlaspar1.up, Query.DEL);
+                qGlaspar1.delete(glaspar1Rec);
+                qGlaspar1.removeRec(tab3.getSelectedRow());
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab3, 0);
+
+            } else if (tab4.getBorder() != null) {
+                Record glaspar2Rec = qGlaspar2.get(tab4.getSelectedRow());
+                glaspar2Rec.set(eGlaspar2.up, Query.DEL);
+                qGlaspar2.delete(glaspar2Rec);
+                qGlaspar2.removeRec(tab4.getSelectedRow());
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab4, 0);
+
+            } else if (tab5.getBorder() != null) {
+                Record glasprofRec = qGlasprof.get(tab4.getSelectedRow());
+                glasprofRec.set(eGlasprof.up, Query.DEL);
+                qGlasprof.delete(glasprofRec);
+                qGlasprof.removeRec(tab5.getSelectedRow());
+                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+                Util.selectRecord(tab5, 0);
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
@@ -448,12 +491,47 @@ public class Glass extends javax.swing.JFrame {
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 scrollRectToVisible(qGlasdet, tab2);
             }
+        } else if (tab3.getBorder() != null) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                Record glasgrpRec = qGlasgrp.get(row);
+                Record glaspar1Rec = qGlaspar1.newRecord(Query.INS);
+                glaspar1Rec.setNo(eGlaspar1.id, ConnApp.instanc().genId(eGlaspar1.up));
+                glaspar1Rec.setNo(eGlaspar1.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
+                qGlaspar1.add(glaspar1Rec);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qGlaspar1, tab3);
+            }
+        } else if (tab4.getBorder() != null) {
+            int row = tab2.getSelectedRow();
+            if (row != -1) {
+                Record glasdetRec = qGlasdet.get(row);
+                Record glaspar2Rec = qGlaspar2.newRecord(Query.INS);
+                glaspar2Rec.setNo(eGlaspar2.id, ConnApp.instanc().genId(eGlaspar2.up));
+                glaspar2Rec.setNo(eGlaspar2.glasdet_id, glasdetRec.getInt(eGlasdet.id));
+                qGlaspar2.add(glaspar2Rec);
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qGlaspar2, tab4);
+            }
+        } else if (tab5.getBorder() != null) {
+            int row = tab1.getSelectedRow();
+            if (row != -1) {
+                Record glasgrpRec = qGlasgrp.get(row);
+                Record glasprofRec = qGlasprof.newRecord(Query.INS);
+                Record artiklRec = eArtikl.up.newRecord(Query.SEL);
+                glasprofRec.setNo(eGlasprof.id, ConnApp.instanc().genId(eGlasprof.up));
+                glasprofRec.setNo(eGlasprof.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
+                qGlasprof.add(glasprofRec);
+                qGlasprof.table(eArtikl.up).add(artiklRec);
+                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+                scrollRectToVisible(qGlasprof, tab5);
+            }
         }
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2);
-        Arrays.asList(qGlasgrp, qGlasdet, qGlasprof, qGlaspar1, qGlaspar2).forEach(q -> q.execsql());
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Arrays.asList(qGlasgrp, qGlasdet, qGlasprof, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
@@ -481,12 +559,13 @@ public class Glass extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabb1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold>
+    
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4));        
+        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Группы заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -511,10 +590,10 @@ public class Glass extends javax.swing.JFrame {
                 }
             }
         });
-        tab4.addFocusListener(listenerFocus);
         tab1.addFocusListener(listenerFocus);
-        tab3.addFocusListener(listenerFocus);
-        tab5.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
-    } 
+        tab3.addFocusListener(listenerFocus);
+        tab4.addFocusListener(listenerFocus);
+        tab5.addFocusListener(listenerFocus);
+    }
 }

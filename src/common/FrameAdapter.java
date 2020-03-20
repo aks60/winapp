@@ -36,7 +36,7 @@ public class FrameAdapter {
     public static Timer timeFrame = new Timer(600, new ActionListener() {
 
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(null, "Размеры формы сохранены в файле");
+            JOptionPane.showMessageDialog(eProfile.appframe, "Размеры формы сохранены в файле");
         }
     });
 
