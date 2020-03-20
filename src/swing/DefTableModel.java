@@ -2,6 +2,7 @@ package swing;
 
 import common.FrameListener;
 import common.Util;
+import common.eProfile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Table;
@@ -138,7 +139,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             }
         } catch (NumberFormatException e) {
             System.out.println(value + "- " + e);
-            JOptionPane.showMessageDialog(null, "Неверный формат ввода данных--", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(eProfile.appframe, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         //System.out.println(value);

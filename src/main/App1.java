@@ -1335,6 +1335,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new DicSyssize();
                         break;
                 }
+                eProfile.appframe = frame;
+                
                 frame.setName(this.name());
                 FrameToFile.setFrameSize(frame);
                 frame.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1354,6 +1356,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 eProfile.role_user = "user";
                 App1.frame = new App1();
                 App1.frame.setName(eProfile.P16.name());
+                
+                eProfile.appframe = App1.frame;
             }
             App1.frame.setLocation(0, 0);
             App1.frame.setSize(screenSize.width, App1.frame.getHeight());
