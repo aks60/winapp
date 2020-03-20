@@ -386,6 +386,7 @@ public class Profstroy {
             sql("delete from glaspar1 where not exists (select id from glasgrp a where a.gnumb = glaspar1.psss)");  //glasgrp_id
             sql("delete from glaspar2 where not exists (select id from glasdet a where a.gunic = glaspar2.psss)");  //glasdet_id
             sql("delete from furnside1 where not exists (select id from furniture a where a.funic = furnside1.funic)"); //furniture_id
+            sql("delete from furnside2 where not exists (select id from furndet a where a.fincb = furnside2.fincs)");
             sql("delete from furnpar1 where not exists (select id from furnside1 a where a.fincr = furnpar1.psss)");  //furnside_id           
             sql("delete from furndet where not exists (select id from furniture a where a.funic = furndet.funic)");  //furniture_id
             sql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
@@ -444,6 +445,7 @@ public class Profstroy {
             sql("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)");
             sql("update furnside1 set furniture_id = (select id from furniture a where a.funic = furnside1.funic)");
             sql("update furnside1 set type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
+            sql("update furnside2 set furndet_id = (select id from furndet a where a.fincb = furnside2.fincs)");            
             sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
             sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
             sql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
@@ -497,6 +499,7 @@ public class Profstroy {
             sql("alter table glaspar1 add constraint fk_glaspar1 foreign key (glasgrp_id) references glasgrp (id)");
             sql("alter table glaspar2 add constraint fk_glaspar2 foreign key (glasdet_id) references glasdet (id)");
             sql("alter table furnside1 add constraint fk_furnside1 foreign key (furniture_id) references furniture (id)");
+            sql("alter table furnside2 add constraint fk_furnside2 foreign key (furndet_id) references furndet (id)");            
             sql("alter table furnpar1 add constraint fk_furnpar1 foreign key (furnside_id) references furnside1 (id)");
             sql("alter table furndet add constraint fk_furndet1 foreign key (furniture_id) references furniture (id)");
             sql("alter table furndet add constraint fk_furndet2 foreign key (artikl_id) references artikl (id)");

@@ -201,9 +201,7 @@ public class Artikls extends javax.swing.JFrame
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            if (tab1.getRowCount() > 0) {
-                tab1.setRowSelectionInterval(0, 0);
-            }
+            Util.selectRecord(tab1, 0);
         }
     }
 
@@ -217,9 +215,7 @@ public class Artikls extends javax.swing.JFrame
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            if (tab2.getRowCount() > 0) {
-                tab2.setRowSelectionInterval(0, 0);
-            }
+            Util.selectRecord(tab2, 0);
         }
     }
 
