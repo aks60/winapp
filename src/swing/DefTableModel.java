@@ -138,7 +138,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             }
         } catch (NumberFormatException e) {
             System.out.println(value + "- " + e);
-            JOptionPane.showMessageDialog(null, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Неверный формат ввода данных--", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         //System.out.println(value);
