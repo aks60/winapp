@@ -2,83 +2,66 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
+import dataset.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import domain.eParams;
+import enums.ParamList;
 import java.awt.CardLayout;
+import java.awt.Frame;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JToggleButton;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import swing.DefTableModel;
 
-public class DicParam2 extends javax.swing.JDialog {
+public class DicPName extends javax.swing.JDialog {
 
+    private Frame parent = null;
     private FrameListener listenet;
-    private Field[] fields1;
-    private Field[] fields2;
-    private Query query1;
-    private Query query2;
+    private Query qParams = new Query(eParams.values());
+    private Field filter = null;
+    private int indexCard = 0;
 
-    public DicParam2(java.awt.Frame parent, FrameListener listenet, int index, int... part) {
+    public DicPName(Frame parent, FrameListener listenet, Field filter, int... part) {
         super(parent, true);
         initComponents();
         initElements();
-        //tab2.getTableHeader().setVisible(false);
-        scr2.setColumnHeaderView(null);
-    }
-
-    public DicParam2(java.awt.Frame parent, FrameListener listenet, Query query1, Query query2, Field[] fields1, Field[] fields2) {
-        super(parent, true);
-        initComponents();
-        initElements();
+        this.parent = parent;
         this.listenet = listenet;
-        this.query1 = query1;
-        this.query2 = query2;
-        this.fields1 = fields1;
-        this.fields2 = fields2;
-        initDatamodel(query1, query2, fields1, fields2);
+        this.filter = filter;
+        initData();
+        initModel(part);
     }
 
-    private void initDatamodel(Query query1, Query query2, Field[] fields1, Field[] fields2) {
-
-        Vector<Vector> dataList1 = new Vector();
-        Vector colList1 = new Vector();
-        for (Field field : fields1) {
-            colList1.add(field.meta().descr());
-        }
-        for (Record record : query1) {
-            Vector rec = new Vector();
-            for (Field field : fields1) {
-                rec.add(record.getStr(field));
-            }
-            dataList1.add(rec);
-        }
-        tab1.setModel(new DefaultTableModel(dataList1, colList1));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+    private void initData() {
+        qParams.select(eParams.up, "where", filter.name(), "= 1 order by", eParams.text);
     }
 
-    private void selectioTab1(ListSelectionEvent event) {
+    private void initModel(int... part) {
+        DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
+        dm.getDataVector().clear();
+        List<List> recordList = new Vector();
+        for (Enam el : ParamList.values()) {
+            for (int it : part) {
+                if (el.numb() >= it && el.numb() < it + 1000) {
 
-        int row = tab1.getSelectedRow();
-        if (row != -1) {
-            // Record record = query1.table(query1.fields()[0].tname()).get(row);
-            //query2 = query2.fields()[0]
-            Vector<Vector> dataList2 = new Vector();
-            Vector colList2 = new Vector();
-            for (Field field : fields2) {
-                colList2.add(field.meta().descr());
-            }
-            for (Record record : query2) {
-                Vector rec = new Vector();
-                for (Field field : fields2) {
-                    rec.add(record.getStr(field));
+                    List record = new Vector();
+                    record.add(el.numb());
+                    record.add(el.text());
+                    recordList.add(record);
                 }
-                dataList2.add(rec);
             }
-            tab2.setModel(new DefaultTableModel(dataList2, colList2));
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }
+        for (List record : recordList) {
+            dm.addRow((Vector) record);
+        }
+        tab2.setModel(new DefTableModel(tab2, qParams, eParams.grup, eParams.numb, eParams.text));
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        Util.selectRecord(tab1, 0);
+        Util.selectRecord(tab2, 0);
     }
 
     @SuppressWarnings("unchecked")
@@ -95,11 +78,11 @@ public class DicParam2 extends javax.swing.JDialog {
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
-        pan2 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        pan2 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -185,11 +168,11 @@ public class DicParam2 extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(80, 80, 80)
                 .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -235,22 +218,24 @@ public class DicParam2 extends javax.swing.JDialog {
         pan1.setPreferredSize(new java.awt.Dimension(350, 400));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(null);
-
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Name 1", "Value 1"},
-                {"Name 2", "Value 2"}
+                {"1", "2"},
+                {"1", "2"}
             },
             new String [] {
-                "numb", "Название "
+                "numb", "Название"
             }
         ));
-        tab2.setFillsViewportHeight(true);
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr2.setViewportView(tab2);
+        tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(60);
+        }
 
-        pan1.add(scr2, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
         panCentr.add(pan1, "card1");
 
@@ -258,19 +243,27 @@ public class DicParam2 extends javax.swing.JDialog {
         pan2.setPreferredSize(new java.awt.Dimension(350, 180));
         pan2.setLayout(new java.awt.BorderLayout());
 
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
+        scr2.setBorder(null);
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"name1", "Value1"},
-                {"name2", "Value2"}
+                {"1", "2", "3"},
+                {"1", "2", "3"}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "grup", "num", "Название "
             }
         ));
-        tab1.setFillsViewportHeight(true);
-        scr1.setViewportView(tab1);
+        tab2.setFillsViewportHeight(true);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(60);
+        }
 
-        pan2.add(scr1, java.awt.BorderLayout.CENTER);
+        pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
         panCentr.add(pan2, "card2");
 
@@ -284,21 +277,28 @@ public class DicParam2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        listenet.actionResponse(null);
+        if (indexCard == 0) {
+            listenet.actionResponse(qParams.get(tab1.getSelectedRow()));
+        } else {
+            Record record = new Record(2);
+            record.add(tab2.getModel().getValueAt(tab2.getSelectedRow(), 0));
+            record.add(tab2.getModel().getValueAt(tab2.getSelectedRow(), 1));
+            listenet.actionResponse(record);
+        }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        // TODO add your handling code here:
+        listenet.actionResponse(null);
     }//GEN-LAST:event_btnRemoveert
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
         JToggleButton btn = (JToggleButton) evt.getSource();
         if (btn == btnCard1) {
-            //selectedIndex = 0;
+            indexCard = 0;
             ((CardLayout) panCentr.getLayout()).show(panCentr, "card1");
         } else if (btn == btnCard2) {
-            //selectedIndex = 1;
+            indexCard = 1;
             ((CardLayout) panCentr.getLayout()).show(panCentr, "card2");
         }
     }//GEN-LAST:event_btnCard
@@ -324,16 +324,9 @@ public class DicParam2 extends javax.swing.JDialog {
     private void initElements() {
 
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));        
+                "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));        
+                "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         new FrameToFile(this, btnClose);
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectioTab1(event);
-                }
-            }
-        });
     }
 }

@@ -39,21 +39,21 @@ public class DicSyssize extends javax.swing.JFrame {
     public DicSyssize() {
         initComponents();
         initElements();
-        initDatamodel();
+        initModel();
         btnChoice.setVisible(false);
     }
 
     public DicSyssize(Frame owner, FrameListener<Object, Record> listener) {
         initComponents();
         initElements();
-        initDatamodel();
+        initModel();
         this.owner = owner;
         owner.setEnabled(false);
         this.listener = listener;
         btnChoice.setVisible(true);
     }
 
-    private void initDatamodel() {
+    private void initModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.napl, eSyssize.naxl, eSyssize.zax);
     }
 

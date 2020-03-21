@@ -80,8 +80,8 @@ public class Joining extends javax.swing.JFrame {
     public Joining() {
         initComponents();
         initElements();
-        loadingQuery();
-        initDatamodel();
+        initData();
+        initModel();
     }
 
     public Joining(java.awt.Window owner, int nuni) {
@@ -90,12 +90,12 @@ public class Joining extends javax.swing.JFrame {
         listenerFrame = (FrameListener) owner;
         initComponents();
         initElements();
-        loadingQuery();
-        initDatamodel();
+        initData();
+        initModel();
         owner.setEnabled(false);
     }
 
-    private void loadingQuery() {
+    private void initData() {
         
         qParams.select(eParams.up, "where", eParams.color, "= 1 order by", eParams.text);
         qArtikls1 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id1);
@@ -111,7 +111,7 @@ public class Joining extends javax.swing.JFrame {
         }
     }
 
-    private void initDatamodel() {
+    private void initModel() {
 
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
@@ -504,7 +504,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-            DicParam2 frame = new DicParam2(this, listenerDict, 1, 1);
+            DicPName frame = new DicPName(this, listenerDict, eParams.color, 1000);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
 //        loadingQuery();

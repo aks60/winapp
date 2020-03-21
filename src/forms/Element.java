@@ -77,7 +77,7 @@ public class Element extends javax.swing.JFrame
     public Element() {
         initComponents();
         initElements();
-        initDatamodel();
+        initModel();
         loadingTab1();
     }
 
@@ -91,11 +91,11 @@ public class Element extends javax.swing.JFrame
         Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";
-        initDatamodel();
+        initModel();
         loadingTab1();
     }
 
-    private void initDatamodel() {
+    private void initModel() {
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);

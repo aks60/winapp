@@ -91,7 +91,7 @@ public class Query extends Table {
             sql = sql.replace("' ", "'");
             sql = sql.replace(" '", "'");
         }
-        //System.out.println("SQL-SELECT: " + sql);
+        System.out.println("SQL-SELECT: " + sql);
         try {
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet recordset = statement.executeQuery(sql);

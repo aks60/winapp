@@ -24,11 +24,11 @@ public class DicParam extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         this.listener = listener;
-        initDatamodel(query, fields);
+        initModel(query, fields);
         new FrameToFile(this, btnClose);
     }
 
-    private void initDatamodel(Query query, Field... fields) {
+    private void initModel(Query query, Field... fields) {
 
         Vector<Vector> dataList = new Vector();
         Vector colList = new Vector();

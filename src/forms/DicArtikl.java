@@ -20,12 +20,12 @@ public class DicArtikl extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         this.listener = listenet;
-        initDatamodel();
+        initModel();
         loadTab2(level);
         new FrameToFile(this, btnClose);
     }
 
-    private void initDatamodel() {
+    private void initModel() {
 
         new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
             public Object actionPreview(Field field, int row, Object val) {

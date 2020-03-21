@@ -71,11 +71,11 @@ public class Artikls extends javax.swing.JFrame
     public Artikls() {
         initComponents();
         initElements();
-        initDatamodel();
+        initModel();
         loadingTree();
     }
 
-    private void initDatamodel() {
+    private void initModel() {
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {

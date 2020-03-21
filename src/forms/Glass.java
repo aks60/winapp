@@ -63,8 +63,8 @@ public class Glass extends javax.swing.JFrame {
     public Glass() {
         initComponents();
         initElements();
-        loadingQuery();
-        initDatamodel();
+        initData();
+        initModel();
     }
 
     public Glass(java.awt.Window owner, int nuni) {
@@ -74,11 +74,11 @@ public class Glass extends javax.swing.JFrame {
         this.owner = owner;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
-        loadingQuery();
-        initDatamodel();
+        initData();
+        initModel();
     }
 
-    private void initDatamodel() {
+    private void initModel() {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.id, eGlasdet.id);
         new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text);
@@ -89,7 +89,7 @@ public class Glass extends javax.swing.JFrame {
         }
     }
 
-    private void loadingQuery() {
+    private void initData() {
         if (owner == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
@@ -418,7 +418,7 @@ public class Glass extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        loadingQuery();
+        initData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh

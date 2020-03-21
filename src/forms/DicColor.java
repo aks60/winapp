@@ -41,10 +41,10 @@ public class DicColor extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listenet;
-        initDatamodel();
+        initModel();
     }
 
-    private void initDatamodel() {
+    private void initModel() {
         new DefTableModel(tab1, qColgrp, eColgrp.name);
         new DefTableModel(tab2, qColor, eColor.name);
         tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());
