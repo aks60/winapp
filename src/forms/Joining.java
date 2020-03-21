@@ -504,7 +504,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-            DicPName frame = new DicPName(this, listenerDict, eParams.color, 1000);
+            DicParam1 frame = new DicParam1(this, listenerDict, eParams.color, 1000);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
 //        loadingQuery();

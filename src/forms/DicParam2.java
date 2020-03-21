@@ -16,11 +16,11 @@ import javax.swing.Icon;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class DicParam extends javax.swing.JDialog {
+public class DicParam2 extends javax.swing.JDialog {
 
      private FrameListener listener;
     
-    public DicParam(java.awt.Frame parent, FrameListener listener, Query query, Field... fields) {
+    public DicParam2(java.awt.Frame parent, FrameListener listener, Query query, Field... fields) {
         super(parent, true);
         initComponents();
         this.listener = listener;
