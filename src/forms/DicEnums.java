@@ -16,11 +16,11 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
         super(parent, true);
         initComponents();
         this.listenet = listenet;
-        load(part);
+        loading(part);
         new FrameToFile(this, btnClose);
     }
 
-    public void load(int... part) {
+    public void loading(int... part) {
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
         List<List> list = new Vector();
@@ -54,7 +54,7 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 500));
+        setTitle("Параметры системы");
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));

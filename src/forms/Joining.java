@@ -17,6 +17,7 @@ import domain.eJoining;
 import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eJoinvar;
+import domain.eParams;
 import domain.eSysprof;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
@@ -38,6 +39,7 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoining = new Query(eJoining.values());
     private Query qArtikls1 = null;
     private Query qArtikls2 = null;
+    private Query qParams = new Query(eParams.values());
     private Query qJoinvar = new Query(eJoinvar.values());
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());
@@ -95,6 +97,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void loadingQuery() {
         
+        qParams.select(eParams.up, "where", eParams.color, "= 1 order by", eParams.text);
         qArtikls1 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id1);
         qArtikls2 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id2);
         
@@ -405,7 +408,7 @@ public class Joining extends javax.swing.JFrame {
         jPanel2.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr3.setPreferredSize(new java.awt.Dimension(200, 234));
+        scr3.setPreferredSize(new java.awt.Dimension(240, 234));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -450,7 +453,7 @@ public class Joining extends javax.swing.JFrame {
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
 
         scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr5.setPreferredSize(new java.awt.Dimension(200, 234));
+        scr5.setPreferredSize(new java.awt.Dimension(240, 234));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -501,9 +504,12 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        loadingQuery();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectRecord(tab1, 0);
+            DicParam2 frame = new DicParam2(this, listenerDict, 1, 1);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+//        loadingQuery();
+//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+//        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 //qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
