@@ -1,5 +1,7 @@
 package dataset;
 
+import java.util.List;
+
 public interface Enam {
 
     public String name();
@@ -18,7 +20,7 @@ public interface Enam {
         return null;
     }
 
-//    default Enam[] enams() {
-//        return fields();
-//    }
+    default List dict() {
+        return null;
+    }
 }

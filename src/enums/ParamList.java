@@ -3,6 +3,8 @@ package enums;
 import common.eProperty;
 import dataset.Enam;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 public class ParamList {
 
@@ -533,19 +535,31 @@ public class ParamList {
 
         public int numb = 0;
         public String text = "";
+        public InnerInterface dictionary = null;
 
         Ps3(int numb, String text) {
             this.numb = numb;
             this.text = text;
         }
 
+        @Override
         public int numb() {
             return numb;
         }
 
+        @Override
         public String text() {
             return text;
         }
+        
+        @Override
+        public List dict() {
+            if (dictionary != null) {
+                return dictionary.dict();
+            } else {
+                return null;
+            }
+        }        
     }
 
     public static enum Ps4 implements Enam {
@@ -1073,6 +1087,7 @@ public class ParamList {
 
         public int numb = 0;
         public String text = "";
+        public InnerInterface dictionary = null;
 
         Ps4(int numb, String text) {
             this.numb = numb;
@@ -1087,10 +1102,23 @@ public class ParamList {
             return text;
         }
        
-        public void test7() {
-            //
+
+        @Override
+        public List dict() {
+            if (dictionary != null) {
+                return dictionary.dict();
+            } else {
+                return null;
+            }
         }
     }
+    }
 
-    //ActionListener actionListener = event -> { };
+    interface InnerInterface {
+       public List dict();
+    }
+    
+    public InnerInterface testInterface = () -> { 
+            return Arrays.asList("Да", "Нет");
+    };
 }
