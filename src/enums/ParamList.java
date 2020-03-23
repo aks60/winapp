@@ -542,24 +542,27 @@ public class ParamList {
             this.text = text;
         }
 
-        @Override
+        Ps3(int numb, String text, InnerInterface dictionary) {
+            this.numb = numb;
+            this.text = text;
+            this.dictionary = dictionary;
+        }
+
         public int numb() {
             return numb;
         }
 
-        @Override
         public String text() {
             return text;
         }
-        
-        @Override
+
         public List dict() {
             if (dictionary != null) {
                 return dictionary.dict();
             } else {
                 return null;
             }
-        }        
+        }
     }
 
     public static enum Ps4 implements Enam {
@@ -1094,6 +1097,12 @@ public class ParamList {
             this.text = text;
         }
 
+        Ps4(int numb, String text, InnerInterface dictionary) {
+            this.numb = numb;
+            this.text = text;
+            this.dictionary = dictionary;
+        }
+
         public int numb() {
             return numb;
         }
@@ -1101,9 +1110,7 @@ public class ParamList {
         public String text() {
             return text;
         }
-       
 
-        @Override
         public List dict() {
             if (dictionary != null) {
                 return dictionary.dict();
@@ -1112,13 +1119,17 @@ public class ParamList {
             }
         }
     }
-    }
 
     interface InnerInterface {
-       public List dict();
+
+        public List dict();
     }
-    
-    public InnerInterface testInterface = () -> { 
-            return Arrays.asList("Да", "Нет");
+
+    public static InnerInterface dic1 = () -> {
+        return Arrays.asList("Да", "Нет");
+    };
+
+    public static InnerInterface dic2 = () -> {
+        return Arrays.asList("горизонтально", "вертикально");
     };
 }
