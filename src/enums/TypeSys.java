@@ -1,7 +1,6 @@
 
 package enums;
 
-import dataset.Enam;
 import dataset.Field;
 
 

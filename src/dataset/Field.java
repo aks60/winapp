@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 
 //Поле таблицы
-public interface Field extends Enam {
+public interface Field {
 
     public static String conf = "calc";
 
@@ -59,6 +59,10 @@ public interface Field extends Enam {
         return str2.toString().toUpperCase();
     }
 
+    public String name();
+
+    public int ordinal();
+
     default Record newRecord(String up) {
         Record record = new Record();
         for (Field field : fields()) {
@@ -69,6 +73,10 @@ public interface Field extends Enam {
     }
 
     public MetaField meta();
+
+    default Field[] fields() {
+        return null;
+    }
 
     public boolean equals(Object other);
 }

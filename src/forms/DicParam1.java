@@ -3,7 +3,7 @@ package forms;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
-import dataset.Enam;
+import enums.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;

@@ -1,7 +1,6 @@
 package enums;
 
 import common.eProperty;
-import dataset.Enam;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
@@ -535,7 +534,7 @@ public class ParamList {
 
         public int numb = 0;
         public String text = "";
-        public InnerInterface dictionary = null;
+        public InnerInterface dictionary = ParamList._Text;
 
         Ps3(int numb, String text) {
             this.numb = numb;
@@ -1090,7 +1089,7 @@ public class ParamList {
 
         public int numb = 0;
         public String text = "";
-        public InnerInterface dictionary = null;
+        public InnerInterface dictionary = ParamList._Text;
 
         Ps4(int numb, String text) {
             this.numb = numb;
@@ -1125,11 +1124,15 @@ public class ParamList {
         public List dict();
     }
 
-    public static InnerInterface dic1 = () -> {
+    public static InnerInterface _Text = () -> {
+        return Arrays.asList("******");
+    };
+    
+    public static InnerInterface _OkNot = () -> {
         return Arrays.asList("Да", "Нет");
     };
 
-    public static InnerInterface dic2 = () -> {
+    public static InnerInterface _HorVert = () -> {
         return Arrays.asList("горизонтально", "вертикально");
     };
 }

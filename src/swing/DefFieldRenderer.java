@@ -4,7 +4,7 @@
 package swing;
 
 import common.Util;
-import dataset.Enam;
+import enums.Enam;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;

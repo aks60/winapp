@@ -2,7 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
-import dataset.Enam;
+import enums.Enam;
 import enums.ParamList;
 import java.util.List;
 import java.util.Vector;

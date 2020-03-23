@@ -1,5 +1,6 @@
-package dataset;
+package enums;
 
+import dataset.Field;
 import java.util.List;
 
 public interface Enam {
