@@ -1135,4 +1135,8 @@ public class ParamList {
     public static InnerInterface _HorVert = () -> {
         return Arrays.asList("горизонтально", "вертикально");
     };
+    
+    public static InnerInterface _LeftRight = () -> {
+        return Arrays.asList("левый", "правый");
+    };
 }
