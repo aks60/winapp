@@ -135,7 +135,7 @@ public class Artikls extends javax.swing.JFrame
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
         btnT2C1.addActionListener(event -> {
 
-            DicColor frame = new DicColor(this, listenerDict);
+            DicColor1 frame = new DicColor1(this, listenerDict);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
@@ -143,7 +143,7 @@ public class Artikls extends javax.swing.JFrame
         tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT2C0));
         btnT2C0.addActionListener(event -> {
 
-            DicColor frame = new DicColor(this, listenerDict);
+            DicColor1 frame = new DicColor1(this, listenerDict);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });

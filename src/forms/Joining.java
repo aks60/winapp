@@ -140,7 +140,7 @@ public class Joining extends javax.swing.JFrame {
             int artikl_id = record.getInt(eJoindet.artikl_id);
             List<Record> artdetRec = eArtdet.find(artikl_id);
 
-            DicColor frame = new DicColor(this, listenerDict);
+            DicColor1 frame = new DicColor1(this, listenerDict);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });

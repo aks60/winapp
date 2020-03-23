@@ -13,7 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class DicColor extends javax.swing.JDialog {
+public class DicColor1 extends javax.swing.JDialog {
 
     private FrameListener listener;
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up);
@@ -36,7 +36,7 @@ public class DicColor extends javax.swing.JDialog {
         }
     };
 
-    public DicColor(Frame parent, FrameListener listenet) {
+    public DicColor1(Frame parent, FrameListener listenet) {
         super(parent, true);
         initComponents();
         initElements();
