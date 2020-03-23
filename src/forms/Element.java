@@ -700,7 +700,9 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_formWindowClosed
 
     private void btnFindbtnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindbtnFilter
-
+            DicParam2 frame = new DicParam2(this, listenerDict, -262143);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
     }//GEN-LAST:event_btnFindbtnFilter
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

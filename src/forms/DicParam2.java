@@ -2,48 +2,41 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
-import dataset.Field;
 import dataset.Query;
-import dataset.Record;
-import domain.eColgrp;
-import domain.eColor;
-import enums.ParamList;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.Icon;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import domain.eParams;
 
 public class DicParam2 extends javax.swing.JDialog {
 
+    private Query qParam1 = new Query(eParams.up);
+    private Query qParam2 = new Query(eParams.up);
      private FrameListener listener;
     
-    public DicParam2(java.awt.Frame parent, FrameListener listener, Query query, Field... fields) {
+    public DicParam2(java.awt.Frame parent, FrameListener listener, int grup) {
         super(parent, true);
         initComponents();
         this.listener = listener;
-        initModel(query, fields);
+        initModel(grup);
         new FrameToFile(this, btnClose);
     }
 
-    private void initModel(Query query, Field... fields) {
+    private void initModel(int grup) {
 
-        Vector<Vector> dataList = new Vector();
-        Vector colList = new Vector();
-        for (Field field : fields) {
-            colList.add(field.meta().descr());
-        }
-        for (Record record : query) {
-            Vector rec = new Vector();
-            for (Field field : fields) {
-                rec.add(record.getStr(field));
-            }
-            dataList.add(rec);
-        }
-        tab1.setModel(new DefaultTableModel(dataList, colList));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        qParam1.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "= 0", "order by", eParams.text);
+        qParam2.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);
+//        Vector<Vector> dataList = new Vector();
+//        Vector colList = new Vector();
+//        for (Field field : fields) {
+//            colList.add(field.meta().descr());
+//        }
+//        for (Record record : query) {
+//            Vector rec = new Vector();
+//            for (Field field : fields) {
+//                rec.add(record.getStr(field));
+//            }
+//            dataList.add(rec);
+//        }
+//        tab1.setModel(new DefaultTableModel(dataList, colList));
+//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
     }
 
     @SuppressWarnings("unchecked")
@@ -207,15 +200,13 @@ public class DicParam2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {
+        if (evt.getClickCount() == 2) {
             btnChoice(null);
         }
     }//GEN-LAST:event_tab1MouseClicked
 
     private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
-        if (evt.getClickCount() == 2) {
-            btnChoice(null);
-        }
+
     }//GEN-LAST:event_tab2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
