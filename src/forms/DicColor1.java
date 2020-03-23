@@ -2,6 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eColgrp;
@@ -48,9 +49,7 @@ public class DicColor1 extends javax.swing.JDialog {
         new DefTableModel(tab1, qColgrp, eColgrp.name);
         new DefTableModel(tab2, qColor, eColor.name);
         tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
+        Util.selectRecord(tab1, 0);
     }
 
     private void selectionTab1() {

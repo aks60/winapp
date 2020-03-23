@@ -102,7 +102,7 @@ public class DicParam1 extends javax.swing.JDialog {
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -226,9 +226,22 @@ public class DicParam1 extends javax.swing.JDialog {
             new String [] {
                 "numb", "Название"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -253,9 +266,22 @@ public class DicParam1 extends javax.swing.JDialog {
             new String [] {
                 "grup", "num", "Название "
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -272,18 +298,18 @@ public class DicParam1 extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (indexCard == 0) {
-            listenet.actionResponse(qParams.get(tab1.getSelectedRow()));
-        } else {
             Record record = new Record(2);
-            record.add(tab2.getModel().getValueAt(tab2.getSelectedRow(), 0));
-            record.add(tab2.getModel().getValueAt(tab2.getSelectedRow(), 1));
-            listenet.actionResponse(record);
+            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
+            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 1));
+            listenet.actionResponse(record);            
+        } else {
+            listenet.actionResponse(qParams.get(tab1.getSelectedRow()));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
@@ -302,6 +328,12 @@ public class DicParam1 extends javax.swing.JDialog {
             ((CardLayout) panCentr.getLayout()).show(panCentr, "card2");
         }
     }//GEN-LAST:event_btnCard
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tabMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCard1;

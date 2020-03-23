@@ -5,13 +5,13 @@ import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.ConnApp;
+import dataset.Enam;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColgrp;
-import domain.eColor;
-import domain.eColpar1;
 import domain.eJoindet;
 import domain.eJoining;
 import domain.eJoinpar1;
@@ -19,12 +19,12 @@ import domain.eJoinpar2;
 import domain.eJoinvar;
 import domain.eParams;
 import domain.eSysprof;
+import enums.ParamList;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -36,10 +36,10 @@ import swing.DefTableModel;
 
 public class Joining extends javax.swing.JFrame {
 
+    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text);
     private Query qJoining = new Query(eJoining.values());
     private Query qArtikls1 = null;
     private Query qArtikls2 = null;
-    private Query qParams = new Query(eParams.values());
     private Query qJoinvar = new Query(eJoinvar.values());
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());
@@ -49,7 +49,6 @@ public class Joining extends javax.swing.JFrame {
     private int nuni = -1;
     private Window owner = null;
 
-    //qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -70,10 +69,14 @@ public class Joining extends javax.swing.JFrame {
         public void focusLost(FocusEvent e) {
         }
     };
-    private FrameListener<Object, Object> listenerDict = new FrameListener() {
-
-        public void actionRequest(Object obj) {
-            System.out.println(".request()");
+    private FrameListener<Object, Record> listenerDict = new FrameListener<Object, Record>() {
+        @Override
+        public void actionResponse(Record record) {
+            if (eParams.values().length == record.size()) {
+                updatePar1(record);
+            } else {
+                updatePar1(record);
+            }
         }
     };
 
@@ -96,11 +99,10 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void initData() {
-        
-        qParams.select(eParams.up, "where", eParams.color, "= 1 order by", eParams.text);
+
         qArtikls1 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id1);
         qArtikls2 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id2);
-        
+
         if (owner == null) {
             qJoining.select(eJoining.up, "order by", eJoining.name);
         } else {
@@ -115,13 +117,39 @@ public class Joining extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
+        new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
+            @Override
+            public Object actionPreview(Field field, int row, Object val) {
+                if (Integer.valueOf(String.valueOf(val)) < 0) {
+                    if (eJoinpar1.grup == field) {
+                        Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
+                        return joinpar1Rec.getStr(eJoinpar1.text);
+                    }
+                } else {
+                    return Arrays.asList(ParamList.values()).stream().filter(el -> val.equals(el.numb())).findFirst().orElse(ParamList.values()[0]).text();
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types);
-        new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text);
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
 
         JButton btnT3C0 = new JButton("...");
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT3C0));
         btnT3C0.addActionListener(event -> {
+            int row = tab2.getSelectedRow();
+            if (row != -1) {
+                Record record = qJoinvar.get(row);
+                int joinVar = record.getInt(eJoinvar.types);
+                DicParam1 frame = new DicParam1(this, listenerDict, eParams.joint, joinVar * 1000);
+                FrameToFile.setFrameSize(frame);
+                frame.setVisible(true);
+
+            }
+        });
+        JButton btnT3C1 = new JButton("...");
+        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerDict, btnT3C1));
+        btnT3C1.addActionListener(event -> {
             int row = tab2.getSelectedRow();
             if (row != -1) {
                 Record record = qJoinvar.get(row);
@@ -202,6 +230,24 @@ public class Joining extends javax.swing.JFrame {
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.selectRecord(tab5, 0);
         }
+    }
+
+    private void updatePar1(Record record) {
+        Record joinpar1Rec = qJoinpar1.get(tab3.getSelectedRow());
+
+        if (eParams.values().length == record.size()) {
+            joinpar1Rec.set(eJoinpar1.grup, record.getInt(eJoinpar1.grup));
+            joinpar1Rec.set(eJoinpar1.numb, record.getInt(eJoinpar1.numb));
+        } else {
+            joinpar1Rec.set(eJoinpar1.grup, record.get(0));
+            joinpar1Rec.set(eJoinpar1.numb, -1);
+        }
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Util.selectRecord(tab3, 0);
+    }
+
+    private void updatePar2(Record record) {
+
     }
 
     @SuppressWarnings("unchecked")
@@ -504,14 +550,14 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-            DicParam1 frame = new DicParam1(this, listenerDict, eParams.color, 1000);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
+        DicParam1 frame = new DicParam1(this, listenerDict, eParams.color, 1000);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
 //        loadingQuery();
 //        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 //        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
-//qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2
+
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
@@ -531,7 +577,7 @@ public class Joining extends javax.swing.JFrame {
                 qJoinvar.removeRec(tab2.getSelectedRow());
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.selectRecord(tab2, 0);
-                
+
             } else if (tab3.getBorder() != null) {
                 Record joinpar1Rec = qJoinpar1.get(tab3.getSelectedRow());
                 joinpar1Rec.set(eJoinpar1.up, Query.DEL);
@@ -539,7 +585,7 @@ public class Joining extends javax.swing.JFrame {
                 qJoinpar1.removeRec(tab3.getSelectedRow());
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.selectRecord(tab3, 0);
-                
+
             } else if (tab4.getBorder() != null) {
                 Record joindetRec = qJoindet.get(tab4.getSelectedRow());
                 joindetRec.set(eJoindet.up, Query.DEL);
@@ -547,7 +593,7 @@ public class Joining extends javax.swing.JFrame {
                 qJoindet.removeRec(tab4.getSelectedRow());
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 Util.selectRecord(tab4, 0);
-                
+
             } else if (tab5.getBorder() != null) {
                 Record joinpar2Rec = qJoinpar2.get(tab5.getSelectedRow());
                 joinpar2Rec.set(eJoinpar2.up, Query.DEL);
@@ -560,7 +606,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-         if (tab1.getBorder() != null) {
+        if (tab1.getBorder() != null) {
             Record record = qJoining.newRecord(Query.INS);
             record.setNo(eColgrp.id, ConnApp.instanc().genId(eJoining.up));
             qJoining.add(record);

@@ -24,6 +24,7 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
         List<List> list = new Vector();
+        
         for (Enam el : ParamList.values()) {
             for (int it : part) {
                 if (el.numb() >= it && el.numb() < it + 1000) {
