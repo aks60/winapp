@@ -112,7 +112,7 @@ public class DefFieldEditor extends AbstractCellEditor
         editorButton.addActionListener(this);
         editorButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         editorButton.setFocusable(false);
-        editorButton.setPreferredSize(new java.awt.Dimension(20, 18));
+        editorButton.setPreferredSize(new java.awt.Dimension(24, 18));
 
         this.editorComponent = new javax.swing.JPanel();
         this.editorComponent.setBorder(null);

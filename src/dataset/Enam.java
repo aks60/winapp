@@ -18,7 +18,7 @@ public interface Enam {
         return null;
     }
 
-    default Enam[] enams() {
-        return fields();
-    }
+//    default Enam[] enams() {
+//        return fields();
+//    }
 }

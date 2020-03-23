@@ -2,6 +2,7 @@ package enums;
 
 import common.eProperty;
 import dataset.Enam;
+import java.awt.event.ActionListener;
 
 public class ParamList {
 
@@ -1085,5 +1086,11 @@ public class ParamList {
         public String text() {
             return text;
         }
+       
+        public void test7() {
+            //
+        }
     }
+
+    //ActionListener actionListener = event -> { };
 }

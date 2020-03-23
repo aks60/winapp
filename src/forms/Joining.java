@@ -69,14 +69,16 @@ public class Joining extends javax.swing.JFrame {
         public void focusLost(FocusEvent e) {
         }
     };
-    private FrameListener<Object, Record> listenerDict = new FrameListener<Object, Record>() {
+    private FrameListener<Object, Record> listenerPar1 = new FrameListener<Object, Record>() {
         @Override
         public void actionResponse(Record record) {
-            if (eParams.values().length == record.size()) {
-                updatePar1(record);
-            } else {
-                updatePar1(record);
-            }
+            updatePar1(record);
+        }
+    };
+    private FrameListener<Object, Record> listenerPar2 = new FrameListener<Object, Record>() {
+        @Override
+        public void actionResponse(Record record) {
+            updatePar2(record);
         }
     };
 
@@ -120,13 +122,13 @@ public class Joining extends javax.swing.JFrame {
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
             @Override
             public Object actionPreview(Field field, int row, Object val) {
-                if (Integer.valueOf(String.valueOf(val)) < 0) {
-                    if (eJoinpar1.grup == field) {
+                if (eJoinpar1.grup == field) {
+                    if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
                         return joinpar1Rec.getStr(eJoinpar1.text);
+                    } else {
+                        return Arrays.asList(ParamList.values()).stream().filter(el -> val.equals(el.numb())).findFirst().orElse(ParamList.values()[0]).text();
                     }
-                } else {
-                    return Arrays.asList(ParamList.values()).stream().filter(el -> val.equals(el.numb())).findFirst().orElse(ParamList.values()[0]).text();
                 }
                 return val;
             }
@@ -135,45 +137,45 @@ public class Joining extends javax.swing.JFrame {
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
 
         JButton btnT3C0 = new JButton("...");
-        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT3C0));
+        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerPar1, btnT3C0));
         btnT3C0.addActionListener(event -> {
             int row = tab2.getSelectedRow();
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                DicParam1 frame = new DicParam1(this, listenerDict, eParams.joint, joinVar * 1000);
+                DicParam1 frame = new DicParam1(this, listenerPar1, eParams.joint, joinVar * 1000);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
 
             }
         });
         JButton btnT3C1 = new JButton("...");
-        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerDict, btnT3C1));
+        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerPar1, btnT3C1));
         btnT3C1.addActionListener(event -> {
-            int row = tab2.getSelectedRow();
-            if (row != -1) {
-                Record record = qJoinvar.get(row);
-                int joinVar = record.getInt(eJoinvar.types);
-                DicEnums frame = new DicEnums(this, listenerDict, joinVar * 1000);
+            Record record = qJoinpar1.get(tab3.getSelectedRow());
+            int grup = record.getInt(eJoinpar1.grup);
+            if (grup < 0) {
+                DicParam2 frame = new DicParam2(this, listenerPar1, grup);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
-
+            } else {
+                System.out.println("forms.Joining.initModel()");
             }
         });
         JButton btnT4C2 = new JButton("...");
-        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C2));
+        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerPar1, btnT4C2));
         btnT4C2.addActionListener(event -> {
             int row = tab4.getSelectedRow();
             Record record = qJoindet.get(row);
             int artikl_id = record.getInt(eJoindet.artikl_id);
             List<Record> artdetRec = eArtdet.find(artikl_id);
 
-            DicColor1 frame = new DicColor1(this, listenerDict);
+            DicColor1 frame = new DicColor1(this, listenerPar1);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
         JButton btnT5C0 = new JButton("...");
-        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT5C0));
+        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerPar1, btnT5C0));
         btnT5C0.addActionListener(event -> {
             int row = tab4.getSelectedRow();
             if (row != -1) {
@@ -188,7 +190,7 @@ public class Joining extends javax.swing.JFrame {
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }
-                DicEnums frame = new DicEnums(this, listenerDict, level);
+                DicEnums frame = new DicEnums(this, listenerPar1, level);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             }
@@ -238,9 +240,18 @@ public class Joining extends javax.swing.JFrame {
         if (eParams.values().length == record.size()) {
             joinpar1Rec.set(eJoinpar1.grup, record.getInt(eJoinpar1.grup));
             joinpar1Rec.set(eJoinpar1.numb, record.getInt(eJoinpar1.numb));
-        } else {
+            joinpar1Rec.set(eJoinpar1.text, null);
+
+        } else if (record.size() == 2) {
             joinpar1Rec.set(eJoinpar1.grup, record.get(0));
             joinpar1Rec.set(eJoinpar1.numb, -1);
+            joinpar1Rec.set(eJoinpar1.text, null);
+
+        } else if (record.size() == 1) {
+            System.out.println(joinpar1Rec);
+            joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
+            System.out.println(joinpar1Rec);
+
         }
         FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Util.selectRecord(tab3, 0);
@@ -550,7 +561,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        DicParam1 frame = new DicParam1(this, listenerDict, eParams.color, 1000);
+        DicParam1 frame = new DicParam1(this, listenerPar1, eParams.color, 1000);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
 //        loadingQuery();
