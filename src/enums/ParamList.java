@@ -1129,7 +1129,7 @@ public class ParamList {
 
     interface InnerInterface {
 
-        public List dict();
+        public List<String> dict();
     }
 
     public static InnerInterface _Numb = () -> {

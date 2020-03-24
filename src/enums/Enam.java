@@ -21,7 +21,7 @@ public interface Enam {
         return null;
     }
 
-    default List dict() {
+    default List<String> dict() {
         return null;
     }
 }
