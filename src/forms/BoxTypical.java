@@ -43,22 +43,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         }
     };
     private Query qSysprod = new Query(eSysprod.values()).select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up);
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(border);
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(null);
-            }
-        }
-    };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -840,10 +824,26 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JFormattedTextField txtField4;
     private javax.swing.JFormattedTextField txtField5;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold>
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
+        }
+
+        public void focusLost(FocusEvent e) {
+            if (e.getSource() instanceof JTable) {
+                ((JTable) e.getSource()).setBorder(null);
+            }
+        }
+    };
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типовые конструкции", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -855,5 +855,4 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         });
         tab1.addFocusListener(listenerFocus);
     }
-// </editor-fold>
 }

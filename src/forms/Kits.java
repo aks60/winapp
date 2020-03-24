@@ -28,24 +28,6 @@ public class Kits extends javax.swing.JFrame {
     private Query qKitdet = new Query(eKitdet.values());
     private Query qKitpar1 = new Query(eKitpar1.values());
 
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3);
-            tab1.setBorder(null);
-            tab2.setBorder(null);
-            tab3.setBorder(null);
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(border);
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
-
     public Kits() {
         initComponents();
         initElements();
@@ -459,6 +441,23 @@ public class Kits extends javax.swing.JFrame {
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
         btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+                tab1.setBorder(null);
+                tab2.setBorder(null);
+                tab3.setBorder(null);
+                if (e.getSource() instanceof JTable) {
+                    ((JTable) e.getSource()).setBorder(border);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+            }
+        };
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки комплектов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

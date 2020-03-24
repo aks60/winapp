@@ -32,7 +32,7 @@ public class DefFieldEditor extends AbstractCellEditor
     private static int clickCountToStart = 2; //количество кликов для перехода в режим редактирования.
     protected RsEditorDelegate delegate; //делегат редактора
 
-    //Конструктор 1 редактора JTextField.
+    //Конструктор редактора JTextField.
     public DefFieldEditor(final JTextField textField) {
         textField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         editorComponent = textField;
@@ -49,7 +49,7 @@ public class DefFieldEditor extends AbstractCellEditor
         textField.addActionListener(delegate);
     }
 
-    //Конструктор 2 редактора JCheckBox.
+    //Конструктор редактора JCheckBox.
     public DefFieldEditor(final JCheckBox checkBox) {
         editorComponent = checkBox;
         delegate = new RsEditorDelegate() {
@@ -72,7 +72,7 @@ public class DefFieldEditor extends AbstractCellEditor
         checkBox.setRequestFocusEnabled(false);
     }
 
-    //Конструктор 3 редактора JComboBox.
+    //Конструктор редактора JComboBox.
     public DefFieldEditor(final JComboBox comboBox) {
         editorComponent = comboBox;
         comboBox.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
@@ -106,8 +106,7 @@ public class DefFieldEditor extends AbstractCellEditor
     }
 
     //Конструктор 4 редактора JButton.
-    public DefFieldEditor(FrameListener listener, JButton editorButton) {
-        listenerFrame = listener;
+    public DefFieldEditor(JButton editorButton) {
         this.editorButton = editorButton;
         editorButton.addActionListener(this);
         editorButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -135,8 +134,12 @@ public class DefFieldEditor extends AbstractCellEditor
             public Object getCellEditorValue() {
                 return editorText.getText();
             }
-        };
-
+        };        
+    }
+    //Конструктор редактора JButton.
+    public DefFieldEditor(FrameListener listener, JButton editorButton) {
+        this(editorButton);
+        listenerFrame = listener;   
     }
 
     //Устанавливает редактор ячеек. см. FrameAdapter.initTable()

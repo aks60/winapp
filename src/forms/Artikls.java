@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
@@ -15,7 +16,6 @@ import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
 import enums.TypeArtikl;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
@@ -42,31 +42,8 @@ public class Artikls extends javax.swing.JFrame
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
-    DefFieldRenderer rsvArtikl;
-
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-
-            FrameAdapter.stopCellEditing(tab1, tab2);
-            tab1.setBorder(null);
-            tab2.setBorder(null);
-            if (e.getSource() instanceof JTable) {
-                ((JComponent) e.getSource()).setBorder(border);
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
-    private FrameListener<Object, Record> listenerDict = new FrameListener<Object, Record>() {
-        @Override
-        public void actionResponse(Record record) {
-            listenerDict(record);
-        }
-    };
+    private DefFieldRenderer rsvArtikl;
+    private DialogListener listenerDic;
 
     public Artikls() {
         initComponents();
@@ -135,7 +112,7 @@ public class Artikls extends javax.swing.JFrame
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
         btnT2C1.addActionListener(event -> {
 
-            DicColor1 frame = new DicColor1(this, listenerDict);
+            DicColor1 frame = new DicColor1(this, listenerDic);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
@@ -143,7 +120,7 @@ public class Artikls extends javax.swing.JFrame
         tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT2C0));
         btnT2C0.addActionListener(event -> {
 
-            DicColor1 frame = new DicColor1(this, listenerDict);
+            DicColor1 frame = new DicColor1(this, listenerDic);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
@@ -219,24 +196,27 @@ public class Artikls extends javax.swing.JFrame
         }
     }
 
-    public void listenerDict(Record record) {
-        if (tab2.getBorder() != null) {
-            if (eColgrp.values().length == record.size()) {
-                qArtdet.set(-1 * record.getInt(eColgrp.id), tab2.getSelectedRow(), eArtdet.color_fk);
+    public void listenerDict() {
 
-            } else if (eColor.values().length == record.size()) {
-                qArtdet.set(record.getInt(eColor.id), tab2.getSelectedRow(), eArtdet.color_fk);
-            }
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        listenerDic = (record) -> {
+            if (tab2.getBorder() != null) {
+                if (eColgrp.values().length == record.size()) {
+                    qArtdet.set(-1 * record.getInt(eColgrp.id), tab2.getSelectedRow(), eArtdet.color_fk);
 
-        } else if (eCurrenc.values().length == record.size()) {
-            int row = tab1.getSelectedRow();
-            if (row != -1) {
-                Record artiklRec = qArtikl.get(row);
-                artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
+                } else if (eColor.values().length == record.size()) {
+                    qArtdet.set(record.getInt(eColor.id), tab2.getSelectedRow(), eArtdet.color_fk);
+                }
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+
+            } else if (eCurrenc.values().length == record.size()) {
+                int row = tab1.getSelectedRow();
+                if (row != -1) {
+                    Record artiklRec = qArtikl.get(row);
+                    artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
+                }
             }
-        }
-        FrameAdapter.stopCellEditing(tab1, tab2);
+            FrameAdapter.stopCellEditing(tab1, tab2);
+        };
     }
 
     @SuppressWarnings("unchecked")
@@ -803,7 +783,7 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnRefresh
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        DicSyssize frame = new DicSyssize(this, listenerDict);
+        DicSyssize frame = new DicSyssize(this, listenerDic);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }//GEN-LAST:event_btnFilter
@@ -817,7 +797,7 @@ public class Artikls extends javax.swing.JFrame
     }//GEN-LAST:event_btnClose
 
     private void btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrenc
-        DicCurrenc frame = new DicCurrenc(this, listenerDict);
+        DicCurrenc frame = new DicCurrenc(this, listenerDic);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
     }//GEN-LAST:event_btnCurrenc
@@ -866,9 +846,26 @@ public class Artikls extends javax.swing.JFrame
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+        public void focusGained(FocusEvent e) {
+
+            FrameAdapter.stopCellEditing(tab1, tab2);
+            tab1.setBorder(null);
+            tab2.setBorder(null);
+            if (e.getSource() instanceof JTable) {
+                ((JComponent) e.getSource()).setBorder(border);
+            }
+        }
+
+        public void focusLost(FocusEvent e) {
+        }
+    };
         btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));        
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

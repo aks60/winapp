@@ -1,4 +1,3 @@
-
 package forms;
 
 import common.FrameListener;
@@ -14,31 +13,6 @@ import swing.DefTableModel;
 public class Order extends javax.swing.JFrame {
 
     private Query qOrders = new Query(eOrders.values()).select(eOrders.up, "order by", eOrders.numb);
-    
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border
-                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            tmActive = (TableModel) table.getModel();
-            btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
-        }
-
-        public void focusLost(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(null);
-            btnIns.setEnabled(false);
-            btnDel.setEnabled(false);
-        }
-    };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -52,13 +26,13 @@ public class Order extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
-    
+
     public Order() {
         initComponents();
         initElements();
-        
-         new DefTableModel(tab1, qOrders, eOrders.numb, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id, 
-                 eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2).addFrameListener(listenerModify);
+
+        new DefTableModel(tab1, qOrders, eOrders.numb, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id,
+                eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2).addFrameListener(listenerModify);
     }
 
     @SuppressWarnings("unchecked")
@@ -270,13 +244,36 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border
+                    = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                JTable table = (JTable) e.getSource();
+                table.setBorder(border);
+//            tabList.add(table);
+//            tabActive = table;
+//            tmActive = (TableModel) table.getModel();
+                btnIns.setEnabled(true);
+//            if (table != treeMat) {
+//                btnDel.setEnabled(true);
+//            }
+            }
+
+            public void focusLost(FocusEvent e) {
+                JTable table = (JTable) e.getSource();
+                table.setBorder(null);
+                btnIns.setEnabled(false);
+                btnDel.setEnabled(false);
+            }
+        };
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Заказы клиентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
-// </editor-fold> 
 }

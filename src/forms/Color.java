@@ -30,24 +30,6 @@ public class Color extends javax.swing.JFrame
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values());
-
-    private FocusListener listenerFocus = new FocusListener() {
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3);
-            tab1.setBorder(null);
-            tab2.setBorder(null);
-            tab3.setBorder(null);
-            if (e.getSource() instanceof JTable) {
-                ((JComponent) e.getSource()).setBorder(border);
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
     private FrameListener<Object, Object> listenerDict = new FrameListener() {
 
         public void actionRequest(Object obj) {
@@ -442,6 +424,23 @@ public class Color extends javax.swing.JFrame
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+
+                FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+                tab1.setBorder(null);
+                tab2.setBorder(null);
+                tab3.setBorder(null);
+                if (e.getSource() instanceof JTable) {
+                    ((JComponent) e.getSource()).setBorder(border);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+            }
+        };
         btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
         btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));

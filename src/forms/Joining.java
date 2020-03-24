@@ -48,40 +48,7 @@ public class Joining extends javax.swing.JFrame {
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
-
-    DialogListener listenerArtikl, listenerArtik2, listenerArtik3;
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            tab1.setBorder(null);
-            tab2.setBorder(null);
-            tab3.setBorder(null);
-            tab4.setBorder(null);
-            tab4.setBorder(null);
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(border);
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
-    private FrameListener<Object, Record> listenerTab3 = new FrameListener<Object, Record>() {
-        @Override
-        public void actionResponse(Record record) {
-            updatePar1(record);
-        }
-    };
-    private FrameListener<Object, Record> listenerTab5 = new FrameListener<Object, Record>() {
-        @Override
-        public void actionResponse(Record record) {
-            updatePar2(record);
-        }
-    };
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerEnums;
 
     public Joining() {
         initComponents();
@@ -149,32 +116,32 @@ public class Joining extends javax.swing.JFrame {
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
 
         JButton btnT1C0 = new JButton("...");
-        tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT1C0));
+        tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT1C0));
         btnT1C0.addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
         JButton btnT3C0 = new JButton("...");
-        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT3C0));
+        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
         btnT3C0.addActionListener(event -> {
             int row = tab2.getSelectedRow();
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                DicParam1 frame = new DicParam1(this, listenerTab3, eParams.joint, joinVar * 1000);
+                DicParam1 frame = new DicParam1(this, listenerPar1, eParams.joint, joinVar * 1000);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
 
             }
         });
         JButton btnT3C1 = new JButton("...");
-        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerTab3, btnT3C1));
+        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT3C1));
         btnT3C1.addActionListener(event -> {
             Record record = qJoinpar1.get(tab3.getSelectedRow());
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
-                DicParam2 frame = new DicParam2(this, listenerTab3, grup);
+                DicParam2 frame = new DicParam2(this, listenerPar1, grup);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             } else {
@@ -182,19 +149,19 @@ public class Joining extends javax.swing.JFrame {
             }
         });
         JButton btnT4C2 = new JButton("...");
-        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT4C2));
+        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT4C2));
         btnT4C2.addActionListener(event -> {
             int row = tab4.getSelectedRow();
             Record record = qJoindet.get(row);
             int artikl_id = record.getInt(eJoindet.artikl_id);
             List<Record> artdetRec = eArtdet.find(artikl_id);
 
-            DicColor1 frame = new DicColor1(this, listenerTab3);
+            DicColor1 frame = new DicColor1(this, listenerColor);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
         JButton btnT5C0 = new JButton("...");
-        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT5C0));
+        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT5C0));
         btnT5C0.addActionListener(event -> {
             int row = tab4.getSelectedRow();
             if (row != -1) {
@@ -209,7 +176,7 @@ public class Joining extends javax.swing.JFrame {
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }
-                DicEnums frame = new DicEnums(this, listenerTab3, level);
+                DicEnums frame = new DicEnums(this, listenerEnums, level);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             }
@@ -253,38 +220,47 @@ public class Joining extends javax.swing.JFrame {
         }
     }
 
-    private void updatePar1(Record record) {
-        Record joinpar1Rec = qJoinpar1.get(tab3.getSelectedRow());
-
-        if (eParams.values().length == record.size()) {
-            joinpar1Rec.set(eJoinpar1.grup, record.getInt(eJoinpar1.grup));
-            joinpar1Rec.set(eJoinpar1.numb, record.getInt(eJoinpar1.numb));
-            joinpar1Rec.set(eJoinpar1.text, null);
-
-        } else if (record.size() == 2) {
-            joinpar1Rec.set(eJoinpar1.grup, record.get(0));
-            joinpar1Rec.set(eJoinpar1.numb, -1);
-            joinpar1Rec.set(eJoinpar1.text, null);
-
-        } else if (record.size() == 1) {
-            System.out.println(joinpar1Rec);
-            joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
-            System.out.println(joinpar1Rec);
-
-        }
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Util.selectRecord(tab3, 0);
-    }
-
-    private void updatePar2(Record record) {
-
-    }
-
     private void listenerDict() {
+
         listenerArtikl = (record) -> {
             if (tab1.getBorder() != null) {
-                System.out.println("====forms.Joining.methodName()");
+                System.out.println("====forms.Joining.listenerArtikl()");
             }
+        };
+
+        listenerPar1 = (record) -> {
+            Record joinpar1Rec = qJoinpar1.get(tab3.getSelectedRow());
+
+            if (eParams.values().length == record.size()) {
+                joinpar1Rec.set(eJoinpar1.grup, record.getInt(eJoinpar1.grup));
+                joinpar1Rec.set(eJoinpar1.numb, record.getInt(eJoinpar1.numb));
+                joinpar1Rec.set(eJoinpar1.text, null);
+
+            } else if (record.size() == 2) {
+                joinpar1Rec.set(eJoinpar1.grup, record.get(0));
+                joinpar1Rec.set(eJoinpar1.numb, -1);
+                joinpar1Rec.set(eJoinpar1.text, null);
+
+            } else if (record.size() == 1) {
+                System.out.println(joinpar1Rec);
+                joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
+                System.out.println(joinpar1Rec);
+
+            }
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.selectRecord(tab3, 0);
+        };
+
+        listenerPar1 = (record) -> {
+            System.out.println("forms.Joining.listenerPar1()");
+        };
+
+        listenerColor = (record) -> {
+            System.out.println("forms.Joining.listenerColor()");
+        };
+
+        listenerEnums = (record) -> {
+            System.out.println("forms.Joining.listenerEnums()");
         };
     }
 
@@ -752,6 +728,26 @@ public class Joining extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+
+                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                tab1.setBorder(null);
+                tab2.setBorder(null);
+                tab3.setBorder(null);
+                tab4.setBorder(null);
+                tab4.setBorder(null);
+                if (e.getSource() instanceof JTable) {
+                    ((JTable) e.getSource()).setBorder(border);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+            }
+        };
         btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));

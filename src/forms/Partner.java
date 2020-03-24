@@ -1,4 +1,3 @@
-
 package forms;
 
 import common.FrameListener;
@@ -12,35 +11,9 @@ import javax.swing.Icon;
 import javax.swing.JTable;
 import swing.DefTableModel;
 
-
 public class Partner extends javax.swing.JFrame {
 
     private Query qPartner = new Query(ePartner.values()).select(ePartner.up, "order by", ePartner.categ, ",", ePartner.name);
-    
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border
-                = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            tmActive = (TableModel) table.getModel();
-            btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
-        }
-
-        public void focusLost(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(null);
-            btnIns.setEnabled(false);
-            btnDel.setEnabled(false);
-        }
-    };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -54,13 +27,13 @@ public class Partner extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
-    
+
     public Partner() {
         initComponents();
         initElements();
-        
-        new DefTableModel(tab1, qPartner, ePartner.categ, ePartner.name, ePartner.phone, ePartner.addr, ePartner.email, 
-                ePartner.manager, ePartner.disc, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik, 
+
+        new DefTableModel(tab1, qPartner, ePartner.categ, ePartner.name, ePartner.phone, ePartner.addr, ePartner.email,
+                ePartner.manager, ePartner.disc, ePartner.bank_name, ePartner.bank_inn, ePartner.bank_rs, ePartner.bank_bik,
                 ePartner.bank_ks, ePartner.bank_kpp, ePartner.bank_ogrn).addFrameListener(listenerModify);
     }
 
@@ -264,12 +237,36 @@ public class Partner extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
+   // </editor-fold> 
     private void initElements() {
-        
+
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border
+                    = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                JTable table = (JTable) e.getSource();
+                table.setBorder(border);
+//            tabList.add(table);
+//            tabActive = table;
+//            tmActive = (TableModel) table.getModel();
+                btnIns.setEnabled(true);
+//            if (table != treeMat) {
+//                btnDel.setEnabled(true);
+//            }
+            }
+
+            public void focusLost(FocusEvent e) {
+                JTable table = (JTable) e.getSource();
+                table.setBorder(null);
+                btnIns.setEnabled(false);
+                btnDel.setEnabled(false);
+            }
+        };
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список контрагентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
-// </editor-fold> 
 }

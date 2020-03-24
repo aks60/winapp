@@ -32,22 +32,6 @@ public class Param extends javax.swing.JFrame {
             .select(eParams.up, "where", eParams.grup, "< 0", "and", eParams.numb, "= 0", "order by", eParams.text);
     private Query qPardet = new Query(eParams.values());
 
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-
-            FrameAdapter.stopCellEditing(tab1, tab2);
-            tab1.setBorder(null);
-            tab2.setBorder(null);
-            ((JComponent) e.getSource()).setBorder(border);
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
-
     public Param() {
         initComponents();
         initElements();
@@ -361,7 +345,7 @@ public class Param extends javax.swing.JFrame {
             qParams.add(paramlRec);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qParams, tab1);
-            
+
         } else if (tab2.getBorder() != null) {
             int row = tab1.getSelectedRow();
             if (row != -1) {
@@ -408,6 +392,21 @@ public class Param extends javax.swing.JFrame {
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
         btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+
+                FrameAdapter.stopCellEditing(tab1, tab2);
+                tab1.setBorder(null);
+                tab2.setBorder(null);
+                ((JComponent) e.getSource()).setBorder(border);
+            }
+
+            public void focusLost(FocusEvent e) {
+            }
+        };
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

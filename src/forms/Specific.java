@@ -25,30 +25,6 @@ public class Specific extends javax.swing.JFrame {
     private wincalc.Wincalc iwin = null;
     private FrameListener listenerFrame = null;
     private Window owner = null;
-
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            tmActive = (TableModel) table.getModel();
-            btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
-        }
-
-        public void focusLost(FocusEvent e) {
-            JTable table = (JTable) e.getSource();
-            table.setBorder(null);
-            btnIns.setEnabled(false);
-            btnDel.setEnabled(false);
-        }
-    };
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -405,13 +381,35 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-
+// </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                JTable table = (JTable) e.getSource();
+                table.setBorder(border);
+//            tabList.add(table);
+//            tabActive = table;
+//            tmActive = (TableModel) table.getModel();
+                btnIns.setEnabled(true);
+//            if (table != treeMat) {
+//                btnDel.setEnabled(true);
+//            }
+            }
+
+            public void focusLost(FocusEvent e) {
+                JTable table = (JTable) e.getSource();
+                table.setBorder(null);
+                btnIns.setEnabled(false);
+                btnDel.setEnabled(false);
+            }
+        };
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Заказы клиентов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
-// </editor-fold> 
 }

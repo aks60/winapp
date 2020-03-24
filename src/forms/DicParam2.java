@@ -1,7 +1,6 @@
 package forms;
 
-import common.FrameAdapter;
-import common.FrameListener;
+import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.Query;
@@ -13,9 +12,9 @@ public class DicParam2 extends javax.swing.JDialog {
 
     private int grup = -1;
     private Query qParam2 = new Query(eParams.up.values());
-    private FrameListener<Object, Record> listener;
+    private DialogListener listener;
 
-    public DicParam2(java.awt.Frame parent, FrameListener<Object, Record> listener, int grup) {
+    public DicParam2(java.awt.Frame parent, DialogListener listener, int grup) {
         super(parent, true);
         initComponents();
         this.grup = grup;
@@ -187,7 +186,7 @@ public class DicParam2 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record(1);
         record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
-        listener.actionResponse(record);
+        listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
@@ -198,7 +197,7 @@ public class DicParam2 extends javax.swing.JDialog {
     }//GEN-LAST:event_tab1MouseClicked
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.actionResponse(null);
+        listener.action(null);
     }//GEN-LAST:event_btnRemoveert
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

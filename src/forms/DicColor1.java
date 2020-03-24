@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
@@ -16,28 +17,11 @@ import swing.DefTableModel;
 
 public class DicColor1 extends javax.swing.JDialog {
 
-    private FrameListener listener;
+    private DialogListener listener;
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up);
     private Query qColor = new Query(eColor.values()).table(eColor.up);
 
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            ((JTable) e.getSource()).setBorder(border);
-        }
-
-        public void focusLost(FocusEvent e) {
-            ((JTable) e.getSource()).setBorder(null);
-            JTable table = (JTable) e.getSource();
-            if (table == tab2) {
-                ((JTable) e.getSource()).clearSelection();
-            }
-        }
-    };
-
-    public DicColor1(Frame parent, FrameListener listenet) {
+    public DicColor1(Frame parent, DialogListener listenet) {
         super(parent, true);
         initComponents();
         initElements();
@@ -238,12 +222,12 @@ public class DicColor1 extends javax.swing.JDialog {
         if (tab1.getBorder() != null) {
             int row = tab1.getSelectedRow();
             if (row != -1) {
-                listener.actionResponse(qColgrp.get(row));
+                listener.action(qColgrp.get(row));
             }
         } else if (tab2.getBorder() != null) {
             int row = tab2.getSelectedRow();
             if (row != -1) {
-                listener.actionResponse(qColor.get(row));
+                listener.action(qColor.get(row));
             }
         }
         this.dispose();
@@ -281,6 +265,22 @@ public class DicColor1 extends javax.swing.JDialog {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
+
+            public void focusLost(FocusEvent e) {
+                ((JTable) e.getSource()).setBorder(null);
+                JTable table = (JTable) e.getSource();
+                if (table == tab2) {
+                    ((JTable) e.getSource()).clearSelection();
+                }
+            }
+        };
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
     }

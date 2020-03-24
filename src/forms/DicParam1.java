@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
@@ -20,12 +21,12 @@ import swing.DefTableModel;
 public class DicParam1 extends javax.swing.JDialog {
 
     private Frame parent = null;
-    private FrameListener listener;
+    private DialogListener listener;
     private Query qParams = new Query(eParams.values());
     private Field filter = null;
     private int indexCard = 0;
 
-    public DicParam1(Frame parent, FrameListener listener, Field filter, int... part) {
+    public DicParam1(Frame parent, DialogListener listener, Field filter, int... part) {
         super(parent, true);
         initComponents();
         initElements();
@@ -307,15 +308,15 @@ public class DicParam1 extends javax.swing.JDialog {
             Record record = new Record(2);
             record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
             record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 1));
-            listener.actionResponse(record);
+            listener.action(record);
         } else {
-            listener.actionResponse(qParams.get(tab1.getSelectedRow()));
+            listener.action(qParams.get(tab1.getSelectedRow()));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.actionResponse(null);
+        listener.action(null);
     }//GEN-LAST:event_btnRemoveert
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard

@@ -15,7 +15,7 @@ import swing.DefTableModel;
 
 public class DicArtikl extends javax.swing.JDialog {
 
-    private DialogListener listener;
+    private DialogListener listener = null;
     private Query qArtikl = new Query(eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
 
     public DicArtikl(java.awt.Frame parent, DialogListener listenet, int... level) {

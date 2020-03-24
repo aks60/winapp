@@ -49,32 +49,7 @@ public class Element extends javax.swing.JFrame
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
-    DialogListener listenerArtikl = null;
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            tab1.setBorder(null);
-            tab2.setBorder(null);
-            tab3.setBorder(null);
-            tab4.setBorder(null);
-            tab4.setBorder(null);
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(border);
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
-    private FrameListener<Object, Record> listenerDict = new FrameListener<Object, Record>() {
-        @Override
-        public void actionResponse(Record record) {
-            System.out.println(record);
-        }
-    };
+    private DialogListener listenerArtikl, listenerEnum;
 
     public Element() {
         initComponents();
@@ -147,7 +122,7 @@ public class Element extends javax.swing.JFrame
         };
 
         JButton btnT2C1 = new JButton("...");
-        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerDict, btnT2C1));
+        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
 
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3);
@@ -156,19 +131,19 @@ public class Element extends javax.swing.JFrame
         });
 
         JButton btnT4C0 = new JButton("...");
-        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT4C0));
+        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT4C0));
         btnT4C0.addActionListener(event -> {
 
-            DicEnums frame = new DicEnums(this, listenerDict, 31000, 37000);
+            DicEnums frame = new DicEnums(this, listenerEnum, 31000, 37000);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
 
         JButton btnT5C0 = new JButton("...");
-        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerDict, btnT5C0));
+        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT5C0));
         btnT5C0.addActionListener(event -> {
 
-            DicEnums frame = new DicEnums(this, listenerDict, 33000, 34000, 38000, 39000, 40000);
+            DicEnums frame = new DicEnums(this, listenerEnum, 33000, 34000, 38000, 39000, 40000);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
@@ -248,9 +223,16 @@ public class Element extends javax.swing.JFrame
     }
 
     private void listenerDict() {
+
         listenerArtikl = (record) -> {
             if (tab1.getBorder() != null) {
-                System.out.println("====forms.Joining.methodName()");
+                System.out.println("====forms.Joining.listenerArtikl()");
+            }
+        };
+
+        listenerEnum = (record) -> {
+            if (tab1.getBorder() != null) {
+                System.out.println("====forms.Joining.listenerEnum()");
             }
         };
     }
@@ -742,6 +724,25 @@ public class Element extends javax.swing.JFrame
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                tab1.setBorder(null);
+                tab2.setBorder(null);
+                tab3.setBorder(null);
+                tab4.setBorder(null);
+                tab4.setBorder(null);
+                if (e.getSource() instanceof JTable) {
+                    ((JTable) e.getSource()).setBorder(border);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+            }
+        };
         btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));

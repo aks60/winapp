@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
 import enums.Enam;
@@ -10,9 +11,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class DicEnums extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
-    private FrameListener listenet;
+    private DialogListener listenet;
 
-    public DicEnums(java.awt.Frame parent, FrameListener listenet, int... part) {
+    public DicEnums(java.awt.Frame parent, DialogListener listenet, int... part) {
         super(parent, true);
         initComponents();
         this.listenet = listenet;
@@ -199,7 +200,7 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        listenet.actionResponse(null);
+        listenet.action(null);
         this.dispose();
     }//GEN-LAST:event_btnChoice
 

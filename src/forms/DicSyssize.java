@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
@@ -10,7 +11,6 @@ import dataset.Record;
 import domain.eCurrenc;
 import domain.eSyssize;
 import java.awt.Frame;
-import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -21,20 +21,9 @@ import swing.DefTableModel;
 
 public class DicSyssize extends javax.swing.JFrame {
 
-    private FrameListener<Object, Record> listener = null;
+    private DialogListener listener = null;
     private Window owner = null;
     private Query qSyssize = new Query(eSyssize.values()).select(eSyssize.up, "order by", eSyssize.name);
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            ((JTable) e.getSource()).setBorder(border);
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
 
     public DicSyssize() {
         initComponents();
@@ -43,7 +32,7 @@ public class DicSyssize extends javax.swing.JFrame {
         btnChoice.setVisible(false);
     }
 
-    public DicSyssize(Frame owner, FrameListener<Object, Record> listener) {
+    public DicSyssize(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
         initModel();
@@ -284,7 +273,7 @@ public class DicSyssize extends javax.swing.JFrame {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            listener.actionResponse(qSyssize.get(row));
+            listener.action(qSyssize.get(row));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
@@ -308,15 +297,26 @@ public class DicSyssize extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
+// </editor-fold>    
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
+
+            public void focusLost(FocusEvent e) {
+            }
+        };
         btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));        
+        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Системнык константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
-// </editor-fold>
 }

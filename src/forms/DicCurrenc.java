@@ -1,7 +1,7 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameAdapter;
-import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.ConnApp;
@@ -9,11 +9,9 @@ import dataset.Query;
 import dataset.Record;
 import domain.eCurrenc;
 import java.awt.Frame;
-import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,20 +19,9 @@ import swing.DefTableModel;
 
 public class DicCurrenc extends javax.swing.JFrame {
 
-    private FrameListener<Object, Record> listener = null;
+    private DialogListener listener = null;
     private Window owner = null;
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up, "order by", eCurrenc.name);
-    private FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-            ((JTable) e.getSource()).setBorder(border);
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
 
     public DicCurrenc() {
         initComponents();
@@ -43,7 +30,7 @@ public class DicCurrenc extends javax.swing.JFrame {
         btnChoice.setVisible(false);
     }
 
-    public DicCurrenc(Frame owner, FrameListener<Object, Record> listener) {
+    public DicCurrenc(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
         initModel();
@@ -291,7 +278,7 @@ public class DicCurrenc extends javax.swing.JFrame {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int row = tab1.getSelectedRow();
         if (row != -1) {
-            listener.actionResponse(qCurrenc.get(row));
+            listener.action(qCurrenc.get(row));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
@@ -308,14 +295,26 @@ public class DicCurrenc extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
+// </editor-fold>     
     private void initElements() {
+
         btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         new FrameToFile(this, btnClose);
+        FocusListener listenerFocus = new FocusListener() {
+
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                ((JTable) e.getSource()).setBorder(border);
+            }
+
+            public void focusLost(FocusEvent e) {
+            }
+        };
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Курсы валют", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
-// </editor-fold> 
 }
