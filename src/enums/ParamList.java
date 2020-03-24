@@ -11,9 +11,17 @@ public class ParamList {
         return (eProperty.versionDb.read().equals("3") == true) ? Ps3.values() : Ps4.values();
     }
 
+    public static Enam find(int numb) {
+        if (eProperty.versionDb.read().equals("3") == true) {
+            return Arrays.asList(Ps3.values()).stream().filter(en -> en.numb() == numb).findFirst().orElse(Ps3.P0000);
+        } else {
+            return Arrays.asList(Ps4.values()).stream().filter(en -> en.numb() == numb).findFirst().orElse(Ps4.P0000);
+        }
+    }
+
     public static enum Ps3 implements Enam {
         P0000(0, ""),
-        P1005(1005, "Контейнер Артикула 1 имеет тип"),
+        P1005(1005, "Контейнер Артикула 1 имеет тип", _TypeArt),
         P1006(1006, "Контейнер Артикула 2 имеет тип"),
         P1008(1008, "Эффективное заполнение изд., мм"),
         P1010(1010, "Внешнее соединение"),
@@ -567,7 +575,7 @@ public class ParamList {
     public static enum Ps4 implements Enam {
 
         P0000(0, ""),
-        P1005(1005, "Контейнер имеет тип Артикула1/Артикула2"),
+        P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", _TypeArt),
         P1008(1008, "Эффективное заполнение изд., мм"),
         P1010(1010, "Внешнее соединение"),
         P1011(1011, "Для Артикула 1 указан состав"),
@@ -1127,11 +1135,11 @@ public class ParamList {
     public static InnerInterface _Numb = () -> {
         return Arrays.asList("00000");
     };
-    
+
     public static InnerInterface _Text = () -> {
         return Arrays.asList("******");
     };
-    
+
     public static InnerInterface _OkNot = () -> {
         return Arrays.asList("Да", "Нет");
     };
@@ -1139,8 +1147,12 @@ public class ParamList {
     public static InnerInterface _HorVert = () -> {
         return Arrays.asList("горизонтально", "вертикально");
     };
-    
+
     public static InnerInterface _LeftRight = () -> {
         return Arrays.asList("левый", "правый");
+    };
+    
+    public static InnerInterface _TypeArt = () -> {
+        return Arrays.asList("коробка", "створка", "импост", "ригель/импост", "стойка", "стойка/коробка", "аркер", "грань");
     };
 }

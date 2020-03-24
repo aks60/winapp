@@ -21,11 +21,11 @@ public class DicColor1 extends javax.swing.JDialog {
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up);
     private Query qColor = new Query(eColor.values()).table(eColor.up);
 
-    public DicColor1(Frame parent, DialogListener listenet) {
+    public DicColor1(Frame parent, DialogListener listener) {
         super(parent, true);
         initComponents();
         initElements();
-        this.listener = listenet;
+        this.listener = listener;
         initModel();
     }
 

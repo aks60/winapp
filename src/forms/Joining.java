@@ -2,7 +2,6 @@ package forms;
 
 import common.DialogListener;
 import common.FrameAdapter;
-import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
 import common.eProfile;
@@ -20,6 +19,7 @@ import domain.eJoinpar2;
 import domain.eJoinvar;
 import domain.eParams;
 import domain.eSysprof;
+import enums.Enam;
 import enums.ParamList;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
@@ -99,14 +99,14 @@ public class Joining extends javax.swing.JFrame {
         };
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
-            @Override
             public Object actionPreview(Field field, int row, Object val) {
-                if (eJoinpar1.grup == field) {
+                if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
-                        return joinpar1Rec.getStr(eJoinpar1.grup) + ":" + joinpar1Rec.getStr(eJoinpar1.text);
+                        return joinpar1Rec.getStr(eJoinpar1.grup) + "-" + joinpar1Rec.getStr(eJoinpar1.text);
                     } else {
-                        return Arrays.asList(ParamList.values()).stream().filter(el -> val.equals(el.numb())).findFirst().orElse(ParamList.values()[0]).text();
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return en.numb() + "-" + en.text();
                     }
                 }
                 return val;
@@ -145,7 +145,8 @@ public class Joining extends javax.swing.JFrame {
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             } else {
-                System.out.println("forms.Joining.initModel()");
+                List list = ParamList.find(grup).dict();
+                System.out.println(list);
             }
         });
         JButton btnT4C2 = new JButton("...");
@@ -251,7 +252,7 @@ public class Joining extends javax.swing.JFrame {
             Util.selectRecord(tab3, 0);
         };
 
-        listenerPar1 = (record) -> {
+        listenerPar2 = (record) -> {
             System.out.println("forms.Joining.listenerPar1()");
         };
 

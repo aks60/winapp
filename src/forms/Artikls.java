@@ -48,6 +48,7 @@ public class Artikls extends javax.swing.JFrame
     public Artikls() {
         initComponents();
         initElements();
+        listenerDict();
         initModel();
         loadingTree();
     }
@@ -108,17 +109,17 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
 
-        JButton btnT2C1 = new JButton("...");
-        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
-        btnT2C1.addActionListener(event -> {
+        JButton btnT2C0 = new JButton("...");
+        tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT2C0));
+        btnT2C0.addActionListener(event -> {
 
             DicColor1 frame = new DicColor1(this, listenerDic);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
-        });
-        JButton btnT2C0 = new JButton("...");
-        tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT2C0));
-        btnT2C0.addActionListener(event -> {
+        });        
+        JButton btnT2C1 = new JButton("...");
+        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
+        btnT2C1.addActionListener(event -> {
 
             DicColor1 frame = new DicColor1(this, listenerDic);
             FrameToFile.setFrameSize(frame);
@@ -199,6 +200,7 @@ public class Artikls extends javax.swing.JFrame
     public void listenerDict() {
 
         listenerDic = (record) -> {
+            System.out.println("forms.Artikls.listenerDict()");
             if (tab2.getBorder() != null) {
                 if (eColgrp.values().length == record.size()) {
                     qArtdet.set(-1 * record.getInt(eColgrp.id), tab2.getSelectedRow(), eArtdet.color_fk);
