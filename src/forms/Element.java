@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
@@ -48,6 +49,7 @@ public class Element extends javax.swing.JFrame
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
+    DialogListener listenerArtikl = null;
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -77,6 +79,7 @@ public class Element extends javax.swing.JFrame
     public Element() {
         initComponents();
         initElements();
+        listenerDict();
         initModel();
         loadingTab1();
     }
@@ -91,6 +94,7 @@ public class Element extends javax.swing.JFrame
         Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";
+        listenerDict();
         initModel();
         loadingTab1();
     }
@@ -146,7 +150,7 @@ public class Element extends javax.swing.JFrame
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerDict, btnT2C1));
         btnT2C1.addActionListener(event -> {
 
-            DicArtikl frame = new DicArtikl(this, listenerDict, 1, 2, 3);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
@@ -241,6 +245,14 @@ public class Element extends javax.swing.JFrame
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.selectRecord(tab5, 0);
         }
+    }
+
+    private void listenerDict() {
+        listenerArtikl = (record) -> {
+            if (tab1.getBorder() != null) {
+                System.out.println("====forms.Joining.methodName()");
+            }
+        };
     }
 
     @SuppressWarnings("unchecked")
@@ -592,7 +604,7 @@ public class Element extends javax.swing.JFrame
                 qElement.removeRec(row);
                 ((DefTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.selectRecord(tab2, 0);
-                
+
             } else if (tab3.getBorder() != null) {
                 int row = tab3.getSelectedRow();
                 Record record = qElemdet.get(row);
@@ -601,7 +613,7 @@ public class Element extends javax.swing.JFrame
                 qElemdet.removeRec(row);
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.selectRecord(tab3, 0);
-                
+
             } else if (tab4.getBorder() != null) {
                 int row = tab4.getSelectedRow();
                 Record record = qElempar1.get(row);
@@ -610,7 +622,7 @@ public class Element extends javax.swing.JFrame
                 qElempar1.removeRec(row);
                 ((DefTableModel) tab4.getModel()).fireTableDataChanged();
                 Util.selectRecord(tab4, 0);
-                
+
             } else if (tab5.getBorder() != null) {
                 int row = tab5.getSelectedRow();
                 Record record = qElempar2.get(row);

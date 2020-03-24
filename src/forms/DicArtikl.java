@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
@@ -14,10 +15,10 @@ import swing.DefTableModel;
 
 public class DicArtikl extends javax.swing.JDialog {
 
-    private FrameListener<Object, Record> listener;
+    private DialogListener listener;
     private Query qArtikl = new Query(eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
 
-    public DicArtikl(java.awt.Frame parent, FrameListener<Object, Record> listenet, int... level) {
+    public DicArtikl(java.awt.Frame parent, DialogListener listenet, int... level) {
         super(parent, true);
         initComponents();
         this.listener = listenet;
@@ -204,7 +205,7 @@ public class DicArtikl extends javax.swing.JDialog {
         int row = tab2.getSelectedRow();
         if (row != -1) {
             Record record = qArtikl.get(row);
-            listener.actionResponse(record);            
+            listener.action(record);            
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

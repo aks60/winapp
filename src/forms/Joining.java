@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
@@ -26,7 +27,6 @@ import java.awt.event.FocusListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -45,11 +45,11 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
-    private FrameListener listenerFrame = null;
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
 
+    DialogListener listenerArtikl, listenerArtik2, listenerArtik3;
     private FocusListener listenerFocus = new FocusListener() {
 
         javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
@@ -70,13 +70,13 @@ public class Joining extends javax.swing.JFrame {
         public void focusLost(FocusEvent e) {
         }
     };
-    private FrameListener<Object, Record> listenerPar1 = new FrameListener<Object, Record>() {
+    private FrameListener<Object, Record> listenerTab3 = new FrameListener<Object, Record>() {
         @Override
         public void actionResponse(Record record) {
             updatePar1(record);
         }
     };
-    private FrameListener<Object, Record> listenerPar2 = new FrameListener<Object, Record>() {
+    private FrameListener<Object, Record> listenerTab5 = new FrameListener<Object, Record>() {
         @Override
         public void actionResponse(Record record) {
             updatePar2(record);
@@ -87,17 +87,18 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         initData();
+        listenerDict();
         initModel();
     }
 
     public Joining(java.awt.Window owner, int nuni) {
         this.owner = owner;
         this.nuni = nuni;
-        listenerFrame = (FrameListener) owner;
         initComponents();
         initElements();
         initData();
         initModel();
+        listenerDict();
         owner.setEnabled(false);
     }
 
@@ -117,7 +118,6 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void initModel() {
-
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name) {
             @Override
             public Object actionPreview(Field field, int row, Object val) {
@@ -148,26 +148,33 @@ public class Joining extends javax.swing.JFrame {
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types);
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
 
+        JButton btnT1C0 = new JButton("...");
+        tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT1C0));
+        btnT1C0.addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
         JButton btnT3C0 = new JButton("...");
-        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerPar1, btnT3C0));
+        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT3C0));
         btnT3C0.addActionListener(event -> {
             int row = tab2.getSelectedRow();
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                DicParam1 frame = new DicParam1(this, listenerPar1, eParams.joint, joinVar * 1000);
+                DicParam1 frame = new DicParam1(this, listenerTab3, eParams.joint, joinVar * 1000);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
 
             }
         });
         JButton btnT3C1 = new JButton("...");
-        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerPar1, btnT3C1));
+        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerTab3, btnT3C1));
         btnT3C1.addActionListener(event -> {
             Record record = qJoinpar1.get(tab3.getSelectedRow());
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
-                DicParam2 frame = new DicParam2(this, listenerPar1, grup);
+                DicParam2 frame = new DicParam2(this, listenerTab3, grup);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             } else {
@@ -175,19 +182,19 @@ public class Joining extends javax.swing.JFrame {
             }
         });
         JButton btnT4C2 = new JButton("...");
-        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerPar1, btnT4C2));
+        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT4C2));
         btnT4C2.addActionListener(event -> {
             int row = tab4.getSelectedRow();
             Record record = qJoindet.get(row);
             int artikl_id = record.getInt(eJoindet.artikl_id);
             List<Record> artdetRec = eArtdet.find(artikl_id);
 
-            DicColor1 frame = new DicColor1(this, listenerPar1);
+            DicColor1 frame = new DicColor1(this, listenerTab3);
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
         JButton btnT5C0 = new JButton("...");
-        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerPar1, btnT5C0));
+        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(listenerTab3, btnT5C0));
         btnT5C0.addActionListener(event -> {
             int row = tab4.getSelectedRow();
             if (row != -1) {
@@ -202,7 +209,7 @@ public class Joining extends javax.swing.JFrame {
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }
-                DicEnums frame = new DicEnums(this, listenerPar1, level);
+                DicEnums frame = new DicEnums(this, listenerTab3, level);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             }
@@ -271,6 +278,14 @@ public class Joining extends javax.swing.JFrame {
 
     private void updatePar2(Record record) {
 
+    }
+
+    private void listenerDict() {
+        listenerArtikl = (record) -> {
+            if (tab1.getBorder() != null) {
+                System.out.println("====forms.Joining.methodName()");
+            }
+        };
     }
 
     @SuppressWarnings("unchecked")
@@ -698,7 +713,7 @@ public class Joining extends javax.swing.JFrame {
         FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         if (owner != null)
-            owner.setEnabled(true);        
+            owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
