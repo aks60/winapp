@@ -324,9 +324,6 @@ public class Joining extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
         });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -702,18 +699,11 @@ public class Joining extends javax.swing.JFrame {
         Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);        
-//        System.out.println("1111111111)");
-//        setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
         JOptionPane.showMessageDialog(eProfile.appframe, "xxxxxxxx", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnReport2
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-//        System.out.println("2222222222222");
-//        setVisible(true);
-    }//GEN-LAST:event_formWindowClosing
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
