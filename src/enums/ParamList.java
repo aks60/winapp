@@ -1124,6 +1124,10 @@ public class ParamList {
         public List dict();
     }
 
+    public static InnerInterface _Numb = () -> {
+        return Arrays.asList("00000");
+    };
+    
     public static InnerInterface _Text = () -> {
         return Arrays.asList("******");
     };

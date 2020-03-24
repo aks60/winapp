@@ -184,14 +184,14 @@ public class Query extends Table {
         }
     }
 
-    public void execsql() {
+    public String execsql() {
         try {
             for (Record record : this) {
                 if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
-                    //System.out.println(record);
                     if (record.validate(fields) != null) { //проверка на корректность ввода данных
-                        JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-                        return;
+                        
+                        //JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        return record.validate(fields);
                     }
                 }
                 if (Query.INS.equals(record.getStr(0))) {
@@ -202,11 +202,12 @@ public class Query extends Table {
                     record.setNo(0, Query.SEL);
                 } else if (Query.DEL.equals(record.getStr(0))) {
                     delete(record);
-                    //entry.getValue().remove(record);
                 }
             }
+            return "";
         } catch (Exception e) {
             System.out.println(e);
+            return "";
         }
     }
 

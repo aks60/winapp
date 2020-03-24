@@ -53,11 +53,12 @@ public class Test {
     }
 
     static void frame() throws Exception {
+      
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         App1 app = new App1();
         app.setVisible(true);
-        forms.Artikls frm = new forms.Artikls();
+        forms.Joining frm = new forms.Joining();
         FrameToFile.setFrameSize(frm);
         //frm.iwin.create(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);

@@ -1,5 +1,7 @@
 package main;
 
+import common.FrameListener;
+import common.FrameProgress;
 import common.eProperty;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -26,7 +28,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
-                try { 
+                try {
                     AppRus.runRussifier();
                     String lafName = eProperty.lookandfeel.read();
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -39,7 +41,7 @@ public class Main {
                     System.err.println(e);
                 }
                 new Main();
-                //закрываю и сохраняю все изменения в базе данных
+                //закрываю и сохраняю проперти
                 Thread thread = new Thread() {
 
                     public void run() {

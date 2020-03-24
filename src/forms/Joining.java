@@ -4,8 +4,8 @@ import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
+import common.eProfile;
 import dataset.ConnApp;
-import enums.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -26,6 +26,7 @@ import java.awt.event.FocusListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -117,7 +118,18 @@ public class Joining extends javax.swing.JFrame {
 
     private void initModel() {
 
-        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name);
+        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name) {
+            @Override
+            public Object actionPreview(Field field, int row, Object val) {
+                if (eJoining.artikl_id1 == field) {
+                    return qArtikls1.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+
+                } else if (eJoining.artikl_id2 == field) {
+                    return qArtikls2.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
             @Override
@@ -125,7 +137,7 @@ public class Joining extends javax.swing.JFrame {
                 if (eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
-                        return joinpar1Rec.getStr(eJoinpar1.text);
+                        return joinpar1Rec.getStr(eJoinpar1.grup) + ":" + joinpar1Rec.getStr(eJoinpar1.text);
                     } else {
                         return Arrays.asList(ParamList.values()).stream().filter(el -> val.equals(el.numb())).findFirst().orElse(ParamList.values()[0]).text();
                     }
@@ -272,6 +284,7 @@ public class Joining extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
+        btnReport2 = new javax.swing.JButton();
         panCentr = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -304,12 +317,15 @@ public class Joining extends javax.swing.JFrame {
         ));
         scr6.setViewportView(tab6);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Соединения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
 
@@ -378,6 +394,21 @@ public class Joining extends javax.swing.JFrame {
             }
         });
 
+        btnReport2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
+        btnReport2.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnReport2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnReport2.setFocusable(false);
+        btnReport2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReport2.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnReport2.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnReport2.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnReport2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReport2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReport2(evt);
+            }
+        });
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -389,7 +420,9 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 830, Short.MAX_VALUE)
+                .addGap(110, 110, 110)
+                .addComponent(btnReport2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 695, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -401,7 +434,8 @@ public class Joining extends javax.swing.JFrame {
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReport2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -465,7 +499,7 @@ public class Joining extends javax.swing.JFrame {
         jPanel2.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr3.setPreferredSize(new java.awt.Dimension(240, 234));
+        scr3.setPreferredSize(new java.awt.Dimension(300, 234));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -510,7 +544,7 @@ public class Joining extends javax.swing.JFrame {
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
 
         scr5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr5.setPreferredSize(new java.awt.Dimension(240, 234));
+        scr5.setPreferredSize(new java.awt.Dimension(300, 234));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -561,12 +595,9 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        DicParam1 frame = new DicParam1(this, listenerPar1, eParams.color, 1000);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
-//        loadingQuery();
-//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-//        Util.selectRecord(tab1, 0);
+        initData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.selectRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -670,14 +701,28 @@ public class Joining extends javax.swing.JFrame {
         FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         if (owner != null)
-            owner.setEnabled(true);
+            owner.setEnabled(true);        
+//        System.out.println("1111111111)");
+//        setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
+        JOptionPane.showMessageDialog(eProfile.appframe, "xxxxxxxx", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnReport2
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+//        System.out.println("2222222222222");
+//        setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnReport1;
+    private javax.swing.JButton btnReport2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

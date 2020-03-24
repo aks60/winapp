@@ -7,7 +7,6 @@ import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
 import convert.Convert;
-import java.util.Locale;
 import forms.Artikls;
 import forms.BoxTypical;
 import forms.Systree;
@@ -27,6 +26,7 @@ import forms.Specific;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 /**
  * <p>
@@ -1275,7 +1275,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         App1, Convert, DicCurrenc, Color, Artikls, Joining, Element, Param,
         Glass, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
         BoxCustom, Specific, DicSyssize;
-        java.awt.Frame frame;
+        javax.swing.JFrame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
             if (frame == null) {
@@ -1335,7 +1335,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new DicSyssize();
                         break;
                 }
-                eProfile.appframe = frame;                
+                eProfile.appframe = frame;   
                 frame.setName(this.name());
                 FrameToFile.setFrameSize(frame);
                 frame.addWindowListener(new java.awt.event.WindowAdapter() {
