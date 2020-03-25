@@ -154,6 +154,9 @@ public class Joining extends javax.swing.JFrame {
                 frame.setVisible(true);
             } else {
                 List list = ParamList.find(grup).dict();
+                DicParam3 frame = new DicParam3(this, listenerPar1, list);
+                FrameToFile.setFrameSize(frame);
+                frame.setVisible(true);
                 System.out.println(list);
             }
         });
