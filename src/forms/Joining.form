@@ -92,7 +92,9 @@
                   <Component id="btnRef" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                   <Component id="btnReport2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="695" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
+                  <Component id="frm" min="-2" pref="83" max="-2" attributes="0"/>
+                  <EmptySpace pref="427" max="32767" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -100,15 +102,21 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
-                          <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
-                      </Group>
                       <Component id="btnClose" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnRef" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnReport2" alignment="1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
+                              </Group>
+                              <Component id="frm" min="-2" pref="20" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -265,6 +273,13 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReport2"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="frm">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format subtype="0" type="0"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -475,13 +490,13 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="2" rowCount="2">
-                            <Column editable="true" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.Object">
-                              <Data value="kkkkkkkkkkk"/>
-                              <Data value="hhhhhhhhh"/>
+                            <Column editable="true" title="&#x41f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;" type="java.lang.String">
+                              <Data value="11"/>
+                              <Data value="22"/>
                             </Column>
-                            <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Object">
-                              <Data value="77"/>
-                              <Data value="88"/>
+                            <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.String">
+                              <Data value="111"/>
+                              <Data value="222"/>
                             </Column>
                           </Table>
                         </Property>

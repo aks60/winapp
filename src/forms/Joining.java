@@ -5,7 +5,6 @@ import common.EditorListener;
 import common.FrameAdapter;
 import common.FrameToFile;
 import common.Util;
-import common.eProfile;
 import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
@@ -28,11 +27,16 @@ import java.awt.event.FocusListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
@@ -51,15 +55,14 @@ public class Joining extends javax.swing.JFrame {
     private Window owner = null;
     private EditorListener listenerEditor;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerEnums;
-    //private JButton btnT3C1 = new JButton("...");
 
     public Joining() {
         initComponents();
         initElements();
         initData();
-        listenerEdit();
-        listenerDict(); 
-        initModel();                
+        listenerCell();
+        listenerDict();
+        initModel();
     }
 
     public Joining(java.awt.Window owner, int nuni) {
@@ -68,8 +71,8 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         initData();
-        listenerEdit();
-        listenerDict();        
+        listenerCell();
+        listenerDict();
         initModel();
         owner.setEnabled(false);
     }
@@ -118,7 +121,7 @@ public class Joining extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types);
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);        
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
 
         JButton btnT1C0 = new JButton("...");
         tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT1C0));
@@ -187,6 +190,20 @@ public class Joining extends javax.swing.JFrame {
                 frame.setVisible(true);
             }
         });
+        JButton btnT5C1 = new JButton("...");
+        tab5.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerEditor, btnT5C1));
+        btnT5C1.addActionListener(event -> {
+            Record record = qJoinpar2.get(tab5.getSelectedRow());
+            int grup = record.getInt(eJoinpar2.grup);
+            if (grup < 0) {
+                DicParam2 frame = new DicParam2(this, listenerPar2, grup);
+                FrameToFile.setFrameSize(frame);
+                frame.setVisible(true);
+            } else {
+                List list = ParamList.find(grup).dict();
+                System.out.println(list);
+            }
+        });
         Util.selectRecord(tab1, 0);
     }
 
@@ -236,7 +253,7 @@ public class Joining extends javax.swing.JFrame {
 
         listenerPar1 = (record) -> {
             Record joinpar1Rec = qJoinpar1.get(tab3.getSelectedRow());
-            
+
             if (eParams.values().length == record.size()) {
                 joinpar1Rec.set(eJoinpar1.grup, record.getInt(eJoinpar1.grup));
                 joinpar1Rec.set(eJoinpar1.numb, record.getInt(eJoinpar1.numb));
@@ -270,14 +287,41 @@ public class Joining extends javax.swing.JFrame {
         };
     }
 
-    private void listenerEdit() {
-        
-        listenerEditor = () -> {
-            System.out.println("xxx-listenerEditor()");
+    private void listenerCell() {
+        listenerEditor = (component) -> {
+            DefFieldEditor editor = null;
+            JFormattedTextField formatText = null;
+            JComponent comp = (JComponent) component;
+            try {
+                editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
+                if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
+                    int grup = qJoinpar1.getAs(tab3.getSelectedRow(), eJoinpar1.grup, -1);
+                    if (grup < 0) {
+                        editor.getButton().setVisible(true);
+                    } else {
+                        Enam enam = ParamList.find(grup);                        
+                        if (enam.dict() != null) {
+                            editor.getButton().setVisible(true);
+                            
+                        } else {
+                            editor.getButton().setVisible(false);
+                            formatText = editor.getFormatTextField();
+                            //formatText.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("###.###.###-##")));
+                            formatText.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter()));
+                        }
+                    }
+                    System.err.println("tab3");
+                }
+                editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
+                if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
+                    System.err.println("tab5");
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
         };
-        System.out.println(listenerEditor);        
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -290,6 +334,7 @@ public class Joining extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport2 = new javax.swing.JButton();
+        frm = new javax.swing.JFormattedTextField();
         panCentr = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -411,6 +456,8 @@ public class Joining extends javax.swing.JFrame {
             }
         });
 
+        frm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -424,7 +471,9 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110)
                 .addComponent(btnReport2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 695, Short.MAX_VALUE)
+                .addGap(185, 185, 185)
+                .addComponent(frm, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -432,12 +481,16 @@ public class Joining extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panNorthLayout.createSequentialGroup()
+                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(frm, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -505,13 +558,21 @@ public class Joining extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"kkkkkkkkkkk", "77"},
-                {"hhhhhhhhh", "88"}
+                {"11", "111"},
+                {"22", "222"}
             },
             new String [] {
                 "Параметр", "Значение"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr3.setViewportView(tab3);
@@ -707,7 +768,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        JOptionPane.showMessageDialog(eProfile.appframe, "xxxxxxxx", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -715,9 +776,8 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JButton btnReport;
-    private javax.swing.JButton btnReport1;
     private javax.swing.JButton btnReport2;
+    private javax.swing.JFormattedTextField frm;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

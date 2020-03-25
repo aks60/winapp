@@ -13,9 +13,11 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import common.FrameListener;
 import common.Util;
 import dataset.Field;
+import javax.swing.JFormattedTextField;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  * Специальный редактор сложных компонентов. Конструктор передаёт объект в
@@ -28,7 +30,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
     protected JTable editorTable = null;  //таблица редактирования    
     protected JComponent editorComponent;  //компонента отображения    
     protected JButton editorButton;  //кнопка выбора из справочника    
-    protected JTextField editorText; //компонента редактирования
+    protected JFormattedTextField editorText; //компонента редактирования
     protected RsEditorDelegate delegate; //делегат редактора
 
     //Конструктор редактора JTextField.
@@ -116,7 +118,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
         this.editorComponent.setBackground(new java.awt.Color(240, 240, 240));
         this.editorComponent.setLayout(new java.awt.BorderLayout());
 
-        editorText = new javax.swing.JTextField();
+        editorText = new javax.swing.JFormattedTextField();
         editorText.setPreferredSize(new java.awt.Dimension(60, 18));
         editorText.setBorder(null);
         editorText.setBackground(new java.awt.Color(255, 255, 255));
@@ -139,6 +141,14 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
     public DefFieldEditor(EditorListener listener, JButton editorButton) {
         this(editorButton);
         this.listener = listener;
+    }
+
+    public JFormattedTextField getFormatTextField() {
+        return editorText;
+    }
+
+    public JButton getButton() {
+        return editorButton;
     }
 
     //Устанавливает редактор ячеек. см. FrameAdapter.initTable()
@@ -228,7 +238,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
             if (anEvent instanceof MouseEvent == true) {
                 boolean editable = ((MouseEvent) anEvent).getClickCount() >= 2;
                 if (editable == true && listener != null) {
-                    listener.action();
+                    listener.action(editorComponent);
                 }
                 return editable;
             }
