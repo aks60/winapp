@@ -24,8 +24,8 @@ import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
-public class Color extends javax.swing.JFrame
-        implements FrameListener<DefTableModel, Object> {
+public class Color extends javax.swing.JFrame {
+        //implements FrameListener<DefTableModel, Object> {
 
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
     private Query qColor = new Query(eColor.values());
@@ -51,7 +51,7 @@ public class Color extends javax.swing.JFrame
 
         JButton btnT3C0 = new JButton("...");
         btnT3C0.addActionListener(event -> listenerDict(event));
-        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT3C0));
+        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
         Util.selectRecord(tab1, 0);
 
     }

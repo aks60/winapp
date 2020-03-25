@@ -1,6 +1,7 @@
 package forms;
 
 import common.DialogListener;
+import common.EditorListener;
 import common.FrameAdapter;
 import common.FrameToFile;
 import common.Util;
@@ -48,14 +49,17 @@ public class Joining extends javax.swing.JFrame {
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
+    private EditorListener listenerEditor;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerEnums;
+    //private JButton btnT3C1 = new JButton("...");
 
     public Joining() {
         initComponents();
         initElements();
         initData();
-        listenerDict();
-        initModel();
+        listenerEdit();
+        listenerDict(); 
+        initModel();                
     }
 
     public Joining(java.awt.Window owner, int nuni) {
@@ -64,8 +68,9 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         initData();
+        listenerEdit();
+        listenerDict();        
         initModel();
-        listenerDict();
         owner.setEnabled(false);
     }
 
@@ -113,7 +118,7 @@ public class Joining extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types);
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);        
 
         JButton btnT1C0 = new JButton("...");
         tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT1C0));
@@ -136,7 +141,7 @@ public class Joining extends javax.swing.JFrame {
             }
         });
         JButton btnT3C1 = new JButton("...");
-        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT3C1));
+        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerEditor, btnT3C1));
         btnT3C1.addActionListener(event -> {
             Record record = qJoinpar1.get(tab3.getSelectedRow());
             int grup = record.getInt(eJoinpar1.grup);
@@ -231,7 +236,7 @@ public class Joining extends javax.swing.JFrame {
 
         listenerPar1 = (record) -> {
             Record joinpar1Rec = qJoinpar1.get(tab3.getSelectedRow());
-
+            
             if (eParams.values().length == record.size()) {
                 joinpar1Rec.set(eJoinpar1.grup, record.getInt(eJoinpar1.grup));
                 joinpar1Rec.set(eJoinpar1.numb, record.getInt(eJoinpar1.numb));
@@ -265,6 +270,14 @@ public class Joining extends javax.swing.JFrame {
         };
     }
 
+    private void listenerEdit() {
+        
+        listenerEditor = () -> {
+            System.out.println("xxx-listenerEditor()");
+        };
+        System.out.println(listenerEditor);        
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

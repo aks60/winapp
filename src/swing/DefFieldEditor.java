@@ -1,5 +1,6 @@
 package swing;
 
+import common.EditorListener;
 import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.table.*;
@@ -21,15 +22,13 @@ import dataset.Field;
  * FrameListener. После чего передаётся событие клика на кнопке в FrameListener
  * (listenerFrame.request(rsm)).
  */
-public class DefFieldEditor extends AbstractCellEditor
-        implements TableCellEditor, ActionListener {
+public class DefFieldEditor extends AbstractCellEditor implements TableCellEditor {
 
-    protected FrameListener listenerFrame = null;
+    protected EditorListener listener = null;
     protected JTable editorTable = null;  //таблица редактирования    
     protected JComponent editorComponent;  //компонента отображения    
     protected JButton editorButton;  //кнопка выбора из справочника    
     protected JTextField editorText; //компонента редактирования
-    private static int clickCountToStart = 2; //количество кликов для перехода в режим редактирования.
     protected RsEditorDelegate delegate; //делегат редактора
 
     //Конструктор редактора JTextField.
@@ -108,7 +107,6 @@ public class DefFieldEditor extends AbstractCellEditor
     //Конструктор 4 редактора JButton.
     public DefFieldEditor(JButton editorButton) {
         this.editorButton = editorButton;
-        editorButton.addActionListener(this);
         editorButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         editorButton.setFocusable(false);
         editorButton.setPreferredSize(new java.awt.Dimension(24, 18));
@@ -134,16 +132,17 @@ public class DefFieldEditor extends AbstractCellEditor
             public Object getCellEditorValue() {
                 return editorText.getText();
             }
-        };        
+        };
     }
+
     //Конструктор редактора JButton.
-    public DefFieldEditor(FrameListener listener, JButton editorButton) {
+    public DefFieldEditor(EditorListener listener, JButton editorButton) {
         this(editorButton);
-        listenerFrame = listener;   
+        this.listener = listener;
     }
 
     //Устанавливает редактор ячеек. см. FrameAdapter.initTable()
-    public static void initCellEditor(FrameListener listener, JTable table) {
+    public static void initCellEditor(EditorListener listener, JTable table) {
 
         DefTableModel model = (DefTableModel) table.getModel();
         TableColumnModel columnModel = table.getColumnModel();
@@ -167,11 +166,6 @@ public class DefFieldEditor extends AbstractCellEditor
         }
     }
 
-    // Определение количество кликов чтобы начать редактировать ячейку.
-    public static void setClickCountToStart(int count) {
-        clickCountToStart = count;
-    }
-
     //Получить результат редактирования.
     public Object getCellEditorValue() {
         return delegate.getCellEditorValue();
@@ -180,19 +174,6 @@ public class DefFieldEditor extends AbstractCellEditor
     //Признак редактирования.
     public boolean isCellEditable(EventObject anEvent) {
         return delegate.isCellEditable(anEvent);
-    }
-
-    //Передаёт в фрейм событие клика на ячейке с кнопкой.
-    public void actionPerformed(ActionEvent e) {
-        if (listenerFrame == null) {
-            return;
-        }
-        if (editorTable.getModel() instanceof TableModel) {
-            TableModel rsm = (TableModel) editorTable.getModel();
-            listenerFrame.actionRequest(rsm);
-        } else {
-            listenerFrame.actionRequest(null);
-        }
     }
 
     //Выбор ячейки при редактировании.
@@ -232,75 +213,50 @@ public class DefFieldEditor extends AbstractCellEditor
 
         protected Object value;
 
-        /**
-         * Возвращает текущее значение в редакторе.
-         */
+        //Возвращает текущее значение в редакторе.
         public Object getCellEditorValue() {
             return value;
         }
 
-        /**
-         * Устанавливаем значение в value.
-         */
+        //Устанавливаем значение в value.
         public void setValue(Object value) {
             this.value = value;
         }
 
-        /**
-         * Признак редактирования.
-         */
+        //Признак редактирования.
         public boolean isCellEditable(EventObject anEvent) {
             if (anEvent instanceof MouseEvent == true) {
-                boolean editable = ((MouseEvent) anEvent).getClickCount() >= clickCountToStart;
-//                if (editable == true) {
-//                    clickCountToStart = 1;
-//                    startCellEditing(null);
-//                }
+                boolean editable = ((MouseEvent) anEvent).getClickCount() >= 2;
+                if (editable == true && listener != null) {
+                    listener.action();
+                }
                 return editable;
             }
             return true;
         }
 
-        /**
-         * Выбор ячейки при редактировании.
-         */
+        //Выбор ячейки при редактировании.
         public boolean shouldSelectCell(EventObject anEvent) {
             return true;
         }
 
-        /**
-         * Начать редактирование.
-         */
-        //public boolean startCellEditing(EventObject anEvent) {
-        public void startCellEditing(EventObject anEvent) {
-            //listenerEditor.initStartEditing(null);
-        }
-
-        /**
-         * Остановить редактирование
-         */
+        //Остановить редактирование
         public boolean stopCellEditing() {
             fireEditingStopped();
             return true;
         }
 
-        /**
-         * Отменить редактирование.
-         */
+        //Отменить редактирование.
         public void cancelCellEditing() {
             fireEditingCanceled();
         }
 
-        /**
-         * Событие прекращ. редактирования.
-         */
+        //Событие прекращ. редактирования
         public void actionPerformed(ActionEvent e) {
             DefFieldEditor.this.stopCellEditing();
         }
 
-        /**
-         * Событие изменения статуса редатирования.
-         */
+        //Событие изменения статуса редатирования.
         public void itemStateChanged(ItemEvent e) {
             DefFieldEditor.this.stopCellEditing();
         }

@@ -34,8 +34,7 @@ import javax.swing.event.ListSelectionEvent;
 /**
  * Материальные ценности
  */
-public class Artikls extends javax.swing.JFrame
-        implements FrameListener<DefTableModel, Object> {
+public class Artikls extends javax.swing.JFrame {
 
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
     private Query qColor = new Query(eColor.values()).select(eColor.up);
@@ -110,7 +109,7 @@ public class Artikls extends javax.swing.JFrame
         rsvArtikl.add(eArtikl.size_centr, txtField8);
 
         JButton btnT2C0 = new JButton("...");
-        tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(this, btnT2C0));
+        tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT2C0));
         btnT2C0.addActionListener(event -> {
 
             DicColor1 frame = new DicColor1(this, listenerDic);
@@ -118,7 +117,7 @@ public class Artikls extends javax.swing.JFrame
             frame.setVisible(true);
         });        
         JButton btnT2C1 = new JButton("...");
-        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(this, btnT2C1));
+        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
 
             DicColor1 frame = new DicColor1(this, listenerDic);
