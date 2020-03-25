@@ -1,7 +1,9 @@
 package enums;
 
 import dataset.Field;
+import java.text.ParseException;
 import java.util.List;
+import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 
 public interface Enam {
 
@@ -22,6 +24,10 @@ public interface Enam {
     }
 
     default List<String> dict() {
+        return null;
+    }
+
+    default AbstractFormatterFactory format() {
         return null;
     }
 }

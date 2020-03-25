@@ -1,9 +1,13 @@
 package enums;
 
 import common.eProperty;
-import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JFormattedTextField.AbstractFormatterFactory;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 
 public class ParamList {
 
@@ -21,9 +25,9 @@ public class ParamList {
 
     public static enum Ps3 implements Enam {
         P0000(0, ""),
-        P1005(1005, "Контейнер Артикула 1 имеет тип", _TypeArt),
-        P1006(1006, "Контейнер Артикула 2 имеет тип"),
-        P1008(1008, "Эффективное заполнение изд., мм"),
+        P1005(1005, "Контейнер Артикула 1 имеет тип", dic_TypeArt),
+        P1006(1006, "Контейнер Артикула 2 имеет тип", dic_TypeArt),
+        P1008(1008, "Эффективное заполнение изд., мм", frm_Number),
         P1010(1010, "Внешнее соединение"),
         P1011(1011, "Для Артикула 1 указан состав"),
         P1012(1012, "Для Артикула 2 указан состав"),
@@ -542,17 +546,22 @@ public class ParamList {
 
         public int numb = 0;
         public String text = "";
-        public InnerInterface dictionary = ParamList._Text;
+        public Dictionary dictionary = null;
+        public Formatter formatter = ParamList.frm_Default;
 
         Ps3(int numb, String text) {
             this.numb = numb;
             this.text = text;
         }
 
-        Ps3(int numb, String text, InnerInterface dictionary) {
-            this.numb = numb;
-            this.text = text;
+        Ps3(int numb, String text, Dictionary dictionary) {
+            this(numb, text);
             this.dictionary = dictionary;
+        }
+
+        Ps3(int numb, String text, Formatter format) {
+            this(numb, text);
+            this.formatter = format;
         }
 
         public int numb() {
@@ -570,18 +579,22 @@ public class ParamList {
                 return null;
             }
         }
+
+        public AbstractFormatterFactory format() {
+            return formatter.format();
+        }
     }
 
     public static enum Ps4 implements Enam {
 
         P0000(0, ""),
-        P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", _TypeArt),
-        P1008(1008, "Эффективное заполнение изд., мм"),
+        P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", dic_TypeArt),
+        P1008(1008, "Эффективное заполнение изд., мм", frm_Number),
         P1010(1010, "Внешнее соединение"),
         P1011(1011, "Для Артикула 1 указан состав"),
         P1012(1012, "Для Артикула 2 указан состав"),
         P1013(1013, "Для Артикулов не указан состав"),
-        P1020(1020, "Ограничение угла к горизонту, °"),
+        P1020(1020, "=Ограничение угла к горизонту, °", frm_Mask),
         P1035(1035, "Уровень створки"),
         P1039(1039, "Для типа открывания"),
         P1040(1040, "Размер, мм"),
@@ -1097,17 +1110,22 @@ public class ParamList {
 
         public int numb = 0;
         public String text = "";
-        public InnerInterface dictionary = ParamList._Text;
+        public Dictionary dictionary = null;
+        public Formatter formatter = ParamList.frm_Default;
 
         Ps4(int numb, String text) {
             this.numb = numb;
             this.text = text;
         }
 
-        Ps4(int numb, String text, InnerInterface dictionary) {
-            this.numb = numb;
-            this.text = text;
+        Ps4(int numb, String text, Dictionary dictionary) {
+            this(numb, text);
             this.dictionary = dictionary;
+        }
+
+        Ps4(int numb, String text, Formatter format) {
+            this(numb, text);
+            this.formatter = format;
         }
 
         public int numb() {
@@ -1125,34 +1143,65 @@ public class ParamList {
                 return null;
             }
         }
+
+        public AbstractFormatterFactory format() {
+            return formatter.format();
+        }
     }
 
-    interface InnerInterface {
+////////////////////////////////////////////////////////////////////////////////
+//    
+    interface Dictionary {
 
         public List<String> dict();
     }
 
-    public static InnerInterface _Numb = () -> {
-        return Arrays.asList("00000");
-    };
-
-    public static InnerInterface _Text = () -> {
+    public static Dictionary dic_Text = () -> {
         return Arrays.asList("******");
     };
 
-    public static InnerInterface _OkNot = () -> {
+    public static Dictionary dic_OkNot = () -> {
         return Arrays.asList("Да", "Нет");
     };
 
-    public static InnerInterface _HorVert = () -> {
+    public static Dictionary dic_HorVert = () -> {
         return Arrays.asList("горизонтально", "вертикально");
     };
 
-    public static InnerInterface _LeftRight = () -> {
+    public static Dictionary dic_LeftRight = () -> {
         return Arrays.asList("левый", "правый");
     };
-    
-    public static InnerInterface _TypeArt = () -> {
+
+    public static Dictionary dic_TypeArt = () -> {
         return Arrays.asList("коробка", "створка", "импост", "ригель/импост", "стойка", "стойка/коробка", "аркер", "грань");
+    };
+////////////////////////////////////////////////////////////////////////////////
+//    
+    private static AbstractFormatterFactory defaultFormatter = new DefaultFormatterFactory();
+    private static AbstractFormatterFactory numberFormatter = new DefaultFormatterFactory(new NumberFormatter());
+    
+    public static AbstractFormatterFactory defaultFormatter() {
+        return defaultFormatter;
+    }
+    
+    interface Formatter {
+
+        public AbstractFormatterFactory format();
+    }
+
+    public static Formatter frm_Default = () -> {
+        return numberFormatter;
+    };
+
+    public static Formatter frm_Number = () -> {
+        return numberFormatter;
+    };
+
+    public static Formatter frm_Mask = () -> {
+        try {
+            return new DefaultFormatterFactory(new MaskFormatter("###;###.###-##"));
+        } catch (final ParseException e) {
+            return null;
+        }
     };
 }

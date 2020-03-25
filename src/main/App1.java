@@ -62,7 +62,7 @@ public class App1 extends javax.swing.JFrame {
             mn0441.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn0444.setSelected(true);
-        } 
+        }
         btn11.setText(Util.getDateStr(null));
 //        if (Main.dev == true) {
 //            new FrameListener2() {
@@ -165,11 +165,6 @@ public class App1 extends javax.swing.JFrame {
         setTitle("SA-OKNA   <АРМ Технолог>");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
@@ -963,8 +958,8 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mnConstr
 
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
-        eApp1.disposeFrame();
-        dispose();
+        
+        System.exit(0);
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
@@ -1179,10 +1174,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void btn62mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn62mHelp
 
     }//GEN-LAST:event_btn62mHelp
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        mExit(null);
-    }//GEN-LAST:event_formWindowClosing
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1335,7 +1326,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new DicSyssize();
                         break;
                 }
-                eProfile.appframe = frame;   
+                eProfile.appframe = frame;
                 frame.setName(this.name());
                 FrameToFile.setFrameSize(frame);
                 frame.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -1354,7 +1345,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             if (profile.equals(eProfile.P16)) {
                 eProfile.role_user = "user";
                 App1.frame = new App1();
-                App1.frame.setName(eProfile.P16.name());                
+                App1.frame.setName(eProfile.P16.name());
                 eProfile.appframe = App1.frame;
             }
             App1.frame.setLocation(0, 0);
@@ -1362,12 +1353,12 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             App1.frame.setVisible(true);
         }
 
-        public static void disposeFrame() {
-            for (eApp1 e : values()) {
-                if (e.frame != null) {
-                    e.frame.dispose();
-                }
-            }
-        }
+//        public static void disposeFrame() {
+//            for (eApp1 e : values()) {
+//                if (e.frame != null) {
+//                    e.frame.dispose();
+//                }
+//            }
+//        }
     }
 }

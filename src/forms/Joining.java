@@ -25,6 +25,7 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -34,9 +35,6 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.MaskFormatter;
-import javax.swing.text.NumberFormatter;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
@@ -292,35 +290,15 @@ public class Joining extends javax.swing.JFrame {
 
     private void listenerCell() {
         listenerEditor = (component) -> {
-            DefFieldEditor editor = null;
-            JFormattedTextField formatText = null;
             JComponent comp = (JComponent) component;
-            try {
-                editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
-                if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
-                    int grup = qJoinpar1.getAs(tab3.getSelectedRow(), eJoinpar1.grup, -1);
-                    if (grup < 0) { //пользовательские параметры 
-                        editor.getButton().setVisible(true); 
-                    } else {
-                        Enam enam = ParamList.find(grup);                        
-                        if (enam.dict() != null) { //системные- список параметров
-                            editor.getButton().setVisible(true);
-                            
-                        } else { //системные- вводимые пользователем
-                            editor.getButton().setVisible(false);
-                            formatText = editor.getFormatTextField();
-                            //formatText.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("###.###.###-##")));
-                            formatText.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter()));
-                        }
-                    }
-                    System.err.println("tab3");
-                }
-                editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
-                if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
-                    System.err.println("tab5");
-                }
-            } catch (Exception e) {
-                System.err.println(e);
+            
+            DefFieldEditor editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
+            if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
+                Util.formatterCell(qJoinpar1, tab3, editor);
+            }
+            editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
+            if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
+                Util.formatterCell(qJoinpar2, tab4, editor);
             }
         };
     }
@@ -370,7 +348,7 @@ public class Joining extends javax.swing.JFrame {
         ));
         scr6.setViewportView(tab6);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Соединения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -460,6 +438,7 @@ public class Joining extends javax.swing.JFrame {
         });
 
         frm.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        frm.setEnabled(false);
 
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
@@ -866,4 +845,5 @@ public class Joining extends javax.swing.JFrame {
         tab4.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
     }
+
 }

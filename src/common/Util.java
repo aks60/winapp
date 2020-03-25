@@ -3,7 +3,10 @@ package common;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import domain.eJoinpar1;
 import domain.eSystree;
+import enums.Enam;
+import enums.ParamList;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.text.DateFormat;
@@ -12,8 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import swing.DefFieldEditor;
 
 /**
  * <p>
@@ -188,6 +193,29 @@ public class Util {
         if (table.getRowCount() > 1) {
             Rectangle cellRect = table.getCellRect(query.size() - 1, 0, false);
             table.scrollRectToVisible(cellRect);
+        }
+    }
+
+    public static void formatterCell(Query query, JTable table, DefFieldEditor editor) {
+
+        JFormattedTextField formatText = editor.getFormatTextField();
+        int grup = query.getAs(table.getSelectedRow(), eJoinpar1.grup, -1);
+        if (grup < 0) { //пользовательские параметры 
+            editor.getButton().setVisible(true);
+            formatText.setEnabled(false);
+            formatText.setFormatterFactory(ParamList.defaultFormatter());
+        } else {
+            Enam enam = ParamList.find(grup);
+            if (enam.dict() != null) { //системные- список параметров
+                editor.getButton().setVisible(true);
+                formatText.setEnabled(false);
+                formatText.setFormatterFactory(ParamList.defaultFormatter());
+
+            } else { //системные- вводимые пользователем
+                editor.getButton().setVisible(false);
+                formatText.setEnabled(true);
+                formatText.setFormatterFactory(enam.format());
+            }
         }
     }
 }
