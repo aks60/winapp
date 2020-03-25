@@ -299,14 +299,14 @@ public class Joining extends javax.swing.JFrame {
                 editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
                 if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
                     int grup = qJoinpar1.getAs(tab3.getSelectedRow(), eJoinpar1.grup, -1);
-                    if (grup < 0) {
-                        editor.getButton().setVisible(true);
+                    if (grup < 0) { //пользовательские параметры 
+                        editor.getButton().setVisible(true); 
                     } else {
                         Enam enam = ParamList.find(grup);                        
-                        if (enam.dict() != null) {
+                        if (enam.dict() != null) { //системные- список параметров
                             editor.getButton().setVisible(true);
                             
-                        } else {
+                        } else { //системные- вводимые пользователем
                             editor.getButton().setVisible(false);
                             formatText = editor.getFormatTextField();
                             //formatText.setFormatterFactory(new DefaultFormatterFactory(new MaskFormatter("###.###.###-##")));
