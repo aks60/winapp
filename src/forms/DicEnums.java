@@ -206,7 +206,7 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        // TODO add your handling code here:
+        listenet.action(null);
     }//GEN-LAST:event_btnRemoveert
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

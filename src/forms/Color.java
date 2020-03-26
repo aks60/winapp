@@ -1,5 +1,6 @@
 package forms;
 
+import common.DialogListener;
 import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
@@ -25,17 +26,12 @@ import swing.DefFieldEditor;
 import swing.DefTableModel;
 
 public class Color extends javax.swing.JFrame {
-        //implements FrameListener<DefTableModel, Object> {
+    //implements FrameListener<DefTableModel, Object> {
 
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values());
-    private FrameListener<Object, Object> listenerDict = new FrameListener() {
-
-        public void actionRequest(Object obj) {
-            System.out.println(".request()");
-        }
-    };
+    private DialogListener listenerColor = null;
 
     public Color() {
         initComponents();
@@ -50,7 +46,12 @@ public class Color extends javax.swing.JFrame {
         new DefTableModel(tab3, qColpar1, eColpar1.numb, eColpar1.text);
 
         JButton btnT3C0 = new JButton("...");
-        btnT3C0.addActionListener(event -> listenerDict(event));
+        btnT3C0.addActionListener(event -> {
+            Query query = new Query(eParams.values()).select(eParams.up,
+                    "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
+            eParams.text.meta().descr("Название параметра");
+            ParColor frame = new ParColor(this, listenerColor, query, eParams.text);
+        });
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
         Util.selectRecord(tab1, 0);
 
@@ -82,10 +83,9 @@ public class Color extends javax.swing.JFrame {
 
     public void listenerDict(java.awt.event.ActionEvent evt) {
 
-        Query query = new Query(eParams.values()).select(eParams.up,
-                "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
-        eParams.text.meta().descr("Название параметра");
-        DicParColor frame = new DicParColor(this, listenerDict, query, eParams.text);
+        listenerColor = (record) -> {
+            System.out.println("forms.Joining.listenerColor()");
+        };
     }
 
     @SuppressWarnings("unchecked")

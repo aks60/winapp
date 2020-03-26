@@ -112,12 +112,12 @@ public class Artikls extends javax.swing.JFrame {
         JButton btnT2C0 = new JButton("...");
         tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT2C0));
         btnT2C0.addActionListener(event -> {
-            DicColor1 frame = new DicColor1(this, listenerDic);
+            DicColor frame = new DicColor(this, listenerDic);
         });        
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
-            DicColor1 frame = new DicColor1(this, listenerDic);
+            DicColor frame = new DicColor(this, listenerDic);
         });
     }
 

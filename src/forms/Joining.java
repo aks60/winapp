@@ -177,7 +177,7 @@ public class Joining extends javax.swing.JFrame {
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                DicParams frame = new DicParams(this, listenerPar1, eParams.joint, joinVar * 1000);
+                ParGrup frame = new ParGrup(this, listenerPar1, eParams.joint, joinVar * 1000);
             }
         });
         JButton btnT3C1 = new JButton("...");
@@ -186,10 +186,10 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar1.get(tab3.getSelectedRow());
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
-                DicParUser frame = new DicParUser(this, listenerPar1, grup);
+                ParUser frame = new ParUser(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                DicParSys frame = new DicParSys(this, listenerPar1, list);
+                ParSys frame = new ParSys(this, listenerPar1, list);
             }
         });
         JButton btnT4C0 = new JButton("...");
@@ -209,7 +209,7 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoindet.get(row);
             int artikl_id = record.getInt(eJoindet.artikl_id);
             List<Record> artdetRec = eArtdet.find(artikl_id);
-            DicColor1 frame = new DicColor1(this, listenerColor);
+            DicColor frame = new DicColor(this, listenerColor);
         });
         JButton btnT5C0 = new JButton("...");
         tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT5C0));
@@ -227,7 +227,7 @@ public class Joining extends javax.swing.JFrame {
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }
-                DicParams frame = new DicParams(this, listenerPar2, eParams.joint, level);
+                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, level);
             }
         });
         JButton btnT5C1 = new JButton("...");
@@ -236,7 +236,7 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar2.get(tab5.getSelectedRow());
             int grup = record.getInt(eJoinpar2.grup);
             if (grup < 0) {
-                DicParUser frame = new DicParUser(this, listenerPar2, grup);
+                ParUser frame = new ParUser(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 System.out.println(list);

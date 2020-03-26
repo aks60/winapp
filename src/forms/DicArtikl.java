@@ -218,7 +218,7 @@ public class DicArtikl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.action(null); 
+        listener.action(eArtikl.up.newRecord(Query.SEL)); 
     }//GEN-LAST:event_btnRemoveert
 
     private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked

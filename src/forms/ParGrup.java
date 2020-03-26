@@ -18,7 +18,7 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class DicParams extends javax.swing.JDialog {
+public class ParGrup extends javax.swing.JDialog {
 
     private Frame parent = null;
     private DialogListener listener;
@@ -26,7 +26,7 @@ public class DicParams extends javax.swing.JDialog {
     private Field filter = null;
     private int indexCard = 0;
 
-    public DicParams(Frame parent, DialogListener listener, Field filter, int... part) {
+    public ParGrup(Frame parent, DialogListener listener, Field filter, int... part) {
         super(parent, true);
         initComponents();
         initElements();
