@@ -204,6 +204,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
     //Главная функция редактирования.
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
+        System.out.println(value);
         editorTable = table;
         DefTableModel rsm = (DefTableModel) table.getModel();
         Field field = rsm.getColumn(column);
@@ -213,7 +214,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
 //            String val = String.valueOf(value).replace(',', '.');
 //            delegate.setValue(val);
         } else {
-            delegate.setValue(value);
+            delegate.setValue(value);            
         }
         return editorComponent;
     }
