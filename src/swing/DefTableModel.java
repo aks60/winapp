@@ -99,7 +99,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             } else {
                 val = table.get(rowIndex, columns[columnIndex]);
                 if (val != null) {
-                    return actionPreview(columns[columnIndex], rowIndex, val);
+                    return actionPreview(columnIndex, rowIndex, val);
                 }
                 return val;
             }

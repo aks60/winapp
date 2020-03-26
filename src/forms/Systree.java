@@ -93,8 +93,9 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
 
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.types, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
-            @Override
-            public Object actionPreview(Field field, int row, Object val) {
+
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (field == eSysprof.side && val != null) {
                     ProfileSide en = ProfileSide.get(Integer.valueOf(val.toString()));
                     if (en != null) {
@@ -112,7 +113,8 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
                 eSysfurn.replac, eSysfurn.hand_pos).setFrameListener(listenerModify);
         new DefTableModel(tab4, qSyspar1, eSyspar1.grup, eSyspar1.text, eSyspar1.fixed) {
-            public Object actionPreview(Field field, int row, Object val) {
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (val != null && field == eSyspar1.grup) {
                     return qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
                             && rec.getInt(eParams.numb) == 0)).findFirst().orElse(qParams.newRecord(Query.SEL)).getStr(eParams.text);

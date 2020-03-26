@@ -89,7 +89,8 @@ public class Joining extends javax.swing.JFrame {
     private void initModel() {
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name) {
 
-            public Object actionPreview(Field field, int row, Object val) {
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (eJoining.artikl_id1 == field) {
                     return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
 
@@ -108,7 +109,8 @@ public class Joining extends javax.swing.JFrame {
                 }
             }
 
-            public Object actionPreview(Field field, int row, Object val) {
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
@@ -121,14 +123,16 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.up, eJoindet.color_fk, eJoindet.types) {
+        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types) {
 
-            public Object actionPreview(Field field, int row, Object val) {
-
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (eJoindet.artikl_id == field) {
-                    return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
-                } else if (eJoindet.up == field) {
-                    return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.name);
+                    if (col == 0) {
+                        return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+                    } else if (col == 1) {
+                        return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.name);
+                    }
                 }
                 return val;
             }
@@ -141,7 +145,8 @@ public class Joining extends javax.swing.JFrame {
                 }
             }
 
-            public Object actionPreview(Field field, int row, Object val) {
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (val != null && eJoinpar2.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record joinpar2Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));

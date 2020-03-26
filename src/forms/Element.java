@@ -82,8 +82,8 @@ public class Element extends javax.swing.JFrame
         new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types);
         new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
 
-            public Object actionPreview(Field field, int row, Object val) {
-
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (field == eElempar1.grup && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qElempar1.table(eParams.up).get(row).get(eParams.text);
@@ -102,8 +102,8 @@ public class Element extends javax.swing.JFrame
         };
         new DefTableModel(tab5, qElempar2, eElempar2.grup, eElempar2.text) {
 
-            public Object actionPreview(Field field, int row, Object val) {
-
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (field == eElempar2.grup && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         return qElempar2.table(eParams.up).get(row).get(eParams.text);

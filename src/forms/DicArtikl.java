@@ -30,7 +30,8 @@ public class DicArtikl extends javax.swing.JDialog {
     private void initModel() {
 
         new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
-            public Object actionPreview(Field field, int row, Object val) {
+            public Object actionPreview(int col, int row, Object val) {
+                Field field = columns[col];
                 if (field == eArtikl.level2) {
                     Record record = qArtikl.get(row);
                     return TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
