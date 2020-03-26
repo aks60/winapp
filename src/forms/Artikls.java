@@ -57,7 +57,7 @@ public class Artikls extends javax.swing.JFrame {
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
             @Override
-            public Object actionPreview(int col, int row, Object val) {
+            public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eArtdet.id || field == eArtdet.color_fk) {
                     Record artdetRec = qArtdet.get(row);

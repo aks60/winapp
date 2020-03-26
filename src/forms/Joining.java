@@ -89,7 +89,7 @@ public class Joining extends javax.swing.JFrame {
     private void initModel() {
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name) {
 
-            public Object actionPreview(int col, int row, Object val) {
+            public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (eJoining.artikl_id1 == field) {
                     return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
@@ -109,7 +109,7 @@ public class Joining extends javax.swing.JFrame {
                 }
             }
 
-            public Object actionPreview(int col, int row, Object val) {
+            public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
@@ -125,7 +125,7 @@ public class Joining extends javax.swing.JFrame {
         };
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types) {
 
-            public Object actionPreview(int col, int row, Object val) {
+            public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (eJoindet.artikl_id == field) {
                     if (col == 0) {
@@ -145,7 +145,7 @@ public class Joining extends javax.swing.JFrame {
                 }
             }
 
-            public Object actionPreview(int col, int row, Object val) {
+            public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eJoinpar2.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {

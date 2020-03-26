@@ -10,7 +10,7 @@ public interface FrameListener<A, B> {
     default void actionResponse(B o) {
     }
 
-    default Object actionPreview(int col, int row, Object val) {
+    default Object getValueAt(int col, int row, Object val) {
         return val;
     }
 }

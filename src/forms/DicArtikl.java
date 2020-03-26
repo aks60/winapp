@@ -31,7 +31,7 @@ public class DicArtikl extends javax.swing.JDialog {
     private void initModel() {
 
         new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
-            public Object actionPreview(int col, int row, Object val) {
+            public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eArtikl.level2) {
                     Record record = qArtikl.get(row);
