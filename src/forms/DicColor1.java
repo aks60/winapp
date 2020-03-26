@@ -27,6 +27,7 @@ public class DicColor1 extends javax.swing.JDialog {
         initElements();
         this.listener = listener;
         initModel();
+        setVisible(true);        
     }
 
     private void initModel() {
@@ -264,6 +265,7 @@ public class DicColor1 extends javax.swing.JDialog {
 
     private void initElements() {
 
+        FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
 

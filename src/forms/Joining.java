@@ -164,18 +164,12 @@ public class Joining extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT1C0));
         btnT1C0.addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
-
         JButton btnT1C1 = new JButton("...");
         tab1.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(null, btnT1C1));
         btnT1C1.addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
-
         JButton btnT3C0 = new JButton("...");
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
         btnT3C0.addActionListener(event -> {
@@ -184,9 +178,6 @@ public class Joining extends javax.swing.JFrame {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
                 DicParam1 frame = new DicParam1(this, listenerPar1, eParams.joint, joinVar * 1000);
-                FrameToFile.setFrameSize(frame);
-                frame.setVisible(true);
-
             }
         });
         JButton btnT3C1 = new JButton("...");
@@ -196,29 +187,20 @@ public class Joining extends javax.swing.JFrame {
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
                 DicParam2 frame = new DicParam2(this, listenerPar1, grup);
-                FrameToFile.setFrameSize(frame);
-                frame.setVisible(true);
             } else {
                 List list = ParamList.find(grup).dict();
                 DicParam3 frame = new DicParam3(this, listenerPar1, list);
-                FrameToFile.setFrameSize(frame);
-                frame.setVisible(true);
-                System.out.println(list);
             }
         });
         JButton btnT4C0 = new JButton("...");
         tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT4C0));
         btnT4C0.addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
         JButton btnT4C1 = new JButton("...");
         tab4.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(null, btnT4C1));
         btnT4C1.addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
         JButton btnT4C2 = new JButton("...");
         tab4.getColumnModel().getColumn(2).setCellEditor(new DefFieldEditor(btnT4C2));
@@ -227,10 +209,7 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoindet.get(row);
             int artikl_id = record.getInt(eJoindet.artikl_id);
             List<Record> artdetRec = eArtdet.find(artikl_id);
-
             DicColor1 frame = new DicColor1(this, listenerColor);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
         JButton btnT5C0 = new JButton("...");
         tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT5C0));
@@ -249,8 +228,6 @@ public class Joining extends javax.swing.JFrame {
                     level = 11000;
                 }
                 DicParam1 frame = new DicParam1(this, listenerPar2, eParams.joint, level);
-                FrameToFile.setFrameSize(frame);
-                frame.setVisible(true);
             }
         });
         JButton btnT5C1 = new JButton("...");
@@ -260,8 +237,6 @@ public class Joining extends javax.swing.JFrame {
             int grup = record.getInt(eJoinpar2.grup);
             if (grup < 0) {
                 DicParam2 frame = new DicParam2(this, listenerPar2, grup);
-                FrameToFile.setFrameSize(frame);
-                frame.setVisible(true);
             } else {
                 List list = ParamList.find(grup).dict();
                 System.out.println(list);

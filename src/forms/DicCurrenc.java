@@ -28,6 +28,7 @@ public class DicCurrenc extends javax.swing.JFrame {
         initElements();
         initModel();
         btnChoice.setVisible(false);
+        setVisible(true);
     }
 
     public DicCurrenc(Frame owner, DialogListener listener) {
@@ -302,6 +303,7 @@ public class DicCurrenc extends javax.swing.JFrame {
         btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
         btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
+        FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
 

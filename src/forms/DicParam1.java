@@ -35,6 +35,7 @@ public class DicParam1 extends javax.swing.JDialog {
         this.filter = filter;
         initData();
         initModel(part);
+        setVisible(true);
     }
 
     private void initData() {
@@ -360,6 +361,7 @@ public class DicParam1 extends javax.swing.JDialog {
                 "Параметры системы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры пользователя", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
     }
 }

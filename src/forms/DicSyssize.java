@@ -40,6 +40,7 @@ public class DicSyssize extends javax.swing.JFrame {
         owner.setEnabled(false);
         this.listener = listener;
         btnChoice.setVisible(true);
+        setVisible(true);
     }
 
     private void initModel() {
@@ -300,6 +301,7 @@ public class DicSyssize extends javax.swing.JFrame {
 // </editor-fold>    
     private void initElements() {
 
+        FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
 

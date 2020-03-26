@@ -86,8 +86,6 @@ public class Color extends javax.swing.JFrame {
                 "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
         eParams.text.meta().descr("Название параметра");
         DicColor2 frame = new DicColor2(this, listenerDict, query, eParams.text);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")

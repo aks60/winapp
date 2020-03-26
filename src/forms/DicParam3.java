@@ -19,6 +19,7 @@ public class DicParam3 extends javax.swing.JDialog {
         this.list = list;
         initElements();
         initModel();
+        setVisible(true);
     }
     
     private void initModel() {
@@ -216,6 +217,7 @@ public class DicParam3 extends javax.swing.JDialog {
     // </editor-fold> 
     private void initElements() {
 
+        FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
 //        String title = new Query(eParams.up.values()).select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "= 0", "order by", eParams.text).getAs(0, eParams.text, "Параметры");
 //        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

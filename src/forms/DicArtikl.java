@@ -21,10 +21,11 @@ public class DicArtikl extends javax.swing.JDialog {
     public DicArtikl(java.awt.Frame parent, DialogListener listenet, int... level) {
         super(parent, true);
         initComponents();
+        initElements();
         this.listener = listenet;
         initModel();
         loadTab2(level);
-        new FrameToFile(this, btnClose);
+        setVisible(true);
     }
 
     private void initModel() {
@@ -237,4 +238,10 @@ public class DicArtikl extends javax.swing.JDialog {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
+
+    private void initElements() {
+
+        FrameToFile.setFrameSize(this);
+        new FrameToFile(this, btnClose);
+    }
 }

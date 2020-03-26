@@ -16,9 +16,10 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
     public DicEnums(java.awt.Frame parent, DialogListener listenet, int... part) {
         super(parent, true);
         initComponents();
+        initElements();
         this.listenet = listenet;
         loading(part);
-        new FrameToFile(this, btnClose);
+        setVisible(true);
     }
 
     public void loading(int... part) {
@@ -224,4 +225,9 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
+    private void initElements() {
+        
+        FrameToFile.setFrameSize(this);
+        new FrameToFile(this, btnClose);
+    }
 }

@@ -124,28 +124,19 @@ public class Element extends javax.swing.JFrame
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
-
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
 
         JButton btnT4C0 = new JButton("...");
         tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT4C0));
         btnT4C0.addActionListener(event -> {
-
             DicEnums frame = new DicEnums(this, listenerEnum, 31000, 37000);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
 
         JButton btnT5C0 = new JButton("...");
         tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT5C0));
         btnT5C0.addActionListener(event -> {
-
             DicEnums frame = new DicEnums(this, listenerEnum, 33000, 34000, 38000, 39000, 40000);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
     }
 

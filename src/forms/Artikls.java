@@ -112,18 +112,12 @@ public class Artikls extends javax.swing.JFrame {
         JButton btnT2C0 = new JButton("...");
         tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT2C0));
         btnT2C0.addActionListener(event -> {
-
             DicColor1 frame = new DicColor1(this, listenerDic);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });        
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
-
             DicColor1 frame = new DicColor1(this, listenerDic);
-            FrameToFile.setFrameSize(frame);
-            frame.setVisible(true);
         });
     }
 
@@ -785,8 +779,6 @@ public class Artikls extends javax.swing.JFrame {
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
         DicSyssize frame = new DicSyssize(this, listenerDic);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
     }//GEN-LAST:event_btnFilter
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -799,8 +791,6 @@ public class Artikls extends javax.swing.JFrame {
 
     private void btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrenc
         DicCurrenc frame = new DicCurrenc(this, listenerDic);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
     }//GEN-LAST:event_btnCurrenc
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -17,19 +17,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class DicColor2 extends javax.swing.JDialog {
-
-     private FrameListener listener;
+    
+    private FrameListener listener;
     
     public DicColor2(java.awt.Frame parent, FrameListener listener, Query query, Field... fields) {
         super(parent, true);
         initComponents();
+        initElements();
         this.listener = listener;
         initModel(query, fields);
-        new FrameToFile(this, btnClose);
+        setVisible(true);
     }
-
+    
     private void initModel(Query query, Field... fields) {
-
+        
         Vector<Vector> dataList = new Vector();
         Vector colList = new Vector();
         for (Field field : fields) {
@@ -45,7 +46,7 @@ public class DicColor2 extends javax.swing.JDialog {
         tab1.setModel(new DefaultTableModel(dataList, colList));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -229,4 +230,9 @@ public class DicColor2 extends javax.swing.JDialog {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
+    private void initElements() {
+        
+        FrameToFile.setFrameSize(this);
+        new FrameToFile(this, btnClose);
+    }
 }
