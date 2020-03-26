@@ -110,7 +110,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             }
         };
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open,
-                eSysfurn.replac, eSysfurn.hand_pos).addFrameListener(listenerModify);
+                eSysfurn.replac, eSysfurn.hand_pos).setFrameListener(listenerModify);
         new DefTableModel(tab4, qSyspar1, eSyspar1.grup, eSyspar1.text, eSyspar1.fixed) {
             public Object actionPreview(Field field, int row, Object val) {
                 if (val != null && field == eSyspar1.grup) {
@@ -122,7 +122,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         };
 
         nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        rsmSysprof.addFrameListener(listenerModify);
+        rsmSysprof.setFrameListener(listenerModify);
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.name, txtField8);
         rsvSystree.add(eSystree.types, txtField7, TypeSys.values());

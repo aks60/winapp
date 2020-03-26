@@ -17,9 +17,9 @@ public class ParamList {
 
     public static Enam find(int numb) {
         if (eProperty.versionDb.read().equals("3") == true) {
-            return Arrays.asList(Ps3.values()).stream().filter(en -> en.numb() == numb).findFirst().orElse(Ps3.P0000);
+            return Arrays.stream(Ps3.values()).filter(en -> en.numb() == numb).findFirst().orElse(Ps3.P0000);
         } else {
-            return Arrays.asList(Ps4.values()).stream().filter(en -> en.numb() == numb).findFirst().orElse(Ps4.P0000);
+            return Arrays.stream(Ps4.values()).filter(en -> en.numb() == numb).findFirst().orElse(Ps4.P0000);
         }
     }
 

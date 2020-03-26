@@ -34,7 +34,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
     protected RsEditorDelegate delegate; //делегат редактора
 
     //Конструктор редактора JTextField.
-    public DefFieldEditor(final JTextField textField) {
+    public DefFieldEditor(final JFormattedTextField textField) {
         textField.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         editorComponent = textField;
         delegate = new RsEditorDelegate() {
@@ -120,6 +120,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
 
         editorText = new javax.swing.JFormattedTextField();
         editorText.setPreferredSize(new java.awt.Dimension(60, 18));
+        editorText.setEditable(false);
         editorText.setBorder(null);
         editorText.setBackground(new java.awt.Color(255, 255, 255));
         this.editorComponent.add(editorText, java.awt.BorderLayout.CENTER);
@@ -170,7 +171,7 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
                 columnModel.getColumn(index).setCellEditor(new DefFieldEditor(new JComboBox(str)));
 
             } else {
-                JTextField jTextField = new JTextField();
+                JFormattedTextField jTextField = new JFormattedTextField();
                 columnModel.getColumn(index).setCellEditor(new DefFieldEditor(jTextField));
             }
         }
@@ -202,9 +203,8 @@ public class DefFieldEditor extends AbstractCellEditor implements TableCellEdito
     }
 
     //Главная функция редактирования.
-    public Component getTableCellEditorComponent(JTable table, Object value,
-            boolean isSelected, int row, int column) {
-        System.out.println(value);
+    public Component getTableCellEditorComponent(JTable table, 
+            Object value, boolean isSelected, int row, int column) {
         editorTable = table;
         DefTableModel rsm = (DefTableModel) table.getModel();
         Field field = rsm.getColumn(column);

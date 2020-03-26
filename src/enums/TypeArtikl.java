@@ -111,7 +111,7 @@ public enum TypeArtikl {
     }
     
     public static String find(int _id1, int _id2) {
-        return Arrays.asList(values()).stream().filter(el -> (el.id1 == _id1 && el.id2 == _id2)).findFirst().orElse(PPROFIL).name;
+        return Arrays.stream(values()).filter(el -> (el.id1 == _id1 && el.id2 == _id2)).findFirst().orElse(PPROFIL).name;
     }
     
     public String toString() {

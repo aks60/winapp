@@ -105,6 +105,13 @@ public class Joining extends javax.swing.JFrame {
         };
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
+
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                if (columnIndex == 1) {
+                    setValueAt(aValue, rowIndex, eJoinpar1.text);
+                }
+            }
+
             public Object actionPreview(Field field, int row, Object val) {
                 if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
@@ -290,16 +297,16 @@ public class Joining extends javax.swing.JFrame {
 
     private void listenerCell() {
         listenerEditor = (component) -> {
-//            JComponent comp = (JComponent) component;
-//            
-//            DefFieldEditor editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
-//            if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
-//                Util.formatterCell(qJoinpar1, tab3, editor);
-//            }
-//            editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
-//            if (Arrays.asList(comp.getComponents()).stream().anyMatch(editor.getButton()::equals)) {
-//                Util.formatterCell(qJoinpar2, tab4, editor);
-//            }
+            JComponent comp = (JComponent) component;
+
+            DefFieldEditor editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
+            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
+                Util.formatterCell(qJoinpar1, tab3, editor);
+            }
+            editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
+            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
+                Util.formatterCell(qJoinpar2, tab4, editor);
+            }
         };
     }
 

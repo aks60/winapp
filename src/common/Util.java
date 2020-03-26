@@ -193,20 +193,21 @@ public class Util {
 
         JFormattedTextField formatText = editor.getFormatTextField();
         int grup = query.getAs(table.getSelectedRow(), eJoinpar1.grup, -1);
-        if (grup < 0) { //пользовательские параметры 
+        if (grup < 0) { //пользовательский список параметров
             editor.getButton().setVisible(true);
             formatText.setEnabled(false);
             formatText.setFormatterFactory(ParamList.defaultFormatter());
         } else {
             Enam enam = ParamList.find(grup);
-            if (enam.dict() != null) { //системные- список параметров
+            if (enam.dict() != null) { //системный список параметров
                 editor.getButton().setVisible(true);
                 formatText.setEnabled(false);
                 formatText.setFormatterFactory(ParamList.defaultFormatter());
 
-            } else { //системные- вводимые пользователем
+            } else { //системные вводимые пользователем
                 editor.getButton().setVisible(false);
                 formatText.setEnabled(true);
+                formatText.setEditable(true);
                 formatText.setFormatterFactory(enam.format());
             }
         }

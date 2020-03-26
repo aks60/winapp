@@ -7,6 +7,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Table;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     private JTable table = null;
     private DefaultTableModel model;
-    public Query query = null;
+    private Query query = null;
     private Field[] columns = null;
     private Boolean[] editable = null;
     private TableRowSorter<DefTableModel> sorter = new TableRowSorter(this);
@@ -51,6 +52,10 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             table.getColumnModel().getColumn(index).setPreferredWidth(prefWidthList.get(index));
             table.getColumnModel().getColumn(index).setMaxWidth(maxWidthList.get(index));
         }
+    }
+
+    public Query getQuery() {
+        return query;
     }
 
     public Field getColumn(int index) {
@@ -104,7 +109,6 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
         if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
@@ -112,47 +116,42 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     //Записать значение элемента от row и field, тут делаются проверки на ввод данных расширенного типа.
     public void setValueAt(Object value, int row, Field field) {
-        Table table = query.table(field);
-        if (field.meta().edit() == false || value.equals(table.get(row, field))) {
-            return;
-        }
         try {
-            if (value != null && String.valueOf(value).isEmpty() == false) {
-                if (field.meta().type().equals(Field.TYPE.DATE)) {
-                    Date d = Util.StrToDate(value.toString());
-                    if (d != null) {
-                        GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
-                        GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);
-                        if (d.after(d2.getTime()) || d.before(d1.getTime())) {
-                            return;
+            if (field.meta().edit() == true) {
+                if (value != null && String.valueOf(value).isEmpty() == false) {
+                    if (field.meta().type().equals(Field.TYPE.DATE)) {
+                        Date d = Util.StrToDate(value.toString());
+                        if (d != null) {
+                            GregorianCalendar d1 = new GregorianCalendar(1917, 01, 01);
+                            GregorianCalendar d2 = new GregorianCalendar(2040, 01, 01);
+                            if (d.after(d2.getTime()) || d.before(d1.getTime())) {
+                                return;
+                            }
                         }
+                        value = d;
+                    } else if (field.meta().type().equals(Field.TYPE.INT)) {
+                        value = Integer.valueOf(String.valueOf(value));
+                    } else if (field.meta().type().equals(Field.TYPE.DBL)) {
+                        String str = String.valueOf(value).replace(',', '.');
+                        value = Double.valueOf(str);
+                    } else if (field.meta().type().equals(Field.TYPE.FLT)) {
+                        String str = String.valueOf(value).replace(',', '.');
+                        value = Float.valueOf(str);
+                    } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
+                        value = (Boolean.valueOf(String.valueOf(value))) ? 1 : 0;
                     }
-                    value = d;
-                } else if (field.meta().type().equals(Field.TYPE.INT)) {
-                    value = Integer.valueOf(String.valueOf(value));
-                } else if (field.meta().type().equals(Field.TYPE.DBL)) {
-                    String str = String.valueOf(value).replace(',', '.');
-                    value = Double.valueOf(str);
-                } else if (field.meta().type().equals(Field.TYPE.FLT)) {
-                    String str = String.valueOf(value).replace(',', '.');
-                    value = Float.valueOf(str);
-                } else if (field.meta().type().equals(Field.TYPE.BOOL)) {
-                    value = (Boolean.valueOf(String.valueOf(value))) ? 1 : 0;
+                }
+                query.table(field).set(value, row, field);
+                if (listenerModify != null) {
+                    listenerModify.actionRequest(null);
                 }
             }
         } catch (NumberFormatException e) {
-            System.out.println(value + "- " + e);
             JOptionPane.showMessageDialog(eProfile.appframe, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        System.out.println(value);
-        table.set(value, row, field);
-        if (listenerModify != null) {
-            listenerModify.actionRequest(null);
         }
     }
 
-    public DefTableModel addFrameListener(FrameListener listenerModify) {
+    public DefTableModel setFrameListener(FrameListener listenerModify) {
         this.listenerModify = listenerModify;
         return this;
     }

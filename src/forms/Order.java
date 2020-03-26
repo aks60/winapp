@@ -32,7 +32,7 @@ public class Order extends javax.swing.JFrame {
         initElements();
 
         new DefTableModel(tab1, qOrders, eOrders.numb, eOrders.partner_id, eOrders.manager_id, eOrders.constr_id,
-                eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2).addFrameListener(listenerModify);
+                eOrders.sale_name, eOrders.space, eOrders.weight, eOrders.desc, eOrders.dat1, eOrders.dat2).setFrameListener(listenerModify);
     }
 
     @SuppressWarnings("unchecked")
