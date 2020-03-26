@@ -21,7 +21,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     private JTable table = null;
     private DefaultTableModel model;
     private Query query = null;
-    private Field[] columns = null;
+    protected Field[] columns = null;
     private Boolean[] editable = null;
     private TableRowSorter<DefTableModel> sorter = new TableRowSorter(this);
     private FrameListener<Object, Object> listenerModify = null;

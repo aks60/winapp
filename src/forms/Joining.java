@@ -40,8 +40,7 @@ public class Joining extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text);
     private Query qJoining = new Query(eJoining.values());
-    private Query qArtikls1 = null;
-    private Query qArtikls2 = null;
+    private Query qArtikl = null;
     private Query qJoinvar = new Query(eJoinvar.values());
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());
@@ -75,8 +74,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void initData() {
 
-        qArtikls1 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id1);
-        qArtikls2 = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up, ",", eJoining.up, "where", eArtikl.id, "=", eJoining.artikl_id2);
+        qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name).select(eArtikl.up);
 
         if (owner == null) {
             qJoining.select(eJoining.up, "order by", eJoining.name);
@@ -93,10 +91,10 @@ public class Joining extends javax.swing.JFrame {
 
             public Object actionPreview(Field field, int row, Object val) {
                 if (eJoining.artikl_id1 == field) {
-                    return qArtikls1.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
 
                 } else if (eJoining.artikl_id2 == field) {
-                    return qArtikls2.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
                 }
                 return val;
             }
@@ -123,17 +121,17 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types) {
+        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.up, eJoindet.color_fk, eJoindet.types) {
 
-//            public Object actionPreview(Field field, int row, Object val) {
-//                if (eJoindet.artikl_id == field) {
-//                    return qArtikls1.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
-//
-//                } else if (eJoining.artikl_id2 == field) {
-//                    return qArtikls2.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
-//                }
-//                return val;
-//            }
+            public Object actionPreview(Field field, int row, Object val) {
+
+                if (eJoindet.artikl_id == field) {
+                    return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+                } else if (eJoindet.up == field) {
+                    return qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(val)).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.name);
+                }
+                return val;
+            }
         };
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text) {
 
@@ -203,8 +201,22 @@ public class Joining extends javax.swing.JFrame {
                 System.out.println(list);
             }
         });
+        JButton btnT4C0 = new JButton("...");
+        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT4C0));
+        btnT4C0.addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
+        JButton btnT4C1 = new JButton("...");
+        tab4.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(null, btnT4C1));
+        btnT4C1.addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
         JButton btnT4C2 = new JButton("...");
-        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT4C2));
+        tab4.getColumnModel().getColumn(2).setCellEditor(new DefFieldEditor(btnT4C2));
         btnT4C2.addActionListener(event -> {
             int row = tab4.getSelectedRow();
             Record record = qJoindet.get(row);
@@ -292,19 +304,22 @@ public class Joining extends javax.swing.JFrame {
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
-            Record joiningRec = qJoining.get(tab1.getSelectedRow());
-            if (tab1.getBorder() != null) {
 
+            if (tab1.getBorder() != null) {
+                Record joiningRec = qJoining.get(tab1.getSelectedRow());
                 if (tab1.getSelectedColumn() == 0) {
                     joiningRec.set(eJoining.artikl_id1, record.getInt(eArtikl.id));
-                    System.out.println(record.getInt(eArtikl.id));
-                    
                 } else if (tab1.getSelectedColumn() == 1) {
                     joiningRec.set(eJoining.artikl_id2, record.getInt(eArtikl.id));
-                    System.out.println(record.getInt(eArtikl.id));
                 }
                 FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
                 Util.selectRecord(tab1, 0);
+
+            } else if (tab4.getBorder() != null) {
+                Record joindetRec = qJoindet.get(tab4.getSelectedRow());
+                joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
+                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                Util.selectRecord(tab4, 0);
             }
         };
 
