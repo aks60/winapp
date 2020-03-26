@@ -8,6 +8,8 @@ import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
+import common.ParamCheck;
+import wincalc.model.CheckParam;
 
 public class ParamList {
 
@@ -548,6 +550,7 @@ public class ParamList {
         public String text = "";
         public Dictionary dictionary = null;
         public Formatter formatter = ParamList.frm_Default;
+        public ParamCheck param = CheckParam.check0000;
 
         Ps3(int numb, String text) {
             this.numb = numb;
@@ -582,6 +585,10 @@ public class ParamList {
 
         public AbstractFormatterFactory format() {
             return formatter.format();
+        }
+        
+        public boolean check(Object... obj) {
+            return param.check(obj);
         }
     }
 
@@ -1110,8 +1117,9 @@ public class ParamList {
 
         public int numb = 0;
         public String text = "";
-        public Dictionary dictionary = null;
-        public Formatter formatter = ParamList.frm_Default;
+        public Dictionary dictionary = dic_Null;
+        public Formatter formatter = frm_Default;
+        public ParamCheck param = CheckParam.check0000;
 
         Ps4(int numb, String text) {
             this.numb = numb;
@@ -1137,24 +1145,28 @@ public class ParamList {
         }
 
         public List dict() {
-            if (dictionary != null) {
-                return dictionary.dict();
-            } else {
-                return null;
-            }
+            return dictionary.dict();
         }
 
         public AbstractFormatterFactory format() {
             return formatter.format();
         }
+        
+        public boolean check(Object... obj) {
+            return param.check(obj);
+        }
     }
 
-////////////////////////////////////////////////////////////////////////////////
-//    
+    //Dictionary
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     interface Dictionary {
 
         public List<String> dict();
     }
+
+    public static Dictionary dic_Null = () -> {
+        return null;
+    };
 
     public static Dictionary dic_Text = () -> {
         return Arrays.asList("******");
@@ -1175,15 +1187,17 @@ public class ParamList {
     public static Dictionary dic_TypeArt = () -> {
         return Arrays.asList("коробка", "створка", "импост", "ригель/импост", "стойка", "стойка/коробка", "аркер", "грань");
     };
-////////////////////////////////////////////////////////////////////////////////
-//    
+    // </editor-fold>
+
+    //Formatter
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">   
     private static AbstractFormatterFactory defaultFormatter = new DefaultFormatterFactory();
     private static AbstractFormatterFactory numberFormatter = new DefaultFormatterFactory(new NumberFormatter());
-    
+
     public static AbstractFormatterFactory defaultFormatter() {
         return defaultFormatter;
     }
-    
+
     interface Formatter {
 
         public AbstractFormatterFactory format();
@@ -1204,4 +1218,5 @@ public class ParamList {
             return null;
         }
     };
+    // </editor-fold>    
 }

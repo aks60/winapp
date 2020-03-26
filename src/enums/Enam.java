@@ -30,4 +30,8 @@ public interface Enam {
     default AbstractFormatterFactory format() {
         return null;
     }
+
+    default boolean check(Object... obj) {
+        return false;
+    }
 }
