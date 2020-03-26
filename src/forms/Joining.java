@@ -25,11 +25,9 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
-import java.util.Formatter;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -126,7 +124,27 @@ public class Joining extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types);
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text);
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text) {
+
+            public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+                if (columnIndex == 1) {
+                    setValueAt(aValue, rowIndex, eJoinpar2.text);
+                }
+            }
+
+            public Object actionPreview(Field field, int row, Object val) {
+                if (val != null && eJoinpar2.grup == field) {
+                    if (Integer.valueOf(String.valueOf(val)) < 0) {
+                        Record joinpar2Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
+                        return joinpar2Rec.getStr(eJoinpar2.grup) + "-" + joinpar2Rec.getStr(eJoinpar2.text);
+                    } else {
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return en.numb() + "-" + en.text();
+                    }
+                }
+                return val;
+            }
+        };
 
         JButton btnT1C0 = new JButton("...");
         tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT1C0));
@@ -193,7 +211,7 @@ public class Joining extends javax.swing.JFrame {
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }
-                DicEnums frame = new DicEnums(this, listenerEnums, level);
+                DicParam1 frame = new DicParam1(this, listenerPar2, eParams.joint , level);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             }
@@ -273,17 +291,31 @@ public class Joining extends javax.swing.JFrame {
                 joinpar1Rec.set(eJoinpar1.text, null);
 
             } else if (record.size() == 1) {
-                System.out.println(joinpar1Rec);
                 joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
-                System.out.println(joinpar1Rec);
-
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Util.selectRecord(tab3, 0);
         };
 
         listenerPar2 = (record) -> {
-            System.out.println("forms.Joining.listenerPar1()");
+            System.out.println("forms.Joining.listenerPar2()");
+            Record joinpar2Rec = qJoinpar2.get(tab5.getSelectedRow());
+
+            if (eParams.values().length == record.size()) {
+                joinpar2Rec.set(eJoinpar2.grup, record.getInt(eJoinpar2.grup));
+                joinpar2Rec.set(eJoinpar2.numb, record.getInt(eJoinpar2.numb));
+                joinpar2Rec.set(eJoinpar2.text, null);
+
+            } else if (record.size() == 2) {
+                joinpar2Rec.set(eJoinpar2.grup, record.get(0));
+                joinpar2Rec.set(eJoinpar2.numb, -1);
+                joinpar2Rec.set(eJoinpar2.text, null);
+
+            } else if (record.size() == 1) {
+                joinpar2Rec.set(eJoinpar2.text, record.getStr(0));
+            }
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.selectRecord(tab5, 0);            
         };
 
         listenerColor = (record) -> {
