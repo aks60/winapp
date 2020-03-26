@@ -177,7 +177,7 @@ public class Joining extends javax.swing.JFrame {
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                DicParam1 frame = new DicParam1(this, listenerPar1, eParams.joint, joinVar * 1000);
+                DicParams frame = new DicParams(this, listenerPar1, eParams.joint, joinVar * 1000);
             }
         });
         JButton btnT3C1 = new JButton("...");
@@ -186,10 +186,10 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar1.get(tab3.getSelectedRow());
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
-                DicParam2 frame = new DicParam2(this, listenerPar1, grup);
+                DicParUser frame = new DicParUser(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                DicParam3 frame = new DicParam3(this, listenerPar1, list);
+                DicParSys frame = new DicParSys(this, listenerPar1, list);
             }
         });
         JButton btnT4C0 = new JButton("...");
@@ -227,7 +227,7 @@ public class Joining extends javax.swing.JFrame {
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }
-                DicParam1 frame = new DicParam1(this, listenerPar2, eParams.joint, level);
+                DicParams frame = new DicParams(this, listenerPar2, eParams.joint, level);
             }
         });
         JButton btnT5C1 = new JButton("...");
@@ -236,7 +236,7 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar2.get(tab5.getSelectedRow());
             int grup = record.getInt(eJoinpar2.grup);
             if (grup < 0) {
-                DicParam2 frame = new DicParam2(this, listenerPar2, grup);
+                DicParUser frame = new DicParUser(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
                 System.out.println(list);
@@ -642,6 +642,10 @@ public class Joining extends javax.swing.JFrame {
         tab4.setFillsViewportHeight(true);
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(3).setMaxWidth(80);
+        }
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
 

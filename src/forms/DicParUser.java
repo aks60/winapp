@@ -2,37 +2,34 @@ package forms;
 
 import common.DialogListener;
 import common.FrameToFile;
+import common.Util;
+import dataset.Query;
 import dataset.Record;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
+import domain.eParams;
+import swing.DefTableModel;
 
-public class DicParam3 extends javax.swing.JDialog {
+public class DicParUser extends javax.swing.JDialog {
 
-    private List<String> list;
+    private int grup = -1;
+    private Query qParam2 = new Query(eParams.up.values());
     private DialogListener listener;
 
-    public DicParam3(java.awt.Frame parent, DialogListener listener, List list) {
+    public DicParUser(java.awt.Frame parent, DialogListener listener, int grup) {
         super(parent, true);
         initComponents();
-        this.listener = listener;
-        this.list = list;
+        this.grup = grup;
         initElements();
+        this.listener = listener;
         initModel();
         setVisible(true);
     }
-    
+
     private void initModel() {
-        Vector<Vector> vectorData = new Vector();
-        for (String str : list) {
-            Vector vector = new Vector();
-            vector.add(str);
-            vectorData.add(vector);
-        }
-        Vector column = new Vector();
-        column.add("Значения параметра");
-        DefaultTableModel dtm = new DefaultTableModel(vectorData, column);
-        tab1.setModel(dtm);
+
+        qParam2.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);
+        tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
+        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.selectRecord(tab1, 0);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +46,8 @@ public class DicParam3 extends javax.swing.JDialog {
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(240, 300));
+        setTitle("Параметры пользователя");
+        setPreferredSize(new java.awt.Dimension(300, 200));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -82,7 +80,7 @@ public class DicParam3 extends javax.swing.JDialog {
         btnChouce.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnChouce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChouce(evt);
+                btnChoice(evt);
             }
         });
 
@@ -110,7 +108,7 @@ public class DicParam3 extends javax.swing.JDialog {
                 .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -170,7 +168,7 @@ public class DicParam3 extends javax.swing.JDialog {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 305, Short.MAX_VALUE)
+            .addGap(0, 331, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,24 +184,23 @@ public class DicParam3 extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnClose
 
-    private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
+    private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record(1);
         record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
         listener.action(record);
         this.dispose();
-    }//GEN-LAST:event_btnChouce
+    }//GEN-LAST:event_btnChoice
+
+    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab1MouseClicked
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
         listener.action(null);
     }//GEN-LAST:event_btnRemoveert
-
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        if (evt.getClickCount() == 2) {
-            btnChouce(null);
-        }
-    }//GEN-LAST:event_tab1MouseClicked
-
-    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChouce;
     private javax.swing.JButton btnClose;
@@ -214,13 +211,13 @@ public class DicParam3 extends javax.swing.JDialog {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-    // </editor-fold> 
+// </editor-fold> 
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-//        String title = new Query(eParams.up.values()).select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "= 0", "order by", eParams.text).getAs(0, eParams.text, "Параметры");
-//        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                title, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+        String title = new Query(eParams.up.values()).select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "= 0", "order by", eParams.text).getAs(0, eParams.text, "Параметры");
+        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                title, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
 }
