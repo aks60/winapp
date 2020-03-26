@@ -66,6 +66,9 @@ public class DicCurrenc extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
         });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -269,6 +272,7 @@ public class DicCurrenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.out.println("22222 forms.DicCurrenc.formWindowClosed()");
         FrameAdapter.stopCellEditing(tab1, tab1);
         qCurrenc.execsql();
         if (owner != null)
@@ -282,6 +286,10 @@ public class DicCurrenc extends javax.swing.JFrame {
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.println("3333 forms.DicCurrenc.formWindowClosing()");        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;

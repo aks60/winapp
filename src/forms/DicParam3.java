@@ -2,10 +2,7 @@ package forms;
 
 import common.DialogListener;
 import common.FrameToFile;
-import dataset.Query;
-import domain.eParams;
-import static domain.eParams.grup;
-import java.util.ArrayList;
+import dataset.Record;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
@@ -112,7 +109,7 @@ public class DicParam3 extends javax.swing.JDialog {
                 .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -172,7 +169,7 @@ public class DicParam3 extends javax.swing.JDialog {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
+            .addGap(0, 305, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,10 +186,10 @@ public class DicParam3 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
-//        Record record = new Record(1);
-//        record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
-//        listener.action(record);
-//        this.dispose();
+        Record record = new Record(1);
+        record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
+        listener.action(record);
+        this.dispose();
     }//GEN-LAST:event_btnChouce
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert

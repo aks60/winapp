@@ -92,9 +92,7 @@
                   <Component id="btnRef" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                   <Component id="btnReport2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
-                  <Component id="frm" min="-2" pref="83" max="-2" attributes="0"/>
-                  <EmptySpace pref="427" max="32767" attributes="0"/>
+                  <EmptySpace pref="695" max="32767" attributes="0"/>
                   <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -108,12 +106,9 @@
                       <Component id="btnRef" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnReport2" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
-                              </Group>
-                              <Component id="frm" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
+                              <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -273,14 +268,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReport2"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="frm">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="0" type="0"/>
-            </Property>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

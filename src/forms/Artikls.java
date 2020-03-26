@@ -199,7 +199,6 @@ public class Artikls extends javax.swing.JFrame {
     public void listenerDict() {
 
         listenerDic = (record) -> {
-            System.out.println("forms.Artikls.listenerDict()");
             if (tab2.getBorder() != null) {
                 if (eColgrp.values().length == record.size()) {
                     qArtdet.set(-1 * record.getInt(eColgrp.id), tab2.getSelectedRow(), eArtdet.color_fk);

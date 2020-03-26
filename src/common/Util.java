@@ -112,13 +112,6 @@ public class Util {
         return appCalendar;
     }
 
-    public static double ObjToDouble(Object obj) {
-        if (obj == null) {
-            return 0;
-        }
-        return Double.valueOf(obj.toString());
-    }
-
     public static Font getFont(int size, int bold) {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }

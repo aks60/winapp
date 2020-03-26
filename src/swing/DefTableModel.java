@@ -145,7 +145,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             JOptionPane.showMessageDialog(eProfile.appframe, "Неверный формат ввода данных", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        //System.out.println(value);
+        System.out.println(value);
         table.set(value, row, field);
         if (listenerModify != null) {
             listenerModify.actionRequest(null);
