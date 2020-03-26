@@ -16,7 +16,7 @@ import swing.DefTableModel;
 public class DicArtikl extends javax.swing.JDialog {
 
     private DialogListener listener = null;
-    private Query qArtikl = new Query(eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
+    private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
 
     public DicArtikl(java.awt.Frame parent, DialogListener listenet, int... level) {
         super(parent, true);
@@ -79,7 +79,7 @@ public class DicArtikl extends javax.swing.JDialog {
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -122,7 +122,7 @@ public class DicArtikl extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -149,7 +149,7 @@ public class DicArtikl extends javax.swing.JDialog {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 447, Short.MAX_VALUE)
+            .addGap(0, 355, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,6 +182,11 @@ public class DicArtikl extends javax.swing.JDialog {
         });
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab2MouseClicked(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -197,9 +202,9 @@ public class DicArtikl extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         int row = tab2.getSelectedRow();
@@ -211,8 +216,14 @@ public class DicArtikl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        // TODO add your handling code here:
+        listener.action(null); 
     }//GEN-LAST:event_btnRemoveert
+
+    private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,13 +5,13 @@ import common.EditorListener;
 import common.FrameAdapter;
 import common.FrameToFile;
 import common.Util;
-import dataset.ConnApp;
+import static common.Util.deleteSql;
+import static common.Util.insertSql;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
-import domain.eColgrp;
 import domain.eJoindet;
 import domain.eJoining;
 import domain.eJoinpar1;
@@ -90,7 +90,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void initModel() {
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name) {
-            @Override
+
             public Object actionPreview(Field field, int row, Object val) {
                 if (eJoining.artikl_id1 == field) {
                     return qArtikls1.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
@@ -123,7 +123,18 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types);
+        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types) {
+
+//            public Object actionPreview(Field field, int row, Object val) {
+//                if (eJoindet.artikl_id == field) {
+//                    return qArtikls1.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+//
+//                } else if (eJoining.artikl_id2 == field) {
+//                    return qArtikls2.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+//                }
+//                return val;
+//            }
+        };
         new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
@@ -153,6 +164,15 @@ public class Joining extends javax.swing.JFrame {
             FrameToFile.setFrameSize(frame);
             frame.setVisible(true);
         });
+
+        JButton btnT1C1 = new JButton("...");
+        tab1.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(null, btnT1C1));
+        btnT1C1.addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            FrameToFile.setFrameSize(frame);
+            frame.setVisible(true);
+        });
+
         JButton btnT3C0 = new JButton("...");
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
         btnT3C0.addActionListener(event -> {
@@ -211,7 +231,7 @@ public class Joining extends javax.swing.JFrame {
                 } else if (level == 2 || level == 4) {
                     level = 11000;
                 }
-                DicParam1 frame = new DicParam1(this, listenerPar2, eParams.joint , level);
+                DicParam1 frame = new DicParam1(this, listenerPar2, eParams.joint, level);
                 FrameToFile.setFrameSize(frame);
                 frame.setVisible(true);
             }
@@ -272,8 +292,19 @@ public class Joining extends javax.swing.JFrame {
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
+            Record joiningRec = qJoining.get(tab1.getSelectedRow());
             if (tab1.getBorder() != null) {
-                System.out.println("====forms.Joining.listenerArtikl()");
+
+                if (tab1.getSelectedColumn() == 0) {
+                    joiningRec.set(eJoining.artikl_id1, record.getInt(eArtikl.id));
+                    System.out.println(record.getInt(eArtikl.id));
+                    
+                } else if (tab1.getSelectedColumn() == 1) {
+                    joiningRec.set(eJoining.artikl_id2, record.getInt(eArtikl.id));
+                    System.out.println(record.getInt(eArtikl.id));
+                }
+                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                Util.selectRecord(tab1, 0);
             }
         };
 
@@ -315,7 +346,7 @@ public class Joining extends javax.swing.JFrame {
                 joinpar2Rec.set(eJoinpar2.text, record.getStr(0));
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Util.selectRecord(tab5, 0);            
+            Util.selectRecord(tab5, 0);
         };
 
         listenerColor = (record) -> {
@@ -488,7 +519,7 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110)
                 .addComponent(btnReport2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 695, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 674, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -654,7 +685,7 @@ public class Joining extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 962, Short.MAX_VALUE)
+            .addGap(0, 941, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -681,95 +712,38 @@ public class Joining extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                Record joiningRec = qJoining.get(tab1.getSelectedRow());
-                joiningRec.set(eJoining.up, Query.DEL);
-                qJoining.delete(joiningRec);
-                qJoining.removeRec(tab1.getSelectedRow());
-                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab1, 0);
+                deleteSql(tab1, qJoining, eJoining.up);
 
             } else if (tab2.getBorder() != null) {
-                Record joinvarRec = qJoinvar.get(tab2.getSelectedRow());
-                joinvarRec.set(eJoinvar.up, Query.DEL);
-                qJoinvar.delete(joinvarRec);
-                qJoinvar.removeRec(tab2.getSelectedRow());
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab2, 0);
+                deleteSql(tab2, qJoinvar, eJoinvar.up);
 
             } else if (tab3.getBorder() != null) {
-                Record joinpar1Rec = qJoinpar1.get(tab3.getSelectedRow());
-                joinpar1Rec.set(eJoinpar1.up, Query.DEL);
-                qJoinpar1.delete(joinpar1Rec);
-                qJoinpar1.removeRec(tab3.getSelectedRow());
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab3, 0);
+                deleteSql(tab3, qJoinpar1, eJoinpar1.up);
 
             } else if (tab4.getBorder() != null) {
-                Record joindetRec = qJoindet.get(tab4.getSelectedRow());
-                joindetRec.set(eJoindet.up, Query.DEL);
-                qJoindet.delete(joindetRec);
-                qJoindet.removeRec(tab4.getSelectedRow());
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab4, 0);
+                deleteSql(tab4, qJoindet, eJoindet.up);
 
             } else if (tab5.getBorder() != null) {
-                Record joinpar2Rec = qJoinpar2.get(tab5.getSelectedRow());
-                joinpar2Rec.set(eJoinpar2.up, Query.DEL);
-                qJoinpar2.delete(joinpar2Rec);
-                qJoinpar2.removeRec(tab5.getSelectedRow());
-                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab5, 0);
+                deleteSql(tab5, qJoinpar2, eJoinpar2.up);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Record record = qJoining.newRecord(Query.INS);
-            record.setNo(eColgrp.id, ConnApp.instanc().genId(eJoining.up));
-            qJoining.add(record);
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qJoining, tab1);
+            insertSql(tab1, qJoining, eJoining.up);
 
         } else if (tab2.getBorder() != null) {
-            int row = tab1.getSelectedRow();
-            Record joiningRec = qJoining.get(row);
-            Record joinvarRec = qJoinvar.newRecord(Query.INS);
-            joinvarRec.setNo(eJoinvar.id, ConnApp.instanc().genId(eJoinvar.up));
-            joinvarRec.setNo(eJoinvar.joining_id, joiningRec.getInt(eJoining.id));
-            qJoinvar.add(joinvarRec);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qJoinvar, tab2);
+            insertSql(tab1, tab2, qJoining, qJoinvar, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
 
         } else if (tab3.getBorder() != null) {
-            int row = tab2.getSelectedRow();
-            Record joinvarRec = qJoinvar.get(row);
-            Record joinpar1Rec = qJoinpar1.newRecord(Query.INS);
-            joinpar1Rec.setNo(eJoinpar1.id, ConnApp.instanc().genId(eJoinpar1.up));
-            joinpar1Rec.setNo(eJoinpar1.joinvar_id, joinvarRec.getInt(eJoinpar1.id));
-            qJoinpar1.add(joinpar1Rec);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qJoinpar1, tab3);
+            insertSql(tab2, tab3, qJoinvar, qJoinpar1, eJoinvar.up, eJoinpar1.up, eJoinpar1.joinvar_id);
 
         } else if (tab4.getBorder() != null) {
-            int row = tab2.getSelectedRow();
-            Record joinvarRec = qJoinvar.get(row);
-            Record joindetRec = qJoindet.newRecord(Query.INS);
-            joindetRec.setNo(eJoindet.id, ConnApp.instanc().genId(eJoindet.up));
-            joindetRec.setNo(eJoindet.joinvar_id, joinvarRec.getInt(eJoinvar.id));
-            qJoindet.add(joindetRec);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qJoindet, tab4);
+            insertSql(tab2, tab4, qJoinvar, qJoindet, eJoinvar.up, eJoindet.up, eJoindet.joinvar_id);
 
         } else if (tab5.getBorder() != null) {
-            int row = tab2.getSelectedRow();
-            Record joindetRec = qJoindet.get(row);
-            Record joinpar2Rec = qJoinpar2.newRecord(Query.INS);
-            joinpar2Rec.setNo(eJoinpar2.id, ConnApp.instanc().genId(eJoinpar2.up));
-            joinpar2Rec.setNo(eJoinpar2.joindet_id, joindetRec.getInt(eJoinpar2.id));
-            qJoinpar2.add(joinpar2Rec);
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qJoinpar2, tab5);
+            insertSql(tab2, tab5, qJoindet, qJoinpar2, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
         }
     }//GEN-LAST:event_btnInsert
 
