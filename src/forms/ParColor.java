@@ -1,57 +1,71 @@
 package forms;
 
 import common.DialogListener;
-import common.FrameListener;
 import common.FrameToFile;
-import dataset.Field;
+import common.Util;
 import dataset.Query;
 import dataset.Record;
-import domain.eColgrp;
+import domain.eArtdet;
 import domain.eColor;
-import enums.ParamList;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.Icon;
-import javax.swing.JTable;
+import domain.eParams;
+import java.awt.CardLayout;
+import java.util.stream.Collectors;
+import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
+import swing.DefTableModel;
 
 public class ParColor extends javax.swing.JDialog {
-    
+
+    private Query qArtdet = new Query(eArtdet.values());
+    private Query qParams = new Query(eParams.id, eParams.grup, eParams.text);
     private DialogListener listener;
-    
-    public ParColor(java.awt.Frame parent, DialogListener listener, Query query, Field... fields) {
+
+    public ParColor(java.awt.Frame parent, DialogListener listener, int artikl_id) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listener;
-        initModel(query, fields);
+        initData(artikl_id);
+        initModel();
         setVisible(true);
     }
-    
-    private void initModel(Query query, Field... fields) {
-        
-        Vector<Vector> dataList = new Vector();
-        Vector colList = new Vector();
-        for (Field field : fields) {
-            colList.add(field.meta().descr());
-        }
-        for (Record record : query) {
-            Vector rec = new Vector();
-            for (Field field : fields) {
-                rec.add(record.getStr(field));
-            }
-            dataList.add(rec);
-        }
-        tab1.setModel(new DefaultTableModel(dataList, colList));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+
+    private void initData(int artikl_id) {
+        qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
+        qParams.select(eParams.up, "where", eParams.numb, "= 0 and", eParams.joint, "= 1 order by", eParams.text);
     }
-    
+
+    private void initModel() {
+
+        DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
+        tableModel.getDataVector().removeAllElements();
+        for (Record record : qArtdet) {
+            if (record.getInt(eArtdet.color_fk) > 0) {
+                Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));
+                for (Record record1 : qColor) {
+                    tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name)});
+                }
+            } else if (record.getInt(eArtdet.color_fk) > 0) {
+                int colgrp_id = Math.abs(record.getInt(eArtdet.color_fk));
+                Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.colgrp_id, "=", colgrp_id);
+                for (Record record1 : qColor) {
+                    tableModel.addRow(new String[]{record1.getStr(eColor.id), record1.getStr(eColor.name)});
+                }
+            }
+        }
+        tableModel.getDataVector().stream().sorted((rec1, rec2) -> rec1.get(1).toString().compareTo(rec2.get(1).toString())).collect(Collectors.toList());
+        tab2.setModel(new DefTableModel(tab2, qParams, eParams.grup, eParams.text));
+
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.selectRecord(tab1, 0);
+        Util.selectRecord(tab2, 0);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnChouce = new javax.swing.JButton();
@@ -69,6 +83,7 @@ public class ParColor extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Параметры системы");
+        setPreferredSize(new java.awt.Dimension(342, 509));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -120,6 +135,7 @@ public class ParColor extends javax.swing.JDialog {
             }
         });
 
+        buttonGroup1.add(btnCard1);
         btnCard1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCard1.setSelected(true);
         btnCard1.setText("1");
@@ -131,6 +147,7 @@ public class ParColor extends javax.swing.JDialog {
             }
         });
 
+        buttonGroup1.add(btnCard2);
         btnCard2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnCard2.setText("2");
         btnCard2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -154,7 +171,7 @@ public class ParColor extends javax.swing.JDialog {
                 .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -225,15 +242,15 @@ public class ParColor extends javax.swing.JDialog {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "2", "3"},
-                {"1", "2", "3"}
+                {"1", "3"},
+                {"1", "3"}
             },
             new String [] {
-                "grup", "num", "Название "
+                "Код", "Название "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -248,6 +265,10 @@ public class ParColor extends javax.swing.JDialog {
             }
         });
         scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
+        }
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
@@ -263,7 +284,7 @@ public class ParColor extends javax.swing.JDialog {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 307, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,14 +301,16 @@ public class ParColor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-//        int row1 = tab1.getSelectedRow();
-//        int row2 = tab2.getSelectedRow();
-//        if (row2 != -1) {
-//            Record record1 = qColgrp.table(eColgrp.up).get(row1);
-//            Record record2 = qColor.table(eColor.up).get(row2);
-//            listenet.actionResponse(new Record[]{record1, record2});
-//        }
-//        this.dispose();
+        if (btnCard1.isSelected() == true) {
+
+            Record record = new Record(2);
+            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
+            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 1));
+            listener.action(record);
+        } else {
+            listener.action(qParams.get(tab1.getSelectedRow()));
+        }
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
@@ -295,14 +318,12 @@ public class ParColor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRemoveert
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
-//        JToggleButton btn = (JToggleButton) evt.getSource();
-//        if (btn == btnCard1) {
-//            indexCard = 0;
-//            ((CardLayout) panCentr.getLayout()).show(panCentr, "card1");
-//        } else if (btn == btnCard2) {
-//            indexCard = 1;
-//            ((CardLayout) panCentr.getLayout()).show(panCentr, "card2");
-//        }
+        JToggleButton btn = (JToggleButton) evt.getSource();
+        if (btn == btnCard1) {
+            ((CardLayout) panCentr.getLayout()).show(panCentr, "card1");
+        } else if (btn == btnCard2) {
+            ((CardLayout) panCentr.getLayout()).show(panCentr, "card2");
+        }
     }//GEN-LAST:event_btnCard
 
     private void tab1tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1tabMouseClicked
@@ -323,6 +344,7 @@ public class ParColor extends javax.swing.JDialog {
     private javax.swing.JButton btnChouce;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel panCentr;
@@ -334,7 +356,7 @@ public class ParColor extends javax.swing.JDialog {
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
-        
+
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
     }

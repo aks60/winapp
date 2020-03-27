@@ -49,7 +49,7 @@ public class Color extends javax.swing.JFrame {
         btnT3C0.addActionListener(event -> {
             Query query = new Query(eParams.values()).select(eParams.up, "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
             eParams.text.meta().descr("Название параметра");            
-            ParColor frame = new ParColor(this, listenerColor, query, eParams.text);
+            //ParColor frame = new ParColor(this, listenerColor, query, eParams.text);
         });
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
         Util.selectRecord(tab1, 0);
