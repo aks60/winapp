@@ -256,6 +256,7 @@ public class Joining extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = tab1.getSelectedRow();
         if (row != -1) {
+            Util.clearTable(tab2, tab3, tab4, tab5);
             Record record = qJoining.table(eJoining.up).get(row);
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
@@ -267,6 +268,7 @@ public class Joining extends javax.swing.JFrame {
     private void selectionTab2(ListSelectionEvent event) {
         int row = tab2.getSelectedRow();
         if (row != -1) {
+            Util.clearTable(tab3, tab4, tab5);
             Record record = qJoinvar.table(eJoinvar.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
@@ -765,7 +767,9 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+        Util.clearTable(tab2, tab3, tab4, tab5);
+        //((DefTableModel) tab2.getModel()).getQuery().clear();
+        //((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

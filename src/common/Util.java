@@ -4,10 +4,7 @@ import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import domain.eColgrp;
-import domain.eJoining;
 import domain.eJoinpar1;
-import domain.eJoinvar;
 import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
@@ -20,10 +17,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
+import swing.DefTableModel;
 
 /**
  * <p>
@@ -247,5 +244,17 @@ public class Util {
         query.removeRec(table.getSelectedRow());
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.selectRecord(table, 0);
+    }
+
+    public static void clearTable(JTable... jTable) {
+          for (JTable table : jTable) {
+             if (table.getModel() instanceof DefTableModel) {
+                ((DefTableModel) table.getModel()).getQuery().clear();
+                
+            } else if (table.getModel() instanceof DefaultTableModel) {
+                ((DefaultTableModel) table.getModel()).getDataVector().clear();                
+            }
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+        }
     }
 }
