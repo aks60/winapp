@@ -56,12 +56,16 @@ public class ParColor extends javax.swing.JDialog {
         btnClose = new javax.swing.JButton();
         btnChouce = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnCard1 = new javax.swing.JToggleButton();
+        btnCard2 = new javax.swing.JToggleButton();
         panCentr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        pan2 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Параметры системы");
@@ -116,6 +120,27 @@ public class ParColor extends javax.swing.JDialog {
             }
         });
 
+        btnCard1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCard1.setSelected(true);
+        btnCard1.setText("1");
+        btnCard1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnCard1.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCard1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCard(evt);
+            }
+        });
+
+        btnCard2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCard2.setText("2");
+        btnCard2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnCard2.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnCard2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCard(evt);
+            }
+        });
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
@@ -125,7 +150,11 @@ public class ParColor extends javax.swing.JDialog {
                 .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
+                .addGap(70, 70, 70)
+                .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -137,7 +166,10 @@ public class ParColor extends javax.swing.JDialog {
                     .addGroup(panNorthLayout.createSequentialGroup()
                         .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -145,19 +177,23 @@ public class ParColor extends javax.swing.JDialog {
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
         panCentr.setPreferredSize(new java.awt.Dimension(412, 160));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        panCentr.setLayout(new java.awt.CardLayout());
+
+        pan1.setName("pan1"); // NOI18N
+        pan1.setPreferredSize(new java.awt.Dimension(350, 400));
+        pan1.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"name1"},
-                {"name2"}
+                {"1", "2"},
+                {"1", "2"}
             },
             new String [] {
-                "Группы параметров"
+                "Код", "Название"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -168,31 +204,36 @@ public class ParColor extends javax.swing.JDialog {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab1MouseClicked(evt);
+                tab1tabMouseClicked(evt);
             }
         });
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(80);
+        }
 
-        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        panCentr.add(pan1, "card1");
 
-        panSouth.setPreferredSize(new java.awt.Dimension(400, 350));
-        panSouth.setLayout(new java.awt.BorderLayout());
+        pan2.setName("pan2"); // NOI18N
+        pan2.setPreferredSize(new java.awt.Dimension(350, 180));
+        pan2.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Name 1"},
-                {"Name 2"}
+                {"1", "2", "3"},
+                {"1", "2", "3"}
             },
             new String [] {
-                "Название параметров"
+                "grup", "num", "Название "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -203,12 +244,31 @@ public class ParColor extends javax.swing.JDialog {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tab2MouseClicked(evt);
+                tab2tabMouseClicked(evt);
             }
         });
         scr2.setViewportView(tab2);
 
-        panSouth.add(scr2, java.awt.BorderLayout.CENTER);
+        pan2.add(scr2, java.awt.BorderLayout.CENTER);
+
+        panCentr.add(pan2, "card2");
+
+        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+
+        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(350, 20));
+
+        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
+        panSouth.setLayout(panSouthLayout);
+        panSouthLayout.setHorizontalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 384, Short.MAX_VALUE)
+        );
+        panSouthLayout.setVerticalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
@@ -230,26 +290,41 @@ public class ParColor extends javax.swing.JDialog {
 //        this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
-        if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab1MouseClicked
-
-    private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
-        if (evt.getClickCount() == 2) {
-            btnChoice(null);
-        }
-    }//GEN-LAST:event_tab2MouseClicked
-
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
         listener.action(null);
     }//GEN-LAST:event_btnRemoveert
 
+    private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
+//        JToggleButton btn = (JToggleButton) evt.getSource();
+//        if (btn == btnCard1) {
+//            indexCard = 0;
+//            ((CardLayout) panCentr.getLayout()).show(panCentr, "card1");
+//        } else if (btn == btnCard2) {
+//            indexCard = 1;
+//            ((CardLayout) panCentr.getLayout()).show(panCentr, "card2");
+//        }
+    }//GEN-LAST:event_btnCard
+
+    private void tab1tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1tabMouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab1tabMouseClicked
+
+    private void tab2tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMouseClicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab2tabMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnCard1;
+    private javax.swing.JToggleButton btnCard2;
     private javax.swing.JButton btnChouce;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
