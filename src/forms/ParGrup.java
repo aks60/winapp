@@ -24,7 +24,6 @@ public class ParGrup extends javax.swing.JDialog {
     private DialogListener listener;
     private Query qParams = new Query(eParams.values());
     private Field filter = null;
-    private int indexCard = 0;
 
     public ParGrup(Frame parent, DialogListener listener, Field filter, int... part) {
         super(parent, true);
@@ -305,7 +304,7 @@ public class ParGrup extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        if (indexCard == 0) {
+        if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
             record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
             record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 1));
@@ -323,10 +322,8 @@ public class ParGrup extends javax.swing.JDialog {
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
         JToggleButton btn = (JToggleButton) evt.getSource();
         if (btn == btnCard1) {
-            indexCard = 0;
             ((CardLayout) panCentr.getLayout()).show(panCentr, "card1");
         } else if (btn == btnCard2) {
-            indexCard = 1;
             ((CardLayout) panCentr.getLayout()).show(panCentr, "card2");
         }
     }//GEN-LAST:event_btnCard
