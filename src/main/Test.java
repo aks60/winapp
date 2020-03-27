@@ -16,25 +16,13 @@ import wincalc.script.Winscript;
 public class Test {
 
     public static void main(String[] args) {
-        try {
-            AppRus.runRussifier();
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(laf.getName())) { //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
-                    UIManager.setLookAndFeel(laf.getClassName());
-                }
-            }
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-
         Main.dev = true;
         try {
-            //convert.Profstroy.script();
+            convert.Profstroy.script();
             //query();
             //wincalc();
             //frame();
-  
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -53,9 +41,10 @@ public class Test {
     }
 
     static void frame() throws Exception {
-      
+
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+        lookAndFeel();
         App1 app = new App1();
         app.setVisible(true);
         forms.Joining frm = new forms.Joining();
@@ -126,5 +115,19 @@ public class Test {
 //        rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
 //        AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
 //        area2.add(new Element("7", TypeElem.GLASS));
+    }
+
+    private static void lookAndFeel() {
+        try {
+            AppRus.runRussifier();
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+                if ("Windows".equals(laf.getName())) { //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
+                    UIManager.setLookAndFeel(laf.getClassName());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 }
