@@ -44,7 +44,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             maxWidthList.add(table.getColumnModel().getColumn(index).getMaxWidth());
         }
         table.setModel(this);
-        table.setRowSorter(sorter);
+        //table.setRowSorter(sorter);
         JTableHeader header = table.getTableHeader();
         header.setFont(Util.getFont(0, 0));
         for (int index = 0; index < resizableList.size(); index++) {

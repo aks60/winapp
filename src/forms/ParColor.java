@@ -17,7 +17,7 @@ import swing.DefTableModel;
 public class ParColor extends javax.swing.JDialog {
 
     private Query qArtdet = new Query(eArtdet.values());
-    private Query qParams = new Query(eParams.id, eParams.grup, eParams.text);
+    private Query qParams = new Query(eParams.values());
     private DialogListener listener;
 
     public ParColor(java.awt.Frame parent, DialogListener listener, int artikl_id) {
@@ -302,13 +302,13 @@ public class ParColor extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
-
+            
             Record record = new Record(2);
             record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
             record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 1));
             listener.action(record);
         } else {
-            listener.action(qParams.get(tab1.getSelectedRow()));
+            listener.action(qParams.get(tab2.getSelectedRow()));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
