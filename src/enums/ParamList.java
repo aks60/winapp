@@ -9,16 +9,17 @@ import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 import common.ParamCheck;
+import domain.eSetting;
 import wincalc.model.CheckParam;
 
 public class ParamList {
 
     public static Enam[] values() {
-        return (eProperty.versionDb.read().equals("3") == true) ? Ps3.values() : Ps4.values();
+        return ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) ? Ps3.values() : Ps4.values();
     }
 
     public static Enam find(int numb) {
-        if (eProperty.versionDb.read().equals("3") == true) {
+        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
             return Arrays.stream(Ps3.values()).filter(en -> en.numb() == numb).findFirst().orElse(Ps3.P0000);
         } else {
             return Arrays.stream(Ps4.values()).filter(en -> en.numb() == numb).findFirst().orElse(Ps4.P0000);
@@ -73,7 +74,7 @@ public class ParamList {
         P2098(2098, "Бригада (участок)"),
         P2099(2099, "Трудозатраты, ч/ч."),
         P2097(2097, "Трудозатраты по длине"),
-        P2085(2085, "Надпись на элементе"),
+        P2085(2085, "Надпись на элементе777"),
         P3002(3002, "Вид L-образного варианта"),
         P3003(3003, "Угол варианта"),
         P3005(3005, "Контейнер Артикула 1 имеет тип"),

@@ -44,6 +44,7 @@ import domain.eOrders;
 import domain.eParams;
 import domain.ePartner;
 import domain.eRulecalc;
+import domain.eSetting;
 import domain.eSyssize;
 import domain.eSysdata;
 import domain.eSysfurn;
@@ -58,7 +59,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -75,7 +75,7 @@ import wincalc.script.Winscript;
  */
 public class Profstroy {
 
-    private static char versionPs = 4;
+    private static int versionPs = 4;
     private static Connection cn1;
     private static Connection cn2;
     private static Statement st1; //источник 
@@ -83,7 +83,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //порядок записи определён в ссответсвии с зависимостями
-            eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
+            eSetting.up, eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
@@ -95,7 +95,7 @@ public class Profstroy {
             eCurrenc.up
         };
         try {
-            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2_clear.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
@@ -118,12 +118,8 @@ public class Profstroy {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
                     versionPs = 3;
-                    eProperty.versionDb.write("3");
                     eJoining.up.meta().fname = "CONNECT";
-                } else {
-                    eProperty.versionDb.write("4");
                 }
-                eProperty.storeProperty();
             }
             while (resultSet2.next()) {
                 listExistTable2.add(resultSet2.getString("TABLE_NAME"));
@@ -411,6 +407,7 @@ public class Profstroy {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
+            updateSetting();
             sql("update color set colgrp_id = (select id from colgrp a where a.id = color.cgrup)");
             sql("update colpar1 set color_id = (select id from color a where a.cnumb = colpar1.psss)");
             sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
@@ -445,7 +442,7 @@ public class Profstroy {
             sql("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)");
             sql("update furnside1 set furniture_id = (select id from furniture a where a.funic = furnside1.funic)");
             sql("update furnside1 set type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
-            sql("update furnside2 set furndet_id = (select id from furndet a where a.fincb = furnside2.fincs)");            
+            sql("update furnside2 set furndet_id = (select id from furndet a where a.fincb = furnside2.fincs)");
             sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
             sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
             sql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
@@ -499,7 +496,7 @@ public class Profstroy {
             sql("alter table glaspar1 add constraint fk_glaspar1 foreign key (glasgrp_id) references glasgrp (id)");
             sql("alter table glaspar2 add constraint fk_glaspar2 foreign key (glasdet_id) references glasdet (id)");
             sql("alter table furnside1 add constraint fk_furnside1 foreign key (furniture_id) references furniture (id)");
-            sql("alter table furnside2 add constraint fk_furnside2 foreign key (furndet_id) references furndet (id)");            
+            sql("alter table furnside2 add constraint fk_furnside2 foreign key (furndet_id) references furndet (id)");
             sql("alter table furnpar1 add constraint fk_furnpar1 foreign key (furnside_id) references furnside1 (id)");
             sql("alter table furndet add constraint fk_furndet1 foreign key (furniture_id) references furniture (id)");
             sql("alter table furndet add constraint fk_furndet2 foreign key (artikl_id) references artikl (id)");
@@ -526,7 +523,7 @@ public class Profstroy {
     private static void updateElemgrp() throws SQLException {
         System.out.println("updateElemgrp()");
         Query.connection = cn2;
-        Query q = new Query(eElemgrp.values()).table(eElemgrp.up);
+        Query q = new Query(eElemgrp.values());
         ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
         ArrayList<Object[]> fieldList = new ArrayList();
         while (rs.next()) {
@@ -553,7 +550,7 @@ public class Profstroy {
             String name = jsonObj.get("prj").getAsString()
                     + "-  " + jsonObj.get("name").getAsString();
 
-            Query q = new Query(eSysprod.values()).table(eSysprod.up);
+            Query q = new Query(eSysprod.values());
             Record record = q.newRecord(Query.INS);
             record.setNo(eSysprod.npp, index + 1);
             record.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.up));
@@ -561,6 +558,22 @@ public class Profstroy {
             record.setNo(eSysprod.script, script);
             q.insert(record);
         }
+    }
+
+    private static void updateSetting() throws SQLException {
+        System.out.println("updateSetting()");
+        Query.connection = cn2;
+        Query q = new Query(eSetting.values());
+        Record record = q.newRecord(Query.INS);
+        record.setNo(eSetting.id, 1);
+        record.setNo(eSetting.name, "Версия программы");
+        record.setNo(eSetting.val, "1.0");
+        q.insert(record);
+        record = q.newRecord(Query.INS);
+        record.setNo(eSetting.id, 2);
+        record.setNo(eSetting.name, "Версия базы данных");
+        record.setNo(eSetting.val, "ps" + versionPs);
+        q.insert(record);
     }
 
     private static void sql(String str) {

@@ -18,6 +18,7 @@ import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eJoinvar;
 import domain.eParams;
+import domain.eSetting;
 import domain.eSysprof;
 import enums.Enam;
 import enums.ParamList;
@@ -754,7 +755,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        ParamList.values()[0].check(3);
+
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
