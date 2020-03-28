@@ -241,7 +241,7 @@ public class Joining extends javax.swing.JFrame {
                 System.out.println(list);
             }
         });
-        Util.selectionRecord(tab1, 0);
+        Util.setSelectedRow(tab1, 0);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -252,7 +252,7 @@ public class Joining extends javax.swing.JFrame {
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab2, 0);
+            Util.setSelectedRow(tab2, 0);
         }
     }
 
@@ -266,8 +266,8 @@ public class Joining extends javax.swing.JFrame {
             qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab3, 0);
-            Util.selectionRecord(tab4, 0);
+            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab4, 0);
         }
     }
 
@@ -278,7 +278,7 @@ public class Joining extends javax.swing.JFrame {
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.grup);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab5, 0);
+            Util.setSelectedRow(tab5, 0);
         }
     }
 
@@ -293,14 +293,14 @@ public class Joining extends javax.swing.JFrame {
                     joiningRec.set(eJoining.artikl_id2, record.getInt(eArtikl.id));
                 }
                 FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-                Util.selectionRecord(tab1, 0);
+                Util.setSelectedRow(tab1, 0);
 
             } else if (tab4.getBorder() != null) {
                 Record joindetRec = qJoindet.get(getSelectedRow(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-                Util.selectionRecord(tab4, 0);
+                Util.setSelectedRow(tab4, 0);
             }
         };
 
@@ -321,7 +321,7 @@ public class Joining extends javax.swing.JFrame {
                 joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Util.selectionRecord(tab3, 0);
+            Util.setSelectedRow(tab3, 0);
         };
 
         listenerPar2 = (record) -> {
@@ -342,7 +342,7 @@ public class Joining extends javax.swing.JFrame {
                 joinpar2Rec.set(eJoinpar2.text, record.getStr(0));
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Util.selectionRecord(tab5, 0);
+            Util.setSelectedRow(tab5, 0);
         };
 
         listenerColor = (record) -> {
@@ -353,7 +353,7 @@ public class Joining extends javax.swing.JFrame {
                 joindetRec.set(eJoindet.color_fk, record.get(0));
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Util.selectionRecord(tab4, 0);
+            Util.setSelectedRow(tab4, 0);
         };
     }
 
@@ -707,7 +707,7 @@ public class Joining extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         initData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectionRecord(tab1, 0);
+        Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

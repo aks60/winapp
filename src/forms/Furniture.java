@@ -68,7 +68,7 @@ public class Furniture extends javax.swing.JFrame {
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side);
         new DefTableModel(tab5, qFurnpar1, eFurnpar1.grup, eFurnpar1.text);
         new DefTableModel(tab6, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max);
-        Util.selectionRecord(tab1, 0);
+        Util.setSelectedRow(tab1, 0);
     }
 
     private void initData() {
@@ -93,8 +93,8 @@ public class Furniture extends javax.swing.JFrame {
                     "where", eFurndet.furniture_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab2, 0);
-            Util.selectionRecord(tab4, 0);
+            Util.setSelectedRow(tab2, 0);
+            Util.setSelectedRow(tab4, 0);
         }
     }
 
@@ -107,8 +107,8 @@ public class Furniture extends javax.swing.JFrame {
             qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab3, 0);
-            Util.selectionRecord(tab6, 0);
+            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab6, 0);
         }
     }
 
@@ -119,7 +119,7 @@ public class Furniture extends javax.swing.JFrame {
             Integer id = record.getInt(eFurnside1.id);
             qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.grup);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab5, 0);
+            Util.setSelectedRow(tab5, 0);
         }
     }
 
@@ -490,7 +490,7 @@ public class Furniture extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         initData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectionRecord(tab1, 0);
+        Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -504,7 +504,7 @@ public class Furniture extends javax.swing.JFrame {
                 qFurniture.delete(furnitureRec);
                 qFurniture.removeRec(getSelectedRow(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab1, 0);
+                Util.setSelectedRow(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
                 Record furndetRec = qFurndet.get(getSelectedRow(tab2));
@@ -512,7 +512,7 @@ public class Furniture extends javax.swing.JFrame {
                 qFurndet.delete(furndetRec);
                 qFurndet.removeRec(getSelectedRow(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab2, 0);
+                Util.setSelectedRow(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
                 Record urnpar2Rec = qFurnpar2.get(getSelectedRow(tab3));
@@ -520,7 +520,7 @@ public class Furniture extends javax.swing.JFrame {
                 qFurnpar2.delete(urnpar2Rec);
                 qFurnpar2.removeRec(getSelectedRow(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab3, 0);
+                Util.setSelectedRow(tab3, 0);
 
             } else if (tab4.getBorder() != null) {
                 Record furnside1Rec = qFurnside1.get(getSelectedRow(tab3));
@@ -528,7 +528,7 @@ public class Furniture extends javax.swing.JFrame {
                 qFurnside1.delete(furnside1Rec);
                 qFurnside1.removeRec(getSelectedRow(tab4));
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab4, 0);
+                Util.setSelectedRow(tab4, 0);
 
             } else if (tab5.getBorder() != null) {
                 Record furnpar1Rec = qFurnpar1.get(getSelectedRow(tab5));
@@ -536,7 +536,7 @@ public class Furniture extends javax.swing.JFrame {
                 qFurnpar1.delete(furnpar1Rec);
                 qFurnpar1.removeRec(getSelectedRow(tab5));
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab5, 0);
+                Util.setSelectedRow(tab5, 0);
 
             } else if (tab6.getBorder() != null) {
                 Record furnside2Rec = qFurnside2.get(getSelectedRow(tab6));
@@ -544,7 +544,7 @@ public class Furniture extends javax.swing.JFrame {
                 qFurnside2.delete(furnside2Rec);
                 qFurnside2.removeRec(getSelectedRow(tab6));
                 ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab6, 0);
+                Util.setSelectedRow(tab6, 0);
             }
         }
     }//GEN-LAST:event_btnDelete

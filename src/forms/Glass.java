@@ -96,10 +96,10 @@ public class Glass extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab2, 0);
-            Util.selectionRecord(tab3, 0);
-            Util.selectionRecord(tab4, 0);
-            Util.selectionRecord(tab5, 0);
+            Util.setSelectedRow(tab2, 0);
+            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab4, 0);
+            Util.setSelectedRow(tab5, 0);
         }
     }
 
@@ -401,7 +401,7 @@ public class Glass extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         initData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectionRecord(tab1, 0);
+        Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -414,7 +414,7 @@ public class Glass extends javax.swing.JFrame {
                 qGlasgrp.delete(glasgrpRec);
                 qGlasgrp.removeRec(getSelectedRow(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab1, 0);
+                Util.setSelectedRow(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
                 Record glasdetRec = qGlasdet.get(getSelectedRow(tab2));
@@ -422,7 +422,7 @@ public class Glass extends javax.swing.JFrame {
                 qGlasdet.delete(glasdetRec);
                 qGlasdet.removeRec(getSelectedRow(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab2, 0);
+                Util.setSelectedRow(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
                 Record glaspar1Rec = qGlaspar1.get(getSelectedRow(tab3));
@@ -430,7 +430,7 @@ public class Glass extends javax.swing.JFrame {
                 qGlaspar1.delete(glaspar1Rec);
                 qGlaspar1.removeRec(getSelectedRow(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab3, 0);
+                Util.setSelectedRow(tab3, 0);
 
             } else if (tab4.getBorder() != null) {
                 Record glaspar2Rec = qGlaspar2.get(getSelectedRow(tab4));
@@ -438,7 +438,7 @@ public class Glass extends javax.swing.JFrame {
                 qGlaspar2.delete(glaspar2Rec);
                 qGlaspar2.removeRec(getSelectedRow(tab4));
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab4, 0);
+                Util.setSelectedRow(tab4, 0);
 
             } else if (tab5.getBorder() != null) {
                 Record glasprofRec = qGlasprof.get(getSelectedRow(tab4));
@@ -446,7 +446,7 @@ public class Glass extends javax.swing.JFrame {
                 qGlasprof.delete(glasprofRec);
                 qGlasprof.removeRec(getSelectedRow(tab5));
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab5, 0);
+                Util.setSelectedRow(tab5, 0);
             }
         }
     }//GEN-LAST:event_btnDelete

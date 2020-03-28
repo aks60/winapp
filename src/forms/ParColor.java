@@ -58,8 +58,8 @@ public class ParColor extends javax.swing.JDialog {
         tab2.setModel(new DefTableModel(tab2, qParams, eParams.grup, eParams.text));
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectionRecord(tab1, 0);
-        Util.selectionRecord(tab2, 0);
+        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab2, 0);
     }
 
     @SuppressWarnings("unchecked")

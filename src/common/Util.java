@@ -220,12 +220,19 @@ public class Util {
         Util.scrollRectToVisible(query, table);
     }
 
-    public static void selectionRecord(JTable table, int row) {
+    public static void setSelectedRow(JTable table, int row) {
         if (table.getRowCount() > row) {
             table.setRowSelectionInterval(row, row);
         }
     }
 
+    public static int getSelectedRow(JTable table) {
+        if (table.getSelectedRow() != -1) {
+            return table.convertRowIndexToModel(table.getSelectedRow());
+        }
+        return -1;
+    }
+    
     public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
 
         int row = getSelectedRow(table1);
@@ -245,7 +252,7 @@ public class Util {
         query.delete(record);
         query.removeRec(getSelectedRow(table));
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.selectionRecord(table, 0);
+        Util.setSelectedRow(table, 0);
     }
 
     public static void clearTable(JTable... jTable) {
@@ -270,12 +277,5 @@ public class Util {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(listener, btn));
         return btn;
-    }
-
-    public static int getSelectedRow(JTable table) {
-        if (table.getSelectedRow() != -1) {
-            return table.convertRowIndexToModel(table.getSelectedRow());
-        }
-        return -1;
     }
 }

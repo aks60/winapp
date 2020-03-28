@@ -173,7 +173,7 @@ public class Artikls extends javax.swing.JFrame {
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab1, 0);
+            Util.setSelectedRow(tab1, 0);
         }
     }
 
@@ -187,7 +187,7 @@ public class Artikls extends javax.swing.JFrame {
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.selectionRecord(tab2, 0);
+            Util.setSelectedRow(tab2, 0);
         }
     }
 
@@ -754,7 +754,7 @@ public class Artikls extends javax.swing.JFrame {
                     qArtikl.delete(record);
                     qArtikl.removeRec(row);
                     ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                    Util.selectionRecord(tab1, 0);
+                    Util.setSelectedRow(tab1, 0);
                 }
             } else if (tab2.getBorder() != null) {
                 int row = getSelectedRow(tab2);
@@ -764,7 +764,7 @@ public class Artikls extends javax.swing.JFrame {
                     qArtdet.delete(record);
                     qArtdet.removeRec(row);
                     ((DefTableModel) tab2.getModel()).fireTableDataChanged();
-                    Util.selectionRecord(tab1, 0);
+                    Util.setSelectedRow(tab1, 0);
                 }
             }
         }

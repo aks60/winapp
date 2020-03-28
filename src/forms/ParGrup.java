@@ -61,8 +61,8 @@ public class ParGrup extends javax.swing.JDialog {
         }
         tab2.setModel(new DefTableModel(tab2, qParams, eParams.grup, eParams.numb, eParams.text));
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-        Util.selectionRecord(tab1, 0);
-        Util.selectionRecord(tab2, 0);
+        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab2, 0);
     }
 
     @SuppressWarnings("unchecked")

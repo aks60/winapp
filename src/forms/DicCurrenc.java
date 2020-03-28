@@ -262,7 +262,7 @@ public class DicCurrenc extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qCurrenc.select(eCurrenc.up);
-        Util.selectionRecord(tab1, 0);
+        Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -276,7 +276,7 @@ public class DicCurrenc extends javax.swing.JFrame {
                 qCurrenc.delete(record);
                 qCurrenc.removeRec(row);
                 ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.selectionRecord(tab1, 0);
+                Util.setSelectedRow(tab1, 0);
             }
         }
     }//GEN-LAST:event_btnDelete
