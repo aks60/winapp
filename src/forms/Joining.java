@@ -712,24 +712,27 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        
+
         if (tab1.getBorder() != null) {
-            if (isDeleteRecord(this, tab2) == true) {
+            if (isDeleteRecord(this, tab2) == 0) {
                 deleteRecord(tab1, qJoining, eJoining.up);
             }
         } else if (tab2.getBorder() != null) {
-            if (isDeleteRecord(this, tab3, tab4) == true) {
+            if (isDeleteRecord(this, tab3, tab4) == 0) {
                 deleteRecord(tab2, qJoinvar, eJoinvar.up);
             }
         } else if (tab3.getBorder() != null) {
-            deleteRecord(tab3, qJoinpar1, eJoinpar1.up);
-
+            if (isDeleteRecord(this) == 0) {
+                deleteRecord(tab3, qJoinpar1, eJoinpar1.up);
+            }
         } else if (tab4.getBorder() != null) {
-            if (isDeleteRecord(this, tab5) == true) {
+            if (isDeleteRecord(this, tab5) == 0) {
                 deleteRecord(tab4, qJoindet, eJoindet.up);
             }
         } else if (tab5.getBorder() != null) {
-            deleteRecord(tab5, qJoinpar2, eJoinpar2.up);
+            if (isDeleteRecord(this) == 0) {
+                deleteRecord(tab5, qJoinpar2, eJoinpar2.up);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -759,7 +762,8 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-
+        int mmm = JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        System.out.println(mmm);
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

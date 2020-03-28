@@ -279,17 +279,13 @@ public class Util {
         return btn;
     }
 
-    public static boolean isDeleteRecord(java.awt.Window owner, JTable... table) {
+    public static int isDeleteRecord(java.awt.Window owner, JTable... table) {
         for (JTable tab : table) {
             if (tab.getRowCount() != 0) {
                 JOptionPane.showMessageDialog(owner, "Перед удалением записи удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);
-                return false;
+                return 1;
             }
         }
-        if (JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            return true;
-        }
-        return false;
+        return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение",  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 }
