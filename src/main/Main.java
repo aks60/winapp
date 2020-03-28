@@ -9,7 +9,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 public class Main {
 
-    public static boolean dev = false;
+    public static boolean dev = true;
 
     //Конструктор
     public Main() {

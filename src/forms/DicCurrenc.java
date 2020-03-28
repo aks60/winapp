@@ -305,7 +305,7 @@ public class DicCurrenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.action(eCurrenc.up.newRecord(Query.SEL));
+        listener.action(eCurrenc.up.newRecord());
     }//GEN-LAST:event_btnRemoveert
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -565,8 +565,8 @@ public class Furniture extends javax.swing.JFrame {
                 furndetRec.setNo(eFurndet.id, ConnApp.instanc().genId(eFurndet.up));
                 furndetRec.setNo(eFurndet.furniture_id, furnityreRec.getInt(eFurniture.id));
                 qFurndet.add(furndetRec);
-                qFurndet.table(eArtikl.up).add(eArtikl.up.newRecord(Query.SEL));
-                qFurndet.table(eColor.up).add(eColor.up.newRecord(Query.SEL));
+                qFurndet.table(eArtikl.up).add(eArtikl.up.newRecord());
+                qFurndet.table(eColor.up).add(eColor.up.newRecord());
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.scrollRectToVisible(qFurndet, tab2);
             }

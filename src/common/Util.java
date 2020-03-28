@@ -5,6 +5,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eJoinpar1;
+import domain.eParams;
 import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -247,14 +249,26 @@ public class Util {
     }
 
     public static void clearTable(JTable... jTable) {
-          for (JTable table : jTable) {
-             if (table.getModel() instanceof DefTableModel) {
+        for (JTable table : jTable) {
+            if (table.getModel() instanceof DefTableModel) {
                 ((DefTableModel) table.getModel()).getQuery().clear();
-                
+
             } else if (table.getModel() instanceof DefaultTableModel) {
-                ((DefaultTableModel) table.getModel()).getDataVector().clear();                
+                ((DefaultTableModel) table.getModel()).getDataVector().clear();
             }
             ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         }
+    }
+
+    public static JButton buttonEditorCell(JTable table, int column) {
+        JButton btn = new JButton("...");
+        table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(btn));
+        return btn;
+    }
+
+    public static JButton buttonEditorCell(JTable table, int column, EditorListener listener) {
+        JButton btn = new JButton("...");
+        table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(listener, btn));
+        return btn;
     }
 }

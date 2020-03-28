@@ -63,12 +63,12 @@ public interface Field {
 
     public int ordinal();
 
-    default Record newRecord(String up) {
+    default Record newRecord() {
         Record record = new Record();
         for (Field field : fields()) {
             record.add(null);
         }
-        record.set(0, up);
+        record.set(0, Query.SEL);
         return record;
     }
 

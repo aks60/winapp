@@ -630,7 +630,7 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 Record elemgrpRec = qElemgrp.get(row);
                 Record elementRec = qElement.newRecord(Query.INS);
-                Record artiklRec = eArtikl.up.newRecord(Query.SEL);
+                Record artiklRec = eArtikl.up.newRecord();
                 elementRec.setNo(eElement.id, ConnApp.instanc().genId(eElement.up));
                 elementRec.setNo(eElement.elemgrp_id, elemgrpRec.getInt(eElemgrp.id));
                 qElement.add(elementRec);
@@ -643,7 +643,7 @@ public class Element extends javax.swing.JFrame
             if (row != -1) {
                 Record elementRec = qElement.get(row);
                 Record elemdetRec = qElemdet.newRecord(Query.INS);
-                Record artiklRec = eArtikl.up.newRecord(Query.SEL);
+                Record artiklRec = eArtikl.up.newRecord();
                 elemdetRec.setNo(eElemdet.id, ConnApp.instanc().genId(eElemdet.up));
                 elemdetRec.setNo(eElemdet.element_id, elementRec.getInt(eElement.id));
                 qElemdet.add(elemdetRec);

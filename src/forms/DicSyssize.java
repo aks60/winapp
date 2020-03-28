@@ -306,7 +306,7 @@ public class DicSyssize extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.action(eSyssize.up.newRecord(Query.SEL));
+        listener.action(eSyssize.up.newRecord());
     }//GEN-LAST:event_btnRemoveert
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

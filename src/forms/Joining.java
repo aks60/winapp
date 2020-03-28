@@ -94,10 +94,10 @@ public class Joining extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (eJoining.artikl_id1 == field) {
-                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
 
                 } else if (eJoining.artikl_id2 == field) {
-                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord(Query.SEL)).get(eArtikl.code);
+                    return qArtikl.stream().filter(rec -> val.equals(rec.get(eArtikl.id))).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
                 }
                 return val;
             }
@@ -115,7 +115,7 @@ public class Joining extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
+                        Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return joinpar1Rec.getStr(eJoinpar1.grup) + "-" + joinpar1Rec.getStr(eJoinpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -132,16 +132,16 @@ public class Joining extends javax.swing.JFrame {
                 if (eJoindet.artikl_id == field) {
                     int id = Integer.valueOf(val.toString());
                     if (col == 0) {
-                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(null).get(eArtikl.code);
+                       return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
                     } else if (col == 1) {
-                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(null).get(eArtikl.name);
+                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.name);
                     }
                 } else if (eJoindet.color_fk == field) {
                     int id = Integer.valueOf(val.toString());
                     if (id > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == id).findFirst().orElse(null).get(eColor.name);
+                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == id).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == id).findFirst().orElse(null).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == id).findFirst().orElse(eParams.up.newRecord());
                     }
                 }
                 return val;
@@ -159,7 +159,7 @@ public class Joining extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eJoinpar2.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record joinpar2Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord(Query.SEL));
+                        Record joinpar2Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return joinpar2Rec.getStr(eJoinpar2.grup) + "-" + joinpar2Rec.getStr(eJoinpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -170,19 +170,13 @@ public class Joining extends javax.swing.JFrame {
             }
         };
 
-        JButton btnT1C0 = new JButton("...");
-        tab1.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT1C0));
-        btnT1C0.addActionListener(event -> {
+        Util.buttonEditorCell(tab1, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        JButton btnT1C1 = new JButton("...");
-        tab1.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(null, btnT1C1));
-        btnT1C1.addActionListener(event -> {
+        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        JButton btnT3C0 = new JButton("...");
-        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
-        btnT3C0.addActionListener(event -> {
+        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             int row = tab2.getSelectedRow();
             if (row != -1) {
                 Record record = qJoinvar.get(row);
@@ -190,9 +184,7 @@ public class Joining extends javax.swing.JFrame {
                 ParGrup frame = new ParGrup(this, listenerPar1, eParams.joint, joinVar * 1000);
             }
         });
-        JButton btnT3C1 = new JButton("...");
-        tab3.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerEditor, btnT3C1));
-        btnT3C1.addActionListener(event -> {
+        Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar1.get(tab3.getSelectedRow());
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
@@ -202,26 +194,18 @@ public class Joining extends javax.swing.JFrame {
                 ParSys frame = new ParSys(this, listenerPar1, list);
             }
         });
-        JButton btnT4C0 = new JButton("...");
-        tab4.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(null, btnT4C0));
-        btnT4C0.addActionListener(event -> {
+        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        JButton btnT4C1 = new JButton("...");
-        tab4.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(null, btnT4C1));
-        btnT4C1.addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, null, 1);
         });
-        JButton btnT4C2 = new JButton("...");
-        tab4.getColumnModel().getColumn(2).setCellEditor(new DefFieldEditor(btnT4C2));
-        btnT4C2.addActionListener(event -> {
+        Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(tab4.getSelectedRow());
             int artikl_id = record.getInt(eJoindet.artikl_id);
             ParColor frame = new ParColor(this, listenerColor, artikl_id);
         });
-        JButton btnT5C0 = new JButton("...");
-        tab5.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT5C0));
-        btnT5C0.addActionListener(event -> {
+        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
             int row = tab4.getSelectedRow();
             if (row != -1) {
                 Record recordJoin = qJoindet.get(row);
@@ -238,9 +222,7 @@ public class Joining extends javax.swing.JFrame {
                 ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, level);
             }
         });
-        JButton btnT5C1 = new JButton("...");
-        tab5.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(listenerEditor, btnT5C1));
-        btnT5C1.addActionListener(event -> {
+        Util.buttonEditorCell(tab5, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar2.get(tab5.getSelectedRow());
             int grup = record.getInt(eJoinpar2.grup);
             if (grup < 0) {

@@ -463,7 +463,7 @@ public class Glass extends javax.swing.JFrame {
             if (row != -1) {
                 Record glasgrpRec = qGlasgrp.get(row);
                 Record glasdetRec = qGlasdet.newRecord(Query.INS);
-                Record artiklRec = eArtikl.up.newRecord(Query.SEL);
+                Record artiklRec = eArtikl.up.newRecord();
                 glasdetRec.setNo(eGlasdet.id, ConnApp.instanc().genId(eGlasdet.up));
                 glasdetRec.setNo(eGlasdet.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
                 qGlasdet.add(glasdetRec);
@@ -498,7 +498,7 @@ public class Glass extends javax.swing.JFrame {
             if (row != -1) {
                 Record glasgrpRec = qGlasgrp.get(row);
                 Record glasprofRec = qGlasprof.newRecord(Query.INS);
-                Record artiklRec = eArtikl.up.newRecord(Query.SEL);
+                Record artiklRec = eArtikl.up.newRecord();
                 glasprofRec.setNo(eGlasprof.id, ConnApp.instanc().genId(eGlasprof.up));
                 glasprofRec.setNo(eGlasprof.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
                 qGlasprof.add(glasprofRec);

@@ -236,7 +236,7 @@ public class DicColor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.action(eColgrp.up.newRecord(Query.SEL));
+        listener.action(eColgrp.up.newRecord());
     }//GEN-LAST:event_btnRemoveert
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
