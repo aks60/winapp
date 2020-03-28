@@ -190,7 +190,7 @@ public class Util {
     public static void formatterCell(Query query, JTable table, DefFieldEditor editor) {
 
         JFormattedTextField formatText = editor.getFormatTextField();
-        int grup = query.getAs(table.getSelectedRow(), eJoinpar1.grup, -1);
+        int grup = query.getAs(getSelectedRow(table), eJoinpar1.grup, -1);
         if (grup < 0) { //пользовательский список параметров
             editor.getButton().setVisible(true);
             formatText.setEnabled(false);
@@ -228,7 +228,7 @@ public class Util {
 
     public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
 
-        int row = table1.getSelectedRow();
+        int row = getSelectedRow(table1);
         Record record1 = query1.get(row);
         Record record2 = query2.newRecord(Query.INS);
         record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
@@ -240,10 +240,10 @@ public class Util {
 
     public static void deleteRecord(JTable table, Query query, Field field) {
 
-        Record record = query.get(table.getSelectedRow());
+        Record record = query.get(getSelectedRow(table));
         record.set(field, Query.DEL);
         query.delete(record);
-        query.removeRec(table.getSelectedRow());
+        query.removeRec(getSelectedRow(table));
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.selectionRecord(table, 0);
     }
@@ -274,7 +274,7 @@ public class Util {
 
     public static int getSelectedRow(JTable table) {
         if (table.getSelectedRow() != -1) {
-            return table.convertRowIndexToView(table.getSelectedRow());
+            return table.convertRowIndexToModel(table.getSelectedRow());
         }
         return -1;
     }
