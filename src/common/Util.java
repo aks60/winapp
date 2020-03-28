@@ -5,7 +5,6 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eJoinpar1;
-import domain.eParams;
 import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
@@ -19,6 +18,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
@@ -232,7 +232,7 @@ public class Util {
         }
         return -1;
     }
-    
+
     public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
 
         int row = getSelectedRow(table1);
@@ -277,5 +277,19 @@ public class Util {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(listener, btn));
         return btn;
+    }
+
+    public static boolean isDeleteRecord(java.awt.Window owner, JTable... table) {
+        for (JTable tab : table) {
+            if (tab.getRowCount() != 0) {
+                JOptionPane.showMessageDialog(owner, "Перед удалением записи удалите данные в зависимых таблицах", "Предупреждение", JOptionPane.NO_OPTION);
+                return false;
+            }
+        }
+        if (JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            return true;
+        }
+        return false;
     }
 }

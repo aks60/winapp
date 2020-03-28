@@ -36,6 +36,7 @@ import swing.DefTableModel;
 import static common.Util.insertRecord;
 import static common.Util.insertSql;
 import static common.Util.deleteRecord;
+import static common.Util.isDeleteRecord;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -711,24 +712,24 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-
-            if (tab1.getBorder() != null) {
+        
+        if (tab1.getBorder() != null) {
+            if (isDeleteRecord(this, tab2) == true) {
                 deleteRecord(tab1, qJoining, eJoining.up);
-
-            } else if (tab2.getBorder() != null) {
-                deleteRecord(tab2, qJoinvar, eJoinvar.up);
-
-            } else if (tab3.getBorder() != null) {
-                deleteRecord(tab3, qJoinpar1, eJoinpar1.up);
-
-            } else if (tab4.getBorder() != null) {
-                deleteRecord(tab4, qJoindet, eJoindet.up);
-
-            } else if (tab5.getBorder() != null) {
-                deleteRecord(tab5, qJoinpar2, eJoinpar2.up);
             }
+        } else if (tab2.getBorder() != null) {
+            if (isDeleteRecord(this, tab3, tab4) == true) {
+                deleteRecord(tab2, qJoinvar, eJoinvar.up);
+            }
+        } else if (tab3.getBorder() != null) {
+            deleteRecord(tab3, qJoinpar1, eJoinpar1.up);
+
+        } else if (tab4.getBorder() != null) {
+            if (isDeleteRecord(this, tab5) == true) {
+                deleteRecord(tab4, qJoindet, eJoindet.up);
+            }
+        } else if (tab5.getBorder() != null) {
+            deleteRecord(tab5, qJoinpar2, eJoinpar2.up);
         }
     }//GEN-LAST:event_btnDelete
 
@@ -758,9 +759,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        Util.clearTable(tab2, tab3, tab4, tab5);
-        //((DefTableModel) tab2.getModel()).getQuery().clear();
-        //((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
