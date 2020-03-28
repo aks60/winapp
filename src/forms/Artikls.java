@@ -2,9 +2,9 @@ package forms;
 
 import common.DialogListener;
 import common.FrameAdapter;
-import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
+import static common.Util.getSelectedRow;
 import dataset.ConnApp;
 import dataset.Field;
 import swing.DefFieldEditor;
@@ -173,21 +173,21 @@ public class Artikls extends javax.swing.JFrame {
                 qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab1, 0);
+            Util.selectionRecord(tab1, 0);
         }
     }
 
     private void selectionTab1(ListSelectionEvent event) {
 
         FrameAdapter.stopCellEditing(tab1, tab2);
-        int row = tab1.getSelectedRow();
+        int row = getSelectedRow(tab1);
         if (row != -1) {
             Record record = qArtikl.get(row);
             int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load(row);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab2, 0);
+            Util.selectionRecord(tab2, 0);
         }
     }
 
@@ -196,15 +196,15 @@ public class Artikls extends javax.swing.JFrame {
         listenerDic = (record) -> {
             if (tab2.getBorder() != null) {
                 if (eColgrp.values().length == record.size()) {
-                    qArtdet.set(-1 * record.getInt(eColgrp.id), tab2.getSelectedRow(), eArtdet.color_fk);
+                    qArtdet.set(-1 * record.getInt(eColgrp.id), getSelectedRow(tab2), eArtdet.color_fk);
 
                 } else if (eColor.values().length == record.size()) {
-                    qArtdet.set(record.getInt(eColor.id), tab2.getSelectedRow(), eArtdet.color_fk);
+                    qArtdet.set(record.getInt(eColor.id), getSelectedRow(tab2), eArtdet.color_fk);
                 }
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
 
             } else if (eCurrenc.values().length == record.size()) {
-                int row = tab1.getSelectedRow();
+                int row = getSelectedRow(tab1);
                 if (row != -1) {
                     Record artiklRec = qArtikl.get(row);
                     artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
@@ -729,7 +729,7 @@ public class Artikls extends javax.swing.JFrame {
             }
 
         } else if (tab2.getBorder() != null) {
-            int row = tab1.getSelectedRow();
+            int row = getSelectedRow(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 Record artdetRec = qArtdet.newRecord(Query.INS);
@@ -747,24 +747,24 @@ public class Artikls extends javax.swing.JFrame {
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                int row = tab1.getSelectedRow();
+                int row = getSelectedRow(tab1);
                 if (row != -1) {
                     Record record = qArtikl.get(row);
                     record.set(eArtikl.up, Query.DEL);
                     qArtikl.delete(record);
                     qArtikl.removeRec(row);
                     ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                    Util.selectRecord(tab1, 0);
+                    Util.selectionRecord(tab1, 0);
                 }
             } else if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = getSelectedRow(tab2);
                 if (row != -1) {
                     Record record = qArtdet.get(row);
                     record.set(eArtdet.up, Query.DEL);
                     qArtdet.delete(record);
                     qArtdet.removeRec(row);
                     ((DefTableModel) tab2.getModel()).fireTableDataChanged();
-                    Util.selectRecord(tab1, 0);
+                    Util.selectionRecord(tab1, 0);
                 }
             }
         }
@@ -778,11 +778,13 @@ public class Artikls extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        DicSyssize frame = new DicSyssize(this, listenerDic);
+        int index = getSelectedRow(tab1);
+        System.out.println(index);
+        System.out.println(tab1.convertRowIndexToView(index));
     }//GEN-LAST:event_btnFilter
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+    tab1.setRowSelectionInterval(1, 1);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

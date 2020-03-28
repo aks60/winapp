@@ -301,7 +301,7 @@ public class Param extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qParams.select(eParams.up);
-        Util.selectRecord(tab1, 0);
+        Util.selectionRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -316,7 +316,7 @@ public class Param extends javax.swing.JFrame {
                     qParams.delete(record);
                     qParams.removeRec(row);
                     ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                    Util.selectRecord(tab1, 0);
+                    Util.selectionRecord(tab1, 0);
                 }
             } else if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
@@ -326,7 +326,7 @@ public class Param extends javax.swing.JFrame {
                     qPardet.delete(record);
                     qPardet.removeRec(row);
                     ((DefTableModel) tab2.getModel()).fireTableDataChanged();
-                    Util.selectRecord(tab2, 0);
+                    Util.selectionRecord(tab2, 0);
                 }
             }
         }

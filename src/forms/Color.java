@@ -52,7 +52,7 @@ public class Color extends javax.swing.JFrame {
             //ParColor frame = new ParColor(this, listenerColor, query, eParams.text);
         });
         tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
-        Util.selectRecord(tab1, 0);
+        Util.selectionRecord(tab1, 0);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -63,7 +63,7 @@ public class Color extends javax.swing.JFrame {
             Integer cgrup = record.getInt(eColgrp.id);
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup + "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab2, 0);
+            Util.selectionRecord(tab2, 0);
         }
     }
 
@@ -75,7 +75,7 @@ public class Color extends javax.swing.JFrame {
             int id = colorRec.getInt(eColor.id);
             qColpar1.select(eColpar1.up, "where", eColpar1.color_id, "=", id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab3, 0);
+            Util.selectionRecord(tab3, 0);
         }
     }
 
@@ -326,7 +326,7 @@ public class Color extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectRecord(tab1, 0);
+        Util.selectionRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -340,7 +340,7 @@ public class Color extends javax.swing.JFrame {
                 qСolgrup.delete(colgrpRec);
                 qСolgrup.removeRec(tab1.getSelectedRow());
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab1, 0);
+                Util.selectionRecord(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
                 Record colorRec = qColor.get(tab2.getSelectedRow());
@@ -348,7 +348,7 @@ public class Color extends javax.swing.JFrame {
                 qColor.delete(colorRec);
                 qColor.removeRec(tab2.getSelectedRow());
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab2, 0);
+                Util.selectionRecord(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
                 Record colpar1Rec = qColpar1.get(tab3.getSelectedRow());
@@ -356,7 +356,7 @@ public class Color extends javax.swing.JFrame {
                 qColpar1.delete(colpar1Rec);
                 qColpar1.removeRec(tab3.getSelectedRow());
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab3, 0);
+                Util.selectionRecord(tab3, 0);
             }
         }
     }//GEN-LAST:event_btnDelete

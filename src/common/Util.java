@@ -180,12 +180,6 @@ public class Util {
         return null;
     }
 
-    public static void selectRecord(JTable table, int row) {
-        if (table.getRowCount() > row) {
-            table.setRowSelectionInterval(row, row);
-        }
-    }
-
     public static void scrollRectToVisible(Query query, JTable table) {
         if (table.getRowCount() > 1) {
             Rectangle cellRect = table.getCellRect(query.size() - 1, 0, false);
@@ -226,7 +220,13 @@ public class Util {
         Util.scrollRectToVisible(query, table);
     }
 
-    public static void insertSql(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
+    public static void selectionRecord(JTable table, int row) {
+        if (table.getRowCount() > row) {
+            table.setRowSelectionInterval(row, row);
+        }
+    }
+
+    public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
 
         int row = table1.getSelectedRow();
         Record record1 = query1.get(row);
@@ -238,14 +238,14 @@ public class Util {
         Util.scrollRectToVisible(query2, table2);
     }
 
-    public static void deleteSql(JTable table, Query query, Field field) {
+    public static void deleteRecord(JTable table, Query query, Field field) {
 
         Record record = query.get(table.getSelectedRow());
         record.set(field, Query.DEL);
         query.delete(record);
         query.removeRec(table.getSelectedRow());
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.selectRecord(table, 0);
+        Util.selectionRecord(table, 0);
     }
 
     public static void clearTable(JTable... jTable) {
@@ -270,5 +270,12 @@ public class Util {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(listener, btn));
         return btn;
+    }
+
+    public static int getSelectedRow(JTable table) {
+        if (table.getSelectedRow() != -1) {
+            return table.convertRowIndexToView(table.getSelectedRow());
+        }
+        return -1;
     }
 }

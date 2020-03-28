@@ -46,7 +46,7 @@ public class DicArtikl extends javax.swing.JDialog {
 
         String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
-        Util.selectRecord(tab2, 0);
+        Util.selectionRecord(tab2, 0);
     }
 
     @SuppressWarnings("unchecked")

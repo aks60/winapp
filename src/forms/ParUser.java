@@ -29,7 +29,7 @@ public class ParUser extends javax.swing.JDialog {
         qParam2.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);
         tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.selectRecord(tab1, 0);
+        Util.selectionRecord(tab1, 0);
     }
 
     @SuppressWarnings("unchecked")

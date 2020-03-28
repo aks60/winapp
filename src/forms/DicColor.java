@@ -35,7 +35,7 @@ public class DicColor extends javax.swing.JDialog {
         new DefTableModel(tab1, qColgrp, eColgrp.name);
         new DefTableModel(tab2, qColor, eColor.name);
         tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());
-        Util.selectRecord(tab1, 0);
+        Util.selectionRecord(tab1, 0);
     }
 
     private void selectionTab1() {

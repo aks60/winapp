@@ -156,7 +156,7 @@ public class Element extends javax.swing.JFrame
                 break;
             }
         }
-        Util.selectRecord(tab1, 0);
+        Util.selectionRecord(tab1, 0);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -182,7 +182,7 @@ public class Element extends javax.swing.JFrame
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab2, 0);
+            Util.selectionRecord(tab2, 0);
         }
     }
 
@@ -196,8 +196,8 @@ public class Element extends javax.swing.JFrame
                     "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab3, 0);
-            Util.selectRecord(tab4, 0);
+            Util.selectionRecord(tab3, 0);
+            Util.selectionRecord(tab4, 0);
         }
     }
 
@@ -209,7 +209,7 @@ public class Element extends javax.swing.JFrame
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup,
                     "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.selectRecord(tab5, 0);
+            Util.selectionRecord(tab5, 0);
         }
     }
 
@@ -554,7 +554,7 @@ public class Element extends javax.swing.JFrame
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         loadingTab1();
-        Util.selectRecord(tab1, 0);
+        Util.selectionRecord(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -567,7 +567,7 @@ public class Element extends javax.swing.JFrame
                 qElemgrp.delete(record);
                 qElemgrp.removeRec(row);
                 ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab1, 0);
+                Util.selectionRecord(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
@@ -576,7 +576,7 @@ public class Element extends javax.swing.JFrame
                 qElement.delete(record);
                 qElement.removeRec(row);
                 ((DefTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab2, 0);
+                Util.selectionRecord(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
                 int row = tab3.getSelectedRow();
@@ -585,7 +585,7 @@ public class Element extends javax.swing.JFrame
                 qElemdet.delete(record);
                 qElemdet.removeRec(row);
                 ((DefTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab3, 0);
+                Util.selectionRecord(tab3, 0);
 
             } else if (tab4.getBorder() != null) {
                 int row = tab4.getSelectedRow();
@@ -594,7 +594,7 @@ public class Element extends javax.swing.JFrame
                 qElempar1.delete(record);
                 qElempar1.removeRec(row);
                 ((DefTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab4, 0);
+                Util.selectionRecord(tab4, 0);
 
             } else if (tab5.getBorder() != null) {
                 int row = tab5.getSelectedRow();
@@ -603,7 +603,7 @@ public class Element extends javax.swing.JFrame
                 qElempar2.delete(record);
                 qElempar2.removeRec(row);
                 ((DefTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.selectRecord(tab5, 0);
+                Util.selectionRecord(tab5, 0);
             }
         }
     }//GEN-LAST:event_btnDelete
