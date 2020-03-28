@@ -13,7 +13,7 @@ public class Record<E> extends ArrayList<E> {
     public Record() {
         super();
     }
-    
+
     public Record(Table table) {
         super();
         this.table = table;
@@ -26,7 +26,7 @@ public class Record<E> extends ArrayList<E> {
     //ИЗМЕНЕНИЯ СТАТУСА ЗАПИСИ
     public E set(int index, E element) {
         if (index != 0 && Query.SEL.equals(get(0))) {
-            super.set(0, (E) Query.UPD);
+            super.set(0, get(0));
             DIRTY = true;
         }
         return super.set(index, element);
