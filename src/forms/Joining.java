@@ -132,7 +132,7 @@ public class Joining extends javax.swing.JFrame {
                 if (eJoindet.artikl_id == field) {
                     int id = Integer.valueOf(val.toString());
                     if (col == 0) {
-                       return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
                     } else if (col == 1) {
                         return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.name);
                     }
@@ -173,9 +173,11 @@ public class Joining extends javax.swing.JFrame {
         Util.buttonEditorCell(tab1, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
+
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
+
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             int row = tab2.getSelectedRow();
             if (row != -1) {
@@ -184,6 +186,7 @@ public class Joining extends javax.swing.JFrame {
                 ParGrup frame = new ParGrup(this, listenerPar1, eParams.joint, joinVar * 1000);
             }
         });
+
         Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar1.get(tab3.getSelectedRow());
             int grup = record.getInt(eJoinpar1.grup);
@@ -194,17 +197,21 @@ public class Joining extends javax.swing.JFrame {
                 ParSys frame = new ParSys(this, listenerPar1, list);
             }
         });
+
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
+
         Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, null, 1);
         });
+
         Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(tab4.getSelectedRow());
             int artikl_id = record.getInt(eJoindet.artikl_id);
             ParColor frame = new ParColor(this, listenerColor, artikl_id);
         });
+
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
             int row = tab4.getSelectedRow();
             if (row != -1) {
@@ -222,6 +229,7 @@ public class Joining extends javax.swing.JFrame {
                 ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, level);
             }
         });
+
         Util.buttonEditorCell(tab5, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar2.get(tab5.getSelectedRow());
             int grup = record.getInt(eJoinpar2.grup);
