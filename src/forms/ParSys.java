@@ -2,6 +2,7 @@ package forms;
 
 import common.DialogListener;
 import common.FrameToFile;
+import static common.Util.getSelectedRow;
 import dataset.Record;
 import java.util.List;
 import java.util.Vector;
@@ -187,7 +188,7 @@ public class ParSys extends javax.swing.JDialog {
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
         Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
+        record.add(tab1.getModel().getValueAt(getSelectedRow(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChouce

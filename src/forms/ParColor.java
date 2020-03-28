@@ -3,6 +3,7 @@ package forms;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
+import static common.Util.getSelectedRow;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
@@ -304,11 +305,11 @@ public class ParColor extends javax.swing.JDialog {
         if (btnCard1.isSelected() == true) {
             
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
-            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 1));
+            record.add(tab1.getModel().getValueAt(getSelectedRow(tab1), 0));
+            record.add(tab1.getModel().getValueAt(getSelectedRow(tab1), 1));
             listener.action(record);
         } else {
-            listener.action(qParams.get(tab2.getSelectedRow()));
+            listener.action(qParams.get(getSelectedRow(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

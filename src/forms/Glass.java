@@ -4,6 +4,7 @@ import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
+import static common.Util.getSelectedRow;
 import static common.Util.scrollRectToVisible;
 import dataset.ConnApp;
 import dataset.Query;
@@ -85,7 +86,7 @@ public class Glass extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
         FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        int row = tab1.getSelectedRow();
+        int row = getSelectedRow(tab1);
         if (row != -1) {
             Record record = qGlasgrp.table(eGlasgrp.up).get(row);
             Integer id = record.getInt(eGlasgrp.id);
@@ -104,7 +105,7 @@ public class Glass extends javax.swing.JFrame {
 
     private void selectionTab2(ListSelectionEvent event) {
         FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        int row = tab2.getSelectedRow();
+        int row = getSelectedRow(tab2);
         if (row != -1) {
             Record record = qGlasdet.table(eGlasdet.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
@@ -408,42 +409,42 @@ public class Glass extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                Record glasgrpRec = qGlasgrp.get(tab1.getSelectedRow());
+                Record glasgrpRec = qGlasgrp.get(getSelectedRow(tab1));
                 glasgrpRec.set(eGlasgrp.up, Query.DEL);
                 qGlasgrp.delete(glasgrpRec);
-                qGlasgrp.removeRec(tab1.getSelectedRow());
+                qGlasgrp.removeRec(getSelectedRow(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 Util.selectionRecord(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
-                Record glasdetRec = qGlasdet.get(tab2.getSelectedRow());
+                Record glasdetRec = qGlasdet.get(getSelectedRow(tab2));
                 glasdetRec.set(eGlasdet.up, Query.DEL);
                 qGlasdet.delete(glasdetRec);
-                qGlasdet.removeRec(tab2.getSelectedRow());
+                qGlasdet.removeRec(getSelectedRow(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.selectionRecord(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
-                Record glaspar1Rec = qGlaspar1.get(tab3.getSelectedRow());
+                Record glaspar1Rec = qGlaspar1.get(getSelectedRow(tab3));
                 glaspar1Rec.set(eGlaspar1.up, Query.DEL);
                 qGlaspar1.delete(glaspar1Rec);
-                qGlaspar1.removeRec(tab3.getSelectedRow());
+                qGlaspar1.removeRec(getSelectedRow(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.selectionRecord(tab3, 0);
 
             } else if (tab4.getBorder() != null) {
-                Record glaspar2Rec = qGlaspar2.get(tab4.getSelectedRow());
+                Record glaspar2Rec = qGlaspar2.get(getSelectedRow(tab4));
                 glaspar2Rec.set(eGlaspar2.up, Query.DEL);
                 qGlaspar2.delete(glaspar2Rec);
-                qGlaspar2.removeRec(tab4.getSelectedRow());
+                qGlaspar2.removeRec(getSelectedRow(tab4));
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 Util.selectionRecord(tab4, 0);
 
             } else if (tab5.getBorder() != null) {
-                Record glasprofRec = qGlasprof.get(tab4.getSelectedRow());
+                Record glasprofRec = qGlasprof.get(getSelectedRow(tab4));
                 glasprofRec.set(eGlasprof.up, Query.DEL);
                 qGlasprof.delete(glasprofRec);
-                qGlasprof.removeRec(tab5.getSelectedRow());
+                qGlasprof.removeRec(getSelectedRow(tab5));
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
                 Util.selectionRecord(tab5, 0);
             }
@@ -459,7 +460,7 @@ public class Glass extends javax.swing.JFrame {
             scrollRectToVisible(qGlasgrp, tab1);
 
         } else if (tab2.getBorder() != null) {
-            int row = tab1.getSelectedRow();
+            int row = getSelectedRow(tab1);
             if (row != -1) {
                 Record glasgrpRec = qGlasgrp.get(row);
                 Record glasdetRec = qGlasdet.newRecord(Query.INS);
@@ -472,7 +473,7 @@ public class Glass extends javax.swing.JFrame {
                 scrollRectToVisible(qGlasdet, tab2);
             }
         } else if (tab3.getBorder() != null) {
-            int row = tab1.getSelectedRow();
+            int row = getSelectedRow(tab1);
             if (row != -1) {
                 Record glasgrpRec = qGlasgrp.get(row);
                 Record glaspar1Rec = qGlaspar1.newRecord(Query.INS);
@@ -483,7 +484,7 @@ public class Glass extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qGlaspar1, tab3);
             }
         } else if (tab4.getBorder() != null) {
-            int row = tab2.getSelectedRow();
+            int row = getSelectedRow(tab2);
             if (row != -1) {
                 Record glasdetRec = qGlasdet.get(row);
                 Record glaspar2Rec = qGlaspar2.newRecord(Query.INS);
@@ -494,7 +495,7 @@ public class Glass extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qGlaspar2, tab4);
             }
         } else if (tab5.getBorder() != null) {
-            int row = tab1.getSelectedRow();
+            int row = getSelectedRow(tab1);
             if (row != -1) {
                 Record glasgrpRec = qGlasgrp.get(row);
                 Record glasprofRec = qGlasprof.newRecord(Query.INS);

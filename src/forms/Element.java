@@ -5,6 +5,7 @@ import common.FrameAdapter;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
+import static common.Util.getSelectedRow;
 import static common.Util.scrollRectToVisible;
 import dataset.ConnApp;
 import enums.Enam;
@@ -18,8 +19,6 @@ import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eJoindet;
-import domain.eJoinvar;
 import domain.eSysprof;
 import enums.ParamList;
 import java.awt.Rectangle;
@@ -27,7 +26,6 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -160,7 +158,7 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = tab1.getSelectedRow();
+        int row = getSelectedRow(tab1);
         if (row != -1) {
             Record record = qElemgrp.get(row);
             Integer id = record.getInt(eElemgrp.id);
@@ -187,7 +185,7 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = tab2.getSelectedRow();
+        int row = getSelectedRow(tab2);
         if (row != -1) {
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
@@ -202,7 +200,7 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab3(ListSelectionEvent event) {
-        int row = tab3.getSelectedRow();
+        int row = getSelectedRow(tab3);
         if (row != -1) {
             Record record = qElemdet.table(eElemdet.up).get(row);
             Integer p1 = record.getInt(eElemdet.id);
@@ -561,7 +559,7 @@ public class Element extends javax.swing.JFrame
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getBorder() != null) {
-                int row = tab1.getSelectedRow();
+                int row = getSelectedRow(tab1);
                 Record record = qElemgrp.get(row);
                 record.set(eElemgrp.up, Query.DEL);
                 qElemgrp.delete(record);
@@ -570,7 +568,7 @@ public class Element extends javax.swing.JFrame
                 Util.selectionRecord(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = getSelectedRow(tab2);
                 Record record = qElement.get(row);
                 record.set(eElement.up, Query.DEL);
                 qElement.delete(record);
@@ -579,7 +577,7 @@ public class Element extends javax.swing.JFrame
                 Util.selectionRecord(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
-                int row = tab3.getSelectedRow();
+                int row = getSelectedRow(tab3);
                 Record record = qElemdet.get(row);
                 record.set(eElemdet.up, Query.DEL);
                 qElemdet.delete(record);
@@ -588,7 +586,7 @@ public class Element extends javax.swing.JFrame
                 Util.selectionRecord(tab3, 0);
 
             } else if (tab4.getBorder() != null) {
-                int row = tab4.getSelectedRow();
+                int row = getSelectedRow(tab4);
                 Record record = qElempar1.get(row);
                 record.set(eElempar1.up, Query.DEL);
                 qElempar1.delete(record);
@@ -597,7 +595,7 @@ public class Element extends javax.swing.JFrame
                 Util.selectionRecord(tab4, 0);
 
             } else if (tab5.getBorder() != null) {
-                int row = tab5.getSelectedRow();
+                int row = getSelectedRow(tab5);
                 Record record = qElempar2.get(row);
                 record.set(eElempar2.up, Query.DEL);
                 qElempar2.delete(record);
@@ -610,7 +608,7 @@ public class Element extends javax.swing.JFrame
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            int row = tab1.getSelectedRow();
+            int row = getSelectedRow(tab1);
             if (row != -1) {
                 int level = qElemgrp.getAs(row, eElemgrp.level, -999);
                 Record elemgrpRec = qElemgrp.newRecord(Query.INS);
@@ -626,7 +624,7 @@ public class Element extends javax.swing.JFrame
                 }
             }
         } else if (tab2.getBorder() != null) {
-            int row = tab1.getSelectedRow();
+            int row = getSelectedRow(tab1);
             if (row != -1) {
                 Record elemgrpRec = qElemgrp.get(row);
                 Record elementRec = qElement.newRecord(Query.INS);
@@ -639,7 +637,7 @@ public class Element extends javax.swing.JFrame
                 scrollRectToVisible(qElement, tab2);
             }
         } else if (tab3.getBorder() != null) {
-            int row = tab2.getSelectedRow();
+            int row = getSelectedRow(tab2);
             if (row != -1) {
                 Record elementRec = qElement.get(row);
                 Record elemdetRec = qElemdet.newRecord(Query.INS);
@@ -652,7 +650,7 @@ public class Element extends javax.swing.JFrame
                 Util.scrollRectToVisible(qElemdet, tab3);
             }
         } else if (tab4.getBorder() != null) {
-            int row = tab2.getSelectedRow();
+            int row = getSelectedRow(tab2);
             if (row != -1) {
                 Record elementRec = qElement.get(row);
                 Record elempar1Rec = qElempar1.newRecord(Query.INS);
@@ -663,7 +661,7 @@ public class Element extends javax.swing.JFrame
                 Util.scrollRectToVisible(qElempar1, tab4);
             }
         } else if (tab5.getBorder() != null) {
-            int row = tab3.getSelectedRow();
+            int row = getSelectedRow(tab3);
             if (row != -1) {
                 Record elemdetRec = qElemdet.get(row);
                 Record elempar2Rec = qElempar2.newRecord(Query.INS);

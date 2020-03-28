@@ -4,6 +4,7 @@ import common.DialogListener;
 import common.FrameAdapter;
 import common.FrameToFile;
 import common.Util;
+import static common.Util.getSelectedRow;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -268,7 +269,7 @@ public class DicCurrenc extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-            int row = tab1.getSelectedRow();
+            int row = getSelectedRow(tab1);
             if (row != -1) {
                 Record record = qCurrenc.get(row);
                 record.set(eCurrenc.up, Query.DEL);
@@ -297,7 +298,7 @@ public class DicCurrenc extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = tab1.getSelectedRow();
+        int row = getSelectedRow(tab1);
         if (row != -1) {
             listener.action(qCurrenc.get(row));
         }

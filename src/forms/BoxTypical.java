@@ -2,6 +2,7 @@ package forms;
 
 import common.FrameListener;
 import common.FrameToFile;
+import static common.Util.getSelectedRow;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
@@ -23,7 +24,6 @@ import javax.swing.table.DefaultTableModel;
 import wincalc.Wincalc;
 import wincalc.model.ElemSimple;
 import wincalc.model.PaintPanel;
-import wincalc.script.Winscript;
 
 public class BoxTypical extends javax.swing.JFrame implements FrameListener<Object, Object> {
 
@@ -126,7 +126,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     private void selectionTab1(ListSelectionEvent event) {
         listenerModify.actionResponse(null);
-        int row = tab1.getSelectedRow();
+        int row = getSelectedRow(tab1);
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
             iwinMax.create(script.toString());
@@ -762,7 +762,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_panMouseClicked
 
     private void btnChoiceresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoiceresh
-        int row = tab1.getSelectedRow();
+        int row = getSelectedRow(tab1);
         if (row != -1) {
             Object id = qSysprod.get(row, eSysprod.id);
             listenerFrame.actionResponse(id);

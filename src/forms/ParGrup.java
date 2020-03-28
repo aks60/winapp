@@ -1,9 +1,9 @@
 package forms;
 
 import common.DialogListener;
-import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
+import static common.Util.getSelectedRow;
 import enums.Enam;
 import dataset.Field;
 import dataset.Query;
@@ -306,12 +306,12 @@ public class ParGrup extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 0));
-            record.add(tab1.getModel().getValueAt(tab1.getSelectedRow(), 1));
+            record.add(tab1.getModel().getValueAt(getSelectedRow(tab1), 0));
+            record.add(tab1.getModel().getValueAt(getSelectedRow(tab1), 1));
             listener.action(record);
         } else {
-            Object obj = qParams.get(tab2.getSelectedRow());
-            listener.action(qParams.get(tab2.getSelectedRow()));
+            Object obj = qParams.get(getSelectedRow(tab2));
+            listener.action(qParams.get(getSelectedRow(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
