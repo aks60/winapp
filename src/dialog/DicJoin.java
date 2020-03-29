@@ -4,25 +4,32 @@ import common.DialogListener;
 import common.FrameToFile;
 import static common.Util.getSelectedRow;
 import java.awt.Component;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 public class DicJoin extends javax.swing.JDialog {
 
     private DefaultTableCellRenderer defaultTableCellRenderer;
-//    private ImageIcon icon0 = new ImageIcon(getClass().getResource("/resource/img16/c000.gif"));
-//    private ImageIcon icon1 = new ImageIcon(getClass().getResource("/resource/img16/c001.gif"));
-//    private ImageIcon icon2 = new ImageIcon(getClass().getResource("/resource/img16/c002.gif"));
-//    private ImageIcon icon3 = new ImageIcon(getClass().getResource("/resource/img16/c003.gif"));
-//    private ImageIcon icon4 = new ImageIcon(getClass().getResource("/resource/img16/c004.gif"));
+    private ImageIcon icon[] = {
+        new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b002.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
+//    private ImageIcon icon[] = {
+//        new ImageIcon(getClass().getResource("/resource/img24/c073.gif")),
+//        new ImageIcon(getClass().getResource("/resource/img24/c074.gif")),
+//        new ImageIcon(getClass().getResource("/resource/img24/c075.gif")),
+//        new ImageIcon(getClass().getResource("/resource/img24/c076.gif")),
+//        new ImageIcon(getClass().getResource("/resource/img24/c077.gif")),
+//        new ImageIcon(getClass().getResource("/resource/img24/c078.gif"))};
+    
+    private ImageIcon mm = new ImageIcon(getClass().getResource("/resource/img24/c020.gif"));
+
     private DialogListener listener = null;
 
     public DicJoin(java.awt.Frame parent, DialogListener listenet) {
@@ -35,17 +42,16 @@ public class DicJoin extends javax.swing.JDialog {
     }
 
     private void initModel() {
-        ImageIcon icon0 = new ImageIcon(getClass().getResource("/resource/img16/c000.gif"));
-        Vector titl = new Vector(Arrays.asList("Тип", "Название"));
-        Vector rows = new Vector(Arrays.asList("Прилегающее соединение (коробка,створка)", "Угловое соединение на ус (коробка, створка)", "Угловое соединение L (левое)",
-                "Угловое соединение L (правое)", "Т - образное соединение (импост,ригель)", "Т - образное соединение `конус` (импост)"));
-        List<Vector> vectorList = new ArrayList(rows);
+
+        String[] titl = {"Наименование соединения}"};
+        String[][] rows = {{"Прилегающее соединение (коробка,створка)"}, {"Угловое соединение на ус (коробка, створка)"}, {"Угловое соединение L (левое)"},
+        {"Угловое соединение L (правое)"}, {"Т - образное соединение (импост,ригель)"}, {"Т - образное соединение `конус` (импост)"}};
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
         tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setIcon(icon0);
+                label.setIcon(icon[row]);
                 return label;
             }
         });
@@ -169,15 +175,15 @@ public class DicJoin extends javax.swing.JDialog {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Nmae 0", "Name 1", "Value 1"},
-                {"Name 0", "Name 2", "Value 2"}
+                {"Nmae 0"},
+                {"Name 0"}
             },
             new String [] {
-                "Тип артикула", "Код арикула", "Наименование артикула"
+                "Название соединения"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
