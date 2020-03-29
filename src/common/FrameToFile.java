@@ -59,7 +59,7 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
     }
 
     /**
-     * Устанавливаем координаты window
+     * Устанавливаем размеры и координаты window
      */
     public static void setFrameSize(Window frame) {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -67,11 +67,10 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         frameUp = frame;
         String dy = eProperty.getProperty().getProperty(frame.getName() + "_height", "nul");
         String dx = eProperty.getProperty().getProperty(frame.getName() + "_width", "nul");
-        if (!dy.equals("nul")) {
-            frameSize.height = Integer.valueOf(dy);
-        }
-        if (!dx.equals("nul")) {
-            frameSize.width = Integer.valueOf(dx);
+        
+        if (!dy.equals("nul") && !dx.equals("nul")) {
+            frameSize.height = Integer.valueOf(dy); //размеры окна
+            frameSize.width = Integer.valueOf(dx);  //размеры окна
         }
         if (frameSize.height > screenSize.height) {
             frameSize.height = screenSize.height;

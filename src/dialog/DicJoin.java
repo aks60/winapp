@@ -20,13 +20,6 @@ public class DicJoin extends javax.swing.JDialog {
         new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
-//    private ImageIcon icon[] = {
-//        new ImageIcon(getClass().getResource("/resource/img24/c073.gif")),
-//        new ImageIcon(getClass().getResource("/resource/img24/c074.gif")),
-//        new ImageIcon(getClass().getResource("/resource/img24/c075.gif")),
-//        new ImageIcon(getClass().getResource("/resource/img24/c076.gif")),
-//        new ImageIcon(getClass().getResource("/resource/img24/c077.gif")),
-//        new ImageIcon(getClass().getResource("/resource/img24/c078.gif"))};
     
     private ImageIcon mm = new ImageIcon(getClass().getResource("/resource/img24/c020.gif"));
 
@@ -71,17 +64,17 @@ public class DicJoin extends javax.swing.JDialog {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 240));
+        setPreferredSize(new java.awt.Dimension(400, 240));
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(460, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(400, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 353, Short.MAX_VALUE)
+            .addGap(0, 348, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +85,7 @@ public class DicJoin extends javax.swing.JDialog {
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(460, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(400, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -149,7 +142,7 @@ public class DicJoin extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -168,10 +161,11 @@ public class DicJoin extends javax.swing.JDialog {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(460, 500));
+        panCentr.setPreferredSize(new java.awt.Dimension(400, 200));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
+        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
