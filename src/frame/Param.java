@@ -33,10 +33,10 @@ public class Param extends javax.swing.JFrame {
     public Param() {
         initComponents();
         initElements();
-        initDatamodel();
+        initDodel();
     }
 
-    private void initDatamodel() {
+    private void initDodel() {
 
         new DefTableModel(tab1, qParams, eParams.text, eParams.komp,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
@@ -426,31 +426,31 @@ public class Param extends javax.swing.JFrame {
         tab2.addFocusListener(listenerFocus);
     }
 
-    public class CustomBooleanCellRenderer extends JCheckBox implements TableCellRenderer {
-
-        private ImageIcon sad = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif"));
-        private ImageIcon happy = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"));
-
-        public CustomBooleanCellRenderer() {
-        }
-
-        @Override
-        public void setSelected(boolean selected) {
-            super.setSelected(selected);
-            if (selected) {
-                setIcon(happy);
-            } else {
-                setIcon(sad);
-            }
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            if (value instanceof Boolean) {
-                boolean selected = (boolean) value;
-                setSelected(selected);
-            }
-            return this;
-        }
-    }
+//    public class CustomBooleanCellRenderer extends JCheckBox implements TableCellRenderer {
+//
+//        private ImageIcon sad = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif"));
+//        private ImageIcon happy = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"));
+//
+//        public CustomBooleanCellRenderer() {
+//        }
+//
+//        @Override
+//        public void setSelected(boolean selected) {
+//            super.setSelected(selected);
+//            if (selected) {
+//                setIcon(happy);
+//            } else {
+//                setIcon(sad);
+//            }
+//        }
+//
+//        @Override
+//        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//            if (value instanceof Boolean) {
+//                boolean selected = (boolean) value;
+//                setSelected(selected);
+//            }
+//            return this;
+//        }
+//    }
 }

@@ -425,7 +425,7 @@
                               <Data value="&#x41c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;"/>
                               <Data value="&#x420;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;"/>
                             </Column>
-                            <Column editable="true" title="&#x417;&#x435;&#x440;&#x43a;&#x430;&#x43b;&#x44c;&#x43d;&#x43e;&#x441;&#x442;&#x44c;" type="java.lang.Object"/>
+                            <Column editable="true" title="&#x417;&#x435;&#x440;&#x43a;&#x430;&#x43b;&#x44c;&#x43d;&#x43e;&#x441;&#x442;&#x44c;" type="java.lang.Boolean"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

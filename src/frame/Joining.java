@@ -42,6 +42,7 @@ import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
 import dialog.DicJoinvar;
+import swing.BooleanRenderer;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -108,7 +109,7 @@ public class Joining extends javax.swing.JFrame {
                 }
                 return val;
             }
-        };
+        };                       
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name, eJoinvar.mirr);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
 
@@ -176,7 +177,9 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-
+        
+        tab2.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer()); 
+        
         Util.buttonEditorCell(tab1, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
@@ -366,8 +369,6 @@ public class Joining extends javax.swing.JFrame {
             joinvarRec.set(eJoinvar.types, record.getInt(0));
             joinvarRec.set(eJoinvar.name, record.getStr(1));
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5); 
-            
-            System.out.println(joinvarRec);
         };
     }
 
@@ -599,7 +600,15 @@ public class Joining extends javax.swing.JFrame {
             new String [] {
                 "Приоритет", "Название", "Зеркальность"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
