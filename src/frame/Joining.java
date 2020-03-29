@@ -41,7 +41,7 @@ import static common.Util.insertRecord;
 import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
-import dialog.DicJoin;
+import dialog.DicJoinvar;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -57,7 +57,7 @@ public class Joining extends javax.swing.JFrame {
     private int nuni = -1;
     private Window owner = null;
     private EditorListener listenerEditor;
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerJoin;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerJoinvar;
 
     public Joining() {
         initComponents();
@@ -185,6 +185,10 @@ public class Joining extends javax.swing.JFrame {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
+        });
+
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             int row = getSelectedRow(tab2);
             if (row != -1) {
@@ -299,14 +303,12 @@ public class Joining extends javax.swing.JFrame {
                     joiningRec.set(eJoining.artikl_id2, record.getInt(eArtikl.id));
                 }
                 FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-                Util.setSelectedRow(tab1, 0);
 
             } else if (tab4.getBorder() != null) {
                 Record joindetRec = qJoindet.get(getSelectedRow(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-                Util.setSelectedRow(tab4, 0);
             }
         };
 
@@ -327,7 +329,6 @@ public class Joining extends javax.swing.JFrame {
                 joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Util.setSelectedRow(tab3, 0);
         };
 
         listenerPar2 = (record) -> {
@@ -348,7 +349,6 @@ public class Joining extends javax.swing.JFrame {
                 joinpar2Rec.set(eJoinpar2.text, record.getStr(0));
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Util.setSelectedRow(tab5, 0);
         };
 
         listenerColor = (record) -> {
@@ -359,11 +359,15 @@ public class Joining extends javax.swing.JFrame {
                 joindetRec.set(eJoindet.color_fk, record.get(0));
             }
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Util.setSelectedRow(tab4, 0);
         };
         
-        listenerJoin = (record) -> {
-            System.out.println("frame.Joining.listenerDict()");  
+        listenerJoinvar = (record) -> {
+            Record joinvarRec = qJoinvar.get(getSelectedRow(tab2));
+            joinvarRec.set(eJoinvar.types, record.getInt(0));
+            joinvarRec.set(eJoinvar.name, record.getStr(1));
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5); 
+            
+            System.out.println(joinvarRec);
         };
     }
 
@@ -773,7 +777,8 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        DicJoin dicJoin = new DicJoin(this, listenerJoin);        
+        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql()); 
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

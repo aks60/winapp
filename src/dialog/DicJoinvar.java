@@ -3,6 +3,7 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import static common.Util.getSelectedRow;
+import dataset.Record;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -10,9 +11,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class DicJoin extends javax.swing.JDialog {
+public class DicJoinvar extends javax.swing.JDialog {
 
-    private DefaultTableCellRenderer defaultTableCellRenderer;
     private ImageIcon icon[] = {
         new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
@@ -20,12 +20,9 @@ public class DicJoin extends javax.swing.JDialog {
         new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
-    
-    private ImageIcon mm = new ImageIcon(getClass().getResource("/resource/img24/c020.gif"));
-
     private DialogListener listener = null;
 
-    public DicJoin(java.awt.Frame parent, DialogListener listenet) {
+    public DicJoinvar(java.awt.Frame parent, DialogListener listenet) {
         super(parent, true);
         initComponents();
         initElements();
@@ -205,15 +202,19 @@ public class DicJoin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = getSelectedRow(tab1);
-        if (row != -1) {
 
-        }
+        Record record = new Record();
+        record.add(getSelectedRow(tab1));
+        record.add(tab1.getValueAt(getSelectedRow(tab1), 0));
+        listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        //listener.action(eArtikl.up.newRecord());
+        Record record = new Record();
+        record.add(null);
+        record.add(null);
+        listener.action(record);
     }//GEN-LAST:event_btnRemoveert
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

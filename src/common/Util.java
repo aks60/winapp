@@ -258,6 +258,7 @@ public class Util {
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {
             if (table.getModel() instanceof DefTableModel) {
+                ((DefTableModel) table.getModel()).getQuery().execsql();
                 ((DefTableModel) table.getModel()).getQuery().clear();
 
             } else if (table.getModel() instanceof DefaultTableModel) {
@@ -286,6 +287,6 @@ public class Util {
                 return 1;
             }
         }
-        return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение",  JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 }

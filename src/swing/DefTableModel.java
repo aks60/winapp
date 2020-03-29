@@ -79,7 +79,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public int getRowCount() {
-        return (columns != null) ? query.table(columns[0]).size() : 0;
+        return (columns != null) ? query.size() : 0;
     }
 
     @Override
