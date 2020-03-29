@@ -42,13 +42,6 @@ public class Param extends javax.swing.JFrame {
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
         new DefTableModel(tab2, qPardet, eParams.text, eParams.komp,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectionTab1(event);
-                }
-            }
-        });
 
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
@@ -408,6 +401,13 @@ public class Param extends javax.swing.JFrame {
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+                tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab1(event);
+                }
+            }
+        });
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -425,32 +425,4 @@ public class Param extends javax.swing.JFrame {
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
     }
-
-//    public class CustomBooleanCellRenderer extends JCheckBox implements TableCellRenderer {
-//
-//        private ImageIcon sad = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif"));
-//        private ImageIcon happy = new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"));
-//
-//        public CustomBooleanCellRenderer() {
-//        }
-//
-//        @Override
-//        public void setSelected(boolean selected) {
-//            super.setSelected(selected);
-//            if (selected) {
-//                setIcon(happy);
-//            } else {
-//                setIcon(sad);
-//            }
-//        }
-//
-//        @Override
-//        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//            if (value instanceof Boolean) {
-//                boolean selected = (boolean) value;
-//                setSelected(selected);
-//            }
-//            return this;
-//        }
-//    }
 }
