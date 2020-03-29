@@ -31,7 +31,6 @@ import java.awt.event.FocusListener;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -42,6 +41,7 @@ import static common.Util.insertRecord;
 import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
+import dialog.DicJoin;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -57,7 +57,7 @@ public class Joining extends javax.swing.JFrame {
     private int nuni = -1;
     private Window owner = null;
     private EditorListener listenerEditor;
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerJoin;
 
     public Joining() {
         initComponents();
@@ -109,7 +109,7 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name);
+        new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name, eJoinvar.mirr);
         new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
@@ -361,6 +361,10 @@ public class Joining extends javax.swing.JFrame {
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Util.setSelectedRow(tab4, 0);
         };
+        
+        listenerJoin = (record) -> {
+            System.out.println("frame.Joining.listenerDict()");  
+        };
     }
 
     private void listenerCell() {
@@ -585,11 +589,11 @@ public class Joining extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Мммммммммм"},
-                {"2", "Ррррррррррр"}
+                {"1", "Мммммммммм", null},
+                {"2", "Ррррррррррр", null}
             },
             new String [] {
-                "Приоритет", "Название"
+                "Приоритет", "Название", "Зеркальность"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -598,6 +602,8 @@ public class Joining extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
         jPanel2.add(scr2, java.awt.BorderLayout.CENTER);
@@ -767,8 +773,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        int mmm = JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        System.out.println(mmm);
+        DicJoin dicJoin = new DicJoin(this, listenerJoin);        
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
