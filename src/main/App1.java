@@ -7,22 +7,22 @@ import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
 import convert.Convert;
-import forms.Artikls;
-import forms.BoxTypical;
-import forms.Systree;
-import forms.BoxCustom;
-import forms.Element;
-import forms.Furniture;
-import forms.Glass;
-import forms.Joining;
-import forms.Kits;
-import forms.Param;
-import forms.DicCurrenc;
-import forms.Color;
-import forms.DicSyssize;
-import forms.Order;
-import forms.Partner;
-import forms.Specific;
+import frame.Artikles;
+import frame.BoxTypical;
+import frame.Systree;
+import frame.BoxCustom;
+import frame.Element;
+import frame.Furniture;
+import frame.Glass;
+import frame.Joining;
+import frame.Kits;
+import frame.Param;
+import frame.Currenc;
+import frame.Color;
+import frame.Syssize;
+import frame.Order;
+import frame.Partner;
+import frame.Specific;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -1034,7 +1034,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     FrameProgress.create(App1.this, new FrameListener() {
         public void actionRequest(Object obj) {
-            eApp1.Artikls.createFrame(App1.this);
+            eApp1.Artikles.createFrame(App1.this);
         }
     });
 }//GEN-LAST:event_mn25
@@ -1272,7 +1272,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public static enum eApp1 {
 
-        App1, Convert, DicCurrenc, Color, Artikls, Joining, Element, Param,
+        App1, Convert, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Glass, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
         BoxCustom, Specific, DicSyssize;
         javax.swing.JFrame frame;
@@ -1283,8 +1283,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case AboutBox:
                         frame = new AboutBox();
                         break;
-                    case Artikls:
-                        frame = new Artikls();
+                    case Artikles:
+                        frame = new Artikles();
                         break;
                     case Convert:
                         frame = new Convert();
@@ -1296,7 +1296,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new Joining();
                         break;
                     case DicCurrenc:
-                        frame = new DicCurrenc();
+                        frame = new Currenc();
                         break;
                     case Element:
                         frame = new Element();
@@ -1332,7 +1332,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new Specific();
                         break;
                     case DicSyssize:
-                        frame = new DicSyssize();
+                        frame = new Syssize();
                         break;
                 }
                 eProfile.appframe = frame;

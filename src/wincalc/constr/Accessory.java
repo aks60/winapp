@@ -10,15 +10,15 @@ import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import forms.Artikls;
+import frame.Artikles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import static main.App1.eApp1.Artikls;
 import wincalc.Wincalc;
 import wincalc.model.AreaStvorka;
 import wincalc.model.ElemFrame;
+import static main.App1.eApp1.Artikles;
 
 /**
  * Фурнитура

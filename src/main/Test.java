@@ -47,7 +47,7 @@ public class Test {
         lookAndFeel();
         App1 app = new App1();
         app.setVisible(true);
-        forms.Joining frm = new forms.Joining();
+        frame.Joining frm = new frame.Joining();
         FrameToFile.setFrameSize(frm);
         //frm.iwin.create(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);

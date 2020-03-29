@@ -14,12 +14,12 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import static main.App1.eApp1.Artikls;
 import wincalc.Wincalc;
 import wincalc.model.AreaSimple;
 import wincalc.model.AreaStvorka;
 import wincalc.model.Com5t;
 import wincalc.model.ElemFrame;
+import static main.App1.eApp1.Artikles;
 
 /**
  * Перечень параметров спецификаций (составов, заполнений...) Параметры нижней
