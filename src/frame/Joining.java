@@ -190,13 +190,7 @@ public class Joining extends javax.swing.JFrame {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-//        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
-//        });
-
-        JButton btn = new JButton("...");
-        tab2.getColumnModel().getColumn(1).setCellEditor(new ButtonCellEditor(btn));
-        btn.addActionListener(event -> {
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
         }); 
 

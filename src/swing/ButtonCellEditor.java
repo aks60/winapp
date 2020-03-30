@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 public class ButtonCellEditor extends DefaultCellEditor {
 
     protected JComponent panel = new javax.swing.JPanel();
-    ;    
     protected JButton button = null;
 
     public ButtonCellEditor(JButton button) {
