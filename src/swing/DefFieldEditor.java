@@ -43,10 +43,19 @@ public class DefFieldEditor extends DefaultCellEditor {
         panel.add(button, java.awt.BorderLayout.EAST);
         ((JFormattedTextField) editorComponent).addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listener.action(editorComponent);
+                listener.action(panel);
                 //System.out.println(".mouseClicked() ==DefFieldEditor==");
             }
         });
+        delegate = new EditorDelegate() {
+            public void setValue(Object value) {
+                ((JFormattedTextField) editorComponent).setText((value != null) ? value.toString() : "");
+            }
+
+            public Object getCellEditorValue() {
+                return ((JFormattedTextField) editorComponent).getText();
+            }
+        };        
     }
 
     @Override

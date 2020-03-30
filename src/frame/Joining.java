@@ -388,16 +388,16 @@ public class Joining extends javax.swing.JFrame {
 
             System.out.println("frame.Joining.listenerCell() 0000");
 
-            JComponent comp = (JComponent) component;
-
-            DefFieldEditor editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
-            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
-                Util.formatterCell(qJoinpar1, tab3, editor);
-            }
-            editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
-            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
-                Util.formatterCell(qJoinpar2, tab4, editor);
-            }
+//            JComponent comp = (JComponent) component;
+//
+//            DefFieldEditor editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
+//            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
+//                Util.formatterCell(qJoinpar1, tab3, editor);
+//            }
+//            editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
+//            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
+//                Util.formatterCell(qJoinpar2, tab4, editor);
+//            }
         };
     }
 
