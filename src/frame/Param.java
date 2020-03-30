@@ -55,7 +55,7 @@ public class Param extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = getSelectedRow(tab1);
         if (row != -1) {
-            Record record = qParams.table(eParams.up).get(row);
+            Record record = qParams.get(row);
             Integer p1 = record.getInt(eParams.grup);
             qPardet.select(eParams.up, "where", eParams.grup, "=", p1, "and", eParams.numb, "!= 0", "order by", eParams.text);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -401,7 +401,7 @@ public class Param extends javax.swing.JFrame {
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
-                tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);

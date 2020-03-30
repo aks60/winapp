@@ -1,42 +1,23 @@
 package frame;
 
-import java.awt.Component;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.AbstractCellEditor;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JTable;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
+import common.FrameToFile;
+import dataset.Query;
+import domain.eJoinvar;
 import swing.BooleanRenderer;
+import swing.DefTableModel;
 
 public class Test extends javax.swing.JFrame {
 
+    private Query qJoinvar = new Query(eJoinvar.values()).select(eJoinvar.up, "order by", eJoinvar.prio);
+    
     public Test() {
         initComponents();
 
-        tab1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {"1", 1, "2"},
-                    {"1", 0, "2"},
-                    {"1", 0, "2"},
-                    {"1", 1, "2"}
-                },
-                new String[]{
-                    "Title 1", "Title 2", "Title 3"
-                }
-        ) {
-            Class[] types = new Class[]{
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types[columnIndex];
-            }
-        });
-        BooleanRenderer br = new BooleanRenderer();
-        tab1.getColumnModel().getColumn(1).setCellRenderer(br);
+        new DefTableModel(tab1, qJoinvar, eJoinvar.id, eJoinvar.mirr);
+        tab1.getColumnModel().getColumn(1).setCellRenderer(new BooleanRenderer());
+        
+        FrameToFile.setFrameSize(this);
+        setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -102,15 +83,23 @@ public class Test extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "1", "2"},
-                {"1", "0", "2"},
-                {"1", "0", "2"},
-                {"1", "1", "2"}
+                {"1", null},
+                {"1", null},
+                {"1", null},
+                {"1", null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Title 1", "Title 2"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tab1);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -147,67 +136,5 @@ public class Test extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-//
-//    public class CustomCheckBox extends JCheckBox {
-//
-//        private ImageIcon sad;
-//        private ImageIcon happy;
-//
-//        public CustomCheckBox() {
-//            try {
-//                happy = new ImageIcon(ImageIO.read(getClass().getResource("/Happy.png")));
-//                sad = new ImageIcon(ImageIO.read(getClass().getResource("/Sad.png")));
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//
-//        @Override
-//        public void setSelected(boolean selected) {
-//            super.setSelected(selected);
-//            if (selected) {
-//                setIcon(happy);
-//            } else {
-//                setIcon(sad);
-//            }
-//        }
-//
-//    }
-//
-//    public class CustomBooleanCellRenderer extends CustomCheckBox implements TableCellRenderer {
-//
-//        @Override
-//        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//            if (value instanceof Boolean) {
-//                boolean selected = (boolean) value;
-//                setSelected(selected);
-//            }
-//            return this;
-//        }
-//
-//    }
-//
-//    public class CustomBooleanCellEditor extends AbstractCellEditor implements TableCellEditor {
-//
-//        private CustomCheckBox editor;
-//
-//        public CustomBooleanCellEditor() {
-//            editor = new CustomCheckBox();
-//        }
-//
-//        @Override
-//        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-//            if (value instanceof Boolean) {
-//                boolean selected = (boolean) value;
-//                editor.setSelected(selected);
-//            }
-//            return editor;
-//        }
-//
-//        @Override
-//        public Object getCellEditorValue() {
-//            return editor.isSelected();
-//        }
-//
-//    }
+
 }
