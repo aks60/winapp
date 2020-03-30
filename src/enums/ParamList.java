@@ -58,8 +58,8 @@ public class ParamList {
         P2013(2013, "Для Артикулов не указан состав"),
         P2015(2015, "Ориентация Артикула 1"),
         P2016(2016, "Ориентация Артикула 2"),
-        P2010(2010, "Угол минимальный, °"),
-        P2020(2020, "Угол максимальный, °"),
+        P2010(2010, "Угол минимальный, °", frm_Number),
+        P2020(2020, "Угол максимальный, °", frm_Number),
         P2021(2021, "Точный угол, °"),
         P2022(2022, "Исключить угол, °"),
         P2030(2030, "Припуск Артикула 1, мм"),
@@ -1209,6 +1209,7 @@ public class ParamList {
     };
 
     public static Formatter frm_Number = () -> {
+        System.out.println("enums.ParamList.methodName() mmmmmmmmmmmmmmmmmmmmmmm");
         return numberFormatter;
     };
 

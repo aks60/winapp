@@ -53,7 +53,7 @@ public class DefFieldEditor extends DefaultCellEditor {
 
             public boolean isCellEditable(EventObject anEvent) {
                 if (anEvent instanceof MouseEvent == true) {
-                    if (((MouseEvent) anEvent).getClickCount() == 1 && listener != null) {
+                    if (((MouseEvent) anEvent).getClickCount() == 2 && listener != null) {
                         listener.action(DefFieldEditor.this);
                     }
                     return (((MouseEvent) anEvent).getClickCount() >= 2);
