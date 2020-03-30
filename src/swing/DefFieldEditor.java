@@ -59,7 +59,7 @@ public class DefFieldEditor extends DefaultCellEditor {
 //            String val = String.valueOf(value).replace(',', '.');
 //            delegate.setValue(val);
 //        } else {
-        ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR);
+        ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
         delegate.setValue(value);
         return panel;
     }

@@ -189,26 +189,10 @@ public class Joining extends javax.swing.JFrame {
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        
-/////////////////////////////////////////////////////////////////////////////////
 
-//        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
-//        }); 
-
-
-         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(new JButton("...")));
-//        btn.addActionListener(event -> {
-//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
-//        });
-
-
-//        tab2.getColumnModel().getColumn(1).setCellEditor(new ButtonCellEditor(new JButton("...")));
-//        btn.addActionListener(event -> {
-//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
-//        });
-        
-/////////////////////////////////////////////////////////////////////////////////
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
+        }); 
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             int row = getSelectedRow(tab2);
@@ -373,13 +357,13 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerColor = (record) -> {
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record joindetRec = qJoindet.get(getSelectedRow(tab4));
             if (eParams.values().length == record.size()) {
                 joindetRec.set(eJoindet.color_fk, record.getInt(eParams.grup));
             } else {
                 joindetRec.set(eJoindet.color_fk, record.get(0));
-            }
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            }            
         };
         
         listenerJoinvar = (record) -> {
@@ -388,8 +372,6 @@ public class Joining extends javax.swing.JFrame {
             Record joinvarRec = qJoinvar.get(getSelectedRow(tab2));
             joinvarRec.set(eJoinvar.types, record.getInt(0));
             joinvarRec.set(eJoinvar.name, record.getStr(1));
-             
-            System.out.println(joinvarRec);
         };
     }
 

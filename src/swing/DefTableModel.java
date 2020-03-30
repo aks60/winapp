@@ -94,7 +94,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             Table table = query.table(columns[columnIndex]);
             Object val = table.get(rowIndex, columns[columnIndex]);
             if (getColumnClass(columnIndex) == Boolean.class) {
-                
+
                 return (val == null || val.equals(0)) ? false : true;
             }
             return (val != null) ? getValueAt(columnIndex, rowIndex, val) : null;
@@ -104,7 +104,12 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
+
+        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor
+                && columns[columnIndex].meta().type() == Field.TYPE.STR) {
+            setValueAt(aValue, rowIndex, columns[columnIndex]);
+
+        } else {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
     }
