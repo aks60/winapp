@@ -4,6 +4,8 @@ import common.EditorListener;
 import common.Util;
 import dataset.Field;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -26,11 +28,10 @@ public class DefFieldEditor extends DefaultCellEditor {
         super(new JFormattedTextField());
         this.listener = listener;
         init(button);
-        //if(listener != null)
-        //listener.action("addActionListener - 77777");
     }
 
     private void init(JButton button) {
+        this.button = button;
         button.setFocusable(false);
         button.setPreferredSize(new java.awt.Dimension(24, 18));
         panel.setBorder(null);
@@ -41,12 +42,6 @@ public class DefFieldEditor extends DefaultCellEditor {
         editorComponent.setBackground(new java.awt.Color(255, 255, 255));
         panel.add(editorComponent, java.awt.BorderLayout.CENTER);
         panel.add(button, java.awt.BorderLayout.EAST);
-        ((JFormattedTextField) editorComponent).addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listener.action(panel);
-                //System.out.println(".mouseClicked() ==DefFieldEditor==");
-            }
-        });
         delegate = new EditorDelegate() {
             public void setValue(Object value) {
                 ((JFormattedTextField) editorComponent).setText((value != null) ? value.toString() : "");
@@ -55,7 +50,17 @@ public class DefFieldEditor extends DefaultCellEditor {
             public Object getCellEditorValue() {
                 return ((JFormattedTextField) editorComponent).getText();
             }
-        };        
+
+            public boolean isCellEditable(EventObject anEvent) {
+                if (anEvent instanceof MouseEvent == true) {
+                    if (((MouseEvent) anEvent).getClickCount() == 1 && listener != null) {
+                        listener.action(DefFieldEditor.this);
+                    }
+                    return (((MouseEvent) anEvent).getClickCount() >= 2);
+                }
+                return true;
+            }
+        };
     }
 
     @Override

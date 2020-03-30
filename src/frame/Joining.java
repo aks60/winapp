@@ -42,10 +42,9 @@ import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
 import dialog.DicJoinvar;
+import java.awt.Component;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import swing.BooleanRenderer;
-import swing.ButtonCellEditor;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -386,18 +385,16 @@ public class Joining extends javax.swing.JFrame {
     private void listenerCell() {
         listenerEditor = (component) -> {
 
-            System.out.println("frame.Joining.listenerCell() 0000");
+            DefFieldEditor editor = (DefFieldEditor) component;
 
-//            JComponent comp = (JComponent) component;
-//
-//            DefFieldEditor editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
-//            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
-//                Util.formatterCell(qJoinpar1, tab3, editor);
-//            }
-//            editor = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
-//            if (Arrays.stream(comp.getComponents()).anyMatch(editor.getButton()::equals)) {
-//                Util.formatterCell(qJoinpar2, tab4, editor);
-//            }
+            DefFieldEditor editor2 = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
+            if (editor.getButton() == editor2.getButton()) {
+                Util.formatterCell(qJoinpar1, tab3, editor);
+            }
+            editor2 = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
+            if (editor.getButton() == editor2.getButton()) {
+                Util.formatterCell(qJoinpar2, tab4, editor);
+            }
         };
     }
 
