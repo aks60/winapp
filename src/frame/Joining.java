@@ -189,10 +189,28 @@ public class Joining extends javax.swing.JFrame {
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
+        
+/////////////////////////////////////////////////////////////////////////////////
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
-        }); 
+//        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
+//        }); 
+
+
+//        JButton btn = new JButton("...");
+//        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btn));
+//        btn.addActionListener(event -> {
+//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
+//        });
+
+
+//        JButton btn = new JButton("...");
+//        tab2.getColumnModel().getColumn(1).setCellEditor(new ButtonCellEditor(btn));
+//        btn.addActionListener(event -> {
+//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
+//        });
+        
+/////////////////////////////////////////////////////////////////////////////////
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             int row = getSelectedRow(tab2);
