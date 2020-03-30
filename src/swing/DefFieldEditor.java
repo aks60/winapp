@@ -38,7 +38,8 @@ public class DefFieldEditor extends DefaultCellEditor {
         editorComponent.setBorder(null);
         editorComponent.setBackground(new java.awt.Color(255, 255, 255));
         panel.add(editorComponent, java.awt.BorderLayout.CENTER);
-        panel.add(button, java.awt.BorderLayout.EAST);        
+        panel.add(button, java.awt.BorderLayout.EAST); 
+        ((JFormattedTextField)editorComponent).addActionListener(event -> {  });
     }
     
     @Override
