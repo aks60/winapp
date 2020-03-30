@@ -3,25 +3,21 @@ package swing;
 import common.Util;
 import dataset.Field;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class ButtonCellEditor extends DefaultCellEditor {
 
-    protected JComponent panel = new javax.swing.JPanel();;    
-    protected JButton button = null;   
-    protected final JTextField textField = new JTextField(); 
+    protected JComponent panel = new javax.swing.JPanel();
+    ;    
+    protected JButton button = null;
 
     public ButtonCellEditor(JButton button) {
         super(new JTextField());
-        this.button = button; 
+        this.button = button;
         button.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         button.setFocusable(false);
         button.setPreferredSize(new java.awt.Dimension(24, 18));
@@ -32,24 +28,25 @@ public class ButtonCellEditor extends DefaultCellEditor {
         editorComponent.setBorder(null);
         editorComponent.setBackground(new java.awt.Color(255, 255, 255));
         panel.add(editorComponent, java.awt.BorderLayout.CENTER);
-        panel.add(button, java.awt.BorderLayout.EAST);        
+        panel.add(button, java.awt.BorderLayout.EAST);
     }
 
+    @Override
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
 
-        DefTableModel rsm = (DefTableModel) table.getModel();
-        Field field = rsm.getColumn(column);
-        if (field.meta().type().equals(Field.TYPE.DATE)) {
-            delegate.setValue(Util.DateToStr(value));
-//        } else if (field.meta().type().equals(eField.TYPE.DBL) || field.meta().type().equals(eField.TYPE.FLT)) {
+        Field field = ((DefTableModel) table.getModel()).getColumn(column);
+
+//        if (field.meta().type().equals(Field.TYPE.DATE)) {
+//            delegate.setValue(Util.DateToStr(value));
+//            
+//        } else if (field.meta().type().equals(Field.TYPE.DBL) || field.meta().type().equals(Field.TYPE.FLT)) {
 //            String val = String.valueOf(value).replace(',', '.');
 //            delegate.setValue(val);
-        //} else if(field.meta().type() == Field.TYPE.STR) { 
-            
-        } else {
-            delegate.setValue(value);            
-        }
+//        } else {
+
+        ((JTextField)editorComponent).setEditable(field.meta().type() == Field.TYPE.STR);
+        delegate.setValue(value);
         return panel;
     }
 

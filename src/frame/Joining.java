@@ -42,7 +42,9 @@ import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
 import dialog.DicJoinvar;
+import javax.swing.JButton;
 import swing.BooleanRenderer;
+import swing.ButtonCellEditor;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -188,9 +190,15 @@ public class Joining extends javax.swing.JFrame {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+//        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+//            DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
+//        });
+
+        JButton btn = new JButton("...");
+        tab2.getColumnModel().getColumn(1).setCellEditor(new ButtonCellEditor(btn));
+        btn.addActionListener(event -> {
             DicJoinvar frame = new DicJoinvar(this, listenerJoinvar);
-        });
+        }); 
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             int row = getSelectedRow(tab2);
@@ -365,10 +373,13 @@ public class Joining extends javax.swing.JFrame {
         };
         
         listenerJoinvar = (record) -> {
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            System.out.println(record);
             Record joinvarRec = qJoinvar.get(getSelectedRow(tab2));
             joinvarRec.set(eJoinvar.types, record.getInt(0));
             joinvarRec.set(eJoinvar.name, record.getStr(1));
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5); 
+             
+            System.out.println(joinvarRec);
         };
     }
 
