@@ -377,6 +377,9 @@ public class Joining extends javax.swing.JFrame {
 
     private void listenerCell() {
         listenerEditor = (component) -> {
+            
+            System.out.println("frame.Joining.listenerCell()");
+            
             JComponent comp = (JComponent) component;
 
             DefFieldEditor editor = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
