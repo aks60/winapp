@@ -89,20 +89,15 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Object val = null;
+
         if (columns != null) {
             Table table = query.table(columns[columnIndex]);
-
+            Object val = table.get(rowIndex, columns[columnIndex]);
             if (getColumnClass(columnIndex) == Boolean.class) {
-                return (table.get(rowIndex, columns[columnIndex]).equals(0)) ? false : true;
-
-            } else {
-                val = table.get(rowIndex, columns[columnIndex]);
-                if (val != null) {
-                    return getValueAt(columnIndex, rowIndex, val);
-                }
-                return val;
+                
+                return (val == null || val.equals(0)) ? false : true;
             }
+            return (val != null) ? getValueAt(columnIndex, rowIndex, val) : null;
         }
         return null;
     }
