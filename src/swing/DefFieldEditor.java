@@ -26,6 +26,8 @@ public class DefFieldEditor extends DefaultCellEditor {
         super(new JFormattedTextField());
         this.listener = listener;
         init(button);
+        //if(listener != null)
+        //listener.action("addActionListener - 77777");
     }
 
     private void init(JButton button) {
@@ -39,9 +41,10 @@ public class DefFieldEditor extends DefaultCellEditor {
         editorComponent.setBackground(new java.awt.Color(255, 255, 255));
         panel.add(editorComponent, java.awt.BorderLayout.CENTER);
         panel.add(button, java.awt.BorderLayout.EAST);
-        ((JFormattedTextField) editorComponent).addActionListener(event -> {
-            if (listener != null) {
-                listener.action(editorComponent);
+        ((JFormattedTextField) editorComponent).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //listener.action(editorComponent);
+                System.out.println(".mouseClicked() ==DefFieldEditor==");
             }
         });
     }
