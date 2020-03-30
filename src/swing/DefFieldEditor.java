@@ -20,9 +20,10 @@ public class DefFieldEditor extends DefaultCellEditor {
         super(new JFormattedTextField());
         init(button);
     }
+
     public DefFieldEditor(EditorListener listener, JButton button) {
         super(new JFormattedTextField());
-        this.listener = listener; 
+        this.listener = listener;
         init(button);
     }
 
@@ -38,10 +39,12 @@ public class DefFieldEditor extends DefaultCellEditor {
         editorComponent.setBorder(null);
         editorComponent.setBackground(new java.awt.Color(255, 255, 255));
         panel.add(editorComponent, java.awt.BorderLayout.CENTER);
-        panel.add(button, java.awt.BorderLayout.EAST); 
-        ((JFormattedTextField)editorComponent).addActionListener(event -> {  });
+        panel.add(button, java.awt.BorderLayout.EAST);
+        ((JFormattedTextField) editorComponent).addActionListener(event -> {
+            listener.action(editorComponent);
+        });
     }
-    
+
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
@@ -63,8 +66,8 @@ public class DefFieldEditor extends DefaultCellEditor {
     public JButton getButton() {
         return button;
     }
-    
+
     public JFormattedTextField getFormatTextField() {
-        return  (JFormattedTextField) editorComponent;
+        return (JFormattedTextField) editorComponent;
     }
 }
