@@ -40,6 +40,7 @@ public class DefFieldEditor extends DefaultCellEditor {
         editorComponent.setPreferredSize(new java.awt.Dimension(60, 18));
         editorComponent.setBorder(null);
         editorComponent.setBackground(new java.awt.Color(255, 255, 255));
+        //((JFormattedTextField)editorComponent).setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         panel.add(editorComponent, java.awt.BorderLayout.CENTER);
         panel.add(button, java.awt.BorderLayout.EAST);
         delegate = new EditorDelegate() {

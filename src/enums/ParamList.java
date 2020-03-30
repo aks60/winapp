@@ -1209,8 +1209,11 @@ public class ParamList {
     };
 
     public static Formatter frm_Number = () -> {
-        System.out.println("enums.ParamList.methodName() mmmmmmmmmmmmmmmmmmmmmmm");
-        return numberFormatter;
+        try {
+            return new DefaultFormatterFactory(new MaskFormatter("###"));
+        } catch (final ParseException e) {
+            return null;
+        }
     };
 
     public static Formatter frm_Mask = () -> {
