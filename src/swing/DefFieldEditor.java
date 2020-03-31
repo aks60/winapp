@@ -76,9 +76,37 @@ public class DefFieldEditor extends DefaultCellEditor {
 //            String val = String.valueOf(value).replace(',', '.');
 //            delegate.setValue(val);
 //        } else {
-        ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
+        ((JFormattedTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
+        try {
+            ((JFormattedTextField) editorComponent).commitEdit();
+        } catch (Exception e) {
+        }
         delegate.setValue(value);
         return panel;
+    }
+
+    public boolean stopCellEditing() {
+
+        System.out.println("javaapplication8.IntegerEditor.stopCellEditing()");
+
+        JFormattedTextField ftf = (JFormattedTextField) getComponent();
+        if (ftf.getText().equals("777")) {
+            System.out.println(ftf.getText());
+            return false;
+        }
+        
+//        if (ftf.isEditValid()) {
+//            try {
+//                ftf.commitEdit();
+//            } catch (java.text.ParseException exc) {
+//            }
+//
+//        } else { //text is invalid
+//            if (!userSaysRevert()) { //user wants to edit
+//                return false; //don't let the editor go away
+//            }
+//        }
+        return super.stopCellEditing();
     }
 
     public JButton getButton() {

@@ -27,6 +27,7 @@ public class Test extends javax.swing.JFrame {
         
         FrameToFile.setFrameSize(this);
         setVisible(true);
+         
     }
 
     @SuppressWarnings("unchecked")
