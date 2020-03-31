@@ -32,8 +32,7 @@ public class ParSys extends javax.swing.JDialog {
         }
         Vector column = new Vector();
         column.add("Значения параметра");
-        DefaultTableModel dtm = new DefaultTableModel(vectorData, column);
-        tab1.setModel(dtm);
+        ((DefaultTableModel) tab1.getModel()).setDataVector(vectorData, column);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,6 +49,7 @@ public class ParSys extends javax.swing.JDialog {
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Параметры смсстемные");
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -151,6 +151,7 @@ public class ParSys extends javax.swing.JDialog {
         });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.setShowVerticalLines(false);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab1MouseClicked(evt);

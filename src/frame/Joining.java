@@ -153,7 +153,7 @@ public class Joining extends javax.swing.JFrame {
                     if (id > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == id).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == id).findFirst().orElse(eParams.up.newRecord());
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == id).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
                 }
                 return val;
@@ -302,6 +302,8 @@ public class Joining extends javax.swing.JFrame {
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            
             if (tab1.getBorder() != null) {
                 Record joiningRec = qJoining.get(getSelectedRow(tab1));
                 if (tab1.getSelectedColumn() == 0) {
@@ -309,17 +311,16 @@ public class Joining extends javax.swing.JFrame {
                 } else if (tab1.getSelectedColumn() == 1) {
                     joiningRec.set(eJoining.artikl_id2, record.getInt(eArtikl.id));
                 }
-                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
 
             } else if (tab4.getBorder() != null) {
                 Record joindetRec = qJoindet.get(getSelectedRow(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
-                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             }
         };
 
         listenerPar1 = (record) -> {
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record joinpar1Rec = qJoinpar1.get(getSelectedRow(tab3));
 
             if (eParams.values().length == record.size()) {
@@ -335,11 +336,10 @@ public class Joining extends javax.swing.JFrame {
             } else if (record.size() == 1) {
                 joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
             }
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            System.out.println("forms.Joining.listenerPar2()");
+            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record joinpar2Rec = qJoinpar2.get(getSelectedRow(tab5));
 
             if (eParams.values().length == record.size()) {
@@ -355,12 +355,12 @@ public class Joining extends javax.swing.JFrame {
             } else if (record.size() == 1) {
                 joinpar2Rec.set(eJoinpar2.text, record.getStr(0));
             }
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColor = (record) -> {
             FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record joindetRec = qJoindet.get(getSelectedRow(tab4));
+            
             if (eParams.values().length == record.size()) {
                 joindetRec.set(eJoindet.color_fk, record.getInt(eParams.grup));
             } else {
@@ -393,9 +393,9 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (component != null && component instanceof String) {
-                
+
                 String txt = (String) component;
-                System.out.println("zzzz"  +  txt);
+                System.out.println("zzzz" + txt);
                 if (txt.equals("3")) {
                     return false;
                 }
@@ -416,7 +416,6 @@ public class Joining extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport2 = new javax.swing.JButton();
-        txt = new javax.swing.JTextField();
         panCentr = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -551,9 +550,7 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110)
                 .addComponent(btnReport2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(247, 247, 247)
-                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 392, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 753, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -565,11 +562,9 @@ public class Joining extends javax.swing.JFrame {
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createSequentialGroup()
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -695,7 +690,6 @@ public class Joining extends javax.swing.JFrame {
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab4.getColumnModel().getColumn(3).setMaxWidth(80);
         }
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
@@ -752,10 +746,9 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-//        initData();
-//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-//        Util.setSelectedRow(tab1, 0);
-//frm.setV
+        initData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -809,24 +802,8 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        PlainDocument doc = (PlainDocument) txt.getDocument();
-        doc.setDocumentFilter(new DocumentFilter() {
-            private static final String DIGITS = "\\d+";
-
-            @Override
-            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                if (string.matches(DIGITS) || string.equals(";")) {
-                    super.insertString(fb, offset, string, attr);
-                }
-            }
-
-            @Override
-            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                if (string.matches(DIGITS) || string.equals(";")) {
-                    super.replace(fb, offset, length, string, attrs);
-                }
-            }
-        });
+        Record joinpar1Rec = qJoinpar1.get(getSelectedRow(tab3));
+        joinpar1Rec.set(eJoinpar1.text, "vvv");
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -854,7 +831,6 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     private javax.swing.JTable tab6;
-    private javax.swing.JTextField txt;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
