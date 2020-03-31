@@ -105,11 +105,10 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
-        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor
-                && columns[columnIndex].meta().type() == Field.TYPE.STR) {
+        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {                
             setValueAt(aValue, rowIndex, columns[columnIndex]);
 
-        } else {
+        } else if(columns[columnIndex].meta().type() == Field.TYPE.STR) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
     }

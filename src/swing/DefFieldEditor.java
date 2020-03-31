@@ -1,7 +1,6 @@
 package swing;
 
 import common.EditorListener;
-import common.Util;
 import dataset.Field;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -9,13 +8,17 @@ import java.util.EventObject;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.NavigationFilter.FilterBypass;
+import javax.swing.text.PlainDocument;
 
 public class DefFieldEditor extends DefaultCellEditor {
 
-    private EditorListener listener = null;
+    private EditorListener listenerCell = null;
     protected JComponent panel = new javax.swing.JPanel();
     protected JButton button = null;
 
@@ -26,7 +29,7 @@ public class DefFieldEditor extends DefaultCellEditor {
 
     public DefFieldEditor(EditorListener listener, JButton button) {
         super(new JTextField());
-        this.listener = listener;
+        this.listenerCell = listener;
         init(button);
     }
 
@@ -48,8 +51,36 @@ public class DefFieldEditor extends DefaultCellEditor {
         editorText.setBackground(new java.awt.Color(255, 255, 255));
         panel.add(editorText, java.awt.BorderLayout.CENTER);
         panel.add(button, java.awt.BorderLayout.EAST);
+
+        PlainDocument doc = (PlainDocument) editorText.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            
+            @Override
+            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                if (listenerCell == null) {
+                    super.insertString(fb, offset, string, attr);
+
+                } else {
+                    if (listenerCell.action(string) == true) {
+                        super.insertString(fb, offset, string, attr);
+                    }
+                }
+            }
+
+            @Override
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                if (listenerCell == null) {
+                    super.replace(fb, offset, length, string, attrs);
+
+                } else {
+                    if (listenerCell.action(string) == true) {
+                        super.replace(fb, offset, length, string, attrs);
+                    }
+                }
+            }
+        });
     }
-     
+
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
@@ -60,17 +91,26 @@ public class DefFieldEditor extends DefaultCellEditor {
         return panel;
     }
 
-    public boolean stopCellEditing() {
-
-        System.out.println("javaapplication8.IntegerEditor.stopCellEditing()");
-
-        JTextField ftf = (JTextField) getComponent();
-        if (ftf.getText().equals("777")) {
-            System.out.println(ftf.getText());
-            return false;
+    @Override
+    public boolean isCellEditable(EventObject anEvent) {
+        if (anEvent instanceof MouseEvent == true) {
+            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
+                listenerCell.action(DefFieldEditor.this);
+            }
         }
-        return super.stopCellEditing();
+        return delegate.isCellEditable(anEvent);
     }
+
+//    @Override
+//    public boolean stopCellEditing() {
+//        JTextField txt = (JTextField) getComponent();
+//        if (listenerCell != null) {
+//            if (listenerCell.action(txt) == false) {
+//                return false;
+//            }
+//        }
+//        return super.stopCellEditing();
+//    }
 
     public JButton getButton() {
         return button;

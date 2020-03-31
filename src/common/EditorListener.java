@@ -5,5 +5,5 @@ import javax.swing.table.TableModel;
 
 public interface EditorListener {
 
-    public void action(Object o);
+    public boolean action(Object o);
 }
