@@ -49,7 +49,7 @@ public class DefFieldEditor extends DefaultCellEditor {
         panel.add(editorText, java.awt.BorderLayout.CENTER);
         panel.add(button, java.awt.BorderLayout.EAST);
     }
-
+     
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
