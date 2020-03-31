@@ -20,12 +20,12 @@ public class DefFieldEditor extends DefaultCellEditor {
     protected JButton button = null;
 
     public DefFieldEditor(JButton button) {
-        super(new JFormattedTextField());
+        super(new JTextField());
         init(button);
     }
 
     public DefFieldEditor(EditorListener listener, JButton button) {
-        super(new JFormattedTextField());
+        super(new JTextField());
         this.listener = listener;
         init(button);
     }
@@ -40,27 +40,27 @@ public class DefFieldEditor extends DefaultCellEditor {
         editorComponent.setPreferredSize(new java.awt.Dimension(60, 18));
         editorComponent.setBorder(null);
         editorComponent.setBackground(new java.awt.Color(255, 255, 255));
-        panel.add(editorComponent, java.awt.BorderLayout.CENTER);
-        panel.add(button, java.awt.BorderLayout.EAST);
-        delegate = new EditorDelegate() {
-            public void setValue(Object value) {
-                ((JFormattedTextField) editorComponent).setText((value != null) ? value.toString() : "");
-            }
-
-            public Object getCellEditorValue() {
-                return ((JFormattedTextField) editorComponent).getText();
-            }
-
-            public boolean isCellEditable(EventObject anEvent) {
-                if (anEvent instanceof MouseEvent == true) {
-                    if (((MouseEvent) anEvent).getClickCount() == 2 && listener != null) {
-                        listener.action(DefFieldEditor.this);
-                    }
-                    return (((MouseEvent) anEvent).getClickCount() >= 2);
-                }
-                return true;
-            }
-        };
+//        panel.add(editorComponent, java.awt.BorderLayout.CENTER);
+//        panel.add(button, java.awt.BorderLayout.EAST);
+//        delegate = new EditorDelegate() {
+//            public void setValue(Object value) {
+//                ((JTextField) editorComponent).setText((value != null) ? value.toString() : "");
+//            }
+//
+//            public Object getCellEditorValue() {
+//                return ((JTextField) editorComponent).getText();
+//            }
+//
+//            public boolean isCellEditable(EventObject anEvent) {
+//                if (anEvent instanceof MouseEvent == true) {
+//                    if (((MouseEvent) anEvent).getClickCount() == 2 && listener != null) {
+//                        listener.action(DefFieldEditor.this);
+//                    }
+//                    return (((MouseEvent) anEvent).getClickCount() >= 2);
+//                }
+//                return true;
+//            }
+//        };
     }
 
     @Override
@@ -76,25 +76,25 @@ public class DefFieldEditor extends DefaultCellEditor {
 //            String val = String.valueOf(value).replace(',', '.');
 //            delegate.setValue(val);
 //        } else {
-        ((JFormattedTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
-        try {
-            ((JFormattedTextField) editorComponent).commitEdit();
-        } catch (Exception e) {
-        }
+        ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
+//        try {
+//            ((JFormattedTextField) editorComponent).commitEdit();
+//        } catch (Exception e) {
+//        }
         delegate.setValue(value);
         return panel;
     }
 
-    public boolean stopCellEditing() {
-
-        System.out.println("javaapplication8.IntegerEditor.stopCellEditing()");
-
-        JFormattedTextField ftf = (JFormattedTextField) getComponent();
-        if (ftf.getText().equals("777")) {
-            System.out.println(ftf.getText());
-            return false;
-        }
-        
+//    public boolean stopCellEditing() {
+//
+//        System.out.println("javaapplication8.IntegerEditor.stopCellEditing()");
+//
+//        JTextField ftf = (JTextField) getComponent();
+//        if (ftf.getText().equals("777")) {
+//            System.out.println(ftf.getText());
+//            return false;
+//        }
+//        
 //        if (ftf.isEditValid()) {
 //            try {
 //                ftf.commitEdit();
@@ -106,14 +106,14 @@ public class DefFieldEditor extends DefaultCellEditor {
 //                return false; //don't let the editor go away
 //            }
 //        }
-        return super.stopCellEditing();
-    }
+//        return super.stopCellEditing();
+//    }
 
     public JButton getButton() {
         return button;
     }
 
-    public JFormattedTextField getFormatTextField() {
-        return (JFormattedTextField) editorComponent;
+    public JTextField getTextField() {
+        return (JTextField) editorComponent;
     }
 }
