@@ -17,9 +17,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
@@ -189,26 +189,23 @@ public class Util {
 
     public static void formatterCell(Query query, JTable table, DefFieldEditor editor) {
 
-        JFormattedTextField formatText = editor.getFormatTextField();
-        int grup = query.getAs(getSelectedRow(table), eJoinpar1.grup, -1);
-        if (grup < 0) { //пользовательский список параметров
-            editor.getButton().setVisible(true);
-            formatText.setEnabled(false);
-            formatText.setFormatterFactory(ParamList.defaultFormatter());
-        } else {
-            Enam enam = ParamList.find(grup);
-            if (enam.dict() != null) { //системный список параметров
-                editor.getButton().setVisible(true);
-                formatText.setEnabled(false);
-                formatText.setFormatterFactory(ParamList.defaultFormatter());
-
-            } else { //системные вводимые пользователем
-                editor.getButton().setVisible(false);
-                formatText.setEnabled(true);
-                formatText.setEditable(true);
-                formatText.setFormatterFactory(enam.format());
-            }
-        }
+//        JTextField formatText = editor.getTextField();
+//        int grup = query.getAs(getSelectedRow(table), eJoinpar1.grup, -1);
+//        if (grup < 0) { //пользовательский список параметров
+//            editor.getButton().setVisible(true);
+//            formatText.setEnabled(false);
+//        } else {
+//            Enam enam = ParamList.find(grup);
+//            if (enam.dict() != null) { //системный список параметров
+//                editor.getButton().setVisible(true);
+//                formatText.setEnabled(false);
+//
+//            } else { //системные вводимые пользователем
+//                editor.getButton().setVisible(false);
+//                formatText.setEnabled(true);
+//                formatText.setEditable(true);
+//            }
+//        }
     }
 
     public static void insertSql(JTable table, Query query, Field up) {
