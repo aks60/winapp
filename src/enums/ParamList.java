@@ -30,15 +30,15 @@ public class ParamList {
         P0000(0, ""),
         P1005(1005, "Контейнер Артикула 1 имеет тип", dic_TypeArt),
         P1006(1006, "Контейнер Артикула 2 имеет тип", dic_TypeArt),
-        P1008(1008, "Эффективное заполнение изд., мм", frm_Number),
+        P1008(1008, "Эффективное заполнение изд., мм", check_Numb),
         P1010(1010, "Внешнее соединение"),
         P1011(1011, "Для Артикула 1 указан состав"),
         P1012(1012, "Для Артикула 2 указан состав"),
         P1013(1013, "Для Артикулов не указан состав"),
         P1014(1014, "Только горизонтальная ориентация"),
         P1015(1015, "Только вертикальная ориентация"),
-        P1020(1020, "Угол к горизонту минимальный, °"),
-        P1030(1030, "Угол к горизонту максимальный, °"),
+        P1020(1020, "Угол к горизонту минимальный, °", check_Numb),
+        P1030(1030, "Угол к горизонту максимальный, °", check_Numb),
         P1031(1031, "Точный угол к горизонту, °"),
         P1032(1032, "Исключить угол к горизонту, °"),
         P1035(1035, "Уровень створки"),
@@ -51,15 +51,15 @@ public class ParamList {
         P1098(1098, "Бригада (участок)"),
         P1099(1099, "Трудозатраты, ч/ч."),
         P1097(1097, "Трудозатраты по длине"),
-        P2003(2003, "Угол варианта", frm_Mask),
+        P2003(2003, "Угол варианта", check_Numb),
         P2005(2005, "Контейнер Артикул 1 имеет тип", dic_TypeArt),
         P2006(2006, "Контейнер Артикул 2 имеет тип", dic_TypeArt),
         P2012(2012, "Для Артикулов указан состав"),
         P2013(2013, "Для Артикулов не указан состав"),
         P2015(2015, "Ориентация Артикула 1"),
         P2016(2016, "Ориентация Артикула 2"),
-        P2010(2010, "Угол минимальный, °", frm_Number),
-        P2020(2020, "Угол максимальный, °", frm_Number),
+        P2010(2010, "Угол минимальный, °", check_Numb),
+        P2020(2020, "Угол максимальный, °", check_Numb),
         P2021(2021, "Точный угол, °"),
         P2022(2022, "Исключить угол, °"),
         P2030(2030, "Припуск Артикула 1, мм"),
@@ -551,7 +551,7 @@ public class ParamList {
         public String text = "";
         public Dictionary dictionary = null;
         public Formatter formatter = ParamList.frm_Default;
-        public ParamCheck param = CheckParam.check0000;
+        public Checkparam check = check_Str;
 
         Ps3(int numb, String text) {
             this.numb = numb;
@@ -563,9 +563,9 @@ public class ParamList {
             this.dictionary = dictionary;
         }
 
-        Ps3(int numb, String text, Formatter format) {
+        Ps3(int numb, String text, Checkparam check) {
             this(numb, text);
-            this.formatter = format;
+            this.check = check;
         }
 
         public int numb() {
@@ -588,8 +588,8 @@ public class ParamList {
             return formatter.format();
         }
 
-        public boolean check(Object... obj) {
-            return param.check(obj);
+        public boolean check(String c) {
+            return check.check(c);
         }
     }
 
@@ -597,12 +597,12 @@ public class ParamList {
 
         P0000(0, ""),
         P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", dic_TypeArt),
-        P1008(1008, "Эффективное заполнение изд., мм", frm_Number),
+        P1008(1008, "Эффективное заполнение изд., мм", check_Numb),
         P1010(1010, "Внешнее соединение"),
         P1011(1011, "Для Артикула 1 указан состав"),
         P1012(1012, "Для Артикула 2 указан состав"),
         P1013(1013, "Для Артикулов не указан состав"),
-        P1020(1020, "=Ограничение угла к горизонту, °", frm_Mask),
+        P1020(1020, "Ограничение угла к горизонту, °", check_Numb),
         P1035(1035, "Уровень створки"),
         P1039(1039, "Для типа открывания"),
         P1040(1040, "Размер, мм"),
@@ -1120,7 +1120,7 @@ public class ParamList {
         public String text = "";
         public Dictionary dictionary = dic_Null;
         public Formatter formatter = frm_Default;
-        public ParamCheck param = CheckParam.check0000;
+        public Checkparam check = check_Str;
 
         Ps4(int numb, String text) {
             this.numb = numb;
@@ -1132,9 +1132,9 @@ public class ParamList {
             this.dictionary = dictionary;
         }
 
-        Ps4(int numb, String text, Formatter format) {
+        Ps4(int numb, String text, Checkparam check) {
             this(numb, text);
-            this.formatter = format;
+            this.check = check;
         }
 
         public int numb() {
@@ -1153,8 +1153,8 @@ public class ParamList {
             return formatter.format();
         }
 
-        public boolean check(Object... obj) {
-            return param.check(obj);
+        public boolean check(String c) {
+            return check.check(c);
         }
     }
 
@@ -1222,6 +1222,23 @@ public class ParamList {
         } catch (final ParseException e) {
             return null;
         }
+    };
+    // </editor-fold>  
+    
+    //Check
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">   
+    interface Checkparam {
+
+        public boolean check(String c);
+    }
+    public static Checkparam check_Str = (c) -> {
+        
+        return true;
+    };
+    
+    public static Checkparam check_Numb = (c) -> {
+        
+        return ("0123456789;".indexOf(c) == -1);
     };
     // </editor-fold>    
 }

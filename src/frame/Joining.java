@@ -802,8 +802,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        Record joinpar1Rec = qJoinpar1.get(getSelectedRow(tab3));
-        joinpar1Rec.set(eJoinpar1.text, "vvv");
+      
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
