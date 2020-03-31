@@ -393,6 +393,7 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (component != null && component instanceof String) {
+                
                 String txt = (String) component;
                 System.out.println("zzzz"  +  txt);
                 if (txt.equals("3")) {
