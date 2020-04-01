@@ -595,6 +595,11 @@ public class Joining extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(2).setMinWidth(100);
@@ -634,6 +639,11 @@ public class Joining extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
@@ -667,6 +677,11 @@ public class Joining extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -695,6 +710,11 @@ public class Joining extends javax.swing.JFrame {
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
@@ -717,6 +737,11 @@ public class Joining extends javax.swing.JFrame {
         tab5.setFillsViewportHeight(true);
         tab5.setName("tab5"); // NOI18N
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -811,12 +836,14 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-                    tab1.setBorder(null);
-                    tab2.setBorder(null);
-                    tab3.setBorder(null);
-                    tab4.setBorder(null);
-                    tab5.setBorder(null);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
     }//GEN-LAST:event_btnReport2
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+    }//GEN-LAST:event_tabMouseClicked
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -854,19 +881,21 @@ public class Joining extends javax.swing.JFrame {
 
             public void focusGained(FocusEvent e) {
 
-                if (e.getSource() instanceof JTable) {
-                    Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-                    tab1.setBorder(null);
-                    tab2.setBorder(null);
-                    tab3.setBorder(null);
-                    tab4.setBorder(null);
-                    tab5.setBorder(null);
-                    System.out.println(((JTable) e.getSource()).getName());
-                    ((JTable) e.getSource()).setBorder(border);
-                }
+//                if (e.getSource() instanceof JTable) {
+//                    Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+//                    tab1.setBorder(null);
+//                    tab2.setBorder(null);
+//                    tab3.setBorder(null);
+//                    tab4.setBorder(null);
+//                    tab5.setBorder(null);
+//                System.out.println("focusGained  -" + ((JTable) e.getSource()).getName());
+//                ((JTable) e.getSource()).setBorder(border);
+////                }
             }
 
             public void focusLost(FocusEvent e) {
+//                System.out.println("focusLost -" + ((JTable) e.getSource()).getName());
+//                ((JTable) e.getSource()).setBorder(null);
             }
         };
         btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
