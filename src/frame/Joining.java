@@ -365,17 +365,19 @@ public class Joining extends javax.swing.JFrame {
 
         listenerJoinvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Record joinvarRec = qJoinvar.get(getSelectedRow(tab2));
+            int row = tab2.getSelectedRow();
+            Record joinvarRec = qJoinvar.get(row);
             joinvarRec.set(eJoinvar.types, record.getInt(0));
             joinvarRec.set(eJoinvar.name, record.getStr(1));
             if (joinvarRec.get(eJoinvar.prio) == null) {
-                for (int i = 0; i < qJoinvar.size(); ++i) {
-                    Integer max = qJoinvar.getAs(i, eJoinvar.prio, 0);
-                    if (max >= joinvarRec.getInt(eJoinvar.prio)) {
-                        joinvarRec.set(eJoinvar.prio, ++max);
-                    }
+                int max = 0;
+                for (Record rec : qJoinvar) {
+                    max = (max < rec.getInt(eJoinvar.prio)) ? rec.getInt(eJoinvar.prio) : max;
                 }
+                joinvarRec.set(eJoinvar.prio, ++max);
             }
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, row);
         };
     }
 
@@ -875,29 +877,6 @@ public class Joining extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-
-//                if (e.getSource() instanceof JTable) {
-//                    Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-//                    tab1.setBorder(null);
-//                    tab2.setBorder(null);
-//                    tab3.setBorder(null);
-//                    tab4.setBorder(null);
-//                    tab5.setBorder(null);
-//                System.out.println("focusGained  -" + ((JTable) e.getSource()).getName());
-//                ((JTable) e.getSource()).setBorder(border);
-////                }
-            }
-
-            public void focusLost(FocusEvent e) {
-//                System.out.println("focusLost -" + ((JTable) e.getSource()).getName());
-//                ((JTable) e.getSource()).setBorder(null);
-            }
-        };
         btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
@@ -933,10 +912,5 @@ public class Joining extends javax.swing.JFrame {
                 }
             }
         });
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
-        tab3.addFocusListener(listenerFocus);
-        tab4.addFocusListener(listenerFocus);
-        tab5.addFocusListener(listenerFocus);
     }
 }
