@@ -91,8 +91,8 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     public Object getValueAt(int rowIndex, int columnIndex) {
 
         if (columns != null) {
-            Table table = query.table(columns[columnIndex]);
-            Object val = table.get(rowIndex, columns[columnIndex]);
+            Table query2 = query.table(columns[columnIndex]);
+            Object val = query2.get(sorter.convertRowIndexToModel(rowIndex), columns[columnIndex]);
             if (getColumnClass(columnIndex) == Boolean.class) {
 
                 return (val == null || val.equals(0)) ? false : true;
@@ -140,7 +140,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                         value = (Boolean.valueOf(String.valueOf(value))) ? 1 : 0;
                     }
                 }
-                query.table(field).set(value, row, field);
+                query.table(field).set(value, sorter.convertRowIndexToModel(row), field);
                 if (listenerModify != null) {
                     listenerModify.actionRequest(null);
                 }

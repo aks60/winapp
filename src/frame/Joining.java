@@ -363,7 +363,7 @@ public class Joining extends javax.swing.JFrame {
             if (eParams.values().length == record.size()) {
                 joindetRec.set(eJoindet.color_fk, record.getInt(eParams.grup));
             } else {
-                joindetRec.set(eJoindet.color_fk, record.get(0));
+                joindetRec.set(eJoindet.color_fk, record.getInt(0));
             }
         };
 
@@ -831,7 +831,7 @@ public class Joining extends javax.swing.JFrame {
             insertRecord(tab2, tab4, qJoinvar, qJoindet, eJoinvar.up, eJoindet.up, eJoindet.joinvar_id);
 
         } else if (tab5.getBorder() != null) {
-            insertRecord(tab2, tab5, qJoindet, qJoinpar2, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
+            insertRecord(tab4, tab5, qJoindet, qJoinpar2, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
         }
     }//GEN-LAST:event_btnInsert
 

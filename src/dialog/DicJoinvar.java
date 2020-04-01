@@ -204,7 +204,7 @@ public class DicJoinvar extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
         Record record = new Record();
-        record.add(getSelectedRow(tab1));
+        record.add(getSelectedRow(tab1) + 1);
         record.add(tab1.getValueAt(getSelectedRow(tab1), 0));
         listener.action(record);
         this.dispose();
