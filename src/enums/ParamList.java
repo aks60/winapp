@@ -27,7 +27,7 @@ public class ParamList {
     }
 
     public static enum Ps3 implements Enam {
-        P0000(0, ""),
+        P0000(0, "Зрачение по умолчанию"),
         P1005(1005, "Контейнер Артикула 1 имеет тип", dic_TypeArt),
         P1006(1006, "Контейнер Артикула 2 имеет тип", dic_TypeArt),
         P1008(1008, "Эффективное заполнение изд., мм", check_Numb),
@@ -59,7 +59,7 @@ public class ParamList {
         P2015(2015, "Ориентация Артикула 1"),
         P2016(2016, "Ориентация Артикула 2"),
         P2010(2010, "Угол минимальный, °", check_Numb),
-        P2020(2020, "Угол максимальный, °", check_Numb),
+        P2020(2020, "+Угол максимальный, °", check_Numb),
         P2021(2021, "Точный угол, °"),
         P2022(2022, "Исключить угол, °"),
         P2030(2030, "Припуск Артикула 1, мм"),
@@ -595,7 +595,7 @@ public class ParamList {
 
     public static enum Ps4 implements Enam {
 
-        P0000(0, ""),
+        P0000(0, "Зрачение по умолчанию"),
         P1005(1005, "Контейнер имеет тип Артикула1/Артикула2", dic_TypeArt),
         P1008(1008, "Эффективное заполнение изд., мм", check_Numb),
         P1010(1010, "Внешнее соединение"),
@@ -1236,9 +1236,8 @@ public class ParamList {
         return true;
     };
     
-    public static Checkparam check_Numb = (c) -> {
-        
-        return ("0123456789;".indexOf(c) == -1);
+    public static Checkparam check_Numb = (c) -> {        
+        return ("0123456789".indexOf(c) != -1);
     };
     // </editor-fold>    
 }

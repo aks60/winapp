@@ -373,29 +373,27 @@ public class Joining extends javax.swing.JFrame {
 
     private void listenerCell() {
         listenerEditor = (component) -> {
-            
+
             if (component instanceof DefFieldEditor) {
                 DefFieldEditor editor = (DefFieldEditor) component;
                 DefFieldEditor editor2 = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
-                
-                if (editor.getButton() == editor2.getButton()) {                    
+                JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
+                if (editor.getButton() == editor2.getButton()) {
                     Util.formatterCell(qJoinpar1, tab3, editor);
                 }
                 editor2 = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
                 if (editor.getButton() == editor2.getButton()) {
                     Util.formatterCell(qJoinpar2, tab4, editor);
                 }
-                
+
             } else if (component != null && component instanceof String) {
                 JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
                 String txt = (String) component;
                 if (tab == tab3) {
-                    int grup = qJoinpar1.getAs(getSelectedRow(tab3), eJoinpar1.grup, -1);
-                    return ParamList.find(grup).check(txt);
+                    return ParamList.find(qJoinpar1.getAs(getSelectedRow(tab3), eJoinpar1.grup, -1)).check(txt);
                 }
                 if (tab == tab5) {
-                    int grup = qJoinpar2.getAs(getSelectedRow(tab5), eJoinpar1.grup, -1);                    
-                    return ParamList.find(grup).check(txt);
+                    return ParamList.find(qJoinpar2.getAs(getSelectedRow(tab5), eJoinpar1.grup, -1)).check(txt);
                 }
             }
             return true;

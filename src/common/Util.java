@@ -290,4 +290,21 @@ public class Util {
         }
         return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
+    
+    public static void stopCellEditing(JTable... tableList) {
+        for (JTable table : tableList) {
+            if (table.isEditing()) {
+                table.getCellEditor().stopCellEditing();
+            }
+        }
+    }  
+    
+    public static JTable getCellEditing(JTable... tableList) {
+        for (JTable table : tableList) {
+            if (table.isEditing()) {
+                return table;
+            }
+        }
+        return null;
+    }     
 }

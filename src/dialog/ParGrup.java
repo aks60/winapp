@@ -38,7 +38,7 @@ public class ParGrup extends javax.swing.JDialog {
     }
 
     private void initData() {
-        qParams.select(eParams.up, "where", filter.name(), "= 1 order by", eParams.text);
+        qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.numb, "= 0", "order by", eParams.text);
     }
 
     private void initModel(int... part) {

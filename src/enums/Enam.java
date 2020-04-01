@@ -31,7 +31,7 @@ public interface Enam {
         return null;
     }
 
-    default boolean check(Object... obj) {
+    default boolean check(String c) {
         return false;
     }
 }

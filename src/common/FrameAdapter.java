@@ -81,13 +81,5 @@ public class FrameAdapter {
                 ((JTable) comp).addFocusListener(listener);
             }
         }
-    }
-
-    public static void stopCellEditing(JTable... tableList) {
-        for (JTable table : tableList) {
-            if (table.isEditing()) {
-                table.getCellEditor().stopCellEditing();
-            }
-        }
-    }   
+    }  
 }
