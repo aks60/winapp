@@ -3,11 +3,11 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRow;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
 import swing.DefTableModel;
+import static common.Util.getSelectedRec;
 
 public class ParUser extends javax.swing.JDialog {
 
@@ -186,7 +186,7 @@ public class ParUser extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(getSelectedRow(tab1), 0));
+        record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

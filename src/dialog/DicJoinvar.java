@@ -2,7 +2,6 @@ package dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
-import static common.Util.getSelectedRow;
 import dataset.Record;
 import java.awt.Component;
 import javax.swing.ImageIcon;
@@ -10,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import static common.Util.getSelectedRec;
 
 public class DicJoinvar extends javax.swing.JDialog {
 
@@ -204,8 +204,8 @@ public class DicJoinvar extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
         Record record = new Record();
-        record.add(getSelectedRow(tab1) + 1);
-        record.add(tab1.getValueAt(getSelectedRow(tab1), 0));
+        record.add(getSelectedRec(tab1) + 1);
+        record.add(tab1.getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

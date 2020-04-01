@@ -3,7 +3,6 @@ package frame;
 import common.Util;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRow;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -23,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import swing.BooleanRenderer;
 import swing.DefTableModel;
+import static common.Util.getSelectedRec;
 
 public class Param extends javax.swing.JFrame {
 
@@ -53,7 +53,7 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = getSelectedRow(tab1);
+        int row = getSelectedRec(tab1);
         if (row != -1) {
             Record record = qParams.table(eParams.up).get(row);
             Integer p1 = record.getInt(eParams.grup);
@@ -299,7 +299,7 @@ public class Param extends javax.swing.JFrame {
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                int row = getSelectedRow(tab1);
+                int row = getSelectedRec(tab1);
                 if (row != -1) {
                     Record record = qParams.get(row);
                     record.set(eParams.up, Query.DEL);
@@ -309,7 +309,7 @@ public class Param extends javax.swing.JFrame {
                     Util.setSelectedRow(tab1, 0);
                 }
             } else if (tab2.getBorder() != null) {
-                int row = getSelectedRow(tab2);
+                int row = getSelectedRec(tab2);
                 if (row != -1) {
                     Record record = qPardet.get(row);
                     record.set(eParams.up, Query.DEL);
@@ -337,7 +337,7 @@ public class Param extends javax.swing.JFrame {
             Util.scrollRectToVisible(qParams, tab1);
 
         } else if (tab2.getBorder() != null) {
-            int row = getSelectedRow(tab1);
+            int row = getSelectedRec(tab1);
             if (row != -1) {
                 Record paramRec = qParams.get(row);
                 Record pardetRec = qPardet.newRecord(Query.INS);

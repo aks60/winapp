@@ -3,7 +3,6 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRow;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -11,6 +10,7 @@ import domain.eArtikl;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import swing.DefTableModel;
+import static common.Util.getSelectedRec;
 
 public class DicArtikl extends javax.swing.JDialog {
 
@@ -208,7 +208,7 @@ public class DicArtikl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = getSelectedRow(tab2);
+        int row = getSelectedRec(tab2);
         if (row != -1) {
             Record record = qArtikl.get(row);
             listener.action(record);            

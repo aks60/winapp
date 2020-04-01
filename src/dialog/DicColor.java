@@ -3,7 +3,6 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRow;
 import dataset.Query;
 import dataset.Record;
 import domain.eColgrp;
@@ -14,6 +13,7 @@ import java.awt.event.FocusListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
+import static common.Util.getSelectedRec;
 
 public class DicColor extends javax.swing.JDialog {
 
@@ -38,7 +38,7 @@ public class DicColor extends javax.swing.JDialog {
     }
 
     private void selectionTab1() {
-        int row = getSelectedRow(tab1);
+        int row = getSelectedRec(tab1);
         if (row != -1) {
             Record record = qColgrp.table(eColgrp.up).get(row);
             int id = record.getInt(eColgrp.id);
@@ -221,12 +221,12 @@ public class DicColor extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
         if (tab1.getBorder() != null) {
-            int row = getSelectedRow(tab1);
+            int row = getSelectedRec(tab1);
             if (row != -1) {
                 listener.action(qColgrp.get(row));
             }
         } else if (tab2.getBorder() != null) {
-            int row = getSelectedRow(tab2);
+            int row = getSelectedRec(tab2);
             if (row != -1) {
                 listener.action(qColor.get(row));
             }

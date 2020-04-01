@@ -23,7 +23,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     private Query query = null;
     protected Field[] columns = null;
     private Boolean[] editable = null;
-    private TableRowSorter<DefTableModel> sorter = new TableRowSorter(this);
+    public TableRowSorter<DefTableModel> sorter = new TableRowSorter(this);
     private FrameListener<Object, Object> listenerModify = null;
 
     public DefTableModel(JTable table, Query query, Field... columns) {
@@ -92,7 +92,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
         if (columns != null) {
             Table query2 = query.table(columns[columnIndex]);
-            Object val = query2.get(sorter.convertRowIndexToModel(rowIndex), columns[columnIndex]);
+            Object val = query2.get(rowIndex, columns[columnIndex]);
             if (getColumnClass(columnIndex) == Boolean.class) {
 
                 return (val == null || val.equals(0)) ? false : true;
@@ -140,7 +140,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                         value = (Boolean.valueOf(String.valueOf(value))) ? 1 : 0;
                     }
                 }
-                query.table(field).set(value, sorter.convertRowIndexToModel(row), field);
+                query.table(field).set(value, row, field);
                 if (listenerModify != null) {
                     listenerModify.actionRequest(null);
                 }

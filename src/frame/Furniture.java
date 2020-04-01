@@ -4,7 +4,6 @@ import common.Util;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRow;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -28,6 +27,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
+import static common.Util.getSelectedRec;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -83,7 +83,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = getSelectedRow(tab1);
+        int row = getSelectedRec(tab1);
         if (row != -1) {
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
@@ -99,7 +99,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = getSelectedRow(tab2);
+        int row = getSelectedRec(tab2);
         if (row != -1) {
             Record record = qFurndet.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
@@ -113,7 +113,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void selectionTab4(ListSelectionEvent event) {
-        int row = getSelectedRow(tab4);
+        int row = getSelectedRec(tab4);
         if (row != -1) {
             Record record = qFurnside1.table(eFurnside1.up).get(row);
             Integer id = record.getInt(eFurnside1.id);
@@ -499,50 +499,50 @@ public class Furniture extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                Record furnitureRec = qFurniture.get(getSelectedRow(tab1));
+                Record furnitureRec = qFurniture.get(getSelectedRec(tab1));
                 furnitureRec.set(eFurniture.up, Query.DEL);
                 qFurniture.delete(furnitureRec);
-                qFurniture.removeRec(getSelectedRow(tab1));
+                qFurniture.removeRec(getSelectedRec(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
-                Record furndetRec = qFurndet.get(getSelectedRow(tab2));
+                Record furndetRec = qFurndet.get(getSelectedRec(tab2));
                 furndetRec.set(eFurndet.up, Query.DEL);
                 qFurndet.delete(furndetRec);
-                qFurndet.removeRec(getSelectedRow(tab2));
+                qFurndet.removeRec(getSelectedRec(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
-                Record urnpar2Rec = qFurnpar2.get(getSelectedRow(tab3));
+                Record urnpar2Rec = qFurnpar2.get(getSelectedRec(tab3));
                 urnpar2Rec.set(eFurnpar2.up, Query.DEL);
                 qFurnpar2.delete(urnpar2Rec);
-                qFurnpar2.removeRec(getSelectedRow(tab3));
+                qFurnpar2.removeRec(getSelectedRec(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab3, 0);
 
             } else if (tab4.getBorder() != null) {
-                Record furnside1Rec = qFurnside1.get(getSelectedRow(tab3));
+                Record furnside1Rec = qFurnside1.get(getSelectedRec(tab3));
                 furnside1Rec.set(eFurnside1.up, Query.DEL);
                 qFurnside1.delete(furnside1Rec);
-                qFurnside1.removeRec(getSelectedRow(tab4));
+                qFurnside1.removeRec(getSelectedRec(tab4));
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab4, 0);
 
             } else if (tab5.getBorder() != null) {
-                Record furnpar1Rec = qFurnpar1.get(getSelectedRow(tab5));
+                Record furnpar1Rec = qFurnpar1.get(getSelectedRec(tab5));
                 furnpar1Rec.set(eFurnpar1.up, Query.DEL);
                 qFurnpar1.delete(furnpar1Rec);
-                qFurnpar1.removeRec(getSelectedRow(tab5));
+                qFurnpar1.removeRec(getSelectedRec(tab5));
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab5, 0);
 
             } else if (tab6.getBorder() != null) {
-                Record furnside2Rec = qFurnside2.get(getSelectedRow(tab6));
+                Record furnside2Rec = qFurnside2.get(getSelectedRec(tab6));
                 furnside2Rec.set(eFurnside2.up, Query.DEL);
                 qFurnside2.delete(furnside2Rec);
-                qFurnside2.removeRec(getSelectedRow(tab6));
+                qFurnside2.removeRec(getSelectedRec(tab6));
                 ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab6, 0);
             }
@@ -558,7 +558,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.scrollRectToVisible(qFurniture, tab1);
 
         } else if (tab2.getBorder() != null) {
-            int row = getSelectedRow(tab1);
+            int row = getSelectedRec(tab1);
             if (row != -1) {
                 Record furnityreRec = qFurniture.get(row);
                 Record furndetRec = qFurndet.newRecord(Query.INS);
@@ -571,7 +571,7 @@ public class Furniture extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qFurndet, tab2);
             }
         } else if (tab3.getBorder() != null) {
-            int row = getSelectedRow(tab2);
+            int row = getSelectedRec(tab2);
             if (row != -1) {
                 Record furndetRec = qFurndet.get(row);
                 Record furnpar2Rec = qFurnpar2.newRecord(Query.INS);
@@ -582,7 +582,7 @@ public class Furniture extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qFurnpar2, tab3);
             }
         } else if (tab4.getBorder() != null) {
-            int row = getSelectedRow(tab1);
+            int row = getSelectedRec(tab1);
             if (row != -1) {
                 Record furnityreRec = qFurniture.get(row);
                 Record furnside1Rec = qFurnside1.newRecord(Query.INS);
@@ -593,7 +593,7 @@ public class Furniture extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qFurnside1, tab4);
             }
         } else if (tab5.getBorder() != null) {
-            int row = getSelectedRow(tab4);
+            int row = getSelectedRec(tab4);
             if (row != -1) {
                 Record furnside1Rec = qFurnside1.get(row);
                 Record furnpar1Rec = qFurnpar1.newRecord(Query.INS);
@@ -604,7 +604,7 @@ public class Furniture extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qFurnpar1, tab5);
             }
         } else if (tab6.getBorder() != null) {
-            int row = getSelectedRow(tab2);
+            int row = getSelectedRec(tab2);
             if (row != -1) {
                 Record furndetRec = qFurndet.get(row);
                 Record furnside2Rec = qFurnside2.newRecord(Query.INS);
