@@ -1,6 +1,6 @@
 package frame;
 
-import common.FrameAdapter;
+import common.Util;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
@@ -85,7 +85,7 @@ public class Glass extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         int row = getSelectedRow(tab1);
         if (row != -1) {
             Record record = qGlasgrp.table(eGlasgrp.up).get(row);
@@ -104,7 +104,7 @@ public class Glass extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         int row = getSelectedRow(tab2);
         if (row != -1) {
             Record record = qGlasdet.table(eGlasdet.up).get(row);
@@ -511,7 +511,7 @@ public class Glass extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(qGlasgrp, qGlasdet, qGlasprof, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
@@ -549,7 +549,7 @@ public class Glass extends javax.swing.JFrame {
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
                 tab1.setBorder(null);
                 tab2.setBorder(null);
                 tab3.setBorder(null);
@@ -563,9 +563,9 @@ public class Glass extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Группы заполнений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

@@ -1,6 +1,6 @@
 package frame;
 
-import common.FrameAdapter;
+import common.Util;
 import common.FrameToFile;
 import common.Util;
 import static common.Util.getSelectedRow;
@@ -356,7 +356,7 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2);
+        Util.stopCellEditing(tab1, tab2);
         Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -378,9 +378,9 @@ public class Param extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
 
@@ -388,7 +388,7 @@ public class Param extends javax.swing.JFrame {
 
             public void focusGained(FocusEvent e) {
 
-                FrameAdapter.stopCellEditing(tab1, tab2);
+                Util.stopCellEditing(tab1, tab2);
                 tab1.setBorder(null);
                 tab2.setBorder(null);
                 ((JComponent) e.getSource()).setBorder(border);

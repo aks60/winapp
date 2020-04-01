@@ -1,10 +1,8 @@
 package frame;
 
 import common.DialogListener;
-import common.FrameAdapter;
-import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRow;
+import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -270,7 +268,7 @@ public class Syssize extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-            int row = getSelectedRow(tab1);
+            int row = Util.getSelectedRow(tab1);
             if (row != -1) {
                 Record record = qSyssize.get(row);
                 record.set(eCurrenc.up, Query.DEL);
@@ -290,7 +288,7 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = getSelectedRow(tab1);
+        int row = Util.getSelectedRow(tab1);
         if (row != -1) {
             listener.action(qSyssize.get(row));
         }
@@ -298,7 +296,7 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChoice
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1);
+        Util.stopCellEditing(tab1);
         qSyssize.execsql();
         if (owner != null)
             owner.setEnabled(true);
@@ -337,9 +335,9 @@ public class Syssize extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1));
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Системнык константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));

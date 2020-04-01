@@ -1,7 +1,7 @@
 package frame;
 
 import common.DialogListener;
-import common.FrameAdapter;
+import common.Util;
 import common.FrameToFile;
 import common.Util;
 import static common.Util.getSelectedRow;
@@ -291,7 +291,7 @@ public class Currenc extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
-        FrameAdapter.stopCellEditing(tab1, tab1);
+        Util.stopCellEditing(tab1, tab1);
         qCurrenc.execsql();
         if (owner != null)
             owner.setEnabled(true);
@@ -325,9 +325,9 @@ public class Currenc extends javax.swing.JFrame {
 // </editor-fold>     
     private void initElements() {
 
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1));
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {

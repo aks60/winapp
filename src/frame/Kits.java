@@ -1,6 +1,6 @@
 package frame;
 
-import common.FrameAdapter;
+import common.Util;
 import common.FrameToFile;
 import common.Util;
 import static common.Util.getSelectedRow;
@@ -409,7 +409,7 @@ public class Kits extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+        Util.stopCellEditing(tab1, tab2, tab3);
         Arrays.asList(qKits, qKitdet, qKitpar1).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 
@@ -437,16 +437,16 @@ public class Kits extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+                Util.stopCellEditing(tab1, tab2, tab3);
                 tab1.setBorder(null);
                 tab2.setBorder(null);
                 tab3.setBorder(null);

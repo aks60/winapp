@@ -159,7 +159,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTree() {
 
-        FrameAdapter.stopCellEditing(tab1, tab2);
+        Util.stopCellEditing(tab1, tab2);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
@@ -180,7 +180,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
 
-        FrameAdapter.stopCellEditing(tab1, tab2);
+        Util.stopCellEditing(tab1, tab2);
         int row = getSelectedRow(tab1);
         if (row != -1) {
             Record record = qArtikl.get(row);
@@ -211,7 +211,7 @@ public class Artikles extends javax.swing.JFrame {
                     artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
                 }
             }
-            FrameAdapter.stopCellEditing(tab1, tab2);
+            Util.stopCellEditing(tab1, tab2);
         };
     }
 
@@ -708,7 +708,7 @@ public class Artikles extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2);
+        Util.stopCellEditing(tab1, tab2);
         Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 
@@ -846,7 +846,7 @@ public class Artikles extends javax.swing.JFrame {
 
         public void focusGained(FocusEvent e) {
 
-            FrameAdapter.stopCellEditing(tab1, tab2);
+            Util.stopCellEditing(tab1, tab2);
             tab1.setBorder(null);
             tab2.setBorder(null);
             if (e.getSource() instanceof JTable) {
@@ -857,9 +857,9 @@ public class Artikles extends javax.swing.JFrame {
         public void focusLost(FocusEvent e) {
         }
     };
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));

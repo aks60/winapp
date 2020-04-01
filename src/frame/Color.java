@@ -1,7 +1,7 @@
 package frame;
 
 import common.DialogListener;
-import common.FrameAdapter;
+import common.Util;
 import common.FrameToFile;
 import common.Util;
 import static common.Util.getSelectedRow;
@@ -56,7 +56,7 @@ public class Color extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+        Util.stopCellEditing(tab1, tab2, tab3);
         int row = getSelectedRow(tab1);
         if (row != -1) {
             Record record = qСolgrup.table(eColgrp.up).get(row);
@@ -68,7 +68,7 @@ public class Color extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+        Util.stopCellEditing(tab1, tab2, tab3);
         int row = getSelectedRow(tab2);
         if (row != -1) {
             Record colorRec = qColor.table(eColor.up).get(row);
@@ -395,7 +395,7 @@ public class Color extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+        Util.stopCellEditing(tab1, tab2, tab3);
         Arrays.asList(qСolgrup, qColor, qColpar1).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -424,7 +424,7 @@ public class Color extends javax.swing.JFrame {
 
             public void focusGained(FocusEvent e) {
 
-                FrameAdapter.stopCellEditing(tab1, tab2, tab3);
+                Util.stopCellEditing(tab1, tab2, tab3);
                 tab1.setBorder(null);
                 tab2.setBorder(null);
                 tab3.setBorder(null);
@@ -436,9 +436,9 @@ public class Color extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
         tab1.addFocusListener(listenerFocus);
         tab2.addFocusListener(listenerFocus);
         tab3.addFocusListener(listenerFocus);

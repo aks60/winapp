@@ -1,6 +1,6 @@
 package frame;
 
-import common.FrameAdapter;
+import common.Util;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
@@ -618,7 +618,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
         Arrays.asList(qFurniture, qFurndet, qFurnside1, qFurnpar1, qFurnside2, qFurnpar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
@@ -665,7 +665,7 @@ public class Furniture extends javax.swing.JFrame {
                     = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
+                Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
                 tab1.setBorder(null);
                 tab2.setBorder(null);
                 tab3.setBorder(null);
@@ -680,9 +680,9 @@ public class Furniture extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

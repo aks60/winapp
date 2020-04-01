@@ -7,7 +7,6 @@ import dialog.ParUser;
 import dialog.DicArtikl;
 import common.DialogListener;
 import common.EditorListener;
-import common.FrameAdapter;
 import common.FrameToFile;
 import common.Util;
 import static common.Util.getSelectedRow;
@@ -41,11 +40,6 @@ import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
 import dialog.DicJoinvar;
-import javax.swing.JTextField;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
 import swing.BooleanRenderer;
 
 public class Joining extends javax.swing.JFrame {
@@ -302,8 +296,8 @@ public class Joining extends javax.swing.JFrame {
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+
             if (tab1.getBorder() != null) {
                 Record joiningRec = qJoining.get(getSelectedRow(tab1));
                 if (tab1.getSelectedColumn() == 0) {
@@ -320,7 +314,7 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record joinpar1Rec = qJoinpar1.get(getSelectedRow(tab3));
 
             if (eParams.values().length == record.size()) {
@@ -339,7 +333,7 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerPar2 = (record) -> {
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record joinpar2Rec = qJoinpar2.get(getSelectedRow(tab5));
 
             if (eParams.values().length == record.size()) {
@@ -358,9 +352,9 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerColor = (record) -> {
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Record joindetRec = qJoindet.get(getSelectedRow(tab4));
-            
+
             if (eParams.values().length == record.size()) {
                 joindetRec.set(eJoindet.color_fk, record.getInt(eParams.grup));
             } else {
@@ -369,7 +363,7 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerJoinvar = (record) -> {
-            FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             System.out.println(record);
             Record joinvarRec = qJoinvar.get(getSelectedRow(tab2));
             joinvarRec.set(eJoinvar.types, record.getInt(0));
@@ -379,25 +373,29 @@ public class Joining extends javax.swing.JFrame {
 
     private void listenerCell() {
         listenerEditor = (component) -> {
-
+            
             if (component instanceof DefFieldEditor) {
                 DefFieldEditor editor = (DefFieldEditor) component;
-
                 DefFieldEditor editor2 = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
-                if (editor.getButton() == editor2.getButton()) {
+                
+                if (editor.getButton() == editor2.getButton()) {                    
                     Util.formatterCell(qJoinpar1, tab3, editor);
                 }
                 editor2 = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
                 if (editor.getButton() == editor2.getButton()) {
                     Util.formatterCell(qJoinpar2, tab4, editor);
                 }
-
+                
             } else if (component != null && component instanceof String) {
-
+                JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
                 String txt = (String) component;
-                System.out.println("zzzz" + txt);
-                if (txt.equals("3")) {
-                    return false;
+                if (tab == tab3) {
+                    int grup = qJoinpar1.getAs(getSelectedRow(tab3), eJoinpar1.grup, -1);
+                    return ParamList.find(grup).check(txt);
+                }
+                if (tab == tab5) {
+                    int grup = qJoinpar2.getAs(getSelectedRow(tab5), eJoinpar1.grup, -1);                    
+                    return ParamList.find(grup).check(txt);
                 }
             }
             return true;
@@ -589,6 +587,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
@@ -627,6 +626,7 @@ public class Joining extends javax.swing.JFrame {
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
@@ -659,6 +659,7 @@ public class Joining extends javax.swing.JFrame {
             }
         });
         tab3.setFillsViewportHeight(true);
+        tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
@@ -686,6 +687,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab4.setFillsViewportHeight(true);
+        tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
@@ -707,6 +709,7 @@ public class Joining extends javax.swing.JFrame {
             }
         ));
         tab5.setFillsViewportHeight(true);
+        tab5.setName("tab5"); // NOI18N
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
@@ -795,14 +798,14 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-      
+        System.out.println(ParamList.Ps3.P2020.check("3"));
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -841,7 +844,7 @@ public class Joining extends javax.swing.JFrame {
 
             public void focusGained(FocusEvent e) {
 
-                FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
                 tab1.setBorder(null);
                 tab2.setBorder(null);
                 tab3.setBorder(null);
@@ -855,9 +858,9 @@ public class Joining extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        btnIns.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnDel.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnRef.addActionListener(l -> FrameAdapter.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
