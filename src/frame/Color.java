@@ -4,7 +4,6 @@ import common.DialogListener;
 import common.Util;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRow;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
@@ -57,7 +56,7 @@ public class Color extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3);
-        int row = getSelectedRow(tab1);
+        int row = Util.getSelectedRow(tab1);
         if (row != -1) {
             Record record = qСolgrup.table(eColgrp.up).get(row);
             Integer cgrup = record.getInt(eColgrp.id);
@@ -69,7 +68,7 @@ public class Color extends javax.swing.JFrame {
 
     private void selectionTab2(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3);
-        int row = getSelectedRow(tab2);
+        int row = Util.getSelectedRow(tab2);
         if (row != -1) {
             Record colorRec = qColor.table(eColor.up).get(row);
             int id = colorRec.getInt(eColor.id);
@@ -334,26 +333,26 @@ public class Color extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                Record colgrpRec = qСolgrup.get(getSelectedRow(tab1));
+                Record colgrpRec = qСolgrup.get(Util.getSelectedRow(tab1));
                 colgrpRec.set(eColgrp.up, Query.DEL);
                 qСolgrup.delete(colgrpRec);
-                qСolgrup.removeRec(getSelectedRow(tab1));
+                qСolgrup.removeRec(Util.getSelectedRow(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab1, 0);
 
             } else if (tab2.getBorder() != null) {
-                Record colorRec = qColor.get(getSelectedRow(tab2));
+                Record colorRec = qColor.get(Util.getSelectedRow(tab2));
                 colorRec.set(eColor.up, Query.DEL);
                 qColor.delete(colorRec);
-                qColor.removeRec(getSelectedRow(tab2));
+                qColor.removeRec(Util.getSelectedRow(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, 0);
 
             } else if (tab3.getBorder() != null) {
-                Record colpar1Rec = qColpar1.get(getSelectedRow(tab3));
+                Record colpar1Rec = qColpar1.get(Util.getSelectedRow(tab3));
                 colpar1Rec.set(eColpar1.up, Query.DEL);
                 qColpar1.delete(colpar1Rec);
-                qColpar1.removeRec(getSelectedRow(tab3));
+                qColpar1.removeRec(Util.getSelectedRow(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab3, 0);
             }
@@ -373,7 +372,7 @@ public class Color extends javax.swing.JFrame {
             Util.scrollRectToVisible(qСolgrup, tab1);
 
         } else if (tab2.getBorder() != null) {
-            int row = getSelectedRow(tab1);
+            int row = Util.getSelectedRow(tab1);
             Record colgrpRec = qСolgrup.table(eColgrp.up).get(row);
             Record recorRec = qColor.newRecord(Query.INS);
             recorRec.setNo(eColor.id, ConnApp.instanc().genId(eColor.up));
@@ -383,7 +382,7 @@ public class Color extends javax.swing.JFrame {
             Util.scrollRectToVisible(qColor, tab2);
 
         } else if (tab3.getBorder() != null) {
-            int row = getSelectedRow(tab2);
+            int row = Util.getSelectedRow(tab2);
             Record colorRec = qColor.get(row);
             Record colpar1Rec = qColpar1.newRecord(Query.INS);
             colpar1Rec.setNo(eColpar1.id, ConnApp.instanc().genId(eColpar1.up));
