@@ -82,6 +82,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void initData() {
 
+        tab1.setToolTipText("");
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
@@ -308,9 +309,12 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (tab4.getBorder() != null) {
-                Record joindetRec = qJoindet.get(getSelectedRow(tab4));
+                int row = getSelectedRow(tab4);
+                Record joindetRec = qJoindet.get(row);
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab4, row);
             }
         };
 
@@ -386,14 +390,15 @@ public class Joining extends javax.swing.JFrame {
 
             if (component instanceof DefFieldEditor) {
                 DefFieldEditor editor = (DefFieldEditor) component;
-                DefFieldEditor editor2 = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
                 JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
+                
+                DefFieldEditor editor2 = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
                 if (editor.getButton() == editor2.getButton()) {
                     Util.formatterCell(qJoinpar1, tab3, editor);
                 }
                 editor2 = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
                 if (editor.getButton() == editor2.getButton()) {
-                    Util.formatterCell(qJoinpar2, tab4, editor);
+                    Util.formatterCell(qJoinpar2, tab5, editor);
                 }
 
             } else if (component != null && component instanceof String) {
@@ -556,7 +561,7 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(110, 110, 110)
                 .addComponent(btnReport2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 753, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 749, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -579,7 +584,7 @@ public class Joining extends javax.swing.JFrame {
 
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(400, 548));
+        jPanel4.setPreferredSize(new java.awt.Dimension(380, 548));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -765,7 +770,7 @@ public class Joining extends javax.swing.JFrame {
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
+            .addGap(0, 1016, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
