@@ -202,9 +202,15 @@ public class DicJoinvar extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-
         Record record = new Record();
-        record.add(getSelectedRec(tab1) + 1);
+        int row = getSelectedRec(tab1);
+        if (row == 0 || row == 1) {
+            record.add(getSelectedRec(tab1) + 1);
+        } else if (row == 2 || row == 3) {
+            record.add(3);
+        } else if (row == 4 || row == 5) {
+            record.add(4);
+        }
         record.add(tab1.getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
