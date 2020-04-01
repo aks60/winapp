@@ -40,6 +40,7 @@ import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
 import dialog.DicJoinvar;
+import domain.eJoinvar;
 import swing.BooleanRenderer;
 
 public class Joining extends javax.swing.JFrame {
@@ -364,10 +365,17 @@ public class Joining extends javax.swing.JFrame {
 
         listenerJoinvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            System.out.println(record);
             Record joinvarRec = qJoinvar.get(getSelectedRow(tab2));
             joinvarRec.set(eJoinvar.types, record.getInt(0));
             joinvarRec.set(eJoinvar.name, record.getStr(1));
+            if (joinvarRec.get(eJoinvar.prio) == null) {
+                for (int i = 0; i < qJoinvar.size(); ++i) {
+                    Integer max = qJoinvar.getAs(i, eJoinvar.prio, 0);
+                    if (max >= joinvarRec.getInt(eJoinvar.prio)) {
+                        joinvarRec.set(eJoinvar.prio, ++max);
+                    }
+                }
+            }
         };
     }
 
@@ -803,7 +811,11 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport2
-        System.out.println(ParamList.Ps3.P2020.check("3"));
+                    tab1.setBorder(null);
+                    tab2.setBorder(null);
+                    tab3.setBorder(null);
+                    tab4.setBorder(null);
+                    tab5.setBorder(null);
     }//GEN-LAST:event_btnReport2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -842,13 +854,14 @@ public class Joining extends javax.swing.JFrame {
 
             public void focusGained(FocusEvent e) {
 
-                Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-                tab1.setBorder(null);
-                tab2.setBorder(null);
-                tab3.setBorder(null);
-                tab4.setBorder(null);
-                tab4.setBorder(null);
                 if (e.getSource() instanceof JTable) {
+                    Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+                    tab1.setBorder(null);
+                    tab2.setBorder(null);
+                    tab3.setBorder(null);
+                    tab4.setBorder(null);
+                    tab5.setBorder(null);
+                    System.out.println(((JTable) e.getSource()).getName());
                     ((JTable) e.getSource()).setBorder(border);
                 }
             }

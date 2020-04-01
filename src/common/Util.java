@@ -25,6 +25,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
+import jdk.javadoc.internal.doclets.toolkit.taglets.IndexTaglet;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
@@ -222,8 +223,13 @@ public class Util {
     }
 
     public static void setSelectedRow(JTable table, int row) {
-        if (table.getRowCount() > row) {
-            table.setRowSelectionInterval(row, row);
+        if (table.getRowCount() > 0) {
+
+            if (row > 0 && table.getRowCount() > 2) {
+                table.setRowSelectionInterval(row, row);
+            } else {
+                table.setRowSelectionInterval(0, 0);
+            }
         }
     }
 
@@ -248,12 +254,15 @@ public class Util {
 
     public static void deleteRecord(JTable table, Query query, Field field) {
 
-        Record record = query.get(getSelectedRow(table));
+        int indexTable = table.getSelectedRow();
+        int indexQuery = getSelectedRow(table);
+        Record record = query.get(indexQuery);
         record.set(field, Query.DEL);
         query.delete(record);
-        query.removeRec(getSelectedRow(table));
+        query.removeRec(indexQuery);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, 0);
+        indexTable = (indexTable > 2) ? --indexTable : 0;
+        Util.setSelectedRow(table, indexTable);
     }
 
     public static void clearTable(JTable... jTable) {
@@ -290,15 +299,15 @@ public class Util {
         }
         return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
-    
+
     public static void stopCellEditing(JTable... tableList) {
         for (JTable table : tableList) {
             if (table.isEditing()) {
                 table.getCellEditor().stopCellEditing();
             }
         }
-    }  
-    
+    }
+
     public static JTable getCellEditing(JTable... tableList) {
         for (JTable table : tableList) {
             if (table.isEditing()) {
@@ -306,5 +315,5 @@ public class Util {
             }
         }
         return null;
-    }     
+    }
 }
