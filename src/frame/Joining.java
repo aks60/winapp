@@ -30,13 +30,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
-import static common.Util.deleteRecord;
-import static common.Util.isDeleteRecord;
 import dialog.DicJoinvar;
 import domain.eJoinvar;
 import swing.BooleanRenderer;
 import common.Util;
-import static common.Util.insertRecord;
 import dialog.DicColvar;
 import enums.VarColcalc;
 
@@ -318,7 +315,6 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void listenerDict() {
-
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
 
@@ -845,24 +841,24 @@ public class Joining extends javax.swing.JFrame {
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (tab1.getBorder() != null) {
-            if (isDeleteRecord(this, tab2) == 0) {
-                deleteRecord(tab1, qJoining, eJoining.up);
+            if (Util.isDeleteRecord(this, tab2) == 0) {
+                Util.deleteRecord(tab1, qJoining, eJoining.up);
             }
         } else if (tab2.getBorder() != null) {
-            if (isDeleteRecord(this, tab3, tab4) == 0) {
-                deleteRecord(tab2, qJoinvar, eJoinvar.up);
+            if (Util.isDeleteRecord(this, tab3, tab4) == 0) {
+                Util.deleteRecord(tab2, qJoinvar, eJoinvar.up);
             }
         } else if (tab3.getBorder() != null) {
-            if (isDeleteRecord(this) == 0) {
-                deleteRecord(tab3, qJoinpar1, eJoinpar1.up);
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab3, qJoinpar1, eJoinpar1.up);
             }
         } else if (tab4.getBorder() != null) {
-            if (isDeleteRecord(this, tab5) == 0) {
-                deleteRecord(tab4, qJoindet, eJoindet.up);
+            if (Util.isDeleteRecord(this, tab5) == 0) {
+                Util.deleteRecord(tab4, qJoindet, eJoindet.up);
             }
         } else if (tab5.getBorder() != null) {
-            if (isDeleteRecord(this) == 0) {
-                deleteRecord(tab5, qJoinpar2, eJoinpar2.up);
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab5, qJoinpar2, eJoinpar2.up);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -870,19 +866,19 @@ public class Joining extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            insertRecord(tab1, qJoining, eJoining.up);
+            Util.insertRecord(tab1, qJoining, eJoining.up);
 
         } else if (tab2.getBorder() != null) {
-            insertRecord(tab1, tab2, qJoining, qJoinvar, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
+            Util.insertRecord(tab1, tab2, qJoining, qJoinvar, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
 
         } else if (tab3.getBorder() != null) {
-            insertRecord(tab2, tab3, qJoinvar, qJoinpar1, eJoinvar.up, eJoinpar1.up, eJoinpar1.joinvar_id);
+            Util.insertRecord(tab2, tab3, qJoinvar, qJoinpar1, eJoinvar.up, eJoinpar1.up, eJoinpar1.joinvar_id);
 
         } else if (tab4.getBorder() != null) {
-            insertRecord(tab2, tab4, qJoinvar, qJoindet, eJoinvar.up, eJoindet.up, eJoindet.joinvar_id);
+            Util.insertRecord(tab2, tab4, qJoinvar, qJoindet, eJoinvar.up, eJoindet.up, eJoindet.joinvar_id);
 
         } else if (tab5.getBorder() != null) {
-            insertRecord(tab4, tab5, qJoindet, qJoinpar2, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
+            Util.insertRecord(tab4, tab5, qJoindet, qJoinpar2, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
         }
     }//GEN-LAST:event_btnInsert
 

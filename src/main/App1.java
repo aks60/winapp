@@ -968,7 +968,7 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-    //Object obj = eArtikls.query;
+    new frame.Test();
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb

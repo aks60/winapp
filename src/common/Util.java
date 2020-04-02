@@ -255,6 +255,24 @@ public class Util {
           JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);  
         }                
     }
+    
+    public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field up3, Field fk2) {
+
+        int row = getSelectedRec(table1);
+        if (row != -1) {
+            Record record1 = query1.get(row);
+            Record record2 = query2.newRecord(Query.INS);
+            Record record3 = up3.newRecord();
+            record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
+            record2.setNo(fk2, record1.getInt(up1.fields()[1]));
+            query2.add(record2);
+            query2.table(up3).add(record3);
+            ((DefaultTableModel) table2.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(query2, table2);
+        } else {
+          JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);  
+        }                
+    }
 
     public static void deleteRecord(JTable table, Query query, Field field) {
 
