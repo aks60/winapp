@@ -2,6 +2,7 @@ package dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.Record;
 import java.awt.Component;
 import javax.swing.ImageIcon;
@@ -45,6 +46,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 return label;
             }
         });
+        Util.setSelectedRow(tab1, 0);
     }
 
     @SuppressWarnings("unchecked")
@@ -214,7 +216,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         }
         record.add(tab1.getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
-        btnChoice(null);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
@@ -222,7 +224,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         record.add(null);
         record.add(null);
         listener.action(record);
-        btnChoice(null);
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

@@ -188,7 +188,7 @@ public class ParUser extends javax.swing.JDialog {
         Record record = new Record(1);
         record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
@@ -201,7 +201,7 @@ public class ParUser extends javax.swing.JDialog {
         Record record = new Record(1);
         record.add(null);
         listener.action(record);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

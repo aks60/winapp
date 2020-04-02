@@ -316,7 +316,7 @@ public class ParColor extends javax.swing.JDialog {
         } else {
             listener.action(qParams.get(getSelectedRec(tab2)));
         }
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
@@ -324,7 +324,7 @@ public class ParColor extends javax.swing.JDialog {
         record.add(null);
         record.add(null);
         listener.action(record);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard

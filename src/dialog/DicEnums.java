@@ -202,12 +202,12 @@ public class DicEnums extends javax.swing.JDialog implements FrameListener<Objec
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         listenet.action(null);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
         listenet.action(null);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

@@ -210,7 +210,7 @@ public class DicColvar extends javax.swing.JDialog {
         record.add(rows[row][1]);
         record.add(rows[row][0]);
         listener.action(record);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
@@ -218,7 +218,7 @@ public class DicColvar extends javax.swing.JDialog {
         record.add(null);
         record.add(null);
         listener.action(record);
-        btnClose(null);        
+        this.dispose();       
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

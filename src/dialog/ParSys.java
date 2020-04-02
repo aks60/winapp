@@ -191,14 +191,14 @@ public class ParSys extends javax.swing.JDialog {
         Record record = new Record(1);
         record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnChouce
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
         Record record = new Record(1);
         record.add(null);
         listener.action(record);
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

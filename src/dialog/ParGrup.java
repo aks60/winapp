@@ -314,7 +314,7 @@ public class ParGrup extends javax.swing.JDialog {
             Object obj = qParams.get(getSelectedRec(tab2));
             listener.action(qParams.get(getSelectedRec(tab2)));
         }
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
@@ -326,7 +326,7 @@ public class ParGrup extends javax.swing.JDialog {
         } else {
             listener.action(eParams.up.newRecord());
         }        
-        btnClose(null);
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
