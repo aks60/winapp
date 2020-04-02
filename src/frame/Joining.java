@@ -318,6 +318,7 @@ public class Joining extends javax.swing.JFrame {
 
         listenerPar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab3.getSelectedRow();
             Record joinpar1Rec = qJoinpar1.get(Util.getSelectedRec(tab3));
 
             if (eParams.values().length == record.size()) {
@@ -334,11 +335,12 @@ public class Joining extends javax.swing.JFrame {
                 joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
             }
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, tab3.getSelectedRow());
+            Util.setSelectedRow(tab3, row);
         };
 
         listenerPar2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab5.getSelectedRow();
             Record joinpar2Rec = qJoinpar2.get(Util.getSelectedRec(tab5));
 
             if (eParams.values().length == record.size()) {
@@ -355,11 +357,12 @@ public class Joining extends javax.swing.JFrame {
                 joinpar2Rec.set(eJoinpar2.text, record.getStr(0));
             }
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5, tab5.getSelectedRow());
+            Util.setSelectedRow(tab5, row);
         };
 
         listenerColor = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab4.getSelectedRow();
             Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
 
             if (eParams.values().length == record.size()) {
@@ -368,11 +371,12 @@ public class Joining extends javax.swing.JFrame {
                 joindetRec.set(eJoindet.color_fk, record.getInt(0));
             }
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, tab4.getSelectedRow());
+            Util.setSelectedRow(tab4, row);
         };
 
         listenerJoinvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab2.getSelectedRow();
             Record joinvarRec = qJoinvar.get(Util.getSelectedRec(tab2));
             joinvarRec.set(eJoinvar.types, record.getInt(0));
             joinvarRec.set(eJoinvar.name, record.getStr(1));
@@ -384,7 +388,7 @@ public class Joining extends javax.swing.JFrame {
                 joinvarRec.set(eJoinvar.prio, ++max);
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, tab2.getSelectedRow());
+            Util.setSelectedRow(tab2, row);
         };
     }
 

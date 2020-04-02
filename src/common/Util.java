@@ -216,7 +216,7 @@ public class Util {
     public static void setSelectedRow(JTable table, int row) {
         if (table.getRowCount() > 0) {
 
-            if (row > 0 && table.getRowCount() > 2) {
+            if (table.getRowCount() > row) {
                 table.setRowSelectionInterval(row, row);
             } else {
                 table.setRowSelectionInterval(0, 0);
