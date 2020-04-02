@@ -14,6 +14,7 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
+import enums.SelectColor;
 
 public class ParColor extends javax.swing.JDialog {
 
@@ -40,6 +41,8 @@ public class ParColor extends javax.swing.JDialog {
 
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();
+        tableModel.addRow(new String[]{SelectColor.automatic[0], SelectColor.automatic[1]});
+        tableModel.addRow(new String[]{SelectColor.automatic[0], SelectColor.precision[1]});
         for (Record record : qArtdet) {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));

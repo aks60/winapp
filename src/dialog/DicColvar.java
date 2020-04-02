@@ -2,56 +2,53 @@ package dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
-import dataset.Record;
-import java.awt.Component;
+import enums.SelectColor;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import static common.Util.getSelectedRec;
 
-public class DicJoinvar extends javax.swing.JDialog {
+public class DicColvar extends javax.swing.JDialog {
 
-    private ImageIcon icon[] = {
-        new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b002.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
-        new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
     private DialogListener listener = null;
+    private int colorFk = 0;
 
-    public DicJoinvar(java.awt.Frame parent, DialogListener listenet) {
+    public DicColvar(java.awt.Frame parent, DialogListener listenet, int colorFk) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listenet;
+        this.colorFk = colorFk;
         initModel();
         setVisible(true);
     }
 
     private void initModel() {
+        ((DefaultTableModel) tab1.getModel()).setRowCount(0);
+        if (colorFk != -1) {
+            String[] titl = {"Наименование"};
+            if (colorFk == 0 || colorFk == 100) {
+                String[][] rows = {{SelectColor.P11.name, SelectColor.P11.id},
+                {SelectColor.P21.name, SelectColor.P21.id}, {SelectColor.P31.name, SelectColor.P31.id}, {SelectColor.P32.name, SelectColor.P32.id},
+                {SelectColor.P33.name, SelectColor.P33.id}, {SelectColor.P41.name, SelectColor.P41.id}, {SelectColor.P42.name, SelectColor.P42.id},
+                {SelectColor.P43.name, SelectColor.P43.id}, {SelectColor.P50.name, SelectColor.P50.id}, {SelectColor.P60.name, SelectColor.P60.id}};
+                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
 
-        String[] titl = {"Наименование соединения"};
-        String[][] rows = {{"Прилегающее соединение (коробка,створка)"}, {"Угловое соединение на ус (коробка, створка)"}, {"Угловое соединение L (левое)"},
-        {"Угловое соединение L (правое)"}, {"Т - образное соединение (импост,ригель)"}, {"Т - образное соединение `конус` (импост)"}};
-        ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
-        tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
-
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setIcon(icon[row]);
-                return label;
+            } else if (colorFk > 0) {
+                String[][] rows = {{SelectColor.P00.name, SelectColor.P00.id}};
+                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
+            } else {
+                String[][] rows = {{SelectColor.P00.name, SelectColor.P00.id}, {SelectColor.P11.name, SelectColor.P11.id},
+                {SelectColor.P21.name, SelectColor.P21.id}, {SelectColor.P31.name, SelectColor.P31.id}, {SelectColor.P32.name, SelectColor.P32.id},
+                {SelectColor.P33.name, SelectColor.P33.id}, {SelectColor.P41.name, SelectColor.P41.id}, {SelectColor.P42.name, SelectColor.P42.id},
+                {SelectColor.P43.name, SelectColor.P43.id}, {SelectColor.P50.name, SelectColor.P50.id}, {SelectColor.P60.name, SelectColor.P60.id}};
+                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             }
-        });
+        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panSouth = new javax.swing.JPanel();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
@@ -59,26 +56,10 @@ public class DicJoinvar extends javax.swing.JDialog {
         panCentr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 240));
-
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(400, 20));
-
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 271, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        setPreferredSize(new java.awt.Dimension(200, 300));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -139,7 +120,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,7 +139,6 @@ public class DicJoinvar extends javax.swing.JDialog {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(400, 200));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -194,6 +174,23 @@ public class DicJoinvar extends javax.swing.JDialog {
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
+        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(400, 20));
+
+        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
+        panSouth.setLayout(panSouthLayout);
+        panSouthLayout.setHorizontalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 319, Short.MAX_VALUE)
+        );
+        panSouthLayout.setVerticalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -202,25 +199,11 @@ public class DicJoinvar extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Record record = new Record();
-        int row = getSelectedRec(tab1);
-        if (row == 0 || row == 1) {
-            record.add(getSelectedRec(tab1) + 1);
-        } else if (row == 2 || row == 3) {
-            record.add(3);
-        } else if (row == 4 || row == 5) {
-            record.add(4);
-        }
-        record.add(tab1.getValueAt(getSelectedRec(tab1), 0));
-        listener.action(record);
-        this.dispose();
+
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        Record record = new Record();
-        record.add(null);
-        record.add(null);
-        listener.action(record);
+
     }//GEN-LAST:event_btnRemoveert
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
@@ -228,7 +211,6 @@ public class DicJoinvar extends javax.swing.JDialog {
             btnChoice(null);
         }
     }//GEN-LAST:event_tab1MouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -239,7 +221,6 @@ public class DicJoinvar extends javax.swing.JDialog {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
