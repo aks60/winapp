@@ -111,7 +111,7 @@ public class DicColor extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveert(evt);
+                btnRemov(evt);
             }
         });
 
@@ -231,12 +231,13 @@ public class DicColor extends javax.swing.JDialog {
                 listener.action(qColor.get(row));
             }
         }
-        this.dispose();
+        btnClose(null);
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
+    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
         listener.action(eColgrp.up.newRecord());
-    }//GEN-LAST:event_btnRemoveert
+        btnClose(null);
+    }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
         if (evt.getClickCount() == 2 && tab2.getRowCount() == 0) {

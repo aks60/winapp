@@ -1,6 +1,7 @@
 package enums;
 
-public enum SelectColor {
+//Варианты рассчёта текстуры
+public enum VarColcalc {
 
     P00(0, "указанная вручную"),
     P11(11, "профиль"),
@@ -17,13 +18,13 @@ public enum SelectColor {
     public String id;
     public String name;
 
-    private SelectColor(int id, String name) {
+    private VarColcalc(int id, String name) {
         this.id = String.valueOf(id);
         this.name = name;
     }
 
-    public static SelectColor find(int id) {
-        for (SelectColor el : values()) {
+    public static VarColcalc find(int id) {
+        for (VarColcalc el : values()) {
             
             if (el.id.equals(String.valueOf(id))) {
                 return el;

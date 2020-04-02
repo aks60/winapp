@@ -134,7 +134,7 @@ public class ParGrup extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveert(evt);
+                btnRemov(evt);
             }
         });
 
@@ -314,12 +314,20 @@ public class ParGrup extends javax.swing.JDialog {
             Object obj = qParams.get(getSelectedRec(tab2));
             listener.action(qParams.get(getSelectedRec(tab2)));
         }
-        this.dispose();
+        btnClose(null);
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.action(null);
-    }//GEN-LAST:event_btnRemoveert
+    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
+        if (btnCard1.isSelected() == true) {
+            Record record = new Record(2);
+            record.add(null);
+            record.add(null);
+            listener.action(record);
+        } else {
+            listener.action(eParams.up.newRecord());
+        }        
+        btnClose(null);
+    }//GEN-LAST:event_btnRemov
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
         JToggleButton btn = (JToggleButton) evt.getSource();

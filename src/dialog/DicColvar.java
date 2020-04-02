@@ -4,7 +4,7 @@ import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.Record;
-import enums.SelectColor;
+import enums.VarColcalc;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,20 +30,20 @@ public class DicColvar extends javax.swing.JDialog {
         if (colorFk != -1) {
 
             if (colorFk == 0 || colorFk == 100) {
-                rows = new String[][]{{SelectColor.P11.name, SelectColor.P11.id},
-                {SelectColor.P21.name, SelectColor.P21.id}, {SelectColor.P31.name, SelectColor.P31.id}, {SelectColor.P32.name, SelectColor.P32.id},
-                {SelectColor.P33.name, SelectColor.P33.id}, {SelectColor.P41.name, SelectColor.P41.id}, {SelectColor.P42.name, SelectColor.P42.id},
-                {SelectColor.P43.name, SelectColor.P43.id}, {SelectColor.P50.name, SelectColor.P50.id}, {SelectColor.P60.name, SelectColor.P60.id}};
+                rows = new String[][]{{VarColcalc.P11.name, VarColcalc.P11.id},
+                {VarColcalc.P21.name, VarColcalc.P21.id}, {VarColcalc.P31.name, VarColcalc.P31.id}, {VarColcalc.P32.name, VarColcalc.P32.id},
+                {VarColcalc.P33.name, VarColcalc.P33.id}, {VarColcalc.P41.name, VarColcalc.P41.id}, {VarColcalc.P42.name, VarColcalc.P42.id},
+                {VarColcalc.P43.name, VarColcalc.P43.id}, {VarColcalc.P50.name, VarColcalc.P50.id}, {VarColcalc.P60.name, VarColcalc.P60.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
 
             } else if (colorFk > 0) {
-                rows = new String[][]{{SelectColor.P00.name, SelectColor.P00.id}};
+                rows = new String[][]{{VarColcalc.P00.name, VarColcalc.P00.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             } else {
-                rows = new String[][]{{SelectColor.P00.name, SelectColor.P00.id}, {SelectColor.P11.name, SelectColor.P11.id},
-                {SelectColor.P21.name, SelectColor.P21.id}, {SelectColor.P31.name, SelectColor.P31.id}, {SelectColor.P32.name, SelectColor.P32.id},
-                {SelectColor.P33.name, SelectColor.P33.id}, {SelectColor.P41.name, SelectColor.P41.id}, {SelectColor.P42.name, SelectColor.P42.id},
-                {SelectColor.P43.name, SelectColor.P43.id}, {SelectColor.P50.name, SelectColor.P50.id}, {SelectColor.P60.name, SelectColor.P60.id}};
+                rows = new String[][]{{VarColcalc.P00.name, VarColcalc.P00.id}, {VarColcalc.P11.name, VarColcalc.P11.id},
+                {VarColcalc.P21.name, VarColcalc.P21.id}, {VarColcalc.P31.name, VarColcalc.P31.id}, {VarColcalc.P32.name, VarColcalc.P32.id},
+                {VarColcalc.P33.name, VarColcalc.P33.id}, {VarColcalc.P41.name, VarColcalc.P41.id}, {VarColcalc.P42.name, VarColcalc.P42.id},
+                {VarColcalc.P43.name, VarColcalc.P43.id}, {VarColcalc.P50.name, VarColcalc.P50.id}, {VarColcalc.P60.name, VarColcalc.P60.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             }
         }
@@ -113,7 +113,7 @@ public class DicColvar extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveert(evt);
+                btnRemov(evt);
             }
         });
 
@@ -210,12 +210,16 @@ public class DicColvar extends javax.swing.JDialog {
         record.add(rows[row][1]);
         record.add(rows[row][0]);
         listener.action(record);
-        this.dispose();
+        btnClose(null);
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-
-    }//GEN-LAST:event_btnRemoveert
+    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
+        Record record = new Record();
+        record.add(null);
+        record.add(null);
+        listener.action(record);
+        btnClose(null);        
+    }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
         if (evt.getClickCount() == 2) {

@@ -110,7 +110,7 @@ public class DicArtikl extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveert(evt);
+                btnRemov(evt);
             }
         });
 
@@ -213,12 +213,13 @@ public class DicArtikl extends javax.swing.JDialog {
             Record record = qArtikl.get(row);
             listener.action(record);            
         }
-        this.dispose();
+        btnClose(null);
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
+    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
         listener.action(eArtikl.up.newRecord()); 
-    }//GEN-LAST:event_btnRemoveert
+        btnClose(null);
+    }//GEN-LAST:event_btnRemov
 
     private void tab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MouseClicked
         if (evt.getClickCount() == 2) {

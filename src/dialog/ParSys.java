@@ -97,7 +97,7 @@ public class ParSys extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveert(evt);
+                btnRemov(evt);
             }
         });
 
@@ -191,12 +191,15 @@ public class ParSys extends javax.swing.JDialog {
         Record record = new Record(1);
         record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
-        this.dispose();
+        btnClose(null);
     }//GEN-LAST:event_btnChouce
 
-    private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.action(null);
-    }//GEN-LAST:event_btnRemoveert
+    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
+        Record record = new Record(1);
+        record.add(null);
+        listener.action(record);
+        btnClose(null);
+    }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
         if (evt.getClickCount() == 2) {

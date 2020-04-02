@@ -14,7 +14,7 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
-import enums.SelectColor;
+import enums.VarColcalc;
 
 public class ParColor extends javax.swing.JDialog {
 
@@ -41,8 +41,8 @@ public class ParColor extends javax.swing.JDialog {
 
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();
-        tableModel.addRow(new String[]{SelectColor.automatic[0], SelectColor.automatic[1]});
-        tableModel.addRow(new String[]{SelectColor.automatic[0], SelectColor.precision[1]});
+        tableModel.addRow(new String[]{VarColcalc.automatic[0], VarColcalc.automatic[1]});
+        tableModel.addRow(new String[]{VarColcalc.automatic[0], VarColcalc.precision[1]});
         for (Record record : qArtdet) {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));
@@ -106,7 +106,7 @@ public class ParColor extends javax.swing.JDialog {
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -136,7 +136,7 @@ public class ParColor extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveert(evt);
+                btnRemov(evt);
             }
         });
 
@@ -302,13 +302,13 @@ public class ParColor extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
-            
+
             Record record = new Record(2);
             record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
             record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 1));
@@ -316,12 +316,16 @@ public class ParColor extends javax.swing.JDialog {
         } else {
             listener.action(qParams.get(getSelectedRec(tab2)));
         }
-        this.dispose();
+        btnClose(null);
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
-        listener.action(null);
-    }//GEN-LAST:event_btnRemoveert
+    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
+        Record record = new Record(2);
+        record.add(null);
+        record.add(null);
+        listener.action(record);
+        btnClose(null);
+    }//GEN-LAST:event_btnRemov
 
     private void btnCard(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCard
         JToggleButton btn = (JToggleButton) evt.getSource();

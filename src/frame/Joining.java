@@ -38,7 +38,7 @@ import swing.BooleanRenderer;
 import common.Util;
 import static common.Util.insertRecord;
 import dialog.DicColvar;
-import enums.SelectColor;
+import enums.VarColcalc;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -144,10 +144,10 @@ public class Joining extends javax.swing.JFrame {
                 } else if (eJoindet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
 
-                    if (Integer.valueOf(SelectColor.automatic[0]) == colorFk) {
-                        return SelectColor.automatic[1];
-                    } else if (Integer.valueOf(SelectColor.precision[0]) == colorFk) {
-                        return SelectColor.precision[1];
+                    if (Integer.valueOf(VarColcalc.automatic[0]) == colorFk) {
+                        return VarColcalc.automatic[1];
+                    } else if (Integer.valueOf(VarColcalc.precision[0]) == colorFk) {
+                        return VarColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -155,10 +155,10 @@ public class Joining extends javax.swing.JFrame {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
                 } else if (eJoindet.types == field) {
-                    
+
                     int types = Integer.valueOf(val.toString());
-                    if (SelectColor.find(types) != null) {
-                        return SelectColor.find(types).id;
+                    if (VarColcalc.find(types) != null) {
+                        return VarColcalc.find(types).name;
                     } else {
                         return null;
                     }
@@ -274,6 +274,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
@@ -287,8 +288,8 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
             Util.clearTable(tab3, tab4, tab5);
@@ -304,6 +305,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab4(ListSelectionEvent event) {
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab4);
         if (row != -1) {
@@ -329,11 +331,12 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (tab4.getBorder() != null) {
+                int row = tab4.getSelectedRow();
                 Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab4, tab4.getSelectedRow());
+                Util.setSelectedRow(tab4, row);
             }
         };
 
@@ -388,7 +391,7 @@ public class Joining extends javax.swing.JFrame {
             int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
             joindetRec.set(eJoindet.color_fk, group);
             if (group > 0) {
-                joindetRec.set(eJoindet.types, SelectColor.P00.id);
+                joindetRec.set(eJoindet.types, VarColcalc.P00.id);
             } else {
                 joindetRec.set(eJoindet.types, null);
             }
@@ -650,7 +653,7 @@ public class Joining extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(2).setMinWidth(100);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(140);
         }
 
         jPanel4.add(scr1, java.awt.BorderLayout.CENTER);
@@ -769,7 +772,8 @@ public class Joining extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab4.getColumnModel().getColumn(3).setPreferredWidth(140);
+            tab4.getColumnModel().getColumn(3).setMaxWidth(300);
         }
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
@@ -864,6 +868,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+
         if (tab1.getBorder() != null) {
             insertRecord(tab1, qJoining, eJoining.up);
 
@@ -889,7 +894,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        new DicColvar(this, listenerColvar, 1);
+
     }//GEN-LAST:event_btnReport
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
@@ -929,9 +934,7 @@ public class Joining extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
