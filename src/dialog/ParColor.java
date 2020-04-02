@@ -87,6 +87,8 @@ public class ParColor extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Параметры системы");
+        setMinimumSize(new java.awt.Dimension(200, 44));
+        setPreferredSize(new java.awt.Dimension(300, 400));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -281,6 +283,7 @@ public class ParColor extends javax.swing.JDialog {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setName(""); // NOI18N
         panSouth.setPreferredSize(new java.awt.Dimension(350, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);

@@ -2,6 +2,8 @@ package dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
+import common.Util;
+import dataset.Record;
 import enums.SelectColor;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +12,8 @@ public class DicColvar extends javax.swing.JDialog {
 
     private DialogListener listener = null;
     private int colorFk = 0;
+    String[] titl = {"Наименование"};
+    String[][] rows;
 
     public DicColvar(java.awt.Frame parent, DialogListener listenet, int colorFk) {
         super(parent, true);
@@ -24,25 +28,26 @@ public class DicColvar extends javax.swing.JDialog {
     private void initModel() {
         ((DefaultTableModel) tab1.getModel()).setRowCount(0);
         if (colorFk != -1) {
-            String[] titl = {"Наименование"};
+
             if (colorFk == 0 || colorFk == 100) {
-                String[][] rows = {{SelectColor.P11.name, SelectColor.P11.id},
+                rows = new String[][]{{SelectColor.P11.name, SelectColor.P11.id},
                 {SelectColor.P21.name, SelectColor.P21.id}, {SelectColor.P31.name, SelectColor.P31.id}, {SelectColor.P32.name, SelectColor.P32.id},
                 {SelectColor.P33.name, SelectColor.P33.id}, {SelectColor.P41.name, SelectColor.P41.id}, {SelectColor.P42.name, SelectColor.P42.id},
                 {SelectColor.P43.name, SelectColor.P43.id}, {SelectColor.P50.name, SelectColor.P50.id}, {SelectColor.P60.name, SelectColor.P60.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
 
             } else if (colorFk > 0) {
-                String[][] rows = {{SelectColor.P00.name, SelectColor.P00.id}};
+                rows = new String[][]{{SelectColor.P00.name, SelectColor.P00.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             } else {
-                String[][] rows = {{SelectColor.P00.name, SelectColor.P00.id}, {SelectColor.P11.name, SelectColor.P11.id},
+                rows = new String[][]{{SelectColor.P00.name, SelectColor.P00.id}, {SelectColor.P11.name, SelectColor.P11.id},
                 {SelectColor.P21.name, SelectColor.P21.id}, {SelectColor.P31.name, SelectColor.P31.id}, {SelectColor.P32.name, SelectColor.P32.id},
                 {SelectColor.P33.name, SelectColor.P33.id}, {SelectColor.P41.name, SelectColor.P41.id}, {SelectColor.P42.name, SelectColor.P42.id},
                 {SelectColor.P43.name, SelectColor.P43.id}, {SelectColor.P50.name, SelectColor.P50.id}, {SelectColor.P60.name, SelectColor.P60.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             }
         }
+        Util.setSelectedRow(tab1, 0);
     }
 
     @SuppressWarnings("unchecked")
@@ -59,6 +64,7 @@ public class DicColvar extends javax.swing.JDialog {
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Справочник вариантов подбора");
         setPreferredSize(new java.awt.Dimension(200, 300));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -199,7 +205,12 @@ public class DicColvar extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-
+        Record record = new Record();
+        int row = tab1.getSelectedRow();
+        record.add(rows[row][1]);
+        record.add(rows[row][0]);
+        listener.action(record);
+        this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert

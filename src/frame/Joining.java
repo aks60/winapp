@@ -142,17 +142,25 @@ public class Joining extends javax.swing.JFrame {
                         return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.name);
                     }
                 } else if (eJoindet.color_fk == field) {
-                    int id = Integer.valueOf(val.toString());
+                    int colorFk = Integer.valueOf(val.toString());
 
-                    if (Integer.valueOf(SelectColor.automatic[0]) == id) {
+                    if (Integer.valueOf(SelectColor.automatic[0]) == colorFk) {
                         return SelectColor.automatic[1];
-                    } else if (Integer.valueOf(SelectColor.precision[0]) == id) {
+                    } else if (Integer.valueOf(SelectColor.precision[0]) == colorFk) {
                         return SelectColor.precision[1];
                     }
-                    if (id > 0) {
-                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == id).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                    if (colorFk > 0) {
+                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == id).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                    }
+                } else if (eJoindet.types == field) {
+                    
+                    int types = Integer.valueOf(val.toString());
+                    if (SelectColor.find(types) != null) {
+                        return SelectColor.find(types).id;
+                    } else {
+                        return null;
                     }
                 }
                 return val;
@@ -232,7 +240,7 @@ public class Joining extends javax.swing.JFrame {
         Util.buttonEditorCell(tab4, 3).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerArtikl, colorFk);
+            DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
         });
 
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
@@ -377,20 +385,24 @@ public class Joining extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = tab4.getSelectedRow();
             Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
-
-            if (eParams.values().length == record.size()) {
-                joindetRec.set(eJoindet.color_fk, record.getInt(eParams.grup));
+            int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
+            joindetRec.set(eJoindet.color_fk, group);
+            if (group > 0) {
+                joindetRec.set(eJoindet.types, SelectColor.P00.id);
             } else {
-                joindetRec.set(eJoindet.color_fk, record.getInt(0));
+                joindetRec.set(eJoindet.types, null);
             }
-            joindetRec.set(eJoindet.types, null);
-
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);
         };
 
         listenerColvar = (record) -> {
-
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab4.getSelectedRow();
+            Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
+            joindetRec.set(eJoindet.types, record.getInt(0));
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4, row);
         };
 
         listenerJoinvar = (record) -> {

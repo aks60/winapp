@@ -61,6 +61,7 @@ public class DicJoinvar extends javax.swing.JDialog {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Спрвочник соединений");
         setPreferredSize(new java.awt.Dimension(300, 240));
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

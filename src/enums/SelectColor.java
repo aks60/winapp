@@ -21,8 +21,17 @@ public enum SelectColor {
         this.id = String.valueOf(id);
         this.name = name;
     }
-    
-    public static String[] precision = {"100","Точный подбор"};
+
+    public static SelectColor find(int id) {
+        for (SelectColor el : values()) {
+            
+            if (el.id.equals(String.valueOf(id))) {
+                return el;
+            }
+        }
+        return null;
+    }
+    public static String[] precision = {"100", "Точный подбор"};
     public static String[] automatic = {"0", "Автоатический подбор"};
 }
 
