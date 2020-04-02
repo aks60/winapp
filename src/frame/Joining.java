@@ -31,13 +31,13 @@ import javax.swing.table.DefaultTableModel;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 import static common.Util.insertRecord;
-import static common.Util.insertSql;
 import static common.Util.deleteRecord;
 import static common.Util.isDeleteRecord;
 import dialog.DicJoinvar;
 import domain.eJoinvar;
 import swing.BooleanRenderer;
 import common.Util;
+import static common.Util.insertRecord;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -253,6 +253,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Util.clearTable(tab2, tab3, tab4, tab5);
@@ -265,6 +266,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
+        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
@@ -281,6 +283,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab4(ListSelectionEvent event) {
+        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab4);
         if (row != -1) {
             Record record = qJoindet.table(eJoindet.up).get(row);
@@ -437,6 +440,7 @@ public class Joining extends javax.swing.JFrame {
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
@@ -462,6 +466,7 @@ public class Joining extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Соединения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(1000, 717));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -470,7 +475,7 @@ public class Joining extends javax.swing.JFrame {
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(1000, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -582,6 +587,7 @@ public class Joining extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
+        panCentr.setPreferredSize(new java.awt.Dimension(1000, 668));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         jPanel4.setPreferredSize(new java.awt.Dimension(380, 548));
@@ -615,7 +621,7 @@ public class Joining extends javax.swing.JFrame {
 
         jPanel4.add(scr1, java.awt.BorderLayout.CENTER);
 
-        panCentr.add(jPanel4, java.awt.BorderLayout.WEST);
+        panCentr.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(654, 568));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
@@ -699,6 +705,11 @@ public class Joining extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2);
 
+        panCentr.add(jPanel1, java.awt.BorderLayout.EAST);
+
+        jPanel5.setPreferredSize(new java.awt.Dimension(800, 200));
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
         jPanel3.setPreferredSize(new java.awt.Dimension(654, 234));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
@@ -757,14 +768,15 @@ public class Joining extends javax.swing.JFrame {
 
         jPanel3.add(scr5, java.awt.BorderLayout.EAST);
 
-        jPanel1.add(jPanel3);
+        jPanel5.add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        panCentr.add(jPanel1, java.awt.BorderLayout.CENTER);
+        panCentr.add(jPanel5, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(1000, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
@@ -819,7 +831,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            insertSql(tab1, qJoining, eJoining.up);
+            insertRecord(tab1, qJoining, eJoining.up);
 
         } else if (tab2.getBorder() != null) {
             insertRecord(tab1, tab2, qJoining, qJoinvar, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
@@ -862,6 +874,7 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
@@ -892,7 +905,7 @@ public class Joining extends javax.swing.JFrame {
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Спецификация соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+                "Детализация соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

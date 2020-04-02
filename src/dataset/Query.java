@@ -60,8 +60,7 @@ public class Query extends Table {
     }
 
     public Query select(Object... s) {
-        
-        execsql(); //сохраним все изменения в базе       
+     
         String sql = String.valueOf(s[0]);
         if (String.valueOf(s[0]).substring(0, 6).equalsIgnoreCase("select") == false) {
             sql = "";

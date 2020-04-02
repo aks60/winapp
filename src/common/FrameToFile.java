@@ -5,8 +5,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
-import common.eProperty;
-import static java.awt.SystemColor.menu;
+import main.Main;
 
 /**
  * <p>
@@ -67,10 +66,12 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         frameUp = frame;
         String dy = eProperty.getProperty().getProperty(frame.getName() + "_height", "nul");
         String dx = eProperty.getProperty().getProperty(frame.getName() + "_width", "nul");
-        
+
         if (!dy.equals("nul") && !dx.equals("nul")) {
-            frameSize.height = Integer.valueOf(dy); //размеры окна
-            frameSize.width = Integer.valueOf(dx);  //размеры окна
+            if (Main.dev == false) {
+                frameSize.height = Integer.valueOf(dy); //размеры окна
+                frameSize.width = Integer.valueOf(dx);  //размеры окна
+            }
         }
         if (frameSize.height > screenSize.height) {
             frameSize.height = screenSize.height;

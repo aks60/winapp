@@ -213,15 +213,6 @@ public class Util {
         }
     }
 
-    public static void insertSql(JTable table, Query query, Field up) {
-
-        Record record = query.newRecord(Query.INS);
-        record.setNo(up.fields()[1], ConnApp.instanc().genId(up));
-        query.add(record);
-        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.scrollRectToVisible(query, table);
-    }
-
     public static void setSelectedRow(JTable table, int row) {
         if (table.getRowCount() > 0) {
 
@@ -240,6 +231,15 @@ public class Util {
         return -1;
     }
 
+    public static void insertRecord(JTable table, Query query, Field up) {
+
+        Record record = query.newRecord(Query.INS);
+        record.setNo(up.fields()[1], ConnApp.instanc().genId(up));
+        query.add(record);
+        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+        Util.scrollRectToVisible(query, table);
+    }
+
     public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
 
         int row = getSelectedRec(table1);
@@ -251,26 +251,31 @@ public class Util {
             query2.add(record2);
             ((DefaultTableModel) table2.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(query2, table2);
-        }
+        } else {
+          JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);  
+        }                
     }
 
     public static void deleteRecord(JTable table, Query query, Field field) {
 
-        int indexTable = table.getSelectedRow();
-        int indexQuery = getSelectedRec(table);
-        Record record = query.get(indexQuery);
-        record.set(field, Query.DEL);
-        query.delete(record);
-        query.removeRec(indexQuery);
-        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        indexTable = (indexTable > 2) ? --indexTable : 0;
-        Util.setSelectedRow(table, indexTable);
+        if (table.getSelectedRow() != -1) {
+            int indexTable = table.getSelectedRow();
+            int indexQuery = getSelectedRec(table);
+            Record record = query.get(indexQuery);
+            record.set(field, Query.DEL);
+            query.delete(record);
+            query.removeRec(indexQuery);
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            indexTable = (indexTable > 2) ? --indexTable : 0;
+            Util.setSelectedRow(table, indexTable);
+        } else {
+            JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+        }
     }
 
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {
             if (table.getModel() instanceof DefTableModel) {
-                ((DefTableModel) table.getModel()).getQuery().execsql();
                 ((DefTableModel) table.getModel()).getQuery().clear();
 
             } else if (table.getModel() instanceof DefaultTableModel) {
