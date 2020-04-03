@@ -6,12 +6,12 @@ import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.scrollRectToVisible;
 import dataset.ConnApp;
 import enums.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import dialog.CardTemplate;
 import domain.eArtikl;
 import domain.eParams;
 import domain.eElemdet;
@@ -19,14 +19,11 @@ import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eJoining;
-import domain.eJoinvar;
 import domain.eSysprof;
 import enums.ParamList;
-import java.awt.Rectangle;
 import java.awt.Window;
 import java.util.Arrays;
-import javax.swing.JOptionPane;
+import javax.swing.JMenuItem;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,7 +33,7 @@ import swing.DefTableModel;
 public class Element extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
-    private Query qElemgrp = new Query(eElemgrp.values()).select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
+    private Query qElemgrp = new Query(eElemgrp.values());
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
@@ -51,8 +48,9 @@ public class Element extends javax.swing.JFrame
         initComponents();
         initElements();
         listenerDict();
+        initData();
         initModel();
-        loadingTab1();
+        Util.setSelectedRow(tab1, 0);
     }
 
     public Element(java.awt.Window owner, int nuni) {
@@ -66,8 +64,28 @@ public class Element extends javax.swing.JFrame
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";
         listenerDict();
+        initData();
         initModel();
-        loadingTab1();
+        Util.setSelectedRow(tab1, 0);
+    }
+
+    private void initData() {
+
+        qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
+        Record record = qElemgrp.newRecord(Query.SEL);
+        record.setNo(eElemgrp.id, -1);
+        record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
+        qElemgrp.add(0, record);
+        for (int index = 0; index < qElemgrp.size(); ++index) {
+            int level = qElemgrp.getAs(index, eElemgrp.level, -1);
+            if (level == 5) {
+                Record record2 = qElemgrp.newRecord(Query.SEL);
+                record2.setNo(eElemgrp.id, -5);
+                record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
+                qElemgrp.add(index, record2);
+                break;
+            }
+        }
     }
 
     private void initModel() {
@@ -128,25 +146,6 @@ public class Element extends javax.swing.JFrame
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, listenerEnum, 33000, 34000, 38000, 39000, 40000);
         });
-    }
-
-    private void loadingTab1() {
-
-        Record record = qElemgrp.table(eElemgrp.up).newRecord(Query.SEL);
-        record.setNo(eElemgrp.id, -1);
-        record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
-        qElemgrp.table(eElemgrp.up).add(0, record);
-        for (int index = 0; index < qElemgrp.table(eElemgrp.up).size(); ++index) {
-            int level = qElemgrp.table(eElemgrp.up).getAs(index, eElemgrp.level, -1);
-            if (level == 5) {
-                Record record2 = qElemgrp.table(eElemgrp.up).newRecord(Query.SEL);
-                record2.setNo(eElemgrp.id, -5);
-                record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
-                qElemgrp.table(eElemgrp.up).add(index, record2);
-                break;
-            }
-        }
-        Util.setSelectedRow(tab1, 0);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -234,6 +233,9 @@ public class Element extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ppmCateg = new javax.swing.JPopupMenu();
+        itCateg1 = new javax.swing.JMenuItem();
+        itCtag2 = new javax.swing.JMenuItem();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -255,6 +257,22 @@ public class Element extends javax.swing.JFrame
         panWest = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+
+        itCateg1.setText("ПРОФИЛИ");
+        itCateg1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmCategAction(evt);
+            }
+        });
+        ppmCateg.add(itCateg1);
+
+        itCtag2.setText("ЗАПОЛНЕНИЯ");
+        itCtag2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppmCategAction(evt);
+            }
+        });
+        ppmCateg.add(itCtag2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
@@ -402,7 +420,6 @@ public class Element extends javax.swing.JFrame
 
         scr2.setPreferredSize(new java.awt.Dimension(454, 320));
 
-        tab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"aaaa", null, "vvvvvvvvvvvvvvv", "ddd", null, null, null,  new Double(0.0)},
@@ -480,7 +497,6 @@ public class Element extends javax.swing.JFrame
 
         scr5.setPreferredSize(new java.awt.Dimension(260, 204));
 
-        tab5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"xxxxxxxxxxxxxxxxx", "111"},
@@ -579,8 +595,9 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-        loadingTab1();
+        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
+        initData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh
 
@@ -609,22 +626,12 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+
+        ppmCateg.show(panNorth, btnIns.getX(), btnIns.getY() + 18);
+
         if (tab1.getBorder() != null) {
-            int row = Util.getSelectedRec(tab1);
-            if (row != -1) {
-                int level = qElemgrp.getAs(row, eElemgrp.level, -999);
-                Record elemgrpRec = qElemgrp.newRecord(Query.INS);
-                elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().genId(eElemgrp.up));
-                elemgrpRec.setNo(eElemgrp.level, level);
-                for (int index = 0; index < qElemgrp.size(); index++) {
-                    if ((int) qElemgrp.getAs(index, eElemgrp.id, -999) == -1 * level) {
-                        qElemgrp.add(++index, elemgrpRec);
-                        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                        Rectangle cellRect = tab1.getCellRect(index, 0, false);
-                        tab1.scrollRectToVisible(cellRect);
-                    }
-                }
-            }
+            ppmCateg.show(panNorth, btnIns.getX(), btnIns.getY() + 18);
+
         } else if (tab2.getBorder() != null) {
             Util.insertRecord(tab1, tab2, qElemgrp, qElement, eElemgrp.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
 
@@ -656,6 +663,22 @@ public class Element extends javax.swing.JFrame
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
         ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }//GEN-LAST:event_tabMouseClicked
+
+    private void ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmCategAction
+        JMenuItem ppm = (JMenuItem) evt.getSource();
+        int indexCateg = (ppm == itCateg1) ? 1 : 5;
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Record elemgrpRec = qElemgrp.newRecord(Query.INS);
+            elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().genId(eElemgrp.up));
+            elemgrpRec.setNo(eElemgrp.level, indexCateg); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
+            qElemgrp.add(elemgrpRec);
+            qElemgrp.execsql();
+            initData();
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab1, row);
+        }
+    }//GEN-LAST:event_ppmCategAction
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -663,12 +686,15 @@ public class Element extends javax.swing.JFrame
     private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JMenuItem itCateg1;
+    private javax.swing.JMenuItem itCtag2;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panCentr2;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panNorth2;
     private javax.swing.JPanel panSouth;
     private javax.swing.JPanel panWest;
+    private javax.swing.JPopupMenu ppmCateg;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;

@@ -833,6 +833,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
+        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         initData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
