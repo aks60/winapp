@@ -138,6 +138,11 @@ public class Element extends javax.swing.JFrame
             }
         };
 
+        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+            int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+        });
+        
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
@@ -154,7 +159,7 @@ public class Element extends javax.swing.JFrame
 
     private void selectionTab1(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
+        Arrays.asList(qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Util.clearTable(tab2, tab3, tab4, tab5);
@@ -184,7 +189,7 @@ public class Element extends javax.swing.JFrame
 
     private void selectionTab2(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
+        Arrays.asList(qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
             Util.clearTable(tab3, tab4, tab5);
@@ -202,7 +207,7 @@ public class Element extends javax.swing.JFrame
 
     private void selectionTab3(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
+        Arrays.asList(qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab3);
         if (row != -1) {
             Record record = qElemdet.table(eElemdet.up).get(row);
@@ -231,9 +236,9 @@ public class Element extends javax.swing.JFrame
                 int row = tab2.getSelectedRow();
                 qElement.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElement.artikl_id);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
-                qElement.table(eArtikl.up).set(record.get(eArtikl.id), Util.getSelectedRec(tab2), eArtikl.id);
-                //((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                //Util.setSelectedRow(tab2, row);
+                qElement.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
             }
         };
     }
@@ -456,6 +461,8 @@ public class Element extends javax.swing.JFrame
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(2).setMinWidth(160);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(180);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(4).setMaxWidth(160);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);

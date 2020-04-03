@@ -272,7 +272,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
+        Arrays.asList(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Util.clearTable(tab2, tab3, tab4, tab5);
@@ -286,7 +286,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void selectionTab2(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
+        Arrays.asList(qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
             Util.clearTable(tab3, tab4, tab5);
@@ -303,7 +303,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void selectionTab4(ListSelectionEvent event) {
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
+        Arrays.asList(qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab4);
         if (row != -1) {
             Record record = qJoindet.table(eJoindet.up).get(row);
