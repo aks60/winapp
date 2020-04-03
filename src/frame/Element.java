@@ -153,6 +153,7 @@ public class Element extends javax.swing.JFrame
         Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
+            Util.clearTable(tab2, tab3, tab4, tab5);
             Record record = qElemgrp.get(row);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1 || id == -5) {
@@ -182,6 +183,7 @@ public class Element extends javax.swing.JFrame
         Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
+            Util.clearTable(tab3, tab4, tab5);
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
@@ -241,7 +243,7 @@ public class Element extends javax.swing.JFrame
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        btnFind = new javax.swing.JButton();
+        btnReport = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
         panNorth2 = new javax.swing.JPanel();
@@ -348,18 +350,18 @@ public class Element extends javax.swing.JFrame
             }
         });
 
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btnFind.setToolTipText(bundle.getString("Поиск")); // NOI18N
-        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFind.setFocusable(false);
-        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
+        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
+        btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnReport.setFocusable(false);
+        btnReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnReport.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnReport.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnReport.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindbtnFilter(evt);
+                btnReport(evt);
             }
         });
 
@@ -374,9 +376,9 @@ public class Element extends javax.swing.JFrame
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(153, 153, 153)
-                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 491, Short.MAX_VALUE)
+                .addGap(148, 148, 148)
+                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 496, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -389,7 +391,7 @@ public class Element extends javax.swing.JFrame
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFind, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -654,10 +656,6 @@ public class Element extends javax.swing.JFrame
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
-    private void btnFindbtnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindbtnFilter
-
-    }//GEN-LAST:event_btnFindbtnFilter
-
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
@@ -679,13 +677,17 @@ public class Element extends javax.swing.JFrame
             Util.setSelectedRow(tab1, row);
         }
     }//GEN-LAST:event_ppmCategAction
+
+    private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
+
+    }//GEN-LAST:event_btnReport
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JButton btnReport;
     private javax.swing.JMenuItem itCateg1;
     private javax.swing.JMenuItem itCtag2;
     private javax.swing.JPanel panCentr;
