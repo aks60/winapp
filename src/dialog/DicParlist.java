@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-public class DicEnums extends javax.swing.JDialog implements FrameListener<Object, Object> {
+public class DicParlist extends javax.swing.JDialog implements FrameListener<Object, Object> {
 
     private DialogListener listenet;
 
-    public DicEnums(java.awt.Frame parent, DialogListener listenet, int... part) {
+    public DicParlist(java.awt.Frame parent, DialogListener listenet, int... part) {
         super(parent, true);
         initComponents();
         initElements();

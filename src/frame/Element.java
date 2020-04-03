@@ -1,6 +1,6 @@
 package frame;
 
-import dialog.DicEnums;
+import dialog.DicParlist;
 import dialog.DicArtikl;
 import common.DialogListener;
 import common.FrameListener;
@@ -149,11 +149,11 @@ public class Element extends javax.swing.JFrame
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            DicEnums frame = new DicEnums(this, listenerEnum, 31000, 37000);
+            DicParlist frame = new DicParlist(this, listenerEnum, 31000, 37000);
         });
 
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
-            DicEnums frame = new DicEnums(this, listenerEnum, 33000, 34000, 38000, 39000, 40000);
+            DicParlist frame = new DicParlist(this, listenerEnum, 33000, 34000, 38000, 39000, 40000);
         });
     }
 
