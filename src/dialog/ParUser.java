@@ -219,7 +219,8 @@ public class ParUser extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        String title = new Query(eParams.up.values()).select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "= 0", "order by", eParams.text).getAs(0, eParams.text, "Параметры");
+        String title = new Query(eParams.up.values()).select(eParams.up, "where", eParams.grup, "=", grup, "and", 
+                eParams.numb, "= 0", "order by", eParams.text).getAs(0, eParams.text, "Параметры");
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 title, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }

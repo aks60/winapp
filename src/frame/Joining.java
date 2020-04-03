@@ -445,7 +445,7 @@ public class Joining extends javax.swing.JFrame {
                     return ParamList.find(qJoinpar1.getAs(Util.getSelectedRec(tab3), eJoinpar1.grup, -1)).check(txt);
                 }
                 if (tab == tab5) {
-                    return ParamList.find(qJoinpar2.getAs(Util.getSelectedRec(tab5), eJoinpar1.grup, -1)).check(txt);
+                    return ParamList.find(qJoinpar2.getAs(Util.getSelectedRec(tab5), eJoinpar1.grup)).check(txt);
                 }
             }
             return true;

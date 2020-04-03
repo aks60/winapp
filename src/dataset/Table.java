@@ -45,11 +45,16 @@ public class Table extends ArrayList<Record> {
         return null;
     }
 
-    public Object get(int index, Field field, Object def) {
-        Object obj = get(index, field);
-        return obj == null ? def : obj;
-    }
+//    public Object get(int index, Field field, Object def) {
+//        Object obj = get(index, field);
+//        return obj == null ? def : obj;
+//    }
 
+    public <T> T getAs(int index, Field field) {
+        Object obj = get(index, field);
+        return (T) obj;
+    }
+    
     public <T> T getAs(int index, Field field, Object def) {
         Object obj = get(index, field);
         return (obj == null) ? (T) def : (T) obj;
