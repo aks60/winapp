@@ -714,7 +714,7 @@ public class Element extends javax.swing.JFrame
             qElemgrp.execsql();
             initData();
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab1, row);
+            Util.scrollRectToVisible(qElemgrp, tab1);
         }
     }//GEN-LAST:event_ppmCategAction
 
