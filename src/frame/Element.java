@@ -95,7 +95,7 @@ public class Element extends javax.swing.JFrame
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.vtype, eArtikl.series, eElement.bind, eElement.bind, eElement.markup);
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eArtikl.series, eElement.bind, eElement.bind, eElement.markup);
         new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types);
         new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
 

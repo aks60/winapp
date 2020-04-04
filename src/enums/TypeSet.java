@@ -1,6 +1,6 @@
 package enums;
 
-public enum TypeConsist {
+public enum TypeSet {
     P1(1, "внутренний"),
     P2(2, "армирование"),
     P3(3, "ламинирование"),
@@ -12,7 +12,7 @@ public enum TypeConsist {
     int id;
     String name;
 
-    TypeConsist(int id, String name) {
+    TypeSet(int id, String name) {
         this.id = id;
         this.name = name;
     }

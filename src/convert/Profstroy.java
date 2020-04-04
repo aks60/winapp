@@ -95,7 +95,7 @@ public class Profstroy {
             eCurrenc.up
         };
         try {
-            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2_clear.fdb?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
@@ -415,7 +415,9 @@ public class Profstroy {
             sql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
             sql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
-            sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");
+            sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");            
+            sql("update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 "
+                    + "when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");            
             sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
             if (versionPs == 4) {
                 sql("update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
