@@ -11,7 +11,7 @@ import enums.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import dialog.CardTemplate;
+import dialog.DicTypset;
 import domain.eArtikl;
 import domain.eParams;
 import domain.eElemdet;
@@ -21,6 +21,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
 import enums.ParamList;
+import enums.TypeSet;
 import java.awt.Window;
 import java.util.Arrays;
 import javax.swing.JMenuItem;
@@ -43,7 +44,7 @@ public class Element extends javax.swing.JFrame
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
-    private DialogListener listenerArtikl, listenerEnum;
+    private DialogListener listenerArtikl, listenerEnum, listenerTypset;
 
     public Element() {
         initComponents();
@@ -95,7 +96,17 @@ public class Element extends javax.swing.JFrame
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eArtikl.series, eElement.bind, eElement.bind, eElement.markup);
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eArtikl.series, eElement.bind, eElement.bind, eElement.markup) {
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                if (columns[col] == eElement.typset) {
+                    String typset = String.valueOf(val);
+                    return Arrays.asList(TypeSet.values()).stream().filter(el -> el.id.equals(typset)).findFirst().orElse(TypeSet.P1).name;
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types);
         new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
 
@@ -142,10 +153,14 @@ public class Element extends javax.swing.JFrame
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
         });
-        
+
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+        });
+
+        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+            DicTypset frame = new DicTypset(this, listenerTypset);
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
@@ -227,6 +242,16 @@ public class Element extends javax.swing.JFrame
             if (tab1.getBorder() != null) {
 
                 System.out.println("forms.Joining.listenerEnum()");
+            }
+        };
+
+        listenerTypset = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                qElement.set(record.getInt(0), Util.getSelectedRec(tab2), eElement.typset);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
             }
         };
 

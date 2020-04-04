@@ -1,19 +1,19 @@
 package enums;
 
 public enum TypeSet {
-    P1(1, "внутренний"),
-    P2(2, "армирование"),
-    P3(3, "ламинирование"),
-    P4(4, "покраска"),
-    P5(5, "состав_С/П"),
-    P6(6, "кронштейн_стойки"),
-    P7(7, "дополнительно");
+    P1(1, "Внутренний"),
+    P2(2, "Армирование"),
+    P3(3, "Ламинирование"),
+    P4(4, "Покраска"),
+    P5(5, "Состав с/п"),
+    P6(6, "Кронштейн стойки"),
+    P7(7, "Дополнительно");
 
-    int id;
-    String name;
+    public String id;
+    public String name;
 
     TypeSet(int id, String name) {
-        this.id = id;
+        this.id = String.valueOf(id);
         this.name = name;
     }
 }
