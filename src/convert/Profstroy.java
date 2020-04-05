@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import common.Util;
-import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
@@ -63,6 +62,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import wincalc.script.Winscript;
 
 /**
@@ -83,7 +83,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //порядок записи определён в ссответсвии с зависимостями
-            eSetting.up, eSyssize.up, eSysdata.up, eParams.up, eCurrenc.up, eRulecalc.up, ePartner.up, eOrders.up,
+            eSetting.up, eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
@@ -91,7 +91,8 @@ public class Profstroy {
             eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSystree.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eArtdet.up, eArtikl.up, eArtgrp.up,
-            eColpar1.up, eColor.up, eColgrp.up
+            eColpar1.up, eColor.up, eColgrp.up,
+            eCurrenc.up
         };
         try {
             String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
@@ -102,6 +103,7 @@ public class Profstroy {
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
             System.out.println("\u001B[32m" + "Подготовка методанных" + "\u001B[0m");
+            Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
@@ -388,7 +390,7 @@ public class Profstroy {
             //sql("delete from joinpar2 where not exists (select id from joindet a where a.aunic = joinpar2.psss)");  //joindet_id 
             deleteSql(eJoinpar2.up, "psss", eJoindet.up, "aunic");
             //sql("delete from glasprof where not exists (select id from glasgrp a where a.gnumb = glasprof.gnumb)");  //glasgrp_id
-            deleteSql(eGlasprof.up, "gnumb", eGlasgrp .up, "gnumb");
+            deleteSql(eGlasprof.up, "gnumb", eGlasgrp.up, "gnumb");
             //sql("delete from glasprof where not exists (select id from artikl a where a.code = glasprof.anumb)");  //artikl_id
             deleteSql(eGlasprof.up, "anumb", eArtikl.up, "code");
             //sql("delete from glasdet where not exists (select id from glasgrp a where a.gnumb = glasdet.gnumb)");  //glasgrp_id
@@ -561,7 +563,6 @@ public class Profstroy {
 
     private static void updateElemgrp() throws SQLException {
         System.out.println("updateElemgrp()");
-        Query.connection = cn2;
         Query q = new Query(eElemgrp.values());
         ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
         ArrayList<Object[]> fieldList = new ArrayList();
@@ -602,7 +603,6 @@ public class Profstroy {
 
     private static void updateSetting() throws SQLException {
         System.out.println("updateSetting()");
-        Query.connection = cn2;
         Query q = new Query(eSetting.values());
         Record record = q.newRecord(Query.INS);
         record.setNo(eSetting.id, 1);
@@ -617,20 +617,27 @@ public class Profstroy {
     }
 
     private static void deleteSql(Field table1, String id1, Field table2, String id2) {
+        System.out.println("delete from " + table2.tname() + " where not exists (select id from " + table1.tname() + " a where a." + id1 + " = " + table2.tname() + "." + id2 + ")");
         try {
-            ResultSet rs1 = st2.executeQuery("select * from " + table1.tname());
-            ResultSet rs2 = st2.executeQuery("select * from " + table2.tname());
-            while (rs1.next()) {
+            boolean autocomm = cn2.getAutoCommit();
+            cn2.setAutoCommit(false);
+            ResultSet rs = st2.executeQuery("select " + id2 + " from " + table2.tname());
+            Set set = new HashSet();
+            while (rs.next()) {
+                set.add(rs.getObject(id2));
+            }
+            rs = st2.executeQuery("select * from " + table1.tname());
+            while (rs.next()) {
                 boolean is = false;
-                while (rs2.next()) {
-                    if (rs1.getInt(id1) == rs2.getInt(id2)) {
-                        is = true;
-                    }
-                }
-                if (is == false) {
-                    sql("delete from " + table1.tname() + " where id = " + rs1.getInt("id"));
+                if (set.contains(rs.getObject(id1)) == false) {
+                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    st2.addBatch("delete from " + table1.tname() + " where id = " + rs.getObject("id"));
                 }
             }
+            st2.executeBatch();
+            cn2.commit();
+            st2.clearBatch();
+            cn2.setAutoCommit(autocomm);
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "DELETE-SQL:  " + e + "\u001B[0m");
         }
