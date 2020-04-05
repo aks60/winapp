@@ -11,6 +11,7 @@ import enums.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import dialog.DicSeries;
 import dialog.DicTypset;
 import domain.eArtikl;
 import domain.eParams;
@@ -44,7 +45,7 @@ public class Element extends javax.swing.JFrame
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
-    private DialogListener listenerArtikl, listenerEnum, listenerTypset;
+    private DialogListener listenerArtikl, listenerEnum, listenerTypset, listenerSeries;
 
     public Element() {
         initComponents();
@@ -96,7 +97,7 @@ public class Element extends javax.swing.JFrame
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eArtikl.series, eElement.bind, eElement.bind, eElement.markup) {
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series, eElement.todef, eElement.todef, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -161,6 +162,10 @@ public class Element extends javax.swing.JFrame
 
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
             DicTypset frame = new DicTypset(this, listenerTypset);
+        });
+
+        Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
+            DicSeries frame = new DicSeries(this, listenerSeries);
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
@@ -266,6 +271,17 @@ public class Element extends javax.swing.JFrame
                 Util.setSelectedRow(tab2, row);
             }
         };
+        
+        listenerSeries = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                String series = record.getStr(0);
+                qElement.set(series, Util.getSelectedRec(tab2), eElement.series);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+            }
+        };                
     }
 
     @SuppressWarnings("unchecked")
