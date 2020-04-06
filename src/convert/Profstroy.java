@@ -354,7 +354,7 @@ public class Profstroy {
     }
 
     private static void deletePart(Connection cn2, Statement st2) {
-        try {         
+        try {
             System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             executeSql("delete from params where grup > 0");  //group > 0  
             deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
@@ -406,6 +406,8 @@ public class Profstroy {
         try {
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             updateSetting();
+            String max = new Query(eColgrp.id).select("select max(id) as id from " + eColgrp.up.tname()).get(0).getStr(eColgrp.id);
+            executeSql("set generator gen_colgrp to " + max);
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
