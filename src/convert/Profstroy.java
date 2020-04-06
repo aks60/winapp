@@ -356,6 +356,8 @@ public class Profstroy {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
+            boolean autocomm = cn2.getAutoCommit();
+            cn2.setAutoCommit(false);            
             System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             sql("delete from params where grup > 0");  //group > 0
             //sql("delete from color where not exists (select id from colgrp a where a.id = color.cgrup)");  //colgrp_id
@@ -432,6 +434,7 @@ public class Profstroy {
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");
             //sql("delete from kitpar1 where not exists (select id from kitdet a where a.kincr = kitpar1.psss)");  //kitdet_id
             deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");
+            cn2.setAutoCommit(autocomm);
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "DELETE-PART:  " + e + "\u001B[0m");
         }
@@ -441,70 +444,109 @@ public class Profstroy {
         try {
             ConnApp con = ConnApp.initConnect();
             con.setConnection(cn2);
+            boolean autocomm = cn2.getAutoCommit();
+            cn2.setAutoCommit(false);
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
-            updateSetting();
-            //sql("update currenc set id = (select cnumb from currenc a where a.cnumb = currenc.cnumb)");
-            //sql("update currenc set id = cnumb");
-            sql("update color set colgrp_id = (select id from colgrp a where a.id = color.cgrup)");
-            sql("update colpar1 set color_id = (select id from color a where a.cnumb = colpar1.psss)");
-            sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
+            updateSetting();           
+            //sql("update color set colgrp_id = (select id from colgrp a where a.id = color.cgrup)");
+            updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
+            //sql("update colpar1 set color_id = (select id from color a where a.cnumb = colpar1.psss)");
+            updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
+            //sql("update artdet set artikl_id = (select id from artikl a where a.code = artdet.anumb)");
+            updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             sql("update artdet set color_fk = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
             sql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
             sql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
-            sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");
+            //sql("update element set artikl_id = (select id from artikl a where a.code = element.anumb)");
+            updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             sql(4, "update element set typset = vtype");
             sql(3, "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 "
                     + "when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
-            sql("update element set todef = 1  where a.vsets in (1,2)");
-            sql("update element set toset = 1  where a.vsets = 1");
-            sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
-            sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
-            sql(4, "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
-            sql(4, "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
-            sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
+            sql("update element set todef = 1  where vsets in (1,2)");
+            sql("update element set toset = 1  where vsets = 1");
+            //sql("update elemdet set artikl_id = (select id from artikl a where a.code = elemdet.anumb)");
+            updateSql(eElemdet.up, eElemdet.artikl_id, "anumb", eArtikl.up, "code");                
+            sql(4, "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");  
+            sql(4, "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");       
+            //sql("update elemdet set element_id = (select id from element a where a.vnumb = elemdet.vnumb)");
+            updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             sql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
-            sql("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)");
-            sql("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)");
-            sql("update joining set artikl_id1 = (select id from artikl a where a.code = joining.anum1)");
-            sql("update joining set artikl_id2 = (select id from artikl a where a.code = joining.anum2)");
-            sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
-            sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");
-            sql("update joindet set artikl_id = (select id from artikl a where a.code = joindet.anumb)");
+            //sql("update elempar1 set element_id = (select id from element a where a.vnumb = elempar1.psss)");
+            updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
+            //sql("update elempar2 set elemdet_id = (select id from elemdet a where a.aunic = elempar2.psss)");
+            updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
+            //sql("update joining set artikl_id1 = (select id from artikl a where a.code = joining.anum1)");
+            updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
+            //sql("update joining set artikl_id2 = (select id from artikl a where a.code = joining.anum2)");
+            updateSql(eJoining.up, eJoining.artikl_id2, "anum2", eArtikl.up, "code");
+            //sql("update joinvar set joining_id = (select id from joining a where a.cconn = joinvar.cconn)");
+            updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");
+            //sql("update joindet set joinvar_id = (select id from joinvar a where a.cunic = joindet.cunic)");
+            updateSql(eJoindet.up, eJoindet.joinvar_id, "cunic", eJoinvar.up, "cunic");
+            //sql("update joindet set artikl_id = (select id from artikl a where a.code = joindet.anumb)");
+            updateSql(eJoindet.up, eJoindet.artikl_id, "anumb", eArtikl.up, "code");
             sql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
-            sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
-            sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
-            sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
-            sql("update glasprof set artikl_id = (select id from artikl a where a.code = glasprof.anumb)");
-            sql("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
-            sql("update glasdet set artikl_id = (select id from artikl a where a.code = glasdet.anumb)");
+            //sql("update joinpar1 set joinvar_id = (select id from joinvar a where a.cunic = joinpar1.psss)");
+            updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
+            //sql("update joinpar2 set joindet_id = (select id from joindet a where a.aunic = joinpar2.psss)");
+            updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
+            //sql("update glasprof set glasgrp_id = (select id from glasgrp a where a.gnumb = glasprof.gnumb)");
+            updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
+            //sql("update glasprof set artikl_id = (select id from artikl a where a.code = glasprof.anumb)");
+            updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
+            //sql("update glasdet set glasgrp_id = (select id from glasgrp a where a.gnumb = glasdet.gnumb)");
+            updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
+            //sql("update glasdet set artikl_id = (select id from artikl a where a.code = glasdet.anumb)");
+            updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             sql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
-            sql("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)");
-            sql("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)");
-            sql("update furnside1 set furniture_id = (select id from furniture a where a.funic = furnside1.funic)");
+            //sql("update glaspar1 set glasgrp_id = (select id from glasgrp a where a.gnumb = glaspar1.psss)");
+            updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
+            //sql("update glaspar2 set glasdet_id = (select id from glasdet a where a.gunic = glaspar2.psss)");
+            updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
+            //sql("update furnside1 set furniture_id = (select id from furniture a where a.funic = furnside1.funic)");
+            updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             sql("update furnside1 set type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
-            sql("update furnside2 set furndet_id = (select id from furndet a where a.fincb = furnside2.fincs)");
-            sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
-            sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
+            //sql("update furnside2 set furndet_id = (select id from furndet a where a.fincb = furnside2.fincs)");
+            updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "fincb");
+            //sql("update furnpar1 set furnside_id = (select id from furnside1 a where a.fincr = furnpar1.psss)");
+            updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
+            //sql("update furndet set furniture_id = (select id from furniture a where a.funic = furndet.funic)");
+            updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");
             sql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
-            sql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
+            sql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");            
+            //sql("update furnpar2 set furndet_id = (select id from furndet a where a.fincb = furnpar2.psss)");
+            updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "fincb");
             sql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             sql("update systree set parent_id = id where npar = 0");
-            sql("update sysprof set artikl_id = (select id from artikl a where a.code = sysprof.anumb)");
-            sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
-            sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
-            sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");
-            sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
+            //sql("update sysprof set artikl_id = (select id from artikl a where a.code = sysprof.anumb)");
+            updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
+            //sql("update sysprof set systree_id = (select id from systree a where a.nuni = sysprof.nuni)");
+            updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");
+            //sql("update sysfurn set furniture_id = (select id from furniture a where a.funic = sysfurn.funic)");
+            updateSql(eSysfurn.up, eSysfurn.furniture_id, "funic", eFurniture.up, "funic");
+            //sql("update sysfurn set systree_id = (select id from systree a where a.nuni = sysfurn.nuni)");
+            updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");
+            //sql("update syspar1 set systree_id = (select id from systree a where a.nuni = syspar1.psss)");
+            updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");
             updateSysprod();
-            sql("update kits set artikl_id = (select id from artikl a where a.code = kits.anumb)");
-            sql("update kits set color_id = (select id from color a where a.cnumb = kits.clnum)");
-            sql("update kitdet set kits_id = (select id from kits a where a.kunic = kitdet.kunic)");
-            sql("update kitdet set artikl_id = (select id from artikl a where a.code = kitdet.anumb)");
-            sql("update kitdet set color1_id = (select id from color a where a.cnumb = kitdet.clnum)");
-            sql("update kitdet set color2_id = (select id from color a where a.cnumb = kitdet.clnu1)");
-            sql("update kitdet set color3_id = (select id from color a where a.cnumb = kitdet.clnu2)");
-            sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
+            //sql("update kits set artikl_id = (select id from artikl a where a.code = kits.anumb)");
+            updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
+            //sql("update kits set color_id = (select id from color a where a.cnumb = kits.clnum)");
+            updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
+            //sql("update kitdet set kits_id = (select id from kits a where a.kunic = kitdet.kunic)");
+            updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
+            //sql("update kitdet set artikl_id = (select id from artikl a where a.code = kitdet.anumb)");
+            updateSql(eKitdet.up, eKitdet.artikl_id, "anumb", eArtikl.up, "code");
+            //sql("update kitdet set color1_id = (select id from color a where a.cnumb = kitdet.clnum)");
+            updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
+            //sql("update kitdet set color2_id = (select id from color a where a.cnumb = kitdet.clnu1)");
+            updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
+            //sql("update kitdet set color3_id = (select id from color a where a.cnumb = kitdet.clnu2)");
+            updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
+            //sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
+            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
+            cn2.setAutoCommit(autocomm);
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-PART:  " + e + "\u001B[0m");
         }
@@ -617,29 +659,61 @@ public class Profstroy {
     }
 
     private static void deleteSql(Field table1, String id1, Field table2, String id2) {
-        System.out.println("delete from " + table2.tname() + " where not exists (select id from " + table1.tname() + " a where a." + id1 + " = " + table2.tname() + "." + id2 + ")");
         try {
-            boolean autocomm = cn2.getAutoCommit();
-            cn2.setAutoCommit(false);
-            ResultSet rs = st2.executeQuery("select " + id2 + " from " + table2.tname());
+            int recordDelete = 0, recordCount = 0;
             Set set = new HashSet();
+            ResultSet rs = st2.executeQuery("select " + id2 + " from " + table2.tname());
             while (rs.next()) {
                 set.add(rs.getObject(id2));
             }
             rs = st2.executeQuery("select * from " + table1.tname());
             while (rs.next()) {
-                boolean is = false;
+                ++recordCount;
                 if (set.contains(rs.getObject(id1)) == false) {
-                    System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                    ++recordDelete;
+                    //System.out.println("delete from " + table1.tname() + " where id = " + rs.getObject("id"));
                     st2.addBatch("delete from " + table1.tname() + " where id = " + rs.getObject("id"));
                 }
             }
+            System.out.println("delete from " + table2.tname() + " where not exists (select id from " + table1.tname()
+                    + " a where a." + id1 + " = " + table2.tname() + "." + id2 + ") Всего/удалено = " + recordCount + "/" + recordDelete);
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
-            cn2.setAutoCommit(autocomm);
+
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "DELETE-SQL:  " + e + "\u001B[0m");
+        }
+    }
+
+    private static void updateSql(Field table1, Field fk1, String id1, Field table2, String id2) {
+        try {
+            int recordDelete = 0, recordCount = 0;
+            Set<Object[]> set = new HashSet();
+            ResultSet rs = st2.executeQuery("select id, " + id2 + " from " + table2.tname());
+            while (rs.next()) {
+                Object[] arr = {rs.getObject("id"), rs.getObject(id2)};
+                set.add(arr);
+            }
+            rs = st2.executeQuery("select * from " + table1.tname());
+            while (rs.next()) {
+                ++recordCount;
+                Object val = rs.getObject(id1);
+                Object[] obj = set.stream().filter(el -> el[1].equals(val)).findFirst().orElse(null);
+                if (obj != null) {
+                    ++recordDelete;
+                    st2.addBatch("update " + table1.tname() + " set " + fk1.name() + " = " + obj[0] + " where id = " + rs.getObject("id"));
+                    //sql("update kitpar1 set kitdet_id = (select id from kitdet a where a.kincr = kitpar1.psss)");
+                }
+            }
+            System.out.println("update " + table1.tname() + " set " + fk1.name() + " = (select id from " + table2.tname()
+                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ") Всего/скорректировано = " + recordCount + "/" + recordDelete);
+            st2.executeBatch();
+            cn2.commit();
+            st2.clearBatch();
+            
+        } catch (Exception e) {
+            System.out.println("\u001B[31m" + "UPDATE-SQL:  " + e + "\u001B[0m");
         }
     }
 
