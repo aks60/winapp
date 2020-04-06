@@ -354,11 +354,7 @@ public class Profstroy {
     }
 
     private static void deletePart(Connection cn2, Statement st2) {
-        try {
-//            ConnApp con = ConnApp.initConnect();
-//            con.setConnection(cn2);
-//            boolean autocomm = cn2.getAutoCommit();
-//            cn2.setAutoCommit(false);            
+        try {         
             System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
             executeSql("delete from params where grup > 0");  //group > 0  
             deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
@@ -401,7 +397,6 @@ public class Profstroy {
             deleteSql(eKitdet.up, "kunic", eKits.up, "kunic");//kits_id  
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");//kitdet_id
-            //cn2.setAutoCommit(autocomm);
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "DELETE-PART:  " + e + "\u001B[0m");
         }
@@ -409,10 +404,6 @@ public class Profstroy {
 
     private static void updatePart(Connection cn2, Statement st2) {
         try {
-//            ConnApp con = ConnApp.initConnect();
-//            con.setConnection(cn2);
-//            boolean autocomm = cn2.getAutoCommit();
-//            cn2.setAutoCommit(false);
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             updateSetting();
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
@@ -474,7 +465,6 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
-            //cn2.setAutoCommit(autocomm);
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-PART:  " + e + "\u001B[0m");
         }
