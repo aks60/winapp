@@ -46,7 +46,7 @@ public class DicTypset extends javax.swing.JDialog {
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 200));
+        setPreferredSize(new java.awt.Dimension(300, 240));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -126,7 +126,7 @@ public class DicTypset extends javax.swing.JDialog {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(300, 200));
+        panCentr.setPreferredSize(new java.awt.Dimension(300, 240));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);

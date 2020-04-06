@@ -11,18 +11,23 @@ import enums.Enam;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import dialog.DicColvar;
 import dialog.DicSeries;
 import dialog.DicTypset;
+import dialog.ParColor;
 import domain.eArtikl;
+import domain.eColor;
 import domain.eParams;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
+import domain.eJoindet;
 import domain.eSysprof;
 import enums.ParamList;
 import enums.TypeSet;
+import enums.VarColcalc;
 import java.awt.Window;
 import java.util.Arrays;
 import javax.swing.JMenuItem;
@@ -31,11 +36,14 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import swing.BooleanRenderer;
 import swing.DefTableModel;
 
 public class Element extends javax.swing.JFrame
         implements FrameListener<DefTableModel, Object> {
 
+    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qElemgrp = new Query(eElemgrp.values());
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
@@ -45,7 +53,7 @@ public class Element extends javax.swing.JFrame
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
-    private DialogListener listenerArtikl, listenerEnum, listenerTypset, listenerSeries;
+    private DialogListener listenerArtikl, listenerEnum, listenerTypset, listenerSeries, listenerColor, listenerColvar;
 
     public Element() {
         initComponents();
@@ -74,6 +82,8 @@ public class Element extends javax.swing.JFrame
 
     private void initData() {
 
+        qColor.select(eColor.up);
+        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         Record record = qElemgrp.newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
@@ -97,7 +107,7 @@ public class Element extends javax.swing.JFrame
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series, eElement.todef, eElement.todef, eElement.markup) {
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series, eElement.todef, eElement.toset, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -108,7 +118,36 @@ public class Element extends javax.swing.JFrame
                 return val;
             }
         };
-        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types);
+        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types) {
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                Field field = columns[col];
+                if (eElemdet.color_fk == field) {
+                    int colorFk = Integer.valueOf(val.toString());
+                    if (Integer.valueOf(VarColcalc.automatic[0]) == colorFk) {
+                        return VarColcalc.automatic[1];
+
+                    } else if (Integer.valueOf(VarColcalc.precision[0]) == colorFk) {
+                        return VarColcalc.precision[1];
+                    }
+                    if (colorFk > 0) {
+                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                    } else {
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                    }
+                } else if (eElemdet.types == field) {
+                    int types = Integer.valueOf(val.toString());
+                    
+                    if (VarColcalc.find(types) != null) {
+                        return VarColcalc.find(types).name;
+                    } else {
+                        return null;
+                    }
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab4, qElempar1, eElempar1.grup, eElempar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -150,6 +189,9 @@ public class Element extends javax.swing.JFrame
             }
         };
 
+        BooleanRenderer br = new BooleanRenderer();
+        Arrays.asList(5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
+
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
@@ -168,6 +210,28 @@ public class Element extends javax.swing.JFrame
             DicSeries frame = new DicSeries(this, listenerSeries);
         });
 
+        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+            int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+        });
+
+        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+            int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+        });
+
+        Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
+            Record record = qElemdet.get(Util.getSelectedRec(tab3));
+            int artikl_id = record.getInt(eElemdet.artikl_id);
+            ParColor frame = new ParColor(this, listenerColor, artikl_id);
+        });
+        
+        Util.buttonEditorCell(tab3, 3).addActionListener(event -> {
+            Record record = qElemdet.get(Util.getSelectedRec(tab3));
+            int colorFk = record.getInt(eElemdet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+        });
+        
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
             DicParlist frame = new DicParlist(this, listenerEnum, 31000, 37000);
         });
@@ -216,6 +280,7 @@ public class Element extends javax.swing.JFrame
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
+            //qElemdet.select(eElemdet.up, "where", eElemdet.element_id, "=", p1, "order by", eElemdet.element_id);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup,
                     "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -269,9 +334,17 @@ public class Element extends javax.swing.JFrame
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
+
+            } else if (tab3.getBorder() != null) {
+                int row = tab3.getSelectedRow();
+                qElemdet.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eElemdet.artikl_id);
+                qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab3), eArtikl.name);
+                qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab3), eArtikl.code);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab3, row);
             }
         };
-        
+
         listenerSeries = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
@@ -281,7 +354,31 @@ public class Element extends javax.swing.JFrame
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
             }
-        };                
+        };
+
+        listenerColor = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab3.getSelectedRow();
+            Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
+            int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
+            elemdetRec.set(eElemdet.color_fk, group);
+            if (group > 0) {
+                elemdetRec.set(eElemdet.types, VarColcalc.P00.id);
+            } else {
+                elemdetRec.set(eElemdet.types, null);
+            }
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row);
+        };
+        
+        listenerColvar = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab3.getSelectedRow();
+            Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
+            elemdetRec.set(eElemdet.types, record.getInt(0));
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row);
+        };        
     }
 
     @SuppressWarnings("unchecked")
@@ -485,7 +582,7 @@ public class Element extends javax.swing.JFrame
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -501,17 +598,17 @@ public class Element extends javax.swing.JFrame
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(2).setMinWidth(160);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(96);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(96);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(240);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(3).setMaxWidth(180);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
-            tab2.getColumnModel().getColumn(4).setMaxWidth(160);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(50);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(50);
-            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(50);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(32);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(32);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(32);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(40);
         }
 
         panNorth2.add(scr2, java.awt.BorderLayout.CENTER);
