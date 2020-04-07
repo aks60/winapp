@@ -61,7 +61,7 @@ public class DefFieldEditor extends DefaultCellEditor {
                     super.insertString(fb, offset, string, attr);
 
                 } else {
-                    if (listenerCell.action(string) == true) {
+                    if (listenerCell.action(string) == true) { //проверка на коррекность ввода
                         super.insertString(fb, offset, string, attr);
                     }
                 }
@@ -73,7 +73,7 @@ public class DefFieldEditor extends DefaultCellEditor {
                     super.replace(fb, offset, length, string, attrs);
 
                 } else {
-                    if (listenerCell.action(string) == true) {
+                    if (listenerCell.action(string) == true) {  //проверка на коррекность ввода
                         super.replace(fb, offset, length, string, attrs);
                     }
                 }
@@ -93,8 +93,8 @@ public class DefFieldEditor extends DefaultCellEditor {
 
     @Override
     public boolean isCellEditable(EventObject anEvent) {
-        if (anEvent instanceof MouseEvent == true) {
-            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {
+        if (anEvent instanceof MouseEvent == true) {          
+            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) { 
                 listenerCell.action(DefFieldEditor.this);
             }
         }

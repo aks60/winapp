@@ -4,10 +4,13 @@ import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import domain.eElemdet;
 import domain.eJoinpar1;
+import domain.eParams;
 import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
+import enums.VarColcalc;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.text.DateFormat;
@@ -125,6 +128,7 @@ public class Util {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }
 
+    //Типы данных в базе
     public static String typeSql(Field.TYPE type, Object size) {
 
         if (type == Field.TYPE.INT) {
@@ -145,6 +149,7 @@ public class Util {
         return "";
     }
 
+    //Обернуть данные sql опратора
     public static Object wrapperSql(Object value, Field.TYPE type) {
         try {
             if (value == null) {
@@ -185,6 +190,7 @@ public class Util {
         return null;
     }
 
+    //Прокрутить скроллинг и сделать ячейку видимой
     public static void scrollRectToVisible(Query query, JTable table) {
         if (table.getRowCount() > 1) {
             Rectangle cellRect = table.getCellRect(query.size() - 1, 0, false);
@@ -192,6 +198,7 @@ public class Util {
         }
     }
 
+    //Редактирование параметра ячейки таблицы
     public static void formatterCell(Query query, JTable table, DefFieldEditor editor) {
 
         JTextField txt = editor.getTextField();
@@ -213,6 +220,7 @@ public class Util {
         }
     }
 
+    //Выделить запись
     public static void setSelectedRow(JTable table, int row) {
         if (table.getRowCount() > 0) {
 
@@ -224,6 +232,7 @@ public class Util {
         }
     }
 
+    //Получить convertRowIndexToModel
     public static int getSelectedRec(JTable table) {
         if (table.getSelectedRow() != -1) {
             return table.convertRowIndexToModel(table.getSelectedRow());
@@ -231,6 +240,7 @@ public class Util {
         return -1;
     }
 
+    //Вставить запись
     public static void insertRecord(JTable table, Query query, Field up) {
 
         Record record = query.newRecord(Query.INS);
@@ -240,6 +250,7 @@ public class Util {
         Util.scrollRectToVisible(query, table);
     }
 
+    //Вставить запись
     public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
 
         int row = getSelectedRec(table1);
@@ -256,6 +267,7 @@ public class Util {
         }                
     }
     
+    //Вставить запись
     public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field up3, Field fk2) {
 
         int row = getSelectedRec(table1);
@@ -274,6 +286,7 @@ public class Util {
         }                
     }
 
+    //Удалить запись
     public static void deleteRecord(JTable table, Query query, Field field) {
 
         if (table.getSelectedRow() != -1) {
@@ -291,6 +304,7 @@ public class Util {
         }
     }
 
+    //Очистить таблицу
     public static void clearTable(JTable... jTable) {
         for (JTable table : jTable) {
             if (table.getModel() instanceof DefTableModel) {
@@ -303,18 +317,21 @@ public class Util {
         }
     }
 
+    //Инкапсуляция кнопки в ячейку таблицы
     public static JButton buttonEditorCell(JTable table, int column) {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(btn));
         return btn;
     }
 
+    //Инкапсуляция кнопки в ячейку таблицы
     public static JButton buttonEditorCell(JTable table, int column, EditorListener listener) {
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(listener, btn));
         return btn;
     }
 
+    //Проверка допустимости режима редактирования
     public static int isDeleteRecord(java.awt.Window owner, JTable... table) {
         for (JTable tab : table) {
             if (tab.getRowCount() != 0) {
@@ -325,6 +342,7 @@ public class Util {
         return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 
+    //Выключить режим редактирования
     public static void stopCellEditing(JTable... tableList) {
         for (JTable table : tableList) {
             if (table.isEditing()) {
@@ -333,6 +351,7 @@ public class Util {
         }
     }
 
+    //Получить аблицу которая переведена в режим редактирования
     public static JTable getCellEditing(JTable... tableList) {
         for (JTable table : tableList) {
             if (table.isEditing()) {
@@ -340,5 +359,73 @@ public class Util {
             }
         }
         return null;
+    }
+       
+    //Слушатель редактирование типа данных и вида ячейки таблицы 
+    public static boolean listenerCell(Object component, JTable table1, JTable table2, Query qParam1, Query qParam2, JTable... tabses) {
+        
+            if (component instanceof DefFieldEditor) { //вид и тип ячейки
+                DefFieldEditor editor = (DefFieldEditor) component;
+                JTable tab = Util.getCellEditing(tabses);
+
+                DefFieldEditor editor2 = (DefFieldEditor) table1.getColumnModel().getColumn(1).getCellEditor();
+                if (editor.getButton() == editor2.getButton()) {
+                    Util.formatterCell(qParam1, table1, editor); //установим вид и тип ячейки
+                }
+                editor2 = (DefFieldEditor) table2.getColumnModel().getColumn(1).getCellEditor();
+                if (editor.getButton() == editor2.getButton()) {
+                    Util.formatterCell(qParam2, table2, editor); //установим вид и тип ячейки
+                }
+
+            } else if (component != null && component instanceof String) {  //проверка на коррекность ввода
+                JTable tab = Util.getCellEditing(tabses);
+                String txt = (String) component;
+                if (tab == table1) {
+                    return ParamList.find(qParam1.getAs(Util.getSelectedRec(table1), eJoinpar1.grup, -1)).check(txt);
+                }
+                if (tab == table2) {
+                    return ParamList.find(qParam2.getAs(Util.getSelectedRec(table2), eJoinpar1.grup)).check(txt);
+                }
+            }
+            return true;        
+    }
+    
+    //Слушатель редактирование параметров
+    public static void listenerParam(Record record, JTable table, Query query, Field grup, Field numb, Field text, JTable... tables) {
+            Util.stopCellEditing(tables);
+            int row = table.getSelectedRow();
+            Record record2 = query.get(Util.getSelectedRec(table));
+
+            if (eParams.values().length == record.size()) {
+                record2.set(grup, record.getInt(eParams.grup));
+                record2.set(numb, record.getInt(eParams.numb));
+                record2.set(text, null);
+
+            } else if (record.size() == 2) {
+                record2.set(grup, record.get(0));
+                record2.set(numb, -1);
+                record2.set(text, null);
+
+            } else if (record.size() == 1) {
+                record2.set(text, record.getStr(0));
+            }
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(table, row); 
+    }
+    
+    //Слушатель редактирование палитры
+    public static void listenerColor(Record record, JTable table, Query query, Field color_fk, Field types, JTable... tables) {
+            Util.stopCellEditing(tables);
+            int row = table.getSelectedRow();
+            Record elemdetRec = query.get(Util.getSelectedRec(table));
+            int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
+            elemdetRec.set(color_fk, group);
+            if (group > 0) {
+                elemdetRec.set(types, VarColcalc.P00.id);
+            } else {
+                elemdetRec.set(types, null);
+            }
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(table, row);  
     }
 }

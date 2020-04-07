@@ -38,6 +38,7 @@ import enums.VarColcalc;
 import java.awt.Window;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -68,6 +69,7 @@ public class Element extends javax.swing.JFrame
     public Element() {
         initComponents();
         initElements();
+        listenerCell();
         listenerDict();
         initData();
         initModel();
@@ -84,6 +86,7 @@ public class Element extends javax.swing.JFrame
         Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
         subsql = "(" + subsql.substring(1) + ")";
+        listenerCell();
         listenerDict();
         initData();
         initModel();
@@ -221,13 +224,11 @@ public class Element extends javax.swing.JFrame
         });
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
         Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
@@ -262,7 +263,7 @@ public class Element extends javax.swing.JFrame
                 ParSys frame = new ParSys(this, listenerPar1, list);
             }
         });
-        
+
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab3);
             if (row != -1) {
@@ -270,17 +271,11 @@ public class Element extends javax.swing.JFrame
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
-
-                if (level == 1 || level == 3) {
-                    level = 12000;
-
-                } else if (level == 2 || level == 4) {
-                    level = 11000;
-                }
-                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, level);
+                Integer[] part = {0, 39000, 38000, 39000, 38000, 40000, 0};
+                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, part[level]);
             }
-        }); 
-        
+        });
+
         Util.buttonEditorCell(tab5, 1, listenerEditor).addActionListener(event -> {
             Record record = qElempar2.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eElempar2.grup);
@@ -288,8 +283,9 @@ public class Element extends javax.swing.JFrame
                 ParUser frame = new ParUser(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
+                ParSys frame = new ParSys(this, listenerPar2, list);
             }
-        });        
+        });
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -378,6 +374,7 @@ public class Element extends javax.swing.JFrame
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            
             if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
                 qElement.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElement.artikl_id);
@@ -408,18 +405,7 @@ public class Element extends javax.swing.JFrame
         };
 
         listenerColor = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab3.getSelectedRow();
-            Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
-            int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
-            elemdetRec.set(eElemdet.color_fk, group);
-            if (group > 0) {
-                elemdetRec.set(eElemdet.types, VarColcalc.P00.id);
-            } else {
-                elemdetRec.set(eElemdet.types, null);
-            }
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.listenerColor(record, tab3, qElemdet, eElemdet.color_fk, eElemdet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar = (record) -> {
@@ -432,77 +418,18 @@ public class Element extends javax.swing.JFrame
         };
 
         listenerPar1 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab4.getSelectedRow();
-            Record elempar1Rec = qElempar1.get(Util.getSelectedRec(tab4));
-
-            if (eParams.values().length == record.size()) {
-                elempar1Rec.set(eElempar1.grup, record.getInt(eParams.grup));
-                elempar1Rec.set(eElempar1.numb, record.getInt(eParams.numb));
-                elempar1Rec.set(eElempar1.text, null);
-
-            } else if (record.size() == 2) {
-                elempar1Rec.set(eElempar1.grup, record.get(0));
-                elempar1Rec.set(eElempar1.numb, -1);
-                elempar1Rec.set(eElempar1.text, null);
-
-            } else if (record.size() == 1) {
-                elempar1Rec.set(eElempar1.text, record.getStr(0));
-            }
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.listenerParam(record, tab4, qElempar1, eElempar1.grup, eElempar1.numb, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab5.getSelectedRow();
-            Record elempar2Rec = qElempar2.get(Util.getSelectedRec(tab5));
-
-            if (eParams.values().length == record.size()) {
-                elempar2Rec.set(eElempar2.grup, record.getInt(eParams.grup));
-                elempar2Rec.set(eElempar2.numb, record.getInt(eParams.numb));
-                elempar2Rec.set(eElempar2.text, null);
-
-            } else if (record.size() == 2) {
-                elempar2Rec.set(eElempar2.grup, record.get(0));
-                elempar2Rec.set(eElempar2.numb, -1);
-                elempar2Rec.set(eElempar2.text, null);
-
-            } else if (record.size() == 1) {
-                elempar2Rec.set(eElempar2.text, record.getStr(0));
-            }
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5, row);
-        };        
+            Util.listenerParam(record, tab5, qElempar2, eElempar2.grup, eElempar2.numb, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+        };
     }
 
     private void listenerCell() {
-        listenerEditor = (component) -> {
 
-            if (component instanceof DefFieldEditor) {
-                DefFieldEditor editor = (DefFieldEditor) component;
-                JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
-
-                DefFieldEditor editor2 = (DefFieldEditor) tab4.getColumnModel().getColumn(1).getCellEditor();
-                if (editor.getButton() == editor2.getButton()) {
-                    Util.formatterCell(qElempar1, tab4, editor);
-                }
-                editor2 = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
-                if (editor.getButton() == editor2.getButton()) {
-                    Util.formatterCell(qElempar2, tab5, editor);
-                }
-
-            } else if (component != null && component instanceof String) {
-                JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
-                String txt = (String) component;
-                if (tab == tab4) {
-                    return ParamList.find(qElempar1.getAs(Util.getSelectedRec(tab4), eElempar1.grup, -1)).check(txt);
-                }
-                if (tab == tab5) {
-                    return ParamList.find(qElempar2.getAs(Util.getSelectedRec(tab5), eElempar1.grup)).check(txt);
-                }
-            }
-            return true;
+        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(component, tab4, tab5, qElempar1, qElempar2, tab1, tab2, tab3, tab4, tab5);
         };
     }
 

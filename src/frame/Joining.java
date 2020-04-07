@@ -36,6 +36,9 @@ import swing.BooleanRenderer;
 import common.Util;
 import dialog.DicColvar;
 import enums.VarColcalc;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -221,11 +224,11 @@ public class Joining extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
         Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
 
         Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
@@ -247,14 +250,8 @@ public class Joining extends javax.swing.JFrame {
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
-
-                if (level == 1 || level == 3) {
-                    level = 12000;
-
-                } else if (level == 2 || level == 4) {
-                    level = 11000;
-                }
-                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, level);
+                Integer[] part = {0, 1200, 11000, 12000, 11000, 0};
+                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, part[level]);
             }
         });
 
@@ -265,6 +262,7 @@ public class Joining extends javax.swing.JFrame {
                 ParUser frame = new ParUser(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
+                ParSys frame = new ParSys(this, listenerPar2, list);
             }
         });
         Util.setSelectedRow(tab1, 0);
@@ -337,62 +335,15 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab3.getSelectedRow();
-            Record joinpar1Rec = qJoinpar1.get(Util.getSelectedRec(tab3));
-
-            if (eParams.values().length == record.size()) {
-                joinpar1Rec.set(eJoinpar1.grup, record.getInt(eParams.grup));
-                joinpar1Rec.set(eJoinpar1.numb, record.getInt(eParams.numb));
-                joinpar1Rec.set(eJoinpar1.text, null);
-
-            } else if (record.size() == 2) {
-                joinpar1Rec.set(eJoinpar1.grup, record.get(0));
-                joinpar1Rec.set(eJoinpar1.numb, -1);
-                joinpar1Rec.set(eJoinpar1.text, null);
-
-            } else if (record.size() == 1) {
-                joinpar1Rec.set(eJoinpar1.text, record.getStr(0));
-            }
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.listenerParam(record, tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.numb, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab5.getSelectedRow();
-            Record joinpar2Rec = qJoinpar2.get(Util.getSelectedRec(tab5));
-
-            if (eParams.values().length == record.size()) {
-                joinpar2Rec.set(eJoinpar2.grup, record.getInt(eParams.grup));
-                joinpar2Rec.set(eJoinpar2.numb, record.getInt(eParams.numb));
-                joinpar2Rec.set(eJoinpar2.text, null);
-
-            } else if (record.size() == 2) {
-                joinpar2Rec.set(eJoinpar2.grup, record.get(0));
-                joinpar2Rec.set(eJoinpar2.numb, -1);
-                joinpar2Rec.set(eJoinpar2.text, null);
-
-            } else if (record.size() == 1) {
-                joinpar2Rec.set(eJoinpar2.text, record.getStr(0));
-            }
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5, row);
+            Util.listenerParam(record, tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.numb, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColor = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab4.getSelectedRow();
-            Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
-            int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
-            joindetRec.set(eJoindet.color_fk, group);
-            if (group > 0) {
-                joindetRec.set(eJoindet.types, VarColcalc.P00.id);
-            } else {
-                joindetRec.set(eJoindet.types, null);
-            }
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, row);
+            Util.listenerColor(record, tab4, qJoindet, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar = (record) -> {
@@ -423,32 +374,8 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void listenerCell() {
-        listenerEditor = (component) -> {
-
-            if (component instanceof DefFieldEditor) {
-                DefFieldEditor editor = (DefFieldEditor) component;
-                JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
-
-                DefFieldEditor editor2 = (DefFieldEditor) tab3.getColumnModel().getColumn(1).getCellEditor();
-                if (editor.getButton() == editor2.getButton()) {
-                    Util.formatterCell(qJoinpar1, tab3, editor);
-                }
-                editor2 = (DefFieldEditor) tab5.getColumnModel().getColumn(1).getCellEditor();
-                if (editor.getButton() == editor2.getButton()) {
-                    Util.formatterCell(qJoinpar2, tab5, editor);
-                }
-
-            } else if (component != null && component instanceof String) {
-                JTable tab = Util.getCellEditing(tab1, tab2, tab3, tab4, tab5);
-                String txt = (String) component;
-                if (tab == tab3) {
-                    return ParamList.find(qJoinpar1.getAs(Util.getSelectedRec(tab3), eJoinpar1.grup, -1)).check(txt);
-                }
-                if (tab == tab5) {
-                    return ParamList.find(qJoinpar2.getAs(Util.getSelectedRec(tab5), eJoinpar1.grup)).check(txt);
-                }
-            }
-            return true;
+        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(component, tab3, tab5, qJoinpar1, qJoinpar2, tab1, tab2, tab3, tab4, tab5);
         };
     }
 
