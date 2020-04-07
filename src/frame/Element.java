@@ -64,7 +64,7 @@ public class Element extends javax.swing.JFrame
     private int nuni = -1;
     private Window owner = null;
     private EditorListener listenerEditor;
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerEnum, listenerTypset, listenerSeries, listenerColor, listenerColvar;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar;
 
     public Element() {
         initComponents();
@@ -352,15 +352,6 @@ public class Element extends javax.swing.JFrame
     }
 
     private void listenerDict() {
-
-        listenerEnum = (record) -> {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab1.getSelectedRow();
-            if (tab1.getBorder() != null) {
-
-                System.out.println("forms.Joining.listenerEnum()");
-            }
-        };
 
         listenerTypset = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
