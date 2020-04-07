@@ -313,9 +313,9 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void listenerDict() {
+        
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-
             if (tab1.getBorder() != null) {
                 Record joiningRec = qJoining.get(Util.getSelectedRec(tab1));
                 if (tab1.getSelectedColumn() == 0) {
