@@ -42,7 +42,7 @@ public class ParColor extends javax.swing.JDialog {
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();
         tableModel.addRow(new String[]{VarColcalc.automatic[0], VarColcalc.automatic[1]});
-        tableModel.addRow(new String[]{VarColcalc.automatic[0], VarColcalc.precision[1]});
+        tableModel.addRow(new String[]{VarColcalc.precision[0], VarColcalc.precision[1]});
         for (Record record : qArtdet) {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));
