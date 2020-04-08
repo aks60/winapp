@@ -71,8 +71,8 @@ public class Element extends javax.swing.JFrame
         initElements();
         listenerCell();
         listenerDict();
-        loadData();
-        loadModel();        
+        loadingData();
+        loadingModel();        
     }
 
     public Element(java.awt.Window owner, int nuni) {
@@ -87,11 +87,11 @@ public class Element extends javax.swing.JFrame
         subsql = "(" + subsql.substring(1) + ")";
         listenerCell();
         listenerDict();
-        loadData();
-        loadModel();
+        loadingData();
+        loadingModel();
     }
 
-    private void loadData() {
+    private void loadingData() {
 
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
@@ -115,7 +115,7 @@ public class Element extends javax.swing.JFrame
         Util.setSelectedRow(tab1, 0);
     }
 
-    private void loadModel() {
+    private void loadingModel() {
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
@@ -792,7 +792,7 @@ public class Element extends javax.swing.JFrame
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
-        loadData();
+        loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh
@@ -867,7 +867,7 @@ public class Element extends javax.swing.JFrame
             elemgrpRec.setNo(eElemgrp.level, indexCateg); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
             qElemgrp.add(elemgrpRec);
             qElemgrp.execsql();
-            loadData();
+            loadingData();
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qElemgrp, tab1);
         }

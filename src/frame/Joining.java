@@ -59,10 +59,10 @@ public class Joining extends javax.swing.JFrame {
     public Joining() {
         initComponents();
         initElements();
-        loadData();
+        loadingData();
         listenerCell();
         listenerDict();
-        loadModel();
+        loadingModel();
     }
 
     public Joining(java.awt.Window owner, int nuni) {
@@ -70,14 +70,14 @@ public class Joining extends javax.swing.JFrame {
         this.nuni = nuni;
         initComponents();
         initElements();
-        loadData();
+        loadingData();
         listenerCell();
         listenerDict();
-        loadModel();
+        loadingModel();
         owner.setEnabled(false);
     }
 
-    private void loadData() {
+    private void loadingData() {
 
         tab1.setToolTipText("");
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
@@ -93,7 +93,7 @@ public class Joining extends javax.swing.JFrame {
         }
     }
 
-    private void loadModel() {
+    private void loadingModel() {
         new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -761,7 +761,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
-        loadData();
+        loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh

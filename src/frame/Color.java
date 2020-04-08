@@ -35,10 +35,10 @@ public class Color extends javax.swing.JFrame {
     public Color() {
         initComponents();
         initElements();
-        loadModel();
+        loadingModel();
     }
 
-    private void loadModel() {
+    private void loadingModel() {
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name);
         new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3);

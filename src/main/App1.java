@@ -13,7 +13,7 @@ import frame.Systree;
 import frame.BoxCustom;
 import frame.Element;
 import frame.Furniture;
-import frame.Glass;
+import frame.Filling;
 import frame.Joining;
 import frame.Kits;
 import frame.Param;
@@ -1117,7 +1117,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Glass.createFrame(App1.this);
+                eApp1.Filling.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnGlass
@@ -1273,7 +1273,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     public static enum eApp1 {
 
         App1, Convert, DicCurrenc, Color, Artikles, Joining, Element, Param,
-        Glass, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
+        Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
         BoxCustom, Specific, DicSyssize;
         javax.swing.JFrame frame;
 
@@ -1304,8 +1304,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     case Param:
                         frame = new Param();
                         break;
-                    case Glass:
-                        frame = new Glass();
+                    case Filling:
+                        frame = new Filling();
                         break;
                     case Furniture:
                         frame = new Furniture();

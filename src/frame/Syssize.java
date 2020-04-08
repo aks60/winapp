@@ -26,14 +26,14 @@ public class Syssize extends javax.swing.JFrame {
     public Syssize() {
         initComponents();
         initElements();
-        loadModel();
+        loadingModel();
         btnChoice.setVisible(false);
     }
 
     public Syssize(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
-        loadModel();
+        loadingModel();
         this.owner = owner;
         owner.setEnabled(false);
         this.listener = listener;
@@ -41,7 +41,7 @@ public class Syssize extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    private void loadModel() {
+    private void loadingModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.napl, eSyssize.naxl, eSyssize.zax);
     }
 
