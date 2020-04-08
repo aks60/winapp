@@ -4,7 +4,6 @@
 СОЕДИНЕНИЯ
 Par1 список параметров
 eJoinvar.types * 1000
-
 Par2 список параметров
 eArtikl.level1 = 1 -> 12000
 eArtikl.level1 = 2 -> 11000
@@ -16,10 +15,19 @@ eArtikl.level1 = 5 - нет такого списка в артикулах со
 Par1 список параметров
 eElemgrp.level = 1 -> 31000
 eElemgrp.level = 5 -> 37000
-
 Par2 список параметров
 eArtikl.level1 =  1 -> 39000
 eArtikl.level1 =  2 -> 38000
 eArtikl.level1 =  3 -> 39000
 eArtikl.level1 =  4 -> 38000
 eArtikl.level1 =  5 -> 40000
+
+
+ ЗАПОЛНЕНИЯ
+ Par1 список параметров
+ Всегда -> 13000
+ Par2 список параметров
+ eArtikl.level1 =  1 -> 15000
+ eArtikl.level1 =  2 -> 14000
+ eArtikl.level1 =  3 -> 15000
+ eArtikl.level1 =  4 -> 14000

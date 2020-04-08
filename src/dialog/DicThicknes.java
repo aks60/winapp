@@ -10,12 +10,12 @@ import domain.eArtikl;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
-public class DicThicknesFill extends javax.swing.JDialog {
+public class DicThicknes extends javax.swing.JDialog {
 
     private DialogListener listener = null;
     private Query qArtikl = new Query(eArtikl.series);
 
-    public DicThicknesFill(java.awt.Frame parent, DialogListener listenet) {
+    public DicThicknes(java.awt.Frame parent, DialogListener listenet) {
         super(parent, true);
         this.listener = listenet;
         initComponents();
@@ -27,7 +27,7 @@ public class DicThicknesFill extends javax.swing.JDialog {
     }
 
     private void initData() {
-        qArtikl.select("select distinct series from artikl order by series");
+        qArtikl.select("select distinct " + eArtikl.depth.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.depth.name());
     }
 
     private void initModel() {
@@ -50,7 +50,8 @@ public class DicThicknesFill extends javax.swing.JDialog {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(120, 300));
+        setTitle("Справочник толщин заполнения");
+        setPreferredSize(new java.awt.Dimension(200, 500));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -147,11 +148,9 @@ public class DicThicknesFill extends javax.swing.JDialog {
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(200, 540));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,7 +158,7 @@ public class DicThicknesFill extends javax.swing.JDialog {
                 {"Name 0"}
             },
             new String [] {
-                "Название соединения"
+                "Толщина заполнения"
             }
         ) {
             boolean[] canEdit = new boolean [] {

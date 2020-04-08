@@ -1,12 +1,10 @@
 package frame;
 
 import common.DialogListener;
-import common.Util;
+import common.EditorListener;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.scrollRectToVisible;
-import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -22,7 +20,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -32,16 +29,23 @@ import static common.Util.getSelectedRec;
 import dataset.Field;
 import dialog.DicArtikl;
 import dialog.DicColvar;
+import dialog.DicThicknes;
 import dialog.ParColor;
+import dialog.ParGrup;
+import dialog.ParSys;
+import dialog.ParUser;
 import domain.eColor;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eJoining;
+import domain.eJoinpar1;
 import domain.eParams;
+import enums.Enam;
+import enums.ParamList;
 import enums.VarColcalc;
+import java.util.List;
 
 public class Glass extends javax.swing.JFrame {
 
@@ -50,9 +54,10 @@ public class Glass extends javax.swing.JFrame {
     private Query qGlasgrp = new Query(eGlasgrp.values());
     private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
-    private Query qGlaspar1 = new Query(eGlaspar1.values()).select(eGlaspar1.up, "order by", eGlaspar1.id);
-    private Query qGlaspar2 = new Query(eGlaspar2.values()).select(eGlaspar2.up, "order by", eGlaspar2.id);
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar, listenerTypset;
+    private Query qGlaspar1 = new Query(eGlaspar1.values(), eParams.values());
+    private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar, listenerTypset, listenerThicknes;
+    private EditorListener listenerEditor;
     private FrameListener listenerFrame = null;
     private String subsql = "";
     private int nuni = -1;
@@ -61,6 +66,7 @@ public class Glass extends javax.swing.JFrame {
     public Glass() {
         initComponents();
         initElements();
+        listenerCell();
         listenerDict();
         initData();
         initModel();
@@ -73,6 +79,7 @@ public class Glass extends javax.swing.JFrame {
         this.owner = owner;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
+        listenerCell();
         listenerDict();
         initData();
         initModel();
@@ -127,30 +134,111 @@ public class Glass extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text);
-        new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text);
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text) {
+
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (field == eGlaspar1.grup && val != null) {
+
+                    if (Integer.valueOf(String.valueOf(val)) < 0) {
+                        return qGlaspar1.table(eParams.up).get(row).get(eParams.text);
+                    } else {
+                        int numb = qGlaspar1.getAs(row, eGlaspar1.numb);
+                        for (Enam en : ParamList.values()) {
+                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
+                                return en.text();
+                            }
+                        }
+                    }
+                }
+                return val;
+            }
+        };
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text) {
+
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (field == eGlaspar2.grup && val != null) {
+                    if (Integer.valueOf(String.valueOf(val)) < 0) {
+                        return qGlaspar2.table(eParams.up).get(row).get(eParams.text);
+
+                    } else {
+                        int numb = qGlaspar2.getAs(row, eGlaspar2.numb);
+                        for (Enam en : ParamList.values()) {
+                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
+                                return en.text();
+                            }
+                        }
+                    }
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
+
+        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+            DicThicknes frame = new DicThicknes(this, listenerThicknes);
+        });
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
-        
+
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
         });
-        
+
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
             ParColor frame = new ParColor(this, listenerColor, artikl_id);
         });
-        
+
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab3));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
-        });        
-        
+        });
+
+        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+            int row = Util.getSelectedRec(tab1);
+            if (row != -1) {
+                ParGrup frame = new ParGrup(this, listenerPar1, eParams.elem, 13000);
+            }
+        });
+
+        Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
+            Record record = qGlaspar1.get(Util.getSelectedRec(tab3));
+            int grup = record.getInt(eGlaspar1.grup);
+            if (grup < 0) {
+                ParUser frame = new ParUser(this, listenerPar1, grup);
+            } else {
+                List list = ParamList.find(grup).dict();
+                ParSys frame = new ParSys(this, listenerPar1, list);
+            }
+        });
+
+        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+            int row = Util.getSelectedRec(tab2);
+            if (row != -1) {
+                Record record = qGlasdet.table(eArtikl.up).get(row);
+                int paramPart = record.getInt(eArtikl.level1);
+                paramPart = (paramPart == 1 || paramPart == 4) ? 15000 : 14000;
+                ParGrup frame = new ParGrup(this, listenerPar2, eParams.elem, paramPart);
+            }
+        });
+
+        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
+            Record record = qGlaspar1.get(Util.getSelectedRec(tab4));
+            int grup = record.getInt(eGlaspar1.grup);
+            if (grup < 0) {
+                ParUser frame = new ParUser(this, listenerPar2, grup);
+            } else {
+                List list = ParamList.find(grup).dict();
+                ParSys frame = new ParSys(this, listenerPar2, list);
+            }
+        });
+
         Util.setSelectedRow(tab1, 0);
     }
 
@@ -163,8 +251,9 @@ public class Glass extends javax.swing.JFrame {
             Record record = qGlasgrp.table(eGlasgrp.up).get(row);
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
-            qGlaspar1.select(eGlaspar1.up, "where", eGlaspar1.glasgrp_id, "=", id, "order by", eGlaspar1.id);
             qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar1.grup,
+                    "and", eParams.numb, "= 0", "where", eGlaspar1.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -186,6 +275,8 @@ public class Glass extends javax.swing.JFrame {
             Record record = qGlasdet.table(eGlasdet.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qGlaspar2.select(eGlaspar2.up, "where", eGlaspar2.glasdet_id, "=", id, "order by", eGlaspar2.id);
+            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar2.grup,
+                    "and", eParams.numb, "= 0", "where", eGlaspar2.glasdet_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, 0);
@@ -206,11 +297,11 @@ public class Glass extends javax.swing.JFrame {
                 Util.setSelectedRow(tab2, row);
             }
         };
-        
+
         listenerColor = (record) -> {
             Util.listenerColor(record, tab2, qGlasdet, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
         };
-        
+
         listenerColvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = tab2.getSelectedRow();
@@ -219,7 +310,7 @@ public class Glass extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
         };
-        
+
         listenerTypset = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
@@ -228,6 +319,32 @@ public class Glass extends javax.swing.JFrame {
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
             }
+        };
+
+        listenerThicknes = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                String series = record.getStr(0);
+                qGlasdet.set(series, Util.getSelectedRec(tab2), eGlasdet.depth);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+            }
+        };
+
+        listenerPar1 = (record) -> {
+            Util.listenerParam(record, tab3, qGlaspar1, eElempar1.grup, eGlaspar1.numb, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+        };
+
+        listenerPar2 = (record) -> {
+            Util.listenerParam(record, tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.numb, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
+        };
+    }
+
+    private void listenerCell() {
+
+        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(component, tab3, tab4, qGlaspar1, qGlaspar2, tab1, tab2, tab3, tab4, tab5);
         };
     }
 

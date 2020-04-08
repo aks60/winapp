@@ -27,7 +27,7 @@ public class DicSeries extends javax.swing.JDialog {
     }
 
     private void initData() {
-        qArtikl.select("select distinct series from artikl order by series");
+        qArtikl.select("select distinct " + eArtikl.series.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.series.name());
     }
 
     private void initModel() {
@@ -50,7 +50,7 @@ public class DicSeries extends javax.swing.JDialog {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(200, 600));
+        setPreferredSize(new java.awt.Dimension(200, 500));
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -147,7 +147,7 @@ public class DicSeries extends javax.swing.JDialog {
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(200, 540));
+        panCentr.setPreferredSize(new java.awt.Dimension(200, 440));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
