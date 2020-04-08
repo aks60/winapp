@@ -174,7 +174,7 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
+        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.toin, eGlasprof.toout);
 
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             DicThicknes frame = new DicThicknes(this, listenerThicknes);
@@ -260,8 +260,7 @@ public class Filling extends javax.swing.JFrame {
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
             qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
-            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar1.grup,
-                    "and", eParams.numb, "= 0", "where", eGlaspar1.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar1.grup, "and", eParams.numb, "= 0", "where", eGlaspar1.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -305,7 +304,12 @@ public class Filling extends javax.swing.JFrame {
                 Util.setSelectedRow(tab2, row);
                 
             } else if(tab5.getBorder() != null) {
-                
+                int row = tab5.getSelectedRow();
+                qGlasprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab5), eGlasprof.artikl_id);
+                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab5), eArtikl.name);
+                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab5), eArtikl.code);
+                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab5, row);                
             }
         };
 
@@ -604,13 +608,21 @@ public class Filling extends javax.swing.JFrame {
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", "7", "2"},
-                {"rrrrrrrrrrr", "pppppppppp", "77", "2", "4"}
+                {"yyyyyyyy", "fffffffffffffff", "44", null, null},
+                {"rrrrrrrrrrr", "pppppppppp", "77", null, null}
             },
             new String [] {
                 "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab5.setFillsViewportHeight(true);
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
