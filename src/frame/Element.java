@@ -59,12 +59,12 @@ public class Element extends javax.swing.JFrame
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar;
     private FrameListener listenerFrame = null;
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
     private EditorListener listenerEditor;
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar;
 
     public Element() {
         initComponents();
@@ -72,8 +72,7 @@ public class Element extends javax.swing.JFrame
         listenerCell();
         listenerDict();
         initData();
-        initModel();
-        Util.setSelectedRow(tab1, 0);
+        initModel();        
     }
 
     public Element(java.awt.Window owner, int nuni) {
@@ -90,7 +89,6 @@ public class Element extends javax.swing.JFrame
         listenerDict();
         initData();
         initModel();
-        Util.setSelectedRow(tab1, 0);
     }
 
     private void initData() {
@@ -114,6 +112,7 @@ public class Element extends javax.swing.JFrame
                 break;
             }
         }
+        Util.setSelectedRow(tab1, 0);
     }
 
     private void initModel() {
@@ -289,10 +288,10 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
             Util.clearTable(tab2, tab3, tab4, tab5);
             Record record = qElemgrp.get(row);
             Integer id = record.getInt(eElemgrp.id);
@@ -319,10 +318,10 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
             Util.clearTable(tab3, tab4, tab5);
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
@@ -338,10 +337,10 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab3(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElempar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab3);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qElempar2).forEach(q -> q.execsql());
             Record record = qElemdet.table(eElemdet.up).get(row);
             Integer p1 = record.getInt(eElemdet.id);
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup,
@@ -365,7 +364,7 @@ public class Element extends javax.swing.JFrame
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            
+
             if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
                 qElement.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElement.artikl_id);
@@ -571,7 +570,7 @@ public class Element extends javax.swing.JFrame
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(148, 148, 148)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 496, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -597,7 +596,7 @@ public class Element extends javax.swing.JFrame
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 801, Short.MAX_VALUE)
+            .addGap(0, 872, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

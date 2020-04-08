@@ -269,10 +269,10 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
             Util.clearTable(tab2, tab3, tab4, tab5);
             Record record = qJoining.table(eJoining.up).get(row);
             Integer id = record.getInt(eJoining.id);
@@ -283,10 +283,10 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
             Util.clearTable(tab3, tab4, tab5);
             Record record = qJoinvar.table(eJoinvar.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
@@ -300,10 +300,10 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab4(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qJoinpar2).forEach(q -> q.execsql());
         int row = Util.getSelectedRec(tab4);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qJoinpar2).forEach(q -> q.execsql());
             Record record = qJoindet.table(eJoindet.up).get(row);
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.grup);
@@ -313,7 +313,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void listenerDict() {
-        
+
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab1.getBorder() != null) {

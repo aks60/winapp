@@ -1,5 +1,6 @@
 package frame;
 
+import common.DialogListener;
 import common.Util;
 import common.FrameListener;
 import common.FrameToFile;
@@ -28,14 +29,30 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
+import dataset.Field;
+import dialog.DicArtikl;
+import dialog.DicColvar;
+import dialog.ParColor;
+import domain.eColor;
+import domain.eElemdet;
+import domain.eElement;
+import domain.eElemgrp;
+import domain.eElempar1;
+import domain.eElempar2;
+import domain.eJoining;
+import domain.eParams;
+import enums.VarColcalc;
 
 public class Glass extends javax.swing.JFrame {
 
+    private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
+    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
     private Query qGlasgrp = new Query(eGlasgrp.values());
     private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
-    private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values()).select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
+    private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
     private Query qGlaspar1 = new Query(eGlaspar1.values()).select(eGlaspar1.up, "order by", eGlaspar1.id);
     private Query qGlaspar2 = new Query(eGlaspar2.values()).select(eGlaspar2.up, "order by", eGlaspar2.id);
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar, listenerTypset;
     private FrameListener listenerFrame = null;
     private String subsql = "";
     private int nuni = -1;
@@ -44,6 +61,7 @@ public class Glass extends javax.swing.JFrame {
     public Glass() {
         initComponents();
         initElements();
+        listenerDict();
         initData();
         initModel();
     }
@@ -55,22 +73,15 @@ public class Glass extends javax.swing.JFrame {
         this.owner = owner;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
+        listenerDict();
         initData();
         initModel();
     }
 
-    private void initModel() {
-        new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
-        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.id, eGlasdet.id);
-        new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text);
-        new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text);
-        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
-    }
-
     private void initData() {
+        qColor.select(eColor.up);
+        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
         if (owner == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
@@ -84,10 +95,71 @@ public class Glass extends javax.swing.JFrame {
         }
     }
 
+    private void initModel() {
+        new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
+        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types) {
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                Field field = columns[col];
+                if (eGlasdet.color_fk == field) {
+                    int colorFk = Integer.valueOf(val.toString());
+                    if (Integer.valueOf(VarColcalc.automatic[0]) == colorFk) {
+                        return VarColcalc.automatic[1];
+
+                    } else if (Integer.valueOf(VarColcalc.precision[0]) == colorFk) {
+                        return VarColcalc.precision[1];
+                    }
+                    if (colorFk > 0) {
+                        return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+                    } else {
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                    }
+                } else if (eGlasdet.types == field) {
+                    int types = Integer.valueOf(val.toString());
+
+                    if (VarColcalc.find(types) != null) {
+                        return VarColcalc.find(types).name;
+                    } else {
+                        return null;
+                    }
+                }
+                return val;
+            }
+        };
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text);
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text);
+        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.id, eGlasprof.id);
+
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+        });
+        
+        Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+        });
+        
+        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            int artikl_id = record.getInt(eElemdet.artikl_id);
+            ParColor frame = new ParColor(this, listenerColor, artikl_id);
+        });
+        
+        Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
+            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            int colorFk = record.getInt(eGlasdet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+        });        
+        
+        Util.setSelectedRow(tab1, 0);
+    }
+
     private void selectionTab1(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         int row = getSelectedRec(tab1);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            Util.clearTable(tab2, tab3, tab4, tab5);
             Record record = qGlasgrp.table(eGlasgrp.up).get(row);
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
@@ -100,21 +172,63 @@ public class Glass extends javax.swing.JFrame {
             Util.setSelectedRow(tab3, 0);
             Util.setSelectedRow(tab4, 0);
             Util.setSelectedRow(tab5, 0);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, 0);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         int row = getSelectedRec(tab2);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            Util.clearTable(tab4, tab5);
             Record record = qGlasdet.table(eGlasdet.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qGlaspar2.select(eGlaspar2.up, "where", eGlaspar2.glasdet_id, "=", id, "order by", eGlaspar2.id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            if (tab4.getRowCount() > 0) {
-                tab4.setRowSelectionInterval(0, 0);
-            }
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4, 0);
+            Util.setSelectedRow(tab5, 0);
         }
+    }
+
+    private void listenerDict() {
+
+        listenerArtikl = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                qGlasdet.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eGlasdet.artikl_id);
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+            }
+        };
+        
+        listenerColor = (record) -> {
+            Util.listenerColor(record, tab2, qGlasdet, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
+        };
+        
+        listenerColvar = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = tab2.getSelectedRow();
+            Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
+            glasdetRec.set(eGlasdet.types, record.getInt(0));
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, row);
+        };
+        
+        listenerTypset = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                qGlasdet.set(record.getInt(0), Util.getSelectedRec(tab2), eElement.typset);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+            }
+        };
     }
 
     @SuppressWarnings("unchecked")
@@ -145,6 +259,7 @@ public class Glass extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Заполнения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(1000, 589));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -153,7 +268,7 @@ public class Glass extends javax.swing.JFrame {
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(1000, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -245,10 +360,10 @@ public class Glass extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(800, 560));
+        panCentr.setPreferredSize(new java.awt.Dimension(1000, 560));
         panCentr.setLayout(new java.awt.BorderLayout());
 
-        pan1.setPreferredSize(new java.awt.Dimension(700, 200));
+        pan1.setPreferredSize(new java.awt.Dimension(1000, 200));
         pan1.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -256,8 +371,8 @@ public class Glass extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Мммммммммм", "1", "111"},
-                {"Ррррррррррр", "2", "222"}
+                {"Мммммммммм", "1", "1,2,3"},
+                {"Ррррррррррр", "2", "1,2,3"}
             },
             new String [] {
                 "Название", "Зазор", "Толщины доступные"
@@ -301,7 +416,7 @@ public class Glass extends javax.swing.JFrame {
 
         tabb1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         tabb1.setToolTipText("");
-        tabb1.setPreferredSize(new java.awt.Dimension(800, 300));
+        tabb1.setPreferredSize(new java.awt.Dimension(1000, 300));
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -310,8 +425,8 @@ public class Glass extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"eeeeeeeeee", "22", null, null, null},
-                {"mmmmmmm", "44", null, null, null}
+                {"4мм", "22www", "xxxxxxxxxxx", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm"},
+                {"12мм", "44vvvv", "vvvvvvvvvvv", "hhhhhhhhhhhhhhh", "kkkkkkkkkkkkkkkkkk"}
             },
             new String [] {
                 "Толщина", "Артикул", "Название", "Текстура", "Подбор"
@@ -321,14 +436,11 @@ public class Glass extends javax.swing.JFrame {
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(4).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
         }
 
         pan4.add(scr2, java.awt.BorderLayout.CENTER);
@@ -405,114 +517,53 @@ public class Glass extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-            if (tab1.getBorder() != null) {
-                Record glasgrpRec = qGlasgrp.get(getSelectedRec(tab1));
-                glasgrpRec.set(eGlasgrp.up, Query.DEL);
-                qGlasgrp.delete(glasgrpRec);
-                qGlasgrp.removeRec(getSelectedRec(tab1));
-                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab1, 0);
-
-            } else if (tab2.getBorder() != null) {
-                Record glasdetRec = qGlasdet.get(getSelectedRec(tab2));
-                glasdetRec.set(eGlasdet.up, Query.DEL);
-                qGlasdet.delete(glasdetRec);
-                qGlasdet.removeRec(getSelectedRec(tab2));
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, 0);
-
-            } else if (tab3.getBorder() != null) {
-                Record glaspar1Rec = qGlaspar1.get(getSelectedRec(tab3));
-                glaspar1Rec.set(eGlaspar1.up, Query.DEL);
-                qGlaspar1.delete(glaspar1Rec);
-                qGlaspar1.removeRec(getSelectedRec(tab3));
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab3, 0);
-
-            } else if (tab4.getBorder() != null) {
-                Record glaspar2Rec = qGlaspar2.get(getSelectedRec(tab4));
-                glaspar2Rec.set(eGlaspar2.up, Query.DEL);
-                qGlaspar2.delete(glaspar2Rec);
-                qGlaspar2.removeRec(getSelectedRec(tab4));
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab4, 0);
-
-            } else if (tab5.getBorder() != null) {
-                Record glasprofRec = qGlasprof.get(getSelectedRec(tab4));
-                glasprofRec.set(eGlasprof.up, Query.DEL);
-                qGlasprof.delete(glasprofRec);
-                qGlasprof.removeRec(getSelectedRec(tab5));
-                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab5, 0);
+        if (tab1.getBorder() != null) {
+            if (Util.isDeleteRecord(this, tab2, tab3, tab5) == 0) {
+                Util.deleteRecord(tab1, qGlasgrp, eGlasgrp.up);
+            }
+        } else if (tab2.getBorder() != null) {
+            if (Util.isDeleteRecord(this, tab4) == 0) {
+                Util.deleteRecord(tab2, qGlasdet, eGlasdet.up);
+            }
+        } else if (tab3.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab3, qGlaspar1, eGlaspar1.up);
+            }
+        } else if (tab4.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab4, qGlaspar2, eGlaspar2.up);
+            }
+        } else if (tab5.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab5, qGlasprof, eGlasprof.up);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+
         if (tab1.getBorder() != null) {
-            Record glasgrpRec = qGlasgrp.newRecord(Query.INS);
-            glasgrpRec.setNo(eGlasgrp.id, ConnApp.instanc().genId(eGlasgrp.up));
-            qGlasgrp.add(glasgrpRec);
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            scrollRectToVisible(qGlasgrp, tab1);
+            Util.insertRecord(tab1, qGlasgrp, eGlasgrp.up);
 
         } else if (tab2.getBorder() != null) {
-            int row = getSelectedRec(tab1);
-            if (row != -1) {
-                Record glasgrpRec = qGlasgrp.get(row);
-                Record glasdetRec = qGlasdet.newRecord(Query.INS);
-                Record artiklRec = eArtikl.up.newRecord();
-                glasdetRec.setNo(eGlasdet.id, ConnApp.instanc().genId(eGlasdet.up));
-                glasdetRec.setNo(eGlasdet.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
-                qGlasdet.add(glasdetRec);
-                qGlasdet.table(eArtikl.up).add(artiklRec);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                scrollRectToVisible(qGlasdet, tab2);
-            }
+            Util.insertRecord(tab1, tab2, qGlasgrp, qGlasdet, eGlasgrp.up, eGlasdet.up, eArtikl.up, eGlasdet.glasgrp_id);
+
         } else if (tab3.getBorder() != null) {
-            int row = getSelectedRec(tab1);
-            if (row != -1) {
-                Record glasgrpRec = qGlasgrp.get(row);
-                Record glaspar1Rec = qGlaspar1.newRecord(Query.INS);
-                glaspar1Rec.setNo(eGlaspar1.id, ConnApp.instanc().genId(eGlaspar1.up));
-                glaspar1Rec.setNo(eGlaspar1.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
-                qGlaspar1.add(glaspar1Rec);
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qGlaspar1, tab3);
-            }
+            Util.insertRecord(tab1, tab3, qGlasgrp, qGlaspar1, eGlasgrp.up, eGlaspar1.up, eGlaspar1.glasgrp_id);
+
         } else if (tab4.getBorder() != null) {
-            int row = getSelectedRec(tab2);
-            if (row != -1) {
-                Record glasdetRec = qGlasdet.get(row);
-                Record glaspar2Rec = qGlaspar2.newRecord(Query.INS);
-                glaspar2Rec.setNo(eGlaspar2.id, ConnApp.instanc().genId(eGlaspar2.up));
-                glaspar2Rec.setNo(eGlaspar2.glasdet_id, glasdetRec.getInt(eGlasdet.id));
-                qGlaspar2.add(glaspar2Rec);
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qGlaspar2, tab4);
-            }
+            Util.insertRecord(tab2, tab4, qGlasdet, qGlaspar2, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
+
         } else if (tab5.getBorder() != null) {
-            int row = getSelectedRec(tab1);
-            if (row != -1) {
-                Record glasgrpRec = qGlasgrp.get(row);
-                Record glasprofRec = qGlasprof.newRecord(Query.INS);
-                Record artiklRec = eArtikl.up.newRecord();
-                glasprofRec.setNo(eGlasprof.id, ConnApp.instanc().genId(eGlasprof.up));
-                glasprofRec.setNo(eGlasprof.glasgrp_id, glasgrpRec.getInt(eGlasgrp.id));
-                qGlasprof.add(glasprofRec);
-                qGlasprof.table(eArtikl.up).add(artiklRec);
-                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                scrollRectToVisible(qGlasprof, tab5);
-            }
+            Util.insertRecord(tab1, tab5, qGlasgrp, qGlasprof, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
+
         }
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qGlasgrp, qGlasdet, qGlasprof, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+        Arrays.asList(qGlasgrp, qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
