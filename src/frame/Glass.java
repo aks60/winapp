@@ -68,8 +68,8 @@ public class Glass extends javax.swing.JFrame {
         initElements();
         listenerCell();
         listenerDict();
-        initData();
-        initModel();
+        loadData();
+        loadModel();
     }
 
     public Glass(java.awt.Window owner, int nuni) {
@@ -81,11 +81,11 @@ public class Glass extends javax.swing.JFrame {
         owner.setEnabled(false);
         listenerCell();
         listenerDict();
-        initData();
-        initModel();
+        loadData();
+        loadModel();
     }
 
-    private void initData() {
+    private void loadData() {
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
@@ -102,7 +102,7 @@ public class Glass extends javax.swing.JFrame {
         }
     }
 
-    private void initModel() {
+    private void loadModel() {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types) {
 
@@ -239,6 +239,14 @@ public class Glass extends javax.swing.JFrame {
             }
         });
 
+        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });        
+
+        Util.buttonEditorCell(tab5, 1).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });        
+
         Util.setSelectedRow(tab1, 0);
     }
 
@@ -295,6 +303,9 @@ public class Glass extends javax.swing.JFrame {
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
+                
+            } else if(tab5.getBorder() != null) {
+                
             }
         };
 
@@ -376,7 +387,6 @@ public class Glass extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Заполнения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(1000, 589));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -628,7 +638,7 @@ public class Glass extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        initData();
+        loadData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh

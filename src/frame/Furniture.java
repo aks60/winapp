@@ -45,8 +45,8 @@ public class Furniture extends javax.swing.JFrame {
     public Furniture() {
         initComponents();
         initElements();
-        initData();
-        initModel();
+        loadData();
+        loadModel();
     }
 
     public Furniture(java.awt.Window owner, int nuni) {
@@ -56,11 +56,11 @@ public class Furniture extends javax.swing.JFrame {
         this.nuni = nuni;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
-        initData();
-        initModel();
+        loadData();
+        loadModel();
     }
 
-    private void initModel() {
+    private void loadModel() {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
                 eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim);
         new DefTableModel(tab2, qFurndet, eArtikl.code, eArtikl.code, eArtikl.name, eColor.name, eFurndet.types);
@@ -71,7 +71,7 @@ public class Furniture extends javax.swing.JFrame {
         Util.setSelectedRow(tab1, 0);
     }
 
-    private void initData() {
+    private void loadData() {
         if (owner == null) {
             qFurniture.select(eFurniture.up, "order by", eFurniture.name);
         } else {
@@ -488,7 +488,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        initData();
+        loadData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_btnRefresh

@@ -27,7 +27,7 @@ public class Currenc extends javax.swing.JFrame {
     public Currenc() {
         initComponents();
         initElements();
-        initModel();
+        loadModel();
         btnChoice.setVisible(false);
         setVisible(true);
     }
@@ -35,14 +35,14 @@ public class Currenc extends javax.swing.JFrame {
     public Currenc(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
-        initModel();
+        loadModel();
         this.owner = owner;
         owner.setEnabled(false);
         this.listener = listener;
         btnChoice.setVisible(true);
     }
 
-    private void initModel() {
+    private void loadModel() {
         new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour);
     }
 

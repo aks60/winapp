@@ -60,7 +60,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     public BoxTypical() {
         initComponents();
         initElements();
-        initModel();
+        loadModel();
         btnChoice.setVisible(false);
         btnRemov.setVisible(false);
         loadTab1();
@@ -69,14 +69,14 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     public BoxTypical(java.awt.Window owner) {
         initComponents();
         initElements();
-        initModel();
+        loadModel();
         this.owner = owner;
         listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
         loadTab1();
     }
 
-    private void initModel() {
+    private void loadModel() {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
