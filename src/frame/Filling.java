@@ -631,6 +631,8 @@ public class Filling extends javax.swing.JFrame {
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(120);
             tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(3).setMaxWidth(120);
             tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
