@@ -46,6 +46,7 @@ import enums.Enam;
 import enums.ParamList;
 import enums.VarColcalc;
 import java.util.List;
+import swing.BooleanRenderer;
 
 public class Filling extends javax.swing.JFrame {
 
@@ -174,8 +175,11 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qGlasprof, eGlasprof.sizeax, eArtikl.code, eArtikl.name, eGlasprof.toin, eGlasprof.toout);
+        new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.sizeax, eGlasprof.toin, eGlasprof.toout);
 
+        BooleanRenderer br = new BooleanRenderer();
+        Arrays.asList(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
+        
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             DicThicknes frame = new DicThicknes(this, listenerThicknes);
         });
@@ -298,16 +302,16 @@ public class Filling extends javax.swing.JFrame {
             if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
                 qGlasdet.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eGlasdet.artikl_id);
-                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+                qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
                 
             } else if(tab5.getBorder() != null) {
                 int row = tab5.getSelectedRow();
                 qGlasprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab5), eGlasprof.artikl_id);
+                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab5), eArtikl.code); 
                 qGlasprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab5), eArtikl.name);
-                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab5), eArtikl.code);
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab5, row);                
             }
