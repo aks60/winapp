@@ -47,7 +47,7 @@ import enums.ParamList;
 import enums.VarColcalc;
 import java.util.List;
 
-public class Glass extends javax.swing.JFrame {
+public class Filling extends javax.swing.JFrame {
 
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
@@ -63,7 +63,7 @@ public class Glass extends javax.swing.JFrame {
     private int nuni = -1;
     private Window owner = null;
 
-    public Glass() {
+    public Filling() {
         initComponents();
         initElements();
         listenerCell();
@@ -72,7 +72,7 @@ public class Glass extends javax.swing.JFrame {
         loadModel();
     }
 
-    public Glass(java.awt.Window owner, int nuni) {
+    public Filling(java.awt.Window owner, int nuni) {
         initComponents();
         initElements();
         this.nuni = nuni;
