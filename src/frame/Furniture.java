@@ -70,6 +70,8 @@ public class Furniture extends javax.swing.JFrame {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
                 eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim);
         new DefTableModel(tab2a, qFurndet1, eArtikl.code, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
+        new DefTableModel(tab2b, qFurndet2, eArtikl.code, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
+        new DefTableModel(tab2c, qFurndet3, eArtikl.code, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
         new DefTableModel(tab3, qFurnpar2, eFurnpar2.grup, eFurnpar2.text);
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side);
         new DefTableModel(tab5, qFurnpar1, eFurnpar1.grup, eFurnpar1.text);
@@ -78,6 +80,8 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        qColor.select(eColor.up);
+        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         if (owner == null) {
             qFurniture.select(eFurniture.up, "order by", eFurniture.name);
         } else {
@@ -94,16 +98,44 @@ public class Furniture extends javax.swing.JFrame {
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.npp);
-
             qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id, "=", id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2a, 0);
             Util.setSelectedRow(tab4, 0);
         }
     }
 
-    private void selectionTab2(ListSelectionEvent event) {
+    private void selectionTab2a(ListSelectionEvent event) {
+        int row = getSelectedRec(tab2a);
+        if (row != -1) {
+            Record record = qFurndet1.table(eFurndet.up).get(row);
+            Integer id = record.getInt(eFurndet.id);
+            
+            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab6, 0);
+        }
+    }
+
+    private void selectionTab2b(ListSelectionEvent event) {
+        int row = getSelectedRec(tab2a);
+        if (row != -1) {
+            Record record = qFurndet1.table(eFurndet.up).get(row);
+            Integer id = record.getInt(eFurndet.id);
+            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab6, 0);
+        }
+    }
+
+    private void selectionTab2c(ListSelectionEvent event) {
         int row = getSelectedRec(tab2a);
         if (row != -1) {
             Record record = qFurndet1.table(eFurndet.up).get(row);
@@ -555,12 +587,12 @@ public class Furniture extends javax.swing.JFrame {
 //            if (Util.isDeleteRecord(this, tab2a, tab2b, tab2c, tab4) == 0) {
 //                Util.deleteRecord(tab1, qFurniture, eFurniture.up);
 //            }
-                Record furnitureRec = qFurniture.get(getSelectedRec(tab1));
-                furnitureRec.set(eFurniture.up, Query.DEL);
-                qFurniture.delete(furnitureRec);
-                qFurniture.removeRec(getSelectedRec(tab1));
-                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab1, 0);
+            Record furnitureRec = qFurniture.get(getSelectedRec(tab1));
+            furnitureRec.set(eFurniture.up, Query.DEL);
+            qFurniture.delete(furnitureRec);
+            qFurniture.removeRec(getSelectedRec(tab1));
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab1, 0);
 
         } else if (tab2a.getBorder() != null) {
             Record furndetRec = qFurndet1.get(getSelectedRec(tab2a));
@@ -735,7 +767,7 @@ public class Furniture extends javax.swing.JFrame {
 
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab2(event);
+                    selectionTab2a(event);
                 }
             }
         });
@@ -743,7 +775,7 @@ public class Furniture extends javax.swing.JFrame {
 
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab2(event);
+                    selectionTab2b(event);
                 }
             }
         });
@@ -751,10 +783,10 @@ public class Furniture extends javax.swing.JFrame {
 
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab2(event);
+                    selectionTab2c(event);
                 }
             }
-        });        
+        });
         tab4.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -762,7 +794,7 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         });
-        tab1.addFocusListener(listenerFocus);       
+        tab1.addFocusListener(listenerFocus);
         tab2a.addFocusListener(listenerFocus);
         tab2b.addFocusListener(listenerFocus);
         tab2c.addFocusListener(listenerFocus);

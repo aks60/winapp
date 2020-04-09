@@ -88,12 +88,12 @@ public class Accessory extends Cal5e {
                 if (ret1 == true) {
 
                     for (Record furndetRec2 : furndetList) {
-                        if (furndetRec2.getInt(eFurndet.level) == 2 && furndetRec.getInt(eFurndet.fincb) == furndetRec2.getInt(eFurndet.fincs)) {
+                        if (furndetRec2.getInt(eFurndet.level) == 2 && furndetRec.getInt(eFurndet.id2) == furndetRec2.getInt(eFurndet.fincs)) {
                             boolean ret2 = nested2(fullStvorka, furndetRec2, count);
                             if (ret2 == true) {
 
                                 for (Record furndetRec3 : furndetList) {
-                                    if (furndetRec3.getInt(eFurndet.level) == 3 && furndetRec2.getInt(eFurndet.fincb) == furndetRec3.getInt(eFurndet.fincs)) {
+                                    if (furndetRec3.getInt(eFurndet.level) == 3 && furndetRec2.getInt(eFurndet.id2) == furndetRec3.getInt(eFurndet.fincs)) {
                                         boolean ret3 = nested2(fullStvorka, furndetRec3, count);
                                     }
                                 }
