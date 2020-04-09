@@ -66,19 +66,6 @@ public class Furniture extends javax.swing.JFrame {
         loadingModel();
     }
 
-    private void loadingModel() {
-        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
-                eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim);
-        new DefTableModel(tab2a, qFurndet1, eArtikl.code, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
-        new DefTableModel(tab2b, qFurndet2, eArtikl.code, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
-        new DefTableModel(tab2c, qFurndet3, eArtikl.code, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
-        new DefTableModel(tab3, qFurnpar2, eFurnpar2.grup, eFurnpar2.text);
-        new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side);
-        new DefTableModel(tab5, qFurnpar1, eFurnpar1.grup, eFurnpar1.text);
-        new DefTableModel(tab6, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max);
-        Util.setSelectedRow(tab1, 0);
-    }
-
     private void loadingData() {
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
@@ -92,13 +79,28 @@ public class Furniture extends javax.swing.JFrame {
         }
     }
 
+    private void loadingModel() {
+        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
+                eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim);
+        new DefTableModel(tab2a, qFurndet1, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
+        new DefTableModel(tab2b, qFurndet2, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
+        new DefTableModel(tab2c, qFurndet3, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types);
+        new DefTableModel(tab3, qFurnpar2, eFurnpar2.grup, eFurnpar2.text);
+        new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side);
+        new DefTableModel(tab5, qFurnpar1, eFurnpar1.grup, eFurnpar1.text);
+        new DefTableModel(tab6, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max);
+        Util.setSelectedRow(tab1, 0);
+    }
+
     private void selectionTab1(ListSelectionEvent event) {
         int row = getSelectedRec(tab1);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.npp);
-            qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id, "=", id);
+            qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id, "=", id, "order by", eArtikl.code);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2a, 0);
@@ -109,43 +111,61 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab2a(ListSelectionEvent event) {
         int row = getSelectedRec(tab2a);
         if (row != -1) {
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.clearTable(tab2b, tab2c, tab3, tab6);
             Record record = qFurndet1.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            
-            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
-            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab6, 0);
+            qFurndet2.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "order by", eArtikl.code);
+            ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2b, 0);
+
+            if (tabb1.getSelectedIndex() == 0) {
+                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+                qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab3, 0);
+                Util.setSelectedRow(tab6, 0);
+            }
         }
     }
 
     private void selectionTab2b(ListSelectionEvent event) {
-        int row = getSelectedRec(tab2a);
+        int row = getSelectedRec(tab2b);
         if (row != -1) {
-            Record record = qFurndet1.table(eFurndet.up).get(row);
+            Util.stopCellEditing(tab2c, tab3, tab6);
+            Record record = qFurndet2.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
-            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab6, 0);
+            qFurndet3.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "order by", eArtikl.code);
+            ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2c, 0);
+
+            if (tabb1.getSelectedIndex() == 1) {
+                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+                qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab3, 0);
+                Util.setSelectedRow(tab6, 0);
+            }
         }
     }
 
     private void selectionTab2c(ListSelectionEvent event) {
-        int row = getSelectedRec(tab2a);
-        if (row != -1) {
-            Record record = qFurndet1.table(eFurndet.up).get(row);
-            Integer id = record.getInt(eFurndet.id);
-            qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
-            qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab6, 0);
+        
+        if (tabb1.getSelectedIndex() == 2) {
+            int row = getSelectedRec(tab2c);
+            if (row != -1) {
+                Util.stopCellEditing(tab3, tab6);
+                Record record = qFurndet3.table(eFurndet.up).get(row);
+                Integer id = record.getInt(eFurndet.id);
+                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+                qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab3, 0);
+                Util.setSelectedRow(tab6, 0);
+            }
         }
     }
 

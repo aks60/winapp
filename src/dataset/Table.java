@@ -55,7 +55,6 @@ public class Table extends ArrayList<Record> {
         return (obj == null) ? (T) def : (T) obj;
     }
 
-    //TODO необходимо сделать через  "Table table = table(field.tname());"
     public Record newRecord(String up) {
         Record record = new Record(this);
         for (Field field : fields.get(0).fields()) {

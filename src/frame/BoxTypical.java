@@ -775,7 +775,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_formWindowClosed
 
     private void btnRemovresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovresh
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_btnRemovresh
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
