@@ -326,7 +326,6 @@ public class Element extends javax.swing.JFrame
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
-            //qElemdet.select(eElemdet.up, "where", eElemdet.element_id, "=", p1, "order by", eElemdet.element_id);
             qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup,
                     "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();

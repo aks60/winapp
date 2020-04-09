@@ -89,17 +89,14 @@ public class Filling extends javax.swing.JFrame {
     private void loadingData() {
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
-        qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
+        //qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id);
         if (owner == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
-            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
         } else {
             Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
             query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
             subsql = "(" + subsql.substring(1) + ")";
-            qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up.tname(),
-                    "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
-            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id);
+            qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up.tname(), "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
         }
     }
 
@@ -179,7 +176,7 @@ public class Filling extends javax.swing.JFrame {
 
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
-        
+
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             DicThicknes frame = new DicThicknes(this, listenerThicknes);
         });
@@ -245,11 +242,11 @@ public class Filling extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-        });        
+        });
 
         Util.buttonEditorCell(tab5, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-        });        
+        });
 
         Util.setSelectedRow(tab1, 0);
     }
@@ -264,16 +261,14 @@ public class Filling extends javax.swing.JFrame {
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
             qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
-            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar1.grup, "and", eParams.numb, "= 0", "where", eGlaspar1.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.grup, "=",
+                    eGlaspar1.grup, "and", eParams.numb, "= 0", "where", eGlaspar1.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, 0);
             Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab4, 0);
             Util.setSelectedRow(tab5, 0);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
         }
     }
 
@@ -282,16 +277,13 @@ public class Filling extends javax.swing.JFrame {
         if (row != -1) {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
-            Util.clearTable(tab4, tab5);
+            Util.clearTable(tab4);
             Record record = qGlasdet.table(eGlasdet.up).get(row);
-            Integer id = record.getInt(eJoinvar.id);
-            qGlaspar2.select(eGlaspar2.up, "where", eGlaspar2.glasdet_id, "=", id, "order by", eGlaspar2.id);
+            Integer id = record.getInt(eGlasdet.id);
             qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar2.grup,
                     "and", eParams.numb, "= 0", "where", eGlaspar2.glasdet_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, 0);
-            Util.setSelectedRow(tab5, 0);
         }
     }
 
@@ -306,14 +298,14 @@ public class Filling extends javax.swing.JFrame {
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
-                
-            } else if(tab5.getBorder() != null) {
+
+            } else if (tab5.getBorder() != null) {
                 int row = tab5.getSelectedRow();
                 qGlasprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab5), eGlasprof.artikl_id);
-                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab5), eArtikl.code); 
+                qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab5), eArtikl.code);
                 qGlasprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab5), eArtikl.name);
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab5, row);                
+                Util.setSelectedRow(tab5, row);
             }
         };
 
@@ -631,6 +623,8 @@ public class Filling extends javax.swing.JFrame {
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(120);
             tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(3).setMaxWidth(120);
             tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
