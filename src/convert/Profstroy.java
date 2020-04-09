@@ -95,7 +95,7 @@ public class Profstroy {
             eCurrenc.up
         };
         try {
-            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2_clear.fdb?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
@@ -382,12 +382,12 @@ public class Profstroy {
             deleteSql(eGlaspar1.up, "psss", eGlasgrp.up, "gnumb");//glasgrp_id
             deleteSql(eGlaspar2.up, "psss", eGlasdet.up, "gunic");//glasdet_id
             deleteSql(eFurnside1.up, "funic", eFurniture.up, "funic");//furniture_id
-            deleteSql(eFurnside2.up, "fincs", eFurndet.up, "fincb");
+            deleteSql(eFurnside2.up, "furndet_id", eFurndet.up, "id");
             deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id  
             deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id
             executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
             executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
-            deleteSql(eFurnpar2.up, "psss", eFurndet.up, "fincb");//furndet_id
+            deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id
             deleteSql(eSysprof.up, "anumb", eArtikl.up, "code");//artikl_id 
             deleteSql(eSysprof.up, "nuni", eSystree.up, "nuni");//systree_id 
             deleteSql(eSysfurn.up, "funic", eFurniture.up, "funic");//furniture_id 
@@ -447,12 +447,12 @@ public class Profstroy {
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set type_side = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
-            updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "fincb");
+            updateSql(eFurnside2.up, eFurnside2.furndet_id, "furndet_id", eFurndet.up, "id");
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
             updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
             executeSql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "fincb");
+            updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
