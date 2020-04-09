@@ -63,7 +63,7 @@ public class Furniture extends javax.swing.JFrame {
     private void loadingModel() {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, eFurniture.width_max,
                 eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim);
-        new DefTableModel(tab2, qFurndet, eArtikl.code, eArtikl.code, eArtikl.name, eColor.name, eFurndet.types);
+        new DefTableModel(tab2a, qFurndet, eArtikl.code, eArtikl.code, eArtikl.name, eColor.name, eFurndet.types);
         new DefTableModel(tab3, qFurnpar2, eFurnpar2.grup, eFurnpar2.text);
         new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side);
         new DefTableModel(tab5, qFurnpar1, eFurnpar1.grup, eFurnpar1.text);
@@ -92,14 +92,14 @@ public class Furniture extends javax.swing.JFrame {
                     "left join", eColor.up, "on", eColor.id, "=", eFurndet.furniture_id,
                     "where", eFurndet.furniture_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
+            ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2a, 0);
             Util.setSelectedRow(tab4, 0);
         }
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = getSelectedRec(tab2);
+        int row = getSelectedRec(tab2a);
         if (row != -1) {
             Record record = qFurndet.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
@@ -136,7 +136,7 @@ public class Furniture extends javax.swing.JFrame {
         rdb1 = new javax.swing.JRadioButton();
         rdb2 = new javax.swing.JRadioButton();
         rdb3 = new javax.swing.JRadioButton();
-        panSentr = new javax.swing.JPanel();
+        panCentr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -151,15 +151,21 @@ public class Furniture extends javax.swing.JFrame {
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
         scr6 = new javax.swing.JScrollPane();
         tab6 = new javax.swing.JTable();
+        tabb1 = new javax.swing.JTabbedPane();
+        scr2a = new javax.swing.JScrollPane();
+        tab2a = new javax.swing.JTable();
+        scr2b = new javax.swing.JScrollPane();
+        tab2b = new javax.swing.JTable();
+        scr2c = new javax.swing.JScrollPane();
+        tab2c = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(1000, 611));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -168,7 +174,7 @@ public class Furniture extends javax.swing.JFrame {
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(800, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(1000, 29));
 
         btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -290,8 +296,8 @@ public class Furniture extends javax.swing.JFrame {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panSentr.setPreferredSize(new java.awt.Dimension(800, 562));
-        panSentr.setLayout(new java.awt.BorderLayout());
+        panCentr.setPreferredSize(new java.awt.Dimension(1000, 562));
+        panCentr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 260));
         pan1.setLayout(new java.awt.BorderLayout());
@@ -326,7 +332,7 @@ public class Furniture extends javax.swing.JFrame {
         pan5.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(null);
-        scr4.setPreferredSize(new java.awt.Dimension(300, 112));
+        scr4.setPreferredSize(new java.awt.Dimension(300, 108));
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -338,6 +344,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         ));
         tab4.setFillsViewportHeight(true);
+        tab4.setPreferredSize(new java.awt.Dimension(300, 32));
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
@@ -349,7 +356,7 @@ public class Furniture extends javax.swing.JFrame {
         pan5.add(scr4, java.awt.BorderLayout.NORTH);
 
         scr5.setBorder(null);
-        scr5.setPreferredSize(new java.awt.Dimension(300, 100));
+        scr5.setPreferredSize(new java.awt.Dimension(300, 80));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -380,7 +387,7 @@ public class Furniture extends javax.swing.JFrame {
 
         pan1.add(pan5, java.awt.BorderLayout.EAST);
 
-        panSentr.add(pan1, java.awt.BorderLayout.NORTH);
+        panCentr.add(pan1, java.awt.BorderLayout.NORTH);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 302));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -420,25 +427,7 @@ public class Furniture extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(null);
-        scr2.setPreferredSize(new java.awt.Dimension(500, 300));
-
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"11", "xxxxxxxxx", "11", "11"},
-                {"22", "vvvvvvvvv", "22", "22"}
-            },
-            new String [] {
-                "Артикул", "Название", "Текстура", "Подбор"
-            }
-        ));
-        tab2.setFillsViewportHeight(true);
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scr2.setViewportView(tab2);
-
-        jPanel1.add(scr2, java.awt.BorderLayout.CENTER);
-
-        scr6.setPreferredSize(new java.awt.Dimension(454, 80));
+        scr6.setPreferredSize(new java.awt.Dimension(454, 108));
 
         tab6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -455,17 +444,73 @@ public class Furniture extends javax.swing.JFrame {
 
         jPanel1.add(scr6, java.awt.BorderLayout.SOUTH);
 
+        scr2a.setBorder(null);
+        scr2a.setPreferredSize(new java.awt.Dimension(500, 200));
+
+        tab2a.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"11", "xxxxxxxxx", "11", "11"},
+                {"22", "vvvvvvvvv", "22", "22"}
+            },
+            new String [] {
+                "Артикул", "Название", "Текстура", "Подбор"
+            }
+        ));
+        tab2a.setFillsViewportHeight(true);
+        tab2a.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr2a.setViewportView(tab2a);
+
+        tabb1.addTab("Детализация   (1 уровень)", scr2a);
+
+        scr2b.setBorder(null);
+        scr2b.setPreferredSize(new java.awt.Dimension(500, 200));
+
+        tab2b.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"11", "xxxxxxxxx", "11", "11"},
+                {"22", "vvvvvvvvv", "22", "22"}
+            },
+            new String [] {
+                "Артикул", "Название", "Текстура", "Подбор"
+            }
+        ));
+        tab2b.setFillsViewportHeight(true);
+        tab2b.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr2b.setViewportView(tab2b);
+
+        tabb1.addTab("Детализация   (2 уровень)", scr2b);
+
+        scr2c.setBorder(null);
+        scr2c.setPreferredSize(new java.awt.Dimension(500, 200));
+
+        tab2c.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"11", "xxxxxxxxx", "11", "11"},
+                {"22", "vvvvvvvvv", "22", "22"}
+            },
+            new String [] {
+                "Артикул", "Название", "Текстура", "Подбор"
+            }
+        ));
+        tab2c.setFillsViewportHeight(true);
+        tab2c.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr2c.setViewportView(tab2c);
+
+        tabb1.addTab("Детализация   (3 уровень)", scr2c);
+
+        jPanel1.add(tabb1, java.awt.BorderLayout.CENTER);
+
         pan6.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pan2.add(pan6, java.awt.BorderLayout.CENTER);
 
-        panSentr.add(pan2, java.awt.BorderLayout.CENTER);
+        panCentr.add(pan2, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panSentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(800, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(1000, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
@@ -506,13 +551,13 @@ public class Furniture extends javax.swing.JFrame {
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab1, 0);
 
-            } else if (tab2.getBorder() != null) {
-                Record furndetRec = qFurndet.get(getSelectedRec(tab2));
+            } else if (tab2a.getBorder() != null) {
+                Record furndetRec = qFurndet.get(getSelectedRec(tab2a));
                 furndetRec.set(eFurndet.up, Query.DEL);
                 qFurndet.delete(furndetRec);
-                qFurndet.removeRec(getSelectedRec(tab2));
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, 0);
+                qFurndet.removeRec(getSelectedRec(tab2a));
+                ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2a, 0);
 
             } else if (tab3.getBorder() != null) {
                 Record urnpar2Rec = qFurnpar2.get(getSelectedRec(tab3));
@@ -557,7 +602,7 @@ public class Furniture extends javax.swing.JFrame {
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qFurniture, tab1);
 
-        } else if (tab2.getBorder() != null) {
+        } else if (tab2a.getBorder() != null) {
             int row = getSelectedRec(tab1);
             if (row != -1) {
                 Record furnityreRec = qFurniture.get(row);
@@ -567,11 +612,11 @@ public class Furniture extends javax.swing.JFrame {
                 qFurndet.add(furndetRec);
                 qFurndet.table(eArtikl.up).add(eArtikl.up.newRecord());
                 qFurndet.table(eColor.up).add(eColor.up.newRecord());
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.scrollRectToVisible(qFurndet, tab2);
+                ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qFurndet, tab2a);
             }
         } else if (tab3.getBorder() != null) {
-            int row = getSelectedRec(tab2);
+            int row = getSelectedRec(tab2a);
             if (row != -1) {
                 Record furndetRec = qFurndet.get(row);
                 Record furnpar2Rec = qFurnpar2.newRecord(Query.INS);
@@ -604,7 +649,7 @@ public class Furniture extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qFurnpar1, tab5);
             }
         } else if (tab6.getBorder() != null) {
-            int row = getSelectedRec(tab2);
+            int row = getSelectedRec(tab2a);
             if (row != -1) {
                 Record furndetRec = qFurndet.get(row);
                 Record furnside2Rec = qFurnside2.newRecord(Query.INS);
@@ -618,7 +663,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
+        Util.stopCellEditing(tab1, tab2a, tab3, tab4, tab5, tab6);
         Arrays.asList(qFurniture, qFurndet, qFurnside1, qFurnpar1, qFurnside2, qFurnpar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
@@ -636,24 +681,29 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
+    private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSentr;
     private javax.swing.JPanel panSouth;
     private javax.swing.JRadioButton rdb1;
     private javax.swing.JRadioButton rdb2;
     private javax.swing.JRadioButton rdb3;
     private javax.swing.JScrollPane scr1;
-    private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr2a;
+    private javax.swing.JScrollPane scr2b;
+    private javax.swing.JScrollPane scr2c;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
     private javax.swing.JTable tab1;
-    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab2a;
+    private javax.swing.JTable tab2b;
+    private javax.swing.JTable tab2c;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     private javax.swing.JTable tab6;
+    private javax.swing.JTabbedPane tabb1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
@@ -665,9 +715,9 @@ public class Furniture extends javax.swing.JFrame {
                     = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6);
+                Util.stopCellEditing(tab1, tab2a, tab3, tab4, tab5, tab6);
                 tab1.setBorder(null);
-                tab2.setBorder(null);
+                tab2a.setBorder(null);
                 tab3.setBorder(null);
                 tab4.setBorder(null);
                 tab5.setBorder(null);
@@ -680,12 +730,12 @@ public class Furniture extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5, tab6));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab3, tab4, tab5, tab6));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab3, tab4, tab5, tab6));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab3, tab4, tab5, tab6));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
-        scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
+        scr2a.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Детализация фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Параметры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
@@ -701,7 +751,7 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab2a.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -717,7 +767,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
         tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
+        tab2a.addFocusListener(listenerFocus);
         tab3.addFocusListener(listenerFocus);
         tab4.addFocusListener(listenerFocus);
         tab5.addFocusListener(listenerFocus);
