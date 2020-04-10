@@ -72,7 +72,7 @@ public class Element extends javax.swing.JFrame
         listenerCell();
         listenerDict();
         loadingData();
-        loadingModel();        
+        loadingModel();
     }
 
     public Element(java.awt.Window owner, int nuni) {
@@ -112,7 +112,6 @@ public class Element extends javax.swing.JFrame
                 break;
             }
         }
-        Util.setSelectedRow(tab1, 0);
     }
 
     private void loadingModel() {
@@ -285,6 +284,7 @@ public class Element extends javax.swing.JFrame
                 ParSys frame = new ParSys(this, listenerPar2, list);
             }
         });
+        Util.setSelectedRow(tab1, 0);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
