@@ -18,11 +18,11 @@ public class DicParlist extends javax.swing.JDialog implements FrameListener<Obj
         initComponents();
         initElements();
         this.listenet = listenet;
-        loading(part);
+        loadingModel(part);
         setVisible(true);
     }
 
-    public void loading(int... part) {
+    public void loadingModel(int... part) {
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
         List<List> list = new Vector();

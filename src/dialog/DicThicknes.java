@@ -21,16 +21,16 @@ public class DicThicknes extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listenet;
-        initData();
-        initModel();
+        loadingData();
+        loadingModel();
         setVisible(true);
     }
 
-    private void initData() {
+    private void loadingData() {
         qArtikl.select("select distinct " + eArtikl.depth.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.depth.name());
     }
 
-    private void initModel() {
+    private void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qArtikl, eArtikl.series));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);

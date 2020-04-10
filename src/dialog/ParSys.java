@@ -19,11 +19,11 @@ public class ParSys extends javax.swing.JDialog {
         this.listener = listener;
         this.list = list;
         initElements();
-        initModel();
+        loadingModel();
         setVisible(true);
     }
     
-    private void initModel() {
+    private void loadingModel() {
         Vector<Vector> vectorData = new Vector();
         for (String str : list) {
             Vector vector = new Vector();

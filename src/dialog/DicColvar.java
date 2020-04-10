@@ -21,11 +21,11 @@ public class DicColvar extends javax.swing.JDialog {
         initElements();
         this.listener = listenet;
         this.colorFk = colorFk;
-        initModel();
+        loadingModel();
         setVisible(true);
     }
 
-    private void initModel() {
+    private void loadingModel() {
         ((DefaultTableModel) tab1.getModel()).setRowCount(0);
         if (colorFk != -1) {
 

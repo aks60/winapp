@@ -27,17 +27,17 @@ public class ParColor extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listener;
-        initData(artikl_id);
-        initModel();
+        loadingData(artikl_id);
+        loadingModel();
         setVisible(true);
     }
 
-    private void initData(int artikl_id) {
+    private void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
         qParams.select(eParams.up, "where", eParams.numb, "= 0 and", eParams.joint, "= 1 order by", eParams.text);
     }
 
-    private void initModel() {
+    private void loadingModel() {
 
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();

@@ -32,16 +32,16 @@ public class ParGrup extends javax.swing.JDialog {
         this.parent = parent;
         this.listener = listener;
         this.filter = filter;
-        initData();
-        initModel(part);
+        loadingData();
+        loadingModel(part);
         setVisible(true);
     }
 
-    private void initData() {
+    private void loadingData() {
         qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.numb, "= 0", "order by", eParams.text);
     }
 
-    private void initModel(int... part) {
+    private void loadingModel(int... part) {
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().clear();
         List<List> recordList = new Vector();

@@ -26,11 +26,11 @@ public class DicColor extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listener;
-        initModel();
+        loadingModel();
         setVisible(true);        
     }
 
-    private void initModel() {
+    private void loadingModel() {
         new DefTableModel(tab1, qColgrp, eColgrp.name);
         new DefTableModel(tab2, qColor, eColor.name);
         tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());

@@ -22,12 +22,19 @@ public class DicArtikl extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listenet;
-        initModel();
-        loadTab2(level);
+        loadingModel();
+        loadingData(level);
         setVisible(true);
     }
 
-    private void initModel() {
+    private void loadingData(int... level) {
+
+        String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
+        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
+        Util.setSelectedRow(tab2, 0);
+    }
+
+    private void loadingModel() {
 
         new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
             public Object getValueAt(int col, int row, Object val) {
@@ -39,13 +46,6 @@ public class DicArtikl extends javax.swing.JDialog {
                 return val;
             }
         };
-    }
-
-    private void loadTab2(int... level) {
-
-        String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
-        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
-        Util.setSelectedRow(tab2, 0);
     }
 
     @SuppressWarnings("unchecked")
@@ -211,13 +211,13 @@ public class DicArtikl extends javax.swing.JDialog {
         int row = getSelectedRec(tab2);
         if (row != -1) {
             Record record = qArtikl.get(row);
-            listener.action(record);            
+            listener.action(record);
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        listener.action(eArtikl.up.newRecord()); 
+        listener.action(eArtikl.up.newRecord());
         this.dispose();
     }//GEN-LAST:event_btnRemov
 

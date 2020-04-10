@@ -3,33 +3,28 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import dataset.Query;
-import dataset.Record;
-import domain.eParams;
-import swing.DefTableModel;
 import static common.Util.getSelectedRec;
+import dataset.Record;
+import enums.FurnSide;
+import javax.swing.table.DefaultTableModel;
 
-public class ParUser extends javax.swing.JDialog {
+public class DicFurnside extends javax.swing.JDialog {
 
-    private int grup = -1;
-    private Query qParam2 = new Query(eParams.up.values());
-    private DialogListener listener;
+    private DialogListener listener = null;
 
-    public ParUser(java.awt.Frame parent, DialogListener listener, int grup) {
+    public DicFurnside(java.awt.Frame parent, DialogListener listenet) {
         super(parent, true);
         initComponents();
-        this.grup = grup;
         initElements();
-        this.listener = listener;
+        this.listener = listenet;
         loadingModel();
         setVisible(true);
     }
 
     private void loadingModel() {
-
-        qParam2.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);
-        tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
-        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        String[] titl = {"Назначение"};
+        String[][] rows = {{FurnSide.P1.name}, {FurnSide.P2.name}, {FurnSide.P3.name}};
+        ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
         Util.setSelectedRow(tab1, 0);
     }
 
@@ -39,19 +34,18 @@ public class ParUser extends javax.swing.JDialog {
 
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
-        btnChouce = new javax.swing.JButton();
+        btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        panCentr = new javax.swing.JPanel();
+        panSouth = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Параметры пользователя");
+        setTitle("Назначение сторон");
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(300, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(160, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -69,16 +63,16 @@ public class ParUser extends javax.swing.JDialog {
             }
         });
 
-        btnChouce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
-        btnChouce.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnChouce.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnChouce.setFocusable(false);
-        btnChouce.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnChouce.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnChouce.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnChouce.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnChouce.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnChouce.addActionListener(new java.awt.event.ActionListener() {
+        btnChoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
+        btnChoice.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnChoice.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnChoice.setFocusable(false);
+        btnChoice.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChoice.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnChoice.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChoice(evt);
             }
@@ -95,7 +89,7 @@ public class ParUser extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemov(evt);
+                btnRemovebtnRemov(evt);
             }
         });
 
@@ -105,10 +99,10 @@ public class ParUser extends javax.swing.JDialog {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -119,7 +113,7 @@ public class ParUser extends javax.swing.JDialog {
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createSequentialGroup()
                         .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -127,16 +121,33 @@ public class ParUser extends javax.swing.JDialog {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(300, 170));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(160, 20));
+
+        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
+        panSouth.setLayout(panSouthLayout);
+        panSouthLayout.setHorizontalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 218, Short.MAX_VALUE)
+        );
+        panSouthLayout.setVerticalGroup(
+            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+
+        scr1.setBorder(null);
+        scr1.setPreferredSize(new java.awt.Dimension(160, 200));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"name1"},
-                {"name2"}
+                {"Nmae 0"},
+                {"Name 0"}
             },
             new String [] {
-                "Значение параметра"
+                "Название соединения"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -156,26 +167,7 @@ public class ParUser extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
 
-        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
-
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(350, 20));
-
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(scr1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -185,11 +177,20 @@ public class ParUser extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
+        Record record = new Record();
+        record.add(tab1.getSelectedRow() + 1);
+        record.add(tab1.getValueAt(getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice
+
+    private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
+        Record record = new Record();
+        record.add(null);
+        record.add(null);
+        listener.action(record);
+        this.dispose();
+    }//GEN-LAST:event_btnRemovebtnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
         if (evt.getClickCount() == 2) {
@@ -197,31 +198,19 @@ public class ParUser extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tab1MouseClicked
 
-    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        Record record = new Record(1);
-        record.add(null);
-        listener.action(record);
-        this.dispose();
-    }//GEN-LAST:event_btnRemov
-// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChouce;
+    private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-// </editor-fold> 
+
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        String title = new Query(eParams.up.values()).select(eParams.up, "where", eParams.grup, "=", grup, "and", 
-                eParams.numb, "= 0", "order by", eParams.text).getAs(0, eParams.text, "Параметры");
-        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                title, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
 }

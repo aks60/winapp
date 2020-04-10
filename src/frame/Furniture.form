@@ -4,6 +4,20 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="grour1">
     </Component>
+    <Component class="javax.swing.JComboBox" name="comboxCell">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="&#x441;&#x442;&#x43e;&#x440;&#x43e;&#x43d;&#x430;"/>
+            <StringItem index="1" value="&#x43e;&#x441;&#x44c; &#x43f;&#x43e;&#x432;&#x43e;&#x440;&#x43e;&#x442;&#x430;"/>
+            <StringItem index="2" value="&#x43a;&#x440;&#x435;&#x43f;&#x43b;&#x435;&#x43d;&#x438;&#x435; &#x43f;&#x435;&#x442;&#x435;&#x43b;&#x44c;"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -476,7 +490,7 @@
                               <Table columnCount="3" rowCount="2">
                                 <Column editable="true" title="&#x41d;&#x43e;&#x43c;&#x435;&#x440;" type="java.lang.Object"/>
                                 <Column editable="true" title="&#x412;&#x438;&#x434;" type="java.lang.Object"/>
-                                <Column editable="true" title="&#x417;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Object"/>
+                                <Column editable="true" title="&#x41d;&#x430;&#x437;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x435;" type="java.lang.Integer"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

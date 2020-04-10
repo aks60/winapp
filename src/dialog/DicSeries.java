@@ -21,16 +21,16 @@ public class DicSeries extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listenet;
-        initData();
-        initModel();
+        loadingData();
+        loadingModel();
         setVisible(true);
     }
 
-    private void initData() {
+    private void loadingData() {
         qArtikl.select("select distinct " + eArtikl.series.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.series.name());
     }
 
-    private void initModel() {
+    private void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qArtikl, eArtikl.series));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);

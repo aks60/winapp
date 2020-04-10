@@ -28,11 +28,11 @@ public class DicJoinvar extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listenet;
-        initModel();
+        loadingModel();
         setVisible(true);
     }
 
-    private void initModel() {
+    private void loadingModel() {
 
         String[] titl = {"Наименование соединения"};
         String[][] rows = {{"Прилегающее соединение (коробка,створка)"}, {"Угловое соединение на ус (коробка, створка)"}, {"Угловое соединение L (левое)"},
