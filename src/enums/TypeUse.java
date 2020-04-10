@@ -1,6 +1,6 @@
 package enums;
 
-import static enums.ProfileSide.values;
+import static enums.SideProfile.values;
 
 /**
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций

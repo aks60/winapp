@@ -10,7 +10,7 @@ import static domain.eSyssize.values;
 import static domain.eSyspar1.systree_id;
 import static domain.eSyspar1.up;
 import static domain.eSyspar1.values;
-import enums.ProfileSide;
+import enums.SideProfile;
 import enums.TypeUse;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -89,14 +89,14 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static Record find3(int _nuni, TypeUse _type, ProfileSide _side) {
+    public static Record find3(int _nuni, TypeUse _type, SideProfile _side) {
         if (_nuni == -1) {
             return record(_type);
         }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
             query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types)
-                    && (_side.value == rec.getInt(side) || ProfileSide.ANY.value == rec.getInt(side)))
+                    && (_side.value == rec.getInt(side) || SideProfile.ANY.value == rec.getInt(side)))
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
@@ -115,7 +115,7 @@ public enum eSysprof implements Field {
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
                 + " where " + systree_id.name() + " = " + _nuni + " and types = " + _type.value + " and ("
-                + side.name() + " = " + _side.value + " or " + side.name() + " = " + ProfileSide.ANY.value + ") order by " + prio.name());
+                + side.name() + " = " + _side.value + " or " + side.name() + " = " + SideProfile.ANY.value + ") order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
@@ -124,7 +124,7 @@ public enum eSysprof implements Field {
         Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
         record.setNo(types, _type.value);
-        record.setNo(side, ProfileSide.ANY.value);
+        record.setNo(side, SideProfile.ANY.value);
         record.setNo(systree_id, -1);
         record.setNo(artikl_id, -1);
         return record;

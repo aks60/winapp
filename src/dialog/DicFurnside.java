@@ -5,7 +5,7 @@ import common.FrameToFile;
 import common.Util;
 import static common.Util.getSelectedRec;
 import dataset.Record;
-import enums.FurnSide;
+import enums.SideFurn2;
 import javax.swing.table.DefaultTableModel;
 
 public class DicFurnside extends javax.swing.JDialog {
@@ -23,7 +23,7 @@ public class DicFurnside extends javax.swing.JDialog {
 
     private void loadingModel() {
         String[] titl = {"Назначение"};
-        String[][] rows = {{FurnSide.P1.name}, {FurnSide.P2.name}, {FurnSide.P3.name}};
+        String[][] rows = {{SideFurn2.P1.name}, {SideFurn2.P2.name}, {SideFurn2.P3.name}};
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
         Util.setSelectedRow(tab1, 0);
     }

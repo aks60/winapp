@@ -18,7 +18,7 @@ import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.ProfileSide;
+import enums.SideProfile;
 import enums.TypeUse;
 import enums.TypeSys;
 import java.awt.Graphics2D;
@@ -97,7 +97,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eSysprof.side && val != null) {
-                    ProfileSide en = ProfileSide.get(Integer.valueOf(val.toString()));
+                    SideProfile en = SideProfile.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.name;
                     }

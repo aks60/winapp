@@ -32,7 +32,7 @@ import dialog.DicColvar;
 import dialog.DicFurnside;
 import dialog.ParColor;
 import domain.eParams;
-import enums.FurnSide;
+import enums.SideFurn2;
 import enums.VarColcalc;
 
 public class Furniture extends javax.swing.JFrame {
@@ -186,7 +186,7 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eFurnside1.type_side == field) {
                     int v = Integer.valueOf(val.toString());
-                    return FurnSide.values()[v - 1].name;
+                    return SideFurn2.values()[v - 1].name;
                 }
                 return val;
             }

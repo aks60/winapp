@@ -5,10 +5,10 @@
  */
 package enums;
 
-import static enums.ProfileSide.values;
+import static enums.SideProfile.values;
 
 //Ограничение сторон, назначение стороны фурнитуры
-public enum FurnSide {
+public enum SideFurn2 implements Enam {
     P1("1", "сторона"),
     P2("2", "ось поворота"),
     P3("3" , "крепление петель");
@@ -16,9 +16,8 @@ public enum FurnSide {
     public String id;
     public String name;
 
-    FurnSide(String id, String name) {
+    SideFurn2(String id, String name) {
         this.id = id;
         this.name = name;
     }
-
 }

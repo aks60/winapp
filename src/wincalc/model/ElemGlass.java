@@ -11,7 +11,7 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
-import enums.ProfileSide;
+import enums.SideProfile;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.TypeUse;
@@ -60,7 +60,7 @@ public class ElemGlass extends ElemSimple {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
-        sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.FRAME, ProfileSide.LEFT); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
+        sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.FRAME, SideProfile.LEFT); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
             artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }

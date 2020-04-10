@@ -15,7 +15,7 @@ import static domain.eSysprof.side;
 import static domain.eSysprof.systree_id;
 import static domain.eSysprof.types;
 import static domain.eSysprof.up;
-import enums.ProfileSide;
+import enums.SideProfile;
 import enums.TypeUse;
 import java.sql.SQLException;
 

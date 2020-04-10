@@ -6,7 +6,7 @@ import domain.eColor;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.ProfileSide;
+import enums.SideProfile;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.TypeUse;
@@ -50,13 +50,13 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.TOP);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.TOP);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.BOTTOM);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.BOTTOM);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.LEFT);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.LEFT);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), ProfileSide.RIGHT);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.RIGHT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
