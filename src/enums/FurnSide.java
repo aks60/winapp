@@ -9,13 +9,15 @@ import static enums.ProfileSide.values;
 
 //Ограничение сторон, назначение стороны фурнитуры
 public enum FurnSide {
-    P1("сторона"),
-    P2("ось поворота"),
-    P3("крепление петель");
+    P1("1", "сторона"),
+    P2("2", "ось поворота"),
+    P3("3" , "крепление петель");
 
+    public String id;
     public String name;
 
-    FurnSide(String name) {
+    FurnSide(String id, String name) {
+        this.id = id;
         this.name = name;
     }
 
