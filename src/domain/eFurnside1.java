@@ -12,8 +12,8 @@ import static domain.eFurniture.values;
 public enum eFurnside1 implements Field {
     up("0", "0", "0", "Ограничение сторон фурнитуры", "FURNLEN"),
     id("4", "10", "0", "Идентификатор", "id"),
-    npp("5", "5", "1", "Нpp", "FNUMB"),
-    type_side("4", "10", "0", "Сторона", "type_side"), //1-сторона, 2-ось поворота, 3-крепление петель
+    side("5", "5", "1", "Нpp", "FNUMB"),
+    side_use("4", "10", "0", "Сторона", "type_side"), //1-сторона, 2-ось поворота, 3-крепление петель
     furniture_id("4", "10", "0", "Фурнитура", "furniture_id");
     //funic("4", "10", "1", "null", "FUNIC"),
     //fincr("4", "10", "1", "null", "FINCR"),    

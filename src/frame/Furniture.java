@@ -181,11 +181,11 @@ public class Furniture extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab3, qFurnpar2, eFurnpar2.grup, eFurnpar2.text);
-        new DefTableModel(tab4, qFurnside1, eFurnside1.npp, eFurnside1.furniture_id, eFurnside1.type_side){
+        new DefTableModel(tab4, qFurnside1, eFurnside1.side, eFurnside1.furniture_id, eFurnside1.side_use){
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eFurnside1.type_side == field) {
+                if (val != null && eFurnside1.side_use == field) {
                     int v = Integer.valueOf(val.toString());
                     return SideFurn2.values()[v - 1].name;
                 }
@@ -241,7 +241,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
-            qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.npp);
+            qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side);
             qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id, "=", id, "order by", eArtikl.code);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -358,7 +358,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerSide = (record) -> {
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             int row = tab4.getSelectedRow();
-            qFurnside1.set(record.getInt(0), Util.getSelectedRec(tab4), eFurnside1.type_side);
+            qFurnside1.set(record.getInt(0), Util.getSelectedRec(tab4), eFurnside1.side_use);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);
         };        
