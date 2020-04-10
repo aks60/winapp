@@ -32,6 +32,7 @@ import dialog.DicColvar;
 import dialog.DicFurnside;
 import dialog.ParColor;
 import domain.eParams;
+import enums.SideFurn1;
 import enums.SideFurn2;
 import enums.VarColcalc;
 
@@ -222,9 +223,12 @@ public class Furniture extends javax.swing.JFrame {
             });
         }
 
-        //tab4.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(comboxCell));
+        Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
+            new DicFurnside(this, listenerSide, SideFurn1.values());
+        });
+        
         Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
-            new DicFurnside(this, listenerSide);
+            new DicFurnside(this, listenerSide, SideFurn2.values());
         });
 
         Util.setSelectedRow(tab1, 0);

@@ -9,15 +9,19 @@ import static enums.SideProfile.values;
 
 //Ограничение сторон, назначение стороны фурнитуры
 public enum SideFurn2 implements Enam {
-    P1("1", "сторона"),
-    P2("2", "ось поворота"),
-    P3("3" , "крепление петель");
+    P1(1, "сторона"),
+    P2(2, "ось поворота"),
+    P3(3 , "крепление петель");
 
-    public String id;
+    public int id;
     public String name;
 
-    SideFurn2(String id, String name) {
+    SideFurn2(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+   
+    public String text() {
+        return name;
     }
 }

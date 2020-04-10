@@ -9,16 +9,20 @@ import static enums.SideProfile.values;
 
 //Стороны фурнитуры
 public enum SideFurn1 implements Enam {
-    P1("1", "Нижняя"),
-    P2("2", "Правая"),
-    P3("3", "Верхняя"),
-    P4("4", "Левая");
+    P1(1, "Нижняя"),
+    P2(2, "Правая"),
+    P3(3, "Верхняя"),
+    P4(4, "Левая");
 
-    public String id;
+    public int id;
     public String name;
 
-    SideFurn1(String id, String name) {
+    SideFurn1(int id, String name) {
         this.id = id;
         this.name = name;
     }
+    
+    public String text() {
+        return name;
+    }    
 }

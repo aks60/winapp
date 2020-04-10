@@ -5,26 +5,28 @@ import common.FrameToFile;
 import common.Util;
 import static common.Util.getSelectedRec;
 import dataset.Record;
+import enums.Enam;
 import enums.SideFurn2;
+import java.util.Arrays;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
 public class DicFurnside extends javax.swing.JDialog {
 
     private DialogListener listener = null;
 
-    public DicFurnside(java.awt.Frame parent, DialogListener listenet) {
+    public DicFurnside(java.awt.Frame parent, DialogListener listenet, Enam... enam) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listenet;
-        loadingModel();
+        loadingModel(enam);
         setVisible(true);
     }
 
-    private void loadingModel() {
-        String[] titl = {"Назначение"};
-        String[][] rows = {{SideFurn2.P1.name}, {SideFurn2.P2.name}, {SideFurn2.P3.name}};
-        ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
+    private void loadingModel(Enam... enam) {
+        ((DefaultTableModel) tab1.getModel()).setRowCount(enam.length);
+        Arrays.asList(enam).forEach(en -> tab1.setValueAt(en.text(), en.ordinal(), 0));
         Util.setSelectedRow(tab1, 0);
     }
 
@@ -41,7 +43,7 @@ public class DicFurnside extends javax.swing.JDialog {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Назначение сторон");
+        setTitle("Стороны фурнитуры");
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -147,7 +149,7 @@ public class DicFurnside extends javax.swing.JDialog {
                 {"Name 0"}
             },
             new String [] {
-                "Название соединения"
+                "Название"
             }
         ) {
             boolean[] canEdit = new boolean [] {
