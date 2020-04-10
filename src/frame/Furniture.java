@@ -71,6 +71,7 @@ public class Furniture extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerDict();
+        listenerCell();
     }
 
     public Furniture(java.awt.Window owner, int nuni) {
@@ -83,6 +84,7 @@ public class Furniture extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerDict();
+        listenerCell();
     }
 
     private void loadingData() {
@@ -262,14 +264,16 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            int row = Util.getSelectedRec(tab3);
+            int index = tabb1.getSelectedIndex();
+            JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
+            int row = Util.getSelectedRec(table);
             if (row != -1) {
-                Query query = (tab2a.getBorder() != null) ? qFurndet1 : (tab2b.getBorder() != null) ? qFurndet2 : qFurndet3;
+                Query query = (index == 0) ? qFurndet1 : (index == 1) ? qFurndet2 : qFurndet3;
                 Record recordFurn = query.get(row);
                 int artikl_id = recordFurn.getInt(eFurndet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
-                Integer[] part = {0, 39000, 38000, 39000, 38000, 40000, 0};
+                Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
                 ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, part[level]);
             }
         });
@@ -290,7 +294,7 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab5, 1, listenerEditor).addActionListener(event -> {
-            Record record = qFurnpar2.get(Util.getSelectedRec(tab5));
+            Record record = qFurnpar1.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eFurnpar1.grup);
             if (grup < 0) {
                 ParUser frame = new ParUser(this, listenerPar1, grup);
@@ -476,7 +480,7 @@ public class Furniture extends javax.swing.JFrame {
     private void listenerCell() {
 
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(component, tab3, tab5, qFurnpar1, qFurnpar2, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            return Util.listenerCell(component, tab5, tab3, qFurnpar1, qFurnpar2, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }
 
