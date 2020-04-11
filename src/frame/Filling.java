@@ -506,6 +506,11 @@ public class Filling extends javax.swing.JFrame {
         ));
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
@@ -530,6 +535,11 @@ public class Filling extends javax.swing.JFrame {
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -560,6 +570,11 @@ public class Filling extends javax.swing.JFrame {
         ));
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -585,6 +600,11 @@ public class Filling extends javax.swing.JFrame {
         ));
         tab4.setFillsViewportHeight(true);
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -620,6 +640,11 @@ public class Filling extends javax.swing.JFrame {
         });
         tab5.setFillsViewportHeight(true);
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(2).setPreferredWidth(60);
@@ -703,6 +728,12 @@ public class Filling extends javax.swing.JFrame {
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+    }//GEN-LAST:event_tabMouseClicked
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -729,27 +760,7 @@ public class Filling extends javax.swing.JFrame {
 // </editor-fold>
 
     private void initElements() {
-
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-                Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-                tab1.setBorder(null);
-                tab2.setBorder(null);
-                tab3.setBorder(null);
-                tab4.setBorder(null);
-                tab5.setBorder(null);
-                if (e.getSource() instanceof JTable) {
-                    ((JComponent) e.getSource()).setBorder(border);
-                }
-            }
-
-            public void focusLost(FocusEvent e) {
-            }
-        };
         btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
         btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5));
@@ -777,10 +788,5 @@ public class Filling extends javax.swing.JFrame {
                 }
             }
         });
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
-        tab3.addFocusListener(listenerFocus);
-        tab4.addFocusListener(listenerFocus);
-        tab5.addFocusListener(listenerFocus);
     }
 }

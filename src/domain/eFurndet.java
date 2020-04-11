@@ -12,7 +12,7 @@ import static domain.eFurnside1.values;
 public enum eFurndet implements Field {
     up("0", "0", "0", "Спецификация фурнитуры", "FURNSPC"),
     id("4", "10", "0", "Идентификатор", "FINCB"),
-    level("5", "5", "1", "Уровень вложения", "FLEVE"), //(1 - основная, 2 - зависимая, 3 - вложенная)
+    level("5", "5", "1", "Уровень вложения", "FLEVE"), //TODO это поле надо удалить
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     furndet_id("4", "10", "0", "Ссылка на id", "FINCS"),
     color_fk("4", "10", "1", "Текстура", "CLNUM"),

@@ -245,7 +245,7 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab6, qFurnpar2, eFurnpar2.grup, eFurnpar2.text){
+        new DefTableModel(tab6, qFurnpar2, eFurnpar2.grup, eFurnpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -265,7 +265,7 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        
+
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
             Util.buttonEditorCell(tab, 0).addActionListener(event -> {
                 new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
@@ -320,7 +320,7 @@ public class Furniture extends javax.swing.JFrame {
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
             new DicFurnside(this, listenerSide3, SideFurn3.values());
         });
-        
+
         Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
             int index = tabb1.getSelectedIndex();
             JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
@@ -353,13 +353,16 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = getSelectedRec(tab1);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5);
-            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
-            Util.clearTable(tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5);
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Arrays.asList(qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
             qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id, "=", id, "order by", eArtikl.code);
+            
+            tabb1.setSelectedIndex(0);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2a, 0);
@@ -370,9 +373,10 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab2a(ListSelectionEvent event) {
         int row = getSelectedRec(tab2a);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5);
-            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
-            Util.clearTable(tab2b, tab2c, tab6, tab5);
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            Util.clearTable(tab2b, tab2c, tab5, tab6);
+            
             Record record = qFurndet1.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
             qFurndet2.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "order by", eArtikl.code);
@@ -393,10 +397,10 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab2b(ListSelectionEvent event) {
         int row = getSelectedRec(tab2b);
         if (row != -1) {
-            //Util.stopCellEditing(tab2c, tab3, tab6);
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
-            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
-            Util.clearTable(tab2c, tab6, tab5);
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            Util.clearTable(tab2c, tab5, tab6);
+            
             Record record = qFurndet2.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
             qFurndet3.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "order by", eArtikl.code);
@@ -419,29 +423,31 @@ public class Furniture extends javax.swing.JFrame {
         if (tabb1.getSelectedIndex() == 2) {
             int row = getSelectedRec(tab2c);
             if (row != -1) {
-                //Util.stopCellEditing(tab3, tab6);
-                Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
-                Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
-                Util.clearTable(tab6, tab5);
+                Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+                Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+                Util.clearTable(tab5, tab6);
+                
                 Record record = qFurndet3.table(eFurndet.up).get(row);
                 Integer id = record.getInt(eFurndet.id);
-                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
-                qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
-                ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-                ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab6, 0);
-                Util.setSelectedRow(tab5, 0);
+                if (tabb1.getSelectedIndex() == 2) {
+                    qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+                    qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
+                    ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
+                    ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+                    Util.setSelectedRow(tab6, 0);
+                    Util.setSelectedRow(tab5, 0);
+                }
             }
         }
     }
 
-    private void selectionTab4(ListSelectionEvent event) {
+    private void selectionTab3(ListSelectionEvent event) {
         int row = getSelectedRec(tab3);
         if (row != -1) {
-            //Util.stopCellEditing(tab5);
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
-            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab4);
+            
             Record record = qFurnside1.table(eFurnside1.up).get(row);
             Integer id = record.getInt(eFurnside1.id);
             qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.grup);
@@ -743,6 +749,11 @@ public class Furniture extends javax.swing.JFrame {
         ));
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
@@ -769,6 +780,11 @@ public class Furniture extends javax.swing.JFrame {
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(80);
@@ -803,6 +819,11 @@ public class Furniture extends javax.swing.JFrame {
         });
         tab4.setFillsViewportHeight(true);
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(0).setPreferredWidth(220);
@@ -845,6 +866,11 @@ public class Furniture extends javax.swing.JFrame {
         ));
         tab2a.setFillsViewportHeight(true);
         tab2a.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2a.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr2a.setViewportView(tab2a);
 
         tabb1.addTab("Детализация   (1 уровень)", scr2a);
@@ -863,6 +889,11 @@ public class Furniture extends javax.swing.JFrame {
         ));
         tab2b.setFillsViewportHeight(true);
         tab2b.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2b.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr2b.setViewportView(tab2b);
 
         tabb1.addTab("Детализация   (2 уровень)", scr2b);
@@ -881,6 +912,11 @@ public class Furniture extends javax.swing.JFrame {
         ));
         tab2c.setFillsViewportHeight(true);
         tab2c.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2c.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr2c.setViewportView(tab2c);
 
         tabb1.addTab("Детализация   (3 уровень)", scr2c);
@@ -914,6 +950,11 @@ public class Furniture extends javax.swing.JFrame {
         });
         tab6.setFillsViewportHeight(true);
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr6.setViewportView(tab6);
         if (tab6.getColumnModel().getColumnCount() > 0) {
             tab6.getColumnModel().getColumn(0).setPreferredWidth(220);
@@ -935,6 +976,11 @@ public class Furniture extends javax.swing.JFrame {
         ));
         tab5.setFillsViewportHeight(true);
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabMouseClicked(evt);
+            }
+        });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(0).setPreferredWidth(180);
@@ -975,63 +1021,46 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+//        loadingData();
+//        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+//        Util.setSelectedRow(tab1, 0);
+         qFurndet1.execsql();
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
         if (tab1.getBorder() != null) {
-//            if (Util.isDeleteRecord(this, tab2a, tab2b, tab2c, tab4) == 0) {
-//                Util.deleteRecord(tab1, qFurniture, eFurniture.up);
-//            }
-            Record furnitureRec = qFurniture.get(getSelectedRec(tab1));
-            furnitureRec.set(eFurniture.up, Query.DEL);
-            qFurniture.delete(furnitureRec);
-            qFurniture.removeRec(getSelectedRec(tab1));
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab1, 0);
-
+            if (Util.isDeleteRecord(this, tab2a, tab2b, tab2c, tab3) == 0) {
+                Util.deleteRecord(tab1, qFurniture, eFurniture.up);
+            }
         } else if (tab2a.getBorder() != null) {
-            Record furndetRec = qFurndet1.get(getSelectedRec(tab2a));
-            furndetRec.set(eFurndet.up, Query.DEL);
-            qFurndet1.delete(furndetRec);
-            qFurndet1.removeRec(getSelectedRec(tab2a));
-            ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2a, 0);
-
-        } else if (tab6.getBorder() != null) {
-            Record urnpar2Rec = qFurnpar2.get(getSelectedRec(tab6));
-            urnpar2Rec.set(eFurnpar2.up, Query.DEL);
-            qFurnpar2.delete(urnpar2Rec);
-            qFurnpar2.removeRec(getSelectedRec(tab6));
-            ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab6, 0);
-
+            if (Util.isDeleteRecord(this, tab2b, tab2c, tab5, tab6) == 0) {
+                Util.deleteRecord(tab2a, qFurndet1, eFurndet.up);
+            }
+        } else if (tab2b.getBorder() != null) {
+            if (Util.isDeleteRecord(this, tab2c, tab5, tab6) == 0) {
+                Util.deleteRecord(tab2b, qFurndet2, eFurndet.up);
+            }
+        } else if (tab2c.getBorder() != null) {
+            if (Util.isDeleteRecord(this, tab5, tab6) == 0) {
+                Util.deleteRecord(tab2c, qFurndet3, eFurndet.up);
+            }
         } else if (tab3.getBorder() != null) {
-            Record furnside1Rec = qFurnside1.get(getSelectedRec(tab6));
-            furnside1Rec.set(eFurnside1.up, Query.DEL);
-            qFurnside1.delete(furnside1Rec);
-            qFurnside1.removeRec(getSelectedRec(tab3));
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, 0);
-
+            if (Util.isDeleteRecord(this, tab4) == 0) {
+                Util.deleteRecord(tab3, qFurnside1, eFurnside1.up);
+            }
         } else if (tab4.getBorder() != null) {
-            Record furnpar1Rec = qFurnpar1.get(getSelectedRec(tab4));
-            furnpar1Rec.set(eFurnpar1.up, Query.DEL);
-            qFurnpar1.delete(furnpar1Rec);
-            qFurnpar1.removeRec(getSelectedRec(tab4));
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, 0);
-
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab4, qFurnpar1, eFurnpar1.up);
+            }
         } else if (tab5.getBorder() != null) {
-            Record furnside2Rec = qFurnside2.get(getSelectedRec(tab5));
-            furnside2Rec.set(eFurnside2.up, Query.DEL);
-            qFurnside2.delete(furnside2Rec);
-            qFurnside2.removeRec(getSelectedRec(tab5));
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5, 0);
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab5, qFurnside2, eFurnside2.up);
+            }
+        } else if (tab6.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab6, qFurnpar2, eFurnpar2.up);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
@@ -1040,21 +1069,17 @@ public class Furniture extends javax.swing.JFrame {
             Util.insertRecord(tab1, qFurniture, eFurniture.up);
 
         } else if (tab2a.getBorder() != null) {
-            if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab1, tab2a, qFurniture, qFurndet1, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
-            } else if (tabb1.getSelectedIndex() == 1) {
-                Util.insertRecord(tab1, tab2b, qFurniture, qFurndet2, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
-            } else if (tabb1.getSelectedIndex() == 2) {
-                Util.insertRecord(tab1, tab2c, qFurniture, qFurndet3, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
-            }
-        } else if (tab6.getBorder() != null) {
-            if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab2a, tab6, qFurndet1, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
-            } else if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab2b, tab6, qFurndet2, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
-            } else if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab2c, tab6, qFurndet3, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
-            }
+                Record record = Util.insertRecord(tab1, tab2a, qFurniture, qFurndet1, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+                record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
+                
+        } else if (tab2b.getBorder() != null) {
+                Record record = Util.insertRecord(tab2a, tab2b, qFurniture, qFurndet2, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+                record.set(eFurndet.furndet_id, qFurndet1.get(Util.getSelectedRec(tab2a), eFurndet.id));
+
+        } else if (tab2c.getBorder() != null) {
+                Record record = Util.insertRecord(tab2b, tab2c, qFurniture, qFurndet3, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+                record.set(eFurndet.furndet_id, qFurndet2.get(Util.getSelectedRec(tab2b), eFurndet.id));
+
         } else if (tab3.getBorder() != null) {
             Util.insertRecord(tab1, tab3, qFurniture, qFurnside1, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
 
@@ -1069,6 +1094,14 @@ public class Furniture extends javax.swing.JFrame {
             } else if (tabb1.getSelectedIndex() == 2) {
                 Util.insertRecord(tab2c, tab5, qFurndet3, qFurnside2, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
             }
+        } else if (tab6.getBorder() != null) {
+            if (tabb1.getSelectedIndex() == 0) {
+                Util.insertRecord(tab2a, tab6, qFurndet1, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
+            } else if (tabb1.getSelectedIndex() == 0) {
+                Util.insertRecord(tab2b, tab6, qFurndet2, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
+            } else if (tabb1.getSelectedIndex() == 0) {
+                Util.insertRecord(tab2c, tab6, qFurndet3, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
+            }
         }
     }//GEN-LAST:event_btnInsert
 
@@ -1080,18 +1113,28 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-
+        System.out.println(qFurndet1);
     }//GEN-LAST:event_btnReport1
 
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
+        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
         if (tabb1.getSelectedIndex() == 0) {
-            selectionTab2a(null);
+            //selectionTab2a(null);
+            tab2a.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         } else if (tabb1.getSelectedIndex() == 1) {
-            selectionTab2b(null);
+            //selectionTab2b(null);
+            tab2b.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         } else if (tabb1.getSelectedIndex() == 2) {
-            selectionTab2c(null);
+            //selectionTab2c(null);
+            tab2c.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         }
     }//GEN-LAST:event_tabb1StateChanged
+
+    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+        Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
+        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+    }//GEN-LAST:event_tabMouseClicked
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1138,37 +1181,11 @@ public class Furniture extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border
-                    = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-                Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5, tab6);
-                tab1.setBorder(null);
-                tab2a.setBorder(null);
-                tab2b.setBorder(null);
-                tab2c.setBorder(null);
-                tab6.setBorder(null);
-                tab3.setBorder(null);
-                tab4.setBorder(null);
-                tab5.setBorder(null);
-                tab6.setBorder(null);
-                if (e.getSource() instanceof JTable) {
-                    ((JComponent) e.getSource()).setBorder(border);
-                }
-            }
-
-            public void focusLost(FocusEvent e) {
-            }
-        };
         btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5));
         btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5));
         btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
-        scr2a.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Детализация фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -1207,17 +1224,9 @@ public class Furniture extends javax.swing.JFrame {
         tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab4(event);
+                    selectionTab3(event);
                 }
             }
         });
-        tab1.addFocusListener(listenerFocus);
-        tab2a.addFocusListener(listenerFocus);
-        tab2b.addFocusListener(listenerFocus);
-        tab2c.addFocusListener(listenerFocus);
-        tab6.addFocusListener(listenerFocus);
-        tab3.addFocusListener(listenerFocus);
-        tab4.addFocusListener(listenerFocus);
-        tab5.addFocusListener(listenerFocus);
     }
 }

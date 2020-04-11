@@ -189,7 +189,7 @@ public class Query extends Table {
                 if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
                     if (record.validate(fields) != null) { //проверка на корректность ввода данных
                         
-                        //JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                         return record.validate(fields);
                     }
                 }
