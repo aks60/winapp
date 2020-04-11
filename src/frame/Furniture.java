@@ -17,10 +17,7 @@ import domain.eColor;
 import domain.eFurnside2;
 import domain.eSysfurn;
 import java.awt.Window;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Arrays;
-import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -36,7 +33,6 @@ import dialog.ParGrup;
 import dialog.ParSys;
 import dialog.ParUser;
 import domain.eElempar2;
-import domain.eJoindet;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
@@ -44,7 +40,10 @@ import enums.SideFurn1;
 import enums.SideFurn2;
 import enums.SideFurn3;
 import enums.VarColcalc;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.List;
+import javax.swing.JComponent;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -445,6 +444,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void selectionTab3(ListSelectionEvent event) {
+        System.out.println("frame.Furniture.selectionTab3()");
         int row = getSelectedRec(tab3);
         if (row != -1) {
             //Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
@@ -758,6 +758,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         ));
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -789,6 +790,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         ));
         tab3.setFillsViewportHeight(true);
+        tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -828,6 +830,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
         tab4.setFillsViewportHeight(true);
+        tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -875,6 +878,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         ));
         tab2a.setFillsViewportHeight(true);
+        tab2a.setName("tab2a"); // NOI18N
         tab2a.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2a.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -898,6 +902,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         ));
         tab2b.setFillsViewportHeight(true);
+        tab2b.setName("tab2b"); // NOI18N
         tab2b.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2b.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -921,6 +926,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         ));
         tab2c.setFillsViewportHeight(true);
+        tab2c.setName("tab2c"); // NOI18N
         tab2c.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2c.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -959,6 +965,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
         tab6.setFillsViewportHeight(true);
+        tab6.setName("tab6"); // NOI18N
         tab6.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -985,6 +992,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         ));
         tab5.setFillsViewportHeight(true);
+        tab5.setName("tab5"); // NOI18N
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1094,7 +1102,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.insertRecord(tab1, tab3, qFurniture, qFurnside1, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab3, tab4, qFurnside1, qFurnpar1, eFurnside1.up, eFurnpar1.up, eFurnpar1.furnside_id);
+            Record record = Util.insertRecord(tab3, tab4, qFurnside1, qFurnpar1, eFurnside1.up, eFurnpar1.up, eFurnpar1.furnside_id);
 
         } else if (tab5.getBorder() != null) {
             if (tabb1.getSelectedIndex() == 0) {
@@ -1123,31 +1131,41 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-        //txt.setFocusable(false);
-        tab6.requestFocusInWindow();
-        //<Tablename>.editCellAt(row,column);
+
+        System.out.println(qFurnpar1);
+        Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
     }//GEN-LAST:event_btnReport1
 
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
 //        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
 //        if (tabb1.getSelectedIndex() == 0) {
-//            Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
 //            tab2a.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//            Util.componentClick(tab2a);
 //        } else if (tabb1.getSelectedIndex() == 1) {
-//            Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
 //            tab2b.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//            Util.componentClick(tab2b);
 //        } else if (tabb1.getSelectedIndex() == 2) {
-//            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
 //            tab2c.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//            Util.componentClick(tab2c);
 //        }
     }//GEN-LAST:event_tabb1StateChanged
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
+
+System.out.println(".tabMouseClicked()  " + ((JTable) evt.getSource()).getName());
+
+//        System.out.println("frame.Furniture.tabMouseClicked()");
 //        JTable table = (JTable) evt.getSource();
-//        Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-//        Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+//        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> {
+//            if (tab != table) {
+//                Util.stopCellEditing(tab);
+//                ((DefTableModel) tab.getModel()).getQuery().execsql();
+//            } else {
+//                System.out.println(tab.getName());
+//            }
+//        });
 //        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
-//        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }//GEN-LAST:event_tabMouseClicked
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1249,20 +1267,19 @@ public class Furniture extends javax.swing.JFrame {
             private javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
             public void focusGained(FocusEvent e) {
-                //Util.stopCellEditing(tab1, tab2a, tab3, tab4, tab5, tab6);
-                if (e.getSource() instanceof JTable) {
-                    ((JComponent) e.getSource()).setBorder(border);
-                }
+                System.out.println(".focusGained()  " + ((JTable) e.getSource()).getName());
+                Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
+                JTable table = (JTable) e.getSource();
+                table.setBorder(border);
+                Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> {
+                    if (tab != table) {
+                        Util.stopCellEditing(tab);
+                        ((DefTableModel) tab.getModel()).getQuery().execsql();
+                    }
+                });
             }
 
             public void focusLost(FocusEvent e) {
-                if (e.getSource() instanceof JTable) {
-                    System.out.println(".focusLost()");
-                    JTable table = (JTable) e.getSource();
-                    table.setBorder(null);
-                    Util.stopCellEditing(table);
-                    ((DefTableModel) table.getModel()).getQuery().execsql();
-                }
             }
         };
         Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.addFocusListener(listenerFocus));

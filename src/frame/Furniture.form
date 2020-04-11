@@ -475,6 +475,7 @@
                           </TableColumnModel>
                         </Property>
                         <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                        <Property name="name" type="java.lang.String" value="tab1" noResource="true"/>
                         <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                           <JTableSelectionModel selectionMode="0"/>
                         </Property>
@@ -559,6 +560,7 @@
                               </TableColumnModel>
                             </Property>
                             <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                            <Property name="name" type="java.lang.String" value="tab3" noResource="true"/>
                             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                               <JTableSelectionModel selectionMode="0"/>
                             </Property>
@@ -637,6 +639,7 @@
                               </TableColumnModel>
                             </Property>
                             <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                            <Property name="name" type="java.lang.String" value="tab4" noResource="true"/>
                             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                               <JTableSelectionModel selectionMode="0"/>
                             </Property>
@@ -774,6 +777,7 @@
                                   </TableColumnModel>
                                 </Property>
                                 <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                                <Property name="name" type="java.lang.String" value="tab2a" noResource="true"/>
                                 <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                                   <JTableSelectionModel selectionMode="0"/>
                                 </Property>
@@ -856,6 +860,7 @@
                                   </TableColumnModel>
                                 </Property>
                                 <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                                <Property name="name" type="java.lang.String" value="tab2b" noResource="true"/>
                                 <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                                   <JTableSelectionModel selectionMode="0"/>
                                 </Property>
@@ -938,6 +943,7 @@
                                   </TableColumnModel>
                                 </Property>
                                 <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                                <Property name="name" type="java.lang.String" value="tab2c" noResource="true"/>
                                 <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                                   <JTableSelectionModel selectionMode="0"/>
                                 </Property>
@@ -1018,6 +1024,7 @@
                               </TableColumnModel>
                             </Property>
                             <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                            <Property name="name" type="java.lang.String" value="tab6" noResource="true"/>
                             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                               <JTableSelectionModel selectionMode="0"/>
                             </Property>
@@ -1104,6 +1111,7 @@
                               </TableColumnModel>
                             </Property>
                             <Property name="fillsViewportHeight" type="boolean" value="true"/>
+                            <Property name="name" type="java.lang.String" value="tab5" noResource="true"/>
                             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                               <JTableSelectionModel selectionMode="0"/>
                             </Property>

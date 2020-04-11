@@ -186,13 +186,13 @@ public class Query extends Table {
     public String execsql() {
         try {
             for (Record record : this) {
-//                if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
-//                    if (record.validate(fields) != null) { //проверка на корректность ввода данных
-//                        
-//                        JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
-//                        return record.validate(fields);
-//                    }
-//                }
+                if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
+                    if (record.validate(fields) != null) { //проверка на корректность ввода данных
+                        
+                        JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                        return record.validate(fields);
+                    }
+                }
                 if (Query.INS.equals(record.getStr(0))) {
                     insert(record);
                     record.setNo(0, Query.SEL);

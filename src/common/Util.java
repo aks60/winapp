@@ -4,7 +4,6 @@ import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import domain.eElemdet;
 import domain.eJoinpar1;
 import domain.eParams;
 import domain.eSystree;
@@ -12,7 +11,10 @@ import enums.Enam;
 import enums.ParamList;
 import enums.VarColcalc;
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.event.InputEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,15 +22,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
-import jdk.javadoc.internal.doclets.toolkit.taglets.IndexTaglet;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
@@ -431,5 +429,19 @@ public class Util {
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.setSelectedRow(table, row);
+    }
+
+    //Программный клик на копоненте
+    public static void componentClick(JComponent comp) {
+        try {
+            Point p = comp.getLocationOnScreen();
+            Robot r = new Robot();
+            r.mouseMove(p.x + comp.getWidth() / 2, p.y + comp.getHeight() / 2);
+            r.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            Thread.sleep(0);
+            r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 }
