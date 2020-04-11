@@ -222,15 +222,12 @@ public class Util {
 
     //Выделить запись
     public static void setSelectedRow(JTable table, int row) {
-        if (row == 0 && table.getSelectedRow() == -1) {
+        if (table.getRowCount() > 0) {
 
-            if (table.getRowCount() > 0) {
-
-                if (table.getRowCount() > row) {
-                    table.setRowSelectionInterval(row, row);
-                } else {
-                    table.setRowSelectionInterval(0, 0);
-                }
+            if (table.getRowCount() > row) {
+                table.setRowSelectionInterval(row, row);
+            } else {
+                table.setRowSelectionInterval(0, 0);
             }
         }
     }

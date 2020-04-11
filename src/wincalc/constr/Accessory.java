@@ -82,26 +82,28 @@ public class Accessory extends Cal5e {
 
         List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
         for (Record furndetRec : furndetList) {
-
-            if (furndetRec.getInt(eFurndet.level) == 1) {
-                boolean ret1 = nested2(fullStvorka, furndetRec, count);
-                if (ret1 == true) {
-
-                    for (Record furndetRec2 : furndetList) {
-                        if (furndetRec2.getInt(eFurndet.level) == 2 && furndetRec.getInt(eFurndet.id) == furndetRec2.getInt(eFurndet.furndet_id)) {
-                            boolean ret2 = nested2(fullStvorka, furndetRec2, count);
-                            if (ret2 == true) {
-
-                                for (Record furndetRec3 : furndetList) {
-                                    if (furndetRec3.getInt(eFurndet.level) == 3 && furndetRec2.getInt(eFurndet.id) == furndetRec3.getInt(eFurndet.furndet_id)) {
-                                        boolean ret3 = nested2(fullStvorka, furndetRec3, count);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+//            
+//          ****  Закомментировал т.к. поле eFurndet.level удалил  ***
+//
+//            if (furndetRec.getInt(eFurndet.level) == 1) {
+//                boolean ret1 = nested2(fullStvorka, furndetRec, count);
+//                if (ret1 == true) {
+//
+//                    for (Record furndetRec2 : furndetList) {
+//                        if (furndetRec2.getInt(eFurndet.level) == 2 && furndetRec.getInt(eFurndet.id) == furndetRec2.getInt(eFurndet.furndet_id)) {
+//                            boolean ret2 = nested2(fullStvorka, furndetRec2, count);
+//                            if (ret2 == true) {
+//
+//                                for (Record furndetRec3 : furndetList) {
+//                                    if (furndetRec3.getInt(eFurndet.level) == 3 && furndetRec2.getInt(eFurndet.id) == furndetRec3.getInt(eFurndet.furndet_id)) {
+//                                        boolean ret3 = nested2(fullStvorka, furndetRec3, count);
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 

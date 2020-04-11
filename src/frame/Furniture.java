@@ -356,12 +356,13 @@ public class Furniture extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             Arrays.asList(qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            
+
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
-            qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id, "=", id, "order by", eArtikl.code);
-            
+            qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, 
+                    "where", eFurndet.furniture_id, "=", id, "and", eFurndet.id, "=", eFurndet.furndet_id, "order by", eArtikl.code);
+
             tabb1.setSelectedIndex(0);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -376,10 +377,11 @@ public class Furniture extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab2b, tab2c, tab5, tab6);
-            
+
             Record record = qFurndet1.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurndet2.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "order by", eArtikl.code);
+            qFurndet2.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, 
+                    "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id, "order by", eArtikl.code);
             ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2b, 0);
 
@@ -400,10 +402,11 @@ public class Furniture extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab2c, tab5, tab6);
-            
+
             Record record = qFurndet2.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurndet3.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "order by", eArtikl.code);
+            qFurndet3.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,  
+                    "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id, "order by", eArtikl.code);
             ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2c, 0);
 
@@ -426,7 +429,7 @@ public class Furniture extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
                 Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
                 Util.clearTable(tab5, tab6);
-                
+
                 Record record = qFurndet3.table(eFurndet.up).get(row);
                 Integer id = record.getInt(eFurndet.id);
                 if (tabb1.getSelectedIndex() == 2) {
@@ -447,7 +450,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab4);
-            
+
             Record record = qFurnside1.table(eFurnside1.up).get(row);
             Integer id = record.getInt(eFurnside1.id);
             qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.grup);
@@ -694,15 +697,15 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109)
+                .addGap(18, 18, 18)
+                .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
                 .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -713,15 +716,15 @@ public class Furniture extends javax.swing.JFrame {
                     .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panNorthLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReport1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                            .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnReport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
@@ -1024,7 +1027,7 @@ public class Furniture extends javax.swing.JFrame {
 //        loadingData();
 //        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
 //        Util.setSelectedRow(tab1, 0);
-         qFurndet1.execsql();
+        qFurndet1.execsql();
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1069,16 +1072,16 @@ public class Furniture extends javax.swing.JFrame {
             Util.insertRecord(tab1, qFurniture, eFurniture.up);
 
         } else if (tab2a.getBorder() != null) {
-                Record record = Util.insertRecord(tab1, tab2a, qFurniture, qFurndet1, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
-                record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
-                
+            Record record = Util.insertRecord(tab1, tab2a, qFurniture, qFurndet1, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
+
         } else if (tab2b.getBorder() != null) {
-                Record record = Util.insertRecord(tab2a, tab2b, qFurniture, qFurndet2, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
-                record.set(eFurndet.furndet_id, qFurndet1.get(Util.getSelectedRec(tab2a), eFurndet.id));
+            Record record = Util.insertRecord(tab1, tab2b, qFurniture, qFurndet2, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            record.set(eFurndet.furndet_id, qFurndet1.get(Util.getSelectedRec(tab2a), eFurndet.id));
 
         } else if (tab2c.getBorder() != null) {
-                Record record = Util.insertRecord(tab2b, tab2c, qFurniture, qFurndet3, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
-                record.set(eFurndet.furndet_id, qFurndet2.get(Util.getSelectedRec(tab2b), eFurndet.id));
+            Record record = Util.insertRecord(tab1, tab2c, qFurniture, qFurndet3, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            record.set(eFurndet.furndet_id, qFurndet2.get(Util.getSelectedRec(tab2b), eFurndet.id));
 
         } else if (tab3.getBorder() != null) {
             Util.insertRecord(tab1, tab3, qFurniture, qFurnside1, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
@@ -1113,19 +1116,19 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport1
-        System.out.println(qFurndet1);
+        System.out.println(Util.getSelectedRec(tab2a));
     }//GEN-LAST:event_btnReport1
 
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
         Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
         if (tabb1.getSelectedIndex() == 0) {
-            //selectionTab2a(null);
+            Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             tab2a.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         } else if (tabb1.getSelectedIndex() == 1) {
-            //selectionTab2b(null);
+            Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             tab2b.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         } else if (tabb1.getSelectedIndex() == 2) {
-            //selectionTab2c(null);
+            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             tab2c.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
         }
     }//GEN-LAST:event_tabb1StateChanged
