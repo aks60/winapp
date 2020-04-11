@@ -251,7 +251,7 @@ public class Util {
     }
 
     //Вставить запись
-    public static void insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
+    public static Record insertRecord(JTable table1, JTable table2, Query query1, Query query2, Field up1, Field up2, Field fk2) {
 
         int row = getSelectedRec(table1);
         if (row != -1) {
@@ -262,8 +262,10 @@ public class Util {
             query2.add(record2);
             ((DefaultTableModel) table2.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(query2, table2);
+            return record2;
         } else {
             JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
+            return null;
         }
     }
 

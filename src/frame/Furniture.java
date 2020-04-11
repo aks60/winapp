@@ -353,14 +353,14 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = getSelectedRec(tab1);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            Arrays.asList(qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            //Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            //Arrays.asList(qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
 
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
-            qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, 
+            qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
                     "where", eFurndet.furniture_id, "=", id, "and", eFurndet.id, "=", eFurndet.furndet_id, "order by", eArtikl.code);
 
             tabb1.setSelectedIndex(0);
@@ -374,13 +374,13 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab2a(ListSelectionEvent event) {
         int row = getSelectedRec(tab2a);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            //Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            //Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab2b, tab2c, tab5, tab6);
 
             Record record = qFurndet1.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurndet2.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, 
+            qFurndet2.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
                     "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id, "order by", eArtikl.code);
             ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2b, 0);
@@ -399,13 +399,13 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab2b(ListSelectionEvent event) {
         int row = getSelectedRec(tab2b);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            //Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            //Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab2c, tab5, tab6);
 
             Record record = qFurndet2.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurndet3.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,  
+            qFurndet3.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
                     "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id, "order by", eArtikl.code);
             ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2c, 0);
@@ -426,8 +426,8 @@ public class Furniture extends javax.swing.JFrame {
         if (tabb1.getSelectedIndex() == 2) {
             int row = getSelectedRec(tab2c);
             if (row != -1) {
-                Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-                Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+                //Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+                //Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
                 Util.clearTable(tab5, tab6);
 
                 Record record = qFurndet3.table(eFurndet.up).get(row);
@@ -447,8 +447,8 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab3(ListSelectionEvent event) {
         int row = getSelectedRec(tab3);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+            //Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            //Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside2).forEach(q -> q.execsql());
             Util.clearTable(tab4);
 
             Record record = qFurnside1.table(eFurnside1.up).get(row);
@@ -1087,7 +1087,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.insertRecord(tab1, tab3, qFurniture, qFurnside1, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab1, tab4, qFurniture, qFurnpar1, eFurniture.up, eFurnpar1.up, eFurnpar1.furnside_id);
+            Util.insertRecord(tab3, tab4, qFurnside1, qFurnpar1, eFurnside1.up, eFurnpar1.up, eFurnpar1.furnside_id);
 
         } else if (tab5.getBorder() != null) {
             if (tabb1.getSelectedIndex() == 0) {
@@ -1120,23 +1120,25 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport1
 
     private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
-        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
-        if (tabb1.getSelectedIndex() == 0) {
-            Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
-            tab2a.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        } else if (tabb1.getSelectedIndex() == 1) {
-            Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
-            tab2b.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        } else if (tabb1.getSelectedIndex() == 2) {
-            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
-            tab2c.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        }
+//        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
+//        if (tabb1.getSelectedIndex() == 0) {
+//            Arrays.asList(qFurniture, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+//            tab2a.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//        } else if (tabb1.getSelectedIndex() == 1) {
+//            Arrays.asList(qFurniture, qFurndet1, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+//            tab2b.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//        } else if (tabb1.getSelectedIndex() == 2) {
+//            Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+//            tab2c.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//        }
     }//GEN-LAST:event_tabb1StateChanged
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
-        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//        JTable table = (JTable) evt.getSource();
+//        Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+//        Arrays.asList(qFurniture, qFurndet1, qFurndet2, qFurndet3, qFurnpar1, qFurnpar2, qFurnside1, qFurnside2).forEach(q -> q.execsql());
+//        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
+//        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }//GEN-LAST:event_tabMouseClicked
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1184,9 +1186,9 @@ public class Furniture extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5));
+        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
+        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Спмсок фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -1231,5 +1233,27 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         });
+
+        FocusListener listenerFocus = new FocusListener() {
+
+            private javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+
+            public void focusGained(FocusEvent e) {
+                //Util.stopCellEditing(tab1, tab2a, tab3, tab4, tab5, tab6);
+                if (e.getSource() instanceof JTable) {
+                    ((JComponent) e.getSource()).setBorder(border);
+                }
+            }
+
+            public void focusLost(FocusEvent e) {
+                if (e.getSource() instanceof JTable) {
+                    JTable table = (JTable) e.getSource();
+                    table.setBorder(null);
+                    Util.stopCellEditing(table);
+                    ((DefTableModel) table.getModel()).getQuery().execsql();
+                }
+            }
+        };
+        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.addFocusListener(listenerFocus));
     }
 }
