@@ -184,6 +184,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Типовые конструкции фиртуальных профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(900, 589));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -192,7 +193,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(600, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
         panNorth.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panMouseClicked(evt);
@@ -678,6 +679,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
