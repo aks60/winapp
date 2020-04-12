@@ -7,7 +7,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.JoinVariant;
+import enums.VariantJoin;
 import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class ParamVariant {
                     boolean ret = false;
                     for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
                         ElemJoining el = elemJoin.getValue();
-                        if (JoinVariant.VAR4 == el.varJoin &&
+                        if (VariantJoin.VAR4 == el.varJoin &&
                                 el.joinElement1.artiklRec.equals(com5t.artiklRec) &&
                                 el.joinElement2.artiklRec.equals(paramRec.getStr(PAR3))) {
                             ret = true;
@@ -232,7 +232,7 @@ public class ParamVariant {
             String code = (paramRec.getStr(PAR1).length() == 4) ? paramRec.getStr(PAR1).substring(1, 4) : paramRec.getStr(PAR1).substring(2, 5);
             switch (code) {
                 case "002": //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.)
-                    if (elemJoin.varJoin == JoinVariant.VAR4 && "Простое Т-обр.".equals(paramRec.getStr(PAR3)) == false)
+                    if (elemJoin.varJoin == VariantJoin.VAR4 && "Простое Т-обр.".equals(paramRec.getStr(PAR3)) == false)
                         return false;
                     break;
                 case "005": //Контейнер имеет тип Артикула1/Артикула2

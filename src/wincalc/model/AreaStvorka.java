@@ -12,7 +12,7 @@ import enums.TypeElem;
 import enums.JoinLocate;
 import enums.TypeOpen;
 import enums.TypeUse;
-import enums.JoinVariant;
+import enums.VariantJoin;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -90,7 +90,7 @@ public class AreaStvorka extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (index + 1);
-            el.varJoin = JoinVariant.VAR2;
+            el.varJoin = VariantJoin.VAR2;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
@@ -127,7 +127,7 @@ public class AreaStvorka extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (index + 1);
-            el.varJoin = JoinVariant.VAR1;
+            el.varJoin = VariantJoin.VAR1;
             el.cutAngl1 = 0;
             el.cutAngl2 = 0;
 

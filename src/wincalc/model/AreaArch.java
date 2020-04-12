@@ -2,7 +2,7 @@ package wincalc.model;
 
 import domain.eArtikl;
 import enums.JoinLocate;
-import enums.JoinVariant;
+import enums.VariantJoin;
 import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
@@ -47,7 +47,7 @@ public class AreaArch extends AreaSimple {
 
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.varJoin = JoinVariant.VAR2;
+            el.varJoin = VariantJoin.VAR2;
             el.id = id() + (index + 2) / 10;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;

@@ -3,7 +3,7 @@ package wincalc.model;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.JoinLocate;
-import enums.JoinVariant;
+import enums.VariantJoin;
 import wincalc.Wincalc;
 
 public class AreaSquare extends AreaSimple {
@@ -17,7 +17,7 @@ public class AreaSquare extends AreaSimple {
     public void joinFrame() {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.varJoin = JoinVariant.VAR2;
+            el.varJoin = VariantJoin.VAR2;
             el.id = id() + (index + 1) / 100;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;

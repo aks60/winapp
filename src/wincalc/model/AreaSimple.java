@@ -3,7 +3,7 @@ package wincalc.model;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.JoinLocate;
-import enums.JoinVariant;
+import enums.VariantJoin;
 import java.awt.BasicStroke;
 import java.io.File;
 import java.util.EnumMap;
@@ -141,7 +141,7 @@ public class AreaSimple extends Com5t {
                         el.id = id() + (index + 1) / 100;
                         float[][] fs = sides[index];
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
-                            el.varJoin = JoinVariant.VAR4;
+                            el.varJoin = VariantJoin.VAR4;
                             if (index == 0) {
                                 el.name = "T - соединение левое";
                                 el.typeJoin = JoinLocate.TLEFT;
