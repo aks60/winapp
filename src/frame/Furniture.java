@@ -59,8 +59,8 @@ public class Furniture extends javax.swing.JFrame {
     private Query qFurnpar2 = new Query(eFurnpar2.values());
     private FrameListener listenerFrame = null;
     private EditorListener listenerEditor = null;
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset,
-            listenerColor, listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerVariant1, listenerVariant2;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor, 
+            listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
@@ -101,7 +101,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max,
+        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.hand_side, eFurniture.p2_max,
                 eFurniture.width_max, eFurniture.height_max, eFurniture.weight_max, eFurniture.ways_use, eFurniture.pars, eFurniture.coord_lim){
 
             public Object getValueAt(int col, int row, Object val) {
@@ -112,6 +112,11 @@ public class Furniture extends javax.swing.JFrame {
                     if (VariantFurn1.P1.find(fk) != null) {
                         return VariantFurn1.P1.find(fk).text();
                     }
+                } else  if (val != null && eFurniture.hand_side == field) {
+                     int fk = Integer.valueOf(val.toString());
+                     if (SideFurn1.P1.find(fk) != null) {
+                         return SideFurn1.P1.find(fk).text();
+                     }
                 } else  if (val != null && eFurniture.ways_use == field) {
                      int fk = Integer.valueOf(val.toString());
                      if (VariantFurn2.P1.find(fk) != null) {
@@ -285,6 +290,10 @@ public class Furniture extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, VariantFurn1.values());
+        });
+        
+        Util.buttonEditorCell(tab1, 2).addActionListener(event -> {
+            new DicEnums(this, listenerSide4, SideFurn1.values());
         });
 
         Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
@@ -471,7 +480,7 @@ public class Furniture extends javax.swing.JFrame {
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Query query = (tab2a.getBorder() != null) ? qFurndet1 : (tab2b.getBorder() != null) ? qFurndet2 : qFurndet3;
             if (tab.getBorder() != null) {
@@ -493,7 +502,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerColvar = (record) -> {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Query query = (tab2a.getBorder() != null) ? qFurndet1 : (tab2b.getBorder() != null) ? qFurndet2 : qFurndet3;
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             int row = tab.getSelectedRow();
             Record furndetRec = query.get(Util.getSelectedRec(tab));
             furndetRec.set(eFurndet.types, record.getInt(0));
@@ -502,15 +511,19 @@ public class Furniture extends javax.swing.JFrame {
         };
 
         listenerSide1 = (record) -> {
-            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide2 = (record) -> {
-            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide3 = (record) -> {
-            Util.listenerEnums(record, tab5, qFurnside2, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab5, qFurnside2, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+
+        listenerSide4 = (record) -> {
+            Util.listenerEnums(record, tab1, qFurniture, eFurniture.hand_side, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerPar1 = (record) -> {
@@ -523,19 +536,19 @@ public class Furniture extends javax.swing.JFrame {
 
         listenerVariant1 = (record) -> {
             System.out.println("frame.Furniture.listenerVariant1()");
-            Util.listenerEnums(record, tab1, qFurniture, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab1, qFurniture, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
         
         listenerVariant2 = (record) -> {
             System.out.println("frame.Furniture.listenerVariant2()");
-            Util.listenerEnums(record, tab1, qFurniture, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab1, qFurniture, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }
 
     private void listenerCell() {
 
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(component, tab4, tab6, qFurnpar1, qFurnpar2, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5);
+            return Util.listenerCell(component, tab4, tab6, qFurnpar1, qFurnpar2, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }
 
@@ -1142,7 +1155,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Util.stopCellEditing(tab1, tab2a, tab6, tab3, tab4, tab5, tab6);
+        Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         Arrays.asList(qFurniture, qFurndet1, qFurnside1, qFurnpar1, qFurnside2, qFurnpar2).forEach(q -> q.execsql());
         if (owner != null)
             owner.setEnabled(true);
