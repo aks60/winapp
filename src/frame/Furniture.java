@@ -1157,7 +1157,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        Arrays.asList(qFurniture, qFurndet1, qFurnside1, qFurnpar1, qFurnside2, qFurnpar2).forEach(q -> q.execsql());
+        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
@@ -1184,8 +1184,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_tabbStateChanged
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        JTable table = (JTable) evt.getSource();
-        listenerClick(table);
+        listenerClick((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

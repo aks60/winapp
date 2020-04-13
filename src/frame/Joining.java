@@ -272,8 +272,6 @@ public class Joining extends javax.swing.JFrame {
         Util.clearTable(tab2, tab3, tab4, tab5);
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            //Arrays.asList(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
             Record record = qJoining.table(eJoining.up).get(row);
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
@@ -286,8 +284,6 @@ public class Joining extends javax.swing.JFrame {
         Util.clearTable(tab3, tab4, tab5);
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
-            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            //Arrays.asList(qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
             Record record = qJoinvar.table(eJoinvar.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
@@ -302,8 +298,6 @@ public class Joining extends javax.swing.JFrame {
     private void selectionTab4(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab4);
         if (row != -1) {
-            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            //Arrays.asList(qJoinpar2).forEach(q -> q.execsql());
             Record record = qJoindet.table(eJoindet.up).get(row);
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.grup);
@@ -808,7 +802,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
@@ -818,8 +812,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        JTable table = (JTable) evt.getSource();
-        listenerClick(table);
+        listenerClick((JTable) evt.getSource());
     }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

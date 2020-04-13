@@ -18,6 +18,7 @@ import java.awt.event.InputEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -452,6 +453,20 @@ public class Util {
             query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
             ((DefaultTableModel) table.getModel()).fireTableDataChanged();
             Util.setSelectedRow(table, row);        
+    }
+    
+    //Слушатель клика на таблице
+    public static void listenerClick(JTable table, JTable... tables) {
+        Arrays.asList(tables).forEach(tab -> tab.setBorder(null));
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+        Arrays.asList(tables).forEach(tab -> {
+            if (tab != table) {
+                Util.stopCellEditing(tab);
+                if (tab.getModel() instanceof DefTableModel) {
+                    ((DefTableModel) tab.getModel()).getQuery().execsql();
+                }
+            }
+        });
     }
     
     //Программный клик на копоненте

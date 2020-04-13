@@ -288,11 +288,9 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+        Util.clearTable(tab2, tab3, tab4, tab5);
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
-            Util.clearTable(tab2, tab3, tab4, tab5);
             Record record = qElemgrp.get(row);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1 || id == -5) {
@@ -318,11 +316,9 @@ public class Element extends javax.swing.JFrame
     }
 
     private void selectionTab2(ListSelectionEvent event) {
+        Util.clearTable(tab3, tab4, tab5);
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
-            Util.clearTable(tab3, tab4, tab5);
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
@@ -335,10 +331,10 @@ public class Element extends javax.swing.JFrame
         }
     }
 
-    private void selectionTab3(ListSelectionEvent event) {
+    private void selectionTab3(ListSelectionEvent event) {  
         int row = Util.getSelectedRec(tab3);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qElempar2).forEach(q -> q.execsql());
             Record record = qElemdet.table(eElemdet.up).get(row);
             Integer p1 = record.getInt(eElemdet.id);
@@ -363,7 +359,6 @@ public class Element extends javax.swing.JFrame
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-
             if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
                 qElement.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElement.artikl_id);
@@ -420,6 +415,19 @@ public class Element extends javax.swing.JFrame
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
             return Util.listenerCell(component, tab4, tab5, qElempar1, qElempar2, tab1, tab2, tab3, tab4, tab5);
         };
+    }
+
+    private void listenerClick(JTable table) {
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> {
+            if (tab != table) {
+                Util.stopCellEditing(tab);
+                if (tab.getModel() instanceof DefTableModel) {
+                    ((DefTableModel) tab.getModel()).getQuery().execsql();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -633,8 +641,8 @@ public class Element extends javax.swing.JFrame
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -675,8 +683,8 @@ public class Element extends javax.swing.JFrame
         });
         tab4.setFillsViewportHeight(true);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -713,8 +721,8 @@ public class Element extends javax.swing.JFrame
         tab5.setMinimumSize(new java.awt.Dimension(6, 64));
         tab5.setPreferredSize(new java.awt.Dimension(0, 64));
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -737,8 +745,8 @@ public class Element extends javax.swing.JFrame
         ));
         tab3.setFillsViewportHeight(true);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -772,8 +780,8 @@ public class Element extends javax.swing.JFrame
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -790,7 +798,7 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
@@ -826,7 +834,8 @@ public class Element extends javax.swing.JFrame
             ppmCateg.show(panNorth, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
-            if (qElemgrp.get(Util.getSelectedRec(tab1), eElemgrp.level) != null) {
+            Record rec = qElemgrp.get(Util.getSelectedRec(tab1));
+            if (rec != null && rec.getInt(eElemgrp.id) != -1 && rec.getInt(eElemgrp.id) != -5) {
                 Util.insertRecord(tab1, tab2, qElemgrp, qElement, eElemgrp.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
             } else {
                 JOptionPane.showMessageDialog(this, "Не выбрана запись в списке категорий", "Предупреждение", JOptionPane.NO_OPTION);
@@ -845,16 +854,10 @@ public class Element extends javax.swing.JFrame
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(qElemgrp, qElement, qElemdet, qElempar1, qElempar2).forEach(q -> q.execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (owner != null)
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
-
-    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-    }//GEN-LAST:event_tabMouseClicked
 
     private void ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmCategAction
         JMenuItem ppm = (JMenuItem) evt.getSource();
@@ -875,6 +878,10 @@ public class Element extends javax.swing.JFrame
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
 
     }//GEN-LAST:event_btnReport
+
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        listenerClick((JTable) evt.getSource());
+    }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
