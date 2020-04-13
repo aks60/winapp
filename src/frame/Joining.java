@@ -269,11 +269,11 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
+        Util.clearTable(tab2, tab3, tab4, tab5);
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
-            Util.clearTable(tab2, tab3, tab4, tab5);
+            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            //Arrays.asList(qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
             Record record = qJoining.table(eJoining.up).get(row);
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
@@ -283,11 +283,11 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
+        Util.clearTable(tab3, tab4, tab5);
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
-            Util.clearTable(tab3, tab4, tab5);
+            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            //Arrays.asList(qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
             Record record = qJoinvar.table(eJoinvar.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
@@ -302,8 +302,8 @@ public class Joining extends javax.swing.JFrame {
     private void selectionTab4(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab4);
         if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qJoinpar2).forEach(q -> q.execsql());
+            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            //Arrays.asList(qJoinpar2).forEach(q -> q.execsql());
             Record record = qJoindet.table(eJoindet.up).get(row);
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.grup);
@@ -379,12 +379,23 @@ public class Joining extends javax.swing.JFrame {
         };
     }
 
+    private void listenerClick(JTable table) {
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> {
+            if (tab != table) {
+                Util.stopCellEditing(tab);
+                if (tab.getModel() instanceof DefTableModel) {
+                    ((DefTableModel) tab.getModel()).getQuery().execsql();
+                }
+            }
+        });
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scr6 = new javax.swing.JScrollPane();
-        tab6 = new javax.swing.JTable();
         panNorth = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -408,21 +419,6 @@ public class Joining extends javax.swing.JFrame {
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
-
-        scr6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        tab6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        scr6.setViewportView(tab6);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Соединения");
@@ -569,8 +565,8 @@ public class Joining extends javax.swing.JFrame {
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -613,8 +609,8 @@ public class Joining extends javax.swing.JFrame {
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -651,8 +647,8 @@ public class Joining extends javax.swing.JFrame {
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -689,8 +685,8 @@ public class Joining extends javax.swing.JFrame {
         tab4.setName("tab4"); // NOI18N
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -717,8 +713,8 @@ public class Joining extends javax.swing.JFrame {
         tab5.setName("tab5"); // NOI18N
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -760,7 +756,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(qJoining, qJoinvar, qJoindet, qJoinpar1, qJoinpar2).forEach(q -> q.execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
@@ -821,11 +817,10 @@ public class Joining extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-    }//GEN-LAST:event_tabMouseClicked
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        JTable table = (JTable) evt.getSource();
+        listenerClick(table);
+    }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -846,13 +841,11 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
-    private javax.swing.JScrollPane scr6;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
-    private javax.swing.JTable tab6;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
