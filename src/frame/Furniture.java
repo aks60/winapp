@@ -550,20 +550,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
             return Util.listenerCell(component, tab4, tab6, qFurnpar1, qFurnpar2, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
-    }
-
-    private void listenerClick(JTable table) {
-        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> tab.setBorder(null));
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> {
-            if (tab != table) {
-                Util.stopCellEditing(tab);
-                if (tab.getModel() instanceof DefTableModel) {
-                    ((DefTableModel) tab.getModel()).getQuery().execsql();
-                }
-            }
-        });
-    }
+    }    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1170,21 +1157,21 @@ public class Furniture extends javax.swing.JFrame {
         Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
 
         if (tabb1.getSelectedIndex() == 0) {
-            listenerClick(tab2a);
+            Util.listenerClick(tab2a, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
             selectionTab2a(null);
 
         } else if (tabb1.getSelectedIndex() == 1) {
-            listenerClick(tab2b);
+            Util.listenerClick(tab2b, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
             selectionTab2b(null);
 
         } else if (tabb1.getSelectedIndex() == 2) {
-            listenerClick(tab2c);
+            Util.listenerClick(tab2c, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
             selectionTab2c(null);
         }
     }//GEN-LAST:event_tabbStateChanged
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        listenerClick((JTable) evt.getSource());
+        Util.listenerClick((JTable) evt.getSource(), Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
     }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

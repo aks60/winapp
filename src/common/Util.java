@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -310,8 +311,8 @@ public class Util {
     //Проверка допустимости удаления таблицы
     public static int isDeleteRecord(JTable table, java.awt.Window owner, JTable... tables) {
         if (table.getSelectedRow() == -1) {
-           JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION); 
-           return 1;
+            JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+            return 1;
         }
         for (JTable tab : tables) {
             if (tab.getRowCount() != 0) {
@@ -321,7 +322,7 @@ public class Util {
         }
         return JOptionPane.showConfirmDialog(owner, "Вы действительно хотите удалить текущую запись?", "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
-    
+
     //Проверка допустимости удаления таблицы
     public static int isDeleteRecord(java.awt.Window owner, JTable... tables) {
         for (JTable tab : tables) {
@@ -447,19 +448,19 @@ public class Util {
         Util.setSelectedRow(table, row);
     }
 
-    public static void listenerEnums(Record record, JTable table, Query query, Field field_fk,  JTable... tables) {
-            Util.stopCellEditing(tables);
-            int row = table.getSelectedRow();
-            query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
-            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(table, row);        
+    public static void listenerEnums(Record record, JTable table, Query query, Field field_fk, JTable... tables) {
+        Util.stopCellEditing(tables);
+        int row = table.getSelectedRow();
+        query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
+        ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(table, row);
     }
-    
+
     //Слушатель клика на таблице
-    public static void listenerClick(JTable table, JTable... tables) {
-        Arrays.asList(tables).forEach(tab -> tab.setBorder(null));
+    public static void listenerClick(JTable table, List<JTable> tabList) {
+        tabList.forEach(tab -> tab.setBorder(null));
         table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Arrays.asList(tables).forEach(tab -> {
+        tabList.forEach(tab -> {
             if (tab != table) {
                 Util.stopCellEditing(tab);
                 if (tab.getModel() instanceof DefTableModel) {
@@ -468,7 +469,7 @@ public class Util {
             }
         });
     }
-    
+
     //Программный клик на копоненте
     public static void componentClick(JComponent comp) {
         try {
