@@ -2,7 +2,10 @@ package enums;
 
 import dataset.Field;
 import java.text.ParseException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 
 public interface Enam {
@@ -19,10 +22,15 @@ public interface Enam {
         return null;
     }
 
-    default Field[] fields() {
+    default Enam[] fields() {
         return null;
     }
 
+    default Enam find(int id) {
+        //return Stream.of(fields()).filter(en -> en.numb() == id).findFirst().orElse(null);
+        return Arrays.asList(fields()).stream().filter(en -> en.numb() == id).findFirst().orElse(null);
+    }
+    
     default List<String> dict() {
         return null;
     }

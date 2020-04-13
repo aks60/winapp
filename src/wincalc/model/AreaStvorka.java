@@ -39,7 +39,7 @@ public class AreaStvorka extends AreaSimple {
 
                 int key = Integer.valueOf(mapParam.get(ParamJson.typeOpen).toString());
                 for (TypeOpen typeOpen : TypeOpen.values()) {
-                    if (typeOpen.value == key) {
+                    if (typeOpen.TypeOpen.this.id == key) {
                         this.typeOpen = typeOpen;
                     }
                 }

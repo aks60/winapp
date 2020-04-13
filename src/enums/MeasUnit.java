@@ -1,6 +1,8 @@
 package enums;
 
-public enum MeasUnit {
+import static enums.TypeOpen.values;
+
+public enum MeasUnit implements Enam {
     METR(1, "пог.м."),
     METR2(2, "кв.м."),
     PIE(3, "шт."),
@@ -10,17 +12,29 @@ public enum MeasUnit {
     LT(8, "литры"),
     PAIR(11, "пара");
 
-    public int value = 0;
+    public int id = 0;
     public String name = "";
 
     MeasUnit(int value, String name) {
-        this.value = value;
+        this.id = value;
         this.name = name;
     }
 
+    public int numb() {
+        return Integer.valueOf(id);
+    }
+
+    public String text() {
+        return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
+    }
+    
     public static String getName(int index) {
         for (MeasUnit unit: values()) {
-            if (unit.value == index) {
+            if (unit.id == index) {
                 return unit.name;
             }
         }

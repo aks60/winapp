@@ -150,8 +150,8 @@ public class Element extends javax.swing.JFrame
                 } else if (eElemdet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.find(types) != null) {
-                        return VarColcalc.find(types).name;
+                    if (VarColcalc.P00.find(types) != null) {
+                        return VarColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }

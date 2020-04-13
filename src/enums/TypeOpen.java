@@ -1,9 +1,11 @@
 package enums;
 
+import static enums.TypeSys.values;
+
 /**
  * Типы открывания створок
  */
-public enum TypeOpen {
+public enum TypeOpen implements Enam {
 
     OM_INVALID(-1, "empty", "Ошибка"),
     OM_FIXED(0, "empty", "Глухая створка (не открывается)"),
@@ -15,13 +17,25 @@ public enum TypeOpen {
     OM_LEFTSHIFT(11, "левое", "Раздвижная влево (открывается справа-налево, защелка справа"),
     OM_RIGHTSHIFT(12, "правое", "Раздвижная вправо (открывается слева-направо, защелка слева");
 
-    public int value;
+    public int id;
     public String side;
     public String name;
 
-    TypeOpen(int value, String side, String name) {
-        this.value = value;
+    TypeOpen(int id, String side, String name) {
+        this.id = id;
         this.side = side;
         this.name = name;
     }
+
+    public int numb() {
+        return Integer.valueOf(id);
+    }
+
+    public String text() {
+        return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
+    }    
 }

@@ -1,6 +1,8 @@
 package enums;
 
-public enum JoinLocate {
+import static enums.TypeOpen.values;
+
+public enum JoinLocate implements Enam {
 
     NONE(1, "Не определено"),
     LTOP(1, "Угловое соединение левое верхнее"),
@@ -12,11 +14,23 @@ public enum JoinLocate {
     TLEFT(7, "T - соединение левое"),
     TRIGH(8, "T - соединение правое");
     
-    public int value;
+    public int id;
     public String name;
 
-    JoinLocate(int value, String name) {
-        this.value = value;
+    JoinLocate(int id, String name) {
+        this.id = id;
         this.name = name;
-    }    
+    }
+    
+    public int numb() {
+        return Integer.valueOf(id);
+    }
+
+    public String text() {
+        return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
+    }
 }

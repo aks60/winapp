@@ -1,8 +1,9 @@
 package enums;
 
+import static enums.TypeOpen.values;
 import java.util.Arrays;
 
-public enum LayoutArea {
+public enum LayoutArea implements Enam {
     NONE("Любая"),
     FULL("Везде"),
     HORIZ("Горизонтальное"),
@@ -22,13 +23,15 @@ public enum LayoutArea {
         this.name = name;
     }
 
-//    public static LayoutArea get(String str) {
-//        LayoutArea layout2 = Arrays.asList(LayoutArea.values()).stream().filter(it -> it.name().equals(str)).findFirst().orElse(null);
-//        for (LayoutArea val : values()) {
-//            if (val.name().equals(str)) {
-//                layout2 = val;
-//            }
-//        }
-//        return layout2;
-//    }
+    public int numb() {
+        return this.ordinal();
+    }
+
+    public String text() {
+        return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
+    }
 }

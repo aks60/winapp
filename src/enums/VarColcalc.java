@@ -1,7 +1,10 @@
 package enums;
 
 //Варианты рассчёта текстуры
-public enum VarColcalc {
+
+import static enums.VariantFurn1.values;
+
+public enum VarColcalc implements Enam {
 
     P00(0, "указанная вручную"),
     P11(11, "профиль"),
@@ -23,15 +26,18 @@ public enum VarColcalc {
         this.name = name;
     }
 
-    public static VarColcalc find(int id) {
-        for (VarColcalc el : values()) {
-            
-            if (el.id.equals(String.valueOf(id))) {
-                return el;
-            }
-        }
-        return null;
+    public int numb() {
+        return Integer.valueOf(id);
     }
+
+    public String text() {
+        return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
+    }     
+    
     public static String[] precision = {"100", "Точный подбор"};
     public static String[] automatic = {"0", "Автоатический подбор"};
 }

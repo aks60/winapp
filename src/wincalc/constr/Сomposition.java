@@ -40,7 +40,7 @@ public class Сomposition extends Cal5e {
             for (Record sysprofRec : sysprofList) {
                 boolean is = false;
                 int types = sysprofRec.getInt(eSysprof.types);
-                if (TypeUse.FRAME.value == types) {
+                if (TypeUse.FRAME.id == types) {
 
                     int id = sysprofRec.getInt(eSysprof.artikl_id); //подбор текстуры, ищем не на аналоге                
                     List<Record> artdetList = eArtdet.find(id);
@@ -74,7 +74,7 @@ public class Сomposition extends Cal5e {
             }
             for (Record record : sysprofList) {
                 boolean is = false;
-                if (TypeUse.IMPOST.value == record.getInt(eSysprof.types)) {
+                if (TypeUse.IMPOST.id == record.getInt(eSysprof.types)) {
                     List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
                     for (Record artdetRec : artdetList) {
 
@@ -101,7 +101,7 @@ public class Сomposition extends Cal5e {
             }
             for (Record record : sysprofList) {
                 boolean is = false;
-                if (TypeUse.STVORKA.value == record.getInt(eSysprof.types)) {
+                if (TypeUse.STVORKA.id == record.getInt(eSysprof.types)) {
                     List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
                     for (Record artdetRec : artdetList) {
 

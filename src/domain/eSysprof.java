@@ -67,7 +67,7 @@ public enum eSysprof implements Field {
         }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
-            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types))
+            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.id == rec.getInt(types))
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
@@ -85,7 +85,7 @@ public enum eSysprof implements Field {
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where "
-                + systree_id.name() + " = " + _nuni + " and " + types.name() + " = " + _type.value + " order by " + prio.name());
+                + systree_id.name() + " = " + _nuni + " and " + types.name() + " = " + _type.id + " order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
@@ -95,8 +95,8 @@ public enum eSysprof implements Field {
         }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
-            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.value == rec.getInt(types)
-                    && (_side.value == rec.getInt(side) || SideProfile.ANY.value == rec.getInt(side)))
+            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.id == rec.getInt(types)
+                    && (_side.id == rec.getInt(side) || SideProfile.ANY.id == rec.getInt(side)))
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
@@ -114,8 +114,8 @@ public enum eSysprof implements Field {
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
-                + " where " + systree_id.name() + " = " + _nuni + " and types = " + _type.value + " and ("
-                + side.name() + " = " + _side.value + " or " + side.name() + " = " + SideProfile.ANY.value + ") order by " + prio.name());
+                + " where " + systree_id.name() + " = " + _nuni + " and types = " + _type.id + " and ("
+                + side.name() + " = " + _side.id + " or " + side.name() + " = " + SideProfile.ANY.id + ") order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
@@ -123,8 +123,8 @@ public enum eSysprof implements Field {
 
         Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
-        record.setNo(types, _type.value);
-        record.setNo(side, SideProfile.ANY.value);
+        record.setNo(types, _type.id);
+        record.setNo(side, SideProfile.ANY.id);
         record.setNo(systree_id, -1);
         record.setNo(artikl_id, -1);
         return record;

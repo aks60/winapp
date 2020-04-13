@@ -40,7 +40,7 @@ public abstract class ElemSimple extends Com5t {
     //Расчёт материала в зависимости от ед. измерения
     public void quantityMaterials(Specification specif) {
 
-        if (MeasUnit.PIE.value == specif.artiklRec.getInt(eArtikl.currenc_id)) { //шт
+        if (MeasUnit.PIE.id == specif.artiklRec.getInt(eArtikl.currenc_id)) { //шт
             specif.count = Integer.valueOf(specif.getParam(specif.count, 11030, 33030, 14030));
 
             if (specif.getParam(0, 33050).equals("0") == false) {
@@ -54,7 +54,7 @@ public abstract class ElemSimple extends Com5t {
 
                 if (widthBegin != 0) ++specif.count;
             }
-        } else if (MeasUnit.METR.value == specif.artiklRec.getInt(eArtikl.currenc_id)) { //метры
+        } else if (MeasUnit.METR.id == specif.artiklRec.getInt(eArtikl.currenc_id)) { //метры
             if (specif.width == 0)
                 specif.width = specificationRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
             specif.width = Float.valueOf(specif.getParam(specif.width, 34070)); //Длина, мм (должна быть первой)

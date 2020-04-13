@@ -446,6 +446,14 @@ public class Util {
         Util.setSelectedRow(table, row);
     }
 
+    public static void listenerEnums(Record record, JTable table, Query query, Field field_fk,  JTable... tables) {
+            Util.stopCellEditing(tables);
+            int row = table.getSelectedRow();
+            query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
+            ((DefaultTableModel) table.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(table, row);        
+    }
+    
     //Программный клик на копоненте
     public static void componentClick(JComponent comp) {
         try {

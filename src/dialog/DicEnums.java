@@ -6,20 +6,22 @@ import common.Util;
 import static common.Util.getSelectedRec;
 import dataset.Record;
 import enums.Enam;
-import enums.SideFurn2;
+import enums.SideFurn1;
 import java.util.Arrays;
-import java.util.Vector;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
-public class DicFurnside extends javax.swing.JDialog {
+public class DicEnums extends javax.swing.JDialog {
 
     private DialogListener listener = null;
+    private Enam[] enam = null;
 
-    public DicFurnside(java.awt.Frame parent, DialogListener listenet, Enam... enam) {
+    public DicEnums(java.awt.Frame parent, DialogListener listenet, Enam... enam) {
         super(parent, true);
         initComponents();
         initElements();
         this.listener = listenet;
+        this.enam = enam;
         loadingModel(enam);
         setVisible(true);
     }
@@ -180,8 +182,8 @@ public class DicFurnside extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record();
-        record.add(tab1.getSelectedRow() + 1);
-        record.add(tab1.getValueAt(getSelectedRec(tab1), 0));
+        record.add(enam[getSelectedRec(tab1)].numb());
+        record.add(enam[getSelectedRec(tab1)].text());
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

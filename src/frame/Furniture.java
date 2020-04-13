@@ -27,7 +27,7 @@ import static common.Util.getSelectedRec;
 import dataset.Field;
 import dialog.DicArtikl;
 import dialog.DicColvar;
-import dialog.DicFurnside;
+import dialog.DicEnums;
 import dialog.ParColor;
 import dialog.ParGrup;
 import dialog.ParSys;
@@ -40,9 +40,10 @@ import enums.SideFurn1;
 import enums.SideFurn2;
 import enums.SideFurn3;
 import enums.VarColcalc;
+import enums.VariantFurn1;
+import enums.VariantFurn2;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -59,7 +60,7 @@ public class Furniture extends javax.swing.JFrame {
     private FrameListener listenerFrame = null;
     private EditorListener listenerEditor = null;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset,
-            listenerColor, listenerColvar, listenerSide1, listenerSide2, listenerSide3;
+            listenerColor, listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerVariant1, listenerVariant2;
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
@@ -100,8 +101,26 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max, 
-                eFurniture.width_max, eFurniture.height_max, eFurniture.weight_max, eFurniture.types, eFurniture.pars, eFurniture.coord_lim);
+        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.view_open, eFurniture.p2_max,
+                eFurniture.width_max, eFurniture.height_max, eFurniture.weight_max, eFurniture.ways_use, eFurniture.pars, eFurniture.coord_lim){
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                Field field = columns[col];
+                 if (val != null && eFurniture.view_open == field) {
+                    int fk = Integer.valueOf(val.toString());
+                    if (VariantFurn1.P1.find(fk) != null) {
+                        return VariantFurn1.P1.find(fk).text();
+                    }
+                } else  if (val != null && eFurniture.ways_use == field) {
+                     int fk = Integer.valueOf(val.toString());
+                     if (VariantFurn2.P1.find(fk) != null) {
+                         return VariantFurn2.P1.find(fk).text();
+                     }
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab2a, qFurndet1, eArtikl.code, eArtikl.name, eFurndet.color_fk, eFurndet.types) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -123,8 +142,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.find(types) != null) {
-                        return VarColcalc.find(types).name;
+                    if (VarColcalc.P00.find(types) != null) {
+                        return VarColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -153,8 +172,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.find(types) != null) {
-                        return VarColcalc.find(types).name;
+                    if (VarColcalc.P00.find(types) != null) {
+                        return VarColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -183,8 +202,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.find(types) != null) {
-                        return VarColcalc.find(types).name;
+                    if (VarColcalc.P00.find(types) != null) {
+                        return VarColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -264,6 +283,14 @@ public class Furniture extends javax.swing.JFrame {
             }
         };
 
+        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
+            new DicEnums(this, listenerVariant1, VariantFurn1.values());
+        });
+
+        Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
+            new DicEnums(this, listenerVariant2, VariantFurn2.values());
+        });
+
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
             Util.buttonEditorCell(tab, 0).addActionListener(event -> {
                 new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
@@ -293,11 +320,11 @@ public class Furniture extends javax.swing.JFrame {
         }
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            new DicFurnside(this, listenerSide1, SideFurn1.values());
+            new DicEnums(this, listenerSide1, SideFurn1.values());
         });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            new DicFurnside(this, listenerSide2, SideFurn2.values());
+            new DicEnums(this, listenerSide2, SideFurn2.values());
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
@@ -316,7 +343,7 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
-            new DicFurnside(this, listenerSide3, SideFurn3.values());
+            new DicEnums(this, listenerSide3, SideFurn3.values());
         });
 
         Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
@@ -351,7 +378,7 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         int row = getSelectedRec(tab1);
-        if (row != -1) { 
+        if (row != -1) {
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
@@ -411,10 +438,10 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void selectionTab2c(ListSelectionEvent event) {
-         Util.clearTable(tab5, tab6);
+        Util.clearTable(tab5, tab6);
         if (tabb1.getSelectedIndex() == 2) {
             int row = getSelectedRec(tab2c);
-            if (row != -1) {               
+            if (row != -1) {
                 Record record = qFurndet3.table(eFurndet.up).get(row);
                 Integer id = record.getInt(eFurndet.id);
                 if (tabb1.getSelectedIndex() == 2) {
@@ -475,27 +502,15 @@ public class Furniture extends javax.swing.JFrame {
         };
 
         listenerSide1 = (record) -> {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
-            int row = tab3.getSelectedRow();
-            qFurnside1.set(record.getInt(0), Util.getSelectedRec(tab3), eFurnside1.side_num);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
         };
 
         listenerSide2 = (record) -> {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
-            int row = tab3.getSelectedRow();
-            qFurnside1.set(record.getInt(0), Util.getSelectedRec(tab3), eFurnside1.side_use);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);
+            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
         };
 
         listenerSide3 = (record) -> {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
-            int row = tab5.getSelectedRow();
-            qFurnside2.set(record.getInt(0), Util.getSelectedRec(tab5), eFurnside2.side_num);
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5, row);
+            Util.listenerEnums(record, tab5, qFurnside2, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
         };
 
         listenerPar1 = (record) -> {
@@ -504,6 +519,16 @@ public class Furniture extends javax.swing.JFrame {
 
         listenerPar2 = (record) -> {
             Util.listenerParam(record, tab6, qFurnpar2, eFurnpar2.grup, eFurnpar2.numb, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+        };
+
+        listenerVariant1 = (record) -> {
+            System.out.println("frame.Furniture.listenerVariant1()");
+            Util.listenerEnums(record, tab1, qFurniture, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
+        };
+        
+        listenerVariant2 = (record) -> {
+            System.out.println("frame.Furniture.listenerVariant2()");
+            Util.listenerEnums(record, tab1, qFurniture, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4, tab5, tab6);
         };
     }
 
@@ -1124,7 +1149,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-           tabb1.setTitleAt(0, "<html><font size='3' color='blue'>&nbsp;&nbsp;&nbsp;12</font>");
+        tabb1.setTitleAt(0, "<html><font size='3' color='blue'>&nbsp;&nbsp;&nbsp;12</font>");
     }//GEN-LAST:event_btnReport
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged

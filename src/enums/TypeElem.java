@@ -1,7 +1,7 @@
 package enums;
 
 //Типы элементов
-public enum TypeElem {
+public enum TypeElem implements Enam {
 
     //TypeElem
     FRAME_BOX(2, "Рама коробки"),

@@ -2,6 +2,7 @@
 package enums;
 
 import dataset.Field;
+import static enums.VarColcalc.values;
 
 
 public enum TypeSys implements Enam {
@@ -17,23 +18,23 @@ public enum TypeSys implements Enam {
     ROLLT(8, "Роллета"),
     VITRAG(9, "Витраж");
 
-    public int key;
-    public String val;
+    public int id;
+    public String name;
 
-    TypeSys(int key, String val) {
-        this.key = key;
-        this.val = val;
+    TypeSys(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
-    
+
     public int numb() {
-        return key;
+        return Integer.valueOf(id);
     }
-    
+
     public String text() {
-       return val; 
+        return name;
     }
     
-    public Enam[] enams() {
+    public Enam[] fields() {
         return values();
-    }   
+    }     
 }

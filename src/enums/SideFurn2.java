@@ -6,6 +6,7 @@
 package enums;
 
 import static enums.SideProfile.values;
+import static enums.TypeOpen.values;
 
 //Ограничение сторон, назначение стороны фурнитуры
 public enum SideFurn2 implements Enam {
@@ -20,8 +21,16 @@ public enum SideFurn2 implements Enam {
         this.id = id;
         this.name = name;
     }
-   
+
+    public int numb() {
+        return Integer.valueOf(id);
+    }
+
     public String text() {
         return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
     }
 }

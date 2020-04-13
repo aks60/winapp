@@ -1,6 +1,6 @@
 package enums;
 
-public enum VariantFurn1 {
+public enum VariantFurn1 implements Enam {
     P1(1, "поворотная"),
     P2(2, "раздвижная"),
     P3(3, "раздвижная<=>"),
@@ -14,7 +14,15 @@ public enum VariantFurn1 {
         this.name = name;
     }
 
+    public int numb() {
+        return id;
+    }
+
     public String text() {
         return name;
     }
+    
+    public Enam[] fields() {
+        return values();
+    }     
 }

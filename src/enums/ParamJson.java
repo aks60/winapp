@@ -1,6 +1,8 @@
 package enums;
 
-public enum ParamJson {
+import static enums.TypeOpen.values;
+
+public enum ParamJson implements Enam {
 
     //paramJson("Уник. идентиф."),
     funic("Уник. идентиф."),
@@ -15,4 +17,15 @@ public enum ParamJson {
         this.name = name;
     }
 
+    public int numb() {
+        return this.ordinal();
+    }
+
+    public String text() {
+        return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
+    }
 }

@@ -21,8 +21,16 @@ public enum SideFurn1 implements Enam {
         this.id = id;
         this.name = name;
     }
-    
+
+    public int numb() {
+        return id;
+    }
+
     public String text() {
         return name;
-    }    
+    }
+    
+   public Enam[] fields() {
+        return values();
+    }
 }

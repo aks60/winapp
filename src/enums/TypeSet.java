@@ -1,6 +1,8 @@
 package enums;
 
-public enum TypeSet {
+import static enums.TypeSys.values;
+
+public enum TypeSet implements Enam {
     P1(1, "Внутренний"),
     P2(2, "Армирование"),
     P3(3, "Ламинирование"),
@@ -16,4 +18,16 @@ public enum TypeSet {
         this.id = String.valueOf(id);
         this.name = name;
     }
+
+    public int numb() {
+        return Integer.valueOf(id);
+    }
+
+    public String text() {
+        return name;
+    }
+    
+    public Enam[] fields() {
+        return values();
+    }    
 }
