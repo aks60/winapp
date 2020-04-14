@@ -829,7 +829,7 @@ public class Joining extends javax.swing.JFrame {
             sorter.setRowFilter(RowFilter.regexFilter(txtFilter.getText(), index));
         }
     }//GEN-LAST:event_filterCaretUpdate
-// <editor-fold defaultstate="collapsed" desc="Generated Code">
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
