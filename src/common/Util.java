@@ -239,7 +239,7 @@ public class Util {
         }
         return -1;
     }
-    
+
     //Вставить запись
     public static void insertRecord(JTable table, Field up) {
 
@@ -250,14 +250,14 @@ public class Util {
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.scrollRectToVisible(query, table);
     }
-    
+
     //Вставить запись
     public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field fk2) {
 
         int row = getSelectedRec(table1);
         if (row != -1) {
             Query query1 = ((DefTableModel) table1.getModel()).getQuery();
-            Query query2 = ((DefTableModel) table2.getModel()).getQuery();            
+            Query query2 = ((DefTableModel) table2.getModel()).getQuery();
             Record record1 = query1.get(row);
             Record record2 = query2.newRecord(Query.INS);
             record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
@@ -271,7 +271,7 @@ public class Util {
             return null;
         }
     }
-    
+
     //Вставить запись
     public static Record insertRecord(JTable table1, JTable table2, Field up1, Field up2, Field up3, Field fk2) {
 
@@ -294,7 +294,7 @@ public class Util {
             return null;
         }
     }
-  
+
     //Удалить запись
     public static void deleteRecord(JTable table, Field field) {
 
@@ -387,8 +387,10 @@ public class Util {
     }
 
     //Слушатель редактирование типа данных и вида ячейки таблицы 
-    public static boolean listenerCell(Object component, JTable table1, JTable table2, Query qParam1, Query qParam2, JTable... tabses) {
-
+    public static boolean listenerCell(JTable table1, JTable table2, Object component, JTable... tabses) {
+        Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
+        Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();
+        
         if (component instanceof DefFieldEditor) { //вид и тип ячейки
             DefFieldEditor editor = (DefFieldEditor) component;
             JTable tab = Util.getCellEditing(tabses);
@@ -416,9 +418,10 @@ public class Util {
     }
 
     //Слушатель редактирование параметров
-    public static void listenerParam(Record record, JTable table, Query query, Field grup, Field numb, Field text, JTable... tables) {
+    public static void listenerParam(Record record, JTable table, Field grup, Field numb, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
         int row = table.getSelectedRow();
+        Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record2 = query.get(Util.getSelectedRec(table));
 
         if (eParams.values().length == record.size()) {
@@ -439,9 +442,10 @@ public class Util {
     }
 
     //Слушатель редактирование палитры
-    public static void listenerColor(Record record, JTable table, Query query, Field color_fk, Field types, JTable... tables) {
+    public static void listenerColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
         Util.stopCellEditing(tables);
         int row = table.getSelectedRow();
+        Query query = ((DefTableModel) table.getModel()).getQuery();
         Record elemdetRec = query.get(Util.getSelectedRec(table));
         int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
         elemdetRec.set(color_fk, group);
@@ -454,8 +458,9 @@ public class Util {
         Util.setSelectedRow(table, row);
     }
 
-    public static void listenerEnums(Record record, JTable table, Query query, Field field_fk, JTable... tables) {
+    public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {
         Util.stopCellEditing(tables);
+        Query query = ((DefTableModel) table.getModel()).getQuery();
         int row = table.getSelectedRow();
         query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();

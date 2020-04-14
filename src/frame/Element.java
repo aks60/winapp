@@ -389,7 +389,7 @@ public class Element extends javax.swing.JFrame
         };
 
         listenerColor = (record) -> {
-            Util.listenerColor(record, tab3, qElemdet, eElemdet.color_fk, eElemdet.types, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerColor(record, tab3, eElemdet.color_fk, eElemdet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar = (record) -> {
@@ -402,33 +402,20 @@ public class Element extends javax.swing.JFrame
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab4, qElempar1, eElempar1.grup, eElempar1.numb, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab4, eElempar1.grup, eElempar1.numb, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab5, qElempar2, eElempar2.grup, eElempar2.numb, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab5, eElempar2.grup, eElempar2.numb, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
         };
     }
 
     private void listenerCell() {
 
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(component, tab4, tab5, qElempar1, qElempar2, tab1, tab2, tab3, tab4, tab5);
+            return Util.listenerCell(tab4, tab5, component, tab1, tab2, tab3, tab4, tab5);
         };
     }
-
-//    private void listenerClick(JTable table) {
-//        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-//        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-//        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> {
-//            if (tab != table) {
-//                Util.stopCellEditing(tab);
-//                if (tab.getModel() instanceof DefTableModel) {
-//                    ((DefTableModel) tab.getModel()).getQuery().execsql();
-//                }
-//            }
-//        });
-//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

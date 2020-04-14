@@ -329,15 +329,15 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.numb, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab3, eJoinpar1.grup, eJoinpar1.numb, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.numb, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab5, eJoinpar2.grup, eJoinpar2.numb, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColor = (record) -> {
-            Util.listenerColor(record, tab4, qJoindet, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerColor(record, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar = (record) -> {
@@ -369,7 +369,7 @@ public class Joining extends javax.swing.JFrame {
 
     private void listenerCell() {
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(component, tab3, tab5, qJoinpar1, qJoinpar2, tab1, tab2, tab3, tab4, tab5);
+            return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
         };
     }
     

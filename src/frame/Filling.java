@@ -309,7 +309,7 @@ public class Filling extends javax.swing.JFrame {
         };
 
         listenerColor = (record) -> {
-            Util.listenerColor(record, tab2, qGlasdet, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerColor(record, tab2, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColvar = (record) -> {
@@ -343,18 +343,18 @@ public class Filling extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab3, qGlaspar1, eElempar1.grup, eGlaspar1.numb, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab3, eElempar1.grup, eGlaspar1.numb, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.numb, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab4, eGlaspar2.grup, eGlaspar2.numb, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
         };
     }
 
     private void listenerCell() {
 
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(component, tab3, tab4, qGlaspar1, qGlaspar2, tab1, tab2, tab3, tab4, tab5);
+            return Util.listenerCell(tab3, tab4, component, tab1, tab2, tab3, tab4, tab5);
         };
     }
 

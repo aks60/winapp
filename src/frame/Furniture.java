@@ -495,8 +495,7 @@ public class Furniture extends javax.swing.JFrame {
 
         listenerColor = (record) -> {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-            Query query = (tab2a.getBorder() != null) ? qFurndet1 : (tab2b.getBorder() != null) ? qFurndet2 : qFurndet3;
-            Util.listenerColor(record, tab, query, eFurndet.color_fk, eFurndet.types, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            Util.listenerColor(record, tab, eFurndet.color_fk, eFurndet.types, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerColvar = (record) -> {
@@ -511,44 +510,44 @@ public class Furniture extends javax.swing.JFrame {
         };
 
         listenerSide1 = (record) -> {
-            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab3, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide2 = (record) -> {
-            Util.listenerEnums(record, tab3, qFurnside1, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab3, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide3 = (record) -> {
-            Util.listenerEnums(record, tab5, qFurnside2, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab5, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerSide4 = (record) -> {
-            Util.listenerEnums(record, tab1, qFurniture, eFurniture.hand_side, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab1, eFurniture.hand_side, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab4, qFurnpar1, eFurnpar1.grup, eFurnpar1.numb, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            Util.listenerParam(record, tab4, eFurnpar1.grup, eFurnpar1.numb, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab6, qFurnpar2, eFurnpar2.grup, eFurnpar2.numb, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            Util.listenerParam(record, tab6, eFurnpar2.grup, eFurnpar2.numb, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerVariant1 = (record) -> {
             System.out.println("frame.Furniture.listenerVariant1()");
-            Util.listenerEnums(record, tab1, qFurniture, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab1, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
         
         listenerVariant2 = (record) -> {
             System.out.println("frame.Furniture.listenerVariant2()");
-            Util.listenerEnums(record, tab1, qFurniture, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }
 
     private void listenerCell() {
 
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(component, tab4, tab6, qFurnpar1, qFurnpar2, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            return Util.listenerCell(tab4, tab6, component, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }    
 
