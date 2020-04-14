@@ -1060,35 +1060,35 @@ public class Furniture extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(tab1, this, tab2a, tab2b, tab2c, tab3) == 0) {
-                Util.deleteRecord(tab1, qFurniture, eFurniture.up);
+                Util.deleteRecord(tab1, eFurniture.up);
             }
         } else if (tab2a.getBorder() != null) {
             if (Util.isDeleteRecord(tab2a, this, tab2b, tab2c, tab5, tab6) == 0) {
-                Util.deleteRecord(tab2a, qFurndet1, eFurndet.up);
+                Util.deleteRecord(tab2a, eFurndet.up);
             }
         } else if (tab2b.getBorder() != null) {
             if (Util.isDeleteRecord(tab2b, this, tab2c, tab5, tab6) == 0) {
-                Util.deleteRecord(tab2b, qFurndet2, eFurndet.up);
+                Util.deleteRecord(tab2b, eFurndet.up);
             }
         } else if (tab2c.getBorder() != null) {
             if (Util.isDeleteRecord(tab2c, this, tab5, tab6) == 0) {
-                Util.deleteRecord(tab2c, qFurndet3, eFurndet.up);
+                Util.deleteRecord(tab2c, eFurndet.up);
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(tab3, this, tab4) == 0) {
-                Util.deleteRecord(tab3, qFurnside1, eFurnside1.up);
+                Util.deleteRecord(tab3, eFurnside1.up);
             }
         } else if (tab4.getBorder() != null) {
             if (Util.isDeleteRecord(tab4, this) == 0) {
-                Util.deleteRecord(tab4, qFurnpar1, eFurnpar1.up);
+                Util.deleteRecord(tab4, eFurnpar1.up);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(tab5, this) == 0) {
-                Util.deleteRecord(tab5, qFurnside2, eFurnside2.up);
+                Util.deleteRecord(tab5, eFurnside2.up);
             }
         } else if (tab6.getBorder() != null) {
             if (Util.isDeleteRecord(tab6, this) == 0) {
-                Util.deleteRecord(tab6, qFurnpar2, eFurnpar2.up);
+                Util.deleteRecord(tab6, eFurnpar2.up);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -1103,41 +1103,41 @@ public class Furniture extends javax.swing.JFrame {
             return;
         }
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, qFurniture, eFurniture.up);
+            Util.insertRecord(tab1, eFurniture.up);
 
         } else if (tab2a.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2a, qFurniture, qFurndet1, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2a, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
             record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
 
         } else if (tab2b.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2b, qFurniture, qFurndet2, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2b, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
             record.set(eFurndet.furndet_id, qFurndet1.get(Util.getSelectedRec(tab2a), eFurndet.id));
 
         } else if (tab2c.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2c, qFurniture, qFurndet3, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2c, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
             record.set(eFurndet.furndet_id, qFurndet2.get(Util.getSelectedRec(tab2b), eFurndet.id));
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab1, tab3, qFurniture, qFurnside1, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
+            Util.insertRecord(tab1, tab3, eFurniture.up, eFurnside1.up, eFurnside1.furniture_id);
 
         } else if (tab4.getBorder() != null) {
-            Record record = Util.insertRecord(tab3, tab4, qFurnside1, qFurnpar1, eFurnside1.up, eFurnpar1.up, eFurnpar1.furnside_id);
+            Record record = Util.insertRecord(tab3, tab4, eFurnside1.up, eFurnpar1.up, eFurnpar1.furnside_id);
 
         } else if (tab5.getBorder() != null) {
             if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab2a, tab5, qFurndet1, qFurnside2, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
+                Util.insertRecord(tab2a, tab5, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
             } else if (tabb1.getSelectedIndex() == 1) {
-                Util.insertRecord(tab2b, tab5, qFurndet2, qFurnside2, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
+                Util.insertRecord(tab2b, tab5, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
             } else if (tabb1.getSelectedIndex() == 2) {
-                Util.insertRecord(tab2c, tab5, qFurndet3, qFurnside2, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
+                Util.insertRecord(tab2c, tab5, eFurndet.up, eFurnside2.up, eFurnside2.furndet_id);
             }
         } else if (tab6.getBorder() != null) {
             if (tabb1.getSelectedIndex() == 0) {
-                Util.insertRecord(tab2a, tab6, qFurndet1, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
+                Util.insertRecord(tab2a, tab6, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
             } else if (tabb1.getSelectedIndex() == 1) {
-                Util.insertRecord(tab2b, tab6, qFurndet2, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
+                Util.insertRecord(tab2b, tab6, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
             } else if (tabb1.getSelectedIndex() == 2) {
-                Util.insertRecord(tab2c, tab6, qFurndet3, qFurnpar2, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
+                Util.insertRecord(tab2c, tab6, eFurndet.up, eFurnpar2.up, eFurnpar2.furndet_id);
             }
         }
     }//GEN-LAST:event_btnInsert

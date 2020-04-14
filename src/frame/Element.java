@@ -417,18 +417,18 @@ public class Element extends javax.swing.JFrame
         };
     }
 
-    private void listenerClick(JTable table) {
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> {
-            if (tab != table) {
-                Util.stopCellEditing(tab);
-                if (tab.getModel() instanceof DefTableModel) {
-                    ((DefTableModel) tab.getModel()).getQuery().execsql();
-                }
-            }
-        });
-    }
+//    private void listenerClick(JTable table) {
+//        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
+//        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
+//        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> {
+//            if (tab != table) {
+//                Util.stopCellEditing(tab);
+//                if (tab.getModel() instanceof DefTableModel) {
+//                    ((DefTableModel) tab.getModel()).getQuery().execsql();
+//                }
+//            }
+//        });
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -807,23 +807,23 @@ public class Element extends javax.swing.JFrame
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab2) == 0) {
-                Util.deleteRecord(tab1, qElemgrp, eElemgrp.up);
+                Util.deleteRecord(tab1, eElemgrp.up);
             }
         } else if (tab2.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab3, tab4) == 0) {
-                Util.deleteRecord(tab2, qElement, eElement.up);
+                Util.deleteRecord(tab2, eElement.up);
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab5) == 0) {
-                Util.deleteRecord(tab3, qElemdet, eElemdet.up);
+                Util.deleteRecord(tab3, eElemdet.up);
             }
         } else if (tab4.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab4, qElempar1, eElempar1.up);
+                Util.deleteRecord(tab4, eElempar1.up);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab5, qElempar2, eElempar2.up);
+                Util.deleteRecord(tab5, eElempar2.up);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -836,18 +836,18 @@ public class Element extends javax.swing.JFrame
         } else if (tab2.getBorder() != null) {
             Record rec = qElemgrp.get(Util.getSelectedRec(tab1));
             if (rec != null && rec.getInt(eElemgrp.id) != -1 && rec.getInt(eElemgrp.id) != -5) {
-                Util.insertRecord(tab1, tab2, qElemgrp, qElement, eElemgrp.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
+                Util.insertRecord(tab1, tab2, eElemgrp.up, eElement.up, eArtikl.up, eElement.elemgrp_id);
             } else {
                 JOptionPane.showMessageDialog(this, "Не выбрана запись в списке категорий", "Предупреждение", JOptionPane.NO_OPTION);
             }
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab2, tab3, qElement, qElemdet, eElement.up, eElemdet.up, eArtikl.up, eElemdet.element_id);
+            Util.insertRecord(tab2, tab3, eElement.up, eElemdet.up, eArtikl.up, eElemdet.element_id);
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab2, tab4, qElement, qElempar1, eElement.up, eElempar1.up, eElempar1.element_id);
+            Util.insertRecord(tab2, tab4, eElement.up, eElempar1.up, eElempar1.element_id);
 
         } else if (tab5.getBorder() != null) {
-            Util.insertRecord(tab3, tab5, qElemdet, qElempar2, eElemdet.up, eElempar2.up, eElempar2.elemdet_id);
+            Util.insertRecord(tab3, tab5, eElemdet.up, eElempar2.up, eElempar2.elemdet_id);
         }
 
     }//GEN-LAST:event_btnInsert
@@ -880,7 +880,7 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        listenerClick((JTable) evt.getSource());
+        Util.listenerClick((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3, tab4, tab5));
     }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

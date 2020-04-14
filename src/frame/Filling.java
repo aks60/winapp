@@ -358,19 +358,6 @@ public class Filling extends javax.swing.JFrame {
         };
     }
 
-    private void listenerClick(JTable table) {
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> {
-            if (tab != table) {
-                Util.stopCellEditing(tab);
-                if (tab.getModel() instanceof DefTableModel) {
-                    ((DefTableModel) tab.getModel()).getQuery().execsql();
-                }
-            }
-        });
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -520,8 +507,8 @@ public class Filling extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -549,8 +536,8 @@ public class Filling extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr3.setViewportView(tab3);
@@ -584,8 +571,8 @@ public class Filling extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -614,8 +601,8 @@ public class Filling extends javax.swing.JFrame {
         tab4.setFillsViewportHeight(true);
         tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr4.setViewportView(tab4);
@@ -654,8 +641,8 @@ public class Filling extends javax.swing.JFrame {
         tab5.setFillsViewportHeight(true);
         tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabMouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr5.setViewportView(tab5);
@@ -695,23 +682,23 @@ public class Filling extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab2, tab3, tab5) == 0) {
-                Util.deleteRecord(tab1, qGlasgrp, eGlasgrp.up);
+                Util.deleteRecord(tab1, eGlasgrp.up);
             }
         } else if (tab2.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab4) == 0) {
-                Util.deleteRecord(tab2, qGlasdet, eGlasdet.up);
+                Util.deleteRecord(tab2, eGlasdet.up);
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab3, qGlaspar1, eGlaspar1.up);
+                Util.deleteRecord(tab3, eGlaspar1.up);
             }
         } else if (tab4.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab4, qGlaspar2, eGlaspar2.up);
+                Util.deleteRecord(tab4, eGlaspar2.up);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab5, qGlasprof, eGlasprof.up);
+                Util.deleteRecord(tab5, eGlasprof.up);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -719,19 +706,19 @@ public class Filling extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, qGlasgrp, eGlasgrp.up);
+            Util.insertRecord(tab1, eGlasgrp.up);
 
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab1, tab2, qGlasgrp, qGlasdet, eGlasgrp.up, eGlasdet.up, eArtikl.up, eGlasdet.glasgrp_id);
+            Util.insertRecord(tab1, tab2, eGlasgrp.up, eGlasdet.up, eArtikl.up, eGlasdet.glasgrp_id);
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab1, tab3, qGlasgrp, qGlaspar1, eGlasgrp.up, eGlaspar1.up, eGlaspar1.glasgrp_id);
+            Util.insertRecord(tab1, tab3, eGlasgrp.up, eGlaspar1.up, eGlaspar1.glasgrp_id);
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab2, tab4, qGlasdet, qGlaspar2, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
+            Util.insertRecord(tab2, tab4, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
 
         } else if (tab5.getBorder() != null) {
-            Util.insertRecord(tab1, tab5, qGlasgrp, qGlasprof, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
+            Util.insertRecord(tab1, tab5, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
 
         }
     }//GEN-LAST:event_btnInsert
@@ -743,11 +730,9 @@ public class Filling extends javax.swing.JFrame {
             owner.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
-    private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked
-        Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-        ((JTable) evt.getSource()).setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-    }//GEN-LAST:event_tabMouseClicked
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        Util.listenerClick((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+    }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

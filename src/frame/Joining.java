@@ -372,19 +372,6 @@ public class Joining extends javax.swing.JFrame {
             return Util.listenerCell(component, tab3, tab5, qJoinpar1, qJoinpar2, tab1, tab2, tab3, tab4, tab5);
         };
     }
-
-    private void listenerClick(JTable table) {
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> tab.setBorder(null));
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> {
-            if (tab != table) {
-                Util.stopCellEditing(tab);
-                if (tab.getModel() instanceof DefTableModel) {
-                    ((DefTableModel) tab.getModel()).getQuery().execsql();
-                }
-            }
-        });
-    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -760,23 +747,23 @@ public class Joining extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab2) == 0) {
-                Util.deleteRecord(tab1, qJoining, eJoining.up);
+                Util.deleteRecord(tab1, eJoining.up);
             }
         } else if (tab2.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab3, tab4) == 0) {
-                Util.deleteRecord(tab2, qJoinvar, eJoinvar.up);
+                Util.deleteRecord(tab2, eJoinvar.up);
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab3, qJoinpar1, eJoinpar1.up);
+                Util.deleteRecord(tab3, eJoinpar1.up);
             }
         } else if (tab4.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab5) == 0) {
-                Util.deleteRecord(tab4, qJoindet, eJoindet.up);
+                Util.deleteRecord(tab4, eJoindet.up);
             }
         } else if (tab5.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab5, qJoinpar2, eJoinpar2.up);
+                Util.deleteRecord(tab5, eJoinpar2.up);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -784,19 +771,19 @@ public class Joining extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Util.insertRecord(tab1, qJoining, eJoining.up);
+            Util.insertRecord(tab1, eJoining.up);
 
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab1, tab2, qJoining, qJoinvar, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
+            Util.insertRecord(tab1, tab2, eJoining.up, eJoinvar.up, eJoinvar.joining_id);
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab2, tab3, qJoinvar, qJoinpar1, eJoinvar.up, eJoinpar1.up, eJoinpar1.joinvar_id);
+            Util.insertRecord(tab2, tab3, eJoinvar.up, eJoinpar1.up, eJoinpar1.joinvar_id);
 
         } else if (tab4.getBorder() != null) {
-            Util.insertRecord(tab2, tab4, qJoinvar, qJoindet, eJoinvar.up, eJoindet.up, eJoindet.joinvar_id);
+            Util.insertRecord(tab2, tab4, eJoinvar.up, eJoindet.up, eJoindet.joinvar_id);
 
         } else if (tab5.getBorder() != null) {
-            Util.insertRecord(tab4, tab5, qJoindet, qJoinpar2, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
+            Util.insertRecord(tab4, tab5, eJoindet.up, eJoinpar2.up, eJoinpar2.joindet_id);
         }
     }//GEN-LAST:event_btnInsert
 
@@ -812,7 +799,7 @@ public class Joining extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        listenerClick((JTable) evt.getSource());
+        Util.listenerClick((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3, tab4, tab5));
     }//GEN-LAST:event_tabMousePressed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
