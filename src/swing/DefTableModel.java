@@ -23,7 +23,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     private Query query = null;
     protected Field[] columns = null;
     private Boolean[] editable = null;
-    public TableRowSorter<DefTableModel> sorter = new TableRowSorter(this);
+    private TableRowSorter<DefTableModel> sorter = null;
     private FrameListener<Object, Object> listenerModify = null;
 
     public DefTableModel(JTable table, Query query, Field... columns) {
@@ -44,6 +44,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             maxWidthList.add(table.getColumnModel().getColumn(index).getMaxWidth());
         }
         table.setModel(this);
+        sorter = new TableRowSorter<DefTableModel>((DefTableModel) table.getModel());
         table.setRowSorter(sorter);
         JTableHeader header = table.getTableHeader();
         header.setFont(Util.getFont(0, 0));
@@ -58,6 +59,10 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         return query;
     }
 
+    public TableRowSorter<DefTableModel> getSorter() {
+        return sorter;
+    }
+    
     public Field getColumn(int index) {
         return columns[index];
     }
