@@ -198,28 +198,6 @@ public class Util {
         }
     }
 
-    //Редактирование параметра ячейки таблицы
-    public static void formatterCell(Query query, JTable table, DefFieldEditor editor) {
-
-        JTextField txt = editor.getTextField();
-        int grup = query.getAs(getSelectedRec(table), eJoinpar1.grup, -1);
-        if (grup < 0) { //пользовательский список параметров
-            editor.getButton().setVisible(true);
-            txt.setEnabled(false);
-        } else {
-            Enam enam = ParamList.find(grup);
-            if (enam.dict() != null) { //системный список параметров
-                editor.getButton().setVisible(true);
-                txt.setEnabled(false);
-
-            } else { //системные вводимые пользователем
-                editor.getButton().setVisible(false);
-                txt.setEnabled(true);
-                txt.setEditable(true);
-            }
-        }
-    }
-
     //Выделить запись
     public static void setSelectedRow(JTable table, int row) {
         if (table.getRowCount() > 0) {
@@ -417,6 +395,28 @@ public class Util {
         return true;
     }
 
+    //Редактирование параметра ячейки таблицы
+    public static void formatterCell(Query query, JTable table, DefFieldEditor editor) {
+
+        JTextField txt = editor.getTextField();
+        int grup = query.getAs(getSelectedRec(table), eJoinpar1.grup, -1);
+        if (grup < 0) { //пользовательский список параметров
+            editor.getButton().setVisible(true);
+            txt.setEnabled(false);
+        } else {
+            Enam enam = ParamList.find(grup);
+            if (enam.dict() != null) { //системный список параметров
+                editor.getButton().setVisible(true);
+                txt.setEnabled(false);
+
+            } else { //системные вводимые пользователем
+                editor.getButton().setVisible(false);
+                txt.setEnabled(true);
+                txt.setEditable(true);
+            }
+        }
+    }
+    
     //Слушатель редактирование параметров
     public static void listenerParam(Record record, JTable table, Field grup, Field numb, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
