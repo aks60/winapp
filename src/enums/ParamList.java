@@ -1,6 +1,5 @@
 package enums;
 
-import common.eProperty;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
@@ -8,9 +7,7 @@ import javax.swing.JFormattedTextField.AbstractFormatterFactory;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
-import common.ParamCheck;
 import domain.eSetting;
-import wincalc.model.CheckParam;
 
 /**
  * соединения eJoinvar.types * 1000
