@@ -42,6 +42,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
+import main.Main;
 
 public class Joining extends javax.swing.JFrame {
 
@@ -124,10 +125,11 @@ public class Joining extends javax.swing.JFrame {
                 if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return joinpar1Rec.getStr(eJoinpar1.grup) + "-" + joinpar1Rec.getStr(eJoinpar1.text);
+                        return (Main.dev) ? joinpar1Rec.getStr(eJoinpar1.grup) + "-" + joinpar1Rec.getStr(eJoinpar1.text) : joinpar1Rec.getStr(eJoinpar1.text);
+
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return en.numb() + "-" + en.text();
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -182,10 +184,10 @@ public class Joining extends javax.swing.JFrame {
                 if (val != null && eJoinpar2.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record joinpar2Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return joinpar2Rec.getStr(eJoinpar2.grup) + "-" + joinpar2Rec.getStr(eJoinpar2.text);
+                        return (Main.dev) ? joinpar2Rec.getStr(eJoinpar2.grup) + "-" + joinpar2Rec.getStr(eJoinpar2.text) : joinpar2Rec.getStr(eJoinpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
-                        return en.numb() + "-" + en.text();
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -404,7 +406,9 @@ public class Joining extends javax.swing.JFrame {
         tab5 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
-        txtFilter = new javax.swing.JTextField();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Соединения");
@@ -732,6 +736,7 @@ public class Joining extends javax.swing.JFrame {
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(120, 20));
         txtFilter.setMinimumSize(new java.awt.Dimension(120, 20));
+        txtFilter.setName(""); // NOI18N
         txtFilter.setPreferredSize(new java.awt.Dimension(120, 20));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -814,19 +819,20 @@ public class Joining extends javax.swing.JFrame {
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
         Util.listenerClick(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
-        labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
     }//GEN-LAST:event_tabMousePressed
 
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
-        JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5).filter(tab -> tab.getBorder() != null).findFirst().orElse(tab1);
-        TableRowSorter<DefTableModel> sorter = ((DefTableModel) table.getModel()).getSorter();
+        JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         if (txtFilter.getText().length() == 0) {
-            sorter.setRowFilter(null);
-
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
             int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            sorter.setRowFilter(RowFilter.regexFilter(txtFilter.getText(), index));
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(txtFilter.getText(), index));
         }
     }//GEN-LAST:event_filterCaretUpdate
     // <editor-fold defaultstate="collapsed" desc="Generated Code">

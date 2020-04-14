@@ -134,6 +134,7 @@ public class LogoToDb extends javax.swing.JDialog {
         labPass.setPreferredSize(new java.awt.Dimension(90, 18));
 
         edPass.setFont(common.Util.getFont(0,0));
+        edPass.setText("masterkey");
         edPass.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         edPass.setPreferredSize(new java.awt.Dimension(82, 18));
         edPass.addCaretListener(new javax.swing.event.CaretListener() {
