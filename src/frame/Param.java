@@ -41,7 +41,7 @@ public class Param extends javax.swing.JFrame {
         new DefTableModel(tab1, qParams, eParams.text, eParams.komp,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
         new DefTableModel(tab2, qPardet, eParams.text, eParams.komp,
-                eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
+                eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.label);
 
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));

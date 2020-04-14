@@ -832,7 +832,7 @@ public class Joining extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
             int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(txtFilter.getText(), index));
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter("^" + txtFilter.getText(), index));
         }
     }//GEN-LAST:event_filterCaretUpdate
     // <editor-fold defaultstate="collapsed" desc="Generated Code">

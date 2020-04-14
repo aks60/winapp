@@ -14,8 +14,8 @@ public enum eCurrenc implements Field {
     design("12", "8", "1", "Обозначение", "CSHOR"),
     precis("5", "5", "1", "Точность", "CSIZE"),
     cross_cour("8", "15", "1", "Кросс курс", "CKURS"),
-    check1("5", "5", "1", "Флаг  Основная ", "CSETS"),
-    check2("5", "5", "1", "Флаг  Внутренняя ", "CINTO");
+    check1("5", "5", "1", "Основная ", "CSETS"),
+    check2("5", "5", "1", "Внутренняя ", "CINTO");
     //cnumb("4", "10", "1", "ID валюты", "CNUMB"),
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
