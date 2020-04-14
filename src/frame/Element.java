@@ -1,6 +1,5 @@
 package frame;
 
-import dialog.DicParlist;
 import dialog.DicArtikl;
 import common.DialogListener;
 import common.EditorListener;
@@ -29,8 +28,6 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eJoindet;
 import domain.eJoinpar1;
-import domain.eJoinpar2;
-import domain.eJoinvar;
 import domain.eSysprof;
 import enums.ParamList;
 import enums.TypeSet;
@@ -38,15 +35,16 @@ import enums.VarColcalc;
 import java.awt.Window;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JButton;
+import java.util.stream.Stream;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import main.Main;
 import swing.BooleanRenderer;
-import swing.DefFieldEditor;
 import swing.DefTableModel;
 
 public class Element extends javax.swing.JFrame
@@ -163,15 +161,16 @@ public class Element extends javax.swing.JFrame
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eElempar1.grup && val != null) {
+                if (val != null && field == eElempar1.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qElempar1.table(eParams.up).get(row).get(eParams.text);
+                        return (!Main.dev) ? qElempar1.table(eParams.up).get(row).get(eParams.text)
+                                : qElempar1.table(eParams.up).get(row).get(eParams.grup) + "-" + qElempar1.table(eParams.up).get(row).get(eParams.text);
 
                     } else {
                         int numb = qElempar1.getAs(row, eElempar1.numb);
                         for (Enam en : ParamList.values()) {
                             if (en.numb() == Integer.valueOf(String.valueOf(val))) {
-                                return en.text();
+                                return (!Main.dev) ? en.text() : en.numb() + "-" + en.text();
                             }
                         }
                     }
@@ -185,13 +184,14 @@ public class Element extends javax.swing.JFrame
                 Field field = columns[col];
                 if (field == eElempar2.grup && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qElempar2.table(eParams.up).get(row).get(eParams.text);
+                        return (!Main.dev) ? qElempar2.table(eParams.up).get(row).get(eParams.text)
+                                : qElempar2.table(eParams.up).get(row).get(eParams.grup) + "-" + qElempar2.table(eParams.up).get(row).get(eParams.text);
 
                     } else {
                         int numb = qElempar2.getAs(row, eElempar2.numb);
                         for (Enam en : ParamList.values()) {
                             if (en.numb() == Integer.valueOf(String.valueOf(val))) {
-                                return en.text();
+                                return (!Main.dev) ? en.text() : en.numb() + "-" + en.text();
                             }
                         }
                     }
@@ -331,7 +331,7 @@ public class Element extends javax.swing.JFrame
         }
     }
 
-    private void selectionTab3(ListSelectionEvent event) {  
+    private void selectionTab3(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab3);
         if (row != -1) {
             //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -430,7 +430,6 @@ public class Element extends javax.swing.JFrame
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        panSouth = new javax.swing.JPanel();
         panCentr = new javax.swing.JPanel();
         panNorth2 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
@@ -445,6 +444,11 @@ public class Element extends javax.swing.JFrame
         panWest = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        panSouth = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
 
         itCateg1.setText("ПРОФИЛИ");
         itCateg1.addActionListener(new java.awt.event.ActionListener() {
@@ -583,22 +587,6 @@ public class Element extends javax.swing.JFrame
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 872, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
-
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panCentr.setPreferredSize(new java.awt.Dimension(858, 560));
         panCentr.setLayout(new java.awt.BorderLayout());
@@ -626,6 +614,7 @@ public class Element extends javax.swing.JFrame
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -669,6 +658,7 @@ public class Element extends javax.swing.JFrame
             }
         });
         tab4.setFillsViewportHeight(true);
+        tab4.setName("tab4"); // NOI18N
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -706,6 +696,7 @@ public class Element extends javax.swing.JFrame
         });
         tab5.setFillsViewportHeight(true);
         tab5.setMinimumSize(new java.awt.Dimension(6, 64));
+        tab5.setName("tab5"); // NOI18N
         tab5.setPreferredSize(new java.awt.Dimension(0, 64));
         tab5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -731,6 +722,7 @@ public class Element extends javax.swing.JFrame
             }
         ));
         tab3.setFillsViewportHeight(true);
+        tab3.setName("tab3"); // NOI18N
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -765,6 +757,7 @@ public class Element extends javax.swing.JFrame
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -776,6 +769,32 @@ public class Element extends javax.swing.JFrame
         panWest.add(scr1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(panWest, java.awt.BorderLayout.WEST);
+
+        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(1000, 20));
+        panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
+
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        panSouth.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(120, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(120, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(120, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                filterCaretUpdate(evt);
+            }
+        });
+        panSouth.add(txtFilter);
+
+        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -867,9 +886,25 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        Util.listenerClick((JTable) evt.getSource(), Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        JTable table = (JTable) evt.getSource();
+        Util.listenerClick(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
     }//GEN-LAST:event_tabMousePressed
-// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+
+    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
+
+        JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(txtFilter.getText(), index));
+        }
+    }//GEN-LAST:event_filterCaretUpdate
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
@@ -878,6 +913,7 @@ public class Element extends javax.swing.JFrame
     private javax.swing.JButton btnReport;
     private javax.swing.JMenuItem itCateg1;
     private javax.swing.JMenuItem itCtag2;
+    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panCentr2;
     private javax.swing.JPanel panNorth;
@@ -895,11 +931,14 @@ public class Element extends javax.swing.JFrame
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        labFilter.setText(tab1.getColumnName(0));
+        txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Категории составов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));

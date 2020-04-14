@@ -868,6 +868,7 @@ public class Joining extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         labFilter.setText(tab1.getColumnName(0));
+        txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Списки соединений", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
