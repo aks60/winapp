@@ -10,9 +10,9 @@ import static enums.TypeOpen.values;
 
 //Ограничение сторон, назначение стороны фурнитуры
 public enum SideFurn2 implements Enam {
-    P1(1, "сторона"),
-    P2(2, "ось поворота"),
-    P3(3 , "крепление петель");
+    P1(1, "Сторона"),
+    P2(2, "Ось поворота"),
+    P3(3 , "Крепление петель");
 
     public int id;
     public String name;

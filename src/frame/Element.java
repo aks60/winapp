@@ -624,7 +624,7 @@ public class Element extends javax.swing.JFrame
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(96);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(96);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(140);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(240);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(60);

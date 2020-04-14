@@ -7,15 +7,15 @@ import static enums.VarColcalc.values;
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций
  */
 public enum TypeUse implements Enam {
-    UNKNOWN(0, "любой тип"),
-    FRAME(1, "коробка"),
-    STVORKA(2, "створка"),
-    IMPOST(3, "импост"),
-    STOIKA(5, "стойка"),
-    POPERECHINA(6, "поперечина"),
-    RASKLADKA(7, "раскладка"),
-    SHTULP(9, "штульп"),
-    ERKER(10, "эркер");
+    UNKNOWN(0, "Любой тип"),
+    FRAME(1, "Коробка"),
+    STVORKA(2, "Створка"),
+    IMPOST(3, "Импост"),
+    STOIKA(5, "Стойка"),
+    POPERECHINA(6, "Поперечина"),
+    RASKLADKA(7, "Раскладка"),
+    SHTULP(9, "Штульп"),
+    ERKER(10, "Эркер");
 
     public int id;
     public String name;

@@ -68,10 +68,10 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
         String dx = eProperty.getProperty().getProperty(frame.getName() + "_width", "nul");
 
         if (!dy.equals("nul") && !dx.equals("nul")) {
-            if (Main.dev == false) {
+            //if (Main.dev == false) {
                 frameSize.height = Integer.valueOf(dy); //размеры окна
                 frameSize.width = Integer.valueOf(dx);  //размеры окна
-            }
+            //}
         }
         if (frameSize.height > screenSize.height) {
             frameSize.height = screenSize.height;

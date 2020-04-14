@@ -1,10 +1,10 @@
 package enums;
 
 public enum VariantFurn1 implements Enam {
-    P1(1, "поворотная"),
-    P2(2, "раздвижная"),
-    P3(3, "раздвижная<=>"),
-    P4(4, "раздвижная|^|");
+    P1(1, "Поворотная"),
+    P2(2, "Раздвижная"),
+    P3(3, "Раздвижная<=>"),
+    P4(4, "Раздвижная|^|");
 
     public int id;
     public String name;

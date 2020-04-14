@@ -3,10 +3,10 @@ package enums;
 import static enums.SideFurn1.values;
 
 public enum VariantFurn2 implements Enam {
-    P1(-1, "ведомая"),
-    P2(0, "обычная"),
-    P3(1, "ведущая"),
-    P4(2, "адаптер");
+    P1(-1, "Ведомая"),
+    P2(0, "Обычная"),
+    P3(1, "Ведущая"),
+    P4(2, "Адаптер");
 
     public int id;
     public String name;
