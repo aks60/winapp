@@ -39,7 +39,7 @@ import enums.ParamList;
 import enums.SideFurn1;
 import enums.SideFurn2;
 import enums.SideFurn3;
-import enums.VarColcalc;
+import enums.VariantColcalc;
 import enums.VariantFurn1;
 import enums.VariantFurn2;
 import java.util.List;
@@ -135,11 +135,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VarColcalc.automatic[0]) == colorFk) {
-                        return VarColcalc.automatic[1];
+                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
+                        return VariantColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VarColcalc.precision[0]) == colorFk) {
-                        return VarColcalc.precision[1];
+                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
+                        return VariantColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -149,8 +149,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.P00.find(types) != null) {
-                        return VarColcalc.P00.find(types).text();
+                    if (VariantColcalc.P00.find(types) != null) {
+                        return VariantColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -165,11 +165,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VarColcalc.automatic[0]) == colorFk) {
-                        return VarColcalc.automatic[1];
+                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
+                        return VariantColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VarColcalc.precision[0]) == colorFk) {
-                        return VarColcalc.precision[1];
+                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
+                        return VariantColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -179,8 +179,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.P00.find(types) != null) {
-                        return VarColcalc.P00.find(types).text();
+                    if (VariantColcalc.P00.find(types) != null) {
+                        return VariantColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -195,11 +195,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VarColcalc.automatic[0]) == colorFk) {
-                        return VarColcalc.automatic[1];
+                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
+                        return VariantColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VarColcalc.precision[0]) == colorFk) {
-                        return VarColcalc.precision[1];
+                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
+                        return VariantColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -209,8 +209,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.P00.find(types) != null) {
-                        return VarColcalc.P00.find(types).text();
+                    if (VariantColcalc.P00.find(types) != null) {
+                        return VariantColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -289,7 +289,7 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-
+                
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, VariantFurn1.values());
         });
@@ -318,7 +318,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.buttonEditorCell(tab, 2).addActionListener(event -> {
                 Record record = query.get(Util.getSelectedRec(tab));
                 int artikl_id = record.getInt(eFurndet.artikl_id);
-                ParColor frame = new ParColor(this, listenerColor, artikl_id);
+                ParColor frame = new ParColor(this, listenerColor, eParams.furn, artikl_id);
             });
         }
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
@@ -1185,7 +1185,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_tabbStateChanged
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-        JTable table = (JTable) evt.getSource();
+        JTable table = (JTable) evt.getSource();        
         Util.listenerClick(table, Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));

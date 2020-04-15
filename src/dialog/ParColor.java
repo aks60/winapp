@@ -14,18 +14,21 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
-import enums.VarColcalc;
+import dataset.Field;
+import enums.VariantColcalc;
 
 public class ParColor extends javax.swing.JDialog {
 
     private Query qArtdet = new Query(eArtdet.values());
     private Query qParams = new Query(eParams.values());
     private DialogListener listener;
+    private Field constr = null;
 
-    public ParColor(java.awt.Frame parent, DialogListener listener, int artikl_id) {
+    public ParColor(java.awt.Frame parent, DialogListener listener, Field constr, int artikl_id) {
         super(parent, true);
         initComponents();
         initElements();
+        this.constr = constr;
         this.listener = listener;
         loadingData(artikl_id);
         loadingModel();
@@ -34,15 +37,16 @@ public class ParColor extends javax.swing.JDialog {
 
     private void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
-        qParams.select(eParams.up, "where", eParams.numb, "= 0 and", eParams.joint, "= 1 order by", eParams.text);
+        
+        qParams.select(eParams.up, "where", eParams.numb, "= 0 and", constr, "= 1 and", eParams.color, "= 1 order by", eParams.text);
     }
 
     private void loadingModel() {
 
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();
-        tableModel.addRow(new String[]{VarColcalc.automatic[0], VarColcalc.automatic[1]});
-        tableModel.addRow(new String[]{VarColcalc.precision[0], VarColcalc.precision[1]});
+        tableModel.addRow(new String[]{VariantColcalc.automatic[0], VariantColcalc.automatic[1]});
+        tableModel.addRow(new String[]{VariantColcalc.precision[0], VariantColcalc.precision[1]});
         for (Record record : qArtdet) {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));

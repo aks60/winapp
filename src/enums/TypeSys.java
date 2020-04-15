@@ -2,7 +2,7 @@
 package enums;
 
 import dataset.Field;
-import static enums.VarColcalc.values;
+import static enums.VariantColcalc.values;
 
 
 public enum TypeSys implements Enam {

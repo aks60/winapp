@@ -1,7 +1,7 @@
 package enums;
 
 import static enums.SideProfile.values;
-import static enums.VarColcalc.values;
+import static enums.VariantColcalc.values;
 
 /**
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций

@@ -363,7 +363,7 @@ public class Profstroy {
             executeSql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
             deleteSql(eElement.up, "anumb", eArtikl.up, "code");//artikl_id  
             deleteSql(eElemdet.up, "anumb", eArtikl.up, "code");//artikl_id
-            executeSql("delete from elemdet where not exists (select id from color a where a.cnumb = elemdet.color_fk) and elemdet.color_fk > 0 and elemdet.color_fk != 100000"); //color_fk
+            //Удалить т.к. цвет не должен влиять глобально на калькуляцию!!! executeSql("delete from elemdet where not exists (select id from color a where a.cnumb = elemdet.color_fk) and elemdet.color_fk > 0 and elemdet.color_fk != 100000"); //color_fk
             deleteSql(eElemdet.up, "vnumb", eElement.up, "vnumb");//element_id
             deleteSql(eElempar1.up, "psss", eElement.up, "vnumb");//element_id   
             deleteSql(eElempar2.up, "psss", eElemdet.up, "aunic");//elemdet_id

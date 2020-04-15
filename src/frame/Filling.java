@@ -37,7 +37,7 @@ import domain.eElempar1;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
-import enums.VarColcalc;
+import enums.VariantColcalc;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
@@ -103,11 +103,11 @@ public class Filling extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eGlasdet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VarColcalc.automatic[0]) == colorFk) {
-                        return VarColcalc.automatic[1];
+                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
+                        return VariantColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VarColcalc.precision[0]) == colorFk) {
-                        return VarColcalc.precision[1];
+                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
+                        return VariantColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -117,8 +117,8 @@ public class Filling extends javax.swing.JFrame {
                 } else if (eGlasdet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VarColcalc.P00.find(types) != null) {
-                        return VarColcalc.P00.find(types).text();
+                    if (VariantColcalc.P00.find(types) != null) {
+                        return VariantColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -186,7 +186,7 @@ public class Filling extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
-            ParColor frame = new ParColor(this, listenerColor, artikl_id);
+            ParColor frame = new ParColor(this, listenerColor, eParams.glas, artikl_id);
         });
 
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
