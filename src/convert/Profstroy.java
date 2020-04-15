@@ -189,7 +189,7 @@ public class Profstroy {
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");
-        }
+        } 
     }
 
     /**
@@ -302,19 +302,16 @@ public class Profstroy {
                     }
                 }
                 bash = true;
-                //cn2.setAutoCommit(false);
                 try {
                     //Пакетный insert
                     st2.executeBatch();
                     cn2.commit();
                     st2.clearBatch();
-                    //cn2.setAutoCommit(true);
 
                 } catch (SQLException e) {
                     cn2.rollback();
                     bash = false;
                     --index_page;
-                    //cn2.setAutoCommit(true);
                     System.out.println("\u001B[31m" + "SCRIPT-BATCH:  " + e + "\u001B[0m");
                 }
             }
@@ -383,9 +380,9 @@ public class Profstroy {
             deleteSql(eGlaspar1.up, "psss", eGlasgrp.up, "gnumb");//glasgrp_id
             deleteSql(eGlaspar2.up, "psss", eGlasdet.up, "gunic");//glasdet_id
             deleteSql(eFurnside1.up, "funic", eFurniture.up, "funic");//furniture_id
-            deleteSql(eFurnside2.up, "furndet_id", eFurndet.up, "id");
+            deleteSql(eFurnside2.up, "fincs", eFurndet.up, "id");
             deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id  
-            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id
+            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id          
             executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
             executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
             deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id
@@ -452,7 +449,7 @@ public class Profstroy {
 
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
-            updateSql(eFurnside2.up, eFurnside2.furndet_id, "furndet_id", eFurndet.up, "id");
+            updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id"); 
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
             updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
@@ -599,9 +596,8 @@ public class Profstroy {
         }
     }
 
-    private static void deleteSql(Field table1, String id1, Field table2, String id2) {
+    private static void deleteSql(Field table1, String id1, Field table2, String id2) {      
         try {
-            //cn2.setAutoCommit(false);
             int recordDelete = 0, recordCount = 0;
             Set set = new HashSet();
             ResultSet rs = st2.executeQuery("select " + id2 + " from " + table2.tname());
@@ -616,14 +612,14 @@ public class Profstroy {
                     st2.addBatch("delete from " + table1.tname() + " where id = " + rs.getObject("id"));
                 }
             }
+            rs.close();
             String postpref = (recordDelete == 0) ?"" : "\u001B[34m Всего/удалено = " + recordCount + "/" + recordDelete + "\u001B[0m"; 
-            System.out.println("delete from " + table2.tname() + " where not exists (select id from " + table1.tname()
-                    + " a where a." + id1 + " = " + table2.tname() + "." + id2 + ")" + postpref);
+            System.out.println("delete from " + table1.tname() + " where not exists (select id from " + table2.tname()
+                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")" + postpref);
 
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
-            //cn2.setAutoCommit(true);
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "DELETE-SQL:  " + e + "\u001B[0m");
