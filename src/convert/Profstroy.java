@@ -103,6 +103,7 @@ public class Profstroy {
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
             System.out.println("\u001B[32m" + "Подготовка методанных" + "\u001B[0m");
+            cn2.setAutoCommit(false);
             Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
             st2 = cn2.createStatement();//приёмник
@@ -172,7 +173,7 @@ public class Profstroy {
             for (Field field : fieldsUp) {
                 executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
-            ConnApp.initConnect().setConnection(cn2);
+            ConnApp.initConnect().setConnection(cn2);            
             deletePart(cn2, st2);
             updatePart(cn2, st2);
             foreignkeyPart(cn2, st2);
@@ -301,19 +302,19 @@ public class Profstroy {
                     }
                 }
                 bash = true;
-                cn2.setAutoCommit(false);
+                //cn2.setAutoCommit(false);
                 try {
                     //Пакетный insert
                     st2.executeBatch();
                     cn2.commit();
                     st2.clearBatch();
-                    cn2.setAutoCommit(true);
+                    //cn2.setAutoCommit(true);
 
                 } catch (SQLException e) {
                     cn2.rollback();
                     bash = false;
                     --index_page;
-                    cn2.setAutoCommit(true);
+                    //cn2.setAutoCommit(true);
                     System.out.println("\u001B[31m" + "SCRIPT-BATCH:  " + e + "\u001B[0m");
                 }
             }
@@ -439,16 +440,16 @@ public class Profstroy {
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasprof set toin = 1  where gtype in (1,3)");
-            executeSql("update glasprof set toout = 1  where gtype in (2,3)");           
+            executeSql("update glasprof set toout = 1  where gtype in (2,3)");
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
-            
+
             executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 "
-                    + "when 'раздвижная |^|' then 4  else null  end;");            
-                        
+                    + "when 'раздвижная |^|' then 4  else null  end;");
+
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "furndet_id", eFurndet.up, "id");
@@ -544,7 +545,7 @@ public class Profstroy {
                 record.setNo(eElemgrp.name, obj[0]);
                 record.setNo(eElemgrp.level, obj[1]);
                 q.insert(record);
-                //cn2.commit();
+                cn2.commit();
             }
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-ELEMGRP:  " + e + "\u001B[0m");
@@ -559,8 +560,7 @@ public class Profstroy {
             for (int index = 0; index < prj.length; ++index) {
 
                 String script = Winscript.test(prj[index], -1, -1, -1, -1);
-                JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class
-                );
+                JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 String name = jsonObj.get("prj").getAsString()
                         + "-  " + jsonObj.get("name").getAsString();
@@ -572,7 +572,7 @@ public class Profstroy {
                 record.setNo(eSysprod.name, name);
                 record.setNo(eSysprod.script, script);
                 q.insert(record);
-                //cn2.commit();
+                cn2.commit();
             }
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-SYSPROD:  " + e + "\u001B[0m");
@@ -593,7 +593,7 @@ public class Profstroy {
             record.setNo(eSetting.name, "Версия базы данных");
             record.setNo(eSetting.val, "ps" + versionPs);
             q.insert(record);
-            //cn2.commit();
+            cn2.commit();
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-SETTING:  " + e + "\u001B[0m");
         }
@@ -601,6 +601,7 @@ public class Profstroy {
 
     private static void deleteSql(Field table1, String id1, Field table2, String id2) {
         try {
+            //cn2.setAutoCommit(false);
             int recordDelete = 0, recordCount = 0;
             Set set = new HashSet();
             ResultSet rs = st2.executeQuery("select " + id2 + " from " + table2.tname());
@@ -615,11 +616,14 @@ public class Profstroy {
                     st2.addBatch("delete from " + table1.tname() + " where id = " + rs.getObject("id"));
                 }
             }
+            String postpref = (recordDelete == 0) ?"" : "\u001B[34m Всего/удалено = " + recordCount + "/" + recordDelete + "\u001B[0m"; 
             System.out.println("delete from " + table2.tname() + " where not exists (select id from " + table1.tname()
-                    + " a where a." + id1 + " = " + table2.tname() + "." + id2 + ") Всего/удалено = " + recordCount + "/" + recordDelete);
+                    + " a where a." + id1 + " = " + table2.tname() + "." + id2 + ")" + postpref);
+
             st2.executeBatch();
-            //cn2.commit();
+            cn2.commit();
             st2.clearBatch();
+            //cn2.setAutoCommit(true);
 
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "DELETE-SQL:  " + e + "\u001B[0m");
@@ -628,7 +632,7 @@ public class Profstroy {
 
     private static void updateSql(Field table1, Field fk1, String id1, Field table2, String id2) {
         try {
-            int recordDelete = 0, recordCount = 0;
+            int recordUpdate = 0, recordCount = 0;
             Set<Object[]> set = new HashSet();
             ResultSet rs = st2.executeQuery("select id, " + id2 + " from " + table2.tname());
             while (rs.next()) {
@@ -641,14 +645,15 @@ public class Profstroy {
                 Object val = rs.getObject(id1);
                 Object[] obj = set.stream().filter(el -> el[1].equals(val)).findFirst().orElse(null);
                 if (obj != null) {
-                    ++recordDelete;
+                    ++recordUpdate;
                     st2.addBatch("update " + table1.tname() + " set " + fk1.name() + " = " + obj[0] + " where id = " + rs.getObject("id"));
                 }
             }
+            String postpref = (recordCount == recordUpdate) ?"" : "\u001B[34m Всего/скорректировано = " + recordCount + "/" + recordUpdate + "\u001B[0m";
             System.out.println("update " + table1.tname() + " set " + fk1.name() + " = (select id from " + table2.tname()
-                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ") Всего/скорректировано = " + recordCount + "/" + recordDelete);
+                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")" + postpref);
             st2.executeBatch();
-            //cn2.commit();
+            cn2.commit();
             st2.clearBatch();
 
         } catch (Exception e) {
@@ -660,7 +665,7 @@ public class Profstroy {
         try {
             System.out.println(str);
             st2.execute(str);
-            //cn2.commit();
+            cn2.commit();
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
         }
