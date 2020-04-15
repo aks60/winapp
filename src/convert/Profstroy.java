@@ -554,6 +554,7 @@ public class Profstroy {
             System.out.println("updateSysprod()");
             Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
                 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
+            cn2.commit();
             for (int index = 0; index < prj.length; ++index) {
 
                 String script = Winscript.test(prj[index], -1, -1, -1, -1);
@@ -569,8 +570,9 @@ public class Profstroy {
                 record.setNo(eSysprod.name, name);
                 record.setNo(eSysprod.script, script);
                 q.insert(record);
-                cn2.commit();
             }
+            cn2.commit();
+            
         } catch (Exception e) {
             System.out.println("\u001B[31m" + "UPDATE-SYSPROD:  " + e + "\u001B[0m");
         }
