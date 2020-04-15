@@ -60,7 +60,6 @@ public class FrameProgress extends javax.swing.JDialog {
         setMaximumSize(new java.awt.Dimension(300, 40));
         setMinimumSize(new java.awt.Dimension(300, 40));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(300, 40));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), null));
         jPanel1.setMaximumSize(new java.awt.Dimension(300, 40));
