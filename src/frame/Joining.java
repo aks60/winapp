@@ -119,9 +119,8 @@ public class Joining extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? joinpar1Rec.getStr(eJoinpar1.grup) + "-" + joinpar1Rec.getStr(eJoinpar1.text) : joinpar1Rec.getStr(eJoinpar1.text);
-
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? record.getStr(eJoinpar1.grup) + "-" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -178,8 +177,8 @@ public class Joining extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eJoinpar2.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record joinpar2Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? joinpar2Rec.getStr(eJoinpar2.grup) + "-" + joinpar2Rec.getStr(eJoinpar2.text) : joinpar2Rec.getStr(eJoinpar2.text);
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? record.getStr(eJoinpar2.grup) + "-" + record.getStr(eJoinpar2.text) : record.getStr(eJoinpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -234,7 +233,7 @@ public class Joining extends javax.swing.JFrame {
         Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int artikl_id = record.getInt(eJoindet.artikl_id);
-            ParColor frame = new ParColor(this, listenerColor, eParams.joint, artikl_id);
+            ParColor frame = new ParColor(this, listenerColor, artikl_id);
         });
 
         Util.buttonEditorCell(tab4, 3).addActionListener(event -> {

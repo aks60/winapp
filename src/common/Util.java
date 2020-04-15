@@ -4,6 +4,7 @@ import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import domain.eFurnpar2;
 import domain.eJoinpar1;
 import domain.eParams;
 import domain.eSystree;
@@ -29,6 +30,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import main.Main;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
 
@@ -368,7 +370,7 @@ public class Util {
     public static boolean listenerCell(JTable table1, JTable table2, Object component, JTable... tabses) {
         Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
         Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();
-        
+
         if (component instanceof DefFieldEditor) { //вид и тип ячейки
             DefFieldEditor editor = (DefFieldEditor) component;
             JTable tab = Util.getCellEditing(tabses);
@@ -416,7 +418,7 @@ public class Util {
             }
         }
     }
-    
+
     //Слушатель редактирование параметров
     public static void listenerParam(Record record, JTable table, Field grup, Field numb, Field text, JTable... tables) {
         Util.stopCellEditing(tables);

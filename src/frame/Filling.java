@@ -34,6 +34,8 @@ import domain.eColor;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
+import domain.eFurnpar2;
+import domain.eJoinpar1;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
@@ -41,6 +43,7 @@ import enums.VariantColcalc;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
+import main.Main;
 import swing.BooleanRenderer;
 
 public class Filling extends javax.swing.JFrame {
@@ -83,7 +86,7 @@ public class Filling extends javax.swing.JFrame {
 
     private void loadingData() {
         qColor.select(eColor.up);
-        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         if (owner == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
         } else {
@@ -130,17 +133,13 @@ public class Filling extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eGlaspar1.grup && val != null) {
-
+                if (val != null && eGlaspar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qGlaspar1.table(eParams.up).get(row).get(eParams.text);
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? record.getStr(eGlaspar1.grup) + "-" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
                     } else {
-                        int numb = qGlaspar1.getAs(row, eGlaspar1.numb);
-                        for (Enam en : ParamList.values()) {
-                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
-                                return en.text();
-                            }
-                        }
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -150,17 +149,13 @@ public class Filling extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eGlaspar2.grup && val != null) {
+                if (val != null && field == eGlaspar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qGlaspar2.table(eParams.up).get(row).get(eParams.text);
-
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? record.getStr(eGlaspar2.grup) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);                       
                     } else {
-                        int numb = qGlaspar2.getAs(row, eGlaspar2.numb);
-                        for (Enam en : ParamList.values()) {
-                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
-                                return en.text();
-                            }
-                        }
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -186,7 +181,7 @@ public class Filling extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
-            ParColor frame = new ParColor(this, listenerColor, eParams.glas, artikl_id);
+            ParColor frame = new ParColor(this, listenerColor, artikl_id);
         });
 
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {

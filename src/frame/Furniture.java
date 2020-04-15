@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import main.Main;
 
 public class Furniture extends javax.swing.JFrame {
 
@@ -91,7 +92,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void loadingData() {
         qColor.select(eColor.up);
-        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.furn, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         if (owner == null) {
             qFurniture.select(eFurniture.up, "order by", eFurniture.name);
         } else {
@@ -242,15 +243,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (field == eFurnpar1.grup && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qFurnpar1.table(eParams.up).get(row).get(eParams.text);
-
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? record.getStr(eFurnpar1.grup) + "-" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);                       
                     } else {
-                        int numb = qFurnpar1.getAs(row, eFurnpar1.numb);
-                        for (Enam en : ParamList.values()) {
-                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
-                                return en.text();
-                            }
-                        }
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -275,15 +272,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && field == eFurnpar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        return qFurnpar2.get(row, eParams.text);
-
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? record.getStr(eFurnpar2.grup) + "-" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);                       
                     } else {
-                        int numb = qFurnpar2.getAs(row, eElempar2.numb);
-                        for (Enam en : ParamList.values()) {
-                            if (en.numb() == Integer.valueOf(String.valueOf(val))) {
-                                return en.text();
-                            }
-                        }
+                        Enam en = ParamList.find(Integer.valueOf(val.toString()));
+                        return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
                     }
                 }
                 return val;
@@ -318,7 +311,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.buttonEditorCell(tab, 2).addActionListener(event -> {
                 Record record = query.get(Util.getSelectedRec(tab));
                 int artikl_id = record.getInt(eFurndet.artikl_id);
-                ParColor frame = new ParColor(this, listenerColor, eParams.furn, artikl_id);
+                ParColor frame = new ParColor(this, listenerColor, artikl_id);
             });
         }
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {

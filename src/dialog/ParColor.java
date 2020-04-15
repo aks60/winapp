@@ -22,13 +22,11 @@ public class ParColor extends javax.swing.JDialog {
     private Query qArtdet = new Query(eArtdet.values());
     private Query qParams = new Query(eParams.values());
     private DialogListener listener;
-    private Field constr = null;
 
-    public ParColor(java.awt.Frame parent, DialogListener listener, Field constr, int artikl_id) {
+    public ParColor(java.awt.Frame parent, DialogListener listener, int artikl_id) {
         super(parent, true);
         initComponents();
         initElements();
-        this.constr = constr;
         this.listener = listener;
         loadingData(artikl_id);
         loadingModel();
@@ -38,7 +36,8 @@ public class ParColor extends javax.swing.JDialog {
     private void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
         
-        qParams.select(eParams.up, "where", eParams.numb, "= 0 and", constr, "= 1 and", eParams.color, "= 1 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.numb, "= 0 and", eParams.color, "= 1 order by", eParams.text);
+        //qParams.select(eParams.up, "where", eParams.numb, "= 0 and", constr, "= 1 and", eParams.color, "= 1 order by", eParams.text);
     }
 
     private void loadingModel() {
