@@ -57,10 +57,15 @@ public class FrameProgress extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(300, 40));
+        setMinimumSize(new java.awt.Dimension(300, 40));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(300, 40));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), null));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 42));
+        jPanel1.setMaximumSize(new java.awt.Dimension(300, 40));
+        jPanel1.setMinimumSize(new java.awt.Dimension(300, 40));
+        jPanel1.setPreferredSize(new java.awt.Dimension(300, 40));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         lab.setBackground(new java.awt.Color(85, 85, 255));
@@ -68,21 +73,29 @@ public class FrameProgress extends javax.swing.JDialog {
         lab.setForeground(new java.awt.Color(255, 255, 51));
         lab.setText("    Пожалуйста, подождите...");
         lab.setFocusable(false);
-        lab.setMaximumSize(new java.awt.Dimension(250, 18));
+        lab.setMaximumSize(new java.awt.Dimension(250, 14));
         lab.setMinimumSize(new java.awt.Dimension(250, 14));
         lab.setOpaque(true);
         lab.setPreferredSize(new java.awt.Dimension(250, 14));
         jPanel1.add(lab, java.awt.BorderLayout.NORTH);
+
+        progressBar.setMaximumSize(new java.awt.Dimension(360, 16));
+        progressBar.setMinimumSize(new java.awt.Dimension(360, 16));
+        progressBar.setPreferredSize(new java.awt.Dimension(360, 16));
         jPanel1.add(progressBar, java.awt.BorderLayout.CENTER);
 
         jPanel2.setBackground(new java.awt.Color(85, 85, 255));
-        jPanel2.setPreferredSize(new java.awt.Dimension(10, 14));
+        jPanel2.setMaximumSize(new java.awt.Dimension(300, 14));
+        jPanel2.setMinimumSize(new java.awt.Dimension(300, 14));
+        jPanel2.setPreferredSize(new java.awt.Dimension(300, 14));
         jPanel1.add(jPanel2, java.awt.BorderLayout.SOUTH);
 
         jPanel3.setBackground(new java.awt.Color(85, 85, 255));
+        jPanel3.setMaximumSize(new java.awt.Dimension(10, 10));
         jPanel1.add(jPanel3, java.awt.BorderLayout.WEST);
 
         jPanel4.setBackground(new java.awt.Color(85, 85, 255));
+        jPanel4.setMaximumSize(new java.awt.Dimension(10, 10));
         jPanel1.add(jPanel4, java.awt.BorderLayout.EAST);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
