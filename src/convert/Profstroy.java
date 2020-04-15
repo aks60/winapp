@@ -147,7 +147,7 @@ public class Profstroy {
                 }
                 //Создание таблицы приёмника
                 for (String ddl : Profstroy.createTable(fieldUp.fields())) {
-                    st2.execute(ddl);
+                    executeSql(ddl);
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
