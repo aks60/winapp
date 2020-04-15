@@ -592,6 +592,7 @@ public class Furniture extends javax.swing.JFrame {
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
         };
+        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
@@ -1036,16 +1037,19 @@ public class Furniture extends javax.swing.JFrame {
         panSouth.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(120, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(120, 20));
+        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
         txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(120, 20));
+        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtFilterfilterCaretUpdate(evt);
             }
         });
         panSouth.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        panSouth.add(checkFilter);
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
@@ -1192,7 +1196,8 @@ public class Furniture extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
             int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter("^" + txtFilter.getText(), index));
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_txtFilterfilterCaretUpdate
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -1202,6 +1207,7 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JCheckBox checkFilter;
     private javax.swing.ButtonGroup grour1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel pan1;
