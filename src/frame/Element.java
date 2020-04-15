@@ -888,6 +888,7 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+
         JTable table = (JTable) evt.getSource();
         Util.listenerClick(table, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         if (txtFilter.getText().length() == 0) {
