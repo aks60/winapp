@@ -67,7 +67,7 @@ import wincalc.script.Winscript;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
- * прилшжении eEnum.values() для них один. Отсутствующие поля пс3 в
+ * программе eEnum.values() для них один. Отсутствующие поля пс3 в
  * eEnum.values() будут заполняться пустышками. 3. Поля не вошедшие в список
  * столбцов eEnum.values() тоже будут переноситься для sql update и потом
  * удаляться. Обновление данных выполняется пакетом, если была ошибка в пакете,
@@ -160,7 +160,7 @@ public class Profstroy {
                 }
                 //Создание генератора таблицы
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
-                if ("id".equals(fieldUp.fields()[1].meta().fname)) {
+                if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
                 executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
@@ -358,10 +358,10 @@ public class Profstroy {
             deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
             deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
-            executeSql("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
+            //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
             deleteSql(eElement.up, "anumb", eArtikl.up, "code");//artikl_id  
             deleteSql(eElemdet.up, "anumb", eArtikl.up, "code");//artikl_id
-            //Удалить т.к. цвет не должен влиять глобально на калькуляцию!!! executeSql("delete from elemdet where not exists (select id from color a where a.cnumb = elemdet.color_fk) and elemdet.color_fk > 0 and elemdet.color_fk != 100000"); //color_fk
+            //цвет не должен влиять глобально на калькуляцию!!! executeSql("delete from elemdet where not exists (select id from color a where a.cnumb = elemdet.color_fk) and elemdet.color_fk > 0 and elemdet.color_fk != 100000"); //color_fk
             deleteSql(eElemdet.up, "vnumb", eElement.up, "vnumb");//element_id
             deleteSql(eElempar1.up, "psss", eElement.up, "vnumb");//element_id   
             deleteSql(eElempar2.up, "psss", eElemdet.up, "aunic");//elemdet_id
@@ -383,8 +383,8 @@ public class Profstroy {
             deleteSql(eFurnside2.up, "fincs", eFurndet.up, "id");
             deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id  
             deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id          
-            executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
-            executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
+            //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
+            //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
             deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id
             deleteSql(eSysprof.up, "anumb", eArtikl.up, "code");//artikl_id 
             deleteSql(eSysprof.up, "nuni", eSystree.up, "nuni");//systree_id 
@@ -415,8 +415,7 @@ public class Profstroy {
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             executeSql(4, "update element set typset = vtype");
-            executeSql(3, "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 "
-                    + "when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
+            executeSql(3, "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
             executeSql("update element set todef = 1  where vsets in (1,2)");
             executeSql("update element set toset = 1  where vsets = 1");
             updateSql(eElemdet.up, eElemdet.artikl_id, "anumb", eArtikl.up, "code");
@@ -443,10 +442,7 @@ public class Profstroy {
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
-
-            executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 "
-                    + "when 'раздвижная |^|' then 4  else null  end;");
-
+            executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id"); 
@@ -484,7 +480,6 @@ public class Profstroy {
             executeSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
             executeSql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikl (id)");
             executeSql("alter table systree add constraint fk_systree1 foreign key (parent_id) references systree (id)");
-            //sql("alter table artdet add constraint fk_artdet2 foreign key (color_fk) references color (id)");
             executeSql("alter table element add constraint fk_element1 foreign key (elemgrp_id) references elemgrp (id)");
             executeSql("alter table element add constraint fk_element2 foreign key (artikl_id) references artikl (id)");
             executeSql("alter table elemdet add constraint fk_elemdet1 foreign key (artikl_id) references artikl (id)");

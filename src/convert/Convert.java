@@ -32,6 +32,9 @@ public class Convert extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         panSouth = new javax.swing.JPanel();
         panCent = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        еxtArea = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,16 +111,29 @@ public class Convert extends javax.swing.JFrame {
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
-        javax.swing.GroupLayout panCentLayout = new javax.swing.GroupLayout(panCent);
-        panCent.setLayout(panCentLayout);
-        panCentLayout.setHorizontalGroup(
-            panCentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panCent.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane1.setBorder(null);
+
+        еxtArea.setColumns(20);
+        еxtArea.setRows(5);
+        еxtArea.setBorder(null);
+        jScrollPane1.setViewportView(еxtArea);
+
+        panCent.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 801, Short.MAX_VALUE)
         );
-        panCentLayout.setVerticalGroup(
-            panCentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 539, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        panCent.add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(panCent, java.awt.BorderLayout.CENTER);
 
@@ -132,15 +148,18 @@ public class Convert extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSave
 
-// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnSave;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panCent;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
+    private javax.swing.JTextArea еxtArea;
     // End of variables declaration//GEN-END:variables
+// </editor-fold> 
     private void initElements() {
     }
-// </editor-fold> 
 }

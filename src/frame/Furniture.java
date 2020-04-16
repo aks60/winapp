@@ -389,7 +389,6 @@ public class Furniture extends javax.swing.JFrame {
             qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
                     "where", eFurndet.furniture_id, "=", id, "and", eFurndet.id, "=", eFurndet.furndet_id, "order by", eArtikl.code);
 
-            tabb1.setSelectedIndex(0);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2a, 0);
@@ -673,19 +672,19 @@ public class Furniture extends javax.swing.JFrame {
         rdb1.setText("Основная");
         rdb1.setMaximumSize(new java.awt.Dimension(75, 18));
         rdb1.setMinimumSize(new java.awt.Dimension(75, 18));
-        rdb1.setPreferredSize(new java.awt.Dimension(100, 18));
+        rdb1.setPreferredSize(new java.awt.Dimension(80, 18));
 
         grour1.add(rdb2);
         rdb2.setText("Дополнительная");
         rdb2.setMaximumSize(new java.awt.Dimension(75, 18));
         rdb2.setMinimumSize(new java.awt.Dimension(75, 18));
-        rdb2.setPreferredSize(new java.awt.Dimension(100, 18));
+        rdb2.setPreferredSize(new java.awt.Dimension(80, 18));
 
         grour1.add(rdb3);
         rdb3.setText("Комплекты");
         rdb3.setMaximumSize(new java.awt.Dimension(75, 18));
         rdb3.setMinimumSize(new java.awt.Dimension(75, 18));
-        rdb3.setPreferredSize(new java.awt.Dimension(100, 18));
+        rdb3.setPreferredSize(new java.awt.Dimension(80, 18));
 
         btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
         btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
@@ -718,10 +717,10 @@ public class Furniture extends javax.swing.JFrame {
                 .addGap(66, 66, 66)
                 .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -735,10 +734,9 @@ public class Furniture extends javax.swing.JFrame {
                     .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panNorthLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
