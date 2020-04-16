@@ -6,6 +6,7 @@ import common.EditorListener;
 import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
+import convert.Convert;
 import dataset.ConnApp;
 import enums.Enam;
 import dataset.Field;
@@ -26,7 +27,6 @@ import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eGlaspar2;
 import domain.eJoindet;
 import domain.eJoinpar1;
 import domain.eSysprof;
@@ -47,7 +47,6 @@ import javax.swing.table.DefaultTableModel;
 import main.Main;
 import swing.BooleanRenderer;
 import swing.DefTableModel;
-
 
 //TODO ОШИБКА! ЗАПОЛНЕНИЕ 6208.02.160
 public class Element extends javax.swing.JFrame
@@ -183,7 +182,7 @@ public class Element extends javax.swing.JFrame
                 if (val != null && field == eElempar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eElempar2.grup) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);                       
+                        return (Main.dev) ? record.getStr(eElempar2.grup) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -879,7 +878,9 @@ public class Element extends javax.swing.JFrame
     }//GEN-LAST:event_ppmCategAction
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        Convert frame = new Convert();
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
