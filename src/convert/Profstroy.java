@@ -186,7 +186,6 @@ public class Profstroy {
                 }
             }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
-
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");
         }
