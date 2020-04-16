@@ -1,21 +1,22 @@
+
 package enums;
 
-import static enums.SideProfile.values;
-import static enums.VariantColcalc.values;
+import dataset.Field;
+import static enums.UseColcalc.values;
 
-/**
- * Тип профиля (SYSPROA.ATYPE) в системе конструкций
- */
+
 public enum TypeUse implements Enam {
-    UNKNOWN(0, "Любой тип"),
-    FRAME(1, "Коробка"),
-    STVORKA(2, "Створка"),
-    IMPOST(3, "Импост"),
-    STOIKA(5, "Стойка"),
-    POPERECHINA(6, "Поперечина"),
-    RASKLADKA(7, "Раскладка"),
-    SHTULP(9, "Штульп"),
-    ERKER(10, "Эркер");
+    
+    EMPTY(0, "Не определено"),
+    WIN_OPEN_IN(1, "Окно открывание внутрь"),
+    WIN_OPEN_OUT(2, "Окно открывание наружу"),
+    WIN_EXP(3, "Окно раздвижное"),
+    DOOR_OPEN_IN(4, "Дверь открывание внутрь"),
+    DOOR_OPEN_OUT(5, "Дверь открывание наружу"),
+    MOSQUITO_NET(6, "Москитная сетка"),
+    GLASS_PAC(7, "Стеклопакет"),
+    ROLLT(8, "Роллета"),
+    VITRAG(9, "Витраж");
 
     public int id;
     public String name;
@@ -35,14 +36,5 @@ public enum TypeUse implements Enam {
     
     public Enam[] fields() {
         return values();
-    } 
-    
-    public static TypeUse get(int side) {
-        for (TypeUse profileSide : values()) {
-            if (profileSide.id == side) {
-                return profileSide;
-            }
-        }
-        return null;
-    }    
+    }     
 }

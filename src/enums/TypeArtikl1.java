@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Типы мат. ценностей
  */
-public enum TypeArtikl {
+public enum TypeArtikl1 {
 
     PPROFIL(1, 0, "Профили"),
     KOROBKA(1, 1, "Коробка"),
@@ -99,7 +99,7 @@ public enum TypeArtikl {
    public int id2 = 0;
    public String name = "";
 
-    TypeArtikl(int id1, int id2, String name) {
+    TypeArtikl1(int id1, int id2, String name) {
         this.id1 = id1;
         this.id2 = id2;
         this.name = name;

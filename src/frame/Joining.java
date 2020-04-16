@@ -34,7 +34,7 @@ import domain.eJoinvar;
 import swing.BooleanRenderer;
 import common.Util;
 import dialog.DicColvar;
-import enums.VariantColcalc;
+import enums.UseColcalc;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import main.Main;
@@ -143,10 +143,10 @@ public class Joining extends javax.swing.JFrame {
                 } else if (eJoindet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
 
-                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
-                        return VariantColcalc.automatic[1];
-                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
-                        return VariantColcalc.precision[1];
+                    if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
+                        return UseColcalc.automatic[1];
+                    } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
+                        return UseColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -156,8 +156,8 @@ public class Joining extends javax.swing.JFrame {
                 } else if (eJoindet.types == field) {
 
                     int types = Integer.valueOf(val.toString());
-                    if (VariantColcalc.P00.find(types) != null) {
-                        return VariantColcalc.P00.find(types).text();
+                    if (UseColcalc.P00.find(types) != null) {
+                        return UseColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }

@@ -6,7 +6,7 @@ import static enums.TypeOpen.values;
  * Заполнение стеклопакета
  * Пока не использую т.к. параметр текстовый
  */
-public enum FillingGlass implements Enam {
+public enum TypeGlass implements Enam {
 
     RECTANGL(1, "Прямоугольное"),
     NOT_RECTANGU(2, "Не прямоугольное"),
@@ -16,7 +16,7 @@ public enum FillingGlass implements Enam {
     public int id = 0;
     public String name = "";
 
-    FillingGlass(int id, String name) {
+    TypeGlass(int id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -4,7 +4,7 @@ import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.Record;
-import enums.VariantColcalc;
+import enums.UseColcalc;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,20 +30,20 @@ public class DicColvar extends javax.swing.JDialog {
         if (colorFk != -1) {
 
             if (colorFk == 0 || colorFk == 100) {
-                rows = new String[][]{{VariantColcalc.P11.name, VariantColcalc.P11.id},
-                {VariantColcalc.P21.name, VariantColcalc.P21.id}, {VariantColcalc.P31.name, VariantColcalc.P31.id}, {VariantColcalc.P32.name, VariantColcalc.P32.id},
-                {VariantColcalc.P33.name, VariantColcalc.P33.id}, {VariantColcalc.P41.name, VariantColcalc.P41.id}, {VariantColcalc.P42.name, VariantColcalc.P42.id},
-                {VariantColcalc.P43.name, VariantColcalc.P43.id}, {VariantColcalc.P50.name, VariantColcalc.P50.id}, {VariantColcalc.P60.name, VariantColcalc.P60.id}};
+                rows = new String[][]{{UseColcalc.P11.name, UseColcalc.P11.id},
+                {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
+                {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
+                {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
 
             } else if (colorFk > 0) {
-                rows = new String[][]{{VariantColcalc.P00.name, VariantColcalc.P00.id}};
+                rows = new String[][]{{UseColcalc.P00.name, UseColcalc.P00.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             } else {
-                rows = new String[][]{{VariantColcalc.P00.name, VariantColcalc.P00.id}, {VariantColcalc.P11.name, VariantColcalc.P11.id},
-                {VariantColcalc.P21.name, VariantColcalc.P21.id}, {VariantColcalc.P31.name, VariantColcalc.P31.id}, {VariantColcalc.P32.name, VariantColcalc.P32.id},
-                {VariantColcalc.P33.name, VariantColcalc.P33.id}, {VariantColcalc.P41.name, VariantColcalc.P41.id}, {VariantColcalc.P42.name, VariantColcalc.P42.id},
-                {VariantColcalc.P43.name, VariantColcalc.P43.id}, {VariantColcalc.P50.name, VariantColcalc.P50.id}, {VariantColcalc.P60.name, VariantColcalc.P60.id}};
+                rows = new String[][]{{UseColcalc.P00.name, UseColcalc.P00.id}, {UseColcalc.P11.name, UseColcalc.P11.id},
+                {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
+                {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
+                {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             }
         }

@@ -10,7 +10,7 @@ import domain.eParams;
 import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
-import enums.VariantColcalc;
+import enums.UseColcalc;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -452,7 +452,7 @@ public class Util {
         int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group > 0) {
-            elemdetRec.set(types, VariantColcalc.P00.id);
+            elemdetRec.set(types, UseColcalc.P00.id);
         } else {
             elemdetRec.set(types, null);
         }

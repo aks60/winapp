@@ -9,10 +9,10 @@ import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
-import enums.JoinLocate;
+import enums.LayoutJoin;
 import enums.TypeOpen;
-import enums.TypeUse;
-import enums.VariantJoin;
+import enums.TypeArtikl2;
+import enums.TypeJoin;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -74,7 +74,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.find2(iwin().nuni, TypeUse.STVORKA);
+        sysprofRec = eSysprof.find2(iwin().nuni, TypeArtikl2.STVORKA);
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
             
@@ -89,34 +89,34 @@ public class AreaStvorka extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (index + 1);
-            el.varJoin = VariantJoin.VAR2;
+            el.varJoin = TypeJoin.VAR2;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
             if (index == 0) {
                 el.name = "Угловое соединение левое верхнее";
-                el.typeJoin = JoinLocate.LTOP;
+                el.typeJoin = LayoutJoin.LTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);
 
             } else if (index == 1) {
                 el.name = "Угловое соединение левое нижнее";
-                el.typeJoin = JoinLocate.LBOT;
+                el.typeJoin = LayoutJoin.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
 
             } else if (index == 2) {
                 el.name = "Угловое соединение правое нижнее";
-                el.typeJoin = JoinLocate.RBOT;
+                el.typeJoin = LayoutJoin.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
 
             } else if (index == 3) {
                 el.name = "Угловое соединение правое верхнее";
-                el.typeJoin = JoinLocate.RTOP;
+                el.typeJoin = LayoutJoin.RTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1), el);
@@ -126,7 +126,7 @@ public class AreaStvorka extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (index + 1);
-            el.varJoin = VariantJoin.VAR1;
+            el.varJoin = TypeJoin.VAR1;
             el.cutAngl1 = 0;
             el.cutAngl2 = 0;
 

@@ -32,7 +32,7 @@ import domain.eJoinpar1;
 import domain.eSysprof;
 import enums.ParamList;
 import enums.TypeSet;
-import enums.VariantColcalc;
+import enums.UseColcalc;
 import java.awt.Window;
 import java.util.Arrays;
 import java.util.List;
@@ -137,11 +137,11 @@ public class Element extends javax.swing.JFrame
                 Field field = columns[col];
                 if (eElemdet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
-                        return VariantColcalc.automatic[1];
+                    if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
+                        return UseColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
-                        return VariantColcalc.precision[1];
+                    } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
+                        return UseColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -151,8 +151,8 @@ public class Element extends javax.swing.JFrame
                 } else if (eElemdet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VariantColcalc.P00.find(types) != null) {
-                        return VariantColcalc.P00.find(types).text();
+                    if (UseColcalc.P00.find(types) != null) {
+                        return UseColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }

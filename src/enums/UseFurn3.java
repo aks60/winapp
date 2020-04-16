@@ -5,22 +5,19 @@
  */
 package enums;
 
-import static enums.SideProfile.values;
+import static enums.LayoutProfile.values;
 import static enums.TypeOpen.values;
 
-//Стороны фурнитуры
-public enum SideFurn3 implements Enam {
-    P1(1, "Нижняя"),
-    P2(2, "Правая"),
-    P3(3, "Верхняя"),
-    P4(4, "Левая"),
-    P5(5, "? Нижняя(для трапеции)"),
-    P6(6, "? Нижняя(для арки)");
+//Ограничение сторон, назначение стороны фурнитуры
+public enum UseFurn3 implements Enam {
+    P1(1, "Сторона"),
+    P2(2, "Ось поворота"),
+    P3(3 , "Крепление петель");
 
     public int id;
     public String name;
 
-    SideFurn3(int id, String name) {
+    UseFurn3(int id, String name) {
         this.id = id;
         this.name = name;
     }

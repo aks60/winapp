@@ -18,9 +18,9 @@ import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.SideProfile;
+import enums.LayoutProfile;
+import enums.TypeArtikl2;
 import enums.TypeUse;
-import enums.TypeSys;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -103,12 +103,12 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eSysprof.side && val != null) {
-                    SideProfile en = SideProfile.get(Integer.valueOf(val.toString()));
+                    LayoutProfile en = LayoutProfile.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.name;
                     }
                 } else if (field == eSysprof.types && val != null) {
-                    TypeUse en = TypeUse.get(Integer.valueOf(val.toString()));
+                    TypeArtikl2 en = TypeArtikl2.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.name;
                     }
@@ -133,7 +133,7 @@ public class Systree extends javax.swing.JFrame implements FrameListener<Object,
         rsmSysprof.setFrameListener(listenerModify);
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.name, txtField8);
-        rsvSystree.add(eSystree.types, txtField7, TypeSys.values());
+        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
         rsvSystree.add(eSystree.glas, txtField1);
         rsvSystree.add(eSystree.size, txtField2);
         rsvSystree.add(eSystree.col1, txtField3);

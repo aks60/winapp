@@ -6,7 +6,7 @@ import common.Util;
 import static common.Util.getSelectedRec;
 import dataset.Record;
 import enums.Enam;
-import enums.SideFurn1;
+import enums.LayoutFurn1;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

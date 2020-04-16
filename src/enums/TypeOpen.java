@@ -1,6 +1,6 @@
 package enums;
 
-import static enums.TypeSys.values;
+import static enums.TypeUse.values;
 
 /**
  * Типы открывания створок

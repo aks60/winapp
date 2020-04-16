@@ -1,6 +1,6 @@
 package enums;
 
-public enum VariantJoin {
+public enum TypeJoin {
 
     EMPTY(0, 0, "Тип соединеия не установлен"),
     VAR1(1, 0, "Прилегающее соединение"),
@@ -13,7 +13,7 @@ public enum VariantJoin {
     public int value2;
     public String name;
 
-    VariantJoin(int value, int value2, String name) {
+    TypeJoin(int value, int value2, String name) {
         this.value = value;
         this.name = name;
     }

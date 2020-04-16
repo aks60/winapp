@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
 import dataset.Field;
-import enums.VariantColcalc;
+import enums.UseColcalc;
 
 public class ParColor extends javax.swing.JDialog {
 
@@ -44,8 +44,8 @@ public class ParColor extends javax.swing.JDialog {
 
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();
-        tableModel.addRow(new String[]{VariantColcalc.automatic[0], VariantColcalc.automatic[1]});
-        tableModel.addRow(new String[]{VariantColcalc.precision[0], VariantColcalc.precision[1]});
+        tableModel.addRow(new String[]{UseColcalc.automatic[0], UseColcalc.automatic[1]});
+        tableModel.addRow(new String[]{UseColcalc.precision[0], UseColcalc.precision[1]});
         for (Record record : qArtdet) {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));

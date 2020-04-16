@@ -2,7 +2,7 @@ package enums;
 
 import static enums.TypeOpen.values;
 
-public enum MeasUnit implements Enam {
+public enum UseUnit implements Enam {
     METR(1, "пог.м."),
     METR2(2, "кв.м."),
     PIE(3, "шт."),
@@ -15,7 +15,7 @@ public enum MeasUnit implements Enam {
     public int id = 0;
     public String name = "";
 
-    MeasUnit(int value, String name) {
+    UseUnit(int value, String name) {
         this.id = value;
         this.name = name;
     }
@@ -33,7 +33,7 @@ public enum MeasUnit implements Enam {
     }
     
     public static String getName(int index) {
-        for (MeasUnit unit: values()) {
+        for (UseUnit unit: values()) {
             if (unit.id == index) {
                 return unit.name;
             }

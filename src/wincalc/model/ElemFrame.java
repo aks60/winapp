@@ -6,10 +6,10 @@ import domain.eColor;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.SideProfile;
-import enums.TypeArtikl;
+import enums.LayoutProfile;
+import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.TypeUse;
+import enums.TypeArtikl2;
 import wincalc.constr.Specification;
 
 public class ElemFrame extends ElemSimple {
@@ -50,13 +50,13 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.TOP);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), LayoutProfile.TOP);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.BOTTOM);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), LayoutProfile.BOTTOM);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.LEFT);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), LayoutProfile.LEFT);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), SideProfile.RIGHT);
+            sysprofRec = eSysprof.find3(iwin().nuni, typeProfile(), LayoutProfile.RIGHT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
@@ -108,14 +108,14 @@ public class ElemFrame extends ElemSimple {
         Record artiklRec = specif.artiklRec;
 
         //Просто рама (если элемент включен в список состава)
-        if (TypeArtikl.KOROBKA.isType(artiklRec) || TypeArtikl.STVORKA.isType(artiklRec)) {
+        if (TypeArtikl1.KOROBKA.isType(artiklRec) || TypeArtikl1.STVORKA.isType(artiklRec)) {
 
             specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //Поправка, мм
             specificationRec.setArtiklRec(specif.artiklRec);
             return;  //сразу выход т.к. элем. сам является держателем состава
 
             //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
+        } else if (TypeArtikl1.ARMIROVANIE.isType(artiklRec)) {
             specif.element = layout.name;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
@@ -145,7 +145,7 @@ public class ElemFrame extends ElemSimple {
             specif.anglCut2 = 90;
 
             //Концевой профиль
-        } else if (TypeArtikl.KONZEVPROF.isType(artiklRec) == true) {
+        } else if (TypeArtikl1.KONZEVPROF.isType(artiklRec) == true) {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
@@ -153,7 +153,7 @@ public class ElemFrame extends ElemSimple {
             specif.width = (width() - ssizf) + (width() - ssizf) * koef;
 
             //Соединитель
-        } else if (TypeArtikl.SOEDINITEL.isType(artiklRec) == true) {
+        } else if (TypeArtikl1.SOEDINITEL.isType(artiklRec) == true) {
             specif.color1 = iwin().colorNone;
             specif.color2 = iwin().colorNone;
             specif.color3 = iwin().colorNone;
@@ -214,8 +214,8 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override
-    public TypeUse typeProfile() {
-        return (TypeElem.FULLSTVORKA == owner().type) ? TypeUse.STVORKA : TypeUse.FRAME;
+    public TypeArtikl2 typeProfile() {
+        return (TypeElem.FULLSTVORKA == owner().type) ? TypeArtikl2.STVORKA : TypeArtikl2.FRAME;
     }
 
     @Override

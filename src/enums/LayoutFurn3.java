@@ -5,32 +5,35 @@
  */
 package enums;
 
-import static enums.SideProfile.values;
+import static enums.LayoutProfile.values;
+import static enums.TypeOpen.values;
 
 //Стороны фурнитуры
-public enum SideFurn1 implements Enam {
+public enum LayoutFurn3 implements Enam {
     P1(1, "Нижняя"),
     P2(2, "Правая"),
     P3(3, "Верхняя"),
-    P4(4, "Левая");
+    P4(4, "Левая"),
+    P5(5, "? Нижняя(для трапеции)"),
+    P6(6, "? Нижняя(для арки)");
 
     public int id;
     public String name;
 
-    SideFurn1(int id, String name) {
+    LayoutFurn3(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
     public int numb() {
-        return id;
+        return Integer.valueOf(id);
     }
 
     public String text() {
         return name;
     }
     
-   public Enam[] fields() {
+    public Enam[] fields() {
         return values();
     }
 }

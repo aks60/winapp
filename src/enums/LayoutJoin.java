@@ -2,7 +2,7 @@ package enums;
 
 import static enums.TypeOpen.values;
 
-public enum JoinLocate implements Enam {
+public enum LayoutJoin implements Enam {
 
     NONE(1, "Не определено"),
     LTOP(1, "Угловое соединение левое верхнее"),
@@ -17,7 +17,7 @@ public enum JoinLocate implements Enam {
     public int id;
     public String name;
 
-    JoinLocate(int id, String name) {
+    LayoutJoin(int id, String name) {
         this.id = id;
         this.name = name;
     }

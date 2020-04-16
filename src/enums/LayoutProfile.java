@@ -5,7 +5,7 @@ package enums;
 import static enums.TypeOpen.values;
 
 // select distinct ASETS from PRO4_SYSPROA where region_id = 177 order by ASETS
-public enum SideProfile implements Enam {
+public enum LayoutProfile implements Enam {
     VERT(-3, "Вертикальная"),
     HORIZ(-2, "Горизонтальная"),
     ANY(-1, "Любая"),
@@ -18,7 +18,7 @@ public enum SideProfile implements Enam {
     public int id;
     public String name;
 
-    SideProfile(int id, String name) {
+    LayoutProfile(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -35,8 +35,8 @@ public enum SideProfile implements Enam {
         return values();
     }
     
-    public static SideProfile get(int side) {
-        for (SideProfile profileSide : values()) {
+    public static LayoutProfile get(int side) {
+        for (LayoutProfile profileSide : values()) {
             if (profileSide.id == side) {
                 return profileSide;
             }

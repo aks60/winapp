@@ -11,10 +11,10 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
-import enums.SideProfile;
-import enums.TypeArtikl;
+import enums.LayoutProfile;
+import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.TypeUse;
+import enums.TypeArtikl2;
 import wincalc.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
@@ -60,7 +60,7 @@ public class ElemGlass extends ElemSimple {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
-        sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.FRAME, SideProfile.LEFT); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
+        sysprofRec = eSysprof.find3(iwin().nuni, TypeArtikl2.FRAME, LayoutProfile.LEFT); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
             artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
@@ -163,13 +163,13 @@ public class ElemGlass extends ElemSimple {
 
         //indexUniq(specif);
         specif.element = "ЗАП";
-        if (TypeArtikl.GLASS.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 5) { //стеклопакет
+        if (TypeArtikl1.GLASS.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 5) { //стеклопакет
             return;
 
-        } else if (TypeArtikl.SHTAPIK.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 1) { //штапик
+        } else if (TypeArtikl1.SHTAPIK.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 1) { //штапик
             specif.id = id();
 
-        } else if (TypeArtikl.KONZEVPROF.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 3) { //уплотнитель
+        } else if (TypeArtikl1.KONZEVPROF.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 3) { //уплотнитель
             specif.id = id();
 
         } else {
@@ -180,8 +180,8 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override
-    public TypeUse typeProfile() {
-        return TypeUse.UNKNOWN;
+    public TypeArtikl2 typeProfile() {
+        return TypeArtikl2.UNKNOWN;
     }
 
     @Override
