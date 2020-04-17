@@ -12,9 +12,11 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import dialog.DicArtikl;
+import dialog.DicEnums;
 import domain.eArtikl;
 import domain.eElemgrp;
 import domain.eFurniture;
+import domain.eFurnside1;
 import domain.eParams;
 import domain.eSysfurn;
 import domain.eSyspar1;
@@ -22,9 +24,11 @@ import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.Enam;
+import enums.LayoutFurn1;
 import enums.LayoutProfile;
 import enums.UserArtikl;
 import enums.TypeUse;
+import enums.UseFurn2;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -55,7 +59,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private DialogListener listenerArtikl, listenetNuni, listenerModify;
+    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerSide;
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
     private Wincalc iwin = new Wincalc();
@@ -109,16 +113,16 @@ public class Systree extends javax.swing.JFrame {
     private void loadingModel() {
 
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.types, eArtikl.code, eArtikl.name, eSysprof.side, eSysprof.prio) {
+        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.use_type, eSysprof.use_side, eSysprof.prio, eArtikl.code, eArtikl.name) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eSysprof.side && val != null) {
+                if (field == eSysprof.use_side && val != null) {
                     LayoutProfile en = LayoutProfile.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
                     }
-                } else if (field == eSysprof.types && val != null) {
+                } else if (field == eSysprof.use_type && val != null) {
                     UserArtikl en = UserArtikl.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
@@ -140,10 +144,19 @@ public class Systree extends javax.swing.JFrame {
         };
 
         nuni = Integer.valueOf(eProperty.systree_nuni.read());
+
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+            new DicEnums(this, listenerUsetyp, UserArtikl.values());
+        });
+
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+            new DicEnums(this, listenerSide, LayoutProfile.values());
+        });
+
+        Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
@@ -163,6 +176,14 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void listenerDict() {
+
+        listenerUsetyp = (record) -> {
+            Util.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
+        };
+
+        listenerSide = (record) -> {
+            Util.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
+        };
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4);
@@ -333,6 +354,11 @@ public class Systree extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Системы профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -792,7 +818,7 @@ public class Systree extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Применение", "Артикул", "Название", "Сторона", "Приоритет"
+                "ID", "Применение", "Сторона", "Приоритет", "Артикул", "Название"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -1021,6 +1047,11 @@ public class Systree extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterCaretUpdate
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Util.stopCellEditing(tab2, tab3, tab4);
+        Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+    }//GEN-LAST:event_formWindowClosed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

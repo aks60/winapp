@@ -528,12 +528,10 @@ public class Furniture extends javax.swing.JFrame {
         };
 
         listenerVariant1 = (record) -> {
-            System.out.println("frame.Furniture.listenerVariant1()");
             Util.listenerEnums(record, tab1, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerVariant2 = (record) -> {
-            System.out.println("frame.Furniture.listenerVariant2()");
             Util.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }

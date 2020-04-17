@@ -47,7 +47,7 @@ public class Filling extends Cal5e {
                     UserArtikl typeProf = (elemGlass.owner().type() == TypeElem.FULLSTVORKA) ? UserArtikl.STVORKA : UserArtikl.FRAME;
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
-                        if (typeProf.id == sysprofRec.getInt(eSysprof.types)) {
+                        if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
 
                             Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
                             systree_artikl_id = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
