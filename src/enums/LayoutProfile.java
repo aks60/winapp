@@ -2,7 +2,9 @@ package enums;
 
 // Стороны для профилей (SYSPROA.ASETS)
 
+import static enums.TypeArtikl2.values;
 import static enums.TypeOpen.values;
+import java.util.stream.Stream;
 
 // select distinct ASETS from PRO4_SYSPROA where region_id = 177 order by ASETS
 public enum LayoutProfile implements Enam {
@@ -35,12 +37,7 @@ public enum LayoutProfile implements Enam {
         return values();
     }
     
-    public static LayoutProfile get(int side) {
-        for (LayoutProfile profileSide : values()) {
-            if (profileSide.id == side) {
-                return profileSide;
-            }
-        }
-        return null;
+    public static LayoutProfile get(int id) {
+        return Stream.of(values()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }
 }

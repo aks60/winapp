@@ -2,6 +2,7 @@ package enums;
 
 import static enums.LayoutProfile.values;
 import static enums.UseColcalc.values;
+import java.util.stream.Stream;
 
 /**
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций
@@ -37,12 +38,7 @@ public enum TypeArtikl2 implements Enam {
         return values();
     } 
     
-    public static TypeArtikl2 get(int side) {
-        for (TypeArtikl2 profileSide : values()) {
-            if (profileSide.id == side) {
-                return profileSide;
-            }
-        }
-        return null;
+    public static TypeArtikl2 get(int id) {
+        return Stream.of(values()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }    
 }

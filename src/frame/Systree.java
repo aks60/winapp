@@ -11,7 +11,9 @@ import common.eProperty;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
+import dialog.DicArtikl;
 import domain.eArtikl;
+import domain.eElemgrp;
 import domain.eFurniture;
 import domain.eParams;
 import domain.eSysfurn;
@@ -19,6 +21,7 @@ import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
+import enums.Enam;
 import enums.LayoutProfile;
 import enums.TypeArtikl2;
 import enums.TypeUse;
@@ -27,7 +30,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
@@ -114,18 +116,18 @@ public class Systree extends javax.swing.JFrame {
                 if (field == eSysprof.side && val != null) {
                     LayoutProfile en = LayoutProfile.get(Integer.valueOf(val.toString()));
                     if (en != null) {
-                        return en.name;
+                        return en.text();
                     }
                 } else if (field == eSysprof.types && val != null) {
                     TypeArtikl2 en = TypeArtikl2.get(Integer.valueOf(val.toString()));
                     if (en != null) {
-                        return en.name;
+                        return en.text();
                     }
                 }
                 return val;
             }
         };
-        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos); //.setFrameListener(listenerModify);
+        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos);
         new DefTableModel(tab4, qSyspar1, eSyspar1.grup, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -138,6 +140,13 @@ public class Systree extends javax.swing.JFrame {
         };
 
         nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
+        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
+
         rsmSysprof.setFrameListener(listenerModify);
         rsvSystree = new DefFieldRenderer(rsmSystree);
         rsvSystree.add(eSystree.name, txtField8);
@@ -154,7 +163,19 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void listenerDict() {
-        
+
+        listenerArtikl = (record) -> {
+            Util.stopCellEditing(tab2, tab3, tab4);
+            if (tab2.getBorder() != null) {
+                int row = tab2.getSelectedRow();
+                qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
+                qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
+                qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+            }
+        };
+
         listenetNuni = (record) -> {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode != null) {
@@ -168,7 +189,7 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         };
-        
+
         listenerModify = (record) -> {
             System.out.println("frame.Systree.listenerDict()");
         };
