@@ -23,7 +23,7 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.Enam;
 import enums.LayoutProfile;
-import enums.TypeArtikl2;
+import enums.UserArtikl;
 import enums.TypeUse;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -119,7 +119,7 @@ public class Systree extends javax.swing.JFrame {
                         return en.text();
                     }
                 } else if (field == eSysprof.types && val != null) {
-                    TypeArtikl2 en = TypeArtikl2.get(Integer.valueOf(val.toString()));
+                    UserArtikl en = UserArtikl.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
                     }

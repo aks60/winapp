@@ -16,7 +16,7 @@ import static domain.eSysprof.systree_id;
 import static domain.eSysprof.types;
 import static domain.eSysprof.up;
 import enums.LayoutProfile;
-import enums.TypeArtikl2;
+import enums.UserArtikl;
 import java.sql.SQLException;
 
 public enum eSystree implements Field {
