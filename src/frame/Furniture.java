@@ -36,12 +36,12 @@ import domain.eElempar2;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
-import enums.SideFurn1;
-import enums.SideFurn2;
-import enums.SideFurn3;
-import enums.VariantColcalc;
-import enums.VariantFurn1;
-import enums.VariantFurn2;
+import enums.LayoutFurn1;
+import enums.UseFurn3;
+import enums.LayoutFurn3;
+import enums.UseColcalc;
+import enums.UseFurn1;
+import enums.UseFurn2;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
@@ -112,18 +112,18 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eFurniture.view_open == field) {
                     int fk = Integer.valueOf(val.toString());
-                    if (VariantFurn1.P1.find(fk) != null) {
-                        return VariantFurn1.P1.find(fk).text();
+                    if (UseFurn1.P1.find(fk) != null) {
+                        return UseFurn1.P1.find(fk).text();
                     }
                 } else if (val != null && eFurniture.hand_side == field) {
                     int fk = Integer.valueOf(val.toString());
-                    if (SideFurn1.P1.find(fk) != null) {
-                        return SideFurn1.P1.find(fk).text();
+                    if (LayoutFurn1.P1.find(fk) != null) {
+                        return LayoutFurn1.P1.find(fk).text();
                     }
                 } else if (val != null && eFurniture.ways_use == field) {
                     int fk = Integer.valueOf(val.toString());
-                    if (VariantFurn2.P1.find(fk) != null) {
-                        return VariantFurn2.P1.find(fk).text();
+                    if (UseFurn2.P1.find(fk) != null) {
+                        return UseFurn2.P1.find(fk).text();
                     }
                 }
                 return val;
@@ -136,11 +136,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
-                        return VariantColcalc.automatic[1];
+                    if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
+                        return UseColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
-                        return VariantColcalc.precision[1];
+                    } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
+                        return UseColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -150,8 +150,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VariantColcalc.P00.find(types) != null) {
-                        return VariantColcalc.P00.find(types).text();
+                    if (UseColcalc.P00.find(types) != null) {
+                        return UseColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -166,11 +166,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
-                        return VariantColcalc.automatic[1];
+                    if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
+                        return UseColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
-                        return VariantColcalc.precision[1];
+                    } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
+                        return UseColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -180,8 +180,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VariantColcalc.P00.find(types) != null) {
-                        return VariantColcalc.P00.find(types).text();
+                    if (UseColcalc.P00.find(types) != null) {
+                        return UseColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -196,11 +196,11 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eFurndet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
-                        return VariantColcalc.automatic[1];
+                    if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
+                        return UseColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
-                        return VariantColcalc.precision[1];
+                    } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
+                        return UseColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -210,8 +210,8 @@ public class Furniture extends javax.swing.JFrame {
                 } else if (eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VariantColcalc.P00.find(types) != null) {
-                        return VariantColcalc.P00.find(types).text();
+                    if (UseColcalc.P00.find(types) != null) {
+                        return UseColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -226,12 +226,12 @@ public class Furniture extends javax.swing.JFrame {
                 if (val != null && eFurnside1.side_num == field) {
                     int v = Integer.valueOf(val.toString());
                     if (v > 0 && v < 5) {
-                        return SideFurn1.values()[v - 1].name;
+                        return LayoutFurn1.values()[v - 1].name;
                     }
                 } else if (val != null && eFurnside1.side_use == field) {
                     int v = Integer.valueOf(val.toString());
                     if (v > 0 && v < 4) {
-                        return SideFurn2.values()[v - 1].name;
+                        return UseFurn3.values()[v - 1].name;
                     }
                 }
                 return val;
@@ -260,7 +260,7 @@ public class Furniture extends javax.swing.JFrame {
                 if (val != null && eFurnside2.side_num == field) {
                     int v = Integer.valueOf(val.toString());
                     if (v > 0 && v < 7) {
-                        return SideFurn3.values()[v - 1].name;
+                        return LayoutFurn3.values()[v - 1].name;
                     }
                 }
                 return val;
@@ -284,15 +284,15 @@ public class Furniture extends javax.swing.JFrame {
         };
                 
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
-            new DicEnums(this, listenerVariant1, VariantFurn1.values());
+            new DicEnums(this, listenerVariant1, UseFurn1.values());
         });
 
         Util.buttonEditorCell(tab1, 2).addActionListener(event -> {
-            new DicEnums(this, listenerSide4, SideFurn1.values());
+            new DicEnums(this, listenerSide4, LayoutFurn1.values());
         });
 
         Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
-            new DicEnums(this, listenerVariant2, VariantFurn2.values());
+            new DicEnums(this, listenerVariant2, UseFurn2.values());
         });
 
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
@@ -324,11 +324,11 @@ public class Furniture extends javax.swing.JFrame {
         }
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            new DicEnums(this, listenerSide1, SideFurn1.values());
+            new DicEnums(this, listenerSide1, LayoutFurn1.values());
         });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            new DicEnums(this, listenerSide2, SideFurn2.values());
+            new DicEnums(this, listenerSide2, UseFurn3.values());
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
@@ -347,7 +347,7 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
-            new DicEnums(this, listenerSide3, SideFurn3.values());
+            new DicEnums(this, listenerSide3, LayoutFurn3.values());
         });
 
         Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
@@ -389,7 +389,6 @@ public class Furniture extends javax.swing.JFrame {
             qFurndet1.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id,
                     "where", eFurndet.furniture_id, "=", id, "and", eFurndet.id, "=", eFurndet.furndet_id, "order by", eArtikl.code);
 
-            tabb1.setSelectedIndex(0);
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2a, 0);
@@ -529,12 +528,10 @@ public class Furniture extends javax.swing.JFrame {
         };
 
         listenerVariant1 = (record) -> {
-            System.out.println("frame.Furniture.listenerVariant1()");
             Util.listenerEnums(record, tab1, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
 
         listenerVariant2 = (record) -> {
-            System.out.println("frame.Furniture.listenerVariant2()");
             Util.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         };
     }
@@ -673,19 +670,19 @@ public class Furniture extends javax.swing.JFrame {
         rdb1.setText("Основная");
         rdb1.setMaximumSize(new java.awt.Dimension(75, 18));
         rdb1.setMinimumSize(new java.awt.Dimension(75, 18));
-        rdb1.setPreferredSize(new java.awt.Dimension(100, 18));
+        rdb1.setPreferredSize(new java.awt.Dimension(80, 18));
 
         grour1.add(rdb2);
         rdb2.setText("Дополнительная");
         rdb2.setMaximumSize(new java.awt.Dimension(75, 18));
         rdb2.setMinimumSize(new java.awt.Dimension(75, 18));
-        rdb2.setPreferredSize(new java.awt.Dimension(100, 18));
+        rdb2.setPreferredSize(new java.awt.Dimension(80, 18));
 
         grour1.add(rdb3);
         rdb3.setText("Комплекты");
         rdb3.setMaximumSize(new java.awt.Dimension(75, 18));
         rdb3.setMinimumSize(new java.awt.Dimension(75, 18));
-        rdb3.setPreferredSize(new java.awt.Dimension(100, 18));
+        rdb3.setPreferredSize(new java.awt.Dimension(80, 18));
 
         btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
         btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
@@ -718,10 +715,10 @@ public class Furniture extends javax.swing.JFrame {
                 .addGap(66, 66, 66)
                 .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -735,10 +732,9 @@ public class Furniture extends javax.swing.JFrame {
                     .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panNorthLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1192,6 +1188,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
         JTable table = Stream.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
@@ -1255,7 +1252,7 @@ public class Furniture extends javax.swing.JFrame {
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Описание сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Ограничения сторон сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+                "Ограничения сторон", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

@@ -1,8 +1,8 @@
 package wincalc.model;
 
 import dataset.Record;
-import enums.JoinLocate;
-import enums.VariantJoin;
+import enums.LayoutJoin;
+import enums.TypeJoin;
 import java.util.ArrayList;
 import wincalc.Wincalc;
 import wincalc.constr.Specification;
@@ -15,8 +15,8 @@ public class ElemJoining {
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
     protected String name;
-    protected JoinLocate typeJoin = JoinLocate.NONE;
-    public VariantJoin varJoin = VariantJoin.EMPTY;    // Вариант соединения
+    protected LayoutJoin typeJoin = LayoutJoin.NONE;
+    public TypeJoin varJoin = TypeJoin.EMPTY;    // Вариант соединения
 
     protected ElemSimple elemJoinTop = null;      //
     protected ElemSimple elemJoinBottom = null;   // Элементы соединения, временно для

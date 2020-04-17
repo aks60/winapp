@@ -3,8 +3,8 @@ package wincalc.constr;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
-import enums.MeasUnit;
-import enums.TypeArtikl;
+import enums.UseUnit;
+import enums.TypeArtikl1;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -137,14 +137,14 @@ public class Specification {
 
     protected void setAnglCut() {
         //TODO Тут логическая ошибка
-        if (TypeArtikl.FURNITURA.isType(artiklRec)
-                || TypeArtikl.KONZEVPROF.isType(artiklRec)
-                || TypeArtikl.MONTPROF.isType(artiklRec)
-                || TypeArtikl.FIKSPROF.isType(artiklRec)) {
+        if (TypeArtikl1.FURNITURA.isType(artiklRec)
+                || TypeArtikl1.KONZEVPROF.isType(artiklRec)
+                || TypeArtikl1.MONTPROF.isType(artiklRec)
+                || TypeArtikl1.FIKSPROF.isType(artiklRec)) {
             anglCut2 = 90;
             anglCut1 = 90;
 
-        } else if (TypeArtikl.FURNITURA.isType(artiklRec)) {
+        } else if (TypeArtikl1.FURNITURA.isType(artiklRec)) {
             anglCut2 = 0;
             anglCut1 = 0;
         }
@@ -240,7 +240,7 @@ public class Specification {
                     eColor.find(s.color2).getInt(eColor.name),
                     eColor.find(s.color3).getInt(eColor.name),
                     String.valueOf(s.count), String.valueOf(s.quantity),
-                    MeasUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
+                    UseUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
                     String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",
                     "0", "0", "0", String.valueOf(s.anglCut2), String.valueOf(s.anglCut1), "0", "0"};
 

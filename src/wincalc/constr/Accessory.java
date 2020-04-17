@@ -8,7 +8,7 @@ import domain.eFurnside1;
 import domain.eSysfurn;
 import enums.LayoutArea;
 import enums.ParamJson;
-import enums.TypeArtikl;
+import enums.TypeArtikl1;
 import enums.TypeElem;
 import frame.Artikles;
 import java.util.ArrayList;

@@ -5,10 +5,10 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.SideProfile;
-import enums.TypeArtikl;
+import enums.LayoutProfile;
+import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.TypeUse;
+import enums.UserArtikl;
 import java.awt.Color;
 import wincalc.constr.Specification;
 
@@ -55,10 +55,10 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-           sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.IMPOST, SideProfile.HORIZ);  
+           sysprofRec = eSysprof.find3(iwin().nuni, UserArtikl.IMPOST, LayoutProfile.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-           sysprofRec = eSysprof.find3(iwin().nuni, TypeUse.IMPOST, SideProfile.VERT); 
+           sysprofRec = eSysprof.find3(iwin().nuni, UserArtikl.IMPOST, LayoutProfile.VERT); 
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);  
@@ -122,14 +122,14 @@ public class ElemImpost extends ElemSimple {
         Record artiklRec = specif.artiklRec;
 
         //Импост (если элемент включен в список состава)
-        if (TypeArtikl.IMPOST.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
+        if (TypeArtikl1.IMPOST.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
             specificationRec.setArtiklRec(specif.artiklRec); //= (specif.artikl.equals("-")) ? specif.artikl : "-";
             specificationRec.name = (specif.name.equals("-")) ? specif.name : "-";
             specificationRec.setArtiklRec(specif.artiklRec);
             return;
 
             //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
+        } else if (TypeArtikl1.ARMIROVANIE.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
             specif.element = layout.name;
             //if (LayoutArea.HORIZONTAL == layout) specif.width = owner.x2 - owner.x1;
             //else if(LayoutArea.VERTICAL == layout) specif.width = owner.y2 - owner.y1;
@@ -138,7 +138,7 @@ public class ElemImpost extends ElemSimple {
             specif.anglCut1 = 90;
 
             //Соединитель
-        } else if(TypeArtikl.SOEDINITEL.isType(artiklRec) == true) {
+        } else if(TypeArtikl1.SOEDINITEL.isType(artiklRec) == true) {
             specif.color1 = iwin().colorNone;
             specif.color2 = iwin().colorNone;
             specif.color3 = iwin().colorNone;
@@ -165,8 +165,8 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override
-    public TypeUse typeProfile() {
-        return TypeUse.IMPOST;
+    public UserArtikl typeProfile() {
+        return UserArtikl.IMPOST;
     }
 
     @Override

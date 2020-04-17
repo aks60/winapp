@@ -39,7 +39,7 @@ import domain.eJoinpar1;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
-import enums.VariantColcalc;
+import enums.UseColcalc;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
@@ -106,11 +106,11 @@ public class Filling extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eGlasdet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(VariantColcalc.automatic[0]) == colorFk) {
-                        return VariantColcalc.automatic[1];
+                    if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
+                        return UseColcalc.automatic[1];
 
-                    } else if (Integer.valueOf(VariantColcalc.precision[0]) == colorFk) {
-                        return VariantColcalc.precision[1];
+                    } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
+                        return UseColcalc.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -120,8 +120,8 @@ public class Filling extends javax.swing.JFrame {
                 } else if (eGlasdet.types == field) {
                     int types = Integer.valueOf(val.toString());
 
-                    if (VariantColcalc.P00.find(types) != null) {
-                        return VariantColcalc.P00.find(types).text();
+                    if (UseColcalc.P00.find(types) != null) {
+                        return UseColcalc.P00.find(types).text();
                     } else {
                         return null;
                     }
@@ -771,7 +771,8 @@ public class Filling extends javax.swing.JFrame {
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
         JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        if (txtFilter.getText().length() == 0) {
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {            
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
             int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();

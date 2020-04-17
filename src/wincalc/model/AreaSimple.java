@@ -2,8 +2,8 @@ package wincalc.model;
 
 import enums.LayoutArea;
 import enums.TypeElem;
-import enums.JoinLocate;
-import enums.VariantJoin;
+import enums.LayoutJoin;
+import enums.TypeJoin;
 import java.awt.BasicStroke;
 import java.io.File;
 import java.util.EnumMap;
@@ -141,25 +141,25 @@ public class AreaSimple extends Com5t {
                         el.id = id() + (index + 1) / 100;
                         float[][] fs = sides[index];
                         if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
-                            el.varJoin = VariantJoin.VAR4;
+                            el.varJoin = TypeJoin.VAR4;
                             if (index == 0) {
                                 el.name = "T - соединение левое";
-                                el.typeJoin = JoinLocate.TLEFT;
+                                el.typeJoin = LayoutJoin.TLEFT;
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (index == 1) {
                                 el.name = "T - соединение нижнее";
-                                el.typeJoin = JoinLocate.TBOT;
+                                el.typeJoin = LayoutJoin.TBOT;
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (index == 2) {
                                 el.name = "T - соединение правое";
-                                el.typeJoin = JoinLocate.TRIGH;
+                                el.typeJoin = LayoutJoin.TRIGH;
                                 el.joinElement1 = e2;
                                 el.joinElement2 = e1;
                             } else if (index == 3) {
                                 el.name = "T - соединение верхнее";
-                                el.typeJoin = JoinLocate.TTOP;
+                                el.typeJoin = LayoutJoin.TTOP;
                                 el.joinElement1 = e1;
                                 el.joinElement2 = e2;
                             }

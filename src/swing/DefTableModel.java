@@ -1,5 +1,6 @@
 package swing;
 
+import common.DialogListener;
 import common.FrameListener;
 import common.Util;
 import common.eProfile;
@@ -7,7 +8,6 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Table;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
@@ -25,6 +25,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     private Boolean[] editable = null;
     private TableRowSorter<DefTableModel> sorter = null;
     private FrameListener<Object, Object> listenerModify = null;
+    private DialogListener listenerModify2 = null;
 
     public DefTableModel(JTable table, Query query, Field... columns) {
         this.table = table;
@@ -62,7 +63,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     public TableRowSorter<DefTableModel> getSorter() {
         return sorter;
     }
-    
+
     public Field getColumn(int index) {
         return columns[index];
     }
@@ -110,10 +111,10 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 
-        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {                
+        if (table.getColumnModel().getColumn(columnIndex).getCellEditor() instanceof DefFieldEditor == false) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
 
-        } else if(columns[columnIndex].meta().type() == Field.TYPE.STR) {
+        } else if (columns[columnIndex].meta().type() == Field.TYPE.STR) {
             setValueAt(aValue, rowIndex, columns[columnIndex]);
         }
     }
@@ -148,6 +149,8 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
                 query.table(field).set(value, row, field);
                 if (listenerModify != null) {
                     listenerModify.actionRequest(null);
+                } else if (listenerModify2 != null) {
+                    listenerModify2.action(null);
                 }
             }
         } catch (NumberFormatException e) {
@@ -157,6 +160,11 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     public DefTableModel setFrameListener(FrameListener listenerModify) {
         this.listenerModify = listenerModify;
+        return this;
+    }
+
+    public DefTableModel setFrameListener(DialogListener listenerModify) {
+        this.listenerModify2 = listenerModify2;
         return this;
     }
 }

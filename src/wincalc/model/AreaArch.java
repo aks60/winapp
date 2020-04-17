@@ -1,8 +1,8 @@
 package wincalc.model;
 
 import domain.eArtikl;
-import enums.JoinLocate;
-import enums.VariantJoin;
+import enums.LayoutJoin;
+import enums.TypeJoin;
 import enums.LayoutArea;
 import enums.TypeElem;
 import wincalc.Wincalc;
@@ -47,7 +47,7 @@ public class AreaArch extends AreaSimple {
 
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.varJoin = VariantJoin.VAR2;
+            el.varJoin = TypeJoin.VAR2;
             el.id = id() + (index + 2) / 10;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
@@ -65,14 +65,14 @@ public class AreaArch extends AreaSimple {
 
             } else if (index == 1) {
                 el.name = "Угловое соединение левое нижнее";
-                el.typeJoin = JoinLocate.LBOT;
+                el.typeJoin = LayoutJoin.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(x1 + ":" + y2, el);
 
             } else if (index == 2) {
                 el.name = "Угловое соединение правое нижнее";
-                el.typeJoin = JoinLocate.RBOT;
+                el.typeJoin = LayoutJoin.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(x2 + ":" + y2, el);

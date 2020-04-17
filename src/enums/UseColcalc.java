@@ -1,9 +1,9 @@
 package enums;
 
 //Варианты рассчёта текстуры
-import static enums.VariantFurn1.values;
+import static enums.UseFurn1.values;
 
-public enum VariantColcalc implements Enam {
+public enum UseColcalc implements Enam {
 
     P00(0, "Указанная вручную"),
     P11(11, "Профиль"),
@@ -20,7 +20,7 @@ public enum VariantColcalc implements Enam {
     public String id;
     public String name;
 
-    private VariantColcalc(int id, String name) {
+    private UseColcalc(int id, String name) {
         this.id = String.valueOf(id);
         this.name = name;
     }

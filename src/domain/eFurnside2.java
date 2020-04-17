@@ -14,9 +14,8 @@ public enum eFurnside2 implements Field {
     ang_min("8", "15", "1", "Мин. угол, градусы", "LMINU"),
     ang_max("8", "15", "1", "Макс. угол, градусы", "LMAXU"),
     furndet_id("4", "10", "0", "Детализация", "furndet_id");
-    //fincs("4", "10", "1", "спецификация_ID", "FINCS"),
-    //funic("4", "10", "1", "фурнитура_ID", "FUNIC"),
-    //lunic("4", "10", "1", "ID", "LUNIC"),    
+    //LUNIC Первич. ключаштсы
+    //FINCS Ссылка на спецификацию    
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 

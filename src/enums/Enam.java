@@ -27,8 +27,7 @@ public interface Enam {
     }
 
     default Enam find(int id) {
-        //return Stream.of(fields()).filter(en -> en.numb() == id).findFirst().orElse(null);
-        return Arrays.asList(fields()).stream().filter(en -> en.numb() == id).findFirst().orElse(null);
+        return Stream.of(fields()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }
     
     default List<String> dict() {

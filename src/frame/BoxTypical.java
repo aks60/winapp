@@ -1,5 +1,6 @@
 package frame;
 
+import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
 import dataset.Query;
@@ -31,7 +32,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     public Wincalc iwinMin = new Wincalc();
     private Window owner = null;
     private ArrayList<Icon> listIcon = new ArrayList<Icon>();
-    private FrameListener listenerFrame = null;
+    //private FrameListener listenerFrame = null;
+    private DialogListener listenet = null;
     private PaintPanel paintPanel = new PaintPanel(iwinMax) {
 
         public void actionResponse(MouseEvent evt) {
@@ -43,19 +45,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         }
     };
     private Query qSysprod = new Query(eSysprod.values()).select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up);
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public BoxTypical() {
         initComponents();
@@ -63,42 +52,20 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         loadingModel();
         btnChoice.setVisible(false);
         btnRemov.setVisible(false);
-        loadTab1();
+        loadingData();
     }
 
-    public BoxTypical(java.awt.Window owner) {
+    public BoxTypical(java.awt.Window owner, DialogListener listener) {
         initComponents();
         initElements();
         loadingModel();
         this.owner = owner;
-        listenerFrame = (FrameListener) owner;
+        this.listenet = listener;
         owner.setEnabled(false);
-        loadTab1();
+        loadingData();
     }
 
-    private void loadingModel() {
-
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
-        paintPanel.setVisible(true);
-        iwinMin.scale2 = 25;
-
-        tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (column == 2) {
-                    Icon icon = listIcon.get(row);
-                    label.setIcon(icon);
-                } else {
-                    label.setIcon(null);
-                }
-                return label;
-            }
-        });
-    }
-
-    private void loadTab1() {
+    private void loadingData() {
 
         DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
         dm.getDataVector().removeAllElements();
@@ -124,8 +91,29 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         }
     }
 
+    private void loadingModel() {
+
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
+        paintPanel.setVisible(true);
+        iwinMin.scale2 = 25;
+
+        tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 2) {
+                    Icon icon = listIcon.get(row);
+                    label.setIcon(icon);
+                } else {
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        });
+    }
+
     private void selectionTab1(ListSelectionEvent event) {
-        listenerModify.actionResponse(null);
         int row = getSelectedRec(tab1);
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
@@ -702,8 +690,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_btnCloseClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        //iwinMax.create(Winscript.test(Winscript.prj, null));
-        //paintPanel.repaint(true, 24);
+
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
@@ -765,8 +752,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void btnChoiceresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoiceresh
         int row = getSelectedRec(tab1);
         if (row != -1) {
-            Object id = qSysprod.get(row, eSysprod.id);
-            listenerFrame.actionResponse(id);
+            Record record = new Record();
+            record.add(qSysprod.get(row, eSysprod.id));
+            listenet.action(record);
             this.dispose();
         }
     }//GEN-LAST:event_btnChoiceresh
@@ -777,7 +765,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_formWindowClosed
 
     private void btnRemovresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovresh
-      
+
     }//GEN-LAST:event_btnRemovresh
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
@@ -831,20 +819,20 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {
 
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
+            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
 
-        public void focusGained(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(border);
+            public void focusGained(FocusEvent e) {
+                if (e.getSource() instanceof JTable) {
+                    ((JTable) e.getSource()).setBorder(border);
+                }
             }
-        }
 
-        public void focusLost(FocusEvent e) {
-            if (e.getSource() instanceof JTable) {
-                ((JTable) e.getSource()).setBorder(null);
+            public void focusLost(FocusEvent e) {
+                if (e.getSource() instanceof JTable) {
+                    ((JTable) e.getSource()).setBorder(null);
+                }
             }
-        }
-    };
+        };
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типовые конструкции", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

@@ -5,7 +5,7 @@ import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eSystree;
-import enums.TypeSys;
+import enums.TypeUse;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -51,7 +51,7 @@ public class BoxCustom extends javax.swing.JFrame {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
         rsvSystree = new DefFieldRenderer(rsmSystree);
-        rsvSystree.add(eSystree.types, txtField3, TypeSys.values());
+        rsvSystree.add(eSystree.types, txtField3, TypeUse.values());
         loadTree1();
     }
 

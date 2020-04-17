@@ -11,13 +11,13 @@ import static domain.eArtikl.up;
 import static domain.eArtikl.values;
 import static domain.eSysprof.artikl_id;
 import static domain.eSysprof.id;
-import static domain.eSysprof.side;
 import static domain.eSysprof.systree_id;
-import static domain.eSysprof.types;
 import static domain.eSysprof.up;
-import enums.SideProfile;
-import enums.TypeUse;
+import enums.LayoutProfile;
+import enums.UserArtikl;
 import java.sql.SQLException;
+import static domain.eSysprof.use_type;
+import static domain.eSysprof.use_side;
 
 public enum eSystree implements Field {
     up("0", "0", "0", "Дерево системы профилей", "SYSPROF"),

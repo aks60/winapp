@@ -1,15 +1,17 @@
 package enums;
 
-public enum VariantFurn1 implements Enam {
-    P1(1, "Поворотная"),
-    P2(2, "Раздвижная"),
-    P3(3, "Раздвижная<=>"),
-    P4(4, "Раздвижная|^|");
+import static enums.LayoutFurn1.values;
+
+public enum UseFurn2 implements Enam {
+    P1(-1, "Ведомая"),
+    P2(0, "Обычная"),
+    P3(1, "Ведущая"),
+    P4(2, "Адаптер");
 
     public int id;
     public String name;
 
-    VariantFurn1(int id, String name) {
+    UseFurn2(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -24,5 +26,5 @@ public enum VariantFurn1 implements Enam {
     
     public Enam[] fields() {
         return values();
-    }     
+    }    
 }

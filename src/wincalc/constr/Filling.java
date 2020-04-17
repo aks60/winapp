@@ -10,9 +10,9 @@ import domain.eGlaspar2;
 import domain.eGlasprof;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.TypeArtikl;
+import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.TypeUse;
+import enums.UserArtikl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -44,10 +44,10 @@ public class Filling extends Cal5e {
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.select()) {
 
-                    TypeUse typeProf = (elemGlass.owner().type() == TypeElem.FULLSTVORKA) ? TypeUse.STVORKA : TypeUse.FRAME;
+                    UserArtikl typeProf = (elemGlass.owner().type() == TypeElem.FULLSTVORKA) ? UserArtikl.STVORKA : UserArtikl.FRAME;
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
-                        if (typeProf.id == sysprofRec.getInt(eSysprof.types)) {
+                        if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
 
                             Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
                             systree_artikl_id = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
@@ -98,10 +98,10 @@ public class Filling extends Cal5e {
                     Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
 
                     //Стеклопакет
-                    if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    if (TypeArtikl1.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         //Штапик
-                    } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    } else if (TypeArtikl1.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         Record art = eArtikl.find(clasdetRec.getInt(eGlasdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) {
@@ -177,7 +177,7 @@ public class Filling extends Cal5e {
                         }
 
                         //Уплотнитель
-                    } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
+                    } else if (TypeArtikl1.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
                         Record art = eArtikl.find(clasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) { //если уплотнитель в арке
                             //По основанию арки
@@ -289,10 +289,10 @@ public class Filling extends Cal5e {
                 Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
                 if (out == true) {
                     //Стеклопакет
-                    if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    if (TypeArtikl1.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         //Штапик
-                    } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    } else if (TypeArtikl1.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) {
@@ -368,7 +368,7 @@ public class Filling extends Cal5e {
                         }
 
                         //Уплотнитель
-                    } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
+                    } else if (TypeArtikl1.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) { //если уплотнитель в арке
                             //По основанию арки

@@ -1,6 +1,6 @@
 package enums;
 
-import static enums.TypeSys.values;
+import static enums.TypeUse.values;
 
 public enum TypeSet implements Enam {
     P1(1, "Внутренний"),
