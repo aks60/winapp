@@ -771,7 +771,8 @@ public class Filling extends javax.swing.JFrame {
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
         JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        if (txtFilter.getText().length() == 0) {
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {            
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
             int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();

@@ -1190,6 +1190,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
         JTable table = Stream.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
