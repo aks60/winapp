@@ -11,7 +11,7 @@ import static domain.eElempar1.values;
 import static domain.eElempar1.grup;
 
 public enum eElempar2 implements Field {
-    up("0", "0", "0", "Параметры спецификаций составов", "PARVSTS"),
+    up("0", "0", "0", "Параметры специф.составов", "PARVSTS"),
     id("4", "10", "0", "Идентификатор", "id"),    
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей

@@ -13,12 +13,12 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public enum eJoindet implements Field {
-    up("0", "0", "0", "Спецификация вариантов соединения", "CONNSPC"),
+    up("0", "0", "0", "Спецификация вар.соединения", "CONNSPC"),
     id("4", "10", "0", "Идентификатор", "id"),
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
-    color_fk("4", "10", "1", "Текстура", "CLNUM"),
-    artikl_id("4", "10", "1", "Артикл", "artikl_id"),
-    joinvar_id("4", "10", "0", "Вариант соединения", "joinvar_id");
+    color_fk("4", "10", "1", "Ссылка", "CLNUM"),
+    artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
+    joinvar_id("4", "10", "0", "Ссылка", "joinvar_id");
     //clnum("4", "10", "1", "текстура 0-Авто_подб 100000-Точн.подбор 1-. -ХХХ-ручн.парам.", "CLNUM"), //CLNUM=>COLOT.CNUMB
     //anumb("12", "32", "1", "Артикул", "ANUMB"). // ANUMB->ARTIKL.ANUMB  
     //cunic("4", "10", "1", "10_JOINING", "CUNIC"),

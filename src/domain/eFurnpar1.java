@@ -10,12 +10,12 @@ import static domain.eFurnside1.up;
 import static domain.eFurnside1.values;
 
 public enum eFurnpar1 implements Field {
-    up("0", "0", "0", "Параметры ограничений сторон фурнитуры", "PARFURL"),
+    up("0", "0", "0", "Параметры огр.сторон фурнитуры", "PARFURL"),
     id("4", "10", "0", "Идентификатор", "id"),       
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
-    furnside_id("4", "10", "0", "Фурнитура", "furnside_id");
+    furnside_id("4", "10", "0", "Ссылка", "furnside_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);

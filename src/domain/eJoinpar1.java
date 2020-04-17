@@ -13,12 +13,12 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public enum eJoinpar1 implements Field {
-    up("0", "0", "0", "Параметры вариантов соединений", "PARCONV"),
+    up("0", "0", "0", "Параметры вар.соединений", "PARCONV"),
     id("4", "10", "0", "Идентификатор", "id"),     
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
-    joinvar_id("4", "10", "0", "Вариант соединения", "joinvar_id");
+    joinvar_id("4", "10", "0", "Ссылка", "joinvar_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
 
     private MetaField meta = new MetaField(this);

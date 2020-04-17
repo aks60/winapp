@@ -10,13 +10,13 @@ import static domain.eColor.up;
 import static domain.eColor.values;
 
 public enum eGlasdet implements Field {
-    up("0", "0", "0", "Спецификация групп заполнения", "GLASART"),
+    up("0", "0", "0", "Специф.групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
-    color_fk("4", "10", "1", "Текстура", "CLNUM"),
-    artikl_id("4", "10", "1", "Артикл", "artikl_id"),
-    glasgrp_id("4", "10", "0", "Заполнение", "glassgrp_id");
+    color_fk("4", "10", "1", "Ссылка", "CLNUM"),
+    artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
+    glasgrp_id("4", "10", "0", "Ссылка", "glassgrp_id");
     //gnumb("4", "10", "1", "GLASS_ID", "GNUMB"),
     //gunic("4", "10", "1", "ID_GLASDET", "GUNIC"), 
     //anumb("12", "32", "1", "Артикул", "ANUMB"), // ANUMB->ARTIKL.ANUMB

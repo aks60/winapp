@@ -15,8 +15,8 @@ public enum eGlasprof implements Field {
     sizeax("8", "15", "1", "Размер от оси, мм", "ASIZE"),
     toin("16", "5", "1", "Внутреннее", "toin"),
     toout("16", "5", "1", "Внншнее", "toout"),
-    artikl_id("4", "10", "1", "Артикл", "artikl_id"),
-    glasgrp_id("4", "10", "0", "Глуппа", "glasgrp_id");
+    artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
+    glasgrp_id("4", "10", "0", "Ссылка", "glasgrp_id");
     //gtype("5", "5", "1", "Привязка к размеру", "GTYPE"), //1-внут.да, внеш.нет ; 2- внутр.нет, внешн.да: 3- внеш.да, внут.да
     //zunic("4", "10", "1", "null", "ZUNIC"),
     //anumb("12", "32", "1", "Артикул", "ANUMB"),
