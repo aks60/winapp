@@ -80,12 +80,13 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerDict();
-        loadingModel();
         loadingData();
+        loadingModel();
     }
 
     private void loadingData() {
 
+        nuni = Integer.valueOf(eProperty.systree_nuni.read());
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
         Query q = qSystree.table(eSystree.up);
@@ -103,11 +104,6 @@ public class Systree extends javax.swing.JFrame {
         ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
         tree.setModel(new DefaultTreeModel(treeNode1));
         scr1.setViewportView(tree);
-        if (treeNode != null) {
-            tree.setSelectionPath(new TreePath(treeNode));
-        } else {
-            tree.setSelectionRow(0);
-        }
     }
 
     private void loadingModel() {
@@ -143,8 +139,6 @@ public class Systree extends javax.swing.JFrame {
             }
         };
 
-        nuni = Integer.valueOf(eProperty.systree_nuni.read());
-
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UserArtikl.values());
         });
@@ -173,6 +167,49 @@ public class Systree extends javax.swing.JFrame {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
+
+        if (treeNode != null) {
+            tree.setSelectionPath(new TreePath(treeNode));
+        } else {
+            tree.setSelectionRow(0);
+        }
+    }
+
+    private void selectionTree() {
+
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof UserNode) {
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                nuni = node.record.getInt(eSystree.id);
+                eProperty.systree_nuni.write(String.valueOf(nuni));
+                int sysprod_id = node.record.getInt(eSystree.sysprod_id);
+                //if (sysprod_id != -1) {
+                    createWincalc(sysprod_id);
+                //}
+                Query q = qSystree.table(eSystree.up);
+                for (int i = 0; i < q.size(); i++) {
+                    if (nuni == q.get(i).getInt(eSystree.id)) {
+                        rsvSystree.load(i);
+                    }
+                }
+                qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
+                        eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
+                qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
+                        eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
+                qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
+                //"and", eSyspar1.par2, "= 0");
+
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, 0);
+                Util.setSelectedRow(tab3, 0);
+                Util.setSelectedRow(tab4, 0);
+            }
+        } else {
+            createWincalc(-1);
+        }
     }
 
     private void listenerDict() {
@@ -234,43 +271,6 @@ public class Systree extends javax.swing.JFrame {
             }
         }
         return nodeList2;
-    }
-
-    private void selectionTree() {
-
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof UserNode) {
-                UserNode node = (UserNode) selectedNode.getUserObject();
-                nuni = node.record.getInt(eSystree.id);
-                eProperty.systree_nuni.write(String.valueOf(nuni));
-                int sysprod_id = node.record.getInt(eSystree.sysprod_id);
-
-                createWincalc(sysprod_id);
-
-                Query q = qSystree.table(eSystree.up);
-                for (int i = 0; i < q.size(); i++) {
-                    if (nuni == q.get(i).getInt(eSystree.id)) {
-                        rsvSystree.load(i);
-                    }
-                }
-                qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                        eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
-                qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                        eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
-                qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
-                //"and", eSyspar1.par2, "= 0");
-
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, 0);
-                Util.setSelectedRow(tab3, 0);
-                Util.setSelectedRow(tab4, 0);
-            }
-        } else {
-            createWincalc(-1);
-        }
     }
 
     private void createWincalc(int sysprod_id) {
