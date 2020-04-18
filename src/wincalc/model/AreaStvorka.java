@@ -10,7 +10,7 @@ import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
 import enums.LayoutJoin;
-import enums.TypeOpen;
+import enums.TypeOpen1;
 import enums.UserArtikl;
 import enums.TypeJoin;
 import java.awt.Color;
@@ -23,7 +23,7 @@ import wincalc.Wincalc;
 public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
-    protected TypeOpen typeOpen = TypeOpen.OM_INVALID; //тип открывания
+    protected TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.FULLSTVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
@@ -38,7 +38,7 @@ public class AreaStvorka extends AreaSimple {
             if (mapParam.get(ParamJson.typeOpen) != null) {
 
                 int key = Integer.valueOf(mapParam.get(ParamJson.typeOpen).toString());
-                for (TypeOpen typeOpen : TypeOpen.values()) {
+                for (TypeOpen1 typeOpen : TypeOpen1.values()) {
                     if (typeOpen.id == key) {
                         this.typeOpen = typeOpen;
                     }
@@ -198,7 +198,7 @@ public class AreaStvorka extends AreaSimple {
         }
     }
 
-    public TypeOpen typeOpen() {
-        return TypeOpen.OM_INVALID;
+    public TypeOpen1 typeOpen() {
+        return TypeOpen1.OM_INVALID;
     }
 }

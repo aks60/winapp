@@ -1,6 +1,6 @@
 package enums;
 
-import static enums.TypeOpen.values;
+import static enums.TypeOpen1.values;
 
 public enum UseUnit implements Enam {
     METR(1, "пог.м."),

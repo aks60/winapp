@@ -11,9 +11,9 @@ public interface Field {
 
     public static enum TYPE {
 
-        OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), INTsp(Integer.class),
-        INTfp(Integer.class), STR(String.class, -9, -1, 1, 12), DBL(Double.class, 8), FLT(Float.class, 6), LONG(Long.class, -5),
-        DATE(Date.class, 91, 92, 93), BOOL(Boolean.class, 16), BLOB(String.class, -2, -3, -4, 2004);
+        OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), STR(String.class, -9, -1, 1, 12),  
+        DBL(Double.class, 8), FLT(Float.class, 6),  LONG(Long.class, -5), DATE(Date.class, 91, 92, 93), 
+        BOOL(Boolean.class, 16), BLOB(String.class, -2, -3, -4, 2004);
         Class type;
         public HashSet<Integer> hsConv = new HashSet<Integer>();
 

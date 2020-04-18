@@ -454,9 +454,11 @@ public class Profstroy {
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
-            updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");
+            updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");           
             updateSql(eSysfurn.up, eSysfurn.furniture_id, "funic", eFurniture.up, "funic");
-            updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");
+            updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");            
+            executeSql("update sysfurn set side_open = ( CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
+            executeSql("update sysfurn set hand_pos = ( CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");            
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");
             updateSysprod();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");

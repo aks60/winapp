@@ -6,7 +6,7 @@
 package enums;
 
 import static enums.LayoutProfile.values;
-import static enums.TypeOpen.values;
+import static enums.TypeOpen1.values;
 
 //Стороны фурнитуры
 public enum LayoutFurn3 implements Enam {

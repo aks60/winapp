@@ -5,7 +5,7 @@ import static enums.TypeUse.values;
 /**
  * Типы открывания створок
  */
-public enum TypeOpen implements Enam {
+public enum TypeOpen1 implements Enam {
 
     OM_INVALID(-1, "empty", "Ошибка"),
     OM_FIXED(0, "empty", "Глухая створка (не открывается)"),
@@ -21,7 +21,7 @@ public enum TypeOpen implements Enam {
     public String side;
     public String name;
 
-    TypeOpen(int id, String side, String name) {
+    TypeOpen1(int id, String side, String name) {
         this.id = id;
         this.side = side;
         this.name = name;

@@ -13,22 +13,21 @@ import dataset.Query;
 import dataset.Record;
 import dialog.DicArtikl;
 import dialog.DicEnums;
+import dialog.DicFurniture;
+import dialog.ParDef;
 import domain.eArtikl;
-import domain.eElemgrp;
 import domain.eFurniture;
-import domain.eFurnside1;
 import domain.eParams;
 import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.Enam;
-import enums.LayoutFurn1;
+import enums.LayoutHandle;
 import enums.LayoutProfile;
+import enums.TypeOpen2;
 import enums.UserArtikl;
 import enums.TypeUse;
-import enums.UseFurn2;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -59,7 +58,8 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerSide;
+    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, 
+            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2;
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
     private Wincalc iwin = new Wincalc();
@@ -127,7 +127,22 @@ public class Systree extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos);
+        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos) {
+            
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                
+                if (val != null && field == eSysfurn.side_open) {
+                    int id = Integer.valueOf(val.toString());
+                    return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.P1).name;
+                   
+                } else if (val != null && field == eSysfurn.hand_pos) {
+                    int id = Integer.valueOf(val.toString());
+                    return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.P1).name;
+                }
+                return val;
+            }
+        };
         new DefTableModel(tab4, qSyspar1, eSyspar1.grup, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -150,8 +165,25 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
+        
         Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
+        
+        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+            DicFurniture frame = new DicFurniture(this, listenerFurn);
+        });
+        
+        Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
+            DicEnums frame = new DicEnums(this, listenerTypeopen, TypeOpen2.values());
+        });
+        
+        Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
+            DicEnums frame = new DicEnums(this, listenerHandle, LayoutHandle.values());
+        });
+        
+        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+            ParDef frame = new ParDef(this, listenerParam1);
         });
 
         rsmSysprof.setFrameListener(listenerModify);
@@ -248,6 +280,29 @@ public class Systree extends javax.swing.JFrame {
             }
         };
 
+        listenerFurn = (record) -> {
+            Util.stopCellEditing(tab2, tab3, tab4);
+            if (tab3.getBorder() != null) {
+                int row = tab3.getSelectedRow();
+                qSysfurn.set(record.getInt(eFurniture.id), Util.getSelectedRec(tab3), eSysfurn.furniture_id);
+                qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab3, row);
+            }
+        };
+
+        listenerTypeopen = (record) -> {
+            Util.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4);
+        };
+        
+        listenerHandle = (record) -> {
+            Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4);
+        };
+        
+        listenerParam1 = (record) -> {
+            System.out.println("frame.Systree.listenerParam1()");
+        };
+        
         listenerModify = (record) -> {
             System.out.println("frame.Systree.listenerDict()");
         };
@@ -535,7 +590,7 @@ public class Systree extends javax.swing.JFrame {
                 .addComponent(btnSpec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 302, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -612,7 +667,7 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, 192, Short.MAX_VALUE)
+                .addComponent(jComboBox1, 0, 226, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pam9Layout.setVerticalGroup(

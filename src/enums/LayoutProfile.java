@@ -3,7 +3,7 @@ package enums;
 // Стороны для профилей (SYSPROA.ASETS)
 
 import static enums.UserArtikl.values;
-import static enums.TypeOpen.values;
+import static enums.TypeOpen1.values;
 import java.util.stream.Stream;
 
 // select distinct ASETS from PRO4_SYSPROA where region_id = 177 order by ASETS

@@ -1,6 +1,6 @@
 package enums;
 
-import static enums.TypeOpen.values;
+import static enums.TypeOpen1.values;
 import java.util.Arrays;
 
 public enum LayoutArea implements Enam {
