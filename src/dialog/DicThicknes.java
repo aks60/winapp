@@ -10,6 +10,7 @@ import domain.eArtikl;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
+//Толщина заполнения
 public class DicThicknes extends javax.swing.JDialog {
 
     private DialogListener listener = null;

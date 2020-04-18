@@ -7,6 +7,7 @@ import dataset.Record;
 import enums.TypeSet;
 import javax.swing.table.DefaultTableModel;
 
+//Тип состава
 public class DicTypset extends javax.swing.JDialog {
 
     private DialogListener listener = null;

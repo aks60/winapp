@@ -14,7 +14,7 @@ public class Main {
     //Конструктор
     public Main() {
         LogoToDb.logoToDb();
-        eProperty.storeProperty();
+        eProperty.save();
     }
 
     public static void main(String[] args) {
@@ -46,7 +46,7 @@ public class Main {
 
                     public void run() {
                         try {
-                            eProperty.storeProperty();
+                            eProperty.save();
                         } catch (Exception e) {
                             System.out.println(e);
                         }

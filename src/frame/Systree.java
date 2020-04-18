@@ -81,7 +81,7 @@ public class Systree extends javax.swing.JFrame {
         initElements();
         listenerDict();
         loadingData();
-        loadingModel();
+        loadingModel();        
     }
 
     private void loadingData() {
@@ -581,6 +581,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan7.setLayout(new java.awt.BorderLayout());
 
+        panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panDesign.setPreferredSize(new java.awt.Dimension(200, 200));
         panDesign.setLayout(new java.awt.BorderLayout());
 

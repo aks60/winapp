@@ -39,6 +39,7 @@ import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import main.Main;
 
+//варианты соединений
 public class Joining extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);

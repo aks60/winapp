@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+//Справочник наборов Tnum
 public class DicEnums extends javax.swing.JDialog {
 
     private DialogListener listener = null;

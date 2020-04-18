@@ -10,6 +10,7 @@ import domain.eArtikl;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
+//Серии для элемента состава
 public class DicSeries extends javax.swing.JDialog {
 
     private DialogListener listener = null;

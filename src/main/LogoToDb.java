@@ -70,7 +70,7 @@ public class LogoToDb extends javax.swing.JDialog {
                     App1.eApp1.createApp(eProfile.profile);
                     dispose();
                     //тут мы сохраняем в файл текущего пользователя
-                    eProperty.storeProperty();
+                    eProperty.save();
                 } else if (pass == eExcep.noLogin) {
                     labMes.setText(eExcep.noLogin.mes);
                 } else if (pass == eExcep.noGrant) {

@@ -8,6 +8,7 @@ import enums.UseColcalc;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
+//Варианты текстур
 public class DicColvar extends javax.swing.JDialog {
 
     private DialogListener listener = null;

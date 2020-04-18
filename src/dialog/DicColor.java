@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
 
+//Текстура артикулов
 public class DicColor extends javax.swing.JDialog {
 
     private DialogListener listener;

@@ -12,6 +12,7 @@ import java.util.Arrays;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
 
+//Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {
 
     private DialogListener listener = null;

@@ -56,7 +56,7 @@ public enum eProperty {
 
     //Возвращает конкретное значение от выбранного экземпляра enum
     public String read() {
-        getProperty();
+        load();
         if (prop.getProperty(this.name()) != null && prop.getProperty(this.name()).equals("")) { //свойство не записано           
             return this.value;
         } else {            
@@ -66,12 +66,12 @@ public enum eProperty {
 
     //Запись str в Property
     public void write(String str) {
-        getProperty();
+        load();
         prop.setProperty(this.name(), str.trim());
     }
 
     //Чтение property из файла
-    public static Properties getProperty() {
+    public static Properties load() {
         if (prop == null) {
             prop = new Properties();
             try {
@@ -102,7 +102,7 @@ public enum eProperty {
     }
 
     //Сохранение property в файл
-    public static void storeProperty() {
+    public static void save() {
         try {
             File file = new File(path_prop.value, eProfile.filename);
             FileOutputStream outStream = new FileOutputStream(file);

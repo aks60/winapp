@@ -1019,7 +1019,7 @@ private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn
     } else if (evt.getSource() == mn0444) {
         eProperty.lookandfeel.write("CDE/Motif");
     }
-    eProperty.storeProperty();
+    eProperty.save();
 }//GEN-LAST:event_mnLookAndFeel
 
 private void mn41(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn41
