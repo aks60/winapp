@@ -118,7 +118,7 @@ public class Element extends javax.swing.JFrame
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series, eElement.todef, eElement.toset, eElement.markup) {
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name,  eElement.typset, eElement.series, eElement.todef, eElement.toset, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -851,7 +851,6 @@ public class Element extends javax.swing.JFrame
         } else if (tab5.getBorder() != null) {
             Util.insertRecord(tab3, tab5, eElemdet.up, eElempar2.up, eElempar2.elemdet_id);
         }
-
     }//GEN-LAST:event_btnInsert
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed

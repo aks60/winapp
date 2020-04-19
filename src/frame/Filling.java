@@ -748,7 +748,6 @@ public class Filling extends javax.swing.JFrame {
 
         } else if (tab5.getBorder() != null) {
             Util.insertRecord(tab1, tab5, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
-
         }
     }//GEN-LAST:event_btnInsert
 

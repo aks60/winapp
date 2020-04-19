@@ -8,6 +8,7 @@ import common.FrameProgress;
 import common.FrameToFile;
 import common.Util;
 import common.eProperty;
+import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -46,9 +47,11 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import main.App1;
+import swing.BooleanRenderer;
 import swing.DefFieldRenderer;
 import swing.DefTableModel;
 import wincalc.Wincalc;
+import wincalc.model.ElemSimple;
 import wincalc.model.PaintPanel;
 
 public class Systree extends javax.swing.JFrame {
@@ -68,11 +71,11 @@ public class Systree extends javax.swing.JFrame {
     private PaintPanel paintPanel = new PaintPanel(iwin) {
 
         public void actionResponse(MouseEvent evt) {
-//            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
-//            if (elem != null) {
-//                txtField5.setText(String.valueOf(elem.getId()));
-//                repaint();
-//            }
+            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
+            if (elem != null) {
+                txtField5.setText(String.valueOf(elem.getId()));
+                repaint();
+            }
         }
     };
 
@@ -153,6 +156,7 @@ public class Systree extends javax.swing.JFrame {
                 return val;
             }
         };
+        tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UserArtikl.values());
@@ -185,7 +189,7 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
             ParDefault frame = new ParDefault(this, listenerParam1);
         });
-        
+
         Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
             Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.grup);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
@@ -1040,6 +1044,19 @@ public class Systree extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
+        if (tab2.getBorder() != null) {
+            Record record = qSysprof.newRecord(Query.INS);
+            record.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
+            qSysprof.add(record);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.scrollRectToVisible(qSysprof, tab2);
+
+        } else if (tab3.getBorder() != null) {
+            //Util.insertRecord(tab1, tab3, eGlasgrp.up, eGlaspar1.up, eGlaspar1.glasgrp_id);
+
+        } else if (tab4.getBorder() != null) {
+            //Util.insertRecord(tab2, tab4, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
+        }
     }//GEN-LAST:event_btnInsert
 
     private void btnConstructive(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructive
