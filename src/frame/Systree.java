@@ -71,11 +71,11 @@ public class Systree extends javax.swing.JFrame {
     private PaintPanel paintPanel = new PaintPanel(iwin) {
 
         public void actionResponse(MouseEvent evt) {
-            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
-            if (elem != null) {
-                txtField5.setText(String.valueOf(elem.getId()));
-                repaint();
-            }
+//            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
+//            if (elem != null) {
+//                txtField5.setText(String.valueOf(elem.getId()));
+//                repaint();
+//            }
         }
     };
 
@@ -1043,20 +1043,27 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof UserNode) {
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                nuni = node.record.getInt(eSystree.id);
 
-        if (tab2.getBorder() != null) {
-            Record record = qSysprof.newRecord(Query.INS);
-            record.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
-            qSysprof.add(record);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qSysprof, tab2);
+                if (tab2.getBorder() != null) {
+                    Record record = qSysprof.newRecord(Query.INS);
+                    record.setNo(eSysprof.id, ConnApp.instanc().genId(eSysprof.id));
+                    record.setNo(eSysprof.systree_id, nuni);
+                    qSysprof.add(record);
+                    ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                    Util.scrollRectToVisible(qSysprof, tab2);
 
-        } else if (tab3.getBorder() != null) {
-            //Util.insertRecord(tab1, tab3, eGlasgrp.up, eGlaspar1.up, eGlaspar1.glasgrp_id);
+                } else if (tab3.getBorder() != null) {
+                    //Util.insertRecord(tab1, tab3, eGlasgrp.up, eGlaspar1.up, eGlaspar1.glasgrp_id);
 
-        } else if (tab4.getBorder() != null) {
-            //Util.insertRecord(tab2, tab4, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
-        }
+                } else if (tab4.getBorder() != null) {
+                    //Util.insertRecord(tab2, tab4, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
+                }
+            }
     }//GEN-LAST:event_btnInsert
 
     private void btnConstructive(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructive
