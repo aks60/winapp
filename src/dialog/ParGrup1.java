@@ -18,14 +18,14 @@ import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
 
-public class ParGrup extends javax.swing.JDialog {
+public class ParGrup1 extends javax.swing.JDialog {
 
     private Frame parent = null;
     private DialogListener listener;
     private Query qParams = new Query(eParams.values());
     private Field filter = null;
 
-    public ParGrup(Frame parent, DialogListener listener, Field filter, int... part) {
+    public ParGrup1(Frame parent, DialogListener listener, Field filter, int... part) {
         super(parent, true);
         initComponents();
         initElements();

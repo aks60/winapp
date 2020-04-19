@@ -29,9 +29,9 @@ import dialog.DicArtikl;
 import dialog.DicColvar;
 import dialog.DicEnums;
 import dialog.ParColor;
-import dialog.ParGrup;
-import dialog.ParSys;
-import dialog.ParUser;
+import dialog.ParGrup1;
+import dialog.ParGrup3;
+import dialog.ParGrup2;
 import domain.eElempar2;
 import domain.eParams;
 import enums.Enam;
@@ -332,17 +332,17 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            ParGrup frame = new ParGrup(this, listenerPar1, eParams.joint, 21000);
+            ParGrup1 frame = new ParGrup1(this, listenerPar1, eParams.joint, 21000);
         });
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eFurnpar1.grup);
             if (grup < 0) {
-                ParUser frame = new ParUser(this, listenerPar1, grup);
+                ParGrup2 frame = new ParGrup2(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParSys frame = new ParSys(this, listenerPar1, list);
+                ParGrup3 frame = new ParGrup3(this, listenerPar1, list);
             }
         });
 
@@ -361,7 +361,7 @@ public class Furniture extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
-                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup1 frame = new ParGrup1(this, listenerPar2, eParams.joint, part[level]);
             }
         });
 
@@ -369,10 +369,10 @@ public class Furniture extends javax.swing.JFrame {
             Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
             int grup = record.getInt(eFurnpar2.grup);
             if (grup < 0) {
-                ParUser frame = new ParUser(this, listenerPar2, grup);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParSys frame = new ParSys(this, listenerPar2, list);
+                ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
             }
         });
 

@@ -2,39 +2,47 @@ package dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
-import dataset.Record;
-import java.util.List;
-import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
+import common.Util;
 import static common.Util.getSelectedRec;
+import dataset.Query;
+import dataset.Record;
+import domain.eParams;
+import swing.DefTableModel;
 
-public class ParSys extends javax.swing.JDialog {
+public class ParDefault extends javax.swing.JDialog {
 
-    private List<String> list;
+    private Query qParam = new Query(eParams.up.values());
     private DialogListener listener;
-
-    public ParSys(java.awt.Frame parent, DialogListener listener, List list) {
+    
+    public ParDefault(java.awt.Frame parent, DialogListener listener) {
         super(parent, true);
         initComponents();
-        this.listener = listener;
-        this.list = list;
         initElements();
-        loadingModel();
-        setVisible(true);
+        this.listener = listener;
+        loadingModel(null);
+        setVisible(true);        
     }
     
-    private void loadingModel() {
-        Vector<Vector> vectorData = new Vector();
-        for (String str : list) {
-            Vector vector = new Vector();
-            vector.add(str);
-            vectorData.add(vector);
-        }
-        Vector column = new Vector();
-        column.add("Значения параметра");
-        ((DefaultTableModel) tab1.getModel()).setDataVector(vectorData, column);
+    public ParDefault(java.awt.Frame parent, DialogListener listener, int grup) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listener;
+        loadingModel(grup);
+        setVisible(true);       
     }
+    
+    private void loadingModel(Integer grup) {
 
+        if(grup == null) {
+          qParam.select(eParams.up, "where", eParams.numb, "= 0", "order by", eParams.text);
+        } else {
+          qParam.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);  
+        }
+        tab1.setModel(new DefTableModel(tab1, qParam, eParams.text));
+        ((DefTableModel) tab1.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1, 0);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,7 +57,7 @@ public class ParSys extends javax.swing.JDialog {
         panSouth = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Параметры смсстемные");
+        setTitle("Справочник параметров");
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -97,7 +105,7 @@ public class ParSys extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemov(evt);
+                btnRemove(evt);
             }
         });
 
@@ -110,7 +118,7 @@ public class ParSys extends javax.swing.JDialog {
                 .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -129,7 +137,7 @@ public class ParSys extends javax.swing.JDialog {
 
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(300, 170));
+        panCentr.setPreferredSize(new java.awt.Dimension(300, 500));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -138,7 +146,7 @@ public class ParSys extends javax.swing.JDialog {
                 {"name2"}
             },
             new String [] {
-                "Значение параметра"
+                "Наименование"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -151,7 +159,6 @@ public class ParSys extends javax.swing.JDialog {
         });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab1.setShowVerticalLines(false);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab1MouseClicked(evt);
@@ -165,13 +172,13 @@ public class ParSys extends javax.swing.JDialog {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(350, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(300, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
         panSouthLayout.setHorizontalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 305, Short.MAX_VALUE)
+            .addGap(0, 284, Short.MAX_VALUE)
         );
         panSouthLayout.setVerticalGroup(
             panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,18 +195,16 @@ public class ParSys extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
-        Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
+        Record record = qParam.get(Util.getSelectedRec(tab1));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChouce
 
-    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        Record record = new Record(1);
-        record.add(null);
+    private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
+        Record record = eParams.up.newRecord();
         listener.action(record);
         this.dispose();
-    }//GEN-LAST:event_btnRemov
+    }//GEN-LAST:event_btnRemove
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
         if (evt.getClickCount() == 2) {
@@ -207,7 +212,6 @@ public class ParSys extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tab1MouseClicked
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChouce;
     private javax.swing.JButton btnClose;
@@ -218,13 +222,8 @@ public class ParSys extends javax.swing.JDialog {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
-    // </editor-fold> 
     private void initElements() {
-
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-//        String title = new Query(eParams.up.values()).select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "= 0", "order by", eParams.text).getAs(0, eParams.text, "Параметры");
-//        scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-//                title, javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
     }
 }

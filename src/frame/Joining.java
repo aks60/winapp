@@ -1,9 +1,9 @@
 package frame;
 
-import dialog.ParGrup;
-import dialog.ParSys;
+import dialog.ParGrup1;
+import dialog.ParGrup3;
 import dialog.ParColor;
-import dialog.ParUser;
+import dialog.ParGrup2;
 import dialog.DicArtikl;
 import common.DialogListener;
 import common.EditorListener;
@@ -208,7 +208,7 @@ public class Joining extends javax.swing.JFrame {
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                ParGrup frame = new ParGrup(this, listenerPar1, eParams.joint, joinVar * 1000);
+                ParGrup1 frame = new ParGrup1(this, listenerPar1, eParams.joint, joinVar * 1000);
             }
         });
 
@@ -216,10 +216,10 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar1.get(Util.getSelectedRec(tab3));
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
-                ParUser frame = new ParUser(this, listenerPar1, grup);
+                ParGrup2 frame = new ParGrup2(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParSys frame = new ParSys(this, listenerPar1, list);
+                ParGrup3 frame = new ParGrup3(this, listenerPar1, list);
             }
         });
 
@@ -251,7 +251,7 @@ public class Joining extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 1200, 11000, 12000, 11000, 0};
-                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup1 frame = new ParGrup1(this, listenerPar2, eParams.joint, part[level]);
             }
         });
 
@@ -259,10 +259,10 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar2.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eJoinpar2.grup);
             if (grup < 0) {
-                ParUser frame = new ParUser(this, listenerPar2, grup);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParSys frame = new ParSys(this, listenerPar2, list);
+                ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
             }
         });
         Util.setSelectedRow(tab1, 0);

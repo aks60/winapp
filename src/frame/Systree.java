@@ -14,7 +14,7 @@ import dataset.Record;
 import dialog.DicArtikl;
 import dialog.DicEnums;
 import dialog.DicFurniture;
-import dialog.ParDef;
+import dialog.ParDefault;
 import domain.eArtikl;
 import domain.eFurniture;
 import domain.eParams;
@@ -58,7 +58,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, 
+    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2;
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
@@ -81,7 +81,7 @@ public class Systree extends javax.swing.JFrame {
         initElements();
         listenerDict();
         loadingData();
-        loadingModel();        
+        loadingModel();
     }
 
     private void loadingData() {
@@ -128,14 +128,14 @@ public class Systree extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos) {
-            
+
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                
+
                 if (val != null && field == eSysfurn.side_open) {
                     int id = Integer.valueOf(val.toString());
                     return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.P1).name;
-                   
+
                 } else if (val != null && field == eSysfurn.hand_pos) {
                     int id = Integer.valueOf(val.toString());
                     return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.P1).name;
@@ -165,25 +165,30 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        
+
         Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
-        
+
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
             DicFurniture frame = new DicFurniture(this, listenerFurn);
         });
-        
+
         Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, listenerTypeopen, TypeOpen2.values());
         });
-        
+
         Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, listenerHandle, LayoutHandle.values());
         });
-        
+
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            ParDef frame = new ParDef(this, listenerParam1);
+            ParDefault frame = new ParDefault(this, listenerParam1);
+        });
+        
+        Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
+            Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.grup);
+            ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
 
         rsmSysprof.setFrameListener(listenerModify);
@@ -217,7 +222,7 @@ public class Systree extends javax.swing.JFrame {
                 eProperty.systree_nuni.write(String.valueOf(nuni));
                 int sysprod_id = node.record.getInt(eSystree.sysprod_id);
                 //if (sysprod_id != -1) {
-                    createWincalc(sysprod_id);
+                createWincalc(sysprod_id);
                 //}
                 Query q = qSystree.table(eSystree.up);
                 for (int i = 0; i < q.size(); i++) {
@@ -256,55 +261,58 @@ public class Systree extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4);
-            if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
-                qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
-                qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
-                qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, row);
-            }
+            int row = tab2.getSelectedRow();
+            qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
+            qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, row);
         };
 
         listenetNuni = (record) -> {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-            if (selectedNode != null) {
-                if (selectedNode.getUserObject() instanceof UserNode) {
-                    UserNode node = (UserNode) selectedNode.getUserObject();
-                    Record record2 = node.record;
-                    int id = record.getInt(0);
-                    record2.set(eSystree.sysprod_id, record.getInt(0));
-                    qSystree.update(record2);
-                    createWincalc(record.getInt(0));
-                }
+            if (selectedNode.getUserObject() instanceof UserNode) {
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                Record record2 = node.record;
+                int id = record.getInt(0);
+                record2.set(eSystree.sysprod_id, record.getInt(0));
+                qSystree.update(record2);
+                createWincalc(record.getInt(0));
             }
         };
 
         listenerFurn = (record) -> {
             Util.stopCellEditing(tab2, tab3, tab4);
-            if (tab3.getBorder() != null) {
-                int row = tab3.getSelectedRow();
-                qSysfurn.set(record.getInt(eFurniture.id), Util.getSelectedRec(tab3), eSysfurn.furniture_id);
-                qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab3, row);
-            }
+            int row = tab3.getSelectedRow();
+            qSysfurn.set(record.getInt(eFurniture.id), Util.getSelectedRec(tab3), eSysfurn.furniture_id);
+            qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row);
         };
 
         listenerTypeopen = (record) -> {
             Util.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4);
         };
-        
+
         listenerHandle = (record) -> {
             Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4);
         };
-        
+
         listenerParam1 = (record) -> {
-            System.out.println("frame.Systree.listenerParam1()");
+            Util.stopCellEditing(tab2, tab3, tab4);
+            int row = tab4.getSelectedRow();
+            qSyspar1.set(record.getInt(eParams.grup), Util.getSelectedRec(tab4), eSyspar1.grup);
+            qSyspar1.set(null, Util.getSelectedRec(tab4), eSyspar1.text);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4, row);
         };
-        
-        listenerModify = (record) -> {
-            System.out.println("frame.Systree.listenerDict()");
+
+        listenerParam2 = (record) -> {
+            Util.stopCellEditing(tab2, tab3, tab4);
+            int row = tab4.getSelectedRow();
+            qSyspar1.set(record.getStr(eParams.text), Util.getSelectedRec(tab4), eSyspar1.text);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4, row);
         };
     }
 

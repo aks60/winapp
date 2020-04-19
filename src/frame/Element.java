@@ -16,9 +16,9 @@ import dialog.DicColvar;
 import dialog.DicSeries;
 import dialog.DicTypset;
 import dialog.ParColor;
-import dialog.ParGrup;
-import dialog.ParSys;
-import dialog.ParUser;
+import dialog.ParGrup1;
+import dialog.ParGrup3;
+import dialog.ParGrup2;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eParams;
@@ -239,7 +239,7 @@ public class Element extends javax.swing.JFrame
                 Record record = qElemgrp.get(row);
                 int paramPart = record.getInt(eElemgrp.level);
                 paramPart = (paramPart == 1) ? 31000 : 37000;
-                ParGrup frame = new ParGrup(this, listenerPar1, eParams.elem, paramPart);
+                ParGrup1 frame = new ParGrup1(this, listenerPar1, eParams.elem, paramPart);
             }
         });
 
@@ -247,10 +247,10 @@ public class Element extends javax.swing.JFrame
             Record record = qElempar1.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
-                ParUser frame = new ParUser(this, listenerPar1, grup);
+                ParGrup2 frame = new ParGrup2(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParSys frame = new ParSys(this, listenerPar1, list);
+                ParGrup3 frame = new ParGrup3(this, listenerPar1, list);
             }
         });
 
@@ -262,7 +262,7 @@ public class Element extends javax.swing.JFrame
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 39000, 38000, 39000, 38000, 40000, 0};
-                ParGrup frame = new ParGrup(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup1 frame = new ParGrup1(this, listenerPar2, eParams.joint, part[level]);
             }
         });
 
@@ -270,10 +270,10 @@ public class Element extends javax.swing.JFrame
             Record record = qElempar2.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eElempar2.grup);
             if (grup < 0) {
-                ParUser frame = new ParUser(this, listenerPar2, grup);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParSys frame = new ParSys(this, listenerPar2, list);
+                ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
             }
         });
         Util.setSelectedRow(tab1, 0);

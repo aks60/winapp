@@ -9,13 +9,13 @@ import domain.eParams;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
 
-public class ParUser extends javax.swing.JDialog {
+public class ParGrup2 extends javax.swing.JDialog {
 
     private int grup = -1;
     private Query qParam2 = new Query(eParams.up.values());
     private DialogListener listener;
 
-    public ParUser(java.awt.Frame parent, DialogListener listener, int grup) {
+    public ParGrup2(java.awt.Frame parent, DialogListener listener, int grup) {
         super(parent, true);
         initComponents();
         this.grup = grup;
