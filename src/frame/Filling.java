@@ -57,7 +57,6 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar, listenerTypset, listenerThicknes;
     private EditorListener listenerEditor;
-    private FrameListener listenerFrame = null;
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
@@ -76,7 +75,6 @@ public class Filling extends javax.swing.JFrame {
         initElements();
         this.nuni = nuni;
         this.owner = owner;
-        listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
         listenerCell();
         listenerDict();
@@ -550,6 +548,11 @@ public class Filling extends javax.swing.JFrame {
 
         tabb1.setToolTipText("");
         tabb1.setPreferredSize(new java.awt.Dimension(1000, 300));
+        tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabb1StateChanged(evt);
+            }
+        });
 
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -779,6 +782,14 @@ public class Filling extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterCaretUpdate
+
+    private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
+        if (tabb1.getSelectedIndex() == 0) {
+            Util.listenerClick(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        } else if (tabb1.getSelectedIndex() == 1) {
+            Util.listenerClick(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
+        }
+    }//GEN-LAST:event_tabb1StateChanged
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

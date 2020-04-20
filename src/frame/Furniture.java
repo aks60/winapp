@@ -60,7 +60,6 @@ public class Furniture extends javax.swing.JFrame {
     private Query qFurnside2 = new Query(eFurnside2.values());
     private Query qFurnpar1 = new Query(eFurnpar1.values());
     private Query qFurnpar2 = new Query(eFurnpar2.values());
-    private FrameListener listenerFrame = null;
     private EditorListener listenerEditor = null;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
@@ -82,7 +81,6 @@ public class Furniture extends javax.swing.JFrame {
         initElements();
         this.owner = owner;
         this.nuni = nuni;
-        listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
         listenerCell();
         loadingData();

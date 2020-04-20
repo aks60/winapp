@@ -60,7 +60,6 @@ public class Element extends javax.swing.JFrame
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar;
-    private FrameListener listenerFrame = null;
     private String subsql = "";
     private int nuni = -1;
     private Window owner = null;
@@ -80,7 +79,6 @@ public class Element extends javax.swing.JFrame
         initElements();
         this.nuni = nuni;
         this.owner = owner;
-        listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
         Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
         query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));

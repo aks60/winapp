@@ -1276,7 +1276,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         App1, Convert, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
         BoxCustom, Specific, DicSyssize;
-        javax.swing.JFrame frame;
+        public javax.swing.JFrame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
             if (frame == null) {
