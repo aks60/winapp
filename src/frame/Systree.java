@@ -33,11 +33,11 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
-import javax.swing.JTree;
 import javax.swing.RowFilter;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -45,6 +45,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import swing.BooleanRenderer;
@@ -60,7 +61,8 @@ public class Systree extends javax.swing.JFrame {
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
-    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify,
+    private JTable tab1 = new JTable();
+    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2;
     private DefaultMutableTreeNode root = null;
     private DefFieldRenderer rsvSystree;
@@ -81,7 +83,7 @@ public class Systree extends javax.swing.JFrame {
 
     public Systree() {
         initComponents();
-        initElements();        
+        initElements();
         listenerDict();
         nuni = Integer.valueOf(eProperty.systree_nuni.read());
         loadingTree();
@@ -89,15 +91,15 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void loadingTree() {
-        
-        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Дерево системы профилей");
+
+        root = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
         Query q = qSystree.table(eSystree.up);
         for (Record record : q) {
             if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
                 DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record));
                 treeList.add(node2);
-                treeNode1.add(node2);
+                root.add(node2);
             }
         }
         ArrayList<DefaultMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
@@ -105,13 +107,13 @@ public class Systree extends javax.swing.JFrame {
         ArrayList<DefaultMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
-        tree.setModel(new DefaultTreeModel(treeNode1));
+        tree.setModel(new DefaultTreeModel(root));
         scr1.setViewportView(tree);
     }
 
     private void loadingModel() {
 
-        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
+        DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.id);
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.use_type, eSysprof.use_side, eSysprof.prio, eArtikl.code, eArtikl.name) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -222,6 +224,13 @@ public class Systree extends javax.swing.JFrame {
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
                 UserNode node = (UserNode) selectedNode.getUserObject();
+                
+                TreeCellEditor cell = tree.getCellEditor();
+                //JTextField tx = (JTextField) cell.getTreeCellEditorComponent(tree, null, true, true, true, 0);
+                System.out.println(cell);
+                DefaultTreeModel dtm = (DefaultTreeModel)tree.getModel();
+                
+                
                 nuni = node.record.getInt(eSystree.id);
                 eProperty.systree_nuni.write(String.valueOf(nuni));
                 int sysprod_id = node.record.getInt(eSystree.sysprod_id);
@@ -256,15 +265,15 @@ public class Systree extends javax.swing.JFrame {
     private void listenerDict() {
 
         listenerUsetyp = (record) -> {
-            Util.listenerEnums(record, tab2, eSysprof.use_type, tab2, tab3, tab4);
+            Util.listenerEnums(record, tab2, eSysprof.use_type, tab1, tab2, tab3, tab4);
         };
 
         listenerSide = (record) -> {
-            Util.listenerEnums(record, tab2, eSysprof.use_side, tab2, tab3, tab4);
+            Util.listenerEnums(record, tab2, eSysprof.use_side, tab1, tab2, tab3, tab4);
         };
 
         listenerArtikl = (record) -> {
-            Util.stopCellEditing(tab2, tab3, tab4);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4);
             int row = tab2.getSelectedRow();
             qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
@@ -286,7 +295,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerFurn = (record) -> {
-            Util.stopCellEditing(tab2, tab3, tab4);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4);
             int row = tab3.getSelectedRow();
             qSysfurn.set(record.getInt(eFurniture.id), Util.getSelectedRec(tab3), eSysfurn.furniture_id);
             qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
@@ -295,15 +304,15 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerTypeopen = (record) -> {
-            Util.listenerEnums(record, tab3, eSysfurn.side_open, tab2, tab3, tab4);
+            Util.listenerEnums(record, tab3, eSysfurn.side_open, tab1, tab2, tab3, tab4);
         };
 
         listenerHandle = (record) -> {
-            Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab2, tab3, tab4);
+            Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4);
         };
 
         listenerParam1 = (record) -> {
-            Util.stopCellEditing(tab2, tab3, tab4);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4);
             int row = tab4.getSelectedRow();
             qSyspar1.set(record.getInt(eParams.grup), Util.getSelectedRec(tab4), eSyspar1.grup);
             qSyspar1.set(null, Util.getSelectedRec(tab4), eSyspar1.text);
@@ -312,7 +321,7 @@ public class Systree extends javax.swing.JFrame {
         };
 
         listenerParam2 = (record) -> {
-            Util.stopCellEditing(tab2, tab3, tab4);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4);
             int row = tab4.getSelectedRow();
             qSyspar1.set(record.getStr(eParams.text), Util.getSelectedRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -370,6 +379,9 @@ public class Systree extends javax.swing.JFrame {
         btnElem = new javax.swing.JToggleButton();
         btnFurn = new javax.swing.JToggleButton();
         btnSpec = new javax.swing.JToggleButton();
+        pam9 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel22 = new javax.swing.JLabel();
         panCentr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -378,9 +390,6 @@ public class Systree extends javax.swing.JFrame {
         pan7 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
         btnTypicalOkna = new javax.swing.JButton();
-        pam9 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel22 = new javax.swing.JLabel();
         tabb1 = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -561,31 +570,65 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+
+        jLabel22.setFont(common.Util.getFont(0,0));
+        jLabel22.setText("Артикул профиля");
+        jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel22.setPreferredSize(new java.awt.Dimension(160, 18));
+
+        javax.swing.GroupLayout pam9Layout = new javax.swing.GroupLayout(pam9);
+        pam9.setLayout(pam9Layout);
+        pam9Layout.setHorizontalGroup(
+            pam9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pam9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, 0, 376, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pam9Layout.setVerticalGroup(
+            pam9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pam9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pam9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
         panNorth.setLayout(panNorthLayout);
         panNorthLayout.setHorizontalGroup(
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198)
-                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnElem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSpec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
-                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panNorthLayout.createSequentialGroup()
+                        .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(198, 198, 198)
+                        .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnElem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSpec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panNorthLayout.createSequentialGroup()
+                        .addGap(0, 440, Short.MAX_VALUE)
+                        .addComponent(pam9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panNorthLayout.setVerticalGroup(
@@ -606,6 +649,8 @@ public class Systree extends javax.swing.JFrame {
                             .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSpec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pam9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -649,37 +694,6 @@ public class Systree extends javax.swing.JFrame {
         panDesign.add(btnTypicalOkna, java.awt.BorderLayout.SOUTH);
 
         pan7.add(panDesign, java.awt.BorderLayout.WEST);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-
-        jLabel22.setFont(common.Util.getFont(0,0));
-        jLabel22.setText("Артикул профиля");
-        jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel22.setPreferredSize(new java.awt.Dimension(160, 18));
-
-        javax.swing.GroupLayout pam9Layout = new javax.swing.GroupLayout(pam9);
-        pam9.setLayout(pam9Layout);
-        pam9Layout.setHorizontalGroup(
-            pam9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pam9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, 0, 226, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pam9Layout.setVerticalGroup(
-            pam9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pam9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pam9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(167, Short.MAX_VALUE))
-        );
-
-        pan7.add(pam9, java.awt.BorderLayout.CENTER);
 
         pan2.add(pan7, java.awt.BorderLayout.CENTER);
 
@@ -859,7 +873,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabb1.addTab("Основные параметры", pan6);
@@ -1020,6 +1034,10 @@ public class Systree extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         //iwin.create(Winscript.test(Winscript.prj, null));
         //paintPanel.repaint(true, 12);
+//    int startRow = 0;
+//    String prefix = "КП50";
+//    TreePath path = tree.getNextMatch(prefix, startRow, Position.Bias.Forward);
+//    System.out.println(path);        
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1027,29 +1045,32 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof UserNode) {
-                UserNode node = (UserNode) selectedNode.getUserObject();
-                nuni = node.record.getInt(eSystree.id);
-
-                if (tree.getBorder() != null) {
-                    Record recordTree = qSystree.newRecord(Query.INS);
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (node != null) {
+            if (node.getUserObject() instanceof UserNode) {
+                UserNode nodeUser = (UserNode) node.getUserObject();
+                if (tree.getBorder() != null) {                   
+                    Record record = qSystree.newRecord(Query.INS);
                     int id = ConnApp.instanc().genId(eSystree.id);
-                    recordTree.setNo(eSystree.id, id);
-                    recordTree.setNo(eSystree.parent_id, nuni);
-                    recordTree.setNo(eSystree.name, "ххх");
-                    recordTree.setNo(eSystree.coef, 1);
-                    recordTree.setNo(eSystree.types, node.record.getInt(eSystree.types));
-                    qSystree.add(recordTree);
-                    nuni = id;
-                    loadingTree();
-                    ((DefaultTreeModel) tree). 
-                    selectionTree();
-                    //DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
-                    //model.insertNodeInto(new DefaultMutableTreeNode("another_child"), selectedNode, selectedNode.getChildCount());
-                    
-
+                    record.setNo(eSystree.id, id);
+                    record.setNo(eSystree.parent_id, nodeUser.record.getInt(eSystree.id));
+                    record.setNo(eSystree.name, "P" + id);
+                    record.setNo(eSystree.coef, 1);
+                    record.setNo(eSystree.types, nodeUser.record.getInt(eSystree.types));
+                    qSystree.add(record);
+                    qSystree.execsql();
+                    loadingTree(); //построим новый tree                    
+                    Enumeration e = root.breadthFirstEnumeration();
+                    while (e.hasMoreElements()) { //найдём новый элемент, сделаем expand и selection
+                        node = (DefaultMutableTreeNode) e.nextElement();
+                        if (node.getUserObject() instanceof UserNode) {
+                            nodeUser = (UserNode) node.getUserObject();
+                            if (id == nodeUser.record.getInt(eSystree.id)) {
+                                tree.expandPath(new TreePath(node.getPath()));
+                                tree.setSelectionPath(new TreePath(node.getPath()));
+                            }
+                        }
+                    }
                 } else if (tab2.getBorder() != null) {
                     Record record1 = qSysprof.newRecord(Query.INS);
                     Record record2 = eArtikl.up.newRecord();
@@ -1133,7 +1154,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab2, tab3, tab4));
+        Util.listenerClick(table, Arrays.asList(tab1, tab2, tab3, tab4));
         if (tree.isEditing()) {
             tree.getCellEditor().stopCellEditing();
         }
@@ -1146,7 +1167,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
-        JTable table = Stream.of(tab2, tab3, tab4).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
+        JTable table = Stream.of(tab1, tab2, tab3, tab4).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
         btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
@@ -1158,12 +1179,12 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_filterCaretUpdate
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        Util.stopCellEditing(tab2, tab3, tab4);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4);
         if (tree.isEditing()) {
             tree.getCellEditor().stopCellEditing();
         }
         tree.setBorder(null);
-        Arrays.asList(tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
     }//GEN-LAST:event_formWindowClosed
@@ -1174,18 +1195,18 @@ public class Systree extends javax.swing.JFrame {
         }
         tree.setBorder(null);
         if (tabb1.getSelectedIndex() == 1) {
-            Util.listenerClick(tab2, Arrays.asList(tab2, tab3, tab4));
+            Util.listenerClick(tab2, Arrays.asList(tab1, tab2, tab3, tab4));
         } else if (tabb1.getSelectedIndex() == 2) {
-            Util.listenerClick(tab3, Arrays.asList(tab2, tab3, tab4));
+            Util.listenerClick(tab3, Arrays.asList(tab1, tab2, tab3, tab4));
         } else if (tabb1.getSelectedIndex() == 3) {
-            Util.listenerClick(tab4, Arrays.asList(tab2, tab3, tab4));
+            Util.listenerClick(tab4, Arrays.asList(tab1, tab2, tab3, tab4));
         }
     }//GEN-LAST:event_tabb1StateChanged
 
     private void treeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeMousePressed
-        Arrays.asList(tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> tab.setBorder(null));
         tree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        Util.stopCellEditing(tab2, tab3, tab4);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4);
     }//GEN-LAST:event_treeMousePressed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -1250,7 +1271,7 @@ public class Systree extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab2, tab3, tab4)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
