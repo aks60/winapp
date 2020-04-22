@@ -29,15 +29,17 @@ import enums.LayoutProfile;
 import enums.TypeOpen2;
 import enums.UserArtikl;
 import enums.TypeUse;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JToggleButton;
+import javax.swing.JTree;
 import javax.swing.RowFilter;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
@@ -48,7 +50,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeCellEditor;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import swing.BooleanRenderer;
@@ -68,7 +69,7 @@ public class Systree extends javax.swing.JFrame {
     private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2;
     private DefaultMutableTreeNode rootTree = null;
-    //private DefFieldRenderer rsvSystree;
+    private DefFieldRenderer rsvSystree;
     private Wincalc iwin = new Wincalc();
     private java.awt.Frame frame = null;
     private int nuni = -1;
@@ -95,7 +96,26 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingTree() {
 
-        //tree.setCellEditor(new DefaultTreeCellEditor(tree, (DefaultTreeCellRenderer) tree.getCellRenderer()));
+//        tree.setCellEditor(new DefaultTreeCellEditor(tree, (DefaultTreeCellRenderer) tree.getCellRenderer()) {
+//
+//            public Component getTreeCellEditorComponent(JTree tree, Object value,
+//                    boolean selected, boolean expanded, boolean leaf, int row) {
+//
+//                //JTextField editor = (JTextField) super.editingContainer;
+//                
+//                /*
+//                DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
+//                Object userObject = node.getUserObject();
+//                UserNode userNode = (UserNode) userObject;
+//                editor.setText(userNode.record.getStr(eSystree.name));
+//                return super.editingComponent;*/
+//                Component obj = super.getTreeCellEditorComponent(tree, value, selected, expanded, leaf, row);
+//                JTextField editor = (JTextField) obj;
+//                System.out.println(editor);
+//                return obj;
+//            }
+//        });
+        
         ((DefaultTreeCellEditor) tree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
             public void editingStopped(ChangeEvent e) {
@@ -224,16 +244,16 @@ public class Systree extends javax.swing.JFrame {
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
 
-//        rsmSysprof.setFrameListener(listenerModify);
-//        rsvSystree = new DefFieldRenderer(rsmSystree);
-//        rsvSystree.add(eSystree.name, txtField8);
-//        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
-//        rsvSystree.add(eSystree.glas, txtField1);
-//        rsvSystree.add(eSystree.size, txtField2);
-//        rsvSystree.add(eSystree.col1, txtField3);
-//        rsvSystree.add(eSystree.col2, txtField4);
-//        rsvSystree.add(eSystree.col3, txtField5);
-//        rsvSystree.add(eSystree.id, txtField6);
+        rsmSysprof.setFrameListener(listenerModify);
+        rsvSystree = new DefFieldRenderer(rsmSystree);
+        rsvSystree.add(eSystree.name, txtField8);
+        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
+        rsvSystree.add(eSystree.glas, txtField1);
+        rsvSystree.add(eSystree.size, txtField2);
+        rsvSystree.add(eSystree.col1, txtField3);
+        rsvSystree.add(eSystree.col2, txtField4);
+        rsvSystree.add(eSystree.col3, txtField5);
+        rsvSystree.add(eSystree.id, txtField6);
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
@@ -254,31 +274,31 @@ public class Systree extends javax.swing.JFrame {
             if (selectedNode.getUserObject() instanceof UserNode) {
 
                 System.out.println("frame.Systree.selectionTree()");
-                
-//                UserNode node = (UserNode) selectedNode.getUserObject();
-//                nuni = node.record.getInt(eSystree.id);
-//                int sysprod_id = node.record.getInt(eSystree.sysprod_id);
-//                //Калькуляция и прорисовка окна
-//                createWincalc(sysprod_id);
-//                for (int i = 0; i < qSystree.size(); i++) {
-//                    if (nuni == qSystree.get(i).getInt(eSystree.id)) {
-//                        //rsvSystree.load(i);
-//                    }
-//                }
-//                qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-//                        eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
-//                qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-//                        eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
-//                qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
-//                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-//                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-//                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-//                Util.setSelectedRow(tab2, 0);
-//                Util.setSelectedRow(tab3, 0);
-//                Util.setSelectedRow(tab4, 0);
+
+                UserNode node = (UserNode) selectedNode.getUserObject();
+                nuni = node.record.getInt(eSystree.id);
+                int sysprod_id = node.record.getInt(eSystree.sysprod_id);
+                //Калькуляция и прорисовка окна
+                createWincalc(sysprod_id);
+                for (int i = 0; i < qSystree.size(); i++) {
+                    if (nuni == qSystree.get(i).getInt(eSystree.id)) {
+                        //rsvSystree.load(i);
+                    }
+                }
+                qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
+                        eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
+                qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
+                        eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
+                qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, 0);
+                Util.setSelectedRow(tab3, 0);
+                Util.setSelectedRow(tab4, 0);
             }
         } else {
-            //createWincalc(-1); //рисуем виртуалку
+            createWincalc(-1); //рисуем виртуалку
         }
     }
 
