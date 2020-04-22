@@ -101,6 +101,10 @@ public class Record<E> extends ArrayList<E> {
         return (super.get(field.ordinal()) == null) ? null : (Date) super.get(field.ordinal());
     }
 
+    public boolean equals(Object obj) {
+        return (this.get(1) == ((Record) obj).get(1));
+    }
+
     //Проверка на корректность ввода
     public String validate(ArrayList<Field> fields) {
         for (int index = 1; index < fields.size(); index++) {

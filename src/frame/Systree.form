@@ -500,6 +500,9 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Component class="javax.swing.JTree" name="tree">
+              <Properties>
+                <Property name="editable" type="boolean" value="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="treeMousePressed"/>
               </Events>

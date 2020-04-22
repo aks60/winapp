@@ -39,10 +39,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import javax.swing.RowFilter;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeCellEditor;
@@ -64,7 +67,7 @@ public class Systree extends javax.swing.JFrame {
     private JTable tab1 = new JTable();
     private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2;
-    private DefaultMutableTreeNode root = null;
+    private DefaultMutableTreeNode rootTree = null;
     private DefFieldRenderer rsvSystree;
     private Wincalc iwin = new Wincalc();
     private java.awt.Frame frame = null;
@@ -92,14 +95,33 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingTree() {
 
-        root = new DefaultMutableTreeNode("Дерево системы профилей");
+        tree.setCellEditor(new DefaultTreeCellEditor(tree, (DefaultTreeCellRenderer) tree.getCellRenderer()));
+        ((DefaultTreeCellEditor) tree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
+
+            public void editingStopped(ChangeEvent e) {
+                DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+                if (selectedNode != null) {
+                    System.out.println("aks.editingStopped()");
+                    UserNode data = (UserNode) selectedNode.getUserObject();
+                    Object str = ((DefaultTreeCellEditor) tree.getCellEditor()).getCellEditorValue().toString();
+                    data.record.set(eSystree.name, str);
+                    qSystree.update(data.record);
+                    ((DefaultTreeModel) tree.getModel()).reload(selectedNode);
+                }
+            }
+
+            public void editingCanceled(ChangeEvent e) {
+                editingStopped(e);
+            }
+        });
+        rootTree = new DefaultMutableTreeNode("Дерево системы профилей");
         ArrayList<DefaultMutableTreeNode> treeList = new ArrayList();
         Query q = qSystree.table(eSystree.up);
         for (Record record : q) {
             if (record.getInt(eSystree.parent_id) == record.getInt(eSystree.id)) {
                 DefaultMutableTreeNode node2 = new DefaultMutableTreeNode(new UserNode(record));
                 treeList.add(node2);
-                root.add(node2);
+                rootTree.add(node2);
             }
         }
         ArrayList<DefaultMutableTreeNode> treeList2 = addChild(treeList, new ArrayList());
@@ -107,7 +129,7 @@ public class Systree extends javax.swing.JFrame {
         ArrayList<DefaultMutableTreeNode> treeList4 = addChild(treeList3, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList5 = addChild(treeList4, new ArrayList());
         ArrayList<DefaultMutableTreeNode> treeList6 = addChild(treeList5, new ArrayList());
-        tree.setModel(new DefaultTreeModel(root));
+        tree.setModel(new DefaultTreeModel(rootTree));
         scr1.setViewportView(tree);
     }
 
@@ -223,23 +245,14 @@ public class Systree extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof UserNode) {
+
                 UserNode node = (UserNode) selectedNode.getUserObject();
-                
-                TreeCellEditor cell = tree.getCellEditor();
-                //JTextField tx = (JTextField) cell.getTreeCellEditorComponent(tree, null, true, true, true, 0);
-                System.out.println(cell);
-                DefaultTreeModel dtm = (DefaultTreeModel)tree.getModel();
-                
-                
                 nuni = node.record.getInt(eSystree.id);
-                eProperty.systree_nuni.write(String.valueOf(nuni));
                 int sysprod_id = node.record.getInt(eSystree.sysprod_id);
-                //if (sysprod_id != -1) {
+                //Калькуляция и прорисовка окна
                 createWincalc(sysprod_id);
-                //}
-                Query q = qSystree.table(eSystree.up);
-                for (int i = 0; i < q.size(); i++) {
-                    if (nuni == q.get(i).getInt(eSystree.id)) {
+                for (int i = 0; i < qSystree.size(); i++) {
+                    if (nuni == qSystree.get(i).getInt(eSystree.id)) {
                         rsvSystree.load(i);
                     }
                 }
@@ -248,8 +261,6 @@ public class Systree extends javax.swing.JFrame {
                 qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                         eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
                 qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
-                //"and", eSyspar1.par2, "= 0");
-
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -258,7 +269,7 @@ public class Systree extends javax.swing.JFrame {
                 Util.setSelectedRow(tab4, 0);
             }
         } else {
-            createWincalc(-1);
+            createWincalc(-1); //рисуем виртуалку
         }
     }
 
@@ -663,6 +674,7 @@ public class Systree extends javax.swing.JFrame {
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(260, 564));
 
+        tree.setEditable(true);
         tree.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 treeMousePressed(evt);
@@ -1032,16 +1044,33 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        //iwin.create(Winscript.test(Winscript.prj, null));
-        //paintPanel.repaint(true, 12);
-//    int startRow = 0;
-//    String prefix = "КП50";
-//    TreePath path = tree.getNextMatch(prefix, startRow, Position.Bias.Forward);
-//    System.out.println(path);        
+
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
-
+        if (tree.getBorder() != null) {
+            if (tree.isSelectionEmpty() == false) {
+                DefaultMutableTreeNode removeNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+                if (removeNode.getChildCount() != 0) {
+                    JOptionPane.showMessageDialog(this, "Нельзя удалить текущий узел т. к. у него есть подчинённые записи", "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                DefaultMutableTreeNode nodeParent = (DefaultMutableTreeNode) removeNode.getParent();
+                UserNode data = (UserNode) removeNode.getUserObject();
+                if (JOptionPane.showConfirmDialog(this, "Хотите удалить " + data.toString() + "?", "Подтвердите удаление",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null) == 0) {
+                    data.record.set(eSystree.up, Query.DEL);
+                    qSystree.delete(data.record);
+                    qSystree.remove(data.record);
+                    ((DefaultTreeModel) tree.getModel()).removeNodeFromParent(removeNode);
+                    if (nodeParent != null) {
+                        TreeNode[] nodes = ((DefaultTreeModel) tree.getModel()).getPathToRoot(nodeParent);
+                        tree.scrollPathToVisible(new TreePath(nodes));
+                        tree.setSelectionPath(new TreePath(nodes));
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
@@ -1049,27 +1078,23 @@ public class Systree extends javax.swing.JFrame {
         if (node != null) {
             if (node.getUserObject() instanceof UserNode) {
                 UserNode nodeUser = (UserNode) node.getUserObject();
-                if (tree.getBorder() != null) {                   
-                    Record record = qSystree.newRecord(Query.INS);
-                    int id = ConnApp.instanc().genId(eSystree.id);
-                    record.setNo(eSystree.id, id);
-                    record.setNo(eSystree.parent_id, nodeUser.record.getInt(eSystree.id));
-                    record.setNo(eSystree.name, "P" + id);
-                    record.setNo(eSystree.coef, 1);
-                    record.setNo(eSystree.types, nodeUser.record.getInt(eSystree.types));
-                    qSystree.add(record);
-                    qSystree.execsql();
-                    loadingTree(); //построим новый tree                    
-                    Enumeration e = root.breadthFirstEnumeration();
-                    while (e.hasMoreElements()) { //найдём новый элемент, сделаем expand и selection
-                        node = (DefaultMutableTreeNode) e.nextElement();
-                        if (node.getUserObject() instanceof UserNode) {
-                            nodeUser = (UserNode) node.getUserObject();
-                            if (id == nodeUser.record.getInt(eSystree.id)) {
-                                tree.expandPath(new TreePath(node.getPath()));
-                                tree.setSelectionPath(new TreePath(node.getPath()));
-                            }
-                        }
+                if (tree.getBorder() != null) {
+                    DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+                    DefaultMutableTreeNode nodeParent = (DefaultMutableTreeNode) selectedNode.getParent();
+                    if (selectedNode != null && nodeParent != null) {
+                        UserNode parent = (UserNode) selectedNode.getUserObject();
+                        Record record = qSystree.newRecord(Query.INS);
+                        record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
+                        record.setNo(eSystree.parent_id, parent.record.getInt(eSystree.id));
+                        record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
+                        qSystree.insert(record); //record сохраним в базе
+                        record.set(eSystree.up, Query.SEL);
+                        qSystree.add(record); //добавим record в список
+                        DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(new UserNode(record));
+                        ((DefaultTreeModel) tree.getModel()).insertNodeInto(newNode, selectedNode, selectedNode.getChildCount()); //добавим node в tree
+                        TreeNode[] nodes = ((DefaultTreeModel) tree.getModel()).getPathToRoot(newNode);
+                        tree.scrollPathToVisible(new TreePath(nodes));
+                        tree.setSelectionPath(new TreePath(nodes));
                     }
                 } else if (tab2.getBorder() != null) {
                     Record record1 = qSysprof.newRecord(Query.INS);
@@ -1183,7 +1208,8 @@ public class Systree extends javax.swing.JFrame {
         if (tree.isEditing()) {
             tree.getCellEditor().stopCellEditing();
         }
-        tree.setBorder(null);
+        eProperty.systree_nuni.write(String.valueOf(nuni)); //запишем текущий nuni в файл
+        //tree.setBorder(null);
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
