@@ -2,7 +2,6 @@ package frame;
 
 import dialog.DicColor;
 import common.DialogListener;
-import common.FrameAdapter;
 import common.FrameToFile;
 import common.Util;
 import dataset.ConnApp;
@@ -31,6 +30,8 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import static common.Util.getSelectedRec;
+import java.util.stream.Stream;
+import javax.swing.RowFilter;
 
 /**
  * Материальные ценности
@@ -114,7 +115,7 @@ public class Artikles extends javax.swing.JFrame {
         tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT2C0));
         btnT2C0.addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerDic);
-        });        
+        });
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
@@ -224,7 +225,6 @@ public class Artikles extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        btnFind = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         panCenter = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
@@ -257,6 +257,11 @@ public class Artikles extends javax.swing.JFrame {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         panSouth = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
@@ -333,21 +338,6 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        btnFind.setToolTipText(bundle.getString("Поиск")); // NOI18N
-        btnFind.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFind.setFocusable(false);
-        btnFind.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFind.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnFind.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnFind.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnFind.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilter(evt);
-            }
-        });
-
         btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c053.gif"))); // NOI18N
         btnReport.setToolTipText(bundle.getString("Печать")); // NOI18N
         btnReport.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -374,9 +364,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(49, 49, 49)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 690, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,8 +379,7 @@ public class Artikles extends javax.swing.JFrame {
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -642,6 +629,11 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -678,6 +670,11 @@ public class Artikles extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -688,19 +685,31 @@ public class Artikles extends javax.swing.JFrame {
         getContentPane().add(panCenter, java.awt.BorderLayout.CENTER);
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(800, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
+        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(1000, 20));
+        panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 896, Short.MAX_VALUE)
-        );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        panSouth.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilterCaretUpdate(evt);
+            }
+        });
+        panSouth.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        panSouth.add(checkFilter);
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
@@ -778,14 +787,8 @@ public class Artikles extends javax.swing.JFrame {
         selectionTree();
     }//GEN-LAST:event_btnRefresh
 
-    private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        int index = getSelectedRec(tab1);
-        System.out.println(index);
-        System.out.println(tab1.convertRowIndexToView(index));
-    }//GEN-LAST:event_btnFilter
-
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-    tab1.setRowSelectionInterval(1, 1);
+        tab1.setRowSelectionInterval(1, 1);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -795,15 +798,37 @@ public class Artikles extends javax.swing.JFrame {
     private void btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrenc
         Currenc frame = new Currenc(this, listenerDic);
     }//GEN-LAST:event_btnCurrenc
+
+    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
+
+        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_txtFilterCaretUpdate
+
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        JTable table = (JTable) evt.getSource();
+        Util.listenerClick(table, Arrays.asList(tab1, tab2));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }//GEN-LAST:event_tabMousePressed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnCurrenc;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnFind;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -813,6 +838,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
@@ -835,37 +861,19 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTextField txtField7;
     private javax.swing.JFormattedTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-        javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-        public void focusGained(FocusEvent e) {
-
-            Util.stopCellEditing(tab1, tab2);
-            tab1.setBorder(null);
-            tab2.setBorder(null);
-            if (e.getSource() instanceof JTable) {
-                ((JComponent) e.getSource()).setBorder(border);
-            }
-        }
-
-        public void focusLost(FocusEvent e) {
-        }
-    };
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
+        labFilter.setText(tab1.getColumnName(0));
+        txtFilter.setName(tab1.getName());
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
         scrTree.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Типы артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
