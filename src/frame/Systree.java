@@ -73,7 +73,7 @@ public class Systree extends javax.swing.JFrame {
     private Wincalc iwin = new Wincalc();
     private java.awt.Frame frame = null;
     private int nuni = -1;
-    private TreeNode[] treeNode = null;
+    private TreeNode[] nuniNode = null;
     private PaintPanel paintPanel = new PaintPanel(iwin) {
 
         public void actionResponse(MouseEvent evt) {
@@ -89,7 +89,6 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerDict();
-        nuni = Integer.valueOf(eProperty.systree_nuni.read());
         loadingTree();
         loadingModel();
     }
@@ -100,13 +99,11 @@ public class Systree extends javax.swing.JFrame {
 
             public void editingStopped(ChangeEvent e) {
                 DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
-                if (node != null) {
-                    System.out.println("aks.editingStopped()");
-                    Object str = ((DefaultTreeCellEditor) tree.getCellEditor()).getCellEditorValue().toString();
-                    node.record.set(eSystree.name, str);
-                    node.setUserObject(str);
-                    qSystree.update(node.record); //сохраним в базе
-                }
+                String str = ((DefaultTreeCellEditor) tree.getCellEditor()).getCellEditorValue().toString();
+                node.record.set(eSystree.name, str);
+                node.setUserObject(str);
+                txtField8.setText(str);
+                qSystree.update(node.record); //сохраним в базе
             }
 
             public void editingCanceled(ChangeEvent e) {
@@ -114,8 +111,8 @@ public class Systree extends javax.swing.JFrame {
             }
         });
         Record recordRoot = qSystree.newRecord(Query.SEL);
-        recordRoot.set(eSystree.id, -7);
-        recordRoot.set(eSystree.parent_id, -7);
+        recordRoot.set(eSystree.id, 0);
+        recordRoot.set(eSystree.parent_id, 0);
         recordRoot.set(eSystree.name, "Дерево системы профилей");
         rootTree = new DefMutableTreeNode(recordRoot);
         ArrayList<DefMutableTreeNode> treeList = new ArrayList();
@@ -236,44 +233,36 @@ public class Systree extends javax.swing.JFrame {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
 
-        if (treeNode != null) {
-            tree.setSelectionPath(new TreePath(treeNode));
+        if (nuniNode != null) {
+            tree.setSelectionPath(new TreePath(nuniNode));
         } else {
             tree.setSelectionRow(0);
         }
     }
 
     private void selectionTree() {
-//        if (tree.isEditing()) {
-//            tree.getCellEditor().stopCellEditing();
-//        }
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
-            if (node.getUserObject() instanceof String) {
-
-                System.out.println("frame.Systree.selectionTree()");
-
-                nuni = node.record.getInt(eSystree.id);
-                int sysprod_id = node.record.getInt(eSystree.sysprod_id);
-                //Калькуляция и прорисовка окна
-                createWincalc(sysprod_id);
-                for (int i = 0; i < qSystree.size(); i++) {
-                    if (nuni == qSystree.get(i).getInt(eSystree.id)) {
-                        rsvSystree.load(i);
-                    }
+            nuni = node.record.getInt(eSystree.id);
+            int sysprod_id = node.record.getInt(eSystree.sysprod_id);
+            //Калькуляция и прорисовка окна
+            createWincalc(sysprod_id);
+            for (int i = 0; i < qSystree.size(); i++) {
+                if (nuni == qSystree.get(i).getInt(eSystree.id)) {
+                    rsvSystree.load(i);
                 }
-                qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                        eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
-                qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                        eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
-                qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, 0);
-                Util.setSelectedRow(tab3, 0);
-                Util.setSelectedRow(tab4, 0);
             }
+            qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
+            qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
+                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
+            qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, 0);
+            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab4, 0);
         } else {
             createWincalc(-1); //рисуем виртуалку
         }
@@ -301,13 +290,11 @@ public class Systree extends javax.swing.JFrame {
 
         listenetNuni = (record) -> {
             DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
-            if (node.getUserObject() instanceof String) {
-                Record record2 = node.record;
-                int id = record.getInt(0);
-                record2.set(eSystree.sysprod_id, record.getInt(0));
-                qSystree.update(record2);
-                createWincalc(record.getInt(0));
-            }
+            Record record2 = node.record;
+            int id = record.getInt(0);
+            record2.set(eSystree.sysprod_id, record.getInt(0));
+            qSystree.update(record2);
+            createWincalc(record.getInt(0));
         };
 
         listenerFurn = (record) -> {
@@ -357,7 +344,7 @@ public class Systree extends javax.swing.JFrame {
                     node.add(node2);
                     nodeList2.add(node2);
                     if (record2.getInt(eSystree.id) == nuni) {
-                        treeNode = node2.getPath();
+                        nuniNode = node2.getPath(); //запомним path для nuni
                     }
                 }
             }
@@ -423,9 +410,9 @@ public class Systree extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         txtField7 = new javax.swing.JFormattedTextField();
         jLabel20 = new javax.swing.JLabel();
-        txtField8 = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
         txtField9 = new javax.swing.JFormattedTextField();
+        txtField8 = new javax.swing.JTextField();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -793,10 +780,6 @@ public class Systree extends javax.swing.JFrame {
         jLabel20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel20.setPreferredSize(new java.awt.Dimension(160, 18));
 
-        txtField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField8.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtField8.setPreferredSize(new java.awt.Dimension(240, 18));
-
         jLabel21.setFont(common.Util.getFont(0,0));
         jLabel21.setText("INDEX");
         jLabel21.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -805,6 +788,11 @@ public class Systree extends javax.swing.JFrame {
         txtField9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField9.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField9.setPreferredSize(new java.awt.Dimension(20, 18));
+
+        txtField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField8.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtField8.setFocusable(false);
+        txtField8.setPreferredSize(new java.awt.Dimension(240, 18));
 
         javax.swing.GroupLayout pan6Layout = new javax.swing.GroupLayout(pan6);
         pan6.setLayout(pan6Layout);
@@ -820,27 +808,27 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
-                        .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
+                        .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtField7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtField8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pan6Layout.createSequentialGroup()
@@ -851,7 +839,7 @@ public class Systree extends javax.swing.JFrame {
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(126, 126, 126))
+                .addGap(126, 224, Short.MAX_VALUE))
         );
         pan6Layout.setVerticalGroup(
             pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -859,9 +847,9 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -890,7 +878,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         tabb1.addTab("Основные параметры", pan6);
@@ -1080,54 +1068,50 @@ public class Systree extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
-            if (node.getUserObject() instanceof String) {
-                if (tree.getBorder() != null) {
-                    DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
-                    DefMutableTreeNode nodeParent = (DefMutableTreeNode) selectedNode.getParent();
-                    if (selectedNode != null && nodeParent != null) {
-                        Record record = qSystree.newRecord(Query.INS);
-                        record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
-                        record.setNo(eSystree.parent_id, node.record.getInt(eSystree.id));
-                        record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
-                        qSystree.insert(record); //record сохраним в базе
-                        record.set(eSystree.up, Query.SEL);
-                        qSystree.add(record); //добавим record в список
-                        DefMutableTreeNode newNode = new DefMutableTreeNode(record);
-                        ((DefaultTreeModel) tree.getModel()).insertNodeInto(newNode, selectedNode, selectedNode.getChildCount()); //добавим node в tree
-                        TreeNode[] nodes = ((DefaultTreeModel) tree.getModel()).getPathToRoot(newNode);
-                        tree.scrollPathToVisible(new TreePath(nodes));
-                        tree.setSelectionPath(new TreePath(nodes));
-                    }
-                } else if (tab2.getBorder() != null) {
-                    Record record1 = qSysprof.newRecord(Query.INS);
-                    Record record2 = eArtikl.up.newRecord();
-                    record1.setNo(eSysprof.id, ConnApp.instanc().genId(eSysprof.id));
-                    record1.setNo(eSysprof.systree_id, nuni);
-                    qSysprof.add(record1);
-                    qSysprof.table(eArtikl.up).add(record2);
-                    ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                    Util.scrollRectToVisible(qSysprof, tab2);
+            if (tree.getBorder() != null) {
+                Record record = qSystree.newRecord(Query.INS);
+                record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
+                int parent_id = (node.record.getInt(eSystree.id) == node.record.getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.record.getInt(eSystree.id);
+                record.setNo(eSystree.parent_id, parent_id);
+                record.setNo(eSystree.name, "P" + record.getStr(eSystree.id));
+                qSystree.insert(record); //record сохраним в базе
+                record.set(eSystree.up, Query.SEL);
+                qSystree.add(record); //добавим record в список
+                DefMutableTreeNode newNode = new DefMutableTreeNode(record);
+                ((DefaultTreeModel) tree.getModel()).insertNodeInto(newNode, node, node.getChildCount()); //добавим node в tree
+                TreeNode[] nodes = ((DefaultTreeModel) tree.getModel()).getPathToRoot(newNode);
+                tree.scrollPathToVisible(new TreePath(nodes));
+                tree.setSelectionPath(new TreePath(nodes));
 
-                } else if (tab3.getBorder() != null) {
-                    Record record1 = qSysfurn.newRecord(Query.INS);
-                    Record record2 = eFurniture.up.newRecord();
-                    record1.setNo(eSysfurn.id, ConnApp.instanc().genId(eSysfurn.id));
-                    record1.setNo(eSysfurn.systree_id, nuni);
-                    record1.setNo(eSysfurn.npp, 0);
-                    record1.setNo(eSysfurn.replac, 0);
-                    qSysfurn.add(record1);
-                    qSysfurn.table(eFurniture.up).add(record2);
-                    ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                    Util.scrollRectToVisible(qSysfurn, tab3);
+            } else if (tab2.getBorder() != null) {
+                Record record1 = qSysprof.newRecord(Query.INS);
+                Record record2 = eArtikl.up.newRecord();
+                record1.setNo(eSysprof.id, ConnApp.instanc().genId(eSysprof.id));
+                record1.setNo(eSysprof.systree_id, nuni);
+                qSysprof.add(record1);
+                qSysprof.table(eArtikl.up).add(record2);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qSysprof, tab2);
 
-                } else if (tab4.getBorder() != null) {
-                    Record record1 = qSyspar1.newRecord(Query.INS);
-                    record1.setNo(eSyspar1.id, ConnApp.instanc().genId(eSyspar1.id));
-                    record1.setNo(eSyspar1.systree_id, nuni);
-                    qSyspar1.add(record1);
-                    ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-                    Util.scrollRectToVisible(qSyspar1, tab4);
-                }
+            } else if (tab3.getBorder() != null) {
+                Record record1 = qSysfurn.newRecord(Query.INS);
+                Record record2 = eFurniture.up.newRecord();
+                record1.setNo(eSysfurn.id, ConnApp.instanc().genId(eSysfurn.id));
+                record1.setNo(eSysfurn.systree_id, nuni);
+                record1.setNo(eSysfurn.npp, 0);
+                record1.setNo(eSysfurn.replac, 0);
+                qSysfurn.add(record1);
+                qSysfurn.table(eFurniture.up).add(record2);
+                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qSysfurn, tab3);
+
+            } else if (tab4.getBorder() != null) {
+                Record record1 = qSyspar1.newRecord(Query.INS);
+                record1.setNo(eSyspar1.id, ConnApp.instanc().genId(eSyspar1.id));
+                record1.setNo(eSyspar1.systree_id, nuni);
+                qSyspar1.add(record1);
+                ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+                Util.scrollRectToVisible(qSyspar1, tab4);
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -1136,30 +1120,28 @@ public class Systree extends javax.swing.JFrame {
 
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
-            if (node.getUserObject() instanceof String) {
-                int nuni = node.record.getInt(eSystree.id);
-                JToggleButton btn = (JToggleButton) evt.getSource();
-                FrameProgress.create(Systree.this, new FrameListener() {
-                    public void actionRequest(Object obj) {
+            int nuni = node.record.getInt(eSystree.id);
+            JToggleButton btn = (JToggleButton) evt.getSource();
+            FrameProgress.create(Systree.this, new FrameListener() {
+                public void actionRequest(Object obj) {
 
-                        if (btn == btnJoin) {
-                            frame = new Joining(Systree.this, nuni);
-                        } else if (btn == btnElem) {
-                            frame = new Element(Systree.this, nuni);
-                        } else if (btn == btnFill) {
-                            frame = new Filling(Systree.this, nuni);
-                        } else if (btn == btnFurn) {
-                            frame = new Furniture(Systree.this, nuni);
-                        } else if (btn == btnSpec) {
-                            frame = new Specific(Systree.this, iwin);
-                        }
-                        FrameToFile.setFrameSize(frame);
-                        frame.setVisible(true);
+                    if (btn == btnJoin) {
+                        frame = new Joining(Systree.this, nuni);
+                    } else if (btn == btnElem) {
+                        frame = new Element(Systree.this, nuni);
+                    } else if (btn == btnFill) {
+                        frame = new Filling(Systree.this, nuni);
+                    } else if (btn == btnFurn) {
+                        frame = new Furniture(Systree.this, nuni);
+                    } else if (btn == btnSpec) {
+                        frame = new Specific(Systree.this, iwin);
                     }
-                });
-            } else {
-                JOptionPane.showMessageDialog(this, "Выберите систему профилей", "Предупреждение", JOptionPane.OK_OPTION);
-            }
+                    FrameToFile.setFrameSize(frame);
+                    frame.setVisible(true);
+                }
+            });
+        } else {
+            JOptionPane.showMessageDialog(this, "Выберите систему профилей", "Предупреждение", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_btnConstructive
 
@@ -1210,7 +1192,6 @@ public class Systree extends javax.swing.JFrame {
             tree.getCellEditor().stopCellEditing();
         }
         eProperty.systree_nuni.write(String.valueOf(nuni)); //запишем текущий nuni в файл
-        //tree.setBorder(null);
         Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
@@ -1290,7 +1271,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField5;
     private javax.swing.JFormattedTextField txtField6;
     private javax.swing.JFormattedTextField txtField7;
-    private javax.swing.JFormattedTextField txtField8;
+    private javax.swing.JTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
@@ -1298,6 +1279,7 @@ public class Systree extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        nuni = Integer.valueOf(eProperty.systree_nuni.read());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
@@ -1310,11 +1292,11 @@ public class Systree extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private class DefMutableTreeNode extends DefaultMutableTreeNode {
-        
+
         public Record record = null;
-        
+
         public DefMutableTreeNode(Record record) {
             super(record.getStr(eSystree.name));
             this.record = record;
