@@ -1351,4 +1351,14 @@ public class Systree extends javax.swing.JFrame {
             return record.getStr(eSystree.name);
         }
     }
+    
+    private class DefMutableTreeNode extends DefaultMutableTreeNode {
+        
+        public Record record = null;
+        
+        public DefMutableTreeNode(Record record) {
+            super(record.getStr(eSystree.name));
+            this.record = record;
+        }
+    }
 }
