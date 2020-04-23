@@ -29,7 +29,6 @@ import enums.LayoutProfile;
 import enums.TypeOpen2;
 import enums.UserArtikl;
 import enums.TypeUse;
-import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -37,15 +36,17 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.JToggleButton;
-import javax.swing.JTree;
 import javax.swing.RowFilter;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellEditor;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -67,7 +68,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private JTable tab1 = new JTable();
     private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
-            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2;
+            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2, listenerBtn1;
     private DefMutableTreeNode rootTree = null;
     private DefFieldRenderer rsvSystree;
     private Wincalc iwin = new Wincalc();
@@ -398,7 +399,6 @@ public class Systree extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         txtField1 = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
-        txtField2 = new javax.swing.JFormattedTextField();
         jLabel15 = new javax.swing.JLabel();
         txtField3 = new javax.swing.JFormattedTextField();
         txtField4 = new javax.swing.JFormattedTextField();
@@ -414,6 +414,8 @@ public class Systree extends javax.swing.JFrame {
         txtField9 = new javax.swing.JFormattedTextField();
         txtField8 = new javax.swing.JTextField();
         btn1 = new javax.swing.JButton();
+        txtField2 = new javax.swing.JTextField();
+        txt7 = new javax.swing.JTextField();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -727,10 +729,6 @@ public class Systree extends javax.swing.JFrame {
         jLabel14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel14.setPreferredSize(new java.awt.Dimension(160, 18));
 
-        txtField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtField2.setPreferredSize(new java.awt.Dimension(240, 18));
-
         jLabel15.setFont(common.Util.getFont(0,0));
         jLabel15.setText("Основная текстура");
         jLabel15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -806,6 +804,10 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
+        txtField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtField2.setPreferredSize(new java.awt.Dimension(240, 18));
+
         javax.swing.GroupLayout pan6Layout = new javax.swing.GroupLayout(pan6);
         pan6.setLayout(pan6Layout);
         pan6Layout.setHorizontalGroup(
@@ -828,7 +830,7 @@ public class Systree extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan6Layout.createSequentialGroup()
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -855,8 +857,11 @@ public class Systree extends javax.swing.JFrame {
                             .addGroup(pan6Layout.createSequentialGroup()
                                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(183, Short.MAX_VALUE))
+                                .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pan6Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         pan6Layout.setVerticalGroup(
             pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -883,7 +888,8 @@ public class Systree extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -896,7 +902,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabb1.addTab("Основные параметры", pan6);
@@ -1236,7 +1242,18 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_treeMousePressed
 
     private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
-        //Currenc frame = new Currenc(this, listenerDic);
+
+        listenerBtn1 = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4);
+            for (int i = 0; i < qSystree.size(); i++) {
+                if (nuni == qSystree.get(i).getInt(eSystree.id)) {
+                    qSystree.set(record.getStr(eArtikl.code), i, eSystree.glas);
+                    qSystree.update(qSystree.get(i));
+                    rsvSystree.load(i);
+                }
+            }
+        };
+        new DicArtikl(this, listenerBtn1, 5);
     }//GEN-LAST:event_btn1
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
@@ -1289,8 +1306,9 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JTable tab4;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTree tree;
+    private javax.swing.JTextField txt7;
     private javax.swing.JFormattedTextField txtField1;
-    private javax.swing.JFormattedTextField txtField2;
+    private javax.swing.JTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;
     private javax.swing.JFormattedTextField txtField4;
     private javax.swing.JFormattedTextField txtField5;
@@ -1304,6 +1322,13 @@ public class Systree extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
+            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                if (string.length() > 1 || "0123456789;".indexOf(string) != -1) {  //проверка на коррекность ввода
+                    super.replace(fb, offset, length, string, attrs);
+                } 
+            }
+        });
         nuni = Integer.valueOf(eProperty.systree_nuni.read());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3, tab4)));
         DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
