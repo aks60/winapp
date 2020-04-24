@@ -136,7 +136,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void loadingModel() {
 
-        DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.id);
+        DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.values());
         DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.use_type, eSysprof.use_side, eSysprof.prio, eArtikl.code, eArtikl.name) {
 
             public Object getValueAt(int col, int row, Object val) {
