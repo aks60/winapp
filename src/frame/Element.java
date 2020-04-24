@@ -461,6 +461,7 @@ public class Element extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(900, 509));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Element.this.windowClosed(evt);
@@ -469,7 +470,7 @@ public class Element extends javax.swing.JFrame
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(600, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -580,7 +581,7 @@ public class Element extends javax.swing.JFrame
         getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
 
         panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panCentr.setPreferredSize(new java.awt.Dimension(858, 560));
+        panCentr.setPreferredSize(new java.awt.Dimension(858, 460));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         panNorth2.setPreferredSize(new java.awt.Dimension(847, 320));
@@ -728,7 +729,7 @@ public class Element extends javax.swing.JFrame
 
         getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
 
-        panWest.setPreferredSize(new java.awt.Dimension(140, 560));
+        panWest.setPreferredSize(new java.awt.Dimension(140, 480));
         panWest.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
@@ -764,7 +765,7 @@ public class Element extends javax.swing.JFrame
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(1000, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
         panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
