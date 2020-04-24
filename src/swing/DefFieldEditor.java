@@ -37,12 +37,9 @@ public class DefFieldEditor {
     public void add(Field field, JTextComponent comp) {
 
         mapTxt.put(comp, field);
-        //если редактирование запрещено
-        if (field instanceof Field) {
-            if (field.meta().edit() == false) {
-                comp.setEditable(false);
-                comp.setBackground(new java.awt.Color(255, 255, 255));
-            }
+        if (field.meta().edit() == false) { //если редактирование запрещено
+            comp.setEditable(false);
+            comp.setBackground(new java.awt.Color(255, 255, 255));
         }
         comp.getDocument().addDocumentListener(new DocListiner(comp));
     }
@@ -52,7 +49,11 @@ public class DefFieldEditor {
 
         add(field, comp);
         mapBtn.put(btn, field);
-
+        if (field.meta().edit() == false) { //если редактирование запрещено
+            comp.setEditable(false);
+            comp.setBackground(new java.awt.Color(255, 255, 255));
+        }
+        comp.getDocument().addDocumentListener(new DocListiner(comp));
     }
 
     public void add(Field field, JTextComponent comp, Enam[] enam) {
@@ -139,6 +140,7 @@ public class DefFieldEditor {
 
         //При редактированиии одного из полей
         public void fieldUpdate() {
+            //int row = tableModel.getS
             if (update == true && row != -1) {
                 if (tableModel.getRowCount() > 0) {
                     tableModel.setValueAt(comp.getText(), row, mapTxt.get(comp));

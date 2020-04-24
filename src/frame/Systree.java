@@ -224,7 +224,7 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree = new DefFieldEditor(rsmSystree);
         rsvSystree.add(eSystree.name, txtField8);
         rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
-        rsvSystree.add(eSystree.glas, txtField1);
+        rsvSystree.add(eSystree.glas, txtField1, btnField1);
         rsvSystree.add(eSystree.size, txtField2);
         rsvSystree.add(eSystree.col1, txtField3);
         rsvSystree.add(eSystree.col2, txtField4);
@@ -410,7 +410,7 @@ public class Systree extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         txtField9 = new javax.swing.JFormattedTextField();
         txtField8 = new javax.swing.JTextField();
-        btn1 = new javax.swing.JButton();
+        btnField1 = new javax.swing.JButton();
         txtField2 = new javax.swing.JTextField();
         txtField3 = new javax.swing.JTextField();
         txtField4 = new javax.swing.JTextField();
@@ -780,14 +780,14 @@ public class Systree extends javax.swing.JFrame {
         txtField8.setFocusable(false);
         txtField8.setPreferredSize(new java.awt.Dimension(240, 18));
 
-        btn1.setText("...");
-        btn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btn1.setMaximumSize(new java.awt.Dimension(18, 18));
-        btn1.setMinimumSize(new java.awt.Dimension(18, 18));
-        btn1.setPreferredSize(new java.awt.Dimension(18, 18));
-        btn1.addActionListener(new java.awt.event.ActionListener() {
+        btnField1.setText("...");
+        btnField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField1.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField1.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField1.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn1(evt);
+                btnField1(evt);
             }
         });
 
@@ -845,7 +845,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan6Layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan6Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -880,7 +880,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1236,27 +1236,27 @@ public class Systree extends javax.swing.JFrame {
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
     }//GEN-LAST:event_treeMousePressed
 
-    private void btn1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1
+    private void btnField1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField1
 
         listenerBtn1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (nuni == qSystree.get(i).getInt(eSystree.id)) {
                     qSystree.set(record.getStr(eArtikl.code), i, eSystree.glas);
-                    qSystree.update(qSystree.get(i));
-                    rsvSystree.load(i);
+                    //qSystree.update(qSystree.get(i));
+                    //rsvSystree.load(i);
                 }
             }
         };
         new DicArtikl(this, listenerBtn1, 5);
-    }//GEN-LAST:event_btn1
+    }//GEN-LAST:event_btnField1
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn1;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JToggleButton btnElem;
+    private javax.swing.JButton btnField1;
     private javax.swing.JToggleButton btnFill;
     private javax.swing.JToggleButton btnFurn;
     private javax.swing.JButton btnIns;
