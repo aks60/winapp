@@ -64,15 +64,6 @@ public class App1 extends javax.swing.JFrame {
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn0444.setSelected(true);
         }
-        btn11.setText(Util.getDateStr(null));
-//        if (Main.dev == true) {
-//            new FrameListener2() {
-//
-//                public void request(Object obj) {
-//                    eApp1.Material.createFrame(App1.this);
-//                }
-//            };
-//        }
     }
 
     @SuppressWarnings("unchecked")
@@ -165,6 +156,7 @@ public class App1 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("SA-OKNA   <АРМ Технолог>");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(659, 78));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -174,14 +166,17 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
-        tb1.setPreferredSize(new java.awt.Dimension(136, 27));
+        tb1.setMaximumSize(new java.awt.Dimension(144, 28));
+        tb1.setMinimumSize(new java.awt.Dimension(144, 28));
+        tb1.setPreferredSize(new java.awt.Dimension(144, 28));
 
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
+        btn14.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn14.setFocusable(false);
         btn14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn14.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn14.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn14.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn14.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn14.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn14.setPreferredSize(new java.awt.Dimension(26, 26));
         btn14.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn14.addActionListener(new java.awt.event.ActionListener() {
@@ -192,9 +187,11 @@ public class App1 extends javax.swing.JFrame {
         tb1.add(btn14);
 
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c010.gif"))); // NOI18N
-        btn12.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn12.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn12.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn12.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        btn12.setFocusable(false);
+        btn12.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn12.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn12.setPreferredSize(new java.awt.Dimension(26, 26));
         btn12.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,11 +201,12 @@ public class App1 extends javax.swing.JFrame {
         tb1.add(btn12);
 
         btn13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c007.gif"))); // NOI18N
+        btn13.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn13.setFocusable(false);
         btn13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn13.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn13.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn13.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn13.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn13.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn13.setPreferredSize(new java.awt.Dimension(26, 26));
         btn13.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,11 +216,12 @@ public class App1 extends javax.swing.JFrame {
         tb1.add(btn13);
 
         btn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
+        btn22.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn22.setFocusable(false);
         btn22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn22.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn22.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn22.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn22.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn22.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn22.setPreferredSize(new java.awt.Dimension(26, 26));
         btn22.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn22.addActionListener(new java.awt.event.ActionListener() {
@@ -233,11 +232,12 @@ public class App1 extends javax.swing.JFrame {
         tb1.add(btn22);
 
         btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btn11.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn11.setFocusable(false);
         btn11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn11.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn11.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn11.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn11.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn11.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn11.setPreferredSize(new java.awt.Dimension(26, 26));
         btn11.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,16 +249,17 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(tb1);
 
         tb2.setRollover(true);
-        tb2.setMaximumSize(new java.awt.Dimension(220, 27));
-        tb2.setMinimumSize(new java.awt.Dimension(220, 27));
-        tb2.setPreferredSize(new java.awt.Dimension(160, 27));
+        tb2.setMaximumSize(new java.awt.Dimension(172, 28));
+        tb2.setMinimumSize(new java.awt.Dimension(172, 28));
+        tb2.setPreferredSize(new java.awt.Dimension(172, 28));
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
+        btn23.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn23.setFocusable(false);
         btn23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn23.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn23.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn23.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn23.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn23.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn23.setPreferredSize(new java.awt.Dimension(26, 26));
         btn23.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,11 +269,12 @@ public class App1 extends javax.swing.JFrame {
         tb2.add(btn23);
 
         btn24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
+        btn24.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn24.setFocusable(false);
         btn24.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn24.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn24.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn24.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn24.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn24.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn24.setPreferredSize(new java.awt.Dimension(26, 26));
         btn24.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -282,11 +284,12 @@ public class App1 extends javax.swing.JFrame {
         tb2.add(btn24);
 
         btn25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
+        btn25.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn25.setFocusable(false);
         btn25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn25.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn25.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn25.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn25.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn25.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn25.setPreferredSize(new java.awt.Dimension(26, 26));
         btn25.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn25.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn25.addActionListener(new java.awt.event.ActionListener() {
@@ -297,11 +300,12 @@ public class App1 extends javax.swing.JFrame {
         tb2.add(btn25);
 
         btn26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
+        btn26.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn26.setFocusable(false);
         btn26.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn26.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn26.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn26.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn26.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn26.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn26.setPreferredSize(new java.awt.Dimension(26, 26));
         btn26.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn26.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn26.addActionListener(new java.awt.event.ActionListener() {
@@ -312,11 +316,12 @@ public class App1 extends javax.swing.JFrame {
         tb2.add(btn26);
 
         btn27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
+        btn27.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn27.setFocusable(false);
         btn27.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn27.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn27.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn27.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn27.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn27.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn27.setPreferredSize(new java.awt.Dimension(26, 26));
         btn27.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn27.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn27.addActionListener(new java.awt.event.ActionListener() {
@@ -327,11 +332,12 @@ public class App1 extends javax.swing.JFrame {
         tb2.add(btn27);
 
         btn28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
+        btn28.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn28.setFocusable(false);
         btn28.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn28.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn28.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn28.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn28.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn28.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn28.setPreferredSize(new java.awt.Dimension(26, 26));
         btn28.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn28.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn28.addActionListener(new java.awt.event.ActionListener() {
@@ -344,14 +350,17 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(tb2);
 
         td5.setRollover(true);
-        td5.setPreferredSize(new java.awt.Dimension(60, 27));
+        td5.setMaximumSize(new java.awt.Dimension(68, 28));
+        td5.setMinimumSize(new java.awt.Dimension(68, 28));
+        td5.setPreferredSize(new java.awt.Dimension(68, 28));
 
         btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019.gif"))); // NOI18N
+        btn34.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn34.setFocusable(false);
         btn34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn34.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn34.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn34.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn34.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn34.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn34.setPreferredSize(new java.awt.Dimension(26, 26));
         btn34.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn34.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn34.addActionListener(new java.awt.event.ActionListener() {
@@ -361,12 +370,13 @@ public class App1 extends javax.swing.JFrame {
         });
         td5.add(btn34);
 
-        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
+        btn35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c015.gif"))); // NOI18N
+        btn35.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         btn35.setFocusable(false);
         btn35.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn35.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn35.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn35.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn35.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn35.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn35.setPreferredSize(new java.awt.Dimension(26, 26));
         btn35.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn35.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         td5.add(btn35);
@@ -374,14 +384,17 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(td5);
 
         td3.setRollover(true);
-        td3.setPreferredSize(new java.awt.Dimension(88, 27));
+        td3.setMaximumSize(new java.awt.Dimension(98, 28));
+        td3.setMinimumSize(new java.awt.Dimension(98, 28));
+        td3.setPreferredSize(new java.awt.Dimension(98, 28));
 
         btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
+        btn29.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn29.setFocusable(false);
         btn29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn29.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn29.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn29.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn29.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn29.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn29.setPreferredSize(new java.awt.Dimension(26, 26));
         btn29.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn29.addActionListener(new java.awt.event.ActionListener() {
@@ -392,11 +405,12 @@ public class App1 extends javax.swing.JFrame {
         td3.add(btn29);
 
         btn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c047.gif"))); // NOI18N
+        btn30.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn30.setFocusable(false);
         btn30.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn30.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn30.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn30.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn30.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn30.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn30.setPreferredSize(new java.awt.Dimension(26, 26));
         btn30.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn30.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn30.addActionListener(new java.awt.event.ActionListener() {
@@ -407,11 +421,12 @@ public class App1 extends javax.swing.JFrame {
         td3.add(btn30);
 
         btn33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c011.gif"))); // NOI18N
+        btn33.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn33.setFocusable(false);
         btn33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn33.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn33.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn33.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn33.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn33.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn33.setPreferredSize(new java.awt.Dimension(26, 26));
         btn33.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn33.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn33.addActionListener(new java.awt.event.ActionListener() {
@@ -424,14 +439,17 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(td3);
 
         tb6.setRollover(true);
-        tb6.setPreferredSize(new java.awt.Dimension(120, 27));
+        tb6.setMaximumSize(new java.awt.Dimension(68, 28));
+        tb6.setMinimumSize(new java.awt.Dimension(68, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(68, 28));
 
         btn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
+        btn61.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn61.setFocusable(false);
         btn61.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn61.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn61.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn61.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn61.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn61.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn61.setPreferredSize(new java.awt.Dimension(26, 26));
         btn61.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn61.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn61.addActionListener(new java.awt.event.ActionListener() {
@@ -442,11 +460,12 @@ public class App1 extends javax.swing.JFrame {
         tb6.add(btn61);
 
         btn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
+        btn62.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn62.setFocusable(false);
         btn62.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn62.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn62.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn62.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn62.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn62.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn62.setPreferredSize(new java.awt.Dimension(26, 26));
         btn62.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn62.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn62.addActionListener(new java.awt.event.ActionListener() {
@@ -459,13 +478,17 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(tb6);
 
         tb4.setRollover(true);
+        tb4.setMaximumSize(new java.awt.Dimension(70, 28));
+        tb4.setMinimumSize(new java.awt.Dimension(70, 28));
+        tb4.setPreferredSize(new java.awt.Dimension(70, 28));
 
         btn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c013.gif"))); // NOI18N
+        btn31.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn31.setFocusable(false);
         btn31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn31.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn31.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn31.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn31.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn31.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn31.setPreferredSize(new java.awt.Dimension(26, 26));
         btn31.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn31.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn31.addActionListener(new java.awt.event.ActionListener() {
@@ -476,11 +499,12 @@ public class App1 extends javax.swing.JFrame {
         tb4.add(btn31);
 
         btn32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
+        btn32.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         btn32.setFocusable(false);
         btn32.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn32.setMaximumSize(new java.awt.Dimension(25, 25));
-        btn32.setMinimumSize(new java.awt.Dimension(25, 25));
-        btn32.setPreferredSize(new java.awt.Dimension(25, 25));
+        btn32.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn32.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn32.setPreferredSize(new java.awt.Dimension(26, 26));
         btn32.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn32.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn32.addActionListener(new java.awt.event.ActionListener() {
