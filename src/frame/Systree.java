@@ -640,7 +640,7 @@ public class Systree extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panNorthLayout.createSequentialGroup()
-                        .addGap(0, 362, Short.MAX_VALUE)
+                        .addGap(0, 234, Short.MAX_VALUE)
                         .addComponent(pam9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -742,7 +742,7 @@ public class Systree extends javax.swing.JFrame {
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -760,14 +760,14 @@ public class Systree extends javax.swing.JFrame {
 
         pan1.add(pan2, java.awt.BorderLayout.NORTH);
 
-        tabb1.setPreferredSize(new java.awt.Dimension(455, 325));
+        tabb1.setPreferredSize(new java.awt.Dimension(455, 275));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 tabb1StateChanged(evt);
             }
         });
 
-        pan6.setPreferredSize(new java.awt.Dimension(360, 208));
+        pan6.setPreferredSize(new java.awt.Dimension(360, 268));
 
         jLabel13.setFont(common.Util.getFont(0,0));
         jLabel13.setText("Зап-ие по умолчанию");
@@ -935,7 +935,7 @@ public class Systree extends javax.swing.JFrame {
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan6Layout.setVerticalGroup(
             pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -973,12 +973,12 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         tabb1.addTab("Основные параметры", pan6);
 
-        pan3.setPreferredSize(new java.awt.Dimension(450, 300));
+        pan3.setPreferredSize(new java.awt.Dimension(450, 260));
         pan3.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
@@ -1011,7 +1011,7 @@ public class Systree extends javax.swing.JFrame {
 
         tabb1.addTab("Профили в системе", pan3);
 
-        pan4.setPreferredSize(new java.awt.Dimension(450, 300));
+        pan4.setPreferredSize(new java.awt.Dimension(450, 260));
         pan4.setLayout(new java.awt.BorderLayout());
 
         scr3.setBorder(null);
@@ -1047,7 +1047,7 @@ public class Systree extends javax.swing.JFrame {
 
         tabb1.addTab("Фурнитура в системе", pan4);
 
-        pan5.setPreferredSize(new java.awt.Dimension(450, 300));
+        pan5.setPreferredSize(new java.awt.Dimension(450, 260));
         pan5.setLayout(new java.awt.BorderLayout());
 
         scr4.setBorder(null);

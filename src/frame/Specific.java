@@ -23,27 +23,14 @@ import wincalc.constr.Specification;
 public class Specific extends javax.swing.JFrame {
 
     private wincalc.Wincalc iwin = null;
-    private FrameListener listenerFrame = null;
     private Window owner = null;
-    private FrameListener<Object, Object> listenerModify = new FrameListener() {
-
-        Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
-            new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))};
-
-        public void actionRequest(Object obj) {
-            btnSave.setIcon(btnIM[0]);
-        }
-
-        public void actionResponse(Object obj) {
-            btnSave.setIcon(btnIM[1]);
-        }
-    };
 
     public Specific() {
         initComponents();
         initElements();
         createWincalc();
-        load();
+        loadingData();
+        loadingModel();
     }
 
     public Specific(java.awt.Window owner, Wincalc iwin) {
@@ -51,25 +38,26 @@ public class Specific extends javax.swing.JFrame {
         initElements();
         this.owner = owner;
         this.iwin = iwin;
-        listenerFrame = (FrameListener) owner;
         owner.setEnabled(false);
-        load();
+        loadingData();
+        loadingModel();
     }
 
-    private void load() {
+    private void loadingData() {
 
         iwin.constructiv();
         Collections.sort(iwin.listSpec, (o1, o2) -> Float.compare(o1.id, o2.id));
+    }
 
+    private void loadingModel() {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         dtm.getDataVector().clear();
         for (Specification specRec : iwin.listSpec) {
-
             Vector vector = specRec.getVector();
             dtm.addRow(vector);
-        }
+        }        
     }
-
+    
     private void createWincalc() {
 
         iwin = new Wincalc();
@@ -94,7 +82,6 @@ public class Specific extends javax.swing.JFrame {
         btnClose = new javax.swing.JButton();
         btnHelp = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnFind = new javax.swing.JButton();
@@ -106,6 +93,7 @@ public class Specific extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Спецификация");
+        setPreferredSize(new java.awt.Dimension(900, 449));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Specific.this.windowClosed(evt);
@@ -114,7 +102,7 @@ public class Specific extends javax.swing.JFrame {
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(1200, 29));
+        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -162,26 +150,9 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c036.gif"))); // NOI18N
-        btnSave.setToolTipText(bundle.getString("Сохранить")); // NOI18N
-        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSave.setEnabled(false);
-        btnSave.setFocusable(false);
-        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSave.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSave.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSave.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave(evt);
-            }
-        });
-
         btnDel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c034.gif"))); // NOI18N
         btnDel.setToolTipText(bundle.getString("Удалить")); // NOI18N
         btnDel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnDel.setEnabled(false);
         btnDel.setFocusable(false);
         btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnDel.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -197,7 +168,6 @@ public class Specific extends javax.swing.JFrame {
         btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
         btnIns.setToolTipText(bundle.getString("Добавить")); // NOI18N
         btnIns.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnIns.setEnabled(false);
         btnIns.setFocusable(false);
         btnIns.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnIns.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -250,10 +220,8 @@ public class Specific extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
+                .addGap(125, 125, 125)
                 .addComponent(btnFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,7 +235,6 @@ public class Specific extends javax.swing.JFrame {
             panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panNorthLayout.createSequentialGroup()
                 .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -283,7 +250,7 @@ public class Specific extends javax.swing.JFrame {
 
         panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(1200, 20));
+        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
 
         javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
         panSouth.setLayout(panSouthLayout);
@@ -298,6 +265,7 @@ public class Specific extends javax.swing.JFrame {
 
         getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
 
+        panCentr.setPreferredSize(new java.awt.Dimension(900, 400));
         panCentr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -339,10 +307,6 @@ public class Specific extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnRefresh
 
-    private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave
-
-    }//GEN-LAST:event_btnSave
-
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
     }//GEN-LAST:event_btnDelete
@@ -373,7 +337,6 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
-    private javax.swing.JButton btnSave;
     private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panNorth;
     private javax.swing.JPanel panSouth;
