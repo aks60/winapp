@@ -644,7 +644,7 @@ public class Profstroy {
                     st2.addBatch("update " + table1.tname() + " set " + fk1.name() + " = " + obj[0] + " where id = " + rs.getObject("id"));
                 }
             }
-            String postpref = (recordCount == recordUpdate) ? "" : "\u001B[34m Всего/прпущено = " + recordCount + "/" + (recordCount - recordUpdate) + "\u001B[0m";
+            String postpref = (recordCount == recordUpdate) ? "" : "\u001B[34m Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate) + "\u001B[0m";
             System.out.println("update " + table1.tname() + " set " + fk1.name() + " = (select id from " + table2.tname()
                     + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")" + postpref);
             st2.executeBatch();
