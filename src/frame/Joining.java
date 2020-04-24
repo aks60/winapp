@@ -411,7 +411,7 @@ public class Joining extends javax.swing.JFrame {
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+                Joining.this.windowClosed(evt);
             }
         });
 
@@ -804,12 +804,12 @@ public class Joining extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnInsert
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (owner != null)
             owner.setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
+    }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
 

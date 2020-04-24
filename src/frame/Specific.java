@@ -108,7 +108,7 @@ public class Specific extends javax.swing.JFrame {
         setTitle("Спецификация");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+                Specific.this.windowClosed(evt);
             }
         });
 
@@ -359,10 +359,10 @@ public class Specific extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReportChoice
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         if (owner != null)
             owner.setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
+    }//GEN-LAST:event_windowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables

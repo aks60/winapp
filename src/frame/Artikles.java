@@ -269,7 +269,7 @@ public class Artikles extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(600, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+                Artikles.this.windowClosed(evt);
             }
         });
 
@@ -716,10 +716,10 @@ public class Artikles extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2);
         Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
-    }//GEN-LAST:event_formWindowClosed
+    }//GEN-LAST:event_windowClosed
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {

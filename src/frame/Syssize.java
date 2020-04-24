@@ -65,7 +65,7 @@ public class Syssize extends javax.swing.JFrame {
         setTitle("Системнык константы");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+                Syssize.this.windowClosed(evt);
             }
         });
 
@@ -295,12 +295,12 @@ public class Syssize extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1);
         qSyssize.execsql();
         if (owner != null)
             owner.setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
+    }//GEN-LAST:event_windowClosed
 
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
         listener.action(eSyssize.up.newRecord());

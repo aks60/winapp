@@ -75,22 +75,23 @@ public class Element extends javax.swing.JFrame
     }
 
     public Element(java.awt.Window owner, int nuni) {
+        this.nuni = nuni;
+        this.owner = owner;        
         initComponents();
         initElements();
-        this.nuni = nuni;
-        this.owner = owner;
-        owner.setEnabled(false);
-        Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
-        query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
-        subsql = "(" + subsql.substring(1) + ")";
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
+        owner.setEnabled(false);        
     }
 
     private void loadingData() {
-
+        if (owner != null) {
+            Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
+            query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
+            subsql = "(" + subsql.substring(1) + ")";
+        }
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
@@ -116,7 +117,7 @@ public class Element extends javax.swing.JFrame
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name,  eElement.typset, eElement.series, eElement.todef, eElement.toset, eElement.markup) {
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series, eElement.todef, eElement.toset, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -284,20 +285,20 @@ public class Element extends javax.swing.JFrame
             Record record = qElemgrp.get(row);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1 || id == -5) {
-                if (subsql.isEmpty() == false) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.artikl_id, "in " + subsql);
-                } else {
+                if (owner == null) {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
                             "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
-                }
-            } else {
-                if (subsql.isEmpty() == false) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "and", eElement.artikl_id, "in " + subsql, "order by", eElement.name);
                 } else {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.artikl_id, "in " + subsql);
+                }
+            } else {
+                if (owner == null) {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
                             "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
+                } else {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "where", eElement.elemgrp_id, "=", id, "and", eElement.artikl_id, "in " + subsql, "order by", eElement.name);
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -462,7 +463,7 @@ public class Element extends javax.swing.JFrame
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+                Element.this.windowClosed(evt);
             }
         });
 
@@ -851,12 +852,14 @@ public class Element extends javax.swing.JFrame
         }
     }//GEN-LAST:event_btnInsert
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (owner != null)
+        if (owner != null) {
             owner.setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
+            owner = null;
+        }
+    }//GEN-LAST:event_windowClosed
 
     private void ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmCategAction
         JMenuItem ppm = (JMenuItem) evt.getSource();
