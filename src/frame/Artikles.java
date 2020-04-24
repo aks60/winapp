@@ -92,11 +92,11 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
 
-        rsvArtikl = new DefFieldEditor(rsmArtikl) {
+        rsvArtikl = new DefFieldEditor(tab1) {
             @Override
             public void load(Integer row) {
                 super.load(row);
-                Record artiklRec = qArtikl.get(row);
+                Record artiklRec = qArtikl.get(Util.getSelectedRec(tab1));
                 Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc_id))).findFirst().orElse(null);
                 if (currencRec != null) {
                     txtField7.setText(currencRec.getStr(eCurrenc.name));
@@ -187,7 +187,7 @@ public class Artikles extends javax.swing.JFrame {
             Record record = qArtikl.get(row);
             int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
-            rsvArtikl.load(row);
+            rsvArtikl.load();
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, 0);
         }

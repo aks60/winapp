@@ -30,6 +30,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 import main.Main;
 import swing.DefCellEditor;
 import swing.DefTableModel;
@@ -494,6 +498,19 @@ public class Util {
             r.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
         } catch (Exception e) {
             System.err.println(e);
+        }
+    }
+
+    //Проверка на коррекность ввода
+    public static void documentFilter1(JTextField... txtField) {
+        for (JTextField txtField2 : txtField) {
+            ((PlainDocument) txtField2.getDocument()).setDocumentFilter(new DocumentFilter() {
+                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
+                    if (string.length() > 1 || "0123456789;".indexOf(string) != -1) {
+                        super.replace(fb, offset, length, string, attrs);
+                    }
+                }
+            });
         }
     }
 }

@@ -2,6 +2,7 @@ package frame;
 
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eSystree;
@@ -40,6 +41,7 @@ public class BoxCustom extends javax.swing.JFrame {
             btnSave.setIcon(btnIM[1]);
         }
     };
+    private JTable tab1 = new JTable();
     private AreaRoot rootArea;
     public Wincalc iwin = new Wincalc();
     private PaintPanel paintPanel = new PaintPanel(iwin);
@@ -49,8 +51,8 @@ public class BoxCustom extends javax.swing.JFrame {
         initElements();
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
-        DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        rsvSystree = new DefFieldEditor(rsmSystree);
+        DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.id);
+        rsvSystree = new DefFieldEditor(tab1);
         rsvSystree.add(eSystree.types, txtField3, TypeUse.values());
         loadTree1();
     }
@@ -89,7 +91,7 @@ public class BoxCustom extends javax.swing.JFrame {
                 Query q = qSystree.table(eSystree.up);
                 for (int i = 0; i < q.size(); i++) {
                     if (id == q.get(i).getInt(eSystree.id)) {
-                        rsvSystree.load(i);
+                        rsvSystree.load(1);
                     }
                 }
                 int typeSys = node.record.getInt(eSystree.types);

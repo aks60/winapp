@@ -448,7 +448,7 @@ public class Profstroy {
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
             updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
-            executeSql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
+            executeSql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')"); //TODO 'НАБОР'- конвертирование фурнитуры
             executeSql("update furndet set furndet_id = id where fleve = 1");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
