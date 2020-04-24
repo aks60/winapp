@@ -31,7 +31,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
-import swing.DefFieldEditor;
+import swing.DefCellEditor;
 import swing.DefTableModel;
 
 /**
@@ -336,14 +336,14 @@ public class Util {
     //Инкапсуляция кнопки в ячейку таблицы
     public static JButton buttonEditorCell(JTable table, int column) {
         JButton btn = new JButton("...");
-        table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(btn));
+        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(btn));
         return btn;
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
     public static JButton buttonEditorCell(JTable table, int column, EditorListener listener) {
         JButton btn = new JButton("...");
-        table.getColumnModel().getColumn(column).setCellEditor(new DefFieldEditor(listener, btn));
+        table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(listener, btn));
         return btn;
     }
 
@@ -371,15 +371,15 @@ public class Util {
         Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
         Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();
 
-        if (component instanceof DefFieldEditor) { //вид и тип ячейки
-            DefFieldEditor editor = (DefFieldEditor) component;
+        if (component instanceof DefCellEditor) { //вид и тип ячейки
+            DefCellEditor editor = (DefCellEditor) component;
             JTable tab = Util.getCellEditing(tabses);
 
-            DefFieldEditor editor2 = (DefFieldEditor) table1.getColumnModel().getColumn(1).getCellEditor();
+            DefCellEditor editor2 = (DefCellEditor) table1.getColumnModel().getColumn(1).getCellEditor();
             if (editor.getButton() == editor2.getButton()) {
                 Util.formatterCell(qParam1, table1, editor); //установим вид и тип ячейки
             }
-            editor2 = (DefFieldEditor) table2.getColumnModel().getColumn(1).getCellEditor();
+            editor2 = (DefCellEditor) table2.getColumnModel().getColumn(1).getCellEditor();
             if (editor.getButton() == editor2.getButton()) {
                 Util.formatterCell(qParam2, table2, editor); //установим вид и тип ячейки
             }
@@ -398,7 +398,7 @@ public class Util {
     }
 
     //Редактирование параметра ячейки таблицы
-    public static void formatterCell(Query query, JTable table, DefFieldEditor editor) {
+    public static void formatterCell(Query query, JTable table, DefCellEditor editor) {
 
         JTextField txt = editor.getTextField();
         int grup = query.getAs(getSelectedRec(table), eJoinpar1.grup, -1);

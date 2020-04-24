@@ -6,7 +6,7 @@ import common.FrameToFile;
 import common.Util;
 import dataset.ConnApp;
 import dataset.Field;
-import swing.DefFieldEditor;
+import swing.DefCellEditor;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -24,7 +24,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import swing.DefTableModel;
-import swing.DefFieldRenderer;
+import swing.DefFieldEditor;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -43,7 +43,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
-    private DefFieldRenderer rsvArtikl;
+    private DefFieldEditor rsvArtikl;
     private DialogListener listenerDic;
 
     public Artikles() {
@@ -92,7 +92,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
 
-        rsvArtikl = new DefFieldRenderer(rsmArtikl) {
+        rsvArtikl = new DefFieldEditor(rsmArtikl) {
             @Override
             public void load(Integer row) {
                 super.load(row);
@@ -112,12 +112,12 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_centr, txtField8);
 
         JButton btnT2C0 = new JButton("...");
-        tab2.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT2C0));
+        tab2.getColumnModel().getColumn(0).setCellEditor(new DefCellEditor(btnT2C0));
         btnT2C0.addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerDic);
         });
         JButton btnT2C1 = new JButton("...");
-        tab2.getColumnModel().getColumn(1).setCellEditor(new DefFieldEditor(btnT2C1));
+        tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
             DicColor frame = new DicColor(this, listenerDic);
         });

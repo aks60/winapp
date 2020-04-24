@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import swing.DefTableModel;
-import swing.DefFieldEditor;
+import swing.DefCellEditor;
 
 /**
  * <p>

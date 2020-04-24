@@ -21,7 +21,7 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import swing.DefFieldEditor;
+import swing.DefCellEditor;
 import swing.DefTableModel;
 
 public class Color extends javax.swing.JFrame {
@@ -50,7 +50,7 @@ public class Color extends javax.swing.JFrame {
             eParams.text.meta().descr("Название параметра");            
             //ParColor frame = new ParColor(this, listenerColor, query, eParams.text);
         });
-        tab3.getColumnModel().getColumn(0).setCellEditor(new DefFieldEditor(btnT3C0));
+        tab3.getColumnModel().getColumn(0).setCellEditor(new DefCellEditor(btnT3C0));
         Util.setSelectedRow(tab1, 0);
     }
 

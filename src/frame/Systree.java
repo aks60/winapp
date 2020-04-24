@@ -54,7 +54,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import swing.BooleanRenderer;
-import swing.DefFieldRenderer;
+import swing.DefFieldEditor;
 import swing.DefTableModel;
 import wincalc.Wincalc;
 import wincalc.model.PaintPanel;
@@ -70,7 +70,7 @@ public class Systree extends javax.swing.JFrame {
     private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2, listenerBtn1;
     private DefMutableTreeNode rootTree = null;
-    private DefFieldRenderer rsvSystree;
+    private DefFieldEditor rsvSystree;
     private Wincalc iwin = new Wincalc();
     private java.awt.Frame frame = null;
     private int nuni = -1;
@@ -221,7 +221,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         rsmSysprof.setFrameListener(listenerModify);
-        rsvSystree = new DefFieldRenderer(rsmSystree);
+        rsvSystree = new DefFieldEditor(rsmSystree);
         rsvSystree.add(eSystree.name, txtField8);
         rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
         rsvSystree.add(eSystree.glas, txtField1);

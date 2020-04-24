@@ -16,7 +16,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
-import swing.DefFieldRenderer;
+import swing.DefFieldEditor;
 import wincalc.script.AreaRoot;
 import swing.DefTableModel;
 import wincalc.Wincalc;
@@ -26,7 +26,7 @@ import wincalc.script.Winscript;
 public class BoxCustom extends javax.swing.JFrame {
 
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
-    private DefFieldRenderer rsvSystree;
+    private DefFieldEditor rsvSystree;
     private FrameListener<Object, Object> listenerModify = new FrameListener() {
 
         Icon[] btnIM = {new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif")),
@@ -50,7 +50,7 @@ public class BoxCustom extends javax.swing.JFrame {
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         DefTableModel rsmSystree = new DefTableModel(new JTable(), qSystree, eSystree.id);
-        rsvSystree = new DefFieldRenderer(rsmSystree);
+        rsvSystree = new DefFieldEditor(rsmSystree);
         rsvSystree.add(eSystree.types, txtField3, TypeUse.values());
         loadTree1();
     }

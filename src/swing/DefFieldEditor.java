@@ -1,121 +1,149 @@
+/*
+ * Связывание полей JTextField с моделью данных
+ */
 package swing;
 
-import common.EditorListener;
+import common.Util;
+import enums.Enam;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.JTextComponent;
 import dataset.Field;
 import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
 
-public class DefFieldEditor extends DefaultCellEditor {
+/**
+ * <p>
+ * Визуализация полей </p>
+ */
+public class DefFieldEditor {
 
-    private EditorListener listenerCell = null;
-    protected JComponent panel = new javax.swing.JPanel();
-    protected JButton button = null;
+    private int row;
+    private DefTableModel tableModel = null;
+    private HashMap<Field, Enam[]> mapEnam = new HashMap(8);
+    private HashMap<JTextComponent, Field> mapTxt = new HashMap(16);
+    private HashMap<Component, Field> mapBtn = new HashMap(16);
+    private static boolean update = false;
 
-    public DefFieldEditor(JButton button) {
-        super(new JTextField());
-        init(button);
+    //Конструктор 1
+    public DefFieldEditor(DefTableModel tableModel) {
+        this.tableModel = tableModel;
     }
 
-    public DefFieldEditor(EditorListener listener, JButton button) {
-        super(new JTextField());
-        this.listenerCell = listener;
-        init(button);
-    }
+    //Добавить компонент отображения
+    public void add(Field field, JTextComponent comp) {
 
-    private void init(JButton button) {
-        this.button = button;
-        button.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        button.setFocusable(false);
-        button.setPreferredSize(new java.awt.Dimension(24, 18));
-
-        panel = new javax.swing.JPanel();
-        panel.setBorder(null);
-        panel.setBackground(new java.awt.Color(240, 240, 240));
-        panel.setLayout(new java.awt.BorderLayout());
-
-        JTextField editorText = (JTextField) editorComponent;
-        editorText.setPreferredSize(new java.awt.Dimension(60, 18));
-        editorText.setEditable(false);
-        editorText.setBorder(null);
-        editorText.setBackground(new java.awt.Color(255, 255, 255));
-        panel.add(editorText, java.awt.BorderLayout.CENTER);
-        panel.add(button, java.awt.BorderLayout.EAST);
-
-        PlainDocument doc = (PlainDocument) editorText.getDocument();
-        doc.setDocumentFilter(new DocumentFilter() {
-            
-            @Override
-            public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                if (listenerCell == null) {
-                    super.insertString(fb, offset, string, attr);
-
-                } else {
-                    if (listenerCell.action(string) == true) { //проверка на коррекность ввода
-                        super.insertString(fb, offset, string, attr);
-                    }
-                }
-            }
-
-            @Override
-            public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String string, AttributeSet attrs) throws BadLocationException {
-                if (listenerCell == null) {
-                    super.replace(fb, offset, length, string, attrs);
-
-                } else {
-                    if (listenerCell.action(string) == true) {  //проверка на коррекность ввода
-                        super.replace(fb, offset, length, string, attrs);
-                    }
-                }
-            }
-        });
-    }
-
-    @Override
-    public Component getTableCellEditorComponent(JTable table, Object value,
-            boolean isSelected, int row, int column) {
-
-        Field field = ((DefTableModel) table.getModel()).getColumn(column);
-        ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
-        delegate.setValue(value);
-        return panel;
-    }
-
-    @Override
-    public boolean isCellEditable(EventObject anEvent) {
-        if (anEvent instanceof MouseEvent == true) {          
-            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) { 
-                listenerCell.action(DefFieldEditor.this);
+        mapTxt.put(comp, field);
+        //если редактирование запрещено
+        if (field instanceof Field) {
+            if (field.meta().edit() == false) {
+                comp.setEditable(false);
+                comp.setBackground(new java.awt.Color(255, 255, 255));
             }
         }
-        return delegate.isCellEditable(anEvent);
+        comp.getDocument().addDocumentListener(new DocListiner(comp));
     }
 
-//    @Override
-//    public boolean stopCellEditing() {
-//        JTextField txt = (JTextField) getComponent();
-//        if (listenerCell != null) {
-//            if (listenerCell.action(txt) == false) {
-//                return false;
-//            }
-//        }
-//        return super.stopCellEditing();
-//    }
+    //Данные для отображения и слушатель DocListiner для отслеживания редактирования
+    public void add(Field field, JTextComponent comp, Component btn) {
 
-    public JButton getButton() {
-        return button;
+        add(field, comp);
+        mapBtn.put(btn, field);
+
     }
 
-    public JTextField getTextField() {
-        return (JTextField) editorComponent;
+    public void add(Field field, JTextComponent comp, Enam[] enam) {
+
+        add(field, comp);
+        mapEnam.put(field, enam);
+    }
+
+    public void add(Field field, JTextComponent comp, Component btn, Enam[] enam) {
+        add(field, comp, btn);
+        mapEnam.put(field, enam);
+    }
+
+    public void clear() {
+        for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
+            JTextComponent comp = me.getKey();
+            Field field = me.getValue();
+            comp.setText(null);
+            if (field.meta().type().equals(Field.TYPE.STR)) {
+                comp.setText("");
+            } else {
+                comp.setText("0");
+            }
+        }
+    }
+
+    //Загрузить данные в компоненты из модели данных
+    public void load(Integer row) {
+
+        update = false;
+        this.row = row;
+        for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
+            JTextComponent comp = me.getKey();
+            Field field = me.getValue();
+            Object val = tableModel.getQuery().table(field).get(row, field);
+
+            if (val == null || row == -1) {
+                if (field.meta().type().equals(Field.TYPE.STR)) {
+                    comp.setText("");
+                } else {
+                    comp.setText("0");
+                }
+            } else if (field.meta().type().equals(Field.TYPE.DATE)) {
+                comp.setText(Util.DateToStr(val));
+
+            } else if (mapEnam.containsKey(field)) {
+                for (Enam enam : mapEnam.get(field)) {
+                    if (val.equals(enam.numb())) {
+                        comp.setText(enam.text());
+                    }
+                }
+            } else {
+                comp.setText(val.toString());
+            }
+
+            comp.getCaret().setDot(1);
+        }
+        update = true;
+    }
+
+    class DocListiner implements DocumentListener, ActionListener {
+
+        private JTextComponent comp;
+
+        DocListiner(JTextComponent field) {
+            this.comp = field;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            fieldUpdate();
+        }
+
+        public void insertUpdate(DocumentEvent e) {
+            fieldUpdate();
+        }
+
+        public void removeUpdate(DocumentEvent e) {
+            fieldUpdate();
+        }
+
+        public void changedUpdate(DocumentEvent e) {
+            fieldUpdate();
+        }
+
+        //При редактированиии одного из полей
+        public void fieldUpdate() {
+            if (update == true && row != -1) {
+                if (tableModel.getRowCount() > 0) {
+                    tableModel.setValueAt(comp.getText(), row, mapTxt.get(comp));
+                }
+            }
+        }
     }
 }
