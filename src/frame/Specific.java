@@ -54,14 +54,7 @@ public class Specific extends javax.swing.JFrame {
 
     private void loadingModel() {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
-        //RowFilter<Object, Object> filter = new RowFilter<Object, Object>();
-        
-//    final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(dtm);
-//    tab1.setRowSorter(sorter);
-//    String expr = txtFE.getText();
-//    ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(expr));        
-        
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());     
         tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
         for (Specification specRec : iwin.listSpec) { //заполним спецификацию
@@ -92,7 +85,6 @@ public class Specific extends javax.swing.JFrame {
 
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
-        btnHelp = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
@@ -133,21 +125,6 @@ public class Specific extends javax.swing.JFrame {
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClose(evt);
-            }
-        });
-
-        btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c020.gif"))); // NOI18N
-        btnHelp.setToolTipText(bundle.getString("Справка")); // NOI18N
-        btnHelp.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnHelp.setFocusable(false);
-        btnHelp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnHelp.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnHelp.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnHelp.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHelp(evt);
             }
         });
 
@@ -222,11 +199,9 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 615, Short.MAX_VALUE)
-                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 709, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -238,7 +213,6 @@ public class Specific extends javax.swing.JFrame {
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -314,10 +288,6 @@ public class Specific extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnClose
 
-    private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
-        //ExecuteCmd.startHelp(this.getClass().getName());
-    }//GEN-LAST:event_btnHelp
-
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
 
     }//GEN-LAST:event_btnRefresh
@@ -346,12 +316,11 @@ public class Specific extends javax.swing.JFrame {
         JTable table = tab1;
         btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
-           ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(null);  
-           //((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(expr));  
+            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(null);
         } else {
             int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
             String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+            ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterUpdate
 
@@ -368,7 +337,6 @@ public class Specific extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
