@@ -2,21 +2,24 @@ package frame;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import common.eProperty;
-import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
 import domain.eSystree;
 import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Vector;
-import javax.swing.Icon;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import swing.DefTableModel;
 import wincalc.Wincalc;
 import wincalc.constr.Specification;
 
@@ -51,6 +54,15 @@ public class Specific extends javax.swing.JFrame {
 
     private void loadingModel() {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
+        //RowFilter<Object, Object> filter = new RowFilter<Object, Object>();
+        
+//    final TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(dtm);
+//    tab1.setRowSorter(sorter);
+//    String expr = txtFE.getText();
+//    ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(expr));        
+        
+        tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
         for (Specification specRec : iwin.listSpec) { //заполним спецификацию
             Vector vector = specRec.getVector();
@@ -78,28 +90,35 @@ public class Specific extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnHelp = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        panCentr = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        south = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Спецификация");
+        setPreferredSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Specific.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -192,11 +211,11 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,11 +230,11 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,10 +244,10 @@ public class Specific extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(900, 400));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setPreferredSize(new java.awt.Dimension(900, 500));
+        centr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
 
@@ -242,6 +261,11 @@ public class Specific extends javax.swing.JFrame {
             }
         ));
         tab1.setFillsViewportHeight(true);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Specific.this.mousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(5).setMinWidth(120);
@@ -250,9 +274,38 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(11).setMinWidth(40);
         }
 
-        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
+        centr.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
+
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
+
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        south.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                filterUpdate(evt);
+            }
+        });
+        south.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        south.add(checkFilter);
+
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -288,6 +341,29 @@ public class Specific extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_windowClosed
 
+    private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
+
+        JTable table = tab1;
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+           ((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(null);  
+           //((TableRowSorter<TableModel>) tab1.getRowSorter()).setRowFilter(RowFilter.regexFilter(expr));  
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_filterUpdate
+
+    private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
+        JTable table = (JTable) evt.getSource();
+        Util.listenerClick(table, Arrays.asList(tab1));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }//GEN-LAST:event_mousePressed
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -296,10 +372,14 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panNorth;
+    private javax.swing.JPanel centr;
+    private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel labFilter;
+    private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {

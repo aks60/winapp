@@ -73,7 +73,7 @@ public class Kits extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGroup1 = new javax.swing.ButtonGroup();
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -82,7 +82,7 @@ public class Kits extends javax.swing.JFrame {
         rbtn2 = new javax.swing.JRadioButton();
         rbn3 = new javax.swing.JRadioButton();
         rbtn4 = new javax.swing.JRadioButton();
-        panCentr = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         pan2 = new javax.swing.JPanel();
@@ -90,20 +90,21 @@ public class Kits extends javax.swing.JFrame {
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Комплекты");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(800, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Kits.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(700, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -195,11 +196,11 @@ public class Kits extends javax.swing.JFrame {
         rbtn4.setMinimumSize(new java.awt.Dimension(96, 25));
         rbtn4.setPreferredSize(new java.awt.Dimension(96, 25));
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,31 +219,31 @@ public class Kits extends javax.swing.JFrame {
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createSequentialGroup()
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rbn3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(rbtn4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rbtn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(rbtn2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(700, 560));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setPreferredSize(new java.awt.Dimension(800, 560));
+        centr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
 
@@ -265,7 +266,7 @@ public class Kits extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(4).setMaxWidth(40);
         }
 
-        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
+        centr.add(scr1, java.awt.BorderLayout.CENTER);
 
         pan2.setPreferredSize(new java.awt.Dimension(700, 200));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -313,26 +314,26 @@ public class Kits extends javax.swing.JFrame {
 
         pan2.add(scr3, java.awt.BorderLayout.EAST);
 
-        panCentr.add(pan2, java.awt.BorderLayout.SOUTH);
+        centr.add(pan2, java.awt.BorderLayout.SOUTH);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(700, 20));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(800, 20));
 
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
+        south.setLayout(southLayout);
+        southLayout.setHorizontalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 952, Short.MAX_VALUE)
         );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        southLayout.setVerticalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 16, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -420,10 +421,9 @@ public class Kits extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroup1;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JPanel centr;
+    private javax.swing.JPanel north;
     private javax.swing.JPanel pan2;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
     private javax.swing.JRadioButton rbn3;
     private javax.swing.JRadioButton rbtn1;
     private javax.swing.JRadioButton rbtn2;
@@ -431,6 +431,7 @@ public class Kits extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;

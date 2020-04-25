@@ -546,7 +546,7 @@ public class Furniture extends javax.swing.JFrame {
     private void initComponents() {
 
         grour1 = new javax.swing.ButtonGroup();
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnIns = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
@@ -555,7 +555,7 @@ public class Furniture extends javax.swing.JFrame {
         rdb2 = new javax.swing.JRadioButton();
         rdb3 = new javax.swing.JRadioButton();
         btnReport = new javax.swing.JButton();
-        panCentr = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -582,7 +582,7 @@ public class Furniture extends javax.swing.JFrame {
         tab6 = new javax.swing.JTable();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
@@ -592,16 +592,16 @@ public class Furniture extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Фурнитура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 521));
+        setPreferredSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Furniture.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnIns.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c033.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -698,11 +698,11 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -721,17 +721,17 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panNorthLayout.createSequentialGroup()
+                    .addGroup(northLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rdb1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rdb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rdb3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -739,10 +739,10 @@ public class Furniture extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(900, 582));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setPreferredSize(new java.awt.Dimension(900, 500));
+        centr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(800, 260));
         pan1.setLayout(new java.awt.BorderLayout());
@@ -854,7 +854,7 @@ public class Furniture extends javax.swing.JFrame {
 
         pan1.add(pan5, java.awt.BorderLayout.EAST);
 
-        panCentr.add(pan1, java.awt.BorderLayout.NORTH);
+        centr.add(pan1, java.awt.BorderLayout.NORTH);
 
         pan2.setPreferredSize(new java.awt.Dimension(800, 302));
         pan2.setLayout(new java.awt.BorderLayout());
@@ -1015,21 +1015,21 @@ public class Furniture extends javax.swing.JFrame {
 
         pan2.add(pan6, java.awt.BorderLayout.CENTER);
 
-        panCentr.add(pan2, java.awt.BorderLayout.CENTER);
+        centr.add(pan2, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
-        panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
         labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        panSouth.add(labFilter);
+        south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
@@ -1041,12 +1041,12 @@ public class Furniture extends javax.swing.JFrame {
                 txtFilterfilterCaretUpdate(evt);
             }
         });
-        panSouth.add(txtFilter);
+        south.add(txtFilter);
 
         checkFilter.setText("в конце строки");
-        panSouth.add(checkFilter);
+        south.add(checkFilter);
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1203,9 +1203,11 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.ButtonGroup grour1;
     private javax.swing.JLabel labFilter;
+    private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan2;
@@ -1215,9 +1217,6 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
     private javax.swing.JRadioButton rdb1;
     private javax.swing.JRadioButton rdb2;
     private javax.swing.JRadioButton rdb3;
@@ -1229,6 +1228,7 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
     private javax.swing.JScrollPane scr6;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2a;
     private javax.swing.JTable tab2b;

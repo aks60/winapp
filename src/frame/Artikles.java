@@ -220,13 +220,13 @@ public class Artikles extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        panCenter = new javax.swing.JPanel();
+        center = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -256,7 +256,7 @@ public class Artikles extends javax.swing.JFrame {
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
@@ -266,16 +266,17 @@ public class Artikles extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setMinimumSize(new java.awt.Dimension(600, 600));
+        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Artikles.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -353,11 +354,11 @@ public class Artikles extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -370,11 +371,11 @@ public class Artikles extends javax.swing.JFrame {
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -383,10 +384,10 @@ public class Artikles extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panCenter.setPreferredSize(new java.awt.Dimension(900, 600));
-        panCenter.setLayout(new java.awt.BorderLayout());
+        center.setPreferredSize(new java.awt.Dimension(900, 550));
+        center.setLayout(new java.awt.BorderLayout());
 
         pan2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan2.setPreferredSize(new java.awt.Dimension(300, 500));
@@ -579,7 +580,7 @@ public class Artikles extends javax.swing.JFrame {
                 .addContainerGap(245, Short.MAX_VALUE))
         );
 
-        panCenter.add(pan2, java.awt.BorderLayout.EAST);
+        center.add(pan2, java.awt.BorderLayout.EAST);
 
         pan4.setPreferredSize(new java.awt.Dimension(200, 500));
         pan4.setLayout(new java.awt.BorderLayout());
@@ -603,7 +604,7 @@ public class Artikles extends javax.swing.JFrame {
 
         pan4.add(scrTree, java.awt.BorderLayout.CENTER);
 
-        panCenter.add(pan4, java.awt.BorderLayout.WEST);
+        center.add(pan4, java.awt.BorderLayout.WEST);
 
         pan5.setPreferredSize(new java.awt.Dimension(400, 500));
         pan5.setLayout(new java.awt.BorderLayout());
@@ -641,7 +642,7 @@ public class Artikles extends javax.swing.JFrame {
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
 
-        panCenter.add(pan5, java.awt.BorderLayout.CENTER);
+        center.add(pan5, java.awt.BorderLayout.CENTER);
 
         pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan3.setPreferredSize(new java.awt.Dimension(800, 130));
@@ -680,21 +681,21 @@ public class Artikles extends javax.swing.JFrame {
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
-        panCenter.add(pan3, java.awt.BorderLayout.SOUTH);
+        center.add(pan3, java.awt.BorderLayout.SOUTH);
 
-        getContentPane().add(panCenter, java.awt.BorderLayout.CENTER);
+        getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(1000, 20));
-        panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
         labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        panSouth.add(labFilter);
+        south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
@@ -706,12 +707,12 @@ public class Artikles extends javax.swing.JFrame {
                 txtFilterCaretUpdate(evt);
             }
         });
-        panSouth.add(txtFilter);
+        south.add(txtFilter);
 
         checkFilter.setText("в конце строки");
-        panSouth.add(checkFilter);
+        south.add(checkFilter);
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -828,6 +829,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -839,16 +841,15 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel labFilter;
+    private javax.swing.JPanel north;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
-    private javax.swing.JPanel panCenter;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scrTree;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     public javax.swing.JTree tree;

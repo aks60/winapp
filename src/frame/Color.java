@@ -89,33 +89,34 @@ public class Color extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        panWest = new javax.swing.JPanel();
+        west = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        panCentr = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Текстура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
+        setPreferredSize(new java.awt.Dimension(900, 549));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Color.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(740, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -178,11 +179,11 @@ public class Color extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,11 +194,11 @@ public class Color extends javax.swing.JFrame {
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -205,11 +206,11 @@ public class Color extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panWest.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panWest.setPreferredSize(new java.awt.Dimension(200, 600));
-        panWest.setLayout(new java.awt.BorderLayout());
+        west.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        west.setPreferredSize(new java.awt.Dimension(200, 500));
+        west.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
 
@@ -234,13 +235,13 @@ public class Color extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
 
-        panWest.add(scr1, java.awt.BorderLayout.CENTER);
+        west.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panWest, java.awt.BorderLayout.WEST);
+        getContentPane().add(west, java.awt.BorderLayout.WEST);
 
-        panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panCentr.setPreferredSize(new java.awt.Dimension(458, 480));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        centr.setPreferredSize(new java.awt.Dimension(700, 500));
+        centr.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
         scr2.setPreferredSize(new java.awt.Dimension(450, 360));
@@ -272,7 +273,7 @@ public class Color extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
         }
 
-        panCentr.add(scr2, java.awt.BorderLayout.CENTER);
+        centr.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr3.setBorder(null);
         scr3.setPreferredSize(new java.awt.Dimension(454, 200));
@@ -293,26 +294,26 @@ public class Color extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
         }
 
-        panCentr.add(scr3, java.awt.BorderLayout.SOUTH);
+        centr.add(scr3, java.awt.BorderLayout.SOUTH);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(740, 20));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
 
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
+        south.setLayout(southLayout);
+        southLayout.setHorizontalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 773, Short.MAX_VALUE)
         );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        southLayout.setVerticalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 16, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -403,16 +404,16 @@ public class Color extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
-    private javax.swing.JPanel panWest;
+    private javax.swing.JPanel centr;
+    private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
+    private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {

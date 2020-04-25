@@ -350,12 +350,12 @@ public class Filling extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        panCentr = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -370,7 +370,7 @@ public class Filling extends javax.swing.JFrame {
         pan3 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
@@ -380,16 +380,16 @@ public class Filling extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Заполнения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 519));
+        setPreferredSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Filling.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -452,11 +452,11 @@ public class Filling extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -467,11 +467,11 @@ public class Filling extends javax.swing.JFrame {
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -479,10 +479,10 @@ public class Filling extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(900, 480));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setPreferredSize(new java.awt.Dimension(900, 500));
+        centr.setLayout(new java.awt.BorderLayout());
 
         pan1.setPreferredSize(new java.awt.Dimension(1000, 200));
         pan1.setLayout(new java.awt.BorderLayout());
@@ -545,7 +545,7 @@ public class Filling extends javax.swing.JFrame {
 
         pan1.add(scr3, java.awt.BorderLayout.EAST);
 
-        panCentr.add(pan1, java.awt.BorderLayout.CENTER);
+        centr.add(pan1, java.awt.BorderLayout.CENTER);
 
         tabb1.setToolTipText("");
         tabb1.setPreferredSize(new java.awt.Dimension(1000, 300));
@@ -663,22 +663,22 @@ public class Filling extends javax.swing.JFrame {
 
         tabb1.addTab("Прфили в группе", pan3);
 
-        panCentr.add(tabb1, java.awt.BorderLayout.SOUTH);
+        centr.add(tabb1, java.awt.BorderLayout.SOUTH);
         tabb1.getAccessibleContext().setAccessibleName("");
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
-        panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
         labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        panSouth.add(labFilter);
+        south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
@@ -690,12 +690,12 @@ public class Filling extends javax.swing.JFrame {
                 filterCaretUpdate(evt);
             }
         });
-        panSouth.add(txtFilter);
+        south.add(txtFilter);
 
         checkFilter.setText("в конце строки");
-        panSouth.add(checkFilter);
+        south.add(checkFilter);
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -799,19 +799,19 @@ public class Filling extends javax.swing.JFrame {
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
+    private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
+    private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;

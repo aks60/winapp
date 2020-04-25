@@ -415,27 +415,27 @@ public class Element extends javax.swing.JFrame
         ppmCateg = new javax.swing.JPopupMenu();
         itCateg1 = new javax.swing.JMenuItem();
         itCtag2 = new javax.swing.JMenuItem();
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        panCentr = new javax.swing.JPanel();
-        panNorth2 = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        panCentr2 = new javax.swing.JPanel();
+        pan2 = new javax.swing.JPanel();
         scr5 = new javax.swing.JScrollPane();
         tab5 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        panWest = new javax.swing.JPanel();
+        west = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
@@ -461,16 +461,16 @@ public class Element extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Составы");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 509));
+        setPreferredSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Element.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -548,11 +548,11 @@ public class Element extends javax.swing.JFrame
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -565,11 +565,11 @@ public class Element extends javax.swing.JFrame
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -578,14 +578,14 @@ public class Element extends javax.swing.JFrame
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panCentr.setPreferredSize(new java.awt.Dimension(858, 460));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        centr.setPreferredSize(new java.awt.Dimension(758, 460));
+        centr.setLayout(new java.awt.BorderLayout());
 
-        panNorth2.setPreferredSize(new java.awt.Dimension(847, 320));
-        panNorth2.setLayout(new java.awt.BorderLayout());
+        pan1.setPreferredSize(new java.awt.Dimension(847, 320));
+        pan1.setLayout(new java.awt.BorderLayout());
 
         scr2.setPreferredSize(new java.awt.Dimension(454, 320));
 
@@ -629,7 +629,7 @@ public class Element extends javax.swing.JFrame
             tab2.getColumnModel().getColumn(7).setMaxWidth(40);
         }
 
-        panNorth2.add(scr2, java.awt.BorderLayout.CENTER);
+        pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
         scr4.setPreferredSize(new java.awt.Dimension(260, 320));
 
@@ -662,11 +662,11 @@ public class Element extends javax.swing.JFrame
             tab4.getColumnModel().getColumn(1).setPreferredWidth(40);
         }
 
-        panNorth2.add(scr4, java.awt.BorderLayout.EAST);
+        pan1.add(scr4, java.awt.BorderLayout.EAST);
 
-        panCentr.add(panNorth2, java.awt.BorderLayout.NORTH);
+        centr.add(pan1, java.awt.BorderLayout.NORTH);
 
-        panCentr2.setLayout(new java.awt.BorderLayout());
+        pan2.setLayout(new java.awt.BorderLayout());
 
         scr5.setPreferredSize(new java.awt.Dimension(260, 204));
 
@@ -701,7 +701,7 @@ public class Element extends javax.swing.JFrame
             tab5.getColumnModel().getColumn(1).setPreferredWidth(40);
         }
 
-        panCentr2.add(scr5, java.awt.BorderLayout.EAST);
+        pan2.add(scr5, java.awt.BorderLayout.EAST);
 
         scr3.setPreferredSize(new java.awt.Dimension(454, 204));
 
@@ -723,14 +723,14 @@ public class Element extends javax.swing.JFrame
         });
         scr3.setViewportView(tab3);
 
-        panCentr2.add(scr3, java.awt.BorderLayout.CENTER);
+        pan2.add(scr3, java.awt.BorderLayout.CENTER);
 
-        panCentr.add(panCentr2, java.awt.BorderLayout.CENTER);
+        centr.add(pan2, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        panWest.setPreferredSize(new java.awt.Dimension(140, 480));
-        panWest.setLayout(new java.awt.BorderLayout());
+        west.setPreferredSize(new java.awt.Dimension(140, 480));
+        west.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -759,21 +759,21 @@ public class Element extends javax.swing.JFrame
         });
         scr1.setViewportView(tab1);
 
-        panWest.add(scr1, java.awt.BorderLayout.CENTER);
+        west.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panWest, java.awt.BorderLayout.WEST);
+        getContentPane().add(west, java.awt.BorderLayout.WEST);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
-        panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
         labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        panSouth.add(labFilter);
+        south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
@@ -785,12 +785,12 @@ public class Element extends javax.swing.JFrame
                 filterCaretUpdate(evt);
             }
         });
-        panSouth.add(txtFilter);
+        south.add(txtFilter);
 
         checkFilter.setText("в конце строки");
-        panSouth.add(checkFilter);
+        south.add(checkFilter);
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -833,7 +833,7 @@ public class Element extends javax.swing.JFrame
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            ppmCateg.show(panNorth, btnIns.getX(), btnIns.getY() + 18);
+            ppmCateg.show(north, btnIns.getX(), btnIns.getY() + 18);
 
         } else if (tab2.getBorder() != null) {
             Record rec = qElemgrp.get(Util.getSelectedRec(tab1));
@@ -913,28 +913,28 @@ public class Element extends javax.swing.JFrame
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JMenuItem itCateg1;
     private javax.swing.JMenuItem itCtag2;
     private javax.swing.JLabel labFilter;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panCentr2;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panNorth2;
-    private javax.swing.JPanel panSouth;
-    private javax.swing.JPanel panWest;
+    private javax.swing.JPanel north;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
     private javax.swing.JPopupMenu ppmCateg;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
     private javax.swing.JScrollPane scr5;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
     private javax.swing.JTable tab5;
     private javax.swing.JTextField txtFilter;
+    private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {

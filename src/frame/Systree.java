@@ -375,7 +375,7 @@ public class Systree extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panNorth = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
@@ -389,7 +389,7 @@ public class Systree extends javax.swing.JFrame {
         pam9 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
-        panCentr = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
@@ -434,7 +434,7 @@ public class Systree extends javax.swing.JFrame {
         pan5 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
-        panSouth = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
@@ -444,16 +444,16 @@ public class Systree extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Системы профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 520));
+        setPreferredSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Systree.this.windowClosed(evt);
             }
         });
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(900, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -615,14 +615,14 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap(167, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panNorthLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createSequentialGroup()
                         .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -642,20 +642,20 @@ public class Systree extends javax.swing.JFrame {
                         .addComponent(btnNon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panNorthLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
                         .addGap(0, 234, Short.MAX_VALUE)
                         .addComponent(pam9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createSequentialGroup()
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -670,11 +670,11 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panCentr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panCentr.setPreferredSize(new java.awt.Dimension(896, 570));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        centr.setPreferredSize(new java.awt.Dimension(900, 550));
+        centr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(260, 564));
@@ -687,7 +687,7 @@ public class Systree extends javax.swing.JFrame {
         });
         scr1.setViewportView(tree);
 
-        panCentr.add(scr1, java.awt.BorderLayout.WEST);
+        centr.add(scr1, java.awt.BorderLayout.WEST);
 
         pan1.setPreferredSize(new java.awt.Dimension(602, 565));
         pan1.setLayout(new java.awt.BorderLayout());
@@ -1094,21 +1094,21 @@ public class Systree extends javax.swing.JFrame {
 
         pan1.add(tabb1, java.awt.BorderLayout.CENTER);
 
-        panCentr.add(pan1, java.awt.BorderLayout.CENTER);
+        centr.add(pan1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(900, 20));
-        panSouth.setLayout(new javax.swing.BoxLayout(panSouth, javax.swing.BoxLayout.LINE_AXIS));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
         labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        panSouth.add(labFilter);
+        south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
@@ -1120,12 +1120,12 @@ public class Systree extends javax.swing.JFrame {
                 filterCaretUpdate(evt);
             }
         });
-        panSouth.add(txtFilter);
+        south.add(txtFilter);
 
         checkFilter.setText("в конце строки");
-        panSouth.add(checkFilter);
+        south.add(checkFilter);
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1373,6 +1373,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JToggleButton btnSpec;
     private javax.swing.JButton btnTypicalOkna;
+    private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel13;
@@ -1388,6 +1389,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel labFilter;
+    private javax.swing.JPanel north;
     private javax.swing.JPanel pam9;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -1397,14 +1399,12 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
     private javax.swing.JPanel pan8;
-    private javax.swing.JPanel panCentr;
     private javax.swing.JPanel panDesign;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
