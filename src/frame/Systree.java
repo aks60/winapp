@@ -292,10 +292,10 @@ public class Systree extends javax.swing.JFrame {
         listenetNuni = (record) -> {
             DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
             Record record2 = node.record;
-            int id = record.getInt(0);
-            record2.set(eSystree.sysprod_id, record.getInt(0));
+            int sysprod_id = record.getInt(0);
+            record2.set(eSystree.sysprod_id, sysprod_id);
             qSystree.update(record2);
-            createWincalc(record.getInt(0));
+            createWincalc(sysprod_id);
         };
 
         listenerFurn = (record) -> {
@@ -355,11 +355,14 @@ public class Systree extends javax.swing.JFrame {
 
     private void createWincalc(int sysprod_id) {
         if (sysprod_id != -1) {
-            String script = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
-            if (script != null && script.isEmpty() == false) {
-                JsonElement je = new Gson().fromJson(script, JsonElement.class);
-                je.getAsJsonObject().addProperty("nuni", nuni);
-                iwin.create(je.toString());
+            String script1 = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
+            if (script1 != null && script1.isEmpty() == false) {
+                JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
+                
+                script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
+                
+                //Калькуляция изделия
+                iwin.create(script2.toString()); 
                 paintPanel.repaint(true, 12);
             }
         } else {
