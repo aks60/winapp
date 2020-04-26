@@ -60,6 +60,7 @@ public class Specific extends javax.swing.JFrame {
         for (Specification specRec : iwin.listSpec) { //заполним спецификацию
             Vector vector = specRec.getVector();
             dtm.addRow(vector);
+            System.out.println(vector);
         }
     }
 
