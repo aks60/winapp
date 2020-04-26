@@ -29,13 +29,11 @@ public class FrameProgress extends javax.swing.JDialog {
         new SwingWorker() {
 
             protected Object doInBackground() throws Exception {
-                System.out.println(".doInBackground()");
                 listener.actionRequest(null);
                 return null;
             }
 
             public void done() {
-                System.out.println(".done()");
                 progressBar.setIndeterminate(false);
                 listener.actionResponse(null);
                 progress.dispose();
