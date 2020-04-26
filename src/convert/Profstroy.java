@@ -97,9 +97,9 @@ public class Profstroy {
             eCurrenc.up, eGroups.up
         };
         try {
-            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";            
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";            
             //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\aluteh.fdb?encoding=win1251";
-            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";            
+            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";            
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
