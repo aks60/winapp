@@ -55,6 +55,7 @@ public class DicGroups extends javax.swing.JDialog {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Справочник");
 
         panNn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNn.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -115,7 +116,7 @@ public class DicGroups extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -142,7 +143,7 @@ public class DicGroups extends javax.swing.JDialog {
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
+            .addGap(0, 257, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,7 +164,7 @@ public class DicGroups extends javax.swing.JDialog {
                 {"Name 0"}
             },
             new String [] {
-                "Название соединения"
+                "Наименование"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -196,14 +197,16 @@ public class DicGroups extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Record record = new Record();
-        record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
-        listener.action(record);
+        int row = getSelectedRec(tab1);
+        if (row != -1) {
+            Record record = qGroups.get(row);
+            listener.action(record);
+        }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        Record record = new Record();
+        Record record = eGroups.up.newRecord();
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnRemove

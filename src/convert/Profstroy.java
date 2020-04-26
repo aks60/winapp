@@ -180,13 +180,13 @@ public class Profstroy {
             updatePart(cn2, st2);
             metaPart(cn2, st2);
 
-//            System.out.println("\u001B[32m" + "Удаление лищних столбцов" + "\u001B[0m");
-//            for (Field fieldUp : fieldsUp) {
-//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-//                }
-//            }
+            System.out.println("\u001B[32m" + "Удаление лищних столбцов" + "\u001B[0m");
+            for (Field fieldUp : fieldsUp) {
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+                }
+            }
             System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");

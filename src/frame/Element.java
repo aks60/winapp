@@ -27,6 +27,7 @@ import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
+import domain.eGroups;
 import domain.eJoindet;
 import domain.eJoinpar1;
 import domain.eSysprof;
@@ -373,7 +374,7 @@ public class Element extends javax.swing.JFrame
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
-                String series = record.getStr(0);
+                String series = record.getStr(eGroups.name);
                 qElement.set(series, Util.getSelectedRec(tab2), eElement.series);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
