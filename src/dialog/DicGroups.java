@@ -7,17 +7,21 @@ import static common.Util.getSelectedRec;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eGroups;
+import enums.Enam;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
 //Серии для элемента состава
-public class DicSeries extends javax.swing.JDialog {
+public class DicGroups extends javax.swing.JDialog {
 
+    private Enam grup = null;
     private DialogListener listener = null;
-    private Query qArtikl = new Query(eArtikl.series);
+    private Query qGroups = new Query(eGroups.values());
 
-    public DicSeries(java.awt.Frame parent, DialogListener listenet) {
+    public DicGroups(java.awt.Frame parent, Enam grup, DialogListener listenet) {
         super(parent, true);
+        this.grup = grup;
         this.listener = listenet;
         initComponents();
         initElements();
@@ -28,11 +32,11 @@ public class DicSeries extends javax.swing.JDialog {
     }
 
     private void loadingData() {
-        qArtikl.select("select distinct " + eArtikl.series.name() + " from " + eArtikl.up.tname() + " order by " + eArtikl.series.name());
+        qGroups.select(eGroups.up, "where grup =", grup.numb());
     }
 
     private void loadingModel() {
-        tab1.setModel(new DefTableModel(tab1, qArtikl, eArtikl.series));
+        tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
     }
@@ -41,21 +45,20 @@ public class DicSeries extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panNorth = new javax.swing.JPanel();
+        panNn = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        panSouth = new javax.swing.JPanel();
-        panCentr = new javax.swing.JPanel();
+        south = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(200, 500));
 
-        panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNorth.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNorth.setPreferredSize(new java.awt.Dimension(200, 29));
+        panNn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panNn.setMaximumSize(new java.awt.Dimension(32767, 31));
+        panNn.setPreferredSize(new java.awt.Dimension(300, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -99,15 +102,15 @@ public class DicSeries extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemovebtnRemov(evt);
+                btnRemove(evt);
             }
         });
 
-        javax.swing.GroupLayout panNorthLayout = new javax.swing.GroupLayout(panNorth);
-        panNorth.setLayout(panNorthLayout);
-        panNorthLayout.setHorizontalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
+        javax.swing.GroupLayout panNnLayout = new javax.swing.GroupLayout(panNn);
+        panNn.setLayout(panNnLayout);
+        panNnLayout.setHorizontalGroup(
+            panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panNnLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -116,40 +119,40 @@ public class DicSeries extends javax.swing.JDialog {
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNorthLayout.setVerticalGroup(
-            panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNorthLayout.createSequentialGroup()
-                .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panNnLayout.setVerticalGroup(
+            panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panNnLayout.createSequentialGroup()
+                .addGroup(panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNorthLayout.createSequentialGroup()
-                        .addGroup(panNorthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panNnLayout.createSequentialGroup()
+                        .addGroup(panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        getContentPane().add(panNorth, java.awt.BorderLayout.NORTH);
+        getContentPane().add(panNn, java.awt.BorderLayout.NORTH);
 
-        panSouth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panSouth.setMinimumSize(new java.awt.Dimension(100, 20));
-        panSouth.setPreferredSize(new java.awt.Dimension(200, 20));
+        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south.setMinimumSize(new java.awt.Dimension(100, 20));
+        south.setPreferredSize(new java.awt.Dimension(300, 20));
 
-        javax.swing.GroupLayout panSouthLayout = new javax.swing.GroupLayout(panSouth);
-        panSouth.setLayout(panSouthLayout);
-        panSouthLayout.setHorizontalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
+        south.setLayout(southLayout);
+        southLayout.setHorizontalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 317, Short.MAX_VALUE)
         );
-        panSouthLayout.setVerticalGroup(
-            panSouthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        southLayout.setVerticalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 16, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panSouth, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
-        panCentr.setPreferredSize(new java.awt.Dimension(200, 440));
-        panCentr.setLayout(new java.awt.BorderLayout());
+        centr.setPreferredSize(new java.awt.Dimension(300, 440));
+        centr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
         scr1.setPreferredSize(new java.awt.Dimension(400, 200));
@@ -180,9 +183,9 @@ public class DicSeries extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
 
-        panCentr.add(scr1, java.awt.BorderLayout.CENTER);
+        centr.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panCentr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -199,11 +202,11 @@ public class DicSeries extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemovebtnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovebtnRemov
+    private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
         Record record = new Record();
         listener.action(record);
         this.dispose();
-    }//GEN-LAST:event_btnRemovebtnRemov
+    }//GEN-LAST:event_btnRemove
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
         if (evt.getClickCount() == 2) {
@@ -215,10 +218,10 @@ public class DicSeries extends javax.swing.JDialog {
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JPanel panCentr;
-    private javax.swing.JPanel panNorth;
-    private javax.swing.JPanel panSouth;
+    private javax.swing.JPanel centr;
+    private javax.swing.JPanel panNn;
     private javax.swing.JScrollPane scr1;
+    private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
     private void initElements() {

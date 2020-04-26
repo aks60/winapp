@@ -13,7 +13,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import dialog.DicColvar;
-import dialog.DicSeries;
+import dialog.DicGroups;
 import dialog.DicTypset;
 import dialog.ParColor;
 import dialog.ParGrup1;
@@ -31,6 +31,7 @@ import domain.eJoindet;
 import domain.eJoinpar1;
 import domain.eSysprof;
 import enums.ParamList;
+import enums.TypeGroups;
 import enums.TypeSet;
 import enums.UseColcalc;
 import java.awt.Window;
@@ -209,7 +210,7 @@ public class Element extends javax.swing.JFrame
         });
 
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
-            DicSeries frame = new DicSeries(this, listenerSeries);
+            DicGroups frame = new DicGroups(this, TypeGroups.SERIES, listenerSeries);
         });
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {

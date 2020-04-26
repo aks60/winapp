@@ -726,13 +726,13 @@
       <Properties>
         <Property name="rollover" type="boolean" value="true"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[144, 28]"/>
+          <Dimension value="[150, 28]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[144, 28]"/>
+          <Dimension value="[150, 28]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[144, 28]"/>
+          <Dimension value="[150, 28]"/>
         </Property>
       </Properties>
 
@@ -900,13 +900,13 @@
       <Properties>
         <Property name="rollover" type="boolean" value="true"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[172, 28]"/>
+          <Dimension value="[176, 28]"/>
         </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[172, 28]"/>
+          <Dimension value="[176, 28]"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[172, 28]"/>
+          <Dimension value="[176, 28]"/>
         </Property>
       </Properties>
 

@@ -166,9 +166,9 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb1.setRollover(true);
-        tb1.setMaximumSize(new java.awt.Dimension(144, 28));
-        tb1.setMinimumSize(new java.awt.Dimension(144, 28));
-        tb1.setPreferredSize(new java.awt.Dimension(144, 28));
+        tb1.setMaximumSize(new java.awt.Dimension(150, 28));
+        tb1.setMinimumSize(new java.awt.Dimension(150, 28));
+        tb1.setPreferredSize(new java.awt.Dimension(150, 28));
 
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
         btn14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -249,9 +249,9 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().add(tb1);
 
         tb2.setRollover(true);
-        tb2.setMaximumSize(new java.awt.Dimension(172, 28));
-        tb2.setMinimumSize(new java.awt.Dimension(172, 28));
-        tb2.setPreferredSize(new java.awt.Dimension(172, 28));
+        tb2.setMaximumSize(new java.awt.Dimension(176, 28));
+        tb2.setMinimumSize(new java.awt.Dimension(176, 28));
+        tb2.setPreferredSize(new java.awt.Dimension(176, 28));
 
         btn23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c023.gif"))); // NOI18N
         btn23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));

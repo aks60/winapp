@@ -4,20 +4,17 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eArtgrp.values;
 
-public enum eArtgrp implements Field {
-    up("0", "0", "0", "Группа материальных ценостей", "GRUPART"),
+public enum eGroups implements Field {
+    up("0", "0", "0", "Группы наименований", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
-    categ("12", "16", "1", "Категория группы МЦ", "MPREF"),
-    name("12", "32", "1", "Название группы МЦ", "MNAME"),
-    unic("4", "10", "1", "ID группы МЦ", "MUNIC"),
-    koef("8", "15", "1", "Ценовой коэффицент", "MKOEF");
-    //ugrup("4", "10", "1", "Группа_пользователей", "UGRUP");
-    
+    grup("5", "5", "0", "Группа", "grup"),
+    name("12", "256", "0", "Название группы", "name");
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
-    eArtgrp(Object... p) {
+    eGroups(Object... p) {
         meta.init(p);
     }
 
