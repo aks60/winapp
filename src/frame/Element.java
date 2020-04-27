@@ -56,6 +56,7 @@ public class Element extends javax.swing.JFrame
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
+    private Query qGroups = new Query(eGroups.values());
     private Query qElemgrp = new Query(eElemgrp.values());
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
@@ -78,14 +79,14 @@ public class Element extends javax.swing.JFrame
 
     public Element(java.awt.Window owner, int nuni) {
         this.nuni = nuni;
-        this.owner = owner;        
+        this.owner = owner;
         initComponents();
         initElements();
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
-        owner.setEnabled(false);        
+        owner.setEnabled(false);
     }
 
     private void loadingData() {
@@ -96,6 +97,7 @@ public class Element extends javax.swing.JFrame
         }
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERIES.id);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         Record record = qElemgrp.newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
@@ -119,13 +121,16 @@ public class Element extends javax.swing.JFrame
 
         tab1.getTableHeader().setEnabled(false);
         new DefTableModel(tab1, qElemgrp, eElemgrp.name);
-        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series, eElement.todef, eElement.toset, eElement.markup) {
+        new DefTableModel(tab2, qElement, eArtikl.code, eArtikl.name, eElement.name, eElement.typset, eElement.series_id, eElement.todef, eElement.toset, eElement.markup) {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                if (columns[col] == eElement.typset) {
+                if (val instanceof String && columns[col] == eElement.typset) {
                     String typset = String.valueOf(val);
                     return Arrays.asList(TypeSet.values()).stream().filter(el -> el.id.equals(typset)).findFirst().orElse(TypeSet.P1).name;
+
+                } else if (val != null && columns[col] == eElement.series_id) {
+                    return qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);
                 }
                 return val;
             }
@@ -374,8 +379,8 @@ public class Element extends javax.swing.JFrame
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int row = tab2.getSelectedRow();
-                String series = record.getStr(eGroups.name);
-                qElement.set(series, Util.getSelectedRec(tab2), eElement.series);
+                int series_id = record.getInt(eGroups.id);
+                qElement.set(series_id, Util.getSelectedRec(tab2), eElement.series_id);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
             }

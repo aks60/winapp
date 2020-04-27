@@ -280,7 +280,7 @@ public class ParamVariant {
                     break;
                 case "011": //Для Артикула 1 указан состав
                     strTxt = paramRec.getStr(PAR3);
-                    List<Record> elementList1 = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getStr(eArtikl.series));
+                    List<Record> elementList1 = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
                     for (Record elementRec1 : elementList1) {
                         if (elementRec1.getStr(eElement.name).contains(strTxt)) {
@@ -296,7 +296,7 @@ public class ParamVariant {
                 case "012": //Для Артикула 2 указан состав
                     strTxt = paramRec.getStr(PAR3);
                     boolean substr2 = false;
-                    List<Record> elementList2 = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getStr(eArtikl.series));
+                    List<Record> elementList2 = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getInt(eArtikl.series_id));
                     for (Record elementRec2 : elementList2) {
                         if (elementRec2.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar2List = eElempar2.find2(elementRec2.getInt(PAR1));
@@ -310,7 +310,7 @@ public class ParamVariant {
                     break;
                 case "013": //Для Артикулов не указан состав
                     strTxt = paramRec.getStr(PAR3);
-                    List<Record> elementList1a = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getStr(eArtikl.series));
+                    List<Record> elementList1a = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1a = false;
                     for (Record elementRec : elementList1a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
@@ -320,7 +320,7 @@ public class ParamVariant {
                         }
                     }
                     boolean substr2a = false;
-                    List<Record> elementList2a = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getStr(eArtikl.series));
+                    List<Record> elementList2a = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getInt(eArtikl.series_id));
                     for (Record elementRec : elementList2a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));

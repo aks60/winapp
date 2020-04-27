@@ -55,8 +55,8 @@ public class Сomposition extends Cal5e {
                             for (ElemFrame recordFrame : listFrame) {
 
                                 recordFrame.setSpecifElement(sysprofRec);
-                                String series = recordFrame.artiklRec.getStr(eArtikl.series);
-                                List<Record> elementList2 = eElement.find(series); //состав для серии профилей
+                                int series_id = recordFrame.artiklRec.getInt(eArtikl.series_id);
+                                List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
                                 nested(elementList2, recordFrame);
                                 int artikl_id = recordFrame.artiklRec.getInt(eArtikl.id);
                                 List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
@@ -85,11 +85,11 @@ public class Сomposition extends Cal5e {
                             LinkedList<ElemImpost> impostList = iwin().rootArea.listElem(TypeElem.IMPOST);
                             for (ElemImpost elemInpost : impostList) {
 
-                                String series = elemInpost.artiklRec.getStr(eArtikl.series);
+                                int series_id = elemInpost.artiklRec.getInt(eArtikl.series_id);
                                 elemInpost.setSpecifElement(record);
-                                List<Record> elementList2 = eElement.find(series); //состав для серии профилей
+                                List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
                                 nested(elementList2, elemInpost);
-                                List<Record> elementList = eElement.find(series); //.anumb); //состав для артикула профиля
+                                List<Record> elementList = eElement.find(series_id); //.anumb); //состав для артикула профиля
                                 nested(elementList, elemInpost);
                             }
                         }
@@ -113,9 +113,9 @@ public class Сomposition extends Cal5e {
                             for (ElemImpost elemInpost : impostList) {
 
                                 elemInpost.setSpecifElement(record);
-                                List<Record> elementList2 = eElement.find(elemInpost.artiklRec.getStr(eArtikl.series)); //состав для серии профилей
+                                List<Record> elementList2 = eElement.find(elemInpost.artiklRec.getInt(eArtikl.series_id)); //состав для серии профилей
                                 nested(elementList2, elemInpost);
-                                List<Record> elementList = eElement.find(elemInpost.artiklRec.getStr(eArtikl.code)); //.anumb); //состав для артикула профиля
+                                List<Record> elementList = eElement.find(elemInpost.artiklRec.getInt(eArtikl.code)); //.anumb); //состав для артикула профиля
                                 nested(elementList, elemInpost);
                             }
                         }
