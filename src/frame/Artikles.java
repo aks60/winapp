@@ -15,8 +15,6 @@ import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
 import enums.TypeArtikl1;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -26,10 +24,12 @@ import javax.swing.tree.DefaultTreeModel;
 import swing.DefTableModel;
 import swing.DefFieldEditor;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import static common.Util.getSelectedRec;
+import dialog.DicGroups;
+import domain.eGroups;
+import enums.TypeGroups;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
 
@@ -40,18 +40,24 @@ public class Artikles extends javax.swing.JFrame {
 
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
     private Query qColor = new Query(eColor.values()).select(eColor.up);
+    private Query qGroups = new Query(eGroups.values());
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
     private DefFieldEditor rsvArtikl;
-    private DialogListener listenerDic;
+    private DialogListener listenerSeries, listenerColor, listenerCurrenc;
 
     public Artikles() {
         initComponents();
         initElements();
         listenerDict();
+        loadingData();
         loadingModel();
         loadingTree();
+    }
+
+    private void loadingData() {
+        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERIES.id);
     }
 
     private void loadingModel() {
@@ -97,10 +103,12 @@ public class Artikles extends javax.swing.JFrame {
             public void load(Integer row) {
                 super.load(row);
                 Record artiklRec = qArtikl.get(Util.getSelectedRec(tab1));
+                Record groupsRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(null);
                 Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc_id))).findFirst().orElse(null);
-                if (currencRec != null) {
-                    txtField7.setText(currencRec.getStr(eCurrenc.name));
-                }
+                String name = (currencRec != null) ? currencRec.getStr(eCurrenc.name) : null;
+                txtField7.setText(name);
+                name = (groupsRec != null) ? groupsRec.getStr(eGroups.name) : null;
+                txtField10.setText(name);
             }
         };
         rsvArtikl.add(eArtikl.len_unit, txtField1);
@@ -110,16 +118,17 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.depth, txtField5);
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
+        //rsvArtikl.add(eArtikl.series_id, txtField10);
 
         JButton btnT2C0 = new JButton("...");
         tab2.getColumnModel().getColumn(0).setCellEditor(new DefCellEditor(btnT2C0));
         btnT2C0.addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerDic);
+            DicColor frame = new DicColor(this, listenerColor);
         });
         JButton btnT2C1 = new JButton("...");
         tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(btnT2C1));
         btnT2C1.addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerDic);
+            DicColor frame = new DicColor(this, listenerColor);
         });
     }
 
@@ -195,7 +204,20 @@ public class Artikles extends javax.swing.JFrame {
 
     public void listenerDict() {
 
-        listenerDic = (record) -> {
+        listenerSeries = (record) -> {
+            if (tab1.getBorder() != null) {
+                int row = getSelectedRec(tab1);
+                if (row != -1) {
+                    Record artiklRec = qArtikl.get(row);
+                    artiklRec.set(eArtikl.series_id, record.get(eGroups.id));
+                    System.out.println(record);
+                    rsvArtikl.load();
+                }
+                Util.stopCellEditing(tab1, tab2);
+            }
+        };
+
+        listenerCurrenc = (record) -> {
             if (tab2.getBorder() != null) {
                 if (eColgrp.values().length == record.size()) {
                     qArtdet.set(-1 * record.getInt(eColgrp.id), getSelectedRec(tab2), eArtdet.color_fk);
@@ -204,15 +226,19 @@ public class Artikles extends javax.swing.JFrame {
                     qArtdet.set(record.getInt(eColor.id), getSelectedRec(tab2), eArtdet.color_fk);
                 }
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.stopCellEditing(tab1, tab2);
+            }
+        };
 
-            } else if (eCurrenc.values().length == record.size()) {
+        listenerColor = (record) -> {
+            if (tab2.getBorder() != null) {
                 int row = getSelectedRec(tab1);
                 if (row != -1) {
                     Record artiklRec = qArtikl.get(row);
                     artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
                 }
+                Util.stopCellEditing(tab1, tab2);
             }
-            Util.stopCellEditing(tab1, tab2);
         };
     }
 
@@ -248,6 +274,8 @@ public class Artikles extends javax.swing.JFrame {
         txtField6 = new javax.swing.JFormattedTextField();
         btnCurrenc = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
+        txtField10 = new javax.swing.JTextField();
+        btnSeries = new javax.swing.JButton();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -495,6 +523,20 @@ public class Artikles extends javax.swing.JFrame {
         jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel22.setPreferredSize(new java.awt.Dimension(108, 18));
 
+        txtField10.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField10.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        btnSeries.setText("...");
+        btnSeries.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSeries.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnSeries.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnSeries.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnSeries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeries(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
         pan2Layout.setHorizontalGroup(
@@ -542,8 +584,13 @@ public class Artikles extends javax.swing.JFrame {
                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(114, Short.MAX_VALUE))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSeries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -586,8 +633,11 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSeries, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         center.add(pan2, java.awt.BorderLayout.EAST);
@@ -807,7 +857,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnCurrenc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCurrenc
-        Currenc frame = new Currenc(this, listenerDic);
+        Currenc frame = new Currenc(this, listenerCurrenc);
     }//GEN-LAST:event_btnCurrenc
 
     private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
@@ -831,6 +881,10 @@ public class Artikles extends javax.swing.JFrame {
             txtFilter.setName(table.getName());
         }
     }//GEN-LAST:event_tabMousePressed
+
+    private void btnSeries(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeries
+        DicGroups groups = new DicGroups(this, TypeGroups.SERIES, listenerSeries);
+    }//GEN-LAST:event_btnSeries
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -839,6 +893,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnSeries;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel jLabel13;
@@ -865,6 +920,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTable tab2;
     public javax.swing.JTree tree;
     private javax.swing.JFormattedTextField txtField1;
+    private javax.swing.JTextField txtField10;
     private javax.swing.JFormattedTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;
     private javax.swing.JFormattedTextField txtField4;
