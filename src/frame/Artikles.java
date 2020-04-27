@@ -118,7 +118,6 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.depth, txtField5);
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
-        //rsvArtikl.add(eArtikl.series_id, txtField10);
 
         JButton btnT2C0 = new JButton("...");
         tab2.getColumnModel().getColumn(0).setCellEditor(new DefCellEditor(btnT2C0));
