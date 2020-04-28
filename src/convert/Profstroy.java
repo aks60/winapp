@@ -77,7 +77,7 @@ import wincalc.script.Winscript;
  */
 public class Profstroy {
 
-    private static int versionPs = 0;
+    private static int versionPs = 4;
     private static Connection cn1;
     private static Connection cn2;
     private static Statement st1; //источник 
@@ -97,9 +97,9 @@ public class Profstroy {
             eCurrenc.up, eGroups.up
         };
         try {
-            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";            
+            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";            
             //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\aluteh.fdb?encoding=win1251";
-            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";            
+            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";            
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
@@ -423,6 +423,7 @@ public class Profstroy {
             executeSql("update element set todef = 1  where vsets in (1,2)");
             executeSql("update element set toset = 1  where vsets = 1");
             updateSql(eElemdet.up, eElemdet.artikl_id, "anumb", eArtikl.up, "code");
+            System.out.println("версия ============== " + versionPs);
             executeSql(4, "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
             executeSql(4, "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");

@@ -10,6 +10,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 public class Main {
 
     public static boolean dev = false;
+    public static boolean locate = false;
 
     //Конструктор
     public Main() {
@@ -21,8 +22,10 @@ public class Main {
 
         for (int index = 0; index < args.length; index++) {
             if (index == 0 && args[0].equals("dev")) {
-                //режим разработки и тестирования
-                Main.dev = true;
+                Main.dev = true; //режим разработки и тестирования
+            }
+            if(index == 1 && args[1].equals("loc")) {
+               Main.locate = true;
             }
         }
         SwingUtilities.invokeLater(new Runnable() {

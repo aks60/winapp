@@ -134,7 +134,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingModel() {
 
         DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.values());
-        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.use_type, eSysprof.use_side, eSysprof.prio, eArtikl.code, eArtikl.name) {
+        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.use_type, eArtikl.code, eArtikl.name, eSysprof.use_side, eSysprof.prio) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -971,7 +971,7 @@ public class Systree extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Применение", "Сторона", "Приоритет", "Артикул", "Название"
+                "ID", "Применение", "Артикул", "Название", "Сторона", "Приоритет"
             }
         ));
         tab2.setFillsViewportHeight(true);

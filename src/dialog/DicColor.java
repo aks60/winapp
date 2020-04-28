@@ -62,6 +62,7 @@ public class DicColor extends javax.swing.JDialog {
         south = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        south2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник текстур");
@@ -210,6 +211,23 @@ public class DicColor extends javax.swing.JDialog {
 
         south.add(scr2, java.awt.BorderLayout.CENTER);
 
+        south2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south2.setMinimumSize(new java.awt.Dimension(100, 20));
+        south2.setPreferredSize(new java.awt.Dimension(400, 20));
+
+        javax.swing.GroupLayout south2Layout = new javax.swing.GroupLayout(south2);
+        south2.setLayout(south2Layout);
+        south2Layout.setHorizontalGroup(
+            south2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 385, Short.MAX_VALUE)
+        );
+        south2Layout.setVerticalGroup(
+            south2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        south.add(south2, java.awt.BorderLayout.SOUTH);
+
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -261,6 +279,7 @@ public class DicColor extends javax.swing.JDialog {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;
+    private javax.swing.JPanel south2;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     // End of variables declaration//GEN-END:variables

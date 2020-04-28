@@ -91,7 +91,7 @@ public class Filling extends javax.swing.JFrame {
             Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
             query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
             subsql = "(" + subsql.substring(1) + ")";
-            qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up.tname(), "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
+            qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up, "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
         }
     }
 
