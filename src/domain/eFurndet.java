@@ -13,6 +13,7 @@ public enum eFurndet implements Field {
     up("0", "0", "0", "Спецификация фурнитуры", "FURNSPC"),
     id("4", "10", "0", "Идентификатор", "FINCB"),    
     types("5", "5", "1", "Подбор текстуры", "CTYPE"),
+    isset("16", "5", "1", "Признак набора", "isset"),
     furndet_id("4", "10", "0", "Ссылка", "FINCS"),
     color_fk("4", "10", "1", "Ссылка", "CLNUM"),
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),

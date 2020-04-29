@@ -3,6 +3,7 @@ package main;
 import common.Util;
 import common.FrameListener;
 import common.FrameProgress;
+import static common.FrameProgress.progressBar;
 import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
@@ -379,6 +380,11 @@ public class App1 extends javax.swing.JFrame {
         btn35.setPreferredSize(new java.awt.Dimension(26, 26));
         btn35.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn35.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn35.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn35ActionPerformed(evt);
+            }
+        });
         td5.add(btn35);
 
         getContentPane().add(td5);
@@ -1208,6 +1214,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         mExit(null);
     }//GEN-LAST:event_formWindowClosing
+
+    private void btn35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn35ActionPerformed
+
+    }//GEN-LAST:event_btn35ActionPerformed
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;

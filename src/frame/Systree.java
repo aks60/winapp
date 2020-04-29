@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import common.DialogListener;
 import common.FrameListener;
 import common.FrameProgress;
+import static common.FrameProgress.progress;
 import common.FrameToFile;
 import common.Util;
 import common.eProperty;
@@ -359,11 +360,11 @@ public class Systree extends javax.swing.JFrame {
             String script1 = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
             if (script1 != null && script1.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
-                
+
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
-                
+
                 //Калькуляция изделия
-                iwin.create(script2.toString()); 
+                iwin.create(script2.toString());
                 paintPanel.repaint(true, 12);
             }
         } else {
@@ -389,6 +390,7 @@ public class Systree extends javax.swing.JFrame {
         pam9 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel22 = new javax.swing.JLabel();
+        btnArtikl = new javax.swing.JToggleButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -602,6 +604,18 @@ public class Systree extends javax.swing.JFrame {
                 .addContainerGap(167, Short.MAX_VALUE))
         );
 
+        btnArtikl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btnArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnArtikl.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnArtikl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConstructive(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -616,6 +630,8 @@ public class Systree extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(btnArtikl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnElem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -647,7 +663,8 @@ public class Systree extends javax.swing.JFrame {
                             .addComponent(btnJoin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnElem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFurn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSpec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSpec, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnArtikl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pam9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1200,7 +1217,9 @@ public class Systree extends javax.swing.JFrame {
             FrameProgress.create(Systree.this, new FrameListener() {
                 public void actionRequest(Object obj) {
 
-                    if (btn == btnJoin) {
+                    if (btn == btnArtikl) {
+                        frame = new Artikles(Systree.this, nuni);
+                    } else if (btn == btnJoin) {
                         frame = new Joining(Systree.this, nuni);
                     } else if (btn == btnElem) {
                         frame = new Element(Systree.this, nuni);
@@ -1336,6 +1355,7 @@ public class Systree extends javax.swing.JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnArtikl;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JToggleButton btnElem;

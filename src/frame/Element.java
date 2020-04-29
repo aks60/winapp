@@ -51,8 +51,7 @@ import swing.BooleanRenderer;
 import swing.DefTableModel;
 
 //TODO ОШИБКА! ЗАПОЛНЕНИЕ 6208.02.160
-public class Element extends javax.swing.JFrame
-        implements FrameListener<DefTableModel, Object> {
+public class Element extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
