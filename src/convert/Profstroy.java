@@ -451,7 +451,7 @@ public class Profstroy {
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id");
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");            
-            updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");            
+            updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");                
             executeSql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
             executeSql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             executeSql("update furndet set isset = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN 1 ELSE  (0) END)");            
