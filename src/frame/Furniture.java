@@ -1296,7 +1296,6 @@ public class Furniture extends javax.swing.JFrame {
 
     private void checkBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAction
         int types = (checkBox1.isSelected()) ? 0 : (checkBox2.isSelected()) ? 1 : -1;
-        System.out.println(types);
         if (owner == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
         } else {
