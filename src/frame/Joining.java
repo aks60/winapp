@@ -136,10 +136,11 @@ public class Joining extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eJoindet.artikl_id == field) {
                     int id = Integer.valueOf(val.toString());
+                    Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord());
                     if (col == 0) {
-                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                        return recordArt.getStr(eArtikl.code);
                     } else if (col == 1) {
-                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.name);
+                        return recordArt.getStr(eArtikl.name);
                     }
                 } else if (eJoindet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
