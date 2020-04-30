@@ -99,7 +99,7 @@ public class Profstroy {
         try {
             //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";            
             //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\aluteh.fdb?encoding=win1251";
-            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";            
+            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
@@ -161,15 +161,20 @@ public class Profstroy {
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
                 }
-                //Создание генератора таблицы
+                //Создание генератора и заполнение таблиц ключами
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
+                } else {
+                    String max = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getStr(1);
+                    executeSql("set generator GEN_" + fieldUp.tname() + " to " + max);
                 }
+                //Сщздание триггеров генераторов
                 executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
                         + " if (new.id is null) then new.id = gen_id(gen_" + fieldUp.tname() + ", 1); end");
-                executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); //DDL создание первичного ключа
-            }            
+                //DDL создание первичного ключа
+                executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); 
+            }
 
             System.out.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
             for (Field field : fieldsUp) {
@@ -406,8 +411,6 @@ public class Profstroy {
             System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
             updateSetting();
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERIES.id + ", aseri from artikl");
-            String max = new Query(eColgrp.id).select("select max(id) as id from " + eColgrp.up.tname()).get(0).getStr(eColgrp.id);
-            executeSql("set generator gen_colgrp to " + max);
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
@@ -450,21 +453,21 @@ public class Profstroy {
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id");
-            updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");            
-            updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");                
+            updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
+            updateSql(eFurndet.up, eFurndet.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
             executeSql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            executeSql("update furndet set isset = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN 1 ELSE  (0) END)");            
+            executeSql("update furndet set isset = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN 1 ELSE  (0) END)");
             executeSql("update furndet set furndet_id = id where fleve = 1");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
-            updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");           
+            updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");
             updateSql(eSysfurn.up, eSysfurn.furniture_id, "funic", eFurniture.up, "funic");
-            updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");            
+            updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
-            executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");            
+            executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");
             updateSysprod();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
@@ -474,15 +477,15 @@ public class Profstroy {
             updateSql(eKitdet.up, eKitdet.color1_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color2_id, "clnu1", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.color3_id, "clnu2", eColor.up, "cnumb");
-            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");                        
-            
+            updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
+
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "UPDATE-PART:  " + e + "\u001B[0m");
         }
     }
 
     private static void metaPart(Connection cn2, Statement st2) {
-       
+
         try {
             System.out.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
             metaSql("alter table artikl add constraint fk_currenc foreign key (currenc_id) references currenc (id)");

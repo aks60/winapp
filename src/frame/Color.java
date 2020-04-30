@@ -1,12 +1,13 @@
 package frame;
 
 import common.DialogListener;
-import common.Util;
 import common.FrameToFile;
 import common.Util;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
+import dialog.ParColor;
+import static domain.eArtikl.query;
 import domain.eColor;
 import domain.eColgrp;
 import domain.eColpar1;
@@ -14,7 +15,6 @@ import domain.eParams;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -44,13 +44,11 @@ public class Color extends javax.swing.JFrame {
         new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3);
         new DefTableModel(tab3, qColpar1, eColpar1.numb, eColpar1.text);
 
-        JButton btnT3C0 = new JButton("...");
-        btnT3C0.addActionListener(event -> {
+        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             Query query = new Query(eParams.values()).select(eParams.up, "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
-            eParams.text.meta().descr("Название параметра");            
+            eParams.text.meta().descr("Название параметра");                
             //ParColor frame = new ParColor(this, listenerColor, query, eParams.text);
         });
-        tab3.getColumnModel().getColumn(0).setCellEditor(new DefCellEditor(btnT3C0));
         Util.setSelectedRow(tab1, 0);
     }
 

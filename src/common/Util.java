@@ -209,6 +209,7 @@ public class Util {
         if (table.getRowCount() > 0) {
 
             if (table.getRowCount() > row) {
+                //int row2 = table.convertRowIndexToModel(row);
                 table.setRowSelectionInterval(row, row);
             } else {
                 table.setRowSelectionInterval(0, 0);
@@ -224,6 +225,13 @@ public class Util {
         return -1;
     }
 
+    //Отменить сортировку
+    public static void stopSorting(JTable... table) {      
+        for (JTable tab : table) {
+           tab.getRowSorter().setSortKeys(null);  
+        }   
+    }
+    
     //Вставить запись
     public static void insertRecord(JTable table, Field up) {
 
@@ -450,6 +458,7 @@ public class Util {
     //Слушатель редактирование палитры
     public static void listenerColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
         Util.stopCellEditing(tables);
+        //int row = table.convertRowIndexToModel(table.getSelectedRow());
         int row = table.getSelectedRow();
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record elemdetRec = query.get(Util.getSelectedRec(table));
@@ -461,7 +470,7 @@ public class Util {
             elemdetRec.set(types, null);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, row);
+        Util.setSelectedRow(table, row);       
     }
 
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {

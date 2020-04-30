@@ -92,7 +92,8 @@ public class Furniture extends javax.swing.JFrame {
     private void loadingData() {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
-        qParams.select(eParams.up, "where", eParams.furn, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text); //TODO отключил фильтр, а это неправильно
+        //qParams.select(eParams.up, "where", eParams.furn, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         if (owner == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "= 0", "order by", eFurniture.name);
         } else {
@@ -218,7 +219,7 @@ public class Furniture extends javax.swing.JFrame {
                         return null;
                     }
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet2.getAs(row, eFurndet.isset);
+                    int isset = qFurndet2.getAs(row, eFurndet.isset, 0);
                     if (isset == 1) {
                         return "Набор";
                     }
@@ -271,7 +272,7 @@ public class Furniture extends javax.swing.JFrame {
                         return null;
                     }
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet3.getAs(row, eFurndet.isset);
+                    int isset = qFurndet3.getAs(row, eFurndet.isset, 0);
                     if (isset == 1) {
                         return "Набор";
                     }
@@ -351,10 +352,10 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-
         ((TableRowSorter) tab2a.getRowSorter()).toggleSortOrder(0);
         ((TableRowSorter) tab2b.getRowSorter()).toggleSortOrder(0);
         ((TableRowSorter) tab2c.getRowSorter()).toggleSortOrder(0);
+
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
         });
@@ -624,6 +625,7 @@ public class Furniture extends javax.swing.JFrame {
         checkBox1 = new javax.swing.JCheckBox();
         checkBox2 = new javax.swing.JCheckBox();
         checkBox3 = new javax.swing.JCheckBox();
+        btnSort = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
@@ -782,6 +784,21 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
+        btnSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
+        btnSort.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnSort.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSort.setFocusable(false);
+        btnSort.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSort.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnSort.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnSort.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnSort.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSort(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -793,7 +810,9 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addGap(18, 18, 18)
+                .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
                 .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -801,25 +820,27 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1202,6 +1223,7 @@ public class Furniture extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
             return;
         }
+
         if (tab1.getBorder() != null) {
             Util.insertRecord(tab1, eFurniture.up);
 
@@ -1210,11 +1232,11 @@ public class Furniture extends javax.swing.JFrame {
             record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
 
         } else if (tab2b.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2b, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2b, eFurniture.up, eFurndet.up, eFurndet.furniture_id);
             record.set(eFurndet.furndet_id, qFurndet1.get(Util.getSelectedRec(tab2a), eFurndet.id));
 
         } else if (tab2c.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2c, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2c, eFurniture.up, eFurndet.up, eFurndet.furniture_id);
             record.set(eFurndet.furndet_id, qFurndet2.get(Util.getSelectedRec(tab2b), eFurndet.id));
 
         } else if (tab3.getBorder() != null) {
@@ -1250,7 +1272,7 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        tabb1.setTitleAt(0, "<html><font size='3' color='blue'>&nbsp;&nbsp;&nbsp;12</font>");
+
     }//GEN-LAST:event_btnReport
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
@@ -1301,6 +1323,10 @@ public class Furniture extends javax.swing.JFrame {
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1, 0);
     }//GEN-LAST:event_checkBoxAction
+
+    private void btnSort(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSort
+        Util.stopSorting(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+    }//GEN-LAST:event_btnSort
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1308,6 +1334,7 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnSort;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkBox1;
     private javax.swing.JCheckBox checkBox2;
@@ -1350,7 +1377,10 @@ public class Furniture extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> {
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            Util.stopSorting(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        }));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
