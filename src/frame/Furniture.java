@@ -165,7 +165,7 @@ public class Furniture extends javax.swing.JFrame {
                     }
 
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet1.getAs(row, eFurndet.isset);
+                    int isset = qFurndet1.getAs(row, eFurndet.isset, 0);
                     if (isset == 1) {
                         return "Набор";
                     }
@@ -355,7 +355,6 @@ public class Furniture extends javax.swing.JFrame {
         ((TableRowSorter) tab2a.getRowSorter()).toggleSortOrder(0);
         ((TableRowSorter) tab2b.getRowSorter()).toggleSortOrder(0);
         ((TableRowSorter) tab2c.getRowSorter()).toggleSortOrder(0);
-
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
         });
@@ -550,8 +549,6 @@ public class Furniture extends javax.swing.JFrame {
             if (tab.getBorder() != null) {
                 int row = tab.getSelectedRow();
                 query.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab), eFurndet.artikl_id);
-                query.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab), eArtikl.name);
-                query.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab), eArtikl.code);
                 ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab, row);
             }
@@ -1209,7 +1206,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.insertRecord(tab1, eFurniture.up);
 
         } else if (tab2a.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2a, eFurniture.up, eFurndet.up, eArtikl.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2a, eFurniture.up, eFurndet.up, eFurndet.furniture_id);
             record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
 
         } else if (tab2b.getBorder() != null) {
