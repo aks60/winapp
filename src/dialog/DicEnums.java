@@ -30,7 +30,7 @@ public class DicEnums extends javax.swing.JDialog {
     private void loadingModel(Enam... enam) {
         ((DefaultTableModel) tab1.getModel()).setRowCount(enam.length);
         Arrays.asList(enam).forEach(en -> tab1.setValueAt(en.text(), en.ordinal(), 0));
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

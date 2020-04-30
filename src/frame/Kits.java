@@ -38,7 +38,7 @@ public class Kits extends javax.swing.JFrame {
         new DefTableModel(tab1, qKits, eKits.name, eKits.artikl_id, eKits.color_id, eKits.quant, eKits.hide, eKits.categ);
         new DefTableModel(tab2, qKitdet, eKitdet.artikl_id, eKitdet.artikl_id, eKitdet.color1_id, eKitdet.color2_id, eKitdet.color3_id, eKitdet.flag);
         new DefTableModel(tab3, qKitpar1, eKitpar1.kitdet_id, eKitpar1.text);
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -48,7 +48,7 @@ public class Kits extends javax.swing.JFrame {
             Integer id = record.getInt(eKits.id);
             qKitdet.select(eKitdet.up, "where", eKitdet.kits_id, "=", id, "order by", eKitdet.artikl_id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
+            Util.setSelectedRow(tab2);
         }
     }
 
@@ -59,7 +59,7 @@ public class Kits extends javax.swing.JFrame {
             Integer id = record.getInt(eKitdet.id);
             qKitpar1.select(eKitpar1.up, "where", eKitpar1.kitdet_id, "=", id, "order by", eKitpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab3);
         }
     }
 
@@ -345,7 +345,7 @@ public class Kits extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         qKits.select(eKits.up, "order by", eKits.name);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -358,7 +358,7 @@ public class Kits extends javax.swing.JFrame {
                 qKits.delete(kitsRec);
                 qKits.removeRec(getSelectedRec(tab1));
                 ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab1, 0);
+                Util.setSelectedRow(tab1);
 
             } else if (tab2.getBorder() != null) {
                 Record kitdetRc = qKitdet.get(getSelectedRec(tab2));
@@ -366,7 +366,7 @@ public class Kits extends javax.swing.JFrame {
                 qKitdet.delete(kitdetRc);
                 qKitdet.removeRec(getSelectedRec(tab2));
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, 0);
+                Util.setSelectedRow(tab2);
 
             } else if (tab3.getBorder() != null) {
                 Record kitpar1Rec = qKitpar1.get(getSelectedRec(tab3));
@@ -374,7 +374,7 @@ public class Kits extends javax.swing.JFrame {
                 qKitpar1.delete(kitpar1Rec);
                 qKitpar1.removeRec(getSelectedRec(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab3, 0);
+                Util.setSelectedRow(tab3);
             }
         }
     }//GEN-LAST:event_btnDelete

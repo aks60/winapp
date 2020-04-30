@@ -205,6 +205,13 @@ public class Util {
     }
 
     //Выделить запись
+    public static void setSelectedRow(JTable table) {
+        if (table.getRowCount() > 0) {
+            table.setRowSelectionInterval(0, 0);
+        }
+    }
+
+    //Выделить запись
     public static void setSelectedRow(JTable table, int rowModel) {
         if (table.getRowCount() > 0) {
 
@@ -226,12 +233,12 @@ public class Util {
     }
 
     //Отменить сортировку
-    public static void stopSorting(JTable... table) {      
+    public static void stopSorting(JTable... table) {
         for (JTable tab : table) {
-           tab.getRowSorter().setSortKeys(null);  
-        }   
+            tab.getRowSorter().setSortKeys(null);
+        }
     }
-    
+
     //Вставить запись
     public static void insertRecord(JTable table, Field up) {
 
@@ -469,7 +476,7 @@ public class Util {
             elemdetRec.set(types, null);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, row);      
+        Util.setSelectedRow(table, row);
     }
 
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {

@@ -30,7 +30,7 @@ public class ParGrup2 extends javax.swing.JDialog {
         qParam2.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);
         tab1.setModel(new DefTableModel(tab1, qParam2, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

@@ -34,7 +34,7 @@ public class DicThicknes extends javax.swing.JDialog {
     private void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qArtikl, eArtikl.series));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

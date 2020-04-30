@@ -235,7 +235,7 @@ public class Filling extends javax.swing.JFrame {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
 
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -253,9 +253,9 @@ public class Filling extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
-            Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab5, 0);
+            Util.setSelectedRow(tab2);
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab5);
         }
     }
 
@@ -270,7 +270,7 @@ public class Filling extends javax.swing.JFrame {
             qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar2.grup,
                     "and", eParams.numb, "= 0", "where", eGlaspar2.glasdet_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, 0);
+            Util.setSelectedRow(tab4);
         }
     }
 
@@ -708,7 +708,7 @@ public class Filling extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

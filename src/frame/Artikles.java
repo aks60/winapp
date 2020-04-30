@@ -230,7 +230,7 @@ public class Artikles extends javax.swing.JFrame {
                 }
             }
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab1, 0);
+            Util.setSelectedRow(tab1);
         }
     }
 
@@ -244,7 +244,7 @@ public class Artikles extends javax.swing.JFrame {
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
             rsvArtikl.load();
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
+            Util.setSelectedRow(tab2);
         }
     }
 
@@ -936,7 +936,7 @@ public class Artikles extends javax.swing.JFrame {
                     qArtikl.delete(record);
                     qArtikl.removeRec(row);
                     ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-                    Util.setSelectedRow(tab1, 0);
+                    Util.setSelectedRow(tab1);
                 }
             } else if (tab2.getBorder() != null) {
                 int row = getSelectedRec(tab2);
@@ -946,7 +946,7 @@ public class Artikles extends javax.swing.JFrame {
                     qArtdet.delete(record);
                     qArtdet.removeRec(row);
                     ((DefTableModel) tab2.getModel()).fireTableDataChanged();
-                    Util.setSelectedRow(tab1, 0);
+                    Util.setSelectedRow(tab1);
                 }
             }
         }

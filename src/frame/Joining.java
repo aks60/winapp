@@ -266,7 +266,7 @@ public class Joining extends javax.swing.JFrame {
                 ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
             }
         });
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -277,7 +277,7 @@ public class Joining extends javax.swing.JFrame {
             Integer id = record.getInt(eJoining.id);
             qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
+            Util.setSelectedRow(tab2);
         }
     }
 
@@ -291,8 +291,8 @@ public class Joining extends javax.swing.JFrame {
             qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.grup);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab4, 0);
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab4);
         }
     }
 
@@ -303,7 +303,7 @@ public class Joining extends javax.swing.JFrame {
             Integer id = record.getInt(eJoindet.id);
             qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.grup);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5, 0);
+            Util.setSelectedRow(tab5);
         }
     }
 
@@ -759,7 +759,7 @@ public class Joining extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

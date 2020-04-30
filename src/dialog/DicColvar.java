@@ -48,7 +48,7 @@ public class DicColvar extends javax.swing.JDialog {
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             }
         }
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

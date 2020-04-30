@@ -41,7 +41,7 @@ public class ParDefault extends javax.swing.JDialog {
         }
         tab1.setModel(new DefTableModel(tab1, qParam, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

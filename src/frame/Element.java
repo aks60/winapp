@@ -281,7 +281,7 @@ public class Element extends javax.swing.JFrame {
                 ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
             }
         });
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -308,7 +308,7 @@ public class Element extends javax.swing.JFrame {
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
+            Util.setSelectedRow(tab2);
         }
     }
 
@@ -323,8 +323,8 @@ public class Element extends javax.swing.JFrame {
                     "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab4, 0);
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab4);
         }
     }
 
@@ -338,7 +338,7 @@ public class Element extends javax.swing.JFrame {
             qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup,
                     "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5, 0);
+            Util.setSelectedRow(tab5);
         }
     }
 
@@ -809,7 +809,7 @@ public class Element extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete

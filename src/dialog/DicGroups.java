@@ -38,7 +38,7 @@ public class DicGroups extends javax.swing.JDialog {
     private void loadingModel() {
         tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

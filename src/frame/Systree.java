@@ -263,9 +263,9 @@ public class Systree extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, 0);
-            Util.setSelectedRow(tab3, 0);
-            Util.setSelectedRow(tab4, 0);
+            Util.setSelectedRow(tab2);
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab4);
         } else {
             createWincalc(-1); //рисуем виртуалку
         }

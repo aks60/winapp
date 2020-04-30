@@ -352,9 +352,9 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        ((TableRowSorter) tab2a.getRowSorter()).toggleSortOrder(0);
-        ((TableRowSorter) tab2b.getRowSorter()).toggleSortOrder(0);
-        ((TableRowSorter) tab2c.getRowSorter()).toggleSortOrder(0);
+        //((TableRowSorter) tab2a.getRowSorter()).toggleSortOrder(0);
+        //((TableRowSorter) tab2b.getRowSorter()).toggleSortOrder(0);
+        //((TableRowSorter) tab2c.getRowSorter()).toggleSortOrder(0);
 
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
@@ -449,7 +449,7 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -463,8 +463,8 @@ public class Furniture extends javax.swing.JFrame {
 
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2a, 0);
-            Util.setSelectedRow(tab3, 0);
+            Util.setSelectedRow(tab2a);
+            Util.setSelectedRow(tab3);
         }
     }
 
@@ -476,15 +476,15 @@ public class Furniture extends javax.swing.JFrame {
             Integer id = record.getInt(eFurndet.id);
             qFurndet2.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
             ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2b, 0);
+            Util.setSelectedRow(tab2b);
 
             if (tabb1.getSelectedIndex() == 0) {
                 qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
                 qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
                 ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab6, 0);
-                Util.setSelectedRow(tab5, 0);
+                Util.setSelectedRow(tab6);
+                Util.setSelectedRow(tab5);
             }
         }
     }
@@ -497,15 +497,15 @@ public class Furniture extends javax.swing.JFrame {
             Integer id = record.getInt(eFurndet.id);
             qFurndet3.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
             ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2c, 0);
+            Util.setSelectedRow(tab2c);
 
             if (tabb1.getSelectedIndex() == 1) {
                 qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
                 qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
                 ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab6, 0);
-                Util.setSelectedRow(tab5, 0);
+                Util.setSelectedRow(tab6);
+                Util.setSelectedRow(tab5);
             }
         }
     }
@@ -522,8 +522,8 @@ public class Furniture extends javax.swing.JFrame {
                     qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
                     ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
                     ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-                    Util.setSelectedRow(tab6, 0);
-                    Util.setSelectedRow(tab5, 0);
+                    Util.setSelectedRow(tab6);
+                    Util.setSelectedRow(tab5);
                 }
             }
         }
@@ -537,7 +537,7 @@ public class Furniture extends javax.swing.JFrame {
             Integer id = record.getInt(eFurnside1.id);
             qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.grup);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4, 0);
+            Util.setSelectedRow(tab4);
         }
     }
 
@@ -625,7 +625,6 @@ public class Furniture extends javax.swing.JFrame {
         checkBox1 = new javax.swing.JCheckBox();
         checkBox2 = new javax.swing.JCheckBox();
         checkBox3 = new javax.swing.JCheckBox();
-        btnSort = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
@@ -784,21 +783,6 @@ public class Furniture extends javax.swing.JFrame {
             }
         });
 
-        btnSort.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c050.gif"))); // NOI18N
-        btnSort.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnSort.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSort.setFocusable(false);
-        btnSort.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnSort.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnSort.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnSort.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnSort.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSort(evt);
-            }
-        });
-
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -810,9 +794,7 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
+                .addGap(80, 80, 80)
                 .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -820,27 +802,25 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(btnSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1174,7 +1154,7 @@ public class Furniture extends javax.swing.JFrame {
         Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1321,12 +1301,8 @@ public class Furniture extends javax.swing.JFrame {
             qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", types, "order by", eFurniture.name);
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_checkBoxAction
-
-    private void btnSort(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSort
-        Util.stopSorting(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-    }//GEN-LAST:event_btnSort
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1334,7 +1310,6 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
-    private javax.swing.JButton btnSort;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkBox1;
     private javax.swing.JCheckBox checkBox2;

@@ -30,7 +30,7 @@ public class DicTypset extends javax.swing.JDialog {
         {TypeSet.P4.name, TypeSet.P4.id}, {TypeSet.P5.name, TypeSet.P5.id}, {TypeSet.P6.name, TypeSet.P6.id}, {TypeSet.P6.name, TypeSet.P6.id}};
 
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

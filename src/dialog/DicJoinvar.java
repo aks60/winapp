@@ -46,7 +46,7 @@ public class DicJoinvar extends javax.swing.JDialog {
                 return label;
             }
         });
-        Util.setSelectedRow(tab1, 0);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
