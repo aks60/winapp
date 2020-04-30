@@ -3,7 +3,6 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRec;
 import dataset.Record;
 import enums.Enam;
 import enums.LayoutFurn1;
@@ -183,8 +182,8 @@ public class DicEnums extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record();
-        record.add(enam[getSelectedRec(tab1)].numb());
-        record.add(enam[getSelectedRec(tab1)].text());
+        record.add(enam[Util.getSelectedRec(tab1)].numb());
+        record.add(enam[Util.getSelectedRec(tab1)].text());
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

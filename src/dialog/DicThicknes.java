@@ -3,7 +3,6 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRec;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -193,7 +192,7 @@ public class DicThicknes extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record();
-        record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
+        record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

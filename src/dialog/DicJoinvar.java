@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import static common.Util.getSelectedRec;
 
 public class DicJoinvar extends javax.swing.JDialog {
 
@@ -206,15 +205,15 @@ public class DicJoinvar extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record();
-        int row = getSelectedRec(tab1);
+        int row = Util.getSelectedRec(tab1);
         if (row == 0 || row == 1) {
-            record.add(getSelectedRec(tab1) + 1);
+            record.add(Util.getSelectedRec(tab1) + 1);
         } else if (row == 2 || row == 3) {
             record.add(3);
         } else if (row == 4 || row == 5) {
             record.add(4);
         }
-        record.add(tab1.getValueAt(getSelectedRec(tab1), 0));
+        record.add(tab1.getValueAt(Util.getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

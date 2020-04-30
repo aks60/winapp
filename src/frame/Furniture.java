@@ -22,7 +22,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
-import static common.Util.getSelectedRec;
 import dataset.Field;
 import dataset.Table;
 import dialog.DicArtikl;
@@ -45,7 +44,6 @@ import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import javax.swing.table.TableRowSorter;
 import main.Main;
 
 public class Furniture extends javax.swing.JFrame {
@@ -454,7 +452,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        int row = getSelectedRec(tab1);
+        int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
@@ -470,7 +468,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab2a(ListSelectionEvent event) {
         Util.clearTable(tab2b, tab2c, tab5, tab6);
-        int row = getSelectedRec(tab2a);
+        int row = Util.getSelectedRec(tab2a);
         if (row != -1) {
             Record record = qFurndet1.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
@@ -491,7 +489,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab2b(ListSelectionEvent event) {
         Util.clearTable(tab2c, tab5, tab6);
-        int row = getSelectedRec(tab2b);
+        int row = Util.getSelectedRec(tab2b);
         if (row != -1) {
             Record record = qFurndet2.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
@@ -513,7 +511,7 @@ public class Furniture extends javax.swing.JFrame {
     private void selectionTab2c(ListSelectionEvent event) {
         Util.clearTable(tab5, tab6);
         if (tabb1.getSelectedIndex() == 2) {
-            int row = getSelectedRec(tab2c);
+            int row = Util.getSelectedRec(tab2c);
             if (row != -1) {
                 Record record = qFurndet3.table(eFurndet.up).get(row);
                 Integer id = record.getInt(eFurndet.id);
@@ -531,7 +529,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void selectionTab3(ListSelectionEvent event) {
         Util.clearTable(tab4);
-        int row = getSelectedRec(tab3);
+        int row = Util.getSelectedRec(tab3);
         if (row != -1) {
             Record record = qFurnside1.table(eFurnside1.up).get(row);
             Integer id = record.getInt(eFurnside1.id);
@@ -826,12 +824,15 @@ public class Furniture extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
+        centr.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         centr.setPreferredSize(new java.awt.Dimension(900, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
+        pan1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan1.setPreferredSize(new java.awt.Dimension(800, 260));
         pan1.setLayout(new java.awt.BorderLayout());
 
+        pan4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan4.setPreferredSize(new java.awt.Dimension(500, 200));
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -868,6 +869,7 @@ public class Furniture extends javax.swing.JFrame {
         pan5.setPreferredSize(new java.awt.Dimension(300, 200));
         pan5.setLayout(new java.awt.BorderLayout());
 
+        pan7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan7.setPreferredSize(new java.awt.Dimension(300, 108));
         pan7.setLayout(new java.awt.BorderLayout());
 
@@ -897,6 +899,7 @@ public class Furniture extends javax.swing.JFrame {
 
         pan5.add(pan7, java.awt.BorderLayout.NORTH);
 
+        pan8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan8.setPreferredSize(new java.awt.Dimension(300, 90));
         pan8.setLayout(new java.awt.BorderLayout());
 
@@ -942,12 +945,15 @@ public class Furniture extends javax.swing.JFrame {
 
         centr.add(pan1, java.awt.BorderLayout.NORTH);
 
+        pan2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan2.setPreferredSize(new java.awt.Dimension(800, 302));
         pan2.setLayout(new java.awt.BorderLayout());
 
+        pan6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan6.setPreferredSize(new java.awt.Dimension(800, 300));
         pan6.setLayout(new java.awt.BorderLayout());
 
+        pan9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan9.setLayout(new java.awt.BorderLayout());
 
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -1041,6 +1047,7 @@ public class Furniture extends javax.swing.JFrame {
 
         pan6.add(pan9, java.awt.BorderLayout.CENTER);
 
+        pan10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan10.setPreferredSize(new java.awt.Dimension(300, 266));
         pan10.setLayout(new java.awt.BorderLayout());
 
@@ -1080,6 +1087,7 @@ public class Furniture extends javax.swing.JFrame {
 
         pan10.add(scr6, java.awt.BorderLayout.CENTER);
 
+        scr5.setBorder(null);
         scr5.setPreferredSize(new java.awt.Dimension(454, 108));
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
@@ -1196,10 +1204,10 @@ public class Furniture extends javax.swing.JFrame {
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
-        if (tab2b.getBorder() != null && getSelectedRec(tab2a) == -1) {
+        if (tab2b.getBorder() != null && Util.getSelectedRec(tab2a) == -1) {
             JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
             return;
-        } else if (tab2c.getBorder() != null && getSelectedRec(tab2b) == -1) {
+        } else if (tab2c.getBorder() != null && Util.getSelectedRec(tab2b) == -1) {
             JOptionPane.showMessageDialog(null, "Сначала заполните основную таблицу", "Предупреждение", JOptionPane.NO_OPTION);
             return;
         }
@@ -1349,13 +1357,12 @@ public class Furniture extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
+       // List<JPanel> comp = null; //Arrays.asList(this.getComponents()).stream().filter(comp -> comp instanceof JPanel).collect(Collectors.toList());
+        
         new FrameToFile(this, btnClose);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
-        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            //Util.stopSorting(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        }));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
         scr3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

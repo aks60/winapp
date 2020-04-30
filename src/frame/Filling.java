@@ -239,7 +239,7 @@ public class Filling extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = getSelectedRec(tab1);
+        int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
@@ -260,7 +260,7 @@ public class Filling extends javax.swing.JFrame {
     }
 
     private void selectionTab2(ListSelectionEvent event) {
-        int row = getSelectedRec(tab2);
+        int row = Util.getSelectedRec(tab2);
         if (row != -1) {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             Arrays.asList(qGlaspar2, qGlasprof).forEach(q -> q.execsql());

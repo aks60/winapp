@@ -16,7 +16,6 @@ import java.util.Vector;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
-import static common.Util.getSelectedRec;
 
 public class ParGrup1 extends javax.swing.JDialog {
 
@@ -307,12 +306,12 @@ public class ParGrup1 extends javax.swing.JDialog {
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         if (btnCard1.isSelected() == true) {
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
-            record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
+            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 1));
             listener.action(record);
         } else {
-            Object obj = qParams.get(getSelectedRec(tab2));
-            listener.action(qParams.get(getSelectedRec(tab2)));
+            Object obj = qParams.get(Util.getSelectedRec(tab2));
+            listener.action(qParams.get(Util.getSelectedRec(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

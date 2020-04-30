@@ -2,11 +2,11 @@ package dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.Record;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import static common.Util.getSelectedRec;
 
 public class ParGrup3 extends javax.swing.JDialog {
 
@@ -189,7 +189,7 @@ public class ParGrup3 extends javax.swing.JDialog {
 
     private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
         Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
+        record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChouce

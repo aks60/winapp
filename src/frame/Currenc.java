@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
-import static common.Util.getSelectedRec;
 
 public class Currenc extends javax.swing.JFrame {
 
@@ -269,7 +268,7 @@ public class Currenc extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-            int row = getSelectedRec(tab1);
+            int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record record = qCurrenc.get(row);
                 record.set(eCurrenc.up, Query.DEL);
@@ -298,7 +297,7 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = getSelectedRec(tab1);
+        int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             listener.action(qCurrenc.get(row));
         }

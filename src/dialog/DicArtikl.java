@@ -209,7 +209,7 @@ public class DicArtikl extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = getSelectedRec(tab2);
+        int row = Util.getSelectedRec(tab2);
         if (row != -1) {
             Record record = qArtikl.get(row);
             listener.action(record);

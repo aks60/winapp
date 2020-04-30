@@ -3,7 +3,6 @@ package dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import static common.Util.getSelectedRec;
 import dataset.Query;
 import dataset.Record;
 import domain.eFurniture;

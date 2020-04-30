@@ -7,7 +7,6 @@ import dataset.Query;
 import dataset.Record;
 import domain.eParams;
 import swing.DefTableModel;
-import static common.Util.getSelectedRec;
 
 public class ParGrup2 extends javax.swing.JDialog {
 
@@ -186,7 +185,7 @@ public class ParGrup2 extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record(1);
-        record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
+        record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

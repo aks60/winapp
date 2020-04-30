@@ -3,6 +3,7 @@ package frame;
 import common.DialogListener;
 import common.FrameListener;
 import common.FrameToFile;
+import common.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
@@ -24,7 +25,6 @@ import javax.swing.table.DefaultTableModel;
 import wincalc.Wincalc;
 import wincalc.model.ElemSimple;
 import wincalc.model.PaintPanel;
-import static common.Util.getSelectedRec;
 
 public class BoxTypical extends javax.swing.JFrame implements FrameListener<Object, Object> {
 
@@ -114,7 +114,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        int row = getSelectedRec(tab1);
+        int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
             iwinMax.create(script.toString());
@@ -751,7 +751,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_panMouseClicked
 
     private void btnChoiceresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoiceresh
-        int row = getSelectedRec(tab1);
+        int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = new Record();
             record.add(qSysprod.get(row, eSysprod.id));

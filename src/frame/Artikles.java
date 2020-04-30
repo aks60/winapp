@@ -26,7 +26,6 @@ import swing.DefFieldEditor;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import static common.Util.getSelectedRec;
 import dialog.DicArtikl;
 import dialog.DicGroups;
 import domain.eElement;
@@ -237,7 +236,7 @@ public class Artikles extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
 
         Util.stopCellEditing(tab1, tab2);
-        int row = getSelectedRec(tab1);
+        int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = qArtikl.get(row);
             int id = record.getInt(eArtikl.id);
@@ -251,7 +250,7 @@ public class Artikles extends javax.swing.JFrame {
     public void listenerDict() {
 
         listenerSeries = (record) -> {
-            int row = getSelectedRec(tab1);
+            int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.series_id, record.get(eGroups.id));
@@ -261,7 +260,7 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerAnalog = (record) -> {
-            int row = getSelectedRec(tab1);
+            int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 System.out.println(record);
                 Record artiklRec = qArtikl.get(row);
@@ -274,10 +273,10 @@ public class Artikles extends javax.swing.JFrame {
         listenerColor = (record) -> {
             if (tab2.getBorder() != null) {
                 if (eColgrp.values().length == record.size()) {
-                    qArtdet.set(-1 * record.getInt(eColgrp.id), getSelectedRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(-1 * record.getInt(eColgrp.id), Util.getSelectedRec(tab2), eArtdet.color_fk);
 
                 } else if (eColor.values().length == record.size()) {
-                    qArtdet.set(record.getInt(eColor.id), getSelectedRec(tab2), eArtdet.color_fk);
+                    qArtdet.set(record.getInt(eColor.id), Util.getSelectedRec(tab2), eArtdet.color_fk);
                 }
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.stopCellEditing(tab1, tab2);
@@ -286,7 +285,7 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerCurrenc = (record) -> {
             if (tab2.getBorder() != null) {
-                int row = getSelectedRec(tab1);
+                int row = Util.getSelectedRec(tab1);
                 if (row != -1) {
                     Record artiklRec = qArtikl.get(row);
                     artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
@@ -911,7 +910,7 @@ public class Artikles extends javax.swing.JFrame {
             }
 
         } else if (tab2.getBorder() != null) {
-            int row = getSelectedRec(tab1);
+            int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 Record artdetRec = qArtdet.newRecord(Query.INS);
@@ -929,7 +928,7 @@ public class Artikles extends javax.swing.JFrame {
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
             if (tab1.getBorder() != null) {
-                int row = getSelectedRec(tab1);
+                int row = Util.getSelectedRec(tab1);
                 if (row != -1) {
                     Record record = qArtikl.get(row);
                     record.set(eArtikl.up, Query.DEL);
@@ -939,7 +938,7 @@ public class Artikles extends javax.swing.JFrame {
                     Util.setSelectedRow(tab1);
                 }
             } else if (tab2.getBorder() != null) {
-                int row = getSelectedRec(tab2);
+                int row = Util.getSelectedRec(tab2);
                 if (row != -1) {
                     Record record = qArtdet.get(row);
                     record.set(eArtdet.up, Query.DEL);

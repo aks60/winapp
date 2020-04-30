@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
-import static common.Util.getSelectedRec;
 import dataset.Field;
 import enums.UseColcalc;
 
@@ -313,11 +312,11 @@ public class ParColor extends javax.swing.JDialog {
         if (btnCard1.isSelected() == true) {
 
             Record record = new Record(2);
-            record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 0));
-            record.add(tab1.getModel().getValueAt(getSelectedRec(tab1), 1));
+            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
+            record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 1));
             listener.action(record);
         } else {
-            listener.action(qParams.get(getSelectedRec(tab2)));
+            listener.action(qParams.get(Util.getSelectedRec(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
