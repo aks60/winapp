@@ -279,7 +279,7 @@ public class Filling extends javax.swing.JFrame {
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = Util.getSelectedRec(tab2);
                 qGlasdet.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eGlasdet.artikl_id);
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
                 qGlasdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
@@ -287,7 +287,7 @@ public class Filling extends javax.swing.JFrame {
                 Util.setSelectedRow(tab2, row);
 
             } else if (tab5.getBorder() != null) {
-                int row = tab5.getSelectedRow();
+                int row = Util.getSelectedRec(tab5);
                 qGlasprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab5), eGlasprof.artikl_id);
                 qGlasprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab5), eArtikl.code);
                 qGlasprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab5), eArtikl.name);
@@ -302,7 +302,7 @@ public class Filling extends javax.swing.JFrame {
 
         listenerColvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab2.getSelectedRow();
+            int row = Util.getSelectedRec(tab2);
             Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
             glasdetRec.set(eGlasdet.types, record.getInt(0));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -312,7 +312,7 @@ public class Filling extends javax.swing.JFrame {
         listenerTypset = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = Util.getSelectedRec(tab2);
                 qGlasdet.set(record.getInt(0), Util.getSelectedRec(tab2), eElement.typset);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
@@ -322,7 +322,7 @@ public class Filling extends javax.swing.JFrame {
         listenerThicknes = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = Util.getSelectedRec(tab2);
                 String series = record.getStr(0);
                 qGlasdet.set(series, Util.getSelectedRec(tab2), eGlasdet.depth);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

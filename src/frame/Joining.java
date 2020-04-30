@@ -320,7 +320,7 @@ public class Joining extends javax.swing.JFrame {
                 }
 
             } else if (tab4.getBorder() != null) {
-                int row = tab4.getSelectedRow();
+                int row = Util.getSelectedRec(tab4);
                 Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
                 joindetRec.set(eJoindet.artikl_id, record.getInt(eArtikl.id));
                 joindetRec.set(eJoindet.color_fk, null);
@@ -343,7 +343,7 @@ public class Joining extends javax.swing.JFrame {
 
         listenerColvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab4.getSelectedRow();
+            int row = Util.getSelectedRec(tab4);
             Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
             joindetRec.set(eJoindet.types, record.getInt(0));
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -352,7 +352,7 @@ public class Joining extends javax.swing.JFrame {
 
         listenerJoinvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab2.getSelectedRow();
+            int row = Util.getSelectedRec(tab2);
             Record joinvarRec = qJoinvar.get(Util.getSelectedRec(tab2));
             joinvarRec.set(eJoinvar.types, record.getInt(0));
             joinvarRec.set(eJoinvar.name, record.getStr(1));

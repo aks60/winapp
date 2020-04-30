@@ -283,7 +283,7 @@ public class Systree extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
-            int row = tab2.getSelectedRow();
+            int row = Util.getSelectedRec(tab2);
             qSysprof.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eSysprof.artikl_id);
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
             qSysprof.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
@@ -302,7 +302,7 @@ public class Systree extends javax.swing.JFrame {
 
         listenerFurn = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
-            int row = tab3.getSelectedRow();
+            int row = Util.getSelectedRec(tab3);
             qSysfurn.set(record.getInt(eFurniture.id), Util.getSelectedRec(tab3), eSysfurn.furniture_id);
             qSysfurn.table(eFurniture.up).set(record.get(eFurniture.name), Util.getSelectedRec(tab3), eFurniture.name);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -319,7 +319,7 @@ public class Systree extends javax.swing.JFrame {
 
         listenerParam1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
-            int row = tab4.getSelectedRow();
+            int row = Util.getSelectedRec(tab4);
             qSyspar1.set(record.getInt(eParams.grup), Util.getSelectedRec(tab4), eSyspar1.grup);
             qSyspar1.set(null, Util.getSelectedRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -328,7 +328,7 @@ public class Systree extends javax.swing.JFrame {
 
         listenerParam2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
-            int row = tab4.getSelectedRow();
+            int row = Util.getSelectedRec(tab4);
             qSyspar1.set(record.getStr(eParams.text), Util.getSelectedRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);

@@ -205,12 +205,12 @@ public class Util {
     }
 
     //Выделить запись
-    public static void setSelectedRow(JTable table, int row) {
+    public static void setSelectedRow(JTable table, int rowModel) {
         if (table.getRowCount() > 0) {
 
-            if (table.getRowCount() > row) {
-                //int row2 = table.convertRowIndexToModel(row);
-                table.setRowSelectionInterval(row, row);
+            if (table.getRowCount() > rowModel) {
+                int rowTable = table.convertRowIndexToView(rowModel);
+                table.setRowSelectionInterval(rowTable, rowTable);
             } else {
                 table.setRowSelectionInterval(0, 0);
             }
@@ -292,15 +292,15 @@ public class Util {
 
         if (table.getSelectedRow() != -1) {
             Query query = ((DefTableModel) table.getModel()).getQuery();
-            int indexTable = table.getSelectedRow();
-            int indexQuery = getSelectedRec(table);
-            Record record = query.get(indexQuery);
+            int rowTable = table.getSelectedRow();
+            int rowModel = getSelectedRec(table);
+            Record record = query.get(rowModel);
             record.set(field, Query.DEL);
             query.delete(record);
-            query.removeRec(indexQuery);
+            query.removeRec(rowModel);
             ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-            indexTable = (indexTable > 0) ? --indexTable : 0;
-            Util.setSelectedRow(table, indexTable);
+            rowTable = (rowTable > 0) ? --rowTable : 0;
+            Util.setSelectedRow(table, rowModel);
         } else {
             JOptionPane.showMessageDialog(null, "Ни одна из текущих записей не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
         }
@@ -434,7 +434,7 @@ public class Util {
     //Слушатель редактирование параметров
     public static void listenerParam(Record record, JTable table, Field grup, Field numb, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
-        int row = table.getSelectedRow();
+        int row = getSelectedRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record2 = query.get(Util.getSelectedRec(table));
 
@@ -458,10 +458,9 @@ public class Util {
     //Слушатель редактирование палитры
     public static void listenerColor(Record record, JTable table, Field color_fk, Field types, JTable... tables) {
         Util.stopCellEditing(tables);
-        //int row = table.convertRowIndexToModel(table.getSelectedRow());
-        int row = table.getSelectedRow();
+        int row = getSelectedRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record elemdetRec = query.get(Util.getSelectedRec(table));
+        Record elemdetRec = query.get(row);
         int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group > 0) {
@@ -470,13 +469,13 @@ public class Util {
             elemdetRec.set(types, null);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(table, row);       
+        Util.setSelectedRow(table, row);      
     }
 
     public static void listenerEnums(Record record, JTable table, Field field_fk, JTable... tables) {
         Util.stopCellEditing(tables);
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        int row = table.getSelectedRow();
+        int row = getSelectedRec(table);
         query.set(record.getInt(0), Util.getSelectedRec(table), field_fk);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.setSelectedRow(table, row);

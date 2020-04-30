@@ -548,7 +548,7 @@ public class Furniture extends javax.swing.JFrame {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Query query = (tab2a.getBorder() != null) ? qFurndet1 : (tab2b.getBorder() != null) ? qFurndet2 : qFurndet3;
             if (tab.getBorder() != null) {
-                int row = tab.getSelectedRow();
+                int row = Util.getSelectedRec(tab);
                 query.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab), eFurndet.artikl_id);
                 ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab, row);
@@ -564,7 +564,7 @@ public class Furniture extends javax.swing.JFrame {
             JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
             Query query = (tab2a.getBorder() != null) ? qFurndet1 : (tab2b.getBorder() != null) ? qFurndet2 : qFurndet3;
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            int row = tab.getSelectedRow();
+            int row = Util.getSelectedRec(tab);
             Record furndetRec = query.get(Util.getSelectedRec(tab));
             furndetRec.set(eFurndet.types, record.getInt(0));
             ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
@@ -1379,7 +1379,7 @@ public class Furniture extends javax.swing.JFrame {
         txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> {
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            Util.stopSorting(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            //Util.stopSorting(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         }));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));

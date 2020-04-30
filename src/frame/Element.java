@@ -347,7 +347,7 @@ public class Element extends javax.swing.JFrame {
         listenerTypset = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = Util.getSelectedRec(tab2);
                 qElement.set(record.getInt(0), Util.getSelectedRec(tab2), eElement.typset);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
@@ -357,7 +357,7 @@ public class Element extends javax.swing.JFrame {
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = Util.getSelectedRec(tab2);
                 qElement.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElement.artikl_id);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
                 qElement.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
@@ -365,7 +365,7 @@ public class Element extends javax.swing.JFrame {
                 Util.setSelectedRow(tab2, row);
 
             } else if (tab3.getBorder() != null) {
-                int row = tab3.getSelectedRow();
+                int row = Util.getSelectedRec(tab3);
                 qElemdet.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eElemdet.artikl_id);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab3), eArtikl.name);
                 qElemdet.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab3), eArtikl.code);
@@ -377,7 +377,7 @@ public class Element extends javax.swing.JFrame {
         listenerSeries = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
-                int row = tab2.getSelectedRow();
+                int row = Util.getSelectedRec(tab2);
                 int series_id = record.getInt(eGroups.id);
                 qElement.set(series_id, Util.getSelectedRec(tab2), eElement.series_id);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -391,7 +391,7 @@ public class Element extends javax.swing.JFrame {
 
         listenerColvar = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            int row = tab3.getSelectedRow();
+            int row = Util.getSelectedRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
             elemdetRec.set(eElemdet.types, record.getInt(0));
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
