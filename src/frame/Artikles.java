@@ -35,6 +35,7 @@ import enums.TypeGroups;
 import java.awt.Window;
 import java.util.ArrayList;
 import java.util.stream.Stream;
+import javax.swing.JPanel;
 import javax.swing.RowFilter;
 
 /**
@@ -1053,7 +1054,7 @@ public class Artikles extends javax.swing.JFrame {
 // </editor-fold> 
     private void initElements() {
 
-        new FrameToFile(this, btnClose);
+        new FrameToFile(this, btnClose);        
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2)));

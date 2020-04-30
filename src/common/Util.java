@@ -11,6 +11,8 @@ import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
 import enums.UseColcalc;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -19,6 +21,7 @@ import java.awt.event.InputEvent;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -132,6 +135,19 @@ public class Util {
 
     public static Font getFont(int size, int bold) {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
+    }
+
+    //Все компоненты формы
+    public static List<Component> getAllComponents(final Container c) {
+        Component[] comps = c.getComponents();
+        List<Component> compList = new ArrayList<Component>();
+        for (Component comp : comps) {
+            compList.add(comp);
+            if (comp instanceof Container) {
+                compList.addAll(getAllComponents((Container) comp));
+            }
+        }
+        return compList;
     }
 
     //Типы данных в базе

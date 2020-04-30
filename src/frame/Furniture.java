@@ -40,9 +40,14 @@ import enums.LayoutFurn3;
 import enums.UseColcalc;
 import enums.UseFurn1;
 import enums.UseFurn2;
+import java.awt.Component;
+import java.awt.Container;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.RowFilter;
 import main.Main;
 
@@ -623,7 +628,7 @@ public class Furniture extends javax.swing.JFrame {
         checkBox1 = new javax.swing.JCheckBox();
         checkBox2 = new javax.swing.JCheckBox();
         checkBox3 = new javax.swing.JCheckBox();
-        centr = new javax.swing.JPanel();
+        center = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -824,15 +829,12 @@ public class Furniture extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        centr.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        centr.setPreferredSize(new java.awt.Dimension(900, 500));
-        centr.setLayout(new java.awt.BorderLayout());
+        center.setPreferredSize(new java.awt.Dimension(900, 500));
+        center.setLayout(new java.awt.BorderLayout());
 
-        pan1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan1.setPreferredSize(new java.awt.Dimension(800, 260));
         pan1.setLayout(new java.awt.BorderLayout());
 
-        pan4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan4.setPreferredSize(new java.awt.Dimension(500, 200));
         pan4.setLayout(new java.awt.BorderLayout());
 
@@ -869,7 +871,6 @@ public class Furniture extends javax.swing.JFrame {
         pan5.setPreferredSize(new java.awt.Dimension(300, 200));
         pan5.setLayout(new java.awt.BorderLayout());
 
-        pan7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan7.setPreferredSize(new java.awt.Dimension(300, 108));
         pan7.setLayout(new java.awt.BorderLayout());
 
@@ -899,7 +900,6 @@ public class Furniture extends javax.swing.JFrame {
 
         pan5.add(pan7, java.awt.BorderLayout.NORTH);
 
-        pan8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan8.setPreferredSize(new java.awt.Dimension(300, 90));
         pan8.setLayout(new java.awt.BorderLayout());
 
@@ -943,17 +943,14 @@ public class Furniture extends javax.swing.JFrame {
 
         pan1.add(pan5, java.awt.BorderLayout.EAST);
 
-        centr.add(pan1, java.awt.BorderLayout.NORTH);
+        center.add(pan1, java.awt.BorderLayout.NORTH);
 
-        pan2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan2.setPreferredSize(new java.awt.Dimension(800, 302));
         pan2.setLayout(new java.awt.BorderLayout());
 
-        pan6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan6.setPreferredSize(new java.awt.Dimension(800, 300));
         pan6.setLayout(new java.awt.BorderLayout());
 
-        pan9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan9.setLayout(new java.awt.BorderLayout());
 
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -1047,7 +1044,6 @@ public class Furniture extends javax.swing.JFrame {
 
         pan6.add(pan9, java.awt.BorderLayout.CENTER);
 
-        pan10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         pan10.setPreferredSize(new java.awt.Dimension(300, 266));
         pan10.setLayout(new java.awt.BorderLayout());
 
@@ -1118,9 +1114,9 @@ public class Furniture extends javax.swing.JFrame {
 
         pan2.add(pan6, java.awt.BorderLayout.CENTER);
 
-        centr.add(pan2, java.awt.BorderLayout.CENTER);
+        center.add(pan2, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
+        getContentPane().add(center, java.awt.BorderLayout.CENTER);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -1318,7 +1314,7 @@ public class Furniture extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
-    private javax.swing.JPanel centr;
+    private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkBox1;
     private javax.swing.JCheckBox checkBox2;
     private javax.swing.JCheckBox checkBox3;
@@ -1357,8 +1353,7 @@ public class Furniture extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-       // List<JPanel> comp = null; //Arrays.asList(this.getComponents()).stream().filter(comp -> comp instanceof JPanel).collect(Collectors.toList());
-        
+
         new FrameToFile(this, btnClose);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
@@ -1407,5 +1402,10 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         });
+         Util.getAllComponents(this.center).forEach(c -> {
+            if(c instanceof JPanel) {
+               ((JPanel) c).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1)); 
+            }
+         });        
     }
 }
