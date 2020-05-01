@@ -324,9 +324,9 @@
                       <Data value="111"/>
                       <Data value="222"/>
                     </Column>
-                    <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.&#x43e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Double"/>
-                    <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.&#x432;&#x43d;&#x443;&#x442;&#x440;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Double"/>
-                    <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.&#x432;&#x43d;&#x435;&#x448;&#x43d;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Double"/>
+                    <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.(&#x43e;&#x441;&#x43d;&#x43e;&#x432;&#x43d;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;)" type="java.lang.Double"/>
+                    <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.(&#x432;&#x43d;&#x443;&#x442;&#x440;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;)" type="java.lang.Double"/>
+                    <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;.(&#x432;&#x43d;&#x435;&#x448;&#x43d;.&#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;)" type="java.lang.Double"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
