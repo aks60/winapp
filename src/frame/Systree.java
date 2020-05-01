@@ -519,6 +519,7 @@ public class Systree extends javax.swing.JFrame {
 
         btnFill.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
+        btnFill.setToolTipText("Заполнения в ситеме...");
         btnFill.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFill.setMaximumSize(new java.awt.Dimension(25, 25));
         btnFill.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -530,6 +531,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         btnJoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
+        btnJoin.setToolTipText("Соединения в системе...");
         btnJoin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnJoin.setMaximumSize(new java.awt.Dimension(25, 25));
         btnJoin.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -541,6 +543,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         btnElem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
+        btnElem.setToolTipText("Составы в системе...");
         btnElem.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnElem.setMaximumSize(new java.awt.Dimension(25, 25));
         btnElem.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -553,6 +556,7 @@ public class Systree extends javax.swing.JFrame {
 
         btnFurn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnFurn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
+        btnFurn.setToolTipText("Фурнитура в системе...");
         btnFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFurn.setMaximumSize(new java.awt.Dimension(25, 25));
         btnFurn.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -565,6 +569,7 @@ public class Systree extends javax.swing.JFrame {
 
         btnSpec.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSpec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
+        btnSpec.setToolTipText("Спецификация в системе...");
         btnSpec.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnSpec.setMaximumSize(new java.awt.Dimension(25, 25));
         btnSpec.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -606,6 +611,7 @@ public class Systree extends javax.swing.JFrame {
 
         btnArtikl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btnArtikl.setToolTipText("Артикулы в системе...");
         btnArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
         btnArtikl.setMinimumSize(new java.awt.Dimension(25, 25));
@@ -1269,7 +1275,7 @@ public class Systree extends javax.swing.JFrame {
 
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
-        JTable table = Stream.of(tab1, tab2, tab3, tab4).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
+        JTable table = Stream.of(tab2, tab3, tab4).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
         btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);

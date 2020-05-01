@@ -73,32 +73,33 @@ public class DefFieldEditor {
     public void load(Integer row) {
         update = false;
         try {
-            Util.setSelectedRow(table, row);
-            for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
-                JTextComponent comp = me.getKey();
-                Field field = me.getValue();
-                Object val = ((DefTableModel) table.getModel()).getQuery().table(field).get(row, field);
+            if (row != null) {
+                for (Map.Entry<JTextComponent, Field> me : mapTxt.entrySet()) {
+                    JTextComponent comp = me.getKey();
+                    Field field = me.getValue();
+                    Object val = ((DefTableModel) table.getModel()).getQuery().table(field).get(row, field);
 
-                if (val == null || row == -1) {
-                    if (field.meta().type().equals(Field.TYPE.STR)) {
-                        comp.setText("");
-                    } else {
-                        comp.setText("0");
-                    }
-                } else if (field.meta().type().equals(Field.TYPE.DATE)) {
-                    comp.setText(Util.DateToStr(val));
-
-                } else if (mapEnam.containsKey(field)) {
-                    for (Enam enam : mapEnam.get(field)) {
-                        if (val.equals(enam.numb())) {
-                            comp.setText(enam.text());
+                    if (val == null || row == -1) {
+                        if (field.meta().type().equals(Field.TYPE.STR)) {
+                            comp.setText("");
+                        } else {
+                            comp.setText("0");
                         }
-                    }
-                } else {
-                    comp.setText(val.toString());
-                }
+                    } else if (field.meta().type().equals(Field.TYPE.DATE)) {
+                        comp.setText(Util.DateToStr(val));
 
-                comp.getCaret().setDot(1);
+                    } else if (mapEnam.containsKey(field)) {
+                        for (Enam enam : mapEnam.get(field)) {
+                            if (val.equals(enam.numb())) {
+                                comp.setText(enam.text());
+                            }
+                        }
+                    } else {
+                        comp.setText(val.toString());
+                    }
+
+                    comp.getCaret().setDot(1);
+                }
             }
         } finally {
             update = true;

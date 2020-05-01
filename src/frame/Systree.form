@@ -247,6 +247,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c026.gif"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x417;&#x430;&#x43f;&#x43e;&#x43b;&#x43d;&#x435;&#x43d;&#x438;&#x44f; &#x432; &#x441;&#x438;&#x442;&#x435;&#x43c;&#x435;..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder bevelType="0"/>
@@ -271,6 +272,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c024.gif"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x421;&#x43e;&#x435;&#x434;&#x438;&#x43d;&#x435;&#x43d;&#x438;&#x44f; &#x432; &#x441;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x435;..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder bevelType="0"/>
@@ -295,6 +297,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c025.gif"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x421;&#x43e;&#x441;&#x442;&#x430;&#x432;&#x44b; &#x432; &#x441;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x435;..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder bevelType="0"/>
@@ -322,6 +325,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c027.gif"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x424;&#x443;&#x440;&#x43d;&#x438;&#x442;&#x443;&#x440;&#x430; &#x432; &#x441;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x435;..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder bevelType="0"/>
@@ -349,6 +353,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c016.gif"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x421;&#x43f;&#x435;&#x446;&#x438;&#x444;&#x438;&#x43a;&#x430;&#x446;&#x438;&#x44f; &#x432; &#x441;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x435;..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder bevelType="0"/>
@@ -442,6 +447,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resource/img24/c021.gif"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x44b; &#x432; &#x441;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x435;..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                 <EtchetBorder bevelType="0"/>
