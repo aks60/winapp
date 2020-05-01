@@ -16,13 +16,13 @@ import swing.DefTableModel;
 import dataset.Field;
 import enums.UseColcalc;
 
-public class ParColor extends javax.swing.JDialog {
+public class ParColor2 extends javax.swing.JDialog {
 
     private Query qArtdet = new Query(eArtdet.values());
     private Query qParams = new Query(eParams.values());
     private DialogListener listener;
 
-    public ParColor(java.awt.Frame parent, DialogListener listener, int artikl_id) {
+    public ParColor2(java.awt.Frame parent, DialogListener listener, int artikl_id) {
         super(parent, true);
         initComponents();
         initElements();

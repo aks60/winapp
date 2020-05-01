@@ -27,10 +27,10 @@ import dataset.Table;
 import dialog.DicArtikl;
 import dialog.DicColvar;
 import dialog.DicEnums;
-import dialog.ParColor;
-import dialog.ParGrup1;
-import dialog.ParGrup3;
+import dialog.ParColor2;
 import dialog.ParGrup2;
+import dialog.ParGrup2b;
+import dialog.ParGrup2a;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
@@ -387,7 +387,7 @@ public class Furniture extends javax.swing.JFrame {
             Util.buttonEditorCell(tab, 2).addActionListener(event -> {
                 Record record = query.get(Util.getSelectedRec(tab));
                 int artikl_id = record.getInt(eFurndet.artikl_id);
-                ParColor frame = new ParColor(this, listenerColor, artikl_id);
+                ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
             });
         }
         for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
@@ -408,17 +408,17 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            ParGrup1 frame = new ParGrup1(this, listenerPar1, eParams.joint, 21000);
+            ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, 21000);
         });
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eFurnpar1.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar1, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar1, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
             }
         });
 
@@ -437,7 +437,7 @@ public class Furniture extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
-                ParGrup1 frame = new ParGrup1(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
             }
         });
 
@@ -445,10 +445,10 @@ public class Furniture extends javax.swing.JFrame {
             Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
             int grup = record.getInt(eFurnpar2.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });
 

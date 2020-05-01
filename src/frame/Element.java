@@ -15,10 +15,10 @@ import dataset.Record;
 import dialog.DicColvar;
 import dialog.DicGroups;
 import dialog.DicTypset;
-import dialog.ParColor;
-import dialog.ParGrup1;
-import dialog.ParGrup3;
+import dialog.ParColor2;
 import dialog.ParGrup2;
+import dialog.ParGrup2b;
+import dialog.ParGrup2a;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eParams;
@@ -184,7 +184,7 @@ public class Element extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eElempar2.grup) {
+                if (field == eElempar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eElempar2.grup) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
@@ -229,7 +229,7 @@ public class Element extends javax.swing.JFrame {
         Util.buttonEditorCell(tab3, 2).addActionListener(event -> {
             Record record = qElemdet.get(Util.getSelectedRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
-            ParColor frame = new ParColor(this, listenerColor, artikl_id);
+            ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
         Util.buttonEditorCell(tab3, 3).addActionListener(event -> {
@@ -244,18 +244,18 @@ public class Element extends javax.swing.JFrame {
                 Record record = qElemgrp.get(row);
                 int paramPart = record.getInt(eElemgrp.level);
                 paramPart = (paramPart == 1) ? 31000 : 37000;
-                ParGrup1 frame = new ParGrup1(this, listenerPar1, eParams.elem, paramPart);
+                ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.elem, paramPart);
             }
         });
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qElempar1.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eJoinpar1.grup);
+            int grup = record.getInt(eElempar1.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar1, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar1, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
             }
         });
 
@@ -267,7 +267,7 @@ public class Element extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 39000, 38000, 39000, 38000, 40000, 0};
-                ParGrup1 frame = new ParGrup1(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
             }
         });
 
@@ -275,10 +275,10 @@ public class Element extends javax.swing.JFrame {
             Record record = qElempar2.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eElempar2.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });
         Util.setSelectedRow(tab1);

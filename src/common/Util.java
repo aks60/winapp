@@ -256,7 +256,7 @@ public class Util {
     }
 
     //Вставить запись
-    public static void insertRecord(JTable table, Field up) {
+    public static Record insertRecord(JTable table, Field up) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record = query.newRecord(Query.INS);
@@ -264,6 +264,7 @@ public class Util {
         query.add(record);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.scrollRectToVisible(query, table);
+        return record;
     }
 
     //Вставить запись

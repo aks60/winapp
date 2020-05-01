@@ -4,50 +4,76 @@ import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.ConnApp;
+import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import dialog.ParColor;
-import static domain.eArtikl.query;
+import dialog.ParGrup1;
+import dialog.ParGrup2a;
 import domain.eColor;
 import domain.eColgrp;
 import domain.eColpar1;
+import domain.eElemdet;
+import domain.eElemgrp;
+import domain.eElempar2;
 import domain.eParams;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
+import java.util.stream.Stream;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import swing.DefCellEditor;
+import main.Main;
 import swing.DefTableModel;
 
 public class Color extends javax.swing.JFrame {
-    //implements FrameListener<DefTableModel, Object> {
 
-    private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff).select(eColgrp.up, "order by", eColgrp.name);
+    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values());
-    private DialogListener listenerColor = null;
+    private DialogListener listenerPar;
 
     public Color() {
         initComponents();
         initElements();
+        listenerDict();
+        loadingData();
         loadingModel();
+    }
+
+    private void loadingData() {
+        qParams.select(eParams.up, "where", eParams.color, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
     }
 
     private void loadingModel() {
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name);
-        new DefTableModel(tab2, qColor, eColor.name, eColor.suffix1, eColor.suffix2, eColor.suffix3);
-        new DefTableModel(tab3, qColpar1, eColpar1.numb, eColpar1.text);
+        new DefTableModel(tab2, qColor, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3);
+        new DefTableModel(tab3, qColpar1, eColpar1.grup, eColpar1.text) {
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];
+                if (field == eColpar1.grup) {
+                    Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                    return (Main.dev) ? record.getStr(eElempar2.grup) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
+                }
+                return val;
+            }
+        };
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            Query query = new Query(eParams.values()).select(eParams.up, "where", eParams.color, "= 1 order by", eParams.text).table(eParams.up);
-            eParams.text.meta().descr("Название параметра");                
-            //ParColor frame = new ParColor(this, listenerColor, query, eParams.text);
+            ParGrup1 frame = new ParGrup1(this, listenerPar, eParams.color);
+        });
+
+        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+            Record record = qColpar1.get(Util.getSelectedRec(tab3));
+            int grup = record.getInt(eColpar1.grup);
+            ParGrup2a frame = new ParGrup2a(this, listenerPar, grup);
         });
         Util.setSelectedRow(tab1);
     }
@@ -76,10 +102,10 @@ public class Color extends javax.swing.JFrame {
         }
     }
 
-    public void listenerDict(java.awt.event.ActionEvent evt) {
+    public void listenerDict() {
 
-        listenerColor = (record) -> {
-            System.out.println("forms.Joining.listenerColor()");
+        listenerPar = (record) -> {
+            Util.listenerParam(record, tab3, eColpar1.grup, eColpar1.numb, eColpar1.text, tab1, tab2, tab3);
         };
     }
 
@@ -101,11 +127,15 @@ public class Color extends javax.swing.JFrame {
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Текстура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 549));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Color.this.windowClosed(evt);
@@ -230,7 +260,13 @@ public class Color extends javax.swing.JFrame {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
 
         west.add(scr1, java.awt.BorderLayout.CENTER);
@@ -246,15 +282,15 @@ public class Color extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111",  new Integer(1),  new Integer(1),  new Integer(1)},
-                {"222",  new Integer(2),  new Integer(2),  new Integer(2)}
+                {"111", null, null, null},
+                {"222", null, null, null}
             },
             new String [] {
-                "Название", "Основная", "Внутрення", "Внешняя"
+                "Название", "Коэф.основн.текстура", "Коэф.внутр.текстура", "Коэф.внешн.текстура"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -262,7 +298,13 @@ public class Color extends javax.swing.JFrame {
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(260);
@@ -286,7 +328,13 @@ public class Color extends javax.swing.JFrame {
             }
         ));
         tab3.setFillsViewportHeight(true);
+        tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -299,17 +347,29 @@ public class Color extends javax.swing.JFrame {
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 773, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        south.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilterfilterCaretUpdate(evt);
+            }
+        });
+        south.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        south.add(checkFilter);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -328,32 +388,17 @@ public class Color extends javax.swing.JFrame {
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
 
-        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-
-            if (tab1.getBorder() != null) {
-                Record colgrpRec = qСolgrup.get(Util.getSelectedRec(tab1));
-                colgrpRec.set(eColgrp.up, Query.DEL);
-                qСolgrup.delete(colgrpRec);
-                qСolgrup.removeRec(Util.getSelectedRec(tab1));
-                ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab1);
-
-            } else if (tab2.getBorder() != null) {
-                Record colorRec = qColor.get(Util.getSelectedRec(tab2));
-                colorRec.set(eColor.up, Query.DEL);
-                qColor.delete(colorRec);
-                qColor.removeRec(Util.getSelectedRec(tab2));
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2);
-
-            } else if (tab3.getBorder() != null) {
-                Record colpar1Rec = qColpar1.get(Util.getSelectedRec(tab3));
-                colpar1Rec.set(eColpar1.up, Query.DEL);
-                qColpar1.delete(colpar1Rec);
-                qColpar1.removeRec(Util.getSelectedRec(tab3));
-                ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab3);
+        if (tab1.getBorder() != null) {
+            if (Util.isDeleteRecord(this, tab2) == 0) {
+                Util.deleteRecord(tab1, eColgrp.up);
+            }
+        } else if (tab2.getBorder() != null) {
+            if (Util.isDeleteRecord(this, tab3) == 0) {
+                Util.deleteRecord(tab2, eColor.up);
+            }
+        } else if (tab3.getBorder() != null) {
+            if (Util.isDeleteRecord(this) == 0) {
+                Util.deleteRecord(tab3, eColpar1.up);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -361,48 +406,52 @@ public class Color extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Query query = qСolgrup.table(eColgrp.up);
-            Record record = query.newRecord(Query.INS);
-            int id = ConnApp.instanc().genId(eColgrp.up);
-            record.setNo(eColgrp.id, id);
-            record.setNo(eColgrp.coeff, 1);
-            query.add(record);
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qСolgrup, tab1);
+            Record record = Util.insertRecord(tab1, eColgrp.up);
+            record.set(eColgrp.coeff, 1);
 
         } else if (tab2.getBorder() != null) {
-            int row = Util.getSelectedRec(tab1);
-            Record colgrpRec = qСolgrup.table(eColgrp.up).get(row);
-            Record recorRec = qColor.newRecord(Query.INS);
-            recorRec.setNo(eColor.id, ConnApp.instanc().genId(eColor.up));
-            recorRec.setNo(eColor.colgrp_id, colgrpRec.getInt(eColgrp.id));
-            qColor.add(recorRec);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qColor, tab2);
+            Util.insertRecord(tab1, tab2, eColgrp.up, eColor.up, eColor.colgrp_id);
 
         } else if (tab3.getBorder() != null) {
-            int row = Util.getSelectedRec(tab2);
-            Record colorRec = qColor.get(row);
-            Record colpar1Rec = qColpar1.newRecord(Query.INS);
-            colpar1Rec.setNo(eColpar1.id, ConnApp.instanc().genId(eColpar1.up));
-            colpar1Rec.setNo(eColpar1.color_id, colorRec.getInt(eColor.id));
-            qColpar1.add(colpar1Rec);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.scrollRectToVisible(qColpar1, tab3);
+            Util.insertRecord(tab2, tab3, eColor.up, eColpar1.up, eColpar1.color_id);
         }
     }//GEN-LAST:event_btnInsert
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2, tab3);
-        Arrays.asList(qСolgrup, qColor, qColpar1).forEach(q -> q.execsql());
+        Arrays.asList(tab1, tab2, tab3).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
     }//GEN-LAST:event_windowClosed
-// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        JTable table = (JTable) evt.getSource();
+        Util.listenerClick(table, Arrays.asList(tab1, tab2, tab3));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }//GEN-LAST:event_tabMousePressed
+
+    private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
+
+        JTable table = Stream.of(tab1, tab2, tab3).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_txtFilterfilterCaretUpdate
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JPanel centr;
+    private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
@@ -411,6 +460,7 @@ public class Color extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
+    private javax.swing.JTextField txtFilter;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 

@@ -4,51 +4,35 @@ import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.Record;
-import enums.UseColcalc;
-import javax.swing.ImageIcon;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-//Варианты текстур
-public class DicColvar extends javax.swing.JDialog {
+public class ParGrup2b extends javax.swing.JDialog {
 
-    private DialogListener listener = null;
-    private int colorFk = 0;
-    String[] titl = {"Наименование"};
-    String[][] rows;
+    private List<String> list;
+    private DialogListener listener;
 
-    public DicColvar(java.awt.Frame parent, DialogListener listenet, int colorFk) {
+    public ParGrup2b(java.awt.Frame parent, DialogListener listener, List list) {
         super(parent, true);
         initComponents();
+        this.listener = listener;
+        this.list = list;
         initElements();
-        this.listener = listenet;
-        this.colorFk = colorFk;
         loadingModel();
         setVisible(true);
     }
-
+    
     private void loadingModel() {
-        ((DefaultTableModel) tab1.getModel()).setRowCount(0);
-        if (colorFk != -1) {
-
-            if (colorFk == 0 || colorFk == 100) {
-                rows = new String[][]{{UseColcalc.P11.name, UseColcalc.P11.id},
-                {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
-                {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
-                {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};
-                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
-
-            } else if (colorFk > 0) {
-                rows = new String[][]{{UseColcalc.P00.name, UseColcalc.P00.id}};
-                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
-            } else {
-                rows = new String[][]{{UseColcalc.P00.name, UseColcalc.P00.id}, {UseColcalc.P11.name, UseColcalc.P11.id},
-                {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
-                {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
-                {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};
-                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
-            }
+        Vector<Vector> vectorData = new Vector();
+        for (String str : list) {
+            Vector vector = new Vector();
+            vector.add(str);
+            vectorData.add(vector);
         }
-        Util.setSelectedRow(tab1);
+        Vector column = new Vector();
+        column.add("Значения параметра");
+        ((DefaultTableModel) tab1.getModel()).setDataVector(vectorData, column);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,20 +41,20 @@ public class DicColvar extends javax.swing.JDialog {
 
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
-        btnChoice = new javax.swing.JButton();
+        btnChouce = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        center = new javax.swing.JPanel();
+        centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Справочник вариантов подбора");
-        setPreferredSize(new java.awt.Dimension(200, 300));
+        setTitle("Параметры смсстемные");
+        setPreferredSize(new java.awt.Dimension(300, 450));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(400, 29));
+        north.setPreferredSize(new java.awt.Dimension(300, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -88,18 +72,18 @@ public class DicColvar extends javax.swing.JDialog {
             }
         });
 
-        btnChoice.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
-        btnChoice.setToolTipText(bundle.getString("Добавить")); // NOI18N
-        btnChoice.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnChoice.setFocusable(false);
-        btnChoice.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnChoice.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnChoice.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnChoice.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnChoice.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnChoice.addActionListener(new java.awt.event.ActionListener() {
+        btnChouce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c044.gif"))); // NOI18N
+        btnChouce.setToolTipText(bundle.getString("Добавить")); // NOI18N
+        btnChouce.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnChouce.setFocusable(false);
+        btnChouce.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChouce.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnChouce.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnChouce.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnChouce.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChouce.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChoice(evt);
+                btnChouce(evt);
             }
         });
 
@@ -124,10 +108,10 @@ public class DicColvar extends javax.swing.JDialog {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -138,7 +122,7 @@ public class DicColvar extends javax.swing.JDialog {
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnChouce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -146,18 +130,16 @@ public class DicColvar extends javax.swing.JDialog {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        center.setLayout(new java.awt.BorderLayout());
-
-        scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
+        centr.setPreferredSize(new java.awt.Dimension(300, 400));
+        centr.setLayout(new java.awt.BorderLayout());
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Nmae 0"},
-                {"Name 0"}
+                {"name1"},
+                {"name2"}
             },
             new String [] {
-                "Название соединения"
+                "Значение параметра"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -170,6 +152,7 @@ public class DicColvar extends javax.swing.JDialog {
         });
         tab1.setFillsViewportHeight(true);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.setShowVerticalLines(false);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab1MouseClicked(evt);
@@ -177,19 +160,19 @@ public class DicColvar extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
 
-        center.add(scr1, java.awt.BorderLayout.CENTER);
+        centr.add(scr1, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(center, java.awt.BorderLayout.CENTER);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(400, 20));
+        south.setPreferredSize(new java.awt.Dimension(300, 20));
 
         javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 319, Short.MAX_VALUE)
+            .addGap(0, 305, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,38 +188,38 @@ public class DicColvar extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnClose
 
-    private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        Record record = new Record();
-        int row = tab1.getSelectedRow();
-        record.add(rows[row][1]);
-        record.add(rows[row][0]);
+    private void btnChouce(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChouce
+        Record record = new Record(1);
+        record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 0));
         listener.action(record);
         this.dispose();
-    }//GEN-LAST:event_btnChoice
+    }//GEN-LAST:event_btnChouce
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        Record record = new Record();
-        record.add(null);
+        Record record = new Record(1);
         record.add(null);
         listener.action(record);
-        this.dispose();       
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked
         if (evt.getClickCount() == 2) {
-            btnChoice(null);
+            btnChouce(null);
         }
     }//GEN-LAST:event_tab1MouseClicked
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChoice;
+    private javax.swing.JButton btnChouce;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
-    private javax.swing.JPanel center;
+    private javax.swing.JPanel centr;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
+    // </editor-fold> 
     private void initElements() {
 
         FrameToFile.setFrameSize(this);

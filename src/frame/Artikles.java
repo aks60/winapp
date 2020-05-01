@@ -1,6 +1,6 @@
 package frame;
 
-import dialog.DicColor;
+import dialog.DicColor2;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
@@ -28,8 +28,10 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import dialog.DicArtikl;
 import dialog.DicGroups;
+import dialog.ParGrup1;
 import domain.eElement;
 import domain.eGroups;
+import domain.eParams;
 import domain.eSysprof;
 import enums.TypeGroups;
 import java.awt.Window;
@@ -155,15 +157,12 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_centr, txtField8);
         rsvArtikl.add(eArtikl.min_rad, txtField12);
 
-        JButton btnT2C0 = new JButton("...");
-        tab2.getColumnModel().getColumn(0).setCellEditor(new DefCellEditor(btnT2C0));
-        btnT2C0.addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor);
+        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+            DicColor2 frame = new DicColor2(this, listenerColor);
         });
-        JButton btnT2C1 = new JButton("...");
-        tab2.getColumnModel().getColumn(1).setCellEditor(new DefCellEditor(btnT2C1));
-        btnT2C1.addActionListener(event -> {
-            DicColor frame = new DicColor(this, listenerColor);
+        
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+            DicColor2 frame = new DicColor2(this, listenerColor);
         });
     }
 
@@ -1054,7 +1053,7 @@ public class Artikles extends javax.swing.JFrame {
 // </editor-fold> 
     private void initElements() {
 
-        new FrameToFile(this, btnClose);        
+        new FrameToFile(this, btnClose);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2)));

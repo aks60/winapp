@@ -26,10 +26,10 @@ import dataset.Field;
 import dialog.DicArtikl;
 import dialog.DicColvar;
 import dialog.DicThicknes;
-import dialog.ParColor;
-import dialog.ParGrup1;
-import dialog.ParGrup3;
+import dialog.ParColor2;
 import dialog.ParGrup2;
+import dialog.ParGrup2b;
+import dialog.ParGrup2a;
 import domain.eColor;
 import domain.eElemdet;
 import domain.eElement;
@@ -179,7 +179,7 @@ public class Filling extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab3));
             int artikl_id = record.getInt(eElemdet.artikl_id);
-            ParColor frame = new ParColor(this, listenerColor, artikl_id);
+            ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
@@ -191,7 +191,7 @@ public class Filling extends javax.swing.JFrame {
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
-                ParGrup1 frame = new ParGrup1(this, listenerPar1, eParams.elem, 13000);
+                ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.elem, 13000);
             }
         });
 
@@ -199,10 +199,10 @@ public class Filling extends javax.swing.JFrame {
             Record record = qGlaspar1.get(Util.getSelectedRec(tab3));
             int grup = record.getInt(eGlaspar1.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar1, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar1, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
             }
         });
 
@@ -212,7 +212,7 @@ public class Filling extends javax.swing.JFrame {
                 Record record = qGlasdet.table(eArtikl.up).get(row);
                 int paramPart = record.getInt(eArtikl.level1);
                 paramPart = (paramPart == 1 || paramPart == 4) ? 15000 : 14000;
-                ParGrup1 frame = new ParGrup1(this, listenerPar2, eParams.elem, paramPart);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.elem, paramPart);
             }
         });
 
@@ -220,10 +220,10 @@ public class Filling extends javax.swing.JFrame {
             Record record = qGlaspar1.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eGlaspar1.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });
 

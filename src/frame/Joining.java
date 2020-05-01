@@ -1,9 +1,9 @@
 package frame;
 
-import dialog.ParGrup1;
-import dialog.ParGrup3;
-import dialog.ParColor;
 import dialog.ParGrup2;
+import dialog.ParGrup2b;
+import dialog.ParColor2;
+import dialog.ParGrup2a;
 import dialog.DicArtikl;
 import common.DialogListener;
 import common.EditorListener;
@@ -209,7 +209,7 @@ public class Joining extends javax.swing.JFrame {
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                ParGrup1 frame = new ParGrup1(this, listenerPar1, eParams.joint, joinVar * 1000);
+                ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, joinVar * 1000);
             }
         });
 
@@ -217,10 +217,10 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar1.get(Util.getSelectedRec(tab3));
             int grup = record.getInt(eJoinpar1.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar1, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar1, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
             }
         });
 
@@ -235,7 +235,7 @@ public class Joining extends javax.swing.JFrame {
         Util.buttonEditorCell(tab4, 2).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int artikl_id = record.getInt(eJoindet.artikl_id);
-            ParColor frame = new ParColor(this, listenerColor, artikl_id);
+            ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
         });
 
         Util.buttonEditorCell(tab4, 3).addActionListener(event -> {
@@ -252,7 +252,7 @@ public class Joining extends javax.swing.JFrame {
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 1200, 11000, 12000, 11000, 0};
-                ParGrup1 frame = new ParGrup1(this, listenerPar2, eParams.joint, part[level]);
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
             }
         });
 
@@ -260,10 +260,10 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinpar2.get(Util.getSelectedRec(tab5));
             int grup = record.getInt(eJoinpar2.grup);
             if (grup < 0) {
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, grup);
+                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
                 List list = ParamList.find(grup).dict();
-                ParGrup3 frame = new ParGrup3(this, listenerPar2, list);
+                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });
         Util.setSelectedRow(tab1);
