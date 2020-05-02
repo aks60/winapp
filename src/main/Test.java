@@ -18,9 +18,9 @@ public class Test {
     public static void main(String[] args) {
         Main.dev = true;
         try {
-            convert.Profstroy.script();
+            //convert.Profstroy.script();
             //query();
-            //wincalc();
+            wincalc();
             //frame();
 
         } catch (Exception e) {

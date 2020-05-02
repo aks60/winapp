@@ -112,7 +112,7 @@ public class Wincalc {
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
 
         //Тестирование                
-        //listSpec.stream().forEach(rec -> System.out.println(rec));
+        listSpec.stream().forEach(rec -> System.out.println(rec));
         //System.out.println(productJson); //вывод на консоль json
         //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));            
         return rootArea;

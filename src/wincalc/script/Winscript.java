@@ -8,7 +8,7 @@ import main.Main;
 public class Winscript {
 
     ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601006;
+    public static int prj = 601001;
     ////////////////////////////////////////////////////////////////////////////
     
     public static AreaRoot rootArea;
@@ -21,7 +21,7 @@ public class Winscript {
 
         if (project == 601001) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.SQUARE, 900, 1300, 1300, color1, color2, color3, "");
-            rootArea.setParam(project.toString(), 387, "KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)");
+            rootArea.setParam(project.toString(), 390, "KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)");
             rootArea.add(new Element(2, TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_BOX, LayoutArea.TOP));
