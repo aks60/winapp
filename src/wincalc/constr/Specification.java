@@ -220,44 +220,33 @@ public class Specification {
     }
 
     public static void write_txt(ArrayList<Specification> specList) {
+        int npp = 0;
+        String format = "%-6s%-46s%-32s%-32s%-32s%-32s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s"
+                + "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s %n";
+        Object str[] = {"Code", "Name", "Art", "BaseColor", "InsideColor", "OutsideColor", "Count", "Quantity",
+            "UM", "InPrice", "CostPrice", "OutPrice", "OutTotal", "Width", "Height", "Weight",
+            "Angle", "ComplType", "ElemID", "ElemType", "ObjectID", "ObjectType", "AreaID", "AreaType",
+            "AccessoryID", "PriceGRP", "PrintGroup", "CutAngle1", "CutAngle2", "Composite", "Усл.окна"};
+        String str3 = new String(("Спецификация (" + specList.size() + " строк):").getBytes());
+        System.out.printf(format, str);
+        for (Specification s : specList) {
 
-        String path = "C:\\Java\\specific_compare.txt";
-        try (PrintStream printStream = new PrintStream(path, "windows-1251")) {
-            int npp = 0;
-            String format = "%-6s%-46s%-32s%-32s%-32s%-32s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s"
-                    + "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s %n";
-            Object str[] = {"Code", "Name", "Art", "BaseColor", "InsideColor", "OutsideColor", "Count", "Quantity",
-                "UM", "InPrice", "CostPrice", "OutPrice", "OutTotal", "Width", "Height", "Weight",
-                "Angle", "ComplType", "ElemID", "ElemType", "ObjectID", "ObjectType", "AreaID", "AreaType",
-                "AccessoryID", "PriceGRP", "PrintGroup", "CutAngle1", "CutAngle2", "Composite", "Усл.окна"};
-            String str3 = new String(("Спецификация (" + specList.size() + " строк):").getBytes());
-            printStream.println(str3);
-            printStream.printf(format, str);
-            for (Specification s : specList) {
-
-                Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
-                    eColor.find(s.color1).getInt(eColor.name),
-                    eColor.find(s.color2).getInt(eColor.name),
-                    eColor.find(s.color3).getInt(eColor.name),
-                    String.valueOf(s.count), String.valueOf(s.quantity),
-                    UseUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
-                    String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",
-                    "0", "0", "0", String.valueOf(s.anglCut2), String.valueOf(s.anglCut1), "0", "0"};
-
-                printStream.printf(format, str2);
-                System.out.printf(format, str2);
-            }
-            float totalVal = 0;
-            for (Specification s : specList) {
-                totalVal = totalVal + s.outCost;
-            }
-            String str4 = new String(("Суммарная цена = " + totalVal).getBytes());
-            printStream.printf("%-120s", str4);
-            System.out.println(str4);
-
-        } catch (IOException ex) {
-            System.err.println("Ошибка Specification.write_txt() " + ex);
+            Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
+                eColor.find(s.color1).getInt(eColor.name),
+                eColor.find(s.color2).getInt(eColor.name),
+                eColor.find(s.color3).getInt(eColor.name),
+                String.valueOf(s.count), String.valueOf(s.quantity),
+                UseUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
+                String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",
+                "0", "0", "0", String.valueOf(s.anglCut2), String.valueOf(s.anglCut1), "0", "0"};
+            System.out.printf(format, str2);
         }
+        float totalVal = 0;
+        for (Specification s : specList) {
+            totalVal = totalVal + s.outCost;
+        }
+        String str4 = new String(("Суммарная цена = " + totalVal).getBytes());
+        System.out.println(str4);
     }
 
     public static void write_txt2(ArrayList<Specification> specList) {
