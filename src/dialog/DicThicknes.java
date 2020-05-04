@@ -13,7 +13,7 @@ import swing.DefTableModel;
 public class DicThicknes extends javax.swing.JDialog {
 
     private DialogListener listener = null;
-    private Query qArtikl = new Query(eArtikl.series);
+    private Query qArtikl = new Query(eArtikl.name);
 
     public DicThicknes(java.awt.Frame parent, DialogListener listenet) {
         super(parent, true);
@@ -31,7 +31,7 @@ public class DicThicknes extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        tab1.setModel(new DefTableModel(tab1, qArtikl, eArtikl.series));
+        tab1.setModel(new DefTableModel(tab1, qArtikl, eArtikl.name));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }

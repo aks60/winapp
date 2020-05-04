@@ -623,16 +623,16 @@ public class Element extends javax.swing.JFrame {
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(96);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(140);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(240);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(200);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(60);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(6).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(60);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(32);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(60);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);

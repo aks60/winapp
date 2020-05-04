@@ -6,7 +6,6 @@ import common.FrameToFile;
 import common.Util;
 import dataset.ConnApp;
 import dataset.Field;
-import swing.DefCellEditor;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -23,21 +22,18 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import swing.DefTableModel;
 import swing.DefFieldEditor;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import dialog.DicArtikl;
 import dialog.DicGroups;
-import dialog.ParGrup1;
 import domain.eElement;
 import domain.eGroups;
-import domain.eParams;
 import domain.eSysprof;
 import enums.TypeGroups;
 import java.awt.Window;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.swing.JPanel;
 import javax.swing.RowFilter;
 
 /**
@@ -50,13 +46,14 @@ public class Artikles extends javax.swing.JFrame {
     private Query qGroups = new Query(eGroups.values());
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
     private Query qArtikl = new Query(eArtikl.values());
+    private Query qArtik2 = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
     private DefFieldEditor rsvArtikl;
     private String subsql = "";
     private int nuni = -1;
     private int artId = -1;
     private Window owner = null;
-    private DialogListener listenerSeries, listenerSeries2, listenerColor, listenerCurrenc, listenerAnalog;
+    private DialogListener listenerSeries, listenerFilter, listenerColor, listenerCurrenc, listenerAnalog;
 
     public Artikles() {
         initComponents();
@@ -94,7 +91,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void loadingModel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.series);
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
@@ -211,33 +208,33 @@ public class Artikles extends javax.swing.JFrame {
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl1 == false) {
                 if (owner == null) {
-                    qArtikl.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
+                    qArtik2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
-                    qArtikl.select(eArtikl.up, "where", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
+                    qArtik2.select(eArtikl.up, "where", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
                 }
 
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl1 e = (TypeArtikl1) selectedNode.getUserObject();
                 if (owner == null) {
-                    qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
-                    qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
+                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
                 }
             } else {
                 TypeArtikl1 e = (TypeArtikl1) selectedNode.getUserObject();
                 if (owner == null) {
-                    qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
+                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
-                    qArtikl.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
+                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
                 }
             }
+            qArtikl.addAll(qArtik2);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             if (owner != null) {
                 for (int index = 0; index < qArtikl.size(); ++index) {
                     int id = qArtikl.getAs(index, eArtikl.id);
                     if (id == artId) {
                         Util.setSelectedRow(tab1, index);
-                        break;
                     }
                 }
             }
@@ -272,9 +269,17 @@ public class Artikles extends javax.swing.JFrame {
             }
             Util.stopCellEditing(tab1, tab2);
         };
-        
-        listenerSeries2 = (record) -> {
-                System.out.println("frame.Artikles.listenerDict()");
+
+        listenerFilter = (record) -> {
+            int id = record.getInt(eGroups.id);
+            txtFilter2.setText(record.getStr(eGroups.name));
+            qArtikl.clear();
+            if (id == -1) {
+                qArtikl.addAll(qArtik2);
+            } else {
+                qArtikl.addAll(qArtik2.stream().filter(rec -> rec.getInt(eArtikl.series_id) == id).collect(Collectors.toList()));
+            }
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         };
 
         listenerAnalog = (record) -> {
@@ -371,7 +376,7 @@ public class Artikles extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 32767));
         labFilter2 = new javax.swing.JLabel();
-        txtFilter1 = new javax.swing.JTextField(){
+        txtFilter2 = new javax.swing.JTextField(){
             public JTable table = null;
         };
         btnField8 = new javax.swing.JButton();
@@ -930,20 +935,17 @@ public class Artikles extends javax.swing.JFrame {
 
         labFilter2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter2.setText(" Для серии");
-        labFilter2.setPreferredSize(new java.awt.Dimension(120, 14));
+        labFilter2.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter2.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter2.setPreferredSize(new java.awt.Dimension(100, 14));
         south.add(labFilter2);
 
-        txtFilter1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter1.setMaximumSize(new java.awt.Dimension(80, 20));
-        txtFilter1.setMinimumSize(new java.awt.Dimension(80, 20));
-        txtFilter1.setName(""); // NOI18N
-        txtFilter1.setPreferredSize(new java.awt.Dimension(120, 20));
-        txtFilter1.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilter1CaretUpdate(evt);
-            }
-        });
-        south.add(txtFilter1);
+        txtFilter2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter2.setMaximumSize(new java.awt.Dimension(180, 20));
+        txtFilter2.setMinimumSize(new java.awt.Dimension(180, 20));
+        txtFilter2.setName(""); // NOI18N
+        txtFilter2.setPreferredSize(new java.awt.Dimension(180, 20));
+        south.add(txtFilter2);
 
         btnField8.setText("...");
         btnField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1034,7 +1036,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        tab1.setRowSelectionInterval(1, 1);
+
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -1075,12 +1077,8 @@ public class Artikles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFilterCaretUpdate
 
-    private void txtFilter1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilter1CaretUpdate
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFilter1CaretUpdate
-
     private void btnField8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField8
-        DicGroups groups = new DicGroups(this, TypeGroups.SERIES, listenerSeries2);
+        DicGroups groups = new DicGroups(this, TypeGroups.SERIES, listenerFilter);
     }//GEN-LAST:event_btnField8
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1137,7 +1135,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;
     private javax.swing.JTextField txtFilter;
-    private javax.swing.JTextField txtFilter1;
+    private javax.swing.JTextField txtFilter2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {

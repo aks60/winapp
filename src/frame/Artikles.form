@@ -1239,12 +1239,18 @@
               <Image iconType="3" name="/resource/img24/c054.gif"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" &#x414;&#x43b;&#x44f; &#x441;&#x435;&#x440;&#x438;&#x438;"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 14]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 14]"/>
+            </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[120, 14]"/>
+              <Dimension value="[100, 14]"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtFilter1">
+        <Component class="javax.swing.JTextField" name="txtFilter2">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -1252,19 +1258,16 @@
               </Border>
             </Property>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[80, 20]"/>
+              <Dimension value="[180, 20]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[80, 20]"/>
+              <Dimension value="[180, 20]"/>
             </Property>
             <Property name="name" type="java.lang.String" value="" noResource="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[120, 20]"/>
+              <Dimension value="[180, 20]"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtFilter1CaretUpdate"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField(){&#xa; public JTable table = null;&#xa;}"/>
           </AuxValues>

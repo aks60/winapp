@@ -20,7 +20,6 @@ public enum eArtikl implements Field {
     supplier("12", "64", "1", "У поставщика", "ANAMP"),
     tech_code("12", "64", "1", "Технолог.код контейнера", "ATECH"),
     tech_size("8", "15", "1", "t = размер технолог.(размер n/t)", "ASIZV"),
-    series("12", "32", "1", "Серия", "series"),
     size_falz("8", "15", "1", "n - глубина до фальца (размер n/t)", "ASIZN"),
     size_centr("8", "15", "1", "Смещение оси от центра", "ASIZB"),
     size_f("8", "15", "1", "Размер F мм", "ASIZF"),    

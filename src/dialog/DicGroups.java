@@ -11,6 +11,7 @@ import enums.Enam;
 import javax.swing.table.DefaultTableModel;
 import swing.DefTableModel;
 
+//TODO для справочника серии сделать вставку и редактирование
 //Серии для элемента состава
 public class DicGroups extends javax.swing.JDialog {
 
