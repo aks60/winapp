@@ -3,7 +3,6 @@ package main;
 import common.Util;
 import common.FrameListener;
 import common.FrameProgress;
-import static common.FrameProgress.progressBar;
 import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
@@ -24,11 +23,10 @@ import frame.Syssize;
 import frame.Order;
 import frame.Partner;
 import frame.Specific;
+import frame.TestFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-import jdk.nashorn.internal.runtime.regexp.joni.EncodingHelper;
 
 /**
  * <p>
@@ -999,7 +997,11 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-    new frame.Test();
+        FrameProgress.create(App1.this, new FrameListener() {
+            public void actionRequest(Object obj) {
+                eApp1.TestFrame.createFrame(App1.this);
+            }
+        });
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb
@@ -1309,12 +1311,16 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         App1, Convert, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
-        BoxCustom, Specific, DicSyssize;
+        BoxCustom, Specific, DicSyssize, TestFrame;
         public javax.swing.JFrame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
             if (frame == null) {
                 switch (this) {
+                   
+                    case TestFrame:
+                        frame = new TestFrame();
+                        break;
                     case AboutBox:
                         frame = new AboutBox();
                         break;
