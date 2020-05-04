@@ -56,7 +56,7 @@ public class Artikles extends javax.swing.JFrame {
     private int nuni = -1;
     private int artId = -1;
     private Window owner = null;
-    private DialogListener listenerSeries, listenerColor, listenerCurrenc, listenerAnalog;
+    private DialogListener listenerSeries, listenerSeries2, listenerColor, listenerCurrenc, listenerAnalog;
 
     public Artikles() {
         initComponents();
@@ -94,7 +94,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void loadingModel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.series);
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_cl1, eArtdet.cost_cl2, eArtdet.cost_cl3, eArtdet.cost_unit) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
@@ -272,6 +272,10 @@ public class Artikles extends javax.swing.JFrame {
             }
             Util.stopCellEditing(tab1, tab2);
         };
+        
+        listenerSeries2 = (record) -> {
+                System.out.println("frame.Artikles.listenerDict()");
+        };
 
         listenerAnalog = (record) -> {
             int row = Util.getSelectedRec(tab1);
@@ -365,6 +369,12 @@ public class Artikles extends javax.swing.JFrame {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 32767));
+        labFilter2 = new javax.swing.JLabel();
+        txtFilter1 = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        btnField8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
@@ -916,6 +926,36 @@ public class Artikles extends javax.swing.JFrame {
 
         checkFilter.setText("в конце строки");
         south.add(checkFilter);
+        south.add(filler1);
+
+        labFilter2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter2.setText(" Для серии");
+        labFilter2.setPreferredSize(new java.awt.Dimension(120, 14));
+        south.add(labFilter2);
+
+        txtFilter1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter1.setMaximumSize(new java.awt.Dimension(80, 20));
+        txtFilter1.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter1.setName(""); // NOI18N
+        txtFilter1.setPreferredSize(new java.awt.Dimension(120, 20));
+        txtFilter1.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilter1CaretUpdate(evt);
+            }
+        });
+        south.add(txtFilter1);
+
+        btnField8.setText("...");
+        btnField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField8.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField8.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField8.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField8(evt);
+            }
+        });
+        south.add(btnField8);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -1005,19 +1045,6 @@ public class Artikles extends javax.swing.JFrame {
         Currenc frame = new Currenc(this, listenerCurrenc);
     }//GEN-LAST:event_btnField7
 
-    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
-
-        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
-        btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
-        } else {
-            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
-            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
-            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
-        }
-    }//GEN-LAST:event_txtFilterCaretUpdate
-
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
         Util.listenerClick(table, Arrays.asList(tab1, tab2));
@@ -1034,6 +1061,27 @@ public class Artikles extends javax.swing.JFrame {
     private void btnField11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField11
         DicArtikl artikl = new DicArtikl(this, listenerAnalog, 1);
     }//GEN-LAST:event_btnField11
+
+    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
+
+        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_txtFilterCaretUpdate
+
+    private void txtFilter1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilter1CaretUpdate
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFilter1CaretUpdate
+
+    private void btnField8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField8
+        DicGroups groups = new DicGroups(this, TypeGroups.SERIES, listenerSeries2);
+    }//GEN-LAST:event_btnField8
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1041,11 +1089,13 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnField10;
     private javax.swing.JButton btnField11;
     private javax.swing.JButton btnField7;
+    private javax.swing.JButton btnField8;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel center;
     private javax.swing.JCheckBox checkFilter;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1060,6 +1110,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel labFilter;
+    private javax.swing.JLabel labFilter2;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
@@ -1086,6 +1137,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;
     private javax.swing.JTextField txtFilter;
+    private javax.swing.JTextField txtFilter1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
