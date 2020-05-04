@@ -12,7 +12,7 @@ public class DicTypset extends javax.swing.JDialog {
 
     private DialogListener listener = null;
     String[] titl = {"Наименование"};
-    String[][] rows;
+    Object[][] rows;
 
     public DicTypset(java.awt.Frame parent, DialogListener listenet) {
         super(parent, true);
@@ -26,7 +26,7 @@ public class DicTypset extends javax.swing.JDialog {
 
     private void loadingModel() {
         ((DefaultTableModel) tab1.getModel()).setRowCount(0);
-        rows = new String[][]{{TypeSet.P1.name, TypeSet.P1.id}, {TypeSet.P2.name, TypeSet.P2.id}, {TypeSet.P3.name, TypeSet.P3.id}, 
+        rows = new Object[][]{{TypeSet.P1.name, TypeSet.P1.id}, {TypeSet.P2.name, TypeSet.P2.id}, {TypeSet.P3.name, TypeSet.P3.id}, 
         {TypeSet.P4.name, TypeSet.P4.id}, {TypeSet.P5.name, TypeSet.P5.id}, {TypeSet.P6.name, TypeSet.P6.id}, {TypeSet.P6.name, TypeSet.P6.id}};
 
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);

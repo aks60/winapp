@@ -124,9 +124,9 @@ public class Element extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
 
-                if (val instanceof String && columns[col] == eElement.typset) {
-                    String typset = String.valueOf(val);
-                    return Arrays.asList(TypeSet.values()).stream().filter(el -> el.id.equals(typset)).findFirst().orElse(TypeSet.P1).name;
+                if (val != null && columns[col] == eElement.typset) {
+                    int typset = Integer.valueOf(val.toString());
+                    return Arrays.asList(TypeSet.values()).stream().filter(el -> el.id == typset).findFirst().orElse(TypeSet.P1).name;
 
                 } else if (val != null && columns[col] == eElement.series_id) {
                     return qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);

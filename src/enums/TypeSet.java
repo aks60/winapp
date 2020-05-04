@@ -11,11 +11,11 @@ public enum TypeSet implements Enam {
     P6(6, "Кронштейн стойки"),
     P7(7, "Дополнительно");
 
-    public String id;
+    public int id;
     public String name;
 
     TypeSet(int id, String name) {
-        this.id = String.valueOf(id);
+        this.id = id;
         this.name = name;
     }
 
