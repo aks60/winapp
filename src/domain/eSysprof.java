@@ -11,7 +11,7 @@ import static domain.eSyspar1.systree_id;
 import static domain.eSyspar1.up;
 import static domain.eSyspar1.values;
 import enums.LayoutProfile;
-import enums.UserArtikl;
+import enums.UseArtikl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,16 +58,16 @@ public enum eSysprof implements Field {
             query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
             return sysproaList;
         }
-        return new Query(values()).select(up, "where", systree_id, "=", _nuni);
+        return new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", prio);
     }
 
-    public static Record find2(int _nuni, UserArtikl _type) {
+    public static Record find2(int _nuni, UseArtikl _use_type) {
         if (_nuni == -1) {
-            return record(_type);
+            return record(_use_type);
         }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
-            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.id == rec.getInt(use_type))
+            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(use_type) ==_use_type.id)
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
@@ -85,11 +85,11 @@ public enum eSysprof implements Field {
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where "
-                + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " order by " + prio.name());
+                + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _use_type.id + " order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static Record find3(int _nuni, UserArtikl _type, LayoutProfile _side) {
+    public static Record find3(int _nuni, UseArtikl _type, LayoutProfile _side) {
         if (_nuni == -1) {
             return record(_type);
         }
@@ -114,12 +114,12 @@ public enum eSysprof implements Field {
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
-                + " where " + systree_id.name() + " = " + _nuni + " and types = " + _type.id + " and ("
+                + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " and ("
                 + use_side.name() + " = " + _side.id + " or " + use_side.name() + " = " + LayoutProfile.ANY.id + ") order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static Record record(UserArtikl _type) {
+    public static Record record(UseArtikl _type) {
 
         Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);

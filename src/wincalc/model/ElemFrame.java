@@ -9,7 +9,7 @@ import enums.LayoutArea;
 import enums.LayoutProfile;
 import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.UserArtikl;
+import enums.UseArtikl;
 import wincalc.constr.Specification;
 
 public class ElemFrame extends ElemSimple {
@@ -214,8 +214,8 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override
-    public UserArtikl typeProfile() {
-        return (TypeElem.FULLSTVORKA == owner().type) ? UserArtikl.STVORKA : UserArtikl.FRAME;
+    public UseArtikl typeProfile() {
+        return (TypeElem.FULLSTVORKA == owner().type) ? UseArtikl.STVORKA : UseArtikl.FRAME;
     }
 
     @Override

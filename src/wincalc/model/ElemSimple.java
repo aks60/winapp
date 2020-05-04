@@ -3,7 +3,7 @@ package wincalc.model;
 import domain.eArtikl;
 import enums.UseUnit;
 import wincalc.constr.Specification;
-import enums.UserArtikl;
+import enums.UseArtikl;
 import java.awt.Color;
 import java.util.HashMap;
 import wincalc.Wincalc;
@@ -29,7 +29,7 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Типы профилей
-    public abstract UserArtikl typeProfile();
+    public abstract UseArtikl typeProfile();
 
     //Добавить спецификацию в состав элемента
     public abstract void addSpecifSubelem(Specification specification);

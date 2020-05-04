@@ -14,7 +14,7 @@ import static domain.eSysprof.id;
 import static domain.eSysprof.systree_id;
 import static domain.eSysprof.up;
 import enums.LayoutProfile;
-import enums.UserArtikl;
+import enums.UseArtikl;
 import java.sql.SQLException;
 import static domain.eSysprof.use_type;
 import static domain.eSysprof.use_side;

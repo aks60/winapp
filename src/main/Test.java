@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.UIManager;
 import wincalc.constr.Specification;
+import wincalc.model.Com5t;
 import wincalc.script.Winscript;
 
 public class Test {
@@ -34,8 +35,9 @@ public class Test {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         wincalc.Wincalc iwin = new wincalc.Wincalc();
-        iwin.create(wincalc.script.Winscript.test(Winscript.prj, -1, -1, -1, -1));
+        iwin.create(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
         iwin.constructiv();
+
         Specification.write_txt2(iwin.listSpec);
         
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);

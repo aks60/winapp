@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 /**
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций
  */
-public enum UserArtikl implements Enam {
+public enum UseArtikl implements Enam {
     UNKNOWN(0, "Любой тип"),
     FRAME(1, "Коробка"),
     STVORKA(2, "Створка"),
@@ -21,7 +21,7 @@ public enum UserArtikl implements Enam {
     public int id;
     public String name;
 
-    UserArtikl(int id, String name) {
+    UseArtikl(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -38,7 +38,7 @@ public enum UserArtikl implements Enam {
         return values();
     } 
     
-    public static UserArtikl get(int id) {
+    public static UseArtikl get(int id) {
         return Stream.of(values()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }    
 }

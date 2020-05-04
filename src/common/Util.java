@@ -230,9 +230,10 @@ public class Util {
     //Выделить запись
     public static void setSelectedRow(JTable table, int rowModel) {
         if (table.getRowCount() > 0) {
-
-            if (table.getRowCount() > rowModel) {
-                int rowTable = table.convertRowIndexToView(rowModel);
+            
+            int rowTable = table.convertRowIndexToView(rowModel);
+            if (rowTable < table.getRowCount()) { 
+                
                 table.setRowSelectionInterval(rowTable, rowTable);
             } else {
                 table.setRowSelectionInterval(0, 0);
@@ -246,6 +247,13 @@ public class Util {
             return table.convertRowIndexToModel(table.getSelectedRow());
         }
         return -1;
+    }
+    
+    //Получить record Query
+    public static Record getSelectedQuery(JTable table) {
+        int id = Util.getSelectedRec(table);
+        Record record = ((DefTableModel) table.getModel()).getQuery().get(id);
+        return record;
     }
 
     //Отменить сортировку

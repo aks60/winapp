@@ -29,7 +29,7 @@ import enums.LayoutFrame;
 import enums.LayoutHandle;
 import enums.LayoutProfile;
 import enums.TypeOpen2;
-import enums.UserArtikl;
+import enums.UseArtikl;
 import enums.TypeUse;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -145,7 +145,7 @@ public class Systree extends javax.swing.JFrame {
                         return en.text();
                     }
                 } else if (field == eSysprof.use_type && val != null) {
-                    UserArtikl en = UserArtikl.get(Integer.valueOf(val.toString()));
+                    UseArtikl en = UseArtikl.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
                     }
@@ -182,7 +182,7 @@ public class Systree extends javax.swing.JFrame {
         tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-            new DicEnums(this, listenerUsetyp, UserArtikl.values());
+            new DicEnums(this, listenerUsetyp, UseArtikl.values());
         });
 
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
@@ -1217,6 +1217,8 @@ public class Systree extends javax.swing.JFrame {
     private void btnConstructive(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructive
 
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
+        Record record = Util.getSelectedQuery(tab2);
+        int artId = record.getInt(eSysprof.artikl_id);
         if (node != null) {
             int nuni = node.record.getInt(eSystree.id);
             JToggleButton btn = (JToggleButton) evt.getSource();
@@ -1224,7 +1226,7 @@ public class Systree extends javax.swing.JFrame {
                 public void actionRequest(Object obj) {
 
                     if (btn == btnArtikl) {
-                        frame = new Artikles(Systree.this, nuni);
+                        frame = new Artikles(Systree.this, nuni, artId);
                     } else if (btn == btnJoin) {
                         frame = new Joining(Systree.this, nuni);
                     } else if (btn == btnElem) {
