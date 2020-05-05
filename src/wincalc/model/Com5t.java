@@ -36,8 +36,6 @@ public abstract class Com5t {
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 
 
-    public Record sysprofRec = null; //профиль в системе
-    public Record artiklRec = null;  //мат. средства, основной профиль
     public Specification specificationRec = null; //спецификация элемента
     public HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
