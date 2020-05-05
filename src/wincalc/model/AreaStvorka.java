@@ -3,6 +3,7 @@ package wincalc.model;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import dataset.Record;
 import domain.eArtikl;
 import domain.eSyssize;
 import domain.eSysprof;
@@ -14,10 +15,7 @@ import enums.TypeOpen1;
 import enums.UseArtikl;
 import enums.TypeJoin;
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import wincalc.Wincalc;
 
 public class AreaStvorka extends AreaSimple {
@@ -27,6 +25,12 @@ public class AreaStvorka extends AreaSimple {
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.FULLSTVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
+
+        //Добавим рамы створки        
+        addFrame(new ElemFrame(this, id + .1f, LayoutArea.BOTTOM));
+        addFrame(new ElemFrame(this, id + .2f, LayoutArea.RIGHT));
+        addFrame(new ElemFrame(this, id + .3f, LayoutArea.TOP));
+        addFrame(new ElemFrame(this, id + .4f, LayoutArea.LEFT));
 
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
@@ -54,33 +58,29 @@ public class AreaStvorka extends AreaSimple {
                 insideBott = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
                 insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
 
+        ElemFrame el = mapFrame.get(LayoutArea.LEFT); // нахлёст расчитываем с левой стороны
         Float naxl = iwin.sysconsRec.getFloat(eSyssize.naxl);
-        Float size_falz = artiklRec.getFloat(eArtikl.size_falz);
+        Float size_falz = el.artiklRec.getFloat(eArtikl.size_falz);
         x1 = insideLeft.x2 - size_falz - naxl;
         y1 = insideTop.y2 - size_falz - naxl;
         x2 = insideRight.x1 + size_falz + naxl;
         y2 = insideBott.y1 + size_falz + naxl;
-        specificationRec.width = width();
-        specificationRec.height = height();
-
-        //Добавим рамы створки        
-        addFrame(new ElemFrame(this, id + .1f, LayoutArea.BOTTOM));
-        addFrame(new ElemFrame(this, id + .2f, LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + .3f, LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + .4f, LayoutArea.LEFT));
+        mapFrame.get(LayoutArea.TOP).specificationRec.width = width();
+        mapFrame.get(LayoutArea.BOTTOM).specificationRec.width = width();
+        mapFrame.get(LayoutArea.RIGHT).specificationRec.height = height();
+        mapFrame.get(LayoutArea.LEFT).specificationRec.height = height();
 
         parsing(param);
     }
 
     public void initСonstructiv() {
 
-        sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.STVORKA);
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.STVORKA);
+        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
-            
+
             artiklRec.setNo(eArtikl.size_falz, iwin().artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
         }
-        specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override

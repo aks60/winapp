@@ -31,8 +31,8 @@ public class Joining extends Cal5e {
         for (Map.Entry<String, ElemJoining> hmElemJoin : hmJoinElem.entrySet()) {
 
             ElemJoining elemJoin = hmElemJoin.getValue();
-            Com5t joinElement1 = elemJoin.joinElement1;
-            Com5t joinElement2 = elemJoin.joinElement2;
+            ElemSimple joinElement1 = elemJoin.joinElement1;
+            ElemSimple joinElement2 = elemJoin.joinElement2;
 
             Record joiningRec = eJoining.find(joinElement1.artiklRec.getInt(eArtikl.id), joinElement2.artiklRec.getInt(eArtikl.id));
             List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));

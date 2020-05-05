@@ -133,7 +133,7 @@ public class Wincalc {
             filling.build();
             Accessory accessory = new Accessory(iwin, this); //фурнитура        
             constructiv.kitsFirst();                       //комплекты */
-            for (Com5t elemRec : listElem) {
+            for (ElemSimple elemRec : listElem) {
 
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);

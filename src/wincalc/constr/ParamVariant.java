@@ -56,7 +56,7 @@ public class ParamVariant {
     // Составы
     //int[] parVstm = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050,
     //31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
-    protected boolean checkParvstm(Com5t com5t, ArrayList<Record> tableList) {
+    protected boolean checkParvstm(ElemSimple elemSimple, ArrayList<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
@@ -64,7 +64,7 @@ public class ParamVariant {
             if (filterParamDef(paramRec) == false) return false;
             switch (paramRec.getInt(PAR1)) {
                 case 31000: //Для технологического кода контейнера
-                    Record sysprofRec = com5t.sysprofRec;
+                    Record sysprofRec = elemSimple.sysprofRec;
                     Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
                     if (artiklVRec.get(eArtikl.tech_code) == null) return false;
                     String[] strList = paramRec.getStr(PAR3).split(";");
@@ -81,20 +81,20 @@ public class ParamVariant {
                     break;
                 case 31002://Если профиль прямой, арочный
                 case 37002:
-                    Object obj = com5t.layout();
-                    if (LayoutArea.ARCH == com5t.layout() && "арочный".equals(paramRec.getStr(PAR3)) == false) {
+                    Object obj = elemSimple.layout();
+                    if (LayoutArea.ARCH == elemSimple.layout() && "арочный".equals(paramRec.getStr(PAR3)) == false) {
                         return false;
-                    } else if (LayoutArea.ARCH != com5t.layout() && "прямой".equals(paramRec.getStr(PAR3)) == false) {
+                    } else if (LayoutArea.ARCH != elemSimple.layout() && "прямой".equals(paramRec.getStr(PAR3)) == false) {
                         return false;
                     }
                     break;
                 case 31004: //Если прилегающий артикул
-                    HashMap<String, ElemJoining> mapJoin = com5t.iwin().mapJoin;
+                    HashMap<String, ElemJoining> mapJoin = elemSimple.iwin().mapJoin;
                     boolean ret = false;
                     for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
                         ElemJoining el = elemJoin.getValue();
                         if (TypeJoin.VAR4 == el.varJoin &&
-                                el.joinElement1.artiklRec.equals(com5t.artiklRec) &&
+                                el.joinElement1.artiklRec.equals(elemSimple.artiklRec) &&
                                 el.joinElement2.artiklRec.equals(paramRec.getStr(PAR3))) {
                             ret = true;
                         }
@@ -102,45 +102,45 @@ public class ParamVariant {
                     if (ret == false) return false;
                     break;
                 case 31005: //Коды основной текстуры контейнера
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color1) == false) return false;
+                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color1) == false) return false;
                     break;
                 case 31006: //Коды внутр. текстуры контейнера
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color2) == false) return false;
+                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == false) return false;
                     break;
                 case 31007://Коды внешн. текстуры контейнера
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color3) == false) return false;
+                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == false) return false;
                     break;
                 case 31015: //Форма заполнения
-                    if (paramRec.getStr(PAR3).equals(com5t.specificationRec.getParam("empty", 13015)) == false) return false;
+                    if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) return false;
                     break;
                 case 31020: //Ограничение угла к горизонту
-                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple)com5t).anglHoriz) == false) return false;
+                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple)elemSimple).anglHoriz) == false) return false;
                     break;
                 case 31037:  //Название фурнитуры содержит
-                    if (TypeElem.FULLSTVORKA == com5t.owner().type()) {
-                        return paramRec.getStr(PAR3).contains(com5t.owner().artiklRec.getStr(eArtikl.name));
+                    if (TypeElem.FULLSTVORKA == elemSimple.owner().type()) {
+                        return paramRec.getStr(PAR3).contains(elemSimple.artiklRec.getStr(eArtikl.name));
                     } else return false;
                 case 31041: //Ограничение длины профиля, мм
-                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), com5t.width()) == false) return false;
+                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), elemSimple.width()) == false) return false;
                     break;
                 case 31050: //Контейнер имеет тип
-                    TypeElem type = com5t.type();
+                    TypeElem type = elemSimple.type();
                     if (type.value != Integer.valueOf(paramRec.getStr(PAR3))) return false;
                     break;
                 case 31052:
-                    if(com5t.layout() == LayoutArea.ARCH) {
-                        com5t.specificationRec.putParam(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    if(elemSimple.layout() == LayoutArea.ARCH) {
+                        elemSimple.specificationRec.putParam(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     }
                     break;
                 case 31055: //Коды внутр. и внешн. текстуры изд
-                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color2) == true &&
-                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color3) == true) == false)
+                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true &&
+                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false)
                         return false;
                     break;
                 case 31056: //Коды внутр. или внеш. текстуры изд
                 case 37056:
-                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color2) == true ||
-                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), com5t.color3) == true) == false)
+                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true ||
+                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false)
                         return false;
                     break;
                 case 31099:  //Трудозатраты, ч/ч.
@@ -156,7 +156,7 @@ public class ParamVariant {
 
     // Заполнения
     //int[] parGrup = {13015, 13017, 13081, 13099};
-    protected boolean checkPargrup(Com5t elemBase, List<Record> tableList) {
+    protected boolean checkPargrup(ElemSimple elemBase, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
@@ -184,7 +184,7 @@ public class ParamVariant {
 
     // Фурнитура
     //int[] parFurl = {2101, 2104, 2140, 2185};
-    protected boolean checkParfurl(Com5t com5t, List<Record> tableList) {
+    protected boolean checkParfurl(ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
@@ -193,12 +193,12 @@ public class ParamVariant {
 
             switch (paramRec.getInt(PAR1)) {
                 case 21001: //Форма контура прямоугольная трапециевидная
-                    if (TypeElem.FULLSTVORKA == com5t.type() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
+                    if (TypeElem.FULLSTVORKA == elemSimple.type() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
                         return false;
                     }
                     break;
                 case 21004: //Артикул створки
-                    if (com5t.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(PAR3)) == false) {
+                    if (elemSimple.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(PAR3)) == false) {
                         return false;
                     }
                     break;

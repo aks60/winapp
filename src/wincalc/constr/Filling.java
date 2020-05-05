@@ -21,6 +21,7 @@ import wincalc.Wincalc;
 import wincalc.model.AreaArch;
 import wincalc.model.Com5t;
 import wincalc.model.ElemGlass;
+import wincalc.model.ElemSimple;
 
 /**
  * Заполнения
@@ -136,7 +137,7 @@ public class Filling extends Cal5e {
                             double ang3 = 90 - (90 - ang2 + ang);
                             //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
                             double koef = 2;
-                            Com5t ramaArch = elemGlass.root().mapFrame.get(LayoutArea.ARCH);
+                            ElemSimple ramaArch = elemGlass.root().mapFrame.get(LayoutArea.ARCH);
                             double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getDbl(eArtikl.height);
                             double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getDbl(eArtikl.height) * 2 - koef;
                             double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
@@ -327,7 +328,7 @@ public class Filling extends Cal5e {
                             double ang3 = 90 - (90 - ang2 + ang);
                             //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
                             double koef = 2;
-                            Com5t ramaArch = elemGlass.root().mapFrame.get(LayoutArea.ARCH);
+                            ElemSimple ramaArch = elemGlass.root().mapFrame.get(LayoutArea.ARCH);
                             double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getFloat(eArtikl.height);
                             double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getFloat(eArtikl.height) * 2 - koef;
                             double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));

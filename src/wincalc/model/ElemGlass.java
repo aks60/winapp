@@ -115,16 +115,17 @@ public class ElemGlass extends ElemSimple {
 
         } else {
 
-            Com5t elemTop = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinRight;
+            
+            ElemSimple elemTop = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinRight;
             y1 = elemTop.y2 - elemTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            Com5t elemBottom = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y2).elemJoinRight;
+            ElemSimple elemBottom = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y2).elemJoinRight;
             y2 = elemBottom.y1 + elemBottom.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
-            Com5t elemLeft = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinBottom;
+            ElemSimple elemLeft = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinBottom;
             x1 = elemLeft.x2 - elemLeft.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            Com5t elemRight = owner().iwin().mapJoin.get(owner().x2 + ":" + owner().y1).elemJoinBottom;
+            ElemSimple elemRight = owner().iwin().mapJoin.get(owner().x2 + ":" + owner().y1).elemJoinBottom;
             x2 = elemRight.x1 + elemRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
             specificationRec.width = width();

@@ -128,14 +128,14 @@ public class Elements extends Cal5e {
         }
     }
 
-    protected void nested(List<Record> elementList, Com5t com5t) {
+    protected void nested(List<Record> elementList, ElemSimple ElemSimple) {
         try {
             System.out.println(elementList);
             //цикл по составам
             for (Record elementRec : elementList) {
 
                 ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                boolean out = calc().paramVariant.checkParvstm(com5t, elempar1List); //ФИЛЬТР вариантов
+                boolean out = calc().paramVariant.checkParvstm(ElemSimple, elempar1List); //ФИЛЬТР вариантов
                 if (out == true) {
                     //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
                     List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));
@@ -144,14 +144,14 @@ public class Elements extends Cal5e {
 
                         HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
                         ArrayList<Record> parvstsList = eElempar2.find(elendetRec.getInt(eElemdet.element_id));
-                        boolean out2 = calc().paramSpecific.checkSpecific(hmParam, com5t, parvstsList);//ФИЛЬТР спецификаций
+                        boolean out2 = calc().paramSpecific.checkSpecific(hmParam, ElemSimple, parvstsList);//ФИЛЬТР спецификаций
                         if (out2 == true) {
 
                             Record artikl = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
-                            Specification specif = new Specification(artikl, com5t, hmParam);
-                            specif.setColor(com5t, elendetRec);
+                            Specification specif = new Specification(artikl, ElemSimple, hmParam);
+                            specif.setColor(ElemSimple, elendetRec);
                             specif.element = "СОСТ";
-                            ((ElemSimple) com5t).addSpecifSubelem(specif); //добавим спецификацию в элемент
+                            ((ElemSimple) ElemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
                         }
                     }
                 }

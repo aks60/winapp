@@ -30,52 +30,52 @@ public class Accessory extends Cal5e {
     }
 
     public void build() {
-        for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
-
-            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
-            //цикл по створкам
-            for (AreaStvorka fullStvorka : elemStvorkaList) {
-
-                //Подбор фурнитуры
-                List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
-                Record sysfurnRec = sysfurnList.get(0);
-                int funic = Integer.valueOf(fullStvorka.mapParam.get(ParamJson.funic).toString());
-                if (funic != -1) {
-                    for (Record sysproaRec2 : sysfurnList) {
-                        if (sysproaRec2.getInt(eSysfurn.id) == funic) {
-                            sysfurnRec = sysproaRec2; //теперь sysprosRec соответствует параметру полученному из i-okna
-                            break;
-                        }
-                    }
-                }
-                //Подбор текстуры ручки створки
-                Object colorHandl = fullStvorka.mapParam.get(ParamJson.colorHandl);
-                if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
-                    fullStvorka.mapParam.put(ParamJson.colorHandl, iwin().color1);
-                }
-
-                if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("по середине"))
-                    fullStvorka.handleHeight = "по середине";
-                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("константная"))
-                    fullStvorka.handleHeight = "константная";
-                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная"))
-                    fullStvorka.handleHeight = "установлена";
-
-                Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id)); //первая запись в списке конструктива
-                List<Record> furnside1List = eFurnside1.find(furnityreRec.getInt(eFurniture.id));
-                boolean out = true;
-                //Цикл по описанию сторон фурнитуры
-                for (Record furnside1Rec : furnside1List) {
-
-                    List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
-                    out = calc().paramVariant.checkParfurl(fullStvorka, parfurlList); //параметры вариантов
-                    if (out == false) break;
-                }
-                if (out == false) continue;
-
-                nested(fullStvorka, furnityreRec, 1);
-            }
-        }
+//        for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
+//
+//            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
+//            //цикл по створкам
+//            for (AreaStvorka fullStvorka : elemStvorkaList) {
+//
+//                //Подбор фурнитуры
+//                List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
+//                Record sysfurnRec = sysfurnList.get(0);
+//                int funic = Integer.valueOf(fullStvorka.mapParam.get(ParamJson.funic).toString());
+//                if (funic != -1) {
+//                    for (Record sysproaRec2 : sysfurnList) {
+//                        if (sysproaRec2.getInt(eSysfurn.id) == funic) {
+//                            sysfurnRec = sysproaRec2; //теперь sysprosRec соответствует параметру полученному из i-okna
+//                            break;
+//                        }
+//                    }
+//                }
+//                //Подбор текстуры ручки створки
+//                Object colorHandl = fullStvorka.mapParam.get(ParamJson.colorHandl);
+//                if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
+//                    fullStvorka.mapParam.put(ParamJson.colorHandl, iwin().color1);
+//                }
+//
+//                if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("по середине"))
+//                    fullStvorka.handleHeight = "по середине";
+//                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("константная"))
+//                    fullStvorka.handleHeight = "константная";
+//                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная"))
+//                    fullStvorka.handleHeight = "установлена";
+//
+//                Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id)); //первая запись в списке конструктива
+//                List<Record> furnside1List = eFurnside1.find(furnityreRec.getInt(eFurniture.id));
+//                boolean out = true;
+//                //Цикл по описанию сторон фурнитуры
+//                for (Record furnside1Rec : furnside1List) {
+//
+//                    List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
+//                    out = calc().paramVariant.checkParfurl(fullStvorka, parfurlList); //параметры вариантов
+//                    if (out == false) break;
+//                }
+//                if (out == false) continue;
+//
+//                nested(fullStvorka, furnityreRec, 1);
+//            }
+//        }
     }
 
     protected void nested(AreaStvorka fullStvorka, Record furnitureRec, int count) {

@@ -36,14 +36,12 @@ public abstract class Com5t {
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 
 
-    public Specification specificationRec = null; //спецификация элемента
     public HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
 
     public Com5t(float id, Wincalc iwin, AreaSimple owner) {
         this.id = id;
         this.owner = owner;
         this.iwin = iwin;
-        specificationRec = new Specification(id, this);
     }
 
     public float id() {
