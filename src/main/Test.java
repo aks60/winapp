@@ -37,7 +37,6 @@ public class Test {
         wincalc.Wincalc iwin = new wincalc.Wincalc();
         iwin.create(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
         iwin.constructiv();
-
         Specification.write_txt2(iwin.listSpec);
         
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);

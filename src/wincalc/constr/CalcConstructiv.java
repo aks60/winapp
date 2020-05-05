@@ -30,18 +30,6 @@ public class CalcConstructiv {
         paramSpecific = new ParamSpecific(iwin, this);
     }
 
-    public void calculate(Wincalc iwin) {
-
-        Сomposition composition = new Сomposition(iwin, this); //составы
-        composition.build();
-//        Joining joining = new Joining(iwin, this); //соединения
-//        joining.build();
-//        Filling filling = new Filling(iwin, this); //заполнения
-//        filling.build();
-//        Accessory accessory = new Accessory(iwin, this); //фурнитура        
-//            constructiv.kitsFirst();                       //комплекты    
-    }
-
     protected int determineColorCodeForArt(Com5t elem, int color_side, Record paramRec, Specification specif) {
 
 //        //int colorCode = getColorFromProduct(elem, color_side, paramRec);

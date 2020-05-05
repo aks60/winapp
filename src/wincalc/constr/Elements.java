@@ -24,9 +24,9 @@ import wincalc.model.ElemSimple;
 /**
  * Составы.
  */
-public class Сomposition extends Cal5e {
+public class Elements extends Cal5e {
 
-    public Сomposition(Wincalc iwin, CalcConstructiv calc) {
+    public Elements(Wincalc iwin, CalcConstructiv calc) {
         super(iwin, calc);
     }
 
@@ -37,24 +37,29 @@ public class Сomposition extends Cal5e {
             LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
             LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список створок конструкции
             
-            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.FRAME); 
-            int id = sysprofRec.getInt(eSysprof.artikl_id); //подбор текстуры, ищем не на аналоге                
-            List<Record> artdetList = eArtdet.find(id); //спецификация артикула  
+            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.FRAME); //находим первую по приоритету запись профиля в системе 
+            int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
+            List<Record> artdetList = eArtdet.find(artikl_id); //список спецификаций артикула профиля в системе  
             
             boolean is = false;
-            for (Record artdetRec : artdetList) { //цыкл по цветам артикулов
+            //Цыкл по спецификациям артикула профиля в системе
+            for (Record artdetRec : artdetList) { 
 
                 int color_fk = artdetRec.getInt(eArtdet.color_fk); //TODO Нужна проверка для color_fk < 0
+                //Подбор текстуры
                 if (color_fk == iwin().color1) {
                     is = true;
+                    //Цыкл по рамам
                     for (ElemFrame elemFrame : listFrameBox) {
 
                         elemFrame.setSpecifElement(sysprofRec);
+                        
                         int series_id = elemFrame.artiklRec.getInt(eArtikl.series_id);
                         List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
-                        //nested(elementList2, recordFrame);
-                        int artikl_id = elemFrame.artiklRec.getInt(eArtikl.id);
-                        List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
+                        nested(elementList2, elemFrame);
+                        
+                        //int artikl_id = elemFrame.artiklRec.getInt(eArtikl.id);
+                        //List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
                         //nested(elementList, recordFrame);
 
                         elemFrame.specificationRec.width = elemFrame.specificationRec.width
@@ -128,28 +133,28 @@ public class Сomposition extends Cal5e {
             System.out.println(elementList);
             //цикл по составам
             for (Record elementRec : elementList) {
-//
-//                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-//                boolean out = calc().paramVariant.checkParvstm(com5t, elempar1List); //ФИЛЬТР вариантов
-//                if (out == true) {
-//                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
-//                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));
-//                    //Цикл по спецификации
-//                    for (Record elendetRec : elemdetList) {
-//
-//                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
-//                        ArrayList<Record> parvstsList = eElempar2.find(elendetRec.getInt(eElemdet.element_id));
-//                        boolean out2 = calc().paramSpecific.checkSpecific(hmParam, com5t, parvstsList);//ФИЛЬТР спецификаций
-//                        if (out2 == true) {
-//
-//                            Record artikl = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
-//                            Specification specif = new Specification(artikl, com5t, hmParam);
-//                            specif.setColor(com5t, elendetRec);
-//                            specif.element = "СОСТ";
-//                            ((ElemSimple) com5t).addSpecifSubelem(specif); //добавим спецификацию в элемент
-//                        }
-//                    }
-//                }
+
+                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
+                boolean out = calc().paramVariant.checkParvstm(com5t, elempar1List); //ФИЛЬТР вариантов
+                if (out == true) {
+                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
+                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));
+                    //Цикл по спецификации
+                    for (Record elendetRec : elemdetList) {
+
+                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
+                        ArrayList<Record> parvstsList = eElempar2.find(elendetRec.getInt(eElemdet.element_id));
+                        boolean out2 = calc().paramSpecific.checkSpecific(hmParam, com5t, parvstsList);//ФИЛЬТР спецификаций
+                        if (out2 == true) {
+
+                            Record artikl = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
+                            Specification specif = new Specification(artikl, com5t, hmParam);
+                            specif.setColor(com5t, elendetRec);
+                            specif.element = "СОСТ";
+                            ((ElemSimple) com5t).addSpecifSubelem(specif); //добавим спецификацию в элемент
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.nested()");

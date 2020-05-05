@@ -22,6 +22,8 @@ import enums.LayoutArea;
 import enums.LayoutProfile;
 import enums.TypeElem;
 import enums.UseArtikl;
+import frame.Filling;
+import frame.Joining;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
@@ -30,10 +32,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import wincalc.constr.Accessory;
 import wincalc.constr.CalcConstructiv;
 import wincalc.constr.Specification;
 import wincalc.constr.CalcTariffication;
-import wincalc.constr.Сomposition;
+import wincalc.constr.Elements;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 import wincalc.script.Intermediate;
@@ -120,11 +123,23 @@ public class Wincalc {
 
     //Конструктив и тарификация 
     public void constructiv() {
+        try {
+            Elements elements = new Elements(this, constructiv); //составы
+            elements.build();
+            
+          /*Joining joining = new Joining(iwin, this); //соединения
+            joining.build();
+            Filling filling = new Filling(iwin, this); //заполнения
+            filling.build();
+            Accessory accessory = new Accessory(iwin, this); //фурнитура        
+            constructiv.kitsFirst();                       //комплекты */
+            for (Com5t elemRec : listElem) {
 
-        constructiv.calculate(this);
-        for (Com5t elemRec : listElem) {
-            listSpec.add(elemRec.specificationRec);
-            listSpec.addAll(elemRec.specificationRec.specificationList);
+                listSpec.add(elemRec.specificationRec);
+                listSpec.addAll(elemRec.specificationRec.specificationList);
+            }
+        } catch (Exception e) {
+            System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);
         }
     }
 
