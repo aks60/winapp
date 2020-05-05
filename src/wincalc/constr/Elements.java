@@ -36,39 +36,26 @@ public class Elements extends Cal5e {
         try {
             LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
             LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список створок конструкции
-            
-            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.FRAME); //находим первую по приоритету запись профиля в системе 
+
+            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.FRAME); //первая по приоритету рама в системе 
             int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
-            List<Record> artdetList = eArtdet.find(artikl_id); //список спецификаций артикула профиля в системе  
-            
-            boolean is = false;
-            //Цыкл по спецификациям артикула профиля в системе
-            for (Record artdetRec : artdetList) { 
+            List<Record> artdetList = eArtdet.find(artikl_id); //список спецификаций рамы в системе              
+            Record artdetRec = artdet(artdetList); //спецификация рамы в системе (подбор текстуры)
 
-                int color_fk = artdetRec.getInt(eArtdet.color_fk); //TODO Нужна проверка для color_fk < 0
-                //Подбор текстуры
-                if (color_fk == iwin().color1) {
-                    is = true;
-                    //Цыкл по рамам
-                    for (ElemFrame elemFrame : listFrameBox) {
+            //Цыкл по рамам
+            for (ElemFrame elemFrame : listFrameBox) {
 
-                        elemFrame.setSpecifElement(sysprofRec);
-                        
-                        int series_id = elemFrame.artiklRec.getInt(eArtikl.series_id);
-                        List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
-                        nested(elementList2, elemFrame);
-                        
-                        //int artikl_id = elemFrame.artiklRec.getInt(eArtikl.id);
-                        //List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
-                        //nested(elementList, recordFrame);
+                elemFrame.setSpecifElement(sysprofRec);
 
-                        elemFrame.specificationRec.width = elemFrame.specificationRec.width
-                                + Float.valueOf(String.valueOf(elemFrame.specificationRec.getParam(0, 31052)));
-                    }
-                }
-                if (is == true) {
-                    break;
-                }
+//                int series_id = elemFrame.artiklRec.getInt(eArtikl.series_id);
+//                List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
+//                nested(elementList2, elemFrame);
+
+                //int artikl_id = elemFrame.artiklRec.getInt(eArtikl.id);
+                //List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
+                //nested(elementList, recordFrame);
+                elemFrame.specificationRec.width = elemFrame.specificationRec.width
+                        + Float.valueOf(String.valueOf(elemFrame.specificationRec.getParam(0, 31052)));
             }
 //            for (Record record : sysprofList) {
 //                boolean is = false;
@@ -159,5 +146,9 @@ public class Elements extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.nested()");
         }
+    }
+
+    private Record artdet(List<Record> artdetList) {
+        return artdetList.stream().filter(rec -> rec.getInt(eArtdet.color_fk) == iwin().color1).findFirst().orElse(eArtdet.record());
     }
 }
