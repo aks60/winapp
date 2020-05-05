@@ -203,6 +203,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTree() {
 
+        Util.clearTable(tab1, tab2);
         Util.stopCellEditing(tab1, tab2);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
@@ -246,8 +247,7 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-
-        Util.stopCellEditing(tab1, tab2);
+        
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = qArtikl.get(row);
