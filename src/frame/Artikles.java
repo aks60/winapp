@@ -228,6 +228,7 @@ public class Artikles extends javax.swing.JFrame {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
                 }
             }
+            qArtikl.clear();
             qArtikl.addAll(qArtik2);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             if (owner != null) {
