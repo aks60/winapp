@@ -56,7 +56,7 @@ public class ParamVariant {
     // Составы
     //int[] parVstm = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050,
     //31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
-    protected boolean checkElements(ElemSimple elemSimple, ArrayList<Record> tableList) {
+    protected boolean element(ElemSimple elemSimple, ArrayList<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
@@ -147,7 +147,7 @@ public class ParamVariant {
                 case 37099:
                     break;
                 default:
-                    paramMessage(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(PAR1));
                     break;
             }
         }
@@ -156,7 +156,7 @@ public class ParamVariant {
 
     // Заполнения
     //int[] parGrup = {13015, 13017, 13081, 13099};
-    protected boolean checkPargrup(ElemSimple elemBase, List<Record> tableList) {
+    protected boolean filling(ElemSimple elemBase, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
@@ -175,7 +175,7 @@ public class ParamVariant {
                 case 13099: //Трудозатраты, ч/ч.
                     break;
                 default:
-                    paramMessage(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(PAR1));
                     break;
             }
         }
@@ -184,9 +184,9 @@ public class ParamVariant {
 
     // Фурнитура
     //int[] parFurl = {2101, 2104, 2140, 2185};
-    protected boolean checkParfurl(ElemSimple elemSimple, List<Record> tableList) {
+    protected boolean furniture(ElemSimple elemSimple, List<Record> tableList) {
 
-        //Цикл по параметрам состава
+        //Цикл по параметрам фурнитуры
         for (Record paramRec : tableList) {
 
             if (filterParamDef(paramRec) == false) return false;
@@ -203,7 +203,7 @@ public class ParamVariant {
                     }
                     break;
                 default:
-                    paramMessage(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(PAR1));
                     break;
             }
         }
@@ -219,7 +219,7 @@ public class ParamVariant {
     //Соединения
     //  int[] parConv = {1005, 1008, 1010, 1011, 1012, 1013, 1020, 1040, 1085, 1099, 2005, 2012, 2013, 2020, 2030, 2061, 2099, 3002, 3003, 3005, 3015,
     //  3020, 3031, 3050, 3099, 4002, 4005, 4011, 4012, 4013, 4015, 4018, 4020, 4040, 4044, 4085, 4095, 4099};
-    protected boolean checkParconv(ElemJoining elemJoin, List<Record> parconvList) {
+    protected boolean joining(ElemJoining elemJoin, List<Record> parconvList) {
         
         float angl = (ElemSimple.SIDE_START == ElemJoining.FIRST_SIDE) ? elemJoin.joinAngl(1) : elemJoin.joinAngl(2);
         ElemSimple joinElement1 = elemJoin.joinElement1;
@@ -285,7 +285,7 @@ public class ParamVariant {
                     for (Record elementRec1 : elementList1) {
                         if (elementRec1.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find2(elementRec1.getInt(PAR1));
-                            substr1 = checkElements(joinElement1, elempar1List);
+                            substr1 = element(joinElement1, elempar1List);
                             break;
                         }
                     }
@@ -300,7 +300,7 @@ public class ParamVariant {
                     for (Record elementRec2 : elementList2) {
                         if (elementRec2.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar2List = eElempar2.find2(elementRec2.getInt(PAR1));
-                            substr2 = checkElements(joinElement2, elempar2List);
+                            substr2 = element(joinElement2, elempar2List);
                             break;
                         }
                     }
@@ -315,7 +315,7 @@ public class ParamVariant {
                     for (Record elementRec : elementList1a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));
-                            substr1a = checkElements(joinElement1, elempar1List);
+                            substr1a = element(joinElement1, elempar1List);
                             break;
                         }
                     }
@@ -324,7 +324,7 @@ public class ParamVariant {
                     for (Record elementRec : elementList2a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));
-                            substr1a = checkElements(joinElement1, elempar1List);
+                            substr1a = element(joinElement1, elempar1List);
                             break;
                         }
                     }
@@ -376,14 +376,14 @@ public class ParamVariant {
                     elemJoin.costsJoin = paramRec.getStr(PAR3);
                     break;
                 default:
-                    paramMessage(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(PAR1));
                     break;
             }
         }
         return result;
     }
 
-    private void paramMessage(int code) {
+    private void message(int code) {
         System.err.println("ParamVariant ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
     }
 

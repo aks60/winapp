@@ -49,7 +49,7 @@ public class Joining extends Cal5e {
                     continue; //если варианты соединения не совпали
                 }
                 List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-                boolean out = calc().paramVariant.checkParconv(elemJoin, joinpar1List); //ФИЛЬТР вариантов
+                boolean out = calc().paramVariant.joining(elemJoin, joinpar1List); //ФИЛЬТР вариантов
                 if (out == false) {
                     continue;
                 }
@@ -59,7 +59,7 @@ public class Joining extends Cal5e {
 
                     HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
                     List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-                    out = calc().paramSpecific.checkSpecific(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР спецификаций
+                    out = calc().paramSpecific.furnityre(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР спецификаций
                     if (out == true) {
 
                         Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);

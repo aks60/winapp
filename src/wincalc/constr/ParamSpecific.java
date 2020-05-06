@@ -42,7 +42,7 @@ public class ParamSpecific {
         this.calcConstr = calcConstr;
     }
 
-    //Фильтр параметров по уьолчанию и i-okna
+    //Фильтр параметров по умолчанию и i-okna
     protected boolean filterParamJson(Com5t com5t, List<Record> paramList) {
 
         HashMap<Integer, Object[]> paramJson = new HashMap();
@@ -98,8 +98,8 @@ public class ParamSpecific {
         return true;
     }
 
-    //Cоединения, составы
-    protected boolean checkSpecific(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
+    //Составы
+    protected boolean furnityre(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
@@ -218,7 +218,7 @@ public class ParamSpecific {
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 default:
-                    paramMessage(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(PAR1));
                     break;
             }
         }
@@ -227,23 +227,22 @@ public class ParamSpecific {
         }
         return true;
     }
-
-    //public static int[]  parGlas = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};
-    //Заполнения
-    protected boolean checkFilling(HashMap<Integer, String> hmParam, ElemSimple
-            ElemSimple, List<Record> tableList) {
+    
+    //Cоединения
+    protected boolean joinng(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
 
-            //if (compare(param) == false) return false;
             String code = (String.valueOf(paramRec.getInt(PAR1)).length() == 4) ? String.valueOf(paramRec.getInt(PAR1)).substring(1, 4) : String.valueOf(paramRec.getInt(PAR1)).substring(2, 5);
             switch (code) {
                 case "000": //Для технологического кода контейнера
 
-                    Record sproaRec = ElemSimple.sysprofRec;
-                    Record artiklVRec = eArtikl.find(sproaRec.getInt(PAR1), false);
-                    if (artiklVRec.get(eArtikl.tech_code) == null) return false;
+                    Record sysprofRec = elemSimple.sysprofRec;
+                    Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+                    if (artiklVRec.get(eArtikl.tech_code) == null) {
+                        return false;
+                    }
                     String[] strList = paramRec.getStr(PAR3).split(";");
                     String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
                     boolean ret2 = false;
@@ -254,19 +253,27 @@ public class ParamSpecific {
                             }
                         }
                     }
-                    if (ret2 == false) return false;
+                    if (ret2 == false) {
+                        return false;
+                    }
                     break;
                 case "005":
-                    int m1 = ElemSimple.iwin().color1;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m1) == false) return false;
+                    int m1 = elemSimple.iwin().color1;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m1) == false) {
+                        return false;
+                    }
                     break;
                 case "006":
-                    int m2 = ElemSimple.iwin().color2;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m2) == false) return false;
+                    int m2 = elemSimple.iwin().color2;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m2) == false) {
+                        return false;
+                    }
                     break;
                 case "007":
-                    int m3 = ElemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m3) == false) return false;
+                    int m3 = elemSimple.iwin().color3;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m3) == false) {
+                        return false;
+                    }
                     break;
                 case "010": //Расчёт армирования
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
@@ -284,33 +291,173 @@ public class ParamSpecific {
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case "051": //Поправка, мм
-                    if (ElemSimple.specificationRec.getParam("0", 31052).equals(paramRec.getStr(PAR3)) == false)
+                    if (elemSimple.specificationRec.getParam("0", 31052).equals(paramRec.getStr(PAR3)) == false) {
                         hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    }
                     break;
                 case "060": //Количество
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case "066": //Если номер стороны контура
-                    if ("1".equals(paramRec.getStr(PAR3)) == true && LayoutArea.BOTTOM != ElemSimple.layout())
+                    if ("1".equals(paramRec.getStr(PAR3)) == true && LayoutArea.BOTTOM != elemSimple.layout()) {
                         return false;
-                    else if ("2".equals(paramRec.getStr(PAR3)) == true && LayoutArea.RIGHT != ElemSimple.layout())
+                    } else if ("2".equals(paramRec.getStr(PAR3)) == true && LayoutArea.RIGHT != elemSimple.layout()) {
                         return false;
-                    else if ("3".equals(paramRec.getStr(PAR3)) == true && LayoutArea.TOP != ElemSimple.layout())
+                    } else if ("3".equals(paramRec.getStr(PAR3)) == true && LayoutArea.TOP != elemSimple.layout()) {
                         return false;
-                    else if ("4".equals(paramRec.getStr(PAR3)) == true && LayoutArea.LEFT != ElemSimple.layout())
+                    } else if ("4".equals(paramRec.getStr(PAR3)) == true && LayoutArea.LEFT != elemSimple.layout()) {
                         return false;
+                    }
+                    break;
+                case "067": //Коды основной текстуры изделия
+                    int c1 = elemSimple.iwin().color1;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                        return false;
+                    }
+                    break;
+                case "068": //Код внутренней структуры изделия
+                    int c2 = elemSimple.iwin().color2;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                        return false;
+                    }
+                    break;
+                case "069"://Коды внешн. текстуры изделия
+                    int c3 = elemSimple.iwin().color3;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                        return false;
+                    }
+                    break;
+                case "070": //Длина, мм
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                case "095": //Если признак системы конструкции
+                    Record systreefRec = eSystree.find(iwin.nuni);
+                    String[] arr = paramRec.getStr(PAR3).split(";");
+                    List<String> arrList = Arrays.asList(arr);
+                    boolean ret = false;
+                    for (String str : arrList) {
+                        if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
+                            ret = true;
+                        }
+                    }
+                    if (ret == false) {
+                        return false;
+                    }
+                    break;
+                case "099": //Трудозатраты, ч/ч.
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                default:
+                    message(paramRec.getInt(PAR1));
+                    break;
+            }
+        }
+        if (filterParamJson(elemSimple, tableList) == false) {
+            return false; //параметры по умолчанию и I-OKNA
+        }
+        return true;
+    }
+
+    //Заполнения
+    //public static int[]  parGlas = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};        
+    protected boolean filling(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> tableList) {
+
+        //Цикл по параметрам состава
+        for (Record paramRec : tableList) {
+
+            //if (compare(param) == false) return false;
+            String code = (String.valueOf(paramRec.getInt(PAR1)).length() == 4) ? String.valueOf(paramRec.getInt(PAR1)).substring(1, 4) : String.valueOf(paramRec.getInt(PAR1)).substring(2, 5);
+            switch (code) {
+                case "000": //Для технологического кода контейнера
+
+                    Record sproaRec = ElemSimple.sysprofRec;
+                    Record artiklVRec = eArtikl.find(sproaRec.getInt(PAR1), false);
+                    if (artiklVRec.get(eArtikl.tech_code) == null) {
+                        return false;
+                    }
+                    String[] strList = paramRec.getStr(PAR3).split(";");
+                    String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+                    boolean ret2 = false;
+                    for (String str : strList) {
+                        for (String str2 : strList2) {
+                            if (str.equals(str2)) {
+                                ret2 = true;
+                            }
+                        }
+                    }
+                    if (ret2 == false) {
+                        return false;
+                    }
+                    break;
+                case "005":
+                    int m1 = ElemSimple.iwin().color1;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m1) == false) {
+                        return false;
+                    }
+                    break;
+                case "006":
+                    int m2 = ElemSimple.iwin().color2;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m2) == false) {
+                        return false;
+                    }
+                    break;
+                case "007":
+                    int m3 = ElemSimple.iwin().color3;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m3) == false) {
+                        return false;
+                    }
+                    break;
+                case "010": //Расчёт армирования
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                case "020": //Поправка, мм
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                case "030": //[ * коэф-т ]
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                case "040": //Порог расчета, мм
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                case "050": //Поправка, мм
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                case "051": //Поправка, мм
+                    if (ElemSimple.specificationRec.getParam("0", 31052).equals(paramRec.getStr(PAR3)) == false) {
+                        hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    }
+                    break;
+                case "060": //Количество
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    break;
+                case "066": //Если номер стороны контура
+                    if ("1".equals(paramRec.getStr(PAR3)) == true && LayoutArea.BOTTOM != ElemSimple.layout()) {
+                        return false;
+                    } else if ("2".equals(paramRec.getStr(PAR3)) == true && LayoutArea.RIGHT != ElemSimple.layout()) {
+                        return false;
+                    } else if ("3".equals(paramRec.getStr(PAR3)) == true && LayoutArea.TOP != ElemSimple.layout()) {
+                        return false;
+                    } else if ("4".equals(paramRec.getStr(PAR3)) == true && LayoutArea.LEFT != ElemSimple.layout()) {
+                        return false;
+                    }
                     break;
                 case "067": //Коды основной текстуры изделия
                     int c1 = ElemSimple.iwin().color1;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                        return false;
+                    }
                     break;
                 case "068": //Код внутренней структуры изделия
                     int c2 = ElemSimple.iwin().color2;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                        return false;
+                    }
                     break;
                 case "069"://Коды внешн. текстуры изделия
                     int c3 = ElemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                        return false;
+                    }
                     break;
                 case "070": //Длина, мм
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
@@ -321,26 +468,30 @@ public class ParamSpecific {
                     List<String> arrList = Arrays.asList(arr);
                     boolean ret = false;
                     for (String str : arrList) {
-                        if (systreeRec.get(eSystree.types) == Integer.valueOf(str) == true) ret = true;
+                        if (systreeRec.get(eSystree.types) == Integer.valueOf(str) == true) {
+                            ret = true;
+                        }
                     }
-                    if (ret == false) return false;
+                    if (ret == false) {
+                        return false;
+                    }
                     break;
                 case "099": //Трудозатраты, ч/ч.
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 default:
-                    paramMessage(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(PAR1));
                     break;
             }
         }
-        if (filterParamJson(ElemSimple, tableList) == false) return false; //параметры по умолчанию и I-OKNA
+        if (filterParamJson(ElemSimple, tableList) == false) {
+            return false; //параметры по умолчанию и I-OKNA
+        }
         return true;
     }
 
-
     //Фурнитура (Parfurs)
-    protected boolean checkParfurs(HashMap<Integer, String> hmParam, ElemSimple
-            elemSimple, ArrayList<Record> tableList) {
+    protected boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elemSimple, ArrayList<Record> tableList) {
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
 
@@ -380,7 +531,7 @@ public class ParamSpecific {
                             return false;
                         }
                     } else if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("правое")) {
-                        ElemFrame el = ((AreaSimple)elemSimple.owner()).mapFrame.get(LayoutArea.RIGHT);
+                        ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.RIGHT);
                         if (paramRec.getStr(PAR3).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                             return false;
                         }
@@ -401,12 +552,14 @@ public class ParamSpecific {
                     break;
                 case 24069://Коды внешн. текстуры изделия
                     int c3 = elemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                        return false;
+                    }
                     break;
                 case 24070://Если высота ручки
                     String str = ((AreaStvorka) elemSimple.owner()).handleHeight;
-                    if ("по середине".equals(str) == true && paramRec.getStr(PAR3).equals("не константная") == false ||
-                            "константная".equals(str) == true && paramRec.getStr(PAR3).equals("константная") == false) {
+                    if ("по середине".equals(str) == true && paramRec.getStr(PAR3).equals("не константная") == false
+                            || "константная".equals(str) == true && paramRec.getStr(PAR3).equals("константная") == false) {
                         return false;
                     }
                     break;
@@ -417,15 +570,17 @@ public class ParamSpecific {
                     //paramMessage2(param.p_numb());
                     break;
                 default:
-                    paramMessage(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(PAR1));
                     break;
             }
         }
-        if (filterParamJson(elemSimple, tableList) == false) return false; //параметры по умолчанию и I-OKNA
+        if (filterParamJson(elemSimple, tableList) == false) {
+            return false; //параметры по умолчанию и I-OKNA
+        }
         return true;
     }
 
-    private void paramMessage(int code) {
+    private void message(int code) {
         //System.err.println("ParamSpecific ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
     }
 

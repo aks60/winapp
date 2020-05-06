@@ -63,7 +63,7 @@ public class Elements extends Cal5e {
             for (Record elementRec : elementList) { //цыкл по вариантам состава
 
                 ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                boolean out = calc().paramVariant.checkElements(ElemSimple, elempar1List); //ФИЛЬТР вариантов
+                boolean out = calc().paramVariant.element(ElemSimple, elempar1List); //ФИЛЬТР вариантов
 //                if (out == true) {
 //                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
 //                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));                   
