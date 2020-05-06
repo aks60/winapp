@@ -21,7 +21,7 @@ import domain.eSysprof;
 import enums.LayoutArea;
 import enums.LayoutProfile;
 import enums.TypeElem;
-import enums.UseArtikl;
+import enums.UseArtiklTo;
 import frame.Filling;
 import frame.Joining;
 import java.awt.Graphics2D;
@@ -161,7 +161,7 @@ public class Wincalc {
             height = mainObj.get("height").getAsFloat();
             heightAdd = mainObj.get("heightAdd").getAsFloat();
 
-            Record sysprofRec = eSysprof.find3(nuni, UseArtikl.FRAME, LayoutProfile.LEFT);
+            Record sysprofRec = eSysprof.find3(nuni, UseArtiklTo.FRAME, LayoutProfile.LEFT);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             sysconsRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
 

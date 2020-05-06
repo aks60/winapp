@@ -10,7 +10,7 @@ import domain.eElempar2;
 import domain.eSysprof;
 import enums.Enam;
 import enums.TypeElem;
-import enums.UseArtikl;
+import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,23 +33,63 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую вирт. мат. ценность.
     public void build() {
         try {
-            LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
-            LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам створок конструкции
-            Arrays.asList(UseArtikl.values()).forEach(el -> el.record = eSysprof.find2(iwin().nuni, el)); //профили по приоритету, до ручного выбора
-
-            System.out.println(iwin().listElem);
+            Arrays.asList(UseArtiklTo.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
             
-            for (UseArtikl useArt : UseArtikl.values()) {
+            for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { //цыкл по списку применений артикулов
+                for (ElemSimple elemSimp : iwin().listElem) { //цыкл по списку элементов конструкции
+                    if (elemSimp.useArtiklTo() == useArtiklTo) {
 
-                //Arrays.asList(iwin().listElem).stream().filter(elem -> elem.)
-                //int artikl_id = useArt.record.getInt(eSysprof.artikl_id); //ищем не на аналоге 
-                //List<Record> artdetList = eArtdet.find(artikl_id); //спецификация
+                        int artikl_id = elemSimp.sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге 
+                        List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
+                        elemSimp.artdetRec = artdet(artdetList); //текстура артикула
 
+                        int series_id = elemSimp.artiklRec.getInt(eArtikl.series_id);
+                        List<Record> elemeList2 = eElement.find(series_id); //варианты состава для серии профилей
+                        nested(elemeList2, elemSimp);
+
+                        artikl_id = elemSimp.artiklRec.getInt(eArtikl.id);
+                        List<Record> elemList3 = eElement.find2(artikl_id); //варианты состава для артикула профиля
+                        nested(elemList3, elemSimp);
+                    }
+                }
             }
-
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.build()");
         }
+    }
+    
+    protected void nested(List<Record> elementList, ElemSimple ElemSimple) {
+        try {           
+            for (Record elementRec : elementList) { //цыкл по вариантам состава
+
+                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
+                boolean out = calc().paramVariant.checkElements(ElemSimple, elempar1List); //ФИЛЬТР вариантов
+//                if (out == true) {
+//                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
+//                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));                   
+//                    for (Record elendetRec : elemdetList) { //цыкл по вариантам спецификаций
+//
+//                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
+//                        ArrayList<Record> parvstsList = eElempar2.find(elendetRec.getInt(eElemdet.element_id));
+//                        boolean out2 = calc().paramSpecific.checkSpecific(hmParam, ElemSimple, parvstsList);//ФИЛЬТР спецификаций
+//                        if (out2 == true) {
+//
+//                            Record artiklRec = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
+//                            Specification specif = new Specification(artiklRec, ElemSimple, hmParam);
+//                            specif.setColor(ElemSimple, elendetRec);
+//                            specif.element = "СОСТ";
+//                            ((ElemSimple) ElemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
+//                        }
+//                    }
+//                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка wincalc.constr.Сomposition.nested()");
+        }
+    }
+
+    private Record artdet(List<Record> artdetList) {
+        return artdetList.stream().filter(rec -> rec.getInt(eArtdet.color_fk) == iwin().color1).findFirst().orElse(eArtdet.record());
     }
 
     public void build2() {
@@ -57,7 +97,7 @@ public class Elements extends Cal5e {
             LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
             LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам створок конструкции
 
-            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.FRAME); //первая по приоритету рама в системе 
+            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.FRAME); //первая по приоритету рама в системе 
             int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
             List<Record> artdetList = eArtdet.find(artikl_id); //список спецификаций рамы в системе              
             Record artdetRec = artdet(artdetList); //спецификация рамы в системе (подбор текстуры)
@@ -132,42 +172,6 @@ public class Elements extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.build()");
         }
-    }
-
-    protected void nested(List<Record> elementList, ElemSimple ElemSimple) {
-        try {
-            System.out.println(elementList);
-            //цикл по составам
-            for (Record elementRec : elementList) {
-
-                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                boolean out = calc().paramVariant.checkParvstm(ElemSimple, elempar1List); //ФИЛЬТР вариантов
-                if (out == true) {
-                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
-                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));
-                    //Цикл по спецификации
-                    for (Record elendetRec : elemdetList) {
-
-                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
-                        ArrayList<Record> parvstsList = eElempar2.find(elendetRec.getInt(eElemdet.element_id));
-                        boolean out2 = calc().paramSpecific.checkSpecific(hmParam, ElemSimple, parvstsList);//ФИЛЬТР спецификаций
-                        if (out2 == true) {
-
-                            Record artikl = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
-                            Specification specif = new Specification(artikl, ElemSimple, hmParam);
-                            specif.setColor(ElemSimple, elendetRec);
-                            specif.element = "СОСТ";
-                            ((ElemSimple) ElemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка wincalc.constr.Сomposition.nested()");
-        }
-    }
-
-    private Record artdet(List<Record> artdetList) {
-        return artdetList.stream().filter(rec -> rec.getInt(eArtdet.color_fk) == iwin().color1).findFirst().orElse(eArtdet.record());
-    }
+    }    
 }
+

@@ -7,7 +7,7 @@ import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeElem;
-import enums.UseArtikl;
+import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -374,17 +374,17 @@ public class ParamSpecific {
                 case 25033://Фурнитура штульповая
                     if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("левое")) {
                         ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.LEFT);
-                        if (paramRec.getStr(PAR3).equals("Да") && el.typeProfile() != UseArtikl.SHTULP) {
+                        if (paramRec.getStr(PAR3).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                             return false;
-                        } else if (paramRec.getStr(PAR3).equals("Нет") && el.typeProfile() == UseArtikl.SHTULP) {
+                        } else if (paramRec.getStr(PAR3).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
                             return false;
                         }
                     } else if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("правое")) {
                         ElemFrame el = ((AreaSimple)elemSimple.owner()).mapFrame.get(LayoutArea.RIGHT);
-                        if (paramRec.getStr(PAR3).equals("Да") && el.typeProfile() != UseArtikl.SHTULP) {
+                        if (paramRec.getStr(PAR3).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                             return false;
                         }
-                        if (el.typeProfile() == UseArtikl.SHTULP && paramRec.getStr(PAR3).equals("Нет")) {
+                        if (el.useArtiklTo() == UseArtiklTo.SHTULP && paramRec.getStr(PAR3).equals("Нет")) {
                             return false;
                         }
                     }

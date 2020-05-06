@@ -56,7 +56,7 @@ public class ParamVariant {
     // Составы
     //int[] parVstm = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050,
     //31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
-    protected boolean checkParvstm(ElemSimple elemSimple, ArrayList<Record> tableList) {
+    protected boolean checkElements(ElemSimple elemSimple, ArrayList<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
@@ -285,7 +285,7 @@ public class ParamVariant {
                     for (Record elementRec1 : elementList1) {
                         if (elementRec1.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find2(elementRec1.getInt(PAR1));
-                            substr1 = checkParvstm(joinElement1, elempar1List);
+                            substr1 = checkElements(joinElement1, elempar1List);
                             break;
                         }
                     }
@@ -300,7 +300,7 @@ public class ParamVariant {
                     for (Record elementRec2 : elementList2) {
                         if (elementRec2.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar2List = eElempar2.find2(elementRec2.getInt(PAR1));
-                            substr2 = checkParvstm(joinElement2, elempar2List);
+                            substr2 = checkElements(joinElement2, elempar2List);
                             break;
                         }
                     }
@@ -315,7 +315,7 @@ public class ParamVariant {
                     for (Record elementRec : elementList1a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));
-                            substr1a = checkParvstm(joinElement1, elempar1List);
+                            substr1a = checkElements(joinElement1, elempar1List);
                             break;
                         }
                     }
@@ -324,7 +324,7 @@ public class ParamVariant {
                     for (Record elementRec : elementList2a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));
-                            substr1a = checkParvstm(joinElement1, elempar1List);
+                            substr1a = checkElements(joinElement1, elempar1List);
                             break;
                         }
                     }

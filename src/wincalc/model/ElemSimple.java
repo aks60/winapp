@@ -4,7 +4,7 @@ import dataset.Record;
 import domain.eArtikl;
 import enums.UseUnit;
 import wincalc.constr.Specification;
-import enums.UseArtikl;
+import enums.UseArtiklTo;
 import java.awt.Color;
 import java.util.HashMap;
 import wincalc.Wincalc;
@@ -13,6 +13,7 @@ public abstract class ElemSimple extends Com5t {
 
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства, основной профиль
+    public Record artdetRec = null;  //текстура артикулов
     public Specification specificationRec = null; //спецификация элемента
     
     public float anglHoriz = -1; //угол к горизонту
@@ -34,8 +35,8 @@ public abstract class ElemSimple extends Com5t {
         return inside(x, y);        
     }
 
-    //Типы профилей
-    public abstract UseArtikl typeProfile();
+    //Использовать артикл для...
+    public abstract UseArtiklTo useArtiklTo();
 
     //Добавить спецификацию в состав элемента
     public abstract void addSpecifSubelem(Specification specification);

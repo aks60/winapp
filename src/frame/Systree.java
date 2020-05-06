@@ -29,7 +29,7 @@ import enums.LayoutFrame;
 import enums.LayoutHandle;
 import enums.LayoutProfile;
 import enums.TypeOpen2;
-import enums.UseArtikl;
+import enums.UseArtiklTo;
 import enums.TypeUse;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -145,7 +145,7 @@ public class Systree extends javax.swing.JFrame {
                         return en.text();
                     }
                 } else if (field == eSysprof.use_type && val != null) {
-                    UseArtikl en = UseArtikl.get(Integer.valueOf(val.toString()));
+                    UseArtiklTo en = UseArtiklTo.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
                     }
@@ -182,7 +182,7 @@ public class Systree extends javax.swing.JFrame {
         tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-            new DicEnums(this, listenerUsetyp, UseArtikl.values());
+            new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
         });
 
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
