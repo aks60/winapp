@@ -33,11 +33,11 @@ public class ParamSpecific {
     public static final int PAR1 = 3;   //Ключ 1  
     public static final int PAR2 = 4;   //Ключ 2   
     public static final int PAR3 = 5;   //Значение 
-    protected CalcConstructiv calcConstr = null;
+    protected Constructiv calcConstr = null;
 
     public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
 
-    public ParamSpecific(Wincalc iwin, CalcConstructiv calcConstr) {
+    public ParamSpecific(Wincalc iwin, Constructiv calcConstr) {
         this.iwin = iwin;
         this.calcConstr = calcConstr;
     }
@@ -129,19 +129,19 @@ public class ParamSpecific {
                     break;
                 case "005":
                     int m1 = elemSimple.iwin().color1;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m1) == false) {
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m1) == false) {
                         return false;
                     }
                     break;
                 case "006":
                     int m2 = elemSimple.iwin().color2;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m2) == false) {
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m2) == false) {
                         return false;
                     }
                     break;
                 case "007":
                     int m3 = elemSimple.iwin().color3;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m3) == false) {
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m3) == false) {
                         return false;
                     }
                     break;
@@ -181,19 +181,19 @@ public class ParamSpecific {
                     break;
                 case "067": //Коды основной текстуры изделия
                     int c1 = elemSimple.iwin().color1;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
                         return false;
                     }
                     break;
                 case "068": //Код внутренней структуры изделия
                     int c2 = elemSimple.iwin().color2;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
                         return false;
                     }
                     break;
                 case "069"://Коды внешн. текстуры изделия
                     int c3 = elemSimple.iwin().color3;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
                         return false;
                     }
                     break;
@@ -258,15 +258,15 @@ public class ParamSpecific {
                     break;
                 case "005":
                     int m1 = ElemSimple.iwin().color1;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m1) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m1) == false) return false;
                     break;
                 case "006":
                     int m2 = ElemSimple.iwin().color2;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m2) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m2) == false) return false;
                     break;
                 case "007":
                     int m3 = ElemSimple.iwin().color3;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), m3) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m3) == false) return false;
                     break;
                 case "010": //Расчёт армирования
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
@@ -302,15 +302,15 @@ public class ParamSpecific {
                     break;
                 case "067": //Коды основной текстуры изделия
                     int c1 = ElemSimple.iwin().color1;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c1) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) return false;
                     break;
                 case "068": //Код внутренней структуры изделия
                     int c2 = ElemSimple.iwin().color2;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c2) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) return false;
                     break;
                 case "069"://Коды внешн. текстуры изделия
                     int c3 = ElemSimple.iwin().color3;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
                     break;
                 case "070": //Длина, мм
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
@@ -401,7 +401,7 @@ public class ParamSpecific {
                     break;
                 case 24069://Коды внешн. текстуры изделия
                     int c3 = elemSimple.iwin().color3;
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) return false;
                     break;
                 case 24070://Если высота ручки
                     String str = ((AreaStvorka) elemSimple.owner()).handleHeight;

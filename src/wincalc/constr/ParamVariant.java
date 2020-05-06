@@ -32,9 +32,9 @@ public class ParamVariant {
     public static final int PAR3 = 5;   //Значение     
 
     protected Wincalc iwin = null;
-    private CalcConstructiv calcConstr = null;
+    private Constructiv calcConstr = null;
 
-    public ParamVariant(Wincalc iwin, CalcConstructiv calcConstr) {
+    public ParamVariant(Wincalc iwin, Constructiv calcConstr) {
         this.iwin = iwin;
         this.calcConstr = calcConstr;
     }
@@ -102,26 +102,26 @@ public class ParamVariant {
                     if (ret == false) return false;
                     break;
                 case 31005: //Коды основной текстуры контейнера
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color1) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color1) == false) return false;
                     break;
                 case 31006: //Коды внутр. текстуры контейнера
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == false) return false;
                     break;
                 case 31007://Коды внешн. текстуры контейнера
-                    if (CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == false) return false;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == false) return false;
                     break;
                 case 31015: //Форма заполнения
                     if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) return false;
                     break;
                 case 31020: //Ограничение угла к горизонту
-                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple)elemSimple).anglHoriz) == false) return false;
+                    if (Constructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple)elemSimple).anglHoriz) == false) return false;
                     break;
                 case 31037:  //Название фурнитуры содержит
                     if (TypeElem.FULLSTVORKA == elemSimple.owner().type()) {
                         return paramRec.getStr(PAR3).contains(elemSimple.artiklRec.getStr(eArtikl.name));
                     } else return false;
                 case 31041: //Ограничение длины профиля, мм
-                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), elemSimple.width()) == false) return false;
+                    if (Constructiv.compareFloat(paramRec.getStr(PAR3), elemSimple.width()) == false) return false;
                     break;
                 case 31050: //Контейнер имеет тип
                     TypeElem type = elemSimple.type();
@@ -133,14 +133,14 @@ public class ParamVariant {
                     }
                     break;
                 case 31055: //Коды внутр. и внешн. текстуры изд
-                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true &&
-                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false)
+                    if ((Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true &&
+                            Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false)
                         return false;
                     break;
                 case 31056: //Коды внутр. или внеш. текстуры изд
                 case 37056:
-                    if ((CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true ||
-                            CalcConstructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false)
+                    if ((Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true ||
+                            Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false)
                         return false;
                     break;
                 case 31099:  //Трудозатраты, ч/ч.
@@ -333,7 +333,7 @@ public class ParamVariant {
                     }
                     break;
                 case "020":  //Ограничение угла
-                    if (CalcConstructiv.compareFloat(paramRec.getStr(PAR3), angl) == false) return false;
+                    if (Constructiv.compareFloat(paramRec.getStr(PAR3), angl) == false) return false;
                     break;
                 case "030":  //Припуск Артикула1/Артикула2 , мм
                     strTxt = paramRec.getStr(PAR3);

@@ -25,7 +25,7 @@ import static main.App1.eApp1.Artikles;
  */
 public class Accessory extends Cal5e {
 
-    public Accessory(Wincalc iwin, CalcConstructiv calcConstructiv) {
+    public Accessory(Wincalc iwin, Constructiv calcConstructiv) {
         super(iwin, calcConstructiv);
     }
 

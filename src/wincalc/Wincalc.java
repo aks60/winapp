@@ -33,9 +33,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import wincalc.constr.Accessory;
-import wincalc.constr.CalcConstructiv;
+import wincalc.constr.Constructiv;
 import wincalc.constr.Specification;
-import wincalc.constr.CalcTariffication;
+import wincalc.constr.Tariffication;
 import wincalc.constr.Elements;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
@@ -77,8 +77,8 @@ public class Wincalc {
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
 
     //спецификация конструкции
-    protected CalcConstructiv constructiv = new CalcConstructiv(this); //конструктив
-    protected CalcTariffication tariffication = new CalcTariffication(this); //тарификация
+    protected Constructiv constructiv = new Constructiv(this); //конструктив
+    protected Tariffication tariffication = new Tariffication(this); //тарификация
 
     public AreaSimple create(String productJson) {
 

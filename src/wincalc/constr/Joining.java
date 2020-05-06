@@ -20,7 +20,7 @@ import wincalc.model.ElemSimple;
 //Соединения
 public class Joining extends Cal5e {
 
-    public Joining(Wincalc iwin, CalcConstructiv calcConstructiv) {
+    public Joining(Wincalc iwin, Constructiv calcConstructiv) {
         super(iwin, calcConstructiv);
     }
 

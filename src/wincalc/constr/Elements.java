@@ -26,7 +26,7 @@ import wincalc.model.ElemSimple;
  */
 public class Elements extends Cal5e {
 
-    public Elements(Wincalc iwin, CalcConstructiv calc) {
+    public Elements(Wincalc iwin, Constructiv calc) {
         super(iwin, calc);
     }
 

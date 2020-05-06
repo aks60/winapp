@@ -14,7 +14,7 @@ import wincalc.model.Com5t;
 /**
  * Расчёт конструктива окна.
  */
-public class CalcConstructiv {
+public class Constructiv {
 
     protected Wincalc iwin = null;
     protected ParamVariant paramVariant = null;
@@ -23,7 +23,7 @@ public class CalcConstructiv {
 //    public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
 //
 
-    public CalcConstructiv(Wincalc iwin) {
+    public Constructiv(Wincalc iwin) {
         this.iwin = iwin;
 
         paramVariant = new ParamVariant(iwin, this);

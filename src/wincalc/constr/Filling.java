@@ -28,7 +28,7 @@ import wincalc.model.ElemSimple;
  */
 public class Filling extends Cal5e {
 
-    public Filling(Wincalc iwin, CalcConstructiv calcConstructiv) {
+    public Filling(Wincalc iwin, Constructiv calcConstructiv) {
         super(iwin, calcConstructiv);
     }
 
