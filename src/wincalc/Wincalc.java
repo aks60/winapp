@@ -79,6 +79,7 @@ public class Wincalc {
     //спецификация конструкции
     protected Constructiv constructiv = new Constructiv(this); //конструктив
     protected Tariffication tariffication = new Tariffication(this); //тарификация
+//==============================================================================    
 
     public AreaSimple create(String productJson) {
 

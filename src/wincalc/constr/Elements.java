@@ -3,22 +3,21 @@ package wincalc.constr;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
-import domain.eColor;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
+import enums.Enam;
 import enums.TypeElem;
 import enums.UseArtikl;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import wincalc.Wincalc;
-import wincalc.model.Com5t;
 import wincalc.model.ElemFrame;
-import wincalc.model.ElemImpost;
 import wincalc.model.ElemSimple;
 
 /**
@@ -35,7 +34,28 @@ public class Elements extends Cal5e {
     public void build() {
         try {
             LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
-            LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список створок конструкции
+            LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам створок конструкции
+            Arrays.asList(UseArtikl.values()).forEach(el -> el.record = eSysprof.find2(iwin().nuni, el)); //профили по приоритету, до ручного выбора
+
+            System.out.println(iwin().listElem);
+            
+            for (UseArtikl useArt : UseArtikl.values()) {
+
+                //Arrays.asList(iwin().listElem).stream().filter(elem -> elem.)
+                //int artikl_id = useArt.record.getInt(eSysprof.artikl_id); //ищем не на аналоге 
+                //List<Record> artdetList = eArtdet.find(artikl_id); //спецификация
+
+            }
+
+        } catch (Exception e) {
+            System.err.println("Ошибка wincalc.constr.Сomposition.build()");
+        }
+    }
+
+    public void build2() {
+        try {
+            LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
+            LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам створок конструкции
 
             Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikl.FRAME); //первая по приоритету рама в системе 
             int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
@@ -50,7 +70,6 @@ public class Elements extends Cal5e {
 //                int series_id = elemFrame.artiklRec.getInt(eArtikl.series_id);
 //                List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
 //                nested(elementList2, elemFrame);
-
                 //int artikl_id = elemFrame.artiklRec.getInt(eArtikl.id);
                 //List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
                 //nested(elementList, recordFrame);
