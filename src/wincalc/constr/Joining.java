@@ -59,7 +59,7 @@ public class Joining extends Cal5e {
 
                     HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
                     List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-                    out = calc().paramSpecific.furnityre(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР спецификаций
+                    out = calc().paramSpecific.elements(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР спецификаций
                     if (out == true) {
 
                         Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);

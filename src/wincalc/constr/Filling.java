@@ -286,7 +286,7 @@ public class Filling extends Cal5e {
                 Record artiklRec = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), true);
                 float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
                 List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров спецификации
-                out = calc().paramSpecific.furnityre(hmParam, elemGlass, glaspar2List); //ФИЛЬТР спецификаций
+                out = calc().paramSpecific.elements(hmParam, elemGlass, glaspar2List); //ФИЛЬТР спецификаций
                 Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
                 if (out == true) {
                     //Стеклопакет

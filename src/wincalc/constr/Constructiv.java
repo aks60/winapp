@@ -30,7 +30,7 @@ public class Constructiv {
         paramSpecific = new ParamSpecific(iwin, this);
     }
 
-    protected int determineColorCodeForArt(Com5t elem, int color_side, Record paramRec, Specification specif) {
+    public int determineColorCodeForArt(Com5t elem, int color_side, Record paramRec, Specification specif) {
 
 //        //int colorCode = getColorFromProduct(elem, color_side, paramRec);
 //            Colslst clslstRecr = Colslst.get2(constr, colorCode);
@@ -107,7 +107,7 @@ public class Constructiv {
     }
 
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры (dll->GetColorCodeFromProduct() - см. "SVN\iWin_Doc\trunk\Профстрой\Значения GLASART.CTYPE.xlsx".
-    private int getColorFromProduct(Com5t com5t, int colorSide, int type, int colorId) {
+    public int getColorFromProduct(Com5t com5t, int colorSide, int type, int colorId) {
         // Получаем код варианта подбора текстуры (см. "SVN\iWin_Doc\trunk\Профстрой\Значения GLASART.CTYPE.xlsx").
         int colorType = 0;
         if (colorSide == 1) {
@@ -167,12 +167,12 @@ public class Constructiv {
 //    protected boolean CanBeUsedAsBaseColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
 //        return (artsvst.cways & 4) != 0;
 //    }
-    protected boolean DblNotZero(Object p) {
+    public boolean DblNotZero(Object p) {
         float p2 = (float) p;
         return p2 > 0.00005;
     }
 
-    protected Integer[] parserInt(String str) {
+    public Integer[] parserInt(String str) {
 
         ArrayList<Integer> arrList = new ArrayList();
         char symmetry = str.charAt(str.length() - 1);
@@ -200,7 +200,7 @@ public class Constructiv {
         return arrList.stream().toArray(Integer[]::new);
     }
 
-    protected Float[] parserFloat(String str) {
+    public Float[] parserFloat(String str) {
 
         ArrayList<Float> arrList = new ArrayList();
         str = str.replace(",", ".");
@@ -229,7 +229,7 @@ public class Constructiv {
         return arrList.stream().toArray(Float[]::new);
     }
 
-    protected static boolean compareFloat(String ptext, float value) {
+    public static boolean compareFloat(String ptext, float value) {
 
         if (ptext == null) {
             return true;
@@ -261,7 +261,7 @@ public class Constructiv {
         return false;
     }
 
-    protected static boolean compareInt(String ptext, int value) {
+    public static boolean compareInt(String ptext, int value) {
 
         if (ptext == null) {
             return true;
@@ -292,7 +292,7 @@ public class Constructiv {
         return false;
     }
 
-    protected boolean compareColor(Integer[] arr, Integer color) {
+    public boolean compareColor(Integer[] arr, Integer color) {
         if (arr.length == 1) {
             int arr1 = arr[0];
             return (arr1 == color);

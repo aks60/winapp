@@ -99,15 +99,15 @@ public class ParamSpecific {
     }
 
     //Составы
-    protected boolean furnityre(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
+    protected boolean elements(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {
 
             String code = (String.valueOf(paramRec.getInt(PAR1)).length() == 4) ? String.valueOf(paramRec.getInt(PAR1)).substring(1, 4) : String.valueOf(paramRec.getInt(PAR1)).substring(2, 5);
             switch (code) {
+                
                 case "000": //Для технологического кода контейнера
-
                     Record sysprofRec = elemSimple.sysprofRec;
                     Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
                     if (artiklVRec.get(eArtikl.tech_code) == null) {
