@@ -25,14 +25,15 @@ public class FillingDet extends Par5s {
         super(iwin, calcConstr);
     }
 
-    //public static int[]  parGlas = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};        
+    //int[]  parGlas = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};            
     protected boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> tableList) {
 
         //Цикл по параметрам заполнения
         for (Record paramRec : tableList) {
 
             switch (paramRec.getInt(PAR1)) {
-                case 14000:  //Для технологического кода контейнера 
+                case 14000:  //Для технологического кода контейнера
+                case 15000:  //Для технологического кода контейнера 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 14001:  //Если признак состава 
@@ -54,35 +55,56 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 14040:  //Порог расчета, мм 
-                    message(paramRec.getInt(PAR1));
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 14050:  //Шаг, мм 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 14060:  //Количество на шаг 
-                    message(paramRec.getInt(PAR1));
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 14065:  //Ограничение угла, ° 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 14067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
+                case 15067:  //Коды основной текстуры изделия    
+                    int c1 = ElemSimple.iwin().color1;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                        return false;
+                    }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
+                case 15068:  //Коды внутр. текстуры изделия     
+                    int c2 = ElemSimple.iwin().color2;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                        return false;
+                    }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
+                case 15069:  //Коды внешн. текстуры изделия     
+                    int c3 = ElemSimple.iwin().color3;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                        return false;
+                    }
                     break;
                 case 14081:  //Если артикул профиля контура 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 14095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 15000:  //Для технологического кода контейнера 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                case 15095:  //Если признак системы конструкции    
+                    Record systreeRec = eSystree.find(iwin.nuni);
+                    String[] arr = paramRec.getStr(PAR3).split(";");
+                    List<String> arrList = Arrays.asList(arr);
+                    boolean ret = false;
+                    for (String str : arrList) {
+                        if (systreeRec.get(eSystree.types) == Integer.valueOf(str) == true) {
+                            ret = true;
+                        }
+                    }
+                    if (ret == false) {
+                        return false;
+                    }
+                    break;                
                 case 15001:  //Если признак состава 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -111,7 +133,7 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 15030:  //[ * коэф-т ] 
-                    message(paramRec.getInt(PAR1));
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 15040:  //Количество 
                     message(paramRec.getInt(PAR1));
@@ -120,27 +142,17 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 15050:  //Поправка, мм 
-                    message(paramRec.getInt(PAR1));
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 15051:  //Удлинение на один пог.м., мм 
-                    message(paramRec.getInt(PAR1));
+                    if (ElemSimple.specificationRec.getParam("0", 31052).equals(paramRec.getStr(PAR3)) == false) {
+                        hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
+                    }
                     break;
                 case 15055:  //Ограничение угла, ° 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 15067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 15068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 15069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break; 
                 case 15081:  //Если артикул профиля контура 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 15095:  //Если признак системы конструкции 
                     message(paramRec.getInt(PAR1));
                     break;
                 default:

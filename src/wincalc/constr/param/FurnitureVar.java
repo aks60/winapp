@@ -41,6 +41,7 @@ public class FurnitureVar extends Par5s {
                 return false;
             }
             switch (paramRec.getInt(PAR1)) {
+                
                 case 21001:  //Форма контура 
                     if (TypeElem.FULLSTVORKA == elemSimple.type() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
                         return false;

@@ -114,6 +114,7 @@ public class ElementDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 33040:  //Порог расчета, мм 
+                case 38040:  //Порог расчета, мм     
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 33050:  //Шаг, мм 
@@ -127,19 +128,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 33063:  //Диапазон веса створки, кг 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 33066:  //Если номер стороны в контуре 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 33067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 33068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 33069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                                                 
                 case 33071:  //Контейнер типа 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -156,14 +145,29 @@ public class ElementDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 33095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                case 34095:  //Если признак системы конструкции
+                case 38095:  //Если признак системы конструкции
+                case 39095:  //Если признак системы конструкции
+                case 40095:  //Если признак системы конструкции 
+                    Record systreefRec = eSystree.find(iwin.nuni);
+                    String[] arr = paramRec.getStr(PAR3).split(";");
+                    List<String> arrList = Arrays.asList(arr);
+                    boolean ret = false;
+                    for (String str : arrList) {
+                        if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
+                            ret = true;
+                        }
+                    }
+                    if (ret == false) {
+                        return false;
+                    }
+                    break;  
                 case 33099:  //Трудозатраты, ч/ч. 
-                    message(paramRec.getInt(PAR1));
+                case 34099:  //Трудозатраты, ч/ч.
+                case 38099:  //Трудозатраты, ч/ч. 
+                case 39099:  //Трудозатраты, ч/ч. 
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
-//                case 34000:  //Для технологического кода контейнера 
-//                    message(paramRec.getInt(PAR1));
-//                    break;
                 case 34001:  //Если признак состава 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -176,15 +180,6 @@ public class ElementDet extends Par5s {
                 case 34004:  //Расчет от длины профиля стойки 
                     message(paramRec.getInt(PAR1));
                     break;
-//                case 34005:  //Коды основной текстуры контейнера 
-//                    message(paramRec.getInt(PAR1));
-//                    break;
-//                case 34006:  //Коды внутр. текстуры контейнера 
-//                    message(paramRec.getInt(PAR1));
-//                    break;
-//                case 34007:  //Коды внешн. текстуры контейнера 
-//                    message(paramRec.getInt(PAR1));
-//                    break;
                 case 34010:  //Расчет армирования 
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
@@ -213,6 +208,7 @@ public class ElementDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 34030:  //[ * коэф-т ] 
+                case 39030:  //[ * коэф-т ]     
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 34049:  //Поправка по нормали от начала/конца, мм 
@@ -229,7 +225,8 @@ public class ElementDet extends Par5s {
                 case 34052:  //Поправка не прямого угла импоста, мм 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 34060:  //Количество 
+                case 34060:  //Количество
+                case 39060:  //Количество
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 34061:  //Расчет количества 
@@ -245,6 +242,7 @@ public class ElementDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 34066:  //Если номер стороны в контуре 
+                case 33066:  //Если номер стороны в контуре
                     if ("1".equals(paramRec.getStr(PAR3)) == true && LayoutArea.BOTTOM != elemSimple.layout()) {
                         return false;
                     } else if ("2".equals(paramRec.getStr(PAR3)) == true && LayoutArea.RIGHT != elemSimple.layout()) {
@@ -255,25 +253,38 @@ public class ElementDet extends Par5s {
                         return false;
                     }
                     break;
+                case 33067:  //Коды основной текстуры изделия    
                 case 34067:  //Коды основной текстуры изделия 
+                case 38067:  //Коды основной текстуры изделия    
+                case 39067:  //Коды основной текстуры изделия
+                case 40067:  //Коды основной текстуры изделия                     
                     int c1 = elemSimple.iwin().color1;
                     if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
                         return false;
                     }
                     break;
+                case 33068:  //Коды внутр. текстуры изделия    
                 case 34068:  //Коды внутр. текстуры изделия 
+                case 38068:  //Коды внутр. текстуры изделия 
+                case 39068:  //Коды внутр. текстуры изделия
+                case 40068:  //Коды внутр. текстуры изделия    
                     int c2 = elemSimple.iwin().color2;
                     if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
                         return false;
                     }
                     break;
+                case 33069:  //Коды внешн. текстуры изделия    
                 case 34069:  //Коды внешн. текстуры изделия 
+                case 38069:  //Коды внешн. текстуры изделия 
+                case 39069:  //Коды внешн. текстуры изделия 
+                case 40069:  //Коды внешн. текстуры изделия                      
                     int c3 = elemSimple.iwin().color3;
                     if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
                         return false;
                     }
                     break;
                 case 34070:  //Длина, мм 
+                case 39070:  //Длина, мм
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 34071:  //Контейнер типа 
@@ -306,26 +317,9 @@ public class ElementDet extends Par5s {
                 case 34081:  //Для внешнего/внутреннего угла плоскости, ° 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 34095:  //Если признак системы конструкции 
-                    Record systreefRec = eSystree.find(iwin.nuni);
-                    String[] arr = paramRec.getStr(PAR3).split(";");
-                    List<String> arrList = Arrays.asList(arr);
-                    boolean ret = false;
-                    for (String str : arrList) {
-                        if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
-                            ret = true;
-                        }
-                    }
-                    if (ret == false) {
-                        return false;
-                    }
-                    break;
                 case 34097:  //Трудозатраты по длине 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 34099:  //Трудозатраты, ч/ч. 
-                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
-                    break;
+                    break;                 
                 case 38004:  //Расчет 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -344,33 +338,15 @@ public class ElementDet extends Par5s {
                 case 38039:  //Для типа открывания 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 38040:  //Порог расчета, мм 
-                    message(paramRec.getInt(PAR1));
-                    break;
                 case 38050:  //Шаг, мм 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 38060:  //Количество на шаг 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 38067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 38068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 38069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                                 
                 case 38081:  //Если артикул профиля контура 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 38095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 38099:  //Трудозатраты, ч/ч. 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                                 
                 case 38108:  //Применять коэффициенты АКЦИИ для МЦ 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -392,33 +368,15 @@ public class ElementDet extends Par5s {
                 case 39020:  //Поправка, мм 
                     hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
-                case 39030:  //[ * коэф-т ] 
-                    message(paramRec.getInt(PAR1));
-                    break;
                 case 39037:  //Название фурнитуры содержит 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 39039:  //Для типа открывания 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 39060:  //Количество 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                 
                 case 39063:  //Округлять количество до ближайшего 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 39067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 39068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 39069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 39070:  //Длина, мм 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                                 
                 case 39075:  //Углы реза 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -433,16 +391,10 @@ public class ElementDet extends Par5s {
                     break;
                 case 39093:  //Поперечину ставить : 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 39095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                
                 case 39097:  //Трудозатраты по периметру 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 39099:  //Трудозатраты, ч/ч. 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                
                 case 39108:  //Применять коэффициенты АКЦИИ для МЦ 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -475,19 +427,7 @@ public class ElementDet extends Par5s {
                     break;
                 case 40037:  //Название фурнитуры содержит 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 40067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 40068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 40069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 40095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                                                 
                 case 40108:  //Применять коэффициенты АКЦИИ для МЦ 
                     message(paramRec.getInt(PAR1));
                     break;

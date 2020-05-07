@@ -62,6 +62,7 @@ public class ParamVariant {
 
             if (filterParamDef(paramRec) == false) return false;
             switch (paramRec.getInt(PAR1)) {
+                
                 case 31000: //Для технологического кода контейнера
                     Record sysprofRec = elemSimple.sysprofRec;
                     Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);

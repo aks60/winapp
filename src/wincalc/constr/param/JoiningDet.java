@@ -2,15 +2,12 @@ package wincalc.constr.param;
 
 import wincalc.constr.*;
 import dataset.Record;
-import enums.ParamJson;
+import domain.eArtikl;
+import domain.eSysprof;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import wincalc.Wincalc;
-import static wincalc.constr.ParamSpec.PAR1;
-import static wincalc.constr.ParamSpec.PAR2;
-import wincalc.model.Com5t;
+import static wincalc.constr.ParamSpecific.PAR3;
 import wincalc.model.ElemSimple;
 
 //Cоединения
@@ -20,14 +17,35 @@ public class JoiningDet extends Par5s {
         super(iwin, calcConstr);
     }
 
+    //int[] parCons = {11000, 11009, 11010, 11020, 11030, 11040, 11050, 11060, 11067, 11068, 11069, 11070, 11072, 
+    //11095, 12000, 12008, 12010, 12020, 12030, 12050, 12060, 12063, 12065, 12068, 12069, 12070, 12072, 12075};    
     protected boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам соединения
         for (Record paramRec : tableList) {
 
             switch (paramRec.getInt(PAR1)) {
+                
                 case 11000:  //Для технологического кода контейнера 1/2
-                    message(paramRec.getInt(PAR1));
+                case 12000:  //Для технологического кода контейнера 1/2    
+                    Record sysprofRec = elemSimple.sysprofRec;
+                    Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+                    if (artiklVRec.get(eArtikl.tech_code) == null) {
+                        return false;
+                    }
+                    String[] strList = paramRec.getStr(PAR3).split(";");
+                    String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+                    boolean ret2 = false;
+                    for (String str : strList) {
+                        for (String str2 : strList2) {
+                            if (str.equals(str2)) {
+                                ret2 = true;
+                            }
+                        }
+                    }
+                    if (ret2 == false) {
+                        return false;
+                    }
                     break;
                 case 11001:  //Если признак состава Арт.1 
                     message(paramRec.getInt(PAR1));
@@ -35,12 +53,12 @@ public class JoiningDet extends Par5s {
                 case 11002:  //Если признак состава Арт.2 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 11008:  //Эффективное заполнение изд., мм 
-                    message(paramRec.getInt(PAR1));
-                    break;
                 case 11005:  //Контейнер типа 
                     message(paramRec.getInt(PAR1));
                     break;
+                case 11008:  //Эффективное заполнение изд., мм 
+                    message(paramRec.getInt(PAR1));
+                    break;                    
                 case 11009:  //Внешнее соединение 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -60,22 +78,32 @@ public class JoiningDet extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 11040:  //Порог расчета, мм 
-                    message(paramRec.getInt(PAR1));
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 11050:  //Шаг, мм 
-                    message(paramRec.getInt(PAR1));
+                case 12050:  //Поправка, мм    
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 11060:  //Количество на шаг 
-                    message(paramRec.getInt(PAR1));
+                case 12060:  //Количество    
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 11066:  //Если текстура профиля Арт.1 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 11067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
+                case 12067:  //Коды основной текстуры изделия
+                    int c1 = elemSimple.iwin().color1;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                        return false;
+                    }
                     break;
                 case 11068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
+                case 12068:  //Коды внутр. текстуры изделия 
+                    int c2 = elemSimple.iwin().color2;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                        return false;
+                    }
                     break;
                 case 11069:  //Коды внешн. текстуры изделия 
                     message(paramRec.getInt(PAR1));
@@ -88,10 +116,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11095:  //Если признак системы конструкции 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 12000:  //Для технологического кода контейнера 1/2
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                
                 case 12001:  //Если признак состава Арт.1 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -121,13 +146,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 12030:  //[ * коэф-т ] 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 12050:  //Поправка, мм 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 12060:  //Количество 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                                  
                 case 12063:  //Углы реза по плоскости ригеля 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -136,15 +155,12 @@ public class JoiningDet extends Par5s {
                     break;
                 case 12065:  //Длина, мм 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 12067:  //Коды основной текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 12068:  //Коды внутр. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                            
                 case 12069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
+                    int c3 = elemSimple.iwin().color3;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                        return false;
+                    }
                     break;
                 case 12070:  //Ставить однократно 
                     message(paramRec.getInt(PAR1));

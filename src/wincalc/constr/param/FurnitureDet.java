@@ -3,94 +3,27 @@ package wincalc.constr.param;
 import wincalc.constr.*;
 import dataset.Record;
 import domain.eArtikl;
-import domain.eSysprof;
-import domain.eSystree;
 import enums.LayoutArea;
-import enums.ParamJson;
-import java.util.Arrays;
+import enums.TypeElem;
+import enums.UseArtiklTo;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import wincalc.Wincalc;
 import static wincalc.constr.ParamSpecific.PAR1;
 import static wincalc.constr.ParamSpecific.PAR3;
-import wincalc.model.Com5t;
+import wincalc.model.AreaSimple;
+import wincalc.model.AreaStvorka;
+import wincalc.model.ElemFrame;
 import wincalc.model.ElemSimple;
 
 //Фурнитура
-public class FurnitureDet {
+public class FurnitureDet  extends Par5s {
 
-    protected Wincalc iwin = null;
-    public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
-    public static final int PAR1 = 3;   //Ключ 1  
-    public static final int PAR2 = 4;   //Ключ 2   
-    public static final int PAR3 = 5;   //Значение 
-    protected Constructiv calcConstr = null;
-
-    public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
-
+    //int[] parFurs = {24001, 24002, 25002, 24004, 24006, 24010, 25010, 24012, 24030, 25030, 24033, 24038, 24063, 24067, 25067, 24068, 24069, 24070, 24072, 24073, 24074, 24075, 24095, 24099, 25013, 25035, 25040, 25060, 25067};*/    
     public FurnitureDet(Wincalc iwin, Constructiv calcConstr) {
-        this.iwin = iwin;
-        this.calcConstr = calcConstr;
+        super(iwin, calcConstr);
     }
 
-    //Фильтр параметров по умолчанию и i-okna
-    protected boolean filterParamJson(Com5t com5t, List<Record> paramList) {
-
-        HashMap<Integer, Object[]> paramJson = new HashMap();
-        HashMap<Integer, Object[]> paramTotal = new HashMap();
-        paramTotal.putAll(iwin.mapParamDef); //добавим параметры по умолчанию
-
-        //Все владельцы этого элемента
-        LinkedList<Com5t> ownerList = new LinkedList();
-        Com5t el = com5t;
-        ownerList.add(el);
-        do {
-            el = el.owner();
-            ownerList.add(el);
-        } while (el != iwin.rootArea);
-
-        //Цикл по владельцам этого элемента
-        for (int index = ownerList.size() - 1; index >= 0; index--) {
-
-            el = ownerList.get(index);
-            HashMap<Integer, Object[]> pJson = (HashMap) el.mapParam.get(ParamJson.pro4Params2);
-            if (pJson != null && pJson.isEmpty() == false) {  // если параметры от i-okna есть
-                if (pass == 1) {
-                    paramTotal.putAll(pJson); //к пар. по умолч. наложим парам. от i-win
-                } else {
-                    for (Map.Entry<Integer, Object[]> entry : pJson.entrySet()) {
-                        Object[] val = entry.getValue();
-                        if (val[2].equals(1)) { //
-                            paramTotal.put(entry.getKey(), entry.getValue()); //по умолчанию и i-win
-                        }
-                    }
-                }
-                paramJson.putAll(pJson); //к парам. i-win верхнего уровня наложим парам. i-win нижнего уровня
-            }
-        }
-        for (Record paramRec : paramList) {
-            if (paramRec.getInt(PAR1) < 0) {
-
-                if (paramTotal.get(paramRec.getInt(PAR1)) == null) {
-                    return false; //усли в базе парам. нет, сразу выход
-                }
-                //В данной ветке есть попадание в paramRec.getInt(PAR1)
-                Object[] totalVal = paramTotal.get(paramRec.getInt(PAR1));
-                if (totalVal[1].equals(paramRec.getInt(PAR2)) == false) { //если в param.znumb() попадания нет
-
-                    //на третьей итерации дополняю ...
-                    return false;
-
-                } else if (paramJson != null && paramJson.isEmpty() == false && paramJson.get(paramRec.getInt(PAR1)) != null) {
-                    totalVal[2] = 1; //если попадание было, то записываю 1 в третий элемент массива
-                }
-            }
-        }
-        return true;
-    }
-    
     protected boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам фурнитуры
@@ -98,10 +31,16 @@ public class FurnitureDet {
             switch (paramRec.getInt(PAR1)) {
 
                 case 24001:  //Форма контура 
-                    message(paramRec.getInt(PAR1));
+                case 25001:  //Форма контура 
+                    if (TypeElem.FULLSTVORKA == elemSimple.type() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
+                        return false;
+                    }
                     break;
                 case 24002:  //Если артикул створки 
-                    message(paramRec.getInt(PAR1));
+                case 25002:  //Если артикул створки    
+                    if (elemSimple.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(PAR3)) == false) {
+                        return false;
+                    }
                     break;
                 case 24003:  //Если артикул цоколя 
                     message(paramRec.getInt(PAR1));
@@ -130,8 +69,11 @@ public class FurnitureDet {
                 case 24011:  //Расчет по общей арке 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 24012:  //Направление открывания 
-                    message(paramRec.getInt(PAR1));
+                case 24012:  //Направление открывания
+                case 25012:  //Направление открывания     
+                    if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals(paramRec.getStr(PAR3)) == false) {
+                        return false;
+                    }
                     break;
                 case 24013:  //Выбран авто расчет подвеса 
                     message(paramRec.getInt(PAR1));
@@ -140,13 +82,30 @@ public class FurnitureDet {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 24030:  //Количество 
-                    message(paramRec.getInt(PAR1));
+                case 25060:  //Количество     
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 24032:  //Правильная полуарка 
                     message(paramRec.getInt(PAR1));
                     break;
                 case 24033:  //Фурнитура штульповая 
-                    message(paramRec.getInt(PAR1));
+                case 25033:  //Фурнитура штульповая    
+                    if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("левое")) {
+                        ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.LEFT);
+                        if (paramRec.getStr(PAR3).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                            return false;
+                        } else if (paramRec.getStr(PAR3).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
+                            return false;
+                        }
+                    } else if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("правое")) {
+                        ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.RIGHT);
+                        if (paramRec.getStr(PAR3).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                            return false;
+                        }
+                        if (el.useArtiklTo() == UseArtiklTo.SHTULP && paramRec.getStr(PAR3).equals("Нет")) {
+                            return false;
+                        }
+                    }
                     break;
                 case 24036:  //Номер Стороны_X/Стороны_Y набора 
                     message(paramRec.getInt(PAR1));
@@ -154,8 +113,11 @@ public class FurnitureDet {
                 case 24037:  //Номер стороны по параметру набора 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 24038:  //Проверять Cторону_L)/Cторону_W) 
-                    message(paramRec.getInt(PAR1));
+                case 24038:  //Проверять Cторону_(L))/Cторону_(W) 
+                case 25038:  //Проверять Cторону_(L)/Cторону_(W)     
+                    //Тут полные непонятки
+                    sideCheck = paramRec.getStr(PAR3);
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 24039:  //Створка заднего плана 
                     message(paramRec.getInt(PAR1));
@@ -182,13 +144,23 @@ public class FurnitureDet {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 24069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
+                case 25069:  //Коды внешн. текстуры изделия     
+                    int c3 = elemSimple.iwin().color3;
+                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                        return false;
+                    }
                     break;
                 case 24070:  //Если высота ручки 
-                    message(paramRec.getInt(PAR1));
+                case 25070:  //Если высота ручки     
+                    String str = ((AreaStvorka) elemSimple.owner()).handleHeight;
+                    if ("по середине".equals(str) == true && paramRec.getStr(PAR3).equals("не константная") == false
+                            || "константная".equals(str) == true && paramRec.getStr(PAR3).equals("константная") == false) {
+                        return false;
+                    }
                     break;
                 case 24072:  //Ручка от низа створки, мм 
-                    message(paramRec.getInt(PAR1));
+                case 25072:  //Ручка от низа створки, мм     
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 24073:  //Петля от низа створки, мм 
                     message(paramRec.getInt(PAR1));
@@ -225,13 +197,7 @@ public class FurnitureDet {
                     break;
                 case 24803:  //Доп.симметр. обработка
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 25001:  //Форма контура 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 25002:  //Если артикул створки 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break; 
                 case 25003:  //Если артикул цоколя 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -252,25 +218,17 @@ public class FurnitureDet {
                     break;
                 case 25011:  //Расчет по общей арке 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 25012:  //Направление открывания 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                
                 case 25013:  //Укорочение от 
-                    message(paramRec.getInt(PAR1));
+                case 25030:  //Укорочение, мм 
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 25017:  //Код системы содержит строку 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 25030:  //Укорочение, мм 
-                    message(paramRec.getInt(PAR1));
-                    break;
                 case 25032:  //Правильная полуарка 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 25033:  //Фурнитура штульповая 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                 
                 case 25035:  //[ * коэф-т ] 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -280,14 +238,8 @@ public class FurnitureDet {
                 case 25037:  //Номер стороны по параметру набора 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 25038:  //Проверять Cторону_ L/Cторону_ W 
-                    message(paramRec.getInt(PAR1));
-                    break;
                 case 25040:  //Длина, мм 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 25060:  //Количество 
-                    message(paramRec.getInt(PAR1));
+                    hmParam.put(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
                     break;
                 case 25063:  //Диапазон веса, кг 
                     message(paramRec.getInt(PAR1));
@@ -300,16 +252,7 @@ public class FurnitureDet {
                     break;
                 case 25068:  //Коды внутр. текстуры изделия 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 25069:  //Коды внешн. текстуры изделия 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 25070:  //Если высота ручки 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 25072:  //Ручка от низа створки, мм 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                
                 case 25095:  //Если признак системы конструкции 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -340,9 +283,5 @@ public class FurnitureDet {
             return false; //параметры по умолчанию и I-OKNA
         }
         return true;
-    }
-
-    private void message(int code) {
-        System.err.println("Parametr ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
     }
 }

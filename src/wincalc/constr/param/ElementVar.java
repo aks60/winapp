@@ -41,6 +41,7 @@ public class ElementVar extends Par5s {
                 return false;
             }
             switch (paramRec.getInt(PAR1)) {
+                
                 case 31000:  //Для технологического кода контейнера 
                     Record sysprofRec2 = elemSimple.sysprofRec;
                     Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
@@ -68,7 +69,13 @@ public class ElementVar extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 31002:  //Если профиль 
-                    message(paramRec.getInt(PAR1));
+                case 37002:  //Если артикул профиля контура    
+                    Object obj = elemSimple.layout();
+                    if (LayoutArea.ARCH == elemSimple.layout() && "арочный".equals(paramRec.getStr(PAR3)) == false) {
+                        return false;
+                    } else if (LayoutArea.ARCH != elemSimple.layout() && "прямой".equals(paramRec.getStr(PAR3)) == false) {
+                        return false;
+                    }
                     break;
                 case 31003:  //Если соединенный артикул  T-обр.
                     message(paramRec.getInt(PAR1));
@@ -89,16 +96,19 @@ public class ElementVar extends Par5s {
                     }
                     break;
                 case 31005:  //Коды основной текстуры контейнера 
+                case 37005:  //Коды основной текстуры контейнера    
                     if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color1) == false) {
                         return false;
                     }
                     break;
                 case 31006:  //Коды внутр. текстуры контейнера 
+                case 37006:  //Коды внутр. текстуры контейнера    
                     if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == false) {
                         return false;
                     }
                     break;
                 case 31007:  //Коды внешн. текстуры контейнера 
+                case 37007:  //Коды внешн. текстуры контейнера    
                     if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == false) {
                         return false;
                     }
@@ -113,7 +123,7 @@ public class ElementVar extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 31015:  //Разбиение профиля по уровням 
-                    message(paramRec.getInt(PAR1));
+                    if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) return false;
                     break;
                 case 31016:  //Зазор_на_метр,_мм/Размер_,мм терморазрыва 
                     message(paramRec.getInt(PAR1));
@@ -167,7 +177,8 @@ public class ElementVar extends Par5s {
                 case 31054:  //Коды основной текстуры изделия 
                     message(paramRec.getInt(PAR1));
                     break;
-                case 31055:  //Коды внутр. и внешн. текстуры изд. 
+                case 31055:  //Коды внутр. и внешн. текстуры изд.
+                case 37055:  //Коды внутр. и внешн. текстуры изд.    
                     if ((Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true
                             && Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false) {
                         return false;
@@ -224,23 +235,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 37001:  //Установка жалюзи 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 37002:  //Если артикул профиля контура 
-                    if (LayoutArea.ARCH == elemSimple.layout() && "арочный".equals(paramRec.getStr(PAR3)) == false) {
-                        return false;
-                    } else if (LayoutArea.ARCH != elemSimple.layout() && "прямой".equals(paramRec.getStr(PAR3)) == false) {
-                        return false;
-                    }
-                    break;
-                case 37005:  //Коды основной текстуры контейнера 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 37006:  //Коды внутр. текстуры контейнера 
-                    message(paramRec.getInt(PAR1));
-                    break;
-                case 37007:  //Коды внешн. текстуры контейнера 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                                 
                 case 37008:  //Тип проема 
                     message(paramRec.getInt(PAR1));
                     break;
@@ -261,10 +256,7 @@ public class ElementVar extends Par5s {
                     break;
                 case 37054:  //Коды основной текстуры изделия 
                     message(paramRec.getInt(PAR1));
-                    break;
-                case 37055:  //Коды внутр. и внешн. текстуры изд. 
-                    message(paramRec.getInt(PAR1));
-                    break;
+                    break;                 
                 case 37080:  //Сообщение-предупреждение 
                     message(paramRec.getInt(PAR1));
                     break;

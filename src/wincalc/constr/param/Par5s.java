@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import wincalc.Wincalc;
 import wincalc.constr.Constructiv;
-import static wincalc.constr.param.FurnitureDet.PAR1;
-import static wincalc.constr.param.FurnitureDet.PAR2;
 import wincalc.model.Com5t;
 
 public class Par5s {
