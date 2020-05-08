@@ -9,8 +9,6 @@ import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.List;
 import wincalc.Wincalc;
-import static wincalc.constr.ParamSpecific.PAR1;
-import static wincalc.constr.ParamSpecific.PAR3;
 import wincalc.model.AreaSimple;
 import wincalc.model.AreaStvorka;
 import wincalc.model.ElemFrame;
@@ -25,7 +23,7 @@ public class FurnitureDet  extends Par5s {
         super(iwin, calcConstr);
     }
 
-    protected boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
+    public boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам фурнитуры
         for (Record paramRec : tableList) {

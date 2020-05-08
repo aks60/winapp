@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import wincalc.Wincalc;
-import static wincalc.constr.ParamVariant.PAR1;
-import static wincalc.constr.ParamVariant.PAR2;
 import wincalc.model.ElemJoining;
 import wincalc.model.ElemSimple;
 
@@ -26,7 +24,7 @@ public class ElementVar extends Par5s {
         super(iwin, calcConstr);
     }
 
-    protected boolean check(ElemSimple elemSimple, List<Record> tableList) {
+    public boolean check(ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам состава
         for (Record paramRec : tableList) {

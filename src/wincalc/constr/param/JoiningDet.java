@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import wincalc.Wincalc;
-import static wincalc.constr.ParamSpecific.PAR1;
-import static wincalc.constr.ParamSpecific.PAR3;
 import wincalc.model.ElemSimple;
 
 //Cоединения
@@ -22,7 +20,7 @@ public class JoiningDet extends Par5s {
         super(iwin, calcConstr);
     }
 
-    protected boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам соединения
         for (Record paramRec : tableList) {

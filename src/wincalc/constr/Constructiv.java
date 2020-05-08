@@ -17,17 +17,9 @@ import wincalc.model.Com5t;
 public class Constructiv {
 
     protected Wincalc iwin = null;
-    protected ParamVariant paramVariant = null;
-    protected ParamSpecific paramSpecific = null;
-//
-//    public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
-//
-
+    
     public Constructiv(Wincalc iwin) {
         this.iwin = iwin;
-
-        paramVariant = new ParamVariant(iwin, this);
-        paramSpecific = new ParamSpecific(iwin, this);
     }
 
     public int determineColorCodeForArt(Com5t elem, int color_side, Record paramRec, Specification specif) {

@@ -3,20 +3,18 @@ package wincalc.constr;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
-import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
-import domain.eElempar2;
 import domain.eSysprof;
-import enums.Enam;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import wincalc.Wincalc;
+import wincalc.constr.param.ElementDet;
+import wincalc.constr.param.ElementVar;
 import wincalc.model.ElemFrame;
 import wincalc.model.ElemSimple;
 
@@ -24,9 +22,14 @@ import wincalc.model.ElemSimple;
  * Составы.
  */
 public class Elements extends Cal5e {
-
+    
+    private ElementVar elementVar = null;
+    private ElementDet elementDet = null;
+            
     public Elements(Wincalc iwin, Constructiv calc) {
         super(iwin, calc);
+        elementVar = new ElementVar(iwin, calc);
+        elementDet = new ElementDet(iwin, calc);
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
@@ -63,7 +66,7 @@ public class Elements extends Cal5e {
             for (Record elementRec : elementList) { //цыкл по вариантам состава
 
                 ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                boolean out = calc().paramVariant.element(ElemSimple, elempar1List); //ФИЛЬТР вариантов
+                boolean out = elementVar.check(ElemSimple, elempar1List); //ФИЛЬТР вариантов
 //                if (out == true) {
 //                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
 //                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));                   

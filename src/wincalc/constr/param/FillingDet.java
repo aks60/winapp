@@ -13,8 +13,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import wincalc.Wincalc;
-import static wincalc.constr.ParamSpecific.PAR1;
-import static wincalc.constr.ParamSpecific.PAR3;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 
@@ -27,7 +25,7 @@ public class FillingDet extends Par5s {
         super(iwin, calcConstr);
     }
 
-    protected boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> tableList) {
 
         //Цикл по параметрам заполнения
         for (Record paramRec : tableList) {

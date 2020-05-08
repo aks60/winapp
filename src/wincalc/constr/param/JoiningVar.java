@@ -6,20 +6,11 @@ import domain.eArtikl;
 import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eSysprof;
-import domain.eSystree;
-import enums.LayoutArea;
-import enums.TypeElem;
 import enums.TypeJoin;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import wincalc.Wincalc;
-import static wincalc.constr.ParamVariant.PAR1;
-import static wincalc.constr.ParamVariant.PAR2;
-import static wincalc.constr.ParamVariant.PAR3;
 import wincalc.model.ElemJoining;
 import wincalc.model.ElemSimple;
 
@@ -34,7 +25,7 @@ public class JoiningVar extends Par5s {
     }
 
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
-    protected boolean joining(ElemJoining elemJoin, List<Record> parconvList) {
+    public boolean check(ElemJoining elemJoin, List<Record> parconvList) {
 
         float angl = (ElemSimple.SIDE_START == ElemJoining.FIRST_SIDE) ? elemJoin.joinAngl(1) : elemJoin.joinAngl(2);
         ElemSimple joinElement1 = elemJoin.joinElement1;

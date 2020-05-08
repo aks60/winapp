@@ -13,15 +13,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import wincalc.Wincalc;
-import wincalc.model.Com5t;
+import wincalc.constr.param.ElementDet;
+import wincalc.constr.param.JoiningDet;
+import wincalc.constr.param.JoiningVar;
 import wincalc.model.ElemJoining;
 import wincalc.model.ElemSimple;
 
 //Соединения
 public class Joining extends Cal5e {
 
-    public Joining(Wincalc iwin, Constructiv calcConstructiv) {
-        super(iwin, calcConstructiv);
+    private JoiningVar joiningVar = null;
+    private JoiningDet joiningDet = null;
+    private ElementDet elementDet = null;
+            
+    public Joining(Wincalc iwin, Constructiv calc) {
+        super(iwin, calc);
+        joiningVar = new JoiningVar(iwin, calc);
+        joiningDet = new JoiningDet(iwin, calc);
+        elementDet = new ElementDet(iwin, calc);
     }
 
     public void build() {
@@ -49,7 +58,7 @@ public class Joining extends Cal5e {
                     continue; //если варианты соединения не совпали
                 }
                 List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-                boolean out = calc().paramVariant.joining(elemJoin, joinpar1List); //ФИЛЬТР вариантов
+                boolean out = joiningVar.check(elemJoin, joinpar1List); //ФИЛЬТР вариантов
                 if (out == false) {
                     continue;
                 }
@@ -59,7 +68,7 @@ public class Joining extends Cal5e {
 
                     HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
                     List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-                    out = calc().paramSpecific.elements(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР спецификаций
+                    out = elementDet.check(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР спецификаций
                     if (out == true) {
 
                         Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);

@@ -2,19 +2,9 @@ package wincalc.constr.param;
 
 import wincalc.constr.*;
 import dataset.Record;
-import domain.eArtikl;
-import domain.eSysprof;
 import domain.eSystree;
-import enums.LayoutArea;
-import enums.TypeElem;
-import enums.TypeJoin;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import wincalc.Wincalc;
-import static wincalc.constr.ParamVariant.PAR1;
-import static wincalc.constr.ParamVariant.PAR2;
-import wincalc.model.ElemJoining;
 import wincalc.model.ElemSimple;
 
 //Заполнения
@@ -26,7 +16,7 @@ public class FillingVar extends Par5s {
         super(iwin, calcConstr);
     }
         
-    protected boolean check(ElemSimple elemSimple, List<Record> tableList) {
+    public boolean check(ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам заполнения
         for (Record paramRec : tableList) {

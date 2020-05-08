@@ -27,7 +27,7 @@ public class ElementDet extends Par5s {
         super(iwin, calcConstr);
     }
     
-    protected boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам составов
         for (Record paramRec : tableList) {
