@@ -20,18 +20,12 @@ import wincalc.model.ElemSimple;
 //Фурнитура
 public class FurnitureVar extends Par5s {
 
-    public final int PAR1 = 3;   //Ключ 1  
-    public final int PAR2 = 4;   //Ключ 2   
-    public final int PAR3 = 5;   //Значение      
-    private HashMap<Integer, String> hmParam = null;
-    protected Wincalc iwin = null;
-    private Constructiv calcConstr = null;
-
+    private int[] par = {2101, 2104, 2140, 2185};
+    
     public FurnitureVar(Wincalc iwin, Constructiv calcConstr) {
         super(iwin, calcConstr);
     }
 
-    //int[] parFurl = {2101, 2104, 2140, 2185};
     protected boolean furniture(ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам фурнитуры

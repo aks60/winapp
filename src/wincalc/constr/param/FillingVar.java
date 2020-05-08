@@ -20,11 +20,12 @@ import wincalc.model.ElemSimple;
 //Заполнения
 public class FillingVar extends Par5s {
 
+    private int[] parGrup = {13015, 13017, 13081, 13099};
+    
     public FillingVar(Wincalc iwin, Constructiv calcConstr) {
         super(iwin, calcConstr);
     }
-
-    //int[] parGrup = {13015, 13017, 13081, 13099};    
+        
     protected boolean check(ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам заполнения

@@ -20,18 +20,12 @@ import wincalc.model.ElemSimple;
 //Составы
 public class ElementVar extends Par5s {
 
-    public final int PAR1 = 3;   //Ключ 1  
-    public final int PAR2 = 4;   //Ключ 2   
-    public final int PAR3 = 5;   //Значение      
-    private HashMap<Integer, String> hmParam = null;
-    protected Wincalc iwin = null;
-    private Constructiv calcConstr = null;
+    private int[] par = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050, 31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
 
     public ElementVar(Wincalc iwin, Constructiv calcConstr) {
         super(iwin, calcConstr);
     }
 
-    //int[] parVstm = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050, 31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
     protected boolean check(ElemSimple elemSimple, List<Record> tableList) {
 
         //Цикл по параметрам состава

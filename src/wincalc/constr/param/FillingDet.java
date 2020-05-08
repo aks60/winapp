@@ -21,11 +21,12 @@ import wincalc.model.ElemSimple;
 //Заполнения
 public class FillingDet extends Par5s {
 
+    private int[]  par = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};            
+
     public FillingDet(Wincalc iwin, Constructiv calcConstr) {
         super(iwin, calcConstr);
     }
 
-    //int[]  parGlas = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};            
     protected boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> tableList) {
 
         //Цикл по параметрам заполнения
