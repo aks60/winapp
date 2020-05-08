@@ -47,12 +47,12 @@ public class Elements extends Cal5e {
                         elemSimp.artdetRec = artdet(artdetList); //текстура артикула
 
                         int series_id = elemSimp.artiklRec.getInt(eArtikl.series_id);
-                        List<Record> elemeList2 = eElement.find(series_id); //варианты состава для серии профилей
-                        nested(elemeList2, elemSimp);
+                        List<Record> elementList2 = eElement.find(series_id); //варианты состава для серии профилей
+                        nested(elementList2, elemSimp);
 
                         artikl_id = elemSimp.artiklRec.getInt(eArtikl.id);
-                        List<Record> elemList3 = eElement.find2(artikl_id); //варианты состава для артикула профиля
-                        nested(elemList3, elemSimp);
+                        List<Record> elementList3 = eElement.find2(artikl_id); //варианты состава для артикула профиля
+                        nested(elementList3, elemSimp);
                     }
                 }
             }
@@ -65,8 +65,8 @@ public class Elements extends Cal5e {
         try {           
             for (Record elementRec : elementList) { //цыкл по вариантам состава
 
-                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                boolean out = elementVar.check(ElemSimple, elempar1List); //ФИЛЬТР вариантов
+                List<Record> elemparList = eElempar1.find3(elementRec.getInt(eElement.elemgrp_id));
+                boolean out = elementVar.check(ElemSimple, elemparList); //ФИЛЬТР вариантов
 //                if (out == true) {
 //                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
 //                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));                   

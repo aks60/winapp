@@ -27,10 +27,10 @@ public class ElementDet extends Par5s {
         super(iwin, calcConstr);
     }
     
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> paramList) {
 
         //Цикл по параметрам составов
-        for (Record paramRec : tableList) {
+        for (Record paramRec : paramList) {
             switch (paramRec.getInt(PAR1)) {
 
                 case 33000:  //Для технологического кода контейнера 
@@ -443,7 +443,7 @@ public class ElementDet extends Par5s {
                     break;
             }
         }
-        if (filterParamJson(elemSimple, tableList) == false) {
+        if (filterParamJson(elemSimple, paramList) == false) {
             return false; //параметры по умолчанию и I-OKNA
         }
         return true;

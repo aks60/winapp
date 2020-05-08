@@ -25,7 +25,7 @@ public class JoiningVar extends Par5s {
     }
 
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
-    public boolean check(ElemJoining elemJoin, List<Record> parconvList) {
+    public boolean check(ElemJoining elemJoin, List<Record> paramList) {
 
         float angl = (ElemSimple.SIDE_START == ElemJoining.FIRST_SIDE) ? elemJoin.joinAngl(1) : elemJoin.joinAngl(2);
         ElemSimple joinElement1 = elemJoin.joinElement1;
@@ -33,7 +33,7 @@ public class JoiningVar extends Par5s {
         boolean result = true;
         String strTxt = "";
         //цикл по параметрам элементов соединения
-        for (Record paramRec : parconvList) {
+        for (Record paramRec : paramList) {
 
             switch (paramRec.getInt(PAR1)) {
                 case 0:  //Зрачение по умолчанию 

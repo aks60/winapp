@@ -16,10 +16,10 @@ public class FillingVar extends Par5s {
         super(iwin, calcConstr);
     }
         
-    public boolean check(ElemSimple elemSimple, List<Record> tableList) {
+    public boolean check(ElemSimple elemSimple, List<Record> paramList) {
 
         //Цикл по параметрам заполнения
-        for (Record paramRec : tableList) {
+        for (Record paramRec : paramList) {
 
             if (filterParamDef(paramRec) == false) {
                 return false;

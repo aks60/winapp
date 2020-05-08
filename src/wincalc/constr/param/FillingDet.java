@@ -25,10 +25,10 @@ public class FillingDet extends Par5s {
         super(iwin, calcConstr);
     }
 
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> paramList) {
 
         //Цикл по параметрам заполнения
-        for (Record paramRec : tableList) {
+        for (Record paramRec : paramList) {
 
             switch (paramRec.getInt(PAR1)) {
                 case 14000:  //Для технологического кода контейнера
@@ -159,7 +159,7 @@ public class FillingDet extends Par5s {
                     break;
             }
         }
-        if (filterParamJson(ElemSimple, tableList) == false) {
+        if (filterParamJson(ElemSimple, paramList) == false) {
             return false; //параметры по умолчанию и I-OKNA
         }
         return true;
