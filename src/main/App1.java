@@ -1378,7 +1378,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 }
                 eProfile.appframe = frame;
                 frame.setName(this.name());
-                FrameToFile.setFrameSize(frame);
+                FrameToFile.setFrameSize(frame);                
                 frame.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowDeiconified(java.awt.event.WindowEvent evt) {
                         App1.frame.setExtendedState(JFrame.NORMAL);
