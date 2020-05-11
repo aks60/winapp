@@ -60,7 +60,7 @@ import java.util.stream.Collectors;
             return query().stream().filter(rec -> _element_id == rec.getInt(element_id)).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", element_id, "=", _element_id);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? null : recordList;
     }
     
     public String toString() {

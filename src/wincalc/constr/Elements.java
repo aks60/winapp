@@ -3,13 +3,16 @@ package wincalc.constr;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
+import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
+import domain.eElempar2;
 import domain.eSysprof;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import wincalc.Wincalc;
@@ -65,16 +68,20 @@ public class Elements extends Cal5e {
         try {           
             for (Record elementRec : elementList) { //цыкл по вариантам состава
 
-                List<Record> elemparList = eElempar1.find3(elementRec.getInt(eElement.elemgrp_id));
-                boolean out = elementVar.check(ElemSimple, elemparList); //ФИЛЬТР вариантов
+                int element_id = elementRec.getInt(eElement.id);
+                List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
+                boolean out = elementVar.check(ElemSimple, elempar1List); //ФИЛЬТР вариантов
 //                if (out == true) {
-//                    //artiklTech = elemBase.getArticlesRec(); //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
-//                    List<Record> elemdetList = eElemdet.find(elementRec.getInt(eElemdet.element_id));                   
+//                    //artiklTech = elemBase.getArticlesRec(); 
+//                    //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
+//
+//                    List<Record> elemdetList = eElemdet.find(element_id);                   
 //                    for (Record elendetRec : elemdetList) { //цыкл по вариантам спецификаций
 //
 //                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
-//                        ArrayList<Record> parvstsList = eElempar2.find(elendetRec.getInt(eElemdet.element_id));
-//                        boolean out2 = calc().paramSpecific.checkSpecific(hmParam, ElemSimple, parvstsList);//ФИЛЬТР спецификаций
+//                        int elemdet_id = elendetRec.getInt(eElemdet.id);
+//                        ArrayList<Record> elempar2List = eElempar2.find(elemdet_id); //список параметров спецификации
+//                        boolean out2 = elementDet.check(hmParam, ElemSimple, elempar2List);//ФИЛЬТР спецификаций
 //                        if (out2 == true) {
 //
 //                            Record artiklRec = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
@@ -84,7 +91,7 @@ public class Elements extends Cal5e {
 //                            ((ElemSimple) ElemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
 //                        }
 //                    }
-//                }
+ //               }
             }
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.nested()");

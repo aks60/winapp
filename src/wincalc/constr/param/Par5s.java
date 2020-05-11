@@ -12,9 +12,9 @@ import wincalc.model.Com5t;
 
 public class Par5s {
 
-    public final int PAR1 = 3;   //Ключ 1  
-    public final int PAR2 = 4;   //Ключ 2   
-    public final int PAR3 = 5;   //Значение      
+    public final int PAR1 = 2;   //Ключ 1  
+    public final int PAR2 = 3;   //Ключ 2   
+    public final int PAR3 = 4;   //Значение      
     private HashMap<Integer, String> hmParam = null;
     protected Wincalc iwin = null;
     protected Constructiv calcConstr = null;
@@ -100,7 +100,7 @@ public class Par5s {
     
     //Не обработанные параметры
     protected void message(int code) {
-        System.err.println("Parametr ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+        System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
     }    
 }
 /*
