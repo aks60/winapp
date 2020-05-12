@@ -41,11 +41,14 @@ public class ElemGlass extends ElemSimple {
 
         if (TypeElem.ARCH == owner.type) {
             setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
-            specificationRec.putParam(13015, TypeGlass.ARCH.text());
+            typeGlass = TypeGlass.ARCH;
+            //specificationRec.putParam(13015, TypeGlass.ARCH.text());
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-            specificationRec.putParam(13015, TypeGlass.RECTANGL.text());
+            typeGlass = TypeGlass.RECTANGL;
+            //specificationRec.putParam(13015, TypeGlass.RECTANGL.text());
         }
+        specificationRec.element = typeGlass.text();
     }
 
     public void initСonstructiv() {
@@ -105,7 +108,6 @@ public class ElemGlass extends ElemSimple {
             specificationRec.width = width();
 
             specificationRec.id = id();
-            specificationRec.element = "Арочное";
             specificationRec.setArtiklRec(artiklRec);
             specificationRec.color1 = color1;
             specificationRec.color2 = color2;
@@ -129,7 +131,6 @@ public class ElemGlass extends ElemSimple {
             specificationRec.width = width();
             specificationRec.height = height();
             specificationRec.id = id();
-            specificationRec.element = "Прямоугольное";
             specificationRec.setArtiklRec(artiklRec);
             specificationRec.color1 = color1;
             specificationRec.color2 = color2;

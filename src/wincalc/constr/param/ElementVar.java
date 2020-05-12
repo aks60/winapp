@@ -4,14 +4,15 @@ import wincalc.constr.*;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSysprof;
-import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeElem;
+import enums.TypeGlass;
 import enums.TypeJoin;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import wincalc.Wincalc;
+import wincalc.model.ElemGlass;
 import wincalc.model.ElemJoining;
 import wincalc.model.ElemSimple;
 
@@ -74,7 +75,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31004:  //Если прилегающий артикул 
                         HashMap<String, ElemJoining> mapJoin = elemSimple.iwin().mapJoin;
-                       pass = 0;
+                        pass = 0;
                         for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
                             ElemJoining el = elemJoin.getValue();
                             if (TypeJoin.VAR4 == el.varJoin
@@ -202,15 +203,15 @@ public class ElementVar extends Par5s {
                         break;
                     case 31081:  //Для внешнего/внутреннего угла плоскости, ° 
                         message(paramRec.getInt(PAR1));
-                        break;                        
+                        break;
                     case 31085:  //Надпись на элементе 
                     case 37085:  //Надпись на элементе     
                         elemSimple.specificationRec.putParam(paramRec.getInt(PAR1), paramRec.getStr(PAR3));
-                        break;                        
+                        break;
                     case 31090:  //Изменение сторон покраски 
                         if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 31090)) == false) {
                             return false;
-                        }  
+                        }
                         break;
                     case 31095:  //Если признак системы конструкции 
                         message(paramRec.getInt(PAR1));
@@ -238,17 +239,17 @@ public class ElementVar extends Par5s {
                         message(paramRec.getInt(PAR1));
                         break;
                     case 37009:  //Тип заполнения 
-                        //Все Произвольное Прямоугольное Арочное (В составах - 37009)
-                        //Прямоугольное Не прямоугольное Не арочное Арочное (Заполнение - 13015)                        
-//                        if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) {
-//                            return false;
-//                        } 
-                        obj1 = paramRec.getStr(PAR3);
-                        //if("Произвольное".equals(obj1))
-                        message(paramRec.getInt(PAR1), elemSimple.type(), obj1);
+                        //Все, Произвольное, Прямоугольное, Арочное                                            
+                        message(paramRec.getInt(PAR1), elemSimple.type(), ((ElemGlass) elemSimple).typeGlass, paramRec.getStr(PAR3));
+                        if ("Прямоугольное".equals(paramRec.getStr(PAR3)) && TypeGlass.RECTANGL.text().equals(((ElemGlass) elemSimple).typeGlass.text()) == false) {
+                            return false;
+                        } else if ("Арочное".equals(paramRec.getStr(PAR3)) && TypeGlass.ARCH.text().equals(((ElemGlass) elemSimple).typeGlass.text()) == false) {
+                            return false;
+                        } 
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
-                        message(paramRec.getInt(PAR1));
+                        //message(paramRec.getInt(PAR1), elemSimple.type(), paramRec.getStr(PAR3));
+                        calcConstr.parserFloat2(paramRec.getStr(PAR3));
                         break;
                     case 37017:  //Код системы содержит строку 
                         message(paramRec.getInt(PAR1));
@@ -264,7 +265,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 37080:  //Сообщение-предупреждение 
                         message(paramRec.getInt(PAR1));
-                        break;                    
+                        break;
                     case 37095:  //Если признак системы конструкции 
                         message(paramRec.getInt(PAR1));
                         break;
@@ -273,7 +274,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 37097:  //Трудозатраты по 
                         message(paramRec.getInt(PAR1));
-                        break;                     
+                        break;
                     case 37108:  //Коэффициенты АКЦИИ 
                         message(paramRec.getInt(PAR1));
                         break;

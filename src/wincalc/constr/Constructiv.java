@@ -17,7 +17,7 @@ import wincalc.model.Com5t;
 public class Constructiv {
 
     protected Wincalc iwin = null;
-    
+
     public Constructiv(Wincalc iwin) {
         this.iwin = iwin;
     }
@@ -219,6 +219,29 @@ public class Constructiv {
             }
         }
         return arrList.stream().toArray(Float[]::new);
+    }
+
+    public Float[] parserFloat2(String str) {
+        Float[] arr = {0f, 6000f, 0f, 6000f};
+        str = str.replace(",", ".");
+        char symmetry = str.charAt(str.length() - 1);
+        if (symmetry == '@') {
+            str = str.substring(0, str.length() - 1);
+        }
+        String[] arr2 = str.split("/");
+        if (arr.length == 2) {
+           String[] arr3 = arr2[0].split("-");
+           String[] arr4 = arr2[1].split("-");
+           if(arr3.length == 2) {
+               arr[0] = Float.valueOf(arr3[0]);
+               arr[1] = Float.valueOf(arr3[1]);
+           }
+           if(arr4.length == 2) {
+               arr[2] = Float.valueOf(arr4[0]);
+               arr[3] = Float.valueOf(arr4[1]);
+           }
+        }
+        return arr;
     }
 
     public static boolean compareFloat(String ptext, float value) {

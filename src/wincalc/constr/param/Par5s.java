@@ -105,9 +105,7 @@ public class Par5s {
 
     protected void message(int code, Object... obj) {
         if (Main.dev == true) { //"\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m")
-            if (obj.length == 0) {
-                System.out.println("\u001B[34mПАРАМЕТР code=" + code + "\u001B[0m");
-            } else if (obj.length == 1) {
+            if (obj.length == 1) {
                 System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + "\u001B[0m");
             } else if (obj.length == 2) {
                 System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + "\u001B[0m");

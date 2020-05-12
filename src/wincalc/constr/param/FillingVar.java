@@ -38,6 +38,7 @@ public class FillingVar extends Par5s {
                     message(paramRec.getInt(PAR1));
                     break;
                 case 13015:  //Форма заполнения 
+                    //Прямоугольное Не прямоугольное Не арочное Арочное (Заполнение - 13015) 
                     if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) { //нужно проверить
                         return false;
                     }
