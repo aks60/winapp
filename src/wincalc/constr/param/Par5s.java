@@ -1,6 +1,7 @@
 package wincalc.constr.param;
 
 import dataset.Record;
+import domain.eSetting;
 import enums.ParamJson;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,11 @@ public class Par5s {
     protected final int TEXT = 4;   //Текст параметра
     protected Object obj, obj2, obj3, obj4; //Объекты калькуляции
     protected Float[] arr, arr2, arr3, arr4;
+    protected String str, str2, str3, str4;
+    protected Float num, num2, num3, num4;
+    protected Integer val, val2, val3, val4;
     protected Wincalc iwin = null;
+    protected String versionDb = eSetting.find(2).getStr(eSetting.val);
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     protected String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
 
@@ -100,20 +105,20 @@ public class Par5s {
         }
         String[] arr2 = str.split("/");
         if (arr2.length == 2) {
-           String[] arr3 = arr2[0].split("-");
-           String[] arr4 = arr2[1].split("-");
-           if(arr3.length == 2) {
-               arr[0] = Float.valueOf(arr3[0]);
-               arr[1] = Float.valueOf(arr3[1]);
-           }
-           if(arr4.length == 2) {
-               arr[2] = Float.valueOf(arr4[0]);
-               arr[3] = Float.valueOf(arr4[1]);
-           }
+            String[] arr3 = arr2[0].split("-");
+            String[] arr4 = arr2[1].split("-");
+            if (arr3.length == 2) {
+                arr[0] = Float.valueOf(arr3[0]);
+                arr[1] = Float.valueOf(arr3[1]);
+            }
+            if (arr4.length == 2) {
+                arr[2] = Float.valueOf(arr4[0]);
+                arr[3] = Float.valueOf(arr4[1]);
+            }
         }
         return arr;
     }
-    
+
     public boolean compareFloat(String ptext, float value) {
 
         if (ptext == null) {
@@ -223,7 +228,7 @@ public class Par5s {
             System.out.println(el);
         }
     }
-    
+
     //Фильтр параметров по умолчанию
     protected boolean filterParamDef(Record paramRec) {
         if (paramRec.getInt(GRUP) < 0) {
@@ -238,7 +243,7 @@ public class Par5s {
         }
         return true;
     }
-    
+
     //Фильтр параметров
     protected boolean filterParamJson(Com5t com5t, List<Record> paramList) {
 
@@ -300,20 +305,21 @@ public class Par5s {
         System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
     }
 
+    //Обработанные параметры
     protected void message(int code, Object... obj) {
-        if (Main.dev == true) { //"\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m")
-            if (obj.length == 1) {
-                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + "\u001B[0m");
-            } else if (obj.length == 2) {
-                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + "\u001B[0m");
-            } else if (obj.length == 3) {
-                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + "\u001B[0m");
-            } else if (obj.length == 4) {
-                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + " " + obj[3] + "\u001B[0m");
-            }
-        }
+//        if (Main.dev == true) { 
+//            if (obj.length == 1) {
+//                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + "\u001B[0m");
+//            } else if (obj.length == 2) {
+//                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + "\u001B[0m");
+//            } else if (obj.length == 3) {
+//                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + "\u001B[0m");
+//            } else if (obj.length == 4) {
+//                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + " " + obj[3] + "\u001B[0m");
+//            }
+//        }
     }
-    
+
     public int determineColorCodeForArt(Com5t elem, int color_side, Record paramRec, Specification specif) {
 
 //        //int colorCode = getColorFromProduct(elem, color_side, paramRec);
@@ -421,7 +427,7 @@ public class Par5s {
                 return iwin.colorNone;
         }
     }
-   
+
 }
 
 /*
