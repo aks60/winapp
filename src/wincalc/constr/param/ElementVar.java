@@ -1,6 +1,7 @@
 package wincalc.constr.param;
 
 import wincalc.constr.*;
+import wincalc.constr.param.Par5s;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSysprof;
