@@ -239,10 +239,13 @@ public class ElementVar extends Par5s {
                         break;
                     case 37009:  //Тип заполнения 
                         //Все Произвольное Прямоугольное Арочное (В составах - 37009)
-                        //Прямоугольное Не прямоугольное Не арочное Арочное (Заполнение - 13015)
-                        if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) {
-                            return false;
-                        } 
+                        //Прямоугольное Не прямоугольное Не арочное Арочное (Заполнение - 13015)                        
+//                        if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) {
+//                            return false;
+//                        } 
+                        obj1 = paramRec.getStr(PAR3);
+                        //if("Произвольное".equals(obj1))
+                        message(paramRec.getInt(PAR1), elemSimple.type(), obj1);
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
                         message(paramRec.getInt(PAR1));

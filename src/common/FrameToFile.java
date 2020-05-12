@@ -75,18 +75,18 @@ public class FrameToFile extends javax.swing.Timer implements ActionListener {
                 frameSize.width = Integer.valueOf(dx);  //размеры окна
             }            
         }
-//        if (frameSize.height > screenSize.height) {
-//            frameSize.height = screenSize.height;
-//        }
-//        if (frameSize.width > screenSize.width) {
-//            frameSize.width = screenSize.width;
-//        }
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
         if (frame.getName().equals("Property")) {
             frame.setLocation(20, 140);
         } else {
-            frame.setLocationRelativeTo(null);
-//            frame.setLocation((screenSize.width - frameSize.width) / 2,
-//                    (screenSize.height - frameSize.height - 48) / 2 + 48);
+            //frame.setLocationRelativeTo(null);
+            frame.setLocation((screenSize.width - frameSize.width) / 2,
+                    (screenSize.height - frameSize.height - 48) / 2 + 48);
         }
         frame.setPreferredSize(frameSize);
         frame.pack();

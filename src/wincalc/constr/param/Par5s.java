@@ -6,20 +6,22 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import main.Main;
 import wincalc.Wincalc;
 import wincalc.constr.Constructiv;
 import wincalc.model.Com5t;
 
 public class Par5s {
 
-    public final int PAR1 = 2;   //Ключ 1  
-    public final int PAR2 = 3;   //Ключ 2   
-    public final int PAR3 = 4;   //Значение      
+    protected final int PAR1 = 2;   //Ключ 1  
+    protected final int PAR2 = 3;   //Ключ 2   
+    protected final int PAR3 = 4;   //Текст параметра
+    protected Object obj1, obj2, obj3, obj4; //Объекты калькуляции
     protected Wincalc iwin = null;
     protected Constructiv calcConstr = null;
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     protected String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
-   
+
     public Par5s(Wincalc iwin, Constructiv calcConstr) {
         this.iwin = iwin;
         this.calcConstr = calcConstr;
@@ -95,11 +97,27 @@ public class Par5s {
         }
         return true;
     }
-    
+
     //Не обработанные параметры
     protected void message(int code) {
         System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
-    }    
+    }
+
+    protected void message(int code, Object... obj) {
+        if (Main.dev == true) { //"\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m")
+            if (obj.length == 0) {
+                System.out.println("\u001B[34mПАРАМЕТР code=" + code + "\u001B[0m");
+            } else if (obj.length == 1) {
+                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + "\u001B[0m");
+            } else if (obj.length == 2) {
+                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + "\u001B[0m");
+            } else if (obj.length == 3) {
+                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + "\u001B[0m");
+            } else if (obj.length == 4) {
+                System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + " " + obj[3] + "\u001B[0m");
+            }
+        }
+    }
 }
 /*
     //Все параметры БиМакс
@@ -124,5 +142,4 @@ public class Par5s {
     //фурнитура
     public static int[] parFurs = {24001, 24002, 25002, 24004, 24006, 24010, 25010, 24012, 24030, 25030, 24033, 24038, 24063, 24067, 25067, 24068, 24069, 24070, 24072, 24073, 24074, 24075,
             24095, 24099, 25013, 25035, 25040, 25060, 25067};
-*/
-
+ */
