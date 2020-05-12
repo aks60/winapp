@@ -16,31 +16,17 @@ import wincalc.model.Com5t;
 
 public class Par5s {
 
-    protected final int PAR1 = 2;   //Ключ 1  
-    protected final int PAR2 = 3;   //Ключ 2   
-    protected final int PAR3 = 4;   //Текст параметра
-    protected Object obj1, obj2, obj3, obj4; //Объекты калькуляции
+    protected final int GRUP = 2;   //Ключ 1  
+    protected final int NUMB = 3;   //Ключ 2   
+    protected final int TEXT = 4;   //Текст параметра
+    protected Object obj, obj2, obj3, obj4; //Объекты калькуляции
+    protected Float[] arr, arr2, arr3, arr4;
     protected Wincalc iwin = null;
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     protected String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
 
     public Par5s(Wincalc iwin) {
         this.iwin = iwin;
-    }
-
-    //Фильтр параметров
-    protected boolean filterParamDef(Record paramRec) {
-        if (paramRec.getInt(PAR1) < 0) {
-            if (iwin.mapParamDef.get(paramRec.getInt(PAR1)) == null) {
-                return false;
-            }
-            int id1 = Integer.valueOf(iwin.mapParamDef.get(paramRec.getInt(PAR1))[1].toString());
-            int id2 = paramRec.getInt(PAR2);
-            if ((id1 == id2) == false) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public boolean DblNotZero(Object p) {
@@ -238,6 +224,21 @@ public class Par5s {
         }
     }
     
+    //Фильтр параметров по умолчанию
+    protected boolean filterParamDef(Record paramRec) {
+        if (paramRec.getInt(GRUP) < 0) {
+            if (iwin.mapParamDef.get(paramRec.getInt(GRUP)) == null) {
+                return false;
+            }
+            int id1 = Integer.valueOf(iwin.mapParamDef.get(paramRec.getInt(GRUP))[1].toString());
+            int id2 = paramRec.getInt(NUMB);
+            if ((id1 == id2) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     //Фильтр параметров
     protected boolean filterParamJson(Com5t com5t, List<Record> paramList) {
 
@@ -274,19 +275,19 @@ public class Par5s {
             }
         }
         for (Record paramRec : paramList) {
-            if (paramRec.getInt(PAR1) < 0) {
+            if (paramRec.getInt(GRUP) < 0) {
 
-                if (paramTotal.get(paramRec.getInt(PAR1)) == null) {
+                if (paramTotal.get(paramRec.getInt(GRUP)) == null) {
                     return false; //усли в базе парам. нет, сразу выход
                 }
                 //В данной ветке есть попадание в paramRec.getInt(PAR1)
-                Object[] totalVal = paramTotal.get(paramRec.getInt(PAR1));
-                if (totalVal[1].equals(paramRec.getInt(PAR2)) == false) { //если в param.znumb() попадания нет
+                Object[] totalVal = paramTotal.get(paramRec.getInt(GRUP));
+                if (totalVal[1].equals(paramRec.getInt(NUMB)) == false) { //если в param.znumb() попадания нет
 
                     //на третьей итерации дополняю ...
                     return false;
 
-                } else if (paramJson != null && paramJson.isEmpty() == false && paramJson.get(paramRec.getInt(PAR1)) != null) {
+                } else if (paramJson != null && paramJson.isEmpty() == false && paramJson.get(paramRec.getInt(GRUP)) != null) {
                     totalVal[2] = 1; //если попадание было, то записываю 1 в третий элемент массива
                 }
             }
@@ -420,38 +421,40 @@ public class Par5s {
                 return iwin.colorNone;
         }
     }
-
-    //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
-//    protected boolean IsArtTariffAppliesForColor(Artsvst artsvstRec, Colslst colslstRec) {
-//        if (artsvstRec.clnum < 0) {    //этот тариф задан для группы текстур
-//
-//            if ((-1 * colslstRec.cgrup) == artsvstRec.clnum) {
-//                return true;
-//            }
-//        } else {  //проверяем не только colorCode, а еще и colorNumber
-//            if (colslstRec.ccode == artsvstRec.clcod) {
-//                return true;
-//
-//            } else if (colslstRec.cnumb == artsvstRec.clnum) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    protected boolean CanBeUsedAsOutsideColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
-//        return (artsvst.cways & 2) != 0 || CanBeUsedAsBaseColor(artsvst);
-//    }
-//
-//    protected boolean CanBeUsedAsInsideColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
-//        return (artsvst.cways & 1) != 0 || CanBeUsedAsBaseColor(artsvst);
-//    }
-//
-//    protected boolean CanBeUsedAsBaseColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
-//        return (artsvst.cways & 4) != 0;
-//    }    
+   
 }
+
 /*
+    //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
+    protected boolean IsArtTariffAppliesForColor(Artsvst artsvstRec, Colslst colslstRec) {
+        if (artsvstRec.clnum < 0) {    //этот тариф задан для группы текстур
+
+            if ((-1 * colslstRec.cgrup) == artsvstRec.clnum) {
+                return true;
+            }
+        } else {  //проверяем не только colorCode, а еще и colorNumber
+            if (colslstRec.ccode == artsvstRec.clcod) {
+                return true;
+
+            } else if (colslstRec.cnumb == artsvstRec.clnum) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected boolean CanBeUsedAsOutsideColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
+        return (artsvst.cways & 2) != 0 || CanBeUsedAsBaseColor(artsvst);
+    }
+
+    protected boolean CanBeUsedAsInsideColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
+        return (artsvst.cways & 1) != 0 || CanBeUsedAsBaseColor(artsvst);
+    }
+
+    protected boolean CanBeUsedAsBaseColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
+        return (artsvst.cways & 4) != 0;
+    } 
+
     //Все параметры БиМакс
     public static int[] paramSum = {
             11000, 11009, 11010, 11020, 11030, 11040, 11050, 11060, 11067, 11068, 11069, 11070, 11072, 11095, 12000, 12008, 12010, 12020, 12030, 12050, 12060,

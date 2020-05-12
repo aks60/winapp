@@ -24,48 +24,48 @@ public class FillingVar extends Par5s {
             if (filterParamDef(paramRec) == false) {
                 return false;
             }
-            switch (paramRec.getInt(PAR1)) {
+            switch (paramRec.getInt(GRUP)) {
                 case 13001:  //Если признак состава 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13003:  //Тип проема 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13005:  //Заполнение типа 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13014:  //Угол ориентации стороны, ° 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13015:  //Форма заполнения 
                     //Прямоугольное Не прямоугольное Не арочное Арочное (Заполнение - 13015) 
-                    if (paramRec.getStr(PAR3).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) { //нужно проверить
+                    if (paramRec.getStr(TEXT).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) { //нужно проверить
                         return false;
                     }
                     break;
                 case 13017:  //Код системы содержит строку 
                     Record sysprofRec = eSystree.find(iwin.nuni);
-                    if (sysprofRec.getStr(eSystree.pref).contains(paramRec.getStr(PAR3)) == false) {
+                    if (sysprofRec.getStr(eSystree.pref).contains(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
                 case 13081:  //Для внешнего/внутреннего угла плоскости, ° 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13098:  //Бригада, участок) 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13099:  //Трудозатраты, ч/ч. 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 13097:  //Трудозатраты по длине 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 default:
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
             }
         }

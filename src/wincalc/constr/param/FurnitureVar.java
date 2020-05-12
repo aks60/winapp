@@ -25,53 +25,53 @@ public class FurnitureVar extends Par5s {
             if (filterParamDef(paramRec) == false) {
                 return false;
             }
-            switch (paramRec.getInt(PAR1)) {
+            switch (paramRec.getInt(GRUP)) {
                 
                 case 21001:  //Форма контура 
-                    if (TypeElem.FULLSTVORKA == elemSimple.type() && "прямоугольная".equals(paramRec.getStr(PAR3)) == false) {
+                    if (TypeElem.FULLSTVORKA == elemSimple.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
                 case 21004:  //Артикул створки 
-                    if (elemSimple.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(PAR3)) == false) {
+                    if (elemSimple.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
                 case 21005:  //Артикул заполнения по умолчанию 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21010:  //Ограничение длины стороны, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21011:  //Ограничение длины ручка константа, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21012:  //Ограничение длины ручка вариацион, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21013:  //Ограничение длины ручка по середине, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21016:  //Допустимое соотношение габаритов б/м) 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21037:  //Диапазон высоты вариационной ручки, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21040:  //Ограничение угла, ° 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21050:  //Ориентация стороны, ° 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21085:  //Надпись на эскизе 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 21088:  //Уравнивание складных створок 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 default:
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
             }
         }

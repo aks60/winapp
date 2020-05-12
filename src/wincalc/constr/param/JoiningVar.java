@@ -36,16 +36,16 @@ public class JoiningVar extends Par5s {
         //цикл по параметрам элементов соединения
         for (Record paramRec : paramList) {
 
-            switch (paramRec.getInt(PAR1)) {
+            switch (paramRec.getInt(GRUP)) {
                 case 0:  //Зрачение по умолчанию 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1005:  //Контейнер имеет тип Артикула1/Артикула2
                 case 2005:  //Контейнер имеет тип Артикула1/Артикула2  
                 case 3005:  //Контейнер имеет тип Артикула1/Артикула2 
                 case 4005:  //Контейнер имеет тип Артикула1/Артикула2    
                     try {
-                    strTxt = paramRec.getStr(PAR3);
+                    strTxt = paramRec.getStr(TEXT);
                     int type1 = joinElement1.type().value;
                     int type2 = joinElement2.type().value;
 
@@ -87,19 +87,19 @@ public class JoiningVar extends Par5s {
                 }
                 break;
                 case 1008:  //Эффективное заполнение изд., мм
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1010:  //Внешнее соединение 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1011:  //Для Артикула 1 указан состав 
                 case 4011:  //Для Артикула 1 указан состав     
-                    strTxt = paramRec.getStr(PAR3);
+                    strTxt = paramRec.getStr(TEXT);
                     List<Record> elementList1 = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1 = false;
                     for (Record elementRec1 : elementList1) {
                         if (elementRec1.getStr(eElement.name).contains(strTxt)) {
-                            ArrayList<Record> elempar1List = eElempar1.find2(elementRec1.getInt(PAR1));
+                            ArrayList<Record> elempar1List = eElempar1.find2(elementRec1.getInt(GRUP));
                             substr1 = (new ElementVar(iwin)).check(joinElement1, elempar1List);
                             break;
                         }
@@ -110,12 +110,12 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1012:  //Для Артикула 2 указан состав                  
                 case 4012:  //Для Артикула 2 указан состав     
-                    strTxt = paramRec.getStr(PAR3);
+                    strTxt = paramRec.getStr(TEXT);
                     boolean substr2 = false;
                     List<Record> elementList2 = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getInt(eArtikl.series_id));
                     for (Record elementRec2 : elementList2) {
                         if (elementRec2.getStr(eElement.name).contains(strTxt)) {
-                            ArrayList<Record> elempar2List = eElempar2.find2(elementRec2.getInt(PAR1));
+                            ArrayList<Record> elempar2List = eElempar2.find2(elementRec2.getInt(GRUP));
                             substr2 = (new ElementVar(iwin)).check(joinElement2, elempar2List);
                             break;
                         }
@@ -128,13 +128,13 @@ public class JoiningVar extends Par5s {
                 case 2013:  //Для Артикулов не указан состав 
                 case 3013:  //Для Артикулов не указан состав
                 case 4013:  //Для Артикулов не указан состав  
-                    strTxt = paramRec.getStr(PAR3);
+                    strTxt = paramRec.getStr(TEXT);
                     List<Record> elementList1a = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1a = false;
                     ElementVar elementVar = new ElementVar(iwin);
                     for (Record elementRec : elementList1a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
-                            ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));
+                            ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
                             substr1a = elementVar.check(joinElement1, elempar1List);
                             break;
                         }
@@ -143,7 +143,7 @@ public class JoiningVar extends Par5s {
                     List<Record> elementList2a = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getInt(eArtikl.series_id));
                     for (Record elementRec : elementList2a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
-                            ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));
+                            ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
                             substr1a = elementVar.check(joinElement1, elempar1List);
                             break;
                         }
@@ -153,60 +153,60 @@ public class JoiningVar extends Par5s {
                     }
                     break;
                 case 1020:  //Ограничение угла к горизонту, °
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1035:  //Уровень створки 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1039:  //Для типа открывания 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1040:  //Размер, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1043:  //Ограничение габарита контура, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1090:  //Смещение по толщине, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1098:  //Бригада, участок) 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1099:  //Трудозатраты, ч/ч. 
                 case 2099:  //Трудозатраты, ч/ч. 
                 case 3099:  //Трудозатраты, ч/ч.
                 case 4099:  //Трудозатраты, ч/ч.    
-                    elemJoin.costsJoin = paramRec.getStr(PAR3);
+                    elemJoin.costsJoin = paramRec.getStr(TEXT);
                     break;
                 case 1097:  //Трудозатраты по длине 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 1085:  //Надпись на элементе 
                 case 2085:  //Надпись на элементе 
                 case 3085:  //Надпись на элементе  
                 case 4085:  //Надпись на элементе     
-                    elemJoin.joinElement1.iwin().labelSketch = paramRec.getStr(PAR3);
+                    elemJoin.joinElement1.iwin().labelSketch = paramRec.getStr(TEXT);
                     break;
                 case 2003:  //Угол варианта 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 2012:  //Для Артикулов указан состав
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 2015:  //Ориентация Артикула1/Артикула2, ° 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break; 
                 case 2020:  //Ограничение угла, ° 
                 case 3020:  //Ограничение угла, ° 
                 case 4020:  //Ограничение угла, °     
-                    if (compareFloat(paramRec.getStr(PAR3), angl) == false) return false;
+                    if (compareFloat(paramRec.getStr(TEXT), angl) == false) return false;
                     break;                    
                 case 2030:  //Припуск Артикула1/Артикула2 , мм 
-                    strTxt = paramRec.getStr(PAR3);
+                    strTxt = paramRec.getStr(TEXT);
                     char symmetry = strTxt.charAt(strTxt.length() - 1);
                     if (symmetry == '@') {
                         strTxt = strTxt.substring(0, strTxt.length() - 1);
@@ -216,120 +216,120 @@ public class JoiningVar extends Par5s {
                     joinElement2.specificationRec.putParam(2030, arr2[1]);
                     break;
                 case 2055:  //Продолжение общей арки 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 2061:  //Отступ для Артикула1/Артикула2, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 2066:  //Расчет углов реза профилей 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 2064:  //Поправка для состава Арт.1/Арт.2, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 2095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 2098:  //Бригада, участок) 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 2097:  //Трудозатраты по длине 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 3002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.) 
                 case 4002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.)     
-                    if (elemJoin.varJoin == TypeJoin.VAR4 && "Простое Т-обр.".equals(paramRec.getStr(PAR3)) == false) {
+                    if (elemJoin.varJoin == TypeJoin.VAR4 && "Простое Т-обр.".equals(paramRec.getStr(TEXT)) == false) {
                         break;
                     }
                 case 3003:  //Угол варианта 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3012:  //Для Артикулов указан состав 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 3015:  //Ориентация Артикула1/Артикула2, ° 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3030:  //Усечение Артикула1/Артикула2, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3031:  //Усечение Артикула1/Артикула2, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3045:  //Расстояние от уровня деления, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3050:  //Припуск Артикула1/Артикула2, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3064:  //Поправка для состава Арт.1/Арт.2 , мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3083:  //Проходит уровень деления 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3088:  //Вариант соединения для стойки 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 3098:  //Бригада, участок) 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 3097:  //Трудозатраты по длине 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 4010:  //Внешнее соединение 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                 
                 case 4015:  //Ориентация Артикула1/Артикула2, ° 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4018:  //От ручки не менее, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 4040:  //Размер от оси профиля, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4044:  //Размер от края пакета, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4045:  //Расстояние от уровня деления, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4046:  //Длина Артикула 1, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4050:  //Припуск Артикула 1, мм. 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4061:  //Максимальный размер шва, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4064:  //Поправка для состава, мм 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4083:  //Проходит уровень деления 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                
                 case 4095:  //Если признак системы конструкции 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4097:  //Трудозатраты по длине 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4098:  //Бригада, участок) 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;                                 
                 case 4800:  //Код обработки 
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 case 4801:  //Доп.обработки
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
                 default:
-                    message(paramRec.getInt(PAR1));
+                    message(paramRec.getInt(GRUP));
                     break;
             }
         }
