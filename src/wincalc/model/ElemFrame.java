@@ -73,7 +73,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.color3 = color3;
         specificationRec.discount = 0;
         specificationRec.anglHoriz = anglHoriz;
-        specificationRec.id = ++iwin().specId;
+        specificationRec.id = ++iwin().genId;
 
         //Простое окно
         if (LayoutArea.TOP == layout) {

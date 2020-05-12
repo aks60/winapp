@@ -43,13 +43,11 @@ import wincalc.script.Intermediate;
 
 public class Wincalc {
 
-    public static boolean production = false;
     public Connection conn;
-
     public Integer nuni = 0;
     public Record artiklRec = null;  //главный артикл системы профилей
     public Record sysconsRec = null; //константы
-    public float specId = 100; //генерация ключа спецификации
+    public float genId = 100; //генерация ключа спецификации
 
     public float width = 0.f;     //ширина окна
     public float height = 0.f;    //высота окна
@@ -64,12 +62,9 @@ public class Wincalc {
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public float scale1 = 1, scale2 = 20; //коэффициент сжатия
     public String labelSketch = "empty"; //надпись на эскизе
-    protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
 
     public AreaSimple rootArea = null;
-    //private HashMap<Integer, String> mapPro4Params = new HashMap(); 
     public HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию       
-
     public LinkedList<Com5t> listCom5t; //список всех Com5t
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public LinkedList<AreaSimple> listArea; //список AreaSimple
@@ -85,9 +80,8 @@ public class Wincalc {
 
         mapParamDef.clear();
         mapJoin.clear();
-        drawMapLineList.clear();
         listSpec.clear();
-        specId = 100;
+        genId = 100;
 
         //Парсинг входного скрипта
         parsingScript(productJson);

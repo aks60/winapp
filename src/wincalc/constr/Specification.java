@@ -73,14 +73,14 @@ public class Specification {
 
     //Конструктор для элементов спецификации окна
     public Specification(Record artiklRec, Com5t com5t, HashMap<Integer, String> hmParam) {
-        this.id = com5t.iwin().specId;
+        this.id = com5t.iwin().genId;
         this.owner = com5t;
         this.mapParam = hmParam;
         setArtiklRec(artiklRec);
     }
 
     public Specification(Specification spec) {
-        this.id = ++spec.owner.iwin().specId;
+        this.id = ++spec.owner.iwin().genId;
         this.element = spec.element;
         this.artikl = spec.artikl;
         this.name = spec.name;

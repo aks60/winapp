@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>290</x>
-      <y>40</y>
+      <x>260</x>
+      <y>20</y>
       <w>140</w>
       <h>270</h>
     </coordinates>
@@ -31,8 +31,8 @@ paint()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>50</x>
-      <y>40</y>
+      <x>60</x>
+      <y>80</y>
       <w>130</w>
       <h>150</h>
     </coordinates>
@@ -44,14 +44,14 @@ listElem()
 joinFrame()
 joinElem()
 addFrame()
-draw()</panel_attributes>
+paint()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>320</y>
+      <x>20</x>
+      <y>360</y>
       <w>100</w>
       <h>90</h>
     </coordinates>
@@ -66,8 +66,8 @@ joinFrame()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
-      <y>40</y>
+      <x>770</x>
+      <y>100</y>
       <w>100</w>
       <h>110</h>
     </coordinates>
@@ -75,7 +75,7 @@ joinFrame()
 -
 anglHoriz
 -
-typeProfile()
+useArtiklTo()
 inside()
 anglCut()
 
@@ -86,41 +86,41 @@ anglCut()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
-      <y>90</y>
-      <w>230</w>
+      <x>390</x>
+      <y>150</y>
+      <w>400</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;210.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;380.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
-      <y>140</y>
-      <w>170</w>
-      <h>190</h>
+      <x>740</x>
+      <y>200</y>
+      <w>110</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>150.0;10.0;10.0;170.0</additional_attributes>
+    <additional_attributes>90.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>170</x>
-      <y>80</y>
-      <w>140</w>
+      <x>180</x>
+      <y>120</y>
+      <w>100</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>130</x>
-      <y>320</y>
+      <x>140</x>
+      <y>360</y>
       <w>100</w>
       <h>90</h>
     </coordinates>
@@ -135,8 +135,8 @@ joinFrame()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>260</x>
-      <y>320</y>
+      <x>290</x>
+      <y>350</y>
       <w>100</w>
       <h>120</h>
     </coordinates>
@@ -153,8 +153,8 @@ paint()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>500</x>
-      <y>310</y>
+      <x>700</x>
+      <y>340</y>
       <w>100</w>
       <h>150</h>
     </coordinates>
@@ -164,7 +164,7 @@ length
 anglCut1
 anglCut2
 -
-typeProfile()
+useArtiklTo()
 anglCut()
 paint()
 </panel_attributes>
@@ -173,8 +173,8 @@ paint()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>630</x>
-      <y>310</y>
+      <x>830</x>
+      <y>350</y>
       <w>100</w>
       <h>120</h>
     </coordinates>
@@ -182,7 +182,7 @@ paint()
 -
 xx
 -
-typeProfile()
+useArtiklTo()
 paint()
 </panel_attributes>
     <additional_attributes/>
@@ -190,19 +190,19 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>680</x>
-      <y>140</y>
-      <w>30</w>
-      <h>190</h>
+      <x>820</x>
+      <y>200</y>
+      <w>90</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+    <additional_attributes>10.0;10.0;70.0;150.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>50</x>
-      <y>180</y>
+      <x>60</x>
+      <y>220</y>
       <w>110</w>
       <h>160</h>
     </coordinates>
@@ -212,8 +212,8 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>140</x>
-      <y>180</y>
+      <x>150</x>
+      <y>220</y>
       <w>60</w>
       <h>160</h>
     </coordinates>
@@ -223,19 +223,19 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>130</x>
-      <y>180</y>
-      <w>200</w>
-      <h>160</h>
+      <x>140</x>
+      <y>220</y>
+      <w>220</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;180.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;200.0;130.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>760</x>
-      <y>310</y>
+      <x>960</x>
+      <y>350</y>
       <w>100</w>
       <h>150</h>
     </coordinates>
@@ -244,7 +244,7 @@ paint()
 anglCut1
 anglCut2
 -
-typeProfile()
+useArtiklTo()
 anglCut()
 paint()
 </panel_attributes>
@@ -253,18 +253,18 @@ paint()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>690</x>
-      <y>140</y>
-      <w>140</w>
-      <h>190</h>
+      <x>830</x>
+      <y>200</y>
+      <w>200</w>
+      <h>170</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;120.0;170.0</additional_attributes>
+    <additional_attributes>10.0;10.0;180.0;150.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>780</x>
+      <x>940</x>
       <y>40</y>
       <w>100</w>
       <h>220</h>
@@ -290,8 +290,8 @@ joinElem()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>10</x>
-      <y>460</y>
+      <x>20</x>
+      <y>500</y>
       <w>100</w>
       <h>90</h>
     </coordinates>
@@ -308,8 +308,8 @@ joinFrame()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>70</x>
-      <y>180</y>
+      <x>80</x>
+      <y>220</y>
       <w>100</w>
       <h>300</h>
     </coordinates>
@@ -319,8 +319,8 @@ joinFrame()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>210</x>
-      <y>460</y>
+      <x>220</x>
+      <y>500</y>
       <w>100</w>
       <h>90</h>
     </coordinates>
@@ -335,8 +335,8 @@ joinFrame()
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>140</x>
-      <y>180</y>
+      <x>150</x>
+      <y>220</y>
       <w>150</w>
       <h>300</h>
     </coordinates>
@@ -347,7 +347,7 @@ joinFrame()
     <id>UMLClass</id>
     <coordinates>
       <x>370</x>
-      <y>520</y>
+      <y>500</y>
       <w>100</w>
       <h>110</h>
     </coordinates>
@@ -362,5 +362,94 @@ paintComponent()
 
 </panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>10</y>
+      <w>110</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Specification
+--
+owner
+specificationList
+mapParam
+artiklRec 
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>60</y>
+      <w>230</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+specificationRec to cpecif
+</panel_attributes>
+    <additional_attributes>210.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>530</x>
+      <y>200</y>
+      <w>150</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>Wincalc
+--
+conn
+nuni
+artiklRec
+sysconsRec
+genId
+
+width
+height
+heightAdd
+colorNone
+color1
+color2
+color3
+
+bufferByte
+bufferImg
+gc2d
+scale1, scale2
+labelSketch
+
+rootArea
+mapParamDef
+listCom5t
+listElem
+listArea
+mapJoin
+listSpec
+
+constructiv
+tariffication
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>240</y>
+      <w>160</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=0..1
+iwin to wincalc</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
   </element>
 </diagram>
