@@ -29,10 +29,10 @@ public class Elements extends Cal5e {
     private ElementVar elementVar = null;
     private ElementDet elementDet = null;
             
-    public Elements(Wincalc iwin, Constructiv calc) {
-        super(iwin, calc);
-        elementVar = new ElementVar(iwin, calc);
-        elementDet = new ElementDet(iwin, calc);
+    public Elements(Wincalc iwin) {
+        super(iwin);
+        elementVar = new ElementVar(iwin);
+        elementDet = new ElementDet(iwin);
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.

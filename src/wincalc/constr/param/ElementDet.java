@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import wincalc.Wincalc;
-import static wincalc.constr.Cal5e.compareInt;
-import wincalc.constr.Constructiv;
 import wincalc.model.ElemSimple;
 
 //Составы

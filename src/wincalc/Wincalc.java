@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import wincalc.constr.Accessory;
-import wincalc.constr.Constructiv;
 import wincalc.constr.Specification;
 import wincalc.constr.Tariffication;
 import wincalc.constr.Elements;
@@ -72,7 +71,6 @@ public class Wincalc {
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
 
     //спецификация конструкции
-    protected Constructiv constructiv = new Constructiv(this); //конструктив
     protected Tariffication tariffication = new Tariffication(this); //тарификация
 //==============================================================================    
 
@@ -119,7 +117,7 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv() {
         try {
-            Elements elements = new Elements(this, constructiv); //составы
+            Elements elements = new Elements(this); //составы
             elements.build();
             
           /*Joining joining = new Joining(iwin, this); //соединения

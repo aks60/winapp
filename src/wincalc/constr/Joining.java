@@ -26,11 +26,11 @@ public class Joining extends Cal5e {
     private JoiningDet joiningDet = null;
     private ElementDet elementDet = null;
             
-    public Joining(Wincalc iwin, Constructiv calc) {
-        super(iwin, calc);
-        joiningVar = new JoiningVar(iwin, calc);
-        joiningDet = new JoiningDet(iwin, calc);
-        elementDet = new ElementDet(iwin, calc);
+    public Joining(Wincalc iwin) {
+        super(iwin);
+        joiningVar = new JoiningVar(iwin);
+        joiningDet = new JoiningDet(iwin);
+        elementDet = new ElementDet(iwin);
     }
 
     public void build() {

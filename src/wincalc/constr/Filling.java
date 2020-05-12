@@ -35,11 +35,11 @@ public class Filling extends Cal5e {
     private ElementDet elementDet = null;
     public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     
-    public Filling(Wincalc iwin, Constructiv calc) {
-        super(iwin, calc);
-        fillingVar = new FillingVar(iwin, calc);
-        fillingDet = new FillingDet(iwin, calc);
-        elementDet = new ElementDet(iwin, calc);        
+    public Filling(Wincalc iwin) {
+        super(iwin);
+        fillingVar = new FillingVar(iwin);
+        fillingDet = new FillingDet(iwin);
+        elementDet = new ElementDet(iwin);        
     }
 
     public void build() {

@@ -10,16 +10,11 @@ import wincalc.model.Com5t;
 public class Cal5e {
 
     private Wincalc iwin = null;
-    private Constructiv calc = null;
+    //private Constructiv calc = null;
 
-    public Cal5e(Wincalc iwin, Constructiv calc) {
+    public Cal5e(Wincalc iwin) {
         this.iwin = iwin;
-        this.calc = calc;
     } 
-    
-    public Constructiv calc() {
-        return calc;
-    }
     
     public Wincalc iwin() {
         return iwin;

@@ -4,7 +4,7 @@ import wincalc.Wincalc;
 
 public class Kits extends Cal5e {
 
-    public Kits(Wincalc iwin, Constructiv calcConstructiv) {
-        super(iwin, calcConstructiv);
+    public Kits(Wincalc iwin) {
+        super(iwin);
     }
 }
