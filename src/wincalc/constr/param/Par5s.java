@@ -18,11 +18,10 @@ public class Par5s {
     protected final int PAR3 = 4;   //Текст параметра
     protected Object obj1, obj2, obj3, obj4; //Объекты калькуляции
     protected Wincalc iwin = null;
-    protected Constructiv calcConstr = null;
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     protected String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
 
-    public Par5s(Wincalc iwin, Constructiv calcConstr) {
+    public Par5s(Wincalc iwin) {
         this.iwin = iwin;
         this.calcConstr = calcConstr;
     }

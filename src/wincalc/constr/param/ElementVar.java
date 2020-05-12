@@ -21,8 +21,8 @@ public class ElementVar extends Par5s {
 
     private int[] par = {31000, 31001, 31002, 31003, 31004, 31005, 31006, 31007, 31008, 31015, 31016, 31020, 31033, 31034, 31037, 31041, 31050, 31052, 31055, 31056, 31080, 31085, 31090, 31095, 31097, 31099, 37001, 37002, 37009, 37010, 37030, 37042, 37056, 37080, 37085, 37099};
 
-    public ElementVar(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+    public ElementVar(Wincalc iwin) {
+        super(iwin);
     }
 
     public boolean check(ElemSimple elemSimple, List<Record> paramList) {
@@ -90,19 +90,19 @@ public class ElementVar extends Par5s {
                         break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера    
-                        if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color1) == false) {
+                        if (compareInt(paramRec.getStr(PAR3), elemSimple.color1) == false) {
                             return false;
                         }
                         break;
                     case 31006:  //Коды внутр. текстуры контейнера 
                     case 37006:  //Коды внутр. текстуры контейнера    
-                        if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == false) {
+                        if (compareInt(paramRec.getStr(PAR3), elemSimple.color2) == false) {
                             return false;
                         }
                         break;
                     case 31007:  //Коды внешн. текстуры контейнера 
                     case 37007:  //Коды внешн. текстуры контейнера    
-                        if (Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == false) {
+                        if (compareInt(paramRec.getStr(PAR3), elemSimple.color3) == false) {
                             return false;
                         }
                         break;
@@ -127,7 +127,7 @@ public class ElementVar extends Par5s {
                         message(paramRec.getInt(PAR1));
                         break;
                     case 31020:  //Ограничение угла к горизонту, ° 
-                        if (Constructiv.compareFloat(paramRec.getStr(PAR3), ((ElemSimple) elemSimple).anglHoriz) == false) {
+                        if (compareFloat(paramRec.getStr(PAR3), ((ElemSimple) elemSimple).anglHoriz) == false) {
                             return false;
                         }
                         break;
@@ -151,7 +151,7 @@ public class ElementVar extends Par5s {
                         message(paramRec.getInt(PAR1));
                         break;
                     case 31041:  //Ограничение длины профиля, мм 
-                        if (Constructiv.compareFloat(paramRec.getStr(PAR3), elemSimple.width()) == false) {
+                        if (compareFloat(paramRec.getStr(PAR3), elemSimple.width()) == false) {
                             return false;
                         }
                         break;
@@ -174,15 +174,15 @@ public class ElementVar extends Par5s {
                         break;
                     case 31055:  //Коды внутр. и внешн. текстуры изд.
                     case 37055:  //Коды внутр. и внешн. текстуры изд.    
-                        if ((Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true
-                                && Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false) {
+                        if ((compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true
+                                && compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false) {
                             return false;
                         }
                         break;
                     case 31056:  //Коды внутр. или внеш. текстуры изд. 
                     case 37056:  //Коды внут. или внеш. текстуры изд. 
-                        if ((Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true
-                                || Constructiv.compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false) {
+                        if ((compareInt(paramRec.getStr(PAR3), elemSimple.color2) == true
+                                || compareInt(paramRec.getStr(PAR3), elemSimple.color3) == true) == false) {
                             return false;
                         }
                         break;
@@ -249,7 +249,8 @@ public class ElementVar extends Par5s {
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
                         //message(paramRec.getInt(PAR1), elemSimple.type(), paramRec.getStr(PAR3));
-                        Float[] arr = calcConstr.parserFloat2(paramRec.getStr(PAR3));
+//                        Float[] arr = parserFloat2(paramRec.getStr(PAR3));
+                        Float[] arr = pa
                         if(arr[0] > elemSimple.width() && arr[1] < elemSimple.width()) {
                             
                         }

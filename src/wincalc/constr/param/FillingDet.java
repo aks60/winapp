@@ -2,18 +2,12 @@ package wincalc.constr.param;
 
 import wincalc.constr.*;
 import dataset.Record;
-import domain.eArtikl;
-import domain.eSysprof;
 import domain.eSystree;
-import enums.LayoutArea;
-import enums.ParamJson;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import wincalc.Wincalc;
-import wincalc.model.Com5t;
+import static wincalc.constr.Cal5e.compareInt;
 import wincalc.model.ElemSimple;
 
 //Заполнения
@@ -21,8 +15,8 @@ public class FillingDet extends Par5s {
 
     private int[]  par = {14000 ,14030 ,14040 ,14050 ,14060 ,14065 ,14068 ,15000 ,15005 ,15011 ,15013 ,15027 ,15030 ,15040,15045 ,15050 ,15055 ,15068 ,15069};            
 
-    public FillingDet(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+    public FillingDet(Wincalc iwin) {
+        super(iwin);
     }
 
     public boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> paramList) {
@@ -68,21 +62,21 @@ public class FillingDet extends Par5s {
                 case 14067:  //Коды основной текстуры изделия 
                 case 15067:  //Коды основной текстуры изделия    
                     int c1 = ElemSimple.iwin().color1;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c1) == false) {
                         return false;
                     }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
                 case 15068:  //Коды внутр. текстуры изделия     
                     int c2 = ElemSimple.iwin().color2;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c2) == false) {
                         return false;
                     }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
                 case 15069:  //Коды внешн. текстуры изделия     
                     int c3 = ElemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c3) == false) {
                         return false;
                     }
                     break;

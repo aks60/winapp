@@ -9,6 +9,7 @@ import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.List;
 import wincalc.Wincalc;
+import static wincalc.constr.Cal5e.compareInt;
 import wincalc.model.AreaSimple;
 import wincalc.model.AreaStvorka;
 import wincalc.model.ElemFrame;
@@ -19,8 +20,8 @@ public class FurnitureDet  extends Par5s {
 
     private int[] par = {24001, 24002, 25002, 24004, 24006, 24010, 25010, 24012, 24030, 25030, 24033, 24038, 24063, 24067, 25067, 24068, 24069, 24070, 24072, 24073, 24074, 24075, 24095, 24099, 25013, 25035, 25040, 25060, 25067};    
     
-    public FurnitureDet(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+    public FurnitureDet(Wincalc iwin) {
+        super(iwin);
     }
 
     public boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
@@ -145,7 +146,7 @@ public class FurnitureDet  extends Par5s {
                 case 24069:  //Коды внешн. текстуры изделия 
                 case 25069:  //Коды внешн. текстуры изделия     
                     int c3 = elemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c3) == false) {
                         return false;
                     }
                     break;

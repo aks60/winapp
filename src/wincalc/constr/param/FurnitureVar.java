@@ -13,8 +13,8 @@ public class FurnitureVar extends Par5s {
 
     private int[] par = {2101, 2104, 2140, 2185};
     
-    public FurnitureVar(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+    public FurnitureVar(Wincalc iwin) {
+        super(iwin);
     }
 
     public boolean furniture(ElemSimple elemSimple, List<Record> tableList) {

@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import wincalc.Wincalc;
+import static wincalc.constr.Cal5e.compareInt;
 import wincalc.model.ElemSimple;
 
 //Cоединения
@@ -16,8 +17,8 @@ public class JoiningDet extends Par5s {
     
     private int[] par = {11000, 11009, 11010, 11020, 11030, 11040, 11050, 11060, 11067, 11068, 11069, 11070, 11072, 11095, 12000, 12008, 12010, 12020, 12030, 12050, 12060, 12063, 12065, 12068, 12069, 12070, 12072, 12075};
 
-    public JoiningDet(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+    public JoiningDet(Wincalc iwin) {
+        super(iwin);
     }
 
     public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> paramList) {
@@ -95,21 +96,21 @@ public class JoiningDet extends Par5s {
                 case 11067:  //Коды основной текстуры изделия 
                 case 12067:  //Коды основной текстуры изделия
                     int c1 = elemSimple.iwin().color1;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c1) == false) {
                         return false;
                     }
                     break;
                 case 11068:  //Коды внутр. текстуры изделия 
                 case 12068:  //Коды внутр. текстуры изделия 
                     int c2 = elemSimple.iwin().color2;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c2) == false) {
                         return false;
                     }
                     break;
                 case 11069:  //Коды внешн. текстуры изделия
                 case 12069:  //Коды внешн. текстуры изделия     
                     int c3 = elemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c3) == false) {
                         return false;
                     }
                     break;

@@ -5,15 +5,12 @@ import domain.eArtikl;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
-import enums.ParamJson;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import wincalc.Wincalc;
+import static wincalc.constr.Cal5e.compareInt;
 import wincalc.constr.Constructiv;
-import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
 
 //Составы
@@ -23,8 +20,8 @@ public class ElementDet extends Par5s {
             34006, 34007, 34008, 34010, 34011, 34015, 34030, 34051, 34060, 34066, 34067, 34068, 34069, 34070, 34071, 34075, 34095, 34099,
             38004, 38010, 38030, 38050, 38060, 38067, 38068, 38069, 39002, 39005, 39020, 39060, 39068, 39069, 39075, 39077, 39093, 40010, 40067, 40068, 40069};
     
-    public ElementDet(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+    public ElementDet(Wincalc iwin) {
+        super(iwin);
     }
     
     public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> paramList) {
@@ -69,21 +66,21 @@ public class ElementDet extends Par5s {
                 case 33005:  //Коды основной текстуры контейнера 
                 case 34005:  //Коды основной текстуры контейнера
                     int m1 = elemSimple.iwin().color1;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m1) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), m1) == false) {
                         return false;
                     }
                     break;
                 case 33006:  //Коды внутр. текстуры контейнера
                 case 34006:  //Коды внутр. текстуры контейнера 
                     int m2 = elemSimple.iwin().color2;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m2) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), m2) == false) {
                         return false;
                     }
                     break;
                 case 33007:  //Коды внешн. текстуры контейнера 
                 case 34007:  //Коды внешн. текстуры контейнера     
                     int m3 = elemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), m3) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), m3) == false) {
                         return false;
                     }
                     break;
@@ -263,7 +260,7 @@ public class ElementDet extends Par5s {
                 case 39067:  //Коды основной текстуры изделия
                 case 40067:  //Коды основной текстуры изделия                     
                     int c1 = elemSimple.iwin().color1;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c1) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c1) == false) {
                         return false;
                     }
                     break;
@@ -273,7 +270,7 @@ public class ElementDet extends Par5s {
                 case 39068:  //Коды внутр. текстуры изделия
                 case 40068:  //Коды внутр. текстуры изделия    
                     int c2 = elemSimple.iwin().color2;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c2) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c2) == false) {
                         return false;
                     }
                     break;
@@ -283,7 +280,7 @@ public class ElementDet extends Par5s {
                 case 39069:  //Коды внешн. текстуры изделия 
                 case 40069:  //Коды внешн. текстуры изделия                      
                     int c3 = elemSimple.iwin().color3;
-                    if (Constructiv.compareInt(paramRec.getStr(PAR3), c3) == false) {
+                    if (compareInt(paramRec.getStr(PAR3), c3) == false) {
                         return false;
                     }
                     break;

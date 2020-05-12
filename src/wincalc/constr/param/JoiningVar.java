@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import wincalc.Wincalc;
+import static wincalc.constr.Cal5e.compareFloat;
 import wincalc.model.ElemJoining;
 import wincalc.model.ElemSimple;
 
@@ -20,8 +21,8 @@ public class JoiningVar extends Par5s {
     private int[] parConv = {1005, 1008, 1010, 1011, 1012, 1013, 1020, 1040, 1085, 1099, 2005, 2012, 2013, 2020, 2030, 2061, 2099, 3002, 3003, 3005, 3015, 3020, 3031, 3050, 3099, 4002, 4005, 4011, 4012, 4013, 4015, 4018, 4020, 4040, 4044, 4085, 4095, 4099};
     
     //Соединения
-    public JoiningVar(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+    public JoiningVar(Wincalc iwin) {
+        super(iwin);
     }
 
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
@@ -99,7 +100,7 @@ public class JoiningVar extends Par5s {
                     for (Record elementRec1 : elementList1) {
                         if (elementRec1.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find2(elementRec1.getInt(PAR1));
-                            substr1 = (new ElementVar(iwin, calcConstr)).check(joinElement1, elempar1List);
+                            substr1 = (new ElementVar(iwin)).check(joinElement1, elempar1List);
                             break;
                         }
                     }
@@ -115,7 +116,7 @@ public class JoiningVar extends Par5s {
                     for (Record elementRec2 : elementList2) {
                         if (elementRec2.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar2List = eElempar2.find2(elementRec2.getInt(PAR1));
-                            substr2 = (new ElementVar(iwin, calcConstr)).check(joinElement2, elempar2List);
+                            substr2 = (new ElementVar(iwin)).check(joinElement2, elempar2List);
                             break;
                         }
                     }
@@ -130,7 +131,7 @@ public class JoiningVar extends Par5s {
                     strTxt = paramRec.getStr(PAR3);
                     List<Record> elementList1a = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
                     boolean substr1a = false;
-                    ElementVar elementVar = new ElementVar(iwin, calcConstr);
+                    ElementVar elementVar = new ElementVar(iwin);
                     for (Record elementRec : elementList1a) {
                         if (elementRec.getStr(eElement.name).contains(strTxt)) {
                             ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(PAR1));
@@ -202,7 +203,7 @@ public class JoiningVar extends Par5s {
                 case 2020:  //Ограничение угла, ° 
                 case 3020:  //Ограничение угла, ° 
                 case 4020:  //Ограничение угла, °     
-                    if (Constructiv.compareFloat(paramRec.getStr(PAR3), angl) == false) return false;
+                    if (compareFloat(paramRec.getStr(PAR3), angl) == false) return false;
                     break;                    
                 case 2030:  //Припуск Артикула1/Артикула2 , мм 
                     strTxt = paramRec.getStr(PAR3);

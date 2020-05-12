@@ -13,7 +13,7 @@ public class FillingVar extends Par5s {
     private int[] parGrup = {13015, 13017, 13081, 13099};
     
     public FillingVar(Wincalc iwin, Constructiv calcConstr) {
-        super(iwin, calcConstr);
+        super(iwin);
     }
         
     public boolean check(ElemSimple elemSimple, List<Record> paramList) {
