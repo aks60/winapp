@@ -8,10 +8,11 @@ import static enums.TypeOpen1.values;
  */
 public enum TypeGlass implements Enam {
 
-    RECTANGL(1, "Прямоугольное"),
-    NOT_RECTANGU(2, "Не прямоугольное"),
-    ARCHED(3, "Арочное"),
-    NOT_ARCHED(4, "Не арочное");
+    SQUARE(1, "Четырёхугольное"),
+    TRAPEZE(2, "Трапеция"),
+    TRIANGL(3, "Треугольное"),
+    ARCH(4, "Арочное"),
+    ANY(5, "Любое");
 
     public int id = 0;
     public String name = "";

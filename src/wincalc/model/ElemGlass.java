@@ -9,22 +9,20 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
 import domain.eSystree;
+import enums.Enam;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.LayoutProfile;
 import enums.TypeArtikl1;
 import enums.TypeElem;
+import enums.TypeGlass;
 import enums.UseArtiklTo;
 import wincalc.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
 
-    public static final String RECTANGL = "Прямоугольное";              //
-    public static final String RECTANGU_NOT = "Не прямоугольное";       // Параметры
-    public static final String ARCHED = "Арочное";                      // формы заполнения
-    public static final String ARCHED_NOT = "Не арочное";               //
-
-    public float radiusGlass = 0;
+    public Enam typeGlass = TypeGlass.ANY; //форма заполнения
+    public float radiusGlass = 0; //радиус арки
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
@@ -43,10 +41,10 @@ public class ElemGlass extends ElemSimple {
 
         if (TypeElem.ARCH == owner.type) {
             setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
-            specificationRec.putParam(13015, ARCHED);
+            specificationRec.putParam(13015, TypeGlass.ARCH.text());
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-            specificationRec.putParam(13015, RECTANGL);
+            specificationRec.putParam(13015, TypeGlass.SQUARE.text());
         }
     }
 
