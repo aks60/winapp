@@ -229,7 +229,7 @@ public class Constructiv {
             str = str.substring(0, str.length() - 1);
         }
         String[] arr2 = str.split("/");
-        if (arr.length == 2) {
+        if (arr2.length == 2) {
            String[] arr3 = arr2[0].split("-");
            String[] arr4 = arr2[1].split("-");
            if(arr3.length == 2) {
@@ -323,6 +323,10 @@ public class Constructiv {
         return false;
     }
 
+    public boolean checkSize(float par, float... arr) {
+        
+    }
+    
     public static void test_param(int[] paramArr) {
 
         HashMap<String, ArrayList> hm = new HashMap();

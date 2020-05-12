@@ -249,7 +249,10 @@ public class ElementVar extends Par5s {
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
                         //message(paramRec.getInt(PAR1), elemSimple.type(), paramRec.getStr(PAR3));
-                        calcConstr.parserFloat2(paramRec.getStr(PAR3));
+                        Float[] arr = calcConstr.parserFloat2(paramRec.getStr(PAR3));
+                        if(arr[0] > elemSimple.width() && arr[1] < elemSimple.width()) {
+                            
+                        }
                         break;
                     case 37017:  //Код системы содержит строку 
                         message(paramRec.getInt(PAR1));
