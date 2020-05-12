@@ -67,7 +67,7 @@ public class Wincalc {
     protected HashMap<String, LinkedList<Object[]>> drawMapLineList = new HashMap(); //список линий окон 
 
     public AreaSimple rootArea = null;
-    private HashMap<Integer, String> mapPro4Params = new HashMap();
+    //private HashMap<Integer, String> mapPro4Params = new HashMap(); 
     public HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию       
 
     public LinkedList<Com5t> listCom5t; //список всех Com5t

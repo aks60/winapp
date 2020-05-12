@@ -29,7 +29,7 @@ public class Specification {
 
     protected Com5t owner = null; //элемент пораждающий спецификацию
     public ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
-    public HashMap<Integer, String> mapParam = null; //параметры спецификации
+    private HashMap<Integer, String> mapParam = null; //параметры спецификации
     public Record artiklRec = null; //профиль в спецификации
 
     public float id = -1;  //ID

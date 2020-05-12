@@ -53,7 +53,7 @@ public class AreaArch extends AreaSimple {
             el.cutAngl2 = 45;
 
             if (index == 0) {
-                el.name = "===Угловое соединение правое верхнее";
+                el.name = "Угловое соединение правое верхнее";
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.ARCH);
                 el.cutAngl1 = (float) ang3;

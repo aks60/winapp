@@ -15,12 +15,10 @@ public class Par5s {
     public final int PAR1 = 2;   //Ключ 1  
     public final int PAR2 = 3;   //Ключ 2   
     public final int PAR3 = 4;   //Значение      
-    private HashMap<Integer, String> hmParam = null;
     protected Wincalc iwin = null;
     protected Constructiv calcConstr = null;
-    protected int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
+    protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     protected String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
-    protected boolean output = false;
    
     public Par5s(Wincalc iwin, Constructiv calcConstr) {
         this.iwin = iwin;

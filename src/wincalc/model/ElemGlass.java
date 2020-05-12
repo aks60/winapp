@@ -43,10 +43,10 @@ public class ElemGlass extends ElemSimple {
 
         if (TypeElem.ARCH == owner.type) {
             setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
-            //TODO putHmParam(13015, ARCHED);
+            specificationRec.putParam(13015, ARCHED);
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-            //TODO putHmParam(13015, RECTANGL);
+            specificationRec.putParam(13015, RECTANGL);
         }
     }
 
