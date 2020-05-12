@@ -8,7 +8,7 @@ import static enums.TypeOpen1.values;
  */
 public enum TypeGlass implements Enam {
 
-    SQUARE(1, "Четырёхугольное"),
+    RECTANGL(1, "Четырёхугольное"),
     TRAPEZE(2, "Трапеция"),
     TRIANGL(3, "Треугольное"),
     ARCH(4, "Арочное"),

@@ -7,7 +7,7 @@ import wincalc.model.AreaArch;
 import wincalc.model.AreaTriangl;
 import wincalc.model.ElemJoining;
 import wincalc.model.AreaSimple;
-import wincalc.model.AreaSquare;
+import wincalc.model.AreaRectangl;
 import wincalc.model.AreaTrapeze;
 import wincalc.model.ElemImpost;
 import com.google.gson.Gson;
@@ -225,8 +225,8 @@ public class Wincalc {
         try {
             //Главное окно        
             Intermediate imf = listIntermediate.getFirst();
-            if (TypeElem.SQUARE == imf.type) {
-                rootArea = new AreaSquare(this, null, imf.id, TypeElem.SQUARE, imf.layout, imf.width, imf.height, color1, color2, color3, imf.param); //простое
+            if (TypeElem.RECTANGL == imf.type) {
+                rootArea = new AreaRectangl(this, null, imf.id, TypeElem.RECTANGL, imf.layout, imf.width, imf.height, color1, color2, color3, imf.param); //простое
             } else if (TypeElem.TRAPEZE == imf.type) {
                 rootArea = new AreaTrapeze(this, null, imf.id, TypeElem.TRAPEZE, imf.layout, imf.width, imf.height, color1, color2, color3, imf.param); //трапеция
             } else if (TypeElem.TRIANGL == imf.type) {
@@ -251,8 +251,8 @@ public class Wincalc {
                     if (TypeElem.FULLSTVORKA == imd.type) {
                         imd.addArea(new AreaStvorka(this, imd.owner.area, imd.id, imd.param));
                     } else {
-                        if (TypeElem.SQUARE == rootArea.type()) {
-                            imd.addArea(new AreaSquare(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //простое
+                        if (TypeElem.RECTANGL == rootArea.type()) {
+                            imd.addArea(new AreaRectangl(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //простое
 
                         } else if (TypeElem.TRAPEZE == rootArea.type()) {
                             imd.addArea(new AreaTrapeze(this, imd.owner.area, imd.id, imd.type, imd.layout, imd.width, imd.height, -1, -1, -1, null)); //трапеция

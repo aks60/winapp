@@ -157,7 +157,7 @@ public class BoxCustom extends javax.swing.JFrame {
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
         pan6 = new javax.swing.JPanel();
-        btnSquare = new javax.swing.JButton();
+        btnRectangl = new javax.swing.JButton();
         btnArch3 = new javax.swing.JButton();
         btnArch2 = new javax.swing.JButton();
         btnTrapeze = new javax.swing.JButton();
@@ -166,8 +166,8 @@ public class BoxCustom extends javax.swing.JFrame {
         pan12 = new javax.swing.JPanel();
         btnImpostVert = new javax.swing.JButton();
         btnImpostGoriz = new javax.swing.JButton();
-        btnSquare4 = new javax.swing.JButton();
-        btnSquare5 = new javax.swing.JButton();
+        btnRectangl4 = new javax.swing.JButton();
+        btnRectangl5 = new javax.swing.JButton();
         pan11 = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -410,18 +410,18 @@ public class BoxCustom extends javax.swing.JFrame {
         pan6.setPreferredSize(new java.awt.Dimension(38, 500));
         pan6.setLayout(new javax.swing.BoxLayout(pan6, javax.swing.BoxLayout.Y_AXIS));
 
-        btnSquare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare.setName("areaSquare"); // NOI18N
-        btnSquare.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare.addActionListener(new java.awt.event.ActionListener() {
+        btnRectangl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnRectangl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRectangl.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnRectangl.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnRectangl.setName("areaSquare"); // NOI18N
+        btnRectangl.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnRectangl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnArea(evt);
             }
         });
-        pan6.add(btnSquare);
+        pan6.add(btnRectangl);
 
         btnArch3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d030.gif"))); // NOI18N
         btnArch3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -520,31 +520,31 @@ public class BoxCustom extends javax.swing.JFrame {
         });
         pan12.add(btnImpostGoriz);
 
-        btnSquare4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare4.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare4.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare4.setName("areaSquare"); // NOI18N
-        btnSquare4.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare4.addActionListener(new java.awt.event.ActionListener() {
+        btnRectangl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnRectangl4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRectangl4.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnRectangl4.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnRectangl4.setName("areaSquare"); // NOI18N
+        btnRectangl4.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnRectangl4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSquare4ActionPerformed(evt);
+                btnRectangl4ActionPerformed(evt);
             }
         });
-        pan12.add(btnSquare4);
+        pan12.add(btnRectangl4);
 
-        btnSquare5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare5.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare5.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare5.setName("areaSquare"); // NOI18N
-        btnSquare5.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare5.addActionListener(new java.awt.event.ActionListener() {
+        btnRectangl5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnRectangl5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnRectangl5.setMaximumSize(new java.awt.Dimension(32, 32));
+        btnRectangl5.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnRectangl5.setName("areaSquare"); // NOI18N
+        btnRectangl5.setPreferredSize(new java.awt.Dimension(32, 32));
+        btnRectangl5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSquare5ActionPerformed(evt);
+                btnRectangl5ActionPerformed(evt);
             }
         });
-        pan12.add(btnSquare5);
+        pan12.add(btnRectangl5);
 
         pan2.add(pan12, java.awt.BorderLayout.WEST);
 
@@ -694,13 +694,13 @@ public class BoxCustom extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnElem
 
-    private void btnSquare4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare4ActionPerformed
+    private void btnRectangl4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRectangl4ActionPerformed
 
-    }//GEN-LAST:event_btnSquare4ActionPerformed
+    }//GEN-LAST:event_btnRectangl4ActionPerformed
 
-    private void btnSquare5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare5ActionPerformed
+    private void btnRectangl5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRectangl5ActionPerformed
    
-    }//GEN-LAST:event_btnSquare5ActionPerformed
+    }//GEN-LAST:event_btnRectangl5ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -711,12 +711,12 @@ public class BoxCustom extends javax.swing.JFrame {
     private javax.swing.JButton btnImpostGoriz;
     private javax.swing.JButton btnImpostVert;
     private javax.swing.JButton btnIns;
+    private javax.swing.JButton btnRectangl;
+    private javax.swing.JButton btnRectangl4;
+    private javax.swing.JButton btnRectangl5;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSquare;
     private javax.swing.JButton btnSquare1;
-    private javax.swing.JButton btnSquare4;
-    private javax.swing.JButton btnSquare5;
     private javax.swing.JButton btnTrapeze;
     private javax.swing.JButton btnTrapeze2;
     private javax.swing.JPanel centr;

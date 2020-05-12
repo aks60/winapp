@@ -6,9 +6,9 @@ import enums.LayoutJoin;
 import enums.TypeJoin;
 import wincalc.Wincalc;
 
-public class AreaSquare extends AreaSimple {
+public class AreaRectangl extends AreaSimple {
 
-    public AreaSquare(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
+    public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3);
         parsing(param);
     }

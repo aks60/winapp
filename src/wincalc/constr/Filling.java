@@ -253,7 +253,7 @@ public class Filling extends Cal5e {
                     } else {
                         Record art = eArtikl.find(clasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.AREA == elemGlass.owner().type()
-                                || TypeElem.SQUARE == elemGlass.owner().type()
+                                || TypeElem.RECTANGL == elemGlass.owner().type()
                                 || TypeElem.FULLSTVORKA == elemGlass.owner().type()) {
 
                             for (int index = 0; index < 4; index++) {
@@ -444,7 +444,7 @@ public class Filling extends Cal5e {
                     } else {
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.AREA == elemGlass.owner().type()
-                                || TypeElem.SQUARE == elemGlass.owner().type()
+                                || TypeElem.RECTANGL == elemGlass.owner().type()
                                 || TypeElem.FULLSTVORKA == elemGlass.owner().type()) {
 
                             for (int index = 0; index < 4; index++) {

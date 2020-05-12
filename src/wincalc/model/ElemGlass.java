@@ -44,7 +44,7 @@ public class ElemGlass extends ElemSimple {
             specificationRec.putParam(13015, TypeGlass.ARCH.text());
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-            specificationRec.putParam(13015, TypeGlass.SQUARE.text());
+            specificationRec.putParam(13015, TypeGlass.RECTANGL.text());
         }
     }
 
