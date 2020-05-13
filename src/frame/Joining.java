@@ -35,12 +35,25 @@ import swing.BooleanRenderer;
 import common.Util;
 import dialog.DicColvar;
 import enums.UseColcalc;
+import java.awt.Component;
 import java.util.stream.Stream;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import main.Main;
 
 //варианты соединений
 public class Joining extends javax.swing.JFrame {
+
+    private ImageIcon icon[] = {
+        new ImageIcon(getClass().getResource("/resource/img16/b000.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b001.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b002.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
+        new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
@@ -190,6 +203,20 @@ public class Joining extends javax.swing.JFrame {
             }
         };
 
+        tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+
+            private Icon ico = new ImageIcon(getClass().getResource("/resource/img16/b000.gif"));
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 0) {
+                    int types = qJoinvar.get(row).getInt(eJoinvar.types);
+                    JLabel label = (JLabel) comp;
+                    label.setIcon(ico);
+                }
+                return comp;
+            }
+        });
         tab2.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
 
         Util.buttonEditorCell(tab1, 0).addActionListener(event -> {
@@ -603,8 +630,8 @@ public class Joining extends javax.swing.JFrame {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(52);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(2).setMaxWidth(40);
         }

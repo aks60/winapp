@@ -437,6 +437,7 @@ public class Profstroy {
             updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");
             updateSql(eJoindet.up, eJoindet.joinvar_id, "cunic", eJoinvar.up, "cunic");
             updateSql(eJoindet.up, eJoindet.artikl_id, "anumb", eArtikl.up, "code");
+            executeSql("update joinvar set types = types * 10 + cnext");
             executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");

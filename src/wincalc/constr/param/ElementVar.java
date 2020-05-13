@@ -78,8 +78,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31004:  //Если прилегающий артикул 
-                          message(grup);
-//                        message(grup, rec.getStr(TEXT));
+                        message(grup, rec.getStr(TEXT));
 //                        HashMap<String, ElemJoining> mapJoin = elem.iwin().mapJoin;
 //                        pass = 0;
 //                        for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
