@@ -54,6 +54,8 @@ public class Joining extends javax.swing.JFrame {
         new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
+    private int[][] icon1 = {{10, 0}, {20, 1}, {30, 2}, {31, 3}, {40, 4}, {41, 5}};
+    private int[] indexIcon = {10, 20, 30, 31, 40, 41};
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
@@ -212,7 +214,11 @@ public class Joining extends javax.swing.JFrame {
                 if (column == 0) {
                     int types = qJoinvar.get(row).getInt(eJoinvar.types);
                     JLabel label = (JLabel) comp;
-                    label.setIcon(ico);
+                    for (int i = 0; i < 6; i++) {
+                        if (types == indexIcon[i]) {
+                            label.setIcon(icon[i]);
+                        }
+                    }
                 }
                 return comp;
             }
