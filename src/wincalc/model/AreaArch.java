@@ -47,7 +47,7 @@ public class AreaArch extends AreaSimple {
 
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.varJoin = TypeJoin.VAR2;
+            el.varJoin = TypeJoin.VAR20;
             el.id = id() + (index + 2) / 10;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;

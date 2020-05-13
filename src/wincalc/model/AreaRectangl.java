@@ -17,7 +17,7 @@ public class AreaRectangl extends AreaSimple {
     public void joinFrame() {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.varJoin = TypeJoin.VAR2;
+            el.varJoin = TypeJoin.VAR20;
             el.id = id() + (index + 1) / 100;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
