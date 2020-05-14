@@ -62,12 +62,9 @@ public class ElementVar extends Par5s {
                     case 31001:  //Максимальное заполнение изделия, мм 
                         message(grup);
                         break;
-                    case 31008:  //Эффективное заполнение изделия, мм 
-                        message(grup);
-                        break;
                     case 31002:  //Если профиль 
                     case 37002:  //Если артикул профиля контура  
-                        message(grup, rec.getStr(TEXT));
+                        message(grup, rec.getStr(TEXT), elem.layout());
                         if (LayoutArea.ARCH == elem.layout() && "арочный".equals(rec.getStr(TEXT)) == false) {
                             return false;
                         } else if (LayoutArea.ARCH != elem.layout() && "прямой".equals(rec.getStr(TEXT)) == false) {
@@ -114,6 +111,9 @@ public class ElementVar extends Par5s {
                             return false;
                         }
                         break;
+                    case 31008:  //Эффективное заполнение изделия, мм 
+                        message(grup);
+                        break;                        
                     case 31011:  //Толщина внешнего/внутреннего заполнения, мм 
                         message(grup);
                         break;
