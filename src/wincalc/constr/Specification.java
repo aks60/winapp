@@ -253,8 +253,8 @@ public class Specification {
 
         Specification.sort(specList);
         int npp = 0;
-        String format = "%-6s%-46s%-26s%-12s%-12s%-12s";
-        Object str[] = {"Code", "Name", "Art", "areaId", "elemId", "elemType"};
+        String format = "%-6s%-60s%-26s%-12s%-12s%-12s";
+        Object str[] = {"Npp", "Name", "Code", "areaId", "elemId", "elemType"};
         System.out.printf(format, str);
         System.out.println();
         float total = 0;

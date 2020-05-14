@@ -3,12 +3,13 @@ package enums;
 import static enums.TypeOpen1.values;
 import java.util.Arrays;
 
+//Расположение area  и profile объединены в один список Enum
 public enum LayoutArea implements Enam {
+
     NONE("Любая"),
     FULL("Везде"),
     HORIZ("Горизонтальное"),
     VERT("Вертикальное"),
-    
     LEFT("Левая"),
     RIGHT("Правая"),
     TOP("Верхняя"),
@@ -31,7 +32,7 @@ public enum LayoutArea implements Enam {
     public String text() {
         return name;
     }
-    
+
     public Enam[] fields() {
         return values();
     }

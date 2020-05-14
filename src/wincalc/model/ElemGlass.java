@@ -16,7 +16,7 @@ import enums.UseProfile;
 import enums.TypeArtikl1;
 import enums.TypeElem;
 import enums.TypeGlass;
-import enums.UseArtikls;
+import enums.UseArtiklTo;
 import wincalc.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
@@ -61,7 +61,7 @@ public class ElemGlass extends ElemSimple {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
-        sysprofRec = eSysprof.find3(iwin().nuni, UseArtikls.FRAME, UseProfile.LEFT); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
+        sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.FRAME, UseProfile.LEFT); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
             artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }
@@ -180,8 +180,8 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override
-    public UseArtikls useArtiklTo() {
-        return UseArtikls.UNKNOWN;
+    public UseArtiklTo useArtiklTo() {
+        return UseArtiklTo.UNKNOWN;
     }
 
     @Override

@@ -12,7 +12,7 @@ import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.UseArtikls;
+import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -55,7 +55,7 @@ public class Filling extends Cal5e {
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.select()) {
 
-                    UseArtikls typeProf = (elemGlass.owner().type() == TypeElem.FULLSTVORKA) ? UseArtikls.STVORKA : UseArtikls.FRAME;
+                    UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.FULLSTVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {

@@ -41,12 +41,12 @@ public class ElementVar extends Par5s {
                     case 31000:  //Для технологического кода контейнера 
                         message(grup, rec.getStr(TEXT));
                         Record sysprofRec2 = elem.sysprofRec;
-                        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
+                        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);                      
                         if (artiklVRec.get(eArtikl.tech_code) == null) {
                             return false;
                         }
                         String[] strList = rec.getStr(TEXT).split(";");
-                        String[] strList2 = artiklVRec.getStr(TEXT).split(";");
+                        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
                         boolean ret2 = false;
                         for (String str : strList) {
                             for (String str2 : strList2) {

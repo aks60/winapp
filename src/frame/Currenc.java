@@ -38,7 +38,7 @@ public class Currenc extends javax.swing.JFrame {
         this.owner = owner;
         owner.setEnabled(false);
         this.listener = listener;
-        btnChoice.setVisible(true);
+        setVisible(true);
     }
 
     private void loadingModel() {

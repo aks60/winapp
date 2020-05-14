@@ -9,7 +9,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
 import enums.TypeElem;
-import enums.UseArtikls;
+import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,9 +39,9 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно)
     public void build() {
         try {
-            Arrays.asList(UseArtikls.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
+            //Arrays.asList(UseArtiklTo.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
 
-            for (UseArtikls useArtiklTo : UseArtikls.values()) { //цыкл по списку применений артикулов
+            for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { //цыкл по списку применений артикулов
                 for (ElemSimple elemSimp : iwin().listElem) { //цыкл по списку элементов конструкции
                     if (elemSimp.useArtiklTo() == useArtiklTo) {
 
@@ -63,6 +63,8 @@ public class Elements extends Cal5e {
                     }
                 }
             }
+            
+            
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.build()");
         }
@@ -74,20 +76,24 @@ public class Elements extends Cal5e {
 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
+//                if(elempar1List.get(0).getInt(eElempar1.grup) == 31000 || elempar1List.get(0).getInt(eElempar1.grup) == 31002) {
+//                    int m= 0;
+//                }
+                    
                 boolean out = elementVar.check(elemSimple, elempar1List); //ФИЛЬТР вариантов
                 if (out == true) {
                     List<Record> elemdetList = eElemdet.find(element_id);                   
-                    for (Record elendetRec : elemdetList) { //цыкл по детализации
+                    for (Record elemdetRec : elemdetList) { //цыкл по детализации
 
                         HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
-                        int elemdet_id = elendetRec.getInt(eElemdet.id);
+                        int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации
                         boolean out2 = elementDet.check(hmParam, elemSimple, elempar2List);//ФИЛЬТР детализации
                         if (out2 == true) {
 
-                            Record artiklRec = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
+                            Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(artiklRec, elemSimple, hmParam);
-                            specif.setColor(elemSimple, elendetRec);
+                            specif.setColor(elemSimple, elemdetRec);
                             specif.element = "СОСТ";
                             ((ElemSimple) elemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
                         }
@@ -108,7 +114,7 @@ public class Elements extends Cal5e {
             LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
             LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам створок конструкции
 
-            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikls.FRAME); //первая по приоритету рама в системе 
+            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.FRAME); //первая по приоритету рама в системе 
             int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
             List<Record> artdetList = eArtdet.find(artikl_id); //список детализации рамы в системе              
             Record artdetRec = artdet(artdetList); //спецификация рамы в системе (подбор текстуры)

@@ -5,7 +5,7 @@ import dataset.Record;
 import domain.eArtikl;
 import enums.LayoutArea;
 import enums.TypeElem;
-import enums.UseArtikls;
+import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.List;
 import wincalc.Wincalc;
@@ -92,17 +92,17 @@ public class FurnitureDet  extends Par5s {
                 case 25033:  //Фурнитура штульповая    
                     if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("левое")) {
                         ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.LEFT);
-                        if (paramRec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtikls.SHTULP) {
+                        if (paramRec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                             return false;
-                        } else if (paramRec.getStr(TEXT).equals("Нет") && el.useArtiklTo() == UseArtikls.SHTULP) {
+                        } else if (paramRec.getStr(TEXT).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
                             return false;
                         }
                     } else if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("правое")) {
                         ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.RIGHT);
-                        if (paramRec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtikls.SHTULP) {
+                        if (paramRec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                             return false;
                         }
-                        if (el.useArtiklTo() == UseArtikls.SHTULP && paramRec.getStr(TEXT).equals("Нет")) {
+                        if (el.useArtiklTo() == UseArtiklTo.SHTULP && paramRec.getStr(TEXT).equals("Нет")) {
                             return false;
                         }
                     }
