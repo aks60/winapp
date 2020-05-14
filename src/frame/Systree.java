@@ -1003,6 +1003,7 @@ public class Systree extends javax.swing.JFrame {
         ));
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -1037,6 +1038,7 @@ public class Systree extends javax.swing.JFrame {
         ));
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
@@ -1081,6 +1083,7 @@ public class Systree extends javax.swing.JFrame {
         });
         tab4.setFillsViewportHeight(true);
         tab4.setName("tab4"); // NOI18N
+        tab4.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tabMousePressed(evt);
