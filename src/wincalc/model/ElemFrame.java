@@ -6,10 +6,10 @@ import domain.eColor;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.UseProfileTo;
+import enums.UseProfile;
 import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.UseArtiklTo;
+import enums.UseArtikls;
 import wincalc.constr.Specification;
 
 public class ElemFrame extends ElemSimple {
@@ -50,13 +50,13 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.TOP);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfile.TOP);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.BOTTOM);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfile.BOTTOM);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.LEFT);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfile.LEFT);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.RIGHT);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfile.RIGHT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
@@ -214,8 +214,8 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override
-    public UseArtiklTo useArtiklTo() {
-        return (TypeElem.FULLSTVORKA == owner().type) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
+    public UseArtikls useArtiklTo() {
+        return (TypeElem.FULLSTVORKA == owner().type) ? UseArtikls.STVORKA : UseArtikls.FRAME;
     }
 
     @Override

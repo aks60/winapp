@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /**
  * Тип профиля (SYSPROA.ATYPE) в системе конструкций
  */
-public enum UseArtiklTo implements Enam {   
+public enum UseArtikls implements Enam {   
     FRAME(1, 1, "Коробка"),
     STVORKA(2, 2, "Створка"),
     IMPOST(3, 3, "Импост"),
@@ -22,12 +22,12 @@ public enum UseArtiklTo implements Enam {
     public String name;
     public Record sysprofRec;
 
-    UseArtiklTo(int id, int id2, String name) {
+    UseArtikls(int id, int id2, String name) {
         this.id = id;
         this.id2 = id2;
         this.name = name;
     }
-    UseArtiklTo(int id, String name) {
+    UseArtikls(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -44,7 +44,7 @@ public enum UseArtiklTo implements Enam {
         return values();
     } 
     
-    public static UseArtiklTo get(int id) {
+    public static UseArtikls get(int id) {
         return Stream.of(values()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }    
 }

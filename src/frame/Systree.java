@@ -27,9 +27,9 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutFrame;
 import enums.LayoutHandle;
-import enums.UseProfileTo;
+import enums.UseProfile;
 import enums.TypeOpen2;
-import enums.UseArtiklTo;
+import enums.UseArtikls;
 import enums.TypeUse;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -141,12 +141,12 @@ public class Systree extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eSysprof.use_side && val != null) {
-                    UseProfileTo en = UseProfileTo.get(Integer.valueOf(val.toString()));
+                    UseProfile en = UseProfile.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
                     }
                 } else if (field == eSysprof.use_type && val != null) {
-                    UseArtiklTo en = UseArtiklTo.get(Integer.valueOf(val.toString()));
+                    UseArtikls en = UseArtikls.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
                     }
@@ -183,7 +183,7 @@ public class Systree extends javax.swing.JFrame {
         tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
 
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
-            new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
+            new DicEnums(this, listenerUsetyp, UseArtikls.values());
         });
 
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
@@ -191,7 +191,7 @@ public class Systree extends javax.swing.JFrame {
         });
         
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
-            new DicEnums(this, listenerSide, UseProfileTo.values());
+            new DicEnums(this, listenerSide, UseProfile.values());
         });
 
 //        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {

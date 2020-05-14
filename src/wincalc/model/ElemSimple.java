@@ -4,7 +4,7 @@ import dataset.Record;
 import domain.eArtikl;
 import enums.UseUnit;
 import wincalc.constr.Specification;
-import enums.UseArtiklTo;
+import enums.UseArtikls;
 import java.awt.Color;
 import java.util.HashMap;
 import wincalc.Wincalc;
@@ -36,7 +36,7 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Использовать артикл для...
-    public abstract UseArtiklTo useArtiklTo();
+    public abstract UseArtikls useArtiklTo();
 
     //Добавить спецификацию в состав элемента
     public abstract void addSpecifSubelem(Specification specification);

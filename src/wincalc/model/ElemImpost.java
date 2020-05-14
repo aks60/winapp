@@ -5,10 +5,10 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.UseProfileTo;
+import enums.UseProfile;
 import enums.TypeArtikl1;
 import enums.TypeElem;
-import enums.UseArtiklTo;
+import enums.UseArtikls;
 import java.awt.Color;
 import wincalc.constr.Specification;
 
@@ -55,10 +55,10 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfileTo.HORIZ);  
+           sysprofRec = eSysprof.find3(iwin().nuni, UseArtikls.IMPOST, UseProfile.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfileTo.VERT); 
+           sysprofRec = eSysprof.find3(iwin().nuni, UseArtikls.IMPOST, UseProfile.VERT); 
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);  
@@ -165,8 +165,8 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override
-    public UseArtiklTo useArtiklTo() {
-        return UseArtiklTo.IMPOST;
+    public UseArtikls useArtiklTo() {
+        return UseArtikls.IMPOST;
     }
 
     @Override

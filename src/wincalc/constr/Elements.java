@@ -9,7 +9,7 @@ import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSysprof;
 import enums.TypeElem;
-import enums.UseArtiklTo;
+import enums.UseArtikls;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,9 +39,9 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно)
     public void build() {
         try {
-            Arrays.asList(UseArtiklTo.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
+            Arrays.asList(UseArtikls.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
 
-            for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { //цыкл по списку применений артикулов
+            for (UseArtikls useArtiklTo : UseArtikls.values()) { //цыкл по списку применений артикулов
                 for (ElemSimple elemSimp : iwin().listElem) { //цыкл по списку элементов конструкции
                     if (elemSimp.useArtiklTo() == useArtiklTo) {
 
@@ -108,7 +108,7 @@ public class Elements extends Cal5e {
             LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
             LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам створок конструкции
 
-            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.FRAME); //первая по приоритету рама в системе 
+            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikls.FRAME); //первая по приоритету рама в системе 
             int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
             List<Record> artdetList = eArtdet.find(artikl_id); //список детализации рамы в системе              
             Record artdetRec = artdet(artdetList); //спецификация рамы в системе (подбор текстуры)

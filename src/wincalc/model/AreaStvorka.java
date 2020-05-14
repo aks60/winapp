@@ -12,7 +12,7 @@ import enums.ParamJson;
 import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeOpen1;
-import enums.UseArtiklTo;
+import enums.UseArtikls;
 import enums.TypeJoin;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -75,7 +75,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void initСonstructiv() {
 
-        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.STVORKA);
+        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtikls.STVORKA);
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
 

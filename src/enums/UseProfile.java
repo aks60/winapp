@@ -2,12 +2,12 @@ package enums;
 
 // Стороны для профилей (SYSPROA.ASETS)
 
-import static enums.UseArtiklTo.values;
+import static enums.UseArtikls.values;
 import static enums.TypeOpen1.values;
 import java.util.stream.Stream;
 
 // select distinct ASETS from PRO4_SYSPROA where region_id = 177 order by ASETS
-public enum UseProfileTo implements Enam {
+public enum UseProfile implements Enam {
     VERT(-3, "Вертикальная"),
     HORIZ(-2, "Горизонтальная"),
     ANY(-1, "Любая"),
@@ -20,7 +20,7 @@ public enum UseProfileTo implements Enam {
     public int id;
     public String name;
 
-    UseProfileTo(int id, String name) {
+    UseProfile(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -37,7 +37,7 @@ public enum UseProfileTo implements Enam {
         return values();
     }
     
-    public static UseProfileTo get(int id) {
+    public static UseProfile get(int id) {
         return Stream.of(values()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }
 }
