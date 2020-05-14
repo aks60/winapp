@@ -136,7 +136,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingModel() {
 
         DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.values());
-        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.id, eSysprof.use_type, eArtikl.code, eArtikl.name, eSysprof.use_side, eSysprof.prio) {
+        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.use_type, eArtikl.code, eArtikl.name, eSysprof.use_side, eSysprof.prio) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -182,21 +182,21 @@ public class Systree extends javax.swing.JFrame {
         };
         tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
 
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
         });
 
-        Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
+        
+        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
             new DicEnums(this, listenerSide, LayoutProfile.values());
         });
 
-        Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-        });
-
-        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-        });
+//        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
+//            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+//        });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
             DicFurniture frame = new DicFurniture(this, listenerFurn);
@@ -992,13 +992,13 @@ public class Systree extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Применение", "Артикул", "Название", "Сторона", "Приоритет"
+                "Применение", "Артикул", "Название", "Сторона", "Приоритет"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -1010,10 +1010,6 @@ public class Systree extends javax.swing.JFrame {
             }
         });
         scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
-        }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
