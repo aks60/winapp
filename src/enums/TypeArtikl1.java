@@ -106,7 +106,7 @@ public enum TypeArtikl1 {
     }
     
     public boolean isType(Record artiklsRec) {
-        if (id1 == artiklsRec.getInt(eArtikl.code) && id2 == artiklsRec.getInt(eArtikl.level2)) return true;
+        if (id1 == artiklsRec.getInt(eArtikl.level1) && id2 == artiklsRec.getInt(eArtikl.level2)) return true;
         return false;
     }
     

@@ -106,7 +106,7 @@ public class ElemFrame extends ElemSimple {
         
         //indexUniq(specif);
         Record artiklRec = specif.artiklRec;
-
+        
         //Просто рама (если элемент включен в список состава)
         if (TypeArtikl1.KOROBKA.isType(artiklRec) || TypeArtikl1.STVORKA.isType(artiklRec)) {
 
