@@ -5,7 +5,7 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.LayoutProfile;
+import enums.UseProfileTo;
 import enums.TypeArtikl1;
 import enums.TypeElem;
 import enums.UseArtiklTo;
@@ -55,10 +55,10 @@ public class ElemImpost extends ElemSimple {
     public void initСonstructiv() {
         
         if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, LayoutProfile.HORIZ);  
+           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfileTo.HORIZ);  
            
         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, LayoutProfile.VERT); 
+           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfileTo.VERT); 
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);  

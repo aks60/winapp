@@ -27,7 +27,7 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutFrame;
 import enums.LayoutHandle;
-import enums.LayoutProfile;
+import enums.UseProfileTo;
 import enums.TypeOpen2;
 import enums.UseArtiklTo;
 import enums.TypeUse;
@@ -141,7 +141,7 @@ public class Systree extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eSysprof.use_side && val != null) {
-                    LayoutProfile en = LayoutProfile.get(Integer.valueOf(val.toString()));
+                    UseProfileTo en = UseProfileTo.get(Integer.valueOf(val.toString()));
                     if (en != null) {
                         return en.text();
                     }
@@ -191,7 +191,7 @@ public class Systree extends javax.swing.JFrame {
         });
         
         Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
-            new DicEnums(this, listenerSide, LayoutProfile.values());
+            new DicEnums(this, listenerSide, UseProfileTo.values());
         });
 
 //        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {

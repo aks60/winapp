@@ -6,7 +6,7 @@ import domain.eColor;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.LayoutProfile;
+import enums.UseProfileTo;
 import enums.TypeArtikl1;
 import enums.TypeElem;
 import enums.UseArtiklTo;
@@ -50,13 +50,13 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), LayoutProfile.TOP);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.TOP);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), LayoutProfile.BOTTOM);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.BOTTOM);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), LayoutProfile.LEFT);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.LEFT);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), LayoutProfile.RIGHT);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfileTo.RIGHT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);

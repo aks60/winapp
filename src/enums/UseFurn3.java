@@ -5,7 +5,7 @@
  */
 package enums;
 
-import static enums.LayoutProfile.values;
+import static enums.UseProfileTo.values;
 import static enums.TypeOpen1.values;
 
 //Ограничение сторон, назначение стороны фурнитуры

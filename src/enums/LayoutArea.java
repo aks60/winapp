@@ -8,12 +8,13 @@ public enum LayoutArea implements Enam {
     FULL("Везде"),
     HORIZ("Горизонтальное"),
     VERT("Вертикальное"),
+    
     LEFT("Левая"),
     RIGHT("Правая"),
     TOP("Верхняя"),
     BOTTOM("Нижняя"),
-    LSKEW("Левый угол"),
-    RSKEW("Правый угол"),
+    //LSKEW("Левый угол"),
+    //RSKEW("Правый угол"),
     ARCH("Арка");
 
     public String name;
