@@ -5,10 +5,13 @@ import common.FrameToFile;
 import common.Util;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikl;
 import domain.eGroups;
 import enums.Enam;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import swing.DefTableModel;
 
 //TODO для справочника серии сделать вставку и редактирование
@@ -50,6 +53,11 @@ public class DicGroups extends javax.swing.JDialog {
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         south = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -116,7 +124,7 @@ public class DicGroups extends javax.swing.JDialog {
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -138,17 +146,28 @@ public class DicGroups extends javax.swing.JDialog {
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(300, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 257, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setMaximumSize(new java.awt.Dimension(20, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(20, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(20, 14));
+        south.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilterCaretUpdate(evt);
+            }
+        });
+        south.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        south.add(checkFilter);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -217,15 +236,29 @@ public class DicGroups extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tab1MouseClicked
 
+    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
+
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tab1.getRowSorter();        
+        if (txtFilter.getText().length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            sorter.setRowFilter(RowFilter.regexFilter(text, 0));
+        }
+    }//GEN-LAST:event_txtFilterCaretUpdate
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel centr;
+    private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel panNn;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
     private void initElements() {
 

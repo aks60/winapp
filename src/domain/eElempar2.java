@@ -5,10 +5,8 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eElempar1.id;
-import static domain.eElempar1.up;
-import static domain.eElempar1.values;
-import static domain.eElempar1.grup;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public enum eElempar2 implements Field {
     up("0", "0", "0", "Параметры специф.составов", "PARVSTS"),
@@ -49,12 +47,20 @@ public enum eElempar2 implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
     
-    public static Record find2(int _par1) {
+    public static Record find2(int _grup) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _par1 == rec.getInt(grup)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _grup == rec.getInt(grup)).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", grup, "=", _par1);
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _grup);
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+    
+    public static List<Record> find3(int _elemdet_id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> _elemdet_id == rec.getInt(elemdet_id)).collect(toList());
+        }
+        Query recordList = new Query(values()).select(up, "where", elemdet_id, "=", _elemdet_id);
+        return (recordList.isEmpty() == true) ? null : recordList;
     }
     
     public String toString() {

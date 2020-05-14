@@ -71,7 +71,7 @@ public enum eElement implements Field {
             return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id)
                     && series2_id == rec.getInt(series_id) && rec.getInt(todef) > 0).findAny().orElse(null);
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and '", series_id, "'='", series2_id, "'");
+        return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and '", series_id, "'='", series2_id, "' and", todef, "> 0");
     }
 
     public String toString() {

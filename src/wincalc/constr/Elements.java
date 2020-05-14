@@ -25,10 +25,10 @@ import wincalc.model.ElemSimple;
  * Составы.
  */
 public class Elements extends Cal5e {
-    
+
     private ElementVar elementVar = null;
     private ElementDet elementDet = null;
-            
+
     public Elements(Wincalc iwin) {
         super(iwin);
         elementVar = new ElementVar(iwin);
@@ -36,11 +36,11 @@ public class Elements extends Cal5e {
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
-    //Но при проверке параметров использую вирт. мат. ценность.
+    //Но при проверке параметров использую оригин. мат. ценность. (Непонятно)
     public void build() {
         try {
             Arrays.asList(UseArtiklTo.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
-            
+
             for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { //цыкл по списку применений артикулов
                 for (ElemSimple elemSimp : iwin().listElem) { //цыкл по списку элементов конструкции
                     if (elemSimp.useArtiklTo() == useArtiklTo) {
@@ -53,7 +53,11 @@ public class Elements extends Cal5e {
                         List<Record> elementList2 = eElement.find(series_id); //варианты состава для серии профилей
                         nested(elementList2, elemSimp);
 
-                        artikl_id = elemSimp.artiklRec.getInt(eArtikl.id);
+                        if (elemSimp.artiklRec.getInt(eArtikl.analog_id) != -1) { 
+                            artikl_id = elemSimp.artiklRec.getInt(eArtikl.analog_id);
+                        } else {
+                            artikl_id = elemSimp.artiklRec.getInt(eArtikl.id);
+                        }
                         List<Record> elementList3 = eElement.find2(artikl_id); //варианты состава для артикула профиля
                         nested(elementList3, elemSimp);
                     }
@@ -63,35 +67,32 @@ public class Elements extends Cal5e {
             System.err.println("Ошибка wincalc.constr.Сomposition.build()");
         }
     }
-    
-    protected void nested(List<Record> elementList, ElemSimple ElemSimple) {
-        try {           
-            for (Record elementRec : elementList) { //цыкл по вариантам состава
+
+    protected void nested(List<Record> elementList, ElemSimple elemSimple) {
+        try {
+            for (Record elementRec : elementList) { //цыкл по вариантам
 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
-                boolean out = elementVar.check(ElemSimple, elempar1List); //ФИЛЬТР вариантов
-//                if (out == true) {
-//                    //artiklTech = elemBase.getArticlesRec(); 
-//                    //Artikls.get(constr, vstalstRec.anumb, false); //запишем технологический код контейнера
-//
-//                    List<Record> elemdetList = eElemdet.find(element_id);                   
-//                    for (Record elendetRec : elemdetList) { //цыкл по вариантам спецификаций
-//
-//                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
-//                        int elemdet_id = elendetRec.getInt(eElemdet.id);
-//                        ArrayList<Record> elempar2List = eElempar2.find(elemdet_id); //список параметров спецификации
-//                        boolean out2 = elementDet.check(hmParam, ElemSimple, elempar2List);//ФИЛЬТР спецификаций
-//                        if (out2 == true) {
-//
-//                            Record artiklRec = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
-//                            Specification specif = new Specification(artiklRec, ElemSimple, hmParam);
-//                            specif.setColor(ElemSimple, elendetRec);
-//                            specif.element = "СОСТ";
-//                            ((ElemSimple) ElemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
-//                        }
-//                    }
- //               }
+                boolean out = elementVar.check(elemSimple, elempar1List); //ФИЛЬТР вариантов
+                if (out == true) {
+                    List<Record> elemdetList = eElemdet.find(element_id);                   
+                    for (Record elendetRec : elemdetList) { //цыкл по детализации
+
+                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
+                        int elemdet_id = elendetRec.getInt(eElemdet.id);
+                        List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации
+                        boolean out2 = elementDet.check(hmParam, elemSimple, elempar2List);//ФИЛЬТР детализации
+                        if (out2 == true) {
+
+                            Record artiklRec = eArtikl.find(elendetRec.getInt(eElemdet.artikl_id), false);
+                            Specification specif = new Specification(artiklRec, elemSimple, hmParam);
+                            specif.setColor(elemSimple, elendetRec);
+                            specif.element = "СОСТ";
+                            ((ElemSimple) elemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.nested()");
@@ -109,7 +110,7 @@ public class Elements extends Cal5e {
 
             Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.FRAME); //первая по приоритету рама в системе 
             int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
-            List<Record> artdetList = eArtdet.find(artikl_id); //список спецификаций рамы в системе              
+            List<Record> artdetList = eArtdet.find(artikl_id); //список детализации рамы в системе              
             Record artdetRec = artdet(artdetList); //спецификация рамы в системе (подбор текстуры)
 
             //Цыкл по рамам
@@ -182,6 +183,5 @@ public class Elements extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.build()");
         }
-    }    
+    }
 }
-

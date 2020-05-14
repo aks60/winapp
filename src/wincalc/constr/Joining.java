@@ -63,12 +63,12 @@ public class Joining extends Cal5e {
                     continue;
                 }
                 List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
-                //Цикл по спецификации соединений
+                //Цикл по детализации соединений
                 for (Record joindetRec : joindetList) {
 
                     HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
                     List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-                    out = elementDet.check(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР спецификаций
+                    out = elementDet.check(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР детализации
                     if (out == true) {
 
                         Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);

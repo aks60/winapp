@@ -78,20 +78,20 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31004:  //Если прилегающий артикул 
-                        message(grup, rec.getStr(TEXT));
-//                        HashMap<String, ElemJoining> mapJoin = elem.iwin().mapJoin;
-//                        pass = 0;
-//                        for (Map.Entry<String, ElemJoining> elemJoin : mapJoin.entrySet()) {
-//                            ElemJoining el = elemJoin.getValue();
-//                            if (TypeJoin.VAR4 == el.varJoin
-//                                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem.artiklRec.getStr(eArtikl.code))
-//                                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
-//                                pass = 1;
-//                            }
-//                        }
-//                        if (pass == 0) {
-//                            return false;
-//                        }
+                        message(grup, elem.type(), rec.getStr(TEXT));
+                        HashMap<String, ElemJoining> mapJoin = elem.iwin().mapJoin;
+                        pass = 0;
+                        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
+                            ElemJoining el = entry.getValue();
+                            if (TypeJoin.VAR10 == el.varJoin
+                                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem.artiklRec.getStr(eArtikl.code))
+                                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
+                                pass = 1;
+                            }
+                        }
+                        if (pass == 0) {
+                            return false;
+                        }
                         break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 
@@ -307,7 +307,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 37042:  //Мин. соотношение габаритов (б/м) или Допустимое соотношение габаритов б/м для Ps4
                         message(grup, rec.getStr(TEXT));
-                        elem.specificationRec.putParam(grup, rec.getStr(TEXT));                               
+                        elem.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 37043:  //Макс. соотношение габаритов (б/м)
                         message(grup, rec.getStr(TEXT));

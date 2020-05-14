@@ -93,11 +93,11 @@ public class Filling extends Cal5e {
             }
             ArrayList<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
-            //Цикл по списку спецификаций
+            //Цикл по списку детализации
             for (Record clasdetRec : glasdetList) {
 
                 HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
-                List<Record> glaspar2List = eGlaspar2.find(clasdetRec.getInt(eGlasdet.id)); //список параметров спецификации
+                List<Record> glaspar2List = eGlaspar2.find(clasdetRec.getInt(eGlasdet.id)); //список параметров детализации
                 if (fillingDet.check(hmParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР спец.
 
                     if (pass == 1 || pass == 3) {
@@ -288,15 +288,15 @@ public class Filling extends Cal5e {
 
             elemGlass.setSpecifElement(); //заполним спецификацию элемента
             List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getInt(eArtikl.depth));
-            //Цикл по списку спецификаций
+            //Цикл по списку детализации
             for (Record glasdetRec : glasdetList) {
 
                 Specification specif = null;
                 HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
                 Record artiklRec = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), true);
                 float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
-                List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров спецификации
-                out = elementDet.check(hmParam, elemGlass, glaspar2List); //ФИЛЬТР спецификаций
+                List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации
+                out = elementDet.check(hmParam, elemGlass, glaspar2List); //ФИЛЬТР детализации
                 Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
                 if (out == true) {
                     //Стеклопакет

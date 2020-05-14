@@ -60,7 +60,7 @@ public class ElemImpost extends ElemSimple {
         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
            sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, LayoutProfile.VERT); 
         }
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);  
     }
 

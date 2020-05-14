@@ -152,7 +152,7 @@ public class Accessory extends Cal5e {
         }
         //Фильтр параметров
         List<Record> parfursList = Parfurs.find(furndetRec.getInt(eFurndet.fincb));
-        if (calc.paramSpecific.checkParfurs(hmParam, elStvorka, parfursList) == false) return false; //параметры спецификаций
+        if (calc.paramSpecific.checkParfurs(hmParam, elStvorka, parfursList) == false) return false; //параметры детализации
 
         //Наборы
         if ("НАБОР".equals(furndetRec.anumb)) {
