@@ -42,28 +42,28 @@ public class Elements extends Cal5e {
             //Arrays.asList(UseArtiklTo.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
 
             for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { //цыкл по списку применений артикулов
-                for (ElemSimple elemSimp : iwin().listElem) { //цыкл по списку элементов конструкции
-                    if (elemSimp.useArtiklTo() == useArtiklTo) {
+                for (ElemSimple elem5e : iwin().listElem) { //цыкл по списку элементов конструкции
+                    if (elem5e.useArtiklTo() == useArtiklTo) {
 
-                        int artikl_id = elemSimp.sysprofRec.getInt(eSysprof.artikl_id); //ищем текстуры не на аналоге 
+                        int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id); //ищем текстуры не на аналоге 
                         List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
-                        elemSimp.artdetRec = artdet(artdetList); //текстура артикула
+                        elem5e.artdetRec = artdet(artdetList); //текстура артикула
 
-                        int series_id = elemSimp.artiklRec.getInt(eArtikl.series_id);
+                        int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
                         List<Record> elementList2 = eElement.find(series_id); //варианты состава для серии профилей
-                        detail(elementList2, elemSimp);                        
+                        detail(elementList2, elem5e);                        
                         
-                        if(elemSimp.id() == 6.1f) {
+                        if(elem5e.id() == 6.1f) {
                             System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
                         }
                         
-                        if (elemSimp.artiklRec.getInt(eArtikl.analog_id) != -1) { 
-                            artikl_id = elemSimp.artiklRec.getInt(eArtikl.analog_id);
+                        if (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) { 
+                            artikl_id = elem5e.artiklRec.getInt(eArtikl.analog_id);
                         } else {
-                            artikl_id = elemSimp.artiklRec.getInt(eArtikl.id);
+                            artikl_id = elem5e.artiklRec.getInt(eArtikl.id);
                         }
                         List<Record> elementList3 = eElement.find2(artikl_id); //варианты состава для артикула профиля
-                        detail(elementList3, elemSimp);
+                        detail(elementList3, elem5e);
                     }
                 }
             }
@@ -74,7 +74,7 @@ public class Elements extends Cal5e {
         }
     }
 
-    protected void detail(List<Record> elementList, ElemSimple elemSimple) {
+    protected void detail(List<Record> elementList, ElemSimple elem5e) {
         try {
             for (Record elementRec : elementList) { //цыкл по вариантам
 
@@ -84,7 +84,7 @@ public class Elements extends Cal5e {
 //                    int m= 0;
 //                }
                     
-                boolean out = elementVar.check(elemSimple, elempar1List); //ФИЛЬТР вариантов
+                boolean out = elementVar.check(elem5e, elempar1List); //ФИЛЬТР вариантов
                 if (out == true) {
                     List<Record> elemdetList = eElemdet.find(element_id);                   
                     for (Record elemdetRec : elemdetList) { //цыкл по детализации
@@ -92,14 +92,14 @@ public class Elements extends Cal5e {
                         HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации
-                        boolean out2 = elementDet.check(hmParam, elemSimple, elempar2List);//ФИЛЬТР детализации
+                        boolean out2 = elementDet.check(hmParam, elem5e, elempar2List);//ФИЛЬТР детализации
                         if (out2 == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
-                            Specification specif = new Specification(artiklRec, elemSimple, hmParam);
-                            specif.setColor(elemSimple, elemdetRec);
+                            Specification specif = new Specification(artiklRec, elem5e, hmParam);
+                            specif.setColor(elem5e, elemdetRec);
                             specif.layout = "СОСТ";
-                            ((ElemSimple) elemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
+                            ((ElemSimple) elem5e).addSpecifSubelem(specif); //добавим спецификацию в элемент
                         }
                     }
                 }

@@ -41,9 +41,9 @@ public class Intermediate {
         return area2;
     }
 
-    public ElemSimple addElem(ElemSimple elem) {
-        owner.area.listChild.add(elem);
-        return elem;
+    public ElemSimple addElem(ElemSimple elem5e) {
+        owner.area.listChild.add(elem5e);
+        return elem5e;
     }
     
     public String toString() {

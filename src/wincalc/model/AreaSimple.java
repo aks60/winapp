@@ -176,9 +176,9 @@ public class AreaSimple extends Com5t {
         if (map.get(k) == null) {
             map.put(k, new HashSet());
         }
-        for (ElemSimple elem : elems) {
-            if (elem.inside(x, y) == true) {
-                map.get(k).add(elem);
+        for (ElemSimple elem5e : elems) {
+            if (elem5e.inside(x, y) == true) {
+                map.get(k).add(elem5e);
             }
         }
     }

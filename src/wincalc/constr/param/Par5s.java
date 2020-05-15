@@ -322,9 +322,9 @@ public class Par5s {
         }
     }
 
-    public int determineColorCodeForArt(Com5t elem, int color_side, Record paramRec, Specification specif) {
+    public int determineColorCodeForArt(Com5t com5t, int color_side, Record paramRec, Specification specif) {
 
-//        //int colorCode = getColorFromProduct(elem, color_side, paramRec);
+//        //int colorCode = getColorFromProduct(com5t, color_side, paramRec);
 //            Colslst clslstRecr = Colslst.get2(constr, colorCode);
 //        //Фвтоподбор текстуры
 //        if (paramRec.clnum() == 0) {

@@ -22,7 +22,7 @@ public class ElementDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> paramList) {
+    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elem5e, List<Record> paramList) {
 
         //Цикл по параметрам составов
         for (Record rec : paramList) {
@@ -32,7 +32,7 @@ public class ElementDet extends Par5s {
 
                     case 33000:  //Для технологического кода контейнера 
                     case 34000:  //Для технологического кода контейнера    
-                        Record sysprofRec = elemSimple.sysprofRec;
+                        Record sysprofRec = elem5e.sysprofRec;
                         Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
                         message(grup, artiklVRec.get(eArtikl.tech_code));
                         if (artiklVRec.get(eArtikl.tech_code) == null) {
@@ -66,21 +66,21 @@ public class ElementDet extends Par5s {
                         break;
                     case 33005:  //Коды основной текстуры контейнера 
                     case 34005:  //Коды основной текстуры контейнера
-                        int m1 = elemSimple.iwin().color1;
+                        int m1 = elem5e.iwin().color1;
                         if (compareInt(rec.getStr(TEXT), m1) == false) {
                             return false;
                         }
                         break;
                     case 33006:  //Коды внутр. текстуры контейнера
                     case 34006:  //Коды внутр. текстуры контейнера 
-                        int m2 = elemSimple.iwin().color2;
+                        int m2 = elem5e.iwin().color2;
                         if (compareInt(rec.getStr(TEXT), m2) == false) {
                             return false;
                         }
                         break;
                     case 33007:  //Коды внешн. текстуры контейнера 
                     case 34007:  //Коды внешн. текстуры контейнера     
-                        int m3 = elemSimple.iwin().color3;
+                        int m3 = elem5e.iwin().color3;
                         if (compareInt(rec.getStr(TEXT), m3) == false) {
                             return false;
                         }
@@ -222,7 +222,7 @@ public class ElementDet extends Par5s {
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34051:  //Поправка, мм 
-                        if (elemSimple.specificationRec.getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
+                        if (elem5e.specificationRec.getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
                             hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         }
                         break;
@@ -247,13 +247,13 @@ public class ElementDet extends Par5s {
                         break;
                     case 34066:  //Если номер стороны в контуре 
                     case 33066:  //Если номер стороны в контуре
-                        if ("1".equals(rec.getStr(TEXT)) == true && LayoutArea.BOTTOM != elemSimple.layout()) {
+                        if ("1".equals(rec.getStr(TEXT)) == true && LayoutArea.BOTTOM != elem5e.layout()) {
                             return false;
-                        } else if ("2".equals(rec.getStr(TEXT)) == true && LayoutArea.RIGHT != elemSimple.layout()) {
+                        } else if ("2".equals(rec.getStr(TEXT)) == true && LayoutArea.RIGHT != elem5e.layout()) {
                             return false;
-                        } else if ("3".equals(rec.getStr(TEXT)) == true && LayoutArea.TOP != elemSimple.layout()) {
+                        } else if ("3".equals(rec.getStr(TEXT)) == true && LayoutArea.TOP != elem5e.layout()) {
                             return false;
-                        } else if ("4".equals(rec.getStr(TEXT)) == true && LayoutArea.LEFT != elemSimple.layout()) {
+                        } else if ("4".equals(rec.getStr(TEXT)) == true && LayoutArea.LEFT != elem5e.layout()) {
                             return false;
                         }
                         break;
@@ -262,7 +262,7 @@ public class ElementDet extends Par5s {
                     case 38067:  //Коды основной текстуры изделия    
                     case 39067:  //Коды основной текстуры изделия
                     case 40067:  //Коды основной текстуры изделия                     
-                        int c1 = elemSimple.iwin().color1;
+                        int c1 = elem5e.iwin().color1;
                         if (compareInt(rec.getStr(TEXT), c1) == false) {
                             return false;
                         }
@@ -272,7 +272,7 @@ public class ElementDet extends Par5s {
                     case 38068:  //Коды внутр. текстуры изделия 
                     case 39068:  //Коды внутр. текстуры изделия
                     case 40068:  //Коды внутр. текстуры изделия    
-                        int c2 = elemSimple.iwin().color2;
+                        int c2 = elem5e.iwin().color2;
                         if (compareInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
@@ -282,7 +282,7 @@ public class ElementDet extends Par5s {
                     case 38069:  //Коды внешн. текстуры изделия 
                     case 39069:  //Коды внешн. текстуры изделия 
                     case 40069:  //Коды внешн. текстуры изделия                      
-                        int c3 = elemSimple.iwin().color3;
+                        int c3 = elem5e.iwin().color3;
                         if (compareInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
@@ -441,7 +441,7 @@ public class ElementDet extends Par5s {
                 return false;
             }
         }
-        if (filterParamJson(elemSimple, paramList) == false) {
+        if (filterParamJson(elem5e, paramList) == false) {
             return false; //параметры по умолчанию
         }
         return true;

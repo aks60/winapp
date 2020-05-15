@@ -17,7 +17,7 @@ public class FurnitureVar extends Par5s {
         super(iwin);
     }
 
-    public boolean furniture(ElemSimple elemSimple, List<Record> tableList) {
+    public boolean furniture(ElemSimple elem5e, List<Record> tableList) {
 
         //Цикл по параметрам фурнитуры
         for (Record paramRec : tableList) {
@@ -28,12 +28,12 @@ public class FurnitureVar extends Par5s {
             switch (paramRec.getInt(GRUP)) {
                 
                 case 21001:  //Форма контура 
-                    if (TypeElem.FULLSTVORKA == elemSimple.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
+                    if (TypeElem.FULLSTVORKA == elem5e.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
                 case 21004:  //Артикул створки 
-                    if (elemSimple.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(TEXT)) == false) {
+                    if (elem5e.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;

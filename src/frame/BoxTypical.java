@@ -37,9 +37,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private PaintPanel paintPanel = new PaintPanel(iwinMax) {
 
         public void actionResponse(MouseEvent evt) {
-            ElemSimple elem = iwinMax.listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);
-            if (elem != null) {
-                txtField5.setText(String.valueOf(elem.id()));
+            ElemSimple elem5e = iwinMax.listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);
+            if (elem5e != null) {
+                txtField5.setText(String.valueOf(elem5e.id()));
                 repaint();
             }
         }

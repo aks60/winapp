@@ -24,7 +24,7 @@ public class FurnitureDet  extends Par5s {
         super(iwin);
     }
 
-    public boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> tableList) {
+    public boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elem5e, List<Record> tableList) {
 
         //Цикл по параметрам фурнитуры
         for (Record paramRec : tableList) {
@@ -32,13 +32,13 @@ public class FurnitureDet  extends Par5s {
 
                 case 24001:  //Форма контура 
                 case 25001:  //Форма контура 
-                    if (TypeElem.FULLSTVORKA == elemSimple.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
+                    if (TypeElem.FULLSTVORKA == elem5e.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
                 case 24002:  //Если артикул створки 
                 case 25002:  //Если артикул створки    
-                    if (elemSimple.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(TEXT)) == false) {
+                    if (elem5e.artiklRec.getStr(eArtikl.code).equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -71,7 +71,7 @@ public class FurnitureDet  extends Par5s {
                     break;
                 case 24012:  //Направление открывания
                 case 25012:  //Направление открывания     
-                    if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals(paramRec.getStr(TEXT)) == false) {
+                    if (((AreaStvorka) elem5e.owner()).typeOpen().side.equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
@@ -90,15 +90,15 @@ public class FurnitureDet  extends Par5s {
                     break;
                 case 24033:  //Фурнитура штульповая 
                 case 25033:  //Фурнитура штульповая    
-                    if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("левое")) {
-                        ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.LEFT);
+                    if (((AreaStvorka) elem5e.owner()).typeOpen().side.equals("левое")) {
+                        ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.LEFT);
                         if (paramRec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                             return false;
                         } else if (paramRec.getStr(TEXT).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
                             return false;
                         }
-                    } else if (((AreaStvorka) elemSimple.owner()).typeOpen().side.equals("правое")) {
-                        ElemFrame el = ((AreaSimple) elemSimple.owner()).mapFrame.get(LayoutArea.RIGHT);
+                    } else if (((AreaStvorka) elem5e.owner()).typeOpen().side.equals("правое")) {
+                        ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.RIGHT);
                         if (paramRec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                             return false;
                         }
@@ -145,14 +145,14 @@ public class FurnitureDet  extends Par5s {
                     break;
                 case 24069:  //Коды внешн. текстуры изделия 
                 case 25069:  //Коды внешн. текстуры изделия     
-                    int c3 = elemSimple.iwin().color3;
+                    int c3 = elem5e.iwin().color3;
                     if (compareInt(paramRec.getStr(TEXT), c3) == false) {
                         return false;
                     }
                     break;
                 case 24070:  //Если высота ручки 
                 case 25070:  //Если высота ручки     
-                    String str = ((AreaStvorka) elemSimple.owner()).handleHeight;
+                    String str = ((AreaStvorka) elem5e.owner()).handleHeight;
                     if ("по середине".equals(str) == true && paramRec.getStr(TEXT).equals("не константная") == false
                             || "константная".equals(str) == true && paramRec.getStr(TEXT).equals("константная") == false) {
                         return false;
@@ -279,7 +279,7 @@ public class FurnitureDet  extends Par5s {
                     break;
             }
         }
-        if (filterParamJson(elemSimple, tableList) == false) {
+        if (filterParamJson(elem5e, tableList) == false) {
             return false; //параметры по умолчанию и I-OKNA
         }
         return true;

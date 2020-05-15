@@ -16,7 +16,7 @@ public class FillingVar extends Par5s {
         super(iwin);
     }
         
-    public boolean check(ElemSimple elemSimple, List<Record> paramList) {
+    public boolean check(ElemSimple elem5e, List<Record> paramList) {
 
         //Цикл по параметрам заполнения
         for (Record paramRec : paramList) {
@@ -39,7 +39,7 @@ public class FillingVar extends Par5s {
                     break;
                 case 13015:  //Форма заполнения 
                     //Прямоугольное Не прямоугольное Не арочное Арочное (Заполнение - 13015) 
-                    if (paramRec.getStr(TEXT).equals(elemSimple.specificationRec.getParam("empty", 13015)) == false) { //нужно проверить
+                    if (paramRec.getStr(TEXT).equals(elem5e.specificationRec.getParam("empty", 13015)) == false) { //нужно проверить
                         return false;
                     }
                     break;

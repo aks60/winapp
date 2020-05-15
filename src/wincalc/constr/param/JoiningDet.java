@@ -21,7 +21,7 @@ public class JoiningDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elemSimple, List<Record> paramList) {
+    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elem5e, List<Record> paramList) {
 
         //Цикл по параметрам соединения
         for (Record paramRec : paramList) {
@@ -30,7 +30,7 @@ public class JoiningDet extends Par5s {
 
                 case 11000:  //Для технологического кода контейнера 1/2
                 case 12000:  //Для технологического кода контейнера 1/2    
-                    Record sysprofRec = elemSimple.sysprofRec;
+                    Record sysprofRec = elem5e.sysprofRec;
                     Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
                     if (artiklVRec.get(eArtikl.tech_code) == null) {
                         return false;
@@ -95,21 +95,21 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11067:  //Коды основной текстуры изделия 
                 case 12067:  //Коды основной текстуры изделия
-                    int c1 = elemSimple.iwin().color1;
+                    int c1 = elem5e.iwin().color1;
                     if (compareInt(paramRec.getStr(TEXT), c1) == false) {
                         return false;
                     }
                     break;
                 case 11068:  //Коды внутр. текстуры изделия 
                 case 12068:  //Коды внутр. текстуры изделия 
-                    int c2 = elemSimple.iwin().color2;
+                    int c2 = elem5e.iwin().color2;
                     if (compareInt(paramRec.getStr(TEXT), c2) == false) {
                         return false;
                     }
                     break;
                 case 11069:  //Коды внешн. текстуры изделия
                 case 12069:  //Коды внешн. текстуры изделия     
-                    int c3 = elemSimple.iwin().color3;
+                    int c3 = elem5e.iwin().color3;
                     if (compareInt(paramRec.getStr(TEXT), c3) == false) {
                         return false;
                     }
@@ -186,7 +186,7 @@ public class JoiningDet extends Par5s {
                     break;
             }
         }
-        if (filterParamJson(elemSimple, paramList) == false) {
+        if (filterParamJson(elem5e, paramList) == false) {
             return false; //параметры по умолчанию и I-OKNA
         }
         return true;
