@@ -7,7 +7,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
-import enums.TypeArtikl1;
+import enums.TypeArtikl;
 import java.util.Arrays;
 import swing.DefTableModel;
 import static common.Util.getSelectedRec;
@@ -42,7 +42,7 @@ public class DicArtikl extends javax.swing.JDialog {
                 Field field = columns[col];
                 if (field == eArtikl.level2) {
                     Record record = qArtikl.get(row);
-                    return TypeArtikl1.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
+                    return TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
                 }
                 return val;
             }

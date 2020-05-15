@@ -4,12 +4,10 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import enums.UseUnit;
-import enums.TypeArtikl1;
+import enums.TypeArtikl;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintStream;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,19 +66,28 @@ public class Specification {
     public Specification(float id, Com5t com5t) {
         this.id = id;
         this.owner = com5t;
+        this.areaId = String.valueOf(com5t.owner().id());
+        this.elemId = String.valueOf(com5t.id());
+        this.elemType = com5t.type().name;         
         this.mapParam = new HashMap();
     }
 
     //Конструктор для элементов спецификации окна
     public Specification(Record artiklRec, Com5t com5t, HashMap<Integer, String> hmParam) {
-        this.id = com5t.iwin().genId;
+        this.id = ++com5t.iwin().genId;
         this.owner = com5t;
+        this.areaId = String.valueOf(com5t.owner().id());
+        this.elemId = String.valueOf(com5t.id());
+        this.elemType = TypeArtikl.find(artiklRec).name;        
         this.mapParam = hmParam;
         setArtiklRec(artiklRec);
     }
 
     public Specification(Specification spec) {
         this.id = ++spec.owner.iwin().genId;
+        this.owner = spec.owner;
+        this.areaId = spec.areaId;
+        this.elemType = spec.elemType;
         this.element = spec.element;
         this.artikl = spec.artikl;
         this.name = spec.name;
@@ -113,6 +120,7 @@ public class Specification {
     }
 
     public void setArtiklRec(Record artiklRec) {
+        this.elemType = TypeArtikl.find(artiklRec).name;
         this.artikl = artiklRec.getStr(eArtikl.code);
         this.name = artiklRec.getStr(eArtikl.name);
         this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
@@ -137,14 +145,14 @@ public class Specification {
 
     protected void setAnglCut() {
         //TODO Тут логическая ошибка
-        if (TypeArtikl1.FURNITURA.isType(artiklRec)
-                || TypeArtikl1.KONZEVPROF.isType(artiklRec)
-                || TypeArtikl1.MONTPROF.isType(artiklRec)
-                || TypeArtikl1.FIKSPROF.isType(artiklRec)) {
+        if (TypeArtikl.FURNITURA.isType(artiklRec)
+                || TypeArtikl.KONZEVPROF.isType(artiklRec)
+                || TypeArtikl.MONTPROF.isType(artiklRec)
+                || TypeArtikl.FIKSPROF.isType(artiklRec)) {
             anglCut2 = 90;
             anglCut1 = 90;
 
-        } else if (TypeArtikl1.FURNITURA.isType(artiklRec)) {
+        } else if (TypeArtikl.FURNITURA.isType(artiklRec)) {
             anglCut2 = 0;
             anglCut1 = 0;
         }
@@ -260,7 +268,7 @@ public class Specification {
         float total = 0;
         for (Specification s : specList) {
             Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
-                s.areaId, s.elemId, s.elemType};
+                s.areaId, s.elemId, TypeArtikl.find(s.artiklRec).name};
             total = total + s.weight;
             System.out.printf(format, str2);
             System.out.println();

@@ -7,7 +7,7 @@ import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.UseProfile;
-import enums.TypeArtikl1;
+import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import wincalc.constr.Specification;
@@ -73,7 +73,9 @@ public class ElemFrame extends ElemSimple {
         specificationRec.color3 = color3;
         specificationRec.discount = 0;
         specificationRec.anglHoriz = anglHoriz;
-        specificationRec.id = ++iwin().genId;
+//        specificationRec.id = ++iwin().genId;
+//        specificationRec.elemId = String.valueOf(id());
+//        specificationRec.elemType = type().name();        
 
         //Простое окно
         if (LayoutArea.TOP == layout) {
@@ -104,18 +106,20 @@ public class ElemFrame extends ElemSimple {
     @Override
     public void addSpecifSubelem(Specification specif) { //добавление спесификаций зависимых элементов
         
-        //indexUniq(specif);
+//        specif.id = ++iwin().genId;
+//        specif.elemId = String.valueOf(id());
+//        specif.elemType = type().name(); 
         Record artiklRec = specif.artiklRec;
         
         //Просто рама (если элемент включен в список состава)
-        if (TypeArtikl1.KOROBKA.isType(artiklRec) || TypeArtikl1.STVORKA.isType(artiklRec)) {
+        if (TypeArtikl.KOROBKA.isType(artiklRec) || TypeArtikl.STVORKA.isType(artiklRec)) {
 
             specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //Поправка, мм
             specificationRec.setArtiklRec(specif.artiklRec);
             return;  //сразу выход т.к. элем. сам является держателем состава
 
             //Теперь армирование
-        } else if (TypeArtikl1.ARMIROVANIE.isType(artiklRec)) {
+        } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
             specif.element = layout.name;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
@@ -145,7 +149,7 @@ public class ElemFrame extends ElemSimple {
             specif.anglCut2 = 90;
 
             //Концевой профиль
-        } else if (TypeArtikl1.KONZEVPROF.isType(artiklRec) == true) {
+        } else if (TypeArtikl.KONZEVPROF.isType(artiklRec) == true) {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
@@ -153,7 +157,7 @@ public class ElemFrame extends ElemSimple {
             specif.width = (width() - ssizf) + (width() - ssizf) * koef;
 
             //Соединитель
-        } else if (TypeArtikl1.SOEDINITEL.isType(artiklRec) == true) {
+        } else if (TypeArtikl.SOEDINITEL.isType(artiklRec) == true) {
             specif.color1 = iwin().colorNone;
             specif.color2 = iwin().colorNone;
             specif.color3 = iwin().colorNone;

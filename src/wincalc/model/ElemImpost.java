@@ -6,7 +6,7 @@ import domain.eColor;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.UseProfile;
-import enums.TypeArtikl1;
+import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.awt.Color;
@@ -20,7 +20,7 @@ public class ElemImpost extends ElemSimple {
 
     public ElemImpost(AreaSimple owner, float id) {
 
-        super(id, owner.iwin(), owner);      
+        super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
         color1 = iwin().color1;
         color2 = iwin().color2;
@@ -30,8 +30,8 @@ public class ElemImpost extends ElemSimple {
 
         //Коррекция положения импоста арки
         if ((TypeElem.ARCH == owner.type || TypeElem.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
-                float dh = artiklRec.getFloat(eArtikl.height) / 2;  
-                owner.listChild.add(new AreaRectangl(iwin(), owner, owner.id() + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
+            float dh = artiklRec.getFloat(eArtikl.height) / 2;
+            owner.listChild.add(new AreaRectangl(iwin(), owner, owner.id() + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
         }
         //Установка координат
         for (int index = owner.listChild.size() - 1; index >= 0; --index) {
@@ -53,19 +53,23 @@ public class ElemImpost extends ElemSimple {
     }
 
     public void initСonstructiv() {
-        
+
         if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfile.HORIZ);  
-           
+            sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfile.HORIZ);
+
         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-           sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfile.VERT); 
+            sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfile.VERT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        specificationRec.setArtiklRec(artiklRec);  
+        specificationRec.setArtiklRec(artiklRec);
     }
 
     public void setSpecifElement(Record sysproaRec) {
-   /*
+
+//        specificationRec.id = ++iwin().genId;
+//        specificationRec.elemId = String.valueOf(id());
+//        specificationRec.elemType = type().name();
+        /*
         indexUniq(specificationRec);
         specificationRec.element = (LayoutArea.HORIZONTAL == owner.getLayout()) ? LayoutArea.VERTICAL.name : LayoutArea.HORIZONTAL.name;
         specificationRec.setArtiklRec(Artikls.get(getConst(), sysproaRec.anumb, false));
@@ -110,26 +114,28 @@ public class ElemImpost extends ElemSimple {
             specificationRec.height = artiklesRec.aheig;
         }
         specificationRec.anglCut2 = 90;
-        specificationRec.anglCut1 = 90;
-*/
+        specificationRec.anglCut1 = 90;*/
     }
-      
+
     @Override
     //Добавление спесификаций зависимых элементов 
     public void addSpecifSubelem(Specification specif) {
 
-        //indexUniq(specif);
+//        specificationRec.id = ++iwin().genId;
+//        specificationRec.elemId = String.valueOf(id());
+//        specificationRec.elemType = type().name(); 
+        
         Record artiklRec = specif.artiklRec;
 
         //Импост (если элемент включен в список состава)
-        if (TypeArtikl1.IMPOST.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
+        if (TypeArtikl.IMPOST.isType(artiklRec)) {
             specificationRec.setArtiklRec(specif.artiklRec); //= (specif.artikl.equals("-")) ? specif.artikl : "-";
             specificationRec.name = (specif.name.equals("-")) ? specif.name : "-";
             specificationRec.setArtiklRec(specif.artiklRec);
             return;
 
             //Теперь армирование
-        } else if (TypeArtikl1.ARMIROVANIE.id2 == artiklRec.getInt(eArtikl.level2) && artiklRec.getInt(eArtikl.level1) == 1) {
+        } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
             specif.element = layout.name;
             //if (LayoutArea.HORIZONTAL == layout) specif.width = owner.x2 - owner.x1;
             //else if(LayoutArea.VERTICAL == layout) specif.width = owner.y2 - owner.y1;
@@ -138,7 +144,7 @@ public class ElemImpost extends ElemSimple {
             specif.anglCut1 = 90;
 
             //Соединитель
-        } else if(TypeArtikl1.SOEDINITEL.isType(artiklRec) == true) {
+        } else if (TypeArtikl.SOEDINITEL.isType(artiklRec)) {
             specif.color1 = iwin().colorNone;
             specif.color2 = iwin().colorNone;
             specif.color3 = iwin().colorNone;
@@ -149,13 +155,13 @@ public class ElemImpost extends ElemSimple {
         }
 
         quantityMaterials(specif);
-        specificationRec.specificationList.add(specif);        
+        specificationRec.specificationList.add(specif);
     }
-    
+
     @Override
     public void paint() {
-        
-        int rgb = eColor.find(color2).getInt(eColor.rgb);        
+
+        int rgb = eColor.find(color2).getInt(eColor.rgb);
         if (LayoutArea.VERT == owner().layout()) {
             strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
@@ -177,9 +183,9 @@ public class ElemImpost extends ElemSimple {
             anglCut2 = anglCut;
         }
     }
-    
+
     @Override
     public String toString() {
         return super.toString() + ", anglCut=" + anglCut1 + ", anglCut=" + anglCut1;
-    }     
+    }
 }

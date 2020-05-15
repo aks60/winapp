@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Типы мат. ценностей
  */
-public enum TypeArtikl1 {
+public enum TypeArtikl {
 
     PPROFIL(1, 0, "Профили"),
     KOROBKA(1, 1, "Коробка"),
@@ -43,7 +43,7 @@ public enum TypeArtikl1 {
     X149(1, 49, "Ламель жалюзи"),
     X150(1, 50, "Профиль в составе жалюзи"),
     X165(1, 65, "Стыковочный"),
-    X170(1, 70, "Дистанционер фасада"),   
+    X170(1, 70, "Дистанционер фасада"),
     X175(1, 75, "Термомост"),
     ACSESYAR(2, 0, "Аксессуары"),
     X201(2, 1, "Штучный эдемент"),
@@ -95,25 +95,31 @@ public enum TypeArtikl1 {
     X590(5, 90, "Специальный тип (!)"),
     X599(5, 99, "Фиксированный блок");
 
-   public int id1 = 0;
-   public int id2 = 0;
-   public String name = "";
+    public int id1 = 0;
+    public int id2 = 0;
+    public String name = "";
 
-    TypeArtikl1(int id1, int id2, String name) {
+    TypeArtikl(int id1, int id2, String name) {
         this.id1 = id1;
         this.id2 = id2;
         this.name = name;
     }
-    
+
     public boolean isType(Record artiklsRec) {
-        if (id1 == artiklsRec.getInt(eArtikl.level1) && id2 == artiklsRec.getInt(eArtikl.level2)) return true;
+        if (id1 == artiklsRec.getInt(eArtikl.level1) && id2 == artiklsRec.getInt(eArtikl.level2)) {
+            return true;
+        }
         return false;
     }
-    
+
+    public static TypeArtikl find(Record record) {
+        return Arrays.stream(values()).filter(el -> (el.id1 == record.getInt(eArtikl.level1) && el.id2 == record.getInt(eArtikl.level1))).findFirst().orElse(PPROFIL);
+    }
+
     public static String find(int _id1, int _id2) {
         return Arrays.stream(values()).filter(el -> (el.id1 == _id1 && el.id2 == _id2)).findFirst().orElse(PPROFIL).name;
     }
-    
+
     public String toString() {
         return name;
     }

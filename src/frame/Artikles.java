@@ -13,7 +13,7 @@ import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
-import enums.TypeArtikl1;
+import enums.TypeArtikl;
 import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -171,25 +171,25 @@ public class Artikles extends javax.swing.JFrame {
 
         DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Мат. ценности");
         DefaultMutableTreeNode treeNode2 = null;
-        for (TypeArtikl1 it : TypeArtikl1.values()) {
+        for (TypeArtikl it : TypeArtikl.values()) {
             if (it.id1 == 1 && it.id2 == 0) {
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl1.PPROFIL); //"Профили"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.PPROFIL); //"Профили"
 
             } else if (it.id1 == 2 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl1.ACSESYAR); //"Аксессуары"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR); //"Аксессуары"
 
             } else if (it.id1 == 3 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl1.POGONAG); //"Погонаж"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.POGONAG); //"Погонаж"
 
             } else if (it.id1 == 4 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl1.INSTRYMENT); //"Инструмент"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
 
             } else if (it.id1 == 5 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl1.ZAPOLNEN); //"Заполнения"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.ZAPOLNEN); //"Заполнения"
 
             } else if (it.id2 > 0) {   //остальное       
                 treeNode1.add(treeNode2);
@@ -208,7 +208,7 @@ public class Artikles extends javax.swing.JFrame {
         Util.stopCellEditing(tab1, tab2);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof TypeArtikl1 == false) {
+            if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
                 if (owner == null) {
                     qArtik2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
@@ -216,14 +216,14 @@ public class Artikles extends javax.swing.JFrame {
                 }
 
             } else if (selectedNode.isLeaf()) {
-                TypeArtikl1 e = (TypeArtikl1) selectedNode.getUserObject();
+                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
                 if (owner == null) {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
                 }
             } else {
-                TypeArtikl1 e = (TypeArtikl1) selectedNode.getUserObject();
+                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
                 if (owner == null) {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
@@ -994,7 +994,7 @@ public class Artikles extends javax.swing.JFrame {
         if (tab1.getBorder() != null) {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode != null && selectedNode.isLeaf()) {
-                TypeArtikl1 typeArtikl = (TypeArtikl1) selectedNode.getUserObject();
+                TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
                 Record artiklRec = qArtikl.newRecord(Query.INS);
                 artiklRec.setNo(eArtikl.id, ConnApp.instanc().genId(eArtikl.up));
                 artiklRec.setNo(eArtikl.level1, typeArtikl.id1);

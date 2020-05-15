@@ -13,7 +13,7 @@ import enums.Enam;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.UseProfile;
-import enums.TypeArtikl1;
+import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.TypeGlass;
 import enums.UseArtiklTo;
@@ -139,6 +139,28 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override
+    //Добавление спесификаций зависимых элементов
+    public void addSpecifSubelem(Specification specif) {
+
+        //indexUniq(specif);
+        specif.element = "ЗАП";
+        if (TypeArtikl.GLASS.isType(artiklRec)) { //стеклопакет
+            return;
+
+        } else if (TypeArtikl.SHTAPIK.isType(artiklRec)) { //штапик
+            specif.id = id();
+
+        } else if (TypeArtikl.KONZEVPROF.isType(artiklRec)) { //уплотнитель
+            specif.id = id();
+
+        } else {
+            specif.id = id();
+        }
+        quantityMaterials(specif);
+        specificationRec.specificationList.add(specif);
+    }
+
+    @Override
     public void paint() { //рисуём стёкла
         iwin().gc2d.setColor(new java.awt.Color(226, 255, 250));
 
@@ -156,29 +178,7 @@ public class ElemGlass extends ElemSimple {
                     new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
         }
     }
-
-    @Override
-    //Добавление спесификаций зависимых элементов
-    public void addSpecifSubelem(Specification specif) {
-
-        //indexUniq(specif);
-        specif.element = "ЗАП";
-        if (TypeArtikl1.GLASS.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 5) { //стеклопакет
-            return;
-
-        } else if (TypeArtikl1.SHTAPIK.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 1) { //штапик
-            specif.id = id();
-
-        } else if (TypeArtikl1.KONZEVPROF.id2 == specif.artiklRec.getInt(eArtikl.level2) && specif.artiklRec.getInt(eArtikl.level1) == 3) { //уплотнитель
-            specif.id = id();
-
-        } else {
-            specif.id = id();
-        }
-        quantityMaterials(specif);
-        specificationRec.specificationList.add(specif);
-    }
-
+    
     @Override
     public UseArtiklTo useArtiklTo() {
         return UseArtiklTo.UNKNOWN;
