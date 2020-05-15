@@ -9,17 +9,18 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import javax.swing.UIManager;
 import wincalc.constr.Specification;
-import wincalc.model.Com5t;
 import wincalc.script.Winscript;
 
 public class Test {
 
     public static void main(String[] args) {
         Main.dev = true;
-        try {
+        try {                    
             //convert.Profstroy.script();
             //query();
             wincalc();

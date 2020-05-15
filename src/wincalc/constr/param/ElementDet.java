@@ -304,7 +304,7 @@ public class ElementDet extends Par5s {
                         message(grup);
                         break;
                     case 34075:  //Углы реза 
-                        message(grup);
+                        hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34077:  //Задать Угол_реза_1/Угол_реза_2, ° 
                         message(grup);

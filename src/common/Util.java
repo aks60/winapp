@@ -248,13 +248,6 @@ public class Util {
         }
         return -1;
     }
-    
-    //Получить record Query
-    public static Record getSelectedQuery(JTable table) {
-        int id = Util.getSelectedRec(table);
-        Record record = ((DefTableModel) table.getModel()).getQuery().get(id);
-        return record;
-    }
 
     //Отменить сортировку
     public static void stopSorting(JTable... table) {

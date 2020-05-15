@@ -73,7 +73,7 @@ public class Filling extends Cal5e {
                         if (systree_artikl_id != -1 && systree_artikl_id == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
 
                             elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                            nested(elemGlass, glasgrpRec);
+                            detail(elemGlass, glasgrpRec);
                         }
                     }
                 }
@@ -81,7 +81,7 @@ public class Filling extends Cal5e {
         }
     }
 
-    protected boolean nested(ElemGlass elemGlass, Record glasgrpRec) {
+    protected boolean detail(ElemGlass elemGlass, Record glasgrpRec) {
 
         //TODO в заполненииях текстура подбирается неправильно
         ArrayList<Record> pargrupList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));

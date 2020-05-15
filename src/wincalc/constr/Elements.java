@@ -51,7 +51,7 @@ public class Elements extends Cal5e {
 
                         int series_id = elemSimp.artiklRec.getInt(eArtikl.series_id);
                         List<Record> elementList2 = eElement.find(series_id); //варианты состава для серии профилей
-                        nested(elementList2, elemSimp);                        
+                        detail(elementList2, elemSimp);                        
                         
                         if(elemSimp.id() == 6.1f) {
                             System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
@@ -63,7 +63,7 @@ public class Elements extends Cal5e {
                             artikl_id = elemSimp.artiklRec.getInt(eArtikl.id);
                         }
                         List<Record> elementList3 = eElement.find2(artikl_id); //варианты состава для артикула профиля
-                        nested(elementList3, elemSimp);
+                        detail(elementList3, elemSimp);
                     }
                 }
             }
@@ -74,7 +74,7 @@ public class Elements extends Cal5e {
         }
     }
 
-    protected void nested(List<Record> elementList, ElemSimple elemSimple) {
+    protected void detail(List<Record> elementList, ElemSimple elemSimple) {
         try {
             for (Record elementRec : elementList) { //цыкл по вариантам
 
@@ -89,7 +89,7 @@ public class Elements extends Cal5e {
                     List<Record> elemdetList = eElemdet.find(element_id);                   
                     for (Record elemdetRec : elemdetList) { //цыкл по детализации
 
-                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры
+                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации
                         boolean out2 = elementDet.check(hmParam, elemSimple, elempar2List);//ФИЛЬТР детализации
@@ -111,87 +111,5 @@ public class Elements extends Cal5e {
 
     private Record artdet(List<Record> artdetList) {
         return artdetList.stream().filter(rec -> rec.getInt(eArtdet.color_fk) == iwin().color1).findFirst().orElse(eArtdet.record());
-    }
-
-    public void build2() {
-        try {
-            LinkedList<ElemFrame> listFrameBox = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам конструкции  
-            LinkedList<ElemFrame> listFrameStv = iwin().rootArea.listElem(TypeElem.FRAME_BOX); //список рам створок конструкции
-
-            Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.FRAME); //первая по приоритету рама в системе 
-            int artikl_id = sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге                
-            List<Record> artdetList = eArtdet.find(artikl_id); //список детализации рамы в системе              
-            Record artdetRec = artdet(artdetList); //спецификация рамы в системе (подбор текстуры)
-
-            //Цыкл по рамам
-            for (ElemFrame elemFrame : listFrameBox) {
-
-                elemFrame.setSpecifElement(sysprofRec);
-
-//                int series_id = elemFrame.artiklRec.getInt(eArtikl.series_id);
-//                List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
-//                nested(elementList2, elemFrame);
-                //int artikl_id = elemFrame.artiklRec.getInt(eArtikl.id);
-                //List<Record> elementList = eElement.find2(artikl_id); //состав для артикула профиля
-                //nested(elementList, recordFrame);
-                elemFrame.specificationRec.width = elemFrame.specificationRec.width
-                        + Float.valueOf(String.valueOf(elemFrame.specificationRec.getParam(0, 31052)));
-            }
-//            for (Record record : sysprofList) {
-//                boolean is = false;
-//                if (UserArtikl.IMPOST.id == record.getInt(eSysprof.use_type)) {
-//                    List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
-//                    for (Record artdetRec : artdetList) {
-//
-//                        int color_fk = artdetRec.getInt(eArtdet.color_fk);
-//                        //TODO Нужна проверка для color_fk < 0
-//                        if (color_fk == iwin().color1) {
-//                            is = true;
-//                            LinkedList<ElemImpost> impostList = iwin().rootArea.listElem(TypeElem.IMPOST);
-//                            for (ElemImpost elemInpost : impostList) {
-//
-//                                int series_id = elemInpost.artiklRec.getInt(eArtikl.series_id);
-//                                elemInpost.setSpecifElement(record);
-//                                List<Record> elementList2 = eElement.find(series_id); //состав для серии профилей
-//                                nested(elementList2, elemInpost);
-//                                List<Record> elementList = eElement.find(series_id); //.anumb); //состав для артикула профиля
-//                                nested(elementList, elemInpost);
-//                            }
-//                        }
-//                    }
-//                }
-//                if (is == true) {
-//                    break;
-//                }
-//            }
-//            for (Record record : sysprofList) {
-//                boolean is = false;
-//                if (UserArtikl.STVORKA.id == record.getInt(eSysprof.use_type)) {
-//                    List<Record> artdetList = eArtdet.find(record.getInt(eArtdet.id)); //подбор текстуры, ищем не на аналоге
-//                    for (Record artdetRec : artdetList) {
-//
-//                        int color_fk = artdetRec.getInt(eArtdet.color_fk);
-//                        //TODO Нужна проверка для color_fk < 0
-//                        if (color_fk == iwin().color1) {
-//                            is = true;
-//                            LinkedList<ElemImpost> impostList = iwin().rootArea.listElem(TypeElem.IMPOST);
-//                            for (ElemImpost elemInpost : impostList) {
-//
-//                                elemInpost.setSpecifElement(record);
-//                                List<Record> elementList2 = eElement.find(elemInpost.artiklRec.getInt(eArtikl.series_id)); //состав для серии профилей
-//                                nested(elementList2, elemInpost);
-//                                List<Record> elementList = eElement.find(elemInpost.artiklRec.getInt(eArtikl.code)); //.anumb); //состав для артикула профиля
-//                                nested(elementList, elemInpost);
-//                            }
-//                        }
-//                    }
-//                }
-//                if (is == true) {
-//                    break;
-//                }
-//            }
-        } catch (Exception e) {
-            System.err.println("Ошибка wincalc.constr.Сomposition.build()");
-        }
     }
 }

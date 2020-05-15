@@ -23,9 +23,9 @@ import static main.App1.eApp1.Artikles;
 /**
  * Фурнитура
  */
-public class Accessory extends Cal5e {
+public class Furniture extends Cal5e {
 
-    public Accessory(Wincalc iwin) {
+    public Furniture(Wincalc iwin) {
         super(iwin);
     }
 
@@ -78,7 +78,7 @@ public class Accessory extends Cal5e {
 //        }
     }
 
-    protected void nested(AreaStvorka fullStvorka, Record furnitureRec, int count) {
+    protected void detail(AreaStvorka fullStvorka, Record furnitureRec, int count) {
 
         List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
         for (Record furndetRec : furndetList) {
@@ -107,7 +107,7 @@ public class Accessory extends Cal5e {
         }
     }
 
-    protected boolean nested2(AreaStvorka elStvorka, Record furndetRec, int count) {
+    protected boolean detail2(AreaStvorka elStvorka, Record furndetRec, int count) {
 
     /*    HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
         //подбор текстуры ручки

@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import wincalc.constr.Accessory;
+import wincalc.constr.Furniture;
 import wincalc.constr.Specification;
 import wincalc.constr.Tariffication;
 import wincalc.constr.Elements;

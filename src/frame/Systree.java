@@ -1220,7 +1220,8 @@ public class Systree extends javax.swing.JFrame {
     private void btnConstructive(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructive
 
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
-        Record record = Util.getSelectedQuery(tab2);
+        int index = Util.getSelectedRec(tab2);
+        Record record = qSysprof.get(index);
         int artId = record.getInt(eSysprof.artikl_id);
         if (node != null) {
             int nuni = node.record.getInt(eSystree.id);

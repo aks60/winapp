@@ -66,7 +66,7 @@ public class DefFieldEditor {
 
     //Загрузить данные в компоненты из модели данных
     public void load() {
-        load(table.getSelectedRow());
+        load(Util.getSelectedRec(table));
     }
 
     //Загрузить данные в компоненты из модели данных

@@ -140,7 +140,8 @@ public class Artikles extends javax.swing.JFrame {
                 txtField10.setText(name);
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
                     Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(null);
-                    txtField11.setText(analogRec.getStr(eArtikl.code));
+                    name = (analogRec != null) ?analogRec.getStr(eArtikl.code) : null;
+                    txtField11.setText(name);
                 } else {
                     txtField11.setText(null);
                 }
@@ -237,7 +238,7 @@ public class Artikles extends javax.swing.JFrame {
                 for (int index = 0; index < qArtikl.size(); ++index) {
                     int id = qArtikl.getAs(index, eArtikl.id);
                     if (id == artId) {
-                        Util.setSelectedRow(tab1, index);
+                      Util.setSelectedRow(tab1, index);
                     }
                 }
             }
