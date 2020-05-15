@@ -45,6 +45,8 @@ public class ElemFrame extends ElemSimple {
         } else if (LayoutArea.ARCH == layout) {
             anglHoriz = 180;
         }
+        
+        //System.out.println(specificationRec.elem5e.artdetRec);
     }
 
     public void initСonstructiv() {

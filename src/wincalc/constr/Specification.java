@@ -28,12 +28,10 @@ public class Specification {
     
     public ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
     private HashMap<Integer, String> mapParam = null; //параметры спецификации
-    protected ElemSimple elem5e = null; //элемент пораждающий спецификацию
+    public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
 
     public float id = -1;  //ID
-    public String areaId = "0"; //ID area
-    public String elemId = "0"; //ID elem
     public String layout = "-"; //Расположение
     public String artikl = "-";  //Артикул
     public String name = "-";  //Наименование
@@ -66,8 +64,6 @@ public class Specification {
     public Specification(float id, ElemSimple elem5e) {
         this.id = id;
         this.elem5e = elem5e;
-        this.areaId = String.valueOf(elem5e.owner().id());
-        this.elemId = String.valueOf(elem5e.id());
         this.mapParam = new HashMap();
     }
 
@@ -75,16 +71,12 @@ public class Specification {
     public Specification(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> hmParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
-        this.areaId = String.valueOf(elem5e.owner().id());
-        this.elemId = String.valueOf(elem5e.id());
         this.mapParam = hmParam;
         setArtiklRec(artiklRec);
     }
 
     public Specification(Specification spec) {
-        this.id = ++spec.elem5e.iwin().genId;
-        this.elem5e = spec.elem5e;
-        this.areaId = spec.areaId;
+        this.id = ++spec.elem5e.iwin().genId;        
         this.layout = spec.layout;
         this.artikl = spec.artikl;
         this.name = spec.name;
@@ -105,12 +97,13 @@ public class Specification {
         this.discount = spec.discount;
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
+        this.elem5e = spec.elem5e;
         this.artiklRec = spec.artiklRec;
     }
 
     public Vector getVector() {
 
-        List list = Arrays.asList(id, areaId, elemId, layout, artikl, name, color1, color2,
+        List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), layout, artikl, name, color1, color2,
                 color3, width, height, weight, anglCut1, anglCut2, count, unit, quantity, wastePrc,
                 quantity2, inPrice, outPrice, inCost, outCost, discount, anglHoriz);
         return new Vector(list);
@@ -258,12 +251,12 @@ public class Specification {
         Specification.sort(specList);
         int npp = 0;
         String format = "%-6s%-60s%-26s%-12s%-12s%-12s";
-        Object str[] = {"Npp", "Name", "Code", "areaId", "elemId", "com5t"};
+        Object str[] = {"Npp", "Name", "Code", "areaId", "elemId", "owner"};
         System.out.printf(format, str);
         System.out.println();
         float total = 0;
         for (Specification s : specList) {
-            Object str2[] = {String.valueOf(++npp), s.name, s.artikl, s.areaId, s.elemId, s.elem5e.type()};
+            Object str2[] = {String.valueOf(++npp), s.name, s.artikl, s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.artiklRec.get(eArtikl.code)};
             total = total + s.weight;
             System.out.printf(format, str2);
             System.out.println();
