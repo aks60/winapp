@@ -48,7 +48,7 @@ public class ElemGlass extends ElemSimple {
             typeGlass = TypeGlass.RECTANGL;
             //specificationRec.putParam(13015, TypeGlass.RECTANGL.text());
         }
-        specificationRec.element = typeGlass.text();
+        specificationRec.layout = typeGlass.text();
     }
 
     public void initСonstructiv() {
@@ -143,7 +143,7 @@ public class ElemGlass extends ElemSimple {
     public void addSpecifSubelem(Specification specif) {
 
         //indexUniq(specif);
-        specif.element = "ЗАП";
+        specif.layout = "ЗАП";
         if (TypeArtikl.GLASS.isType(artiklRec)) { //стеклопакет
             return;
 

@@ -45,14 +45,18 @@ public class Elements extends Cal5e {
                 for (ElemSimple elemSimp : iwin().listElem) { //цыкл по списку элементов конструкции
                     if (elemSimp.useArtiklTo() == useArtiklTo) {
 
-                        int artikl_id = elemSimp.sysprofRec.getInt(eSysprof.artikl_id); //ищем не на аналоге 
+                        int artikl_id = elemSimp.sysprofRec.getInt(eSysprof.artikl_id); //ищем текстуры не на аналоге 
                         List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
                         elemSimp.artdetRec = artdet(artdetList); //текстура артикула
 
                         int series_id = elemSimp.artiklRec.getInt(eArtikl.series_id);
                         List<Record> elementList2 = eElement.find(series_id); //варианты состава для серии профилей
-                        nested(elementList2, elemSimp);
-
+                        nested(elementList2, elemSimp);                        
+                        
+                        if(elemSimp.id() == 6.1f) {
+                            System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
+                        }
+                        
                         if (elemSimp.artiklRec.getInt(eArtikl.analog_id) != -1) { 
                             artikl_id = elemSimp.artiklRec.getInt(eArtikl.analog_id);
                         } else {
@@ -94,7 +98,7 @@ public class Elements extends Cal5e {
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(artiklRec, elemSimple, hmParam);
                             specif.setColor(elemSimple, elemdetRec);
-                            specif.element = "СОСТ";
+                            specif.layout = "СОСТ";
                             ((ElemSimple) elemSimple).addSpecifSubelem(specif); //добавим спецификацию в элемент
                         }
                     }

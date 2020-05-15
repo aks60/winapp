@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import wincalc.model.Com5t;
+import wincalc.model.ElemSimple;
 
 /**
  * Спецификация элемента окна
@@ -33,8 +34,7 @@ public class Specification {
     public float id = -1;  //ID
     public String areaId = "0"; //ID area
     public String elemId = "0"; //ID elem
-    public String elemType = "0"; //TypeElem
-    public String element = "-"; //Расположение
+    public String layout = "-"; //Расположение
     public String artikl = "-";  //Артикул
     public String name = "-";  //Наименование
     public int color1 = 1005;  //Текстура
@@ -61,14 +61,13 @@ public class Specification {
      * Конструктор для видимых эдементов окна
      *
      * @param id
-     * @param com5t
+     * @param elemSimple
      */
-    public Specification(float id, Com5t com5t) {
+    public Specification(float id, ElemSimple elemSimple) {
         this.id = id;
-        this.owner = com5t;
-        this.areaId = String.valueOf(com5t.owner().id());
-        this.elemId = String.valueOf(com5t.id());
-        this.elemType = com5t.type().name;         
+        this.owner = elemSimple;
+        this.areaId = String.valueOf(elemSimple.owner().id());
+        this.elemId = String.valueOf(elemSimple.id());
         this.mapParam = new HashMap();
     }
 
@@ -78,7 +77,6 @@ public class Specification {
         this.owner = com5t;
         this.areaId = String.valueOf(com5t.owner().id());
         this.elemId = String.valueOf(com5t.id());
-        this.elemType = TypeArtikl.find(artiklRec).name;        
         this.mapParam = hmParam;
         setArtiklRec(artiklRec);
     }
@@ -87,8 +85,7 @@ public class Specification {
         this.id = ++spec.owner.iwin().genId;
         this.owner = spec.owner;
         this.areaId = spec.areaId;
-        this.elemType = spec.elemType;
-        this.element = spec.element;
+        this.layout = spec.layout;
         this.artikl = spec.artikl;
         this.name = spec.name;
         this.color1 = spec.color1;
@@ -113,14 +110,13 @@ public class Specification {
 
     public Vector getVector() {
 
-        List list = Arrays.asList(id, areaId, elemId, elemType, element, artikl, name, color1, color2,
+        List list = Arrays.asList(id, areaId, elemId, layout, artikl, name, color1, color2,
                 color3, width, height, weight, anglCut1, anglCut2, count, unit, quantity, wastePrc,
                 quantity2, inPrice, outPrice, inCost, outCost, discount, anglHoriz);
         return new Vector(list);
     }
 
     public void setArtiklRec(Record artiklRec) {
-        this.elemType = TypeArtikl.find(artiklRec).name;
         this.artikl = artiklRec.getStr(eArtikl.code);
         this.name = artiklRec.getStr(eArtikl.name);
         this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
@@ -181,7 +177,7 @@ public class Specification {
     public boolean equals(Object specification) {
         Specification spec = (Specification) specification;
 
-        return (id == spec.id && element.equals(spec.element) && artikl.equals(spec.artikl) && name.equals(spec.name)
+        return (id == spec.id && layout.equals(spec.layout) && artikl.equals(spec.artikl) && name.equals(spec.name)
                 && color1 == spec.color1 && color2 == spec.color2 && color3 == spec.color3
                 && width == spec.width && height == spec.height && anglCut2 == spec.anglCut2 && anglCut1 == spec.anglCut1
                 && quantity == spec.quantity && unit == spec.unit && wastePrc == spec.wastePrc && quantity2 == spec.quantity2
@@ -191,7 +187,7 @@ public class Specification {
     @Override
     public String toString() {
         Formatter f = new Formatter();
-        return "Изделие=" + id + ", Расп...=" + element + ", Артикул=" + artikl + ", Наименование=" + name + ", Текстура=" + color1 + ", Внутренняя=" + color2
+        return "Изделие=" + id + ", Расп...=" + layout + ", Артикул=" + artikl + ", Наименование=" + name + ", Текстура=" + color1 + ", Внутренняя=" + color2
                 + ", Внешняя=" + color3 + ", Длина. мм=" + f.format("%.1f", width) + ", Ширина. мм=" + f.format("%.1f", height) + ", Угол1=" + String.format("%.2f", anglCut2)
                 + ", Угол2=" + String.format("%.2f", anglCut1) + ", Кол.шт=" + count + ", Кол.без.отх=" + quantity + ", Отход=" + wastePrc + ", Кол.с.отх=" + quantity2
                 + ", Собест.за.ед" + inPrice + ", Собест.с.отх" + outPrice + ", Скидка=" + discount;
@@ -207,7 +203,7 @@ public class Specification {
                     + "Ширина. мм, Угол1, Угол2, Количество, Погонаж, Ед.изм, Ед.изм, Скидка, Скидка").getBytes("windows-1251"), "UTF-8"));
             for (Specification spc : spcList) {
 
-                String str = spc.id + "," + spc.element + "," + spc.artikl + "," + spc.name + "," + spc.color1 + "," + spc.color2 + "," + spc.color3
+                String str = spc.id + "," + spc.layout + "," + spc.artikl + "," + spc.name + "," + spc.color1 + "," + spc.color2 + "," + spc.color3
                         + "," + String.format("%.1f", spc.width) + String.format("%.1f", spc.height) + String.format("%.2f", spc.anglCut2)
                         + String.format("%.2f", spc.anglCut1) + spc.count + spc.width + spc.unit + spc.discount + "\n";
 
@@ -233,7 +229,7 @@ public class Specification {
                 + "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s %n";
         Object str[] = {"Code", "Name", "Art", "BaseColor", "InsideColor", "OutsideColor", "Count", "Quantity",
             "UM", "InPrice", "CostPrice", "OutPrice", "OutTotal", "Width", "Height", "Weight",
-            "Angle", "ComplType", "ElemID", "ElemType", "ObjectID", "ObjectType", "AreaID", "AreaType",
+            "Angle", "ComplType", "ElemID", "elemType", "ObjectID", "ObjectType", "AreaID", "AreaType",
             "AccessoryID", "PriceGRP", "PrintGroup", "CutAngle1", "CutAngle2", "Composite", "Усл.окна"};
         String str3 = new String(("Спецификация (" + specList.size() + " строк):").getBytes());
         System.out.printf(format, str);
@@ -267,8 +263,7 @@ public class Specification {
         System.out.println();
         float total = 0;
         for (Specification s : specList) {
-            Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
-                s.areaId, s.elemId, TypeArtikl.find(s.artiklRec).name};
+            Object str2[] = {String.valueOf(++npp), s.name, s.artikl, s.areaId, s.elemId, s.owner.type()};
             total = total + s.weight;
             System.out.printf(format, str2);
             System.out.println();
@@ -287,7 +282,7 @@ public class Specification {
     public static void sort2(ArrayList<Specification> contacts) {
         Collections.sort(contacts, new Comparator<Specification>() {
             public int compare(Specification one, Specification other) {
-                return (one.element + one.name).compareTo(other.element + other.name);
+                return (one.layout + one.name).compareTo(other.layout + other.name);
             }
         });
     }
@@ -295,7 +290,7 @@ public class Specification {
     public static void sort3(ArrayList<Specification> contacts) {
         Collections.sort(contacts, new Comparator<Specification>() {
             public int compare(Specification one, Specification other) {
-                return (one.artikl + one.element).compareTo(other.artikl + other.element);
+                return (one.artikl + one.layout).compareTo(other.artikl + other.layout);
             }
         });
     }
@@ -305,7 +300,7 @@ public class Specification {
         HashMap<String, Specification> hm = new HashMap();
         for (Specification spc : specificationList1) {
 
-            String key = spc.id + spc.element + spc.artikl + spc.name + spc.color1 + spc.color2 + spc.color3
+            String key = spc.id + spc.layout + spc.artikl + spc.name + spc.color1 + spc.color2 + spc.color3
                     + spc.width + spc.height + spc.anglCut2 + spc.anglCut1 + spc.unit + spc.quantity + spc.wastePrc
                     + spc.wastePrc + spc.quantity2 + spc.inPrice + spc.outPrice + spc.discount;
             Specification spc2 = hm.put(key, spc);

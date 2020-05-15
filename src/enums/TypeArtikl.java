@@ -113,7 +113,7 @@ public enum TypeArtikl {
     }
 
     public static TypeArtikl find(Record record) {
-        return Arrays.stream(values()).filter(el -> (el.id1 == record.getInt(eArtikl.level1) && el.id2 == record.getInt(eArtikl.level1))).findFirst().orElse(PPROFIL);
+        return Arrays.stream(values()).filter(el -> (el.id1 == record.getInt(eArtikl.level1) && el.id2 == record.getInt(eArtikl.level2))).findFirst().orElse(PPROFIL);
     }
 
     public static String find(int _id1, int _id2) {

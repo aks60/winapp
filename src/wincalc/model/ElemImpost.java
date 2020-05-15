@@ -61,7 +61,8 @@ public class ElemImpost extends ElemSimple {
             sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseProfile.VERT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        specificationRec.setArtiklRec(artiklRec);
+        Record analogRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        specificationRec.setArtiklRec(analogRec);
     }
 
     public void setSpecifElement(Record sysproaRec) {
@@ -136,7 +137,7 @@ public class ElemImpost extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
-            specif.element = layout.name;
+            specif.layout = layout.name;
             //if (LayoutArea.HORIZONTAL == layout) specif.width = owner.x2 - owner.x1;
             //else if(LayoutArea.VERTICAL == layout) specif.width = owner.y2 - owner.y1;
             specif.width = specificationRec.width;

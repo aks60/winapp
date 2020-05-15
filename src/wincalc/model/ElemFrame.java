@@ -59,12 +59,13 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseProfile.RIGHT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        specificationRec.setArtiklRec(artiklRec);
+        Record analogRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        specificationRec.setArtiklRec(analogRec);
     }
 
      public void setSpecifElement(Record sysprofRec) {  //добавление основной спесификации
 
-        specificationRec.element = layout.name;
+        specificationRec.layout = layout.name;
         float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
         Record artiklRec =  eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
@@ -120,7 +121,7 @@ public class ElemFrame extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
-            specif.element = layout.name;
+            specif.layout = layout.name;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
                 specif.width = x2 - x1;
