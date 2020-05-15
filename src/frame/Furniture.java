@@ -84,12 +84,12 @@ public class Furniture extends javax.swing.JFrame {
         initComponents();
         initElements();
         this.owner = owner;
-        this.nuni = nuni;
-        owner.setEnabled(false);
+        this.nuni = nuni;        
         listenerCell();
         loadingData();
         loadingModel();
         listenerDict();
+        //owner.setEnabled(false);
     }
 
     private void loadingData() {

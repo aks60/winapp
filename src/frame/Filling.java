@@ -74,12 +74,12 @@ public class Filling extends javax.swing.JFrame {
         initComponents();
         initElements();
         this.nuni = nuni;
-        this.owner = owner;
-        owner.setEnabled(false);       
+        this.owner = owner;               
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
+        //owner.setEnabled(false);
     }
 
     private void loadingData() {

@@ -40,10 +40,10 @@ public class Specific extends javax.swing.JFrame {
         initComponents();
         initElements();
         this.owner = owner;
-        this.iwin = iwin;
-        owner.setEnabled(false);
+        this.iwin = iwin;        
         loadingData();
         loadingModel();
+        //owner.setEnabled(false);
     }
 
     private void loadingData() {

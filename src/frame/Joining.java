@@ -89,7 +89,7 @@ public class Joining extends javax.swing.JFrame {
         listenerCell();
         listenerDict();
         loadingModel();
-        owner.setEnabled(false);
+        //owner.setEnabled(false);
     }
 
     private void loadingData() {

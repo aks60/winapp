@@ -85,13 +85,19 @@ public class Element extends javax.swing.JFrame {
         listenerDict();
         loadingData();
         loadingModel();
-        owner.setEnabled(false);
+        //owner.setEnabled(false);
     }
 
     private void loadingData() {
         if (owner != null) {
-            Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
-            query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
+            Query qSysprof = new Query(eSysprof.artikl_id, eArtikl.analog_id).select(eSysprof.up, "left join",
+                     eArtikl.up, "on", eSysprof.artikl_id, "=", eArtikl.id, "where", eSysprof.systree_id, "=", nuni);
+            for (int i = 0; i < qSysprof.size(); i++) {
+                int artikl_id = qSysprof.get(i).getInt(eSysprof.artikl_id);
+                int analog_id = qSysprof.table(eArtikl.up).get(i).getInt(eArtikl.analog_id);
+                int id = (analog_id == -1) ? artikl_id : analog_id;
+                subsql = subsql + "," + id;
+            }
             subsql = "(" + subsql.substring(1) + ")";
         }
         qColor.select(eColor.up);
