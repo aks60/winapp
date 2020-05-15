@@ -25,10 +25,10 @@ import wincalc.model.ElemSimple;
  * Спецификация элемента окна
  */
 public class Specification {
-
-    protected Com5t owner = null; //элемент пораждающий спецификацию
+    
     public ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
     private HashMap<Integer, String> mapParam = null; //параметры спецификации
+    protected ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
 
     public float id = -1;  //ID
@@ -61,29 +61,29 @@ public class Specification {
      * Конструктор для видимых эдементов окна
      *
      * @param id
-     * @param elemSimple
+     * @param elem5e
      */
-    public Specification(float id, ElemSimple elemSimple) {
+    public Specification(float id, ElemSimple elem5e) {
         this.id = id;
-        this.owner = elemSimple;
-        this.areaId = String.valueOf(elemSimple.owner().id());
-        this.elemId = String.valueOf(elemSimple.id());
+        this.elem5e = elem5e;
+        this.areaId = String.valueOf(elem5e.owner().id());
+        this.elemId = String.valueOf(elem5e.id());
         this.mapParam = new HashMap();
     }
 
     //Конструктор для элементов спецификации окна
-    public Specification(Record artiklRec, Com5t com5t, HashMap<Integer, String> hmParam) {
-        this.id = ++com5t.iwin().genId;
-        this.owner = com5t;
-        this.areaId = String.valueOf(com5t.owner().id());
-        this.elemId = String.valueOf(com5t.id());
+    public Specification(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> hmParam) {
+        this.id = ++elem5e.iwin().genId;
+        this.elem5e = elem5e;
+        this.areaId = String.valueOf(elem5e.owner().id());
+        this.elemId = String.valueOf(elem5e.id());
         this.mapParam = hmParam;
         setArtiklRec(artiklRec);
     }
 
     public Specification(Specification spec) {
-        this.id = ++spec.owner.iwin().genId;
-        this.owner = spec.owner;
+        this.id = ++spec.elem5e.iwin().genId;
+        this.elem5e = spec.elem5e;
         this.areaId = spec.areaId;
         this.layout = spec.layout;
         this.artikl = spec.artikl;
@@ -258,12 +258,12 @@ public class Specification {
         Specification.sort(specList);
         int npp = 0;
         String format = "%-6s%-60s%-26s%-12s%-12s%-12s";
-        Object str[] = {"Npp", "Name", "Code", "areaId", "elemId", "elemType"};
+        Object str[] = {"Npp", "Name", "Code", "areaId", "elemId", "com5t"};
         System.out.printf(format, str);
         System.out.println();
         float total = 0;
         for (Specification s : specList) {
-            Object str2[] = {String.valueOf(++npp), s.name, s.artikl, s.areaId, s.elemId, s.owner.type()};
+            Object str2[] = {String.valueOf(++npp), s.name, s.artikl, s.areaId, s.elemId, s.elem5e.type()};
             total = total + s.weight;
             System.out.printf(format, str2);
             System.out.println();

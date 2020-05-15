@@ -677,7 +677,7 @@ public class Element extends javax.swing.JFrame {
 
         pan1.add(scr4, java.awt.BorderLayout.EAST);
 
-        centr.add(pan1, java.awt.BorderLayout.NORTH);
+        centr.add(pan1, java.awt.BorderLayout.CENTER);
 
         pan2.setLayout(new java.awt.BorderLayout());
 
@@ -740,7 +740,7 @@ public class Element extends javax.swing.JFrame {
 
         pan2.add(scr3, java.awt.BorderLayout.CENTER);
 
-        centr.add(pan2, java.awt.BorderLayout.CENTER);
+        centr.add(pan2, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
