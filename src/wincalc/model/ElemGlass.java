@@ -48,7 +48,7 @@ public class ElemGlass extends ElemSimple {
             typeGlass = TypeGlass.RECTANGL;
             //specificationRec.putParam(13015, TypeGlass.RECTANGL.text());
         }
-        specificationRec.layout = typeGlass.text();
+        specificationRec.section = typeGlass.text();
     }
 
     public void initСonstructiv() {
@@ -80,9 +80,9 @@ public class ElemGlass extends ElemSimple {
         specificationRec.setArtiklRec(artiklRec);
     }
 
+    //Вариант использования
     public void setSpecifElement() {
 
-        //indexUniq(specificationRec);
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
         if (owner() instanceof AreaArch) { //если арка
 
@@ -138,12 +138,9 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
-    @Override
-    //Добавление спесификаций зависимых элементов
+    @Override //Детализация варианта  
     public void addSpecifSubelem(Specification specif) {
 
-        //indexUniq(specif);
-        specif.layout = "ЗАП";
         if (TypeArtikl.GLASS.isType(artiklRec)) { //стеклопакет
             return;
 
@@ -156,6 +153,7 @@ public class ElemGlass extends ElemSimple {
         } else {
             specif.id = id();
         }
+        specif.section = "ЗАП";
         quantityMaterials(specif);
         specificationRec.specificationList.add(specif);
     }

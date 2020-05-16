@@ -37,7 +37,7 @@ public class Joining extends Cal5e {
 
         HashMap<String, ElemJoining> hmJoinElem = iwin().mapJoin; //список соединений
         //Цикл по списку соединений
-        for (Map.Entry<String, ElemJoining> hmElemJoin : hmJoinElem.entrySet()) {
+        for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
 
             ElemJoining elemJoin = hmElemJoin.getValue();
             ElemSimple joinElement1 = elemJoin.joinElement1;
@@ -80,8 +80,8 @@ public class Joining extends Cal5e {
                         specif.color1 = artdetRec.getInt(eArtdet.color_fk);
                         specif.color2 = artdetRec.getInt(eArtdet.color_fk);
                         specif.color3 = artdetRec.getInt(eArtdet.color_fk);
-                        specif.layout = "СОЕД";
-                        ((ElemSimple) joinElement1).addSpecifSubelem(specif);
+                        specif.section = "СОЕД";
+                        joinElement1.addSpecifSubelem(specif);
                     }
                 }
             }

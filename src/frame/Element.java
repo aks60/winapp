@@ -603,15 +603,15 @@ public class Element extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"aaaa", null, "vvvvvvvvvvvvvvv", "ddd", null, null, null,  new Double(0.0)},
-                {"aaaa", null, "hhhhhhhhhhhhhh", "fff", null, null, null,  new Double(0.0)}
+                {"aaaa", null, "vvvvvvvvvvvvvvv", "ddd", null, null, null,  new Double(0.0), null},
+                {"aaaa", null, "hhhhhhhhhhhhhh", "fff", null, null, null,  new Double(0.0), null}
             },
             new String [] {
-                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка"
+                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка", "null"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -639,6 +639,7 @@ public class Element extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(6).setMaxWidth(60);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(32);
             tab2.getColumnModel().getColumn(7).setMaxWidth(60);
+            tab2.getColumnModel().getColumn(8).setMaxWidth(40);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
@@ -721,11 +722,11 @@ public class Element extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxxxx", null, "mmmmm", "kkkkkkk"},
-                {"zzzzzzzzz", null, "mmmmm", "kkkkkkk"}
+                {"xxxxxxxx", null, "mmmmm", "kkkkkkk", null},
+                {"zzzzzzzzz", null, "mmmmm", "kkkkkkk", null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор"
+                "Артикул", "Название", "Текстура", "Подбор", "null"
             }
         ));
         tab3.setFillsViewportHeight(true);
@@ -737,6 +738,9 @@ public class Element extends javax.swing.JFrame {
             }
         });
         scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(4).setMaxWidth(40);
+        }
 
         pan2.add(scr3, java.awt.BorderLayout.CENTER);
 

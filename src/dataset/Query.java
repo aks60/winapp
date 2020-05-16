@@ -54,7 +54,6 @@ public class Query extends Table {
         }
     }
 
-    @Override
     public Query table(Field field) {
         return root.mapQuery.get(field.tname());
     }

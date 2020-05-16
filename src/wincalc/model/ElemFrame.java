@@ -45,7 +45,7 @@ public class ElemFrame extends ElemSimple {
         } else if (LayoutArea.ARCH == layout) {
             anglHoriz = 180;
         }
-        
+
         //System.out.println(specificationRec.elem5e.artdetRec);
     }
 
@@ -65,11 +65,12 @@ public class ElemFrame extends ElemSimple {
         specificationRec.setArtiklRec(analogRec);
     }
 
-     public void setSpecifElement(Record sysprofRec) {  //добавление основной спесификации
+    //Вариант использования
+    public void setSpecifElement(Record sysprofRec) {  //добавление основной спесификации
 
-        specificationRec.layout = layout.name;
+        specificationRec.section = layout.name;
         float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
-        Record artiklRec =  eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
         specificationRec.color1 = color1;
         specificationRec.color2 = color2;
@@ -90,7 +91,7 @@ public class ElemFrame extends ElemSimple {
             specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-            specificationRec.width = y2 - y1 +  iwin().sysconsRec.getFloat(eSyssize.prip);
+            specificationRec.width = y2 - y1 + iwin().sysconsRec.getFloat(eSyssize.prip);
             specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
@@ -100,20 +101,15 @@ public class ElemFrame extends ElemSimple {
 
         // Коррекция формы окна
         //owner.setSpecifElement(this, sysprofRec);
-
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
     }
-        
-    
-    @Override
+
+    @Override //Детализация варианта 
     public void addSpecifSubelem(Specification specif) { //добавление спесификаций зависимых элементов
-        
-//        specif.id = ++iwin().genId;
-//        specif.elemId = String.valueOf(id());
-//        specif.elemType = type().name(); 
+
         Record artiklRec = specif.artiklRec;
-        
+
         //Просто рама (если элемент включен в список состава)
         if (TypeArtikl.KOROBKA.isType(artiklRec) || TypeArtikl.STVORKA.isType(artiklRec)) {
 
@@ -123,7 +119,7 @@ public class ElemFrame extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
-            specif.layout = layout.name;
+            specif.section = layout.name;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
                 specif.width = x2 - x1;
@@ -138,6 +134,7 @@ public class ElemFrame extends ElemSimple {
                 specif.width = specif.width + 2 * iwin().sysconsRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
+                /*
                 Double dw1 = 0.0;
                 Double dw2 = 0.0;
                 if (anglCut1 != 90) {
@@ -146,7 +143,8 @@ public class ElemFrame extends ElemSimple {
                 if (anglCut1 != 90) {
                     dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
                 }
-                //specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue(); //TODO тут код незакончен
+                specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue(); //TODO тут код незакончен
+                */
             }
             specif.anglCut1 = 90;
             specif.anglCut2 = 90;
@@ -164,11 +162,12 @@ public class ElemFrame extends ElemSimple {
             specif.color1 = iwin().colorNone;
             specif.color2 = iwin().colorNone;
             specif.color3 = iwin().colorNone;
-            
+
             //Всё остальное
         } else {
-            //specif.element = "ЗАП";
+            //
         }
+        specif.section = "СОСТ";
         quantityMaterials(specif);
         specificationRec.specificationList.add(specif);
     }

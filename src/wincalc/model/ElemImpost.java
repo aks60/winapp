@@ -65,22 +65,18 @@ public class ElemImpost extends ElemSimple {
         specificationRec.setArtiklRec(analogRec);
     }
 
+    //Вариант использования
     public void setSpecifElement(Record sysproaRec) {
-
-//        specificationRec.id = ++iwin().genId;
-//        specificationRec.elemId = String.valueOf(id());
-//        specificationRec.elemType = type().name();
-        /*
-        indexUniq(specificationRec);
-        specificationRec.element = (LayoutArea.HORIZONTAL == owner.getLayout()) ? LayoutArea.VERTICAL.name : LayoutArea.HORIZONTAL.name;
+/*
+        specificationRec.section = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
         specificationRec.setArtiklRec(Artikls.get(getConst(), sysproaRec.anumb, false));
-        specificationRec.colorBase = colorBase;
-        specificationRec.colorInternal = colorInternal;
-        specificationRec.colorExternal = colorExternal;
+        specificationRec.color1 = color1;
+        specificationRec.color2 = color2;
+        specificationRec.color3 = color3;
         specificationRec.discount = 0;
         specificationRec.anglHoriz = anglHoriz;
 
-        if (LayoutArea.HORIZONTAL == owner.getLayout()) { //слева направо
+        if (LayoutArea.HORIZ == owner().layout()) { //слева направо
             ElemBase elemPrior = prevElem();
 
             //Элемент слева
@@ -115,31 +111,24 @@ public class ElemImpost extends ElemSimple {
             specificationRec.height = artiklesRec.aheig;
         }
         specificationRec.anglCut2 = 90;
-        specificationRec.anglCut1 = 90;*/
+        specificationRec.anglCut1 = 90;
+*/
     }
 
-    @Override
-    //Добавление спесификаций зависимых элементов 
+    @Override //Детализация варианта      
     public void addSpecifSubelem(Specification specif) {
 
-//        specificationRec.id = ++iwin().genId;
-//        specificationRec.elemId = String.valueOf(id());
-//        specificationRec.elemType = type().name(); 
-        
         Record artiklRec = specif.artiklRec;
 
         //Импост (если элемент включен в список состава)
         if (TypeArtikl.IMPOST.isType(artiklRec)) {
-            specificationRec.setArtiklRec(specif.artiklRec); //= (specif.artikl.equals("-")) ? specif.artikl : "-";
             specificationRec.name = (specif.name.equals("-")) ? specif.name : "-";
             specificationRec.setArtiklRec(specif.artiklRec);
             return;
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
-            specif.layout = layout.name;
-            //if (LayoutArea.HORIZONTAL == layout) specif.width = owner.x2 - owner.x1;
-            //else if(LayoutArea.VERTICAL == layout) specif.width = owner.y2 - owner.y1;
+            specif.section = layout.name;
             specif.width = specificationRec.width;
             specif.anglCut2 = 90;
             specif.anglCut1 = 90;
@@ -152,9 +141,9 @@ public class ElemImpost extends ElemSimple {
 
             //Остальные
         } else {
-            //specif.element = "ЗАП";
+            //
         }
-
+        specif.section = "СОСТ";
         quantityMaterials(specif);
         specificationRec.specificationList.add(specif);
     }

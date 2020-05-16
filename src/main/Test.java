@@ -36,7 +36,7 @@ public class Test {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         wincalc.Wincalc iwin = new wincalc.Wincalc();
-        iwin.create(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
+        iwin.create(wincalc.script.Winscript.test(Winscript.prj, null, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         

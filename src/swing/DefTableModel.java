@@ -8,6 +8,7 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Table;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
@@ -31,7 +32,11 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         this.table = table;
         this.model = (DefaultTableModel) table.getModel();
         this.query = query;
-        this.columns = columns;
+        
+        Field[] newArray = Arrays.copyOf(columns, columns.length + 1);
+        newArray[newArray.length - 1] = query.fields().get(0).fields()[1];
+        this.columns = newArray; //последний столбец всегда = ID
+        
         editable = new Boolean[model.getColumnCount()];
         for (int index = 0; index < model.getColumnCount(); index++) {
             editable[index] = model.isCellEditable(0, index);

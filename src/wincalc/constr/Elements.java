@@ -36,26 +36,23 @@ public class Elements extends Cal5e {
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
-    //Но при проверке параметров использую оригин. мат. ценность. (Непонятно)
+    //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void build() {
         try {
-            //Arrays.asList(UseArtiklTo.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); //профили по приоритету, до ручного выбора
-
-            for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { //цыкл по списку применений артикулов
-                for (ElemSimple elem5e : iwin().listElem) { //цыкл по списку элементов конструкции
+            //Цыкл по списку применений артикулов
+            for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { 
+                //Цыкл по списку элементов конструкции
+                for (ElemSimple elem5e : iwin().listElem) { 
                     if (elem5e.useArtiklTo() == useArtiklTo) {
 
                         int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id); //ищем текстуры не на аналоге 
                         List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
-                        elem5e.artdetRec = artdet(artdetList); //текстура артикула
+                        elem5e.artdetRec = artdet(artdetList); //текстура артикула, нужен подбор текстуры!!!
+                        
 
                         int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
                         List<Record> elementList2 = eElement.find(series_id); //варианты состава для серии профилей
-                        detail(elementList2, elem5e);                        
-                        
-                        if(elem5e.id() == 6.1f) {
-                            System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-                        }
+                        detail(elementList2, elem5e);                                                
                         
                         if (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) { 
                             artikl_id = elem5e.artiklRec.getInt(eArtikl.analog_id);
@@ -66,9 +63,7 @@ public class Elements extends Cal5e {
                         detail(elementList3, elem5e);
                     }
                 }
-            }
-            
-            
+            } 
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.build()");
         }
@@ -80,26 +75,27 @@ public class Elements extends Cal5e {
 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
-//                if(elempar1List.get(0).getInt(eElempar1.grup) == 31000 || elempar1List.get(0).getInt(eElempar1.grup) == 31002) {
-//                    int m= 0;
-//                }
                     
                 boolean out = elementVar.check(elem5e, elempar1List); //ФИЛЬТР вариантов
                 if (out == true) {
+                    
                     List<Record> elemdetList = eElemdet.find(element_id);                   
                     for (Record elemdetRec : elemdetList) { //цыкл по детализации
 
                         HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации
+//                        if(elemdetRec.getInt(eElemdet.id) == 2314) {
+//                            System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
+//                        }                        
                         boolean out2 = elementDet.check(hmParam, elem5e, elempar2List);//ФИЛЬТР детализации
                         if (out2 == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(artiklRec, elem5e, hmParam);
                             specif.setColor(elem5e, elemdetRec);
-                            specif.layout = "СОСТ";
-                            ((ElemSimple) elem5e).addSpecifSubelem(specif); //добавим спецификацию в элемент
+                            specif.section = "СОСТ";
+                            elem5e.addSpecifSubelem(specif); //добавим спецификацию в элемент
                         }
                     }
                 }

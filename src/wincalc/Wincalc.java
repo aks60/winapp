@@ -22,8 +22,6 @@ import enums.LayoutArea;
 import enums.UseProfile;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import frame.Filling;
-import frame.Joining;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
@@ -32,9 +30,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import wincalc.constr.Furniture;
 import wincalc.constr.Specification;
 import wincalc.constr.Tariffication;
+import wincalc.constr.Joining;
 import wincalc.constr.Elements;
 import wincalc.model.Com5t;
 import wincalc.model.ElemSimple;
@@ -119,10 +117,9 @@ public class Wincalc {
         try {
             Elements elements = new Elements(this); //составы
             elements.build();
-            
-          /*Joining joining = new Joining(iwin, this); //соединения
+            Joining joining = new Joining(this); //соединения
             joining.build();
-            Filling filling = new Filling(iwin, this); //заполнения
+          /*  Filling filling = new Filling(iwin, this); //заполнения
             filling.build();
             Accessory accessory = new Accessory(iwin, this); //фурнитура        
             constructiv.kitsFirst();                       //комплекты */
