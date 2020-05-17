@@ -166,9 +166,9 @@ public class Profstroy {
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 } else {                    
-                    int max = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getInt(1);
-                    int delta = checkUniqueKeyColor(max); //проверим ключ на уникальность
-                    executeSql("set generator GEN_" + fieldUp.tname() + " to " + (max + delta));
+                    int max1 = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getInt(1);
+                    int max2 = checkUniqueKeyColor(max1); //проверим ключ на уникальность
+                    executeSql("set generator GEN_" + fieldUp.tname() + " to " + max2);
                 }
                 //Создание триггеров генераторов
                 executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"

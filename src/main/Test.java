@@ -69,13 +69,18 @@ public class Test {
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
             //Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
 
+            int count = 3;
+            System.out.println(count);
+            int dx = temp(count);
+            System.out.println(dx);
+
         } catch (SQLException e) {
             System.out.println("main.Test.query()");
         }
     }
 
-    static void temp(Integer count) {
-        count = 33;
+    static int temp(int count) {
+       return   ++count;
     }
 
     static void parseJson() {
