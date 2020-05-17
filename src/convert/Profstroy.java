@@ -97,9 +97,9 @@ public class Profstroy {
             eCurrenc.up, eGroups.up
         };
         try {
-            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
+            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\aluteh.fdb?encoding=win1251";
-            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
@@ -165,7 +165,7 @@ public class Profstroy {
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
-                } else {                    
+                } else {
                     int max1 = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getInt(1);
                     int max2 = checkUniqueKeyColor(max1); //проверим ключ на уникальность
                     executeSql("set generator GEN_" + fieldUp.tname() + " to " + max2);
@@ -669,20 +669,20 @@ public class Profstroy {
     }
 
     private static int checkUniqueKeyColor(int max) {
+        List<Integer[]> recordList = new ArrayList();
+        Set<Integer> set = new HashSet();
         try {
-            List<Integer[]> recordList = new ArrayList();
-            Set<Integer> set = new HashSet();
             ResultSet rs = st2.executeQuery("select * from COLOR");
             while (rs.next()) {
-                recordList.add(new Integer[] {rs.getInt("ID"), rs.getInt("CNUMB")});
-            }            
-            for (Integer[] recordArr: recordList) {
-                if (set.add(recordArr[0]) == false)  {
-                    executeSql("update COLOR set id = " + (++max) + " where cnumb = " + recordArr[1]);
-                }
-            }                        
+                recordList.add(new Integer[]{rs.getInt("ID"), rs.getInt("CNUMB")});
+            }
         } catch (SQLException e) {
-            System.out.println("\u001B[31m" + "НЕУДАЧА-SQL: Первичный ключ не создан\u001B[0m  " + e);
+            System.out.println(e);
+        }
+        for (Integer[] recordArr : recordList) {
+            if (set.add(recordArr[0]) == false) {
+                executeSql("update COLOR set id = " + (++max) + " where cnumb = " + recordArr[1]);
+            }
         }
         return max;
     }

@@ -25,17 +25,16 @@ import swing.DefTableModel;
 
 public class Param extends javax.swing.JFrame {
 
-    private Query qParams = new Query(eParams.values())
-            .select(eParams.up, "where", eParams.grup, "< 0", "and", eParams.numb, "= 0", "order by", eParams.text);
+    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.grup, "< 0", "and", eParams.numb, "= 0", "order by", eParams.text);
     private Query qPardet = new Query(eParams.values());
 
     public Param() {
         initComponents();
         initElements();
-        initDodel();
+        loadingModel();
     }
 
-    private void initDodel() {
+    private void loadingModel() {
 
         new DefTableModel(tab1, qParams, eParams.text, eParams.komp,
                 eParams.joint, eParams.elem, eParams.glas, eParams.furn, eParams.otkos, eParams.color);
@@ -359,7 +358,7 @@ public class Param extends javax.swing.JFrame {
         Util.stopCellEditing(tab1, tab2);
         Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
-// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;

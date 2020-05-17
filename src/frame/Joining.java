@@ -402,7 +402,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void listenerCell() {
-        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+        listenerEditor = (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
             return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
         };
     }

@@ -3,7 +3,6 @@ package frame;
 import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
-import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
@@ -12,8 +11,6 @@ import dialog.ParGrup2a;
 import domain.eColor;
 import domain.eColgrp;
 import domain.eColpar1;
-import domain.eElemdet;
-import domain.eElemgrp;
 import domain.eElempar2;
 import domain.eParams;
 import java.awt.event.FocusEvent;
@@ -21,13 +18,13 @@ import java.awt.event.FocusListener;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
+import swing.BooleanRenderer;
 import swing.DefTableModel;
 
 public class Color extends javax.swing.JFrame {
@@ -54,7 +51,7 @@ public class Color extends javax.swing.JFrame {
     private void loadingModel() {
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name);
-        new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3);
+        new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
         new DefTableModel(tab3, qColpar1, eColpar1.grup, eColpar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -65,7 +62,9 @@ public class Color extends javax.swing.JFrame {
                 return val;
             }
         };
-
+        
+        tab2.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
+        
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             ParGrup1 frame = new ParGrup1(this, listenerPar, eParams.color);
         });
@@ -282,15 +281,15 @@ public class Color extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "111", null, null, null},
-                {null, "222", null, null, null}
+                {null, "111", null, null, null, null},
+                {null, "222", null, null, null, null}
             },
             new String [] {
-                "Код текстуры", "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)"
+                "Код текстуры", "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)", "Для изделий"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -313,6 +312,8 @@ public class Color extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(120);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
