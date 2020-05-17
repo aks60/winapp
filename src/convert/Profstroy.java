@@ -161,23 +161,20 @@ public class Profstroy {
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
                 }
-                if ("COLOR".equals(fieldUp.tname())) {
-                    System.out.println("convert.Profstroy.script()");
-                }
                 //Создание генератора и заполнение таблиц ключами
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
-                } else {
-                    ////////////////checkUniqueKey(fieldUp, fieldUp.fields()[1]); //проверим ключ на уникальность
-                    String max = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getStr(1);
-                    executeSql("set generator GEN_" + fieldUp.tname() + " to " + max);
+                } else {                    
+                    int max = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getInt(1);
+                    int delta = checkUniqueKeyColor(max); //проверим ключ на уникальность
+                    executeSql("set generator GEN_" + fieldUp.tname() + " to " + (max + delta));
                 }
                 //Создание триггеров генераторов
                 executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
                         + " if (new.id is null) then new.id = gen_id(gen_" + fieldUp.tname() + ", 1); end");
                 //DDL создание первичного ключа
-                //executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
+                executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
             }
 
             System.out.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
@@ -419,8 +416,7 @@ public class Profstroy {
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
-            //executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
-            executeSql("update artdet set color_fk = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
+            executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
@@ -672,21 +668,23 @@ public class Profstroy {
         }
     }
 
-    private static void checkUniqueKey(Field up, Field field) {
-        System.out.println("checkField()");
+    private static int checkUniqueKeyColor(int max) {
         try {
-            Query q = new Query(field.fields()).select(up);
-            HashSet<Integer> hs = new HashSet();
-            for (Record record : q) {
-                if (hs.add(record.getInt(field)) == false) {
-                    record.set(field, record.getInt(field) * -1);
-                    q.update(record);
-                    cn2.commit();
-                } 
-            }
+            List<Integer[]> recordList = new ArrayList();
+            Set<Integer> set = new HashSet();
+            ResultSet rs = st2.executeQuery("select * from COLOR");
+            while (rs.next()) {
+                recordList.add(new Integer[] {rs.getInt("ID"), rs.getInt("CNUMB")});
+            }            
+            for (Integer[] recordArr: recordList) {
+                if (set.add(recordArr[0]) == false)  {
+                    executeSql("update COLOR set id = " + (++max) + " where cnumb = " + recordArr[1]);
+                }
+            }                        
         } catch (SQLException e) {
-            System.out.println("\u001B[31m" + "НЕУДАЧА-SQL: Первичный ключ не создан\u001B[0m");
+            System.out.println("\u001B[31m" + "НЕУДАЧА-SQL: Первичный ключ не создан\u001B[0m  " + e);
         }
+        return max;
     }
 
     private static void metaSql(String str) {

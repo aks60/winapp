@@ -74,6 +74,10 @@ public class Test {
         }
     }
 
+    static void temp(Integer count) {
+        count = 33;
+    }
+
     static void parseJson() {
 
         HashMap<ParamJson, Object> mapParam = new HashMap();
