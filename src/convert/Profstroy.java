@@ -97,7 +97,7 @@ public class Profstroy {
             eCurrenc.up, eGroups.up
         };
         try {
-            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";            
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\aluteh.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251";
@@ -161,19 +161,23 @@ public class Profstroy {
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
                 }
+                if ("COLOR".equals(fieldUp.tname())) {
+                    System.out.println("convert.Profstroy.script()");
+                }
                 //Создание генератора и заполнение таблиц ключами
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 } else {
+                    ////////////////checkUniqueKey(fieldUp, fieldUp.fields()[1]); //проверим ключ на уникальность
                     String max = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getStr(1);
                     executeSql("set generator GEN_" + fieldUp.tname() + " to " + max);
                 }
-                //Сщздание триггеров генераторов
+                //Создание триггеров генераторов
                 executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
                         + " if (new.id is null) then new.id = gen_id(gen_" + fieldUp.tname() + ", 1); end");
                 //DDL создание первичного ключа
-                executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);"); 
+                //executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
             }
 
             System.out.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
@@ -415,6 +419,7 @@ public class Profstroy {
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
+            //executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
@@ -664,6 +669,23 @@ public class Profstroy {
 
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "UPDATE-SQL:  " + e + "\u001B[0m");
+        }
+    }
+
+    private static void checkUniqueKey(Field up, Field field) {
+        System.out.println("checkField()");
+        try {
+            Query q = new Query(field.fields()).select(up);
+            HashSet<Integer> hs = new HashSet();
+            for (Record record : q) {
+                if (hs.add(record.getInt(field)) == false) {
+                    record.set(field, record.getInt(field) * -1);
+                    q.update(record);
+                    cn2.commit();
+                } 
+            }
+        } catch (SQLException e) {
+            System.out.println("\u001B[31m" + "НЕУДАЧА-SQL: Первичный ключ не создан\u001B[0m");
         }
     }
 

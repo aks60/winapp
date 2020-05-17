@@ -8,10 +8,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import static com.sun.tools.javac.code.TypeAnnotationPosition.field;
+import static domain.eArtikl.up;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import javax.swing.UIManager;
 import wincalc.constr.Specification;
 import wincalc.script.Winscript;
@@ -20,7 +21,7 @@ public class Test {
 
     public static void main(String[] args) {
         Main.dev = true;
-        try {                    
+        try {
             convert.Profstroy.script();
             //query();
             //wincalc();
@@ -39,7 +40,7 @@ public class Test {
         iwin.create(wincalc.script.Winscript.test(Winscript.prj, null, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
-        
+
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
 //        iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           
@@ -62,22 +63,11 @@ public class Test {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
                     "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
-            Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
-            Query qArtdet2 = new Query(eArtdet.values()).select(eArtdet.up).table(eArtdet.up);
-            //qArtdet.set(454, 0, eArtdet.color_id);
-            //qArtdet.execsql();
-
-            int mmm = 0;
-//        Query q3 = q2.table(eSysprof.up.tname());
-//        Query q4 = q2.table(eSystree.up.tname());
-//        
-//        int id = q2.getAs(1, eSystree.id, -1);
-//        int id2 = q2.getAs(1, eSysprof.id, -1);
+            //Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
 
         } catch (SQLException e) {
             System.out.println("main.Test.query()");

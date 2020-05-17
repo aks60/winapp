@@ -54,7 +54,7 @@ public class Color extends javax.swing.JFrame {
     private void loadingModel() {
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name);
-        new DefTableModel(tab2, qColor, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3);
+        new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3);
         new DefTableModel(tab3, qColpar1, eColpar1.grup, eColpar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -282,15 +282,15 @@ public class Color extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"111", null, null, null},
-                {"222", null, null, null}
+                {null, "111", null, null, null},
+                {null, "222", null, null, null}
             },
             new String [] {
-                "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)"
+                "Код текстуры", "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -307,10 +307,12 @@ public class Color extends javax.swing.JFrame {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(260);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(260);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
