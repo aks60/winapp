@@ -257,9 +257,9 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
-                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id));
+                    eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
-                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id));
+                    eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -1031,7 +1031,15 @@ public class Systree extends javax.swing.JFrame {
             new String [] {
                 "№пп", "Название  фурнитуры", "Тип открывания", "Замена", "Установка ручки"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
