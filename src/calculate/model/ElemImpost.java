@@ -9,8 +9,8 @@ import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import java.awt.Color;
 import calculate.constr.Specification;
+import domain.eSyssize;
 
 public class ElemImpost extends ElemSimple {
 
@@ -61,15 +61,16 @@ public class ElemImpost extends ElemSimple {
             sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseSide.VERT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        Record analogRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        specificationRec.setArtiklRec(analogRec);
+        specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override //Главная спецификация
     public void setSpecification(Record sysprofRec) {
-/*
+
+        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+
         specificationRec.section = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
-        specificationRec.setArtiklRec(Artikls.get(getConst(), sysproaRec.anumb, false));
+        specificationRec.setArtiklRec(artiklRec);
         specificationRec.color1 = color1;
         specificationRec.color2 = color2;
         specificationRec.color3 = color3;
@@ -77,42 +78,41 @@ public class ElemImpost extends ElemSimple {
         specificationRec.anglHoriz = anglHoriz;
 
         if (LayoutArea.HORIZ == owner().layout()) { //слева направо
-            ElemBase elemPrior = prevElem();
+            ElemSimple elemPrior = prevElem();
 
             //Элемент слева
             String keyJoinLeft = String.valueOf(elemPrior.x2) + ":" + String.valueOf(elemPrior.y1);
-            ElemJoinig joinLeft = getRoot().getHmJoinElem().get(keyJoinLeft);
-            ElemBase elemLeft = (joinLeft.joinElement1.equals(this)) ? joinLeft.joinElement2 : joinLeft.joinElement1;
+            ElemJoining joinLeft = iwin().mapJoin.get(keyJoinLeft);
+            ElemSimple elemLeft = (joinLeft.joinElement1.equals(this)) ? joinLeft.joinElement2 : joinLeft.joinElement1;
             y1 = elemLeft.y2;
             //элемент справа
             String keyJoinRight = String.valueOf(elemPrior.x2) + ":" + String.valueOf(elemPrior.y2);
-            ElemJoinig joinRight = getRoot().getHmJoinElem().get(keyJoinRight);
-            ElemBase elemRight = (joinRight.joinElement1.equals(this)) ? joinRight.joinElement2 : joinRight.joinElement1;
+            ElemJoining joinRight = iwin().mapJoin.get(keyJoinRight);
+            ElemSimple elemRight = (joinRight.joinElement1.equals(this)) ? joinRight.joinElement2 : joinRight.joinElement1;
             y2 = elemRight.y1;
 
-            specificationRec.width = y2 - y1 + getRoot().iwin.syssizeRec.ssizi * 2 + elemLeft.artiklesRec.asizn + elemRight.artiklesRec.asizn;;
-            specificationRec.height = artiklesRec.aheig;
+            specificationRec.width = y2 - y1 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2 + elemLeft.artiklRec.getFloat(eArtikl.size_falz) + elemRight.artiklRec.getFloat(eArtikl.size_falz);
+            specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
-        } else if (LayoutArea.VERTICAL == owner.getLayout()) { //сверху вниз
-            ElemBase elemPrior = prevElem();
+        } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
+            ElemSimple elemPrior = prevElem();
 
             //Элемент слева
             String keyJoinLeft = String.valueOf(elemPrior.x1) + ":" + String.valueOf(elemPrior.y2);
-            ElemJoinig joinLeft = getRoot().getHmJoinElem().get(keyJoinLeft);
-            ElemBase elemLeft = (joinLeft.joinElement1.equals(this)) ? joinLeft.joinElement2 : joinLeft.joinElement1;
+            ElemJoining joinLeft = iwin().mapJoin.get(keyJoinLeft);
+            ElemSimple elemLeft = (joinLeft.joinElement1.equals(this)) ? joinLeft.joinElement2 : joinLeft.joinElement1;
             x1 = elemLeft.x2;
             //Элемент справа
             String keyJoinRight = String.valueOf(elemPrior.x2) + ":" + String.valueOf(elemPrior.y2);
-            ElemJoinig joinRight = getRoot().getHmJoinElem().get(keyJoinRight);
-            ElemBase elemRight = (joinRight.joinElement1.equals(this)) ? joinRight.joinElement2 : joinRight.joinElement1;
+            ElemJoining joinRight = iwin().mapJoin.get(keyJoinRight);
+            ElemSimple elemRight = (joinRight.joinElement1.equals(this)) ? joinRight.joinElement2 : joinRight.joinElement1;
             x2 = elemRight.x1;
 
-            specificationRec.width = x2 - x1 + getRoot().iwin.syssizeRec.ssizi * 2 + elemLeft.artiklesRec.asizn + elemRight.artiklesRec.asizn;
-            specificationRec.height = artiklesRec.aheig;
+            specificationRec.width = x2 - x1 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2 + elemLeft.artiklRec.getFloat(eArtikl.size_falz) + elemRight.artiklRec.getFloat(eArtikl.size_falz);
+            specificationRec.height = artiklRec.getFloat(eArtikl.height);
         }
         specificationRec.anglCut2 = 90;
         specificationRec.anglCut1 = 90;
-*/
     }
 
     @Override //Вложеная спецификация      

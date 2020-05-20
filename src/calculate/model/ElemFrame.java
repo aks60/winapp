@@ -59,8 +59,7 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.RIGHT);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        Record analogRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        specificationRec.setArtiklRec(analogRec);
+        specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override //Главная спецификация
