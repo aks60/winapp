@@ -22,7 +22,7 @@ public enum eSysprof implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     prio("4", "10", "1", "Приоритет", "APRIO"), //0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - "
     use_type("5", "5", "1", "Тип использования", "ATYPE"),
-    use_side("5", "5", "1", "Сторона использования", "ASETS"), 
+    use_side("5", "5", "1", "Сторона использования", "ASETS"),
     artikl_id("4", "10", "0", "Артикул", "artikl_id"),
     sysprod_id("4", "10", "1", "Ссылка", "sysprod_id"), //не использую
     systree_id("4", "10", "0", "Ссылка", "systree_id");
@@ -47,12 +47,12 @@ public enum eSysprof implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", prio);
+            query.select(up, "order by", use_type, prio);
         }
         return query;
     }
 
-    public static ArrayList<Record> find(int _nuni) {      
+    public static ArrayList<Record> find(int _nuni) {
         if (conf.equals("calc")) {
             ArrayList<Record> sysproaList = new ArrayList();
             query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
@@ -67,7 +67,7 @@ public enum eSysprof implements Field {
         }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
-            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(use_type) ==_use_type.id)
+            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(use_type) == _use_type.id)
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {

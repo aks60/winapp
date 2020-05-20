@@ -136,7 +136,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingModel() {
 
         DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.values());
-        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.use_type, eArtikl.code, eArtikl.name, eSysprof.use_side, eSysprof.prio) {
+        DefTableModel rsmSysprof = new DefTableModel(tab2, qSysprof, eSysprof.use_type, eSysprof.use_side, eArtikl.code, eArtikl.name, eSysprof.prio) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -185,18 +185,18 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
         });
-
-        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-        });
         
-        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             new DicEnums(this, listenerSide, UseSide.values());
         });
+        
+        Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
 
-//        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
-//            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
-//        });
+        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
+        });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
             DicFurniture frame = new DicFurniture(this, listenerFurn);
@@ -998,7 +998,7 @@ public class Systree extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Применение", "Артикул", "Название", "Сторона", "Приоритет"
+                "Применение", "Сторона", "Артикул", "Название", "Приоритет"
             }
         ));
         tab2.setFillsViewportHeight(true);

@@ -1,6 +1,8 @@
 package enums;
 
 import dataset.Record;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -21,6 +23,7 @@ public enum UseArtiklTo implements Enam {
     public int id2;
     public String name;
     public Record sysprofRec;
+    public List<Record> sysprofList = new ArrayList();
 
     UseArtiklTo(int id, int id2, String name) {
         this.id = id;
@@ -48,4 +51,6 @@ public enum UseArtiklTo implements Enam {
     public static UseArtiklTo get(int id) {
         return Stream.of(values()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }
+    
+    
 }
