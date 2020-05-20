@@ -92,7 +92,7 @@ public class Elements extends Cal5e {
                             Specification specif = new Specification(artiklRec, elem5e, hmParam);
                             specif.setColor(elem5e, elemdetRec);
                             specif.section = "СОСТ";
-                            elem5e.addSpecifSubelem(specif); //добавим спецификацию в элемент
+                            elem5e.addSpecification(specif); //добавим спецификацию в элемент
                         }
                     }
                 }

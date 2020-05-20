@@ -66,7 +66,7 @@ public class ElemFrame extends ElemSimple {
     }
 
     //Вариант использования
-    public void setSpecifElement(Record sysprofRec) {  //добавление основной спесификации
+    public void setSpecification(Record sysprofRec) {  //добавление основной спесификации
 
         specificationRec.section = layout.name;
         float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
@@ -106,7 +106,7 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override //Детализация варианта 
-    public void addSpecifSubelem(Specification specif) { //добавление спесификаций зависимых элементов
+    public void addSpecification(Specification specif) { //добавление спесификаций зависимых элементов
 
         Record artiklRec = specif.artiklRec;
 
@@ -143,8 +143,9 @@ public class ElemFrame extends ElemSimple {
                 if (anglCut1 != 90) {
                     dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
                 }
-                specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue(); //TODO тут код незакончен
+                specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue();
                 */
+                
             }
             specif.anglCut1 = 90;
             specif.anglCut2 = 90;

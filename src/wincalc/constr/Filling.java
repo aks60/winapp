@@ -89,7 +89,7 @@ public class Filling extends Cal5e {
         if (out == true) {
 
             if (pass == 2) {
-                elemGlass.setSpecifElement(); //заполним спецификацию элемента
+                elemGlass.setSpecification(); //заполним спецификацию элемента
             }
             ArrayList<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
@@ -139,7 +139,7 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = (float) ang;
                             specif.anglCut1 = (float) ang;
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию
+                            elemGlass.addSpecification(specif); //добавим спецификацию
 
                             //По дуге арки
                             specif = new Specification(art, elemGlass, hmParam);
@@ -163,7 +163,7 @@ public class Filling extends Cal5e {
                             specif.anglCut1 = (float) ang3;
 
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию
+                            elemGlass.addSpecification(specif); //добавим спецификацию
 
                         } else {
                             //По горизонтали
@@ -173,9 +173,9 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (верхний/нижний)
 
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (верхний/нижний)
                             //По вертикали
                             specif = new Specification(art, elemGlass, hmParam);
                             specif.width = elemGlass.height() + 2 * gzazo;
@@ -183,8 +183,8 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
                         }
 
                         //Уплотнитель
@@ -211,7 +211,7 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = (float) ang;
                             specif.anglCut1 = (float) ang;
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (верхний/нижний)
 
                             //По дуге арки
                             specif = new Specification(art, elemGlass, hmParam);
@@ -227,7 +227,7 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = (float) ang3;
                             specif.anglCut1 = (float) ang3;
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (верхний/нижний)
                         } else {
                             //По горизонтали
                             specif = new Specification(art, elemGlass, hmParam);
@@ -236,8 +236,8 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
                             //По вертикали
                             specif = new Specification(art, elemGlass, hmParam);
                             specif.width = elemGlass.height() + 2 * gzazo;
@@ -245,8 +245,8 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
                         }
 
                         //Всё остальное
@@ -259,18 +259,18 @@ public class Filling extends Cal5e {
                             for (int index = 0; index < 4; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, clasdetRec);
-                                elemGlass.addSpecifSubelem(specif);
+                                elemGlass.addSpecification(specif);
                             }
                         } else if (TypeElem.ARCH == elemGlass.owner().type()) {
                             for (int index = 0; index < 2; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, clasdetRec);
-                                elemGlass.addSpecifSubelem(specif);
+                                elemGlass.addSpecification(specif);
                             }
                         } else {
                             specif = new Specification(art, elemGlass, hmParam);
                             specif.setColor(elemGlass, clasdetRec);
-                            elemGlass.addSpecifSubelem(specif);
+                            elemGlass.addSpecification(specif);
                         }
                     }
                 }
@@ -286,7 +286,7 @@ public class Filling extends Cal5e {
         boolean out = fillingVar.check(elemGlass, glaspar1List); //ФИЛЬТР вариантов
         if (out == true) {
 
-            elemGlass.setSpecifElement(); //заполним спецификацию элемента
+            elemGlass.setSpecification(); //заполним спецификацию элемента
             List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getInt(eArtikl.depth));
             //Цикл по списку детализации
             for (Record glasdetRec : glasdetList) {
@@ -330,7 +330,7 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = (float) ang;
                             specif.anglCut1 = (float) ang;
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию
+                            elemGlass.addSpecification(specif); //добавим спецификацию
 
                             //По дуге арки
                             specif = new Specification(art, elemGlass, hmParam);
@@ -354,7 +354,7 @@ public class Filling extends Cal5e {
                             specif.anglCut1 = (float) ang3;
 
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию
+                            elemGlass.addSpecification(specif); //добавим спецификацию
 
                         } else {
                             //По горизонтали
@@ -364,9 +364,9 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (верхний/нижний)
 
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (верхний/нижний)
                             //По вертикали
                             specif = new Specification(art, elemGlass, hmParam);
                             specif.width = elemGlass.height() + 2 * gzazo;
@@ -374,8 +374,8 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
                         }
 
                         //Уплотнитель
@@ -402,7 +402,7 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = (float) ang;
                             specif.anglCut1 = (float) ang;
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (верхний/нижний)
 
                             //По дуге арки
                             specif = new Specification(art, elemGlass, hmParam);
@@ -418,7 +418,7 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = (float) ang3;
                             specif.anglCut1 = (float) ang3;
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (верхний/нижний)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (верхний/нижний)
                         } else {
                             //По горизонтали
                             specif = new Specification(art, elemGlass, hmParam);
@@ -427,8 +427,8 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
                             //По вертикали
                             specif = new Specification(art, elemGlass, hmParam);
                             specif.width = elemGlass.height() + 2 * gzazo;
@@ -436,8 +436,8 @@ public class Filling extends Cal5e {
                             specif.anglCut2 = 45;
                             specif.anglCut1 = 45;
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecifSubelem(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(specif); //добавим спецификацию в элемент (левый/правый)
+                            elemGlass.addSpecification(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
                         }
 
                         //Всё остальное
@@ -450,18 +450,18 @@ public class Filling extends Cal5e {
                             for (int index = 0; index < 4; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, glasdetRec);
-                                elemGlass.addSpecifSubelem(specif);
+                                elemGlass.addSpecification(specif);
                             }
                         } else if (TypeElem.ARCH == elemGlass.owner().type()) {
                             for (int index = 0; index < 2; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
                                 specif.setColor(elemGlass, glasdetRec);
-                                elemGlass.addSpecifSubelem(specif);
+                                elemGlass.addSpecification(specif);
                             }
                         } else {
                             specif = new Specification(art, elemGlass, hmParam);
                             specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecifSubelem(specif);
+                            elemGlass.addSpecification(specif);
                         }
                     }
                 }

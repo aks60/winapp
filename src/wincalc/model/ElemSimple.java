@@ -39,7 +39,7 @@ public abstract class ElemSimple extends Com5t {
     public abstract UseArtiklTo useArtiklTo();
 
     //Добавить спецификацию в состав элемента
-    public abstract void addSpecifSubelem(Specification specification);
+    public abstract void addSpecification(Specification specification);
 
     public void anglCut(int layout, float anglCut) {
     }

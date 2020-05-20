@@ -81,7 +81,7 @@ public class Joining extends Cal5e {
                         specif.color2 = artdetRec.getInt(eArtdet.color_fk);
                         specif.color3 = artdetRec.getInt(eArtdet.color_fk);
                         specif.section = "СОЕД";
-                        joinElement1.addSpecifSubelem(specif);
+                        joinElement1.addSpecification(specif);
                     }
                 }
             }

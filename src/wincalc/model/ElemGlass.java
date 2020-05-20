@@ -81,7 +81,7 @@ public class ElemGlass extends ElemSimple {
     }
 
     //Вариант использования
-    public void setSpecifElement() {
+    public void setSpecification() {
 
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
         if (owner() instanceof AreaArch) { //если арка
@@ -139,7 +139,7 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override //Детализация варианта  
-    public void addSpecifSubelem(Specification specif) {
+    public void addSpecification(Specification specif) {
 
         if (TypeArtikl.GLASS.isType(artiklRec)) { //стеклопакет
             return;

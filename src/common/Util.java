@@ -371,7 +371,7 @@ public class Util {
     }
 
     //Инкапсуляция кнопки в ячейку таблицы
-    public static JButton buttonEditorCell(JTable table, int column) { //TODO Заменить индекс столбца на Field
+    public static JButton buttonEditorCell(JTable table, int column) { //TODO Заменить индекс столбца на Field в пакете frame
         JButton btn = new JButton("...");
         table.getColumnModel().getColumn(column).setCellEditor(new DefCellEditor(btn));
         return btn;

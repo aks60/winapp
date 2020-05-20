@@ -66,7 +66,7 @@ public class ElemImpost extends ElemSimple {
     }
 
     //Вариант использования
-    public void setSpecifElement(Record sysproaRec) {
+    public void setSpecification(Record sysproaRec) {
 /*
         specificationRec.section = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
         specificationRec.setArtiklRec(Artikls.get(getConst(), sysproaRec.anumb, false));
@@ -116,7 +116,7 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override //Детализация варианта      
-    public void addSpecifSubelem(Specification specif) {
+    public void addSpecification(Specification specif) {
 
         Record artiklRec = specif.artiklRec;
 

@@ -125,7 +125,7 @@ public class Specification {
         this.color3 = color3;
     }
 
-    //TODO ВАЖНО необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
+    //TODO ВАЖНО !!! необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
     public void setColor(Com5t com5t, Record paramRec) {
 //        color1 = determineColorCodeForArt(com5t, 1, paramRec, this);
 //        color2 = determineColorCodeForArt(com5t, 2, paramRec, this);
