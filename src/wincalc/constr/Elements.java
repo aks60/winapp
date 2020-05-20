@@ -39,27 +39,32 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void build() {
         try {
+            
+            //Запишем профили по умолчанию в UseArtiklTo
+            Arrays.asList(UseArtiklTo.values()).forEach(useArtiklTo -> useArtiklTo.sysprofRec = eSysprof.find2(iwin().nuni, useArtiklTo)); 
             //Цыкл по списку применений артикулов
             for (UseArtiklTo useArtiklTo : UseArtiklTo.values()) { 
                 //Цыкл по списку элементов конструкции
                 for (ElemSimple elem5e : iwin().listElem) { 
-                    if (elem5e.useArtiklTo() == useArtiklTo) {
-
-                        int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id); //ищем текстуры не на аналоге 
+                    if (elem5e.useArtiklTo() == useArtiklTo || useArtiklTo == UseArtiklTo.ANY) {
+                        
+                        //Ищем текстуры не на аналоге 
+                        int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id); 
                         List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
                         elem5e.artdetRec = artdet(artdetList); //текстура артикула, нужен подбор текстуры!!!
                         
-
+                        //Варианты состава для серии профилей
                         int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
-                        List<Record> elementList2 = eElement.find(series_id); //варианты состава для серии профилей
+                        List<Record> elementList2 = eElement.find(series_id); 
                         detail(elementList2, elem5e);                                                
                         
+                        //Варианты состава для артикула профиля
                         if (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) { 
                             artikl_id = elem5e.artiklRec.getInt(eArtikl.analog_id);
                         } else {
                             artikl_id = elem5e.artiklRec.getInt(eArtikl.id);
                         }
-                        List<Record> elementList3 = eElement.find2(artikl_id); //варианты состава для артикула профиля
+                        List<Record> elementList3 = eElement.find2(artikl_id); 
                         detail(elementList3, elem5e);
                     }
                 }

@@ -5,23 +5,23 @@ import java.util.Arrays;
 
 //Расположение area  и profile объединены в один список Enum
 public enum LayoutArea implements Enam {
+    ANY(-1, "Любая"),
+    HORIZ(-2,"Горизонтальное"),
+    VERT(-3,"Вертикальное"),
+    BOTTOM(1,"Нижняя"),
+    RIGHT(2,"Правая"),
+    TOP(3,"Верхняя"),
+    LEFT(4,"Левая"),
+    ARCH(5, "Арочная"),
+    FULL(6, "Везде");    
 
-    NONE("Любая"),
-    FULL("Везде"),
-    HORIZ("Горизонтальное"),
-    VERT("Вертикальное"),
-    LEFT("Левая"),
-    RIGHT("Правая"),
-    TOP("Верхняя"),
-    BOTTOM("Нижняя"),
     //LSKEW("Левый угол"),
     //RSKEW("Правый угол"),
-    ARCH("Арка");
-
+    public int id;
     public String name;
-    public int value;
 
-    LayoutArea(String name) {
+    LayoutArea(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 

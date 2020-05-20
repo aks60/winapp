@@ -7,20 +7,20 @@ import static enums.TypeOpen1.values;
 import java.util.stream.Stream;
 
 // select distinct ASETS from PRO4_SYSPROA where region_id = 177 order by ASETS
-public enum UseProfile implements Enam {
-    VERT(-3, "Вертикальная"),
-    HORIZ(-2, "Горизонтальная"),
+public enum UseSide implements Enam {    
+    MANUAL(0, "Вручную"), 
     ANY(-1, "Любая"),
-    MANUAL(0, "Вручную"),
-    BOTTOM(1, "Низ"),
+    HORIZ(-2, "Горизонтальная"),
+    VERT(-3, "Вертикальная"),
+    BOTTOM(1, "Нижняя"),
     RIGHT(2, "Правая"),
-    TOP(3, "Верх"),
+    TOP(3, "Верхняя"),
     LEFT(4, "Левая");
 
     public int id;
     public String name;
 
-    UseProfile(int id, String name) {
+    UseSide(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -37,7 +37,7 @@ public enum UseProfile implements Enam {
         return values();
     }
     
-    public static UseProfile get(int id) {
+    public static UseSide get(int id) {
         return Stream.of(values()).filter(en -> en.numb() == id).findFirst().orElse(null);
     }
 }

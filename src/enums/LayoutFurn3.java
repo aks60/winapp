@@ -5,7 +5,7 @@
  */
 package enums;
 
-import static enums.UseProfile.values;
+import static enums.UseSide.values;
 import static enums.TypeOpen1.values;
 
 //Стороны фурнитуры

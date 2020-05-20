@@ -11,7 +11,7 @@ public class Intermediate {
     public float id = -1;  // идентификатор элемента
     public Intermediate owner = null; //владелец
     public TypeElem type = TypeElem.NONE; //тип элемента
-    public LayoutArea layout = LayoutArea.NONE;  //ориентация при располодении      
+    public LayoutArea layout = LayoutArea.ANY;  //ориентация при располодении      
     public float width = 0;  //ширина area, мм
     public float height = 0; //высота area, мм   
     public String param = null;

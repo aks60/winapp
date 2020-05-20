@@ -5,7 +5,7 @@
  */
 package enums;
 
-import static enums.UseProfile.values;
+import static enums.UseSide.values;
 
 //Стороны фурнитуры
 public enum LayoutFurn1 implements Enam {

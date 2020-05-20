@@ -19,7 +19,7 @@ import domain.eSyssize;
 import domain.eSyspar1;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.UseProfile;
+import enums.UseSide;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.awt.Graphics2D;
@@ -117,9 +117,9 @@ public class Wincalc {
         try {
             Elements elements = new Elements(this); //составы
             elements.build();
-            Joining joining = new Joining(this); //соединения
+          /*  Joining joining = new Joining(this); //соединения
             joining.build();
-          /*  Filling filling = new Filling(iwin, this); //заполнения
+            Filling filling = new Filling(iwin, this); //заполнения
             filling.build();
             Accessory accessory = new Accessory(iwin, this); //фурнитура        
             constructiv.kitsFirst();                       //комплекты */
@@ -150,7 +150,7 @@ public class Wincalc {
             height = mainObj.get("height").getAsFloat();
             heightAdd = mainObj.get("heightAdd").getAsFloat();
 
-            Record sysprofRec = eSysprof.find3(nuni, UseArtiklTo.FRAME, UseProfile.LEFT);
+            Record sysprofRec = eSysprof.find3(nuni, UseArtiklTo.FRAME, UseSide.LEFT);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             sysconsRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
 
@@ -204,9 +204,9 @@ public class Wincalc {
                 } else {
 
                     if (TypeElem.IMPOST.name().equals(type)) {
-                        listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.NONE.name(), param));
+                        listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.ANY.name(), param));
                     } else if (TypeElem.GLASS.name().equals(type)) {
-                        listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.NONE.name(), param));
+                        listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.ANY.name(), param));
                     }
                 }
             }
