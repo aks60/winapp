@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.Locale;
 import javax.swing.JFileChooser;
 import dataset.eExcep;
-import wincalc.Wincalc;
+import calculate.Wincalc;
 
 /**
  * <p>

@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import swing.DefTableModel;
-import wincalc.Wincalc;
-import wincalc.constr.Specification;
+import calculate.Wincalc;
+import calculate.constr.Specification;
 
 public class Specific extends javax.swing.JFrame {
 
-    private wincalc.Wincalc iwin = null;
+    private calculate.Wincalc iwin = null;
     private Window owner = null;
 
     public Specific() {

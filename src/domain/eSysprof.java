@@ -9,7 +9,7 @@ import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import wincalc.model.ElemSimple;
+import calculate.model.ElemSimple;
 
 public enum eSysprof implements Field {
     up("0", "0", "0", "Профили сист.профилей", "SYSPROA"),

@@ -14,8 +14,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.UIManager;
-import wincalc.constr.Specification;
-import wincalc.script.Winscript;
+import calculate.constr.Specification;
+import calculate.script.Winscript;
 
 public class Test {
 
@@ -36,8 +36,8 @@ public class Test {
 
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-        wincalc.Wincalc iwin = new wincalc.Wincalc();
-        iwin.create(wincalc.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
+        calculate.Wincalc iwin = new calculate.Wincalc();
+        iwin.create(calculate.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
 
