@@ -992,13 +992,13 @@ public class Systree extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Применение", "Сторона", "Артикул", "Название", "Приоритет"
+                "Применение", "Сторона", "Артикул", "Название", "Приоритет", "ID"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -1010,6 +1010,9 @@ public class Systree extends javax.swing.JFrame {
             }
         });
         scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(5).setMaxWidth(80);
+        }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 

@@ -45,8 +45,6 @@ public class ElemFrame extends ElemSimple {
         } else if (LayoutArea.ARCH == layout) {
             anglHoriz = 180;
         }
-
-        //System.out.println(specificationRec.elem5e.artdetRec);
     }
 
     public void initСonstructiv() {
@@ -65,7 +63,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.setArtiklRec(analogRec);
     }
 
-    //Вариант использования
+    @Override //Главная спецификация
     public void setSpecification(Record sysprofRec) {  //добавление основной спесификации
 
         specificationRec.section = layout.name;
@@ -100,12 +98,12 @@ public class ElemFrame extends ElemSimple {
         }
 
         // Коррекция формы окна
-        //owner.setSpecifElement(this, sysprofRec);
+        //owner.setSpecific(sysprofRec);
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
     }
 
-    @Override //Детализация варианта 
+    @Override //Вложеная спецификация
     public void addSpecification(Specification specif) { //добавление спесификаций зависимых элементов
 
         Record artiklRec = specif.artiklRec;

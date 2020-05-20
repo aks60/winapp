@@ -80,8 +80,8 @@ public class ElemGlass extends ElemSimple {
         specificationRec.setArtiklRec(artiklRec);
     }
 
-    //Вариант использования
-    public void setSpecification() {
+    @Override //Главная спецификация
+    public void setSpecification(Record sysprofRec){
 
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
         if (owner() instanceof AreaArch) { //если арка
@@ -138,7 +138,7 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
-    @Override //Детализация варианта  
+    @Override //Вложеная спецификация 
     public void addSpecification(Specification specif) {
 
         if (TypeArtikl.GLASS.isType(artiklRec)) { //стеклопакет

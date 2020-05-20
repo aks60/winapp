@@ -4,18 +4,12 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eSyssize.id;
-import static domain.eSyssize.up;
-import static domain.eSyssize.values;
-import static domain.eSyspar1.systree_id;
-import static domain.eSyspar1.up;
-import static domain.eSyspar1.values;
 import enums.UseSide;
 import enums.UseArtiklTo;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import wincalc.model.ElemSimple;
 
 public enum eSysprof implements Field {
     up("0", "0", "0", "Профили сист.профилей", "SYSPROA"),
@@ -118,6 +112,23 @@ public enum eSysprof implements Field {
                 + use_side.name() + " = " + _side.id + " or " + use_side.name() + " = " + UseSide.ANY.id + ") order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
+    
+//    public static Record find4(int _nuni, ElemSimple elem5e, UseArtiklTo _type, UseSide _side) {
+//        if (_nuni == -1) {
+//            return record(_type);
+//        }
+//        if (conf.equals("calc")) {
+//            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.id == rec.getInt(use_type)
+//                    && (_side.id == rec.getInt(use_side) || UseSide.ANY.id == rec.getInt(use_side)))
+//                    .forEach(rec2 -> {
+//                    
+//                    });            
+//        }
+//        Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
+//                + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " and ("
+//                + use_side.name() + " = " + _side.id + " or " + use_side.name() + " = " + UseSide.ANY.id + ") order by " + prio.name());
+//        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+//    }
 
     public static Record record(UseArtiklTo _type) {
 

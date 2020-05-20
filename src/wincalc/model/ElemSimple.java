@@ -38,7 +38,10 @@ public abstract class ElemSimple extends Com5t {
     //Использовать артикл для...
     public abstract UseArtiklTo useArtiklTo();
 
-    //Добавить спецификацию в состав элемента
+    //Главная спецификация
+    public abstract void setSpecification(Record sysprofRec);
+    
+    //Вложеная спецификация
     public abstract void addSpecification(Specification specification);
 
     public void anglCut(int layout, float anglCut) {

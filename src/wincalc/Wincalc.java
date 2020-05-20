@@ -237,7 +237,8 @@ public class Wincalc {
 
                 //Добавим рамы в гпавное окно
                 if (TypeElem.FRAME_BOX == imd.type) {
-                    rootArea.addFrame(new ElemFrame(rootArea, imd.id, imd.layout));
+                    ElemFrame elemFrame = new ElemFrame(rootArea, imd.id, imd.layout);
+                    rootArea.mapFrame.put(elemFrame.layout(), elemFrame);
                     continue;
                 }
                 //Остальные

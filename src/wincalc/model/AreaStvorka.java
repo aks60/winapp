@@ -27,10 +27,14 @@ public class AreaStvorka extends AreaSimple {
         super(iwin, owner, id, TypeElem.FULLSTVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
 
         //Добавим рамы створки        
-        addFrame(new ElemFrame(this, id + .1f, LayoutArea.BOTTOM));
-        addFrame(new ElemFrame(this, id + .2f, LayoutArea.RIGHT));
-        addFrame(new ElemFrame(this, id + .3f, LayoutArea.TOP));
-        addFrame(new ElemFrame(this, id + .4f, LayoutArea.LEFT));
+        ElemFrame e1 = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);
+        mapFrame.put(e1.layout(), e1);
+        ElemFrame e2 = new ElemFrame(this, id + .2f, LayoutArea.RIGHT);
+        mapFrame.put(e2.layout(), e2);
+        ElemFrame e3 = new ElemFrame(this, id + .3f, LayoutArea.TOP);
+        mapFrame.put(e3.layout(), e3);
+        ElemFrame e4 = new ElemFrame(this, id + .4f, LayoutArea.LEFT);
+        mapFrame.put(e4.layout(), e4);
 
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");

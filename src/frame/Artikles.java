@@ -79,9 +79,12 @@ public class Artikles extends javax.swing.JFrame {
     private void loadingData() {
         if (owner != null) {
             new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).forEach(record -> {
-                subsql = subsql + "," + record.getStr(eSysprof.artikl_id);
-                new Query(eElement.artikl_id).select(eElement.up, "where", eElement.artikl_id, "=", record.getInt(eSysprof.artikl_id)).forEach(record2 -> {
-                    subsql = subsql + "," + record2.getStr(eElement.artikl_id);
+                new Query(eArtikl.id, eArtikl.analog_id).select(eArtikl.up, "where", eArtikl.id, "=", record.getStr(eSysprof.artikl_id)).forEach(record2 -> {
+                    if (record2.get(eArtikl.analog_id) != null) {
+                        subsql = subsql + "," + record2.getInt(eArtikl.id) + "," + record2.getInt(eArtikl.analog_id);
+                    } else {
+                        subsql = subsql + "," + record2.getInt(eArtikl.id);
+                    }
                 });
             });
             subsql = "(" + subsql.substring(1) + ")";
@@ -140,7 +143,7 @@ public class Artikles extends javax.swing.JFrame {
                 txtField10.setText(name);
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
                     Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(null);
-                    name = (analogRec != null) ?analogRec.getStr(eArtikl.code) : null;
+                    name = (analogRec != null) ? analogRec.getStr(eArtikl.code) : null;
                     txtField11.setText(name);
                 } else {
                     txtField11.setText(null);
@@ -238,7 +241,7 @@ public class Artikles extends javax.swing.JFrame {
                 for (int index = 0; index < qArtikl.size(); ++index) {
                     int id = qArtikl.getAs(index, eArtikl.id);
                     if (id == artId) {
-                      Util.setSelectedRow(tab1, index);
+                        Util.setSelectedRow(tab1, index);
                     }
                 }
             }
@@ -249,7 +252,7 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        
+
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = qArtikl.get(row);

@@ -183,11 +183,6 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    public ElemFrame addFrame(ElemFrame elemFrame) {
-        mapFrame.put(elemFrame.layout(), elemFrame);
-        return elemFrame;
-    }
-
     //Рисуем конструкцию
     public void draw(int width, int height) {
         try {
