@@ -66,7 +66,7 @@ public class ElemImpost extends ElemSimple {
 
     @Override //Главная спецификация
     public void setSpecification(Record sysprofRec) {
-
+/*
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
 
         specificationRec.section = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
@@ -113,6 +113,7 @@ public class ElemImpost extends ElemSimple {
         }
         specificationRec.anglCut2 = 90;
         specificationRec.anglCut1 = 90;
+*/
     }
 
     @Override //Вложеная спецификация      
