@@ -96,11 +96,11 @@ public class Wincalc {
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов главного окна 
         listArea = rootArea.listElem(TypeElem.RECTANGL, TypeElem.ARCH, TypeElem.TRAPEZE, TypeElem.TRIANGL);
-        listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений окон
+        listArea.stream().forEach(area -> area.joinElem()); //обход(схлопывание) соединений окон
 
         //Соединения створок
-        listAreaStv.stream().forEach(area -> area.joinFrame());
-        listAreaStv.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створok
+//        listAreaStv.stream().forEach(area -> area.joinFrame());
+//        listAreaStv.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створok
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);

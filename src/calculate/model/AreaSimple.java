@@ -105,14 +105,31 @@ public class AreaSimple extends Com5t {
     public void joinFrame() {
     }
 
-    public void joinElem(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
+    public void joinElem() {
 
-        for (ElemSimple elem5e : listElem) {
-            if(elem5e.type() == TypeElem.IMPOST) {
-                if(elem5e.owner().layout() == LayoutArea.HORIZ) {
-                    
+        List<ElemSimple> pmpostList = listElem(TypeElem.IMPOST);
+        for (ElemSimple impostElem : pmpostList) {
+            List<ElemSimple> elemList = listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
+            for (ElemSimple elem5e : elemList) {
+                
+                if (impostElem.owner().layout() == LayoutArea.HORIZ) {
+                    if (elem5e.inside(impostElem.x1, impostElem.y1) == true) {
+                        
+                        ElemJoining el = new ElemJoining(iwin());
+                        el.name = "T - соединение верхнее";
+                        el.typeJoin = LayoutJoin.TTOP;
+                        el.joinElement1 = impostElem;
+                        el.joinElement2 = elem5e;
+                    } else if (impostElem.inside(impostElem.x2, impostElem.y2) == true) {
+                        
+                        ElemJoining el = new ElemJoining(iwin());
+                        el.name = "T - соединение нижнее";
+                        el.typeJoin = LayoutJoin.TBOT;
+                        el.joinElement1 = impostElem;
+                        el.joinElement2 = elem5e;
+                    }
                 } else {
-                    
+
                 }
             }
         }
