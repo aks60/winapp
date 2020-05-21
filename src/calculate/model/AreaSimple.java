@@ -47,7 +47,7 @@ public class AreaSimple extends Com5t {
                 } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
                     setDimension(owner().x1, owner().y1, owner().x1 + width, owner().y2);
                 }
-                
+
             } else { //Aреа перед текущей, т.к. this area ёщё не создана начнём с конца
                 for (int index = owner().listChild.size() - 1; index >= 0; --index) {
                     if (owner().listChild.get(index).type == TypeElem.AREA) {
@@ -69,11 +69,11 @@ public class AreaSimple extends Com5t {
                 AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null);
                 float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
                 y2 = y2 - dy;
-            }  else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+            } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
                 AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
                 float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
                 x2 = x2 - dx;
-            }            
+            }
         }
     }
 
@@ -106,6 +106,19 @@ public class AreaSimple extends Com5t {
     }
 
     public void joinElem(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
+
+        for (ElemSimple elem5e : listElem) {
+            if(elem5e.type() == TypeElem.IMPOST) {
+                if(elem5e.owner().layout() == LayoutArea.HORIZ) {
+                    
+                } else {
+                    
+                }
+            }
+        }
+    }
+
+    public void joinElem2(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
 
         //Обход всех угловых соединений текущей Area        
         insideElem(x1, y1, mapClap, listElem);

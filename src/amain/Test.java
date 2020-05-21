@@ -37,8 +37,8 @@ public class Test {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         calculate.Wincalc iwin = new calculate.Wincalc();
-        iwin.create(calculate.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
-        iwin.constructiv();
+        iwin.create(calculate.script.Winscript.test(Winscript.prj, null, 1009, 10009, 1009));
+        //iwin.constructiv();
         //Specification.write_txt2(iwin.listSpec);
         iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" 
                 + it.getValue().varJoin + "  POINT:" + it.getKey() + "  -" + it.getValue().name)); 

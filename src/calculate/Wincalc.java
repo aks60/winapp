@@ -95,11 +95,12 @@ public class Wincalc {
 
         //Соединения рамы  
         rootArea.joinFrame();  //обход соединений и кальк. углов главного окна 
-        listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений вложенных окон
+        listArea = rootArea.listElem(TypeElem.RECTANGL, TypeElem.ARCH, TypeElem.TRAPEZE, TypeElem.TRIANGL);
+        listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений окон
 
         //Соединения створок
         listAreaStv.stream().forEach(area -> area.joinFrame());
-        listAreaStv.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
+        listAreaStv.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створok
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
@@ -150,7 +151,8 @@ public class Wincalc {
             height = mainObj.get("height").getAsFloat();
             heightAdd = mainObj.get("heightAdd").getAsFloat();
 
-            Record sysprofRec = eSysprof.find3(nuni, UseArtiklTo.FRAME, UseSide.LEFT);
+//            Record sysprofRec = eSysprof.find3(nuni, UseArtiklTo.FRAME, UseSide.LEFT);
+            Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             sysconsRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
 

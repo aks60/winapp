@@ -8,7 +8,7 @@ import amain.Main;
 public class Winscript {
 
     ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601001;
+    public static int prj = 601002;
     ////////////////////////////////////////////////////////////////////////////
     
     public static AreaRoot rootArea;
@@ -31,7 +31,7 @@ public class Winscript {
 
         } else if (project == 601002) { 
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, color1, color2, color3, "");
-            rootArea.setParam(project.toString(), 433, "Montblanc->Nord-1 ОКНА");
+            rootArea.setParam(project.toString(), 598, "Montblanc->Nord-1 ОКНА");
             rootArea.add(new Element(2, TypeElem.FRAME_BOX, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_BOX, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_BOX, LayoutArea.TOP));
