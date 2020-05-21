@@ -24,7 +24,7 @@ public class AreaStvorka extends AreaSimple {
     protected TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
-        super(iwin, owner, id, TypeElem.FULLSTVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
+        super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
 
         //Добавим рамы створки        
         ElemFrame e1 = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);

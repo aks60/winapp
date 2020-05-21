@@ -89,7 +89,7 @@ public class Wincalc {
 
         //Инициализация объектов калькуляции
         listArea = rootArea.listElem(TypeElem.AREA); //список контейнеров
-        LinkedList<AreaStvorka> listStvorka = rootArea.listElem(TypeElem.FULLSTVORKA); //список створок
+        LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(TypeElem.STVORKA); //список створок
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
@@ -98,8 +98,8 @@ public class Wincalc {
         listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений вложенных окон
 
         //Соединения створок
-        listStvorka.stream().forEach(area -> area.joinFrame());
-        listStvorka.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
+        listAreaStv.stream().forEach(area -> area.joinFrame());
+        listAreaStv.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений створки
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST, TypeElem.GLASS);
@@ -191,7 +191,7 @@ public class Wincalc {
                 int id = objArea.get("id").getAsInt();
                 String type = objArea.get("elemType").getAsString();
                 String param = (objArea.get("paramJson") != null) ? objArea.get("paramJson").getAsString() : null;
-                if (TypeElem.AREA.name().equals(type) || TypeElem.FULLSTVORKA.name().equals(type)) {
+                if (TypeElem.AREA.name().equals(type) || TypeElem.STVORKA.name().equals(type)) {
 
                     float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
                     float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;
@@ -242,9 +242,9 @@ public class Wincalc {
                     continue;
                 }
                 //Остальные
-                if (TypeElem.AREA == imd.type || TypeElem.FULLSTVORKA == imd.type) {
+                if (TypeElem.AREA == imd.type || TypeElem.STVORKA == imd.type) {
 
-                    if (TypeElem.FULLSTVORKA == imd.type) {
+                    if (TypeElem.STVORKA == imd.type) {
                         imd.addArea(new AreaStvorka(this, imd.owner.area, imd.id, imd.param));
                     } else {
                         if (TypeElem.RECTANGL == rootArea.type()) {

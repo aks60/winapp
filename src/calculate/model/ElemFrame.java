@@ -24,7 +24,7 @@ public class ElemFrame extends ElemSimple {
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;
-        this.type = (TypeElem.FULLSTVORKA == owner.type) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
+        this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
         initСonstructiv();
 
         if (LayoutArea.LEFT == layout) {
@@ -219,7 +219,7 @@ public class ElemFrame extends ElemSimple {
 
     @Override
     public UseArtiklTo useArtiklTo() {
-        return (TypeElem.FULLSTVORKA == owner().type) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
+        return (TypeElem.STVORKA == owner().type) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
     }
 
     @Override

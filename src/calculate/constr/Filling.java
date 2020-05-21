@@ -55,7 +55,7 @@ public class Filling extends Cal5e {
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.select()) {
 
-                    UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.FULLSTVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
+                    UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
@@ -254,7 +254,7 @@ public class Filling extends Cal5e {
                         Record art = eArtikl.find(clasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.AREA == elemGlass.owner().type()
                                 || TypeElem.RECTANGL == elemGlass.owner().type()
-                                || TypeElem.FULLSTVORKA == elemGlass.owner().type()) {
+                                || TypeElem.STVORKA == elemGlass.owner().type()) {
 
                             for (int index = 0; index < 4; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);
@@ -445,7 +445,7 @@ public class Filling extends Cal5e {
                         Record art = eArtikl.find(glasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.AREA == elemGlass.owner().type()
                                 || TypeElem.RECTANGL == elemGlass.owner().type()
-                                || TypeElem.FULLSTVORKA == elemGlass.owner().type()) {
+                                || TypeElem.STVORKA == elemGlass.owner().type()) {
 
                             for (int index = 0; index < 4; index++) {
                                 specif = new Specification(art, elemGlass, hmParam);

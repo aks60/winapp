@@ -151,7 +151,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31037:  //Название фурнитуры содержит 
                         message(grup, rec.getStr(TEXT));
-                        if (TypeElem.FULLSTVORKA == elem5e.owner().type()) {
+                        if (TypeElem.STVORKA == elem5e.owner().type()) {
                             if (rec.getStr(TEXT).contains(elem5e.artiklRec.getStr(eArtikl.name)) == false) {
                                 return false;
                             }

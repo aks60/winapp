@@ -207,7 +207,7 @@ public class AreaSimple extends Com5t {
             mapFrame.get(LayoutArea.RIGHT).paint();
 
             //Прорисовка створок
-            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
+            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.STVORKA);
             elemStvorkaList.stream().forEach(el -> el.paint());
 
             //Прорисовка размера            

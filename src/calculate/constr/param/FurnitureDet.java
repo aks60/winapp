@@ -31,7 +31,7 @@ public class FurnitureDet  extends Par5s {
 
                 case 24001:  //Форма контура 
                 case 25001:  //Форма контура 
-                    if (TypeElem.FULLSTVORKA == elem5e.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
+                    if (TypeElem.STVORKA == elem5e.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;

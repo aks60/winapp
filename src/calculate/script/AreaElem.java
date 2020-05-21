@@ -41,7 +41,7 @@ public class AreaElem extends Element {
         if (element instanceof AreaElem) {
 
             AreaElem area = (AreaElem) element;
-            if (TypeElem.FULLSTVORKA == element.elemType) {
+            if (TypeElem.STVORKA == element.elemType) {
 
                 area.width = this.width;
                 area.height = this.height;

@@ -6,13 +6,13 @@ public enum TypeElem implements Enam {
     //TypeElem
     FRAME_BOX(2, "Рама коробки"),
     IMPOST(3, "Импост"),
-    FRAME_STV(4, "Рама створки"), //элемент FULLSTVORKA
+    FRAME_STV(4, "Рама створки"), //элемент STVORKA
     GLASS(5, "Стеклопакет"),
     SHTULP(10, "Штульп"),
     MOSKITKA(13, "Москитка"),
     RASKLADKA(14, "Раскладка"),
     MOSKITKA_SET(15, "Москитка"),
-    STVORKA(23, "Створка"), //без импоста
+    //STVORKA(23, "Створка"), //без импоста
     SAND(100, "Сэндвич"),
     JALOUSIE(101, "Жалюзи"),
     //TypeArea
@@ -21,7 +21,7 @@ public enum TypeElem implements Enam {
     TRAPEZE(1002, "Окно трапеция в сборе"),
     TRIANGL(1003, "Треугольное окно в сборе"),
     ARCH(1004, "Арочное окно в сборе"),
-    FULLSTVORKA(1005, "Створка в сборе"), //см. ElemFrame.typeProfile, ElemFrame.typeElem
+    STVORKA(1005, "Створка в сборе"), //см. ElemFrame.typeProfile, ElemFrame.typeElem
     SUPPORT(1006, "Подкладка"),
     NONE(0, "Не определено");
 
