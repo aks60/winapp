@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import main.Main;
+import amain.Main;
 import calculate.Wincalc;
 
 public class AreaSimple extends Com5t {

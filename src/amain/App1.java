@@ -1,4 +1,4 @@
-package main;
+package amain;
 
 import common.Util;
 import common.FrameListener;

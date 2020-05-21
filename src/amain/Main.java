@@ -1,4 +1,4 @@
-package main;
+package amain;
 
 import common.FrameListener;
 import common.FrameProgress;

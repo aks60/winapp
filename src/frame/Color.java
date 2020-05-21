@@ -23,7 +23,7 @@ import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import main.Main;
+import amain.Main;
 import swing.BooleanRenderer;
 import swing.DefTableModel;
 

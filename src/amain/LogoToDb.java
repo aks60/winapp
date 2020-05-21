@@ -1,4 +1,4 @@
-package main;
+package amain;
 
 import dataset.ConnApp;
 import dataset.eExcep;

@@ -3,7 +3,7 @@ package calculate.script;
 import com.google.gson.Gson;
 import enums.LayoutArea;
 import enums.TypeElem;
-import main.Main;
+import amain.Main;
 
 public class Winscript {
 

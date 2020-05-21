@@ -1,4 +1,4 @@
-package main;
+package amain;
 
 import java.util.logging.Logger;
 import javax.swing.UIManager;

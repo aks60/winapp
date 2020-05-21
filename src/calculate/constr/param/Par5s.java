@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import main.Main;
+import amain.Main;
 import calculate.Wincalc;
 import calculate.constr.Specification;
 import calculate.model.Com5t;

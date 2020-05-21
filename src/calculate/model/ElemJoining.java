@@ -14,7 +14,7 @@ public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
-    protected String name;
+    public String name;
     protected LayoutJoin typeJoin = LayoutJoin.NONE;
     public TypeJoin varJoin = TypeJoin.EMPTY;    // Вариант соединения
 

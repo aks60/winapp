@@ -1,6 +1,6 @@
 package dataset;
 
-import main.Main;
+import amain.Main;
 import java.util.HashSet;
 
 /**

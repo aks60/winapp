@@ -18,7 +18,7 @@ import java.util.List;
 import calculate.Wincalc;
 import calculate.model.AreaStvorka;
 import calculate.model.ElemFrame;
-import static main.App1.eApp1.Artikles;
+import static amain.App1.eApp1.Artikles;
 
 /**
  * Фурнитура

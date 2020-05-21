@@ -49,7 +49,7 @@ import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RowFilter;
-import main.Main;
+import amain.Main;
 
 public class Furniture extends javax.swing.JFrame {
 

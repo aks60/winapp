@@ -1,4 +1,4 @@
-package main;
+package amain;
 
 import common.*;
 import dataset.*;
@@ -39,7 +39,9 @@ public class Test {
         calculate.Wincalc iwin = new calculate.Wincalc();
         iwin.create(calculate.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
         iwin.constructiv();
-        Specification.write_txt2(iwin.listSpec);
+        //Specification.write_txt2(iwin.listSpec);
+        iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" 
+                + it.getValue().varJoin + "  POINT:" + it.getKey() + "  -" + it.getValue().name)); 
 
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();

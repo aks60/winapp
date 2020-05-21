@@ -43,7 +43,7 @@ import enums.UseColcalc;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
-import main.Main;
+import amain.Main;
 import swing.BooleanRenderer;
 
 public class Filling extends javax.swing.JFrame {
