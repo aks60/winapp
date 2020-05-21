@@ -94,8 +94,8 @@ public class Wincalc {
         HashMap<String, HashSet<ElemSimple>> mapClap = new HashMap(); //временно для схлопывания соединений
 
         //Соединения рамы  
-        rootArea.joinFrame();  //обход соединений и кальк. углов 
-        listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений рамы
+        rootArea.joinFrame();  //обход соединений и кальк. углов главного окна 
+        listArea.stream().forEach(area -> area.joinElem(mapClap, listElem)); //обход(схлопывание) соединений вложенных окон
 
         //Соединения створок
         listStvorka.stream().forEach(area -> area.joinFrame());
