@@ -48,8 +48,8 @@ public class AreaArch extends AreaSimple {
 
         for (int index = 0; index < 3; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.varJoin = TypeJoin.VAR20;
-            el.id = id() + (index + 2) / 10;
+            el.typeJoin = TypeJoin.VAR20;
+            el.id = id() + (float)(index + 2) / 100;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
@@ -64,15 +64,11 @@ public class AreaArch extends AreaSimple {
                 iwin().mapJoin.put(x2 + ":" + y1, el);
 
             } else if (index == 1) {  //угловое соединение левое нижнее
-                el.typeJoin = LayoutJoin.LBOT;
-                el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
-                el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
+                el.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.BOTTOM));
                 iwin().mapJoin.put(x1 + ":" + y2, el);
 
             } else if (index == 2) { //угловое соединение правое нижнее
-                el.typeJoin = LayoutJoin.RBOT;
-                el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
-                el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
+                el.init(TypeJoin.VAR20, LayoutJoin.RBOT, mapFrame.get(LayoutArea.RIGHT), mapFrame.get(LayoutArea.BOTTOM));
                 iwin().mapJoin.put(x2 + ":" + y2, el);
             }
         }

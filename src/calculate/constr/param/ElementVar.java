@@ -79,7 +79,7 @@ public class ElementVar extends Par5s {
                         pass = 0;
                         for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
                             ElemJoining el = entry.getValue();
-                            if (TypeJoin.VAR10 == el.varJoin
+                            if (TypeJoin.VAR10 == el.typeJoin
                                     && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem5e.artiklRec.getStr(eArtikl.code))
                                     && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
                                 pass = 1;

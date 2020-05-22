@@ -12,7 +12,11 @@ public enum LayoutJoin implements Enam {
     TTOP(5, "T - соединение верхнее"),
     TBOT(6, "T - соединение нижнее"),
     TLEFT(7, "T - соединение левое"),
-    TRIGH(8, "T - соединение правое");
+    TRIGH(8, "T - соединение правое"),
+    CRIGH(9, "Прилегающее правое"),
+    CLEFT(10, "Прилегающее левое"),
+    CTOP(11, "Прилегающее верхнее"),
+    CBOT(12, "Прилегающее нижнее");
     
     public int id;
     public String name;

@@ -14,21 +14,21 @@ public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
-    protected LayoutJoin typeJoin = LayoutJoin.NONE; //
-    public TypeJoin varJoin = TypeJoin.EMPTY;    // Вариант соединения (то что пишет )
+    protected LayoutJoin layoutJoin = LayoutJoin.NONE; // 
+    public TypeJoin typeJoin = TypeJoin.EMPTY;    //тип соединения (то что пишет )
 
     protected ElemSimple elemJoinTop = null;      //
-    protected ElemSimple elemJoinBottom = null;   // Элементы соединения, временно для
-    protected ElemSimple elemJoinLeft = null;     // схлопывания повторяющихся обходов
+    protected ElemSimple elemJoinBottom = null;   //элементы соединения, временно для
+    protected ElemSimple elemJoinLeft = null;     //схлопывания повторяющихся обходов
     protected ElemSimple elemJoinRight = null;    //
 
-    public ElemSimple joinElement1 = null;  // Элемент соединения 1
-    public ElemSimple joinElement2 = null;  // Элемент соединения 2
+    public ElemSimple joinElement1 = null;  //элемент соединения 1
+    public ElemSimple joinElement2 = null;  //элемент соединения 2
 
-    protected float cutAngl1 = 45;    //Угол реза1
-    protected float cutAngl2 = 45;    //Угол реза2
-    protected float anglProf = 90;    //Угол между профилями
-    public String costsJoin = "";     //Трудозатраты, ч/ч. 
+    protected float cutAngl1 = 45;    //угол реза1
+    protected float cutAngl2 = 45;    //угол реза2
+    protected float anglProf = 90;    //угол между профилями
+    public String costsJoin = "";     //трудозатраты, ч/ч. 
 
     protected Record foiningRec = null;
     protected Record joinvarRec = null;
@@ -39,8 +39,8 @@ public class ElemJoining {
     }
 
     public void init(TypeJoin typeJoin, LayoutJoin layoutJoin, ElemSimple joinElement1, ElemSimple joinElement2) {
-        this.varJoin = typeJoin;
-        this.typeJoin = layoutJoin;
+        this.typeJoin = typeJoin;
+        this.layoutJoin = layoutJoin;
         this.joinElement1 = joinElement1;
         this.joinElement2 = joinElement2;
     }
@@ -54,7 +54,7 @@ public class ElemJoining {
     }
 
     public String toString() {
-        return "ELEM: name=" + typeJoin.name + ", joinElement1=" + joinElement1.id() + ", joinElement1=" + joinElement2.id()
-                + ", cutAngl1=" + cutAngl1 + ", cutAngl2=" + cutAngl1 + ", typeJoin=" + typeJoin + ", varJoin=" + varJoin + ", anglProf=" + anglProf;
+        return "ELEM: name=" + layoutJoin.name + ", joinElement1=" + joinElement1.id() + ", joinElement1=" + joinElement2.id()
+                + ", cutAngl1=" + cutAngl1 + ", cutAngl2=" + cutAngl1 + ", typeJoin=" + layoutJoin + ", varJoin=" + typeJoin + ", anglProf=" + anglProf;
     }
 }
