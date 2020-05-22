@@ -120,6 +120,7 @@ public class AreaSimple extends Com5t {
                         el.typeJoin = LayoutJoin.TTOP;
                         el.joinElement1 = impostElem;
                         el.joinElement2 = elem5e;
+                        
                     } else if (impostElem.inside(impostElem.x2, impostElem.y2) == true) {
                         
                         ElemJoining el = new ElemJoining(iwin());
@@ -129,7 +130,21 @@ public class AreaSimple extends Com5t {
                         el.joinElement2 = elem5e;
                     }
                 } else {
-
+                    if (elem5e.inside(impostElem.x1, impostElem.y1) == true) {
+                        
+                        ElemJoining el = new ElemJoining(iwin());
+                        el.name = "T - соединение левое";
+                        el.typeJoin = LayoutJoin.TLEFT;
+                        el.joinElement1 = impostElem;
+                        el.joinElement2 = elem5e;
+                    } else if (impostElem.inside(impostElem.x2, impostElem.y2) == true) {
+                        
+                        ElemJoining el = new ElemJoining(iwin());
+                        el.name = "T - соединение правое";
+                        el.typeJoin = LayoutJoin.TRIGH;
+                        el.joinElement1 = impostElem;
+                        el.joinElement2 = elem5e;
+                    }
                 }
             }
         }
