@@ -14,9 +14,8 @@ public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
-    public String name;
-    protected LayoutJoin typeJoin = LayoutJoin.NONE;
-    public TypeJoin varJoin = TypeJoin.EMPTY;    // Вариант соединения
+    protected LayoutJoin typeJoin = LayoutJoin.NONE; //
+    public TypeJoin varJoin = TypeJoin.EMPTY;    // Вариант соединения (то что пишет )
 
     protected ElemSimple elemJoinTop = null;      //
     protected ElemSimple elemJoinBottom = null;   // Элементы соединения, временно для
@@ -39,6 +38,13 @@ public class ElemJoining {
         this.iwin = iwin;
     }
 
+    public void init(TypeJoin typeJoin, LayoutJoin layoutJoin, ElemSimple joinElement1, ElemSimple joinElement2) {
+        this.varJoin = typeJoin;
+        this.typeJoin = layoutJoin;
+        this.joinElement1 = joinElement1;
+        this.joinElement2 = joinElement2;
+    }
+
     public float joinAngl(int layout) {
         return (layout == 1) ? cutAngl1 : cutAngl2;
     }
@@ -48,7 +54,7 @@ public class ElemJoining {
     }
 
     public String toString() {
-        return "ELEM: name=" + name + ", joinElement1=" + joinElement1.id() + ", joinElement1=" + joinElement2.id()
+        return "ELEM: name=" + typeJoin.name + ", joinElement1=" + joinElement1.id() + ", joinElement1=" + joinElement2.id()
                 + ", cutAngl1=" + cutAngl1 + ", cutAngl2=" + cutAngl1 + ", typeJoin=" + typeJoin + ", varJoin=" + varJoin + ", anglProf=" + anglProf;
     }
 }

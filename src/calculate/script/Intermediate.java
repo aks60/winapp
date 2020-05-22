@@ -10,13 +10,12 @@ public class Intermediate {
 
     public float id = -1;  // идентификатор элемента
     public Intermediate owner = null; //владелец
+    public AreaSimple area5e = null; //ссылка для добавления детей в контейнер
     public TypeElem type = TypeElem.NONE; //тип элемента
     public LayoutArea layout = LayoutArea.ANY;  //ориентация при располодении      
-    public float width = 0;  //ширина area, мм
-    public float height = 0; //высота area, мм   
-    public String param = null;
-    
-    public AreaSimple area = null;
+    public float width = 0;  //ширина area5e, мм
+    public float height = 0; //высота area5e, мм   
+    public String param = null;   
 
     public Intermediate(Intermediate owner, float id, String type, String layout, String param) {
 
@@ -36,13 +35,13 @@ public class Intermediate {
     }
     
     public AreaSimple addArea(AreaSimple area2) {
-        owner.area.listChild.add(area2);
-        this.area = area2;
+        owner.area5e.listChild.add(area2);
+        this.area5e = area2;
         return area2;
     }
 
     public ElemSimple addElem(ElemSimple elem5e) {
-        owner.area.listChild.add(elem5e);
+        owner.area5e.listChild.add(elem5e);
         return elem5e;
     }
     

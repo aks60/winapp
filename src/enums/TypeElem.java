@@ -4,14 +4,14 @@ package enums;
 public enum TypeElem implements Enam {
 
     //TypeElem
-    FRAME_BOX(2, "Рама коробки"),
+    FRAME_SIDE(2, "Рама коробки"),
     IMPOST(3, "Импост"),
-    FRAME_STV(4, "Рама створки"), //элемент STVORKA
+    STVORKA_SIDE(4, "Рама створки"), //элемент STVORKA
     GLASS(5, "Стеклопакет"),
-    SHTULP(10, "Штульп"),
-    MOSKITKA(13, "Москитка"),
+    SHTULP(10, "Штульп"),    
     RASKLADKA(14, "Раскладка"),
-    MOSKITKA_SET(15, "Москитка"),
+    MOSKITKA(13, "Москитка"),
+    MOSKITKA_SET(-13, "Москитка"), //непонятно
     //STVORKA(23, "Створка"), //без импоста
     SAND(100, "Сэндвич"),
     JALOUSIE(101, "Жалюзи"),

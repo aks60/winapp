@@ -22,29 +22,25 @@ public class AreaRectangl extends AreaSimple {
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
-            if (index == 0) {
-                el.name = "Угловое соединение левое верхнее";
+            if (index == 0) { //Угловое соединение левое верхнее
                 el.typeJoin = LayoutJoin.LTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);
 
-            } else if (index == 1) {
-                el.name = "Угловое соединение левое нижнее";
+            } else if (index == 1) { //Угловое соединение левое нижнее
                 el.typeJoin = LayoutJoin.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
 
-            } else if (index == 2) {
-                el.name = "Угловое соединение правое нижнее";
+            } else if (index == 2) { //Угловое соединение правое нижнее
                 el.typeJoin = LayoutJoin.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
 
-            } else if (index == 3) {
-                el.name = "Угловое соединение правое верхнее";
+            } else if (index == 3) { //Угловое соединение правое верхнее
                 el.typeJoin = LayoutJoin.RTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);

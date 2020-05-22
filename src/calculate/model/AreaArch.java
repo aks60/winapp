@@ -19,9 +19,10 @@ public class AreaArch extends AreaSimple {
     @Override
     public void joinFrame() {
 
+        
         ElemJoining elem = new ElemJoining(iwin());
         elem.id = id() + .1f;
-        elem.name = "Угловое соединение левое верхнее";
+        //Угловое соединение левое верхнее
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
         elem.joinElement2 = mapFrame.get(LayoutArea.ARCH);
 
@@ -52,8 +53,7 @@ public class AreaArch extends AreaSimple {
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
-            if (index == 0) {
-                el.name = "Угловое соединение правое верхнее";
+            if (index == 0) { //угловое соединение правое верхнее
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.ARCH);
                 el.cutAngl1 = (float) ang3;
@@ -63,15 +63,13 @@ public class AreaArch extends AreaSimple {
                 el.joinElement2.anglCut(ElemSimple.SIDE_END, el.cutAngl1);
                 iwin().mapJoin.put(x2 + ":" + y1, el);
 
-            } else if (index == 1) {
-                el.name = "Угловое соединение левое нижнее";
+            } else if (index == 1) {  //угловое соединение левое нижнее
                 el.typeJoin = LayoutJoin.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(x1 + ":" + y2, el);
 
-            } else if (index == 2) {
-                el.name = "Угловое соединение правое нижнее";
+            } else if (index == 2) { //угловое соединение правое нижнее
                 el.typeJoin = LayoutJoin.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);

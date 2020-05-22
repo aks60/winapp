@@ -1,5 +1,6 @@
 package enums;
 
+//То что пишет профстрой в базу данных
 public enum TypeJoin {
 
     EMPTY(00, "Тип соединеия не установлен"),

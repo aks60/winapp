@@ -24,7 +24,7 @@ public class ElemFrame extends ElemSimple {
         color1 = owner.color1;
         color2 = owner.color2;
         color3 = owner.color3;
-        this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.FRAME_STV : TypeElem.FRAME_BOX;
+        this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
         initСonstructiv();
 
         if (LayoutArea.LEFT == layout) {

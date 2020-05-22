@@ -107,108 +107,33 @@ public class AreaSimple extends Com5t {
 
     public void joinElem() {
 
-        List<ElemSimple> pmpostList = listElem(TypeElem.IMPOST);
-        for (ElemSimple impostElem : pmpostList) {
-            List<ElemSimple> elemList = listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST);
-            for (ElemSimple elem5e : elemList) {
-                
-                if (impostElem.owner().layout() == LayoutArea.HORIZ) {
-                    if (elem5e.inside(impostElem.x1, impostElem.y1) == true) {
-                        
+        List<ElemSimple> impList = listElem(TypeElem.IMPOST);
+        List<ElemSimple> elemList = listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST);
+        
+        for (ElemSimple impElem : impList) {           
+            for (ElemSimple elem5e : elemList) {                
+                if (impElem.owner().layout() == LayoutArea.HORIZ) {
+                    
+                    if (elem5e.inside(impElem.x1, impElem.y1) == true) { //T - соединение верхнее                       
                         ElemJoining el = new ElemJoining(iwin());
-                        el.name = "T - соединение верхнее";
-                        el.typeJoin = LayoutJoin.TTOP;
-                        el.joinElement1 = impostElem;
-                        el.joinElement2 = elem5e;
+                        el.init(TypeJoin.VAR40, LayoutJoin.TTOP, impElem, elem5e);
+                        iwin().mapJoin.put(impElem.x1 + ":" + impElem.y1, el);
                         
-                    } else if (impostElem.inside(impostElem.x2, impostElem.y2) == true) {
-                        
-                        ElemJoining el = new ElemJoining(iwin());
-                        el.name = "T - соединение нижнее";
-                        el.typeJoin = LayoutJoin.TBOT;
-                        el.joinElement1 = impostElem;
-                        el.joinElement2 = elem5e;
+                    } else if (impElem.inside(impElem.x2, impElem.y2) == true) { //T - соединение нижнее                        
+                        ElemJoining el = new ElemJoining(iwin()); 
+                        el.init(TypeJoin.VAR40, LayoutJoin.TBOT, impElem, elem5e);
+                        iwin().mapJoin.put(impElem.x2 + ":" + impElem.y2, el);
                     }
                 } else {
-                    if (elem5e.inside(impostElem.x1, impostElem.y1) == true) {
+                    if (elem5e.inside(impElem.x1, impElem.y1) == true) { //T - соединение левое                        
+                        ElemJoining el = new ElemJoining(iwin()); 
+                        el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, impElem, elem5e);
+                        iwin().mapJoin.put(impElem.x1 + ":" + impElem.y1, el);
                         
-                        ElemJoining el = new ElemJoining(iwin());
-                        el.name = "T - соединение левое";
-                        el.typeJoin = LayoutJoin.TLEFT;
-                        el.joinElement1 = impostElem;
-                        el.joinElement2 = elem5e;
-                    } else if (impostElem.inside(impostElem.x2, impostElem.y2) == true) {
-                        
-                        ElemJoining el = new ElemJoining(iwin());
-                        el.name = "T - соединение правое";
-                        el.typeJoin = LayoutJoin.TRIGH;
-                        el.joinElement1 = impostElem;
-                        el.joinElement2 = elem5e;
-                    }
-                }
-            }
-        }
-    }
-
-    public void joinElem2(HashMap<String, HashSet<ElemSimple>> mapClap, LinkedList<ElemSimple> listElem) {
-
-        //Обход всех угловых соединений текущей Area        
-        insideElem(x1, y1, mapClap, listElem);
-        insideElem(x1, y2, mapClap, listElem);
-        insideElem(x2, y2, mapClap, listElem);
-        insideElem(x2, y1, mapClap, listElem);
-
-        //Обход соединений (xy -> element1, element2)
-        for (Map.Entry<String, HashSet<ElemSimple>> it : mapClap.entrySet()) {
-
-            HashSet<ElemSimple> setElem = it.getValue();
-            if (setElem.size() < 2) {
-                continue; //такая ситуация встречается в подкладке Area в арке
-            }
-            ElemSimple arrElem[] = setElem.stream().toArray(ElemSimple[]::new);
-            ElemJoining el = new ElemJoining(iwin());
-            String pk = it.getKey();
-
-            //В соединении только комбинация элемента рамы и импоста (T - соединение)
-            if (((arrElem[0].type == TypeElem.FRAME_BOX && arrElem[1].type == TypeElem.FRAME_BOX)
-                    || (arrElem[0].type == TypeElem.FRAME_STV && arrElem[1].type == TypeElem.FRAME_STV)) == false) {
-
-                iwin().mapJoin.put(pk, el);
-                ElemSimple arrElem2[][] = {{arrElem[0], arrElem[1]}, {arrElem[1], arrElem[0]}}; //варианты общих точек пересечения
-                for (ElemSimple[] indexEl : arrElem2) {
-                    ElemSimple e1 = indexEl[1];
-                    ElemSimple e2 = indexEl[0];
-
-                    //Сторона пересечения одного из элементов, sides[][ном.стороны][коорд.стороны], layout -> 0-LEFT, 1-BOTTOM, 2-RIGHT, 3-TOP 
-                    float sides[][][] = {{{e2.x1, e2.y1}, {e2.x1, e2.y2}}, {{e2.x1, e2.y2}, {e2.x2, e2.y2}}, {{e2.x2, e2.y2}, {e2.x2, e2.y1}}, {{e2.x1, e2.y1}, {e2.x2, e2.y1}}};
-                    for (int index = 0; index < sides.length; index++) {
-
-                        el.id = id() + (index + 1) / 100;
-                        float[][] fs = sides[index];
-                        if (e1.inside(fs[0][0], fs[0][1]) && e1.inside(fs[1][0], fs[1][1])) {
-                            el.varJoin = TypeJoin.VAR40;
-                            if (index == 0) {
-                                el.name = "T - соединение левое";
-                                el.typeJoin = LayoutJoin.TLEFT;
-                                el.joinElement1 = e2;
-                                el.joinElement2 = e1;
-                            } else if (index == 1) {
-                                el.name = "T - соединение нижнее";
-                                el.typeJoin = LayoutJoin.TBOT;
-                                el.joinElement1 = e2;
-                                el.joinElement2 = e1;
-                            } else if (index == 2) {
-                                el.name = "T - соединение правое";
-                                el.typeJoin = LayoutJoin.TRIGH;
-                                el.joinElement1 = e2;
-                                el.joinElement2 = e1;
-                            } else if (index == 3) {
-                                el.name = "T - соединение верхнее";
-                                el.typeJoin = LayoutJoin.TTOP;
-                                el.joinElement1 = e1;
-                                el.joinElement2 = e2;
-                            }
-                        }
+                    } else if (impElem.inside(impElem.x2, impElem.y2) == true) { //T - соединение правое                        
+                        ElemJoining el = new ElemJoining(iwin()); 
+                        el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, impElem, elem5e);
+                        iwin().mapJoin.put(impElem.x2 + ":" + impElem.y2, el);
                     }
                 }
             }

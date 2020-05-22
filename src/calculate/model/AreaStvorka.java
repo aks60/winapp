@@ -56,7 +56,7 @@ public class AreaStvorka extends AreaSimple {
         initСonstructiv();
 
         //Коррекция створки с учётом нахлёста
-        LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_BOX, TypeElem.FRAME_STV, TypeElem.IMPOST); //список элементов
+        LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список элементов
         ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
                 insideTop = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
                 insideBott = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
@@ -89,7 +89,7 @@ public class AreaStvorka extends AreaSimple {
 
     @Override
     public void joinFrame() {
-
+        
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (index + 1);
@@ -97,29 +97,25 @@ public class AreaStvorka extends AreaSimple {
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
 
-            if (index == 0) {
-                el.name = "Угловое соединение левое верхнее";
+            if (index == 0) { //Угловое соединение левое верхнее
                 el.typeJoin = LayoutJoin.LTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);
 
-            } else if (index == 1) {
-                el.name = "Угловое соединение левое нижнее";
+            } else if (index == 1) { //Угловое соединение левое нижнее
                 el.typeJoin = LayoutJoin.LBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y2), el);
 
-            } else if (index == 2) {
-                el.name = "Угловое соединение правое нижнее";
+            } else if (index == 2) { //Угловое соединение правое нижнее
                 el.typeJoin = LayoutJoin.RBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.BOTTOM);
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y2), el);
 
-            } else if (index == 3) {
-                el.name = "Угловое соединение правое верхнее";
+            } else if (index == 3) { //Угловое соединение правое верхнее
                 el.typeJoin = LayoutJoin.RTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
                 el.joinElement2 = mapFrame.get(LayoutArea.TOP);
@@ -127,6 +123,7 @@ public class AreaStvorka extends AreaSimple {
             }
         }
 
+        LinkedList<ElemSimple>  listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (index + 1);
@@ -134,28 +131,24 @@ public class AreaStvorka extends AreaSimple {
             el.cutAngl1 = 0;
             el.cutAngl2 = 0;
 
-            if (index == 0) {
-                el.name = "Прилигающее верхнее";
+            if (index == 0) { //Прилигающее верхнее
                 el.joinElement1 = mapFrame.get(LayoutArea.TOP);
-                el.joinElement2 = iwin().listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y1) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y1) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y1 + 1), el);
 
-            } else if (index == 1) {
-                el.name = "Прилигающее нижнее";
+            } else if (index == 1) { //Прилигающее нижнее
                 el.joinElement1 = mapFrame.get(LayoutArea.BOTTOM);
-                el.joinElement2 = iwin().listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y2 - 1), el);
 
-            } else if (index == 2) {
-                el.name = "Прилигающее левое";
+            } else if (index == 2) { //Прилигающее левое
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
-                el.joinElement2 = iwin().listElem.stream().filter(el2 -> el2.inside(x1, (y2 - y1) / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1, (y2 - y1) / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + 1) + ":" + String.valueOf(y1 + height() / 2), el);
 
-            } else if (index == 3) {
-                el.name = "Прилигающее правое";
+            } else if (index == 3) { //Прилигающее правое
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
-                el.joinElement2 = iwin().listElem.stream().filter(el2 -> el2.inside(x2, (y2 - y1) / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x2, (y2 - y1) / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x2 - 1) + ":" + String.valueOf(y1 + height() / 2), el);
             }
         }

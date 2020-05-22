@@ -34,11 +34,10 @@ public class Test {
         calculate.Wincalc iwin = new calculate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.create(calculate.script.Winscript.test(Winscript.prj, nuni, 1009, 10009, 1009));
+        iwin.create(calculate.script.Winscript.test(Winscript.prj, 3038, 1009, 10009, 1009));
         //iwin.constructiv();
         //Specification.write_txt2(iwin.listSpec);
-       // iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" 
-       //         + it.getValue().varJoin + "  POINT:" + it.getKey() + "  -" + it.getValue().name)); 
+        iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().varJoin + "  POINT:" + it.getKey())); 
 
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
