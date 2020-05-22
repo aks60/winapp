@@ -89,7 +89,7 @@ public class Wincalc {
         rootArea.joinElem(); //T-соединения рамы 
         LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(TypeElem.STVORKA); //список створок
         listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
-              
+
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
@@ -121,8 +121,8 @@ public class Wincalc {
             System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);
         }
     }
-
 //==============================================================================
+
     // Парсим входное json окно и строим объектную модель окна
     private void parsingScript(String json) {
         try {
