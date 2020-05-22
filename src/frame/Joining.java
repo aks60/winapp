@@ -109,7 +109,7 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name) {
+        new DefTableModel(tab1, qJoining, eJoining.artikl_id1, eJoining.artikl_id2, eJoining.name, eJoining.main, eJoining.analog) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -418,16 +418,15 @@ public class Joining extends javax.swing.JFrame {
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
+        pan5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         scr4 = new javax.swing.JScrollPane();
         tab4 = new javax.swing.JTable();
@@ -443,7 +442,7 @@ public class Joining extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Соединения");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(900, 550));
+        setPreferredSize(new java.awt.Dimension(800, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Joining.this.windowClosed(evt);
@@ -452,7 +451,7 @@ public class Joining extends javax.swing.JFrame {
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(900, 29));
+        north.setPreferredSize(new java.awt.Dimension(800, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -543,7 +542,7 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(195, 195, 195)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 487, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 468, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -564,22 +563,22 @@ public class Joining extends javax.swing.JFrame {
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        centr.setPreferredSize(new java.awt.Dimension(900, 500));
+        centr.setPreferredSize(new java.awt.Dimension(800, 500));
         centr.setLayout(new java.awt.BorderLayout());
 
-        jPanel4.setPreferredSize(new java.awt.Dimension(380, 548));
-        jPanel4.setLayout(new java.awt.BorderLayout());
+        pan4.setPreferredSize(new java.awt.Dimension(220, 308));
+        pan4.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr1.setPreferredSize(new java.awt.Dimension(454, 540));
+        scr1.setPreferredSize(new java.awt.Dimension(354, 540));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzz", "aaaaa", "vvvvvvvvvvvvvvvvv"},
-                {"ccccc", "vvvvv", "uuuuuuuuuuuuu"}
+                {"zzzzz", "aaaaa", "vvvvvvvvvvvvvvvvv", null, null, null},
+                {"ccccc", "vvvvv", "uuuuuuuuuuuuu", null, null, null}
             },
             new String [] {
-                "Артикул 1", "Артикул 2", "Название"
+                "Артикул 1", "Артикул 2", "Название", "Основн...", "Аналог", "ID"
             }
         ));
         tab1.setFillsViewportHeight(true);
@@ -594,20 +593,20 @@ public class Joining extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(2).setMinWidth(100);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(140);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(80);
+            tab1.getColumnModel().getColumn(5).setMaxWidth(40);
         }
 
-        jPanel4.add(scr1, java.awt.BorderLayout.CENTER);
+        pan4.add(scr1, java.awt.BorderLayout.CENTER);
 
-        centr.add(jPanel4, java.awt.BorderLayout.CENTER);
+        centr.add(pan4, java.awt.BorderLayout.CENTER);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(654, 568));
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.PAGE_AXIS));
-
-        jPanel2.setPreferredSize(new java.awt.Dimension(654, 234));
-        jPanel2.setLayout(new java.awt.BorderLayout());
+        pan1.setPreferredSize(new java.awt.Dimension(590, 308));
+        pan1.setLayout(new javax.swing.BoxLayout(pan1, javax.swing.BoxLayout.LINE_AXIS));
 
         scr2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        scr2.setPreferredSize(new java.awt.Dimension(454, 234));
+        scr2.setPreferredSize(new java.awt.Dimension(290, 234));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -642,7 +641,7 @@ public class Joining extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
-        jPanel2.add(scr2, java.awt.BorderLayout.CENTER);
+        pan1.add(scr2);
 
         scr3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         scr3.setPreferredSize(new java.awt.Dimension(300, 234));
@@ -678,14 +677,12 @@ public class Joining extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
-        jPanel2.add(scr3, java.awt.BorderLayout.EAST);
+        pan1.add(scr3);
 
-        jPanel1.add(jPanel2);
+        centr.add(pan1, java.awt.BorderLayout.EAST);
 
-        centr.add(jPanel1, java.awt.BorderLayout.EAST);
-
-        jPanel5.setPreferredSize(new java.awt.Dimension(800, 200));
-        jPanel5.setLayout(new java.awt.BorderLayout());
+        pan5.setPreferredSize(new java.awt.Dimension(800, 200));
+        pan5.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setPreferredSize(new java.awt.Dimension(654, 234));
         jPanel3.setLayout(new java.awt.BorderLayout());
@@ -746,15 +743,15 @@ public class Joining extends javax.swing.JFrame {
 
         jPanel3.add(scr5, java.awt.BorderLayout.EAST);
 
-        jPanel5.add(jPanel3, java.awt.BorderLayout.CENTER);
+        pan5.add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        centr.add(jPanel5, java.awt.BorderLayout.SOUTH);
+        centr.add(pan5, java.awt.BorderLayout.SOUTH);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setPreferredSize(new java.awt.Dimension(800, 20));
         south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
@@ -882,13 +879,12 @@ public class Joining extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan4;
+    private javax.swing.JPanel pan5;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;

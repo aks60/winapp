@@ -25,7 +25,7 @@ public class Joining extends Cal5e {
     private JoiningVar joiningVar = null;
     private JoiningDet joiningDet = null;
     private ElementDet elementDet = null;
-            
+
     public Joining(Wincalc iwin) {
         super(iwin);
         joiningVar = new JoiningVar(iwin);
@@ -40,15 +40,17 @@ public class Joining extends Cal5e {
         for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
 
             ElemJoining elemJoin = hmElemJoin.getValue();
-            ElemSimple joinElement1 = elemJoin.joinElement1;
-            ElemSimple joinElement2 = elemJoin.joinElement2;
+            ElemSimple joinElem1 = elemJoin.joinElement1;
+            ElemSimple joinElem2 = elemJoin.joinElement2;
 
-            Record joiningRec = eJoining.find(joinElement1.artiklRec.getInt(eArtikl.id), joinElement2.artiklRec.getInt(eArtikl.id));
+            int id1 = (joinElem1.artiklRec.get(eArtikl.analog_id) == null) ? joinElem1.artiklRec.getInt(eArtikl.id) : joinElem1.artiklRec.getInt(eArtikl.analog_id);
+            int id2 = (joinElem2.artiklRec.get(eArtikl.analog_id) == null) ? joinElem2.artiklRec.getInt(eArtikl.id) : joinElem2.artiklRec.getInt(eArtikl.analog_id);
+            Record joiningRec = eJoining.find(id1, id2);
             List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
 
-            if (joinvarList.isEmpty() && joiningRec.getStr(eJoining.analog).isEmpty() == false) {  //если неудача, ищем в аналоге
+            if (joinvarList.isEmpty() == true && joiningRec.getStr(eJoining.analog).isEmpty() == false) {  //если неудача, ищем в аналоге
                 joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
-                joinvarList = eJoinvar.find2(joiningRec.getInt(eJoining.id));
+                joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
             }
             Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
             //Цикл по вариантам соединения
@@ -68,12 +70,12 @@ public class Joining extends Cal5e {
 
                     HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
                     List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-                    out = elementDet.check(hmParam2, joinElement1, joinpar2List); //ФИЛЬТР детализации
+                    out = elementDet.check(hmParam2, joinElem1, joinpar2List); //ФИЛЬТР детализации
                     if (out == true) {
 
                         Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
                         //if(artRec.anumb.equals("V132P")) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-                        Specification specif = new Specification(artiklRec, joinElement1, hmParam2);
+                        Specification specif = new Specification(artiklRec, joinElem1, hmParam2);
                         //specif.setColor(this, joinElement1, connspc);
                         //TODO Непонятное назначение цвета, надо разобратьца.
                         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
@@ -81,7 +83,7 @@ public class Joining extends Cal5e {
                         specif.color2 = artdetRec.getInt(eArtdet.color_fk);
                         specif.color3 = artdetRec.getInt(eArtdet.color_fk);
                         specif.section = "СОЕД";
-                        joinElement1.addSpecification(specif);
+                        joinElem1.addSpecification(specif);
                     }
                 }
             }

@@ -107,7 +107,7 @@ public class Wincalc {
             Elements elements = new Elements(this); //составы
             elements.build();
             Joining joining = new Joining(this); //соединения
-            //joining.build();
+            joining.build();
             /*  Filling filling = new Filling(iwin, this); //заполнения
             filling.build();
             Accessory accessory = new Accessory(iwin, this); //фурнитура        

@@ -51,13 +51,6 @@ public enum eJoinvar implements Field {
 
     public static List<Record> find(int _id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(artikl_id) == _id).collect(toList());
-        }
-        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id);
-    }
-
-    public static List<Record> find2(int _id) {
-        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(joining_id) == _id).collect(toList());
         }
         return new Query(values()).select(up, "where", joining_id, "=", _id, "order by", id);

@@ -1,5 +1,6 @@
 package amain;
 
+import calculate.constr.Specification;
 import common.*;
 import dataset.*;
 import enums.*;
@@ -34,10 +35,10 @@ public class Test {
         calculate.Wincalc iwin = new calculate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.create(calculate.script.Winscript.test(Winscript.prj, 3038, 1009, 10009, 1009));
-        //iwin.constructiv();
-        //Specification.write_txt2(iwin.listSpec);
-        iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey())); 
+        iwin.create(calculate.script.Winscript.test(Winscript.prj, 395, 1009, 10009, 1009));
+        iwin.constructiv();
+        Specification.write_txt2(iwin.listSpec);
+        //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey())); 
 
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
