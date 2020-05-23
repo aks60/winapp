@@ -65,11 +65,12 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override //Главная спецификация
-    public void setSpecification(Record sysprofRec) {
+    public void setSpecification() {
+        specificationRec.place = layout().name;
 /*
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
 
-        specificationRec.section = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
+        specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
         specificationRec.setArtiklRec(artiklRec);
         specificationRec.color1 = color1;
         specificationRec.color2 = color2;
@@ -143,7 +144,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        specif.section = "СОСТ";
+        specif.place = "СОСТ";
         quantityMaterials(specif);
         specificationRec.specificationList.add(specif);
     }

@@ -89,7 +89,7 @@ public class Filling extends Cal5e {
         if (out == true) {
 
             if (pass == 2) {
-                elemGlass.setSpecification(null); //заполним спецификацию элемента
+                elemGlass.setSpecification(); //заполним спецификацию элемента
             }
             ArrayList<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
@@ -286,7 +286,7 @@ public class Filling extends Cal5e {
         boolean out = fillingVar.check(elemGlass, glaspar1List); //ФИЛЬТР вариантов
         if (out == true) {
 
-            elemGlass.setSpecification(null); //заполним спецификацию элемента
+            elemGlass.setSpecification(); //заполним спецификацию элемента
             List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getInt(eArtikl.depth));
             //Цикл по списку детализации
             for (Record glasdetRec : glasdetList) {

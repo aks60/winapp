@@ -39,7 +39,7 @@ public abstract class ElemSimple extends Com5t {
     public abstract UseArtiklTo useArtiklTo();
 
     //Главная спецификация
-    public abstract void setSpecification(Record sysprofRec);
+    public abstract void setSpecification();
     
     //Вложеная спецификация
     public abstract void addSpecification(Specification specification);

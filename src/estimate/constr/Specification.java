@@ -32,7 +32,7 @@ public class Specification {
     public Record artiklRec = null; //профиль в спецификации
 
     public float id = -1;  //ID
-    public String section = "-"; //Раздел конструктива
+    public String place = "-"; //Место расмешения
     public String name = "-";  //Наименование
     public String artikl = "-";  //Артикул
     public int color1 = 1005;  //Осн.текстура
@@ -77,7 +77,7 @@ public class Specification {
 
     public Specification(Specification spec) {
         this.id = ++spec.elem5e.iwin().genId;        
-        this.section = spec.section;
+        this.place = spec.place;
         this.artikl = spec.artikl;
         this.name = spec.name;
         this.color1 = spec.color1;
@@ -103,7 +103,7 @@ public class Specification {
 
     public Vector getVector() {
 
-        List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), section, artikl, name, color1, color2,
+        List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name, color1, color2,
                 color3, width, height, weight, anglCut1, anglCut2, count, unit, quantity, wastePrc,
                 quantity2, inPrice, outPrice, inCost, outCost, discount, anglHoriz);
         return new Vector(list);
@@ -170,7 +170,7 @@ public class Specification {
     public boolean equals(Object specification) {
         Specification spec = (Specification) specification;
 
-        return (id == spec.id && section.equals(spec.section) && artikl.equals(spec.artikl) && name.equals(spec.name)
+        return (id == spec.id && place.equals(spec.place) && artikl.equals(spec.artikl) && name.equals(spec.name)
                 && color1 == spec.color1 && color2 == spec.color2 && color3 == spec.color3
                 && width == spec.width && height == spec.height && anglCut2 == spec.anglCut2 && anglCut1 == spec.anglCut1
                 && quantity == spec.quantity && unit == spec.unit && wastePrc == spec.wastePrc && quantity2 == spec.quantity2
@@ -180,7 +180,7 @@ public class Specification {
     @Override
     public String toString() {
         Formatter f = new Formatter();
-        return "Изделие=" + id + ", Расп...=" + section + ", Артикул=" + artikl + ", Наименование=" + name + ", Текстура=" + color1 + ", Внутренняя=" + color2
+        return "Изделие=" + id + ", Расп...=" + place + ", Артикул=" + artikl + ", Наименование=" + name + ", Текстура=" + color1 + ", Внутренняя=" + color2
                 + ", Внешняя=" + color3 + ", Длина. мм=" + f.format("%.1f", width) + ", Ширина. мм=" + f.format("%.1f", height) + ", Угол1=" + String.format("%.2f", anglCut2)
                 + ", Угол2=" + String.format("%.2f", anglCut1) + ", Кол.шт=" + count + ", Кол.без.отх=" + quantity + ", Отход=" + wastePrc + ", Кол.с.отх=" + quantity2
                 + ", Собест.за.ед" + inPrice + ", Собест.с.отх" + outPrice + ", Скидка=" + discount;
@@ -196,7 +196,7 @@ public class Specification {
                     + "Ширина. мм, Угол1, Угол2, Количество, Погонаж, Ед.изм, Ед.изм, Скидка, Скидка").getBytes("windows-1251"), "UTF-8"));
             for (Specification spc : spcList) {
 
-                String str = spc.id + "," + spc.section + "," + spc.artikl + "," + spc.name + "," + spc.color1 + "," + spc.color2 + "," + spc.color3
+                String str = spc.id + "," + spc.place + "," + spc.artikl + "," + spc.name + "," + spc.color1 + "," + spc.color2 + "," + spc.color3
                         + "," + String.format("%.1f", spc.width) + String.format("%.1f", spc.height) + String.format("%.2f", spc.anglCut2)
                         + String.format("%.2f", spc.anglCut1) + spc.count + spc.width + spc.unit + spc.discount + "\n";
 
@@ -251,12 +251,12 @@ public class Specification {
         Specification.sort(specList);
         int npp = 0;
         String format = "%-6s%-16s%-60s%-26s%-12s%-12s%-12s";
-        Object str[] = {"Npp", "Section", "Name", "Code", "areaId", "elemId", "owner"};
+        Object str[] = {"Npp", "Place", "Name", "Code", "areaId", "elemId", "owner"};
         System.out.printf(format, str);
         System.out.println();
         float total = 0;
         for (Specification s : specList) {
-            Object str2[] = {String.valueOf(++npp), s.section, s.name, s.artikl, 
+            Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl, 
                 s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.specificationRec.artiklRec.get(eArtikl.code)};
             total = total + s.weight;
             System.out.printf(format, str2);
@@ -276,7 +276,7 @@ public class Specification {
     public static void sort2(ArrayList<Specification> contacts) {
         Collections.sort(contacts, new Comparator<Specification>() {
             public int compare(Specification one, Specification other) {
-                return (one.section + one.name).compareTo(other.section + other.name);
+                return (one.place + one.name).compareTo(other.place + other.name);
             }
         });
     }
@@ -284,7 +284,7 @@ public class Specification {
     public static void sort3(ArrayList<Specification> contacts) {
         Collections.sort(contacts, new Comparator<Specification>() {
             public int compare(Specification one, Specification other) {
-                return (one.artikl + one.section).compareTo(other.artikl + other.section);
+                return (one.artikl + one.place).compareTo(other.artikl + other.place);
             }
         });
     }
@@ -294,7 +294,7 @@ public class Specification {
         HashMap<String, Specification> hm = new HashMap();
         for (Specification spc : specificationList1) {
 
-            String key = spc.id + spc.section + spc.artikl + spc.name + spc.color1 + spc.color2 + spc.color3
+            String key = spc.id + spc.place + spc.artikl + spc.name + spc.color1 + spc.color2 + spc.color3
                     + spc.width + spc.height + spc.anglCut2 + spc.anglCut1 + spc.unit + spc.quantity + spc.wastePrc
                     + spc.wastePrc + spc.quantity2 + spc.inPrice + spc.outPrice + spc.discount;
             Specification spc2 = hm.put(key, spc);
