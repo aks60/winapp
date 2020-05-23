@@ -116,7 +116,6 @@ public class ElemFrame extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
-            specif.section = layout.name;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
                 specif.width = x2 - x1;

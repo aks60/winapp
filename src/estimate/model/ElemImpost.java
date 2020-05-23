@@ -129,7 +129,6 @@ public class ElemImpost extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
-            specif.section = layout.name;
             specif.width = specificationRec.width;
             specif.anglCut2 = 90;
             specif.anglCut1 = 90;

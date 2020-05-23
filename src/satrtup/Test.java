@@ -36,10 +36,10 @@ public class Test {
         System.out.println("okno=" + Winscript.prj);
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         iwin.create(estimate.script.Winscript.test(Winscript.prj, 395, 1009, 10009, 1009));
-        //iwin.constructiv();
-        //Specification.write_txt2(iwin.listSpec);
-        iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin 
-                + "  POINT:" + it.getKey() + "  name  " + it.getValue().layoutJoin.name)); 
+        iwin.constructiv();
+        Specification.write_txt2(iwin.listSpec);
+        iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 
+                + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name)); 
 
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
