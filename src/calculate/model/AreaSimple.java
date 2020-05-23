@@ -114,26 +114,30 @@ public class AreaSimple extends Com5t {
             for (ElemSimple elem5e : elemList) {                
                 if (impElem.owner().layout() == LayoutArea.HORIZ) {
                     
-                    if (elem5e.inside(impElem.x1, impElem.y1) == true) { //T - соединение верхнее                       
+                    if (elem5e.inside(impElem.x1, impElem.y1) == true 
+                            && iwin().mapJoin.get(impElem.x1 + ":" + impElem.y1) == null) { //T - соединение верхнее                       
                         ElemJoining el = new ElemJoining(iwin());
                         el.id = id() + 1f / 100;
                         el.init(TypeJoin.VAR40, LayoutJoin.TTOP, impElem, elem5e);
                         iwin().mapJoin.put(impElem.x1 + ":" + impElem.y1, el);
                         
-                    } else if (impElem.inside(impElem.x2, impElem.y2) == true) { //T - соединение нижнее                        
+                    } else if (impElem.inside(impElem.x2, impElem.y2) == true
+                             && iwin().mapJoin.get(impElem.x2 + ":" + impElem.y2) == null) { //T - соединение нижнее                        
                         ElemJoining el = new ElemJoining(iwin()); 
                         el.id = id() + 2f / 100;
                         el.init(TypeJoin.VAR40, LayoutJoin.TBOT, impElem, elem5e);
                         iwin().mapJoin.put(impElem.x2 + ":" + impElem.y2, el);
                     }
                 } else {
-                    if (elem5e.inside(impElem.x1, impElem.y1) == true) { //T - соединение левое                        
+                    if (elem5e.inside(impElem.x1, impElem.y1) == true
+                             && iwin().mapJoin.get(impElem.x1 + ":" + impElem.y1) == null) { //T - соединение левое                        
                         ElemJoining el = new ElemJoining(iwin()); 
                         el.id = id() + 3f / 100;
                         el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, impElem, elem5e);
                         iwin().mapJoin.put(impElem.x1 + ":" + impElem.y1, el);
                         
-                    } else if (impElem.inside(impElem.x2, impElem.y2) == true) { //T - соединение правое                        
+                    } else if (impElem.inside(impElem.x2, impElem.y2) == true
+                             && iwin().mapJoin.get(impElem.x2 + ":" + impElem.y2) == null) { //T - соединение правое                        
                         ElemJoining el = new ElemJoining(iwin()); 
                         el.id = id() + 4f / 100;
                         el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, impElem, elem5e);
