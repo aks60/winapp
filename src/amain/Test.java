@@ -1,6 +1,6 @@
 package amain;
 
-import calculate.constr.Specification;
+import estimate.constr.Specification;
 import common.*;
 import dataset.*;
 import enums.*;
@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.UIManager;
-import calculate.script.Winscript;
+import estimate.script.Winscript;
 
 public class Test {
 
@@ -32,10 +32,10 @@ public class Test {
 
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-        calculate.Wincalc iwin = new calculate.Wincalc();
+        estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.create(calculate.script.Winscript.test(Winscript.prj, 395, 1009, 10009, 1009));
+        iwin.create(estimate.script.Winscript.test(Winscript.prj, 395, 1009, 10009, 1009));
         //iwin.constructiv();
         //Specification.write_txt2(iwin.listSpec);
         iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin 

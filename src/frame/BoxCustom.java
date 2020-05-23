@@ -19,11 +19,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import swing.DefFieldEditor;
-import calculate.script.AreaRoot;
+import estimate.script.AreaRoot;
 import swing.DefTableModel;
-import calculate.Wincalc;
-import calculate.model.PaintPanel;
-import calculate.script.Winscript;
+import estimate.Wincalc;
+import estimate.model.PaintPanel;
+import estimate.script.Winscript;
 
 public class BoxCustom extends javax.swing.JFrame {
 

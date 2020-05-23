@@ -65,7 +65,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import calculate.script.Winscript;
+import estimate.script.Winscript;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в

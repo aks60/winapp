@@ -54,9 +54,9 @@ import javax.swing.tree.TreePath;
 import swing.BooleanRenderer;
 import swing.DefFieldEditor;
 import swing.DefTableModel;
-import calculate.Wincalc;
-import calculate.model.PaintPanel;
-import calculate.script.Winscript;
+import estimate.Wincalc;
+import estimate.model.PaintPanel;
+import estimate.script.Winscript;
 
 public class Systree extends javax.swing.JFrame {
 

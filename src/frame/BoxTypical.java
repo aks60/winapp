@@ -22,9 +22,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import calculate.Wincalc;
-import calculate.model.ElemSimple;
-import calculate.model.PaintPanel;
+import estimate.Wincalc;
+import estimate.model.ElemSimple;
+import estimate.model.PaintPanel;
 
 public class BoxTypical extends javax.swing.JFrame implements FrameListener<Object, Object> {
 
