@@ -37,9 +37,9 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import amain.Main;
-import swing.DefCellEditor;
-import swing.DefTableModel;
+import satrtup.Main;
+import jforms.swing.DefCellEditor;
+import jforms.swing.DefTableModel;
 
 /**
  * <p>

@@ -3,7 +3,7 @@ package estimate.script;
 import com.google.gson.Gson;
 import enums.LayoutArea;
 import enums.TypeElem;
-import amain.Main;
+import satrtup.Main;
 
 public class Winscript {
 

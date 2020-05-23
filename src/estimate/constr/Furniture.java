@@ -10,7 +10,7 @@ import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import frame.Artikles;
+import jforms.Artikles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,7 +18,7 @@ import java.util.List;
 import estimate.Wincalc;
 import estimate.model.AreaStvorka;
 import estimate.model.ElemFrame;
-import static amain.App1.eApp1.Artikles;
+import static satrtup.App1.eApp1.Artikles;
 
 /**
  * Фурнитура

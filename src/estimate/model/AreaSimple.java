@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import amain.Main;
+import satrtup.Main;
 import estimate.Wincalc;
 
 public class AreaSimple extends Com5t {
