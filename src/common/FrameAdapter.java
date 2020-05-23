@@ -15,8 +15,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import jforms.swing.DefTableModel;
-import jforms.swing.DefCellEditor;
+import jframe.swing.DefTableModel;
+import jframe.swing.DefCellEditor;
 
 /**
  * <p>

@@ -38,8 +38,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 import satrtup.Main;
-import jforms.swing.DefCellEditor;
-import jforms.swing.DefTableModel;
+import jframe.swing.DefCellEditor;
+import jframe.swing.DefTableModel;
 
 /**
  * <p>
