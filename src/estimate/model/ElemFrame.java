@@ -63,9 +63,9 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override //Главная спецификация
-    public void setSpecification() {  //добавление основной спесификации
+    public void setSpecific() {  //добавление основной спесификации
 
-        specificationRec.place = layout.name;
+        specificationRec.place = layout().name;
         /*
         float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
@@ -105,7 +105,7 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override //Вложеная спецификация
-    public void addSpecification(Specification specif) { //добавление спесификаций зависимых элементов
+    public void addSpecific(Specification specif) { //добавление спесификаций зависимых элементов
 
         Record artiklRec = specif.artiklRec;
 
@@ -166,7 +166,6 @@ public class ElemFrame extends ElemSimple {
         } else {
             //
         }
-        specif.place = "СОСТ";
         quantityMaterials(specif);
         specificationRec.specificationList.add(specif);
     }

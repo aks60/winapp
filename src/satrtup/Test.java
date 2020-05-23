@@ -34,8 +34,8 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.create(estimate.script.Winscript.test(Winscript.prj, 395, 1009, 10009, 1009));
+        //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        iwin.create(estimate.script.Winscript.test(Winscript.prj, 1734, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 

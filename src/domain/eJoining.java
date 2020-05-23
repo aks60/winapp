@@ -29,6 +29,14 @@ public enum eJoining implements Field {
         meta.init(p);
     }
 
+    
+    public static Query query() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
+    }
+    
     public MetaField meta() {
         return meta;
     }
@@ -50,15 +58,9 @@ public enum eJoining implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> _analog.equals(rec.getStr(analog)) && rec.getInt(main) * 0x100 != 0).findFirst().orElse(null);
         }
-        Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "' and ", main, "* 0x100 != 0");
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
-    }
-    
-    public static Query query() {
-        if (query.size() == 0) {
-            query.select(up, "order by", id);
-        }
-        return query;
+        Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "' and ", main, " > 255");
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);    
+        //return new Query(values()).select(up, "where", analog, "='", _analog).stream().filter(rec -> (rec.getInt(main) & 0x100) != 0).findFirst().orElse(null);
     }
 
     public String toString() {

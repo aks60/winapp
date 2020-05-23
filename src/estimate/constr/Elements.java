@@ -46,7 +46,7 @@ public class Elements extends Cal5e {
                 int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id);
                 List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
                 elem5e.artdetRec = artdet(artdetList); //текстура артикула, нужен подбор текстуры!!!
-                elem5e.setSpecification();
+                elem5e.setSpecific();
 
                 //Варианты состава для серии профилей
                 int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
@@ -92,7 +92,7 @@ public class Elements extends Cal5e {
                             Specification specif = new Specification(artiklRec, elem5e, hmParam);
                             specif.setColor(elem5e, elemdetRec);
                             specif.place = "СОСТ";
-                            elem5e.addSpecification(specif); //добавим спецификацию в элемент
+                            elem5e.addSpecific(specif); //добавим спецификацию в элемент
                         }
                     }
                 }

@@ -65,7 +65,8 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override //Главная спецификация
-    public void setSpecification() {
+    public void setSpecific() {
+        
         specificationRec.place = layout().name;
 /*
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
@@ -118,7 +119,7 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override //Вложеная спецификация      
-    public void addSpecification(Specification specif) {
+    public void addSpecific(Specification specif) {
 
         Record artiklRec = specif.artiklRec;
 
@@ -144,7 +145,6 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        specif.place = "СОСТ";
         quantityMaterials(specif);
         specificationRec.specificationList.add(specif);
     }
