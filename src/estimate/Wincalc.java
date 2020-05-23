@@ -80,8 +80,7 @@ public class Wincalc {
         parsingScript(productJson);
 
         //Загрузим параметры по умолчанию
-        ArrayList<Record> syspar1List = eSyspar1.find(nuni);
-        syspar1List.stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.grup),
+        eSyspar1.find(nuni).stream().forEach(record -> mapParamDef.put(record.getInt(eSyspar1.grup),
                 new Object[]{record.getStr(eSyspar1.text), record.getInt(eSyspar1.numb)}));
 
         //Соединения 
