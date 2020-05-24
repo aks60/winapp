@@ -609,15 +609,15 @@ public class Joining extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "Мммммммммм", null},
-                {"2", "Ррррррррррр", null}
+                {"1", "Мммммммммм", null, null},
+                {"2", "Ррррррррррр", null, null}
             },
             new String [] {
-                "Приоритет", "Название", "Зеркальность"
+                "Приоритет", "Название", "Зеркальность", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -638,6 +638,7 @@ public class Joining extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(0).setMaxWidth(80);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(40);
         }
 
         pan1.add(scr2);
@@ -691,11 +692,11 @@ public class Joining extends javax.swing.JFrame {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", "7"},
-                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2"}
+                {"yyyyyyyy", "fffffffffffffff", "44", "7", null},
+                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2", null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор"
+                "Артикул", "Название", "Текстура", "Подбор", "ID"
             }
         ));
         tab4.setFillsViewportHeight(true);
@@ -710,6 +711,7 @@ public class Joining extends javax.swing.JFrame {
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(3).setPreferredWidth(140);
             tab4.getColumnModel().getColumn(3).setMaxWidth(300);
+            tab4.getColumnModel().getColumn(4).setMaxWidth(40);
         }
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);

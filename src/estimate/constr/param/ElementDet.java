@@ -26,6 +26,7 @@ public class ElementDet extends Par5s {
 
         //Цикл по параметрам составов
         for (Record rec : paramList) {
+                        
             int grup = rec.getInt(GRUP);
             try {
                 switch (grup) {
