@@ -10,7 +10,7 @@ import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import jframe.Artikles;
+import frames.Artikles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -53,7 +53,7 @@ public class Test {
         lookAndFeel();
         App1 app = new App1();
         app.setVisible(true);
-        jframe.Joining frm = new jframe.Joining();
+        frames.Joining frm = new frames.Joining();
         FrameToFile.setFrameSize(frm);
         //frm.iwin.create(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);
