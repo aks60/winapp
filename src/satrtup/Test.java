@@ -31,7 +31,7 @@ public class Test {
     static void wincalc() throws Exception {
 
         Query.connection = java.sql.DriverManager.getConnection(
-                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbas\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
@@ -49,7 +49,7 @@ public class Test {
     static void frame() throws Exception {
 
         Query.connection = java.sql.DriverManager.getConnection(
-                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbas\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         lookAndFeel();
         App1 app = new App1();
         app.setVisible(true);
@@ -62,7 +62,7 @@ public class Test {
     static void query() {
         try {
             Query.connection = java.sql.DriverManager.getConnection(
-                    "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                    "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbas\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
