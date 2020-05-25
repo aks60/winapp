@@ -281,7 +281,7 @@ public class Joining extends javax.swing.JFrame {
                 int artikl_id = recordJoin.getInt(eJoindet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
                 int level = recordArt.getInt(eArtikl.level1);
-                Integer[] part = {0, 1200, 11000, 12000, 11000, 0};
+                Integer[] part = {0, 12000, 11000, 12000, 11000, 0};
                 ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
             }
         });
