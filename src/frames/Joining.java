@@ -384,8 +384,8 @@ public class Joining extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
             Record joinvarRec = qJoinvar.get(Util.getSelectedRec(tab2));
-            joinvarRec.set(eJoinvar.types, record.getInt(0));
-            joinvarRec.set(eJoinvar.name, record.getStr(1));
+            joinvarRec.set(eJoinvar.name, record.getStr(0));
+            joinvarRec.set(eJoinvar.types, record.getInt(1));
             if (joinvarRec.get(eJoinvar.prio) == null) {
                 int max = 0;
                 for (Record rec : qJoinvar) {

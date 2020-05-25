@@ -55,7 +55,7 @@ public class Joining extends Cal5e {
             Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
             //Цикл по вариантам соединения
             for (Record joinvarRec : joinvarList) {
-                if (joinvarRec.getInt(eJoinvar.types) != elemJoin.typeJoin.value) {
+                if (joinvarRec.getInt(eJoinvar.types) != elemJoin.typeJoin.id) {
                     continue; //если варианты соединения не совпали
                 }
                 if (joiningRec.getInt(1) == 1360) {

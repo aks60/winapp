@@ -4,6 +4,7 @@ import common.DialogListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.Record;
+import enums.TypeJoin;
 import java.awt.Component;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -33,9 +34,9 @@ public class DicJoinvar extends javax.swing.JDialog {
 
     private void loadingModel() {
 
-        String[] titl = {"Наименование соединения"};
-        String[][] rows = {{"Прилегающее соединение (коробка,створка)"}, {"Угловое соединение на ус (коробка, створка)"}, {"Угловое соединение L (левое)"},
-        {"Угловое соединение L (правое)"}, {"Т - образное соединение (импост,ригель)"}, {"Т - образное соединение `конус` (импост)"}};
+        String[] titl = {"Наименование соединения", "ID"};
+        Object[][] rows = {{TypeJoin.VAR10.name, TypeJoin.VAR10.id}, {TypeJoin.VAR20.name, TypeJoin.VAR20.id}, {TypeJoin.VAR30.name, TypeJoin.VAR30.id},
+        {TypeJoin.VAR31.name, TypeJoin.VAR31.id}, {TypeJoin.VAR40.name, TypeJoin.VAR40.id}, {TypeJoin.VAR41.name, TypeJoin.VAR41.id}};;
         ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
         tab1.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
 
@@ -168,15 +169,15 @@ public class DicJoinvar extends javax.swing.JDialog {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Nmae 0"},
-                {"Name 0"}
+                {"Nmae 0", null},
+                {"Name 0", null}
             },
             new String [] {
-                "Название соединения"
+                "Название соединения", "ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -191,6 +192,11 @@ public class DicJoinvar extends javax.swing.JDialog {
             }
         });
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(1).setMinWidth(0);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(0);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(0);
+        }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
 
@@ -205,15 +211,8 @@ public class DicJoinvar extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
         Record record = new Record();
-        int row = Util.getSelectedRec(tab1);
-        if (row == 0 || row == 1) {
-            record.add(Util.getSelectedRec(tab1) + 1);
-        } else if (row == 2 || row == 3) {
-            record.add(3);
-        } else if (row == 4 || row == 5) {
-            record.add(4);
-        }
-        record.add(tab1.getValueAt(Util.getSelectedRec(tab1), 0));
+        record.add(tab1.getValueAt(tab1.getSelectedRow(), 0));
+        record.add(tab1.getValueAt(tab1.getSelectedRow(), 1));
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice

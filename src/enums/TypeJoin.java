@@ -11,11 +11,11 @@ public enum TypeJoin {
     VAR40(40, "Т - образное соединение (импост,ригель)"),
     VAR41(41, "Т - образное соединение `конус` (импост)");
 
-    public int value;
+    public int id;
     public String name;
 
-    TypeJoin(int value, String name) {
-        this.value = value;
+    TypeJoin(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 }
