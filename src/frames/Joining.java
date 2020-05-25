@@ -54,7 +54,6 @@ public class Joining extends javax.swing.JFrame {
         new ImageIcon(getClass().getResource("/resource/img16/b003.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b004.gif")),
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
-    private int[][] icon1 = {{10, 0}, {20, 1}, {30, 2}, {31, 3}, {40, 4}, {41, 5}};
     private int[] indexIcon = {10, 20, 30, 31, 40, 41};
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
@@ -207,8 +206,6 @@ public class Joining extends javax.swing.JFrame {
 
         tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
 
-            private Icon ico = new ImageIcon(getClass().getResource("/resource/img16/b000.gif"));
-
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 0) {
@@ -242,7 +239,7 @@ public class Joining extends javax.swing.JFrame {
             if (row != -1) {
                 Record record = qJoinvar.get(row);
                 int joinVar = record.getInt(eJoinvar.types);
-                ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, joinVar * 1000);
+                ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, joinVar * 100);
             }
         });
 
