@@ -606,7 +606,7 @@ public class Element extends javax.swing.JFrame {
                 {"aaaa", null, "hhhhhhhhhhhhhh", "fff", null, null, null,  new Double(0.0), null}
             },
             new String [] {
-                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка", "null"
+                "Артикул", "Название", "Наименование", "Тип состава", "Для серии", "Умолчание", "Обязательно", "Наценка", "ID"
             }
         ) {
             Class[] types = new Class [] {
@@ -725,7 +725,7 @@ public class Element extends javax.swing.JFrame {
                 {"zzzzzzzzz", null, "mmmmm", "kkkkkkk", null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор", "null"
+                "Артикул", "Название", "Текстура", "Подбор", "ID"
             }
         ));
         tab3.setFillsViewportHeight(true);
