@@ -62,7 +62,7 @@ public class Wincalc {
 
     public AreaSimple rootArea = null;
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию       
-    public HashMap<Integer, Record> mapParamUse = new HashMap(); //параметры технологические      
+    public HashMap<Integer, Record> mapParamUse = new HashMap(); //параметры клиента      
     public LinkedList<Com5t> listCom5t; //список всех Com5t
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 

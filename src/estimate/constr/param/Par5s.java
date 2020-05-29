@@ -19,7 +19,7 @@ public class Par5s {
 
     protected final int GRUP = 2;   //Ключ 1  
     protected final int NUMB = 3;   //Ключ 2   
-    protected final int TEXT = 4;   //Текст параметра
+    protected final int TEXT = 4;   //Текст 
     protected Object obj, obj2, obj3, obj4; //Объекты калькуляции
     protected Float[] arr, arr2, arr3, arr4;
     protected String str, str2, str3, str4;
@@ -235,7 +235,7 @@ public class Par5s {
             if (iwin.mapParamDef.get(paramRec.getInt(GRUP)) == null) {
                 return false;
             }
-            int id1 = Integer.valueOf(iwin.mapParamDef.get(paramRec.getInt(GRUP))[1].toString());
+            int id1 = iwin.mapParamDef.get(paramRec.getInt(GRUP)).getInt(NUMB);
             int id2 = paramRec.getInt(NUMB);
             if ((id1 == id2) == false) {
                 return false;
@@ -247,10 +247,10 @@ public class Par5s {
     //Фильтр параметров
     protected boolean filterParamJson(Com5t com5t, List<Record> paramList) {
 
-        HashMap<Integer, Object[]> paramJson = new HashMap();
-        HashMap<Integer, Object[]> paramTotal = new HashMap();
+        //HashMap<Integer, Object[]> paramJson = new HashMap();
+        HashMap<Integer, Record> paramTotal = new HashMap();
         paramTotal.putAll(iwin.mapParamDef); //добавим параметры по умолчанию
-
+/*
         //Все владельцы этого элемента
         LinkedList<Com5t> ownerList = new LinkedList();
         Com5t el = com5t;
@@ -278,7 +278,7 @@ public class Par5s {
                 }
                 paramJson.putAll(pJson); //к парам. i-win верхнего уровня наложим парам. i-win нижнего уровня
             }
-        }
+        }*/
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
 
@@ -286,15 +286,16 @@ public class Par5s {
                     return false; //усли в базе парам. нет, сразу выход
                 }
                 //В данной ветке есть попадание в paramRec.getInt(PAR1)
-                Object[] totalVal = paramTotal.get(paramRec.getInt(GRUP));
-                if (totalVal[1].equals(paramRec.getInt(NUMB)) == false) { //если в param.znumb() попадания нет
+                Record record = paramTotal.get(paramRec.getInt(GRUP));
+                if ((record.getInt(NUMB) == paramRec.getInt(NUMB)) == false) { //если в param.znumb() попадания нет
 
                     //на третьей итерации дополняю ...
                     return false;
 
-                } else if (paramJson != null && paramJson.isEmpty() == false && paramJson.get(paramRec.getInt(GRUP)) != null) {
-                    totalVal[2] = 1; //если попадание было, то записываю 1 в третий элемент массива
-                }
+                } 
+                //else if (paramJson != null && paramJson.isEmpty() == false && paramJson.get(paramRec.getInt(GRUP)) != null) {
+                //    totalVal[2] = 1; //если попадание было, то записываю 1 в третий элемент массива
+                //}
             }
         }
         return true;
