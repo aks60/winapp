@@ -35,7 +35,7 @@ public class Joining extends Cal5e {
 
     public void build() {
 
-        HashMap<String, ElemJoining> hmJoinElem = iwin().mapJoin; //список соединений
+        //HashMap<String, ElemJoining> hmJoinElem = iwin().mapJoin; //список соединений
         //Цикл по списку соединений
         for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
 
@@ -55,41 +55,31 @@ public class Joining extends Cal5e {
             Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
             //Цикл по вариантам соединения
             for (Record joinvarRec : joinvarList) {
-                if (joinvarRec.getInt(eJoinvar.types) != elemJoin.typeJoin.id) {
-                    continue; //если варианты соединения не совпали
-                }
-                if (joiningRec.getInt(1) == 1360) {
-                    System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-                }
-                List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-                boolean out = joiningVar.check(elemJoin, joinpar1List); //ФИЛЬТР вариантов
-                if (out == false) {
-                    continue;
-                }
-                List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
-                //Цикл по детализации соединений
-                for (Record joindetRec : joindetList) {
-
-                    HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
-                    List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-                    if (joindetRec.getInt(1) == 328) {
-                        System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-                    }
-                    out = joiningDet.check(hmParam2, joinElem1, joinpar2List); //ФИЛЬТР детализации
-                    if (out == true) {
-
-                        Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
-                        //if(artRec.anumb.equals("V132P")) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-                        Specification specif = new Specification(artiklRec, joinElem1, hmParam2);
-                        //specif.setColor(this, joinElement1, connspc);
-                        //TODO Непонятное назначение цвета, надо разобратьца.
-                        Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-                        specif.color1 = artdetRec.getInt(eArtdet.color_fk);
-                        specif.color2 = artdetRec.getInt(eArtdet.color_fk);
-                        specif.color3 = artdetRec.getInt(eArtdet.color_fk);
-                        specif.place = "СОЕД";
-                        joinElem1.addSpecific(specif);
-                    }
+                if (joinvarRec.getInt(eJoinvar.types) == elemJoin.typeJoin.id) {
+                    List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
+                    if (joiningVar.check(elemJoin, joinpar1List) == true) {  //ФИЛЬТР вариантов   
+                        
+                        List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
+                        //Цикл по детализации соединений
+                        for (Record joindetRec : joindetList) {
+                            HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
+                            List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
+                            if (joiningDet.check(hmParam2, joinElem1, joinpar2List) == true) {  //ФИЛЬТР детализации   
+                                
+                                Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
+                                Specification specif = new Specification(artiklRec, joinElem1, hmParam2);
+                                //specif.setColor(this, joinElement1, connspc);
+                                //TODO Непонятное назначение цвета, надо разобраться.
+                                Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+                                specif.color1 = artdetRec.getInt(eArtdet.color_fk);
+                                specif.color2 = artdetRec.getInt(eArtdet.color_fk);
+                                specif.color3 = artdetRec.getInt(eArtdet.color_fk);
+                                specif.place = "СОЕД";
+                                joinElem1.addSpecific(specif);
+                            }
+                        }
+                       break;  
+                    } 
                 }
             }
         }

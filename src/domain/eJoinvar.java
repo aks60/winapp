@@ -44,7 +44,7 @@ public enum eJoinvar implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", id);
+            query.select(up, "order by", prio);
         }
         return query;
     }
@@ -53,7 +53,7 @@ public enum eJoinvar implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(joining_id) == _id).collect(toList());
         }
-        return new Query(values()).select(up, "where", joining_id, "=", _id, "order by", id);
+        return new Query(values()).select(up, "where", joining_id, "=", _id, "order by", prio);
     }
 
     public String toString() {

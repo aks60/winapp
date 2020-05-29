@@ -162,6 +162,7 @@ public class JoiningVar extends Par5s {
                     break;
                 case 1040:  //Размер, мм 
                     message(paramRec.getInt(GRUP));
+                    //return false; //Т. к. есть системные константы
                     break;
                 case 1043:  //Ограничение габарита контура, мм 
                     message(paramRec.getInt(GRUP));

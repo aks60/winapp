@@ -15,12 +15,13 @@ import estimate.script.Winscript;
 
 public class Test {
 
+    //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
     public static void main(String[] args) {
         Main.dev = true;
         try {
-            convert.Profstroy.script();
+            //convert.Profstroy.script();
             //query();
-            //wincalc();
+            wincalc();
             //frame();
 
         } catch (Exception e) {
@@ -35,7 +36,7 @@ public class Test {
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.create(estimate.script.Winscript.test(Winscript.prj, 1734, 1009, 10009, 1009));
+        iwin.create(estimate.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 

@@ -52,10 +52,7 @@ public class Elements extends Cal5e {
                 int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
                 List<Record> elementList2 = eElement.find(series_id);
                 detail(elementList2, elem5e);
-
-//                if (elem5e.artiklRec.getInt(eArtikl.id) == 4474) {
-//                    System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-//                } 
+                
                 //Варианты состава для артикула профиля
                 if (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) {
                     artikl_id = elem5e.artiklRec.getInt(eArtikl.analog_id);
@@ -76,18 +73,16 @@ public class Elements extends Cal5e {
 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
-                boolean out = elementVar.check(elem5e, elempar1List); //ФИЛЬТР вариантов
-                if (out == true) {
 
+                if (elementVar.check(elem5e, elempar1List) == true) {  //ФИЛЬТР вариантов
                     List<Record> elemdetList = eElemdet.find(element_id);
                     for (Record elemdetRec : elemdetList) { //цыкл по детализации
 
                         HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации                       
-                        boolean out2 = elementDet.check(hmParam, elem5e, elempar2List);//ФИЛЬТР детализации
-                        if (out2 == true) {
-
+                        
+                        if (elementDet.check(hmParam, elem5e, elempar2List) == true) {  //ФИЛЬТР детализации
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(artiklRec, elem5e, hmParam);
                             specif.setColor(elem5e, elemdetRec);

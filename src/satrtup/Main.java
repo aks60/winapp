@@ -18,6 +18,7 @@ public class Main {
         eProperty.save();
     }
 
+    //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
     public static void main(String[] args) {
 
         for (int index = 0; index < args.length; index++) {

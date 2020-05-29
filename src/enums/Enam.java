@@ -14,6 +14,14 @@ public interface Enam {
 
     public int ordinal();
 
+    default int id() {
+        return -1;
+    }
+
+    default int grup() {
+        return -1;
+    }
+
     default int numb() {
         return -1;
     }
