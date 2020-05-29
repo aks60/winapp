@@ -61,8 +61,8 @@ public class Wincalc {
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
-    public HashMap<Integer, Object[]> mapParamDef = new HashMap(); //параметры по умолчанию       
-    public HashMap<Integer, String> mapParamUse = new HashMap(); //параметры технологические      
+    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию       
+    public HashMap<Integer, Record> mapParamUse = new HashMap(); //параметры технологические      
     public LinkedList<Com5t> listCom5t; //список всех Com5t
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -81,8 +81,7 @@ public class Wincalc {
         parsingScript(productJson);
 
         //Загрузим параметры по умолчанию
-        eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.grup),
-                new Object[]{rec.getStr(eSyspar1.text), rec.getInt(eSyspar1.numb)}));
+        eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.grup), rec));
 
         //Соединения 
         rootArea.joinFrame();  //соединения рамы
