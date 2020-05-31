@@ -92,50 +92,18 @@ public enum eSysprof implements Field {
         List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
         if (conf.equals("calc")) {
             for (Record rec : query()) {
-                if (rec.getInt(systree_id) == _nuni) {
-                    if (_side2.contains(rec.getInt(use_side))) {
-                        return rec;
-                    }
+                if (rec.getInt(systree_id) == _nuni && _side2.contains(rec.getInt(use_side))) {
+                    return rec;
                 }
             }
         }
-        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));       
+        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
-                + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name() 
-                + " = " + _type.id + " and "  + use_side.name() + " in " + str + " order by " + prio.name());
+                + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name()
+                + " = " + _type.id + " and " + use_side.name() + " in " + str + " order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
-/*
-    public static Record find3(int _nuni, UseArtiklTo _type, UseSide _side) {
-        if (_nuni == -1) {
-            return record(_type);
-        }
-        if (conf.equals("calc")) {
-            HashMap<Integer, Record> mapPrio = new HashMap();
-            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.id == rec.getInt(use_type)
-                    && (_side.id == rec.getInt(use_side) || UseSide.ANY.id == rec.getInt(use_side)))
-                    .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
-            int minLevel = 32767;
-            for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
 
-                if (entry.getKey() == 0) {
-                    return entry.getValue();
-                }
-                if (minLevel > entry.getKey()) {
-                    minLevel = entry.getKey();
-                }
-            }
-            if (mapPrio.size() == 0) {
-                return null;
-            }
-            return mapPrio.get(minLevel);
-        }
-        Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
-                + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " and ("
-                + use_side.name() + " = " + _side.id + " or " + use_side.name() + " = " + UseSide.ANY.id + ") order by " + prio.name());
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
-    }    
-    */
     public static Record record(UseArtiklTo _type) {
 
         Record record = query.newRecord(Query.SEL);

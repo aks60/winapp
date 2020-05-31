@@ -106,7 +106,7 @@ public class Wincalc {
             Joining joining = new Joining(this); //соединения
             joining.build();
             Filling filling = new Filling(this); //заполнения
-            //filling.build();
+            filling.build();
             /*Accessory accessory = new Accessory(iwin, this); //фурнитура        
             constructiv.kitsFirst();                       //комплекты */
             for (ElemSimple elemRec : listElem) {

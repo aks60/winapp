@@ -50,13 +50,13 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.TOP);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.TOP, UseSide.ANY);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.BOTTOM);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.LEFT);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.LEFT, UseSide.ANY);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.RIGHT);
+            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);

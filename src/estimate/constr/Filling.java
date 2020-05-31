@@ -50,7 +50,7 @@ public class Filling extends Cal5e {
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
                 UseArtiklTo useArtiklTo = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //владелец стеклопакета
-                Record sysprofRec = eSysprof.find3(pass, useArtiklTo, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
+                Record sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
                 Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
                 //Профиль который используется для вставки стеклопакета
                 int profileId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
@@ -59,14 +59,15 @@ public class Filling extends Cal5e {
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
-                    //Цикл по профилям в группе заполнений
-                    for (Record glasprofRec : glasprofList) {
-                        if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
-
-                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                            detail(elemGlass, glasgrpRec);
-                        }
-                    }
+                    System.out.println(glasprofList);
+//                    //Цикл по профилям в группе заполнений
+//                    for (Record glasprofRec : glasprofList) {
+//                        if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
+//
+//                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
+//                            detail(elemGlass, glasgrpRec);
+//                        }
+//                    }
                 }
             }
         }
