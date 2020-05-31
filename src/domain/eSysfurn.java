@@ -45,10 +45,10 @@ public enum eSysfurn implements Field {
 
     public static Record find(int _nuni) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).findFirst().orElse(null);
+            return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public String toString() {

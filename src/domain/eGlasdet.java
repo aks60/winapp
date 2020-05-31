@@ -45,10 +45,10 @@ public enum eGlasdet implements Field {
 
     public static Record find(int _id, float _depth) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(glasgrp_id) == _id && rec.getFloat(depth) == _depth).findFirst().orElse(null);
+            return query().stream().filter(rec -> rec.getInt(glasgrp_id) == _id && rec.getFloat(depth) == _depth).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", glasgrp_id, "and", depth, "=", _depth);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
     public String toString() {

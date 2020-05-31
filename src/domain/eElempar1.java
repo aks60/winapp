@@ -5,6 +5,7 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,18 +42,18 @@ import java.util.stream.Collectors;
         
     public static Record find(int _id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
     public static Record find2(int _par1) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _par1 == rec.getInt(grup)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _par1 == rec.getInt(grup)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", grup, "=", _par1);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
     public static List<Record> find3(int _element_id) {
@@ -60,7 +61,7 @@ import java.util.stream.Collectors;
             return query().stream().filter(rec -> _element_id == rec.getInt(element_id)).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", element_id, "=", _element_id);
-        return (recordList.isEmpty() == true) ? null : recordList;
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
     
     public String toString() {

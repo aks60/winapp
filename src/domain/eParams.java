@@ -60,10 +60,10 @@ public enum eParams implements Field {
 
     public static Record find(int _numb, int _mixt) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _numb == rec.getInt(grup) && _mixt == rec.getInt(numb)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _numb == rec.getInt(grup) && _mixt == rec.getInt(numb)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", grup, "=", _numb, "and", numb, "=", _mixt);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public String toString() {

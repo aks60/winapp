@@ -5,9 +5,9 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eColor.id;
-import static domain.eColor.up;
-import static domain.eColor.values;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eGlasprof implements Field {
     up("0", "0", "0", "Профили в группе заполнения", "GLASPRO"),
@@ -43,12 +43,12 @@ public enum eGlasprof implements Field {
         return query;
     }
 
-    public static Record find(int _id) {
+    public static List<Record> find(int glasgrp_id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(glasgrp_id) == _id).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> rec.getInt(glasgrp_id) == glasgrp_id).collect(Collectors.toList());
         }
-        Query recordList = new Query(values()).select(up, "where", glasgrp_id, "=", _id);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        Query recordList = new Query(values()).select(up, "where", glasgrp_id, "=", glasgrp_id);
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
     
     public String toString() {

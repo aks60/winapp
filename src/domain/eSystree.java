@@ -85,10 +85,10 @@ public enum eSystree implements Field {
             return record();
         }
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _nuni);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public static Record record() {

@@ -5,6 +5,7 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
@@ -41,18 +42,18 @@ public enum eElempar2 implements Field {
         
     public static Record find(int _id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
     public static Record find2(int _grup) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _grup == rec.getInt(grup)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _grup == rec.getInt(grup)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", grup, "=", _grup);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
     public static List<Record> find3(int _elemdet_id) {
@@ -60,7 +61,7 @@ public enum eElempar2 implements Field {
             return query().stream().filter(rec -> _elemdet_id == rec.getInt(elemdet_id)).collect(toList());
         }
         Query recordList = new Query(values()).select(up, "where", elemdet_id, "=", _elemdet_id);
-        return (recordList.isEmpty() == true) ? null : recordList;
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
     
     public String toString() {

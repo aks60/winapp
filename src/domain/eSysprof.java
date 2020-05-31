@@ -101,7 +101,7 @@ public enum eSysprof implements Field {
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
                 + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name()
                 + " = " + _type.id + " and " + use_side.name() + " in " + str + " order by " + prio.name());
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public static Record record(UseArtiklTo _type) {

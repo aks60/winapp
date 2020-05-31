@@ -59,15 +59,14 @@ public class Filling extends Cal5e {
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
-                    System.out.println(glasprofList);
-//                    //Цикл по профилям в группе заполнений
-//                    for (Record glasprofRec : glasprofList) {
-//                        if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
-//
-//                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-//                            detail(elemGlass, glasgrpRec);
-//                        }
-//                    }
+                    //Цикл по профилям в группе заполнений
+                    for (Record glasprofRec : glasprofList) {
+                        if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
+
+                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
+                            detail(elemGlass, glasgrpRec);
+                        }
+                    }
                 }
             }
         }
@@ -77,8 +76,7 @@ public class Filling extends Cal5e {
 
         //TODO в заполненииях текстура подбирается неправильно
         ArrayList<Record> pargrupList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
-        boolean out = fillingVar.check(elemGlass, pargrupList); //ФИЛЬТР вариантов
-        if (out == true) {
+        if (fillingVar.check(elemGlass, pargrupList) == true) {  //ФИЛЬТР вариантов
 
             if (pass == 2) {
                 elemGlass.setSpecific(); //заполним спецификацию элемента
@@ -93,7 +91,7 @@ public class Filling extends Cal5e {
                 if (fillingDet.check(hmParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР спец.
 
                     if (pass == 1 || pass == 3) {
-                        continue; //если нулевой и второй цыкл ничего не создаём
+                        continue; //если первый и третий цыкл ничего не создаём
                     }
                     Specification specif = null;
                     Record artiklRec = eArtikl.find(clasdetRec.getInt(eGlasdet.artikl_id), true);
@@ -263,8 +261,9 @@ public class Filling extends Cal5e {
                             specif = new Specification(art, elemGlass, hmParam);
                             specif.setColor(elemGlass, clasdetRec);
                             elemGlass.addSpecific(specif);
-                        }
+                        }                        
                     }
+                    specif.place = "ЗАП";
                 }
             }
         }

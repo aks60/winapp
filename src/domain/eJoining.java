@@ -48,19 +48,19 @@ public enum eJoining implements Field {
     public static Record find(int _artikl_id1, int _artikl_id2) {
 
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _artikl_id1 == rec.getInt(artikl_id1) && _artikl_id2 == rec.getInt(artikl_id2)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _artikl_id1 == rec.getInt(artikl_id1) && _artikl_id2 == rec.getInt(artikl_id2)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", artikl_id1, "=", _artikl_id1, "and", artikl_id2, "=", _artikl_id2);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public static Record find2(String _analog) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _analog.equals(rec.getStr(analog)) && rec.getInt(main) * 0x100 != 0).findFirst().orElse(null);
+            return query().stream().filter(rec -> _analog.equals(rec.getStr(analog)) && rec.getInt(main) * 0x100 != 0).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "' and ", main, " > 255");
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);    
-        //return new Query(values()).select(up, "where", analog, "='", _analog).stream().filter(rec -> (rec.getInt(main) & 0x100) != 0).findFirst().orElse(null);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);    
+        //return new Query(values()).select(up, "where", analog, "='", _analog).stream().filter(rec -> (rec.getInt(main) & 0x100) != 0).findFirst().orElse(up.newRecord());
     }
 
     public String toString() {

@@ -2,7 +2,6 @@ package frames;
 
 import common.DialogListener;
 import common.EditorListener;
-import common.FrameListener;
 import common.FrameToFile;
 import common.Util;
 import dataset.Query;
@@ -21,7 +20,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import static common.Util.getSelectedRec;
 import dataset.Field;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicColvar;
@@ -34,8 +32,6 @@ import domain.eColor;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
-import domain.eFurnpar2;
-import domain.eJoinpar1;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
@@ -45,6 +41,7 @@ import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import satrtup.Main;
 import frames.swing.BooleanRenderer;
+import java.util.stream.Collectors;
 
 public class Filling extends javax.swing.JFrame {
 
@@ -57,8 +54,8 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar, listenerTypset, listenerThicknes;
     private EditorListener listenerEditor;
-    private String subsql = "";
     private int nuni = -1;
+    private String subsql = "";
     private Window owner = null;
 
     public Filling() {
@@ -74,7 +71,7 @@ public class Filling extends javax.swing.JFrame {
         initComponents();
         initElements();
         this.nuni = nuni;
-        this.owner = owner;               
+        this.owner = owner;
         listenerCell();
         listenerDict();
         loadingData();
@@ -89,9 +86,10 @@ public class Filling extends javax.swing.JFrame {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
         } else {
             Query qSysprof = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni);
-            qSysprof.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
-            subsql = "(" + subsql.substring(1) + ")";
-            qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up, "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
+            String arr = qSysprof.stream().map(rec -> rec.getStr(eSysprof.artikl_id)).collect(Collectors.joining(",", "(", ")"));
+            Query qGlasprof = new Query(eGlasprof.glasgrp_id).select(eGlasprof.up, "where", eGlasprof.artikl_id, " in ", arr);
+            arr = qGlasprof.stream().map(rec -> rec.getStr(eGlasprof.glasgrp_id)).collect(Collectors.joining(",", "(", ")"));
+            qGlasgrp.select(eGlasgrp.up, "where", eGlasgrp.id, " in ", arr);
         }
     }
 
@@ -150,7 +148,7 @@ public class Filling extends javax.swing.JFrame {
                 if (val != null && field == eGlaspar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eGlaspar2.grup) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);                       
+                        return (Main.dev) ? record.getStr(eGlaspar2.grup) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -664,7 +662,7 @@ public class Filling extends javax.swing.JFrame {
 
         pan3.add(scr5, java.awt.BorderLayout.CENTER);
 
-        tabb1.addTab("Прфили в группе", pan3);
+        tabb1.addTab("Профили в группе", pan3);
 
         centr.add(tabb1, java.awt.BorderLayout.SOUTH);
         tabb1.getAccessibleContext().setAccessibleName("");
@@ -708,10 +706,7 @@ public class Filling extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        loadingData();
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1);
+
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -764,7 +759,7 @@ public class Filling extends javax.swing.JFrame {
         if (owner != null) {
             owner.setEnabled(true);
             owner = null;
-        }    
+        }
     }//GEN-LAST:event_windowClosed
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
@@ -773,14 +768,14 @@ public class Filling extends javax.swing.JFrame {
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
-        }        
+        }
     }//GEN-LAST:event_tabMousePressed
 
     private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
         JTable table = Stream.of(tab1, tab2, tab3, tab4, tab5).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         btnIns.setEnabled(txtFilter.getText().length() == 0);
-        if (txtFilter.getText().length() == 0) {            
+        if (txtFilter.getText().length() == 0) {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
         } else {
             int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();

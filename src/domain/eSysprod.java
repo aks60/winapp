@@ -5,6 +5,7 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eElempar2.up;
 import static domain.eSystree.id;
 import static domain.eSystree.up;
 import static domain.eSystree.values;
@@ -40,10 +41,10 @@ public enum eSysprod implements Field {
 
     public static Record find(int _id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(null);
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public String toString() {

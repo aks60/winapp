@@ -41,10 +41,10 @@ public enum eFurnside1 implements Field {
 
     public static Record find(int _id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(furniture_id) == _id).findFirst().orElse(null);
+            return query().stream().filter(rec -> rec.getInt(furniture_id) == _id).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", furniture_id, "=", _id);
-        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
     public String toString() {
