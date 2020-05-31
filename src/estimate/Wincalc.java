@@ -19,7 +19,6 @@ import domain.eSyssize;
 import domain.eSyspar1;
 import domain.eSysprof;
 import enums.LayoutArea;
-import enums.UseSide;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.awt.Graphics2D;
@@ -28,12 +27,12 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import estimate.constr.Specification;
 import estimate.constr.Tariffication;
 import estimate.constr.Joining;
 import estimate.constr.Elements;
+import estimate.constr.Filling;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
@@ -107,9 +106,9 @@ public class Wincalc {
             elements.build();
             Joining joining = new Joining(this); //соединения
             joining.build();
-            /*  Filling filling = new Filling(iwin, this); //заполнения
+            Filling filling = new Filling(this); //заполнения
             filling.build();
-            Accessory accessory = new Accessory(iwin, this); //фурнитура        
+            /*Accessory accessory = new Accessory(iwin, this); //фурнитура        
             constructiv.kitsFirst();                       //комплекты */
             for (ElemSimple elemRec : listElem) {
 
