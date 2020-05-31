@@ -20,8 +20,11 @@ public class JoiningDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elem5e, List<Record> paramList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> paramList) {
 
+        if (filterParamJson(elem5e, paramList) == false) {
+            return false; //параметры по умолчанию и I-OKNA
+        }        
         //Цикл по параметрам соединения
         for (Record rec : paramList) {
             if (filterParamDef(rec) == false) {
@@ -66,7 +69,8 @@ public class JoiningDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 11010:  //Рассчитывать с Артикулом 1 
-                    message(rec.getInt(GRUP));
+                case 12010:  //Рассчитывать с Артикулом 1                    
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11020:  //Рассчитывать с Артикулом 2 
                     message(rec.getInt(GRUP));
@@ -78,18 +82,18 @@ public class JoiningDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 11030:  //Количество 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11040:  //Порог расчета, мм 
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11050:  //Шаг, мм 
                 case 12050:  //Поправка, мм    
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11060:  //Количество на шаг 
                 case 12060:  //Количество    
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11066:  //Если текстура профиля Арт.1 
                     message(rec.getInt(GRUP));
@@ -117,7 +121,7 @@ public class JoiningDet extends Par5s {
                     break;
                 case 11070:  //Ставить однократно 
                 case 12070:  //Ставить однократно    
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 11072:  //Расчет по стороне 
                     message(rec.getInt(GRUP));
@@ -152,9 +156,6 @@ public class JoiningDet extends Par5s {
                 case 12009:  //Внешнее соединение 
                     message(rec.getInt(GRUP));
                     break;
-                case 12010:  //Рассчитывать с Артикулом 1 
-                    message(rec.getInt(GRUP));
-                    break;
                 case 12020:  //Рассчитывать с Артикулом 2 
                     message(rec.getInt(GRUP));
                     break;
@@ -165,7 +166,7 @@ public class JoiningDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 12030:  //[ * коэф-т ] 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 12063:  //Углы реза по плоскости ригеля 
                     message(rec.getInt(GRUP));
@@ -186,9 +187,6 @@ public class JoiningDet extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
             }
-        }
-        if (filterParamJson(elem5e, paramList) == false) {
-            return false; //параметры по умолчанию и I-OKNA
         }
         return true;
     }

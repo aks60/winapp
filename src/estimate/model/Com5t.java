@@ -36,7 +36,7 @@ public abstract class Com5t {
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 
 
-    public HashMap<ParamJson, Object> mapParam = new HashMap(); //параметры элемента       
+    public HashMap<ParamJson, Object> mapParamUse = new HashMap(); //параметры элемента       
 
     public Com5t(float id, Wincalc iwin, AreaSimple owner) {
         this.id = id;
@@ -86,7 +86,7 @@ public abstract class Com5t {
                 JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
 
                 if (jsonArr != null && jsonArr.isJsonArray()) {
-                    mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
+                    mapParamUse.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
                     HashMap<Integer, Object[]> mapValue = new HashMap();
                     for (int index = 0; index < jsonArr.size(); index++) {
                         JsonArray jsonRec = (JsonArray) jsonArr.get(index);
@@ -97,7 +97,7 @@ public abstract class Com5t {
                             mapValue.put(p1, new Object[]{record.get(eParams.text), record.get(eParams.numb), 0});
                         }
                     }
-                    mapParam.put(ParamJson.pro4Params2, mapValue); //второй вариант                
+                    mapParamUse.put(ParamJson.pro4Params2, mapValue); //второй вариант                
                 }
             }
         } catch (Exception e) {

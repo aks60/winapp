@@ -13,6 +13,7 @@ import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
+import enums.UseSide;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -34,43 +35,33 @@ public class Filling extends Cal5e {
     private FillingDet fillingDet = null;
     private ElementDet elementDet = null;
     public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
-    
+
     public Filling(Wincalc iwin) {
         super(iwin);
         fillingVar = new FillingVar(iwin);
         fillingDet = new FillingDet(iwin);
-        elementDet = new ElementDet(iwin);        
+        elementDet = new ElementDet(iwin);
     }
 
     public void build() {
         for (pass = 1; pass < 4; pass++) {
-
-            int systree_artikl_id = -1;
-            List<Record> sysprofList = eSysprof.find(iwin().nuni);
             LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
-            
+
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
+                UseArtiklTo useArtiklTo = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //владелец стеклопакета
+                Record sysprofRec = eSysprof.find3(pass, useArtiklTo, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
+                Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
+                //Профиль который используется для вставки стеклопакета
+                int profileId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
 
                 //Цикл по группам заполнений
-                for (Record glasgrpRec : eGlasgrp.select()) {
-
-                    UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
+                for (Record glasgrpRec : eGlasgrp.findAll()) {
                     //Цикл по системе конструкций, ищем артикул системы профилей
-                    for (Record sysprofRec : sysprofList) {
-                        if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-
-                            Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
-                            systree_artikl_id = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
-                            break;
-                        }
-                    }
-
                     List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
                     //Цикл по профилям в группе заполнений
                     for (Record glasprofRec : glasprofList) {
-
-                        if (systree_artikl_id != -1 && systree_artikl_id == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
+                        if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
 
                             elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
                             detail(elemGlass, glasgrpRec);

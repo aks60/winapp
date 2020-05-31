@@ -41,11 +41,11 @@ public class AreaStvorka extends AreaSimple {
             Gson gson = new Gson();
             JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
-            mapParam.put(ParamJson.typeOpen, jsonObj.get(ParamJson.typeOpen.name()));
-            mapParam.put(ParamJson.funic, jsonObj.get(ParamJson.funic.name()));
-            if (mapParam.get(ParamJson.typeOpen) != null) {
+            mapParamUse.put(ParamJson.typeOpen, jsonObj.get(ParamJson.typeOpen.name()));
+            mapParamUse.put(ParamJson.funic, jsonObj.get(ParamJson.funic.name()));
+            if (mapParamUse.get(ParamJson.typeOpen) != null) {
 
-                int key = Integer.valueOf(mapParam.get(ParamJson.typeOpen).toString());
+                int key = Integer.valueOf(mapParamUse.get(ParamJson.typeOpen).toString());
                 for (TypeOpen1 typeOpen : TypeOpen1.values()) {
                     if (typeOpen.id == key) {
                         this.typeOpen = typeOpen;
@@ -156,9 +156,9 @@ public class AreaStvorka extends AreaSimple {
         mapFrame.get(LayoutArea.LEFT).paint();
         mapFrame.get(LayoutArea.RIGHT).paint();
 
-        if (mapParam.get(ParamJson.typeOpen) != null) {
+        if (mapParamUse.get(ParamJson.typeOpen) != null) {
             float DX = 20, DY = 60, X1 = 0, Y1 = 0;
-            String value = mapParam.get(ParamJson.typeOpen).toString();
+            String value = mapParamUse.get(ParamJson.typeOpen).toString();
             ElemSimple elemL = mapFrame.get(LayoutArea.LEFT);
             ElemSimple elemR = mapFrame.get(LayoutArea.RIGHT);
             ElemSimple elemT = mapFrame.get(LayoutArea.TOP);

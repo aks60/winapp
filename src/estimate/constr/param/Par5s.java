@@ -264,7 +264,7 @@ public class Par5s {
         for (int index = ownerList.size() - 1; index >= 0; index--) {
 
             el = ownerList.get(index);
-            HashMap<Integer, Object[]> pJson = (HashMap) el.mapParam.get(ParamJson.pro4Params2);
+            HashMap<Integer, Object[]> pJson = (HashMap) el.mapParamUse.get(ParamJson.pro4Params2);
             if (pJson != null && pJson.isEmpty() == false) {  // если параметры от i-okna есть
                 if (pass == 1) {
                     paramTotal.putAll(pJson); //к пар. по умолч. наложим парам. от i-win
@@ -292,7 +292,7 @@ public class Par5s {
                     //на третьей итерации дополняю ...
                     return false;
 
-                } 
+                }
                 //else if (paramJson != null && paramJson.isEmpty() == false && paramJson.get(paramRec.getInt(GRUP)) != null) {
                 //    totalVal[2] = 1; //если попадание было, то записываю 1 в третий элемент массива
                 //}
@@ -303,7 +303,9 @@ public class Par5s {
 
     //Не обработанные параметры
     protected void message(int code) {
-        System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+        if (code >= 0) {
+            System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
+        }
     }
 
     //Обработанные параметры

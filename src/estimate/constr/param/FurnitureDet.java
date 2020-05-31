@@ -25,6 +25,9 @@ public class FurnitureDet  extends Par5s {
 
     public boolean furniture(HashMap<Integer, String> hmParam, ElemSimple elem5e, List<Record> tableList) {
 
+        if (filterParamJson(elem5e, tableList) == false) {
+            return false; //параметры по умолчанию и I-OKNA
+        }        
         //Цикл по параметрам фурнитуры
         for (Record paramRec : tableList) {
             switch (paramRec.getInt(GRUP)) {
@@ -277,9 +280,6 @@ public class FurnitureDet  extends Par5s {
                     message(paramRec.getInt(GRUP));
                     break;
             }
-        }
-        if (filterParamJson(elem5e, tableList) == false) {
-            return false; //параметры по умолчанию и I-OKNA
         }
         return true;
     }

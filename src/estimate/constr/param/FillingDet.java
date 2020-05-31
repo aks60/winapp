@@ -20,6 +20,9 @@ public class FillingDet extends Par5s {
 
     public boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> paramList) {
 
+        if (filterParamJson(ElemSimple, paramList) == false) {
+            return false; //параметры по умолчанию и I-OKNA
+        }        
         //Цикл по параметрам заполнения
         for (Record paramRec : paramList) {
 
@@ -151,9 +154,6 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(GRUP));
                     break;
             }
-        }
-        if (filterParamJson(ElemSimple, paramList) == false) {
-            return false; //параметры по умолчанию и I-OKNA
         }
         return true;
     }

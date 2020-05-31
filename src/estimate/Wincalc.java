@@ -60,8 +60,7 @@ public class Wincalc {
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
-    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию       
-    public HashMap<Integer, Record> mapParamUse = new HashMap(); //параметры клиента      
+    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию           
     public LinkedList<Com5t> listCom5t; //список всех Com5t
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -107,7 +106,7 @@ public class Wincalc {
             Joining joining = new Joining(this); //соединения
             joining.build();
             Filling filling = new Filling(this); //заполнения
-            filling.build();
+            //filling.build();
             /*Accessory accessory = new Accessory(iwin, this); //фурнитура        
             constructiv.kitsFirst();                       //комплекты */
             for (ElemSimple elemRec : listElem) {

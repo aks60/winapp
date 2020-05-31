@@ -88,8 +88,8 @@ public class Filling extends javax.swing.JFrame {
         if (owner == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
         } else {
-            Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
-            query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
+            Query qSysprof = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni);
+            qSysprof.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
             subsql = "(" + subsql.substring(1) + ")";
             qGlasgrp.select(eGlasgrp.up, ",", eGlasprof.up, "where", eGlasgrp.id, "=", eGlasprof.glasgrp_id, "and", eGlasprof.artikl_id, "in", subsql, "order by", eGlasgrp.name);
         }
@@ -491,11 +491,12 @@ public class Filling extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Мммммммммм", "1", "1,2,3"},
-                {"Ррррррррррр", "2", "1,2,3"}
+                {"Мммммммммм", "1", "1,2,3", null},
+                {"Ррррррррррр", "2", "1,2,3", null},
+                {null, null, null, null}
             },
             new String [] {
-                "Название", "Зазор", "Толщины доступные"
+                "Название", "Зазор", "Толщины доступные", "ID"
             }
         ));
         tab1.setFillsViewportHeight(true);
@@ -512,6 +513,7 @@ public class Filling extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(2).setMaxWidth(160);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(40);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -561,11 +563,11 @@ public class Filling extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"4мм", "22www", "xxxxxxxxxxx", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm"},
-                {"12мм", "44vvvv", "vvvvvvvvvvv", "hhhhhhhhhhhhhhh", "kkkkkkkkkkkkkkkkkk"}
+                {"4мм", "22www", "xxxxxxxxxxx", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm", null},
+                {"12мм", "44vvvv", "vvvvvvvvvvv", "hhhhhhhhhhhhhhh", "kkkkkkkkkkkkkkkkkk", null}
             },
             new String [] {
-                "Толщина", "Артикул", "Название", "Текстура", "Подбор"
+                "Толщина", "Артикул", "Название", "Текстура", "Подбор", "ID"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -583,6 +585,7 @@ public class Filling extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(40);
         }
 
         pan4.add(scr2, java.awt.BorderLayout.CENTER);
@@ -625,15 +628,15 @@ public class Filling extends javax.swing.JFrame {
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", null, null},
-                {"rrrrrrrrrrr", "pppppppppp", "77", null, null}
+                {"yyyyyyyy", "fffffffffffffff", "44", null, null, null},
+                {"rrrrrrrrrrr", "pppppppppp", "77", null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее"
+                "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -656,6 +659,7 @@ public class Filling extends javax.swing.JFrame {
             tab5.getColumnModel().getColumn(3).setMaxWidth(120);
             tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(4).setMaxWidth(120);
+            tab5.getColumnModel().getColumn(5).setMaxWidth(40);
         }
 
         pan3.add(scr5, java.awt.BorderLayout.CENTER);

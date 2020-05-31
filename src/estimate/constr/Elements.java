@@ -10,6 +10,7 @@ import domain.eElempar2;
 import domain.eSysprof;
 import enums.TypeElem;
 import enums.UseArtiklTo;
+import enums.UseSide;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class Elements extends Cal5e {
         try {
             //Цыкл по списку элементов конструкции
             for (ElemSimple elem5e : iwin().listElem) {
+                
                 
                 //Ищем текстуры не на аналоге 
                 int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id);
@@ -74,17 +76,17 @@ public class Elements extends Cal5e {
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
 
-                if (elementVar.check(elem5e, elempar1List) == true) {  //ФИЛЬТР вариантов
+                if (elementVar.check(elem5e, elempar1List) == true) {  //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                     List<Record> elemdetList = eElemdet.find(element_id);
                     for (Record elemdetRec : elemdetList) { //цыкл по детализации
 
-                        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры детализации
+                        HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации                       
                         
-                        if (elementDet.check(hmParam, elem5e, elempar2List) == true) {  //ФИЛЬТР детализации
+                        if (elementDet.check(mapParam, elem5e, elempar2List) == true) {  //ФИЛЬТР детализации, параметры накапливаются в mapParam
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
-                            Specification specif = new Specification(artiklRec, elem5e, hmParam);
+                            Specification specif = new Specification(artiklRec, elem5e, mapParam);
                             specif.setColor(elem5e, elemdetRec);
                             specif.place = "СОСТ";
                             elem5e.addSpecific(specif); //добавим спецификацию в элемент

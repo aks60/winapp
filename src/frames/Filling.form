@@ -258,19 +258,23 @@
                 <Component class="javax.swing.JTable" name="tab1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="2">
+                      <Table columnCount="4" rowCount="3">
                         <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;" type="java.lang.Object">
                           <Data value="&#x41c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;&#x43c;"/>
                           <Data value="&#x420;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;&#x440;"/>
+                          <Data value="null"/>
                         </Column>
                         <Column editable="true" title="&#x417;&#x430;&#x437;&#x43e;&#x440;" type="java.lang.Object">
                           <Data value="1"/>
                           <Data value="2"/>
+                          <Data value="null"/>
                         </Column>
                         <Column editable="true" title="&#x422;&#x43e;&#x43b;&#x449;&#x438;&#x43d;&#x44b; &#x434;&#x43e;&#x441;&#x442;&#x443;&#x43f;&#x43d;&#x44b;&#x435;" type="java.lang.Object">
                           <Data value="1,2,3"/>
                           <Data value="1,2,3"/>
+                          <Data value="null"/>
                         </Column>
+                        <Column editable="true" title="ID" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -286,6 +290,11 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="160" minWidth="-1" prefWidth="120" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="40" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -431,7 +440,7 @@
                     <Component class="javax.swing.JTable" name="tab2">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="5" rowCount="2">
+                          <Table columnCount="6" rowCount="2">
                             <Column editable="true" title="&#x422;&#x43e;&#x43b;&#x449;&#x438;&#x43d;&#x430;" type="java.lang.Object">
                               <Data value="4&#x43c;&#x43c;"/>
                               <Data value="12&#x43c;&#x43c;"/>
@@ -452,6 +461,7 @@
                               <Data value="mmmmmmmmmmm"/>
                               <Data value="kkkkkkkkkkkkkkkkkk"/>
                             </Column>
+                            <Column editable="true" title="ID" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -477,6 +487,11 @@
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="120" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="40" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -606,7 +621,7 @@
                     <Component class="javax.swing.JTable" name="tab5">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="5" rowCount="2">
+                          <Table columnCount="6" rowCount="2">
                             <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.Object">
                               <Data value="yyyyyyyy"/>
                               <Data value="rrrrrrrrrrr"/>
@@ -621,6 +636,7 @@
                             </Column>
                             <Column editable="true" title="&#x412;&#x43d;&#x443;&#x442;&#x440;&#x435;&#x43d;&#x43d;&#x435;&#x435;" type="java.lang.Boolean"/>
                             <Column editable="true" title="&#x412;&#x43d;&#x435;&#x448;&#x43d;&#x435;&#x435;" type="java.lang.Boolean"/>
+                            <Column editable="true" title="ID" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -646,6 +662,11 @@
                               <Renderer/>
                             </Column>
                             <Column maxWidth="120" minWidth="-1" prefWidth="80" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="40" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>

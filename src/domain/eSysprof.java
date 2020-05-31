@@ -9,7 +9,9 @@ import enums.UseArtiklTo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import estimate.model.ElemSimple;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eSysprof implements Field {
     up("0", "0", "0", "Профили сист.профилей", "SYSPROA"),
@@ -55,13 +57,13 @@ public enum eSysprof implements Field {
         return new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", prio);
     }
 
-    public static Record find2(int _nuni, UseArtiklTo _use_type) {
+    public static Record find2(int _nuni, UseArtiklTo _type) {
         if (_nuni == -1) {
-            return record(_use_type);
+            return record(_type);
         }
         if (conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
-            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(use_type) == _use_type.id)
+            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(use_type) == _type.id)
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
             int minLevel = 32767;
             for (Map.Entry<Integer, Record> entry : mapPrio.entrySet()) {
@@ -79,10 +81,31 @@ public enum eSysprof implements Field {
             return mapPrio.get(minLevel);
         }
         Query recordList = new Query(values()).select("select first 1 * from " + up.tname() + " where "
-                + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _use_type.id + " order by " + prio.name());
+                + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
+    public static Record find3(int _nuni, UseArtiklTo _type, UseSide... _side) {
+        if (_nuni == -1) {
+            return record(_type);
+        }
+        List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
+        if (conf.equals("calc")) {
+            for (Record rec : query()) {
+                if (rec.getInt(systree_id) == _nuni) {
+                    if (_side2.contains(rec.getInt(use_side))) {
+                        return rec;
+                    }
+                }
+            }
+        }
+        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));       
+        Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
+                + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name() 
+                + " = " + _type.id + " and "  + use_side.name() + " in " + str + " order by " + prio.name());
+        return (recordList.isEmpty() == true) ? null : recordList.get(0);
+    }
+/*
     public static Record find3(int _nuni, UseArtiklTo _type, UseSide _side) {
         if (_nuni == -1) {
             return record(_type);
@@ -111,25 +134,8 @@ public enum eSysprof implements Field {
                 + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " and ("
                 + use_side.name() + " = " + _side.id + " or " + use_side.name() + " = " + UseSide.ANY.id + ") order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
-    }
-    
-//    public static Record find4(int _nuni, ElemSimple elem5e, UseArtiklTo _type, UseSide _side) {
-//        if (_nuni == -1) {
-//            return record(_type);
-//        }
-//        if (conf.equals("calc")) {
-//            query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && _type.id == rec.getInt(use_type)
-//                    && (_side.id == rec.getInt(use_side) || UseSide.ANY.id == rec.getInt(use_side)))
-//                    .forEach(rec2 -> {
-//                    
-//                    });            
-//        }
-//        Query recordList = new Query(values()).select("select first 1 * from " + up.tname()
-//                + " where " + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " and ("
-//                + use_side.name() + " = " + _side.id + " or " + use_side.name() + " = " + UseSide.ANY.id + ") order by " + prio.name());
-//        return (recordList.isEmpty() == true) ? null : recordList.get(0);
-//    }
-
+    }    
+    */
     public static Record record(UseArtiklTo _type) {
 
         Record record = query.newRecord(Query.SEL);

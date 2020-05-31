@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.ArrayList;
 
 public enum eGlasgrp implements Field {
     up("0", "0", "0", "Группы заполнения", "GLASGRP"),
@@ -37,7 +38,7 @@ public enum eGlasgrp implements Field {
         return query;
     }
 
-    public static Query select() {
+    public static ArrayList<Record>  findAll() {
         if (conf.equals("calc")) {
             return query();
         }

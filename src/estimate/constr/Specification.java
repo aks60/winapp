@@ -68,10 +68,10 @@ public class Specification {
     }
 
     //Конструктор для элементов спецификации окна
-    public Specification(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> hmParam) {
+    public Specification(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
-        this.mapParam = hmParam;
+        this.mapParam = mapParam;
         setArtiklRec(artiklRec);
     }
 
