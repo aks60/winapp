@@ -287,6 +287,7 @@ public class Element extends javax.swing.JFrame {
                 ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });
+        
         Util.setSelectedRow(tab1);
     }
 

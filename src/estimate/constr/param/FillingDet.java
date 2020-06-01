@@ -1,12 +1,12 @@
 package estimate.constr.param;
 
 import dataset.Record;
+import domain.eArtikl;
 import domain.eSystree;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import estimate.Wincalc;
-import static estimate.constr.Cal5e.compareInt;
 import estimate.model.ElemSimple;
 
 //Заполнения
@@ -18,18 +18,32 @@ public class FillingDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple ElemSimple, List<Record> paramList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> paramList) {
 
-        if (filterParamJson(ElemSimple, paramList) == false) {
+        if (filterParamJson(elem5e, paramList) == false) {
             return false; //параметры по умолчанию и I-OKNA
         }        
         //Цикл по параметрам заполнения
         for (Record paramRec : paramList) {
 
-            switch (paramRec.getInt(GRUP)) {
-                case 14000:  //Для технологического кода контейнера
+            int grup = paramRec.getInt(GRUP);
+            switch (grup) {
+                case 14000:  //Для технологического кода контейнераi
                 case 15000:  //Для технологического кода контейнера 
-                    message(paramRec.getInt(GRUP));
+                    Record sysprofRec = elem5e.sysprofRec;
+                    Record articlRec = eArtikl.find(sysprofRec.getInt(eArtikl.id), false);
+                    if (articlRec.get(eArtikl.tech_code) == null) return false;
+                    String[] strList = paramRec.getStr(TEXT).split(";");
+                    String[] strList2 = articlRec.getStr(eArtikl.tech_code).split(";");
+                    boolean ret2 = false;
+                    for (String str : strList) {
+                        for (String str2 : strList2) {
+                            if (str.equals(str2)) {
+                                ret2 = true;
+                            }
+                        }
+                    }
+                    if (ret2 == false) return false;
                     break;
                 case 14001:  //Если признак состава 
                     message(paramRec.getInt(GRUP));
@@ -47,13 +61,15 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(GRUP));
                     break;
                 case 14030:  //Количество 
-                    message(paramRec.getInt(GRUP));
+                    message(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(grup, paramRec.getStr(TEXT));
                     break;
                 case 14040:  //Порог расчета, мм 
                     mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     break;
                 case 14050:  //Шаг, мм 
-                    message(paramRec.getInt(GRUP));
+                    message(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(grup, paramRec.getStr(TEXT));
                     break;
                 case 14060:  //Количество на шаг 
                     mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
@@ -63,21 +79,21 @@ public class FillingDet extends Par5s {
                     break;
                 case 14067:  //Коды основной текстуры изделия 
                 case 15067:  //Коды основной текстуры изделия    
-                    int c1 = ElemSimple.iwin().color1;
+                    int c1 = elem5e.iwin().color1;
                     if (compareInt(paramRec.getStr(TEXT), c1) == false) {
                         return false;
                     }
                     break;
                 case 14068:  //Коды внутр. текстуры изделия 
                 case 15068:  //Коды внутр. текстуры изделия     
-                    int c2 = ElemSimple.iwin().color2;
+                    int c2 = elem5e.iwin().color2;
                     if (compareInt(paramRec.getStr(TEXT), c2) == false) {
                         return false;
                     }
                     break;
                 case 14069:  //Коды внешн. текстуры изделия 
                 case 15069:  //Коды внешн. текстуры изделия     
-                    int c3 = ElemSimple.iwin().color3;
+                    int c3 = elem5e.iwin().color3;
                     if (compareInt(paramRec.getStr(TEXT), c3) == false) {
                         return false;
                     }
@@ -113,10 +129,12 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(GRUP));
                     break;
                 case 15010:  //Расчет реза штапика 
-                    message(paramRec.getInt(GRUP));
+                    message(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(grup, paramRec.getStr(TEXT));
                     break;
                 case 15011:  //Расчет реза штапика 
-                    message(paramRec.getInt(GRUP));
+                    message(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(grup, paramRec.getStr(TEXT));
                     break;
                 case 15017:  //Код системы содержит строку 
                     message(paramRec.getInt(GRUP));
@@ -140,7 +158,7 @@ public class FillingDet extends Par5s {
                     mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     break;
                 case 15051:  //Удлинение на один пог.м., мм 
-                    if (ElemSimple.specificationRec.getParam("0", 31052).equals(paramRec.getStr(TEXT)) == false) {
+                    if (elem5e.specificationRec.getParam("0", 31052).equals(paramRec.getStr(TEXT)) == false) {
                         mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     }
                     break;

@@ -215,7 +215,7 @@ public class Filling extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
-            Record record = qGlaspar1.get(Util.getSelectedRec(tab4));
+            Record record = qGlaspar2.get(Util.getSelectedRec(tab4));
             int grup = record.getInt(eGlaspar1.grup);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);

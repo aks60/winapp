@@ -32,7 +32,7 @@ public class ParamList {
     }
 
     public static enum Ps3 implements Enam {
- 
+
         P1005(1005, "Контейнер Артикула 1 имеет тип", dic_4005_11005_12005_31050_33071_34071),
         P1006(1006, "Контейнер Артикула 2 имеет тип", dic_4005_11005_12005_31050_33071_34071),
         P1008(1008, "Эффективное заполнение изд., мм", check_FLOAT_LIST),
@@ -115,7 +115,7 @@ public class ParamList {
         P4015(4015, "Ориентация Артикула 1", dic_21050_2015_3015_39093_4015),
         P4016(4016, "Ориентация Артикула 2", dic_21050_2015_3015_39093_4015),
         P4020(4020, "Угол минимальный, °", check_INT),
-        P4030(4030, "Угол максимальный, °",check_INT),
+        P4030(4030, "Угол максимальный, °", check_INT),
         P4031(4031, "Точный угол, °", check_INT),
         P4032(4032, "Исключить угол, °"),
         P4040(4040, "Размер от оси профиля, мм", check_FLOAT),
@@ -709,8 +709,8 @@ public class ParamList {
         P15005(15005, "Тип проема", dic_13003_14005_15005_37008),
         P15008(15008, "Эффективное заполнение изд., мм", check_FLOAT_LIST),
         P15009(15009, "Арочное заполнение", dic_OK_NO),
-        P15010(15010, "Расчет реза штапика", dic_15010),
-        P15011(15011, "Расчет реза штапика", dic_15010),
+        //P15010(15010, "Расчет реза штапика", dic_15010),
+        P15011(15011, "Расчет реза штапика", dic_15011),
         P15017(15017, "Код системы содержит строку", check_STRING),
         P15013(15013, "Подбор дистанционных вставок пролета", dic_15013),
         P15027(15027, "Рассчитывать для профиля", dic_15027_12027),
@@ -1118,8 +1118,8 @@ public class ParamList {
     };
 
     public static Dictionary dic_38004_39005 = () -> {
-        return Arrays.asList("по периметру", "по площади", "как крест", "как концевик"
-                , "длина по коробке", "для прямых углов", "для не прямых углов");
+        return Arrays.asList("по периметру", "по площади", "как крест", "как концевик",
+                 "длина по коробке", "для прямых углов", "для не прямых углов");
     };
 
     public static Dictionary dic_2003_3003 = () -> {
@@ -1153,7 +1153,7 @@ public class ParamList {
     public static Dictionary dic_21001_24001_25001 = () -> {
         return Arrays.asList("прямоугольная", "трапецивидная", "не арочная", "арочная");
     };
-    
+
     public static Dictionary dic_13015 = () -> {
         return Arrays.asList("Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное");
     };
@@ -1161,7 +1161,7 @@ public class ParamList {
     public static Dictionary dic_37009 = () -> {
         return Arrays.asList("Все", "Произвольное", "Прямоугольное", "Арочное");
     };
-    
+
     public static Dictionary dic_37005 = () -> {
         return Arrays.asList("Внутренний", "Раскладка", "Вагонка", "Жалюзи на профили", "Жалюзи на заполнение");
     };
@@ -1265,8 +1265,9 @@ public class ParamList {
     public static Dictionary dic_31019 = () -> {
         return Arrays.asList("внутренняя по основной", "внешняя по основной", "внутрення по внешней", "внешняя по внутренней", "2 стороны по основной");
     };
-    public static Dictionary dic_15010 = () -> {
-        return Arrays.asList("усекать боковой");
+
+    public static Dictionary dic_15011 = () -> {
+        return Arrays.asList("по биссектрисе", "усекать нижний", "усекать боковой");
     };
 
     public static Dictionary dic_ARTIKL_CODE = () -> {
@@ -1295,15 +1296,15 @@ public class ParamList {
     public static Checkparam check_INT = (c) -> {
         return ("-0123456789".indexOf(c) != -1);
     };
-    
+
     public static Checkparam check_INT_MOD = (c) -> {
         return ("0123456789".indexOf(c) != -1);
     };
-    
+
     public static Checkparam check_INT_LIST = (c) -> {
         return ("0123456789-;".indexOf(c) != -1);
     };
-    
+
     public static Checkparam check_INT_LIST2 = (c) -> {
         return ("0123456789-/@".indexOf(c) != -1);
     };
