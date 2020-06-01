@@ -18,7 +18,7 @@ public class FillingDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple ElemSimple, List<Record> paramList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple ElemSimple, List<Record> paramList) {
 
         if (filterParamJson(ElemSimple, paramList) == false) {
             return false; //параметры по умолчанию и I-OKNA
@@ -50,13 +50,13 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(GRUP));
                     break;
                 case 14040:  //Порог расчета, мм 
-                    hmParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     break;
                 case 14050:  //Шаг, мм 
                     message(paramRec.getInt(GRUP));
                     break;
                 case 14060:  //Количество на шаг 
-                    hmParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     break;
                 case 14065:  //Ограничение угла, ° 
                     message(paramRec.getInt(GRUP));
@@ -128,7 +128,7 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(GRUP));
                     break;
                 case 15030:  //[ * коэф-т ] 
-                    hmParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     break;
                 case 15040:  //Количество 
                     message(paramRec.getInt(GRUP));
@@ -137,11 +137,11 @@ public class FillingDet extends Par5s {
                     message(paramRec.getInt(GRUP));
                     break;
                 case 15050:  //Поправка, мм 
-                    hmParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                    mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     break;
                 case 15051:  //Удлинение на один пог.м., мм 
                     if (ElemSimple.specificationRec.getParam("0", 31052).equals(paramRec.getStr(TEXT)) == false) {
-                        hmParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
+                        mapParam.put(paramRec.getInt(GRUP), paramRec.getStr(TEXT));
                     }
                     break;
                 case 15055:  //Ограничение угла, ° 

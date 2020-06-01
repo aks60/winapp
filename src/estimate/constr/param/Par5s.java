@@ -311,7 +311,7 @@ public class Par5s {
     //Обработанные параметры
     protected void message(int code, Object... obj) {
         if (Main.dev == true) {
-            if (code == -31002) {
+            if (code == -13015) {
                 if (obj.length == 1) {
                     System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + "\u001B[0m");
                 } else if (obj.length == 2) {

@@ -21,7 +21,7 @@ import estimate.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
 
-    public Enam typeGlass = TypeGlass.ANY; //форма заполнения
+    public Enam typeGlass = TypeGlass.ANY; //для проверки типа и формы заполнения в параметрах
     public float radiusGlass = 0; //радиус арки
 
     public ElemGlass(AreaSimple owner, float id, String param) {

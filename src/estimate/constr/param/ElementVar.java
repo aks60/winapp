@@ -259,9 +259,9 @@ public class ElementVar extends Par5s {
                     case 37009:  //Тип заполнения 
                         //Все, Произвольное, Прямоугольное, Арочное                                            
                         message(grup, elem5e.type(), ((ElemGlass) elem5e).typeGlass, rec.getStr(TEXT));
-                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeGlass.RECTANGL.text().equals(((ElemGlass) elem5e).typeGlass.text()) == false) {
+                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeGlass.RECTANGL.equals(((ElemGlass) elem5e).typeGlass) == false) {
                             return false;
-                        } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeGlass.ARCH.text().equals(((ElemGlass) elem5e).typeGlass.text()) == false) {
+                        } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeGlass.ARCH.equals(((ElemGlass) elem5e).typeGlass) == false) {
                             return false;
                         }
                         break;

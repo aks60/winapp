@@ -14,7 +14,6 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import enums.UseSide;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -44,28 +43,26 @@ public class Filling extends Cal5e {
     }
 
     public void build() {
-        for (pass = 1; pass < 4; pass++) {
-            LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
+        LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
 
-            //Цикл по стеклопакетам
-            for (ElemGlass elemGlass : elemGlassList) {
-                UseArtiklTo useArtiklTo = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //владелец стеклопакета
-                Record sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
-                Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
-                //Профиль который используется для вставки стеклопакета
-                int profileId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
+        //Цикл по стеклопакетам
+        for (ElemGlass elemGlass : elemGlassList) {
+            UseArtiklTo useArtiklTo = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //владелец стеклопакета
+            Record sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
+            Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
+            //Профиль который используется для вставки стеклопакета
+            int profileId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
 
-                //Цикл по группам заполнений
-                for (Record glasgrpRec : eGlasgrp.findAll()) {
-                    //Цикл по системе конструкций, ищем артикул системы профилей
-                    List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
-                    //Цикл по профилям в группе заполнений
-                    for (Record glasprofRec : glasprofList) {
-                        if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
+            //Цикл по группам заполнений
+            for (Record glasgrpRec : eGlasgrp.findAll()) {
+                //Цикл по системе конструкций, ищем артикул системы профилей
+                List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
+                //Цикл по профилям в группе заполнений
+                for (Record glasprofRec : glasprofList) {
+                    if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
 
-                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                            detail(elemGlass, glasgrpRec);
-                        }
+                        elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
+                        detail(elemGlass, glasgrpRec);
                     }
                 }
             }
@@ -75,31 +72,25 @@ public class Filling extends Cal5e {
     protected boolean detail(ElemGlass elemGlass, Record glasgrpRec) {
 
         //TODO в заполненииях текстура подбирается неправильно
-        ArrayList<Record> pargrupList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
-        if (fillingVar.check(elemGlass, pargrupList) == true) {  //ФИЛЬТР вариантов
+        List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
+        if (fillingVar.check(elemGlass, glaspar1List) == true) {  //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
 
-            if (pass == 2) {
-                elemGlass.setSpecific(); //заполним спецификацию элемента
-            }
-            ArrayList<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
-
+            elemGlass.setSpecific(); //заполним спецификацию элемента
+            List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
             //Цикл по списку детализации
             for (Record clasdetRec : glasdetList) {
 
-                HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
-                List<Record> glaspar2List = eGlaspar2.find(clasdetRec.getInt(eGlasdet.id)); //список параметров детализации
-                if (fillingDet.check(hmParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР спец.
+                HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
+                List<Record> glaspar2List = eGlaspar2.find(clasdetRec.getInt(eGlasdet.id)); //список параметров детализации                
+                if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР детализации, параметры накапливаются в mapParam
 
-                    if (pass == 1 || pass == 3) {
-                        continue; //если первый и третий цыкл ничего не создаём
-                    }
-                    Specification specif = null;
-                    Record artiklRec = eArtikl.find(clasdetRec.getInt(eGlasdet.artikl_id), true);
-                    float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
-                    Float overLength = (hmParam.get(15050) == null) ? 0.f : Float.valueOf(hmParam.get(15050).toString());
+//                    Specification specif = null;
+//                    Record artiklRec = eArtikl.find(clasdetRec.getInt(eGlasdet.artikl_id), true);
+//                    float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
+//                    Float overLength = (mapParam.get(15050) == null) ? 0.f : Float.valueOf(mapParam.get(15050).toString());
 
                     //Стеклопакет
-                    if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
+                   /*if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         //Штапик
                     } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
@@ -108,7 +99,7 @@ public class Filling extends Cal5e {
                         if (TypeElem.ARCH == elemGlass.owner().type()) {
 
                             //По основанию арки
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             double dh2 = artiklRec.getDbl(eArtikl.height) - gzazo;
 
                             double r1 = elemGlass.radiusGlass - dh2;
@@ -132,7 +123,7 @@ public class Filling extends Cal5e {
                             elemGlass.addSpecific(specif); //добавим спецификацию
 
                             //По дуге арки
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             double ang2 = Math.toDegrees(Math.asin(l2 / r2));
                             double ang3 = 90 - (90 - ang2 + ang);
                             //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
@@ -157,7 +148,7 @@ public class Filling extends Cal5e {
 
                         } else {
                             //По горизонтали
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             specif.width = elemGlass.width() + 2 * gzazo;
                             specif.height = artiklRec.getFloat(eArtikl.height);
                             specif.anglCut2 = 45;
@@ -167,7 +158,7 @@ public class Filling extends Cal5e {
 
                             elemGlass.addSpecific(new Specification(specif)); //добавим спецификацию в элемент (верхний/нижний)
                             //По вертикали
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             specif.width = elemGlass.height() + 2 * gzazo;
                             specif.height = artiklRec.getFloat(eArtikl.height);
                             specif.anglCut2 = 45;
@@ -182,7 +173,7 @@ public class Filling extends Cal5e {
                         Record art = eArtikl.find(clasdetRec.getInt(eArtdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) { //если уплотнитель в арке
                             //По основанию арки
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
 
                             double dh2 = artiklRec.getFloat(eArtikl.height) - gzazo;
                             double r1 = elemGlass.radiusGlass - dh2;
@@ -204,7 +195,7 @@ public class Filling extends Cal5e {
                             elemGlass.addSpecific(specif); //добавим спецификацию в элемент (верхний/нижний)
 
                             //По дуге арки
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             double ang2 = Math.toDegrees(Math.asin(l2 / r2));
                             double ang3 = 90 - (90 - ang2 + ang);
                             double Z = 3 * gzazo;
@@ -220,7 +211,7 @@ public class Filling extends Cal5e {
                             elemGlass.addSpecific(specif); //добавим спецификацию в элемент (верхний/нижний)
                         } else {
                             //По горизонтали
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             specif.width = elemGlass.width() + 2 * gzazo;
                             specif.height = specif.artiklRec.getFloat(eArtikl.height);
                             specif.anglCut2 = 45;
@@ -229,7 +220,7 @@ public class Filling extends Cal5e {
                             elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
                             elemGlass.addSpecific(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
                             //По вертикали
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             specif.width = elemGlass.height() + 2 * gzazo;
                             specif.height = specif.artiklRec.getFloat(eArtikl.height);
                             specif.anglCut2 = 45;
@@ -247,23 +238,23 @@ public class Filling extends Cal5e {
                                 || TypeElem.STVORKA == elemGlass.owner().type()) {
 
                             for (int index = 0; index < 4; index++) {
-                                specif = new Specification(art, elemGlass, hmParam);
+                                specif = new Specification(art, elemGlass, mapParam);
                                 specif.setColor(elemGlass, clasdetRec);
                                 elemGlass.addSpecific(specif);
                             }
                         } else if (TypeElem.ARCH == elemGlass.owner().type()) {
                             for (int index = 0; index < 2; index++) {
-                                specif = new Specification(art, elemGlass, hmParam);
+                                specif = new Specification(art, elemGlass, mapParam);
                                 specif.setColor(elemGlass, clasdetRec);
                                 elemGlass.addSpecific(specif);
                             }
                         } else {
-                            specif = new Specification(art, elemGlass, hmParam);
+                            specif = new Specification(art, elemGlass, mapParam);
                             specif.setColor(elemGlass, clasdetRec);
                             elemGlass.addSpecific(specif);
                         }                        
-                    }
-                    specif.place = "ЗАП";
+                    }*/
+                    //specif.place = "ЗАП";
                 }
             }
         }

@@ -25,7 +25,7 @@ public class TestFrame extends javax.swing.JFrame {
     private void loadingTab1() {
         try {
             cn = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
-            sql1.setText("select * from VSTALST");
+            sql1.setText("select * from glasgrp");
             ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -51,8 +51,8 @@ public class TestFrame extends javax.swing.JFrame {
     private void selectionTab2() {
         try {
             int row = tab1.getSelectedRow();
-            Object id = tab1.getValueAt(row, 3);
-            sql2.setText("select * from VSTASPC where vnumb = " + id);
+            Object id = tab1.getValueAt(row, 1);
+            sql2.setText("select * from glasart where gnumb = " + id);
             ResultSet rs = cn.createStatement().executeQuery(sql2.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
