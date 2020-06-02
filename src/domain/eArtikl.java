@@ -41,6 +41,7 @@ public enum eArtikl implements Field {
     analog_id("4", "10", "1", "Ссылка", "analog_id"),
     series_id("4", "10", "1", "Ссылка(cерия)", "series_id"),
     syssize_id("4", "10", "1", "Ссылка", "syssize_id"),
+    with_seal("5", "5", "1", "С уплотнением", "AWORK"),
     currenc_id("4", "10", "1", "Ссылка", "CNUMB");
     //series("12", "32", "1", "Серия", "ASERI"),
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
