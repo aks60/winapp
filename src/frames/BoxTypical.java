@@ -74,7 +74,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             try {
                 Object obj[] = {record.get(eSysprod.npp), record.get(eSysprod.name), ""};
                 Object script = record.get(eSysprod.script);
-                iwinMin.create(script.toString());
+                iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
                 iwinMin.rootArea.draw(length, length);
@@ -117,7 +117,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
-            iwinMax.create(script.toString());
+            iwinMax.build(script.toString());
             paintPanel.repaint(true, 1);
         }
     }

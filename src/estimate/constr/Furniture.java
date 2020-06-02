@@ -29,7 +29,7 @@ public class Furniture extends Cal5e {
         super(iwin);
     }
 
-    public void build() {
+    public void calc() {
 //        for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
 //
 //            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);

@@ -98,7 +98,7 @@ public class BoxCustom extends javax.swing.JFrame {
                 int typeSys = node.record.getInt(eSystree.types);
                 if (selectedNode.isLeaf() && (typeSys == 1 || typeSys == 2)) {
 
-                    iwin.create(Winscript.test(Winscript.prj, id, -1, -1, -1));
+                    iwin.build(Winscript.test(Winscript.prj, id, -1, -1, -1));
                     paintPanel.repaint(true, 1f);
                 } else {
                     paintPanel.repaint(false, 1f);

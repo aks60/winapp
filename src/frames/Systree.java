@@ -367,8 +367,8 @@ public class Systree extends javax.swing.JFrame {
                 //Калькуляция изделия
                 //System.out.println(script2.toString());
                 //System.out.println(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
-                iwin.create(script2.toString());
-                //iwin.create(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
+                iwin.build(script2.toString());
+                //iwin.build(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
                 paintPanel.repaint(true, 12);
             }
         } else {

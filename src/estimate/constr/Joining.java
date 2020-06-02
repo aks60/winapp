@@ -33,7 +33,7 @@ public class Joining extends Cal5e {
         elementDet = new ElementDet(iwin);
     }
 
-    public void build() {
+    public void calc() {
 
         //HashMap<String, ElemJoining> hmJoinElem = iwin().mapJoin; //список соединений
         //Цикл по списку соединений

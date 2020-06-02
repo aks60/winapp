@@ -42,7 +42,7 @@ public class Filling extends Cal5e {
         elementDet = new ElementDet(iwin);
     }
 
-    public void build() {
+    public void calc() {
         LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
 
         //Цикл по стеклопакетам

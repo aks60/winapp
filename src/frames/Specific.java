@@ -76,7 +76,7 @@ public class Specific extends javax.swing.JFrame {
             String script = record2.getStr(eSysprod.script);
             JsonElement je = new Gson().fromJson(script, JsonElement.class);
             je.getAsJsonObject().addProperty("nuni", nuni);
-            iwin.create(je.toString());
+            iwin.build(je.toString());
         }
     }
 

@@ -36,6 +36,7 @@ import estimate.constr.Filling;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
+import frames.Furniture;
 
 public class Wincalc {
 
@@ -68,7 +69,7 @@ public class Wincalc {
     protected Tariffication tariffication = new Tariffication(this); //тарификация
 //==============================================================================    
 
-    public AreaSimple create(String productJson) {
+    public AreaSimple build(String productJson) {
 
         mapParamDef.clear();
         mapJoin.clear();
@@ -102,13 +103,13 @@ public class Wincalc {
     public void constructiv() {
         try {
             Elements elements = new Elements(this); //составы
-            elements.build();
+            elements.calc();
             Joining joining = new Joining(this); //соединения
-            joining.build();
+            joining.calc();
             Filling filling = new Filling(this); //заполнения
-            filling.build();
-            /*Accessory accessory = new Accessory(iwin, this); //фурнитура        
-            constructiv.kitsFirst();                       //комплекты */
+            filling.calc();
+            //Furniture furniture = new Furniture(this); //фурнитура        
+            //furniture.calc();
             for (ElemSimple elemRec : listElem) {
 
                 listSpec.add(elemRec.specificationRec);

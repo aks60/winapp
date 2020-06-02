@@ -38,7 +38,7 @@ public class Elements extends Cal5e {
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
-    public void build() {
+    public void calc() {
         try {
             //Цыкл по списку элементов конструкции
             for (ElemSimple elem5e : iwin().listElem) {

@@ -36,7 +36,7 @@ public class Test {
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.create(estimate.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
+        iwin.build(estimate.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 
@@ -56,7 +56,7 @@ public class Test {
         app.setVisible(true);
         frames.Joining frm = new frames.Joining();
         FrameToFile.setFrameSize(frm);
-        //frm.iwin.create(Winscript.test(Winscript.prj, null));
+        //frm.iwin.build(Winscript.test(Winscript.prj, null));
         frm.setVisible(true);
     }
 
