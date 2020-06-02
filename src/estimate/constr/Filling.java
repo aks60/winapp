@@ -96,8 +96,6 @@ public class Filling extends Cal5e {
                         
                         Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) {
-
-                            //((AreaArch) iwin().rootArea).calcChtapik(Record artiklRec);
                             
                             //По основанию арки
                             specif = new Specification(art, elemGlass, mapParam);

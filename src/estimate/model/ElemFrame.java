@@ -101,7 +101,7 @@ public class ElemFrame extends ElemSimple {
         //owner.setSpecific(sysprofRec);
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
-        */
+         */
     }
 
     @Override //Вложеная спецификация
@@ -142,11 +142,14 @@ public class ElemFrame extends ElemSimple {
                     dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
                 }
                 specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue();
-                */
-                
+                 */
+
             }
             specif.anglCut1 = 90;
             specif.anglCut2 = 90;
+
+            //Щтапик
+        } else if (TypeArtikl.SHTAPIK.isType(artiklRec) == true) {
 
             //Концевой профиль
         } else if (TypeArtikl.KONZEVPROF.isType(artiklRec) == true) {
