@@ -159,8 +159,10 @@ public class JoiningDet extends Par5s {
                 case 12020:  //Рассчитывать с Артикулом 2 
                     message(rec.getInt(GRUP));
                     break;
-                case 12027:  //Рассчитывать для профилей 
-                    message(rec.getInt(GRUP));
+                case 12027:  //Рассчитывать для профиля 
+                    if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elem5e.artiklRec.getInt(eArtikl.with_seal) == 0) {
+                        return false;
+                    }
                     break;
                 case 12028:  //Диапозон веса заполнения, кг 
                     message(rec.getInt(GRUP));
