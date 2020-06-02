@@ -94,7 +94,7 @@ public class Filling extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.thick);
+        new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.depth);
         new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types) {
 
             public Object getValueAt(int col, int row, Object val) {

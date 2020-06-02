@@ -17,7 +17,7 @@ public class FillingVar extends Par5s {
         super(iwin);
     }
 
-    public boolean check(ElemSimple elem5e, List<Record> paramList) {
+    public boolean check(ElemGlass elem5e, List<Record> paramList) {
 
         //Цикл по параметрам заполнения
         for (Record rec : paramList) {
@@ -41,10 +41,14 @@ public class FillingVar extends Par5s {
                     break;
                 case 13015:  //Форма заполнения 
                     //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное"
-                    message(grup, elem5e.type(), ((ElemGlass) elem5e).typeGlass, rec.getStr(TEXT));
-                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeGlass.RECTANGL.equals(((ElemGlass) elem5e).typeGlass) == false) {
+                    message(grup, elem5e.type(), elem5e.typeGlass, rec.getStr(TEXT));
+                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeGlass.RECTANGL.equals(elem5e.typeGlass) == false) {
                         return false;
-                    } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeGlass.ARCH.equals(((ElemGlass) elem5e).typeGlass) == false) {
+                    } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && TypeGlass.RECTANGL.equals(elem5e.typeGlass) == true) {
+                        return false;
+                    } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeGlass.ARCH.equals(elem5e.typeGlass) == false) {
+                        return false;
+                    } else if ("Не арочное".equals(rec.getStr(TEXT)) && TypeGlass.ARCH.equals(elem5e.typeGlass) == true) {
                         return false;
                     }
                     break;

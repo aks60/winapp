@@ -61,16 +61,18 @@ public class Filling extends Cal5e {
                 for (Record glasprofRec : glasprofList) {
 
                     Record glasgrpRec = eGlasgrp.find(glasprofRec.getInt(eGlasprof.glasgrp_id)); //группа заполнений
-                    //if (glasgrpRec.getStr(eGlasgrp.thick).contains(elemGlass.artdetRec.getStr(eArtikl.depth))) {
+                    String depth = String.valueOf((int) elemGlass.artiklRec.getFloat(eArtikl.depth));
+                    if (glasgrpRec.getStr(eGlasgrp.depth).contains(depth)) {
+                        
                         elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                        detail(elemGlass, glasgrpRec);
-                    //}
+                        detail(elemGlass, elemFrame, glasgrpRec);
+                    }
                 }
             }
         }
     }
 
-    protected boolean detail(ElemGlass elemGlass, Record glasgrpRec) {
+    protected boolean detail(ElemGlass elemGlass, ElemFrame elemFrame, Record glasgrpRec) {
 
         //TODO в заполненииях текстура подбирается неправильно
         List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
