@@ -7,12 +7,9 @@ import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
-import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import enums.UseArtiklTo;
-import enums.UseSide;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -77,7 +74,6 @@ public class Filling extends Cal5e {
         //TODO в заполненииях текстура подбирается неправильно
         List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
         if (fillingVar.check(elemGlass, glaspar1List) == true) {  //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
-
             elemGlass.setSpecific(); //заполним спецификацию элемента
             List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
@@ -94,13 +90,15 @@ public class Filling extends Cal5e {
 
                     //Стеклопакет
                     if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
-
+                        
                         //Штапик
-                    } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
-
+                    } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {                                                
+                        
                         Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) {
 
+                            //((AreaArch) iwin().rootArea).calcChtapik(Record artiklRec);
+                            
                             //По основанию арки
                             specif = new Specification(art, elemGlass, mapParam);
                             double dh2 = artiklRec.getDbl(eArtikl.height) - gzazo;

@@ -1,5 +1,6 @@
 package estimate.model;
 
+import dataset.Record;
 import domain.eArtikl;
 import enums.LayoutJoin;
 import enums.TypeJoin;
@@ -73,7 +74,7 @@ public class AreaArch extends AreaSimple {
             }
         }
     }
-
+    
     @Override
     public String toString() {
         return super.toString() + ", radiusArch=" + radiusArch;
