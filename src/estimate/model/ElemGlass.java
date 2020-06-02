@@ -51,8 +51,8 @@ public class ElemGlass extends ElemSimple {
         Object code = mapParamUse.get(ParamJson.nunic_iwin);
         if (code != null) {
             artiklRec = eArtikl.find2(String.valueOf(code));
-        } 
-        if(artiklRec == null){
+        }
+        if (artiklRec == null) {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
@@ -76,10 +76,10 @@ public class ElemGlass extends ElemSimple {
     }
 
     @Override //Главная спецификация
-    public void setSpecific(){
+    public void setSpecific() {
 
         specificationRec.place = layout().name;
-        
+
         /*
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
         if (owner() instanceof AreaArch) { //если арка
@@ -134,7 +134,7 @@ public class ElemGlass extends ElemSimple {
             specificationRec.color2 = color2;
             specificationRec.color3 = color3;
         }
-        */
+         */
     }
 
     @Override //Вложеная спецификация 
@@ -144,80 +144,69 @@ public class ElemGlass extends ElemSimple {
             return;
 
         } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec)) { //штапик
-//                        
-//                        Record art = specif.artiklRec;
-//                        if (TypeElem.ARCH == owner().type()) {
-//                            
-//                            //По основанию арки
-//                            //specif = new Specification(art, this, mapParam);
-//                            double dh2 = artiklRec.getDbl(eArtikl.height) - gzazo;
-//                            double r1 = radiusGlass - dh2;
-//                            double h1 = height() - 2 * dh2;
-//                            double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
-//                            double r2 = radiusGlass;
-//                            double h2 = height();
-//                            double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
-//                            double l3 = l2 - l1;
-//                            double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
-//
-//                            double r5 = radiusGlass + gzazo;
-//                            double h5 = height() + 2 * gzazo;
-//                            double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
-//
-//                            specif.width = (float) l5;
-//                            specif.height = artiklRec.getFloat(eArtikl.height);
-//                            specif.anglCut2 = (float) ang;
-//                            specif.anglCut1 = (float) ang;
-//                            specif.setColor(this, glasdetRec);
-//                            //elemGlass.addSpecific(specif); //добавим спецификацию
-//
-//                            //По дуге арки
-//                            //specif = new Specification(art, this, mapParam);
-//                            double ang2 = Math.toDegrees(Math.asin(l2 / r2));
-//                            double ang3 = 90 - (90 - ang2 + ang);
-//                            //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
-//                            double koef = 2;
-//                            ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
-//                            double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getDbl(eArtikl.height);
-//                            double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getDbl(eArtikl.height) * 2 - koef;
-//                            double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
-//                            double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
-//                            double Z = 3 * gzazo;
-//                            double R = radiusGlass;
-//                            double L = width();
-//                            double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
-//                            double M = ((R + Z) * 2) * Math.toRadians(ang5);
-//                            specif.width = (float) (overLength + M2);
-//                            specif.height = artiklRec.getFloat(eArtikl.height);
-//                            specif.anglCut2 = (float) ang3;
-//                            specif.anglCut1 = (float) ang3;
-//
-//                            specif.setColor(this, glasdetRec);
-//                            //elemGlass.addSpecific(specif); //добавим спецификацию
-//
-//                        } else {
-//                            //По горизонтали
-//                            if (LayoutArea.TOP.equals(layout()) == true || LayoutArea.BOTTOM.equals(elemFrame.layout()) == true) {
-//                                //specif = new Specification(art, this, mapParam);
-//                                specif.width = width() + 2 * gzazo;
-//                                specif.height = artiklRec.getFloat(eArtikl.height);
-//                                specif.anglCut2 = 45;
-//                                specif.anglCut1 = 45;
-//                                specif.setColor(this, glasdetRec);
-//                                //addSpecific(specif); //добавим спецификацию в элемент (верхний/нижний)
-//
-//                                //По вертикали
-//                            } else if (LayoutArea.LEFT.equals(elemFrame.layout()) == true || LayoutArea.RIGHT.equals(elemFrame.layout()) == true) {
-//                                //specif = new Specification(art, elemGlass, mapParam);
-//                                specif.width = height() + 2 * gzazo;
-//                                specif.height = artiklRec.getFloat(eArtikl.height);
-//                                specif.anglCut2 = 45;
-//                                specif.anglCut1 = 45;
-//                                specif.setColor(this, glasdetRec);
-//                                //elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
-//                            }
-//                        }
-//
+
+            float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
+            Float overLength = (specif.getParam(null, 15050) == null) ? 0.f : Float.valueOf(specif.getParam(0, 15050).toString());
+            Record art = specif.artiklRec;
+            if (LayoutArea.ARCH == specif.elem5e.layout()) {
+
+                //По основанию арки
+                double dh2 = artiklRec.getDbl(eArtikl.height) - gzazo;
+                double r1 = radiusGlass - dh2;
+                double h1 = height() - 2 * dh2;
+                double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
+                double r2 = radiusGlass;
+                double h2 = height();
+                double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
+                double l3 = l2 - l1;
+                double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
+
+                double r5 = radiusGlass + gzazo;
+                double h5 = height() + 2 * gzazo;
+                double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
+
+                specif.width = (float) l5;
+                specif.height = artiklRec.getFloat(eArtikl.height);
+                specif.anglCut2 = (float) ang;
+                specif.anglCut1 = (float) ang;
+
+                //По дуге арки
+                double ang2 = Math.toDegrees(Math.asin(l2 / r2));
+                double ang3 = 90 - (90 - ang2 + ang);
+                //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
+                double koef = 2;
+                ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
+                double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getDbl(eArtikl.height);
+                double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getDbl(eArtikl.height) * 2 - koef;
+                double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
+                double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
+                double Z = 3 * gzazo;
+                double R = radiusGlass;
+                double L = width();
+                double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
+                double M = ((R + Z) * 2) * Math.toRadians(ang5);
+                specif.width = (float) (overLength + M2);
+                specif.height = artiklRec.getFloat(eArtikl.height);
+                specif.anglCut2 = (float) ang3;
+                specif.anglCut1 = (float) ang3;
+
+            } else {
+                //По горизонтали
+                if (LayoutArea.TOP.equals(specif.elem5e.layout()) == true || LayoutArea.BOTTOM.equals(specif.elem5e.layout()) == true) {
+                    specif.width = width() + 2 * gzazo;
+                    specif.height = artiklRec.getFloat(eArtikl.height);
+                    specif.anglCut2 = 45;
+                    specif.anglCut1 = 45;
+
+                    //По вертикали
+                } else if (LayoutArea.LEFT.equals(specif.elem5e.layout()) == true || LayoutArea.RIGHT.equals(specif.elem5e.layout()) == true) {
+                    specif.width = height() + 2 * gzazo;
+                    specif.height = artiklRec.getFloat(eArtikl.height);
+                    specif.anglCut2 = 45;
+                    specif.anglCut1 = 45;
+                }
+            }
+
             specif.id = id();
 
         } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec)) { //уплотнитель
@@ -248,7 +237,7 @@ public class ElemGlass extends ElemSimple {
                     new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
         }
     }
-    
+
     @Override
     public UseArtiklTo useArtiklTo() {
         return UseArtiklTo.ANY;
