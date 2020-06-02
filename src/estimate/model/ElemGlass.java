@@ -9,13 +9,11 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.Enam;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import enums.TypeGlass;
 import enums.UseArtiklTo;
 import estimate.constr.Specification;
 

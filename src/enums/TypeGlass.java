@@ -2,6 +2,7 @@ package enums;
 
 import static enums.TypeOpen1.values;
 
+/*
 //Тип заполнения (пока не использую)
 public enum TypeGlass implements Enam {
 
@@ -31,3 +32,4 @@ public enum TypeGlass implements Enam {
         return values();
     }    
 }
+*/
