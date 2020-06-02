@@ -1,10 +1,16 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eGlasprof.glasgrp_id;
+import static domain.eGlasprof.up;
+import static domain.eGlasprof.values;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eGlasgrp implements Field {
     up("0", "0", "0", "Группы заполнения", "GLASGRP"),
@@ -44,7 +50,15 @@ public enum eGlasgrp implements Field {
         }
         return new Query(values()).select(up);
     }
-
+    
+    public static Record find(int glasgrpId) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == glasgrpId).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", glasgrpId);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
     public String toString() {
         return meta.descr();
     }

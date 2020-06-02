@@ -1,7 +1,6 @@
 package estimate.constr;
 
 import dataset.Record;
-import domain.eArtdet;
 import domain.eArtikl;
 import domain.eGlasdet;
 import domain.eGlasgrp;
@@ -22,8 +21,10 @@ import estimate.constr.param.ElementDet;
 import estimate.constr.param.FillingDet;
 import estimate.constr.param.FillingVar;
 import estimate.model.AreaArch;
+import estimate.model.ElemFrame;
 import estimate.model.ElemGlass;
 import estimate.model.ElemSimple;
+import java.util.Map;
 
 /**
  * Заполнения
@@ -43,27 +44,27 @@ public class Filling extends Cal5e {
     }
 
     public void calc() {
-        LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
 
         //Цикл по стеклопакетам
+        LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
         for (ElemGlass elemGlass : elemGlassList) {
-            UseArtiklTo useArtiklTo = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME; //владелец стеклопакета
-            Record sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo, UseSide.LEFT, UseSide.VERT, UseSide.ANY);
-            Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //запишем технологический код контейнера
-            //Профиль который используется для вставки стеклопакета
-            int profileId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
 
-            //Цикл по группам заполнений
-            for (Record glasgrpRec : eGlasgrp.findAll()) {
-                //Цикл по системе конструкций, ищем артикул системы профилей
-                List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
-                //Цикл по профилям в группе заполнений
+            //Цыкл по элемента рамы(створки) стеклопакета
+            for (Map.Entry<LayoutArea, ElemFrame> en : elemGlass.owner().mapFrame.entrySet()) {
+                LayoutArea layoutArea = en.getKey();
+                ElemFrame elemFrame = en.getValue();
+                Record artiklRec = elemFrame.artiklRec;
+                int artiklId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
+
+                //Цыкл по профилям в группах заполнений
+                List<Record> glasprofList = eGlasprof.find2(artiklId);
                 for (Record glasprofRec : glasprofList) {
-                    if (profileId != -1 && profileId == glasprofRec.getInt(eGlasprof.artikl_id) == true) { //если профиль есть в группе
 
+                    Record glasgrpRec = eGlasgrp.find(glasprofRec.getInt(eGlasprof.glasgrp_id)); //группа заполнений
+                    //if (glasgrpRec.getStr(eGlasgrp.thick).contains(elemGlass.artdetRec.getStr(eArtikl.depth))) {
                         elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
                         detail(elemGlass, glasgrpRec);
-                    }
+                    //}
                 }
             }
         }
@@ -86,12 +87,12 @@ public class Filling extends Cal5e {
 
                     Specification specif = null;
                     Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), true);
-                    
+
                     float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
                     Float overLength = (mapParam.get(15050) == null) ? 0.f : Float.valueOf(mapParam.get(15050).toString());
 
                     //Стеклопакет
-                   if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
+                    if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
 
                         //Штапик
                     } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
@@ -252,7 +253,7 @@ public class Filling extends Cal5e {
                             specif = new Specification(art, elemGlass, mapParam);
                             specif.setColor(elemGlass, glasdetRec);
                             elemGlass.addSpecific(specif);
-                        }                        
+                        }
                     }
                     specif.place = "ЗАП";
                 }

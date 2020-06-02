@@ -43,11 +43,19 @@ public enum eGlasprof implements Field {
         return query;
     }
 
-    public static List<Record> find(int glasgrp_id) {
+    public static List<Record> find(int glasgrpId) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(glasgrp_id) == glasgrp_id).collect(Collectors.toList());
+            return query().stream().filter(rec -> rec.getInt(glasgrp_id) == glasgrpId).collect(Collectors.toList());
         }
-        Query recordList = new Query(values()).select(up, "where", glasgrp_id, "=", glasgrp_id);
+        Query recordList = new Query(values()).select(up, "where", glasgrp_id, "=", glasgrpId);
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
+    }
+    
+    public static List<Record> find2(int artiklId) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == artiklId).collect(Collectors.toList());
+        }
+        Query recordList = new Query(values()).select(up, "where", artikl_id, "=", artiklId);
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
     

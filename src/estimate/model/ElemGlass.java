@@ -144,13 +144,13 @@ public class ElemGlass extends ElemSimple {
     @Override //Вложеная спецификация 
     public void addSpecific(Specification specif) {
 
-        if (TypeArtikl.GLASS.isType(artiklRec)) { //стеклопакет
+        if (TypeArtikl.GLASS.isType(specif.artiklRec)) { //стеклопакет
             return;
 
-        } else if (TypeArtikl.SHTAPIK.isType(artiklRec)) { //штапик
+        } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec)) { //штапик
             specif.id = id();
 
-        } else if (TypeArtikl.KONZEVPROF.isType(artiklRec)) { //уплотнитель
+        } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec)) { //уплотнитель
             specif.id = id();
 
         } else {
