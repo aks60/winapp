@@ -21,7 +21,6 @@ import estimate.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
 
-    public Enam typeGlass = TypeGlass.ANY; //для проверки типа и формы заполнения в параметрах
     public float radiusGlass = 0; //радиус арки
 
     public ElemGlass(AreaSimple owner, float id, String param) {
@@ -41,11 +40,9 @@ public class ElemGlass extends ElemSimple {
 
         if (TypeElem.ARCH == owner.type) {
             setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
-            typeGlass = TypeGlass.ARCH;
             //specificationRec.putParam(13015, TypeGlass.ARCH.text());
         } else {
             setDimension(owner.x1, owner.y1, owner.x2, owner.y2);
-            typeGlass = TypeGlass.RECTANGL;
             //specificationRec.putParam(13015, TypeGlass.RECTANGL.text());
         }
     }

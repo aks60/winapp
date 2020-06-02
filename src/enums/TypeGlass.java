@@ -2,7 +2,7 @@ package enums;
 
 import static enums.TypeOpen1.values;
 
-//Тип заполнения
+//Тип заполнения (пока не использую)
 public enum TypeGlass implements Enam {
 
     RECTANGL(1, "Четырёхугольное"),

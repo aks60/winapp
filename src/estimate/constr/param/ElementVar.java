@@ -1,13 +1,10 @@
 package estimate.constr.param;
 
-import estimate.constr.param.Par5s;
 import dataset.Record;
 import domain.eArtikl;
-import domain.eSetting;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
-import enums.TypeGlass;
 import enums.TypeJoin;
 import java.util.HashMap;
 import java.util.List;
@@ -258,10 +255,10 @@ public class ElementVar extends Par5s {
                         break;
                     case 37009:  //Тип заполнения 
                         //Все, Произвольное, Прямоугольное, Арочное                                            
-                        message(grup, elem5e.type(), ((ElemGlass) elem5e).typeGlass, rec.getStr(TEXT));
-                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeGlass.RECTANGL.equals(((ElemGlass) elem5e).typeGlass) == false) {
+                        message(grup, elem5e.type(), elem5e.owner().type(), rec.getStr(TEXT));
+                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
                             return false;
-                        } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeGlass.ARCH.equals(((ElemGlass) elem5e).typeGlass) == false) {
+                        } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
                             return false;
                         }
                         break;

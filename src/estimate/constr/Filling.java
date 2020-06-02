@@ -63,7 +63,7 @@ public class Filling extends Cal5e {
                     Record glasgrpRec = eGlasgrp.find(glasprofRec.getInt(eGlasprof.glasgrp_id)); //группа заполнений
                     String depth = String.valueOf((int) elemGlass.artiklRec.getFloat(eArtikl.depth));
                     if (glasgrpRec.getStr(eGlasgrp.depth).contains(depth)) {
-                        
+
                         elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
                         detail(elemGlass, elemFrame, glasgrpRec);
                     }
@@ -80,16 +80,15 @@ public class Filling extends Cal5e {
 
             elemGlass.setSpecific(); //заполним спецификацию элемента
             List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
+
             //Цикл по списку детализации
             for (Record glasdetRec : glasdetList) {
-
                 HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
                 List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации                
                 if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР детализации, параметры накапливаются в mapParam
 
                     Specification specif = null;
                     Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), true);
-
                     float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
                     Float overLength = (mapParam.get(15050) == null) ? 0.f : Float.valueOf(mapParam.get(15050).toString());
 
@@ -152,32 +151,34 @@ public class Filling extends Cal5e {
 
                         } else {
                             //По горизонтали
-                            specif = new Specification(art, elemGlass, mapParam);
-                            specif.width = elemGlass.width() + 2 * gzazo;
-                            specif.height = artiklRec.getFloat(eArtikl.height);
-                            specif.anglCut2 = 45;
-                            specif.anglCut1 = 45;
-                            specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecific(specif); //добавим спецификацию в элемент (верхний/нижний)
-                            elemGlass.addSpecific(new Specification(specif)); //добавим спецификацию в элемент (верхний/нижний)
-                            //По вертикали
-                            specif = new Specification(art, elemGlass, mapParam);
-                            specif.width = elemGlass.height() + 2 * gzazo;
-                            specif.height = artiklRec.getFloat(eArtikl.height);
-                            specif.anglCut2 = 45;
-                            specif.anglCut1 = 45;
-                            specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecific(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            if (LayoutArea.TOP.equals(elemFrame.layout()) == true || LayoutArea.BOTTOM.equals(elemFrame.layout()) == true) {
+                                specif = new Specification(art, elemGlass, mapParam);
+                                specif.width = elemGlass.width() + 2 * gzazo;
+                                specif.height = artiklRec.getFloat(eArtikl.height);
+                                specif.anglCut2 = 45;
+                                specif.anglCut1 = 45;
+                                specif.setColor(elemGlass, glasdetRec);
+                                elemGlass.addSpecific(specif); //добавим спецификацию в элемент (верхний/нижний)
+
+                                //По вертикали
+                            } else if (LayoutArea.LEFT.equals(elemFrame.layout()) == true || LayoutArea.RIGHT.equals(elemFrame.layout()) == true) {
+                                specif = new Specification(art, elemGlass, mapParam);
+                                specif.width = elemGlass.height() + 2 * gzazo;
+                                specif.height = artiklRec.getFloat(eArtikl.height);
+                                specif.anglCut2 = 45;
+                                specif.anglCut1 = 45;
+                                specif.setColor(elemGlass, glasdetRec);
+                                elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
+                            }
                         }
 
                         //Уплотнитель
-                    } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) { //уплотнитель
+                    } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) {
                         Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         if (TypeElem.ARCH == elemGlass.owner().type()) { //если уплотнитель в арке
+
                             //По основанию арки
                             specif = new Specification(art, elemGlass, mapParam);
-
                             double dh2 = artiklRec.getFloat(eArtikl.height) - gzazo;
                             double r1 = elemGlass.radiusGlass - dh2;
                             double h1 = elemGlass.height() - 2 * dh2;
@@ -214,23 +215,24 @@ public class Filling extends Cal5e {
                             elemGlass.addSpecific(specif); //добавим спецификацию в элемент (верхний/нижний)
                         } else {
                             //По горизонтали
-                            specif = new Specification(art, elemGlass, mapParam);
-                            specif.width = elemGlass.width() + 2 * gzazo;
-                            specif.height = specif.artiklRec.getFloat(eArtikl.height);
-                            specif.anglCut2 = 45;
-                            specif.anglCut1 = 45;
-                            specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecific(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
-                            //По вертикали
-                            specif = new Specification(art, elemGlass, mapParam);
-                            specif.width = elemGlass.height() + 2 * gzazo;
-                            specif.height = specif.artiklRec.getFloat(eArtikl.height);
-                            specif.anglCut2 = 45;
-                            specif.anglCut1 = 45;
-                            specif.setColor(elemGlass, glasdetRec);
-                            elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
-                            elemGlass.addSpecific(new Specification(specif)); //добавим спецификацию в элемент (левый/правый)
+                            if (LayoutArea.TOP.equals(elemFrame.layout()) == true || LayoutArea.BOTTOM.equals(elemFrame.layout()) == true) {
+                                specif = new Specification(art, elemGlass, mapParam);
+                                specif.width = elemGlass.width() + 2 * gzazo;
+                                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                                specif.anglCut2 = 45;
+                                specif.anglCut1 = 45;
+                                specif.setColor(elemGlass, glasdetRec);
+                                elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
+                                //По вертикали
+                            } else if (LayoutArea.LEFT.equals(elemFrame.layout()) == true || LayoutArea.RIGHT.equals(elemFrame.layout()) == true) {
+                                specif = new Specification(art, elemGlass, mapParam);
+                                specif.width = elemGlass.height() + 2 * gzazo;
+                                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                                specif.anglCut2 = 45;
+                                specif.anglCut1 = 45;
+                                specif.setColor(elemGlass, glasdetRec);
+                                elemGlass.addSpecific(specif); //добавим спецификацию в элемент (левый/правый)
+                            }
                         }
 
                         //Всё остальное
@@ -240,11 +242,10 @@ public class Filling extends Cal5e {
                                 || TypeElem.RECTANGL == elemGlass.owner().type()
                                 || TypeElem.STVORKA == elemGlass.owner().type()) {
 
-                            for (int index = 0; index < 4; index++) {
-                                specif = new Specification(art, elemGlass, mapParam);
-                                specif.setColor(elemGlass, glasdetRec);
-                                elemGlass.addSpecific(specif);
-                            }
+                            specif = new Specification(art, elemGlass, mapParam);
+                            specif.setColor(elemGlass, glasdetRec);
+                            elemGlass.addSpecific(specif);
+
                         } else if (TypeElem.ARCH == elemGlass.owner().type()) {
                             for (int index = 0; index < 2; index++) {
                                 specif = new Specification(art, elemGlass, mapParam);

@@ -42,8 +42,7 @@ public class Elements extends Cal5e {
         try {
             //Цыкл по списку элементов конструкции
             for (ElemSimple elem5e : iwin().listElem) {
-                
-                
+
                 //Ищем текстуры не на аналоге 
                 int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id);
                 List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
@@ -54,13 +53,9 @@ public class Elements extends Cal5e {
                 int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
                 List<Record> elementList2 = eElement.find(series_id);
                 detail(elementList2, elem5e);
-                
+
                 //Варианты состава для артикула профиля
-                if (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) {
-                    artikl_id = elem5e.artiklRec.getInt(eArtikl.analog_id);
-                } else {
-                    artikl_id = elem5e.artiklRec.getInt(eArtikl.id);
-                }
+                artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
             }
@@ -71,20 +66,20 @@ public class Elements extends Cal5e {
 
     protected void detail(List<Record> elementList, ElemSimple elem5e) {
         try {
-            for (Record elementRec : elementList) { //цыкл по вариантам
-
+            //Цыкл по вариантам
+            for (Record elementRec : elementList) { 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
-
                 if (elementVar.check(elem5e, elempar1List) == true) {  //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                     List<Record> elemdetList = eElemdet.find(element_id);
-                    for (Record elemdetRec : elemdetList) { //цыкл по детализации
-
+                    
+                    //Цыкл по детализации
+                    for (Record elemdetRec : elemdetList) { 
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации                       
-                        
                         if (elementDet.check(mapParam, elem5e, elempar2List) == true) {  //ФИЛЬТР детализации, параметры накапливаются в mapParam
+                            
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(artiklRec, elem5e, mapParam);
                             specif.setColor(elem5e, elemdetRec);
