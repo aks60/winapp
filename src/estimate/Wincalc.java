@@ -33,10 +33,10 @@ import estimate.constr.Tariffication;
 import estimate.constr.Joining;
 import estimate.constr.Elements;
 import estimate.constr.Filling;
+import estimate.constr.Furniture;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
-import frames.Furniture;
 
 public class Wincalc {
 
@@ -102,16 +102,11 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv() {
         try {
-            Elements elements = new Elements(this); //составы
-            elements.calc();
-            Joining joining = new Joining(this); //соединения
-            joining.calc();
-            Filling filling = new Filling(this); //заполнения
-            filling.calc();
-            //Furniture furniture = new Furniture(this); //фурнитура        
-            //furniture.calc();
+            new Elements(this).calc(); //составы
+            new Joining(this).calc(); //соединения
+            new Filling(this).calc(); //заполнения
+            new Furniture(this).calc(); //фурнитура        
             for (ElemSimple elemRec : listElem) {
-
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }

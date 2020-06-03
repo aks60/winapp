@@ -60,7 +60,8 @@ import estimate.script.Winscript;
 
 public class Systree extends javax.swing.JFrame {
 
-    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.grup, "< 0").table(eParams.up);
+    private Query qParams = new Query(eParams.values());
+    private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
@@ -89,12 +90,14 @@ public class Systree extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerDict();
-        loadingTree();
+        loadingData();
         loadingModel();
     }
 
-    private void loadingTree() {
-
+    private void loadingData() {
+        qParams.select(eParams.up, "where", eParams.grup, "< 0").table(eParams.up);
+        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
+        
         ((DefaultTreeCellEditor) tree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
             public void editingStopped(ChangeEvent e) {
@@ -154,18 +157,24 @@ public class Systree extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos) {
+        new DefTableModel(tab3, qSysfurn, eSysfurn.npp, eFurniture.name, eSysfurn.side_open, eSysfurn.replac, eSysfurn.hand_pos, eSysfurn.artikl_id1, eSysfurn.artikl_id2) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
 
-                if (val != null && field == eSysfurn.side_open) {
+                if (field == eSysfurn.side_open) {
                     int id = Integer.valueOf(val.toString());
                     return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.P1).name;
 
-                } else if (val != null && field == eSysfurn.hand_pos) {
+                } else if (field == eSysfurn.hand_pos) {
                     int id = Integer.valueOf(val.toString());
                     return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.P1).name;
+                } else if(field == eSysfurn.artikl_id1) {
+                    int id = Integer.valueOf(val.toString());
+                    return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                } else if(field == eSysfurn.artikl_id2) {
+                    int id = Integer.valueOf(val.toString());
+                    return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
                 }
                 return val;
             }
@@ -1036,17 +1045,17 @@ public class Systree extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "№пп", "Название  фурнитуры", "Тип открывания", "Замена", "Установка ручки"
+                "№пп", "Название  фурнитуры", "Тип открывания", "Замена", "Установка ручки", "Артикул ручки", "Артикул подвеса", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1067,6 +1076,7 @@ public class Systree extends javax.swing.JFrame {
             tab3.getColumnModel().getColumn(0).setMaxWidth(80);
             tab3.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab3.getColumnModel().getColumn(3).setMaxWidth(80);
+            tab3.getColumnModel().getColumn(7).setMaxWidth(40);
         }
 
         pan4.add(scr3, java.awt.BorderLayout.CENTER);

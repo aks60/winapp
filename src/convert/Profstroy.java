@@ -85,7 +85,7 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //в порядке удаления
-            eSetting.up, eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, eOrders.up,
+            eSetting.up, eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, //eOrders.up, - временно
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
@@ -468,6 +468,8 @@ public class Profstroy {
             updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");
             updateSql(eSysfurn.up, eSysfurn.furniture_id, "funic", eFurniture.up, "funic");
             updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");
+            updateSql(eSysfurn.up, eSysfurn.artikl_id1, "aruch", eArtikl.up, "code");
+            updateSql(eSysfurn.up, eSysfurn.artikl_id2, "apetl", eArtikl.up, "code");            
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");

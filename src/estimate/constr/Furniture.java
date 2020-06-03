@@ -30,36 +30,30 @@ public class Furniture extends Cal5e {
     }
 
     public void calc() {
-//        for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
-//
-//            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.FULLSTVORKA);
-//            //цикл по створкам
-//            for (AreaStvorka fullStvorka : elemStvorkaList) {
+        //for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
+
+            
+//            //Цикл по створкам
+//            LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
+//            for (AreaStvorka stvorka : stvorkaList) {
 //
 //                //Подбор фурнитуры
 //                List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
-//                Record sysfurnRec = sysfurnList.get(0);
-//                int funic = Integer.valueOf(fullStvorka.mapParam.get(ParamJson.funic).toString());
-//                if (funic != -1) {
-//                    for (Record sysproaRec2 : sysfurnList) {
-//                        if (sysproaRec2.getInt(eSysfurn.id) == funic) {
-//                            sysfurnRec = sysproaRec2; //теперь sysprosRec соответствует параметру полученному из i-okna
-//                            break;
-//                        }
-//                    }
-//                }
-//                //Подбор текстуры ручки створки
-//                Object colorHandl = fullStvorka.mapParam.get(ParamJson.colorHandl);
-//                if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
-//                    fullStvorka.mapParam.put(ParamJson.colorHandl, iwin().color1);
-//                }
+//                Record sysfurnRec = sysfurnList.get(0);                
+//                int funic = Integer.valueOf(stvorka.mapParamUse.get(ParamJson.funic).toString());
+//                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == funic).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna
 //
+//                //Подбор текстуры ручки створки
+//                Object colorHandl = stvorka.mapParamUse.get(ParamJson.colorHandl);
+//                if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
+//                    stvorka.mapParamUse.put(ParamJson.colorHandl, iwin().color1);
+//                }
 //                if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("по середине"))
-//                    fullStvorka.handleHeight = "по середине";
+//                    stvorka.handleHeight = "по середине";
 //                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("константная"))
-//                    fullStvorka.handleHeight = "константная";
+//                    stvorka.handleHeight = "константная";
 //                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная"))
-//                    fullStvorka.handleHeight = "установлена";
+//                    stvorka.handleHeight = "установлена";
 //
 //                Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id)); //первая запись в списке конструктива
 //                List<Record> furnside1List = eFurnside1.find(furnityreRec.getInt(eFurniture.id));
@@ -68,14 +62,14 @@ public class Furniture extends Cal5e {
 //                for (Record furnside1Rec : furnside1List) {
 //
 //                    List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
-//                    out = calc().paramVariant.checkParfurl(fullStvorka, parfurlList); //параметры вариантов
+//                    out = calc().paramVariant.checkParfurl(stvorka, parfurlList); //параметры вариантов
 //                    if (out == false) break;
 //                }
 //                if (out == false) continue;
 //
-//                nested(fullStvorka, furnityreRec, 1);
+//                nested(stvorka, furnityreRec, 1);
 //            }
-//        }
+        //}
     }
 
     protected void detail(AreaStvorka fullStvorka, Record furnitureRec, int count) {

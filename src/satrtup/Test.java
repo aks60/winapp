@@ -14,16 +14,14 @@ import javax.swing.UIManager;
 import estimate.script.Winscript;
 
 public class Test {
-
-    //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
-    public static void main(String[] args) {
+   
+    public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
             //convert.Profstroy.script();
             //query();
-            wincalc();
+            //wincalc();
             //frame();
-
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

@@ -1333,12 +1333,15 @@
                         <Component class="javax.swing.JTable" name="tab3">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="4">
+                              <Table columnCount="8" rowCount="4">
                                 <Column editable="true" title="&#x2116;&#x43f;&#x43f;" type="java.lang.Integer"/>
                                 <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;  &#x444;&#x443;&#x440;&#x43d;&#x438;&#x442;&#x443;&#x440;&#x44b;" type="java.lang.Object"/>
                                 <Column editable="true" title="&#x422;&#x438;&#x43f; &#x43e;&#x442;&#x43a;&#x440;&#x44b;&#x432;&#x430;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
                                 <Column editable="true" title="&#x417;&#x430;&#x43c;&#x435;&#x43d;&#x430;" type="java.lang.Object"/>
                                 <Column editable="true" title="&#x423;&#x441;&#x442;&#x430;&#x43d;&#x43e;&#x432;&#x43a;&#x430; &#x440;&#x443;&#x447;&#x43a;&#x438;" type="java.lang.Object"/>
+                                <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b; &#x440;&#x443;&#x447;&#x43a;&#x438;" type="java.lang.Object"/>
+                                <Column editable="true" title="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b; &#x43f;&#x43e;&#x434;&#x432;&#x435;&#x441;&#x430;" type="java.lang.Object"/>
+                                <Column editable="true" title="ID" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1364,6 +1367,21 @@
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="40" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
