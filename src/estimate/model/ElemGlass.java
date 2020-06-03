@@ -78,10 +78,8 @@ public class ElemGlass extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {
 
-        specificationRec.place = layout().name;
-
-        /*
-        float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
+        specificationRec.place = layout().name;  
+        float gzazo = (mapFieldVal.get("GZAZO") != null) ?Float.valueOf(mapFieldVal.get("GZAZO")) :0;
         if (owner() instanceof AreaArch) { //если арка
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
@@ -101,7 +99,6 @@ public class ElemGlass extends ElemSimple {
             x1 = (owner().width() / 2) - (float) l;
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
-            //width = x2 - x1;
 
             specificationRec.width = width();
 
@@ -112,18 +109,17 @@ public class ElemGlass extends ElemSimple {
             specificationRec.color3 = color3;
 
         } else {
-
             
-            ElemSimple elemTop = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinRight;
+            ElemSimple elemTop = iwin().mapJoin.get(owner().x1 + ":" + owner().y1).joinElement1;
             y1 = elemTop.y2 - elemTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            ElemSimple elemBottom = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y2).elemJoinRight;
+            ElemSimple elemBottom = iwin().mapJoin.get(owner().x1 + ":" + owner().y2).joinElement2;
             y2 = elemBottom.y1 + elemBottom.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
-            ElemSimple elemLeft = owner().iwin().mapJoin.get(owner().x1 + ":" + owner().y1).elemJoinBottom;
+            ElemSimple elemLeft = iwin().mapJoin.get(owner().x1 + ":" + owner().y1).joinElement1;
             x1 = elemLeft.x2 - elemLeft.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
-            ElemSimple elemRight = owner().iwin().mapJoin.get(owner().x2 + ":" + owner().y1).elemJoinBottom;
+            ElemSimple elemRight = iwin().mapJoin.get(owner().x2 + ":" + owner().y1).joinElement2;
             x2 = elemRight.x1 + elemRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
 
             specificationRec.width = width();
@@ -134,20 +130,22 @@ public class ElemGlass extends ElemSimple {
             specificationRec.color2 = color2;
             specificationRec.color3 = color3;
         }
-         */
     }
 
     @Override //Вложеная спецификация 
     public void addSpecific(Specification specif) {
 
-        if (TypeArtikl.GLASS.isType(specif.artiklRec)) { //стеклопакет
+        float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
+        Record art = specif.artiklRec;
+
+        //Стеклопакет
+        if (TypeArtikl.GLASS.isType(specif.artiklRec)) { 
             return;
 
-        } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec)) { //штапик
+            //Штапик
+        } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec)) { 
 
-            float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
             Float overLength = (specif.getParam(null, 15050) == null) ? 0.f : Float.valueOf(specif.getParam(0, 15050).toString());
-            Record art = specif.artiklRec;
             if (LayoutArea.ARCH == specif.elem5e.layout()) {
 
                 //По основанию арки
@@ -209,7 +207,58 @@ public class ElemGlass extends ElemSimple {
 
             specif.id = id();
 
-        } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec)) { //уплотнитель
+            //Уплотнитель
+        } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec)) { 
+
+            if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
+
+                //По основанию арки
+                double dh2 = artiklRec.getFloat(eArtikl.height) - gzazo;
+                double r1 = radiusGlass - dh2;
+                double h1 = height() - 2 * dh2;
+                double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний перимет
+                double r2 = radiusGlass;
+                double h2 = height();
+                double l2 = Math.sqrt(2 * h2 * r2 - h2 * h2); //нижний периметр
+                double l3 = l2 - l1;
+                double r5 = radiusGlass + gzazo;
+                double h5 = height() + 2 * gzazo;
+                double l5 = 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
+                double ang = Math.toDegrees(Math.atan(dh2 / l3)); //угол реза
+                specif.width = (float) l5;
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                specif.anglCut2 = (float) ang;
+                specif.anglCut1 = (float) ang;
+
+                //По дуге арки
+                double ang2 = Math.toDegrees(Math.asin(l2 / r2));
+                double ang3 = 90 - (90 - ang2 + ang);
+                double Z = 3 * gzazo;
+                double R = radiusGlass;
+                double L = width();
+                double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
+                double M = ((R + Z) * 2) * Math.toRadians(ang5);
+                specif.width = (float) M;
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                specif.anglCut2 = (float) ang3;
+                specif.anglCut1 = (float) ang3;
+            } else {
+                //По горизонтали
+                if (LayoutArea.TOP.equals(specif.elem5e.layout()) == true || LayoutArea.BOTTOM.equals(specif.elem5e.layout()) == true) {
+                    specif.width = width() + 2 * gzazo;
+                    specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                    specif.anglCut2 = 45;
+                    specif.anglCut1 = 45;
+
+                    //По вертикали
+                } else if (LayoutArea.LEFT.equals(specif.elem5e.layout()) == true || LayoutArea.RIGHT.equals(specif.elem5e.layout()) == true) {
+                    specif.width = height() + 2 * gzazo;
+                    specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                    specif.anglCut2 = 45;
+                    specif.anglCut1 = 45;
+                }
+            }
+
             specif.id = id();
 
         } else {
