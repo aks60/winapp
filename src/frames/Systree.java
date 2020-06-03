@@ -340,11 +340,19 @@ public class Systree extends javax.swing.JFrame {
         };
         
         listenerArt211 = (record) -> {
-            //Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4);
+            int row = Util.getSelectedRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id1);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row);            
         };
         
         listenerArt212 = (record) -> {
-            //Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4);
+            Util.stopCellEditing(tab1, tab2, tab3, tab4);
+            int row = Util.getSelectedRec(tab3);
+            qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id2);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row); 
         };
 
         listenerParam1 = (record) -> {
