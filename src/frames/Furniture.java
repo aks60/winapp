@@ -764,7 +764,7 @@ public class Furniture extends javax.swing.JFrame {
         });
 
         grour1.add(checkBox2);
-        checkBox2.setText("Доп-ная");
+        checkBox2.setText("Дополн...");
         checkBox2.setMaximumSize(new java.awt.Dimension(75, 25));
         checkBox2.setMinimumSize(new java.awt.Dimension(75, 25));
         checkBox2.setPreferredSize(new java.awt.Dimension(75, 25));

@@ -23,16 +23,6 @@ public class DicFurniture extends javax.swing.JDialog {
         loadingModel();
         setVisible(true);
     }
-    
-    public DicFurniture(java.awt.Frame parent, DialogListener listenet, int furnitureId) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        this.listener = listenet;
-        //qFurniture.select(eFurniture.up, "where", eFurniture.);
-        loadingModel();
-        setVisible(true);
-    }
 
     private void loadingModel() {
         

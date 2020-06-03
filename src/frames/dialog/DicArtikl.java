@@ -7,10 +7,11 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eFurndet;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import frames.swing.DefTableModel;
-import static common.Util.getSelectedRec;
+import java.util.stream.Collectors;
 
 //Справочник артикулов
 public class DicArtikl extends javax.swing.JDialog {
@@ -22,17 +23,29 @@ public class DicArtikl extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         initElements();
+        String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
+        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
         this.listener = listenet;
         loadingModel();
-        loadingData(level);
+        Util.setSelectedRow(tab2);
         setVisible(true);
     }
 
-    private void loadingData(int... level) {
-
-        String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
-        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
+    public DicArtikl(java.awt.Frame parent, DialogListener listenet, int level1, int level2, int furnId) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        //Query qArtikl = new Query(eArtikl.id).select(eArtikl.up, "where", eArtikl.level1, "=", level1, "and", eArtikl.level2, "=", level2);
+        //
+        Query qFurndet = new Query(eFurndet.id, eArtikl.id).select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, 
+                "where", eFurndet.furniture_id, "=", furnId, "and", eArtikl.level1, "=", level1, "and", eArtikl.level2, "=", level2);
+        String arr = qFurndet.table(eArtikl.up).stream().map(rec -> rec.getStr(eArtikl.id)).collect(Collectors.joining(",", "(", ")"));
+        qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);
+        
+        this.listener = listenet;
+        loadingModel();
         Util.setSelectedRow(tab2);
+        setVisible(true);
     }
 
     private void loadingModel() {

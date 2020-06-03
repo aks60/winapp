@@ -27,6 +27,7 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutFrame;
 import enums.LayoutHandle;
+import enums.TypeArtikl;
 import enums.UseSide;
 import enums.TypeOpen2;
 import enums.UseArtiklTo;
@@ -68,7 +69,8 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private JTable tab1 = new JTable();
     private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
-            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2, listenerBtn1, listenerBtn7, listenerBtn11;
+            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2, 
+            listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
     private Wincalc iwin = new Wincalc();
@@ -218,6 +220,16 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, listenerHandle, LayoutHandle.values());
         });
+        
+        Util.buttonEditorCell(tab3, 5).addActionListener(event -> {
+            int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
+            DicArtikl artikl = new DicArtikl(this, listenerArt211, TypeArtikl.FURNRUCHKA.id1, TypeArtikl.FURNRUCHKA.id2, furnityreId);
+        });
+        
+        Util.buttonEditorCell(tab3, 6).addActionListener(event -> {
+            int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
+            DicArtikl artikl = new DicArtikl(this, listenerArt212, TypeArtikl.FURNLOOP.id1, TypeArtikl.FURNLOOP.id2, furnityreId);
+        });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
             ParDefault frame = new ParDefault(this, listenerParam1);
@@ -325,6 +337,14 @@ public class Systree extends javax.swing.JFrame {
 
         listenerHandle = (record) -> {
             Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4);
+        };
+        
+        listenerArt211 = (record) -> {
+            //Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4);
+        };
+        
+        listenerArt212 = (record) -> {
+            //Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4);
         };
 
         listenerParam1 = (record) -> {
