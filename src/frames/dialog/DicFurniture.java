@@ -19,12 +19,23 @@ public class DicFurniture extends javax.swing.JDialog {
         initComponents();
         initElements();
         this.listener = listenet;
+        qFurniture.select(eFurniture.up, "order by", eFurniture.name);
+        loadingModel();
+        setVisible(true);
+    }
+    
+    public DicFurniture(java.awt.Frame parent, DialogListener listenet, int furnitureId) {
+        super(parent, true);
+        initComponents();
+        initElements();
+        this.listener = listenet;
+        //qFurniture.select(eFurniture.up, "where", eFurniture.);
         loadingModel();
         setVisible(true);
     }
 
     private void loadingModel() {
-        qFurniture.select(eFurniture.up, "order by", eFurniture.name);
+        
         DefaultTableModel dtm = (DefaultTableModel) tab1.getModel();
         dtm.setRowCount(qFurniture.size());
         for (int i = 0; i < qFurniture.size(); i++) {

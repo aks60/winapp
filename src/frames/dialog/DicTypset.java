@@ -47,6 +47,7 @@ public class DicTypset extends javax.swing.JDialog {
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Справочник");
         setPreferredSize(new java.awt.Dimension(300, 240));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -139,7 +140,7 @@ public class DicTypset extends javax.swing.JDialog {
                 {"Name 0"}
             },
             new String [] {
-                "Название соединения"
+                "Наименование"
             }
         ) {
             boolean[] canEdit = new boolean [] {
