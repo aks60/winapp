@@ -5,6 +5,9 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eSysfurn implements Field {
     up("0", "0", "0", "Фурнитуры системы профилей", "SYSPROS"),
@@ -47,12 +50,12 @@ public enum eSysfurn implements Field {
         return query;
     }
 
-    public static Record find(int _nuni) {
+    public static List<Record> find(int _nuni) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
 
     public String toString() {

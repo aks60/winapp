@@ -31,17 +31,16 @@ public class Furniture extends Cal5e {
 
     public void calc() {
         //for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
+           
+            //Цикл по створкам
+            LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
+            for (AreaStvorka stvorka : stvorkaList) {
 
-            
-//            //Цикл по створкам
-//            LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
-//            for (AreaStvorka stvorka : stvorkaList) {
-//
-//                //Подбор фурнитуры
-//                List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
-//                Record sysfurnRec = sysfurnList.get(0);                
-//                int funic = Integer.valueOf(stvorka.mapParamUse.get(ParamJson.funic).toString());
-//                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == funic).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna
+                //Подбор фурнитуры
+                List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
+                Record sysfurnRec = sysfurnList.get(0);                
+                int funic = Integer.valueOf(stvorka.mapParamUse.get(ParamJson.funic).toString());
+                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == funic).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna
 //
 //                //Подбор текстуры ручки створки
 //                Object colorHandl = stvorka.mapParamUse.get(ParamJson.colorHandl);
@@ -69,7 +68,7 @@ public class Furniture extends Cal5e {
 //
 //                nested(stvorka, furnityreRec, 1);
 //            }
-        //}
+        }
     }
 
     protected void detail(AreaStvorka fullStvorka, Record furnitureRec, int count) {
