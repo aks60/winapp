@@ -1,9 +1,16 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eFurnside1.furniture_id;
+import static domain.eFurnside1.up;
+import static domain.eFurnside1.values;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eFurnside2 implements Field {
     up("0", "0", "0", "Ограничения сторон для спецификации фурнитуры", "FURNLES"),
@@ -38,6 +45,14 @@ public enum eFurnside2 implements Field {
         return query;
     }
 
+    public static List<Record> find(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(furndet_id) == _id).collect(Collectors.toList());
+        }
+        Query recordList = new Query(values()).select(up, "where", furndet_id, "=", _id);
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
+    }
+    
     public String toString() {
         return meta.descr();
     }

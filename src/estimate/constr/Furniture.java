@@ -1,176 +1,207 @@
 package estimate.constr;
 
 import dataset.Record;
+import domain.eArtdet;
+import domain.eArtikl;
 import domain.eFurndet;
 import domain.eFurniture;
 import domain.eFurnpar1;
+import domain.eFurnpar2;
 import domain.eFurnside1;
+import domain.eFurnside2;
 import domain.eSysfurn;
 import enums.LayoutArea;
 import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
-import frames.Artikles;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import estimate.Wincalc;
+import estimate.constr.param.FurnitureDet;
+import estimate.constr.param.FurnitureVar;
 import estimate.model.AreaStvorka;
 import estimate.model.ElemFrame;
-import static satrtup.App1.eApp1.Artikles;
+import java.util.HashMap;
 
 /**
  * Фурнитура
  */
 public class Furniture extends Cal5e {
 
+    private FurnitureVar furnitureVar = null;
+    private FurnitureDet furnitureDet = null;
+    public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
+    public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
+
     public Furniture(Wincalc iwin) {
         super(iwin);
+        furnitureVar = new FurnitureVar(iwin);
+        furnitureDet = new FurnitureDet(iwin);
     }
 
     public void calc() {
-        //for (calc().paramSpecific.pass = 1; calc().paramSpecific.pass < 4; calc().paramSpecific.pass++) {
-           
+
+        for (pass = 1; pass < 4; pass++) {
+
             //Цикл по створкам
             LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
-            for (AreaStvorka stvorka : stvorkaList) {
+            outterLoop:
+            for (AreaStvorka areaStvorka : stvorkaList) {
 
                 //Подбор фурнитуры
                 List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
-                Record sysfurnRec = sysfurnList.get(0);                
-                int funic = Integer.valueOf(stvorka.mapParamUse.get(ParamJson.funic).toString());
+                Record sysfurnRec = sysfurnList.get(0);
+                int funic = Integer.valueOf(areaStvorka.mapParamUse.get(ParamJson.funic).toString());
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == funic).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna
-//
-//                //Подбор текстуры ручки створки
-//                Object colorHandl = stvorka.mapParamUse.get(ParamJson.colorHandl);
-//                if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
-//                    stvorka.mapParamUse.put(ParamJson.colorHandl, iwin().color1);
-//                }
-//                if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("по середине"))
-//                    stvorka.handleHeight = "по середине";
-//                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("константная"))
-//                    stvorka.handleHeight = "константная";
-//                else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная"))
-//                    stvorka.handleHeight = "установлена";
-//
-//                Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id)); //первая запись в списке конструктива
-//                List<Record> furnside1List = eFurnside1.find(furnityreRec.getInt(eFurniture.id));
-//                boolean out = true;
-//                //Цикл по описанию сторон фурнитуры
-//                for (Record furnside1Rec : furnside1List) {
-//
-//                    List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
-//                    out = calc().paramVariant.checkParfurl(stvorka, parfurlList); //параметры вариантов
-//                    if (out == false) break;
-//                }
-//                if (out == false) continue;
-//
-//                nested(stvorka, furnityreRec, 1);
-//            }
+
+                //Подбор текстуры ручки створки
+                Object colorHandl = areaStvorka.mapParamUse.get(ParamJson.colorHandl);
+                if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
+                    areaStvorka.mapParamUse.put(ParamJson.colorHandl, iwin().color1);
+                }
+                if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("по середине")) {
+                    areaStvorka.handleHeight = "по середине";
+                } else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("константная")) {
+                    areaStvorka.handleHeight = "константная";
+                } else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная")) {
+                    areaStvorka.handleHeight = "установлена";
+                }
+
+                Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id)); //первая запись в списке конструктива
+                List<Record> furnside1List = eFurnside1.find(furnityreRec.getInt(eFurniture.id));
+                boolean out = true;
+
+                //Цикл по описанию сторон фурнитуры
+                for (Record furnside1Rec : furnside1List) {
+                    List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));                
+                    ElemFrame elemFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));                                    
+                    out = furnitureVar.check(elemFrame, parfurlList); //параметры вариантов
+                    if (out == false) {
+                        break;
+                        //continue outterLoop; //проверить!!!
+                    }
+                }
+                if (out == false) {
+                    continue;
+                }
+
+                middle(areaStvorka, furnityreRec, 1);
+            }
         }
     }
 
-    protected void detail(AreaStvorka fullStvorka, Record furnitureRec, int count) {
+    protected void middle(AreaStvorka areaStvorka, Record furnitureRec, int count) {
 
+        //Цыкл по детализации (уровень 1)
         List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
         for (Record furndetRec : furndetList) {
-//            
-//          ****  Закомментировал т.к. поле eFurndet.level удалил  ***
-//
-//            if (furndetRec.getInt(eFurndet.level) == 1) {
-//                boolean ret1 = nested2(fullStvorka, furndetRec, count);
-//                if (ret1 == true) {
-//
-//                    for (Record furndetRec2 : furndetList) {
-//                        if (furndetRec2.getInt(eFurndet.level) == 2 && furndetRec.getInt(eFurndet.id) == furndetRec2.getInt(eFurndet.furndet_id)) {
-//                            boolean ret2 = nested2(fullStvorka, furndetRec2, count);
-//                            if (ret2 == true) {
-//
-//                                for (Record furndetRec3 : furndetList) {
-//                                    if (furndetRec3.getInt(eFurndet.level) == 3 && furndetRec2.getInt(eFurndet.id) == furndetRec3.getInt(eFurndet.furndet_id)) {
-//                                        boolean ret3 = nested2(fullStvorka, furndetRec3, count);
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+            if (furndetRec.getInt(eFurndet.id) == furndetRec.getInt(eFurndet.furndet_id)) {
+                boolean level1 = detail(areaStvorka, furndetRec, count);
+                if (level1 == true) {
+
+                    //Цыкл по детализации (уровень 2)
+                    for (Record furndetRec2 : furndetList) {
+                        if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec.getInt(eFurndet.id)) {
+                            boolean level2 = detail(areaStvorka, furndetRec2, count);
+                            if (level2 == true) {
+
+                                //Цыкл по детализации (уровень 3)
+                                for (Record furndetRec3 : furndetList) {
+                                    if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)) {
+                                        boolean level3 = detail(areaStvorka, furndetRec3, count);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
-    protected boolean detail2(AreaStvorka elStvorka, Record furndetRec, int count) {
+    protected boolean detail(AreaStvorka areaStvorka, Record furndetRec, int count) {
+        HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
 
-    /*    HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
-        //подбор текстуры ручки
-        if (furndetRec.anumb.equals("НАБОР") == false) {
-            Artikls artiklRec = Artikls.get(furndetRec.anumb, false);
+        //Подбор текстуры ручки
+        if (furndetRec.getInt(eFurndet.isset) == 0) {
+            Record artiklRec = eArtikl.find(furndetRec.getInt(eArtikl.id), false);
             if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
-                int colorHandl = Integer.valueOf(elStvorka.mapParam.get(ParamJson.colorHandl).toString());
-                if (furndetRec.clnum > 0) {
+                int colorHandl = Integer.valueOf(areaStvorka.mapParamUse.get(ParamJson.colorHandl).toString());
+                if (furndetRec.getInt(eFurndet.color_fk) > 0) {
                     boolean empty = true;
-                    ArrayList<Artsvst> artsvstList = Artsvst.get(furndetRec.anumb);
-                    for (Artsvst artsvst : artsvstList) {
-                        if (artsvst.clcod == colorHandl) {
+                    List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
+                    for (Record artdetRec : artdetList) {
+                        if (artdetRec.getInt(eArtdet.color_fk) == colorHandl) {
                             empty = false;
                         }
                     }
-                    if (empty == true) return false;
+                    if (empty == true) {
+                        return false;
+                    }
                 }
             }
         }
-        List<Record> furnlesList = Furnles.find(furndetRec.getInt(eFurndet.fincb));
         //Цикл по ограничению сторон фурнитуры
-        for (Furnles furnlesRec : furnlesList) {
+        List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
+        for (Record furnside2Rec : furnside2List) {
 
             ElemFrame el = null;
-            int side = furnlesRec.lnumb;
-            if (furnlesRec.lnumb < 0) {
+            int side = furnside2Rec.getInt(eFurnside2.side_num);
+            if (side < 0) {
                 String[] par = sideCheck.split("/");
-                if (furnlesRec.lnumb == -1) {
+                if (side == -1) {
                     side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
-                } else if (furnlesRec.lnumb == -2) {
+                } else if (side == -2) {
                     side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
                 }
             }
-            if (side == 1) el = elStvorka.root().mapFrame.get(LayoutArea.BOTTOM);
-            else if (side == 2) el = elStvorka.root().mapFrame.get(LayoutArea.RIGHT);
-            else if (side == 3) el = elStvorka.root().mapFrame.get(LayoutArea.TOP);
-            else if (side == 4) el = elStvorka.root().mapFrame.get(LayoutArea.LEFT);
+            if (side == 1) {
+                el = areaStvorka.root().mapFrame.get(LayoutArea.BOTTOM);
+            } else if (side == 2) {
+                el = areaStvorka.root().mapFrame.get(LayoutArea.RIGHT);
+            } else if (side == 3) {
+                el = areaStvorka.root().mapFrame.get(LayoutArea.TOP);
+            } else if (side == 4) {
+                el = areaStvorka.root().mapFrame.get(LayoutArea.LEFT);
+            }
 
-            float width = el.getSpecificationRec().width - 2 * el.artiklRec.asizn;
-            if (furnlesRec.lmaxl < width || (furnlesRec.lminl > width)) return false;
-
+            float width = el.specificationRec.width - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+            if (furnside2Rec.getInt(eFurnside2.len_max) < width || (furnside2Rec.getInt(eFurnside2.len_min) > width)) {
+                return false;
+            }
         }
         //Фильтр параметров
-        List<Record> parfursList = Parfurs.find(furndetRec.getInt(eFurndet.fincb));
-        if (calc.paramSpecific.checkParfurs(hmParam, elStvorka, parfursList) == false) return false; //параметры детализации
-
+        List<Record> parfursList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
+        
+        ElemFrame elemFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
+        
+        if (furnitureDet.check(hmParam, areaStvorka, parfursList) == false) {
+            return false; //параметры детализации
+        }
         //Наборы
-        if ("НАБОР".equals(furndetRec.anumb)) {
+        if (furndetRec.getInt(eFurndet.isset) == 1) {
             int count2 = (hmParam.get(24030) == null) ? 1 : Integer.valueOf((hmParam.get(24030)));
-            Furnlst furnlstRec2 = Furnlst.find2(furndetRec.clnum);
+            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.color_fk));
             try {
-                fittingMidle(elStvorka, furnlstRec2, count2); //рекурсия обработки наборов
+                middle(areaStvorka, furnitureRec, count2); //рекурсия обработки наборов
             } catch (Exception e) {
                 System.err.println("Ошибка CalcConstructiv.fittingMidle() " + e);
             }
 
-        } else if (calc.paramSpecific.pass == 2) {
+        } else if (pass == 2) {
             //Спецификация
-            Artikls artikl = Artikls.get(furndetRec.anumb, false);
-            if (artikl != null && furndetRec.anumb.charAt(0) != '@') {
+            Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
+            if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
-                Specification specif = new Specification(artikl, elStvorka, hmParam);
-                specif.count = Integer.valueOf(specif.mapParam(specif.count, 24030));
-                specif.count = specif.count * count;
-                specif.setColor(this, elStvorka, furndetRec);
-                specif.element = "FURN";
-                elStvorka.addSpecifSubelem(specif); //добавим спецификацию в элемент
+//                Specification specif = new Specification(artiklRec, areaStvorka, hmParam);
+//                specif.count = Integer.valueOf(specif.mapParam(specif.count, 24030));
+//                specif.count = specif.count * count;
+//                specif.setColor(this, areaStvorka, furndetRec);
+//                specif.element = "FURN";
+//                areaStvorka.addSpecifSubelem(specif); //добавим спецификацию в элемент
             }
             return true;
-        }*/
+        }
         return true;
-    }    
+    }
 }

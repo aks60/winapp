@@ -7,7 +7,7 @@ package enums;
 
 import static enums.UseSide.values;
 
-//Стороны фурнитуры
+//Стороны фурнитуры/ Внимание! Номера LayoutFurn1.id привязаны к LayoutArea.id  
 public enum LayoutFurn1 implements Enam {
     P1(1, "Нижняя"),
     P2(2, "Правая"),

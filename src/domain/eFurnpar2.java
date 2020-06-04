@@ -1,13 +1,17 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eFurnpar2 implements Field {
     up("0", "0", "0", "Парам.спецификаций фурнитуры", "PARFURS"),
-    id("4", "10", "0", "Идентификатор", "id"),     
+    id("4", "10", "0", "Идентификатор", "id"),
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметр", "PTEXT"),
@@ -21,6 +25,13 @@ public enum eFurnpar2 implements Field {
         meta.init(p);
     }
 
+    public static Query query() {
+        if (query.size() == 0) {
+            query.select(up, "order by", id);
+        }
+        return query;
+    }
+
     public MetaField meta() {
         return meta;
     }
@@ -29,13 +40,14 @@ public enum eFurnpar2 implements Field {
         return values();
     }
 
-        public static Query query() {
-        if (query.size() == 0) {
-            query.select(up, "order by", id);
+    public static List<Record> find(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(furndet_id) == _id).collect(Collectors.toList());
         }
-        return query;
+        Query recordList = new Query(values()).select(up, "where", furndet_id, "=", _id);
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
-
+    
     public String toString() {
         return meta.descr();
     }

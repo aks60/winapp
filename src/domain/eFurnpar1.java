@@ -5,9 +5,9 @@ import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eFurnside1.furniture_id;
-import static domain.eFurnside1.up;
-import static domain.eFurnside1.values;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eFurnpar1 implements Field {
     up("0", "0", "0", "Параметры огр.сторон фурнитуры", "PARFURL"),
@@ -40,12 +40,12 @@ public enum eFurnpar1 implements Field {
         return query;
     }
 
-    public static Record find(int _id) {
+    public static List<Record> find(int _id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(furnside_id) == _id).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> rec.getInt(furnside_id) == _id).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", furnside_id, "=", _id);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
     
     public String toString() {

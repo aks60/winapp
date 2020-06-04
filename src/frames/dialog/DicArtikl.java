@@ -31,7 +31,7 @@ public class DicArtikl extends javax.swing.JDialog {
         setVisible(true);
     }
 
-    public DicArtikl(java.awt.Frame parent, DialogListener listenet, int level1, int level2, int furnId) {
+    public DicArtikl(java.awt.Frame parent, DialogListener listenet, int furnId, int level1, int level2) {
         super(parent, true);
         initComponents();
         initElements();

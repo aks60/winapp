@@ -1,5 +1,6 @@
 package enums;
 
+//Вид со стороны изделия по умолчанию
 public enum LayoutFrame implements Enam {
     P1(0, "Изнутри"),
     P2(1, "Снаружи"),

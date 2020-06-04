@@ -16,7 +16,7 @@ public class FurnitureVar extends Par5s {
         super(iwin);
     }
 
-    public boolean furniture(ElemSimple elem5e, List<Record> tableList) {
+    public boolean check(ElemSimple elem5e, List<Record> tableList) {
 
         //Цикл по параметрам фурнитуры
         for (Record paramRec : tableList) {
