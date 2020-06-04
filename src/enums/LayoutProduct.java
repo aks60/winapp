@@ -1,7 +1,7 @@
 package enums;
 
 //Вид со стороны изделия по умолчанию
-public enum LayoutFrame implements Enam {
+public enum LayoutProduct implements Enam {
     P1(0, "Изнутри"),
     P2(1, "Снаружи"),
     P3(2, "Со стороны открывания");
@@ -9,7 +9,7 @@ public enum LayoutFrame implements Enam {
     public int id;
     public String name;
 
-    LayoutFrame(int id, String name) {
+    LayoutProduct(int id, String name) {
         this.id = id;
         this.name = name;
     }

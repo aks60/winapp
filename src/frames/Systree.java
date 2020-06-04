@@ -25,7 +25,7 @@ import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
-import enums.LayoutFrame;
+import enums.LayoutProduct;
 import enums.LayoutHandle;
 import enums.TypeArtikl;
 import enums.UseSide;
@@ -251,7 +251,7 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.col3, txtField5);
         rsvSystree.add(eSystree.id, txtField6);
         rsvSystree.add(eSystree.pref, txtField10);
-        rsvSystree.add(eSystree.imgview, txtField11, LayoutFrame.values());
+        rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
         rsvSystree.add(eSystree.nuni, txtField12);
 
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
@@ -1407,7 +1407,7 @@ public class Systree extends javax.swing.JFrame {
                 }
             }
         };
-        new DicEnums(this, listenerBtn11, LayoutFrame.values());
+        new DicEnums(this, listenerBtn11, LayoutProduct.values());
     }//GEN-LAST:event_btnField11
 
     private void btnField7(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField7

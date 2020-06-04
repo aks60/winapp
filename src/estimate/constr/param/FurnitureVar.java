@@ -27,7 +27,7 @@ public class FurnitureVar extends Par5s {
             switch (paramRec.getInt(GRUP)) {
                 
                 case 21001:  //Форма контура 
-                    if (TypeElem.STVORKA == elem5e.type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
+                    if (TypeElem.STVORKA == elem5e.owner().type() && "прямоугольная".equals(paramRec.getStr(TEXT)) == false) {
                         return false;
                     }
                     break;
