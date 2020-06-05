@@ -17,16 +17,16 @@ public enum UseColcalc implements Enam {
     P50(50, "Параметр"),
     P60(60, "Параметр и серия");
 
-    public String id;
+    public int id;
     public String name;
 
     private UseColcalc(int id, String name) {
-        this.id = String.valueOf(id);
+        this.id = id;
         this.name = name;
     }
 
     public int numb() {
-        return Integer.valueOf(id);
+        return id;
     }
 
     public String text() {

@@ -28,7 +28,7 @@ public enum TypeOpen1 implements Enam {
     }
 
     public int numb() {
-        return Integer.valueOf(id);
+        return id;
     }
 
     public String text() {

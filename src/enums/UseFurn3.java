@@ -23,7 +23,7 @@ public enum UseFurn3 implements Enam {
     }
 
     public int numb() {
-        return Integer.valueOf(id);
+        return id;
     }
 
     public String text() {

@@ -174,6 +174,7 @@ public class ElementDet extends Par5s {
                     case 34099:  //Трудозатраты, ч/ч.
                     case 38099:  //Трудозатраты, ч/ч. 
                     case 39099:  //Трудозатраты, ч/ч. 
+                        message(grup, rec.getStr(TEXT));
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34001:  //Если признак состава 

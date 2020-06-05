@@ -14,7 +14,7 @@ public class DicColvar extends javax.swing.JDialog {
     private DialogListener listener = null;
     private int colorFk = 0;
     String[] titl = {"Наименование"};
-    String[][] rows;
+    Object[][] rows;
 
     public DicColvar(java.awt.Frame parent, DialogListener listenet, int colorFk) {
         super(parent, true);
@@ -31,17 +31,17 @@ public class DicColvar extends javax.swing.JDialog {
         if (colorFk != -1) {
 
             if (colorFk == 0 || colorFk == 100) {
-                rows = new String[][]{{UseColcalc.P11.name, UseColcalc.P11.id},
+                rows = new Object[][]{{UseColcalc.P11.name, UseColcalc.P11.id},
                 {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
                 {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
                 {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
 
             } else if (colorFk > 0) {
-                rows = new String[][]{{UseColcalc.P00.name, UseColcalc.P00.id}};
+                rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id}};
                 ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             } else {
-                rows = new String[][]{{UseColcalc.P00.name, UseColcalc.P00.id}, {UseColcalc.P11.name, UseColcalc.P11.id},
+                rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id}, {UseColcalc.P11.name, UseColcalc.P11.id},
                 {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
                 {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
                 {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};

@@ -26,7 +26,7 @@ public enum LayoutArea implements Enam {
     }
 
     public int numb() {
-        return this.ordinal();
+        return id;
     }
 
     public String text() {
@@ -36,8 +36,4 @@ public enum LayoutArea implements Enam {
     public Enam[] fields() {
         return values();
     }
-
-//    public static LayoutArea find(int side) {
-//      return Arrays.asList(values()).stream().filter(it -> it.id == side).findFirst().orElse(null);
-//    }
 }

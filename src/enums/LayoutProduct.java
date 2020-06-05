@@ -15,7 +15,7 @@ public enum LayoutProduct implements Enam {
     }
 
     public int numb() {
-        return this.ordinal();
+        return id;
     }
 
     public String text() {

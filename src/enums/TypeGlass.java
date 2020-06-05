@@ -21,7 +21,7 @@ public enum TypeGlass implements Enam {
     }
 
     public int numb() {
-        return Integer.valueOf(id);
+        return id;
     }
 
     public String text() {

@@ -65,12 +65,12 @@ public class ElemFrame extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
-        specificationRec.place = layout().name;
+        specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
         /*
         float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
-        specificationRec.color1 = color1;
+        specificationRec.color1 = color1;0
         specificationRec.color2 = color2;
         specificationRec.color3 = color3;
         specificationRec.discount = 0;

@@ -25,57 +25,62 @@ public class FillingVar extends Par5s {
                 return false;
             }
             int grup = rec.getInt(GRUP);
-            switch (grup) {
-                case 13001:  //Если признак состава 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 13003:  //Тип проема 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 13005:  //Заполнение типа 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 13014:  //Угол ориентации стороны, ° 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 13015:  //Форма заполнения 
-                    //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное"
-                    message(grup, elem5e.type(), elem5e.owner().type(), rec.getStr(TEXT));
-                    if ("Прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
-                        return false;
-                    } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == true)) {
-                        return false;
-                    } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
-                        return false;
-                    } else if ("Не арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
-                        return false;
-                    }
-                    break;
-                case 13017:  //Код системы содержит строку 
-                    Record sysprofRec = eSystree.find(iwin.nuni);
-                    if (sysprofRec.getStr(eSystree.pref).contains(rec.getStr(TEXT)) == false) {
-                        return false;
-                    }
-                    break;
-                case 13081:  //Для внешнего/внутреннего угла плоскости, ° 
-                    message(rec.getInt(GRUP), "Проверка в заполнении ломаного фасада");
-                    break;
-                case 13095:  //Если признак системы конструкции 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 13098:  //Бригада, участок) 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 13097:  //Трудозатраты по длине 
-                    message(rec.getInt(GRUP));
-                    break;
-                case 13099:  //Трудозатраты, ч/ч. 
-                    message(grup, rec.getStr(TEXT));
-                    elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
-                    break;
-                default:
-                    message(rec.getInt(GRUP));
-                    break;
+            try {
+                switch (grup) {
+                    case 13001:  //Если признак состава 
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 13003:  //Тип проема 
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 13005:  //Заполнение типа 
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 13014:  //Угол ориентации стороны, ° 
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 13015:  //Форма заполнения 
+                        //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное"
+                        message(grup, elem5e.type(), elem5e.owner().type(), rec.getStr(TEXT));
+                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
+                            return false;
+                        } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == true)) {
+                            return false;
+                        } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
+                            return false;
+                        } else if ("Не арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
+                            return false;
+                        }
+                        break;
+                    case 13017:  //Код системы содержит строку 
+                        Record sysprofRec = eSystree.find(iwin.nuni);
+                        if (sysprofRec.getStr(eSystree.pref).contains(rec.getStr(TEXT)) == false) {
+                            return false;
+                        }
+                        break;
+                    case 13081:  //Для внешнего/внутреннего угла плоскости, ° 
+                        message(rec.getInt(GRUP), "Проверка в заполнении ломаного фасада");
+                        break;
+                    case 13095:  //Если признак системы конструкции 
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 13098:  //Бригада, участок) 
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 13097:  //Трудозатраты по длине 
+                        message(rec.getInt(GRUP));
+                        break;
+                    case 13099:  //Трудозатраты, ч/ч. 
+                        message(grup, rec.getStr(TEXT));
+                        elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
+                        break;
+                    default:
+                        message(rec.getInt(GRUP));
+                        break;
+                }
+            } catch (Exception e) {
+                System.out.println("wincalc.constr.param.FillingVar.check()  parametr=" + grup + "    " + e);
+                return false;
             }
         }
         return true;

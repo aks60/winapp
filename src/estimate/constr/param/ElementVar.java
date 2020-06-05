@@ -25,6 +25,7 @@ public class ElementVar extends Par5s {
 
     public boolean check(ElemSimple elem5e, List<Record> paramList) {
 
+        
         //Цикл по параметрам состава
         for (Record rec : paramList) {
             if (filterParamDef(rec) == false) {
