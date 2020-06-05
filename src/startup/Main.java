@@ -1,4 +1,4 @@
-package satrtup;
+package startup;
 
 import common.FrameListener;
 import common.FrameProgress;

@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 import javax.swing.JTextField;
-import satrtup.Main;
+import startup.Main;
 
 /**
  * 

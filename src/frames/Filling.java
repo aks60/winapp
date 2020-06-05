@@ -39,7 +39,7 @@ import enums.UseColcalc;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
-import satrtup.Main;
+import startup.Main;
 import frames.swing.BooleanRenderer;
 import java.util.stream.Collectors;
 

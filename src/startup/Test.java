@@ -1,4 +1,4 @@
-package satrtup;
+package startup;
 
 import estimate.constr.Specification;
 import common.*;

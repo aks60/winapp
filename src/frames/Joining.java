@@ -42,7 +42,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
-import satrtup.Main;
+import startup.Main;
 
 //варианты соединений
 public class Joining extends javax.swing.JFrame {

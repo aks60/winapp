@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
-import satrtup.Main;
+import startup.Main;
 
 /**
  * <p>

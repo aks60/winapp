@@ -1,4 +1,4 @@
-package satrtup;
+package startup;
 
 import dataset.ConnApp;
 import dataset.eExcep;

@@ -1,4 +1,4 @@
-package satrtup;
+package startup;
 
 import common.FrameToFile;
 import common.eProfile;

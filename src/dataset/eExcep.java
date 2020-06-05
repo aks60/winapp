@@ -1,6 +1,6 @@
 package dataset;
 
-import satrtup.Main;
+import startup.Main;
 import java.util.HashSet;
 
 /**
