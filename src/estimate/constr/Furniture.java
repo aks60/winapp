@@ -175,7 +175,7 @@ public class Furniture extends Cal5e {
 //            return false; //параметры детализации
 //        }
         //Наборы
-        if (furndetRec.getInt(eFurndet.isset) == 1) {
+        if (furndetRec.getInt(eFurndet.furniture_id2) > 0) {
             int count2 = (hmParam.get(24030) == null) ? 1 : Integer.valueOf((hmParam.get(24030)));
             Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.color_fk));
             try {

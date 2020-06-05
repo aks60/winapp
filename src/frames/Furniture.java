@@ -169,8 +169,8 @@ public class Furniture extends javax.swing.JFrame {
                     }
 
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet1.getAs(row, eFurndet.isset, 0);
-                    if (isset == 1) {
+                    int isset = qFurndet1.getAs(row, eFurndet.furniture_id2, 0);
+                    if (isset > 0) {
                         return "Набор";
                     }
                     if (val != null) {
@@ -222,8 +222,8 @@ public class Furniture extends javax.swing.JFrame {
                         return null;
                     }
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet2.getAs(row, eFurndet.isset, 0);
-                    if (isset == 1) {
+                    int isset = qFurndet2.getAs(row, eFurndet.furniture_id2, 0);
+                    if (isset > 0) {
                         return "Набор";
                     }
                     if (val != null) {
@@ -275,8 +275,8 @@ public class Furniture extends javax.swing.JFrame {
                         return null;
                     }
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet3.getAs(row, eFurndet.isset, 0);
-                    if (isset == 1) {
+                    int isset = qFurndet3.getAs(row, eFurndet.furniture_id2, 0);
+                    if (isset > 0) {
                         return "Набор";
                     }
                     if (val != null) {
