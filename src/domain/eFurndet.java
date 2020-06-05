@@ -17,7 +17,8 @@ public enum eFurndet implements Field {
     furndet_id("4", "10", "0", "Ссылка", "FINCS"),
     color_fk("4", "10", "1", "Ссылка", "CLNUM"),
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
-    furniture_id("4", "10", "0", "Ссылка", "furniture_id");
+    furniture_id1("4", "10", "0", "Ссылка", "furniture_id1"),
+    furniture_id2("4", "10", "1", "Ссылка", "furniture_id2");
     //FINCB Первичный ключ
     //CTYPE -> 0 - указана, 273 - на основе изделия, 546 - по внутр. изделия, 
     //        799 - по заполнению (зависимая?) 801 - по основе изделия, 
@@ -48,9 +49,9 @@ public enum eFurndet implements Field {
 
     public static List<Record> find(int _id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(furniture_id) == _id).collect(Collectors.toList());
+            return query().stream().filter(rec -> rec.getInt(furniture_id1) == _id).collect(Collectors.toList());
         }
-        Query recordList = new Query(values()).select(up, "where", furniture_id, "=", _id);
+        Query recordList = new Query(values()).select(up, "where", furniture_id1, "=", _id);
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
 

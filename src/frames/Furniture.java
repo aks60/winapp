@@ -462,7 +462,7 @@ public class Furniture extends javax.swing.JFrame {
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
-            qFurndet1.select(eFurndet.up, "where", eFurndet.furniture_id, "=", id, "and", eFurndet.id, "=", eFurndet.furndet_id);
+            qFurndet1.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.id, "=", eFurndet.furndet_id);
 
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -1211,15 +1211,15 @@ public class Furniture extends javax.swing.JFrame {
             Util.insertRecord(tab1, eFurniture.up);
 
         } else if (tab2a.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2a, eFurniture.up, eFurndet.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2a, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
             record.set(eFurndet.furndet_id, record.getInt(eFurndet.id));
 
         } else if (tab2b.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2b, eFurniture.up, eFurndet.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2b, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
             record.set(eFurndet.furndet_id, qFurndet1.get(Util.getSelectedRec(tab2a), eFurndet.id));
 
         } else if (tab2c.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, tab2c, eFurniture.up, eFurndet.up, eFurndet.furniture_id);
+            Record record = Util.insertRecord(tab1, tab2c, eFurniture.up, eFurndet.up, eFurndet.furniture_id1);
             record.set(eFurndet.furndet_id, qFurndet2.get(Util.getSelectedRec(tab2b), eFurndet.id));
 
         } else if (tab3.getBorder() != null) {
