@@ -119,6 +119,8 @@ public class ElemFrame extends ElemSimple {
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
 
+            specif.place = "СОСТ." + layout().name.substring(0, 1);
+            
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
                 specif.width = x2 - x1;
 

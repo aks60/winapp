@@ -248,7 +248,7 @@ public class Specification {
 
     public static void write_txt2(ArrayList<Specification> specList) {
 
-        Specification.sort(specList);
+        Collections.sort(specList, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
         int npp = 0;
         String format = "%-6s%-16s%-60s%-26s%-12s%-12s%-12s";
         Object str[] = {"Npp", "Place", "Name", "Code", "areaId", "elemId", "owner"};
@@ -263,14 +263,6 @@ public class Specification {
             System.out.println();
         }
         System.out.println("Масса окна " + total + " кг.");
-    }
-
-    public static void sort(ArrayList<Specification> contacts) {
-        Collections.sort(contacts, new Comparator<Specification>() {
-            public int compare(Specification one, Specification other) {
-                return one.name.compareTo(other.name);
-            }
-        });
     }
 
     public static void sort2(ArrayList<Specification> contacts) {

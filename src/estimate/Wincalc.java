@@ -110,6 +110,7 @@ public class Wincalc {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }
+            Collections.sort(listSpec, (o1, o2) -> o1.place.compareTo(o2.place));
         } catch (Exception e) {
             System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);
         }

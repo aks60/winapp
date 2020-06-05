@@ -78,7 +78,7 @@ public class ElemGlass extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {
 
-        specificationRec.place = layout().name;  
+        specificationRec.place = "ЗАП";  
         float gzazo = (mapFieldVal.get("GZAZO") != null) ?Float.valueOf(mapFieldVal.get("GZAZO")) :0;
         if (owner() instanceof AreaArch) { //если арка
 

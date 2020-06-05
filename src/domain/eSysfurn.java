@@ -45,7 +45,7 @@ public enum eSysfurn implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", id);
+            query.select(up, "order by", npp);
         }
         return query;
     }
@@ -54,7 +54,7 @@ public enum eSysfurn implements Field {
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).collect(Collectors.toList());
         }
-        Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni);
+        Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", npp);
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
 

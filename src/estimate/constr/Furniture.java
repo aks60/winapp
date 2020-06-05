@@ -76,15 +76,10 @@ public class Furniture extends Cal5e {
                 for (Record furnside1Rec : furnside1List) {
                     List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
                     ElemFrame elemFrame2 = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
-                    
-                    out = furnitureVar.check(elemFrame2, parfurlList); //ФИЛЬТР вариантов
-                    if (out == false) {
-                        break;
-                        //continue outterLoop; //проверить!!!
+
+                    if (furnitureVar.check(elemFrame2, parfurlList) == false) { //ФИЛЬТР вариантов
+                        continue outterLoop; //проверить!!!
                     }
-                }
-                if (out == false) {
-                    continue;
                 }
                 middle(elemFrame, furnityreRec, 1);
             }
@@ -126,59 +121,59 @@ public class Furniture extends Cal5e {
         }
         HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
 
-        //Подбор текстуры ручки
-        if (furndetRec.getInt(eFurndet.isset) == 0) {
-            Record artiklRec = eArtikl.find(furndetRec.getInt(eArtikl.id), false);
-            if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
-
-                int colorHandl = (elemFrame.mapParamUse.get(ParamJson.colorHandl) == null) ? iwin().colorNone : Integer.valueOf(elemFrame.mapParamUse.get(ParamJson.colorHandl).toString());
-                if (furndetRec.getInt(eFurndet.color_fk) > 0) {
-                    boolean empty = true;
-                    List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
-                    for (Record artdetRec : artdetList) {
-                        if (artdetRec.getInt(eArtdet.color_fk) == colorHandl) {
-                            empty = false;
-                        }
-                    }
-                    if (empty == true) {
-                        return false;
-                    }
-                }
-            }
-        }
-        //Цикл по ограничению сторон фурнитуры
-        List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
-        for (Record furnside2Rec : furnside2List) {
-
-            ElemFrame el = null;
-            int side = furnside2Rec.getInt(eFurnside2.side_num);
-            if (side < 0) {
-                String[] par = sideCheck.split("/");
-                if (side == -1) {
-                    side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
-                } else if (side == -2) {
-                    side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
-                }
-            }
-            if (side == 1) {
-                el = elemFrame.root().mapFrame.get(LayoutArea.BOTTOM);
-            } else if (side == 2) {
-                el = elemFrame.root().mapFrame.get(LayoutArea.RIGHT);
-            } else if (side == 3) {
-                el = elemFrame.root().mapFrame.get(LayoutArea.TOP);
-            } else if (side == 4) {
-                el = elemFrame.root().mapFrame.get(LayoutArea.LEFT);
-            }
-
-            float width = el.specificationRec.width - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
-            if (furnside2Rec.getInt(eFurnside2.len_max) < width || (furnside2Rec.getInt(eFurnside2.len_min) > width)) {
-                return false;
-            }
-        }
-        List<Record> parfursList = eFurnpar2.find(furndetRec.getInt(eFurndet.id)); //ФИЛЬТР детализации
-        if (furnitureDet.check(hmParam, elemFrame, parfursList) == false) {
-            return false; //параметры детализации
-        }
+//        //Подбор текстуры ручки
+//        if (furndetRec.getInt(eFurndet.isset) == 0) {
+//            Record artiklRec = eArtikl.find(furndetRec.getInt(eArtikl.id), false);
+//            if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
+//
+//                int colorHandl = (elemFrame.mapParamUse.get(ParamJson.colorHandl) == null) ? iwin().colorNone : Integer.valueOf(elemFrame.mapParamUse.get(ParamJson.colorHandl).toString());
+//                if (furndetRec.getInt(eFurndet.color_fk) > 0) {
+//                    boolean empty = true;
+//                    List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
+//                    for (Record artdetRec : artdetList) {
+//                        if (artdetRec.getInt(eArtdet.color_fk) == colorHandl) {
+//                            empty = false;
+//                        }
+//                    }
+//                    if (empty == true) {
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//        //Цикл по ограничению сторон фурнитуры
+//        List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
+//        for (Record furnside2Rec : furnside2List) {
+//
+//            ElemFrame el = null;
+//            int side = furnside2Rec.getInt(eFurnside2.side_num);
+//            if (side < 0) {
+//                String[] par = sideCheck.split("/");
+//                if (side == -1) {
+//                    side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
+//                } else if (side == -2) {
+//                    side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
+//                }
+//            }
+//            if (side == 1) {
+//                el = elemFrame.root().mapFrame.get(LayoutArea.BOTTOM);
+//            } else if (side == 2) {
+//                el = elemFrame.root().mapFrame.get(LayoutArea.RIGHT);
+//            } else if (side == 3) {
+//                el = elemFrame.root().mapFrame.get(LayoutArea.TOP);
+//            } else if (side == 4) {
+//                el = elemFrame.root().mapFrame.get(LayoutArea.LEFT);
+//            }
+//
+//            float width = el.specificationRec.width - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+//            if (furnside2Rec.getInt(eFurnside2.len_max) < width || (furnside2Rec.getInt(eFurnside2.len_min) > width)) {
+//                return false;
+//            }
+//        }
+//        List<Record> parfursList = eFurnpar2.find(furndetRec.getInt(eFurndet.id)); 
+//        if (furnitureDet.check(hmParam, elemFrame, parfursList) == false) { //ФИЛЬТР детализации
+//            return false; //параметры детализации
+//        }
         //Наборы
         if (furndetRec.getInt(eFurndet.isset) == 1) {
             int count2 = (hmParam.get(24030) == null) ? 1 : Integer.valueOf((hmParam.get(24030)));
