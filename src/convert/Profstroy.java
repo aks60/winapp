@@ -97,9 +97,9 @@ public class Profstroy {
             eCurrenc.up, eGroups.up
         };
         try {
-            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3b.fdb?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3b.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Alutex3\\aluteh.fdb?encoding=win1251";
-            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
             String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbas\\BASE.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
@@ -459,8 +459,9 @@ public class Profstroy {
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
             executeSql("update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000");
             executeSql("update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            executeSql("update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (0) END)");
-            executeSql("update furndet set furndet_id = id where furniture_id2 > 0");
+            executeSql(3, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (0) END)");
+            executeSql(4, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (0) END)");
+            executeSql("update furndet set color_fk = null where furniture_id2 > 0");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");

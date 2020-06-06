@@ -116,9 +116,9 @@ public class Furniture extends Cal5e {
     }
 
     protected boolean detail(ElemFrame elemFrame, Record furndetRec, int count) {
-        if (furndetRec.getInt(eFurndet.artikl_id) == -1) {
-            return false;
-        }
+//        if (furndetRec.getInt(eFurndet.artikl_id) == -1) {
+//            return false;
+//        }
         HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
 
 //        //Подбор текстуры ручки
@@ -177,7 +177,7 @@ public class Furniture extends Cal5e {
         //Наборы
         if (furndetRec.getInt(eFurndet.furniture_id2) > 0) {
             int count2 = (hmParam.get(24030) == null) ? 1 : Integer.valueOf((hmParam.get(24030)));
-            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.color_fk));
+            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
             try {
                 middle(elemFrame, furnitureRec, count2); //рекурсия обработки наборов
             } catch (Exception e) {

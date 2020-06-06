@@ -462,7 +462,7 @@ public class Furniture extends javax.swing.JFrame {
             Record record = qFurniture.table(eFurniture.up).get(row);
             Integer id = record.getInt(eFurniture.id);
             qFurnside1.select(eFurnside1.up, "where", eFurnside1.furniture_id, "=", id, "order by", eFurnside1.side_num);
-            qFurndet1.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.id, "=", eFurndet.furndet_id);
+            qFurndet1.select(eFurndet.up, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "= 0");
 
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
