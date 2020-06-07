@@ -92,7 +92,7 @@ public class Furniture extends Cal5e {
         //Цыкл по детализации (уровень 1)
         List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
         for (Record furndetRec1 : furndetList) {
-            if (furndetRec1.getInt(eFurndet.furndet_id) == 0) {
+            if (furndetRec1.getInt(eFurndet.furndet_id) == 0 && furndetRec1.get(eFurndet.furniture_id2) == null) {
                 boolean level1 = detail(elemFrame, furndetRec1, count);
                 if (level1 == true) {
 
