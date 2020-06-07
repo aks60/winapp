@@ -20,7 +20,7 @@ public class Test {
         try {
             //convert.Profstroy.script();
             //query();
-            //wincalc();
+            wincalc();
             //frame();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
