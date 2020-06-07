@@ -55,6 +55,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qFurnall = new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name);
     private Query qFurniture = new Query(eFurniture.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qFurndet1 = new Query(eFurndet.values());
@@ -84,7 +85,7 @@ public class Furniture extends javax.swing.JFrame {
         initComponents();
         initElements();
         this.owner = owner;
-        this.nuni = nuni;        
+        this.nuni = nuni;
         listenerCell();
         loadingData();
         loadingModel();
@@ -98,7 +99,7 @@ public class Furniture extends javax.swing.JFrame {
         qParams.select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text); //TODO отключил фильтр, а это неправильно
         //qParams.select(eParams.up, "where", eParams.furn, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         if (owner == null) {
-            qFurniture.select(eFurniture.up, "where", eFurniture.types, "= 0", "order by", eFurniture.name);
+            qFurniture.addAll(qFurnall);
         } else {
             Query query = new Query(eSysfurn.furniture_id).select(eSysfurn.up, "where", eSysfurn.systree_id, "=", nuni).table(eSysfurn.up);
             query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysfurn.furniture_id));
@@ -140,6 +141,7 @@ public class Furniture extends javax.swing.JFrame {
                     Table query2 = qFurndet1.table(columns[columnIndex]);
                     Object val = query2.get(rowIndex, columns[columnIndex]);
                     return getValueAt(columnIndex, rowIndex, val);
+                    //return (val != null) ? getValueAt(columnIndex, rowIndex, val) : null;
                 }
                 return null;
             }
@@ -159,28 +161,20 @@ public class Furniture extends javax.swing.JFrame {
                     } else {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
-
+                    
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    if (UseColcalc.P00.find(types) != null) {
-                        return UseColcalc.P00.find(types).text();
-                    } else {
-                        return null;
-                    }
+                    return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
 
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet1.getAs(row, eFurndet.furniture_id2, 0);
-                    if (isset > 0) {
-                        return "Набор";
-                    }
-                    if (val != null) {
+                    if (qFurndet1.get(row, eFurndet.furniture_id2) != null) {
+                        int furniture_id2 = qFurndet1.getAs(row, eFurndet.furniture_id2);
+                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                        return (col == 0) ? "Набор" : name;
+                    } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
                         Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
-                        if (col == 0) {
-                            return recordArt.getStr(eArtikl.code);
-                        } else if (col == 1) {
-                            return recordArt.getStr(eArtikl.name);
-                        }
+                        return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
                     }
                 }
                 return val;
@@ -204,7 +198,6 @@ public class Furniture extends javax.swing.JFrame {
                     int colorFk = Integer.valueOf(val.toString());
                     if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
                         return UseColcalc.automatic[1];
-
                     } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
                         return UseColcalc.precision[1];
                     }
@@ -213,27 +206,20 @@ public class Furniture extends javax.swing.JFrame {
                     } else {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
+                    
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
+                    return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
 
-                    if (UseColcalc.P00.find(types) != null) {
-                        return UseColcalc.P00.find(types).text();
-                    } else {
-                        return null;
-                    }
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet2.getAs(row, eFurndet.furniture_id2, 0);
-                    if (isset > 0) {
-                        return "Набор";
-                    }
-                    if (val != null) {
+                    if (qFurndet2.get(row, eFurndet.furniture_id2) != null) {
+                        int furniture_id2 = qFurndet2.getAs(row, eFurndet.furniture_id2);
+                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                        return (col == 0) ? "Набор" : name;
+                    } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
                         Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
-                        if (col == 0) {
-                            return recordArt.getStr(eArtikl.code);
-                        } else if (col == 1) {
-                            return recordArt.getStr(eArtikl.name);
-                        }
+                        return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
                     }
                 }
                 return val;
@@ -257,7 +243,6 @@ public class Furniture extends javax.swing.JFrame {
                     int colorFk = Integer.valueOf(val.toString());
                     if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
                         return UseColcalc.automatic[1];
-
                     } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
                         return UseColcalc.precision[1];
                     }
@@ -266,27 +251,20 @@ public class Furniture extends javax.swing.JFrame {
                     } else {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
+                    
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
+                    return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
 
-                    if (UseColcalc.P00.find(types) != null) {
-                        return UseColcalc.P00.find(types).text();
-                    } else {
-                        return null;
-                    }
                 } else if (eFurndet.artikl_id == field) {
-                    int isset = qFurndet3.getAs(row, eFurndet.furniture_id2, 0);
-                    if (isset > 0) {
-                        return "Набор";
-                    }
-                    if (val != null) {
+                    if (qFurndet3.get(row, eFurndet.furniture_id2) != null) {
+                        int furniture_id2 = qFurndet3.getAs(row, eFurndet.furniture_id2);
+                        String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+                        return (col == 0) ? "Набор" : name;
+                    } else if (val != null) {
                         int artikl_id = Integer.valueOf(val.toString());
                         Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
-                        if (col == 0) {
-                            return recordArt.getStr(eArtikl.code);
-                        } else if (col == 1) {
-                            return recordArt.getStr(eArtikl.name);
-                        }
+                        return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
                     }
                 }
                 return val;
@@ -1401,10 +1379,10 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         });
-         Util.getAllComponents(this.center).forEach(c -> {
-            if(c instanceof JPanel) {
-               ((JPanel) c).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1)); 
+        Util.getAllComponents(this.center).forEach(c -> {
+            if (c instanceof JPanel) {
+                ((JPanel) c).setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 1, 1, 1));
             }
-         });        
+        });
     }
 }
