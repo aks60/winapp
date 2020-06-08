@@ -124,7 +124,8 @@ public enum eArtikl implements Field {
     public static Record record() {
         Record record = query.newRecord(Query.SEL);
         record.setNo(id, -1);
-        record.setNo(name, "Рама");
+        record.setNo(name, "none");
+        record.setNo(code, "none");
         record.setNo(height, 60);
         record.setNo(size_centr, 30);
         record.setNo(tech_code, "");

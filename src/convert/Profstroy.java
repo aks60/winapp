@@ -389,7 +389,8 @@ public class Profstroy {
             deleteSql(eFurnside1.up, "funic", eFurniture.up, "funic");//furniture_id
             deleteSql(eFurnside2.up, "fincs", eFurndet.up, "id");
             deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id  
-            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id          
+            //deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id          
+            //deleteSql(eFurndet.up, "anumb", eArtikl.up, "code");//artikl_id          
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
             deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id
@@ -455,8 +456,8 @@ public class Profstroy {
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id");
-            updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
-            
+            updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");            
+            executeSql("update furndet set furndet_id = id where furndet_id = 0");
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
             executeSql(3, "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
             executeSql(4, "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");           
@@ -464,8 +465,7 @@ public class Profstroy {
             executeSql(4, "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             executeSql(3, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
             executeSql(4, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)");            
-            executeSql("update furndet set color_fk = null where furniture_id2 > 0");
-            
+            executeSql("update furndet set color_fk = null where furniture_id2 > 0");           
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");

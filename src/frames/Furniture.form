@@ -404,7 +404,7 @@
                             <Column editable="true" title="&#x421;&#x442;&#x432;&#x43e;&#x440;&#x43a;&#x430;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x418;&#x441;&#x43f;&#x43e;&#x43b;&#x44c;&#x437;. &#x43f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;&#x44b;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x41e;&#x433;&#x440;&#x430;&#x43d;&#x438;&#x447;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
-                            <Column editable="true" title="ID" type="java.lang.Object"/>
+                            <Column editable="true" title="ID" type="java.lang.Integer"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -742,7 +742,7 @@
                                       <Data value="11"/>
                                       <Data value="22"/>
                                     </Column>
-                                    <Column editable="true" title="ID" type="java.lang.Object"/>
+                                    <Column editable="true" title="ID" type="java.lang.Integer"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

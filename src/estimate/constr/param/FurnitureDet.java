@@ -23,7 +23,7 @@ public class FurnitureDet  extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> hmParam, ElemSimple elem5e, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> tableList) {
 
         if (filterParamJson(elem5e, tableList) == false) {
             return false; //параметры по умолчанию и I-OKNA
@@ -57,7 +57,7 @@ public class FurnitureDet  extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24006:  //Установить текстуру 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24007:  //Коды текстуры ручки 
                     message(rec.getInt(GRUP));
@@ -88,7 +88,7 @@ public class FurnitureDet  extends Par5s {
                     break;
                 case 24030:  //Количество 
                 case 25060:  //Количество     
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24032:  //Правильная полуарка 
                     message(rec.getInt(GRUP));
@@ -122,7 +122,7 @@ public class FurnitureDet  extends Par5s {
                 case 25038:  //Проверять Cторону_(L)/Cторону_(W)     
                     //Тут полные непонятки
                     sideCheck = rec.getStr(TEXT);
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24039:  //Створка заднего плана 
                     message(rec.getInt(GRUP));
@@ -146,7 +146,8 @@ public class FurnitureDet  extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 24068:  //Коды внутр. текстуры изделия 
-                    message(rec.getInt(GRUP));
+                    int c2 = elem5e.iwin().color2;
+                    if (compareInt(rec.getStr(TEXT), c2) == false) return false;
                     break;
                 case 24069:  //Коды внешн. текстуры изделия 
                 case 25069:  //Коды внешн. текстуры изделия     
@@ -165,16 +166,16 @@ public class FurnitureDet  extends Par5s {
                     break;
                 case 24072:  //Ручка от низа створки, мм 
                 case 25072:  //Ручка от низа створки, мм     
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24073:  //Петля от низа створки, мм 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24074:  //Петля по центру стороны 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24075:  //Петля от верха створки, мм 
-                    message(rec.getInt(GRUP));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24077:  //Смещение замка от ручки, мм 
                     message(rec.getInt(GRUP));
@@ -191,7 +192,7 @@ public class FurnitureDet  extends Par5s {
                 case 24099:  //Трудозатраты, ч/ч. 
                 case 25099:  //Трудозатраты, ч/ч.                    
                     message(grup, rec.getStr(TEXT));
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 24800:  //Код основной обработки) 
                 case 24801:  //Доп.основная обработка
@@ -226,7 +227,7 @@ public class FurnitureDet  extends Par5s {
                     break;                
                 case 25013:  //Укорочение от 
                 case 25030:  //Укорочение, мм 
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 25017:  //Код системы содержит строку 
                     message(rec.getInt(GRUP));
@@ -244,7 +245,7 @@ public class FurnitureDet  extends Par5s {
                     message(rec.getInt(GRUP));
                     break;
                 case 25040:  //Длина, мм 
-                    hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                    mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                     break;
                 case 25063:  //Диапазон веса, кг 
                     message(rec.getInt(GRUP));
