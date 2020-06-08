@@ -44,7 +44,7 @@ public class TestFrame extends javax.swing.JFrame {
             tab1.setModel(new DefaultTableModel(data, column));
 
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println("frames.TestFrame.selectionTab1() " + e);
         }
     }
 
@@ -52,7 +52,7 @@ public class TestFrame extends javax.swing.JFrame {
         try {
             int row = tab1.getSelectedRow();
             if (row != -1) {
-                Object id = tab1.getValueAt(row, 1);
+                Object id = tab1.getValueAt(row, 0);
                 sql2.setText("select * from furnspc where funic = " + id);
                 ResultSet rs = cn.createStatement().executeQuery(sql2.getText());
                 ResultSetMetaData rsmd = rs.getMetaData();
@@ -73,35 +73,35 @@ public class TestFrame extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println("frames.TestFrame.selectionTab2() " + e);
         }
     }
 
     private void selectionTab3() {
         try {
-            int row = tab2.getSelectedRow();
-            if (row != -1) {
-                Object id = tab2.getValueAt(row, 3);
-                sql3.setText("select * from furnspc where fincs = " + id);
-                ResultSet rs = cn.createStatement().executeQuery(sql3.getText());
-                ResultSetMetaData rsmd = rs.getMetaData();
-
-                Vector column = new Vector();
-                for (int i = 0; i < rsmd.getColumnCount(); ++i) {
-                    column.add(rsmd.getColumnName(i + 1));
-                }
-                Vector<Vector> data = new Vector();
-                while (rs.next()) {
-                    Vector vector = new Vector();
-                    for (int i = 0; i < column.size(); i++) {
-                        vector.add(rs.getObject(i + 1));
-                    }
-                    data.add(vector);
-                }
-                tab3.setModel(new DefaultTableModel(data, column));
-            }
+//            int row = tab2.getSelectedRow();
+//            if (row != -1) {
+//                Object id = tab2.getValueAt(row, 3);
+//                sql3.setText("select * from furnspc where fincs = " + id);
+//                ResultSet rs = cn.createStatement().executeQuery(sql3.getText());
+//                ResultSetMetaData rsmd = rs.getMetaData();
+//
+//                Vector column = new Vector();
+//                for (int i = 0; i < rsmd.getColumnCount(); ++i) {
+//                    column.add(rsmd.getColumnName(i + 1));
+//                }
+//                Vector<Vector> data = new Vector();
+//                while (rs.next()) {
+//                    Vector vector = new Vector();
+//                    for (int i = 0; i < column.size(); i++) {
+//                        vector.add(rs.getObject(i + 1));
+//                    }
+//                    data.add(vector);
+//                }
+//                tab3.setModel(new DefaultTableModel(data, column));
+//            }
         } catch (Exception e) {
-            System.err.println(e);
+            System.out.println("frames.TestFrame.selectionTab3() " + e);
         }
     }
 

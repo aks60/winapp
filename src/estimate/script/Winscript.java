@@ -26,7 +26,7 @@ public class Winscript {
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'funic':23}"));
+            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'funic':1634}"));
             area2.add(new Element(7, TypeElem.GLASS));
 
         } else if (project == 601002) { 
