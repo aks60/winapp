@@ -169,7 +169,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         btnSquare5 = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Типовые конструкции фиртуальных профилей");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -199,7 +199,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseClose(evt);
+                btnClose(evt);
             }
         });
 
@@ -685,9 +685,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCloseClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseClose
+    private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
         this.dispose();
-    }//GEN-LAST:event_btnCloseClose
+    }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
 
