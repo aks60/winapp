@@ -68,7 +68,7 @@ public class Filling extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.out.println("estimate.constr.Filling.calc() " + e);
+            System.err.println("estimate.constr.Filling.calc() " + e);
         }
     }
 
@@ -139,7 +139,7 @@ public class Filling extends Cal5e {
             }
             return true;
         } catch (Exception e) {
-            System.out.println("estimate.constr.Filling.detail() " + e);
+            System.err.println("estimate.constr.Filling.detail() " + e);
             return false;
         }
     }

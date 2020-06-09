@@ -79,7 +79,7 @@ public class FillingVar extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.out.println("wincalc.constr.param.FillingVar.check()  parametr=" + grup + "    " + e);
+                System.err.println("wincalc.constr.param.FillingVar.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }

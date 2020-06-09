@@ -442,7 +442,7 @@ public class ElementDet extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.out.println("wincalc.constr.param.ElementDet.check()  parametr=" + grup + "    " + e);
+                System.err.println("wincalc.constr.param.ElementDet.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }

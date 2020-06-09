@@ -353,7 +353,7 @@ public class ElementVar extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.out.println("wincalc.constr.param.ElementVar.check()  parametr=" + grup + "    " + e);
+                System.err.println("wincalc.constr.param.ElementVar.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }

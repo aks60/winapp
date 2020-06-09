@@ -23,6 +23,7 @@ import estimate.model.AreaStvorka;
 import estimate.model.ElemFrame;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 /**
  * Фурнитура
@@ -33,7 +34,7 @@ public class Furniture extends Cal5e {
     private FurnitureDet furnitureDet = null;
     private HashSet<Record> setFurndet = new HashSet();
     public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
-    public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
+    //public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
 
     public Furniture(Wincalc iwin) {
         super(iwin);
@@ -43,9 +44,6 @@ public class Furniture extends Cal5e {
 
     public void calc() {
         try {
-            pass = 2;
-            //for (pass = 1; pass < 4; pass++) {
-
             //Цикл по створкам
             LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
             for (AreaStvorka areaStvorka : stvorkaList) {
@@ -74,15 +72,12 @@ public class Furniture extends Cal5e {
                 ElemFrame elemFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnityreRec.getInt(eFurniture.hand_side))); //Крепится ручка
 
                 middle(elemFrame, furnityreRec, 1); //основная фурнитура
-                setFurndet.forEach(rec -> middle(elemFrame, rec, 1)); //наборы фурнитуры 
-                //List<Record> furnitureList = eFurniture.find2(furnityreRec.getInt(eFurniture.id));
-                //furnitureList.forEach(rec -> middle(elemFrame, rec, 1)); //наборы фурнитуры 
-                
-                setFurndet.forEach(rec -> System.out.println(rec));
+                //setFurndet.forEach(rec -> middle(elemFrame, rec, 1)); //наборы фурнитуры 
+                //setFurndet.forEach(rec -> System.out.println(rec)); //наборы фурнитуры 
+
             }
-            //}
         } catch (Exception e) {
-            System.out.println("estimate.constr.Furniture.calc() " + e);
+            System.err.println("estimate.constr.Furniture.calc() " + e);
         }
     }
 
@@ -94,17 +89,17 @@ public class Furniture extends Cal5e {
 
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {
-                List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
+                List<Record> furnpar1List = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
                 ElemFrame elemFrame2 = elemFrame.owner().mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов
-                if (furnitureVar.check(elemFrame2, parfurlList) == false) {
+                if (furnitureVar.check(elemFrame2, furnpar1List) == false) {
                     return;
                 }
             }
             //Цыкл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList) {
-                if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id) && furndetRec1.get(eFurndet.furniture_id2) == null) {
+                if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
                     boolean level1 = detail(elemFrame, furndetRec1, count);
                     if (level1 == true) {
 
@@ -127,17 +122,13 @@ public class Furniture extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.out.println("estimate.constr.Furniture.middle() " + e);
+            System.err.println("estimate.constr.Furniture.middle() " + e);
         }
     }
 
     protected boolean detail(ElemFrame elemFrame, Record furndetRec, int count) {
         try {
-//        if (furndetRec.getInt(eFurndet.artikl_id) == -1) {
-//            return false;
-//        }
-            HashMap<Integer, String> hmParam = new HashMap(); //тут накапливаются параметры element и specific
-
+            HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eArtikl.id), false);
@@ -159,45 +150,48 @@ public class Furniture extends Cal5e {
                 }
             }
             //ФИЛЬТР детализации
-            List<Record> parfursList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
-            if (furnitureDet.check(hmParam, elemFrame, parfursList) == false) {
+            List<Record> furnpar2List = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
+            if (furnitureDet.check(mapParam, elemFrame, furnpar2List) == false) {
                 return false; //параметры детализации
             }
             //Цикл по ограничению сторон фурнитуры
             List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
             for (Record furnside2Rec : furnside2List) {
 
-//                ElemFrame el = null;
-//                int side = furnside2Rec.getInt(eFurnside2.side_num);
-//                if (side < 0) {
-//                    String[] par = sideCheck.split("/");
-//                    if (side == -1) {
-//                        side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
-//                    } else if (side == -2) {
-//                        side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
-//                    }
-//                }
-//                if (side == 1) {
-//                    el = elemFrame.root().mapFrame.get(LayoutArea.BOTTOM);
-//                } else if (side == 2) {
-//                    el = elemFrame.root().mapFrame.get(LayoutArea.RIGHT);
-//                } else if (side == 3) {
-//                    el = elemFrame.root().mapFrame.get(LayoutArea.TOP);
-//                } else if (side == 4) {
-//                    el = elemFrame.root().mapFrame.get(LayoutArea.LEFT);
-//                }
-//
-//                float width = el.specificationRec.width - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
-//                if (furnside2Rec.getInt(eFurnside2.len_max) < width || (furnside2Rec.getInt(eFurnside2.len_min) > width)) {
-//                    return false;
-//                }
+                ElemFrame el = null;
+                float width = 0;
+                int side = furnside2Rec.getInt(eFurnside2.side_num);
+                if (side < 0) {
+                    String[] par = sideCheck.split("/");
+                    if (side == -1) {
+                        side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
+                    } else if (side == -2) {
+                        side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
+                    }
+                }
+                if (side == 1) {
+                    el = elemFrame.root().mapFrame.get(LayoutArea.BOTTOM);
+                    width = el.width() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                } else if (side == 2) {
+                    el = elemFrame.root().mapFrame.get(LayoutArea.RIGHT);
+                    width = el.height() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                } else if (side == 3) {
+                    el = elemFrame.root().mapFrame.get(LayoutArea.TOP);
+                    width = el.width() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                } else if (side == 4) {
+                    el = elemFrame.root().mapFrame.get(LayoutArea.LEFT);
+                    width = el.height() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                }
+                if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
+                    return false;
+                }
             }
             if (furndetRec.get(eFurndet.furniture_id2) == null) { //если это элемент мат. ценность
-                
+
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
-                    Specification specif = new Specification(artiklRec, elemFrame, hmParam);
+                    Specification specif = new Specification(artiklRec, elemFrame, mapParam);
                     specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                     specif.count = specif.count * count;
                     //specif.setColor(this, areaStvorka, furndetRec);
@@ -205,11 +199,18 @@ public class Furniture extends Cal5e {
                     elemFrame.addSpecific(specif); //добавим спецификацию в элемент
                 }
             } else { //если это нобор
-                setFurndet.add(furndetRec);
+                //setFurndet.add(furnitureRec);
+                int count2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
+                Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
+                try {
+                    middle(elemFrame, furnitureRec2, count2); //рекурсия обработки наборов
+                } catch (Exception e) {
+                    System.err.println("Ошибка recursion, estimate.constr.Furniture.middle() " + e);
+                }
             }
             return true;
         } catch (Exception e) {
-            System.out.println("estimate.constr.Furniture.detail() " + e);
+            System.err.println("estimate.constr.Furniture.detail() " + e);
             return false;
         }
     }
