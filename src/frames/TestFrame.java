@@ -13,13 +13,16 @@ import frames.swing.DefTableModel;
 
 public class TestFrame extends javax.swing.JFrame {
 
+    private TableRowSorter<DefTableModel> sorter1 = null;
+    private TableRowSorter<DefTableModel> sorter2 = null;
+    private TableRowSorter<DefTableModel> sorter3 = null;
     private String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
     private Connection cn;
 
     public TestFrame() {
         initComponents();
-        initElements();;
-        loadingTab1();
+        initElements();        
+        loadingTab1();       
     }
 
     private void loadingTab1() {
@@ -229,6 +232,7 @@ public class TestFrame extends javax.swing.JFrame {
             }
         ));
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
 
@@ -276,6 +280,7 @@ public class TestFrame extends javax.swing.JFrame {
             }
         ));
         tab2.setFillsViewportHeight(true);
+        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
 
@@ -323,6 +328,7 @@ public class TestFrame extends javax.swing.JFrame {
             }
         ));
         tab3.setFillsViewportHeight(true);
+        tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr3.setViewportView(tab3);
 

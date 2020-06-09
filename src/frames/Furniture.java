@@ -55,7 +55,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
-    private Query qFurnall = new Query(eFurniture.values()).select(eFurniture.up, "order by", eFurniture.name);
+    private Query qFurnall = new Query(eFurniture.values());
     private Query qFurniture = new Query(eFurniture.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qFurndet1 = new Query(eFurndet.values());
@@ -96,15 +96,17 @@ public class Furniture extends javax.swing.JFrame {
     private void loadingData() {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
+        qFurnall.select(eFurniture.up, "order by", eFurniture.name);
         qParams.select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text); //TODO отключил фильтр, а это неправильно
         //qParams.select(eParams.up, "where", eParams.furn, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        int types = (checkBox1.isSelected()) ? 0 : (checkBox2.isSelected()) ? 1 : -1;
         if (owner == null) {
-            qFurniture.addAll(qFurnall);
+            qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
         } else {
             Query query = new Query(eSysfurn.furniture_id).select(eSysfurn.up, "where", eSysfurn.systree_id, "=", nuni).table(eSysfurn.up);
             query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysfurn.furniture_id));
             subsql = "(" + subsql.substring(1) + ")";
-            qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "= 0", "order by", eFurniture.name);
+            qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", types, "order by", eFurniture.name);
         }
     }
 
@@ -161,7 +163,7 @@ public class Furniture extends javax.swing.JFrame {
                     } else {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
-                    
+
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
                     return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
@@ -206,7 +208,7 @@ public class Furniture extends javax.swing.JFrame {
                     } else {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
-                    
+
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
                     return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
@@ -251,7 +253,7 @@ public class Furniture extends javax.swing.JFrame {
                     } else {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
-                    
+
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
                     return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
@@ -446,6 +448,8 @@ public class Furniture extends javax.swing.JFrame {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2a);
             Util.setSelectedRow(tab3);
+            String count = (qFurndet1.size() > 9) ? String.valueOf(qFurndet1.size()) : String.valueOf(qFurndet1.size()) + "  ";
+            tabb1.setTitleAt(0, "Детализация (1 уровень)    " + count + "  ");
         }
     }
 
@@ -455,9 +459,14 @@ public class Furniture extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qFurndet1.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurndet2.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id); //, "and", eFurndet.id, "!=", eFurndet.furndet_id);
+            qFurndet2.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
             ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2b);
+            String count = (qFurndet2.size() > 9) ? String.valueOf(qFurndet2.size()) : String.valueOf(qFurndet2.size()) + "  ";
+            tabb1.setTitleAt(1, "Детализация (2 уровень)    " + count + "  ");
+            if (qFurndet2.size() == 0) {
+                tabb1.setTitleAt(2, "Детализация (3 уровень)    " + count + "  ");
+            }
 
             if (tabb1.getSelectedIndex() == 0) {
                 qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
@@ -479,6 +488,8 @@ public class Furniture extends javax.swing.JFrame {
             qFurndet3.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id); //, "and", eFurndet.id, "!=", eFurndet.furndet_id);
             ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2c);
+            String count = (qFurndet3.size() > 9) ? String.valueOf(qFurndet3.size()) : String.valueOf(qFurndet3.size()) + "  ";
+            tabb1.setTitleAt(2, "Детализация (3 уровень)    " + count + "  ");
 
             if (tabb1.getSelectedIndex() == 1) {
                 qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
@@ -977,7 +988,7 @@ public class Furniture extends javax.swing.JFrame {
             tab2a.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
-        tabb1.addTab("Детализация   (1 уровень)", scr2a);
+        tabb1.addTab("Детализация (1 уровень)", scr2a);
 
         scr2b.setBorder(null);
         scr2b.setPreferredSize(new java.awt.Dimension(500, 200));
@@ -1004,7 +1015,7 @@ public class Furniture extends javax.swing.JFrame {
             tab2b.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
-        tabb1.addTab("Детализация   (2 уровень)", scr2b);
+        tabb1.addTab("Детализация (2 уровень)", scr2b);
 
         scr2c.setBorder(null);
         scr2c.setPreferredSize(new java.awt.Dimension(500, 200));
@@ -1031,7 +1042,7 @@ public class Furniture extends javax.swing.JFrame {
             tab2c.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
-        tabb1.addTab("Детализация   (3 уровень)", scr2c);
+        tabb1.addTab("Детализация (3 уровень)", scr2c);
 
         pan9.add(tabb1, java.awt.BorderLayout.CENTER);
 
@@ -1130,7 +1141,7 @@ public class Furniture extends javax.swing.JFrame {
         txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilterfilterCaretUpdate(evt);
+                txtFilter(evt);
             }
         });
         south.add(txtFilter);
@@ -1278,7 +1289,7 @@ public class Furniture extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabMousePressed
 
-    private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
+    private void txtFilter(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilter
         JTable table = Stream.of(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
@@ -1288,15 +1299,10 @@ public class Furniture extends javax.swing.JFrame {
             String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
-    }//GEN-LAST:event_txtFilterfilterCaretUpdate
+    }//GEN-LAST:event_txtFilter
 
     private void checkBoxAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAction
-        int types = (checkBox1.isSelected()) ? 0 : (checkBox2.isSelected()) ? 1 : -1;
-        if (owner == null) {
-            qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
-        } else {
-            qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", types, "order by", eFurniture.name);
-        }
+        loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }//GEN-LAST:event_checkBoxAction

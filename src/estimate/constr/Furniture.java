@@ -22,6 +22,7 @@ import estimate.constr.param.FurnitureVar;
 import estimate.model.AreaStvorka;
 import estimate.model.ElemFrame;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Фурнитура
@@ -30,6 +31,7 @@ public class Furniture extends Cal5e {
 
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
+    private HashSet<Record> setFurndet = new HashSet();
     public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
     public int pass = 1; //pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
 
@@ -46,10 +48,10 @@ public class Furniture extends Cal5e {
 
             //Цикл по створкам
             LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
-            outterLoop:
             for (AreaStvorka areaStvorka : stvorkaList) {
 
-                //Подбор фурнитуры
+                setFurndet.clear();
+                //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
                 Record sysfurnRec = sysfurnList.get(0);
                 int funic = Integer.valueOf(areaStvorka.mapParamUse.get(ParamJson.funic).toString());
@@ -70,21 +72,13 @@ public class Furniture extends Cal5e {
 
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
                 ElemFrame elemFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnityreRec.getInt(eFurniture.hand_side))); //Крепится ручка
-                List<Record> furnside1List = eFurnside1.find(furnityreRec.getInt(eFurniture.id));
-                boolean out = true;
 
-                //Цикл по описанию сторон фурнитуры
-                for (Record furnside1Rec : furnside1List) {
-                    List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
-                    ElemFrame elemFrame2 = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
-
-                    if (furnitureVar.check(elemFrame2, parfurlList) == false) { //ФИЛЬТР вариантов
-                        continue outterLoop; //проверить!!!
-                    }
-                }
                 middle(elemFrame, furnityreRec, 1); //основная фурнитура
-                List<Record> furnitureList = eFurniture.find2(furnityreRec.getInt(eFurniture.id));
-                furnitureList.forEach(rec -> middle(elemFrame, rec, 1)); //наборы фурнитуры
+                setFurndet.forEach(rec -> middle(elemFrame, rec, 1)); //наборы фурнитуры 
+                //List<Record> furnitureList = eFurniture.find2(furnityreRec.getInt(eFurniture.id));
+                //furnitureList.forEach(rec -> middle(elemFrame, rec, 1)); //наборы фурнитуры 
+                
+                setFurndet.forEach(rec -> System.out.println(rec));
             }
             //}
         } catch (Exception e) {
@@ -95,7 +89,19 @@ public class Furniture extends Cal5e {
     protected void middle(ElemFrame elemFrame, Record furnitureRec, int count) {
         try {
             List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
+            List<Record> furnside1List = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
+            boolean out = true;
 
+            //Цикл по описанию сторон фурнитуры
+            for (Record furnside1Rec : furnside1List) {
+                List<Record> parfurlList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
+                ElemFrame elemFrame2 = elemFrame.owner().mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
+
+                //ФИЛЬТР вариантов
+                if (furnitureVar.check(elemFrame2, parfurlList) == false) {
+                    return;
+                }
+            }
             //Цыкл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id) && furndetRec1.get(eFurndet.furniture_id2) == null) {
@@ -152,8 +158,9 @@ public class Furniture extends Cal5e {
                     }
                 }
             }
+            //ФИЛЬТР детализации
             List<Record> parfursList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
-            if (furnitureDet.check(hmParam, elemFrame, parfursList) == false) { //ФИЛЬТР детализации
+            if (furnitureDet.check(hmParam, elemFrame, parfursList) == false) {
                 return false; //параметры детализации
             }
             //Цикл по ограничению сторон фурнитуры
@@ -185,16 +192,20 @@ public class Furniture extends Cal5e {
 //                    return false;
 //                }
             }
-            //Спецификация
-            Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
-            if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+            if (furndetRec.get(eFurndet.furniture_id2) == null) { //если это элемент мат. ценность
+                
+                Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
+                if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
-                Specification specif = new Specification(artiklRec, elemFrame, hmParam);
-                specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
-                specif.count = specif.count * count;
-                //specif.setColor(this, areaStvorka, furndetRec);
-                specif.place = "FURN";
-                elemFrame.addSpecific(specif); //добавим спецификацию в элемент
+                    Specification specif = new Specification(artiklRec, elemFrame, hmParam);
+                    specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
+                    specif.count = specif.count * count;
+                    //specif.setColor(this, areaStvorka, furndetRec);
+                    specif.place = "FURN";
+                    elemFrame.addSpecific(specif); //добавим спецификацию в элемент
+                }
+            } else { //если это нобор
+                setFurndet.add(furndetRec);
             }
             return true;
         } catch (Exception e) {

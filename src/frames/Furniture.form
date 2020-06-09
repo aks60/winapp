@@ -714,8 +714,8 @@
                           </AuxValues>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                              <JTabbedPaneConstraints tabName="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;   (1 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)">
-                                <Property name="tabTitle" type="java.lang.String" value="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;   (1 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)"/>
+                              <JTabbedPaneConstraints tabName="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f; (1 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)">
+                                <Property name="tabTitle" type="java.lang.String" value="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f; (1 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)"/>
                               </JTabbedPaneConstraints>
                             </Constraint>
                           </Constraints>
@@ -803,8 +803,8 @@
                           </AuxValues>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                              <JTabbedPaneConstraints tabName="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;   (2 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)">
-                                <Property name="tabTitle" type="java.lang.String" value="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;   (2 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)"/>
+                              <JTabbedPaneConstraints tabName="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f; (2 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)">
+                                <Property name="tabTitle" type="java.lang.String" value="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f; (2 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)"/>
                               </JTabbedPaneConstraints>
                             </Constraint>
                           </Constraints>
@@ -892,8 +892,8 @@
                           </AuxValues>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                              <JTabbedPaneConstraints tabName="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;   (3 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)">
-                                <Property name="tabTitle" type="java.lang.String" value="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f;   (3 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)"/>
+                              <JTabbedPaneConstraints tabName="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f; (3 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)">
+                                <Property name="tabTitle" type="java.lang.String" value="&#x414;&#x435;&#x442;&#x430;&#x43b;&#x438;&#x437;&#x430;&#x446;&#x438;&#x44f; (3 &#x443;&#x440;&#x43e;&#x432;&#x435;&#x43d;&#x44c;)"/>
                               </JTabbedPaneConstraints>
                             </Constraint>
                           </Constraints>
@@ -1204,7 +1204,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtFilterfilterCaretUpdate"/>
+            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtFilter"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField(){&#xa; public JTable table = null;&#xa;}"/>
