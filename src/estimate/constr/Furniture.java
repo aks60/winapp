@@ -72,7 +72,6 @@ public class Furniture extends Cal5e {
                 ElemFrame elemFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnityreRec.getInt(eFurniture.hand_side))); //Крепится ручка
 
                 middle(elemFrame, furnityreRec, 1); //основная фурнитура
-                //setFurndet.forEach(rec -> middle(elemFrame, rec, 1)); //наборы фурнитуры 
                 //setFurndet.forEach(rec -> System.out.println(rec)); //наборы фурнитуры 
 
             }
@@ -198,10 +197,10 @@ public class Furniture extends Cal5e {
                     specif.place = "FURN";
                     elemFrame.addSpecific(specif); //добавим спецификацию в элемент
                 }
-            } else { //если это нобор
-                //setFurndet.add(furnitureRec);
+            } else { //если это нобор                
                 int count2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
+                setFurndet.add(furnitureRec2);
                 try {
                     middle(elemFrame, furnitureRec2, count2); //рекурсия обработки наборов
                 } catch (Exception e) {
