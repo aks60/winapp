@@ -170,16 +170,16 @@ public class Furniture extends Cal5e {
                     }
                 }
                 if (side == 1) {
-                    el = areaStvorka.root().mapFrame.get(LayoutArea.BOTTOM);
+                    el = areaStvorka.mapFrame.get(LayoutArea.BOTTOM);
                     width = el.width() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
                 } else if (side == 2) {
-                    el = areaStvorka.root().mapFrame.get(LayoutArea.RIGHT);
+                    el = areaStvorka.mapFrame.get(LayoutArea.RIGHT);
                     width = el.height() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
                 } else if (side == 3) {
-                    el = areaStvorka.root().mapFrame.get(LayoutArea.TOP);
+                    el = areaStvorka.mapFrame.get(LayoutArea.TOP);
                     width = el.width() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
                 } else if (side == 4) {
-                    el = areaStvorka.root().mapFrame.get(LayoutArea.LEFT);
+                    el = areaStvorka.mapFrame.get(LayoutArea.LEFT);
                     width = el.height() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
                 }
                 if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
@@ -189,7 +189,7 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) { //если это элемент из мат. ценность
 
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
-                if (artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+                if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
                     ElemFrame elemFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(areaStvorka.handlSide.id)); //Крепится ручка                
                     Specification specif = new Specification(artiklRec, elemFrame, mapParam);

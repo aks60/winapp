@@ -81,7 +81,7 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24012:  //Направление открывания
                     case 25012:  //Направление открывания     
-                        if (areaStv.typeOpen.side.equals(rec.getStr(TEXT)) == false) {
+                        if (areaStv.typeOpen.side.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;
