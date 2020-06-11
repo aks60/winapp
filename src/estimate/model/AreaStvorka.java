@@ -26,16 +26,6 @@ public class AreaStvorka extends AreaSimple {
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
 
-        //Добавим рамы створки        
-        ElemFrame e1 = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);
-        mapFrame.put(e1.layout(), e1);
-        ElemFrame e2 = new ElemFrame(this, id + .2f, LayoutArea.RIGHT);
-        mapFrame.put(e2.layout(), e2);
-        ElemFrame e3 = new ElemFrame(this, id + .3f, LayoutArea.TOP);
-        mapFrame.put(e3.layout(), e3);
-        ElemFrame e4 = new ElemFrame(this, id + .4f, LayoutArea.LEFT);
-        mapFrame.put(e4.layout(), e4);
-
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
             Gson gson = new Gson();
@@ -61,18 +51,31 @@ public class AreaStvorka extends AreaSimple {
                 insideTop = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
                 insideBott = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
                 insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-
-        ElemFrame el = mapFrame.get(LayoutArea.LEFT); // нахлёст расчитываем с левой стороны
+        
+        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.STVORKA);
+        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        Float size_falz = artiklRec.getFloat(eArtikl.size_falz);
         Float naxl = iwin.sysconsRec.getFloat(eSyssize.naxl);
-        Float size_falz = el.artiklRec.getFloat(eArtikl.size_falz);
+        
         x1 = insideLeft.x2 - size_falz - naxl;
         y1 = insideTop.y2 - size_falz - naxl;
         x2 = insideRight.x1 + size_falz + naxl;
         y2 = insideBott.y1 + size_falz + naxl;
-        mapFrame.get(LayoutArea.TOP).specificationRec.width = width();
-        mapFrame.get(LayoutArea.BOTTOM).specificationRec.width = width();
-        mapFrame.get(LayoutArea.RIGHT).specificationRec.height = height();
-        mapFrame.get(LayoutArea.LEFT).specificationRec.height = height();
+        
+        //Добавим рамы створки        
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);
+        mapFrame.put(stvBot.layout(), stvBot);
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT);
+        mapFrame.put(stvRigh.layout(), stvRigh);
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP);
+        mapFrame.put(stvTop.layout(), stvTop);
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT);
+        mapFrame.put(stvLeft.layout(), stvLeft);
+
+        stvBot.specificationRec.width = width();      
+        stvTop.specificationRec.width = width();
+        stvRigh.specificationRec.height = height();
+        stvLeft.specificationRec.height = height();
 
         parsing(param);
     }
