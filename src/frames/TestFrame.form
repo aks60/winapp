@@ -254,6 +254,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab1MousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -368,6 +371,9 @@
                   <JTableSelectionModel selectionMode="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab2MousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -482,6 +488,9 @@
                   <JTableSelectionModel selectionMode="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab3MousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

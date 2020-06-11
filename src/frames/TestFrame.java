@@ -1,6 +1,7 @@
 package frames;
 
 import common.FrameToFile;
+import common.Util;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -10,6 +11,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
+import java.util.Arrays;
+import java.util.stream.Stream;
+import javax.swing.JTable;
 
 public class TestFrame extends javax.swing.JFrame {
 
@@ -21,8 +25,8 @@ public class TestFrame extends javax.swing.JFrame {
 
     public TestFrame() {
         initComponents();
-        initElements();        
-        loadingTab1();       
+        initElements();
+        loadingTab1();
     }
 
     private void loadingTab1() {
@@ -45,6 +49,7 @@ public class TestFrame extends javax.swing.JFrame {
                 data.add(vector);
             }
             tab1.setModel(new DefaultTableModel(data, column));
+            Util.setSelectedRow(tab1);
 
         } catch (Exception e) {
             System.out.println("frames.TestFrame.selectionTab1() " + e);
@@ -73,6 +78,8 @@ public class TestFrame extends javax.swing.JFrame {
                     data.add(vector);
                 }
                 tab2.setModel(new DefaultTableModel(data, column));
+                //tab2.setRowSorter(new TableRowSorter<DefTableModel>((DefTableModel) tab2.getModel()));
+                Util.setSelectedRow(tab2);
             }
 
         } catch (Exception e) {
@@ -102,6 +109,7 @@ public class TestFrame extends javax.swing.JFrame {
 //                    data.add(vector);
 //                }
 //                tab3.setModel(new DefaultTableModel(data, column));
+//                Util.setSelectedRow(tab3);
 //            }
         } catch (Exception e) {
             System.out.println("frames.TestFrame.selectionTab3() " + e);
@@ -234,6 +242,11 @@ public class TestFrame extends javax.swing.JFrame {
         tab1.setFillsViewportHeight(true);
         tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab1MousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
 
         center.add(scr1);
@@ -282,6 +295,11 @@ public class TestFrame extends javax.swing.JFrame {
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab2MousePressed(evt);
+            }
+        });
         scr2.setViewportView(tab2);
 
         center.add(scr2);
@@ -330,6 +348,11 @@ public class TestFrame extends javax.swing.JFrame {
         tab3.setFillsViewportHeight(true);
         tab3.setName("tab3"); // NOI18N
         tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tab3MousePressed(evt);
+            }
+        });
         scr3.setViewportView(tab3);
 
         center.add(scr3);
@@ -351,7 +374,8 @@ public class TestFrame extends javax.swing.JFrame {
         if (txt1.getText().length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("^" + txt1.getText(), tab1.getSelectedColumn()));
+            int index = (tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn();
+            sorter.setRowFilter(RowFilter.regexFilter("^" + txt1.getText(), index));
         }
     }//GEN-LAST:event_txt1CaretUpdate
 
@@ -363,7 +387,8 @@ public class TestFrame extends javax.swing.JFrame {
         if (txt2.getText().length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("^" + txt2.getText(), tab2.getSelectedColumn()));
+            int index = (tab1.getSelectedColumn() == -1 || tab1.getSelectedColumn() == 0) ? 0 : tab1.getSelectedColumn();
+            sorter.setRowFilter(RowFilter.regexFilter("^" + txt2.getText(), index));
         }
     }//GEN-LAST:event_txt2CaretUpdate
 
@@ -381,6 +406,32 @@ public class TestFrame extends javax.swing.JFrame {
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
 
     }//GEN-LAST:event_btn1ActionPerformed
+
+    private void tab1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MousePressed
+        System.out.println("frames.TestFrame.tab1MousePressed()");
+        JTable table = (JTable) evt.getSource();
+        if (txt1.getText().length() == 0) {
+            lab1.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txt1.setName(table.getName());
+        }
+    }//GEN-LAST:event_tab1MousePressed
+
+    private void tab2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2MousePressed
+        System.out.println("frames.TestFrame.tab2MousePressed()");
+        JTable table = (JTable) evt.getSource();
+        if (txt2.getText().length() == 0) {
+            lab2.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txt2.setName(table.getName());
+        }
+    }//GEN-LAST:event_tab2MousePressed
+
+    private void tab3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab3MousePressed
+        JTable table = (JTable) evt.getSource();
+        if (txt3.getText().length() == 0) {
+            lab3.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txt3.setName(table.getName());
+        }
+    }//GEN-LAST:event_tab3MousePressed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;
