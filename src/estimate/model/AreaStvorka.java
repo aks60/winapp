@@ -8,6 +8,7 @@ import domain.eArtikl;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
+import enums.LayoutFurn1;
 import enums.ParamJson;
 import enums.TypeElem;
 import enums.LayoutJoin;
@@ -21,8 +22,9 @@ import estimate.Wincalc;
 public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
-    protected TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
-
+    public LayoutFurn1 handlSide = null;
+    public TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
+    
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3);
 
@@ -190,9 +192,5 @@ public class AreaStvorka extends AreaSimple {
             Y1 = Y1 + 20;
             strokePolygon(X1 - DX, X1 + DX, X1 + DX, X1 - DX, Y1 - DY, Y1 - DY, Y1 + DY, Y1 + DY, 0xFFFFFFFF, Color.BLACK);
         }
-    }
-
-    public TypeOpen1 typeOpen() {
-        return TypeOpen1.OM_INVALID;
     }
 }

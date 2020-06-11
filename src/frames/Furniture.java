@@ -127,8 +127,8 @@ public class Furniture extends javax.swing.JFrame {
                     }
                 } else if (val != null && eFurniture.hand_side == field) {
                     int fk = Integer.valueOf(val.toString());
-                    if (LayoutFurn1.P1.find(fk) != null) {
-                        return LayoutFurn1.P1.find(fk).text();
+                    if (LayoutFurn1.BOTT.find(fk) != null) {
+                        return LayoutFurn1.BOTT.find(fk).text();
                     }
                 } else if (val != null && eFurniture.ways_use == field) {
                     int fk = Integer.valueOf(val.toString());

@@ -9,10 +9,10 @@ import static enums.UseSide.values;
 
 //Стороны фурнитуры/ Внимание! Номера LayoutFurn1.id привязаны к LayoutArea.id  
 public enum LayoutFurn1 implements Enam {
-    P1(1, "Нижняя"),
-    P2(2, "Правая"),
-    P3(3, "Верхняя"),
-    P4(4, "Левая");
+    BOTT(1, "Нижняя"),
+    RICH(2, "Правая"),
+    TOP(3, "Верхняя"),
+    LEFT(4, "Левая");
 
     public int id;
     public String name;
