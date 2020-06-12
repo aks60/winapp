@@ -4,8 +4,7 @@ import static enums.TypeOpen1.values;
 
 public enum ParamJson implements Enam {
 
-    //paramJson("Уник. идентиф."),
-    funic("Уник. идентиф."),
+    sysfurnID("Фурнитура"),
     typeOpen("Тип открывания"),
     colorHandl("Цвет ручки створки"),
     pro4Params("Параметры iokna"),

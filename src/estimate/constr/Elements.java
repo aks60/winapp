@@ -60,7 +60,7 @@ public class Elements extends Cal5e {
                 detail(elementList3, elem5e);
             }
         } catch (Exception e) {
-            System.err.println("Ошибка wincalc.constr.Сomposition.build() " + e);
+            System.err.println("estimate.constr.Elements.calc() " + e);
         }
     }
 

@@ -34,7 +34,7 @@ public class Test {
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.build(estimate.script.Winscript.test(Winscript.prj, 387, 1009, 10009, 1009));
+        iwin.build(estimate.script.Winscript.test(601003, null, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 
@@ -116,7 +116,7 @@ public class Test {
 //        rootArea.add(new Element("3", TypeElem.FRAME_BOX, LayoutArea.RIGHT));
 //        rootArea.add(new Element("4", TypeElem.FRAME_BOX, LayoutArea.TOP));
 //        rootArea.add(new Element("5", TypeElem.FRAME_BOX, LayoutArea.BOTTOM));
-//        AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'funic':23}"));
+//        AreaElem area2 = (AreaElem) rootArea.add(new AreaElem("6", LayoutArea.FULL, TypeElem.FULLSTVORKA, "{'typeOpen':1, 'sysfurnID':23}"));
 //        area2.add(new Element("7", TypeElem.GLASS));
     }
 

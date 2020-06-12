@@ -34,7 +34,7 @@ public class AreaStvorka extends AreaSimple {
             JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
             mapParamUse.put(ParamJson.typeOpen, jsonObj.get(ParamJson.typeOpen.name()));
-            mapParamUse.put(ParamJson.funic, jsonObj.get(ParamJson.funic.name()));
+            mapParamUse.put(ParamJson.sysfurnID, jsonObj.get(ParamJson.sysfurnID.name()));
             if (mapParamUse.get(ParamJson.typeOpen) != null) {
 
                 int key = Integer.valueOf(mapParamUse.get(ParamJson.typeOpen).toString());
