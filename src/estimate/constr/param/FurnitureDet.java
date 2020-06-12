@@ -2,8 +2,10 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import enums.Enam;
 import enums.LayoutArea;
 import enums.LayoutHandle;
+import enums.ParamList;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import estimate.Wincalc;
 import estimate.model.AreaSimple;
 import estimate.model.AreaStvorka;
 import estimate.model.ElemFrame;
+import estimate.model.ElemSimple;
 
 //Фурнитура
 public class FurnitureDet extends Par5s {
@@ -22,9 +25,9 @@ public class FurnitureDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> tableList) {
 
-        if (filterParamJson(areaStv, tableList) == false) {
+        if (filterParamJson(elem5e, tableList) == false) {
             return false; //параметры по умолчанию и I-OKNA
         }
         //Цикл по параметрам фурнитуры
@@ -36,19 +39,19 @@ public class FurnitureDet extends Par5s {
 
                     case 24001:  //Форма контура 
                     case 25001:  //Форма контура
-                        if (TypeElem.RECTANGL == areaStv.root().type() && "прямоугольная".equals(rec.getStr(TEXT)) == false) {
+                        if (TypeElem.RECTANGL == elem5e.root().type() && "прямоугольная".equals(rec.getStr(TEXT)) == false) {
                             return false;
-                        } else if (TypeElem.TRAPEZE == areaStv.root().type() && "трапецивидная".equals(rec.getStr(TEXT)) == false) {
+                        } else if (TypeElem.TRAPEZE == elem5e.root().type() && "трапецивидная".equals(rec.getStr(TEXT)) == false) {
                             return false;
-                        } else if (TypeElem.ARCH == areaStv.root().type() && "не арочная".equals(rec.getStr(TEXT)) == true) {
+                        } else if (TypeElem.ARCH == elem5e.root().type() && "не арочная".equals(rec.getStr(TEXT)) == true) {
                             return false;
-                        } else if (TypeElem.ARCH != areaStv.root().type() && "арочная".equals(rec.getStr(TEXT)) == true) {
+                        } else if (TypeElem.ARCH != elem5e.root().type() && "арочная".equals(rec.getStr(TEXT)) == true) {
                             return false;
                         }
                         break;
                     case 24002:  //Если артикул створки 
                     case 25002:  //Если артикул створки 
-                        if (areaStv.mapFrame.get(LayoutArea.RIGHT).artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                        if (elem5e.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;
@@ -81,7 +84,7 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24012:  //Направление открывания
                     case 25012:  //Направление открывания     
-                        if (areaStv.typeOpen.side.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;
@@ -100,15 +103,15 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24033:  //Фурнитура штульповая 
                     case 25033:  //Фурнитура штульповая    
-                        if (areaStv.typeOpen.side.equals("левое")) {
-                            ElemFrame el = areaStv.mapFrame.get(LayoutArea.LEFT);
+                        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("левое")) {
+                            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.LEFT);
                             if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;
                             } else if (rec.getStr(TEXT).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
                                 return false;
                             }
-                        } else if (areaStv.typeOpen.side.equals("правое")) {
-                            ElemFrame el = areaStv.mapFrame.get(LayoutArea.RIGHT);
+                        } else if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("правое")) {
+                            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.RIGHT);
                             if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;
                             }
@@ -151,21 +154,21 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24068:  //Коды внутр. текстуры изделия 
-                        int c2 = areaStv.iwin().color2;
+                        int c2 = elem5e.iwin().color2;
                         if (compareInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
                     case 24069:  //Коды внешн. текстуры изделия 
                     case 25069:  //Коды внешн. текстуры изделия     
-                        int c3 = areaStv.iwin().color3;
+                        int c3 = elem5e.iwin().color3;
                         if (compareInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                         break;
                     case 24070:  //Если высота ручки 
                     case 25070:  //Если высота ручки     
-                        String str = areaStv.handleHeight;
+                        String str = ((AreaStvorka) elem5e.owner()).handleHeight;
                         if (LayoutHandle.MIDDL.name.equals(str) == true && rec.getStr(TEXT).equals("не константная") == false
                                 || LayoutHandle.CONST.name.equals(str) == true && rec.getStr(TEXT).equals("константная") == false) {
                             return false;
