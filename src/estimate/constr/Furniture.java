@@ -127,13 +127,12 @@ public class Furniture extends Cal5e {
     protected boolean detail(AreaStvorka areaStvorka, Record furndetRec, int count) {
         try {
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
+            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
+            ElemFrame handlFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnitureRec.getInt(eFurniture.hand_side))); //Крепится ручка
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eArtikl.id), false);
                 if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
-
-                    Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
-                    ElemFrame handlFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnitureRec.getInt(eFurniture.hand_side))); //Крепится ручка
                     int colorHandl = (handlFrame.mapParamUse.get(ParamJson.colorHandl) == null) ? iwin().colorNone : Integer.valueOf(handlFrame.mapParamUse.get(ParamJson.colorHandl).toString());
                     if (furndetRec.getInt(eFurndet.color_fk) > 0) {
                         boolean empty = true;
@@ -151,7 +150,7 @@ public class Furniture extends Cal5e {
             }
             //ФИЛЬТР детализации
             List<Record> furnpar2List = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
-            if (furnitureDet.check(mapParam, areaStvorka, furnpar2List) == false) {
+            if (furnitureDet.check(mapParam, handlFrame, furnpar2List) == false) {
                 return false; //параметры детализации
             }
             //Цикл по ограничению сторон фурнитуры
