@@ -845,7 +845,7 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1044,9 +1044,10 @@ public class Furniture extends javax.swing.JFrame {
 
         pan11.add(scr2a, java.awt.BorderLayout.CENTER);
 
-        scr2b1.setBorder(null);
-        scr2b1.setPreferredSize(new java.awt.Dimension(500, 104));
+        scr2b1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scr2b1.setPreferredSize(new java.awt.Dimension(500, 48));
 
+        tab2b1.setBackground(new java.awt.Color(212, 208, 200));
         tab2b1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"11", "xxxxxxxxx", "11", "11", null},
@@ -1056,6 +1057,7 @@ public class Furniture extends javax.swing.JFrame {
                 "Артикул", "Название", "Текстура", "Подбор", "ID"
             }
         ));
+        tab2b1.setEnabled(false);
         tab2b1.setFillsViewportHeight(true);
         tab2b1.setName("tab2b"); // NOI18N
         tab2b1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -1446,6 +1448,7 @@ public class Furniture extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
+        scr2b1.setColumnHeaderView(null);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
