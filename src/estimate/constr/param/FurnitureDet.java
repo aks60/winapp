@@ -129,7 +129,7 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24038:  //Проверять Cторону_(L))/Cторону_(W) 
                     case 25038:  //Проверять Cторону_(L)/Cторону_(W)     
-                        //Тут полные непонятки
+                        //Тут полные непонятки. Возможно сторона проверки назначается для всего набора
                         mapParamTmp.put(grup, rec.getStr(TEXT));
                         break;
                     case 24039:  //Створка заднего плана 
