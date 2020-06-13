@@ -58,14 +58,14 @@ public class ElemFrame extends ElemSimple {
         } else if (layout == LayoutArea.RIGHT) {
             sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
         }
+        specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
-
-        specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
+        
         /*
         float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);

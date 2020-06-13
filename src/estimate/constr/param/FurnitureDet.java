@@ -2,6 +2,7 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eFurnpar2;
 import enums.Enam;
 import enums.LayoutArea;
 import enums.LayoutHandle;
@@ -129,8 +130,7 @@ public class FurnitureDet extends Par5s {
                     case 24038:  //Проверять Cторону_(L))/Cторону_(W) 
                     case 25038:  //Проверять Cторону_(L)/Cторону_(W)     
                         //Тут полные непонятки
-                        sideCheck = rec.getStr(TEXT);
-                        mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
+                        mapParamTmp.put(grup, rec.getStr(TEXT));
                         break;
                     case 24039:  //Створка заднего плана 
                         message(rec.getInt(GRUP));

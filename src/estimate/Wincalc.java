@@ -102,8 +102,9 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv() {
         try {
-            new Elements(this).calc(); //составы
+            
             new Joining(this).calc(); //соединения
+            new Elements(this).calc(); //составы
             new Filling(this).calc(); //заполнения
             new Furniture(this).calc(); //фурнитура        
             for (ElemSimple elemRec : listElem) {

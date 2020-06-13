@@ -109,39 +109,36 @@ public class AreaSimple extends Com5t {
 
         List<ElemSimple> impList = listElem(TypeElem.IMPOST);
         List<ElemSimple> elemList = listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST);
-        
-        for (ElemSimple impElem : impList) {           
-            for (ElemSimple elem5e : elemList) {                
-                if (impElem.owner().layout() == LayoutArea.HORIZ) {
-                    
-                    if (elem5e.inside(impElem.x1, impElem.y1) == true 
-                            && iwin().mapJoin.get(impElem.x1 + ":" + impElem.y1) == null) { //T - соединение верхнее                       
+
+        for (ElemSimple elemImp : impList) {
+            for (ElemSimple elem5e : elemList) {
+                if (elemImp.owner().layout() == LayoutArea.HORIZ) {                   
+                    float x3 = elemImp.x1 + (elemImp.x2 - elemImp.x1) / 2;
+                    if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin().mapJoin.get(x3 + ":" + elemImp.y1) == null) { //T - соединение верхнее                       
                         ElemJoining el = new ElemJoining(iwin());
                         el.id = id() + 1f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TTOP, impElem, elem5e);
-                        iwin().mapJoin.put(impElem.x1 + ":" + impElem.y1, el);
-                        
-                    } else if (impElem.inside(impElem.x2, impElem.y2) == true
-                             && iwin().mapJoin.get(impElem.x2 + ":" + impElem.y2) == null) { //T - соединение нижнее                        
-                        ElemJoining el = new ElemJoining(iwin()); 
+                        el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
+                        iwin().mapJoin.put(x3 + ":" + elemImp.y1, el);
+
+                    } else if (elemImp.inside(elemImp.x2, elemImp.y2) == true && iwin().mapJoin.get(x3 + ":" + elemImp.y2) == null) { //T - соединение нижнее                        
+                        ElemJoining el = new ElemJoining(iwin());
                         el.id = id() + 2f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TBOT, impElem, elem5e);
-                        iwin().mapJoin.put(impElem.x2 + ":" + impElem.y2, el);
+                        el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
+                        iwin().mapJoin.put(x3 + ":" + elemImp.y2, el);
                     }
                 } else {
-                    if (elem5e.inside(impElem.x1, impElem.y1) == true
-                             && iwin().mapJoin.get(impElem.x1 + ":" + impElem.y1) == null) { //T - соединение левое                        
-                        ElemJoining el = new ElemJoining(iwin()); 
+                    float y3 = elemImp.y1 +(elemImp.y2 - elemImp.y1) / 2;
+                    if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin().mapJoin.get(elemImp.x1 + ":" + y3) == null) { //T - соединение левое                        
+                        ElemJoining el = new ElemJoining(iwin());
                         el.id = id() + 3f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, impElem, elem5e);
-                        iwin().mapJoin.put(impElem.x1 + ":" + impElem.y1, el);
-                        
-                    } else if (impElem.inside(impElem.x2, impElem.y2) == true
-                             && iwin().mapJoin.get(impElem.x2 + ":" + impElem.y2) == null) { //T - соединение правое                        
-                        ElemJoining el = new ElemJoining(iwin()); 
+                        el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
+                        iwin().mapJoin.put(elemImp.x1 + ":" + y3, el);
+
+                    } else if (elemImp.inside(elemImp.x2, elemImp.y2) == true && iwin().mapJoin.get(elemImp.x2 + ":" + y3) == null) { //T - соединение правое                        
+                        ElemJoining el = new ElemJoining(iwin());
                         el.id = id() + 4f / 100;
-                        el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, impElem, elem5e);
-                        iwin().mapJoin.put(impElem.x2 + ":" + impElem.y2, el);
+                        el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);
+                        iwin().mapJoin.put(elemImp.x2 + ":" + y3, el);
                     }
                 }
             }

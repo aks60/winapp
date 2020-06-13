@@ -94,8 +94,8 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        if(Main.dev == false) {
-          scr2b1.setVisible(false);
+        if (Main.dev == false) {
+            scr2b1.setVisible(false);
         }
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
@@ -274,7 +274,7 @@ public class Furniture extends javax.swing.JFrame {
                 }
                 return val;
             }
-        };        
+        };
         new DefTableModel(tab2c, qFurndet3, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
 
             public Object getValueAt(int rowIndex, int columnIndex) {
@@ -357,11 +357,19 @@ public class Furniture extends javax.swing.JFrame {
         new DefTableModel(tab5, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max) {
 
             public Object getValueAt(int col, int row, Object val) {
+//                Field field = columns[col];
+//                if (val != null && eFurnside2.side_num == field) {
+//                    int v = Integer.valueOf(val.toString());
+//                    if (v > 0 && v < 7) {
+//                        return LayoutFurn3.values()[v - 1].name;
+//                    }
+//                }
+//                return val;
                 Field field = columns[col];
                 if (val != null && eFurnside2.side_num == field) {
                     int v = Integer.valueOf(val.toString());
                     if (v > 0 && v < 7) {
-                        return LayoutFurn3.values()[v - 1].name;
+                        return Stream.of(LayoutFurn3.values()).filter(en -> en.id == v).findFirst().get().name;  //orElse(null).name;
                     }
                 }
                 return val;
@@ -383,9 +391,6 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        //((TableRowSorter) tab2a.getRowSorter()).toggleSortOrder(0);
-        //((TableRowSorter) tab2b.getRowSorter()).toggleSortOrder(0);
-        //((TableRowSorter) tab2c.getRowSorter()).toggleSortOrder(0);
 
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
@@ -460,10 +465,10 @@ public class Furniture extends javax.swing.JFrame {
             int row = Util.getSelectedRec(table);
             if (row != -1) {
                 Query query = (index == 0) ? qFurndet1 : (index == 1) ? qFurndet2 : qFurndet3;
-                Record recordFurn = query.get(row);
-                int artikl_id = recordFurn.getInt(eFurndet.artikl_id);
+                Record furndetRec = query.get(row);
+                int artikl_id = furndetRec.getInt(eFurndet.artikl_id);
                 Record recordArt = eArtikl.find(artikl_id, false);
-                int level = recordArt.getInt(eArtikl.level1);
+                int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
                 Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
                 ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
             }
@@ -509,7 +514,7 @@ public class Furniture extends javax.swing.JFrame {
             Integer id = record.getInt(eFurndet.id);
             qFurndet2.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
             ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab2b1.getModel()).fireTableDataChanged();
+            //((DefaultTableModel) tab2b1.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2b);
             String count = (qFurndet2.size() > 9) ? String.valueOf(qFurndet2.size()) : String.valueOf(qFurndet2.size()) + "  ";
             tabb1.setTitleAt(1, "Детализация (2 уровень)    " + count + "  ");

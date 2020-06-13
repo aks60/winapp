@@ -2,12 +2,10 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eSetting;
-import enums.ParamJson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import startup.Main;
@@ -28,7 +26,7 @@ public class Par5s {
     protected Wincalc iwin = null;
     protected String versionDb = eSetting.find(2).getStr(eSetting.val);
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
-    protected String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
+    public HashMap<Integer, String> mapParamTmp = new HashMap();
 
     public Par5s(Wincalc iwin) {
         this.iwin = iwin;
