@@ -34,7 +34,7 @@ public class Test {
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.build(estimate.script.Winscript.test(601003, null, 1009, 10009, 1009));
+        iwin.build(estimate.script.Winscript.test(60100, null, 1009, 10009, 1009));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 

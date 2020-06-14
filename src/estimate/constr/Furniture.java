@@ -35,7 +35,6 @@ public class Furniture extends Cal5e {
     private FurnitureVar furnitureVar = null;
     private FurnitureDet furnitureDet = null;
     private HashSet<Record> setFurndet = new HashSet();
-    //public String sideCheck = ""; //TODO Эту переменную надо вынести в map параметров!!!
 
     public Furniture(Wincalc iwin) {
         super(iwin);
@@ -72,7 +71,7 @@ public class Furniture extends Cal5e {
                 }
 
                 middle(areaStvorka, furnityreRec, 1); //основная фурнитура
-                setFurndet.forEach(rec -> System.out.println(rec)); //наборы фурнитуры 
+                //setFurndet.forEach(rec -> System.out.println(rec)); //наборы фурнитуры 
 
             }
         } catch (Exception e) {
@@ -131,9 +130,9 @@ public class Furniture extends Cal5e {
             ElemFrame handlFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnitureRec.getInt(eFurniture.hand_side))); //Крепится ручка
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
-                Record artiklRec = eArtikl.find(furndetRec.getInt(eArtikl.id), false);
+                Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
-                    int colorHandl = (handlFrame.mapParamUse.get(ParamJson.colorHandl) == null) ? iwin().colorNone : Integer.valueOf(handlFrame.mapParamUse.get(ParamJson.colorHandl).toString());
+                    int colorHandl = (areaStvorka.mapParamUse.get(ParamJson.colorHandl) == null) ? iwin().colorNone : Integer.valueOf(areaStvorka.mapParamUse.get(ParamJson.colorHandl).toString());
                     if (furndetRec.getInt(eFurndet.color_fk) > 0) {
                         boolean empty = true;
                         List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
