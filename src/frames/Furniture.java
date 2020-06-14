@@ -1066,11 +1066,6 @@ public class Furniture extends javax.swing.JFrame {
         tab2b1.setFillsViewportHeight(true);
         tab2b1.setName("tab2b"); // NOI18N
         tab2b1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab2b1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab2b1tabMousePressed(evt);
-            }
-        });
         scr2b1.setViewportView(tab2b1);
         if (tab2b1.getColumnModel().getColumnCount() > 0) {
             tab2b1.getColumnModel().getColumn(4).setMaxWidth(60);
@@ -1396,10 +1391,6 @@ public class Furniture extends javax.swing.JFrame {
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }//GEN-LAST:event_checkBoxAction
-
-    private void tab2b1tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2b1tabMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tab2b1tabMousePressed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1453,7 +1444,7 @@ public class Furniture extends javax.swing.JFrame {
         new FrameToFile(this, btnClose);
         labFilter.setText(tab1.getColumnName(0));
         txtFilter.setName(tab1.getName());
-        scr2b1.setColumnHeaderView(null);
+        //scr2b1.setColumnHeaderView(null);
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список фурнитуры", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));

@@ -129,7 +129,6 @@ public class Furniture extends Cal5e {
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
             Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
             ElemFrame handlFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnitureRec.getInt(eFurniture.hand_side))); //Крепится ручка
-            //ElemFrame elemFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(areaStvorka.handlSide.id)); //Крепится ручка
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eArtikl.id), false);
