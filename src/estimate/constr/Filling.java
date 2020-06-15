@@ -8,6 +8,7 @@ import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
 import domain.eSysprof;
+import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
@@ -43,32 +44,34 @@ public class Filling extends Cal5e {
     }
 
     public void calc() {
-        try {
-            Record artiklRec = null;
+        try {            
+            String sytreeSize = eSystree.find(iwin().nuni).getStr(eSystree.size);
             List<Record> sysprofList = eSysprof.find(iwin().nuni);
             LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
 
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
 
-                String depth = String.valueOf((int) elemGlass.artiklRec.getFloat(eArtikl.depth));
+                //String depth = String.valueOf((int) elemGlass.artiklRec.getFloat(eArtikl.depth));
                 UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
+                Record artprofRec = null;
+                
                 //Цикл по системе конструкций, ищем артикул системы профилей
                 for (Record sysprofRec : sysprofList) {
                     if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-                        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+                        artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
                     }
                 }
 
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
-                    List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
 
-                    if (glasgrpRec.getStr(eGlasgrp.depth).contains(depth)) { //доступные толщины
-
+                    if (sytreeSize.contains(glasgrpRec.getStr(eGlasgrp.depth))) { //доступные толщины
+                        List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
+                        
                         //Цикл по профилям в группах заполнений
                         for (Record glasprofRec : glasprofList) {
-                            if (artiklRec != null && artiklRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
+                            if (artprofRec != null && artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
 
                                 elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
                                 detail(elemGlass, glasgrpRec);
@@ -98,7 +101,7 @@ public class Filling extends Cal5e {
                     List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
 
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                    if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) {                       
+                    if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) {
                         Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         Specification specif = new Specification(art, elemGlass, mapParam);
                         specif.place = "ЗАП";
