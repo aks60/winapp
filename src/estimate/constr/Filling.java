@@ -41,20 +41,24 @@ public class Filling extends Cal5e {
     }
 
     public void calc() {
-        try {
-            //Цикл по стеклопакетам
+        try {            
             LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
+            
+            //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
-
+   
+                 Object obj = elemGlass.owner();
+                 
                 //Цыкл по элемента рамы(створки) стеклопакета
                 for (Map.Entry<LayoutArea, ElemFrame> en : elemGlass.owner().mapFrame.entrySet()) {
                     LayoutArea layoutArea = en.getKey();
                     ElemFrame elemFrame = en.getValue();
                     Record artiklRec = elemFrame.artiklRec;
+                    
                     int artiklId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
-
-                    //Цыкл по профилям в группах заполнений
                     List<Record> glasprofList = eGlasprof.find2(artiklId);
+                    
+                    //Цыкл по профилям в группах заполнений
                     for (Record glasprofRec : glasprofList) {
 
                         Record glasgrpRec = eGlasgrp.find(glasprofRec.getInt(eGlasprof.glasgrp_id)); //группа заполнений
@@ -76,15 +80,19 @@ public class Filling extends Cal5e {
         try {
             //TODO в заполненииях текстура подбирается неправильно
             List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
-            if (fillingVar.check(elemGlass, glaspar1List) == true) {  //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
+            
+            //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
+            if (fillingVar.check(elemGlass, glaspar1List) == true) {  
                 elemGlass.setSpecific(); //заполним спецификацию элемента
                 List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
                 //Цикл по списку детализации
                 for (Record glasdetRec : glasdetList) {
                     HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
-                    List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации                
-                    if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) { //ФИЛЬТР детализации, параметры накапливаются в mapParam
+                    List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
+                    
+                    //ФИЛЬТР детализации, параметры накапливаются в mapParam
+                    if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) { 
 
                         Specification specif = null;
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), true);
