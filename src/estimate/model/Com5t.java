@@ -26,7 +26,7 @@ public abstract class Com5t {
     public static final int SPACE_DY = 240;   //пространство для линий              
     
     protected TypeElem type = TypeElem.NONE; //Тип элемента   
-    protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов
+    protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
 
     private float id = -1; //идентификатор    
     private AreaSimple owner = null; //владелец

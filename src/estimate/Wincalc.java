@@ -217,7 +217,7 @@ public class Wincalc {
             }
             imdRoot.area5e = rootArea;
 
-            //Цыкл по элементам конструкции ранж. по ключам.
+            //Цикл по элементам конструкции ранж. по ключам.
             for (int index = 1; index < listIntermediate.size(); index++) {
                 Intermediate imd = listIntermediate.get(index);
 

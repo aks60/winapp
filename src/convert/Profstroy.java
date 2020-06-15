@@ -135,7 +135,7 @@ public class Profstroy {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
             System.out.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
-            //Цыкл по доменам приложения
+            //Цикл по доменам приложения
             for (Field fieldUp : fieldsUp) {
                 //Поля не вошедшие в eEnum.values()
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
@@ -248,7 +248,7 @@ public class Profstroy {
             if (rs1.next()) {
                 count = rs1.getInt(1);
             }
-            //Цыкл по пакетам
+            //Цикл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
                 System.out.println("Таблица:" + tname2 + " пакет:" + index_page);
@@ -277,7 +277,7 @@ public class Profstroy {
                 //Строка values(...)
                 while (rs1.next()) {
                     String nameVal2 = "";
-                    //Цыкл по полям eEnum.values()
+                    //Цикл по полям eEnum.values()
                     for (int index = 1; index < fields.length; index++) {
                         Field field = fields[index];
                         if (hsExistField.contains(field)) { //т.к. ps3 и ps4 разное количество полей
@@ -291,7 +291,7 @@ public class Profstroy {
                             }
                         }
                     }
-                    //Цыкл по полям не вошедших в eEnum.values()
+                    //Цикл по полям не вошедших в eEnum.values()
                     for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                         Object val = rs1.getObject(entry.getKey());
                         nameVal2 = nameVal2 + Util.wrapperSql(val, Field.TYPE.type(entry.getValue()[0])) + ",";

@@ -7,9 +7,11 @@ import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
+import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeArtikl;
 import enums.TypeElem;
+import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,32 +43,36 @@ public class Filling extends Cal5e {
     }
 
     public void calc() {
-        try {            
+        try {
+            Record artiklRec = null;
+            List<Record> sysprofList = eSysprof.find(iwin().nuni);
             LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
-            
+
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
-   
-                 Object obj = elemGlass.owner();
-                 
-                //Цыкл по элемента рамы(створки) стеклопакета
-                for (Map.Entry<LayoutArea, ElemFrame> en : elemGlass.owner().mapFrame.entrySet()) {
-                    LayoutArea layoutArea = en.getKey();
-                    ElemFrame elemFrame = en.getValue();
-                    Record artiklRec = elemFrame.artiklRec;
-                    
-                    int artiklId = (artiklRec.getInt(eArtikl.analog_id) != -1) ? artiklRec.getInt(eArtikl.analog_id) : artiklRec.getInt(eArtikl.id);
-                    List<Record> glasprofList = eGlasprof.find2(artiklId);
-                    
-                    //Цыкл по профилям в группах заполнений
-                    for (Record glasprofRec : glasprofList) {
 
-                        Record glasgrpRec = eGlasgrp.find(glasprofRec.getInt(eGlasprof.glasgrp_id)); //группа заполнений
-                        String depth = String.valueOf((int) elemGlass.artiklRec.getFloat(eArtikl.depth));
-                        if (glasgrpRec.getStr(eGlasgrp.depth).contains(depth)) {
+                String depth = String.valueOf((int) elemGlass.artiklRec.getFloat(eArtikl.depth));
+                UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
+                //Цикл по системе конструкций, ищем артикул системы профилей
+                for (Record sysprofRec : sysprofList) {
+                    if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
+                        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+                    }
+                }
 
-                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                            detail(elemGlass, elemFrame, glasgrpRec);
+                //Цикл по группам заполнений
+                for (Record glasgrpRec : eGlasgrp.findAll()) {
+                    List<Record> glasprofList = eGlasprof.find(glasgrpRec.getInt(eGlasgrp.id));
+
+                    if (glasgrpRec.getStr(eGlasgrp.depth).contains(depth)) { //доступные толщины
+
+                        //Цикл по профилям в группах заполнений
+                        for (Record glasprofRec : glasprofList) {
+                            if (artiklRec != null && artiklRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
+
+                                elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
+                                detail(elemGlass, glasgrpRec);
+                            }
                         }
                     }
                 }
@@ -76,13 +82,13 @@ public class Filling extends Cal5e {
         }
     }
 
-    protected boolean detail(ElemGlass elemGlass, ElemFrame elemFrame, Record glasgrpRec) {
+    protected boolean detail(ElemGlass elemGlass, Record glasgrpRec) {
         try {
             //TODO в заполненииях текстура подбирается неправильно
             List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
-            
+
             //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
-            if (fillingVar.check(elemGlass, glaspar1List) == true) {  
+            if (fillingVar.check(elemGlass, glaspar1List) == true) {
                 elemGlass.setSpecific(); //заполним спецификацию элемента
                 List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
@@ -90,58 +96,13 @@ public class Filling extends Cal5e {
                 for (Record glasdetRec : glasdetList) {
                     HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
                     List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
-                    
+
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                    if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) { 
-
-                        Specification specif = null;
-                        Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), true);
-                        float gzazo = Float.valueOf(elemGlass.mapFieldVal.get("GZAZO"));
-                        Float overLength = (mapParam.get(15050) == null) ? 0.f : Float.valueOf(mapParam.get(15050).toString());
-
-                        //Стеклопакет
-                        if (TypeArtikl.GLASS.id2 == artiklRec.getInt(eArtikl.level2)) {
-
-                            //Штапик
-                        } else if (TypeArtikl.SHTAPIK.id2 == artiklRec.getInt(eArtikl.level2)) {
-
-                            Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
-                            specif = new Specification(art, elemFrame, mapParam);
-                            specif.setColor(elemFrame, glasdetRec);
-                            elemGlass.addSpecific(specif);
-
-                            //Уплотнитель
-                        } else if (TypeArtikl.KONZEVPROF.id2 == artiklRec.getInt(eArtikl.level2)) {
-
-                            Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
-                            specif = new Specification(art, elemFrame, mapParam);
-                            specif.setColor(elemFrame, glasdetRec);
-                            elemGlass.addSpecific(specif);
-
-                            //Всё остальное
-                        } else {
-                            Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
-                            if (TypeElem.AREA == elemGlass.owner().type()
-                                    || TypeElem.RECTANGL == elemGlass.owner().type()
-                                    || TypeElem.STVORKA == elemGlass.owner().type()) {
-
-                                specif = new Specification(art, elemFrame, mapParam);
-                                specif.setColor(elemGlass, glasdetRec);
-                                elemGlass.addSpecific(specif);
-
-                            } else if (TypeElem.ARCH == elemGlass.owner().type()) {
-                                for (int index = 0; index < 2; index++) {
-                                    specif = new Specification(art, elemFrame, mapParam);
-                                    specif.setColor(elemGlass, glasdetRec);
-                                    elemGlass.addSpecific(specif);
-                                }
-                            } else {
-                                specif = new Specification(art, elemFrame, mapParam);
-                                specif.setColor(elemGlass, glasdetRec);
-                                elemGlass.addSpecific(specif);
-                            }
-                        }
+                    if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) {                       
+                        Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
+                        Specification specif = new Specification(art, elemGlass, mapParam);
                         specif.place = "ЗАП";
+                        elemGlass.addSpecific(specif);
                     }
                 }
             }

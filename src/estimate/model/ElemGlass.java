@@ -78,8 +78,8 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Главная спецификация
     public void setSpecific() {
- 
-        float gzazo = (mapFieldVal.get("GZAZO") != null) ?Float.valueOf(mapFieldVal.get("GZAZO")) :0;
+
+        float gzazo = (mapFieldVal.get("GZAZO") != null) ? Float.valueOf(mapFieldVal.get("GZAZO")) : 0;
         if (owner() instanceof AreaArch) { //если арка
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
@@ -109,7 +109,7 @@ public class ElemGlass extends ElemSimple {
             specificationRec.color3 = color3;
 
         } else {
-                        
+
             ElemSimple elemTop = iwin().mapJoin.get(owner().x1 + ":" + owner().y1).joinElement1;
             y1 = elemTop.y2 - elemTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
 
@@ -134,19 +134,17 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложеная спецификация 
     public void addSpecific(Specification specif) {
-
         float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
-        Record art = specif.artiklRec;
 
         //Стеклопакет
-        if (TypeArtikl.GLASS.isType(specif.artiklRec)) { 
+        if (TypeArtikl.GLASS.isType(specif.artiklRec)) {
             return;
 
             //Штапик
-        } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec)) { 
+        } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec)) {
 
             Float overLength = (specif.getParam(null, 15050) == null) ? 0.f : Float.valueOf(specif.getParam(0, 15050).toString());
-            if (LayoutArea.ARCH == specif.elem5e.layout()) {
+            if (TypeElem.ARCH == owner().type()) {
 
                 //По основанию арки
                 double dh2 = artiklRec.getDbl(eArtikl.height) - gzazo;
@@ -188,30 +186,25 @@ public class ElemGlass extends ElemSimple {
                 specif.anglCut2 = (float) ang3;
                 specif.anglCut1 = (float) ang3;
 
-            } else {
-                //По горизонтали
-                if (LayoutArea.TOP.equals(specif.elem5e.layout()) == true || LayoutArea.BOTTOM.equals(specif.elem5e.layout()) == true) {
-                    specif.width = width() + 2 * gzazo;
-                    specif.height = artiklRec.getFloat(eArtikl.height);
-                    specif.anglCut2 = 45;
-                    specif.anglCut1 = 45;
-
-                    //По вертикали
-                } else if (LayoutArea.LEFT.equals(specif.elem5e.layout()) == true || LayoutArea.RIGHT.equals(specif.elem5e.layout()) == true) {
-                    specif.width = height() + 2 * gzazo;
-                    specif.height = artiklRec.getFloat(eArtikl.height);
-                    specif.anglCut2 = 45;
-                    specif.anglCut1 = 45;
-                }
+            } else if (TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
+                specif.anglCut2 = 45;
+                specif.anglCut1 = 45;
+                //По горизонтали                
+                specif.width = width() + 2 * gzazo;
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                specificationRec.specificationList.add(new Specification(specif));
+                specificationRec.specificationList.add(new Specification(specif));
+                //По вертикали
+                specif.width = height() + 2 * gzazo;
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                specificationRec.specificationList.add(new Specification(specif));
+                specificationRec.specificationList.add(new Specification(specif));
             }
 
-            specif.id = id();
-
             //Уплотнитель
-        } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec)) { 
+        } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec)) {
 
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
-
                 //По основанию арки
                 double dh2 = artiklRec.getFloat(eArtikl.height) - gzazo;
                 double r1 = radiusGlass - dh2;
@@ -229,7 +222,6 @@ public class ElemGlass extends ElemSimple {
                 specif.height = specif.artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang;
                 specif.anglCut1 = (float) ang;
-
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
                 double ang3 = 90 - (90 - ang2 + ang);
@@ -242,30 +234,35 @@ public class ElemGlass extends ElemSimple {
                 specif.height = specif.artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang3;
                 specif.anglCut1 = (float) ang3;
-            } else {
-                //По горизонтали
-                if (LayoutArea.TOP.equals(specif.elem5e.layout()) == true || LayoutArea.BOTTOM.equals(specif.elem5e.layout()) == true) {
-                    specif.width = width() + 2 * gzazo;
-                    specif.height = specif.artiklRec.getFloat(eArtikl.height);
-                    specif.anglCut2 = 45;
-                    specif.anglCut1 = 45;
 
-                    //По вертикали
-                } else if (LayoutArea.LEFT.equals(specif.elem5e.layout()) == true || LayoutArea.RIGHT.equals(specif.elem5e.layout()) == true) {
-                    specif.width = height() + 2 * gzazo;
-                    specif.height = specif.artiklRec.getFloat(eArtikl.height);
-                    specif.anglCut2 = 45;
-                    specif.anglCut1 = 45;
-                }
+            } else if (TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
+                specif.anglCut2 = 45;
+                specif.anglCut1 = 45;
+                //По горизонтали                
+                specif.width = width() + 2 * gzazo;
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                specificationRec.specificationList.add(new Specification(specif));
+                specificationRec.specificationList.add(new Specification(specif));
+                //По вертикали
+                specif.width = height() + 2 * gzazo;
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
+                specificationRec.specificationList.add(new Specification(specif));
+                specificationRec.specificationList.add(new Specification(specif));
             }
-
-            specif.id = id();
-
+            //Всё остальное
         } else {
-            specif.id = id();
+            if (TypeElem.AREA == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
+                for (int index = 0; index < 4; index++) {
+                    specificationRec.specificationList.add(specif);
+                }
+            } else if (TypeElem.ARCH == owner().type()) {
+                for (int index = 0; index < 2; index++) {
+                    specificationRec.specificationList.add(specif);
+                }
+            } else {
+                specificationRec.specificationList.add(specif);
+            }
         }
-        quantityMaterials(specif);
-        specificationRec.specificationList.add(specif);
     }
 
     @Override

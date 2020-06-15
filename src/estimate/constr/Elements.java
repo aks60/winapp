@@ -40,7 +40,7 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void calc() {
         try {
-            //Цыкл по списку элементов конструкции
+            //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : iwin().listElem) {
 
                 //Ищем текстуры не на аналоге 
@@ -66,14 +66,14 @@ public class Elements extends Cal5e {
 
     protected void detail(List<Record> elementList, ElemSimple elem5e) {
         try {
-            //Цыкл по вариантам
+            //Цикл по вариантам
             for (Record elementRec : elementList) { 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
                 if (elementVar.check(elem5e, elempar1List) == true) {  //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                     List<Record> elemdetList = eElemdet.find(element_id);
                     
-                    //Цыкл по детализации
+                    //Цикл по детализации
                     for (Record elemdetRec : elemdetList) { 
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);

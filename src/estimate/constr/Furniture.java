@@ -94,18 +94,18 @@ public class Furniture extends Cal5e {
                     return;
                 }
             }
-            //Цыкл по детализации (уровень 1)        
+            //Цикл по детализации (уровень 1)        
             for (Record furndetRec1 : furndetList) {
                 if (furndetRec1.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)) {
                     if (detail(areaStv, furndetRec1, count) == true) {
 
-                        //Цыкл по детализации (уровень 2)
+                        //Цикл по детализации (уровень 2)
                         for (Record furndetRec2 : furndetList) {
                             if (furndetRec2.getInt(eFurndet.furndet_id) == furndetRec1.getInt(eFurndet.id)
                                     && furndetRec2.getInt(eFurndet.furndet_id) != furndetRec2.getInt(eFurndet.id)) {
                                 if (detail(areaStv, furndetRec2, count) == true) {
 
-                                    //Цыкл по детализации (уровень 3)
+                                    //Цикл по детализации (уровень 3)
                                     for (Record furndetRec3 : furndetList) {
                                         if (furndetRec3.getInt(eFurndet.furndet_id) == furndetRec2.getInt(eFurndet.id)
                                                 && furndetRec3.getInt(eFurndet.furndet_id) != furndetRec3.getInt(eFurndet.id)) {
