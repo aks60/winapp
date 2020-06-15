@@ -134,7 +134,7 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложеная спецификация 
     public void addSpecific(Specification specif) {
-        float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
+        Float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
 
         //Стеклопакет
         if (TypeArtikl.GLASS.isType(specif.artiklRec)) {

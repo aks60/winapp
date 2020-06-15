@@ -43,7 +43,7 @@ public enum eSysprof implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", use_type, prio);
+            query.select(up, "order by", prio);
         }
         return query;
     }

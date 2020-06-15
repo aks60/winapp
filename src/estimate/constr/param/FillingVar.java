@@ -40,12 +40,12 @@ public class FillingVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 13015:  //Форма заполнения 
-                        //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное"
+                        //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
                         message(grup, elem5e.type(), elem5e.owner().type(), rec.getStr(TEXT));
-                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
+                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.AREA.equals(elem5e.owner().type()) == false
                                 && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) == true
+                        } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.AREA.equals(elem5e.owner().type()) == true
                                 || TypeElem.STVORKA.equals(elem5e.owner().type()) == true)) {
                             return false;
                         } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
