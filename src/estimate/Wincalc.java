@@ -105,10 +105,10 @@ public class Wincalc {
     public void constructiv() {
         try {
 
-            Cal5e calcElements = new Elements(this); //составы
-            Cal5e calcJoining = new Joining(this); //соединения
-            Cal5e calcFilling = new Filling(this); //заполнения
-            Cal5e calcFurniture = new Furniture(this); //фурнитура   
+            calcElements = new Elements(this); //составы
+            calcJoining = new Joining(this); //соединения
+            calcFilling = new Filling(this); //заполнения
+            calcFurniture = new Furniture(this); //фурнитура   
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);

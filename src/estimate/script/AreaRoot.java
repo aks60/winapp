@@ -31,11 +31,11 @@ public class AreaRoot extends AreaElem {
     public void setParam(String prj, int nuni) {
         this.nuni = nuni;
         this.prj = prj;
-        if (nuni == -1) {
-            this.color1 = -1;
-            this.color2 = -1;
-            this.color3 = -1;
-        }
+//        if (nuni == -1) {
+//            this.color1 = -1;
+//            this.color2 = -1;
+//            this.color3 = -1;
+//        }
     }
 
     public void setParam(String prj, int nuni, String name) {

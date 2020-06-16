@@ -18,6 +18,7 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
+            //String script = Winscript.test(601003, -1);
             //convert.Profstroy.script();
             //query();
             wincalc();

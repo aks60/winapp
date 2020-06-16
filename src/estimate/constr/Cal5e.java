@@ -10,7 +10,7 @@ import estimate.model.Com5t;
 public abstract class Cal5e {
 
     private Wincalc iwin = null;
-    public  List listVariants = new ArrayList();
+    public  Set listVariants = new HashSet();
 
     public Cal5e(Wincalc iwin) {
         this.iwin = iwin;

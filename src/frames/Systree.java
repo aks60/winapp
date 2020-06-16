@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import common.DialogListener;
 import common.FrameListener;
 import common.FrameProgress;
-import static common.FrameProgress.progress;
 import common.FrameToFile;
 import common.Util;
 import common.eProperty;
@@ -18,6 +17,7 @@ import frames.dialog.DicEnums;
 import frames.dialog.DicFurniture;
 import frames.dialog.ParDefault;
 import domain.eArtikl;
+import domain.eFurndet;
 import domain.eFurniture;
 import domain.eParams;
 import domain.eSysfurn;
@@ -57,7 +57,9 @@ import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import estimate.Wincalc;
 import estimate.model.PaintPanel;
-import estimate.script.Winscript;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -402,11 +404,8 @@ public class Systree extends javax.swing.JFrame {
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
 
                 //Калькуляция изделия
-                //System.out.println(script2.toString());
-                //System.out.println(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
                 iwin.build(script2.toString());
                 iwin.constructiv();
-                //iwin.build(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
                 paintPanel.repaint(true, 12);
             }
         } else {
@@ -1198,9 +1197,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Object obj1 = iwin;
-        Object obj2 = iwin.calcJoining;
-        //System.out.println(iwin.calcJoining.listVariants);
+        Set<Object> keys = iwin.calcJoining.listVariants;
+        String sql = keys.stream().map(num -> String.valueOf(num)).collect(Collectors.joining(",", "(", ")"));
+       
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1294,7 +1293,7 @@ public class Systree extends javax.swing.JFrame {
                     if (btn == btnArtikl) {
                         frame = new Artikles(Systree.this, nuni, artId);
                     } else if (btn == btnJoin) {
-                        frame = new Joining(Systree.this, nuni);
+                        frame = new Joining(Systree.this, iwin.calcJoining.listVariants);
                     } else if (btn == btnElem) {
                         frame = new Element(Systree.this, nuni);
                     } else if (btn == btnFill) {
