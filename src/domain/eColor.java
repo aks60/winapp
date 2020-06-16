@@ -49,7 +49,7 @@ public enum eColor implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
@@ -57,7 +57,7 @@ public enum eColor implements Field {
     }
 
     public static Record find(int _id) {
-        if(_id == -1) {
+        if (_id == -1) {
             return record();
         }
         if (conf.equals("calc")) {
@@ -75,7 +75,7 @@ public enum eColor implements Field {
         record.setNo(rgb, 33240);
         return record;
     }
-    
+
     public String toString() {
         return meta.descr();
     }
