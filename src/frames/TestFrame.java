@@ -32,7 +32,8 @@ public class TestFrame extends javax.swing.JFrame {
     private void loadingTab1() {
         try {
             cn = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
-            sql1.setText("select * from furnlst order by fname");
+//            sql1.setText("select * from furnlst order by fname");
+            sql1.setText("SELECT * from connlst  order by cname");
             ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -60,8 +61,9 @@ public class TestFrame extends javax.swing.JFrame {
         try {
             int row = tab1.getSelectedRow();
             if (row != -1) {
-                Object id = tab1.getValueAt(row, 0);
-                sql2.setText("select * from furnspc where funic = " + id);
+                Object id = tab1.getValueAt(row, 3);
+//                sql2.setText("select * from furnspc where funic = " + id);
+                sql2.setText("select * from connspc where cunic = " + id + " order by anumb");
                 ResultSet rs = cn.createStatement().executeQuery(sql2.getText());
                 ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -89,7 +91,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void selectionTab3() {
         try {
-            int row = tab2.getSelectedRow();
+         /*   int row = tab2.getSelectedRow();
             if (row != -1) {
                 Object id = tab2.getValueAt(row, 4);
                 sql3.setText("select * from furnlst where funic = " + id);
@@ -110,7 +112,7 @@ public class TestFrame extends javax.swing.JFrame {
                 }
                 tab3.setModel(new DefaultTableModel(data, column));
                 Util.setSelectedRow(tab3);
-            }
+            }*/
         } catch (Exception e) {
             System.out.println("frames.TestFrame.selectionTab3() " + e);
         }
@@ -408,7 +410,7 @@ public class TestFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void tab1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MousePressed
-        System.out.println("frames.TestFrame.tab1MousePressed()");
+
         JTable table = (JTable) evt.getSource();
         if (txt1.getText().length() == 0) {
             lab1.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
