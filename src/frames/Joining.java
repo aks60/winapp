@@ -81,7 +81,7 @@ public class Joining extends javax.swing.JFrame {
     
     public Joining(java.awt.Window owner, Set<Object> keys) {
         this.owner = owner;
-        this.subsql = keys.stream().map(num -> String.valueOf(num)).collect(Collectors.joining(",", "(", ")"));
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
         loadingData();
