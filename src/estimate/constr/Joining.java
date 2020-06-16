@@ -31,10 +31,12 @@ public class Joining extends Cal5e {
         joiningVar = new JoiningVar(iwin);
         joiningDet = new JoiningDet(iwin);
         elementDet = new ElementDet(iwin);
+        calc();
     }
 
     public void calc() {
         try {
+            listVariants.clear();
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
 
@@ -53,6 +55,8 @@ public class Joining extends Cal5e {
                     joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
                     joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
                 }
+                listVariants.add(joiningRec.getInt(eJoining.id)); 
+                
                 Collections.sort(joinvarList, (connvar1, connvar2) -> connvar1.getInt(eJoinvar.prio) - connvar2.getInt(eJoinvar.prio));
                 //Цикл по вариантам соединения
                 for (Record joinvarRec : joinvarList) {

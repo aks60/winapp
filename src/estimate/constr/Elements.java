@@ -34,6 +34,7 @@ public class Elements extends Cal5e {
         super(iwin);
         elementVar = new ElementVar(iwin);
         elementDet = new ElementDet(iwin);
+        calc();
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.

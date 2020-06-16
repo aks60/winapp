@@ -21,6 +21,7 @@ import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.UseArtiklTo;
+import estimate.constr.Cal5e;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
@@ -67,6 +68,7 @@ public class Wincalc {
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     protected Tariffication tariffication = new Tariffication(this); //тарификация
+    public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 
     public AreaSimple build(String productJson) {
@@ -102,11 +104,12 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv() {
         try {
-                       
-            new Elements(this).calc(); //составы
-            new Joining(this).calc(); //соединения
-            new Filling(this).calc(); //заполнения
-            new Furniture(this).calc(); //фурнитура        
+
+            Cal5e calcElements = new Elements(this); //составы
+            Cal5e calcJoining = new Joining(this); //соединения
+            Cal5e calcFilling = new Filling(this); //заполнения
+            Cal5e calcFurniture = new Furniture(this); //фурнитура   
+
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);

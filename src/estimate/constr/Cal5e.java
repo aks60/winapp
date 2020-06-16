@@ -7,14 +7,16 @@ import estimate.Wincalc;
 import estimate.model.AreaSimple;
 import estimate.model.Com5t;
 
-public class Cal5e {
+public abstract class Cal5e {
 
     private Wincalc iwin = null;
-    //private Constructiv calc = null;
+    public  List listVariants = new ArrayList();
 
     public Cal5e(Wincalc iwin) {
         this.iwin = iwin;
     } 
+    
+    public abstract void calc();
     
     public Wincalc iwin() {
         return iwin;
