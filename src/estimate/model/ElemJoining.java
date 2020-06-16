@@ -17,11 +17,6 @@ public class ElemJoining {
     public LayoutJoin layoutJoin = LayoutJoin.NONE; // 
     public TypeJoin typeJoin = TypeJoin.EMPTY;    //тип соединения (то что пишет )
 
-    protected ElemSimple elemJoinTop = null;      //
-    protected ElemSimple elemJoinBottom = null;   //элементы соединения, временно для
-    protected ElemSimple elemJoinLeft = null;     //схлопывания повторяющихся обходов
-    protected ElemSimple elemJoinRight = null;    //
-
     public ElemSimple joinElement1 = null;  //элемент соединения 1
     public ElemSimple joinElement2 = null;  //элемент соединения 2
 

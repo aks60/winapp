@@ -35,16 +35,17 @@ public class Joining extends Cal5e {
 
     public void calc() {
         try {
-            //HashMap<String, ElemJoining> hmJoinElem = iwin().mapJoin; //список соединений
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
 
                 ElemJoining elemJoin = hmElemJoin.getValue();
                 ElemSimple joinElem1 = elemJoin.joinElement1;
                 ElemSimple joinElem2 = elemJoin.joinElement2;
-
-                int id1 = (joinElem1.artiklRec.get(eArtikl.analog_id) == null) ? joinElem1.artiklRec.getInt(eArtikl.id) : joinElem1.artiklRec.getInt(eArtikl.analog_id);
-                int id2 = (joinElem2.artiklRec.get(eArtikl.analog_id) == null) ? joinElem2.artiklRec.getInt(eArtikl.id) : joinElem2.artiklRec.getInt(eArtikl.analog_id);
+                Record joinartRec1 = joinElem1.specificationRec.artiklRec;
+                Record joinartRec2 = joinElem2.specificationRec.artiklRec;                
+                int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
+                int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
+                
                 Record joiningRec = eJoining.find(id1, id2);
                 List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
 
@@ -57,15 +58,17 @@ public class Joining extends Cal5e {
                 for (Record joinvarRec : joinvarList) {
                     if (joinvarRec.getInt(eJoinvar.types) == elemJoin.typeJoin.id) {
                         List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-                        if (joiningVar.check(elemJoin, joinpar1List) == true) {  //ФИЛЬТР вариантов   
-
+                        
+                        //ФИЛЬТР вариантов   
+                        if (joiningVar.check(elemJoin, joinpar1List) == true) {  
                             List<Record> joindetList = eJoindet.find(joinvarRec.getInt(eJoinvar.id));
                             //Цикл по детализации соединений
                             for (Record joindetRec : joindetList) {
                                 HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
                                 List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-                                if (joiningDet.check(hmParam2, joinElem1, joinpar2List) == true) {  //ФИЛЬТР детализации   
-
+                                
+                                //ФИЛЬТР детализации 
+                                if (joiningDet.check(hmParam2, joinElem1, joinpar2List) == true) {    
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
                                     Specification specif = new Specification(artiklRec, joinElem1, hmParam2);
                                     //specif.setColor(this, joinElement1, connspc);

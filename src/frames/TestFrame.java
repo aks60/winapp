@@ -26,14 +26,16 @@ public class TestFrame extends javax.swing.JFrame {
     public TestFrame() {
         initComponents();
         initElements();
+        try {
+            cn = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
+        } catch (Exception e) {
+        }
+        sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
         loadingTab1();
     }
 
     private void loadingTab1() {
         try {
-            cn = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
-//            sql1.setText("select * from furnlst order by fname");
-            sql1.setText("SELECT * from connlst  order by cname");
             ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -62,8 +64,7 @@ public class TestFrame extends javax.swing.JFrame {
             int row = tab1.getSelectedRow();
             if (row != -1) {
                 Object id = tab1.getValueAt(row, 3);
-//                sql2.setText("select * from furnspc where funic = " + id);
-                sql2.setText("select * from connspc where cunic = " + id + " order by anumb");
+                sql2.setText("select * from connvar where cconn = " + id + " order by cprio");
                 ResultSet rs = cn.createStatement().executeQuery(sql2.getText());
                 ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -91,10 +92,10 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void selectionTab3() {
         try {
-         /*   int row = tab2.getSelectedRow();
+            int row = tab2.getSelectedRow();
             if (row != -1) {
-                Object id = tab2.getValueAt(row, 4);
-                sql3.setText("select * from furnlst where funic = " + id);
+                Object id = tab2.getValueAt(row, 1);
+                sql3.setText("select * from connspc where cunic = " + id + " order by anumb");
                 ResultSet rs = cn.createStatement().executeQuery(sql3.getText());
                 ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -112,7 +113,7 @@ public class TestFrame extends javax.swing.JFrame {
                 }
                 tab3.setModel(new DefaultTableModel(data, column));
                 Util.setSelectedRow(tab3);
-            }*/
+            }
         } catch (Exception e) {
             System.out.println("frames.TestFrame.selectionTab3() " + e);
         }
@@ -196,6 +197,7 @@ public class TestFrame extends javax.swing.JFrame {
         pan1.setPreferredSize(new java.awt.Dimension(800, 24));
         pan1.setLayout(new java.awt.BorderLayout());
 
+        sql1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         sql1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         sql1.setMinimumSize(new java.awt.Dimension(6, 20));
         sql1.setPreferredSize(new java.awt.Dimension(600, 20));
@@ -273,10 +275,16 @@ public class TestFrame extends javax.swing.JFrame {
 
         pan2.add(pan22, java.awt.BorderLayout.WEST);
 
+        sql2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         sql2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pan2.add(sql2, java.awt.BorderLayout.CENTER);
 
         btn2.setText("...");
+        btn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn2ActionPerformed(evt);
+            }
+        });
         pan2.add(btn2, java.awt.BorderLayout.EAST);
 
         center.add(pan2);
@@ -326,6 +334,7 @@ public class TestFrame extends javax.swing.JFrame {
 
         pan3.add(pan33, java.awt.BorderLayout.WEST);
 
+        sql3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         sql3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pan3.add(sql3, java.awt.BorderLayout.CENTER);
 
@@ -406,7 +415,7 @@ public class TestFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txt3CaretUpdate
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-
+        loadingTab1();
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void tab1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MousePressed
@@ -434,6 +443,10 @@ public class TestFrame extends javax.swing.JFrame {
             txt3.setName(table.getName());
         }
     }//GEN-LAST:event_tab3MousePressed
+
+    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+        selectionTab2();
+    }//GEN-LAST:event_btn2ActionPerformed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn1;

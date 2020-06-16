@@ -434,15 +434,18 @@ public class Profstroy {
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
             updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
+            
             updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
             updateSql(eJoining.up, eJoining.artikl_id2, "anum2", eArtikl.up, "code");
             updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");
+            
             updateSql(eJoindet.up, eJoindet.joinvar_id, "cunic", eJoinvar.up, "cunic");
             updateSql(eJoindet.up, eJoindet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update joinvar set types = types * 10 + cnext");
             executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
+            
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasprof set toin = 1  where gtype in (1,3)");

@@ -196,6 +196,36 @@ public class Par5s {
         return false;
     }
 
+    public boolean compareBetween(String ptext, int value) {
+        if (ptext == null) {
+            return true;
+        }
+        ptext = ptext.replace(",", "."); //парсинг параметра
+        char symmetry = ptext.charAt(ptext.length() - 1);
+        if (symmetry == '@') {
+            ptext = ptext.substring(0, ptext.length() - 1);
+        }
+        String[] arr = ptext.split(";");
+        for (String str : Arrays.asList(arr)) {
+
+            String[] p = str.split("-");
+            if (p.length == 1) {
+                Float valueOne = Float.valueOf(p[0]);
+                if (value <= valueOne) {
+                    return true;
+                }
+
+            } else if (p.length == 2) {
+                Float valueMin = Float.valueOf(p[0]);
+                Float valueMax = Float.valueOf(p[1]);
+                if (valueMin <= value && valueMax >= value) {
+                    return true;
+                }
+            }            
+        }
+        return false;        
+    } 
+    
     public void test_param(int[] paramArr) {
 
         HashMap<String, ArrayList> hm = new HashMap();

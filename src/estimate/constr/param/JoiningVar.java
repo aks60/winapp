@@ -5,6 +5,7 @@ import domain.eArtikl;
 import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
+import domain.eSetting;
 import enums.TypeJoin;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import estimate.Wincalc;
 import static estimate.constr.Cal5e.compareFloat;
 import estimate.model.ElemJoining;
 import estimate.model.ElemSimple;
+import startup.Main;
 
 //Соединения
 public class JoiningVar extends Par5s {
@@ -205,8 +207,13 @@ public class JoiningVar extends Par5s {
                         break;
                     case 2020:  //Ограничение угла, ° 
                     case 3020:  //Ограничение угла, ° 
-                    case 4020:  //Ограничение угла, °     
-                        if (compareFloat(rec.getStr(TEXT), angl) == false) {
+                    case 4020:  //Ограничение угла, ° или Угол минимальный, ° для ps3 
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            if (parserFloat(rec.getStr(TEXT))[0] < angl) {
+                                return false;
+                            }
+                        }
+                        if (compareBetween(rec.getStr(TEXT), (int) angl) == false) {
                             return false;
                         }
                         break;
@@ -244,7 +251,7 @@ public class JoiningVar extends Par5s {
                     case 3002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.) 
                     case 4002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.)     
                         if (elemJoin.typeJoin == TypeJoin.VAR40 && "Простое Т-обр.".equals(rec.getStr(TEXT)) == false) {
-                           return false; 
+                            return false;
                         }
                         break;
                     case 3003:  //Угол варианта 
@@ -294,6 +301,11 @@ public class JoiningVar extends Par5s {
                         break;
                     case 4018:  //От ручки не менее, мм 
                         message(rec.getInt(GRUP));
+                        break;
+                    case 4030: // Угол максимальный, °
+                        if (parserFloat(rec.getStr(TEXT))[0] > angl) {
+                            return false;
+                        }
                         break;
                     case 4040:  //Размер от оси профиля, мм 
                         message(rec.getInt(GRUP));
