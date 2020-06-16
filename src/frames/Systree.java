@@ -405,6 +405,7 @@ public class Systree extends javax.swing.JFrame {
                 //System.out.println(script2.toString());
                 //System.out.println(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
                 iwin.build(script2.toString());
+                iwin.constructiv();
                 //iwin.build(wincalc.script.Winscript.test(Winscript.prj, null, -1, -1, -1));
                 paintPanel.repaint(true, 12);
             }
@@ -1197,7 +1198,9 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        Object obj1 = iwin;
+        Object obj2 = iwin.calcJoining;
+        //System.out.println(iwin.calcJoining.listVariants);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
