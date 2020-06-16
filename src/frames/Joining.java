@@ -36,8 +36,9 @@ import common.Util;
 import frames.dialog.DicColvar;
 import enums.UseColcalc;
 import java.awt.Component;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.RowFilter;
@@ -65,7 +66,6 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
     private String subsql = "";
-    private int nuni = -1;
     private Window owner = null;
     private EditorListener listenerEditor;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerJoinvar, listenerColor, listenerColvar;
@@ -78,10 +78,10 @@ public class Joining extends javax.swing.JFrame {
         listenerDict();
         loadingModel();
     }
-
-    public Joining(java.awt.Window owner, int nuni) {
+    
+    public Joining(java.awt.Window owner, Set<Object> keys) {
         this.owner = owner;
-        this.nuni = nuni;
+        this.subsql = keys.stream().map(num -> String.valueOf(num)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
         loadingData();
@@ -100,10 +100,7 @@ public class Joining extends javax.swing.JFrame {
         if (owner == null) {
             qJoining.select(eJoining.up, "order by", eJoining.name);
         } else {
-            Query query = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).table(eSysprof.up);
-            query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysprof.artikl_id));
-            subsql = "(" + subsql.substring(1) + ")";
-            qJoining.select(eJoining.up, "where", eJoining.artikl_id1, "in", subsql, "and", eJoining.artikl_id2, "in", subsql, "order by", eJoining.name);
+            qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
         }
     }
 
