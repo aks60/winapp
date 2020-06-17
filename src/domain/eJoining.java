@@ -59,7 +59,8 @@ public enum eJoining implements Field {
             return query().stream().filter(rec -> _analog.equals(rec.getStr(analog)) && rec.getInt(main) * 0x100 != 0).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "' and ", main, " > 255");
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);    
+        return recordList.stream().filter(rec -> (rec.getInt(main) & 0x100) != 0).findFirst().orElse(up.newRecord());
+        //return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);    
         //return new Query(values()).select(up, "where", analog, "='", _analog).stream().filter(rec -> (rec.getInt(main) & 0x100) != 0).findFirst().orElse(up.newRecord());
     }
 

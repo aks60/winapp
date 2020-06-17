@@ -20,6 +20,7 @@ public class AreaRectangl extends AreaSimple {
             el.id = id() + (float)(index + 1) / 100;
             el.cutAngl1 = 45;
             el.cutAngl2 = 45;
+            el.anglProf = 90;
             if (index == 0) { //Угловое соединение левое верхнее
                 el.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.TOP));
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1), el);

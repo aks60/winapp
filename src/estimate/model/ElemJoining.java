@@ -38,6 +38,11 @@ public class ElemJoining {
         this.layoutJoin = layoutJoin;
         this.joinElement1 = joinElement1;
         this.joinElement2 = joinElement2;
+//        if(TypeJoin.VAR40 == typeJoin || TypeJoin.VAR41 == typeJoin) {
+//            cutAngl1 = 0;
+//            cutAngl2 = 0;
+//            anglProf = 0;
+//        }
     }
 
     public float joinAngl(int layout) {
