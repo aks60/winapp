@@ -49,6 +49,8 @@ import javax.swing.table.DefaultTableModel;
 import startup.Main;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 //TODO ОШИБКА! ЗАПОЛНЕНИЕ 6208.02.160
 public class Element extends javax.swing.JFrame {
@@ -63,7 +65,6 @@ public class Element extends javax.swing.JFrame {
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar;
     private String subsql = "";
-    private int nuni = -1;
     private Window owner = null;
     private EditorListener listenerEditor;
 
@@ -75,10 +76,10 @@ public class Element extends javax.swing.JFrame {
         loadingData();
         loadingModel();
     }
-
-    public Element(java.awt.Window owner, int nuni) {
-        this.nuni = nuni;
+    
+    public Element(java.awt.Window owner, Set<Object> keys) {
         this.owner = owner;
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
         listenerCell();
@@ -89,17 +90,7 @@ public class Element extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        if (owner != null) {
-            Query qSysprof = new Query(eSysprof.artikl_id, eArtikl.analog_id).select(eSysprof.up, "left join",
-                     eArtikl.up, "on", eSysprof.artikl_id, "=", eArtikl.id, "where", eSysprof.systree_id, "=", nuni);
-            for (int i = 0; i < qSysprof.size(); i++) {
-                int artikl_id = qSysprof.get(i).getInt(eSysprof.artikl_id);
-                int analog_id = qSysprof.table(eArtikl.up).get(i).getInt(eArtikl.analog_id);
-                int id = (analog_id == -1) ? artikl_id : analog_id;
-                subsql = subsql + "," + id;
-            }
-            subsql = "(" + subsql.substring(1) + ")";
-        }
+
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERIES.id);
@@ -303,7 +294,7 @@ public class Element extends javax.swing.JFrame {
                             "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
                 } else {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.artikl_id, "in " + subsql);
+                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
                 }
             } else {
                 if (owner == null) {
@@ -311,7 +302,7 @@ public class Element extends javax.swing.JFrame {
                             "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
                 } else {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "and", eElement.artikl_id, "in " + subsql, "order by", eElement.name);
+                            "where", eElement.elemgrp_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
                 }
             }
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

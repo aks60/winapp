@@ -61,7 +61,7 @@ public class ElemImpost extends ElemSimple {
             sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
         }
         specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
-        specificationRec.place = "СОСТ." + specificationRec.place.substring(0, 1);
+        specificationRec.place = "СОСТ" + specificationRec.place.substring(0, 1);
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
     }
@@ -130,6 +130,7 @@ public class ElemImpost extends ElemSimple {
 
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
+            specif.place = "СОСТ" + specificationRec.place.substring(0, 1);
             specif.width = specificationRec.width;
             specif.anglCut2 = 90;
             specif.anglCut1 = 90;

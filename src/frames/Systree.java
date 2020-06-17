@@ -17,7 +17,6 @@ import frames.dialog.DicEnums;
 import frames.dialog.DicFurniture;
 import frames.dialog.ParDefault;
 import domain.eArtikl;
-import domain.eFurndet;
 import domain.eFurniture;
 import domain.eParams;
 import domain.eSysfurn;
@@ -56,8 +55,8 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import estimate.Wincalc;
+import estimate.constr.Elements;
 import estimate.model.PaintPanel;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -71,7 +70,7 @@ public class Systree extends javax.swing.JFrame {
     private Query qSyspar1 = new Query(eSyspar1.values());
     private JTable tab1 = new JTable();
     private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
-            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2, 
+            listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2,
             listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
     private DefMutableTreeNode rootTree = null;
     private DefFieldEditor rsvSystree;
@@ -101,7 +100,7 @@ public class Systree extends javax.swing.JFrame {
     private void loadingData() {
         qParams.select(eParams.up, "where", eParams.grup, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
-        
+
         ((DefaultTreeCellEditor) tree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
 
             public void editingStopped(ChangeEvent e) {
@@ -173,10 +172,10 @@ public class Systree extends javax.swing.JFrame {
                 } else if (field == eSysfurn.hand_pos) {
                     int id = Integer.valueOf(val.toString());
                     return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.MIDDL).name;
-                } else if(field == eSysfurn.artikl_id1) {
+                } else if (field == eSysfurn.artikl_id1) {
                     int id = Integer.valueOf(val.toString());
                     return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
-                } else if(field == eSysfurn.artikl_id2) {
+                } else if (field == eSysfurn.artikl_id2) {
                     int id = Integer.valueOf(val.toString());
                     return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
                 }
@@ -198,11 +197,11 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
         });
-        
+
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             new DicEnums(this, listenerSide, UseSide.values());
         });
-        
+
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
         });
@@ -222,12 +221,12 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
             DicEnums frame = new DicEnums(this, listenerHandle, LayoutHandle.values());
         });
-        
+
         Util.buttonEditorCell(tab3, 5).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt211, furnityreId, TypeArtikl.FURNRUCHKA.id1, TypeArtikl.FURNRUCHKA.id2);
         });
-        
+
         Util.buttonEditorCell(tab3, 6).addActionListener(event -> {
             int furnityreId = qSysfurn.getAs(Util.getSelectedRec(tab3), eSysfurn.furniture_id);
             DicArtikl artikl = new DicArtikl(this, listenerArt212, furnityreId, TypeArtikl.FURNLOOP.id1, TypeArtikl.FURNLOOP.id2);
@@ -340,21 +339,21 @@ public class Systree extends javax.swing.JFrame {
         listenerHandle = (record) -> {
             Util.listenerEnums(record, tab3, eSysfurn.hand_pos, tab1, tab2, tab3, tab4);
         };
-        
+
         listenerArt211 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
             int row = Util.getSelectedRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row);            
+            Util.setSelectedRow(tab3, row);
         };
-        
+
         listenerArt212 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4);
             int row = Util.getSelectedRec(tab3);
             qSysfurn.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab3), eSysfurn.artikl_id2);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3, row); 
+            Util.setSelectedRow(tab3, row);
         };
 
         listenerParam1 = (record) -> {
@@ -405,7 +404,6 @@ public class Systree extends javax.swing.JFrame {
 
                 //Калькуляция изделия
                 iwin.build(script2.toString());
-                iwin.constructiv();
                 paintPanel.repaint(true, 12);
             }
         } else {
@@ -1199,7 +1197,7 @@ public class Systree extends javax.swing.JFrame {
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
         Set<Object> keys = iwin.calcJoining.listVariants;
         String sql = keys.stream().map(num -> String.valueOf(num)).collect(Collectors.joining(",", "(", ")"));
-       
+
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1292,16 +1290,26 @@ public class Systree extends javax.swing.JFrame {
 
                     if (btn == btnArtikl) {
                         frame = new Artikles(Systree.this, nuni, artId);
+                        
                     } else if (btn == btnJoin) {
+                        iwin.calcJoining = new estimate.constr.Joining(iwin);
+                        iwin.calcJoining.calc();
                         frame = new Joining(Systree.this, iwin.calcJoining.listVariants);
+                        
                     } else if (btn == btnElem) {
-                        frame = new Element(Systree.this, nuni);
+                        iwin.calcElements = new Elements(iwin); //составы
+                        iwin.calcElements.calc();                        
+                        frame = new Element(Systree.this, iwin.calcElements.listVariants);
+                        
                     } else if (btn == btnFill) {
                         frame = new Filling(Systree.this, nuni);
+                        
                     } else if (btn == btnFurn) {
                         frame = new Furniture(Systree.this, nuni);
+                        
                     } else if (btn == btnSpec) {
                         frame = new Specific(Systree.this, iwin);
+                        
                     }
                     FrameToFile.setFrameSize(frame);
                     frame.setVisible(true);

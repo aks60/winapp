@@ -40,7 +40,6 @@ public class Furniture extends Cal5e {
         super(iwin);
         furnitureVar = new FurnitureVar(iwin);
         furnitureDet = new FurnitureDet(iwin);
-        calc();
     }
 
     public void calc() {

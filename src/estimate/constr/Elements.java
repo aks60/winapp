@@ -7,6 +7,7 @@ import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
+import domain.eJoining;
 import domain.eSysprof;
 import enums.TypeElem;
 import enums.UseArtiklTo;
@@ -34,7 +35,6 @@ public class Elements extends Cal5e {
         super(iwin);
         elementVar = new ElementVar(iwin);
         elementDet = new ElementDet(iwin);
-        calc();
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
@@ -71,6 +71,7 @@ public class Elements extends Cal5e {
             for (Record elementRec : elementList) { 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
+                listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Joining из формы Systree
                 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.check(elem5e, elempar1List) == true) {  

@@ -41,7 +41,6 @@ public class Filling extends Cal5e {
         fillingVar = new FillingVar(iwin);
         fillingDet = new FillingDet(iwin);
         elementDet = new ElementDet(iwin);
-        calc();
     }
 
     public void calc() {

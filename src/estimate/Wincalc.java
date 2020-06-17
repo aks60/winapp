@@ -106,9 +106,13 @@ public class Wincalc {
         try {
 
             calcElements = new Elements(this); //составы
+            calcElements.calc();
             calcJoining = new Joining(this); //соединения
+            calcJoining.calc();
             calcFilling = new Filling(this); //заполнения
-            calcFurniture = new Furniture(this); //фурнитура   
+            calcFilling.calc();
+            calcFurniture = new Furniture(this); //фурнитура 
+            calcFurniture.calc();
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
