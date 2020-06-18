@@ -20,14 +20,8 @@ public class ElemJoining {
     public ElemSimple joinElement1 = null;  //элемент соединения 1
     public ElemSimple joinElement2 = null;  //элемент соединения 2
 
-    protected float cutAngl1 = 45;    //угол реза1
-    protected float cutAngl2 = 45;    //угол реза2
     protected float anglProf = 90;    //угол между профилями
     public String costsJoin = "";     //трудозатраты, ч/ч. 
-
-    protected Record foiningRec = null;
-    protected Record joinvarRec = null;
-    protected ArrayList<Specification> specificationList = new ArrayList();
 
     public ElemJoining(Wincalc iwin) {
         this.iwin = iwin;
@@ -41,7 +35,7 @@ public class ElemJoining {
     }
 
     public float joinAngl(int layout) {
-        return (layout == 1) ? cutAngl1 : cutAngl2;
+        return (layout == 1) ? joinElement1.anglCut1 : joinElement2.anglCut2;
     }
 
     public boolean equals(Object obj) {
@@ -50,6 +44,6 @@ public class ElemJoining {
 
     public String toString() {
         return "ELEM: name=" + layoutJoin.name + ", joinElement1=" + joinElement1.id() + ", joinElement1=" + joinElement2.id()
-                + ", cutAngl1=" + cutAngl1 + ", cutAngl2=" + cutAngl1 + ", typeJoin=" + layoutJoin + ", varJoin=" + typeJoin + ", anglProf=" + anglProf;
+                + ", cutAngl1=" + joinElement1.anglCut1 + ", cutAngl2=" + joinElement2.anglCut2 + ", typeJoin=" + layoutJoin + ", varJoin=" + typeJoin + ", anglProf=" + anglProf;
     }
 }

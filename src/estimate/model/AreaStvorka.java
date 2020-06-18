@@ -98,8 +98,14 @@ public class AreaStvorka extends AreaSimple {
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (float)(index + 1)/100;
-            el.cutAngl1 = 45;
-            el.cutAngl2 = 45;
+            mapFrame.get(LayoutArea.BOTTOM).anglHoriz = 0;
+            mapFrame.get(LayoutArea.RIGHT).anglHoriz = 90;
+            mapFrame.get(LayoutArea.TOP).anglHoriz = 180;
+            mapFrame.get(LayoutArea.LEFT).anglHoriz = 360;
+            mapFrame.entrySet().forEach(elem -> {
+                elem.getValue().anglCut1 = 45;
+                elem.getValue().anglCut2 = 45;
+            });
             el.anglProf = 90;
             if (index == 0) { //Угловое соединение левое верхнее
                 el.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.TOP));
@@ -124,9 +130,7 @@ public class AreaStvorka extends AreaSimple {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (float)(index + 5) /100;
             el.typeJoin = TypeJoin.VAR10;
-            el.cutAngl1 = 0;
-            el.cutAngl2 = 0;
-            el.anglProf = 90;
+            el.anglProf = 0;
             
             if (index == 0) { //Прилигающее верхнее 
                 el.layoutJoin = LayoutJoin.CTOP;

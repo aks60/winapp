@@ -21,7 +21,7 @@ public class AreaArch extends AreaSimple {
     public void joinFrame() {
 
         
-        ElemJoining elem = new ElemJoining(iwin());
+        /*ElemJoining elem = new ElemJoining(iwin());
         elem.id = id() + .1f;
         //Угловое соединение левое верхнее
         elem.joinElement1 = mapFrame.get(LayoutArea.LEFT);
@@ -72,7 +72,7 @@ public class AreaArch extends AreaSimple {
                 el.init(TypeJoin.VAR20, LayoutJoin.RBOT, mapFrame.get(LayoutArea.RIGHT), mapFrame.get(LayoutArea.BOTTOM));
                 iwin().mapJoin.put(x2 + ":" + y2, el);
             }
-        }
+        }*/
     }
     
     @Override

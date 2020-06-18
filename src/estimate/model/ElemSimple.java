@@ -11,11 +11,14 @@ import estimate.Wincalc;
 
 public abstract class ElemSimple extends Com5t {
 
+    public float anglCut1 = 45; //Угол реза рамы
+    public float anglCut2 = 45; //Угол реза рамы
+
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства, основной профиль
     public Record artdetRec = null;  //текстура артикулов
     public Specification specificationRec = null; //спецификация элемента
-    
+
     public float anglHoriz = -1; //угол к горизонту
     protected Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
@@ -26,13 +29,13 @@ public abstract class ElemSimple extends Com5t {
     }
 
     //Клик мышки попадает в контур элемента
-    public boolean mouseClick(int X, int Y) {  
-        
+    public boolean mouseClick(int X, int Y) {
+
         iwin().listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
         int x = (int) (X / iwin().scale1) - Com5t.TRANSLATE_X;
-        int y = (int) (Y / iwin().scale1) - Com5t.TRANSLATE_Y;        
-        borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;                
-        return inside(x, y);        
+        int y = (int) (Y / iwin().scale1) - Com5t.TRANSLATE_Y;
+        borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;
+        return inside(x, y);
     }
 
     //Использовать артикл для...
@@ -40,7 +43,7 @@ public abstract class ElemSimple extends Com5t {
 
     //Главная спецификация
     public abstract void setSpecific();
-    
+
     //Вложеная спецификация
     public abstract void addSpecific(Specification specification);
 
@@ -58,20 +61,25 @@ public abstract class ElemSimple extends Com5t {
                 int countStep = Integer.valueOf(specif.getParam(1, 33050, 33060));
                 float count = (specificationRec.width - widthBegin) / Integer.valueOf(specif.getParam(1, 33050, 33060));
 
-                if ((specificationRec.width - widthBegin) % Integer.valueOf(specif.getParam(1, 33050, 33060)) == 0)
+                if ((specificationRec.width - widthBegin) % Integer.valueOf(specif.getParam(1, 33050, 33060)) == 0) {
                     specif.count = (int) count;
-                else specif.count = (int) count + 1;
+                } else {
+                    specif.count = (int) count + 1;
+                }
 
-                if (widthBegin != 0) ++specif.count;
+                if (widthBegin != 0) {
+                    ++specif.count;
+                }
             }
         } else if (UseUnit.METR.id == specif.artiklRec.getInt(eArtikl.currenc_id)) { //метры
-            if (specif.width == 0)
+            if (specif.width == 0) {
                 specif.width = specificationRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
+            }
             specif.width = Float.valueOf(specif.getParam(specif.width, 34070)); //Длина, мм (должна быть первой)
             specif.width = specif.width + Float.valueOf(specif.getParam(0, 34051)); //Поправка, мм
         }
     }
-    
+
     @Override
     public String toString() {
         return super.toString() + ", anglHoriz=" + anglHoriz;

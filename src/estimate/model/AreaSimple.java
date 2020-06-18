@@ -113,10 +113,11 @@ public class AreaSimple extends Com5t {
         for (ElemSimple elemImp : impList) {
             for (ElemSimple elem5e : elemList) {
                 ElemJoining el = new ElemJoining(iwin());
-                el.anglProf = 0;
-                el.cutAngl1 = 90;
-                el.cutAngl2 = 90;
+                el.anglProf = 90;
+                elemImp.anglCut1 = 90;
+                elemImp.anglCut2 = 90;
                 if (elemImp.owner().layout() == LayoutArea.HORIZ) {
+                    elemImp.anglHoriz = 90;
                     float x3 = elemImp.x1 + (elemImp.x2 - elemImp.x1) / 2;
                     if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin().mapJoin.get(x3 + ":" + elemImp.y1) == null) { //T - соединение верхнее                       
                         el.id = id() + 1f / 100;
@@ -129,6 +130,7 @@ public class AreaSimple extends Com5t {
                         iwin().mapJoin.put(x3 + ":" + elemImp.y2, el);
                     }
                 } else {
+                    elemImp.anglHoriz = 0;
                     float y3 = elemImp.y1 + (elemImp.y2 - elemImp.y1) / 2;
                     if (elem5e.inside(elemImp.x1, elemImp.y1) == true && iwin().mapJoin.get(elemImp.x1 + ":" + y3) == null) { //T - соединение левое                        
                         el.id = id() + 3f / 100;

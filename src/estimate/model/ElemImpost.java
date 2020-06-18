@@ -15,8 +15,6 @@ import domain.eSyssize;
 public class ElemImpost extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
-    protected float anglCut1 = 90; //угол реза импоста
-    protected float anglCut2 = 90; //угол реза импоста
 
     public ElemImpost(AreaSimple owner, float id) {
 

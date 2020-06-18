@@ -15,8 +15,6 @@ import estimate.constr.Specification;
 public class ElemFrame extends ElemSimple {
 
     protected float length = 0; //Длина арки
-    protected float anglCut1 = 45; //Угол реза рамы
-    protected float anglCut2 = 45; //Угол реза рамы
 
     public ElemFrame(AreaSimple owner, float id, LayoutArea layout) {
         super(id, owner.iwin(), owner);
