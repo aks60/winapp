@@ -24,7 +24,7 @@ public abstract class Com5t {
     public static final int TRANSLATE_Y = 20; //сдвиг графика    
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
-    
+
     protected TypeElem type = TypeElem.NONE; //Тип элемента   
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
 
@@ -51,11 +51,11 @@ public abstract class Com5t {
     public AreaSimple owner() {
         return owner;
     }
-    
+
     public Wincalc iwin() {
         return iwin;
     }
-    
+
     public AreaSimple root() {
         return iwin.rootArea;
     }
@@ -65,6 +65,10 @@ public abstract class Com5t {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
+    }
+
+    public float length() {
+        return (LayoutArea.HORIZ == owner.layout()) ? x2 - x1 : y2 - y1;
     }
     
     public float width() {
@@ -123,12 +127,12 @@ public abstract class Com5t {
         }
         return ((x2 < x1 || x2 >= x) && (y2 < y1 || y2 >= y));
     }
-    
+
     public void paint() {
     }
 
     public void setStroke(int s) {
-        int sw = (int)(s + 1 - iwin.scale2 * .37);
+        int sw = (int) (s + 1 - iwin.scale2 * .37);
         iwin.gc2d.setStroke(new BasicStroke(sw));
     }
 
@@ -188,7 +192,7 @@ public abstract class Com5t {
     protected void strokeArc(double x, double y, double w, double h, double startAngle,
             double arcExtent, int rdbStroke, double lineWidth) {
         float sc = iwin.scale2;
-        int sw = (int)(lineWidth /iwin.scale2);
+        int sw = (int) (lineWidth / iwin.scale2);
         iwin.gc2d.setStroke(new BasicStroke(sw)); //толщина линии
         iwin.gc2d.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
         iwin.gc2d.drawArc((int) (x / sc), (int) (y / sc), (int) (w / sc), (int) (h / sc), (int) startAngle, (int) arcExtent);

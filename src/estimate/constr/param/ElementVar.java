@@ -160,7 +160,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31041:  //Ограничение длины профиля, мм 
                         message(grup, rec.getStr(TEXT));
-                        if (compareFloat(rec.getStr(TEXT), elem5e.width()) == false) {
+                        if (compareFloat(rec.getStr(TEXT), elem5e.length()) == false) {
                             return false;
                         }
                         break;

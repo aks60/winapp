@@ -85,7 +85,7 @@ public class Wincalc {
         eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.grup), rec));
 
         //Соединения 
-        rootArea.joinFrame();  //соединения рамы
+        rootArea.joinFrame(); //соединения рамы
         rootArea.joinElem(); //T-соединения рамы 
         LinkedList<AreaStvorka> listAreaStv = rootArea.listElem(TypeElem.STVORKA); //список створок
         listAreaStv.stream().forEach(area5e -> area5e.joinFrame());  //соединения створок
