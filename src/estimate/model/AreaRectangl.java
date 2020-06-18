@@ -15,6 +15,7 @@ public class AreaRectangl extends AreaSimple {
 
     @Override
     public void joinFrame() {
+        //Цикл по сторонам рамы
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
             el.id = id() + (float) (index + 1) / 100;

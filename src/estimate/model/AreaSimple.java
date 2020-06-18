@@ -110,8 +110,11 @@ public class AreaSimple extends Com5t {
         List<ElemSimple> impList = listElem(TypeElem.IMPOST);
         List<ElemSimple> elemList = listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST);
 
+        //Цикл по импостам
         for (ElemSimple elemImp : impList) {
+            //Цыкл по сторонам рамы и импостам (в створке Т-обр. соединений нет)
             for (ElemSimple elem5e : elemList) {
+                
                 ElemJoining el = new ElemJoining(iwin());
                 el.anglProf = 90;
                 elemImp.anglCut1 = 90;

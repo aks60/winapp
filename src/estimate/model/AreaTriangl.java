@@ -13,6 +13,6 @@ public class AreaTriangl extends AreaSimple {
 
     @Override
     public void joinFrame() {
-        System.out.println("Функция не определена");
+        System.out.println("Ркализация не определена");
     }
 }

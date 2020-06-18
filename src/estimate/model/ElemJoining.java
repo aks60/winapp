@@ -14,8 +14,8 @@ public class ElemJoining {
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
-    public LayoutJoin layoutJoin = LayoutJoin.NONE; // 
-    public TypeJoin typeJoin = TypeJoin.EMPTY;    //тип соединения (то что пишет )
+    public LayoutJoin layoutJoin = LayoutJoin.NONE; //расположение соединения 
+    public TypeJoin typeJoin = TypeJoin.EMPTY;  //тип соединения (то что пишет )
 
     public ElemSimple joinElement1 = null;  //элемент соединения 1
     public ElemSimple joinElement2 = null;  //элемент соединения 2
