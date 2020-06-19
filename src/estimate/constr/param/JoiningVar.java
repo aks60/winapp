@@ -29,7 +29,6 @@ public class JoiningVar extends Par5s {
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
     public boolean check(ElemJoining elemJoin, List<Record> paramList) {
 
-        float angl = (ElemSimple.SIDE_START == ElemJoining.FIRST_SIDE) ? elemJoin.joinAngl(1) : elemJoin.joinAngl(2);
         ElemSimple joinElement1 = elemJoin.joinElement1;
         ElemSimple joinElement2 = elemJoin.joinElement2;
         boolean result = true;
@@ -209,11 +208,10 @@ public class JoiningVar extends Par5s {
                     case 3020:  //Ограничение угла, ° 
                     case 4020:  //Ограничение угла, ° или Угол минимальный, ° для ps3 
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            if (parserFloat(rec.getStr(TEXT))[0] < angl) {
+                            if (parserFloat(rec.getStr(TEXT))[0] < elemJoin.anglProf) {
                                 return false;
                             }
-                        }
-                        if (compareBetween(rec.getStr(TEXT), (int) angl) == false) {
+                        } else if (compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
                             return false;
                         }
                         break;
@@ -303,7 +301,7 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 4030: // Угол максимальный, °
-                        if (parserFloat(rec.getStr(TEXT))[0] > angl) {
+                        if (parserFloat(rec.getStr(TEXT))[0] > elemJoin.anglProf) {
                             return false;
                         }
                         break;

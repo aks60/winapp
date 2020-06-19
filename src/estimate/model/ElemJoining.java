@@ -20,7 +20,7 @@ public class ElemJoining {
     public ElemSimple joinElement1 = null;  //элемент соединения 1
     public ElemSimple joinElement2 = null;  //элемент соединения 2
 
-    protected float anglProf = 90;    //угол между профилями
+    public float anglProf = 90;    //угол между профилями
     public String costsJoin = "";     //трудозатраты, ч/ч. 
 
     public ElemJoining(Wincalc iwin) {

@@ -195,8 +195,8 @@ public class Par5s {
         }
         return false;
     }
-
-    public boolean compareBetween(String ptext, int value) {
+    
+    public boolean compareBetween(String ptext, float value) {
         if (ptext == null) {
             return true;
         }
