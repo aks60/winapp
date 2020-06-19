@@ -9,8 +9,8 @@ import estimate.constr.Specification;
 
 public class ElemJoining {
 
-    public static final int FIRST_SIDE = 1; //первая сторона
-    public static final int SECOND_SIDE = 2; //вторая сторона
+    //public static final int FIRST_SIDE = 1; //первая сторона
+    //public static final int SECOND_SIDE = 2; //вторая сторона
 
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;

@@ -71,14 +71,14 @@ public class ElemGlass extends ElemSimple {
         color1 = iwin().colorNone;
         color2 = iwin().colorNone;
         color3 = iwin().colorNone;
-
-        specificationRec.place = "ЗАП";
+        
         specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override //Главная спецификация
     public void setSpecific() {
 
+        specificationRec.place = "ЗАП";
         float gzazo = (mapFieldVal.get("GZAZO") != null) ? Float.valueOf(mapFieldVal.get("GZAZO")) : 0;
         if (owner() instanceof AreaArch) { //если арка
 
