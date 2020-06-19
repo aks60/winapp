@@ -47,9 +47,6 @@ public abstract class ElemSimple extends Com5t {
     //Вложеная спецификация
     public abstract void addSpecific(Specification specification);
 
-    public void anglCut(int layout, float anglCut) {
-    }
-
     //Расчёт материала в зависимости от ед. измерения
     public void quantityMaterials(Specification specif) {
 
@@ -82,6 +79,6 @@ public abstract class ElemSimple extends Com5t {
 
     @Override
     public String toString() {
-        return super.toString() + ", anglHoriz=" + anglHoriz;
+        return super.toString() + ", anglHoriz=" + anglHoriz + ", length" + length();
     }
 }

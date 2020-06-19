@@ -226,15 +226,6 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override
-    public void anglCut(int side, float anglCut) {
-        if (side == 1) {
-            anglCut1 = anglCut;
-        } else {
-            anglCut2 = anglCut;
-        }
-    }
-
-    @Override
     public String toString() {
         return super.toString() + ", anglCut=" + anglCut1 + ", anglCut=" + anglCut1;
     }

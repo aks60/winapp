@@ -9,9 +9,6 @@ import estimate.constr.Specification;
 
 public class ElemJoining {
 
-    //public static final int FIRST_SIDE = 1; //первая сторона
-    //public static final int SECOND_SIDE = 2; //вторая сторона
-
     public float id = -1; //идентификатор соединения
     private Wincalc iwin;
     public LayoutJoin layoutJoin = LayoutJoin.NONE; //расположение соединения 
@@ -32,10 +29,6 @@ public class ElemJoining {
         this.layoutJoin = layoutJoin;
         this.joinElement1 = joinElement1;
         this.joinElement2 = joinElement2;
-    }
-
-    public float joinAngl(int layout) {
-        return (layout == 1) ? joinElement1.anglCut1 : joinElement2.anglCut2;
     }
 
     public boolean equals(Object obj) {

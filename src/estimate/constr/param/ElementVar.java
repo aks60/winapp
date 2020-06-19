@@ -25,7 +25,6 @@ public class ElementVar extends Par5s {
 
     public boolean check(ElemSimple elem5e, List<Record> paramList) {
 
-        
         //Цикл по параметрам состава
         for (Record rec : paramList) {
             if (filterParamDef(rec) == false) {
@@ -38,7 +37,7 @@ public class ElementVar extends Par5s {
                     case 31000:  //Для технологического кода контейнера 
                         message(grup, rec.getStr(TEXT));
                         Record sysprofRec2 = elem5e.sysprofRec;
-                        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);                      
+                        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
                         if (artiklVRec.get(eArtikl.tech_code) == null) {
                             return false;
                         }
@@ -110,7 +109,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31008:  //Эффективное заполнение изделия, мм 
                         message(grup);
-                        break;                        
+                        break;
                     case 31011:  //Толщина внешнего/внутреннего заполнения, мм 
                         message(grup);
                         break;
@@ -160,6 +159,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31041:  //Ограничение длины профиля, мм 
                         message(grup, rec.getStr(TEXT));
+                        Object obj = elem5e.length();
                         if (compareFloat(rec.getStr(TEXT), elem5e.length()) == false) {
                             return false;
                         }

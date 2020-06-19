@@ -9,6 +9,7 @@ import dataset.Record;
 import domain.eParams;
 import enums.LayoutArea;
 import enums.ParamJson;
+import enums.TypeArtikl;
 import enums.TypeElem;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -18,8 +19,6 @@ import estimate.Wincalc;
 
 public abstract class Com5t {
 
-    //public static final int SIDE_START = 1;   //левая сторона
-    //public static final int SIDE_END = 2;     //правая сторона     
     public static final int TRANSLATE_X = 20; //сдвиг графика   
     public static final int TRANSLATE_Y = 20; //сдвиг графика    
     public static final int SPACE_DX = 200;   //пространство для линий    
@@ -68,9 +67,12 @@ public abstract class Com5t {
     }
 
     public float length() {
+        if (TypeElem.FRAME_SIDE == type() || TypeElem.STVORKA_SIDE == type()) {
+            return (LayoutArea.TOP == layout() || LayoutArea.BOTTOM == layout()) ? x2 - x1 : y2 - y1;
+        }
         return (LayoutArea.HORIZ == owner.layout()) ? x2 - x1 : y2 - y1;
     }
-    
+
     public float width() {
         return x2 - x1;
     }
