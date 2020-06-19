@@ -71,7 +71,7 @@ public class Elements extends Cal5e {
             for (Record elementRec : elementList) { 
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
-                listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Joining из формы Systree
+                listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements из формы Systree
                 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.check(elem5e, elempar1List) == true) {  

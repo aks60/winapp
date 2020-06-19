@@ -66,7 +66,8 @@ public class Filling extends Cal5e {
                 //Цикл по группам заполнений
                 for (Record glasgrpRec : eGlasgrp.findAll()) {
                     if ((glasgrpRec.getStr(eGlasgrp.depth) + ";").contains(depthSet)) { //доступные толщины
-
+                        listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling из формы Systree
+                        
                         //Цикл по профилям в группах заполнений
                         for (Record glasprofRec : eGlasprof.findAll()) {
                             if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {

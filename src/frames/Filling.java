@@ -41,6 +41,7 @@ import java.util.stream.Stream;
 import javax.swing.RowFilter;
 import startup.Main;
 import frames.swing.BooleanRenderer;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Filling extends javax.swing.JFrame {
@@ -54,7 +55,6 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar, listenerTypset, listenerThicknes;
     private EditorListener listenerEditor;
-    private int nuni = -1;
     private String subsql = "";
     private Window owner = null;
 
@@ -67,11 +67,11 @@ public class Filling extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Filling(java.awt.Window owner, int nuni) {
-        initComponents();
-        initElements();
-        this.nuni = nuni;
+    public Filling(java.awt.Window owner, Set<Object> keys) {
         this.owner = owner;
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        initComponents();
+        initElements();        
         listenerCell();
         listenerDict();
         loadingData();
@@ -85,11 +85,7 @@ public class Filling extends javax.swing.JFrame {
         if (owner == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
         } else {
-            Query qSysprof = new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni);
-            String arr = qSysprof.stream().map(rec -> rec.getStr(eSysprof.artikl_id)).collect(Collectors.joining(",", "(", ")"));
-            Query qGlasprof = new Query(eGlasprof.glasgrp_id).select(eGlasprof.up, "where", eGlasprof.artikl_id, " in ", arr);
-            arr = qGlasprof.stream().map(rec -> rec.getStr(eGlasprof.glasgrp_id)).collect(Collectors.joining(",", "(", ")"));
-            qGlasgrp.select(eGlasgrp.up, "where", eGlasgrp.id, " in ", arr);
+            qGlasgrp.select(eGlasgrp.up, "where", eGlasgrp.id, " in ", subsql);
         }
     }
 

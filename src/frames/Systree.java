@@ -1290,26 +1290,30 @@ public class Systree extends javax.swing.JFrame {
 
                     if (btn == btnArtikl) {
                         frame = new Artikles(Systree.this, nuni, artId);
-                        
+
                     } else if (btn == btnJoin) {
                         iwin.calcJoining = new estimate.constr.Joining(iwin);
                         iwin.calcJoining.calc();
                         frame = new Joining(Systree.this, iwin.calcJoining.listVariants);
-                        
+
                     } else if (btn == btnElem) {
-                        iwin.calcElements = new Elements(iwin); //составы
-                        iwin.calcElements.calc();                        
+                        iwin.calcElements = new estimate.constr.Elements(iwin); //составы
+                        iwin.calcElements.calc();
                         frame = new Element(Systree.this, iwin.calcElements.listVariants);
-                        
+
                     } else if (btn == btnFill) {
-                        frame = new Filling(Systree.this, nuni);
-                        
+                        iwin.calcFilling = new estimate.constr.Filling(iwin); //заполнения
+                        iwin.calcFilling.calc();
+                        frame = new Filling(Systree.this, iwin.calcFilling.listVariants);
+
                     } else if (btn == btnFurn) {
-                        frame = new Furniture(Systree.this, nuni);
-                        
+                        iwin.calcFurniture = new estimate.constr.Furniture(iwin); //фурнитура 
+                        iwin.calcFurniture.calc();
+                        frame = new Furniture(Systree.this, iwin.calcFurniture.listVariants);
+
                     } else if (btn == btnSpec) {
                         frame = new Specific(Systree.this, iwin);
-                        
+
                     }
                     FrameToFile.setFrameSize(frame);
                     frame.setVisible(true);

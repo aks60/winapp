@@ -44,6 +44,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
@@ -69,7 +70,6 @@ public class Furniture extends javax.swing.JFrame {
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
     private String subsql = "";
-    private int nuni = -1;
     private Window owner = null;
 
     public Furniture() {
@@ -81,11 +81,11 @@ public class Furniture extends javax.swing.JFrame {
         listenerDict();
     }
 
-    public Furniture(java.awt.Window owner, int nuni) {
-        initComponents();
-        initElements();
+    public Furniture(java.awt.Window owner, Set<Object> keys) {
         this.owner = owner;
-        this.nuni = nuni;
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        initComponents();
+        initElements();        
         listenerCell();
         loadingData();
         loadingModel();
@@ -98,14 +98,10 @@ public class Furniture extends javax.swing.JFrame {
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
         qParams.select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text); //TODO отключил фильтр, а это неправильно
-        //qParams.select(eParams.up, "where", eParams.furn, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         int types = (checkBox1.isSelected()) ? 0 : (checkBox2.isSelected()) ? 1 : -1;
         if (owner == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
         } else {
-            Query query = new Query(eSysfurn.furniture_id).select(eSysfurn.up, "where", eSysfurn.systree_id, "=", nuni).table(eSysfurn.up);
-            query.stream().forEach(rec -> subsql = subsql + "," + rec.getStr(eSysfurn.furniture_id));
-            subsql = "(" + subsql.substring(1) + ")";
             qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", types, "order by", eFurniture.name);
         }
     }
