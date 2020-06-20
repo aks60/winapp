@@ -18,11 +18,6 @@ public class Par5s {
     protected final int GRUP = 2;   //Ключ 1  
     protected final int NUMB = 3;   //Ключ 2   
     protected final int TEXT = 4;   //Текст 
-    protected Object obj, obj2, obj3, obj4; //Объекты калькуляции
-    protected Float[] arr, arr2, arr3, arr4;
-    protected String str, str2, str3, str4;
-    protected Float num, num2, num3, num4;
-    protected Integer val, val2, val3, val4;
     protected Wincalc iwin = null;
     protected String versionDb = eSetting.find(2).getStr(eSetting.val);
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры

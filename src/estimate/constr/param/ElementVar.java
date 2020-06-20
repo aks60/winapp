@@ -35,22 +35,7 @@ public class ElementVar extends Par5s {
                 switch (grup) {
 
                     case 31000:  //Для технологического кода контейнера 
-                        Record sysprofRec2 = elem5e.sysprofRec;
-                        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
-                        if (artiklVRec.get(eArtikl.tech_code) == null) {
-                            return false;
-                        }
-                        String[] strList = rec.getStr(TEXT).split(";");
-                        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
-                        boolean ret2 = false;
-                        for (String str : strList) {
-                            for (String str2 : strList2) {
-                                if (str.equals(str2)) {
-                                    ret2 = true;
-                                }
-                            }
-                        }
-                        if (ret2 == false) {
+                        if (check_000(elem5e, rec) == false) {
                             return false;
                         }
                         break;
@@ -69,17 +54,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31004:  //Если прилегающий артикул 
-                        HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
-                        pass = 0;
-                        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
-                            ElemJoining el = entry.getValue();
-                            if (TypeJoin.VAR10 == el.typeJoin
-                                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem5e.artiklRec.getStr(eArtikl.code))
-                                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
-                                pass = 1;
-                            }
-                        }
-                        if (pass == 0) {
+                        if (check_004(elem5e, rec) == false) {
                             return false;
                         }
                         break;
@@ -246,11 +221,11 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
-                        arr = parserFloat2(rec.getStr(TEXT));
-                        if (((arr[0] > elem5e.width() && arr[1] < elem5e.width()) || (arr[0] > elem5e.height() && arr[1] < elem5e.height())) == false) {
+                        Float[] arr1 = parserFloat2(rec.getStr(TEXT));
+                        if (((arr1[0] > elem5e.width() && arr1[1] < elem5e.width()) || (arr1[0] > elem5e.height() && arr1[1] < elem5e.height())) == false) {
                             return false;
                         }
-                        if (((arr[2] > elem5e.width() && arr[2] < elem5e.width()) || (arr[2] > elem5e.height() && arr[3] < elem5e.height())) == false) {
+                        if (((arr1[2] > elem5e.width() && arr1[2] < elem5e.width()) || (arr1[2] > elem5e.height() && arr1[3] < elem5e.height())) == false) {
                             return false;
                         }
                         break;
@@ -259,11 +234,11 @@ public class ElementVar extends Par5s {
                         break;
                     case 37030:  //Минимальная площадь или Ограничение площади, кв.м. для Ps4                        
                         if ("ps4".equals(versionDb)) {
-                            arr = parserFloat(rec.getStr(TEXT));
-                            if (elem5e.width() / 1000 * elem5e.height() / 1000 < arr[0]) {
+                            Float[] arr2 = parserFloat(rec.getStr(TEXT));
+                            if (elem5e.width() / 1000 * elem5e.height() / 1000 < arr2[0]) {
                                 return false;
                             }
-                            if (elem5e.width() / 1000 * elem5e.height() / 1000 > arr[1]) {
+                            if (elem5e.width() / 1000 * elem5e.height() / 1000 > arr2[1]) {
                                 return false;
                             }
                         } else if ("ps3".equals(versionDb)) {
@@ -332,6 +307,47 @@ public class ElementVar extends Par5s {
                 System.err.println("wincalc.constr.param.ElementVar.check()  parametr=" + grup + "    " + e);
                 return false;
             }
+        }
+        return true;
+    }
+
+    private boolean check_000(ElemSimple elem5e, Record rec) {
+
+        Record sysprofRec2 = elem5e.sysprofRec;
+        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
+        if (artiklVRec.get(eArtikl.tech_code) == null) {
+            return false;
+        }
+        String[] strList = rec.getStr(TEXT).split(";");
+        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+        boolean ret2 = false;
+        for (String str : strList) {
+            for (String str2 : strList2) {
+                if (str.equals(str2)) {
+                    ret2 = true;
+                }
+            }
+        }
+        if (ret2 == false) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean check_004(ElemSimple elem5e, Record rec) {
+
+        HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
+        pass = 0;
+        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
+            ElemJoining el = entry.getValue();
+            if (TypeJoin.VAR10 == el.typeJoin
+                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem5e.artiklRec.getStr(eArtikl.code))
+                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
+                pass = 1;
+            }
+        }
+        if (pass == 0) {
+            return false;
         }
         return true;
     }

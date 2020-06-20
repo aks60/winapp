@@ -104,22 +104,9 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24033:  //Фурнитура штульповая 
-                    case 25033:  //Фурнитура штульповая    
-                        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("Левое")) {
-                            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.LEFT);
-                            if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
-                                return false;
-                            } else if (rec.getStr(TEXT).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
-                                return false;
-                            }
-                        } else if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("Правое")) {
-                            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.RIGHT);
-                            if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
-                                return false;
-                            }
-                            if (el.useArtiklTo() == UseArtiklTo.SHTULP && rec.getStr(TEXT).equals("Нет")) {
-                                return false;
-                            }
+                    case 25033:  //Фурнитура штульповая 
+                        if(check_033(elem5e, rec) == false) {
+                            return false;
                         }
                         break;
                     case 24036:  //Номер Стороны_X/Стороны_Y набора 
@@ -293,6 +280,27 @@ public class FurnitureDet extends Par5s {
                 }
             } catch (Exception e) {
                 System.err.println("wincalc.constr.param.FurnitureDet.check()  parametr=" + grup + "    " + e);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean check_033(ElemSimple elem5e, Record rec) {
+
+        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("Левое")) {
+            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.LEFT);
+            if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                return false;
+            } else if (rec.getStr(TEXT).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
+                return false;
+            }
+        } else if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("Правое")) {
+            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.RIGHT);
+            if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                return false;
+            }
+            if (el.useArtiklTo() == UseArtiklTo.SHTULP && rec.getStr(TEXT).equals("Нет")) {
                 return false;
             }
         }

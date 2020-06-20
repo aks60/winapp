@@ -31,22 +31,7 @@ public class FillingDet extends Par5s {
                 switch (grup) {
                     case 14000:  //Для технологического кода контейнераi
                     case 15000:  //Для технологического кода контейнера 
-                        Record sysprofRec = elem5e.sysprofRec;
-                        Record articlRec = eArtikl.find(sysprofRec.getInt(eArtikl.id), false);
-                        if (articlRec.get(eArtikl.tech_code) == null) {
-                            return false;
-                        }
-                        String[] strList = rec.getStr(TEXT).split(";");
-                        String[] strList2 = articlRec.getStr(eArtikl.tech_code).split(";");
-                        boolean ret2 = false;
-                        for (String str : strList) {
-                            for (String str2 : strList2) {
-                                if (str.equals(str2)) {
-                                    ret2 = true;
-                                }
-                            }
-                        }
-                        if (ret2 == false) {
+                        if (check_000(elem5e, rec) == false) {
                             return false;
                         }
                         break;
@@ -105,17 +90,8 @@ public class FillingDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 14095:  //Если признак системы конструкции 
-                    case 15095:  //Если признак системы конструкции    
-                        Record systreeRec = eSystree.find(iwin.nuni);
-                        String[] arr = rec.getStr(TEXT).split(";");
-                        List<String> arrList = Arrays.asList(arr);
-                        boolean ret = false;
-                        for (String str : arrList) {
-                            if (systreeRec.get(eSystree.types) == Integer.valueOf(str) == true) {
-                                ret = true;
-                            }
-                        }
-                        if (ret == false) {
+                    case 15095:  //Если признак системы конструкции  
+                        if (check_095(rec) == false) {
                             return false;
                         }
                         break;
@@ -179,6 +155,45 @@ public class FillingDet extends Par5s {
                 System.err.println("wincalc.constr.param.FillingDet.check()  parametr=" + grup + "    " + e);
                 return false;
             }
+        }
+        return true;
+    }
+
+    private boolean check_000(ElemSimple elem5e, Record rec) {
+        Record sysprofRec = elem5e.sysprofRec;
+        Record articlRec = eArtikl.find(sysprofRec.getInt(eArtikl.id), false);
+        if (articlRec.get(eArtikl.tech_code) == null) {
+            return false;
+        }
+        String[] strList = rec.getStr(TEXT).split(";");
+        String[] strList2 = articlRec.getStr(eArtikl.tech_code).split(";");
+        boolean ret2 = false;
+        for (String str : strList) {
+            for (String str2 : strList2) {
+                if (str.equals(str2)) {
+                    ret2 = true;
+                }
+            }
+        }
+        if (ret2 == false) {
+            return false;
+        }
+        return false;
+    }
+
+    private boolean check_095(Record rec) {
+
+        Record systreeRec = eSystree.find(iwin.nuni);
+        String[] arr = rec.getStr(TEXT).split(";");
+        List<String> arrList = Arrays.asList(arr);
+        boolean ret = false;
+        for (String str : arrList) {
+            if (systreeRec.get(eSystree.types) == Integer.valueOf(str) == true) {
+                ret = true;
+            }
+        }
+        if (ret == false) {
+            return false;
         }
         return true;
     }

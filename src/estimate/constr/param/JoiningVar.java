@@ -29,8 +29,6 @@ public class JoiningVar extends Par5s {
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
     public boolean check(ElemJoining elemJoin, List<Record> paramList) {
 
-        boolean result = true;
-        String strTxt = "";
         //цикл по параметрам элементов соединения
         for (Record rec : paramList) {
 
@@ -138,14 +136,7 @@ public class JoiningVar extends Par5s {
                         }
                         break;
                     case 2030:  //Припуск Артикула1/Артикула2 , мм 
-                        strTxt = rec.getStr(TEXT);
-                        char symmetry = strTxt.charAt(strTxt.length() - 1);
-                        if (symmetry == '@') {
-                            strTxt = strTxt.substring(0, strTxt.length() - 1);
-                        }
-                        String arr2[] = strTxt.split("/");
-                        elemJoin.joinElement1.specificationRec.putParam(2030, arr2[0]);
-                        elemJoin.joinElement2.specificationRec.putParam(2030, arr2[1]);
+                        check_2030(elemJoin, rec);
                         break;
                     case 2055:  //Продолжение общей арки 
                         message(rec.getInt(GRUP));
@@ -272,7 +263,7 @@ public class JoiningVar extends Par5s {
                 return false;
             }
         }
-        return result;
+        return true;
     }
 
     private boolean check_005(ElemJoining elemJoin, Record rec) {
@@ -363,5 +354,16 @@ public class JoiningVar extends Par5s {
             return false;
         }
         return true;
+    }
+
+    private void check_2030(ElemJoining elemJoin, Record rec) {
+        String strTxt = rec.getStr(TEXT);
+        char symmetry = strTxt.charAt(strTxt.length() - 1);
+        if (symmetry == '@') {
+            strTxt = strTxt.substring(0, strTxt.length() - 1);
+        }
+        String arr2[] = strTxt.split("/");
+        elemJoin.joinElement1.specificationRec.putParam(2030, arr2[0]);
+        elemJoin.joinElement2.specificationRec.putParam(2030, arr2[1]);
     }
 }

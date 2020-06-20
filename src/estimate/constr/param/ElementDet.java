@@ -26,32 +26,17 @@ public class ElementDet extends Par5s {
 
         if (filterParamJson(elem5e, paramList) == false) {
             return false; //параметры по умолчанию
-        }        
+        }
         //Цикл по параметрам составов
         for (Record rec : paramList) {
-                        
+
             int grup = rec.getInt(GRUP);
             try {
                 switch (grup) {
 
                     case 33000:  //Для технологического кода контейнера 
-                    case 34000:  //Для технологического кода контейнера    
-                        Record sysprofRec = elem5e.sysprofRec;
-                        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-                        if (artiklVRec.get(eArtikl.tech_code) == null) {
-                            return false;
-                        }
-                        String[] strList = rec.getStr(TEXT).split(";");
-                        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
-                        boolean ret2 = false;
-                        for (String str : strList) {
-                            for (String str2 : strList2) {
-                                if (str.equals(str2)) {
-                                    ret2 = true;
-                                }
-                            }
-                        }
-                        if (ret2 == false) {
+                    case 34000:  //Для технологического кода контейнера 
+                        if (check_000(elem5e, rec) == false) {
                             return false;
                         }
                         break;
@@ -69,22 +54,19 @@ public class ElementDet extends Par5s {
                         break;
                     case 33005:  //Коды основной текстуры контейнера 
                     case 34005:  //Коды основной текстуры контейнера
-                        int m1 = elem5e.iwin().color1;
-                        if (compareInt(rec.getStr(TEXT), m1) == false) {
+                        if (compareInt(rec.getStr(TEXT), elem5e.iwin().color1) == false) {
                             return false;
                         }
                         break;
                     case 33006:  //Коды внутр. текстуры контейнера
                     case 34006:  //Коды внутр. текстуры контейнера 
-                        int m2 = elem5e.iwin().color2;
-                        if (compareInt(rec.getStr(TEXT), m2) == false) {
+                        if (compareInt(rec.getStr(TEXT), elem5e.iwin().color2) == false) {
                             return false;
                         }
                         break;
                     case 33007:  //Коды внешн. текстуры контейнера 
                     case 34007:  //Коды внешн. текстуры контейнера     
-                        int m3 = elem5e.iwin().color3;
-                        if (compareInt(rec.getStr(TEXT), m3) == false) {
+                        if (compareInt(rec.getStr(TEXT), elem5e.iwin().color3) == false) {
                             return false;
                         }
                         break;
@@ -156,16 +138,7 @@ public class ElementDet extends Par5s {
                     case 38095:  //Если признак системы конструкции
                     case 39095:  //Если признак системы конструкции
                     case 40095:  //Если признак системы конструкции 
-                        Record systreefRec = eSystree.find(iwin.nuni);
-                        String[] arr = rec.getStr(TEXT).split(";");
-                        List<String> arrList = Arrays.asList(arr);
-                        boolean ret = false;
-                        for (String str : arrList) {
-                            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
-                                ret = true;
-                            }
-                        }
-                        if (ret == false) {
+                        if (check_095(rec) == false) {
                             return false;
                         }
                         break;
@@ -443,6 +416,46 @@ public class ElementDet extends Par5s {
                 System.err.println("wincalc.constr.param.ElementDet.check()  parametr=" + grup + "    " + e);
                 return false;
             }
+        }
+        return true;
+    }
+
+    private boolean check_000(ElemSimple elem5e, Record rec) {
+
+        Record sysprofRec = elem5e.sysprofRec;
+        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        if (artiklVRec.get(eArtikl.tech_code) == null) {
+            return false;
+        }
+        String[] strList = rec.getStr(TEXT).split(";");
+        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+        boolean ret2 = false;
+        for (String str : strList) {
+            for (String str2 : strList2) {
+                if (str.equals(str2)) {
+                    ret2 = true;
+                }
+            }
+        }
+        if (ret2 == false) {
+            return false;
+        }
+        return false;
+    }
+
+    private boolean check_095(Record rec) {
+
+        Record systreefRec = eSystree.find(iwin.nuni);
+        String[] arr = rec.getStr(TEXT).split(";");
+        List<String> arrList = Arrays.asList(arr);
+        boolean ret = false;
+        for (String str : arrList) {
+            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
+                ret = true;
+            }
+        }
+        if (ret == false) {
+            return false;
         }
         return true;
     }
