@@ -53,11 +53,11 @@ public class Filling extends Cal5e {
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
                 UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
-                Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth);
+                String depth = (elemGlass.artiklRec.getStr(eArtikl.depth) == null) ? "" :elemGlass.artiklRec.getStr(eArtikl.depth).replace(".", ",");
                 Record artprofRec = null;
 
                 //Доступные толщины
-                if (containsFloat(depthSet, depth) == false) {
+                if (depthSet.contains(depth) == true) {
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
@@ -69,7 +69,7 @@ public class Filling extends Cal5e {
                     for (Record glasgrpRec : eGlasgrp.findAll()) {
 
                         //Доступные толщины
-                        if (containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == false) {
+                        if ((glasgrpRec.getStr(eGlasgrp.depth)).contains(depth)) { 
                             listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling из формы Systree
 
                             //Цикл по профилям в группах заполнений
