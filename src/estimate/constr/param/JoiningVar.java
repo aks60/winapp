@@ -29,8 +29,6 @@ public class JoiningVar extends Par5s {
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
     public boolean check(ElemJoining elemJoin, List<Record> paramList) {
 
-        ElemSimple joinElement1 = elemJoin.joinElement1;
-        ElemSimple joinElement2 = elemJoin.joinElement2;
         boolean result = true;
         String strTxt = "";
         //цикл по параметрам элементов соединения
@@ -46,48 +44,10 @@ public class JoiningVar extends Par5s {
                     case 2005:  //Контейнер имеет тип Артикула1/Артикула2  
                     case 3005:  //Контейнер имеет тип Артикула1/Артикула2 
                     case 4005:  //Контейнер имеет тип Артикула1/Артикула2    
-                    try {
-                        strTxt = rec.getStr(TEXT);
-                        int type1 = joinElement1.type().value;
-                        int type2 = joinElement2.type().value;
-
-                        char symmetry = strTxt.charAt(strTxt.length() - 1);
-                        if (symmetry == '@') {
-                            strTxt = strTxt.substring(0, strTxt.length() - 1);
+                        if (check_005(elemJoin, rec) == false) {
+                            return false;
                         }
-                        String arr2[] = strTxt.split("/");//парсинг параметра
-                        int[] arr3 = Arrays.asList(arr2).stream().mapToInt(Integer::parseInt).toArray();
-                        if (arr2.length == 1) {
-                            if (!(arr3[0] == type1 || arr3[0] == type2)) {
-                                return false;
-                            }
-                        } else if (arr2.length == 2) {
-                            if (symmetry == '@') {
-                                if (!((arr3[0] == type1 && arr3[1] == type2) || (arr3[0] == type2 && arr3[1] == type1))) {
-                                    return false;
-                                }
-                            } else {
-                                if (!((arr3[0] == type1 && arr3[1] == type2))) {
-                                    return false;
-                                }
-                            }
-                        } else {
-                            if (symmetry == '@') {
-                                if (!((type1 >= arr3[0] && type1 < arr3[1]) && (type2 >= arr3[2] && type2 < arr3[3])
-                                        || (type2 >= arr3[0] && type2 < arr3[1]) && (type1 >= arr3[2] && type1 < arr3[3]))) {
-                                    return false;
-                                }
-                            } else {
-                                if (!((type1 >= arr3[0] && type1 < arr3[1]) && (type2 >= arr3[2] && type2 < arr3[3]))) {
-                                    return false;
-                                }
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.err.println("Ошибка ParamVariant.checkParconv() " + e);
-                        return false;
-                    }
-                    break;
+                        break;
                     case 1008:  //Эффективное заполнение изд., мм
                         message(rec.getInt(GRUP));
                         break;
@@ -96,33 +56,13 @@ public class JoiningVar extends Par5s {
                         break;
                     case 1011:  //Для Артикула 1 указан состав 
                     case 4011:  //Для Артикула 1 указан состав     
-                        strTxt = rec.getStr(TEXT);
-                        List<Record> elementList1 = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
-                        boolean substr1 = false;
-                        for (Record elementRec1 : elementList1) {
-                            if (elementRec1.getStr(eElement.name).contains(strTxt)) {
-                                ArrayList<Record> elempar1List = eElempar1.find2(elementRec1.getInt(GRUP));
-                                substr1 = (new ElementVar(iwin)).check(joinElement1, elempar1List);
-                                break;
-                            }
-                        }
-                        if (substr1 == false) {
+                        if (check_011_012(elemJoin.joinElement1, rec)) {
                             return false;
                         }
                         break;
                     case 1012:  //Для Артикула 2 указан состав                  
                     case 4012:  //Для Артикула 2 указан состав     
-                        strTxt = rec.getStr(TEXT);
-                        boolean substr2 = false;
-                        List<Record> elementList2 = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getInt(eArtikl.series_id));
-                        for (Record elementRec2 : elementList2) {
-                            if (elementRec2.getStr(eElement.name).contains(strTxt)) {
-                                ArrayList<Record> elempar2List = eElempar2.find2(elementRec2.getInt(GRUP));
-                                substr2 = (new ElementVar(iwin)).check(joinElement2, elempar2List);
-                                break;
-                            }
-                        }
-                        if (substr2 == false) {
+                        if (check_011_012(elemJoin.joinElement2, rec)) {
                             return false;
                         }
                         break;
@@ -130,27 +70,7 @@ public class JoiningVar extends Par5s {
                     case 2013:  //Для Артикулов не указан состав 
                     case 3013:  //Для Артикулов не указан состав
                     case 4013:  //Для Артикулов не указан состав  
-                        strTxt = rec.getStr(TEXT);
-                        List<Record> elementList1a = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
-                        boolean substr1a = false;
-                        ElementVar elementVar = new ElementVar(iwin);
-                        for (Record elementRec : elementList1a) {
-                            if (elementRec.getStr(eElement.name).contains(strTxt)) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
-                                substr1a = elementVar.check(joinElement1, elempar1List);
-                                break;
-                            }
-                        }
-                        boolean substr2a = false;
-                        List<Record> elementList2a = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getInt(eArtikl.series_id));
-                        for (Record elementRec : elementList2a) {
-                            if (elementRec.getStr(eElement.name).contains(strTxt)) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
-                                substr1a = elementVar.check(joinElement1, elempar1List);
-                                break;
-                            }
-                        }
-                        if (substr1a == true || substr2a == true) {
+                        if (check_012_013(elemJoin.joinElement1, elemJoin.joinElement2, rec, false)) {
                             return false;
                         }
                         break;
@@ -199,7 +119,10 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 2012:  //Для Артикулов указан состав
-                        message(rec.getInt(GRUP));
+                    case 3012:  //Для Артикулов указан состав 
+                        if (check_012_013(elemJoin.joinElement1, elemJoin.joinElement2, rec, true)) {
+                            return false;
+                        }
                         break;
                     case 2015:  //Ориентация Артикула1/Артикула2, ° 
                         message(rec.getInt(GRUP));
@@ -222,8 +145,8 @@ public class JoiningVar extends Par5s {
                             strTxt = strTxt.substring(0, strTxt.length() - 1);
                         }
                         String arr2[] = strTxt.split("/");
-                        joinElement1.specificationRec.putParam(2030, arr2[0]);
-                        joinElement2.specificationRec.putParam(2030, arr2[1]);
+                        elemJoin.joinElement1.specificationRec.putParam(2030, arr2[0]);
+                        elemJoin.joinElement2.specificationRec.putParam(2030, arr2[1]);
                         break;
                     case 2055:  //Продолжение общей арки 
                         message(rec.getInt(GRUP));
@@ -253,9 +176,6 @@ public class JoiningVar extends Par5s {
                         }
                         break;
                     case 3003:  //Угол варианта 
-                        message(rec.getInt(GRUP));
-                        break;
-                    case 3012:  //Для Артикулов указан состав 
                         message(rec.getInt(GRUP));
                         break;
                     case 3015:  //Ориентация Артикула1/Артикула2, ° 
@@ -354,5 +274,95 @@ public class JoiningVar extends Par5s {
             }
         }
         return result;
+    }
+
+    private boolean check_005(ElemJoining elemJoin, Record rec) {
+        try {
+            String strTxt = rec.getStr(TEXT);
+            int type1 = elemJoin.joinElement1.type().value;
+            int type2 = elemJoin.joinElement2.type().value;
+
+            char symmetry = strTxt.charAt(strTxt.length() - 1);
+            if (symmetry == '@') {
+                strTxt = strTxt.substring(0, strTxt.length() - 1);
+            }
+            String arr2[] = strTxt.split("/");//парсинг параметра
+            int[] arr3 = Arrays.asList(arr2).stream().mapToInt(Integer::parseInt).toArray();
+            if (arr2.length == 1) {
+                if (!(arr3[0] == type1 || arr3[0] == type2)) {
+                    return false;
+                }
+            } else if (arr2.length == 2) {
+                if (symmetry == '@') {
+                    if (!((arr3[0] == type1 && arr3[1] == type2) || (arr3[0] == type2 && arr3[1] == type1))) {
+                        return false;
+                    }
+                } else {
+                    if (!((arr3[0] == type1 && arr3[1] == type2))) {
+                        return false;
+                    }
+                }
+            } else {
+                if (symmetry == '@') {
+                    if (!((type1 >= arr3[0] && type1 < arr3[1]) && (type2 >= arr3[2] && type2 < arr3[3])
+                            || (type2 >= arr3[0] && type2 < arr3[1]) && (type1 >= arr3[2] && type1 < arr3[3]))) {
+                        return false;
+                    }
+                } else {
+                    if (!((type1 >= arr3[0] && type1 < arr3[1]) && (type2 >= arr3[2] && type2 < arr3[3]))) {
+                        return false;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка ParamVariant.checkParconv() " + e);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean check_011_012(ElemSimple joinElement, Record rec) {
+        boolean substr = false;
+        List<Record> elementList = eElement.find3(joinElement.artiklRec.getInt(eArtikl.code), joinElement.artiklRec.getInt(eArtikl.series_id));
+        for (Record elementRec : elementList) {
+            if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
+                ArrayList<Record> elempar2List = eElempar2.find2(elementRec.getInt(GRUP));
+                substr = (new ElementVar(iwin)).check(joinElement, elempar2List);
+                break;
+            }
+        }
+        if (substr == false) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean check_012_013(ElemSimple joinElement1, ElemSimple joinElement2, Record rec, boolean yes) {
+
+        List<Record> elementList1 = eElement.find3(joinElement1.artiklRec.getInt(eArtikl.code), joinElement1.artiklRec.getInt(eArtikl.series_id));
+        boolean substr1 = false;
+        ElementVar elementVar = new ElementVar(iwin);
+        for (Record elementRec : elementList1) {
+            if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
+                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
+                substr1 = elementVar.check(joinElement1, elempar1List);
+                break;
+            }
+        }
+        boolean substr2 = false;
+        List<Record> elementList2 = eElement.find3(joinElement2.artiklRec.getInt(eArtikl.code), joinElement2.artiklRec.getInt(eArtikl.series_id));
+        for (Record elementRec : elementList2) {
+            if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
+                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
+                substr1 = elementVar.check(joinElement1, elempar1List);
+                break;
+            }
+        }
+        if (yes == false && (substr1 == true || substr2 == true)) {
+            return false;
+        } else if (yes == true && (substr1 == true || substr2 == true)) {
+            return false;
+        }
+        return true;
     }
 }
