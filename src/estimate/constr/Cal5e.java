@@ -176,7 +176,7 @@ public abstract class Cal5e {
 
     public static boolean containsFloat(String ptext, float value) {
 
-        if (ptext == null) {
+        if (ptext == null || ptext.isEmpty()) {
             return true;
         }
         ptext = ptext.replace(",", "."); //парсинг параметра
