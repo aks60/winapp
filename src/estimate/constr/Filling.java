@@ -46,35 +46,40 @@ public class Filling extends Cal5e {
     public void calc() {
         try {
             Record systreeRec = eSystree.find(iwin().nuni);
-            String depthSet = systreeRec.getStr(eSystree.size);
+            String depthSet = systreeRec.getStr(eSystree.depth);
             List<Record> sysprofList = eSysprof.find(iwin().nuni);
             LinkedList<ElemGlass> elemGlassList = iwin().rootArea.listElem(TypeElem.GLASS);
 
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
                 UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
+                Float depth = elemGlass.artiklRec.getFloat(eArtikl.depth);
                 Record artprofRec = null;
 
-                //Цикл по системе конструкций, ищем артикул системы профилей
-                for (Record sysprofRec : sysprofList) {
-                    if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-                        artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-                        break;
+                //Доступные толщины
+                if (containsFloat(depthSet, depth) == false) {
+                    //Цикл по системе конструкций, ищем артикул системы профилей
+                    for (Record sysprofRec : sysprofList) {
+                        if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
+                            artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+                            break;
+                        }
                     }
-                }
+                    //Цикл по группам заполнений
+                    for (Record glasgrpRec : eGlasgrp.findAll()) {
 
-                //Цикл по группам заполнений
-                for (Record glasgrpRec : eGlasgrp.findAll()) {
-                    if ((glasgrpRec.getStr(eGlasgrp.depth) + ";").contains(depthSet)) { //доступные толщины
-                        listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling из формы Systree
-                        
-                        //Цикл по профилям в группах заполнений
-                        for (Record glasprofRec : eGlasprof.findAll()) {
-                            if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
-                                if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
+                        //Доступные толщины
+                        if (containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth) == false) {
+                            listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling из формы Systree
 
-                                    elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                                    detail(elemGlass, glasgrpRec);
+                            //Цикл по профилям в группах заполнений
+                            for (Record glasprofRec : eGlasprof.findAll()) {
+                                if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
+                                    if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
+
+                                        elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
+                                        detail(elemGlass, glasgrpRec);
+                                    }
                                 }
                             }
                         }

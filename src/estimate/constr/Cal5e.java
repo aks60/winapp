@@ -10,14 +10,14 @@ import estimate.model.Com5t;
 public abstract class Cal5e {
 
     private Wincalc iwin = null;
-    public  Set listVariants = new HashSet();
+    public Set listVariants = new HashSet();
 
     public Cal5e(Wincalc iwin) {
         this.iwin = iwin;
-    } 
-    
+    }
+
     public abstract void calc();
-    
+
     public Wincalc iwin() {
         return iwin;
     }
@@ -25,7 +25,7 @@ public abstract class Cal5e {
     public AreaSimple root() {
         return iwin.rootArea;
     }
-    
+
     public boolean DblNotZero(Object p) {
         float p2 = (float) p;
         return p2 > 0.00005;
@@ -97,16 +97,16 @@ public abstract class Cal5e {
         }
         String[] arr2 = str.split("/");
         if (arr2.length == 2) {
-           String[] arr3 = arr2[0].split("-");
-           String[] arr4 = arr2[1].split("-");
-           if(arr3.length == 2) {
-               arr[0] = Float.valueOf(arr3[0]);
-               arr[1] = Float.valueOf(arr3[1]);
-           }
-           if(arr4.length == 2) {
-               arr[2] = Float.valueOf(arr4[0]);
-               arr[3] = Float.valueOf(arr4[1]);
-           }
+            String[] arr3 = arr2[0].split("-");
+            String[] arr4 = arr2[1].split("-");
+            if (arr3.length == 2) {
+                arr[0] = Float.valueOf(arr3[0]);
+                arr[1] = Float.valueOf(arr3[1]);
+            }
+            if (arr4.length == 2) {
+                arr[2] = Float.valueOf(arr4[0]);
+                arr[3] = Float.valueOf(arr4[1]);
+            }
         }
         return arr;
     }
@@ -174,6 +174,23 @@ public abstract class Cal5e {
         return false;
     }
 
+    public static boolean containsFloat(String ptext, float value) {
+
+        if (ptext == null) {
+            return true;
+        }
+        ptext = ptext.replace(",", "."); //парсинг параметра
+        String[] arr = ptext.split(";");
+        for (String el : arr) {
+
+            Float valueOne = Float.valueOf(el);
+            if (value == valueOne) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean compareColor(Integer[] arr, Integer color) {
         if (arr.length == 1) {
             int arr1 = arr[0];
@@ -193,7 +210,7 @@ public abstract class Cal5e {
     public boolean checkSize(float par, float... arr) {
         return true;
     }
-    
+
     public static void test_param(int[] paramArr) {
 
         HashMap<String, ArrayList> hm = new HashMap();
@@ -223,5 +240,5 @@ public abstract class Cal5e {
         for (ArrayList el : arr) {
             System.out.println(el);
         }
-    }    
+    }
 }

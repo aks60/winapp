@@ -18,7 +18,6 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            //String script = Winscript.test(601003, -1);
             //convert.Profstroy.script();
             //query();
             wincalc();
@@ -35,7 +34,7 @@ public class Test {
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + Winscript.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.build(estimate.script.Winscript.test(601003, null));
+        iwin.build(estimate.script.Winscript.test(601001, null));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 

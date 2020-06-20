@@ -246,7 +246,7 @@ public class Systree extends javax.swing.JFrame {
         rsvSystree.add(eSystree.name, txtField8);
         rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
         rsvSystree.add(eSystree.glas, txtField1);
-        rsvSystree.add(eSystree.size, txtField2);
+        rsvSystree.add(eSystree.depth, txtField2);
         rsvSystree.add(eSystree.col1, txtField3);
         rsvSystree.add(eSystree.col2, txtField4);
         rsvSystree.add(eSystree.col3, txtField5);
@@ -774,7 +774,7 @@ public class Systree extends javax.swing.JFrame {
         txtField12.setPreferredSize(new java.awt.Dimension(20, 18));
 
         jLabel26.setFont(common.Util.getFont(0,0));
-        jLabel26.setText("NUNI-AKS");
+        jLabel26.setText("NUNI-PS5");
         jLabel26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel26.setPreferredSize(new java.awt.Dimension(40, 18));
 
