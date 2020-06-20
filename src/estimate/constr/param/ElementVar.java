@@ -35,7 +35,6 @@ public class ElementVar extends Par5s {
                 switch (grup) {
 
                     case 31000:  //Для технологического кода контейнера 
-                        message(grup, rec.getStr(TEXT));
                         Record sysprofRec2 = elem5e.sysprofRec;
                         Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
                         if (artiklVRec.get(eArtikl.tech_code) == null) {
@@ -60,7 +59,6 @@ public class ElementVar extends Par5s {
                         break;
                     case 31002:  //Если профиль 
                     case 37002:  //Если артикул профиля контура  
-                        message(grup, rec.getStr(TEXT), elem5e.layout());
                         if (LayoutArea.ARCH == elem5e.layout() && "арочный".equals(rec.getStr(TEXT)) == false) {
                             return false;
                         } else if (LayoutArea.ARCH != elem5e.layout() && "прямой".equals(rec.getStr(TEXT)) == false) {
@@ -71,7 +69,6 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31004:  //Если прилегающий артикул 
-                        message(grup, elem5e.type(), rec.getStr(TEXT));
                         HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
                         pass = 0;
                         for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
@@ -88,21 +85,18 @@ public class ElementVar extends Par5s {
                         break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 
-                        message(grup, rec.getStr(TEXT));
                         if (compareInt(rec.getStr(TEXT), elem5e.color1) == false) {
                             return false;
                         }
                         break;
                     case 31006:  //Коды внутр. текстуры контейнера 
                     case 37006:  //Коды внутр. текстуры контейнера  
-                        message(grup, rec.getStr(TEXT));
                         if (compareInt(rec.getStr(TEXT), elem5e.color2) == false) {
                             return false;
                         }
                         break;
                     case 31007:  //Коды внешн. текстуры контейнера 
                     case 37007:  //Коды внешн. текстуры контейнера  
-                        message(grup, rec.getStr(TEXT));
                         if (compareInt(rec.getStr(TEXT), elem5e.color3) == false) {
                             return false;
                         }
@@ -120,7 +114,6 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31015:  //Разбиение профиля по уровням 
-                        message(grup, rec.getStr(TEXT));
                         if (rec.getStr(TEXT).equals(elem5e.specificationRec.getParam("empty", 13015)) == false) {
                             return false;
                         }
@@ -132,7 +125,6 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31020:  //Ограничение угла к горизонту, ° 
-                        message(grup, rec.getStr(TEXT));
                         if (compareFloat(rec.getStr(TEXT), ((ElemSimple) elem5e).anglHoriz) == false) {
                             return false;
                         }
@@ -147,7 +139,6 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31037:  //Название фурнитуры содержит 
-                        message(grup, rec.getStr(TEXT));
                         if (TypeElem.STVORKA == elem5e.owner().type()) {
                             if (rec.getStr(TEXT).contains(elem5e.artiklRec.getStr(eArtikl.name)) == false) {
                                 return false;
@@ -158,14 +149,12 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31041:  //Ограничение длины профиля, мм 
-                        message(grup, rec.getStr(TEXT));
                         Object obj = elem5e.length();
                         if (compareFloat(rec.getStr(TEXT), elem5e.length()) == false) {
                             return false;
                         }
                         break;
                     case 31050:  //Контейнер имеет тип 
-                        message(grup, rec.getStr(TEXT));
                         TypeElem type = elem5e.type();
                         if (type.value != Integer.valueOf(rec.getStr(TEXT))) {
                             return false;
@@ -175,7 +164,6 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31052:  //Поправка в спецификацию, мм 
-                        message(grup, rec.getStr(TEXT));
                         if (elem5e.layout() == LayoutArea.ARCH) {
                             elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         }
@@ -185,7 +173,6 @@ public class ElementVar extends Par5s {
                         break;
                     case 31055:  //Коды внутр. и внешн. текстуры изд.
                     case 37055:  //Коды внутр. и внешн. текстуры изд. 
-                        message(grup, rec.getStr(TEXT));
                         if ((compareInt(rec.getStr(TEXT), elem5e.color2) == true
                                 && compareInt(rec.getStr(TEXT), elem5e.color3) == true) == false) {
                             return false;
@@ -193,7 +180,6 @@ public class ElementVar extends Par5s {
                         break;
                     case 31056:  //Коды внутр. или внеш. текстуры изд. 
                     case 37056:  //Коды внут. или внеш. текстуры изд. 
-                        message(grup, rec.getStr(TEXT));
                         if ((compareInt(rec.getStr(TEXT), elem5e.color2) == true
                                 || compareInt(rec.getStr(TEXT), elem5e.color3) == true) == false) {
                             return false;
@@ -219,11 +205,9 @@ public class ElementVar extends Par5s {
                         break;
                     case 31085:  //Надпись на элементе 
                     case 37085:  //Надпись на элементе   
-                        message(grup, rec.getStr(TEXT));
                         elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 31090:  //Изменение сторон покраски 
-                        message(grup, rec.getStr(TEXT));
                         if (rec.getStr(TEXT).equals(elem5e.specificationRec.getParam("empty", 31090)) == false) {
                             return false;
                         }
@@ -236,7 +220,6 @@ public class ElementVar extends Par5s {
                         break;
                     case 31099:  //Трудозатраты, ч/ч. 
                     case 37099:  //Трудозатраты, ч/ч.  
-                        message(grup, rec.getStr(TEXT));
                         elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 31097:  //Трудозатраты по длине 
@@ -256,7 +239,6 @@ public class ElementVar extends Par5s {
                         break;
                     case 37009:  //Тип заполнения 
                         //Все, Произвольное, Прямоугольное, Арочное                                            
-                        message(grup, elem5e.type(), elem5e.owner().type(), rec.getStr(TEXT));
                         if ("Прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
                             return false;
                         } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
@@ -264,7 +246,6 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
-                        message(grup, elem5e.type(), rec.getStr(TEXT));
                         arr = parserFloat2(rec.getStr(TEXT));
                         if (((arr[0] > elem5e.width() && arr[1] < elem5e.width()) || (arr[0] > elem5e.height() && arr[1] < elem5e.height())) == false) {
                             return false;
@@ -278,7 +259,6 @@ public class ElementVar extends Par5s {
                         break;
                     case 37030:  //Минимальная площадь или Ограничение площади, кв.м. для Ps4                        
                         if ("ps4".equals(versionDb)) {
-                            message(grup, rec.getStr(TEXT));
                             arr = parserFloat(rec.getStr(TEXT));
                             if (elem5e.width() / 1000 * elem5e.height() / 1000 < arr[0]) {
                                 return false;
@@ -287,7 +267,6 @@ public class ElementVar extends Par5s {
                                 return false;
                             }
                         } else if ("ps3".equals(versionDb)) {
-                            message(grup, rec.getFloat(TEXT));
                             if (elem5e.width() / 1000 * elem5e.height() / 1000 < rec.getFloat(TEXT)) {
                                 return false;
                             }
@@ -296,18 +275,15 @@ public class ElementVar extends Par5s {
                     case 37031:  //Максимальная площадь 
                         message(grup);
                         if ("ps3".equals(versionDb)) {
-                            message(grup, rec.getFloat(TEXT));
                             if (elem5e.width() / 1000 * elem5e.height() / 1000 > rec.getFloat(TEXT)) {
                                 return false;
                             }
                         }
                         break;
                     case 37042:  //Мин. соотношение габаритов (б/м) или Допустимое соотношение габаритов б/м для Ps4
-                        message(grup, rec.getStr(TEXT));
                         elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 37043:  //Макс. соотношение габаритов (б/м)
-                        message(grup, rec.getStr(TEXT));
                         elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 37054:  //Коды основной текстуры изделия 

@@ -41,7 +41,6 @@ public class FillingVar extends Par5s {
                         break;
                     case 13015:  //Форма заполнения 
                         //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                        message(grup, elem5e.type(), elem5e.owner().type(), rec.getStr(TEXT));
                         if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.AREA.equals(elem5e.owner().type()) == false
                                 && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
                             return false;
@@ -61,7 +60,6 @@ public class FillingVar extends Par5s {
                         }
                         break;
                     case 13081:  //Для внешнего/внутреннего угла плоскости, ° 
-                        message(rec.getInt(GRUP), "Проверка в заполнении ломаного фасада");
                         break;
                     case 13095:  //Если признак системы конструкции 
                         message(rec.getInt(GRUP));
@@ -73,7 +71,6 @@ public class FillingVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 13099:  //Трудозатраты, ч/ч. 
-                        message(grup, rec.getStr(TEXT));
                         elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     default:

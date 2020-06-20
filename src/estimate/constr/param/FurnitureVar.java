@@ -66,7 +66,6 @@ public class FurnitureVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 21085:  //Надпись на эскизе 
-                        message(grup, rec.getStr(TEXT));
                         elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 21088:  //Уравнивание складных створок 

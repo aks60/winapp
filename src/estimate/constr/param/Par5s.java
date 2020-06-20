@@ -336,23 +336,6 @@ public class Par5s {
         }
     }
 
-    //Обработанные параметры
-    protected void message(int code, Object... obj) {
-        if (Main.dev == true) {
-            if (code == -13015) {
-                if (obj.length == 1) {
-                    System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + "\u001B[0m");
-                } else if (obj.length == 2) {
-                    System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + "\u001B[0m");
-                } else if (obj.length == 3) {
-                    System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + "\u001B[0m");
-                } else if (obj.length == 4) {
-                    System.out.println("\u001B[34mПАРАМЕТР code=" + code + " ЗНАЧЕНИЯ " + obj[0] + " " + obj[1] + " " + obj[2] + " " + obj[3] + "\u001B[0m");
-                }
-            }
-        }
-    }
-
     public int determineColorCodeForArt(Com5t com5t, int color_side, Record paramRec, Specification specif) {
 
 //        //int colorCode = getColorFromProduct(com5t, color_side, paramRec);

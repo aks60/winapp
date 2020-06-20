@@ -202,7 +202,6 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24099:  //Трудозатраты, ч/ч. 
                     case 25099:  //Трудозатраты, ч/ч.                    
-                        message(grup, rec.getStr(TEXT));
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 24800:  //Код основной обработки) 

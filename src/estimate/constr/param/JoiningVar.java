@@ -103,7 +103,6 @@ public class JoiningVar extends Par5s {
                     case 2099:  //Трудозатраты, ч/ч. 
                     case 3099:  //Трудозатраты, ч/ч.
                     case 4099:  //Трудозатраты, ч/ч. 
-                        message(grup, rec.getStr(TEXT));
                         elemJoin.costsJoin = rec.getStr(TEXT);
                         break;
                     case 1097:  //Трудозатраты по длине 

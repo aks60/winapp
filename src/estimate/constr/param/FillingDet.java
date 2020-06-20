@@ -66,14 +66,12 @@ public class FillingDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 14030:  //Количество 
-                        message(rec.getInt(GRUP), rec.getStr(TEXT));
                         mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 14040:  //Порог расчета, мм 
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 14050:  //Шаг, мм 
-                        message(rec.getInt(GRUP), rec.getStr(TEXT));
                         mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 14060:  //Количество на шаг 
@@ -134,11 +132,9 @@ public class FillingDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 15010:  //Расчет реза штапика 
-                        message(rec.getInt(GRUP), rec.getStr(TEXT));
                         mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 15011:  //Расчет реза штапика 
-                        message(rec.getInt(GRUP), rec.getStr(TEXT));
                         mapParam.put(grup, rec.getStr(TEXT));
                         break;
                     case 15017:  //Код системы содержит строку 

@@ -38,7 +38,6 @@ public class ElementDet extends Par5s {
                     case 34000:  //Для технологического кода контейнера    
                         Record sysprofRec = elem5e.sysprofRec;
                         Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-                        message(grup, artiklVRec.get(eArtikl.tech_code));
                         if (artiklVRec.get(eArtikl.tech_code) == null) {
                             return false;
                         }
@@ -174,7 +173,6 @@ public class ElementDet extends Par5s {
                     case 34099:  //Трудозатраты, ч/ч.
                     case 38099:  //Трудозатраты, ч/ч. 
                     case 39099:  //Трудозатраты, ч/ч. 
-                        message(grup, rec.getStr(TEXT));
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34001:  //Если признак состава 
