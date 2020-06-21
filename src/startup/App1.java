@@ -26,6 +26,7 @@ import frames.Specific;
 import frames.TestFrame;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Arrays;
 import javax.swing.JFrame;
 
 /**
@@ -158,6 +159,9 @@ public class App1 extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(659, 80));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -997,11 +1001,11 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-        FrameProgress.create(App1.this, new FrameListener() {
-            public void actionRequest(Object obj) {
-                eApp1.TestFrame.createFrame(App1.this);
-            }
-        });
+    FrameProgress.create(App1.this, new FrameListener() {
+        public void actionRequest(Object obj) {
+            eApp1.TestFrame.createFrame(App1.this);
+        }
+    });
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb
@@ -1220,6 +1224,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void btn35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn35ActionPerformed
 
     }//GEN-LAST:event_btn35ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setVisible(true));
+    }//GEN-LAST:event_formWindowActivated
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1317,7 +1325,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         public void createFrame(java.awt.Window parent, Object... param) {
             if (frame == null) {
                 switch (this) {
-                   
+
                     case TestFrame:
                         frame = new TestFrame();
                         break;
@@ -1378,7 +1386,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 }
                 eProfile.appframe = frame;
                 frame.setName(this.name());
-                FrameToFile.setFrameSize(frame);                
+                FrameToFile.setFrameSize(frame);
                 frame.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowDeiconified(java.awt.event.WindowEvent evt) {
                         App1.frame.setExtendedState(JFrame.NORMAL);
