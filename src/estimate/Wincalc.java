@@ -71,7 +71,7 @@ public class Wincalc {
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
     ////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601001;
+    public static int prj = 601005;
     ////////////////////////////////////////////////////////////////////////////
     
     public AreaSimple build(String productJson) {

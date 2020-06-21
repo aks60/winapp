@@ -52,7 +52,6 @@ import frames.swing.DefTableModel;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-//TODO ОШИБКА! ЗАПОЛНЕНИЕ 6208.02.160
 public class Element extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
