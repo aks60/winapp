@@ -70,7 +70,10 @@ public class Wincalc {
     protected Tariffication tariffication = new Tariffication(this); //тарификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
-
+    ////////////////////////////////////////////////////////////////////////////
+    public static int prj = 601001;
+    ////////////////////////////////////////////////////////////////////////////
+    
     public AreaSimple build(String productJson) {
 
         mapParamDef.clear();

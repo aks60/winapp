@@ -30,7 +30,8 @@ public class TestFrame extends javax.swing.JFrame {
             cn = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey");
         } catch (Exception e) {
         }
-        sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
+        //sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
+        sql1.setText("SELECT * from connlst order by cname");
         loadingTab1();
     }
 
@@ -53,6 +54,8 @@ public class TestFrame extends javax.swing.JFrame {
             }
             tab1.setModel(new DefaultTableModel(data, column));
             Util.setSelectedRow(tab1);
+            ((DefaultTableModel) tab2.getModel()). setRowCount(0);
+            ((DefaultTableModel) tab3.getModel()). setRowCount(0);
 
         } catch (Exception e) {
             System.out.println("frames.TestFrame.selectionTab1() " + e);
@@ -81,7 +84,7 @@ public class TestFrame extends javax.swing.JFrame {
                     data.add(vector);
                 }
                 tab2.setModel(new DefaultTableModel(data, column));
-                //tab2.setRowSorter(new TableRowSorter<DefTableModel>((DefTableModel) tab2.getModel()));
+                ((DefaultTableModel) tab3.getModel()). setRowCount(0);
                 Util.setSelectedRow(tab2);
             }
 

@@ -22,7 +22,7 @@ public class AreaRectangl extends AreaSimple {
             mapFrame.get(LayoutArea.BOTTOM).anglHoriz = 0;
             mapFrame.get(LayoutArea.RIGHT).anglHoriz = 90;
             mapFrame.get(LayoutArea.TOP).anglHoriz = 180;
-            mapFrame.get(LayoutArea.LEFT).anglHoriz = 360;
+            mapFrame.get(LayoutArea.LEFT).anglHoriz = 270;
             mapFrame.entrySet().forEach(elem -> {
                 elem.getValue().anglCut1 = 45;
                 elem.getValue().anglCut2 = 45;

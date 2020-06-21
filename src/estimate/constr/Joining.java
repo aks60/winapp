@@ -34,9 +34,8 @@ public class Joining extends Cal5e {
     }
 
     public void calc() {
+        listVariants.clear();
         try {
-            listVariants.clear();
-            
             //Цикл по списку соединений
             for (Map.Entry<String, ElemJoining> hmElemJoin : iwin().mapJoin.entrySet()) {
                 ElemJoining elemJoin = hmElemJoin.getValue();

@@ -82,9 +82,9 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 1040:  //Размер, мм 
-                        message(rec.getInt(GRUP));
-                        //return false; //Т. к. есть системные константы
-                        break;
+                        //TODO Тут полное непонимание логиги работы
+                        return false; //Т. к. есть системные константы
+                        //break;
                     case 1043:  //Ограничение габарита контура, мм 
                         message(rec.getInt(GRUP));
                         break;

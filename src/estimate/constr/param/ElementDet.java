@@ -440,7 +440,7 @@ public class ElementDet extends Par5s {
         if (ret2 == false) {
             return false;
         }
-        return false;
+        return true;
     }
 
     private boolean check_095(Record rec) {

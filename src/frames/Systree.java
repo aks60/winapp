@@ -405,6 +405,7 @@ public class Systree extends javax.swing.JFrame {
                 //Калькуляция изделия
                 iwin.build(script2.toString());
                 paintPanel.repaint(true, 12);
+                Arrays.asList(btnJoin, btnElem, btnFurn, btnFill, btnSpec).stream().forEach(btn -> btn.setEnabled(true));
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -560,6 +561,7 @@ public class Systree extends javax.swing.JFrame {
         btnFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
         btnFill.setToolTipText("Заполнения в ситеме...");
         btnFill.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFill.setEnabled(false);
         btnFill.setMaximumSize(new java.awt.Dimension(25, 25));
         btnFill.setMinimumSize(new java.awt.Dimension(25, 25));
         btnFill.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -572,6 +574,7 @@ public class Systree extends javax.swing.JFrame {
         btnJoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
         btnJoin.setToolTipText("Соединения в системе...");
         btnJoin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnJoin.setEnabled(false);
         btnJoin.setMaximumSize(new java.awt.Dimension(25, 25));
         btnJoin.setMinimumSize(new java.awt.Dimension(25, 25));
         btnJoin.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -584,6 +587,7 @@ public class Systree extends javax.swing.JFrame {
         btnElem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
         btnElem.setToolTipText("Составы в системе...");
         btnElem.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnElem.setEnabled(false);
         btnElem.setMaximumSize(new java.awt.Dimension(25, 25));
         btnElem.setMinimumSize(new java.awt.Dimension(25, 25));
         btnElem.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -597,6 +601,7 @@ public class Systree extends javax.swing.JFrame {
         btnFurn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
         btnFurn.setToolTipText("Фурнитура в системе...");
         btnFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFurn.setEnabled(false);
         btnFurn.setMaximumSize(new java.awt.Dimension(25, 25));
         btnFurn.setMinimumSize(new java.awt.Dimension(25, 25));
         btnFurn.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -610,6 +615,7 @@ public class Systree extends javax.swing.JFrame {
         btnSpec.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
         btnSpec.setToolTipText("Спецификация в системе...");
         btnSpec.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnSpec.setEnabled(false);
         btnSpec.setMaximumSize(new java.awt.Dimension(25, 25));
         btnSpec.setMinimumSize(new java.awt.Dimension(25, 25));
         btnSpec.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -1325,6 +1331,7 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructive
 
     private void btnTypicalOkna(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTypicalOkna
+        Arrays.asList(btnJoin, btnElem, btnFurn, btnFill, btnSpec).stream().forEach(btn -> btn.setEnabled(false));
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null && selectedNode.isLeaf()) {
             FrameProgress.create(Systree.this, new FrameListener() {

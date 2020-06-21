@@ -32,9 +32,9 @@ public class Test {
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\winbas\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
-        System.out.println("okno=" + Winscript.prj);
+        System.out.println("okno=" + estimate.Wincalc.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.build(estimate.script.Winscript.test(Winscript.prj, null));
+        iwin.build(estimate.script.Winscript.test(estimate.Wincalc.prj, null));
         iwin.constructiv();
         Specification.write_txt2(iwin.listSpec);
         //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 

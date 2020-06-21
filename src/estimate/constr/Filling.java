@@ -44,6 +44,7 @@ public class Filling extends Cal5e {
     }
 
     public void calc() {
+        listVariants.clear();
         try {
             Record systreeRec = eSystree.find(iwin().nuni);
             String depthSet = systreeRec.getStr(eSystree.depth);
