@@ -20,6 +20,7 @@ import java.util.List;
 import estimate.Wincalc;
 import estimate.constr.param.ElementDet;
 import estimate.constr.param.ElementVar;
+import estimate.model.Com5t;
 import estimate.model.ElemFrame;
 import estimate.model.ElemSimple;
 
@@ -41,9 +42,10 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void calc() {
         listVariants.clear();
+        LinkedList<ElemSimple>  listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         try {
             //Цикл по списку элементов конструкции
-            for (ElemSimple elem5e : iwin().listElem) {
+            for (ElemSimple elem5e : listElem) {
 
                 //Ищем текстуры не на аналоге 
                 int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id);

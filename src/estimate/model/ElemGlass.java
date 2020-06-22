@@ -56,12 +56,7 @@ public class ElemGlass extends ElemSimple {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
-        sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.FRAME, UseSide.LEFT, UseSide.ANY); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
-        //Object obj = owner().mapFrame.get(LayoutArea.LEFT);
-        //sysprofRec = owner().mapFrame.get(LayoutArea.LEFT).sysprofRec;
-        if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
-            artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
-        }
+
         //Цвет стекла
         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
         Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));

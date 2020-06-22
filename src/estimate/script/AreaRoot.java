@@ -2,6 +2,7 @@ package estimate.script;
 
 import enums.LayoutArea;
 import enums.TypeElem;
+import static estimate.script.Winscript.rootArea;
 import java.util.LinkedList;
 
 public class AreaRoot extends AreaElem {
@@ -26,6 +27,14 @@ public class AreaRoot extends AreaElem {
         this.color2 = color2;
         this.color3 = color3;
         this.paramJson = paramJson;
+        if (TypeElem.RECTANGL == elemType) {
+            add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+            add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+        } else if (TypeElem.ARCH == elemType) {
+
+        }
     }
 
     public void setParam(String prj, int nuni) {

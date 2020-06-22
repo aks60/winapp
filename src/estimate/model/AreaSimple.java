@@ -80,11 +80,11 @@ public class AreaSimple extends Com5t {
     //Список элементов окна
     public <E> LinkedList<E> listElem(TypeElem... type) {
         LinkedList<E> list = new LinkedList();
-        listCom5t(this, list, Arrays.asList(type));
+        listElem(this, list, Arrays.asList(type));
         return list;
     }
 
-    public <E> void listCom5t(Com5t com5t, LinkedList<E> list, List<TypeElem> type) {
+    private <E> void listElem(Com5t com5t, LinkedList<E> list, List<TypeElem> type) {
 
         if (type.contains(com5t.type)) {
             list.add((E) com5t);
@@ -98,7 +98,7 @@ public class AreaSimple extends Com5t {
             }
         }
         for (Com5t com5t2 : com5t.listChild) {
-            listCom5t(com5t2, list, type);
+            listElem(com5t2, list, type);
         }
     }
 
