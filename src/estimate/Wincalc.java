@@ -72,7 +72,7 @@ public class Wincalc {
 //==============================================================================    
 
     public static int prj = 601005;
-    
+
     public AreaSimple build(String productJson) {
 
         mapParamDef.clear();
