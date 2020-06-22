@@ -32,7 +32,7 @@ public class ElemGlass extends ElemSimple {
             String str = param.replace("'", "\"");
             JsonElement jsonElem = new Gson().fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
-            mapParamUse.put(ParamJson.nunic_iwin, jsonObj.get(ParamJson.nunic_iwin.name()));
+            mapParamUse.put(ParamJson.nunic_iwin, jsonObj.get(ParamJson.nunic_iwin.name()).getAsInt());
         }
         initСonstructiv();
         parsing(param);
@@ -48,15 +48,17 @@ public class ElemGlass extends ElemSimple {
 
     public void initСonstructiv() {
 
-        Object code = mapParamUse.get(ParamJson.nunic_iwin);
-        if (code != null) {
-            artiklRec = eArtikl.find2(String.valueOf(code));
+        Object id = mapParamUse.get(ParamJson.nunic_iwin);
+        if (id != null) {
+            artiklRec = eArtikl.find(Integer.valueOf(id.toString()), false);
         }
         if (artiklRec == null) {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
         sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.FRAME, UseSide.LEFT, UseSide.ANY); //у стеклопакета нет записи в Sysproa пэтому идёт подмена на Frame
+        //Object obj = owner().mapFrame.get(LayoutArea.LEFT);
+        //sysprofRec = owner().mapFrame.get(LayoutArea.LEFT).sysprofRec;
         if (artiklRec.getDbl(eArtikl.size_falz) == 0) {
             artiklRec.set(eArtikl.tech_code, iwin().artiklRec.getStr(eArtikl.tech_code)); //TODO наследование дордома Профстроя
         }

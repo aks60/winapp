@@ -1226,7 +1226,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_btn35ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setVisible(true));
+        //Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setVisible(true));
     }//GEN-LAST:event_formWindowActivated
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

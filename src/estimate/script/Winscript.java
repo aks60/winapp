@@ -112,7 +112,7 @@ public class Winscript {
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
 
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'nunic_iwin':'615496322'}")); //или 'R4x10x4x10x4'
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'nunic_iwin':'5746'}")); //или 'R4x10x4x10x4'
 
         } else if (project == 601007) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1100, 1400, 1400, 1009, 10018, 10018, "");
