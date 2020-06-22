@@ -71,10 +71,10 @@ public class Wincalc {
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 
-    public static int prj = 601003;
+    public static int prj = 601005;
 
     public AreaSimple build(String productJson) {
-
+        System.out.println(productJson);
         mapParamDef.clear();
         mapJoin.clear();
         listSpec.clear();
