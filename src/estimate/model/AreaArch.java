@@ -17,7 +17,7 @@ public class AreaArch extends AreaSimple {
 
         mapFrame.put(LayoutArea.LEFT, new ElemFrame(this, 2, LayoutArea.LEFT));
         mapFrame.put(LayoutArea.RIGHT, new ElemFrame(this, 3, LayoutArea.RIGHT));
-        mapFrame.put(LayoutArea.TOP, new ElemFrame(this, 4, LayoutArea.ARCH));
+        mapFrame.put(LayoutArea.ARCH, new ElemFrame(this, 4, LayoutArea.ARCH));
         mapFrame.put(LayoutArea.BOTTOM, new ElemFrame(this, 5, LayoutArea.BOTTOM));
     }
 
