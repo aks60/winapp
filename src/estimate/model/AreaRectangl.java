@@ -9,8 +9,12 @@ import estimate.Wincalc;
 public class AreaRectangl extends AreaSimple {
 
     public AreaRectangl(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3);
-        parsing(param);
+        super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3, param);
+
+        mapFrame.put(LayoutArea.BOTTOM, new ElemFrame(this, 2, LayoutArea.BOTTOM));
+        mapFrame.put(LayoutArea.RIGHT, new ElemFrame(this, 3, LayoutArea.RIGHT));
+        mapFrame.put(LayoutArea.TOP, new ElemFrame(this, 4, LayoutArea.TOP));
+        mapFrame.put(LayoutArea.LEFT, new ElemFrame(this, 5, LayoutArea.LEFT));
     }
 
     @Override

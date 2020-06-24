@@ -13,8 +13,12 @@ public class AreaArch extends AreaSimple {
     public double radiusArch = 0; //радиус арки
 
     public AreaArch(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
-        super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3);
-        parsing(param);
+        super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3, param);
+
+        mapFrame.put(LayoutArea.LEFT, new ElemFrame(this, 2, LayoutArea.LEFT));
+        mapFrame.put(LayoutArea.RIGHT, new ElemFrame(this, 3, LayoutArea.RIGHT));
+        mapFrame.put(LayoutArea.TOP, new ElemFrame(this, 4, LayoutArea.ARCH));
+        mapFrame.put(LayoutArea.BOTTOM, new ElemFrame(this, 5, LayoutArea.BOTTOM));
     }
 
     @Override
@@ -49,7 +53,7 @@ public class AreaArch extends AreaSimple {
         elem2.joinElement2.anglCut2 = (float) ang4;  //угол реза арки
         elem2.joinElement1.anglCut2 = (float) ang3;  //угол реза рамы               
         iwin().mapJoin.put(x2 + ":" + y1, elem2);
-        
+
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(iwin());
         elem3.id = id() + .3f;
@@ -58,7 +62,7 @@ public class AreaArch extends AreaSimple {
         elem3.joinElement2.anglCut2 = 45;  //угол реза рамы
         elem3.joinElement1.anglCut2 = 45;  //угол реза рамы               
         iwin().mapJoin.put(x1 + ":" + y2, elem3);
-        
+
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(iwin());
         elem4.id = id() + .4f;
@@ -66,7 +70,7 @@ public class AreaArch extends AreaSimple {
         elem4.anglProf = 90;
         elem4.joinElement2.anglCut2 = 45;  //угол реза рамы
         elem4.joinElement1.anglCut2 = 45;  //угол реза рамы               
-        iwin().mapJoin.put(x2 + ":" + y2, elem4);     
+        iwin().mapJoin.put(x2 + ":" + y2, elem4);
     }
 
     @Override

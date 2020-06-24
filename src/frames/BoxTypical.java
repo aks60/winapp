@@ -82,7 +82,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 listIcon.add(image);
                 dm.addRow(obj);
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println("777-" + e);
             }
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();

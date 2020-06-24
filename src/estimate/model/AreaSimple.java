@@ -24,13 +24,14 @@ public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
 
-    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3) {
+    public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
         this.type = typeElem;
         this.layout = layout;
         this.color1 = color1;
         this.color2 = color2;
         this.color3 = color3;
+        parsing(param);
         initDimension(width, height);
     }
 
