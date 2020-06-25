@@ -41,8 +41,8 @@ public class FillingVar extends Par5s {
                         break;
                     case 13015:  //Форма заполнения 
                         //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.AREA.equals(elem5e.owner().type()) == false
-                                && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
+                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
+                                && TypeElem.AREA.equals(elem5e.owner().type()) == false && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
                             return false;
                         } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.AREA.equals(elem5e.owner().type()) == true
                                 || TypeElem.STVORKA.equals(elem5e.owner().type()) == true)) {

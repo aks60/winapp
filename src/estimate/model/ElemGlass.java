@@ -183,7 +183,7 @@ public class ElemGlass extends ElemSimple {
                 specif.anglCut2 = (float) ang3;
                 specif.anglCut1 = (float) ang3;
 
-            } else if (TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
+            } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 specif.anglCut2 = 45;
                 specif.anglCut1 = 45;
                 //По горизонтали                
@@ -232,7 +232,7 @@ public class ElemGlass extends ElemSimple {
                 specif.anglCut2 = (float) ang3;
                 specif.anglCut1 = (float) ang3;
 
-            } else if (TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
+            } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 specif.anglCut2 = 45;
                 specif.anglCut1 = 45;
                 //По горизонтали                
@@ -248,7 +248,7 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
-            if (TypeElem.AREA == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
+            if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
                     specificationRec.specificationList.add(specif);
                 }
