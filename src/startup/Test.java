@@ -35,11 +35,7 @@ public class Test {
         System.out.println("okno=" + estimate.Wincalc.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         iwin.build(estimate.script.Winscript.test(estimate.Wincalc.prj, null));
-        iwin.constructiv();
-        Specification.write_txt2(iwin.listSpec);
-        //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin   + "  POINT:" + it.getKey() 
-                //+ " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name)); 
-
+        iwin.constructiv(); 
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
 //        iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           

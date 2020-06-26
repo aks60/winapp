@@ -372,8 +372,8 @@ public class Profstroy {
             deleteSql(eElemdet.up, "vnumb", eElement.up, "vnumb");//element_id
             deleteSql(eElempar1.up, "psss", eElement.up, "vnumb");//element_id   
             deleteSql(eElempar2.up, "psss", eElemdet.up, "aunic");//elemdet_id
-            deleteSql(eJoining.up, "anum1", eArtikl.up, "code");//artikl_id1
-            deleteSql(eJoining.up, "anum2", eArtikl.up, "code");//artikl_id2
+            //Включить в продакшине!!!  deleteSql(eJoining.up, "anum1", eArtikl.up, "code");//artikl_id1
+            //Включить в продакшине!!!  deleteSql(eJoining.up, "anum2", eArtikl.up, "code");//artikl_id2
             deleteSql(eJoinvar.up, "cconn", eJoining.up, "cconn");//joining_id
             deleteSql(eJoindet.up, "cunic", eJoinvar.up, "cunic");//joinvar_id
             executeSql("delete from joindet where not exists (select id from color a where a.cnumb = joindet.color_fk) and joindet.color_fk > 0 and joindet.color_fk != 100000"); //color_fk  
@@ -433,19 +433,16 @@ public class Profstroy {
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
-            updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
-            
+            updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");            
             updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
             updateSql(eJoining.up, eJoining.artikl_id2, "anum2", eArtikl.up, "code");
-            updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");
-            
+            updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");           
             updateSql(eJoindet.up, eJoindet.joinvar_id, "cunic", eJoinvar.up, "cunic");
             updateSql(eJoindet.up, eJoindet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update joinvar set types = types * 10 + cnext");
             executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
-            updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
-            
+            updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");            
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasprof set toin = 1  where gtype in (1,3)");
@@ -454,8 +451,7 @@ public class Profstroy {
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
-            updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
-            
+            updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");            
             executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
@@ -471,9 +467,7 @@ public class Profstroy {
             executeSql(4, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)"); 
             updateSql(eFurndet.up, eFurndet.furniture_id2, "furniture_id2", eFurniture.up, "funic");
             executeSql("update furndet set furndet_id = id where furndet_id = 0");            
-            executeSql("update furndet set color_fk = null where furniture_id2 > 0");           
-            
-            
+            executeSql("update furndet set color_fk = null where furniture_id2 > 0");                                   
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");

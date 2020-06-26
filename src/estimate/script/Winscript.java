@@ -87,8 +87,8 @@ public class Winscript {
             AreaElem area5 = (AreaElem) area4.add(new AreaElem(9, LayoutArea.VERT, TypeElem.AREA, 550));
             area4.add(new Element(10, TypeElem.IMPOST));
             AreaElem area6 = (AreaElem) area4.add(new AreaElem(11, LayoutArea.VERT, TypeElem.AREA, 550));
-            AreaElem area8 = (AreaElem) area5.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':93}"));
-            AreaElem area9 = (AreaElem) area6.add(new AreaElem(13, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':92}"));
+            AreaElem area8 = (AreaElem) area5.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':1537}"));
+            AreaElem area9 = (AreaElem) area6.add(new AreaElem(13, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':1536}"));
             area2.add(new Element(14, TypeElem.GLASS));
             area8.add(new Element(15, TypeElem.GLASS));
             area9.add(new Element(16, TypeElem.GLASS));
@@ -96,13 +96,16 @@ public class Winscript {
         } else if (project == 601008) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1700, 1700, 1009, 28014, 21057, "");
             rootArea.setParam(project.toString(), 9, "Rehau->Blitz new->1 ОКНА");
+            
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 600));
             rootArea.add(new Element(7, TypeElem.IMPOST));
-            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 600));            
+            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 600));   
+            
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(9, LayoutArea.VERT, TypeElem.AREA, 550));
             area3.add(new Element(10, TypeElem.IMPOST));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem(11, LayoutArea.VERT, TypeElem.AREA, 1150));            
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':20}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem(11, LayoutArea.VERT, TypeElem.AREA, 1150)); 
+            
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':534}"));
             area2.add(new Element(13, TypeElem.GLASS));
             area6.add(new Element(14, TypeElem.GLASS));
             area5.add(new Element(15, TypeElem.GLASS));

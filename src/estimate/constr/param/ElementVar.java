@@ -335,11 +335,17 @@ public class ElementVar extends Par5s {
     }
 
     private boolean check_004(ElemSimple elem5e, Record rec) {
-
         HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
         pass = 0;
+
         for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
             ElemJoining el = entry.getValue();
+            int mmm = 0;
+        }
+
+        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
+            ElemJoining el = entry.getValue();
+            int mmm = 0;
             if (TypeJoin.VAR10 == el.typeJoin
                     && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem5e.artiklRec.getStr(eArtikl.code))
                     && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {

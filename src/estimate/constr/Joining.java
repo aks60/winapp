@@ -45,7 +45,7 @@ public class Joining extends Cal5e {
                 Record joinartRec2 = joinElem2.artiklRec;               
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
                 int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
-                Record joiningRec = eJoining.find(id1, id2);                            
+                Record joiningRec = eJoining.find(id1, id2);    
                 List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
                 
                 //Если неудача, ищем в аналоге

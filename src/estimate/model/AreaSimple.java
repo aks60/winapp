@@ -194,11 +194,11 @@ public class AreaSimple extends Com5t {
             //Прорисовка размера            
             LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
             LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST);
-            for (ElemSimple el : impostList) { //по импостам определим точки разрыва линии
-                if (LayoutArea.VERT == el.owner().layout) {
-                    ls2.add(el.y1);
+            for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
+                if (LayoutArea.VERT == impostElem.owner().layout) {
+                    ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
                 } else {
-                    ls1.add(el.x1 + (el.x2 - el.x1) / 2);
+                    ls1.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);
                 }
             }
             Collections.sort(ls1);

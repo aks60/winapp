@@ -71,7 +71,7 @@ public class Wincalc {
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 
-    public static int prj = 601007;
+    public static int prj = 601008;
 
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);
@@ -121,6 +121,11 @@ public class Wincalc {
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }
             Collections.sort(listSpec, (o1, o2) -> o1.place.compareTo(o2.place));
+            
+            //Тестирование
+            //Specification.write_txt2(listSpec);
+            mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));
+
         } catch (Exception e) {
             System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);
         }
