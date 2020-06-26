@@ -161,19 +161,6 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    private void insideElem(float x, float y, HashMap<String, HashSet<ElemSimple>> map, LinkedList<ElemSimple> elems) {
-
-        String k = x + ":" + y;
-        if (map.get(k) == null) {
-            map.put(k, new HashSet());
-        }
-        for (ElemSimple elem5e : elems) {
-            if (elem5e.inside(x, y) == true) {
-                map.get(k).add(elem5e);
-            }
-        }
-    }
-
     //Рисуем конструкцию
     public void draw(int width, int height) {
         try {
