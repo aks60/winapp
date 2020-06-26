@@ -71,7 +71,7 @@ public class Wincalc {
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 
-    public static int prj = 601008;
+    public static int prj = 601007;
 
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);
@@ -95,11 +95,7 @@ public class Wincalc {
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
-
-        //Тестирование                
-        //listSpec.stream().forEach(rec -> System.out.println(rec));
-        //System.out.println(productJson); //вывод на консоль json
-        //mapJoin.entrySet().forEach(it -> System.out.println(it.getKey() + ":  id=" + it.getValue().id + "  " + it.getValue()));            
+           
         return rootArea;
     }
 
@@ -161,7 +157,9 @@ public class Wincalc {
             String elemType = jsonObj.get("elemType").getAsString();
             Intermediate intermediateRoot = new Intermediate(null, id, elemType, layoutObj, width, height, paramJson);
             listIntermediate.add(intermediateRoot);
-            intermBuild(jsonObj, intermediateRoot, listIntermediate); //добавим все остальные Intermediate
+            
+            //Добавим все остальные Intermediate
+            intermBuild(jsonObj, intermediateRoot, listIntermediate); 
             Collections.sort(listIntermediate, (o1, o2) -> Float.compare(o1.id, o2.id)); //упорядочим порядок построения окна
             windowsBuild(listIntermediate); //строим конструкцию из промежуточного списка
 

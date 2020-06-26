@@ -2,6 +2,7 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSysprof;
 import domain.eSystree;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -160,13 +161,14 @@ public class FillingDet extends Par5s {
     }
 
     private boolean check_000(ElemSimple elem5e, Record rec) {
-        Record sysprofRec = elem5e.sysprofRec;
-        Record articlRec = eArtikl.find(sysprofRec.getInt(eArtikl.id), false);
-        if (articlRec.get(eArtikl.tech_code) == null) {
+        //Record sysprofRec = elem5e.sysprofRec;
+        //Record articlRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        Record artiklRec = elem5e.artiklRec;
+        if (artiklRec.get(eArtikl.tech_code) == null) {
             return false;
         }
         String[] strList = rec.getStr(TEXT).split(";");
-        String[] strList2 = articlRec.getStr(eArtikl.tech_code).split(";");
+        String[] strList2 = artiklRec.getStr(eArtikl.tech_code).split(";");
         boolean ret2 = false;
         for (String str : strList) {
             for (String str2 : strList2) {
@@ -178,7 +180,7 @@ public class FillingDet extends Par5s {
         if (ret2 == false) {
             return false;
         }
-        return false;
+        return true;
     }
 
     private boolean check_095(Record rec) {
