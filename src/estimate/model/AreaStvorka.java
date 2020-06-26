@@ -24,7 +24,7 @@ public class AreaStvorka extends AreaSimple {
     public String handleHeight = ""; //высота ручки
     public LayoutFurn1 handlSide = null;
     public TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
-    
+
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3, param);
 
@@ -49,21 +49,21 @@ public class AreaStvorka extends AreaSimple {
 
         //Коррекция створки с учётом нахлёста
         LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список элементов
-        ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null),
-                insideTop = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null),
-                insideBott = listElem.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y2) == true).findFirst().orElse(null),
-                insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-        
+        ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null),
+                insideTop = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null),
+                insideBott = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null),
+                insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
+
         Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.STVORKA);
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         Float size_falz = artiklRec.getFloat(eArtikl.size_falz);
         Float naxl = iwin.sysconsRec.getFloat(eSyssize.naxl);
-        
+
         x1 = insideLeft.x2 - size_falz - naxl;
         y1 = insideTop.y2 - size_falz - naxl;
         x2 = insideRight.x1 + size_falz + naxl;
         y2 = insideBott.y1 + size_falz + naxl;
-        
+
         //Добавим рамы створки        
         ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);
         mapFrame.put(stvBot.layout(), stvBot);
@@ -74,7 +74,7 @@ public class AreaStvorka extends AreaSimple {
         ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT);
         mapFrame.put(stvLeft.layout(), stvLeft);
 
-        stvBot.specificationRec.width = width();      
+        stvBot.specificationRec.width = width();
         stvTop.specificationRec.width = width();
         stvRigh.specificationRec.height = height();
         stvLeft.specificationRec.height = height();
@@ -95,7 +95,7 @@ public class AreaStvorka extends AreaSimple {
         //Цикл по сторонам створки
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.id = id() + (float)(index + 1)/100;
+            el.id = id() + (float) (index + 1) / 100;
             mapFrame.get(LayoutArea.BOTTOM).anglHoriz = 0;
             mapFrame.get(LayoutArea.RIGHT).anglHoriz = 90;
             mapFrame.get(LayoutArea.TOP).anglHoriz = 180;
@@ -123,35 +123,35 @@ public class AreaStvorka extends AreaSimple {
             }
         }
 
-        LinkedList<ElemSimple>  listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         for (int index = 0; index < 4; index++) {
             ElemJoining el = new ElemJoining(iwin());
-            el.id = id() + (float)(index + 5) /100;
+            el.id = id() + (float) (index + 5) / 100;
             el.typeJoin = TypeJoin.VAR10;
             el.anglProf = 0;
-            
+
             if (index == 0) { //Прилигающее верхнее 
                 el.layoutJoin = LayoutJoin.CTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.TOP);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y1 - 1) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1 + width() / 2, y1 - 1) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y1), el);
 
             } else if (index == 1) { //Прилигающее нижнее
                 el.layoutJoin = LayoutJoin.CBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.BOTTOM);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside((x2 - x1) / 2, y2 + 1) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1 + width() / 2, y2 + 1) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y2), el);
 
             } else if (index == 2) { //Прилигающее левое
                 el.layoutJoin = LayoutJoin.CLEFT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1 - 1, (y2 - y1) / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1 - 1, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1 + height() / 2), el);
 
             } else if (index == 3) { //Прилигающее правое
                 el.layoutJoin = LayoutJoin.CRIGH;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x2 + 1, (y2 - y1) / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x2 + 1, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1 + height() / 2), el);
             }
         }
