@@ -43,7 +43,7 @@ public class Wincalc {
 
     public Connection conn;
     public Integer nuni = 0;
-    public Record artiklRec = null;  //главный артикл системы профилей
+    public Record artiklRec = null; //главный артикл системы профилей
     public Record sysconsRec = null; //константы
     public float genId = 100; //генерация ключа спецификации
 
@@ -71,7 +71,7 @@ public class Wincalc {
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 
-    public static int prj = 601007;
+    public static int prj = 601008;
 
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);

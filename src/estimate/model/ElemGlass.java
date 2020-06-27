@@ -47,7 +47,7 @@ public class ElemGlass extends ElemSimple {
     }
 
     public void initСonstructiv() {
-
+        
         Object id = mapParamUse.get(ParamJson.nunic_iwin);
         if (id != null) {
             artiklRec = eArtikl.find(Integer.valueOf(id.toString()), false);

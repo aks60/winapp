@@ -2,12 +2,12 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
-import domain.eSysprof;
 import domain.eSystree;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import estimate.Wincalc;
+import estimate.model.ElemGlass;
 import estimate.model.ElemSimple;
 
 //Заполнения
@@ -161,9 +161,7 @@ public class FillingDet extends Par5s {
     }
 
     private boolean check_000(ElemSimple elem5e, Record rec) {
-        //Record sysprofRec = elem5e.sysprofRec;
-        //Record articlRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        Record artiklRec = elem5e.artiklRec;
+        Record artiklRec = iwin.artiklRec;
         if (artiklRec.get(eArtikl.tech_code) == null) {
             return false;
         }
