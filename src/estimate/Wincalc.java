@@ -63,16 +63,17 @@ public class Wincalc {
 
     public AreaSimple rootArea = null;
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию           
-    public LinkedList<Com5t> listCom5t; //список всех Com5t
+    public LinkedList<Com5t> listCom5t; //список всех Component
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     protected Tariffication tariffication = new Tariffication(this); //тарификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
-
-    public static int prj = 601008;
-
+////////////////////////////////////////////////////////////////////////////////
+    public static int prj = 601009;
+////////////////////////////////////////////////////////////////////////////////
+    
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);
         mapParamDef.clear();

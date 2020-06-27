@@ -54,13 +54,13 @@ public class JoiningVar extends Par5s {
                         break;
                     case 1011:  //Для Артикула 1 указан состав 
                     case 4011:  //Для Артикула 1 указан состав     
-                        if (check_011_012(elemJoin.joinElement1, rec)) {
+                        if (check_011_012(elemJoin.joinElement1, rec) == false) {
                             return false;
                         }
                         break;
                     case 1012:  //Для Артикула 2 указан состав                  
                     case 4012:  //Для Артикула 2 указан состав     
-                        if (check_011_012(elemJoin.joinElement2, rec)) {
+                        if (check_011_012(elemJoin.joinElement2, rec) == false) {
                             return false;
                         }
                         break;
@@ -68,7 +68,7 @@ public class JoiningVar extends Par5s {
                     case 2013:  //Для Артикулов не указан состав 
                     case 3013:  //Для Артикулов не указан состав
                     case 4013:  //Для Артикулов не указан состав  
-                        if (check_012_013(elemJoin.joinElement1, elemJoin.joinElement2, rec, false)) {
+                        if (check_012_013(elemJoin.joinElement1, elemJoin.joinElement2, rec, false) == false) {
                             return false;
                         }
                         break;
@@ -117,7 +117,7 @@ public class JoiningVar extends Par5s {
                         break;
                     case 2012:  //Для Артикулов указан состав
                     case 3012:  //Для Артикулов указан состав 
-                        if (check_012_013(elemJoin.joinElement1, elemJoin.joinElement2, rec, true)) {
+                        if (check_012_013(elemJoin.joinElement1, elemJoin.joinElement2, rec, true) == false) {
                             return false;
                         }
                         break;

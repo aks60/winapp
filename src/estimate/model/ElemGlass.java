@@ -32,7 +32,7 @@ public class ElemGlass extends ElemSimple {
             String str = param.replace("'", "\"");
             JsonElement jsonElem = new Gson().fromJson(str, JsonElement.class);
             JsonObject jsonObj = jsonElem.getAsJsonObject();
-            mapParamUse.put(ParamJson.nunic_iwin, jsonObj.get(ParamJson.nunic_iwin.name()).getAsInt());
+            mapParamUse.put(ParamJson.artikleID, jsonObj.get(ParamJson.artikleID.name()).getAsInt());
         }
         initСonstructiv();
         parsing(param);
@@ -48,7 +48,7 @@ public class ElemGlass extends ElemSimple {
 
     public void initСonstructiv() {
         
-        Object id = mapParamUse.get(ParamJson.nunic_iwin);
+        Object id = mapParamUse.get(ParamJson.artikleID);
         if (id != null) {
             artiklRec = eArtikl.find(Integer.valueOf(id.toString()), false);
         }

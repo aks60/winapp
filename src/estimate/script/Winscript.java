@@ -76,7 +76,7 @@ public class Winscript {
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 900, 1400, 1400, 1009, 1009, 1009, "");
             rootArea.setParam(project.toString(), 10, "RAZIO->RAZIO 58 N->1 ОКНА");
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'nunic_iwin':'5746'}")); //или 'R4x10x4x10x4'
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'5746'}")); //или 'R4x10x4x10x4'
 
         } else if (project == 601007) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1100, 1400, 1400, 1009, 10018, 10018, "");
@@ -113,7 +113,7 @@ public class Winscript {
         } else if (project == 601009) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 700, 1400, 1400, 1009, 1009, 1009, "");
             rootArea.setParam(project.toString(), 371, "KBE->KBE Эксперт->1 ОКНА->Открывание внутрь (ств. Z 77)");
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'nunic_iwin':'1685457539'}")); //или '4x12x4x12x4' для nuni = 54
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'4663'}")); //или '4x12x4x12x4' для nuni = 54
 
         } else if (project == 601010) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, 1009, 1009, 1009, "{'pro4Params':[[-862071,295],[-862065,314],[-862062,325],[-862131,17],[-862097,195],[-862060,335]]}");
@@ -123,8 +123,8 @@ public class Winscript {
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
             AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1,'sysfurnID':23, 'pro4Params': [[-862107,826],[-862106,830]]}"));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4,'sysfurnID':20, 'pro4Params': [[-862107,184],[-862106,186]]}"));
-            area4.add(new Element(11, TypeElem.GLASS, "{'nunic_iwin':'1685457539'}"));
-            area5.add(new Element(12, TypeElem.GLASS, "{'nunic_iwin':'1685457539'}"));
+            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':'1685457539'}"));
+            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':'1685457539'}"));
 
         } else if (project == 604004) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1050, 1700, 1009, 1009, 1009, "");

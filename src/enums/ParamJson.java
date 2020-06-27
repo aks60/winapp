@@ -9,7 +9,7 @@ public enum ParamJson implements Enam {
     colorHandl("Цвет ручки створки"),
     pro4Params("Параметры iokna"),
     pro4Params2("Параметры iokna"),
-    nunic_iwin("Уникальный идентификатор артикула");
+    artikleID("Уникальный идентификатор артикула"); 
     String name = "";
 
     ParamJson(String name) {
