@@ -35,11 +35,28 @@ public class ElementDet extends Par5s {
                 switch (grup) {
 
                     case 33000:  //Для технологического кода контейнера 
-                    case 34000:  //Для технологического кода контейнера 
-                        if (check_000(elem5e, rec) == false) {
+                    case 34000: //Для технологического кода контейнера 
+                    {
+                        Record sysprofRec = elem5e.sysprofRec;
+                        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+                        if (artiklVRec.get(eArtikl.tech_code) == null) {
                             return false;
                         }
-                        break;
+                        String[] strList = rec.getStr(TEXT).split(";");
+                        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+                        boolean ret2 = false;
+                        for (String str : strList) {
+                            for (String str2 : strList2) {
+                                if (str.equals(str2)) {
+                                    ret2 = true;
+                                }
+                            }
+                        }
+                        if (ret2 == false) {
+                            return false;
+                        }
+                    }
+                    break;
                     case 33001:  //Если признак состава 
                         message(grup);
                         break;
@@ -137,11 +154,22 @@ public class ElementDet extends Par5s {
                     case 34095:  //Если признак системы конструкции
                     case 38095:  //Если признак системы конструкции
                     case 39095:  //Если признак системы конструкции
-                    case 40095:  //Если признак системы конструкции 
-                        if (check_095(rec) == false) {
+                    case 40095: //Если признак системы конструкции 
+                    {
+                        Record systreefRec = eSystree.find(iwin.nuni);
+                        String[] arr = rec.getStr(TEXT).split(";");
+                        List<String> arrList = Arrays.asList(arr);
+                        boolean ret = false;
+                        for (String str : arrList) {
+                            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
+                                ret = true;
+                            }
+                        }
+                        if (ret == false) {
                             return false;
                         }
-                        break;
+                    }
+                    break;
                     case 33099:  //Трудозатраты, ч/ч. 
                     case 34099:  //Трудозатраты, ч/ч.
                     case 38099:  //Трудозатраты, ч/ч. 
@@ -416,46 +444,6 @@ public class ElementDet extends Par5s {
                 System.err.println("wincalc.constr.param.ElementDet.check()  parametr=" + grup + "    " + e);
                 return false;
             }
-        }
-        return true;
-    }
-
-    private boolean check_000(ElemSimple elem5e, Record rec) {
-
-        Record sysprofRec = elem5e.sysprofRec;
-        Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        if (artiklVRec.get(eArtikl.tech_code) == null) {
-            return false;
-        }
-        String[] strList = rec.getStr(TEXT).split(";");
-        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
-        boolean ret2 = false;
-        for (String str : strList) {
-            for (String str2 : strList2) {
-                if (str.equals(str2)) {
-                    ret2 = true;
-                }
-            }
-        }
-        if (ret2 == false) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean check_095(Record rec) {
-
-        Record systreefRec = eSystree.find(iwin.nuni);
-        String[] arr = rec.getStr(TEXT).split(";");
-        List<String> arrList = Arrays.asList(arr);
-        boolean ret = false;
-        for (String str : arrList) {
-            if (systreefRec.getInt(eSystree.types) == Integer.valueOf(str) == true) {
-                ret = true;
-            }
-        }
-        if (ret == false) {
-            return false;
         }
         return true;
     }

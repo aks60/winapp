@@ -34,11 +34,28 @@ public class ElementVar extends Par5s {
             try {
                 switch (grup) {
 
-                    case 31000:  //Для технологического кода контейнера 
-                        if (check_000(elem5e, rec) == false) {
+                    case 31000: //Для технологического кода контейнера 
+                    {
+                        Record sysprofRec2 = elem5e.sysprofRec;
+                        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
+                        if (artiklVRec.get(eArtikl.tech_code) == null) {
                             return false;
                         }
-                        break;
+                        String[] strList = rec.getStr(TEXT).split(";");
+                        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+                        boolean ret2 = false;
+                        for (String str : strList) {
+                            for (String str2 : strList2) {
+                                if (str.equals(str2)) {
+                                    ret2 = true;
+                                }
+                            }
+                        }
+                        if (ret2 == false) {
+                            return false;
+                        }
+                    }
+                    break;
                     case 31001:  //Максимальное заполнение изделия, мм 
                         message(grup);
                         break;
@@ -53,11 +70,28 @@ public class ElementVar extends Par5s {
                     case 31003:  //Если соединенный артикул  T-обр.
                         message(grup);
                         break;
-                    case 31004:  //Если прилегающий артикул 
-                        if (check_004(elem5e, rec) == false) {
+                    case 31004: //Если прилегающий артикул 
+                    {
+                        HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
+                        pass = 0;
+
+                        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
+                            ElemJoining el = entry.getValue();
+                        }
+
+                        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
+                            ElemJoining el = entry.getValue();
+                            if (TypeJoin.VAR10 == el.typeJoin
+                                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem5e.artiklRec.getStr(eArtikl.code))
+                                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
+                                pass = 1;
+                            }
+                        }
+                        if (pass == 0) {
                             return false;
                         }
-                        break;
+                    }
+                    break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 
                         if (compareInt(rec.getStr(TEXT), elem5e.color1) == false) {
@@ -307,53 +341,6 @@ public class ElementVar extends Par5s {
                 System.err.println("wincalc.constr.param.ElementVar.check()  parametr=" + grup + "    " + e);
                 return false;
             }
-        }
-        return true;
-    }
-
-    private boolean check_000(ElemSimple elem5e, Record rec) {
-
-        Record sysprofRec2 = elem5e.sysprofRec;
-        Record artiklVRec = eArtikl.find(sysprofRec2.getInt(eSysprof.artikl_id), false);
-        if (artiklVRec.get(eArtikl.tech_code) == null) {
-            return false;
-        }
-        String[] strList = rec.getStr(TEXT).split(";");
-        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
-        boolean ret2 = false;
-        for (String str : strList) {
-            for (String str2 : strList2) {
-                if (str.equals(str2)) {
-                    ret2 = true;
-                }
-            }
-        }
-        if (ret2 == false) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean check_004(ElemSimple elem5e, Record rec) {
-        HashMap<String, ElemJoining> mapJoin = elem5e.iwin().mapJoin;
-        pass = 0;
-
-        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
-            ElemJoining el = entry.getValue();
-            int mmm = 0;
-        }
-
-        for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
-            ElemJoining el = entry.getValue();
-            int mmm = 0;
-            if (TypeJoin.VAR10 == el.typeJoin
-                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem5e.artiklRec.getStr(eArtikl.code))
-                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
-                pass = 1;
-            }
-        }
-        if (pass == 0) {
-            return false;
         }
         return true;
     }
