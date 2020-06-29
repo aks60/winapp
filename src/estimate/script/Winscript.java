@@ -112,7 +112,7 @@ public class Winscript {
 
         } else if (project == 601009) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 700, 1400, 1400, 1009, 1009, 1009, "");
-            rootArea.setParam(project.toString(), 371, "KBE->KBE Эксперт->1 ОКНА->Открывание внутрь (ств. Z77)");
+            rootArea.setParam(project.toString(), 371, "KBE->KBE Эксперт->1 ОКНА->Открывание внутрь (ств. Z 77)");
             rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'4663'}")); //или '4x12x4x12x4'
 
         } else if (project == 601010) {
@@ -121,10 +121,10 @@ public class Winscript {
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.AREA, 650));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
-            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1,'sysfurnID':23, 'pro4Params': [[-862107,826],[-862106,830]]}"));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4,'sysfurnID':20, 'pro4Params': [[-862107,184],[-862106,186]]}"));
-            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':'1685457539'}"));
-            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':'1685457539'}"));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1,'sysfurnID':2335, 'pro4Params': [[-862107,826],[-862106,830]]}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4,'sysfurnID':2916, 'pro4Params': [[-862107,184],[-862106,186]]}"));
+            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':'4663'}"));
+            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':'4663'}"));
 
         } else if (project == 604004) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1050, 1700, 1009, 1009, 1009, "");

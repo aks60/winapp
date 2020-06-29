@@ -59,8 +59,9 @@ public class ElemImpost extends ElemSimple {
             sysprofRec = eSysprof.find3(iwin().nuni, UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
         }
         specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;        
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
     }
 
     @Override //Главная спецификация

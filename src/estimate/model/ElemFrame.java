@@ -56,7 +56,7 @@ public class ElemFrame extends ElemSimple {
         } else if (layout == LayoutArea.RIGHT) {
             sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
         }        
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
     }
 

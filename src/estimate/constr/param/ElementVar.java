@@ -149,11 +149,9 @@ public class ElementVar extends Par5s {
                         break;
                     case 31037:  //Название фурнитуры содержит 
                         if (TypeElem.STVORKA == elem5e.owner().type()) {
-                            if (rec.getStr(TEXT).contains(elem5e.artiklRec.getStr(eArtikl.name)) == false) {
-                                return false;
-                            }
+                            return rec.getStr(TEXT).contains(elem5e.artiklRec.getStr(eArtikl.name));
                         }
-                        break;
+                        return false;
                     case 31040:  //Поправка габарита накладки, мм 
                         message(grup);
                         break;

@@ -44,8 +44,8 @@ public class FillingVar extends Par5s {
                         if ("Прямоугольное".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
                                 && TypeElem.AREA.equals(elem5e.owner().type()) == false && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.AREA.equals(elem5e.owner().type()) == true
-                                || TypeElem.STVORKA.equals(elem5e.owner().type()) == true)) {
+                        } else if ("Не прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) == true
+                                || TypeElem.AREA.equals(elem5e.owner().type()) || TypeElem.STVORKA.equals(elem5e.owner().type()) == true)) {
                             return false;
                         } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
                             return false;
