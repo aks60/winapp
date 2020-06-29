@@ -84,10 +84,9 @@ public class Test {
 
         HashMap<Integer, Record> mapParamUse = new HashMap();
         String paramJson = "{'typeOpen':1,'nuni':23, 'ioknaParam': [[-862107,826],[-862106,830]]}";
-        Gson gson = new Gson();
-        //String str = paramJson.replace("'", "\"");
+        String str = paramJson.replace("'", "\"");
 
-        JsonObject jsonObj = gson.fromJson(paramJson, JsonObject.class);
+        JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
         JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
         if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
             jsonArr.forEach(it -> {

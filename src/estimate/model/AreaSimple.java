@@ -1,21 +1,23 @@
 package estimate.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import dataset.Record;
+import domain.eParams;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.LayoutJoin;
+import enums.ParamJson;
 import enums.TypeJoin;
-import java.awt.BasicStroke;
 import java.io.File;
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Map;
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import startup.Main;
 import estimate.Wincalc;
@@ -32,7 +34,7 @@ public class AreaSimple extends Com5t {
         this.color2 = color2;
         this.color3 = color3;
         parsing(param);
-        initDimension(width, height);
+        initDimension(width, height);        
     }
 
     protected void initDimension(float width, float height) {

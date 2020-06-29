@@ -55,11 +55,11 @@ public class Furniture extends Cal5e {
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStvorka.sysfurnID).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna             
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
                 //Сторона открывания
-                areaStvorka.handlSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
+                areaStvorka.handleSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
                 //Подбор текстуры ручки створки
-                Object colorHandl = areaStvorka.mapParamUse.get(ParamJson.colorHandl);
-                if (colorHandl == null) { //если цвет не установлен подбираю по основной текстуре
-                    areaStvorka.mapParamUse.put(ParamJson.colorHandl, iwin().color1);
+                //Object colorHandl = areaStvorka.mapParamUse.get(ParamJson.colorHandl);
+                if (areaStvorka.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
+                    areaStvorka.handleColor = iwin().color1;
                 }
                 if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDDL.id) {
                     areaStvorka.handleHeight = LayoutHandle.MIDDL.name;
@@ -132,12 +132,11 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
-                    int colorHandl = (areaStvorka.mapParamUse.get(ParamJson.colorHandl) == null) ? iwin().colorNone : Integer.valueOf(areaStvorka.mapParamUse.get(ParamJson.colorHandl).toString());
                     if (furndetRec.getInt(eFurndet.color_fk) > 0) {
                         boolean empty = true;
                         List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
                         for (Record artdetRec : artdetList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == colorHandl) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == areaStvorka.handleColor) {
                                 empty = false;
                             }
                         }

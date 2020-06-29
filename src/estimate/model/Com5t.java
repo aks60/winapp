@@ -35,7 +35,7 @@ public abstract class Com5t {
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 
 
-    public HashMap<ParamJson, Object> mapParamUse = new HashMap(); //клиентские параметры       
+    public HashMap<Integer, Record> mapParamUse = new HashMap(); //клиентские параметры       
 
     public Com5t(float id, Wincalc iwin, AreaSimple owner) {
         this.id = id;
@@ -83,27 +83,15 @@ public abstract class Com5t {
 
     protected void parsing(String param) {
         try {
-            Gson gson = new Gson();
             if (param != null && param.isEmpty() == false && param.equals("null") == false) {
-
                 String str = param.replace("'", "\"");
-                JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
-                JsonObject jsonObj = jsonElem.getAsJsonObject();
+                JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
                 JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
-
-                if (jsonArr != null && jsonArr.isJsonArray()) {
-                    mapParamUse.put(ParamJson.ioknaParam, jsonObj.get(ParamJson.ioknaParam.name())); //первый вариант    
-                    HashMap<Integer, Object[]> mapValue = new HashMap();
-                    for (int index = 0; index < jsonArr.size(); index++) {
-                        JsonArray jsonRec = (JsonArray) jsonArr.get(index);
-                        int p1 = jsonRec.get(0).getAsInt();
-                        int p2 = jsonRec.get(1).getAsInt();
-                        Record record = eParams.find(p1, p2);
-                        if (p1 < 0 && record != null) {
-                            mapValue.put(p1, new Object[]{record.get(eParams.text), record.get(eParams.numb), 0});
-                        }
-                    }
-                    //mapParamUse.put(ParamJson.ioknaParam2, mapValue); //второй вариант                
+                if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                    jsonArr.forEach(it -> {
+                        Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
+                        mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
+                    });
                 }
             }
         } catch (Exception e) {

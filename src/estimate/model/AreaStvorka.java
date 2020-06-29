@@ -21,7 +21,8 @@ import estimate.Wincalc;
 public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
-    public LayoutFurn1 handlSide = null;
+    public LayoutFurn1 handleSide = null;
+    public int handleColor = -1; //цвет ручки
     public TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
     public int sysfurnID = -1;
 
