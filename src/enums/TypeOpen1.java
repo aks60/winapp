@@ -34,8 +34,17 @@ public enum TypeOpen1 implements Enam {
     public String text() {
         return name;
     }
-    
+
     public Enam[] fields() {
         return values();
-    }    
+    }
+
+    public static TypeOpen1 get(int id) {
+        for (TypeOpen1 typeOpen : values()) {
+            if (typeOpen.id == id) {
+                return typeOpen;
+            }
+        }
+        return null;
+    }
 }

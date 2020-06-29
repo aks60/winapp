@@ -1,6 +1,5 @@
 package startup;
 
-import estimate.constr.Specification;
 import common.*;
 import dataset.*;
 import enums.*;
@@ -8,20 +7,23 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import domain.eParams;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.UIManager;
-import estimate.script.Winscript;
+import java.util.Arrays;
+import java.util.List;
 
 public class Test {
-   
+
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
             //convert.Profstroy.script();
-            //query();
-            wincalc();
+           wincalc();
+            //query();            
             //frame();
+            //parseJson();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -35,7 +37,7 @@ public class Test {
         System.out.println("okno=" + estimate.Wincalc.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         iwin.build(estimate.script.Winscript.test(estimate.Wincalc.prj, null));
-        iwin.constructiv(); 
+        iwin.constructiv();
 //        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
 //        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
 //        iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           
@@ -64,10 +66,10 @@ public class Test {
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
             //Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
 
-            int count = 3;
-            System.out.println(count);
-            int dx = temp(count);
-            System.out.println(dx);
+//            int count = 3;
+//            System.out.println(count);
+//            int dx = temp(count);
+//            System.out.println(dx);
 
         } catch (SQLException e) {
             System.out.println("main.Test.query()");
@@ -75,32 +77,38 @@ public class Test {
     }
 
     static int temp(int count) {
-       return   ++count;
+        return ++count;
     }
 
     static void parseJson() {
 
-        HashMap<ParamJson, Object> mapParam = new HashMap();
-        String paramJson = "{'typeOpen':1,'funic':23, 'pro4Params': [[-862107,826],[-862106,830]]}";
+        HashMap<Integer, Record> mapParamUse = new HashMap();
+        String paramJson = "{'typeOpen':1,'nuni':23, 'ioknaParam': [[-862107,826],[-862106,830]]}";
         Gson gson = new Gson();
-        String str = paramJson.replace("'", "\"");
+        //String str = paramJson.replace("'", "\"");
 
-        JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
-        JsonObject jsonObj = jsonElem.getAsJsonObject();
-        JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
-
+        JsonObject jsonObj = gson.fromJson(paramJson, JsonObject.class);
+        JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
         if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-            mapParam.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name()));
-            HashMap<Integer, Object[]> hmValue = new HashMap();
-            for (int index = 0; index < jsonArr.size(); index++) {
-                JsonArray jsonRec = (JsonArray) jsonArr.get(index);
-                int pnumb = jsonRec.getAsInt();
-//                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
-//                        if (pnumb < 0 && rec != null)
-//                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
-                int mm = 0;
-            }
-            mapParam.put(ParamJson.pro4Params2, hmValue); //второй вариант                
+            jsonArr.forEach(it -> {
+                Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
+                mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
+            });            
+            System.out.println(mapParamUse);
+                            
+
+            //System.out.println(list.get(0));
+//            mapParam.put(ParamJson.ioknaParam, jsonObj.get(ParamJson.ioknaParam.name()));
+//            HashMap<Integer, Object[]> hmValue = new HashMap();
+//            for (int index = 0; index < jsonArr.size(); index++) {
+//                JsonArray jsonRec = (JsonArray) jsonArr.get(index);
+//                int pnumb = jsonRec.getAsInt();
+////                        Parlist rec = Parlist.get(root.getConst(), jsonRec.get(0), jsonRec.get(1));
+////                        if (pnumb < 0 && rec != null)
+////                            hmValue.put(pnumb, new Object[]{rec.pname, rec.znumb, 0});
+//                int mm = 0;
+//            }
+//            mapParam.put(ParamJson.ioknaParam2, hmValue); //второй вариант                
         }
     }
 

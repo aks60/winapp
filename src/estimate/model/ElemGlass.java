@@ -21,6 +21,7 @@ import estimate.constr.Specification;
 public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус арки
+    public int artikleID = -1;
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
@@ -30,12 +31,10 @@ public class ElemGlass extends ElemSimple {
 
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
-            JsonElement jsonElem = new Gson().fromJson(str, JsonElement.class);
-            JsonObject jsonObj = jsonElem.getAsJsonObject();
-            mapParamUse.put(ParamJson.artikleID, jsonObj.get(ParamJson.artikleID.name()).getAsInt());
+            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+            this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
         }
         initСonstructiv();
-        parsing(param);
 
         if (TypeElem.ARCH == owner.type) {
             setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
@@ -47,10 +46,9 @@ public class ElemGlass extends ElemSimple {
     }
 
     public void initСonstructiv() {
-        
-        Object id = mapParamUse.get(ParamJson.artikleID);
-        if (id != null) {
-            artiklRec = eArtikl.find(Integer.valueOf(id.toString()), false);
+
+        if (artikleID != -1) {
+            artiklRec = eArtikl.find(artikleID, false);
         }
         if (artiklRec == null) {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
@@ -68,7 +66,7 @@ public class ElemGlass extends ElemSimple {
         color1 = iwin().colorNone;
         color2 = iwin().colorNone;
         color3 = iwin().colorNone;
-        
+
         specificationRec.setArtiklRec(artiklRec);
     }
 

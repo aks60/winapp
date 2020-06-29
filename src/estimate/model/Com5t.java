@@ -89,10 +89,10 @@ public abstract class Com5t {
                 String str = param.replace("'", "\"");
                 JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
-                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.pro4Params.name());
+                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
 
                 if (jsonArr != null && jsonArr.isJsonArray()) {
-                    mapParamUse.put(ParamJson.pro4Params, jsonObj.get(ParamJson.pro4Params.name())); //первый вариант    
+                    mapParamUse.put(ParamJson.ioknaParam, jsonObj.get(ParamJson.ioknaParam.name())); //первый вариант    
                     HashMap<Integer, Object[]> mapValue = new HashMap();
                     for (int index = 0; index < jsonArr.size(); index++) {
                         JsonArray jsonRec = (JsonArray) jsonArr.get(index);
@@ -103,7 +103,7 @@ public abstract class Com5t {
                             mapValue.put(p1, new Object[]{record.get(eParams.text), record.get(eParams.numb), 0});
                         }
                     }
-                    mapParamUse.put(ParamJson.pro4Params2, mapValue); //второй вариант                
+                    //mapParamUse.put(ParamJson.ioknaParam2, mapValue); //второй вариант                
                 }
             }
         } catch (Exception e) {

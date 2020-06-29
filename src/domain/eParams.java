@@ -53,16 +53,16 @@ public enum eParams implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", id);
+            query.select(up, "order by", grup, ",", numb);
         }
         return query;
     }
 
-    public static Record find(int _numb, int _mixt) {
+    public static Record find(int _grup, int _numb) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> _numb == rec.getInt(grup) && _mixt == rec.getInt(numb)).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> _grup == rec.getInt(grup) && _numb == rec.getInt(numb)).findFirst().orElse(up.newRecord());
         }
-        Query recordList = new Query(values()).select(up, "where", grup, "=", _numb, "and", numb, "=", _mixt);
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _grup, "and", numb, "=", _numb);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 

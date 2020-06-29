@@ -287,7 +287,7 @@ public class Par5s {
         for (int index = ownerList.size() - 1; index >= 0; index--) {
 
             el = ownerList.get(index);
-            HashMap<Integer, Object[]> pJson = (HashMap) el.mapParamUse.get(ParamJson.pro4Params2);
+            HashMap<Integer, Object[]> pJson = (HashMap) el.mapParamUse.get(ParamJson.ioknaParam2);
             if (pJson != null && pJson.isEmpty() == false) {  // если параметры от i-okna есть
                 if (pass == 1) {
                     paramTotal.putAll(pJson); //к пар. по умолч. наложим парам. от i-win

@@ -1,7 +1,6 @@
 package estimate.model;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
@@ -24,26 +23,16 @@ public class AreaStvorka extends AreaSimple {
     public String handleHeight = ""; //высота ручки
     public LayoutFurn1 handlSide = null;
     public TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
+    public int sysfurnID = -1;
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3, param);
 
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
-            Gson gson = new Gson();
-            JsonElement jsonElem = gson.fromJson(str, JsonElement.class);
-            JsonObject jsonObj = jsonElem.getAsJsonObject();
-            mapParamUse.put(ParamJson.typeOpen, jsonObj.get(ParamJson.typeOpen.name()));
-            mapParamUse.put(ParamJson.sysfurnID, jsonObj.get(ParamJson.sysfurnID.name()));
-            if (mapParamUse.get(ParamJson.typeOpen) != null) {
-
-                int key = Integer.valueOf(mapParamUse.get(ParamJson.typeOpen).toString());
-                for (TypeOpen1 typeOpen : TypeOpen1.values()) {
-                    if (typeOpen.id == key) {
-                        this.typeOpen = typeOpen;
-                    }
-                }
-            }
+            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+            this.sysfurnID = (jsonObj.get(ParamJson.sysfurnID.name()) == null) ? -1 : jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
+            this.typeOpen = (jsonObj.get(ParamJson.typeOpen.name()) == null) ? TypeOpen1.OM_INVALID : TypeOpen1.get(jsonObj.get(ParamJson.typeOpen.name()).getAsInt());
         }
         initСonstructiv();
 
@@ -165,9 +154,8 @@ public class AreaStvorka extends AreaSimple {
         mapFrame.get(LayoutArea.LEFT).paint();
         mapFrame.get(LayoutArea.RIGHT).paint();
 
-        if (mapParamUse.get(ParamJson.typeOpen) != null) {
+        if (typeOpen != TypeOpen1.OM_INVALID) {
             float DX = 20, DY = 60, X1 = 0, Y1 = 0;
-            String value = mapParamUse.get(ParamJson.typeOpen).toString();
             ElemSimple elemL = mapFrame.get(LayoutArea.LEFT);
             ElemSimple elemR = mapFrame.get(LayoutArea.RIGHT);
             ElemSimple elemT = mapFrame.get(LayoutArea.TOP);
@@ -175,19 +163,19 @@ public class AreaStvorka extends AreaSimple {
 
             float dy = iwin().heightAdd - iwin().height;
 
-            if (value.equals("1") || value.equals("3")) {
+            if (typeOpen.id == 1 || typeOpen.id == 3) {
                 X1 = elemR.x1 + (elemR.x2 - elemR.x1) / 2;
                 Y1 = elemR.y1 + (elemR.y2 - elemR.y1) / 2;
                 drawLine(elemL.x1, elemL.y1 + dy, elemR.x2, elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2);
                 drawLine(elemL.x1, elemL.y2 + dy, elemR.x2, elemR.y1 + dy + (elemR.y2 - elemR.y1) / 2);
 
-            } else if (value.equals("2") || value.equals("4")) {
+            } else if (typeOpen.id == 2 || typeOpen.id == 4) {
                 X1 = elemL.x1 + (elemL.x2 - elemL.x1) / 2;
                 Y1 = elemL.y1 + (elemL.y2 - elemL.y1) / 2;
                 drawLine(elemR.x2, elemR.y1 + dy, elemL.x1, elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2);
                 drawLine(elemR.x2, elemR.y2 + dy, elemL.x1, elemL.y1 + dy + (elemL.y2 - elemL.y1) / 2);
             }
-            if (value.equals("3") || value.equals("4")) {
+            if (typeOpen.id == 3 || typeOpen.id == 4) {
                 drawLine(elemB.x1, elemB.y2 + dy, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1 + dy);
                 drawLine(elemB.x2, elemB.y2 + dy, elemT.x1 + (elemT.x2 - elemT.x1) / 2, elemT.y1 + dy);
             }

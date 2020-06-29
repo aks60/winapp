@@ -52,8 +52,7 @@ public class Furniture extends Cal5e {
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
                 Record sysfurnRec = sysfurnList.get(0);
-                int funic = Integer.valueOf(areaStvorka.mapParamUse.get(ParamJson.sysfurnID).toString());
-                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == funic).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna
+                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStvorka.sysfurnID).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna             
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
                 //Сторона открывания
                 areaStvorka.handlSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
