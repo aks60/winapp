@@ -22,7 +22,7 @@ public class JoiningDet extends Par5s {
 
     public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> paramList) {
 
-        if (filterParamJson(elem5e, paramList) == false) {
+        if (filterParamUse(elem5e, paramList) == false) {
             return false; //параметры по умолчанию и I-OKNA
         }
         //Цикл по параметрам соединения

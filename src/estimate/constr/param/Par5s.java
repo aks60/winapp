@@ -15,6 +15,7 @@ import estimate.model.Com5t;
 
 public class Par5s {
 
+    protected final int ID = 1;   //Ключ 0  
     protected final int GRUP = 2;   //Ключ 1  
     protected final int NUMB = 3;   //Ключ 2   
     protected final int TEXT = 4;   //Текст 
@@ -190,7 +191,7 @@ public class Par5s {
         }
         return false;
     }
-    
+
     public boolean compareBetween(String ptext, float value) {
         if (ptext == null) {
             return true;
@@ -216,11 +217,11 @@ public class Par5s {
                 if (valueMin <= value && valueMax >= value) {
                     return true;
                 }
-            }            
+            }
         }
-        return false;        
-    } 
-    
+        return false;
+    }
+
     public void test_param(int[] paramArr) {
 
         HashMap<String, ArrayList> hm = new HashMap();
@@ -254,6 +255,7 @@ public class Par5s {
 
     //Фильтр параметров по умолчанию
     protected boolean filterParamDef(Record paramRec) {
+
         if (paramRec.getInt(GRUP) < 0) {
             if (iwin.mapParamDef.get(paramRec.getInt(GRUP)) == null) {
                 return false;
@@ -267,64 +269,33 @@ public class Par5s {
         return true;
     }
 
-    //Фильтр параметров
-    protected boolean filterParamJson(Com5t com5t, List<Record> paramList) {
+    //Фильтр параметров выбранных клиентом
+    protected boolean filterParamUse(Com5t com5t, List<Record> paramList) {
 
-        //HashMap<Integer, Object[]> paramJson = new HashMap();
         HashMap<Integer, Record> paramTotal = new HashMap();
         paramTotal.putAll(iwin.mapParamDef); //добавим параметры по умолчанию
-/*
-        //Все владельцы этого элемента
-        LinkedList<Com5t> ownerList = new LinkedList();
+        paramTotal.putAll(com5t.mapParamUse);
+        
         Com5t el = com5t;
-        ownerList.add(el);
-        do {
+        do { //все владельцы этого элемента
             el = el.owner();
-            ownerList.add(el);
+            paramTotal.putAll(el.mapParamUse);
         } while (el != iwin.rootArea);
 
-        //Цикл по владельцам этого элемента
-        for (int index = ownerList.size() - 1; index >= 0; index--) {
-
-            el = ownerList.get(index);
-            HashMap<Integer, Object[]> pJson = (HashMap) el.mapParamUse.get(ParamJson.ioknaParam2);
-            if (pJson != null && pJson.isEmpty() == false) {  // если параметры от i-okna есть
-                if (pass == 1) {
-                    paramTotal.putAll(pJson); //к пар. по умолч. наложим парам. от i-win
-                } else {
-                    for (Map.Entry<Integer, Object[]> entry : pJson.entrySet()) {
-                        Object[] val = entry.getValue();
-                        if (val[2].equals(1)) { //
-                            paramTotal.put(entry.getKey(), entry.getValue()); //по умолчанию и i-win
-                        }
-                    }
-                }
-                paramJson.putAll(pJson); //к парам. i-win верхнего уровня наложим парам. i-win нижнего уровня
-            }
-        }*/
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-
-                if (paramTotal.get(paramRec.getInt(GRUP)) == null) {
-                    return false; //усли в базе парам. нет, сразу выход
+                if (paramTotal.get(paramRec.getInt(GRUP)) != null) {
+                    Record rec = paramTotal.get(paramRec.getInt(GRUP));
+                    if (rec.getInt(ID) != paramRec.getInt(ID)) {
+                        
+                        return false;
+                    }
                 }
-                //В данной ветке есть попадание в paramRec.getInt(PAR1)
-                Record record = paramTotal.get(paramRec.getInt(GRUP));
-                if ((record.getInt(NUMB) == paramRec.getInt(NUMB)) == false) { //если в param.znumb() попадания нет
-
-                    //на третьей итерации дополняю ...
-                    return false;
-
-                }
-                //else if (paramJson != null && paramJson.isEmpty() == false && paramJson.get(paramRec.getInt(GRUP)) != null) {
-                //    totalVal[2] = 1; //если попадание было, то записываю 1 в третий элемент массива
-                //}
             }
         }
         return true;
     }
-
-    //Не обработанные параметры
+    //Необработанные параметры
     protected void message(int code) {
         if (code >= 0) {
             System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
