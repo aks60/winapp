@@ -275,7 +275,7 @@ public class Par5s {
         HashMap<Integer, Record> paramTotal = new HashMap();
         paramTotal.putAll(iwin.mapParamDef); //добавим параметры по умолчанию
         paramTotal.putAll(com5t.mapParamUse);
-        
+
         Com5t el = com5t;
         do { //все владельцы этого элемента
             el = el.owner();
@@ -284,17 +284,18 @@ public class Par5s {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-                if (paramTotal.get(paramRec.getInt(GRUP)) != null) {
-                    Record rec = paramTotal.get(paramRec.getInt(GRUP));
-                    if (rec.getInt(ID) != paramRec.getInt(ID)) {
-                        
-                        return false;
-                    }
+                if (paramTotal.get(paramRec.getInt(GRUP)) == null) {
+                    return false;
+                }
+                Record rec = paramTotal.get(paramRec.getInt(GRUP));
+                if (rec.getInt(NUMB) != paramRec.getInt(NUMB)) {
+                    return false;
                 }
             }
         }
         return true;
     }
+
     //Необработанные параметры
     protected void message(int code) {
         if (code >= 0) {
