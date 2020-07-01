@@ -94,9 +94,7 @@ public class ElemGlass extends ElemSimple {
             x1 = (owner().width() / 2) - (float) l;
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
-
             specificationRec.width = width();
-
             specificationRec.id = id();
             specificationRec.setArtiklRec(artiklRec);
             specificationRec.color1 = color1;
@@ -160,6 +158,7 @@ public class ElemGlass extends ElemSimple {
                 specif.height = artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang;
                 specif.anglCut1 = (float) ang;
+                specificationRec.specificationList.add(new Specification(specif)); //добавим спецификацию
 
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
@@ -180,6 +179,7 @@ public class ElemGlass extends ElemSimple {
                 specif.height = artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang3;
                 specif.anglCut1 = (float) ang3;
+                specificationRec.specificationList.add(new Specification(specif)); //добавим спецификацию
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 specif.anglCut2 = 45;
@@ -217,6 +217,8 @@ public class ElemGlass extends ElemSimple {
                 specif.height = specif.artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang;
                 specif.anglCut1 = (float) ang;
+                specificationRec.specificationList.add(new Specification(specif)); //добавим спецификацию
+                
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
                 double ang3 = 90 - (90 - ang2 + ang);
@@ -229,6 +231,7 @@ public class ElemGlass extends ElemSimple {
                 specif.height = specif.artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang3;
                 specif.anglCut1 = (float) ang3;
+                specificationRec.specificationList.add(new Specification(specif)); //добавим спецификацию
 
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 specif.anglCut2 = 45;
