@@ -42,26 +42,32 @@ public class Elements extends Cal5e {
     //Но при проверке параметров использую оригин. мат. ценность. (Непонятно!!!)
     public void calc() {
         listVariants.clear();
-        LinkedList<ElemSimple>  listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
+        LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         try {
             //Цикл по списку элементов конструкции
-            for (ElemSimple elem5e : listElem) {
+            for (ElemSimple elem5e : listElem) {        
+                
+                elem5e.setSpecific(); 
+                
+                int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id); //ищем текстуры не на аналоге 
+                List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула   
+                
+                //Цыкл по текстурам
+                for (Record artdetRec : artdetList) {                     
+                    if (iwin().color1 == artdetRec.getInt(eArtdet.color_fk)) {
 
-                //Ищем текстуры не на аналоге 
-                int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id);
-                List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула             
-                elem5e.artdetRec = artdet(artdetList); //текстура артикула, нужен подбор текстуры!!!
-                elem5e.setSpecific();
+                        //Варианты состава для серии профилей
+                        int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
+                        List<Record> elementList2 = eElement.find(series_id);
+                        detail(elementList2, elem5e);
 
-                //Варианты состава для серии профилей
-                int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
-                List<Record> elementList2 = eElement.find(series_id);
-                detail(elementList2, elem5e);
-
-                //Варианты состава для артикула профиля
-                artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
-                List<Record> elementList3 = eElement.find2(artikl_id);
-                detail(elementList3, elem5e);
+                        //Варианты состава для артикула профиля
+                        artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
+                        List<Record> elementList3 = eElement.find2(artikl_id);
+                        detail(elementList3, elem5e);
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             System.err.println("estimate.constr.Elements.calc() " + e);
@@ -71,24 +77,24 @@ public class Elements extends Cal5e {
     protected void detail(List<Record> elementList, ElemSimple elem5e) {
         try {
             //Цикл по вариантам
-            for (Record elementRec : elementList) { 
+            for (Record elementRec : elementList) {
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
                 listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements из формы Systree
-                
+
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
-                if (elementVar.check(elem5e, elempar1List) == true) {  
+                if (elementVar.check(elem5e, elempar1List) == true) {
                     List<Record> elemdetList = eElemdet.find(element_id);
-                    
+
                     //Цикл по детализации
-                    for (Record elemdetRec : elemdetList) { 
+                    for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
                         List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации 
-                        
+
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                        if (elementDet.check(mapParam, elem5e, elempar2List) == true) {  
-                            
+                        if (elementDet.check(mapParam, elem5e, elempar2List) == true) {
+
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(artiklRec, elem5e, mapParam);
                             specif.setColor(elem5e, elemdetRec);
@@ -101,9 +107,5 @@ public class Elements extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.nested() " + e);
         }
-    }
-
-    private Record artdet(List<Record> artdetList) {
-        return artdetList.stream().filter(rec -> rec.getInt(eArtdet.color_fk) == iwin().color1).findFirst().orElse(eArtdet.record());
-    }
+    }   
 }

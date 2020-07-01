@@ -60,10 +60,9 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31002:  //Если профиль 
-                    case 37002:  //Если артикул профиля контура  
-                        if (LayoutArea.ARCH == elem5e.layout() && "арочный".equals(rec.getStr(TEXT)) == false) {
+                        if ("арочный".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH == elem5e.layout() == true) {
                             return false;
-                        } else if (LayoutArea.ARCH != elem5e.layout() && "прямой".equals(rec.getStr(TEXT)) == false) {
+                        } else if ("прямой".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH != elem5e.layout() == true) {
                             return false;
                         }
                         break;
@@ -239,6 +238,9 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 37001:  //Установка жалюзи 
+                        message(grup);
+                        break;
+                    case 37002:  //Если артикул профиля контура 
                         message(grup);
                         break;
                     case 37008:  //Тип проема 

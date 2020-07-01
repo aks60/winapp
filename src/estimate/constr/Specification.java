@@ -248,7 +248,7 @@ public class Specification {
 
     public static void write_txt2(ArrayList<Specification> specList) {
 
-        //specList.stream().forEach(rec -> System.out.println(rec.id + "   " + rec.artikl + "        " + rec.place));
+        //specList.stream().forEach(rec -> System.out.println(rec.name + "   " + rec.artikl + "        " + rec.place));
         try {
             Collections.sort(specList, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
             int npp = 0;
