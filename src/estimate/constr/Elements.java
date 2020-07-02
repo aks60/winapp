@@ -45,29 +45,19 @@ public class Elements extends Cal5e {
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         try {
             //Цикл по списку элементов конструкции
-            for (ElemSimple elem5e : listElem) {        
-                
-                elem5e.setSpecific(); 
-                
-                int artikl_id = elem5e.sysprofRec.getInt(eSysprof.artikl_id); //ищем текстуры не на аналоге 
-                List<Record> artdetList = eArtdet.find(artikl_id); //список текстур артикула   
-                
-                //Цыкл по текстурам
-                for (Record artdetRec : artdetList) {                     
-                    if (iwin().color1 == artdetRec.getInt(eArtdet.color_fk)) {
+            for (ElemSimple elem5e : listElem) {
 
-                        //Варианты состава для серии профилей
-                        int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
-                        List<Record> elementList2 = eElement.find(series_id);
-                        detail(elementList2, elem5e);
+                elem5e.setSpecific();
 
-                        //Варианты состава для артикула профиля
-                        artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
-                        List<Record> elementList3 = eElement.find2(artikl_id);
-                        detail(elementList3, elem5e);
-                        break;
-                    }
-                }
+                //Варианты состава для серии профилей
+                int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
+                List<Record> elementList2 = eElement.find(series_id);
+                detail(elementList2, elem5e);
+
+                //Варианты состава для артикула профиля
+                int artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
+                List<Record> elementList3 = eElement.find2(artikl_id);
+                detail(elementList3, elem5e);
             }
         } catch (Exception e) {
             System.err.println("estimate.constr.Elements.calc() " + e);
@@ -107,5 +97,5 @@ public class Elements extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка wincalc.constr.Сomposition.nested() " + e);
         }
-    }   
+    }
 }

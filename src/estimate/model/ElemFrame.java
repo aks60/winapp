@@ -48,16 +48,17 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.TOP, UseSide.ANY);
+            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
+            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.LEFT, UseSide.ANY);
+            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin().nuni, useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
+            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
         }        
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
+        //artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
     }
 
     @Override //Главная спецификация

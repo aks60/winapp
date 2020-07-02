@@ -35,7 +35,7 @@ public enum eArtdet implements Field {
         meta.init(p);
     }
 
-    private static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
