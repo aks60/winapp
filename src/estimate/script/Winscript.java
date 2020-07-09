@@ -161,8 +161,8 @@ public class Winscript {
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 550));
             area3.add(new Element(9, TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.AREA, 550));
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem(11, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':23}"));
-            AreaElem area7 = (AreaElem) area5.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':20}"));
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem(11, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':2745}"));
+            AreaElem area7 = (AreaElem) area5.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':2744}"));
             rootArea.add(new Element(13, TypeElem.GLASS));
             area6.add(new Element(14, TypeElem.GLASS));
             area7.add(new Element(15, TypeElem.GLASS));
@@ -175,8 +175,8 @@ public class Winscript {
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 700));
             area3.add(new Element(9, TypeElem.IMPOST));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.AREA, 700));
-            AreaElem area6 = (AreaElem) area4.add(new AreaElem(11, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':23}"));
-            AreaElem area7 = (AreaElem) area5.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':20}"));
+            AreaElem area6 = (AreaElem) area4.add(new AreaElem(11, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1, 'sysfurnID':535}"));
+            AreaElem area7 = (AreaElem) area5.add(new AreaElem(12, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':534}"));
             rootArea.add(new Element(13, TypeElem.GLASS));
             area6.add(new Element(14, TypeElem.GLASS));
             area7.add(new Element(15, TypeElem.GLASS));
@@ -214,7 +214,7 @@ public class Winscript {
             AreaElem area11 = (AreaElem) area10.add(new AreaElem(11, LayoutArea.VERT, TypeElem.AREA, 550));
             area10.add(new Element(12, TypeElem.IMPOST));
             AreaElem area13 = (AreaElem) area10.add(new AreaElem(13, LayoutArea.VERT, TypeElem.AREA, 850));
-            AreaElem area14 = (AreaElem) area11.add(new AreaElem(14, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':20}"));
+            AreaElem area14 = (AreaElem) area11.add(new AreaElem(14, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':701}"));
             rootArea.add(new Element(15, TypeElem.GLASS));
             area8.add(new Element(16, TypeElem.GLASS));
             area13.add(new Element(17, TypeElem.GLASS));

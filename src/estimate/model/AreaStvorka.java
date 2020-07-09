@@ -24,7 +24,7 @@ public class AreaStvorka extends AreaSimple {
     public LayoutFurn1 handleSide = null;
     public int handleColor = -1; //цвет ручки
     public TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
-    public int sysfurnID = -1;
+    public int sysfurnID = -1; //то, что выбрал клиент
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3, param);
