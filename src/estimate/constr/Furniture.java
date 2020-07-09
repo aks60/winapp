@@ -70,7 +70,7 @@ public class Furniture extends Cal5e {
                 }
 
                 middle(areaStvorka, furnityreRec, 1); //основная фурнитура
-                
+
             }
         } catch (Exception e) {
             System.err.println("estimate.constr.Furniture.calc() " + e);
@@ -127,7 +127,7 @@ public class Furniture extends Cal5e {
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
             Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
             ElemFrame handlFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnitureRec.getInt(eFurniture.hand_side))); //Крепится ручка
-            
+
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
@@ -152,7 +152,7 @@ public class Furniture extends Cal5e {
                 return false; //параметры детализации
             }
             List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
-            
+
             //Цикл по ограничению сторон фурнитуры
             for (Record furnside2Rec : furnside2List) {
                 ElemFrame el = null;
@@ -185,9 +185,9 @@ public class Furniture extends Cal5e {
                     return false;
                 }
             }
-            
+
             //Если это элемент из мат. ценность (не набор)
-            if (furndetRec.get(eFurndet.furniture_id2) == null) { 
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
@@ -197,9 +197,9 @@ public class Furniture extends Cal5e {
                     specif.place = "FURN";
                     handlFrame.addSpecific(specif); //добавим спецификацию в элемент
                 }
-                
-             //Если это нобор   
-            } else {                 
+
+                //Если это нобор   
+            } else {
                 int count2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
                 try {
