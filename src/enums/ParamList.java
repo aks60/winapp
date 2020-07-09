@@ -1151,7 +1151,7 @@ public class ParamList {
     };
 
     public static Dictionary dic_21001_24001_25001 = () -> {
-        return Arrays.asList("прямоугольная", "трапецивидная", "не арочная", "арочная");
+        return Arrays.asList("прямоугольная", "трапециевидная", "не арочная", "арочная");
     };
 
     public static Dictionary dic_13015 = () -> {
