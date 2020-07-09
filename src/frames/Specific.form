@@ -315,6 +315,7 @@
                     <Column editable="true" title="&#x41c;&#x430;&#x441;&#x441;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x423;&#x433;&#x43e;&#x43b;1" type="java.lang.Object"/>
                     <Column editable="true" title="&#x423;&#x433;&#x43e;&#x43b;2" type="java.lang.Object"/>
+                    <Column editable="true" title="&#x423;&#x433;&#x43e;&#x43b; &#x43a; &#x433;&#x43e;&#x440;." type="java.lang.Object"/>
                     <Column editable="true" title="&#x41a;&#x43e;&#x43b;.&#x435;&#x434;&#x438;&#x43d;&#x438;&#x446;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x415;&#x434;.&#x438;&#x437;&#x43c;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x41a;&#x43e;&#x43b;. &#x431;&#x435;&#x437; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
@@ -325,7 +326,6 @@
                     <Column editable="true" title="&#x421;&#x442;&#x43e;&#x438;&#x43c;. &#x431;&#x435;&#x437; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x438;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x421;&#x442;&#x43e;&#x438;&#x43c;. &#x441;&#x43e; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x421;&#x43a;&#x438;&#x434;&#x43a;&#x430;" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x423;&#x433;&#x43e;&#x43b; &#x43a; &#x433;&#x43e;&#x440;." type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

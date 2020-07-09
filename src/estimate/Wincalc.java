@@ -1,7 +1,6 @@
 package estimate;
 
 import estimate.model.ElemGlass;
-import estimate.model.ElemFrame;
 import estimate.model.AreaStvorka;
 import estimate.model.AreaArch;
 import estimate.model.AreaTriangl;
@@ -38,6 +37,8 @@ import estimate.constr.Furniture;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
+import java.lang.annotation.Annotation;
+import common.Column;
 
 public class Wincalc {
 
@@ -115,6 +116,11 @@ public class Wincalc {
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
+                Class<?> c = elemRec.specificationRec.getClass();
+                Column m2 = c.getField("id").getAnnotation(Column.class);
+                Column m3 = c.getField("place").getAnnotation(Column.class);
+                System.out.println(m2.title());
+                System.out.println(m3.title());
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }
             Collections.sort(listSpec, (o1, o2) -> o1.place.compareTo(o2.place));

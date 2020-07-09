@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Vector;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
+import common.Column;
 
 /**
  * Спецификация элемента окна
@@ -31,9 +32,9 @@ public class Specification {
     public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
 
-    public float id = -1;  //ID
+    public float id = -1; //ID
     public String place = "-"; //Место расмешения
-    public String name = "-";  //Наименование
+    public String name = "-"; //Наименование
     public String artikl = "-";  //Артикул
     public int color1 = 1005;  //Осн.текстура
     public int color2 = 1005;  //Внутр.текстура
@@ -43,6 +44,7 @@ public class Specification {
     public float weight = 0;  //Масса
     public float anglCut1 = 0;  //Угол1
     public float anglCut2 = 0;  //Угол2
+    public float anglHoriz = 0; // Угол к горизонту    
     public int count = 1;  //Кол. единиц
     public int unit = 0; //Ед.изм
     public float quantity = 0; //Количество без отхода
@@ -53,7 +55,6 @@ public class Specification {
     public float inCost = 0; //Стоимость без скидки
     public float outCost = 0; //Стоимость со скидкой
     public float discount = 0;  //Скидка
-    public float anglHoriz = 0; // Угол к горизонту
 
     /**
      * Конструктор для видимых эдементов окна
@@ -104,8 +105,8 @@ public class Specification {
     public Vector getVector() {
 
         List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name, color1, color2,
-                color3, width, height, weight, anglCut1, anglCut2, count, unit, quantity, wastePrc,
-                quantity2, inPrice, outPrice, inCost, outCost, discount, anglHoriz);
+                color3, width, height, weight, anglCut1, anglCut2, anglHoriz, count, unit, quantity, wastePrc,
+                quantity2, inPrice, outPrice, inCost, outCost, discount);
         return new Vector(list);
     }
 
