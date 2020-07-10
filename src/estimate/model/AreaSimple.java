@@ -1,14 +1,9 @@
 package estimate.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import dataset.Record;
-import domain.eParams;
+import common.Draw;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.LayoutJoin;
-import enums.ParamJson;
 import enums.TypeJoin;
 import java.io.File;
 import java.util.EnumMap;
@@ -240,28 +235,28 @@ public class AreaSimple extends Com5t {
         if (iwin().scale2 == 1) {
             iwin().gc2d.setColor(java.awt.Color.BLACK);
             iwin().gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
-            setStroke(6); //толщина линии
+            Draw.setStroke(6); //толщина линии
             y1 = y1 + dy;
             y2 = y2 + dy;
-            drawLine(x1, y1, x2, y2);
+            Draw.drawLine(x1, y1, x2, y2);
             if (x1 == x2 && y2 - y1 != 0) {
-                drawLine(x1 - 24, y1, x1 + 24, y1);
-                drawLine(x2 - 24, y2, x2 + 24, y2);
-                drawLine(x1, y1, x1 + 12, y1 + 24);
-                drawLine(x1, y1, x1 - 12, y1 + 24);
-                drawLine(x2, y2, x2 + 12, y2 - 24);
-                drawLine(x2, y2, x2 - 12, y2 - 24);
-                rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
-                drawString(String.valueOf((int) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
-                rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
+                Draw.drawLine(x1 - 24, y1, x1 + 24, y1);
+                Draw.drawLine(x2 - 24, y2, x2 + 24, y2);
+                Draw.drawLine(x1, y1, x1 + 12, y1 + 24);
+                Draw.drawLine(x1, y1, x1 - 12, y1 + 24);
+                Draw.drawLine(x2, y2, x2 + 12, y2 - 24);
+                Draw.drawLine(x2, y2, x2 - 12, y2 - 24);
+                Draw.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
+                Draw.drawString(String.valueOf((int) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
+                Draw.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
             } else if (y1 == y2 && x2 - x1 != 0) {
-                drawLine(x1, y1 - 24, x1, y1 + 24);
-                drawLine(x2, y2 - 24, x2, y2 + 24);
-                drawLine(x1, y1, x1 + 24, y1 - 12);
-                drawLine(x1, y1, x1 + 24, y1 + 12);
-                drawLine(x2, y2, x2 - 24, y2 - 12);
-                drawLine(x2, y2, x2 - 24, y2 + 12);
-                drawString(String.valueOf((int) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
+                Draw.drawLine(x1, y1 - 24, x1, y1 + 24);
+                Draw.drawLine(x2, y2 - 24, x2, y2 + 24);
+                Draw.drawLine(x1, y1, x1 + 24, y1 - 12);
+                Draw.drawLine(x1, y1, x1 + 24, y1 + 12);
+                Draw.drawLine(x2, y2, x2 - 24, y2 - 12);
+                Draw.drawLine(x2, y2, x2 - 24, y2 + 12);
+                Draw.drawString(String.valueOf((int) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
             }
         }
     }

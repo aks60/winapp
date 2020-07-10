@@ -1,5 +1,6 @@
 package estimate.model;
 
+import common.Draw;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
@@ -154,10 +155,10 @@ public class ElemImpost extends ElemSimple {
 
         int rgb = eColor.find(color2).getInt(eColor.rgb);
         if (LayoutArea.VERT == owner().layout()) {
-            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            Draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (LayoutArea.HORIZ == owner().layout()) {
-            strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            Draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }
 

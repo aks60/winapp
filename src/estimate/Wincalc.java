@@ -39,6 +39,7 @@ import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
 import java.lang.annotation.Annotation;
 import common.Column;
+import common.Draw;
 
 public class Wincalc {
 
@@ -97,7 +98,7 @@ public class Wincalc {
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
         Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
-           
+        Draw.iwin = this;   
         return rootArea;
     }
 
