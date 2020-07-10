@@ -121,7 +121,7 @@ public class Wincalc {
             Collections.sort(listSpec, (o1, o2) -> o1.place.compareTo(o2.place));
             
             //Тестирование
-            Specification.write_txt2(listSpec);
+            //Specification.write_txt2(listSpec);
             //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));
 
         } catch (Exception e) {
