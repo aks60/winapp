@@ -72,7 +72,7 @@ public class Wincalc {
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 ////////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601001;
+    public static int prj = 601003;
 ////////////////////////////////////////////////////////////////////////////////
     
     public AreaSimple build(String productJson) {
@@ -118,10 +118,10 @@ public class Wincalc {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }
-            Collections.sort(listSpec, (o1, o2) -> o1.place.compareTo(o2.place));
+            Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
             
             //Тестирование
-            //Specification.write_txt2(listSpec);
+            Specification.write_txt2(listSpec);
             //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));
 
         } catch (Exception e) {

@@ -103,10 +103,11 @@ public class Specification {
     }
 
     public Vector getVector() {
-
-        List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name, color1, color2,
-                color3, width, height, weight, anglCut1, anglCut2, anglHoriz, count, unit, quantity, wastePrc,
-                quantity2, inPrice, outPrice, inCost, outCost, discount);
+        String color = eColor.find(color1).getStr(eColor.name);
+        List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name,
+                eColor.find(color1).getStr(eColor.name), eColor.find(color2).getStr(eColor.name),
+                eColor.find(color3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2,
+                anglHoriz, count, unit, quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount);
         return new Vector(list);
     }
 
@@ -167,26 +168,7 @@ public class Specification {
         return String.valueOf(def);
     }
 
-    @Override
-    public boolean equals(Object specification) {
-        Specification spec = (Specification) specification;
-
-        return (id == spec.id && place.equals(spec.place) && artikl.equals(spec.artikl) && name.equals(spec.name)
-                && color1 == spec.color1 && color2 == spec.color2 && color3 == spec.color3
-                && width == spec.width && height == spec.height && anglCut2 == spec.anglCut2 && anglCut1 == spec.anglCut1
-                && quantity == spec.quantity && unit == spec.unit && wastePrc == spec.wastePrc && quantity2 == spec.quantity2
-                && inPrice == spec.inPrice && outPrice == spec.outPrice && discount == spec.discount);
-    }
-
-    @Override
-    public String toString() {
-        Formatter f = new Formatter();
-        return "Изделие=" + id + ", Расп...=" + place + ", Артикул=" + artikl + ", Наименование=" + name + ", Текстура=" + color1 + ", Внутренняя=" + color2
-                + ", Внешняя=" + color3 + ", Длина. мм=" + f.format("%.1f", width) + ", Ширина. мм=" + f.format("%.1f", height) + ", Угол1=" + String.format("%.2f", anglCut2)
-                + ", Угол2=" + String.format("%.2f", anglCut1) + ", Кол.шт=" + count + ", Кол.без.отх=" + quantity + ", Отход=" + wastePrc + ", Кол.с.отх=" + quantity2
-                + ", Собест.за.ед" + inPrice + ", Собест.с.отх" + outPrice + ", Скидка=" + discount;
-    }
-
+    
     public static void write_csv(ArrayList<Specification> spcList) {
         Writer writer = null;
         try {
@@ -248,10 +230,7 @@ public class Specification {
     }
 
     public static void write_txt2(ArrayList<Specification> specList) {
-
-        //specList.stream().forEach(rec -> System.out.println(rec.name + "   " + rec.artikl + "        " + rec.place));
         try {
-            Collections.sort(specList, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
             int npp = 0;
             String format = "%-6s%-16s%-60s%-26s%-12s%-12s%-12s";
             Object str[] = {"Npp", "Place", "Name", "Code", "areaId", "elemId", "owner"};
@@ -269,43 +248,5 @@ public class Specification {
         } catch (Exception e) {
             System.err.println("Ошибка estimate.constr.write_txt2() " + e);
         }
-    }
-
-    public static void sort2(ArrayList<Specification> contacts) {
-        Collections.sort(contacts, new Comparator<Specification>() {
-            public int compare(Specification one, Specification other) {
-                return (one.place + one.name).compareTo(other.place + other.name);
-            }
-        });
-    }
-
-    public static void sort3(ArrayList<Specification> contacts) {
-        Collections.sort(contacts, new Comparator<Specification>() {
-            public int compare(Specification one, Specification other) {
-                return (one.artikl + one.place).compareTo(other.artikl + other.place);
-            }
-        });
-    }
-
-    public static ArrayList<Specification> group(ArrayList<Specification> specificationList1) {
-
-        HashMap<String, Specification> hm = new HashMap();
-        for (Specification spc : specificationList1) {
-
-            String key = spc.id + spc.place + spc.artikl + spc.name + spc.color1 + spc.color2 + spc.color3
-                    + spc.width + spc.height + spc.anglCut2 + spc.anglCut1 + spc.unit + spc.quantity + spc.wastePrc
-                    + spc.wastePrc + spc.quantity2 + spc.inPrice + spc.outPrice + spc.discount;
-            Specification spc2 = hm.put(key, spc);
-            if (spc2 != null) {
-                Specification spc3 = hm.get(key);
-                spc3.count = spc3.count + spc2.count; //TODO тут надо увеличивать и стоимост за кол. элементов
-            }
-
-        }
-        ArrayList<Specification> specificationList2 = new ArrayList();
-        for (Map.Entry<String, Specification> entry : hm.entrySet()) {
-            specificationList2.add(entry.getValue());
-        }
-        return specificationList2;
     }
 }

@@ -48,13 +48,13 @@ public class ElemFrame extends ElemSimple {
     public void initСonstructiv() {
 
         if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
         } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
         } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
         } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find3(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
         }        
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         specificationRec.setArtiklRec(artiklRec);
@@ -65,11 +65,11 @@ public class ElemFrame extends ElemSimple {
     public void setSpecific() {  //добавление основной спесификации
         
         specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
-        /*
+
         float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
         Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         specificationRec.setArtiklRec(artiklRec);
-        specificationRec.color1 = color1;0
+        specificationRec.color1 = color1;
         specificationRec.color2 = color2;
         specificationRec.color3 = color3;
         specificationRec.discount = 0;
@@ -100,7 +100,7 @@ public class ElemFrame extends ElemSimple {
         //owner.setSpecific(sysprofRec);
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
-         */
+         
     }
 
     @Override //Вложеная спецификация

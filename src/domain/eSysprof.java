@@ -92,11 +92,11 @@ public enum eSysprof implements Field {
         }
         List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
         if (conf.equals("calc")) {
-            
+
             //Цикл по профилям
             for (Record sysprofRec : query()) {
                 if (sysprofRec.getInt(systree_id) == iwin.nuni && _type.id == sysprofRec.getInt(use_type) && _side2.contains(sysprofRec.getInt(use_side))) {
-                    
+
                     //Цикл по текстурам
                     for (Record artdetRec : eArtdet.query()) {
                         if (sysprofRec.getInt(artikl_id) == artdetRec.getInt(eArtdet.artikl_id)) {
@@ -109,14 +109,14 @@ public enum eSysprof implements Field {
             }
         }
         String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
-        Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ", 
+        Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ",
                 iwin.nuni, "and ", use_type, "=", _type.id, "and", use_side, "in", str, "order by", prio);
         String par = sysprofList.stream().map(rec -> rec.getStr(artikl_id)).collect(Collectors.joining(",", "(", ")"));;
         Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "in", par);
-        
+
         //Цикл по профилям
         for (Record sysprofRec : sysprofList) {
-            
+
             //Цикл по текстурам
             for (Record artdetRec : artdetList) {
                 if (sysprofRec.getInt(artikl_id) == artdetRec.getInt(eArtdet.artikl_id)) {
@@ -127,6 +127,22 @@ public enum eSysprof implements Field {
             }
         }
         return null;
+    }
+
+    public static Record find4(Wincalc iwin, UseArtiklTo _type, UseSide... _side) {
+        if (iwin.nuni == -1) {
+            return record(_type);
+        }
+        List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
+        if (conf.equals("calc")) {
+
+            return query().stream().filter(rec -> rec.getInt(systree_id) == iwin.nuni && rec.getInt(use_type) == _type.id
+                    && _side2.contains(rec.getInt(use_side))).findFirst().orElse(up.newRecord());
+        }
+        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
+        Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ",
+                iwin.nuni, "and ", use_type, "=", _type.id, "and", use_side, "in", str, "order by", prio);
+        return (sysprofList.isEmpty() == true) ? up.newRecord() : sysprofList.get(0);
     }
 
     public static Record record(UseArtiklTo _type) {

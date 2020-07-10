@@ -47,9 +47,7 @@ public class Specific extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-
         iwin.constructiv();
-        Collections.sort(iwin.listSpec, (o1, o2) -> Float.compare(o1.id, o2.id));
     }
 
     private void loadingModel() {
@@ -57,8 +55,10 @@ public class Specific extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());     
         tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
+        int npp = -1;
         for (Specification specRec : iwin.listSpec) { //заполним спецификацию
             Vector vector = specRec.getVector();
+            vector.set(0, ++npp);
             dtm.addRow(vector);
             //System.out.println(vector);
         }
@@ -224,16 +224,18 @@ public class Specific extends javax.swing.JFrame {
         centr.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
+        scr1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {"", "", "", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {"", "", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {"", "", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "ID area", "ID elem", "TypeElem", "Расп.", "Артикул", "Наимен.", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "Угол1", "Угол2", "Угол к гор.", "Кол.единиц", "Ед.изм", "Кол. без отхода", "Процент отхода", "Кол. с отходом", "Собес-сть за ед. изм.", "Собест. с отх", "Стоим. без скидки", "Стоим. со скидкой", "Скидка"
+                "Nпп", "ID area", "ID elem", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "Угол1", "Угол2", "Угол к горизонту", "Кол.единиц", "Ед.изм", "Кол. без отхода", "Процент отхода", "Кол. с отходом", "Собес-сть за ед. измерения", "Собест. с отх", "Стоим. без скидки", "Стоим. со скидкой", "Скидка"
             }
         ));
+        tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tab1.setFillsViewportHeight(true);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -242,10 +244,18 @@ public class Specific extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(5).setMinWidth(120);
-            tab1.getColumnModel().getColumn(6).setMinWidth(169);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(0).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(60);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(9).setMinWidth(40);
             tab1.getColumnModel().getColumn(10).setMinWidth(40);
-            tab1.getColumnModel().getColumn(11).setMinWidth(40);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -265,10 +275,10 @@ public class Specific extends javax.swing.JFrame {
         south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
         txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
+        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 filterUpdate(evt);

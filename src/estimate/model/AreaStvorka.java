@@ -35,7 +35,7 @@ public class AreaStvorka extends AreaSimple {
             this.sysfurnID = (jsonObj.get(ParamJson.sysfurnID.name()) == null) ? -1 : jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
             this.typeOpen = (jsonObj.get(ParamJson.typeOpen.name()) == null) ? TypeOpen1.OM_INVALID : TypeOpen1.get(jsonObj.get(ParamJson.typeOpen.name()).getAsInt());
         }
-        initСonstructiv();
+        //initСonstructiv();
 
         //Коррекция створки с учётом нахлёста
         LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список элементов
@@ -70,15 +70,15 @@ public class AreaStvorka extends AreaSimple {
         stvLeft.specificationRec.height = height();
     }
 
-    public void initСonstructiv() {
-
-        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.STVORKA);
-        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
-
-            artiklRec.setNo(eArtikl.size_falz, iwin().artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
-        }
-    }
+//    public void initСonstructiv() {
+//
+//        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.STVORKA);
+//        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+//        if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
+//
+//            artiklRec.setNo(eArtikl.size_falz, iwin().artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
+//        }
+//    }
 
     @Override
     public void joinFrame() {
