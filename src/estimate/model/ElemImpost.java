@@ -118,9 +118,14 @@ public class ElemImpost extends ElemSimple {
             //Теперь армирование
         } else if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
             specif.place = "СОСТ." + specificationRec.place.substring(0, 1);           
-            specif.width = specificationRec.width;
             specif.anglCut2 = 90;
             specif.anglCut1 = 90;
+            
+            if (LayoutArea.HORIZ == layout) {
+                specif.width = x2 - x1;               
+            } else if (LayoutArea.VERT == layout) {
+                specif.width = y2 - y1;
+            }            
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec)) {

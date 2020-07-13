@@ -39,12 +39,7 @@ public class AreaStvorka extends AreaSimple {
         //initСonstructiv();
 
         //Коррекция створки с учётом нахлёста
-        LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список элементов
-        ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null),
-                insideTop = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null),
-                insideBott = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null),
-                insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
-
+        ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
         x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.sysconsRec.getFloat(eSyssize.naxl);
         y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.sysconsRec.getFloat(eSyssize.naxl);
         x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.sysconsRec.getFloat(eSyssize.naxl);

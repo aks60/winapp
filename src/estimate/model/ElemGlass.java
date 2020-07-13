@@ -99,23 +99,11 @@ public class ElemGlass extends ElemSimple {
 
         } else {
 
-            LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список элементов
-            ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null),
-                    insideTop = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null),
-                    insideBott = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null),
-                    insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
-
-            ElemSimple elemTop = iwin().mapJoin.get(owner().x1 + ":" + owner().y1).joinElement1;
-            y1 = elemTop.y2 - elemTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
-
-            ElemSimple elemBottom = iwin().mapJoin.get(owner().x1 + ":" + owner().y2).joinElement2;
-            y2 = elemBottom.y1 + elemBottom.artiklRec.getInt(eArtikl.size_falz) - gzazo;
-
-            ElemSimple elemLeft = iwin().mapJoin.get(owner().x1 + ":" + owner().y1).joinElement1;
-            x1 = elemLeft.x2 - elemLeft.artiklRec.getInt(eArtikl.size_falz) + gzazo;
-
-            ElemSimple elemRight = iwin().mapJoin.get(owner().x2 + ":" + owner().y1).joinElement2;
-            x2 = elemRight.x1 + elemRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
+            ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
+            x1 = insideLeft.x2 - insideLeft.artiklRec.getInt(eArtikl.size_falz) + gzazo;
+            y1 = insideTop.y2 - insideTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
+            x2 = insideRight.x1 + insideRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
+            y2 = insideBott.y1 + insideBott.artiklRec.getInt(eArtikl.size_falz) - gzazo;
         }
         specificationRec.width = width();
         specificationRec.height = height();

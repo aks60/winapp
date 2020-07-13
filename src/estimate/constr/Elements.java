@@ -46,7 +46,9 @@ public class Elements extends Cal5e {
         try {
             //Цикл по списку элементов конструкции
             for (ElemSimple elem5e : listElem) {                
-
+                
+                elem5e.setSpecific();
+                
                 //Варианты состава для серии профилей
                 int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
                 List<Record> elementList2 = eElement.find(series_id);
