@@ -58,6 +58,11 @@ public class Specific extends javax.swing.JFrame {
         int npp = -1;
         for (Specification specRec : iwin.listSpec) { //заполним спецификацию
             Vector vector = specRec.getVector();
+//            for (int i = 0; i < vector.size(); ++i) {
+//                if(vector.get(i).toString().equals("0.0")) {
+//                    vector.set(i, "");
+//                }
+//            }
             vector.set(0, ++npp);
             dtm.addRow(vector);
             //System.out.println(vector);

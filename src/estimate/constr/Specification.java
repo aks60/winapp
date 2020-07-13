@@ -103,7 +103,6 @@ public class Specification {
     }
 
     public Vector getVector() {
-        String color = eColor.find(color1).getStr(eColor.name);
         List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name,
                 eColor.find(color1).getStr(eColor.name), eColor.find(color2).getStr(eColor.name),
                 eColor.find(color3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2,
