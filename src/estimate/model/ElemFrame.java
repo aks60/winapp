@@ -99,7 +99,8 @@ public class ElemFrame extends ElemSimple {
         //Просто рама (если элемент включен в список состава)
         if (TypeArtikl.KOROBKA.isType(specif.artiklRec) || TypeArtikl.STVORKA.isType(specif.artiklRec)) {
             artiklRec = specif.artiklRec; //переназначаем артикл, как правило это c префиксом артикла @
-            specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //поправка, мм            
+            specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //поправка, мм 
+            setSpecific(); //дополнительно если был фиктивный профиль, т.е. с префиксом @
             return;  //сразу выход т.к. элем. сам является держателем состава
 
             //Теперь армирование

@@ -58,8 +58,6 @@ public class Elements extends Cal5e {
                 int artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
-                
-                elem5e.setSpecific();
             }                       
         } catch (Exception e) {
             System.err.println("estimate.constr.Elements.calc() " + e);

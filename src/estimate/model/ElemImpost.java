@@ -79,13 +79,13 @@ public class ElemImpost extends ElemSimple {
             //Элемент слева
             String keyJoinLeft = x1 + (x2 - x1) / 2 + ":" + y1;
             ElemJoining joinLeft = iwin().mapJoin.get(keyJoinLeft);
-            y1 = joinLeft.joinElement2.y2;
+            float Y1 = joinLeft.joinElement2.y2;
             //Элемент справа
             String keyJoinRight = x1 + (x2 - x1) / 2 + ":" + y2;
             ElemJoining joinRight = iwin().mapJoin.get(keyJoinRight);
-            y2 = joinRight.joinElement2.y1;
+            float Y2 = joinRight.joinElement2.y1;
 
-            specificationRec.width = y2 - y1 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
+            specificationRec.width = Y2 - Y1 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
                     + joinLeft.joinElement2.artiklRec.getFloat(eArtikl.size_falz)
                     + joinRight.joinElement2.artiklRec.getFloat(eArtikl.size_falz);
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
@@ -94,13 +94,13 @@ public class ElemImpost extends ElemSimple {
             //Элемент слева
             String keyJoinLeft = x1 + ":" + (y1 + (y2 - y1) / 2);
             ElemJoining joinLeft = iwin().mapJoin.get(keyJoinLeft);
-            x1 = joinLeft.joinElement2.x2;
+            float X1 = joinLeft.joinElement2.x2;
             //Элемент справа
             String keyJoinRight = x2 + ":" + (y1 + (y2 - y1) / 2);
             ElemJoining joinRight = iwin().mapJoin.get(keyJoinRight);
-            x2 = joinRight.joinElement2.x1;
+            float X2 = joinRight.joinElement2.x1;
 
-            specificationRec.width = x2 - x1 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
+            specificationRec.width = X2 - X1 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
                     + joinLeft.joinElement2.artiklRec.getFloat(eArtikl.size_falz)
                     + joinRight.joinElement2.artiklRec.getFloat(eArtikl.size_falz);
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
@@ -113,19 +113,15 @@ public class ElemImpost extends ElemSimple {
         //Импост (если элемент включен в список состава)
         if (TypeArtikl.IMPOST.isType(specif.artiklRec)) {
             artiklRec = specif.artiklRec; //переназначаем артикл, как правило это c префиксом артикла @
+            setSpecific(); //дополнительно если был фиктивный профиль, т.е. с префиксом @
             return; //сразу выход т.к. элем. сам является держателем состава
 
             //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
-            specif.place = "СОСТ." + specificationRec.place.substring(0, 1);           
+        } else if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) { 
+            specif.place = "СОСТ." + layout().name.substring(0, 1);
+            specif.width = specificationRec.width;
             specif.anglCut2 = 90;
-            specif.anglCut1 = 90;
-            
-            if (LayoutArea.HORIZ == layout) {
-                specif.width = x2 - x1;               
-            } else if (LayoutArea.VERT == layout) {
-                specif.width = y2 - y1;
-            }            
+            specif.anglCut1 = 90;          
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec)) {
