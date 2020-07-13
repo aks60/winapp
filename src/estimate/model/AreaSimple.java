@@ -129,7 +129,7 @@ public class AreaSimple extends Com5t {
                         el.init(TypeJoin.VAR40, LayoutJoin.TTOP, elemImp, elem5e);
                         iwin().mapJoin.put(x3 + ":" + elemImp.y1, el);
 
-                    } else if (elemImp.inside(elemImp.x2, elemImp.y2) == true 
+                    } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true 
                             && iwin().mapJoin.get(x3 + ":" + elemImp.y2) == null) { //T - соединение нижнее                        
                         el.id = id() + 2f / 100;
                         el.init(TypeJoin.VAR40, LayoutJoin.TBOT, elemImp, elem5e);
@@ -147,7 +147,7 @@ public class AreaSimple extends Com5t {
                         el.init(TypeJoin.VAR40, LayoutJoin.TLEFT, elemImp, elem5e);
                         iwin().mapJoin.put(elemImp.x1 + ":" + y3, el);
 
-                    } else if (elemImp.inside(elemImp.x2, elemImp.y2) == true 
+                    } else if (elem5e.inside(elemImp.x2, elemImp.y2) == true 
                             && iwin().mapJoin.get(elemImp.x2 + ":" + y3) == null) { //T - соединение правое                        
                         el.id = id() + 4f / 100;
                         el.init(TypeJoin.VAR40, LayoutJoin.TRIGH, elemImp, elem5e);

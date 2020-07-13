@@ -26,6 +26,7 @@ public class ElemFrame extends ElemSimple {
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
         initСonstructiv();
 
+        //Установка координат
         if (LayoutArea.LEFT == layout) {
             setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
 
@@ -56,76 +57,61 @@ public class ElemFrame extends ElemSimple {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
         } else if (layout == LayoutArea.RIGHT) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
-        }        
+        }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        specificationRec.setArtiklRec(artiklRec);
-        //artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
     }
 
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
-        
-        specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
 
-        float napl = iwin().sysconsRec.getFloat(eSyssize.napl);
-        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
         specificationRec.setArtiklRec(artiklRec);
         specificationRec.color1 = color1;
         specificationRec.color2 = color2;
         specificationRec.color3 = color3;
-        specificationRec.discount = 0;
-        specificationRec.anglHoriz = anglHoriz;
-//        specificationRec.id = ++iwin().genId;
-//        specificationRec.elemId = String.valueOf(id());
-//        specificationRec.elemType = type().name();        
-
-        //Простое окно
-        if (LayoutArea.TOP == layout) {
-            specificationRec.width = x2 - x1 + napl * 2;
-            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
-
-        } else if (LayoutArea.BOTTOM == layout) {
-            specificationRec.width = x2 - x1 + napl * 2;
-            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
-
-        } else if (LayoutArea.LEFT == layout) {
-            specificationRec.width = y2 - y1 + iwin().sysconsRec.getFloat(eSyssize.prip);
-            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
-
-        } else if (LayoutArea.RIGHT == layout) {
-            specificationRec.width = y2 - y1 + napl * 2;
-            specificationRec.height = height(); //artiklRec.getFloat(eArtikl.height);
-        }
-
-        // Коррекция формы окна
-        //owner.setSpecific(sysprofRec);
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
-         
+        specificationRec.anglHoriz = anglHoriz;
+
+        //Простое окно
+        float prip = iwin().sysconsRec.getFloat(eSyssize.prip);
+        if (LayoutArea.TOP == layout) {
+            specificationRec.width = x2 - x1 + prip * 2;
+            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+
+        } else if (LayoutArea.BOTTOM == layout) {
+            specificationRec.width = x2 - x1 + prip * 2;
+            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+
+        } else if (LayoutArea.LEFT == layout) {
+            specificationRec.width = y2 - y1 + prip * 2;
+            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+
+        } else if (LayoutArea.RIGHT == layout) {
+            specificationRec.width = y2 - y1 + prip * 2;
+            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+        }
     }
 
     @Override //Вложеная спецификация
     public void addSpecific(Specification specif) { //добавление спесификаций зависимых элементов
 
-        Record artiklRec = specif.artiklRec;
-
         //Просто рама (если элемент включен в список состава)
-        if (TypeArtikl.KOROBKA.isType(artiklRec) || TypeArtikl.STVORKA.isType(artiklRec)) {
-
-            specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //Поправка, мм
-            specificationRec.setArtiklRec(specif.artiklRec);
+        if (TypeArtikl.KOROBKA.isType(specif.artiklRec) || TypeArtikl.STVORKA.isType(specif.artiklRec)) {
+            artiklRec = specif.artiklRec; //переназначаем артикл, как правило это c префиксом артикла @
+            specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //поправка, мм            
             return;  //сразу выход т.к. элем. сам является держателем состава
 
             //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.isType(artiklRec)) {
-
+        } else if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
             specif.place = "СОСТ." + layout().name.substring(0, 1);
-            
+            specif.anglCut1 = 90;
+            specif.anglCut2 = 90;
+
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
                 specif.width = x2 - x1;
 
-            }
-            if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
+            } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
                 specif.width = y2 - y1;
             }
             if ("от внутреннего угла".equals(specif.getParam(null, 34010))) {
@@ -138,23 +124,21 @@ public class ElemFrame extends ElemSimple {
                 Double dw1 = 0.0;
                 Double dw2 = 0.0;
                 if (anglCut1 != 90) {
-                    dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
+                    dw1 = specif.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
                 }
                 if (anglCut1 != 90) {
-                    dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
+                    dw2 = specif.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
                 }
                 specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue();
                  */
-
+                //TODO тут код незакончен
             }
-            specif.anglCut1 = 90;
-            specif.anglCut2 = 90;
 
             //Щтапик
-        } else if (TypeArtikl.SHTAPIK.isType(artiklRec) == true) {
+        } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec) == true) {
 
             //Концевой профиль
-        } else if (TypeArtikl.KONZEVPROF.isType(artiklRec) == true) {
+        } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec) == true) {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
@@ -162,7 +146,7 @@ public class ElemFrame extends ElemSimple {
             specif.width = (width() - ssizf) + (width() - ssizf) * koef;
 
             //Соединитель
-        } else if (TypeArtikl.SOEDINITEL.isType(artiklRec) == true) {
+        } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec) == true) {
             specif.color1 = iwin().colorNone;
             specif.color2 = iwin().colorNone;
             specif.color3 = iwin().colorNone;

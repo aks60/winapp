@@ -250,7 +250,7 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(2).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(3).setMaxWidth(60);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(120);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(200);

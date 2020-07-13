@@ -45,9 +45,7 @@ public class Elements extends Cal5e {
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         try {
             //Цикл по списку элементов конструкции
-            for (ElemSimple elem5e : listElem) {
-
-                elem5e.setSpecific();
+            for (ElemSimple elem5e : listElem) {                
 
                 //Варианты состава для серии профилей
                 int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
@@ -58,10 +56,12 @@ public class Elements extends Cal5e {
                 int artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
-            }
+                
+                elem5e.setSpecific();
+            }                       
         } catch (Exception e) {
             System.err.println("estimate.constr.Elements.calc() " + e);
-        }
+        }       
     }
 
     protected void detail(List<Record> elementList, ElemSimple elem5e) {

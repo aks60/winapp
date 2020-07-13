@@ -45,15 +45,10 @@ public class AreaStvorka extends AreaSimple {
                 insideBott = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null),
                 insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
 
-        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.STVORKA);
-        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        Float size_falz = artiklRec.getFloat(eArtikl.size_falz);
-        Float naxl = iwin.sysconsRec.getFloat(eSyssize.naxl);
-
-        x1 = insideLeft.x2 - size_falz - naxl;
-        y1 = insideTop.y2 - size_falz - naxl;
-        x2 = insideRight.x1 + size_falz + naxl;
-        y2 = insideBott.y1 + size_falz + naxl;
+        x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.sysconsRec.getFloat(eSyssize.naxl);
+        y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.sysconsRec.getFloat(eSyssize.naxl);
+        x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.sysconsRec.getFloat(eSyssize.naxl);
+        y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.sysconsRec.getFloat(eSyssize.naxl);
 
         //Добавим рамы створки        
         ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);
@@ -80,7 +75,6 @@ public class AreaStvorka extends AreaSimple {
 //            artiklRec.setNo(eArtikl.size_falz, iwin().artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
 //        }
 //    }
-
     @Override
     public void joinFrame() {
         //Цикл по сторонам створки

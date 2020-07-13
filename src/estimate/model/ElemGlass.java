@@ -18,6 +18,7 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Specification;
+import java.util.LinkedList;
 
 public class ElemGlass extends ElemSimple {
 
@@ -59,22 +60,23 @@ public class ElemGlass extends ElemSimple {
         //Цвет стекла
         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
         Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
-//        color1 = colorRec.getInt(eColor.code);
-//        color2 = colorRec.getInt(eColor.code);
-//        color3 = colorRec.getInt(eColor.code);
 
         //TODO Разобраться с цветом стекла
         color1 = iwin().colorNone;
         color2 = iwin().colorNone;
         color3 = iwin().colorNone;
-
-        specificationRec.setArtiklRec(artiklRec);
     }
 
     @Override //Главная спецификация
     public void setSpecific() {
 
         specificationRec.place = "ЗАП";
+        specificationRec.setArtiklRec(artiklRec);
+        specificationRec.color1 = color1;
+        specificationRec.color2 = color2;
+        specificationRec.color3 = color3;
+        specificationRec.id = id();
+
         float gzazo = (mapFieldVal.get("GZAZO") != null) ? Float.valueOf(mapFieldVal.get("GZAZO")) : 0;
         if (owner() instanceof AreaArch) { //если арка
 
@@ -88,21 +90,20 @@ public class ElemGlass extends ElemSimple {
             }
             y1 = y1 + elemArch.artiklRec.getInt(eArtikl.height) - elemArch.artiklRec.getInt(eArtikl.size_falz) + gzazo;
             y2 = y2 + elemImpost.artiklRec.getInt(eArtikl.size_falz) - gzazo;
-            //height = y2 - y1;
-            specificationRec.height = height();
+            //height = y2 - y1;            
             double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getInt(eArtikl.height) + elemArch.artiklRec.getInt(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner().width() / 2) - (float) l;
             x2 = owner().width() - x1;
             radiusGlass = (float) r;
-            specificationRec.width = width();
-            specificationRec.id = id();
-            specificationRec.setArtiklRec(artiklRec);
-            specificationRec.color1 = color1;
-            specificationRec.color2 = color2;
-            specificationRec.color3 = color3;
 
         } else {
+
+            LinkedList<ElemSimple> listElem = root().listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST); //список элементов
+            ElemSimple insideLeft = listElem.stream().filter(el -> el.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null),
+                    insideTop = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null),
+                    insideBott = listElem.stream().filter(el -> el.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null),
+                    insideRight = listElem.stream().filter(el -> el.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
 
             ElemSimple elemTop = iwin().mapJoin.get(owner().x1 + ":" + owner().y1).joinElement1;
             y1 = elemTop.y2 - elemTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
@@ -115,15 +116,9 @@ public class ElemGlass extends ElemSimple {
 
             ElemSimple elemRight = iwin().mapJoin.get(owner().x2 + ":" + owner().y1).joinElement2;
             x2 = elemRight.x1 + elemRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
-
-            specificationRec.width = width();
-            specificationRec.height = height();
-            specificationRec.id = id();
-            specificationRec.setArtiklRec(artiklRec);
-            specificationRec.color1 = color1;
-            specificationRec.color2 = color2;
-            specificationRec.color3 = color3;
         }
+        specificationRec.width = width();
+        specificationRec.height = height();
     }
 
     @Override //Вложеная спецификация 
@@ -219,7 +214,7 @@ public class ElemGlass extends ElemSimple {
                 specif.anglCut2 = (float) ang;
                 specif.anglCut1 = (float) ang;
                 specificationRec.specificationList.add(new Specification(specif)); //добавим спецификацию
-                
+
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
                 double ang3 = 90 - (90 - ang2 + ang);
