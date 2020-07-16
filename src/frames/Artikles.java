@@ -160,7 +160,10 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_centr, txtField8);
         rsvArtikl.add(eArtikl.min_rad, txtField12);
         rsvArtikl.add(eArtikl.id, txtField13);
-        rsvArtikl.add(eArtikl.tech_code, txtField14);
+        rsvArtikl.add(eArtikl.tech_code, txtField14);        
+        rsvArtikl.add(eArtikl.size_tech, txtField15);
+        rsvArtikl.add(eArtikl.size_falz, txtField16);
+
 
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             DicColor2 frame = new DicColor2(this, listenerColor);
@@ -370,6 +373,9 @@ public class Artikles extends javax.swing.JFrame {
         txtField14 = new javax.swing.JFormattedTextField();
         checkBox1 = new javax.swing.JCheckBox();
         jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        txtField15 = new javax.swing.JFormattedTextField();
+        txtField16 = new javax.swing.JFormattedTextField();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -707,6 +713,20 @@ public class Artikles extends javax.swing.JFrame {
         jLabel27.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel27.setPreferredSize(new java.awt.Dimension(108, 18));
 
+        jLabel28.setFont(common.Util.getFont(0,0));
+        jLabel28.setText("Размеры (N/T)");
+        jLabel28.setToolTipText("");
+        jLabel28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel28.setPreferredSize(new java.awt.Dimension(108, 18));
+
+        txtField15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField15.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtField15.setPreferredSize(new java.awt.Dimension(60, 18));
+
+        txtField16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField16.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtField16.setPreferredSize(new java.awt.Dimension(60, 18));
+
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
         pan2Layout.setHorizontalGroup(
@@ -781,7 +801,13 @@ public class Artikles extends javax.swing.JFrame {
                             .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pan2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
@@ -850,7 +876,13 @@ public class Artikles extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtField16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         center.add(pan2, java.awt.BorderLayout.EAST);
@@ -1170,6 +1202,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel labFilter;
     private javax.swing.JLabel labFilter2;
     private javax.swing.JPanel north;
@@ -1190,6 +1223,8 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField12;
     private javax.swing.JFormattedTextField txtField13;
     private javax.swing.JFormattedTextField txtField14;
+    private javax.swing.JFormattedTextField txtField15;
+    private javax.swing.JFormattedTextField txtField16;
     private javax.swing.JFormattedTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;
     private javax.swing.JFormattedTextField txtField4;
