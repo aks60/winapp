@@ -58,9 +58,8 @@ public class ElemGlass extends ElemSimple {
         }
 
         //Цвет стекла
-        Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
-
+        //Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+        //Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
         //TODO Разобраться с цветом стекла
         color1 = iwin().colorNone;
         color2 = iwin().colorNone;
@@ -98,12 +97,11 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = (float) r;
 
         } else {
-
-            ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
-            x1 = insideLeft.x2 - insideLeft.artiklRec.getInt(eArtikl.size_falz) + gzazo;
-            y1 = insideTop.y2 - insideTop.artiklRec.getInt(eArtikl.size_falz) + gzazo;
-            x2 = insideRight.x1 + insideRight.artiklRec.getInt(eArtikl.size_falz) - gzazo;
-            y2 = insideBott.y1 + insideBott.artiklRec.getInt(eArtikl.size_falz) - gzazo;
+            ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);           
+            x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+            y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
         }
         specificationRec.width = width();
         specificationRec.height = height();
