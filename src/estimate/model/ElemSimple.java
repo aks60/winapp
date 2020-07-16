@@ -50,8 +50,7 @@ public abstract class ElemSimple extends Com5t {
     //Расчёт материала в зависимости от ед. измерения
     public void quantityMaterials(Specification specif) {
 
-        if (UseUnit.PIE.id == specif.artiklRec.getInt(eArtikl.currenc_id)) { //шт
-            //if (MeasUnit.PIE.value == specif.getArticRec().atypi) { //шт
+        if (UseUnit.PIE.id == specif.artiklRec.getInt(eArtikl.unit)) { //шт
             specif.count = Integer.valueOf(specif.getParam(specif.count, 11030, 33030, 14030));
 
             if (specif.getParam(0, 33050).equals("0") == false) {

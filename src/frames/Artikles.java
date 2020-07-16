@@ -1203,6 +1203,12 @@ public class Artikles extends javax.swing.JFrame {
             new DicEnums(this, listenerUnit, UseUnit.METR);
         } else if (artiklRec.getInt(eArtikl.level1) == 2) {
             new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.SET, UseUnit.PAIR);
+        } else if (artiklRec.getInt(eArtikl.level1) == 3) {
+            new DicEnums(this, listenerUnit, UseUnit.METR);
+        } else if (artiklRec.getInt(eArtikl.level1) == 4) {
+            new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.SET, UseUnit.PAIR);
+        } else if (artiklRec.getInt(eArtikl.level1) == 5) {
+            new DicEnums(this, listenerUnit, UseUnit.METR2);
         }
     }//GEN-LAST:event_btnField12
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
