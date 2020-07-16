@@ -64,7 +64,7 @@ public class App1 extends javax.swing.JFrame {
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn0444.setSelected(true);
         }
-        mn41(null);
+        //mn41(null);
     }
 
     @SuppressWarnings("unchecked")

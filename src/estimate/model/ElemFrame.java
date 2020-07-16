@@ -12,6 +12,7 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Specification;
+import javax.swing.JOptionPane;
 
 public class ElemFrame extends ElemSimple {
 
@@ -135,9 +136,6 @@ public class ElemFrame extends ElemSimple {
                 //TODO тут код незакончен
             }
 
-            //Щтапик
-        } else if (TypeArtikl.SHTAPIK.isType(specif.artiklRec) == true) {
-
             //Концевой профиль
         } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec) == true) {
             String str = specif.getParam(0, 12030);
@@ -146,6 +144,12 @@ public class ElemFrame extends ElemSimple {
             float ssizf = iwin().sysconsRec.getFloat(eSyssize.naxl);
             specif.width = (width() - ssizf) + (width() - ssizf) * koef;
 
+            //Монтажный профиль
+        } else if (TypeArtikl.MONTPROF.isType(specif.artiklRec) == true) {
+            float prip = iwin().sysconsRec.getFloat(eSyssize.prip);
+            specificationRec.width = x2 - x1 + prip * 2;
+            //specif.width = specificationRec.weight;
+            
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec) == true) {
             specif.color1 = iwin().colorNone;
@@ -154,7 +158,8 @@ public class ElemFrame extends ElemSimple {
 
             //Всё остальное
         } else {
-            //
+            //quantityMaterials(specif);
+            //JOptionPane.showMessageDialog(null, "Запрос addSpecific не обработан", "Предупреждение", JOptionPane.OK_OPTION);
         }
         quantityMaterials(specif);
         specificationRec.specificationList.add(specif);

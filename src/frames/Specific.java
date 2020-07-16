@@ -32,9 +32,10 @@ public class Specific extends javax.swing.JFrame {
     public Specific() {
         initComponents();
         initElements();
-        createWincalc();
-        loadingData();
-        loadingModel();
+        if (createIwin()) {
+            loadingData();
+            loadingModel();
+        }
     }
 
     public Specific(java.awt.Window owner, Wincalc iwin) {
@@ -46,7 +47,7 @@ public class Specific extends javax.swing.JFrame {
         loadingModel();
         //owner.setEnabled(false);
     }
-
+    
     private void loadingData() {
         iwin.constructiv();
     }
@@ -70,7 +71,7 @@ public class Specific extends javax.swing.JFrame {
         }
     }
 
-    private void createWincalc() {
+    private boolean createIwin() {
 
         iwin = new Wincalc();
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
@@ -82,12 +83,14 @@ public class Specific extends javax.swing.JFrame {
             String script = record2.getStr(eSysprod.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
+                return false;
             } else {
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
                 je.getAsJsonObject().addProperty("nuni", nuni);
                 iwin.build(je.toString());
             }
         }
+        return true;
     }
 
     @SuppressWarnings("unchecked")

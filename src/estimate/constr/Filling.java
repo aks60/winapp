@@ -109,8 +109,8 @@ public class Filling extends Cal5e {
 
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
                     if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) {
-                        Record art = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
-                        Specification specif = new Specification(art, elemGlass, mapParam);
+                        Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
+                        Specification specif = new Specification(artiklRec, elemGlass, mapParam);
                         specif.place = "ЗАП";
                         elemGlass.addSpecific(specif);
                     }

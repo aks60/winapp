@@ -22,8 +22,8 @@ public class Test {
            //convert.Profstroy.script();
            //wincalc();
             query();            
-            //frame();
-            //parseJson();
+           //frame();
+           //parseJson();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
