@@ -20,8 +20,8 @@ public class Test {
         Main.dev = true;
         try {
            //convert.Profstroy.script();
-           wincalc();
-            //query();            
+           //wincalc();
+            query();            
             //frame();
             //parseJson();
         } catch (Exception e) {

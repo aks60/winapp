@@ -22,6 +22,7 @@ import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
 import estimate.Wincalc;
 import estimate.constr.Specification;
+import javax.swing.JOptionPane;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -40,7 +41,7 @@ public class Specific extends javax.swing.JFrame {
         initComponents();
         initElements();
         this.owner = owner;
-        this.iwin = iwin;        
+        this.iwin = iwin;
         loadingData();
         loadingModel();
         //owner.setEnabled(false);
@@ -52,7 +53,7 @@ public class Specific extends javax.swing.JFrame {
 
     private void loadingModel() {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());     
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
         int npp = -1;
@@ -79,9 +80,13 @@ public class Specific extends javax.swing.JFrame {
         Record record2 = eSysprod.find(sysprod_id);
         if (record2 != null) {
             String script = record2.getStr(eSysprod.script);
-            JsonElement je = new Gson().fromJson(script, JsonElement.class);
-            je.getAsJsonObject().addProperty("nuni", nuni);
-            iwin.build(je.toString());
+            if (script.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
+            } else {
+                JsonElement je = new Gson().fromJson(script, JsonElement.class);
+                je.getAsJsonObject().addProperty("nuni", nuni);
+                iwin.build(je.toString());
+            }
         }
     }
 
