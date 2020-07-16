@@ -106,7 +106,7 @@ public class Specification {
         List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name,
                 eColor.find(color1).getStr(eColor.name), eColor.find(color2).getStr(eColor.name),
                 eColor.find(color3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2,
-                anglHoriz, count, unit, quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount);
+                anglHoriz, count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount);
         return new Vector(list);
     }
 
