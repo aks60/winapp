@@ -24,11 +24,10 @@ public abstract class Cal5e {
 
     public AreaSimple root() {
         return iwin.rootArea;
-    } 
-    
+    }
+
     //Расчёт количества материала в зависимости от ед. измерения
     public static void amount(Specification specificationRec, Specification specificationAdd) {
-Object oo = specificationAdd.artiklRec.getInt(eArtikl.unit);
         if (UseUnit.PIE.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //шт
             specificationAdd.count = Integer.valueOf(specificationAdd.getParam(specificationAdd.count, 11030, 33030, 14030));
 
@@ -54,5 +53,5 @@ Object oo = specificationAdd.artiklRec.getInt(eArtikl.unit);
             specificationAdd.width = Float.valueOf(specificationAdd.getParam(specificationAdd.width, 34070)); //Длина, мм (должна быть первой)
             specificationAdd.width = specificationAdd.width + Float.valueOf(specificationAdd.getParam(0, 34051)); //Поправка, мм
         }
-    }    
+    }
 }
