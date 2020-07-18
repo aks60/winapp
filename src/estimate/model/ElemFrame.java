@@ -1,7 +1,6 @@
 package estimate.model;
 
 import frames.swing.Draw;
-import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSyssize;
@@ -11,8 +10,8 @@ import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
+import estimate.constr.Cal5e;
 import estimate.constr.Specification;
-import javax.swing.JOptionPane;
 
 public class ElemFrame extends ElemSimple {
 
@@ -161,7 +160,7 @@ public class ElemFrame extends ElemSimple {
             //quantityMaterials(specif);
             //JOptionPane.showMessageDialog(null, "Запрос addSpecific не обработан", "Предупреждение", JOptionPane.OK_OPTION);
         }
-        quantityMaterials(specif);
+        Cal5e.quantityMaterials(specificationRec, specif);
         specificationRec.specificationList.add(specif);
     }
 

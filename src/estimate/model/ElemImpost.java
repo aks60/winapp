@@ -11,6 +11,7 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Specification;
 import domain.eSyssize;
+import estimate.constr.Cal5e;
 
 public class ElemImpost extends ElemSimple {
 
@@ -131,7 +132,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        quantityMaterials(specif);
+        Cal5e.quantityMaterials(specificationRec, specif);
         specificationRec.specificationList.add(specif);
     }
 
