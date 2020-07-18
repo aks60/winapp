@@ -160,7 +160,7 @@ public class ElemFrame extends ElemSimple {
             //quantityMaterials(specif);
             //JOptionPane.showMessageDialog(null, "Запрос addSpecific не обработан", "Предупреждение", JOptionPane.OK_OPTION);
         }
-        Cal5e.quantityMaterials(specificationRec, specif);
+        Cal5e.amount(specificationRec, specif);
         specificationRec.specificationList.add(specif);
     }
 

@@ -132,7 +132,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        Cal5e.quantityMaterials(specificationRec, specif);
+        Cal5e.amount(specificationRec, specif);
         specificationRec.specificationList.add(specif);
     }
 
