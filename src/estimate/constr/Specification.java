@@ -105,7 +105,7 @@ public class Specification {
     public Vector getVector() {
         List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name,
                 eColor.find(color1).getStr(eColor.name), eColor.find(color2).getStr(eColor.name),
-                eColor.find(color3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2,
+                eColor.find(color3).getStr(eColor.name), (width == 0) ? "" : width, (height == 0) ? "" : height, weight, anglCut1, anglCut2,
                 anglHoriz, count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount);
         return new Vector(list);
     }
@@ -167,7 +167,6 @@ public class Specification {
         return String.valueOf(def);
     }
 
-    
     public static void write_csv(ArrayList<Specification> spcList) {
         Writer writer = null;
         try {
@@ -198,7 +197,7 @@ public class Specification {
         }
     }
 
-    public static void write_txt(ArrayList<Specification> specList) {
+    public static void write_txt1(ArrayList<Specification> specList) {
         int npp = 0;
         String format = "%-6s%-46s%-32s%-32s%-32s%-32s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s"
                 + "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s %n";

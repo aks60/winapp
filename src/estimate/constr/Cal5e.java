@@ -28,7 +28,7 @@ public abstract class Cal5e {
     
     //Расчёт количества материала в зависимости от ед. измерения
     public static void amount(Specification specificationRec, Specification specificationAdd) {
-
+Object oo = specificationAdd.artiklRec.getInt(eArtikl.unit);
         if (UseUnit.PIE.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //шт
             specificationAdd.count = Integer.valueOf(specificationAdd.getParam(specificationAdd.count, 11030, 33030, 14030));
 

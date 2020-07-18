@@ -56,7 +56,7 @@ public class Specific extends javax.swing.JFrame {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
-        int npp = -1;
+        int npp = 0;
         for (Specification specRec : iwin.listSpec) { //заполним спецификацию
             Vector vector = specRec.getVector();
 //            for (int i = 0; i < vector.size(); ++i) {
