@@ -2,7 +2,7 @@ package frames.dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
-import common.Util;
+import frames.Util;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;

@@ -16,7 +16,7 @@
             <Property name="text" type="java.lang.String" value="&#x41d;&#x430;&#x441;&#x442;&#x440;&#x43e;&#x439;&#x43a;&#x438;"/>
             <Property name="actionCommand" type="java.lang.String" value="*&#x423;&#x447;&#x440;&#x435;&#x436;&#x434;&#x435;&#x43d;&#x438;&#x435;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
@@ -27,14 +27,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x441;&#x447;&#x451;&#x442;&#x43d;&#x44b;&#x435; &#x434;&#x430;&#x43d;&#x43d;&#x44b;&#x435;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mn0111">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -48,7 +48,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mn0112">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -62,7 +62,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mn0113">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -76,7 +76,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mn0114">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -90,7 +90,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mn0115">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -104,7 +104,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mn0116">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -124,14 +124,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x413;&#x440;&#x430;&#x444;&#x438;&#x447;&#x435;&#x441;&#x43a;&#x438;&#x435; &#x43d;&#x430;&#x441;&#x442;&#x440;&#x43e;&#x439;&#x43a;&#x438;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mn0121">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -145,7 +145,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mn0122">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -159,7 +159,7 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mn0123">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -177,7 +177,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn14">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b009.gif"/>
@@ -194,14 +194,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a;&#x438;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn26">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b058.gif"/>
@@ -215,7 +215,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn21">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b058.gif"/>
@@ -229,7 +229,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn24">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b058.gif"/>
@@ -243,7 +243,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn23">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b058.gif"/>
@@ -259,7 +259,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn25">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b058.gif"/>
@@ -276,14 +276,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x442;&#x438;&#x432;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn31">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b056.gif"/>
@@ -297,7 +297,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn32">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b056.gif"/>
@@ -311,7 +311,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn34">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b056.gif"/>
@@ -325,7 +325,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn35">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b056.gif"/>
@@ -339,7 +339,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn36">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b056.gif"/>
@@ -355,7 +355,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn37">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b056.gif"/>
@@ -372,14 +372,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x441;&#x442;&#x440;&#x443;&#x43a;&#x446;&#x438;&#x438;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn91">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b054.gif"/>
@@ -393,7 +393,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn92">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b054.gif"/>
@@ -407,14 +407,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43a;&#x430;&#x437;&#x44b;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn81">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -428,7 +428,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn82">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -444,7 +444,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn84">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -461,14 +461,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x414;&#x43e;&#x43a;&#x443;&#x43c;&#x435;&#x43d;&#x442;&#x44b;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn41">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b057.gif"/>
@@ -482,7 +482,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn43">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b057.gif"/>
@@ -496,7 +496,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn42">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b057.gif"/>
@@ -513,14 +513,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x432;&#x435;&#x440;&#x442;&#x43e;&#x440;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn71">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -537,14 +537,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x421;&#x435;&#x440;&#x432;&#x438;&#x441;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn61">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -562,7 +562,7 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x412;&#x438;&#x434; &#x438;&#x43d;&#x442;&#x435;&#x440;&#x444;&#x435;&#x439;&#x441;&#x430;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
               </Properties>
               <SubComponents>
@@ -572,7 +572,7 @@
                       <ComponentRef name="buttonLookAndFiilGroup"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Win Classic"/>
                   </Properties>
@@ -586,7 +586,7 @@
                       <ComponentRef name="buttonLookAndFiilGroup"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Java Nimbus"/>
                   </Properties>
@@ -600,7 +600,7 @@
                       <ComponentRef name="buttonLookAndFiilGroup"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Java Metal"/>
                   </Properties>
@@ -614,7 +614,7 @@
                       <ComponentRef name="buttonLookAndFiilGroup"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(1,1)" type="code"/>
+                      <Connection code="frames.Util.getFont(1,1)" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="CDE/Motif"/>
                     <Property name="name" type="java.lang.String" value="" noResource="true"/>
@@ -631,14 +631,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43a;&#x430;"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="common.Util.getFont(1,1)" type="code"/>
+              <Connection code="frames.Util.getFont(1,1)" type="code"/>
             </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mn51">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -652,7 +652,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn52">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>
@@ -666,7 +666,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="mn54">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(1,1)" type="code"/>
+                  <Connection code="frames.Util.getFont(1,1)" type="code"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resource/img16/b031.gif"/>

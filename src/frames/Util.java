@@ -1,5 +1,7 @@
-package common;
+package frames;
 
+import common.EditorListener;
+import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;

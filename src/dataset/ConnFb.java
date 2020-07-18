@@ -1,6 +1,6 @@
 package dataset;
 
-import common.Util;
+import frames.Util;
 import common.eProfile;
 import common.eProperty;
 import static dataset.Query.connection;

@@ -1,7 +1,6 @@
 package frames;
 
 import common.FrameToFile;
-import common.Util;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;

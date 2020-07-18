@@ -3,7 +3,7 @@ package convert;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import common.Util;
+import frames.Util;
 import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;

@@ -3,7 +3,7 @@
  */
 package frames.swing;
 
-import common.Util;
+import frames.Util;
 import enums.Enam;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

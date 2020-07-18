@@ -1,6 +1,6 @@
 package estimate.model;
 
-import common.Draw;
+import frames.swing.Draw;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.LayoutJoin;

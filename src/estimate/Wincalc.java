@@ -39,7 +39,7 @@ import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
 import java.lang.annotation.Annotation;
 import common.Column;
-import common.Draw;
+import frames.swing.Draw;
 
 public class Wincalc {
 

@@ -480,7 +480,7 @@
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x414;&#x43b;&#x438;&#x43d;&#x430;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -496,7 +496,7 @@
             <Component class="javax.swing.JLabel" name="jLabel14">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -512,7 +512,7 @@
             <Component class="javax.swing.JTextField" name="txtField5">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -527,7 +527,7 @@
             <Component class="javax.swing.JLabel" name="jLabel15">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x422;&#x43e;&#x43b;&#x449;&#x438;&#x43d;&#x430;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -588,7 +588,7 @@
             <Component class="javax.swing.JLabel" name="jLabel16">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x423;&#x434;.&#x432;&#x435;&#x441; &#x43a;&#x433;/&#x435;&#x434;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -619,7 +619,7 @@
             <Component class="javax.swing.JLabel" name="jLabel17">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x415;&#x434;.&#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -635,7 +635,7 @@
             <Component class="javax.swing.JLabel" name="jLabel18">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x41d;&#x43e;&#x440;&#x43c;&#x430; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -652,7 +652,7 @@
             <Component class="javax.swing.JLabel" name="jLabel19">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x412;&#x430;&#x43b;&#x44e;&#x442;&#x430;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -669,7 +669,7 @@
             <Component class="javax.swing.JTextField" name="txtField7">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -700,7 +700,7 @@
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x41e;&#x442; &#x43a;&#x440;&#x430;&#x44f; &#x434;&#x43e; &#x43e;&#x441;&#x438; (&#x412;)"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -717,7 +717,7 @@
             <Component class="javax.swing.JLabel" name="jLabel21">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x424;&#x443;&#x440;&#x43d;. &#x43f;&#x430;&#x437; (F)"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -786,7 +786,7 @@
             <Component class="javax.swing.JLabel" name="jLabel22">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x421;&#x435;&#x440;&#x438;&#x44f; &#x43f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x435;&#x439;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -838,7 +838,7 @@
             <Component class="javax.swing.JLabel" name="jLabel23">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x410;&#x43d;&#x430;&#x43b;&#x43e;&#x433; &#x43f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x44f;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -893,7 +893,7 @@
             <Component class="javax.swing.JLabel" name="jLabel24">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x41c;&#x438;&#x43d;. &#x440;&#x430;&#x434;&#x438;&#x443;&#x441; &#x433;&#x438;&#x431;&#x430;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -940,7 +940,7 @@
             <Component class="javax.swing.JLabel" name="jLabel25">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="ID"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -957,7 +957,7 @@
             <Component class="javax.swing.JLabel" name="jLabel26">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x422;&#x435;&#x445;&#x43d;&#x43e;&#x43b;&#x43e;&#x433;- &#x438;&#x439; &#x43a;&#x43e;&#x434;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -1007,7 +1007,7 @@
             <Component class="javax.swing.JLabel" name="jLabel27">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x421; &#x443;&#x43f;&#x43b;&#x43e;&#x442;&#x43d;&#x435;&#x43d;&#x438;&#x435;&#x43c;"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -1024,7 +1024,7 @@
             <Component class="javax.swing.JLabel" name="jLabel28">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="common.Util.getFont(0,0)" type="code"/>
+                  <Connection code="frames.Util.getFont(0,0)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x437;&#x43c;&#x435;&#x440;&#x44b; (N/T)"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -1129,7 +1129,7 @@
                 <Component class="javax.swing.JTree" name="tree">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(0,0)" type="code"/>
+                      <Connection code="frames.Util.getFont(0,0)" type="code"/>
                     </Property>
                     <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
                       <TreeModel code="&#x41c;&#x430;&#x442;. &#x446;&#x435;&#x43d;&#x43d;&#x43e;&#x441;&#x442;&#x438;&#xa; &#x41f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x438;&#xa;A&#x43a;&#x441;&#x435;&#x441;&#x441;&#x443;&#x430;&#x440;&#x44b;&#xa; &#x411;&#x43b;&#x430;&#x411;&#x43b;&#x430;&#xa;  &#xa;  &#xa;  &#xa;  &#xa;  &#xa;  "/>
@@ -1172,7 +1172,7 @@
                 <Component class="javax.swing.JTable" name="tab1">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(0,0)" type="code"/>
+                      <Connection code="frames.Util.getFont(0,0)" type="code"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="2">
@@ -1256,7 +1256,7 @@
                 <Component class="javax.swing.JTable" name="tab2">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="common.Util.getFont(0,0)" type="code"/>
+                      <Connection code="frames.Util.getFont(0,0)" type="code"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="2">

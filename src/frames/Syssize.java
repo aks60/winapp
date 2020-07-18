@@ -1,7 +1,6 @@
 package frames;
 
 import common.DialogListener;
-import common.Util;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
@@ -341,6 +340,6 @@ public class Syssize extends javax.swing.JFrame {
         btnRef.addActionListener(l -> Util.stopCellEditing(tab1));
         tab1.addFocusListener(listenerFocus);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
-                "Системнык константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, common.Util.getFont(0, 0)));
+                "Системнык константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }
 }

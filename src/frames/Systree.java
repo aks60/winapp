@@ -6,7 +6,6 @@ import common.DialogListener;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
-import common.Util;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
@@ -628,7 +627,7 @@ public class Systree extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        jLabel22.setFont(common.Util.getFont(0,0));
+        jLabel22.setFont(frames.Util.getFont(0,0));
         jLabel22.setText("Артикул профиля");
         jLabel22.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel22.setPreferredSize(new java.awt.Dimension(160, 18));
@@ -770,7 +769,7 @@ public class Systree extends javax.swing.JFrame {
         txtField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField6.setPreferredSize(new java.awt.Dimension(20, 18));
 
-        jLabel25.setFont(common.Util.getFont(0,0));
+        jLabel25.setFont(frames.Util.getFont(0,0));
         jLabel25.setText("NUNI-PS4");
         jLabel25.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel25.setPreferredSize(new java.awt.Dimension(40, 18));
@@ -779,7 +778,7 @@ public class Systree extends javax.swing.JFrame {
         txtField12.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField12.setPreferredSize(new java.awt.Dimension(20, 18));
 
-        jLabel26.setFont(common.Util.getFont(0,0));
+        jLabel26.setFont(frames.Util.getFont(0,0));
         jLabel26.setText("NUNI-PS5");
         jLabel26.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel26.setPreferredSize(new java.awt.Dimension(40, 18));
@@ -826,7 +825,7 @@ public class Systree extends javax.swing.JFrame {
 
         pan6.setPreferredSize(new java.awt.Dimension(360, 268));
 
-        jLabel13.setFont(common.Util.getFont(0,0));
+        jLabel13.setFont(frames.Util.getFont(0,0));
         jLabel13.setText("Зап-ие по умолчанию");
         jLabel13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel13.setPreferredSize(new java.awt.Dimension(120, 18));
@@ -835,27 +834,27 @@ public class Systree extends javax.swing.JFrame {
         txtField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField1.setPreferredSize(new java.awt.Dimension(110, 18));
 
-        jLabel14.setFont(common.Util.getFont(0,0));
+        jLabel14.setFont(frames.Util.getFont(0,0));
         jLabel14.setText("Доступные толщины");
         jLabel14.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel14.setPreferredSize(new java.awt.Dimension(120, 18));
 
-        jLabel15.setFont(common.Util.getFont(0,0));
+        jLabel15.setFont(frames.Util.getFont(0,0));
         jLabel15.setText("Основная текстура");
         jLabel15.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel15.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        jLabel16.setFont(common.Util.getFont(0,0));
+        jLabel16.setFont(frames.Util.getFont(0,0));
         jLabel16.setText("Внутр. текстура");
         jLabel16.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel16.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        jLabel17.setFont(common.Util.getFont(0,0));
+        jLabel17.setFont(frames.Util.getFont(0,0));
         jLabel17.setText("Внешняя текстура");
         jLabel17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel17.setPreferredSize(new java.awt.Dimension(112, 18));
 
-        jLabel19.setFont(common.Util.getFont(0,0));
+        jLabel19.setFont(frames.Util.getFont(0,0));
         jLabel19.setText("Признак системы");
         jLabel19.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel19.setMaximumSize(new java.awt.Dimension(112, 18));
@@ -866,7 +865,7 @@ public class Systree extends javax.swing.JFrame {
         txtField7.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         txtField7.setPreferredSize(new java.awt.Dimension(156, 18));
 
-        jLabel20.setFont(common.Util.getFont(0,0));
+        jLabel20.setFont(frames.Util.getFont(0,0));
         jLabel20.setText("Название изделия");
         jLabel20.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel20.setPreferredSize(new java.awt.Dimension(112, 18));
@@ -903,7 +902,7 @@ public class Systree extends javax.swing.JFrame {
         txtField5.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtField5.setPreferredSize(new java.awt.Dimension(180, 18));
 
-        jLabel23.setFont(common.Util.getFont(0,0));
+        jLabel23.setFont(frames.Util.getFont(0,0));
         jLabel23.setText("Префикс (замена/код)");
         jLabel23.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel23.setPreferredSize(new java.awt.Dimension(120, 18));
@@ -916,7 +915,7 @@ public class Systree extends javax.swing.JFrame {
         txtField11.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtField11.setPreferredSize(new java.awt.Dimension(110, 18));
 
-        jLabel24.setFont(common.Util.getFont(0,0));
+        jLabel24.setFont(frames.Util.getFont(0,0));
         jLabel24.setText("Вид изделия по умолчанию");
         jLabel24.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel24.setPreferredSize(new java.awt.Dimension(120, 18));

@@ -2,7 +2,7 @@ package frames.dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
-import common.Util;
+import frames.Util;
 import dataset.Record;
 import enums.UseColcalc;
 import javax.swing.ImageIcon;

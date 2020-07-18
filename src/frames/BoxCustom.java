@@ -2,7 +2,6 @@ package frames;
 
 import common.FrameListener;
 import common.FrameToFile;
-import common.Util;
 import dataset.Query;
 import dataset.Record;
 import domain.eSystree;

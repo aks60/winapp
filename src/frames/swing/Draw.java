@@ -1,4 +1,4 @@
-package common;
+package frames.swing;
 
 import estimate.Wincalc;
 import java.awt.BasicStroke;

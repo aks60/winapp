@@ -92,7 +92,7 @@ public class CardTemplate extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jPanel1.setPreferredSize(new java.awt.Dimension(329, 52));
 
-        btnOk.setFont(common.Util.getFont(0,0));
+        btnOk.setFont(frames.Util.getFont(0,0));
         btnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b028.gif"))); // NOI18N
         btnOk.setText("ОК");
         btnOk.setToolTipText("");
@@ -108,7 +108,7 @@ public class CardTemplate extends javax.swing.JDialog {
             }
         });
 
-        btnClose.setFont(common.Util.getFont(0,0));
+        btnClose.setFont(frames.Util.getFont(0,0));
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b029.gif"))); // NOI18N
         btnClose.setText("Отмена");
         btnClose.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

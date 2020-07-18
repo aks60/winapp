@@ -1,6 +1,6 @@
 package startup;
 
-import common.Util;
+import frames.Util;
 
 public class AboutBox extends javax.swing.JFrame {
 

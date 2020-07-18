@@ -1,6 +1,6 @@
 package estimate.model;
 
-import common.Draw;
+import frames.swing.Draw;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;

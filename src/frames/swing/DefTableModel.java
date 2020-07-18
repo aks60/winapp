@@ -2,7 +2,7 @@ package frames.swing;
 
 import common.DialogListener;
 import common.FrameListener;
-import common.Util;
+import frames.Util;
 import common.eProfile;
 import dataset.Field;
 import dataset.Query;
