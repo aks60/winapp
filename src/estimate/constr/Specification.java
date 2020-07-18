@@ -114,7 +114,7 @@ public class Specification {
         this.artikl = artiklRec.getStr(eArtikl.code);
         this.name = artiklRec.getStr(eArtikl.name);
         this.wastePrc = artiklRec.getFloat(eArtikl.otx_norm);
-        this.unit = artiklRec.getInt(eArtikl.currenc_id); //atypi;
+        this.unit = artiklRec.getInt(eArtikl.unit); //atypi;
         this.artiklRec = artiklRec;
         setAnglCut();
         //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться

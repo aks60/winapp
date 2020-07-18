@@ -38,15 +38,6 @@ public abstract class ElemSimple extends Com5t {
         return inside(x, y);
     }
 
-    //Использовать артикл для...
-    public abstract UseArtiklTo useArtiklTo();
-
-    //Главная спецификация
-    public abstract void setSpecific();
-
-    //Вложеная спецификация
-    public abstract void addSpecific(Specification specification);
-
     //Расчёт материала в зависимости от ед. измерения
     public void quantityMaterials(Specification specif) {
 
@@ -76,6 +67,15 @@ public abstract class ElemSimple extends Com5t {
             specif.width = specif.width + Float.valueOf(specif.getParam(0, 34051)); //Поправка, мм
         }
     }
+
+    //Использовать артикл для...
+    public abstract UseArtiklTo useArtiklTo();
+
+    //Главная спецификация
+    public abstract void setSpecific();
+
+    //Вложеная спецификация
+    public abstract void addSpecific(Specification specification);
 
     @Override
     public String toString() {
