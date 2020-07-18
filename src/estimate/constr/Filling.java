@@ -59,7 +59,7 @@ public class Filling extends Cal5e {
                 Record artprofRec = null;
 
                 //Доступные толщины
-                if (containsFloat(depthSet, depth2) == true) {
+                if (Util.containsFloat(depthSet, depth2) == true) {
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
@@ -71,7 +71,7 @@ public class Filling extends Cal5e {
                     for (Record glasgrpRec : eGlasgrp.findAll()) {
 
                         //Доступные толщины 
-                        if (containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth2) == true) { 
+                        if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth2) == true) { 
                             listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling из формы Systree
 
                             //Цикл по профилям в группах заполнений

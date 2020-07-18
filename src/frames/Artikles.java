@@ -1201,12 +1201,22 @@ public class Artikles extends javax.swing.JFrame {
         Record artiklRec = qArtikl.get(row);
         if (artiklRec.getInt(eArtikl.level1) == 1) {
             new DicEnums(this, listenerUnit, UseUnit.METR);
+            
         } else if (artiklRec.getInt(eArtikl.level1) == 2) {
-            new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.SET, UseUnit.PAIR);
+            if (artiklRec.getInt(eArtikl.level2) == 4) {
+                new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.ML, UseUnit.GRAM, UseUnit.KG, UseUnit.LITER, UseUnit.DOSE);
+            } else {
+                new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.SET, UseUnit.PAIR);
+            }
         } else if (artiklRec.getInt(eArtikl.level1) == 3) {
             new DicEnums(this, listenerUnit, UseUnit.METR);
+            
         } else if (artiklRec.getInt(eArtikl.level1) == 4) {
-            new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.SET, UseUnit.PAIR);
+            if (artiklRec.getInt(eArtikl.level2) == 1) {
+                new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.SET, UseUnit.PAIR, UseUnit.MONTH);
+            } else {
+                new DicEnums(this, listenerUnit, UseUnit.PIE, UseUnit.SET, UseUnit.MONTH);
+            }
         } else if (artiklRec.getInt(eArtikl.level1) == 5) {
             new DicEnums(this, listenerUnit, UseUnit.METR2);
         }

@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import estimate.Wincalc;
-import static estimate.constr.Cal5e.compareInt;
 import estimate.model.ElemSimple;
 
 //Cоединения

@@ -8,9 +8,13 @@ public enum UseUnit implements Enam {
     PIE(3, "шт."),
     ML(4, "мл."),
     SET(5, "комп."),
-    KG(7, "кг"),
-    LT(8, "литры"),
-    PAIR(11, "пара");
+    GRAM(6, "грамм."),
+    KG(7, "кг."),
+    LITER(8, "литр"),
+    DOSE(10, "доза"),
+    PAIR(11, "пара"),
+    MONTH(12, "месяц");
+    
 
     public int id = 0;
     public String name = "";

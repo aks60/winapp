@@ -1,7 +1,6 @@
 package estimate.model;
 
 import common.Draw;
-import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;

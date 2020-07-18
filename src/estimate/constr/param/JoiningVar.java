@@ -11,10 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import estimate.Wincalc;
-import static estimate.constr.Cal5e.compareFloat;
 import estimate.model.ElemJoining;
-import estimate.model.ElemSimple;
-import startup.Main;
 
 //Соединения
 public class JoiningVar extends Par5s {
