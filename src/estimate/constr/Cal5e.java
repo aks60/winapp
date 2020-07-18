@@ -47,7 +47,7 @@ public abstract class Cal5e {
                     ++specificationAdd.count;
                 }
             }
-        } else if (UseUnit.METR.id == specificationAdd.artiklRec.getInt(eArtikl.currenc_id)) { //метры
+        } else if (UseUnit.METR.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //метры
             if (specificationAdd.width == 0) {
                 specificationAdd.width = specificationRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
             }
