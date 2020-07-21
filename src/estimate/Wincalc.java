@@ -73,7 +73,7 @@ public class Wincalc {
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 ////////////////////////////////////////////////////////////////////////////////
-    public static int prj = 601004;
+    public static int prj = 604005;
 ////////////////////////////////////////////////////////////////////////////////
     
     public AreaSimple build(String productJson) {
@@ -220,7 +220,7 @@ public class Wincalc {
             }
             imdRoot.area5e = rootArea;
 
-            //Цикл по элементам конструкции с ранж. по ключам.
+            //Цикл по элементам конструкции ранж. по ключам.
             for (int index = 1; index < listIntermediate.size(); index++) {
                 Intermediate imd = listIntermediate.get(index);
                 if (TypeElem.STVORKA == imd.type) {

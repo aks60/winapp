@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import estimate.Wincalc;
-import estimate.model.ElemGlass;
+import estimate.constr.Util;
 import estimate.model.ElemJoining;
 import estimate.model.ElemSimple;
 
@@ -171,7 +171,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31052:  //Поправка в спецификацию, мм 
                         if (elem5e.layout() == LayoutArea.ARCH) {
-                            elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
+                            elem5e.specificationRec.width = elem5e.specificationRec.width + Float.valueOf(rec.getFloat(TEXT));
                         }
                         break;
                     case 31054:  //Коды основной текстуры изделия 

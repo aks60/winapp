@@ -36,8 +36,7 @@ public class AreaStvorka extends AreaSimple {
             this.sysfurnID = (jsonObj.get(ParamJson.sysfurnID.name()) == null) ? -1 : jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
             this.typeOpen = (jsonObj.get(ParamJson.typeOpen.name()) == null) ? TypeOpen1.OM_INVALID : TypeOpen1.get(jsonObj.get(ParamJson.typeOpen.name()).getAsInt());
         }
-        //initСonstructiv();
-
+        
         //Коррекция створки с учётом нахлёста
         ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
         x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.sysconsRec.getFloat(eSyssize.naxl);

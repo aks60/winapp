@@ -2,6 +2,7 @@ package estimate.model;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSyssize;
 import enums.LayoutJoin;
 import enums.TypeJoin;
 import enums.LayoutArea;
@@ -20,7 +21,7 @@ public class AreaArch extends AreaSimple {
         mapFrame.put(LayoutArea.ARCH, new ElemFrame(this, 4, LayoutArea.ARCH));
         mapFrame.put(LayoutArea.BOTTOM, new ElemFrame(this, 5, LayoutArea.BOTTOM));
     }
-
+    
     @Override
     public void joinFrame() {
 

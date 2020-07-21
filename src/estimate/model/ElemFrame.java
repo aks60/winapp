@@ -20,15 +20,16 @@ public class ElemFrame extends ElemSimple {
     public ElemFrame(AreaSimple owner, float id, LayoutArea layout) {
         super(id, owner.iwin(), owner);
         this.layout = layout;
-        color1 = owner.color1;
-        color2 = owner.color2;
-        color3 = owner.color3;
+        color1 = iwin().color1;
+        color2 = iwin().color2;
+        color3 = iwin().color3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
         initСonstructiv();
 
         //Установка координат
         if (LayoutArea.LEFT == layout) {
             setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
+            anglHoriz = 270;
 
         } else if (LayoutArea.RIGHT == layout) {
             setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
@@ -43,6 +44,7 @@ public class ElemFrame extends ElemSimple {
             anglHoriz = 0;
 
         } else if (LayoutArea.ARCH == layout) {
+            setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
         }
     }
@@ -73,9 +75,16 @@ public class ElemFrame extends ElemSimple {
         specificationRec.anglCut1 = anglCut1;
         specificationRec.anglHoriz = anglHoriz;
 
-        //Простое окно
         float prip = iwin().sysconsRec.getFloat(eSyssize.prip);
-        if (LayoutArea.TOP == layout) {
+        if (LayoutArea.ARCH == layout()) {
+            AreaArch areaArch = (AreaArch) root();
+            Object obj = width();
+            double angl = Math.toDegrees(Math.asin(width() / (areaArch.radiusArch * 2)));
+            length = (float) (Math.PI * areaArch.radiusArch * angl * 2) / 180;
+            specificationRec.width = length + prip; // ssizp * 2; //TODO ВАЖНО !!! расчет требует корректировки
+            specificationRec.height = artiklRec.getFloat(eArtikl.height);
+
+        } else if (LayoutArea.TOP == layout) {
             specificationRec.width = x2 - x1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
@@ -141,14 +150,14 @@ public class ElemFrame extends ElemSimple {
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
             float ssizf = iwin().sysconsRec.getFloat(eSyssize.naxl);
-            specif.width =specificationRec.width * koef * 2;
+            specif.width = specificationRec.width * koef * 2;
 
             //Монтажный профиль
         } else if (TypeArtikl.MONTPROF.isType(specif.artiklRec) == true) {
             float prip = iwin().sysconsRec.getFloat(eSyssize.prip);
             specificationRec.width = x2 - x1 + prip * 2;
             //specif.width = specificationRec.weight;
-            
+
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec) == true) {
             specif.color1 = iwin().colorNone;

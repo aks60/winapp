@@ -21,9 +21,9 @@ public class ElemImpost extends ElemSimple {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
-        color1 = owner.color1;
-        color2 = owner.color2;
-        color3 = owner.color3;
+        color1 = iwin().color1;
+        color2 = iwin().color2;
+        color3 = iwin().color3;
         this.type = TypeElem.IMPOST;
         initСonstructiv();
 
