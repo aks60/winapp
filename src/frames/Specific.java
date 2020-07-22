@@ -66,7 +66,7 @@ public class Specific extends javax.swing.JFrame {
 //            }
             vector.set(0, ++npp);
             dtm.addRow(vector);
-            //System.out.println(vector);
+            System.out.println(vector);
         }
     }
 
