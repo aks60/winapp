@@ -121,7 +121,7 @@ public class ElemGlass extends ElemSimple {
             if (TypeElem.ARCH == owner().type()) {
 
                 //По основанию арки
-                double dh2 = artiklRec.getDbl(eArtikl.height) - gzazo;
+                double dh2 = specif.artiklRec.getDbl(eArtikl.height) - gzazo;
                 double r1 = radiusGlass - dh2;
                 double h1 = height() - 2 * dh2;
                 double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний периметр
@@ -182,7 +182,7 @@ public class ElemGlass extends ElemSimple {
 
             if (TypeElem.ARCH == owner().type()) { //если уплотнитель в арке
                 //По основанию арки
-                double dh2 = artiklRec.getFloat(eArtikl.height) - gzazo;
+                double dh2 = specif.artiklRec.getFloat(eArtikl.height) - gzazo;
                 double r1 = radiusGlass - dh2;
                 double h1 = height() - 2 * dh2;
                 double l1 = Math.sqrt(2 * h1 * r1 - h1 * h1);  //верхний перимет

@@ -58,15 +58,7 @@ public class Specific extends javax.swing.JFrame {
         dtm.getDataVector().clear();
         int npp = 0;
         for (Specification specRec : iwin.listSpec) { //заполним спецификацию
-            Vector vector = specRec.getVector();
-//            for (int i = 0; i < vector.size(); ++i) {
-//                if(vector.get(i).toString().equals("0.0")) {
-//                    vector.set(i, "");
-//                }
-//            }
-            vector.set(0, ++npp);
-            dtm.addRow(vector);
-            System.out.println(vector);
+            dtm.addRow(specRec.getVector(++npp));
         }
     }
 
@@ -240,11 +232,11 @@ public class Specific extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {"", "", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "ID area", "ID elem", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "Угол1", "Угол2", "Угол к горизонту", "Кол.единиц", "Ед.изм", "Кол. без отхода", "Процент отхода", "Кол. с отходом", "Собес-сть за ед. измерения", "Собест. с отх", "Стоим. без скидки", "Стоим. со скидкой", "Скидка"
+                "Nпп", "ID", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "Угол1", "Угол2", "Угол к горизонту", "Кол.единиц", "Ед.изм", "Кол. без отхода", "Процент отхода", "Кол. с отходом", "Собес-сть за ед. измерения", "Собест. с отх", "Стоим. без скидки", "Стоим. со скидкой", "Скидка"
             }
         ));
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -258,16 +250,14 @@ public class Specific extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(0).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(1).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(2).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(3).setPreferredWidth(46);
-            tab1.getColumnModel().getColumn(3).setMaxWidth(60);
-            tab1.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tab1.getColumnModel().getColumn(5).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(8).setMinWidth(40);
             tab1.getColumnModel().getColumn(9).setMinWidth(40);
-            tab1.getColumnModel().getColumn(10).setMinWidth(40);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);

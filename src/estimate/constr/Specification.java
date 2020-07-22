@@ -77,7 +77,7 @@ public class Specification {
     }
 
     public Specification(Specification spec) {
-        this.id = ++spec.elem5e.iwin().genId;
+        this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
         this.name = spec.name;
@@ -102,9 +102,8 @@ public class Specification {
         this.artiklRec = spec.artiklRec;
     }
 
-    public Vector getVector() {
-        List list = Arrays.asList(id, elem5e.owner().id(), elem5e.id(), place, artikl, name,
-                eColor.find(color1).getStr(eColor.name), eColor.find(color2).getStr(eColor.name),
+    public Vector getVector(int npp) {
+        List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(color1).getStr(eColor.name), eColor.find(color2).getStr(eColor.name),
                 eColor.find(color3).getStr(eColor.name), (width == 0) ? "" : width, (height == 0) ? "" : height, (weight == 0) ? "" : weight,
                 (anglCut1 == 0) ? "" : anglCut1, (anglCut2 == 0) ? "" : anglCut2, (anglHoriz == 0) ? "" : anglHoriz,
                 count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount
