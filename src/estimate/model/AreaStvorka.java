@@ -38,7 +38,7 @@ public class AreaStvorka extends AreaSimple {
         }
         
         //Коррекция створки с учётом нахлёста
-        ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
+        ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);       
         x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.sysconsRec.getFloat(eSyssize.naxl);
         y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.sysconsRec.getFloat(eSyssize.naxl);
         x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.sysconsRec.getFloat(eSyssize.naxl);
@@ -58,17 +58,9 @@ public class AreaStvorka extends AreaSimple {
         stvTop.specificationRec.width = width();
         stvRigh.specificationRec.height = height();
         stvLeft.specificationRec.height = height();
-    }
 
-//    public void initСonstructiv() {
-//
-//        Record sysprofRec = eSysprof.find2(iwin().nuni, UseArtiklTo.STVORKA);
-//        Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-//        if (artiklRec.getFloat(eArtikl.size_falz) == 0) {
-//
-//            artiklRec.setNo(eArtikl.size_falz, iwin().artiklRec.getDbl(eArtikl.size_falz)); //TODO наследование дордома Профстроя
-//        }
-//    }
+    }
+    
     @Override
     public void joinFrame() {
         //Цикл по сторонам створки

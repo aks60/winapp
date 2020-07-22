@@ -87,10 +87,9 @@ public class ElemGlass extends ElemSimple {
                     break;
                 }
             }
-            y1 = y1 + elemArch.artiklRec.getInt(eArtikl.height) - elemArch.artiklRec.getInt(eArtikl.size_falz) + gzazo;
-            y2 = y2 + elemImpost.artiklRec.getInt(eArtikl.size_falz) - gzazo;
-            //height = y2 - y1;            
-            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getInt(eArtikl.height) + elemArch.artiklRec.getInt(eArtikl.size_falz) - gzazo;
+            y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+            y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;            
+            double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner().width() / 2) - (float) l;
             x2 = owner().width() - x1;
