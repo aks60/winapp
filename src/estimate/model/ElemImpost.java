@@ -74,21 +74,16 @@ public class ElemImpost extends ElemSimple {
         specificationRec.anglCut2 = 90;
         specificationRec.anglCut1 = 90;
         specificationRec.anglHoriz = anglHoriz;
+        float zax = iwin().sysconsRec.getFloat(eSyssize.zax);
 
-        if (LayoutArea.HORIZ == owner().layout()) { //слева направо           
-            ElemJoining joinLeft = iwin().mapJoin.get(x1 + (x2 - x1) / 2 + ":" + y1); //элемент слева            
-            ElemJoining joinRight = iwin().mapJoin.get(x1 + (x2 - x1) / 2 + ":" + y2); //элемент справа
-            specificationRec.width = joinRight.joinElement2.y1 - joinLeft.joinElement2.y2 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
-                    + joinLeft.joinElement2.artiklRec.getFloat(eArtikl.size_falz)
-                    + joinRight.joinElement2.artiklRec.getFloat(eArtikl.size_falz);
+        if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
+            ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
+            specificationRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
-            ElemJoining joinLeft = iwin().mapJoin.get(x1 + ":" + (y1 + (y2 - y1) / 2)); //элемент слева 
-            ElemJoining joinRight = iwin().mapJoin.get(x2 + ":" + (y1 + (y2 - y1) / 2)); //элемент справа
-            specificationRec.width = joinRight.joinElement2.x1 - joinLeft.joinElement2.x2 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
-                    + joinLeft.joinElement2.artiklRec.getFloat(eArtikl.size_falz)
-                    + joinRight.joinElement2.artiklRec.getFloat(eArtikl.size_falz);
+            ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
+            specificationRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
         }
     }
@@ -107,20 +102,7 @@ public class ElemImpost extends ElemSimple {
             specif.place = "СОСТ." + layout().name.substring(0, 1);
             specif.anglCut2 = 90;
             specif.anglCut1 = 90;
-            if (LayoutArea.HORIZ == owner().layout()) { //слева направо           
-                ElemJoining joinLeft = iwin().mapJoin.get(x1 + (x2 - x1) / 2 + ":" + y1); //элемент слева            
-                ElemJoining joinRight = iwin().mapJoin.get(x1 + (x2 - x1) / 2 + ":" + y2); //элемент справа
-                specif.width = joinRight.joinElement2.y1 - joinLeft.joinElement2.y2 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
-                        + joinLeft.joinElement2.artiklRec.getFloat(eArtikl.size_falz)
-                        + joinRight.joinElement2.artiklRec.getFloat(eArtikl.size_falz);
-
-            } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
-                ElemJoining joinLeft = iwin().mapJoin.get(x1 + ":" + (y1 + (y2 - y1) / 2)); //элемент слева 
-                ElemJoining joinRight = iwin().mapJoin.get(x2 + ":" + (y1 + (y2 - y1) / 2)); //элемент справа
-                specif.width = joinRight.joinElement2.x1 - joinLeft.joinElement2.x2 + iwin().sysconsRec.getFloat(eSyssize.zax) * 2
-                        + joinLeft.joinElement2.artiklRec.getFloat(eArtikl.size_falz)
-                        + joinRight.joinElement2.artiklRec.getFloat(eArtikl.size_falz);
-            }
+            specif.width = specificationRec.width;
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec)) {

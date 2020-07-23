@@ -136,7 +136,7 @@ public class ElemGlass extends ElemSimple {
                 double l5 = overLength + 2 * Math.sqrt(2 * h5 * r5 - h5 * h5); //хорда
 
                 specif.width = (float) l5;
-                specif.height = artiklRec.getFloat(eArtikl.height);
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang;
                 specif.anglCut1 = (float) ang;
                 specificationRec.specificationList.add(new Specification(specif)); //добавим спецификацию
@@ -144,11 +144,10 @@ public class ElemGlass extends ElemSimple {
                 //По дуге арки
                 double ang2 = Math.toDegrees(Math.asin(l2 / r2));
                 double ang3 = 90 - (90 - ang2 + ang);
-                //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста
-                double koef = 2;
+                double koef = 2; //TODO  ВАЖНО !!! Длина дуги штапика сделал примерный расчёт. Почему так, пока не понял. Поправочный коэф. надо вводить в зависимости от высоты импоста                
                 ElemSimple ramaArch = root().mapFrame.get(LayoutArea.ARCH);
-                double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + artiklRec.getDbl(eArtikl.height);
-                double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + artiklRec.getDbl(eArtikl.height) * 2 - koef;
+                double R2 = ((AreaArch) iwin().rootArea).radiusArch - ramaArch.specificationRec.height + specif.artiklRec.getDbl(eArtikl.height);
+                double L2 = iwin().rootArea.width() - ramaArch.specificationRec.height * 2 + specif.artiklRec.getDbl(eArtikl.height) * 2 - koef;
                 double ANGL2 = Math.toDegrees(Math.asin(L2 / (R2 * 2)));
                 double M2 = (R2 * 2) * Math.toRadians(ANGL2); // +  overLength;
                 double Z = 3 * gzazo;
@@ -157,7 +156,7 @@ public class ElemGlass extends ElemSimple {
                 double ang5 = Math.toDegrees(Math.asin((L + (2 * Z)) / ((R + Z) * 2)));
                 double M = ((R + Z) * 2) * Math.toRadians(ang5);
                 specif.width = (float) (overLength + M2);
-                specif.height = artiklRec.getFloat(eArtikl.height);
+                specif.height = specif.artiklRec.getFloat(eArtikl.height);
                 specif.anglCut2 = (float) ang3;
                 specif.anglCut1 = (float) ang3;
                 specificationRec.specificationList.add(new Specification(specif)); //добавим спецификацию

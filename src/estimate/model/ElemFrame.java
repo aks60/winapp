@@ -149,8 +149,8 @@ public class ElemFrame extends ElemSimple {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
-            float ssizf = iwin().sysconsRec.getFloat(eSyssize.naxl);
-            specif.width = specificationRec.width * koef * 2;
+            float naxl = iwin().sysconsRec.getFloat(eSyssize.naxl);
+            specif.width = (specificationRec.width - naxl) * 2 * koef;
 
             //Монтажный профиль
         } else if (TypeArtikl.MONTPROF.isType(specif.artiklRec) == true) {
