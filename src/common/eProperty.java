@@ -25,7 +25,7 @@ public enum eProperty {
     user("sysdba"),
     server("localhost"),
     systree_nuni("-1"),
-    base("C:\\Okna\\winbas\\BASE.FDB?encoding=win1251", "C:\\Okna\\winbas\\BASE.FDB?encoding=win1251"),
+    base("C:\\Okna\\firebird\\BASE.FDB?encoding=win1251", "C:\\Okna\\firebird\\BASE.FDB?encoding=win1251"),
     path_app(System.getProperty("user.home") + "/Acron/Okno", "C:\\Users\\aksenov\\Desktop\\winapp.jar"),
     path_prop(System.getProperty("user.home") + "/Acron/Okno", "C:\\Documents and Settings\\All Users\\Application Data\\Acron\\Okno"),     
     cmd_word("libreoffice -writer ", "cmd /c start winword.exe "), 
