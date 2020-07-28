@@ -2,6 +2,7 @@ package startup;
 
 import common.FrameListener;
 import common.FrameProgress;
+import common.FrameToFile;
 import common.eProperty;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -14,8 +15,9 @@ public class Main {
 
     //Конструктор
     public Main() {
-        LogoToDb.logoToDb();
-        eProperty.save();
+        LogoToDb frame = new LogoToDb(null);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);        
     }
 
     //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc

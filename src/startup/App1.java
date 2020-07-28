@@ -64,7 +64,7 @@ public class App1 extends javax.swing.JFrame {
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn0444.setSelected(true);
         }
-        mn41(null);
+        //mn41(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -1121,7 +1121,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnFurnityra
 
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
-        //
+        PathToDb frame = new PathToDb(this);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);        
     }//GEN-LAST:event_mn61ActionPerformed
 
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner

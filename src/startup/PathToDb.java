@@ -35,9 +35,9 @@ public class PathToDb extends javax.swing.JDialog {
         labMes.setText("");
 
         if (eProperty.typedb.read().equals(eProperty.fb)) {
-            cboxDB.setSelectedIndex(3);
+            cboxDB.setSelectedIndex(1);
         } else if (eProperty.typedb.read().equals(eProperty.pg)) {
-            cboxDB.setSelectedIndex(4);
+            cboxDB.setSelectedIndex(2);
         }
         edHost.setText(eProperty.server.read());
         edPort.setText(eProperty.port.read());
@@ -74,7 +74,7 @@ public class PathToDb extends javax.swing.JDialog {
         int index = file.lastIndexOf(".") + 1;
         if (index == 0 && cboxDB.getSelectedIndex() == 1) {
             eProperty.typedb.write(eProperty.fb);
-        } else if (index == 0 && cboxDB.getSelectedIndex() == 4) {
+        } else if (index == 0 && cboxDB.getSelectedIndex() == 2) {
             eProperty.typedb.write(eProperty.pg);
         }
         //создание соединения
@@ -174,8 +174,6 @@ public class PathToDb extends javax.swing.JDialog {
 
         btnFile.setFont(frames.Util.getFont(0,0));
         btnFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b033.gif"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/hint"); // NOI18N
-        btnFile.setToolTipText(bundle.getString("Выбрать файл")); // NOI18N
         btnFile.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnFile.setMaximumSize(new java.awt.Dimension(27, 16));
         btnFile.setMinimumSize(new java.awt.Dimension(17, 16));
@@ -240,7 +238,7 @@ public class PathToDb extends javax.swing.JDialog {
         });
 
         btnUser.setFont(frames.Util.getFont(0,0));
-        btnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
         btnUser.setText("user.");
         btnUser.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnUser.setFocusable(false);
@@ -257,7 +255,7 @@ public class PathToDb extends javax.swing.JDialog {
         });
 
         btnAdm.setFont(frames.Util.getFont(0,0));
-        btnAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
+        btnAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d001.gif"))); // NOI18N
         btnAdm.setText("admin");
         btnAdm.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnAdm.setFocusable(false);
@@ -370,7 +368,6 @@ public class PathToDb extends javax.swing.JDialog {
         });
 
         btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b026.gif"))); // NOI18N
-        btnHelp.setToolTipText(bundle.getString("Справка")); // NOI18N
         btnHelp.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnHelp.setFocusable(false);
         btnHelp.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -486,26 +483,15 @@ public class PathToDb extends javax.swing.JDialog {
     //Выбрал тип базы
     private void btnAdmDef2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef2
 
+
         if (cboxDB.getSelectedIndex() == 1) {
-            edHost.setText("localhost");
-            edPort.setText("1433");
-            edPath.setText("new_db");
-            edUser.setText("sa");
-            edPass.setText("Platina6");
-        } else if (cboxDB.getSelectedIndex() == 2) {
-            edHost.setText("localhost");
-            edPort.setText("3306");
-            edPath.setText("new_db");
-            edUser.setText("root");
-            edPass.setText("Platina6");
-        } else if (cboxDB.getSelectedIndex() == 3) {
             edHost.setText("localhosr");
             edPort.setText("3050");
-            edPath.setText("C:\\Director\\DataBase\\schooldemo.gdb");
+            edPath.setText("C:\\okna\\fbase\\base.gdb");
             btnFile.setVisible(true);
             edUser.setText("sysdba");
             edPass.setText("masterkey");
-        } else if (cboxDB.getSelectedIndex() == 4) {
+        } else if (cboxDB.getSelectedIndex() == 2) {
             edHost.setText("localhost");
             edPort.setText("5432");
             edPath.setText("new_db1");
