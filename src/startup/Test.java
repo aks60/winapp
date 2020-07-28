@@ -32,7 +32,7 @@ public class Test {
     static void wincalc() throws Exception {
 
         Query.connection = java.sql.DriverManager.getConnection(
-                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\firebird\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
         System.out.println("okno=" + estimate.Wincalc.prj);
         //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
