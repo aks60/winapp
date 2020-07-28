@@ -27,10 +27,6 @@ public class AreaRectangl extends AreaSimple {
             mapFrame.get(LayoutArea.RIGHT).anglHoriz = 90;
             mapFrame.get(LayoutArea.TOP).anglHoriz = 180;
             mapFrame.get(LayoutArea.LEFT).anglHoriz = 270;
-            mapFrame.entrySet().forEach(elem -> {
-                elem.getValue().anglCut1 = 45;
-                elem.getValue().anglCut2 = 45;
-            });
             el.anglProf = 90;
             if (index == 0) { //Угловое соединение левое верхнее
                 el.init(TypeJoin.VAR20, LayoutJoin.LTOP, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.TOP));

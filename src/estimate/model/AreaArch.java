@@ -42,8 +42,8 @@ public class AreaArch extends AreaSimple {
         double a3 = Math.sqrt(Math.pow(r, 2) + Math.pow(r - dz, 2) - 2 * r * (r - dz) * Math.cos(Math.toRadians(ang2 - angl)));
         double ang4 = 90 - Math.toDegrees((Math.acos((Math.pow(a3, 2) + Math.pow(r, 2) - Math.pow(r - dz, 2)) / (2 * r * a3))));
         elem1.anglProf = (float) ang4;
-        elem1.joinElement1.anglCut1 = (float) ang4;  //угол реза арки
-        elem1.joinElement2.anglCut2 = (float) ang3;  //угол реза рамы
+        elem1.joinElement1.anglCut2 = (float) ang4;  //угол реза арки
+        elem1.joinElement2.anglCut1 = (float) ang3;  //угол реза рамы
         iwin().mapJoin.put(x1 + ":" + y1, elem1);
 
         //Угловое соединение правое верхнее
@@ -51,26 +51,22 @@ public class AreaArch extends AreaSimple {
         elem2.id = id() + .2f;
         elem2.init(TypeJoin.VAR20, LayoutJoin.RBOT, mapFrame.get(LayoutArea.RIGHT), mapFrame.get(LayoutArea.ARCH));
         elem2.anglProf = (float) ang4;
-        elem2.joinElement2.anglCut2 = (float) ang4;  //угол реза арки
-        elem2.joinElement1.anglCut2 = (float) ang3;  //угол реза рамы               
+        elem2.joinElement2.anglCut1 = (float) ang4;  //угол реза арки
+        elem2.joinElement1.anglCut2 = (float) ang3;  //угол реза рамы                             
         iwin().mapJoin.put(x2 + ":" + y1, elem2);
 
         //Угловое соединение левое нижнее
         ElemJoining elem3 = new ElemJoining(iwin());
         elem3.id = id() + .3f;
         elem3.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.LEFT), mapFrame.get(LayoutArea.BOTTOM));
-        elem3.anglProf = 90;
-        elem3.joinElement2.anglCut2 = 45;  //угол реза рамы
-        elem3.joinElement1.anglCut2 = 45;  //угол реза рамы               
+        elem3.anglProf = 90;             
         iwin().mapJoin.put(x1 + ":" + y2, elem3);
 
         //Угловое соединение правое нижнее
         ElemJoining elem4 = new ElemJoining(iwin());
         elem4.id = id() + .4f;
         elem4.init(TypeJoin.VAR20, LayoutJoin.LBOT, mapFrame.get(LayoutArea.BOTTOM), mapFrame.get(LayoutArea.RIGHT));
-        elem4.anglProf = 90;
-        elem4.joinElement2.anglCut2 = 45;  //угол реза рамы
-        elem4.joinElement1.anglCut2 = 45;  //угол реза рамы               
+        elem4.anglProf = 90;             
         iwin().mapJoin.put(x2 + ":" + y2, elem4);
     }
 
