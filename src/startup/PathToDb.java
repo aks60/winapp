@@ -82,24 +82,24 @@ public class PathToDb extends javax.swing.JDialog {
         eExcep pass = con.createConnection();
         Query.connection = con.getConnection();
         if (pass == eExcep.yesConn) {
-            //запуск главного меню
-            App1.eApp1.createApp(eProfile.profile);
-            dispose();
-            //тут мы сохраняем в файл текущего пользователя
-            eProperty.save();
+            if (App1.eApp1.App1 == null) {  //запуск главного меню
+                App1.eApp1.createApp(eProfile.profile);
+            }
+            eProperty.save(); //тут мы сохраняем в файл текущего пользователя
+            dispose();                    
 
         } else {
             String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
             labMes.setText(mes);
         }
     }
-    
+
     public static void pathToDb(java.awt.Window owner) {
-        PathToDb  pathToDb = new PathToDb(owner);
+        PathToDb pathToDb = new PathToDb(owner);
         FrameToFile.setFrameSize(pathToDb);
         pathToDb.setVisible(true);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -482,7 +482,6 @@ public class PathToDb extends javax.swing.JDialog {
 }//GEN-LAST:event_btnFileActionPerformed
     //Выбрал тип базы
     private void btnAdmDef2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef2
-
 
         if (cboxDB.getSelectedIndex() == 1) {
             edHost.setText("localhosr");
