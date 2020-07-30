@@ -415,6 +415,7 @@ public class Profstroy {
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERIES.id + ", aseri from artikl");
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
+            updateSql(eArtikl.up, eArtikl.artgrp_id, "munic", eArtgrp.up, "munic");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
@@ -500,6 +501,7 @@ public class Profstroy {
             System.out.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
             metaSql("alter table artikl add constraint fk_currenc foreign key (currenc_id) references currenc (id)");
             metaSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
+            metaSql("alter table artikl add constraint fk_artikl1 foreign key (artgrp_id) references artgrp (id)");
             metaSql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikl (id)");
             metaSql("alter table systree add constraint fk_systree1 foreign key (parent_id) references systree (id)");
             metaSql("alter table element add constraint fk_element1 foreign key (elemgrp_id) references elemgrp (id)");

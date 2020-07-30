@@ -8,7 +8,7 @@ import static domain.eArtikl.up;
 import java.sql.SQLException;
 
 public enum eSyssize implements Field {
-    up("0", "0", "0", "Системные константы", "SYSSIZE"),
+    up("0", "0", "0", "Системные размеры", "SYSSIZE"),
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "32", "1", "Система артикулов", "SNAME"),
     prip("8", "15", "1", "Припуск на сварку", "SSIZP"),

@@ -75,7 +75,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.anglCut1 = anglCut1;
         specificationRec.anglHoriz = anglHoriz;
 
-        float prip = iwin().sysconsRec.getFloat(eSyssize.prip);
+        float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
         if (LayoutArea.ARCH == layout()) {
             AreaArch areaArch = (AreaArch) root();
             Object obj = width();
@@ -127,7 +127,7 @@ public class ElemFrame extends ElemSimple {
             if ("от внутреннего угла".equals(specif.getParam(null, 34010))) {
                 Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
                 Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
-                specif.width = specif.width + 2 * iwin().sysconsRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                specif.width = specif.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
                 /*
@@ -149,12 +149,12 @@ public class ElemFrame extends ElemSimple {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
-            float naxl = iwin().sysconsRec.getFloat(eSyssize.naxl);
+            float naxl = iwin().syssizeRec.getFloat(eSyssize.naxl);
             specif.width = (specificationRec.width - naxl) * 2 * koef;
 
             //Монтажный профиль
         } else if (TypeArtikl.MONTPROF.isType(specif.artiklRec) == true) {
-            float prip = iwin().sysconsRec.getFloat(eSyssize.prip);
+            float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
             specificationRec.width = x2 - x1 + prip * 2;
             //specif.width = specificationRec.weight;
 

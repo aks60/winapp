@@ -4,6 +4,7 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import java.util.List;
 
 public enum eRulecalc implements Field {
     up("0", "0", "0", "Правила расчёта проектов", "RULECLK"),
@@ -19,7 +20,7 @@ public enum eRulecalc implements Field {
     code1("12", "96", "1", "Коды текстур позиции (??? внутренняя)", "RCOD1"),
     code2("12", "96", "1", "Коды текстур позиции (??? внешняя)", "RCOD2"),
     common("5", "5", "1", "Общее", "RALLP"),
-    form("5", "5", "1", "Форма позиций", "RISKL"),  //0 - не проверять форму,  10 - не прямоугольное, не арочное заполнение,  12 - не прямоугольное заполнение с арками"
+    form("5", "5", "1", "Форма позиций", "RISKL"), //0 - не проверять форму,  10 - не прямоугольное, не арочное заполнение,  12 - не прямоугольное заполнение с арками"
     size("12", "96", "1", "Размер", "RSIZE"),
     rpric("8", "15", "1", "Надбавка", "RPRIC"),
     sebes("5", "5", "1", "Себестоимость", "RSEBE"),
@@ -39,11 +40,19 @@ public enum eRulecalc implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
         return query;
+    }
+
+    public static List<Record> get() {
+        if (conf.equals("calc")) {
+            return query();
+        }
+        Query recordList = new Query(values()).select(up, "order by", id);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public String toString() {

@@ -74,7 +74,7 @@ public class ElemImpost extends ElemSimple {
         specificationRec.anglCut2 = 90;
         specificationRec.anglCut1 = 90;
         specificationRec.anglHoriz = anglHoriz;
-        float zax = iwin().sysconsRec.getFloat(eSyssize.zax);
+        float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
 
         if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
             ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);

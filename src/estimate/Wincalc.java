@@ -46,7 +46,8 @@ public class Wincalc {
     public Connection conn;
     public Integer nuni = 0;
     public Record artiklRec = null; //главный артикл системы профилей
-    public Record sysconsRec = null; //константы
+    public Record syssizeRec = null; //константы
+    public float percentMarkup = 0;  //процентная надбавка на изделия сложной формы
     public float genId = 100; //генерация ключа спецификации
 
     public float width = 0.f;     //ширина окна
@@ -150,7 +151,7 @@ public class Wincalc {
 
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-            sysconsRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
+            syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
 
             color1 = jsonObj.get("color1").getAsInt();
             color2 = jsonObj.get("color2").getAsInt();

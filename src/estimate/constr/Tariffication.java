@@ -1,8 +1,17 @@
 package estimate.constr;
 
+import dataset.Record;
+import domain.eArtgrp;
+import domain.eArtikl;
+import domain.eRulecalc;
+import domain.eSystree;
+import enums.LayoutArea;
+import enums.TypeElem;
 import java.util.LinkedList;
 import estimate.Wincalc;
 import estimate.model.Com5t;
+import estimate.model.ElemSimple;
+import java.util.List;
 
 /**
  * Расчёт стоимости элементов окна
@@ -30,72 +39,65 @@ public class Tariffication {
     protected static final int PAR4 = 4;   //профиль с радиусом
     protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
     protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
-    
-//    private Sysprof sysprofRec = null;
+    protected Wincalc iwin = null;
 
     public Tariffication(Wincalc iwin) {
-        //sysprofRec = Sysprof.get(constr, root.getIwin().getNuni());
+        this.iwin = iwin;
     }
 
     /**
      * @param elemList - список элементов окна рамы, импосты, стеклопакеты...
      */
     public void calculate(LinkedList<Com5t> elemList) {
+
+        //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
+        for (ElemSimple elem5e : iwin.listElem) {
+            calcCostPrice(elem5e.specificationRec);
+            for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
+
+                calcCostPrice(specifSubelemRec);
+            }
+        }
+        
+        //Увеличение собестоимости в rkoef раз и на rpric величину надбавки
+        for (ElemSimple elem5e : iwin.listElem) {
+
+            Record systreeRec = eSystree.find(iwin.nuni);
+            TypeElem type = elem5e.owner().type();
+            List<Record> rulecalcList = eRulecalc.get(); 
+            //Цикл по правилам расчёта
+            for (Record rulecalcRec : rulecalcList) {
+
+                //Только эти параметры используются в БиМакс
+                //фильтр по полю form, rused и colorXXX таблицы rulecls
+                if (TypeElem.GLASS == elem5e.type()) {//фильтр для стеклопакета
+
+                    if (rulecalcRec.getInt(eRulecalc.form) == PAR0) {//не проверять форму
+                        checkRuleColor(rulecalcRec, elem5e.specificationRec);
+
+                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR10 && TypeElem.TRAPEZE == type) { //не прямоугольное, не арочное заполнение
+                        checkRuleColor(rulecalcRec, elem5e.specificationRec);
+
+                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR12 && TypeElem.ARCH == type) {//не прямоугольное заполнение с арками
+                        checkRuleColor(rulecalcRec, elem5e.specificationRec);
+                    }
+                } else if (rulecalcRec.getInt(eRulecalc.form) == PAR4 && TypeElem.FRAME_SIDE == type && LayoutArea.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
+                    checkRuleColor(rulecalcRec, elem5e.specificationRec); //профиль с радиусом
+
+                } else {
+                    if (rulecalcRec.getInt(eRulecalc.form) == PAR0) {  //не проверять форму
+                        checkRuleColor(rulecalcRec, elem5e.specificationRec); //всё остальное не проверять форму
+                    }
+                }
+            }
+
+            elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //собестоимость с отходом
+            Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
+            elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef); //стоимость без скидки
+            elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * iwin.percentMarkup;
+            elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой
 //
-//        //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
-//        for (ElemBase elemBase : elemList) {
-//
-//            Specification specifElemRec = elemBase.getSpecificationRec();
-//
-//            //if(specifElemRec.artikl.equals("4x9x4x9x4")) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-//
-//            calcCostPrice(specifElemRec);
-//            for (Specification specifSubelemRec : specifElemRec.getSpecificationList()) {
-//
-//                calcCostPrice(specifSubelemRec);
-//            }
-//        }
-//        //Увеличение собестоимости в rkoef раз и на rpric величину надбавки
-//        for (ElemBase elemBase : elemList) {
-//
-//            Specification specifElemRec = elemBase.getSpecificationRec();
-//
-//            //if(specifElemRec.artikl.equals("4x9x4x9x4")) System.out.println("ТЕСТОВАЯ ЗАПЛАТКА");
-//
-//            TypeElem type = elemBase.getOwner().getTypeElem();
-//            //Цикл по правилам расчёта
-//            for (Ruleclk ruleclkRec : constr.ruleclkList) {
-//
-//                //Только эти параметры используются в БиМакс
-//                //фильтр по полю riskl, rused и colorXXX таблицы rulecls
-//                if (TypeElem.GLASS == elemBase.getTypeElem()) {//фильтр для стеклопакета
-//
-//                    if (ruleclkRec.riskl == PAR0) {//не проверять форму
-//                        checkRuleColor(ruleclkRec, specifElemRec);
-//
-//                    } else if (ruleclkRec.riskl == PAR10 && TypeElem.TRAPEZE == type) { //не прямоугольное, не арочное заполнение
-//                        checkRuleColor(ruleclkRec, specifElemRec);
-//
-//                    } else if (ruleclkRec.riskl == PAR12 && TypeElem.ARCH == type) {//не прямоугольное заполнение с арками
-//                        checkRuleColor(ruleclkRec, specifElemRec);
-//                    }
-//                } else if (ruleclkRec.riskl == PAR4 && TypeElem.FRAME == type && LayoutArea.ARCH == elemBase.getLayout()) { //фильтр для арки профиля AYPC.W62.0101
-//                    checkRuleColor(ruleclkRec, specifElemRec); //профиль с радиусом
-//
-//                } else {
-//                    if (ruleclkRec.riskl == PAR0) {  //не проверять форму
-//                        checkRuleColor(ruleclkRec, specifElemRec); //всё остальное не проверять форму
-//                    }
-//                }
-//            }
-//
-//            specifElemRec.outPrice = specifElemRec.inPrice * specifElemRec.quantity2;            //собестоимости с отходом
-//            Grupart grupartRec = Grupart.find(constr, elemBase.getArticlesRec().munic).get(0);
-//            specifElemRec.inCost = specifElemRec.outPrice * grupartRec.mkoef * sysprofRec.koef; //стоимость без скидки
-//            specifElemRec.inCost = specifElemRec.inCost + (specifElemRec.inCost / 100) * root.getIwin().getPercentMarkup();
-//            specifElemRec.outCost = specifElemRec.inCost;                                        //стоимость со скидкой
-//
-//            for (Specification specifSubelemRec : specifElemRec.getSpecificationList()) {
+//            for (Specification specifSubelemRec : elem5e.specificationRec.getSpecificationList()) {
 //                for (Ruleclk ruleclkRec : constr.ruleclkList) { //цикл по правилам расчёта
 //
 //                    if (ruleclkRec.riskl == PAR0) {  //не проверять форму
@@ -104,7 +106,7 @@ public class Tariffication {
 //                }
 //                specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //расчёт собестоимости с отходом
 //                Grupart grupartRec2 = Grupart.find(constr, specifSubelemRec.getArticRec().munic).get(0);
-//                specifSubelemRec.inCost = specifSubelemRec.outPrice * grupartRec2.mkoef * sysprofRec.koef;
+//                specifSubelemRec.inCost = specifSubelemRec.outPrice * grupartRec2.mkoef * systreeRec.coef;
 //                specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * root.getIwin().getPercentMarkup();
 //                specifSubelemRec.outCost = specifSubelemRec.inCost;
 //            }
@@ -115,13 +117,13 @@ public class Tariffication {
 //            for (Specification spec : el.getSpecificationList()) {
 //                spec.weight = spec.quantity * spec.getArticRec().amass;
 //            }
-//        }
+        }
     }
-//
-//    /**
-//     * Фильтр по полю riskl, colorXXX таблицы rulecls
-//     */
-//    private void checkRuleColor(Ruleclk ruleclkRec, Specification specifRec) {
+
+    /**
+     * Фильтр по полю riskl, colorXXX таблицы rulecls
+     */
+    private void checkRuleColor(Record ruleclkRec, Specification specifRec) {
 //
 //        Integer[] arr1 = parserInt(ruleclkRec.rcodm);
 //        Integer[] arr2 = parserInt(ruleclkRec.rcod1);
@@ -175,13 +177,13 @@ public class Tariffication {
 //                }
 //            }
 //        }
-//    }
-//
-//    /**
-//     * Считает тариф для заданного артикула заданных цветов по
-//     * таблице PRO4_ARTSVST (Материальные ценности -> нижняя таблица)
-//     */
-//    public void calcCostPrice(Specification specificRec) {
+    }
+
+    /**
+     * Считает тариф для заданного артикула заданных цветов по
+     * таблице PRO4_ARTSVST (Материальные ценности -> нижняя таблица)
+     */
+    public void calcCostPrice(Specification specificRec) {
 //
 //        Colslst baseColorRec = Colslst.get2(constr, specificRec.colorBase);        //
 //        Colslst insideColorRec = Colslst.get2(constr, specificRec.colorInternal);  //описание текстур
@@ -242,5 +244,5 @@ public class Tariffication {
 //            specificRec.quantity = specificRec.count;
 //        }
 //        specificRec.quantity2 = specificRec.quantity + (specificRec.quantity * specificRec.getArticRec().aouts / 100);
-//    }
+    }
 }
