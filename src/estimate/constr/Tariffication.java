@@ -4,6 +4,7 @@ import dataset.Record;
 import domain.eArtgrp;
 import domain.eArtikl;
 import domain.eRulecalc;
+import domain.eSysdata;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeElem;
@@ -16,21 +17,22 @@ import java.util.List;
 /**
  * Расчёт стоимости элементов окна
  * <p>
- * Запускаю цикл по элементам конструкции окна.
- * Произвожу расчёт  собес-сти за ед. изм. , калькуляцию
- * количества без отхода и количества с отходом.
+ * Запускаю цикл по элементам конструкции окна. Произвожу расчёт собес-сти за
+ * ед. изм. , калькуляцию количества без отхода и количества с отходом.
  * <p>
- * Запускаю цикл по правилам расчёта и пытаюсь попасть в правила расчёта.
- * Если удаётся попасть увеличиваю себестоимости в rkoef раз и на rpric величину надбавки.
- * После завершения цикла правил расчёта произвожу расчёт собес-сти с отходом.
+ * Запускаю цикл по правилам расчёта и пытаюсь попасть в правила расчёта. Если
+ * удаётся попасть увеличиваю себестоимости в rkoef раз и на rpric величину
+ * надбавки. После завершения цикла правил расчёта произвожу расчёт собес-сти с
+ * отходом.
  * <p>
  * Запускаю цикл по списку детализаций элемента конструкции. Произвожу расчёт
- * собес-сти за ед. изм. , калькуляцию количества без отхода и количества с отходом.
+ * собес-сти за ед. изм. , калькуляцию количества без отхода и количества с
+ * отходом.
  * <p>
- * Снова цикл по правилам расчёта. Если удаётся попасть в правила расчёта увеличиваю
- * себестоимости в rkoef раз и на rpric величину надбавки. После завершения цикла правил
- * расчёта произвожу расчёт собес-сти с отходом При завершении итерации перехожу к новому
- * элементу конструкции и т.д.
+ * Снова цикл по правилам расчёта. Если удаётся попасть в правила расчёта
+ * увеличиваю себестоимости в rkoef раз и на rpric величину надбавки. После
+ * завершения цикла правил расчёта произвожу расчёт собес-сти с отходом При
+ * завершении итерации перехожу к новому элементу конструкции и т.д.
  */
 public class Tariffication {
 
@@ -40,9 +42,12 @@ public class Tariffication {
     protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
     protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
     protected Wincalc iwin = null;
+    protected float percentMarkup = 0;  //процентная надбавка на изделия сложной формы
+    protected List<Record> rulecalcList = eRulecalc.get();
 
     public Tariffication(Wincalc iwin) {
         this.iwin = iwin;
+        percentMarkup();
     }
 
     /**
@@ -58,13 +63,12 @@ public class Tariffication {
                 calcCostPrice(specifSubelemRec);
             }
         }
-        
+
         //Увеличение собестоимости в rkoef раз и на rpric величину надбавки
         for (ElemSimple elem5e : iwin.listElem) {
 
             Record systreeRec = eSystree.find(iwin.nuni);
             TypeElem type = elem5e.owner().type();
-            List<Record> rulecalcList = eRulecalc.get(); 
             //Цикл по правилам расчёта
             for (Record rulecalcRec : rulecalcList) {
 
@@ -94,41 +98,41 @@ public class Tariffication {
             elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //собестоимость с отходом
             Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
             elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef); //стоимость без скидки
-            elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * iwin.percentMarkup;
+            elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup;
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой
-//
-//            for (Specification specifSubelemRec : elem5e.specificationRec.getSpecificationList()) {
-//                for (Ruleclk ruleclkRec : constr.ruleclkList) { //цикл по правилам расчёта
-//
-//                    if (ruleclkRec.riskl == PAR0) {  //не проверять форму
-//                        checkRuleColor(ruleclkRec, specifSubelemRec);
-//                    }
-//                }
-//                specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //расчёт собестоимости с отходом
-//                Grupart grupartRec2 = Grupart.find(constr, specifSubelemRec.getArticRec().munic).get(0);
-//                specifSubelemRec.inCost = specifSubelemRec.outPrice * grupartRec2.mkoef * systreeRec.coef;
-//                specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * root.getIwin().getPercentMarkup();
-//                specifSubelemRec.outCost = specifSubelemRec.inCost;
-//            }
-//        }
-//
-//        //Расчёт веса элемента конструкции
-//        for (ElemBase el : elemList) {
-//            for (Specification spec : el.getSpecificationList()) {
-//                spec.weight = spec.quantity * spec.getArticRec().amass;
-//            }
+
+            for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
+                for (Record ruleclkRec : rulecalcList) { //цикл по правилам расчёта
+
+                    if (ruleclkRec.getInt(eRulecalc.form) == PAR0) {  //не проверять форму
+                        checkRuleColor(ruleclkRec, specifSubelemRec);
+                    }
+                }
+                specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //расчёт собестоимости с отходом
+                Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp_id));
+                specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef);
+                specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup;
+                specifSubelemRec.outCost = specifSubelemRec.inCost;
+            }
+        }
+
+        //Расчёт веса элемента конструкции
+        for (Com5t com5t : elemList) {
+            for (Specification spec : ((ElemSimple) com5t).specificationRec.specificationList) {
+                spec.weight = spec.quantity * spec.artiklRec.getFloat(eArtikl.density);
+            }
         }
     }
 
     /**
      * Фильтр по полю riskl, colorXXX таблицы rulecls
      */
-    private void checkRuleColor(Record ruleclkRec, Specification specifRec) {
-//
-//        Integer[] arr1 = parserInt(ruleclkRec.rcodm);
-//        Integer[] arr2 = parserInt(ruleclkRec.rcod1);
-//        Integer[] arr3 = parserInt(ruleclkRec.rcod2);
-//        if (specifRec.artikl == ruleclkRec.anumb || ((specifRec.getArticRec().atypm * 100 + specifRec.getArticRec().atypp) == ruleclkRec.rused)) { //артикл ИЛИ тип ИЛИ подтип совпали
+    private void checkRuleColor(Record rulecalcRec, Specification specifRec) {
+
+        Integer[] arr1 = Util.parserInt(rulecalcRec.getStr(eRulecalc.color1));
+        Integer[] arr2 = Util.parserInt(rulecalcRec.getStr(eRulecalc.color2));
+        Integer[] arr3 = Util.parserInt(rulecalcRec.getStr(eRulecalc.color3));
+        if (specifRec.artikl.equals(rulecalcRec.getStr(eArtikl.code)) || ((specifRec.artiklRec.getInt(eArtikl.level1) * 100 + specifRec.artiklRec.getInt(eArtikl.level1)) == rulecalcRec.getInt(e))) { //артикл ИЛИ тип ИЛИ подтип совпали
 //            if (compareColor(arr1, specifRec.colorBase) == true && compareColor(arr2, specifRec.colorInternal) == true && compareColor(arr3, specifRec.colorExternal) == true) {
 //                if (ruleclkRec.rallp == 0) {
 //
@@ -176,12 +180,12 @@ public class Tariffication {
 //                    }
 //                }
 //            }
-//        }
+        }
     }
 
     /**
-     * Считает тариф для заданного артикула заданных цветов по
-     * таблице PRO4_ARTSVST (Материальные ценности -> нижняя таблица)
+     * Считает тариф для заданного артикула заданных цветов по таблице
+     * PRO4_ARTSVST (Материальные ценности -> нижняя таблица)
      */
     public void calcCostPrice(Specification specificRec) {
 //
@@ -244,5 +248,11 @@ public class Tariffication {
 //            specificRec.quantity = specificRec.count;
 //        }
 //        specificRec.quantity2 = specificRec.quantity + (specificRec.quantity * specificRec.getArticRec().aouts / 100);
+    }
+
+    private void percentMarkup() {
+        if (TypeElem.ARCH == iwin.rootArea.type()) {
+            percentMarkup = eSysdata.find(2101).getInt(eSysdata.val);
+        }
     }
 }
