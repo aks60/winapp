@@ -43,7 +43,8 @@ public enum eArtikl implements Field {
     analog_id("4", "10", "1", "Ссылка", "analog_id"),
     series_id("4", "10", "1", "Ссылка(cерия)", "series_id"),
     syssize_id("4", "10", "1", "Ссылка", "syssize_id"),    
-    currenc_id("4", "10", "1", "Ссылка", "CNUMB");
+    currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
+    currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT");
     //series("12", "32", "1", "Серия", "ASERI"),
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),
     //cut_perim2("8", "15", "1", "null", "APER1"),
@@ -57,8 +58,7 @@ public enum eArtikl implements Field {
     //work("5", "5", "1", "исполнения", "AWORK"),    
     //group3("12", "196", "1", "группа печати", "AGRUP"),
     //nunic("4", "10", "1", "ИД компоненета", "NUNIC"),
-    //artgrp_id("4", "10", "1", "Группа мат.ценостей", "MUNIC"),
-    //cnumt("4", "10", "1", "null", "CNUMT"),    
+    //artgrp_id("4", "10", "1", "Группа мат.ценостей", "MUNIC"),        
     //xdepa("5", "5", "1", "null", "XDEPA"),
     //sunic("4", "10", "1", "null", "SUNIC"),
     //aspec("5", "5", "1", "null", "ASPEC"),

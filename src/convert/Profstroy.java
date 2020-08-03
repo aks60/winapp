@@ -499,7 +499,8 @@ public class Profstroy {
 
         try {
             System.out.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
-            metaSql("alter table artikl add constraint fk_currenc foreign key (currenc_id) references currenc (id)");
+            metaSql("alter table artikl add constraint fk_currenc1 foreign key (currenc1_id) references currenc (id)");
+            metaSql("alter table artikl add constraint fk_currenc2 foreign key (currenc2_id) references currenc (id)");
             metaSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
             metaSql("alter table artikl add constraint fk_artikl1 foreign key (artgrp_id) references artgrp (id)");
             metaSql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikl (id)");

@@ -19,7 +19,6 @@ public class AreaArch extends AreaSimple {
         mapFrame.put(LayoutArea.RIGHT, new ElemFrame(this, 3, LayoutArea.RIGHT));
         mapFrame.put(LayoutArea.ARCH, new ElemFrame(this, 4, LayoutArea.ARCH));
         mapFrame.put(LayoutArea.BOTTOM, new ElemFrame(this, 5, LayoutArea.BOTTOM));
-        iwin.percentMarkup = eSysdata.find(2101).getInt(eSysdata.val);
     }
     
     @Override

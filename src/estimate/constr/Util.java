@@ -163,7 +163,7 @@ public class Util {
         return false;
     }
 
-    protected boolean compareColor(Integer[] arr, Integer color) {
+    public static boolean compareColor(Integer[] arr, Integer color) {
         if (arr.length == 1) {
             int arr1 = arr[0];
             return (arr1 == color);

@@ -138,7 +138,7 @@ public class Artikles extends javax.swing.JFrame {
                 super.load(row);
                 Record artiklRec = qArtikl.get(Util.getSelectedRec(tab1));
                 Record groupsRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(null);
-                Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc_id))).findFirst().orElse(null);
+                Record currencRec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(null);
                 String name = UseUnit.getName(artiklRec.getInt(eArtikl.unit));
                 txtField5.setText(name);
                 name = (currencRec != null) ? currencRec.getStr(eCurrenc.name) : null;
@@ -327,7 +327,7 @@ public class Artikles extends javax.swing.JFrame {
                 int row = Util.getSelectedRec(tab1);
                 if (row != -1) {
                     Record artiklRec = qArtikl.get(row);
-                    artiklRec.set(eArtikl.currenc_id, record.get(eCurrenc.id));
+                    artiklRec.set(eArtikl.currenc1_id, record.get(eCurrenc.id));
                 }
                 Util.stopCellEditing(tab1, tab2);
             }

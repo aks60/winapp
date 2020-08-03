@@ -46,8 +46,7 @@ public class Wincalc {
     public Connection conn;
     public Integer nuni = 0;
     public Record artiklRec = null; //главный артикл системы профилей
-    public Record syssizeRec = null; //константы
-    public float percentMarkup = 0;  //процентная надбавка на изделия сложной формы
+    public Record syssizeRec = null; //константы    
     public float genId = 100; //генерация ключа спецификации
 
     public float width = 0.f;     //ширина окна
@@ -70,7 +69,7 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
-    protected Tariffication tariffication = new Tariffication(this); //тарификация
+    //protected Tariffication tariffication = new Tariffication(this); //тарификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
 //==============================================================================    
 ////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +114,8 @@ public class Wincalc {
             calcFilling.calc();            
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
-            
+            Tariffication tariffication = new Tariffication(this); //тарификация
+            tariffication.calculate(listCom5t);
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);

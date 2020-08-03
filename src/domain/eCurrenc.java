@@ -1,9 +1,14 @@
 package domain;
 
 import dataset.Field;
+import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eColor.id;
+import static domain.eColor.record;
+import static domain.eColor.up;
+import static domain.eColor.values;
 
 public enum eCurrenc implements Field {
     up("0", "0", "0", "Валюта", "CORRENC"),
@@ -32,13 +37,21 @@ public enum eCurrenc implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
         }
         return query;
     }
 
+    public static Record find(int _id) {
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
     public String toString() {
         return meta.descr();
     }
