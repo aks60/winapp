@@ -51,8 +51,7 @@ public enum eRulecalc implements Field {
         if (conf.equals("calc")) {
             return query();
         }
-        Query recordList = new Query(values()).select(up, "order by", id);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        return new Query(values()).select(up, "order by", id);
     }
 
     public String toString() {

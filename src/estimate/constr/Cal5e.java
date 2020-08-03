@@ -9,7 +9,7 @@ import estimate.model.ElemSimple;
 
 public abstract class Cal5e {
 
-    private Wincalc iwin = null;
+    protected Wincalc iwin = null;
     public Set listVariants = new HashSet();
 
     public Cal5e(Wincalc iwin) {

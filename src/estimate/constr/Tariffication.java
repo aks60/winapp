@@ -39,32 +39,30 @@ import java.util.List;
  завершения цикла правил расчёта произвожу расчёт собес-сти с отходом При
  завершении итерации перехожу к новому элементу конструкции и т.д.
  */
-public class Tariffication {
+public class Tariffication extends Cal5e {
 
     //В прфстрое используюеся только 0, 4, 10, 12 параметры
     protected static final int PAR0 = 0;   //не проверять форму
     protected static final int PAR4 = 4;   //профиль с радиусом
     protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
     protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
-    protected Wincalc iwin = null;
-    protected List<Record> rulecalcList = eRulecalc.get();
 
     public Tariffication(Wincalc iwin) {
-        this.iwin = iwin;        
+        super(iwin);        
     }
 
     /**
      * @param elemList - список элементов окна рамы, импосты, стеклопакеты...
      */
-    public void calculate(LinkedList<Com5t> elemList) {
+    public void calc() {
          
         float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
         //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
         for (ElemSimple elem5e : iwin.listElem) {
             calcCostPrice(elem5e.specificationRec);
-            for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
-
-                calcCostPrice(specifSubelemRec);
+            
+            for (Specification specificationRec : elem5e.specificationRec.specificationList) {
+                calcCostPrice(specificationRec);
             }
         }
 
@@ -74,7 +72,7 @@ public class Tariffication {
             Record systreeRec = eSystree.find(iwin.nuni);
             TypeElem type = elem5e.owner().type();
             //Цикл по правилам расчёта
-            for (Record rulecalcRec : rulecalcList) {
+            for (Record rulecalcRec : eRulecalc.get()) {
 
                 //Только эти параметры используются в БиМакс
                 //фильтр по полю form, rused и colorXXX таблицы rulecls
@@ -106,7 +104,7 @@ public class Tariffication {
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой
 
             for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
-                for (Record ruleclkRec : rulecalcList) { //цикл по правилам расчёта
+                for (Record ruleclkRec : eRulecalc.get()) { //цикл по правилам расчёта
 
                     if (ruleclkRec.getInt(eRulecalc.form) == PAR0) {  //не проверять форму
                         checkRuleColor(ruleclkRec, specifSubelemRec);
@@ -121,7 +119,7 @@ public class Tariffication {
         }
 
         //Расчёт веса элемента конструкции
-        for (Com5t com5t : elemList) {
+        for (Com5t com5t : iwin.listCom5t) {
             for (Specification spec : ((ElemSimple) com5t).specificationRec.specificationList) {
                 spec.weight = spec.quantity * spec.artiklRec.getFloat(eArtikl.density);
             }

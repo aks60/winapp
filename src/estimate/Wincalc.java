@@ -69,8 +69,7 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
-    //protected Tariffication tariffication = new Tariffication(this); //тарификация
-    public Cal5e calcElements, calcJoining, calcFilling, calcFurniture; //объекты калькуляции конструктива
+    public Cal5e calcElements, calcJoining, calcFilling, calcFurniture, tariffication; //объекты калькуляции конструктива
 //==============================================================================    
 ////////////////////////////////////////////////////////////////////////////////
     public static int prj = 604005;
@@ -114,8 +113,8 @@ public class Wincalc {
             calcFilling.calc();            
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
-            Tariffication tariffication = new Tariffication(this); //тарификация
-            tariffication.calculate(listCom5t);
+            tariffication = new Tariffication(this); //тарификация
+            tariffication.calc();
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
