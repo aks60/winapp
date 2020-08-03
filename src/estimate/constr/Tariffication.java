@@ -76,7 +76,7 @@ public class Tariffication extends Cal5e {
 
                 //Только эти параметры используются в БиМакс
                 //фильтр по полю form, rused и colorXXX таблицы rulecls
-                if (TypeElem.GLASS == elem5e.type()) {//фильтр для стеклопакета
+                if (TypeElem.GLASS == elem5e.type()) {  //фильтр для стеклопакета
 
                     if (rulecalcRec.getInt(eRulecalc.form) == PAR0) {//не проверять форму
                         checkRuleColor(rulecalcRec, elem5e.specificationRec);
@@ -119,11 +119,11 @@ public class Tariffication extends Cal5e {
         }
 
         //Расчёт веса элемента конструкции
-        for (Com5t com5t : iwin.listCom5t) {
-            for (Specification spec : ((ElemSimple) com5t).specificationRec.specificationList) {
-                spec.weight = spec.quantity * spec.artiklRec.getFloat(eArtikl.density);
-            }
-        }
+//        for (Com5t com5t : iwin.listCom5t) {
+//            for (Specification spec : ((ElemSimple) com5t).specificationRec.specificationList) {
+//                spec.weight = spec.quantity * spec.artiklRec.getFloat(eArtikl.density);
+//            }
+//        }
     }
 
     /**
