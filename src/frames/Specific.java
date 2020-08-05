@@ -238,7 +238,15 @@ public class Specific extends javax.swing.JFrame {
             new String [] {
                 "Nпп", "ID", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "Угол1", "Угол2", "Угол к горизонту", "Кол.единиц", "Ед.изм", "Кол. без отхода", "Процент отхода", "Кол. с отходом", "Собес-сть за ед. измерения", "Собест. с отх", "Стоим. без скидки", "Стоим. со скидкой", "Скидка"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tab1.setFillsViewportHeight(true);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {

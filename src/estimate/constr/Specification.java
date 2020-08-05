@@ -11,16 +11,15 @@ import java.io.FileWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
-import common.Column;
+import java.util.LinkedHashMap;
+import jxl.Sheet;
+import jxl.Workbook;
 
 /**
  * Спецификация элемента окна
@@ -248,4 +247,94 @@ public class Specification {
             System.err.println("Ошибка estimate.constr.write_txt2() " + e);
         }
     }
+    
+    
+//сравнение спецификации с профстроем
+public static void compareIWin(ArrayList<Specification> spcList, int prj, boolean frame) {
+
+        //TODO нужна синхронизация функции
+        Float iwinTotal = 0f, jarTotal = 0f;
+        String path = "src\\resource\\xls\\p" + prj + ".xls";
+        //Specification.sort(spcList);
+        Map<String, Float> hmDll = new LinkedHashMap();
+        Map<String, Float> hmJar = new LinkedHashMap();
+        Map<String, String> hmJarArt = new LinkedHashMap();
+        for (Specification spc : spcList) {
+
+            String key = spc.name.trim().replaceAll("[\\s]{1,}", " ");
+            Float val = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
+            hmJar.put(key, val + spc.inCost);
+            hmJarArt.put(key, spc.artikl);
+        }
+        Workbook w;
+        File inputWorkbook = new File(path);
+        try {
+            w = Workbook.getWorkbook(inputWorkbook);
+            Sheet sheet = w.getSheet(0);
+            for (int i = 5; i < sheet.getRows(); i++) {
+
+                String art = sheet.getCell(1, i).getContents().trim();
+                String key = sheet.getCell(2, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
+                String val = sheet.getCell(10, i).getContents();
+                if (key.isEmpty() || art.isEmpty() || val.isEmpty()) continue;
+
+                val = val.replaceAll("[\\s|\\u00A0]+", "");
+                val = val.replace(",", ".");
+                Float val2 = (hmDll.get(key) == null) ? 0.f : hmDll.get(key);
+                try {
+                    Float val3 = Float.valueOf(val) + val2;
+                    hmDll.put(key, val3);
+                    hmJarArt.put(key, art);
+                } catch (Exception e) {
+                    System.err.println("Ошибка Main.compareIWin " + e);
+                    continue;
+                }
+            }
+            if (frame == true) {
+                System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "Dll", "Jar", "Delta"});
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmDll.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
+                    hmJar.remove(key);
+                    System.out.printf("%-64s%-24s%-16.2f%-16.2f%-16.2f", new Object[]{key, hmJarArt.get(key), val1, val2, Math.abs(val1 - val2)});
+                    System.out.println();
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                System.out.println();
+                if (hmJar.isEmpty() == false)
+                    System.out.printf("%-72s%-24s%-20s", new Object[]{"Name", "Artikl", "Value"});
+                System.out.println();
+                for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    System.out.printf("%-72s%-24s%-16.2f", "Лишние: " + key, hmJarArt.get(key), value3);
+                    System.out.println();
+                    jarTotal = jarTotal + value3;
+                }
+            } else {
+                for (Map.Entry<String, Float> entry : hmDll.entrySet()) {
+                    String key = entry.getKey();
+                    Float val1 = entry.getValue();
+                    Float val2 = (hmJar.get(key) == null) ? 0.f : hmJar.get(key);
+                    hmJar.remove(key);
+                    jarTotal = jarTotal + val2;
+                    iwinTotal = iwinTotal + val1;
+                }
+                for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
+                    String key = entry.getKey();
+                    Float value3 = entry.getValue();
+                    jarTotal = jarTotal + value3;
+                }
+            }
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
+                    + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
+            System.out.println();
+
+        } catch (Exception e2) {
+            System.err.println("Ошибка Main.compareIWin " + e2);
+        }
+    }    
 }
