@@ -26,7 +26,7 @@ public enum eArtdet implements Field {
     //anumb("12", "32", "1", "артикул", "ANUMB"),
     //clcod("4", "10", "1", "id техстуры", "CLCOD"),
     //clnum("4", "10", "1", "id группы текстуры", "CLNUM"),
-    //cluni("4", "10", "1", "null", "CLUNI"), 
+    //cluni("4", "10", "1", "null", "CLUNI"),    
     
 
     private MetaField meta = new MetaField(this);

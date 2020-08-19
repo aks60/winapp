@@ -49,8 +49,8 @@ public class Specification {
     public float quantity = 0; //Количество без отхода
     public float wastePrc = 0;  //Процент отхода
     public float quantity2 = 0;  //Количество с отходом
-    public float inPrice = 0;  //Собес-сть за ед. изм.
-    public float outPrice = 0;  //Собес-сть за злемент с отходом
+    public float inPrice = 0;  //Себес-сть за ед. изм.
+    public float outPrice = 0;  //Себес-сть за злемент с отходом
     public float inCost = 0; //Стоимость без скидки
     public float outCost = 0; //Стоимость со скидкой
     public float discount = 0;  //Скидка
@@ -230,14 +230,14 @@ public class Specification {
     public static void write_txt2(ArrayList<Specification> specList) {
         try {
             int npp = 0;
-            String format = "%-6s%-16s%-60s%-26s%-12s%-12s%-12s";
-            Object str[] = {"Npp", "Place", "Name", "Code", "areaId", "elemId", "owner"};
+            String format = "%-6s%-16s%-60s%-26s%-12s%-12s%-12s%-12s";
+            Object str[] = {"Npp", "Place", "Name", "Code", "areaId", "elemId", "owner", "xxx"};
             System.out.printf(format, str);
             System.out.println();
             float total = 0;
             for (Specification s : specList) {
                 Object str2[] = {String.valueOf(++npp), s.place, s.name, s.artikl,
-                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.specificationRec.artiklRec.get(eArtikl.code)};
+                    s.elem5e.owner().id(), s.elem5e.id(), s.elem5e.specificationRec.artiklRec.get(eArtikl.code), s.inPrice};
                 total = total + s.weight;
                 System.out.printf(format, str2);
                 System.out.println();
