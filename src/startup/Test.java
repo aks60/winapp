@@ -19,11 +19,12 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-           //convert.Profstroy.script();
-           wincalc();
-           //query();            
-           //frame();
-           //parseJson();
+            //convert.Profstroy.script();
+            //wincalc();
+            //query();            
+            //frame();
+            //parseJson();
+            test();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -70,7 +71,6 @@ public class Test {
 //            System.out.println(count);
 //            int dx = temp(count);
 //            System.out.println(dx);
-
         } catch (SQLException e) {
             System.out.println("main.Test.query()");
         }
@@ -92,9 +92,8 @@ public class Test {
             jsonArr.forEach(it -> {
                 Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
                 mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
-            });            
+            });
             System.out.println(mapParamUse);
-                            
 
             //System.out.println(list.get(0));
 //            mapParam.put(ParamJson.ioknaParam, jsonObj.get(ParamJson.ioknaParam.name()));
@@ -134,6 +133,23 @@ public class Test {
             }
         } catch (Exception e) {
             System.err.println(e);
+        }
+    }
+
+    private static void test() {
+//11:по профилю   
+//15:по заполнению
+//1:по основе изделия, 2:по внутр.изделия, 3:по внешн.изделия
+//6:по основе в серии, 7:по внутр. в серии, 8:по внешн. в серии
+
+        int CTYPE[] = {0, 32, 48, 256, 273, 512, 529, 545, 546, 560, 561, 768, 785, 
+            799, 800, 801, 811, 816, 817, 819, 1092, 1097, 2457, 2992,
+            2993, 3003, 3145, 3147, 3273, 3275, 3276, 4095};
+        
+        for (int i = 0; i < CTYPE.length; i++) {
+            int j = CTYPE[i];
+            System.out.println(j & 0x0000003f);
+            
         }
     }
 }
