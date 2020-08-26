@@ -52,7 +52,7 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
     private Query qGlaspar1 = new Query(eGlaspar1.values(), eParams.values());
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar, listenerTypset, listenerThicknes;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private EditorListener listenerEditor;
     private String subsql = "";
     private Window owner = null;
@@ -90,7 +90,7 @@ public class Filling extends javax.swing.JFrame {
 
     private void loadingModel() {
         new DefTableModel(tab1, qGlasgrp, eGlasgrp.name, eGlasgrp.gap, eGlasgrp.depth);
-        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types) {
+        new DefTableModel(tab2, qGlasdet, eGlasdet.depth, eArtikl.code, eArtikl.name, eGlasdet.color_fk, eGlasdet.types, eGlasdet.types, eGlasdet.types) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -110,12 +110,8 @@ public class Filling extends javax.swing.JFrame {
                     }
                 } else if (eGlasdet.types == field) {
                     int types = Integer.valueOf(val.toString());
-
-                    if (UseColcalc.P00.find(types) != null) {
-                        return UseColcalc.P00.find(types).text();
-                    } else {
-                        return null;
-                    }
+                    types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
+                    return UseColcalc.P00.find(types).text();
                 }
                 return val;
             }
@@ -178,7 +174,19 @@ public class Filling extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
             Record record = qGlasdet.get(Util.getSelectedRec(tab3));
             int colorFk = record.getInt(eGlasdet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+            DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
+        });
+
+        Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
+            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            int colorFk = record.getInt(eGlasdet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
+        });
+
+        Util.buttonEditorCell(tab2, 6).addActionListener(event -> {
+            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            int colorFk = record.getInt(eGlasdet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
@@ -293,11 +301,32 @@ public class Filling extends javax.swing.JFrame {
             Util.listenerColor(record, tab2, eGlasdet.color_fk, eGlasdet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
-        listenerColvar = (record) -> {
+        listenerColvar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
             Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
-            glasdetRec.set(eGlasdet.types, record.getInt(0));
+            int types = (glasdetRec.getInt(eElemdet.types) & 0xfffffff0) + record.getInt(0);
+            glasdetRec.set(eGlasdet.types, types);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, row);
+        };
+        
+        listenerColvar2 = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = Util.getSelectedRec(tab2);
+            Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
+            int types = (glasdetRec.getInt(eElemdet.types) & 0xffffff0f) + (record.getInt(0) << 4);
+            glasdetRec.set(eGlasdet.types, types);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, row);
+        };
+        
+        listenerColvar3 = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = Util.getSelectedRec(tab2);
+            Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
+            int types = (glasdetRec.getInt(eElemdet.types) & 0xfffff0ff) + (record.getInt(0) << 8);
+            glasdetRec.set(eGlasdet.types, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
         };
@@ -556,11 +585,11 @@ public class Filling extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"4мм", "22www", "xxxxxxxxxxx", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm", null},
-                {"12мм", "44vvvv", "vvvvvvvvvvv", "hhhhhhhhhhhhhhh", "kkkkkkkkkkkkkkkkkk", null}
+                {"4мм", "22www", "xxxxxxxxxxx", "qqqqqqqqqqqqqqq", "mmmmmmmmmmm", null, null, null},
+                {"12мм", "44vvvv", "vvvvvvvvvvv", "hhhhhhhhhhhhhhh", "kkkkkkkkkkkkkkkkkk", null, null, null}
             },
             new String [] {
-                "Толщина", "Артикул", "Название", "Текстура", "Подбор", "ID"
+                "Толщина", "Артикул", "Название", "Текстура", "Основная", "Внутренняя", "Внешняя", "ID"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -578,7 +607,7 @@ public class Filling extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(40);
         }
 
         pan4.add(scr2, java.awt.BorderLayout.CENTER);

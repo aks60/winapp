@@ -31,22 +31,20 @@ public class DicColvar extends javax.swing.JDialog {
         if (colorFk != -1) {
 
             if (colorFk == 0 || colorFk == 100) {
-                rows = new Object[][]{{UseColcalc.P11.name, UseColcalc.P11.id},
-                {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
-                {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
-                {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};
-                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
+                rows = new Object[][]{{UseColcalc.P11.name, UseColcalc.P11.id}, {UseColcalc.P15.name, UseColcalc.P15.id},
+                {UseColcalc.P01.name, UseColcalc.P01.id}, {UseColcalc.P02.name, UseColcalc.P02.id}, {UseColcalc.P03.name, UseColcalc.P03.id},
+                {UseColcalc.P06.name, UseColcalc.P06.id}, {UseColcalc.P07.name, UseColcalc.P07.id}, {UseColcalc.P08.name, UseColcalc.P08.id},
+                {UseColcalc.P09.name, UseColcalc.P09.id}, {UseColcalc.P04.name, UseColcalc.P04.id}, {UseColcalc.P12.name, UseColcalc.P12.id}};
 
             } else if (colorFk > 0) {
                 rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id}};
-                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
             } else {
-                rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id}, {UseColcalc.P11.name, UseColcalc.P11.id},
-                {UseColcalc.P21.name, UseColcalc.P21.id}, {UseColcalc.P31.name, UseColcalc.P31.id}, {UseColcalc.P32.name, UseColcalc.P32.id},
-                {UseColcalc.P33.name, UseColcalc.P33.id}, {UseColcalc.P41.name, UseColcalc.P41.id}, {UseColcalc.P42.name, UseColcalc.P42.id},
-                {UseColcalc.P43.name, UseColcalc.P43.id}, {UseColcalc.P50.name, UseColcalc.P50.id}, {UseColcalc.P60.name, UseColcalc.P60.id}};
-                ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
+                rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id},{UseColcalc.P11.name, UseColcalc.P11.id}, {UseColcalc.P15.name, UseColcalc.P15.id},
+                {UseColcalc.P01.name, UseColcalc.P01.id}, {UseColcalc.P02.name, UseColcalc.P02.id}, {UseColcalc.P03.name, UseColcalc.P03.id},
+                {UseColcalc.P06.name, UseColcalc.P06.id}, {UseColcalc.P07.name, UseColcalc.P07.id}, {UseColcalc.P08.name, UseColcalc.P08.id},
+                {UseColcalc.P09.name, UseColcalc.P09.id}, {UseColcalc.P04.name, UseColcalc.P04.id}, {UseColcalc.P12.name, UseColcalc.P12.id}};                
             }
+            ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
         }
         Util.setSelectedRow(tab1);
     }
@@ -219,7 +217,7 @@ public class DicColvar extends javax.swing.JDialog {
         record.add(null);
         record.add(null);
         listener.action(record);
-        this.dispose();       
+        this.dispose();
     }//GEN-LAST:event_btnRemov
 
     private void tab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1MouseClicked

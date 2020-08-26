@@ -61,7 +61,7 @@ public class Element extends javax.swing.JFrame {
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
     private String subsql = "";
     private Window owner = null;
     private EditorListener listenerEditor;
@@ -74,7 +74,7 @@ public class Element extends javax.swing.JFrame {
         loadingData();
         loadingModel();
     }
-    
+
     public Element(java.awt.Window owner, Set<Object> keys) {
         this.owner = owner;
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
@@ -129,7 +129,7 @@ public class Element extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types) {
+        new DefTableModel(tab3, qElemdet, eArtikl.code, eArtikl.name, eElemdet.color_fk, eElemdet.types, eElemdet.types, eElemdet.types) {
 
             public Object getValueAt(int col, int row, Object val) {
 
@@ -149,12 +149,8 @@ public class Element extends javax.swing.JFrame {
                     }
                 } else if (eElemdet.types == field) {
                     int types = Integer.valueOf(val.toString());
-
-                    if (UseColcalc.P00.find(types) != null) {
-                        return UseColcalc.P00.find(types).text();
-                    } else {
-                        return null;
-                    }
+                    types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
+                    return UseColcalc.P00.find(types).text();
                 }
                 return val;
             }
@@ -230,7 +226,19 @@ public class Element extends javax.swing.JFrame {
         Util.buttonEditorCell(tab3, 3).addActionListener(event -> {
             Record record = qElemdet.get(Util.getSelectedRec(tab3));
             int colorFk = record.getInt(eElemdet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+            DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
+        });
+
+        Util.buttonEditorCell(tab3, 4).addActionListener(event -> {
+            Record record = qElemdet.get(Util.getSelectedRec(tab3));
+            int colorFk = record.getInt(eElemdet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
+        });
+
+        Util.buttonEditorCell(tab3, 5).addActionListener(event -> {
+            Record record = qElemdet.get(Util.getSelectedRec(tab3));
+            int colorFk = record.getInt(eElemdet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
         Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
@@ -276,7 +284,7 @@ public class Element extends javax.swing.JFrame {
                 ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });
-        
+
         Util.setSelectedRow(tab1);
     }
 
@@ -385,11 +393,32 @@ public class Element extends javax.swing.JFrame {
             Util.listenerColor(record, tab3, eElemdet.color_fk, eElemdet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
-        listenerColvar = (record) -> {
+        listenerColvar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
-            elemdetRec.set(eElemdet.types, record.getInt(0));
+            int types = (elemdetRec.getInt(eElemdet.types) & 0xfffffff0) + record.getInt(0);
+            elemdetRec.set(eElemdet.types, types);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row);
+        };
+
+        listenerColvar2 = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = Util.getSelectedRec(tab3);
+            Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
+            int types = (elemdetRec.getInt(eElemdet.types) & 0xffffff0f) + (record.getInt(0) << 4);
+            elemdetRec.set(eElemdet.types, types);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row);
+        };
+
+        listenerColvar3 = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = Util.getSelectedRec(tab3);
+            Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
+            int types = (elemdetRec.getInt(eElemdet.types) & 0xfffff0ff) + (record.getInt(0) << 8);
+            elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
         };
@@ -711,11 +740,11 @@ public class Element extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxxxxx", null, "mmmmm", "kkkkkkk", null},
-                {"zzzzzzzzz", null, "mmmmm", "kkkkkkk", null}
+                {"xxxxxxxx", null, "mmmmm", "kkkkkkk", "vvvvv", "ffffff", null},
+                {"zzzzzzzzz", null, "mmmmm", "kkkkkkk", "ddddd", "yyyyy", null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор", "ID"
+                "Артикул", "Название", "Текстура", "Основная", "Внутренняя", "Внешняя", "ID"
             }
         ));
         tab3.setFillsViewportHeight(true);
@@ -728,7 +757,7 @@ public class Element extends javax.swing.JFrame {
         });
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
-            tab3.getColumnModel().getColumn(4).setMaxWidth(40);
+            tab3.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 
         pan2.add(scr3, java.awt.BorderLayout.CENTER);

@@ -140,7 +140,7 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types) {
+        new DefTableModel(tab4, qJoindet, eJoindet.artikl_id, eJoindet.artikl_id, eJoindet.color_fk, eJoindet.types, eJoindet.types, eJoindet.types) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -166,13 +166,9 @@ public class Joining extends javax.swing.JFrame {
                         return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
                 } else if (eJoindet.types == field) {
-
                     int types = Integer.valueOf(val.toString());
-                    if (UseColcalc.P00.find(types) != null) {
-                        return UseColcalc.P00.find(types).text();
-                    } else {
-                        return null;
-                    }
+                    types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
+                    return UseColcalc.P00.find(types).text();
                 }
                 return val;
             }
@@ -685,11 +681,11 @@ public class Joining extends javax.swing.JFrame {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", "7", null},
-                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2", null}
+                {"yyyyyyyy", "fffffffffffffff", "44", "7", null, null, null},
+                {"rrrrrrrrrrr", "llllllllllllllllllllllllllll", "77", "2", null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Текстура", "Подбор", "ID"
+                "Артикул", "Название", "Текстура", "Основная", "Внутренняя", "Внешняя", "ID"
             }
         ));
         tab4.setFillsViewportHeight(true);
@@ -702,9 +698,7 @@ public class Joining extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(3).setPreferredWidth(140);
-            tab4.getColumnModel().getColumn(3).setMaxWidth(300);
-            tab4.getColumnModel().getColumn(4).setMaxWidth(40);
+            tab4.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 
         jPanel3.add(scr4, java.awt.BorderLayout.CENTER);
