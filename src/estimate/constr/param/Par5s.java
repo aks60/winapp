@@ -348,32 +348,33 @@ public class Par5s {
         return -1;
     }
 
-    // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры (dll->GetColorCodeFromProduct() - см. "SVN\iWin_Doc\trunk\Профстрой\Значения GLASART.CTYPE.xlsx".
+    // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры
     public int getColorFromProduct(Com5t com5t, int colorSide, int type, int colorId) {
-        // Получаем код варианта подбора текстуры (см. "SVN\iWin_Doc\trunk\Профстрой\Значения GLASART.CTYPE.xlsx").
-        int colorType = 0;
-        if (colorSide == 1) {
-            colorType = type % 16;
-        } else if (colorSide == 2) {
-            colorType = (type / 16) % 16;
-        } else if (colorSide == 3) {
-            colorType = (type / (16 * 16)) % 16;
-        }
+        int colorType = (colorSide == 1) ? type & 0x0000000f : (colorSide == 2) ? type & 0x000000f0 >> 4 : type & 0x00000f00 >> 8;
         switch (colorType) {
             case 0:  //указана
                 return colorId;
             case 1:        // по основе изделия
-            case 6:        // по основе в серии
-                return iwin.color1; //elem.getColor(1);
+                return iwin.color1;
             case 2:        // по внутр.изделия
-            case 7:        // по внутр. в серии
-                return iwin.color2; //elem.getColor(2);
+                return iwin.color2;  
             case 3:        // по внешн.изделия
+                return iwin.color3; //elem.getColor(3); 
+            case 4:        // по параметру (внутр.)
+                return -1;
+            case 6:        // по основе в серии
+                return iwin.color1; 
+            case 7:        // по внутр. в серии
+                return iwin.color2; 
             case 8:        // по внешн. в серии
                 return iwin.color3; //elem.getColor(3);
-            case 11:    // по профилю
+            case 9:        // по параметру (основа)
+                return -1;
+            case 11:       // по профилю
                 return iwin.color1;
-            case 15:    // по заполнению
+            case 12:       // по параметру (внешн.)    
+                return -1;
+            case 15:       // по заполнению
                 return com5t.color1;
             default:    // без цвета
                 return iwin.colorNone;
@@ -400,18 +401,6 @@ public class Par5s {
         }
         return false;
     }
-
-    protected boolean CanBeUsedAsOutsideColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
-        return (artsvst.cways & 2) != 0 || CanBeUsedAsBaseColor(artsvst);
-    }
-
-    protected boolean CanBeUsedAsInsideColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
-        return (artsvst.cways & 1) != 0 || CanBeUsedAsBaseColor(artsvst);
-    }
-
-    protected boolean CanBeUsedAsBaseColor(Artsvst artsvst) { //cways = 1-внутр. 2-внешн. 4-основн.
-        return (artsvst.cways & 4) != 0;
-    } 
 
     //Все параметры БиМакс
     public static int[] paramSum = {
