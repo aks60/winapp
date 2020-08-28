@@ -161,7 +161,8 @@ public class Furniture extends javax.swing.JFrame {
 
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
+                    types =  types & 0x0000000f;
+                    return UseColcalc.P00.find(types).text();                    
 
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet1.get(row, eFurndet.furniture_id2) != null) {
@@ -206,7 +207,8 @@ public class Furniture extends javax.swing.JFrame {
 
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
+                    types =  types & 0x0000000f;
+                    return UseColcalc.P00.find(types).text(); 
 
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet2.get(row, eFurndet.furniture_id2) != null) {
@@ -251,7 +253,8 @@ public class Furniture extends javax.swing.JFrame {
 
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    return (UseColcalc.P00.find(types) != null) ? UseColcalc.P00.find(types).text() : null;
+                    types =  types & 0x0000000f;
+                    return UseColcalc.P00.find(types).text(); 
 
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet3.get(row, eFurndet.furniture_id2) != null) {
@@ -559,7 +562,9 @@ public class Furniture extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
             int row = Util.getSelectedRec(tab);
             Record furndetRec = query.get(Util.getSelectedRec(tab));
-            furndetRec.set(eFurndet.types, record.getInt(0));
+            int types = (furndetRec.getInt(eFurndet.types) == -1) ? 0 : furndetRec.getInt(eFurndet.types);
+            types = (types & 0xfffffff0) + record.getInt(0);                        
+            furndetRec.set(eFurndet.types, types);
             ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab, row);
         };

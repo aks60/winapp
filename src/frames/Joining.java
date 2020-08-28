@@ -67,7 +67,7 @@ public class Joining extends javax.swing.JFrame {
     private String subsql = "";
     private Window owner = null;
     private EditorListener listenerEditor;
-    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerJoinvar, listenerColor, listenerColvar;
+    private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerJoinvar, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
 
     public Joining() {
         initComponents();
@@ -77,7 +77,7 @@ public class Joining extends javax.swing.JFrame {
         listenerDict();
         loadingModel();
     }
-    
+
     public Joining(java.awt.Window owner, Set<Object> keys) {
         this.owner = owner;
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
@@ -263,7 +263,19 @@ public class Joining extends javax.swing.JFrame {
         Util.buttonEditorCell(tab4, 3).addActionListener(event -> {
             Record record = qJoindet.get(Util.getSelectedRec(tab4));
             int colorFk = record.getInt(eJoindet.color_fk);
-            DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+            DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
+        });
+
+        Util.buttonEditorCell(tab4, 4).addActionListener(event -> {
+            Record record = qJoindet.get(Util.getSelectedRec(tab4));
+            int colorFk = record.getInt(eJoindet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
+        });
+
+        Util.buttonEditorCell(tab4, 5).addActionListener(event -> {
+            Record record = qJoindet.get(Util.getSelectedRec(tab4));
+            int colorFk = record.getInt(eJoindet.color_fk);
+            DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
 
         Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
@@ -363,11 +375,35 @@ public class Joining extends javax.swing.JFrame {
             Util.listenerColor(record, tab4, eJoindet.color_fk, eJoindet.types, tab1, tab2, tab3, tab4, tab5);
         };
 
-        listenerColvar = (record) -> {
+        listenerColvar1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab4);
             Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
-            joindetRec.set(eJoindet.types, record.getInt(0));
+            int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
+            types = (types & 0xfffffff0) + record.getInt(0);
+            joindetRec.set(eJoindet.types, types);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4, row);
+        };
+
+        listenerColvar2 = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = Util.getSelectedRec(tab4);
+            Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
+            int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
+            types = (types & 0xffffff0f) + (record.getInt(0) << 4);            
+            joindetRec.set(eJoindet.types, types);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4, row);
+        };
+
+        listenerColvar3 = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            int row = Util.getSelectedRec(tab4);
+            Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
+            int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
+            types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
+            joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);
         };

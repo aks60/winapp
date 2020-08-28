@@ -110,7 +110,7 @@ public class Filling extends javax.swing.JFrame {
                     }
                 } else if (eGlasdet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    types = (col == 3) ? types & 0x0000000f : (col == 4) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
+                    types = (col == 4) ? types & 0x0000000f : (col == 5) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
                     return UseColcalc.P00.find(types).text();
                 }
                 return val;
@@ -172,19 +172,19 @@ public class Filling extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            Record record = qGlasdet.get(Util.getSelectedRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar1, colorFk);
         });
 
         Util.buttonEditorCell(tab2, 5).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            Record record = qGlasdet.get(Util.getSelectedRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar2, colorFk);
         });
 
         Util.buttonEditorCell(tab2, 6).addActionListener(event -> {
-            Record record = qGlasdet.get(Util.getSelectedRec(tab3));
+            Record record = qGlasdet.get(Util.getSelectedRec(tab2));
             int colorFk = record.getInt(eGlasdet.color_fk);
             DicColvar frame = new DicColvar(this, listenerColvar3, colorFk);
         });
@@ -305,7 +305,8 @@ public class Filling extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
             Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
-            int types = (glasdetRec.getInt(eElemdet.types) & 0xfffffff0) + record.getInt(0);
+            int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
+            types = (types & 0xfffffff0) + record.getInt(0);
             glasdetRec.set(eGlasdet.types, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
@@ -315,7 +316,8 @@ public class Filling extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
             Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
-            int types = (glasdetRec.getInt(eElemdet.types) & 0xffffff0f) + (record.getInt(0) << 4);
+            int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
+            types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             glasdetRec.set(eGlasdet.types, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
@@ -325,7 +327,8 @@ public class Filling extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
             Record glasdetRec = qGlasdet.get(Util.getSelectedRec(tab2));
-            int types = (glasdetRec.getInt(eElemdet.types) & 0xfffff0ff) + (record.getInt(0) << 8);
+            int types = (glasdetRec.getInt(eGlasdet.types) == -1) ? 0 : glasdetRec.getInt(eGlasdet.types);
+            types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             glasdetRec.set(eGlasdet.types, types);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);

@@ -397,7 +397,8 @@ public class Element extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
-            int types = (elemdetRec.getInt(eElemdet.types) & 0xfffffff0) + record.getInt(0);
+            int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
+            types = (types & 0xfffffff0) + record.getInt(0);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
@@ -407,7 +408,8 @@ public class Element extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
-            int types = (elemdetRec.getInt(eElemdet.types) & 0xffffff0f) + (record.getInt(0) << 4);
+            int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
+            types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
@@ -417,7 +419,8 @@ public class Element extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab3);
             Record elemdetRec = qElemdet.get(Util.getSelectedRec(tab3));
-            int types = (elemdetRec.getInt(eElemdet.types) & 0xfffff0ff) + (record.getInt(0) << 8);
+            int types = (elemdetRec.getInt(eElemdet.types) == -1) ? 0 : elemdetRec.getInt(eElemdet.types);
+            types = (types & 0xfffff0ff) + (record.getInt(0) << 8);
             elemdetRec.set(eElemdet.types, types);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);
