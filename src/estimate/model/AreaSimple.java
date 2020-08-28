@@ -25,9 +25,9 @@ public class AreaSimple extends Com5t {
         super(id, iwin, owner);
         this.type = typeElem;
         this.layout = layout;
-        this.color1 = color1;
-        this.color2 = color2;
-        this.color3 = color3;
+        this.colorID1 = color1;
+        this.colorID2 = color2;
+        this.colorID3 = color3;
         parsing(param);
         initDimension(width, height);
     }

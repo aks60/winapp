@@ -33,7 +33,7 @@ public abstract class Com5t {
     private Wincalc iwin = null; //главный класс калькуляции
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
-    public int color1 = -1, color2 = -1, color3 = -1; //1-базовый 2-внутренний 3-внешний 
+    public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний
 
     public HashMap<Integer, Record> mapParamUse = new HashMap(); //клиентские параметры       
 

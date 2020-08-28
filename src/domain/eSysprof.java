@@ -100,7 +100,7 @@ public enum eSysprof implements Field {
                     //Цикл по текстурам
                     for (Record artdetRec : eArtdet.query()) {
                         if (sysprofRec.getInt(artikl_id) == artdetRec.getInt(eArtdet.artikl_id)) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == iwin.color1) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == iwin.colorID1) {
                                 return sysprofRec;
                             }
                         }
@@ -120,7 +120,7 @@ public enum eSysprof implements Field {
             //Цикл по текстурам
             for (Record artdetRec : artdetList) {
                 if (sysprofRec.getInt(artikl_id) == artdetRec.getInt(eArtdet.artikl_id)) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == iwin.color1) {
+                    if (artdetRec.getInt(eArtdet.color_fk) == iwin.colorID1) {
                         return sysprofRec;
                     }
                 }

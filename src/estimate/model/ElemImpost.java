@@ -21,9 +21,9 @@ public class ElemImpost extends ElemSimple {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
-        color1 = iwin().color1;
-        color2 = iwin().color2;
-        color3 = iwin().color3;
+        colorID1 = iwin().colorID1;
+        colorID2 = iwin().colorID2;
+        colorID3 = iwin().colorID3;
         this.type = TypeElem.IMPOST;
         initСonstructiv();
 
@@ -68,9 +68,9 @@ public class ElemImpost extends ElemSimple {
 
         specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? "СОСТ.В" : "СОСТ.Г";
         specificationRec.setArtiklRec(artiklRec);
-        specificationRec.color1 = color1;
-        specificationRec.color2 = color2;
-        specificationRec.color3 = color3;
+        specificationRec.colorID1 = colorID1;
+        specificationRec.colorID2 = colorID2;
+        specificationRec.colorID3 = colorID3;
         specificationRec.anglCut2 = 90;
         specificationRec.anglCut1 = 90;
         specificationRec.anglHoriz = anglHoriz;
@@ -106,9 +106,9 @@ public class ElemImpost extends ElemSimple {
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec)) {
-            specif.color1 = iwin().colorNone;
-            specif.color2 = iwin().colorNone;
-            specif.color3 = iwin().colorNone;
+            specif.colorID1 = iwin().colorNone;
+            specif.colorID2 = iwin().colorNone;
+            specif.colorID3 = iwin().colorNone;
 
             //Остальные
         } else {
@@ -121,7 +121,7 @@ public class ElemImpost extends ElemSimple {
     @Override
     public void paint() {
 
-        int rgb = eColor.find(color2).getInt(eColor.rgb);
+        int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (LayoutArea.VERT == owner().layout()) {
             Draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 

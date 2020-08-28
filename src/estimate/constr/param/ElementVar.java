@@ -93,19 +93,19 @@ public class ElementVar extends Par5s {
                     break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 
-                        if (compareInt(rec.getStr(TEXT), elem5e.color1) == false) {
+                        if (compareInt(rec.getStr(TEXT), elem5e.colorID1) == false) {
                             return false;
                         }
                         break;
                     case 31006:  //Коды внутр. текстуры контейнера 
                     case 37006:  //Коды внутр. текстуры контейнера  
-                        if (compareInt(rec.getStr(TEXT), elem5e.color2) == false) {
+                        if (compareInt(rec.getStr(TEXT), elem5e.colorID2) == false) {
                             return false;
                         }
                         break;
                     case 31007:  //Коды внешн. текстуры контейнера 
                     case 37007:  //Коды внешн. текстуры контейнера  
-                        if (compareInt(rec.getStr(TEXT), elem5e.color3) == false) {
+                        if (compareInt(rec.getStr(TEXT), elem5e.colorID3) == false) {
                             return false;
                         }
                         break;
@@ -179,15 +179,15 @@ public class ElementVar extends Par5s {
                         break;
                     case 31055:  //Коды внутр. и внешн. текстуры изд.
                     case 37055:  //Коды внутр. и внешн. текстуры изд. 
-                        if ((compareInt(rec.getStr(TEXT), elem5e.color2) == true
-                                && compareInt(rec.getStr(TEXT), elem5e.color3) == true) == false) {
+                        if ((compareInt(rec.getStr(TEXT), elem5e.colorID2) == true
+                                && compareInt(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
                             return false;
                         }
                         break;
                     case 31056:  //Коды внутр. или внеш. текстуры изд. 
                     case 37056:  //Коды внут. или внеш. текстуры изд. 
-                        if ((compareInt(rec.getStr(TEXT), elem5e.color2) == true
-                                || compareInt(rec.getStr(TEXT), elem5e.color3) == true) == false) {
+                        if ((compareInt(rec.getStr(TEXT), elem5e.colorID2) == true
+                                || compareInt(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
                             return false;
                         }
                         break;

@@ -103,20 +103,20 @@ public class JoiningDet extends Par5s {
                         break;
                     case 11067:  //Коды основной текстуры изделия 
                     case 12067:  //Коды основной текстуры изделия
-                        int c1 = elem5e.iwin().color1;
+                        int c1 = elem5e.iwin().colorID1;
                         if (compareInt(rec.getStr(TEXT), c1) == false) {
                             return false;
                         }
                         break;
                     case 11068:  //Коды внутр. текстуры изделия 
                     case 12068:  //Коды внутр. текстуры изделия 
-                        if (compareInt(rec.getStr(TEXT), elem5e.iwin().color2) == false) {
+                        if (compareInt(rec.getStr(TEXT), elem5e.iwin().colorID2) == false) {
                             return false;
                         }
                         break;
                     case 11069:  //Коды внешн. текстуры изделия
                     case 12069:  //Коды внешн. текстуры изделия     
-                        int c3 = elem5e.iwin().color3;
+                        int c3 = elem5e.iwin().colorID3;
                         if (compareInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }

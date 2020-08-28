@@ -28,7 +28,7 @@ public class AreaStvorka extends AreaSimple {
     public int sysfurnID = -1; //то, что выбрал клиент
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
-        super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.color1, iwin.color2, iwin.color3, param);
+        super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
 
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");

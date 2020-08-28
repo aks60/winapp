@@ -36,9 +36,9 @@ public class Specification {
     public String place = "-"; //Место расмешения
     public String name = "-"; //Наименование
     public String artikl = "-";  //Артикул
-    public int color1 = 1005;  //Осн.текстура
-    public int color2 = 1005;  //Внутр.текстура
-    public int color3 = 1005;  //Внешн.текстура
+    public int colorID1 = 1005;  //Осн.текстура
+    public int colorID2 = 1005;  //Внутр.текстура
+    public int colorID3 = 1005;  //Внешн.текстура
     public float width = 0;  //Длина
     public float height = 0;  //Ширина
     public float weight = 0;  //Масса
@@ -81,9 +81,9 @@ public class Specification {
         this.place = spec.place;
         this.artikl = spec.artikl;
         this.name = spec.name;
-        this.color1 = spec.color1;
-        this.color2 = spec.color2;
-        this.color3 = spec.color3;
+        this.colorID1 = spec.colorID1;
+        this.colorID2 = spec.colorID2;
+        this.colorID3 = spec.colorID3;
         this.width = spec.width;
         this.height = spec.height;
         this.anglCut2 = spec.anglCut2;
@@ -103,8 +103,8 @@ public class Specification {
     }
 
     public Vector getVector(int npp) {
-        List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(color1).getStr(eColor.name), eColor.find(color2).getStr(eColor.name),
-                eColor.find(color3).getStr(eColor.name), (width == 0) ? "" : width, (height == 0) ? "" : height, (weight == 0) ? "" : weight,
+        List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
+                eColor.find(colorID3).getStr(eColor.name), (width == 0) ? "" : width, (height == 0) ? "" : height, (weight == 0) ? "" : weight,
                 (anglCut1 == 0) ? "" : anglCut1, (anglCut2 == 0) ? "" : anglCut2, (anglHoriz == 0) ? "" : anglHoriz,
                 count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount
         );
@@ -121,10 +121,14 @@ public class Specification {
         //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться
     }
 
-    public void setColor(int color1, int color2, int color3) {
-        this.color1 = color1;
-        this.color2 = color2;
-        this.color3 = color3;
+    public void setColor(int side, int colorID) {
+        if (side == 1) {
+            colorID1 = colorID;
+        } else if (side == 2) {
+            colorID2 = colorID;
+        } else if (side == 3) {
+            colorID3 = colorID;
+        }
     }
 
     //TODO ВАЖНО !!! необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
@@ -136,35 +140,35 @@ public class Specification {
 
         int types = record.getInt(2);
         int colorFk = record.getInt(3);
-        int[] colors = {color1, color2, color3};
+        //int[] colors = {color1, color2, color3};
         for (int index = 1; index < 4; ++index) {
 
             int colorCode = getColorFromProduct(com5t, index, record);
             Record colorRec = eColor.find(colorCode);
-            
+
             //Автоподбор текстуры
             if (colorFk == 0) {
                 boolean colorOK = false;
-                int firstFoundColorNumber = 0;
+                int firstFoundColorFk = 0;
                 Record artiklRec = eArtikl.find2(artikl);
                 List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-//                for (Record artdetRec : artdetList) {
-//                    if ((index == 1 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0)
-//                            || (index == 2 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0)
-//                            || (index == 3 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0)) {
-//
-//                        if (Util.IsArtTariffAppliesForColor(artdetRec, colorRec)) {
-//                            colorOK = true;
-//                            break;
-//                        } else if (firstFoundColorNumber == 0) {
-//                            firstFoundColorNumber = artdetRec.clnum;
-//                        }
-//                    }
-//                }
+                for (Record artdetRec : artdetList) {
+                    if ((index == 1 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0)
+                            || (index == 2 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0)
+                            || (index == 3 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0)) {
+
+                        if (Util.IsArtTariffAppliesForColor(artdetRec, colorRec)) {
+                            colorOK = true;
+                            break;
+                        } else if (firstFoundColorFk == 0) {
+                            firstFoundColorFk = artdetRec.getInt(eArtdet.color_fk);
+                        }
+                    }
+                }
 //                if (colorOK) {
 //                    return colorCode;
-//                } else if (firstFoundColorNumber > 0) {
-//                    return Colslst.get(constr, firstFoundColorNumber).ccode;
+//                } else if (firstFoundColorFk > 0) {
+//                    return Colslst.get(constr, firstFoundColorFk).ccode;
 //                } else {
 //                    return root.getIwin().getColorNone();
 //                }
@@ -216,8 +220,6 @@ public class Specification {
 //            }
 //        }
             //return colorCode;
-
-            colors[index] = -1;
         }
     }
 
@@ -231,27 +233,27 @@ public class Specification {
             case 0:  //указана
                 return colorFk;
             case 1:        // по основе изделия
-                return elem5e.iwin().color1;
+                return elem5e.iwin().colorID1;
             case 2:        // по внутр.изделия
-                return elem5e.iwin().color2;
+                return elem5e.iwin().colorID2;
             case 3:        // по внешн.изделия
-                return elem5e.iwin().color3; //elem.getColor(3); 
+                return elem5e.iwin().colorID3; //elem.getColor(3); 
             case 4:        // по параметру (внутр.)
                 return -1;
             case 6:        // по основе в серии
-                return elem5e.iwin().color1;
+                return elem5e.iwin().colorID1;
             case 7:        // по внутр. в серии
-                return elem5e.iwin().color2;
+                return elem5e.iwin().colorID2;
             case 8:        // по внешн. в серии
-                return elem5e.iwin().color3; //elem.getColor(3);
+                return elem5e.iwin().colorID3; //elem.getColor(3);
             case 9:        // по параметру (основа)
                 return -1;
             case 11:       // по профилю
-                return elem5e.iwin().color1;
+                return elem5e.iwin().colorID1;
             case 12:       // по параметру (внешн.)    
                 return -1;
             case 15:       // по заполнению
-                return com5t.color1;
+                return com5t.colorID1;
             default:    // без цвета
                 return elem5e.iwin().colorNone;
         }
@@ -301,7 +303,7 @@ public class Specification {
                     + "Ширина. мм, Угол1, Угол2, Количество, Погонаж, Ед.изм, Ед.изм, Скидка, Скидка").getBytes("windows-1251"), "UTF-8"));
             for (Specification spc : spcList) {
 
-                String str = spc.id + "," + spc.place + "," + spc.artikl + "," + spc.name + "," + spc.color1 + "," + spc.color2 + "," + spc.color3
+                String str = spc.id + "," + spc.place + "," + spc.artikl + "," + spc.name + "," + spc.colorID1 + "," + spc.colorID2 + "," + spc.colorID3
                         + "," + String.format("%.1f", spc.width) + String.format("%.1f", spc.height) + String.format("%.2f", spc.anglCut2)
                         + String.format("%.2f", spc.anglCut1) + spc.count + spc.width + spc.unit + spc.discount + "\n";
 
@@ -334,9 +336,9 @@ public class Specification {
         for (Specification s : specList) {
 
             Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
-                eColor.find(s.color1).getInt(eColor.name),
-                eColor.find(s.color2).getInt(eColor.name),
-                eColor.find(s.color3).getInt(eColor.name),
+                eColor.find(s.colorID1).getInt(eColor.name),
+                eColor.find(s.colorID2).getInt(eColor.name),
+                eColor.find(s.colorID3).getInt(eColor.name),
                 String.valueOf(s.count), String.valueOf(s.quantity),
                 UseUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
                 String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",

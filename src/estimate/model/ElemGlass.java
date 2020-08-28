@@ -61,9 +61,9 @@ public class ElemGlass extends ElemSimple {
         //Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
         //Record colorRec = eColor.find(artdetRec.getInt(eArtdet.color_fk));
         //TODO Разобраться с цветом стекла
-        color1 = iwin().colorNone;
-        color2 = iwin().colorNone;
-        color3 = iwin().colorNone;
+        colorID1 = iwin().colorNone;
+        colorID2 = iwin().colorNone;
+        colorID3 = iwin().colorNone;
     }
 
     @Override //Главная спецификация
@@ -71,9 +71,9 @@ public class ElemGlass extends ElemSimple {
 
         specificationRec.place = "ЗАП";
         specificationRec.setArtiklRec(artiklRec);
-        specificationRec.color1 = color1;
-        specificationRec.color2 = color2;
-        specificationRec.color3 = color3;
+        specificationRec.colorID1 = colorID1;
+        specificationRec.colorID2 = colorID2;
+        specificationRec.colorID3 = colorID3;
         specificationRec.id = id();
 
         float gzazo = (mapFieldVal.get("GZAZO") != null) ? Float.valueOf(mapFieldVal.get("GZAZO")) : 0;

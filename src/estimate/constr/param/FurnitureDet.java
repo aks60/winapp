@@ -160,14 +160,14 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24068:  //Коды внутр. текстуры изделия 
-                        int c2 = elem5e.iwin().color2;
+                        int c2 = elem5e.iwin().colorID2;
                         if (compareInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
                     case 24069:  //Коды внешн. текстуры изделия 
                     case 25069:  //Коды внешн. текстуры изделия     
-                        int c3 = elem5e.iwin().color3;
+                        int c3 = elem5e.iwin().colorID3;
                         if (compareInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }

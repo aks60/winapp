@@ -20,9 +20,9 @@ public class ElemFrame extends ElemSimple {
     public ElemFrame(AreaSimple owner, float id, LayoutArea layout) {
         super(id, owner.iwin(), owner);
         this.layout = layout;
-        color1 = iwin().color1;
-        color2 = iwin().color2;
-        color3 = iwin().color3;
+        colorID1 = iwin().colorID1;
+        colorID2 = iwin().colorID2;
+        colorID3 = iwin().colorID3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
         initСonstructiv();
 
@@ -68,9 +68,9 @@ public class ElemFrame extends ElemSimple {
 
         specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
         specificationRec.setArtiklRec(artiklRec);
-        specificationRec.color1 = color1;
-        specificationRec.color2 = color2;
-        specificationRec.color3 = color3;
+        specificationRec.colorID1 = colorID1;
+        specificationRec.colorID2 = colorID2;
+        specificationRec.colorID3 = colorID3;
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
         specificationRec.anglHoriz = anglHoriz;
@@ -160,9 +160,9 @@ public class ElemFrame extends ElemSimple {
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec) == true) {
-            specif.color1 = iwin().colorNone;
-            specif.color2 = iwin().colorNone;
-            specif.color3 = iwin().colorNone;
+            specif.colorID1 = iwin().colorNone;
+            specif.colorID2 = iwin().colorNone;
+            specif.colorID3 = iwin().colorNone;
 
             //Всё остальное
         } else {
@@ -181,7 +181,7 @@ public class ElemFrame extends ElemSimple {
         float y1h = y1 + h;
         float y2h = y2 + h;
 
-        int rgb = eColor.find(color2).getInt(eColor.rgb);
+        int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (LayoutArea.ARCH == layout) { //прорисовка арки
             //TODO для прорисовки арки добавил один градус, а это не айс!
             //ElemFrame ef = owner.mapFrame.get(LayoutArea.ARCH);

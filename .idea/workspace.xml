@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99ae6245-888e-439c-bd72-618e7d73cd82" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/domain/eElemdet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/eElemdet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/estimate/model/Com5t.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/estimate/model/Com5t.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resource/xls/p601001.xls" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/xls/p601001.xls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resource/xls/p601003.xls" beforeDir="false" afterPath="$PROJECT_DIR$/src/resource/xls/p601003.xls" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +19,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -42,6 +45,7 @@
       <updated>1575915321689</updated>
       <workItem from="1575915325289" duration="28000" />
       <workItem from="1576336756634" duration="100000" />
+      <workItem from="1598645506866" duration="193000" />
     </task>
     <servers />
   </component>

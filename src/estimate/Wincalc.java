@@ -53,9 +53,9 @@ public class Wincalc {
     public float height = 0.f;    //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
     public final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
-    public int color1 = -1; //базовый цвет
-    public int color2 = -1; //внутренний цвет
-    public int color3 = -1; //внещний цвет
+    public int colorID1 = -1; //базовый цвет
+    public int colorID2 = -1; //внутренний цвет
+    public int colorID3 = -1; //внещний цвет
 
     public byte[] bufferByte = null; //буффер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
@@ -114,7 +114,7 @@ public class Wincalc {
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
             tariffication = new Tariffication(this); //тарификация
-            tariffication.calc();
+            //tariffication.calc();
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
@@ -153,9 +153,9 @@ public class Wincalc {
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
 
-            color1 = jsonObj.get("color1").getAsInt();
-            color2 = jsonObj.get("color2").getAsInt();
-            color3 = jsonObj.get("color3").getAsInt();
+            colorID1 = jsonObj.get("color1").getAsInt();
+            colorID2 = jsonObj.get("color2").getAsInt();
+            colorID3 = jsonObj.get("color3").getAsInt();
 
             //Главное окно
             String layoutObj = jsonObj.get("layoutArea").getAsString();
@@ -211,13 +211,13 @@ public class Wincalc {
             //Главное окно        
             Intermediate imdRoot = listIntermediate.getFirst();
             if (TypeElem.RECTANGL == imdRoot.type) {
-                rootArea = new AreaRectangl(this, null, imdRoot.id, TypeElem.RECTANGL, imdRoot.layout, imdRoot.width, imdRoot.height, color1, color2, color3, imdRoot.param); //простое
+                rootArea = new AreaRectangl(this, null, imdRoot.id, TypeElem.RECTANGL, imdRoot.layout, imdRoot.width, imdRoot.height, colorID1, colorID2, colorID3, imdRoot.param); //простое
             } else if (TypeElem.TRAPEZE == imdRoot.type) {
-                rootArea = new AreaTrapeze(this, null, imdRoot.id, TypeElem.TRAPEZE, imdRoot.layout, imdRoot.width, imdRoot.height, color1, color2, color3, imdRoot.param); //трапеция
+                rootArea = new AreaTrapeze(this, null, imdRoot.id, TypeElem.TRAPEZE, imdRoot.layout, imdRoot.width, imdRoot.height, colorID1, colorID2, colorID3, imdRoot.param); //трапеция
             } else if (TypeElem.TRIANGL == imdRoot.type) {
-                rootArea = new AreaTriangl(this, null, imdRoot.id, TypeElem.TRIANGL, imdRoot.layout, imdRoot.width, imdRoot.height, color1, color2, color3, imdRoot.param); //треугольник
+                rootArea = new AreaTriangl(this, null, imdRoot.id, TypeElem.TRIANGL, imdRoot.layout, imdRoot.width, imdRoot.height, colorID1, colorID2, colorID3, imdRoot.param); //треугольник
             } else if (TypeElem.ARCH == imdRoot.type) {
-                rootArea = new AreaArch(this, null, imdRoot.id, TypeElem.ARCH, imdRoot.layout, imdRoot.width, imdRoot.height, color1, color2, color3, imdRoot.param); //арка
+                rootArea = new AreaArch(this, null, imdRoot.id, TypeElem.ARCH, imdRoot.layout, imdRoot.width, imdRoot.height, colorID1, colorID2, colorID3, imdRoot.param); //арка
             }
             imdRoot.area5e = rootArea;
 

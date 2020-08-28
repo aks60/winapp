@@ -59,7 +59,7 @@ public class Furniture extends Cal5e {
                 //Подбор текстуры ручки створки
                 //Object colorHandl = areaStvorka.mapParamUse.get(ParamJson.colorHandl);
                 if (areaStvorka.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
-                    areaStvorka.handleColor = iwin().color1;
+                    areaStvorka.handleColor = iwin().colorID1;
                 }
                 if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDDL.id) {
                     areaStvorka.handleHeight = LayoutHandle.MIDDL.name;

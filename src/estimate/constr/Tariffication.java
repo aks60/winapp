@@ -137,9 +137,9 @@ public class Tariffication extends Cal5e {
         if (specifRec.artikl.equals(rulecalcRec.getStr(eArtikl.code))
                 || ((specifRec.artiklRec.getInt(eArtikl.level1) * 100
                 + specifRec.artiklRec.getInt(eArtikl.level1)) == rulecalcRec.getInt(eRulecalc.type))) { //артикл ИЛИ тип ИЛИ подтип совпали
-            if (Util.compareColor(arr1, specifRec.color1) == true
-                    && Util.compareColor(arr2, specifRec.color2) == true
-                    && Util.compareColor(arr3, specifRec.color3) == true) {
+            if (Util.compareColor(arr1, specifRec.colorID1) == true
+                    && Util.compareColor(arr2, specifRec.colorID2) == true
+                    && Util.compareColor(arr3, specifRec.colorID3) == true) {
                 if (rulecalcRec.getInt(eRulecalc.common) == 0) {
 
                     boolean ret = Util.compareFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quantity2);
@@ -195,9 +195,9 @@ public class Tariffication extends Cal5e {
      */
     public void calcCostPrice(Specification specificRec) {
 
-        Record color1Rec = eColor.find(specificRec.color1);  //
-        Record color2Rec = eColor.find(specificRec.color2);  //описание текстур
-        Record color3Rec = eColor.find(specificRec.color3);  //
+        Record color1Rec = eColor.find(specificRec.colorID1);  //
+        Record color2Rec = eColor.find(specificRec.colorID2);  //описание текстур
+        Record color3Rec = eColor.find(specificRec.colorID3);  //
 
         Record kursBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc1_id));    // кросс-курс валюты для основной текстуры
         Record kursNoBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc2_id));  // кросс-курс валюты для неосновных текстур (внутренняя, внешняя, двухсторонняя)

@@ -20,11 +20,11 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.script();
-            //wincalc();
+            wincalc();
             //query();            
             //frame();
             //parseJson();
-            test();
+            //test();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
