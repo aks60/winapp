@@ -5,6 +5,9 @@
  */
 package estimate.constr;
 
+import dataset.Record;
+import domain.eArtdet;
+import domain.eColor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -198,6 +201,25 @@ public class Util {
 
     protected boolean checkSize(float par, float... arr) {
         return true;
+    }
+
+    //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
+    protected static boolean IsArtTariffAppliesForColor(Record artdetRec, Record colorRec) {
+        if (artdetRec.getInt(eArtdet.color_fk) < 0) {    //этот тариф задан для группы текстур
+
+            if ((-1 * colorRec.getInt(eColor.colgrp_id)) == artdetRec.getInt(eArtdet.color_fk)) {
+                return true;
+            }
+        } else {  //проверяем не только colorCode, а еще и colorNumber
+            if (colorRec.getInt(eColor.id) == artdetRec.getInt(eArtdet.color_fk)) {
+                return true;
+
+            }
+//            else if (colorRec.cnumb == artdetRec.getInt(eArtdet.color_fk)) {
+//                return true;
+//            }
+        }
+        return false;
     }
 
 //    public static void test_param(int[] paramArr) {

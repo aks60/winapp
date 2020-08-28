@@ -1,6 +1,7 @@
 package estimate.constr;
 
 import dataset.Record;
+import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
 import enums.UseUnit;
@@ -127,43 +128,51 @@ public class Specification {
     }
 
     //TODO ВАЖНО !!! необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
-    public void setColor(Com5t com5t, int types, int colorFk) {  //см. http://help.profsegment.ru/?id=1107
+    public void setColor(Com5t com5t, Record record) {  //см. http://help.profsegment.ru/?id=1107
         //color1 = determineColorCodeForArt(com5t, 1, paramRec, this);
         //color2 = determineColorCodeForArt(com5t, 2, paramRec, this);
         //color3 = determineColorCodeForArt(com5t, 3, paramRec, this);
         //public int determineColorCodeForArt(Com5t com5t, int color_side, Record paramRec, Specification specif) {
-        
+
+        int types = record.getInt(2);
+        int colorFk = record.getInt(3);
         int[] colors = {color1, color2, color3};
         for (int index = 1; index < 4; ++index) {
 
-        int colorCode = getColorFromProduct(com5t, index, types, colorFk);
-        Record colorRec = eColor.find(colorCode);
-//            Colslst clslstRecr = Colslst.get2(constr, colorCode);
-        //Автоподбор текстуры
-        if (colorFk == 0) {
-            boolean colorOK = false;
-            int firstFoundColorNumber = 0;
-            for (Artsvst artsvstRec : constr.artsvstMap.get(specif.artikl)) {
-                if ((color_side == 1 && CanBeUsedAsBaseColor(artsvstRec))
-                        || (color_side == 2 && CanBeUsedAsInsideColor(artsvstRec))
-                        || (color_side == 3 && CanBeUsedAsOutsideColor(artsvstRec))) {
+            int colorCode = getColorFromProduct(com5t, index, record);
+            Record colorRec = eColor.find(colorCode);
+            
+            //Автоподбор текстуры
+            if (colorFk == 0) {
+                boolean colorOK = false;
+                int firstFoundColorNumber = 0;
+                Record artiklRec = eArtikl.find2(artikl);
+                List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+//                for (Record artdetRec : artdetList) {
+//                    if ((index == 1 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0)
+//                            || (index == 2 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0)
+//                            || (index == 3 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0)) {
+//
+//                        if (Util.IsArtTariffAppliesForColor(artdetRec, colorRec)) {
+//                            colorOK = true;
+//                            break;
+//                        } else if (firstFoundColorNumber == 0) {
+//                            firstFoundColorNumber = artdetRec.clnum;
+//                        }
+//                    }
+//                }
+//                if (colorOK) {
+//                    return colorCode;
+//                } else if (firstFoundColorNumber > 0) {
+//                    return Colslst.get(constr, firstFoundColorNumber).ccode;
+//                } else {
+//                    return root.getIwin().getColorNone();
+//                }
 
-                    if (IsArtTariffAppliesForColor(artsvstRec, clslstRecr)) {
-                        colorOK = true;
-                        break;
-                    } else if (firstFoundColorNumber == 0)
-                        firstFoundColorNumber = artsvstRec.clnum;
-                }
+                //указана
+                //} else if (vstaspcRec.clnum() == 1) {
+                //    return colorCode;
             }
-            if (colorOK) return colorCode;
-            else if (firstFoundColorNumber > 0) return Colslst.get(constr, firstFoundColorNumber).ccode;
-            else return root.getIwin().getColorNone();
-
-            //указана
-            //} else if (vstaspcRec.clnum() == 1) {
-            //    return colorCode;
-
-        } 
 //  else if (paramRec.clnum() == 100000) {
 //            return colorCode;
 //
@@ -187,13 +196,13 @@ public class Specification {
 //                // Если основная текстура изделия может быть основной текстурой для данного артикула (по тарифу мат.ценностей), то используем ее.
 //                // Иначе - используем CLNUM как основную текстуру. Аналогично для внутренней и внешней текстур.
 //
-//                int colorNumber = Colslst.get2(constr, root.getIwin().getColorProfile(color_side)).cnumb;
+//                int colorNumber = Colslst.get2(constr, root.getIwin().getColorProfile(index)).cnumb;
 //                boolean colorFound = false;
 //                for (Artsvst artsvst : constr.artsvstMap.get(specif.artikl)) {
 //
-//                    if ((color_side == 1 && CanBeUsedAsBaseColor(artsvst)) ||
-//                            (color_side == 2 && CanBeUsedAsInsideColor(artsvst)) ||
-//                            (color_side == 3 && CanBeUsedAsOutsideColor(artsvst))) {
+//                    if ((index == 1 && CanBeUsedAsBaseColor(artsvst)) ||
+//                            (index == 2 && CanBeUsedAsInsideColor(artsvst)) ||
+//                            (index == 3 && CanBeUsedAsOutsideColor(artsvst))) {
 //
 //                        if (IsArtTariffAppliesForColor(artsvst, clslstRecr) == true) {
 //                            for (Parcols parcolsRec : constr.parcolsList) {
@@ -207,14 +216,16 @@ public class Specification {
 //            }
 //        }
             //return colorCode;
-            
+
             colors[index] = -1;
         }
     }
 
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры
     //public int getColorFromProduct(Com5t com5t, int colorSide, int type, int colorId) {
-    public int getColorFromProduct(Com5t com5t, int colorSide, int types, int colorFk) {
+    public int getColorFromProduct(Com5t com5t, int colorSide, Record record) {
+        int types = record.getInt(2);
+        int colorFk = record.getInt(3);
         int colorType = (colorSide == 1) ? types & 0x0000000f : (colorSide == 2) ? types & 0x000000f0 >> 4 : types & 0x00000f00 >> 8;
         switch (colorType) {
             case 0:  //указана
