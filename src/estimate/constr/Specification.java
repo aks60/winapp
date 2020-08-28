@@ -127,10 +127,123 @@ public class Specification {
     }
 
     //TODO ВАЖНО !!! необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
-    public void setColor(Com5t com5t, Record paramRec) {
-//        color1 = determineColorCodeForArt(com5t, 1, paramRec, this);
-//        color2 = determineColorCodeForArt(com5t, 2, paramRec, this);
-//        color3 = determineColorCodeForArt(com5t, 3, paramRec, this);
+    public void setColor(Com5t com5t, int types, int colorFk) {
+        //color1 = determineColorCodeForArt(com5t, 1, paramRec, this);
+        //color2 = determineColorCodeForArt(com5t, 2, paramRec, this);
+        //color3 = determineColorCodeForArt(com5t, 3, paramRec, this);
+        //public int determineColorCodeForArt(Com5t com5t, int color_side, Record paramRec, Specification specif) {
+        
+        int[] colors = {color1, color2, color3};
+        for (int index = 1; index < 4; ++index) {
+
+        int colorCode = getColorFromProduct(com5t, index, types, colorFk);
+        Record colorRec = eColor.find(colorCode);
+//            Colslst clslstRecr = Colslst.get2(constr, colorCode);
+        //Автоподбор текстуры
+        if (colorFk == 0) {
+            boolean colorOK = false;
+            int firstFoundColorNumber = 0;
+            for (Artsvst artsvstRec : constr.artsvstMap.get(specif.artikl)) {
+                if ((color_side == 1 && CanBeUsedAsBaseColor(artsvstRec))
+                        || (color_side == 2 && CanBeUsedAsInsideColor(artsvstRec))
+                        || (color_side == 3 && CanBeUsedAsOutsideColor(artsvstRec))) {
+
+                    if (IsArtTariffAppliesForColor(artsvstRec, clslstRecr)) {
+                        colorOK = true;
+                        break;
+                    } else if (firstFoundColorNumber == 0)
+                        firstFoundColorNumber = artsvstRec.clnum;
+                }
+            }
+            if (colorOK) return colorCode;
+            else if (firstFoundColorNumber > 0) return Colslst.get(constr, firstFoundColorNumber).ccode;
+            else return root.getIwin().getColorNone();
+
+            //указана
+            //} else if (vstaspcRec.clnum() == 1) {
+            //    return colorCode;
+
+        } 
+//  else if (paramRec.clnum() == 100000) {
+//            return colorCode;
+//
+//
+//            //Текстура задана через параметр
+//        } else if (paramRec.clnum() < 0) {
+//            if (colorCode == root.getIwin().getColorNone()) {
+//                for (Parcols parcolsRec : constr.parcolsList) {
+//                    if (parcolsRec.pnumb == paramRec.clnum()) {
+//                        int code = Colslst.get3(constr, parcolsRec.ptext).ccode;
+//                        if (code != -1) return code;
+//                    }
+//                }
+//            }
+//            return colorCode;
+//
+//            //В clnum указан цвет.
+//        } else {
+//            if (colorCode == root.getIwin().getColorNone()) {    //видимо во всех текстурах стоит значение "Указана"
+//                // Подбираем цвет так (придумала Л.Цветкова):
+//                // Если основная текстура изделия может быть основной текстурой для данного артикула (по тарифу мат.ценностей), то используем ее.
+//                // Иначе - используем CLNUM как основную текстуру. Аналогично для внутренней и внешней текстур.
+//
+//                int colorNumber = Colslst.get2(constr, root.getIwin().getColorProfile(color_side)).cnumb;
+//                boolean colorFound = false;
+//                for (Artsvst artsvst : constr.artsvstMap.get(specif.artikl)) {
+//
+//                    if ((color_side == 1 && CanBeUsedAsBaseColor(artsvst)) ||
+//                            (color_side == 2 && CanBeUsedAsInsideColor(artsvst)) ||
+//                            (color_side == 3 && CanBeUsedAsOutsideColor(artsvst))) {
+//
+//                        if (IsArtTariffAppliesForColor(artsvst, clslstRecr) == true) {
+//                            for (Parcols parcolsRec : constr.parcolsList) {
+//                                if (parcolsRec.pnumb == paramRec.clnum()) {
+//                                    return Integer.valueOf(parcolsRec.ptext);
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+            //return colorCode;
+            
+            colors[index] = -1;
+        }
+    }
+
+    // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры
+    //public int getColorFromProduct(Com5t com5t, int colorSide, int type, int colorId) {
+    public int getColorFromProduct(Com5t com5t, int colorSide, int types, int colorFk) {
+        int colorType = (colorSide == 1) ? types & 0x0000000f : (colorSide == 2) ? types & 0x000000f0 >> 4 : types & 0x00000f00 >> 8;
+        switch (colorType) {
+            case 0:  //указана
+                return colorFk;
+            case 1:        // по основе изделия
+                return elem5e.iwin().color1;
+            case 2:        // по внутр.изделия
+                return elem5e.iwin().color2;
+            case 3:        // по внешн.изделия
+                return elem5e.iwin().color3; //elem.getColor(3); 
+            case 4:        // по параметру (внутр.)
+                return -1;
+            case 6:        // по основе в серии
+                return elem5e.iwin().color1;
+            case 7:        // по внутр. в серии
+                return elem5e.iwin().color2;
+            case 8:        // по внешн. в серии
+                return elem5e.iwin().color3; //elem.getColor(3);
+            case 9:        // по параметру (основа)
+                return -1;
+            case 11:       // по профилю
+                return elem5e.iwin().color1;
+            case 12:       // по параметру (внешн.)    
+                return -1;
+            case 15:       // по заполнению
+                return com5t.color1;
+            default:    // без цвета
+                return elem5e.iwin().colorNone;
+        }
     }
 
     protected void setAnglCut() {
@@ -247,10 +360,9 @@ public class Specification {
             System.err.println("Ошибка estimate.constr.write_txt2() " + e);
         }
     }
-    
-    
-//сравнение спецификации с профстроем
-public static void compareIWin(ArrayList<Specification> spcList, int prj, boolean frame) {
+
+    //сравнение спецификации с профстроем
+    public static void compareIWin(ArrayList<Specification> spcList, int prj, boolean frame) {
 
         //TODO нужна синхронизация функции
         Float iwinTotal = 0f, jarTotal = 0f;
@@ -276,7 +388,9 @@ public static void compareIWin(ArrayList<Specification> spcList, int prj, boolea
                 String art = sheet.getCell(1, i).getContents().trim();
                 String key = sheet.getCell(2, i).getContents().trim().replaceAll("[\\s]{1,}", " ");
                 String val = sheet.getCell(10, i).getContents();
-                if (key.isEmpty() || art.isEmpty() || val.isEmpty()) continue;
+                if (key.isEmpty() || art.isEmpty() || val.isEmpty()) {
+                    continue;
+                }
 
                 val = val.replaceAll("[\\s|\\u00A0]+", "");
                 val = val.replace(",", ".");
@@ -304,8 +418,9 @@ public static void compareIWin(ArrayList<Specification> spcList, int prj, boolea
                     iwinTotal = iwinTotal + val1;
                 }
                 System.out.println();
-                if (hmJar.isEmpty() == false)
+                if (hmJar.isEmpty() == false) {
                     System.out.printf("%-72s%-24s%-20s", new Object[]{"Name", "Artikl", "Value"});
+                }
                 System.out.println();
                 for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
                     String key = entry.getKey();
@@ -336,5 +451,5 @@ public static void compareIWin(ArrayList<Specification> spcList, int prj, boolea
         } catch (Exception e2) {
             System.err.println("Ошибка Main.compareIWin " + e2);
         }
-    }    
+    }
 }
