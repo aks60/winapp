@@ -127,7 +127,7 @@ public class Specification {
     }
 
     //TODO ВАЖНО !!! необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
-    public void setColor(Com5t com5t, int types, int colorFk) {
+    public void setColor(Com5t com5t, int types, int colorFk) {  //см. http://help.profsegment.ru/?id=1107
         //color1 = determineColorCodeForArt(com5t, 1, paramRec, this);
         //color2 = determineColorCodeForArt(com5t, 2, paramRec, this);
         //color3 = determineColorCodeForArt(com5t, 3, paramRec, this);
