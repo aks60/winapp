@@ -132,47 +132,35 @@ public class Specification {
     }
 
     //TODO ВАЖНО !!! необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
-    public void setColor(Com5t com5t, Record record) {  //см. http://help.profsegment.ru/?id=1107
-        //color1 = determineColorCodeForArt(com5t, 1, paramRec, this);
-        //color2 = determineColorCodeForArt(com5t, 2, paramRec, this);
-        //color3 = determineColorCodeForArt(com5t, 3, paramRec, this);
-        //public int determineColorCodeForArt(Com5t com5t, int color_side, Record paramRec, Specification specif) {
-
-        int types = record.getInt(2);
-        int colorFk = record.getInt(3);
-        //int[] colors = {color1, color2, color3};
+    public void setColor(Com5t com5t, Record record) {  //см. http://help.profsegment.ru/?id=1107        
+        int constr_types = record.getInt(2);
+        int constr_colorFk = record.getInt(3);
+        
+        //Цыкл по 3 сторонам текстур
         for (int index = 1; index < 4; ++index) {
 
-            int colorCode = getColorFromProduct(com5t, index, record);
-            Record colorRec = eColor.find(colorCode);
+            int colorID = getColorFromProduct(com5t, index, record); //подбор цвета для сторон
+            Record colorRec = eColor.find(colorID);
 
             //Автоподбор текстуры
-            if (colorFk == 0) {
-                boolean colorOK = false;
-                int firstFoundColorFk = 0;
+            if (constr_colorFk == 0) {
+
                 Record artiklRec = eArtikl.find2(artikl);
                 List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+                //Цыкл по ARTDET определённого артикула
                 for (Record artdetRec : artdetList) {
-                    if ((index == 1 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0)
-                            || (index == 2 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0)
-                            || (index == 3 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0)) {
-
-                        if (Util.IsArtTariffAppliesForColor(artdetRec, colorRec)) {
-                            colorOK = true;
-                            break;
-                        } else if (firstFoundColorFk == 0) {
-                            firstFoundColorFk = artdetRec.getInt(eArtdet.color_fk);
+                    
+                    if (canBeUsedColor(index, artdetRec) == true) {
+                        if(artdetRec.getInt(eArtdet.color_fk) < 0) { //группа текстур
+                            List<Record> list = eColor.find2(artdetRec.getInt(eArtdet.color_fk));
+                           for(Record colorRec2: list) {
+                               
+                           }
+                        } else if(artdetRec.getInt(eArtdet.color_fk) == colorID) {
+                          setColor(index, colorID);  
                         }
                     }
                 }
-//                if (colorOK) {
-//                    return colorCode;
-//                } else if (firstFoundColorFk > 0) {
-//                    return Colslst.get(constr, firstFoundColorFk).ccode;
-//                } else {
-//                    return root.getIwin().getColorNone();
-//                }
-
                 //указана
                 //} else if (vstaspcRec.clnum() == 1) {
                 //    return colorCode;
@@ -221,6 +209,16 @@ public class Specification {
 //        }
             //return colorCode;
         }
+    }
+
+    //Cторона подлежит рассмотрению ?
+    public boolean canBeUsedColor(int side, Record artdetRec) {
+        if ((side == 1 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0)
+                || (side == 2 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0)
+                || (side == 3 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0)) {
+            return true;
+        }
+        return false;
     }
 
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры

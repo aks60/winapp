@@ -10,6 +10,8 @@ import static domain.eArtdet.id;
 import static domain.eArtikl.code;
 import static domain.eArtikl.up;
 import static domain.eArtikl.values;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public enum eColor implements Field {
     up("0", "0", "0", "Описание текстур", "COLSLST"),
@@ -55,7 +57,7 @@ public enum eColor implements Field {
         }
         return query;
     }
-
+   
     public static Record find(int _id) {
         if (_id == -1) {
             return record();
@@ -65,6 +67,14 @@ public enum eColor implements Field {
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
+    public static List<Record> find2(int _colgrp_id) {
+
+        if (conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(colgrp_id) == _colgrp_id).collect(toList());
+        }
+        return new Query(values()).select(up, "where", colgrp_id, "=", _colgrp_id);     
     }
 
     public static Record record() {
