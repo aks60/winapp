@@ -135,12 +135,12 @@ public class Specification {
     public void setColor(Com5t com5t, Record record) {  //см. http://help.profsegment.ru/?id=1107        
         int constr_types = record.getInt(2);
         int constr_colorFk = record.getInt(3);
-        
-        //Цыкл по 3 сторонам текстур
+
+        //Цыкл по сторонам текстур
         for (int index = 1; index < 4; ++index) {
 
             int colorID = getColorFromProduct(com5t, index, record); //подбор цвета для сторон
-            Record colorRec = eColor.find(colorID);
+            // Record colorRec = eColor.find(colorID);
 
             //Автоподбор текстуры
             if (constr_colorFk == 0) {
@@ -149,28 +149,30 @@ public class Specification {
                 List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
                 //Цыкл по ARTDET определённого артикула
                 for (Record artdetRec : artdetList) {
-                    
+
                     if (canBeUsedColor(index, artdetRec) == true) {
-                        if(artdetRec.getInt(eArtdet.color_fk) < 0) { //группа текстур
-                            List<Record> list = eColor.find2(artdetRec.getInt(eArtdet.color_fk));
-                           for(Record colorRec2: list) {
-                               
-                           }
-                        } else if(artdetRec.getInt(eArtdet.color_fk) == colorID) {
-                          setColor(index, colorID);  
+                        if (artdetRec.getInt(eArtdet.color_fk) < 0) { //группа текстур
+                            List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk));
+                            for (Record colorRec : colorList) {
+                                if (colorRec.getInt(eColor.id) == colorID) {
+                                    setColor(index, colorID);
+                                }
+                            }
+                        } else if (artdetRec.getInt(eArtdet.color_fk) == colorID) {
+                            setColor(index, colorID);
                         }
                     }
                 }
                 //указана
                 //} else if (vstaspcRec.clnum() == 1) {
                 //    return colorCode;
-            }
-//  else if (paramRec.clnum() == 100000) {
-//            return colorCode;
-//
-//
-//            //Текстура задана через параметр
-//        } else if (paramRec.clnum() < 0) {
+
+                //Точный подбор    
+            } else if (constr_colorFk == 100000) {
+                setColor(index, colorID);
+
+                //Текстура задана через параметр
+            } else if (constr_colorFk < 0) {
 //            if (colorCode == root.getIwin().getColorNone()) {
 //                for (Parcols parcolsRec : constr.parcolsList) {
 //                    if (parcolsRec.pnumb == paramRec.clnum()) {
@@ -206,7 +208,7 @@ public class Specification {
 //                    }
 //                }
 //            }
-//        }
+            }
             //return colorCode;
         }
     }
