@@ -87,7 +87,7 @@ public class Elements extends Cal5e {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(artiklRec, elem5e, mapParam);
-                            specif.setColor(elem5e, elemdetRec);
+                            Color.setting(specif, elemdetRec);
                             specif.place = "СОСТ";
                             elem5e.addSpecific(specif); //добавим спецификацию в элемент
                         }

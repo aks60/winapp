@@ -51,21 +51,21 @@ public enum eArtdet implements Field {
         return values();
     }
 
-    public static List<Record> find(int _id) {
+    public static List<Record> find(int _artikl_id) {
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(artikl_id) == _id).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).collect(toList());
         }
-        return new Query(values()).select(up, "where", artikl_id, "=", _id, "order by", id);
+        return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id, "order by", id);
     }
 
-    public static Record find2(int _id) {
-        if (_id == -1) {
+    public static Record find2(int _artikl_id) {
+        if (_artikl_id == -1) {
             return record();
         }
         if (conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(artikl_id) == _id).findFirst().orElse(null);
+            return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).findFirst().orElse(null);
         }
-        List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _id);
+        List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _artikl_id);
         return record.get(0);
     }
 
