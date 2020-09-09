@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 public enum eGlasdet implements Field {
     up("0", "0", "0", "Специф.групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),
-    types("5", "5", "1", "Подбор текстуры", "CTYPE"),
-    depth("8", "15", "1", "Толщина", "AFRIC"),
+    types("5", "5", "1", "Подбор текстуры", "CTYPE"),    
     color_fk("4", "10", "1", "Ссылка", "CLNUM"),
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
+    depth("8", "15", "1", "Толщина", "AFRIC"),
     glasgrp_id("4", "10", "0", "Ссылка", "glassgrp_id");
     //gnumb("4", "10", "1", "GLASS_ID", "GNUMB"),
     //gunic("4", "10", "1", "ID_GLASDET", "GUNIC"), 

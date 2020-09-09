@@ -56,18 +56,30 @@ public class Record<E> extends ArrayList<E> {
     }
 
     public int getInt(int index) {
-        Object obj = super.get(index);
-        return (obj == null) ? -1 : Integer.valueOf(String.valueOf(obj));
+        try {
+            Object obj = super.get(index);
+            return (obj == null) ? -1 : Integer.parseInt(String.valueOf(obj));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public float getFloat(int index) {
-        Object obj = super.get(index);
-        return (obj == null) ? -1 : Float.valueOf(String.valueOf(obj));
+        try {
+            Object obj = super.get(index);
+            return (obj == null) ? -1 : Float.valueOf(String.valueOf(obj));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public double getDbl(int index) {
-        Object obj = super.get(index);
-        return (obj == null) ? -1 : Double.valueOf(String.valueOf(obj));
+        try {
+            Object obj = super.get(index);
+            return (obj == null) ? -1 : Double.valueOf(String.valueOf(obj));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public Date getDate(int index) {

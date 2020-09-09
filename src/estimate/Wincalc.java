@@ -114,7 +114,7 @@ public class Wincalc {
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
             tariffication = new Tariffication(this); //тарификация
-            //tariffication.calc();
+            tariffication.calc();
 
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);

@@ -28,7 +28,8 @@ public class Color {
                     int colorFK = artdetRec.getInt(eArtdet.color_fk);
                     if (colorFK > 0) {
                         spc.setColor(side, colorFK);
-                    } else {
+                        
+                    } else if (colorFK != -1){
                         colorId = eColor.find2(colorFK).get(0).getInt(eColor.id);
                     }
                 } else {
@@ -39,8 +40,8 @@ public class Color {
                 spc.setColor(side, colorId);
 
             } else if (colorFk > 0 && colorFk != 100000) { //указана
-                int colorFK = indicated(spc.artikl, side, colorFk);
-                spc.setColor(side, colorFK);
+                //int colorFK = indicated(spc.artikl, side, colorFk); //а нужна ли эта проверка
+                spc.setColor(side, colorFk);
 
             } else if (colorFk < 0) { //текстура задана через параметр
                 int colorFK = parametr();
@@ -51,9 +52,8 @@ public class Color {
 
     //Автоподбор и точный подбор текстуры
     private static int location(String artikl, int side, int colorID) {
-
         Record artiklRec = eArtikl.find2(artikl);
-        List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+        List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));
         //Цыкл по ARTDET определённого артикула
         for (Record artdetRec : artdetList) {
             if (canBeUsed(side, artdetRec) == true) {
@@ -76,7 +76,7 @@ public class Color {
     //Текстура указана в настройках конструктива
     private static int indicated(String artikl, int side, int colorID) {
         Record artiklRec = eArtikl.find2(artikl);
-        List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+        List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));
         //Цыкл по ARTDET определённого артикула
         for (Record artdetRec : artdetList) {
             if (canBeUsed(side, artdetRec) == true) {

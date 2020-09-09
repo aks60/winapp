@@ -51,9 +51,6 @@ public class Tariffication extends Cal5e {
         super(iwin);
     }
 
-    /**
-     * @param elemList - список элементов окна рамы, импосты, стеклопакеты...
-     */
     public void calc() {
 
         float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
@@ -126,9 +123,7 @@ public class Tariffication extends Cal5e {
         }
     }
 
-    /**
-     * Фильтр по полю riskl, colorXXX таблицы rulecls
-     */
+    //Фильтр по полю form, color(1,2,3) таблицы RULECALC
     private void checkRuleColor(Record rulecalcRec, Specification specifRec) {
 
         Integer[] arr1 = Util.parserInt(rulecalcRec.getStr(eRulecalc.color1));
@@ -189,10 +184,8 @@ public class Tariffication extends Cal5e {
         }
     }
 
-    /**
-     * Считает тариф для заданного артикула заданных цветов по таблице eArtdet
-     * (Материальные ценности -> нижняя таблица)
-     */
+    //Считает тариф для заданного артикула заданных цветов по таблице eArtdet
+    //(Материальные ценности -> нижняя таблица)
     public void calcCostPrice(Specification specificRec) {
 
         Record color1Rec = eColor.find(specificRec.colorID1);  //
