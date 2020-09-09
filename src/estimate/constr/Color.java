@@ -13,7 +13,7 @@ public class Color {
     private static int COLOR_FK = 3;
     private static int ARTIKL_ID = 4;
 
-    //TODO ВАЖНО !!! необходимо по умолчанию устонавливать colorNone = 1005 - без цвета
+    //TODO ВАЖНО !!! необходимо по умолчанию устанавливать colorNone = 1005 - без цвета
     public static void setting(Specification spc, Record spcdetRec) {  //см. http://help.profsegment.ru/?id=1107        
         int colorFk = spcdetRec.getInt(COLOR_FK);
 
