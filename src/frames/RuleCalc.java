@@ -45,8 +45,6 @@ public class RuleCalc extends javax.swing.JFrame {
         };
         checkFilter = new javax.swing.JCheckBox();
         centr = new javax.swing.JPanel();
-        scr1 = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -198,19 +196,6 @@ public class RuleCalc extends javax.swing.JFrame {
         centr.setPreferredSize(new java.awt.Dimension(900, 550));
         centr.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(200, 564));
-
-        tree.setEditable(true);
-        tree.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                treeMousePressed(evt);
-            }
-        });
-        scr1.setViewportView(tree);
-
-        centr.add(scr1, java.awt.BorderLayout.WEST);
-
         pan1.setPreferredSize(new java.awt.Dimension(602, 565));
         pan1.setLayout(new java.awt.BorderLayout());
 
@@ -222,7 +207,7 @@ public class RuleCalc extends javax.swing.JFrame {
                 {"2", "2", "2", "2", "2", "2", "2", null, "2", "2", "2"}
             },
             new String [] {
-                "Наименование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Текстура 1", "Текстура 2", "Текстура 3", "Форма позиции"
+                "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Текстура 1", "Текстура 2", "Текстура 3", "Форма позиции"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -268,10 +253,6 @@ public class RuleCalc extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtFilterfilterCaretUpdate
 
-    private void treeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeMousePressed
-
-    }//GEN-LAST:event_treeMousePressed
-
     private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
 
         JTable table = (JTable) evt.getSource();
@@ -294,11 +275,9 @@ public class RuleCalc extends javax.swing.JFrame {
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
-    private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab2;
-    private javax.swing.JTree tree;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
