@@ -39,7 +39,7 @@ public class Color {
                 spc.setColor(side, colorId);
 
             } else if (colorFk > 0 && colorFk != 100000) { //указана
-                int colorFK = indicated(side);
+                int colorFK = indicated(spc.artikl, side, colorFk);
                 spc.setColor(side, colorFK);
 
             } else if (colorFk < 0) { //текстура задана через параметр
@@ -58,7 +58,7 @@ public class Color {
         for (Record artdetRec : artdetList) {
             if (canBeUsed(side, artdetRec) == true) {
                 if (artdetRec.getInt(eArtdet.color_fk) < 0) { //группа текстур
-                    
+
                     List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk));
                     for (Record colorRec : colorList) {
                         if (colorRec.getInt(eColor.id) == colorID) {
@@ -73,30 +73,19 @@ public class Color {
         return -1;
     }
 
-    //Текстура указана
-    private static int indicated(int index) {
-//            if (colorCode == root.getIwin().getColorNone()) {    //видимо во всех текстурах стоит значение "Указана"
-//                // Подбираем цвет так (придумала Л.Цветкова):
-//                // Если основная текстура изделия может быть основной текстурой для данного артикула (по тарифу мат.ценностей), то используем ее.
-//                // Иначе - используем CLNUM как основную текстуру. Аналогично для внутренней и внешней текстур.
-//
-//                int colorNumber = Colslst.get2(constr, root.getIwin().getColorProfile(index)).cnumb;
-//                boolean colorFound = false;
-//                for (Artsvst artsvst : constr.artsvstMap.get(specif.artikl)) {
-//
-//                    if (canBeUsed(index, artdetRec) == true) {
-//
-//                        if (IsArtTariffAppliesForColor(artsvst, clslstRecr) == true) {
-//                            for (Parcols parcolsRec : constr.parcolsList) {
-//                                if (parcolsRec.pnumb == paramRec.clnum()) {
-//                                    return Integer.valueOf(parcolsRec.ptext);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }        
-        return -1;
+    //Текстура указана в настройках конструктива
+    private static int indicated(String artikl, int side, int colorID) {
+        Record artiklRec = eArtikl.find2(artikl);
+        List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+        //Цыкл по ARTDET определённого артикула
+        for (Record artdetRec : artdetList) {
+            if (canBeUsed(side, artdetRec) == true) {
+                if (artdetRec.getInt(eArtdet.color_fk) == colorID) { //если есть такая текстура в ARTDET
+                    return colorID;
+                }
+            }
+        }
+        return -1; //иначе виртуальный цвет
     }
 
     //TODO - Текстура задана через параметр
@@ -111,7 +100,7 @@ public class Color {
 //                }
 //            }
 //            return colorCode;
-        return -1;
+        return -1; //иначе виртуальный цвет
     }
 
     //Cторона подлежит рассмотрению ?
@@ -123,7 +112,7 @@ public class Color {
         }
         return false;
     }
-    
+
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры
     public static int colorFromProduct(Com5t com5t, int colorSide, Record record) {
         int types = record.getInt(TYPES);
