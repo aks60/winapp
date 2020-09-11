@@ -1,31 +1,86 @@
 package frames;
 
+import common.DialogListener;
 import common.FrameToFile;
+import dataset.ConnApp;
+import dataset.Field;
 import dataset.Query;
-import domain.eElemgrp;
+import dataset.Record;
+import domain.eArtikl;
+import domain.eElemdet;
+import domain.eElement;
+import domain.eFurniture;
 import domain.eRulecalc;
+import enums.TypeFormProf;
+import frames.dialog.DicArtikl;
+import frames.dialog.DicEnums;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class RuleCalc extends javax.swing.JFrame {
 
-    private Query qRulecalc = new Query(eRulecalc.values());
+    private Query qRulecalc = new Query(eRulecalc.values(), eArtikl.values());
+    private DialogListener listenerArtikl, listenerForm;
 
     public RuleCalc() {
         initComponents();
         initElements();
+        listenerDict();
         loadingData();
         loadingModel();
     }
 
     private void loadingData() {
-          qRulecalc.select(eRulecalc.up, "order by", eRulecalc.type);
+        qRulecalc.select(eRulecalc.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eRulecalc.artikl_id, "order by", eRulecalc.type);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab2, qRulecalc, eRulecalc.name, eRulecalc.artikl, eRulecalc.artikl, eRulecalc.quant, eRulecalc.size,
-                eRulecalc.coeff, eRulecalc.incr, eRulecalc.color1, eRulecalc.color2, eRulecalc.color3, eRulecalc.form);
+        new DefTableModel(tab2, qRulecalc, eRulecalc.name, eArtikl.code, eArtikl.name, eRulecalc.quant, eRulecalc.size,
+                eRulecalc.coeff, eRulecalc.incr, eRulecalc.color1, eRulecalc.color2, eRulecalc.color3, eRulecalc.form) {
+
+            public Object getValueAt(int col, int row, Object val) {
+
+                Field field = columns[col];
+                if (eRulecalc.id == field) {
+                    return val;
+                } else if (eRulecalc.form == field) {
+                    int val2 = (val.equals(0) == true) ? 1 : Integer.valueOf(val.toString());
+                    return TypeFormProf.P00.find(val2).text();
+                }
+                return val;
+            }
+        };
+        
+        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
+        });
+
+        Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
+            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
+        });
+        Util.buttonEditorCell(tab2, 10).addActionListener(event -> {
+            int form = qRulecalc.getAs(Util.getSelectedRec(tab2), eRulecalc.form);
+            DicEnums frame = new DicEnums(this, listenerForm, TypeFormProf.values());
+        });
+    }
+
+    private void listenerDict() {
+        listenerArtikl = (record) -> {
+            Util.stopCellEditing(tab2);
+                int row = Util.getSelectedRec(tab2);
+                qRulecalc.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElemdet.artikl_id);
+                qRulecalc.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
+                qRulecalc.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+        };
+        
+        listenerForm = (record) -> {
+            Util.listenerEnums(record, tab2, eRulecalc.form, tab2);
+        };
     }
 
     @SuppressWarnings("unchecked")
@@ -50,6 +105,12 @@ public class RuleCalc extends javax.swing.JFrame {
         tab2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Правило расчёта");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                RuleCalc.this.windowClosed(evt);
+            }
+        });
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -219,6 +280,11 @@ public class RuleCalc extends javax.swing.JFrame {
             }
         });
         scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(10).setMinWidth(180);
+        }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
 
@@ -234,15 +300,34 @@ public class RuleCalc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        Arrays.asList(tab2).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        loadingData();
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab2);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
+        if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?", "Предупреждение",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
+            int row = Util.getSelectedRec(tab2);
+            if (row != -1) {
+                Record record = qRulecalc.get(row);
+                record.set(eRulecalc.up, Query.DEL);
+                qRulecalc.delete(record);
+                qRulecalc.removeRec(row);
+                ((DefTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2);
+            }
+        }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-
+        Record currencRec = qRulecalc.newRecord(Query.INS);
+        currencRec.setNo(eRulecalc.id, ConnApp.instanc().genId(eRulecalc.up));
+        qRulecalc.add(currencRec);
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        Util.scrollRectToVisible(qRulecalc, tab2);
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -262,6 +347,11 @@ public class RuleCalc extends javax.swing.JFrame {
             txtFilter.setName(table.getName());
         }
     }//GEN-LAST:event_tab2tabMousePressed
+
+    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
+        Util.stopCellEditing(tab2);
+        qRulecalc.execsql();
+    }//GEN-LAST:event_windowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables

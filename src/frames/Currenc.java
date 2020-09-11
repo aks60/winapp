@@ -14,12 +14,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
+import java.util.Arrays;
 
 public class Currenc extends javax.swing.JFrame {
 
     private DialogListener listener = null;
     private Window owner = null;
-    private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up, "order by", eCurrenc.name);
+    private Query qCurrenc = new Query(eCurrenc.values());
 
     public Currenc() {
         initComponents();
@@ -39,6 +40,10 @@ public class Currenc extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    private void loadingData() {
+        qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
+    }
+    
     private void loadingModel() {
         new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour);
     }
@@ -258,7 +263,9 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qCurrenc.select(eCurrenc.up);
+        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        loadingData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
 

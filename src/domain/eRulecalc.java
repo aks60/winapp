@@ -12,7 +12,6 @@ public enum eRulecalc implements Field {
     //numb("4", "10", "1", "Номер", "RNUMB"),
     //unic("4", "10", "1", "Идентификатор 2", "RUNIC"),
     name("12", "64", "1", "Название правила", "RNAME"),
-    artikl("12", "32", "1", "Артикул", "ANUMB"),
     type("5", "5", "1", "Тип материальных ценностей (502 - заполнение)", "RUSED"),
     coeff("8", "15", "1", "Коэффициент", "RKOEF"),
     quant("12", "96", "1", "Количество", "RLENG"),
@@ -24,7 +23,9 @@ public enum eRulecalc implements Field {
     size("12", "96", "1", "Размер", "RSIZE"),
     incr("8", "15", "1", "Надбавка", "RPRIC"),
     sebes("5", "5", "1", "Себестоимость", "RSEBE"),
-    calk("5", "5", "1", "Калькуляция", "RCALK");
+    calk("5", "5", "1", "Калькуляция", "RCALK"),
+    artikl_id("12", "32", "1", "Артикул", "artikl_id");
+    
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
