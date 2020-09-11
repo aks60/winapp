@@ -8,11 +8,10 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eElemdet;
-import domain.eElement;
-import domain.eFurniture;
 import domain.eRulecalc;
 import enums.TypeFormProf;
 import frames.dialog.DicArtikl;
+import frames.dialog.DicArtikl2;
 import frames.dialog.DicEnums;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
@@ -53,6 +52,10 @@ public class RuleCalc extends javax.swing.JFrame {
                 return val;
             }
         };
+        
+        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
+            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
+        });
         
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
