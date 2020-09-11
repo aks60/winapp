@@ -42,8 +42,8 @@ public class JoiningVar extends Par5s {
                     {
                         try {
                             String strTxt = rec.getStr(TEXT);
-                            int type1 = elemJoin.joinElement1.type().value;
-                            int type2 = elemJoin.joinElement2.type().value;
+                            int type1 = elemJoin.joinElement1.type().id;
+                            int type2 = elemJoin.joinElement2.type().id;
 
                             char symmetry = strTxt.charAt(strTxt.length() - 1);
                             if (symmetry == '@') {

@@ -25,11 +25,11 @@ public enum TypeElem implements Enam {
     SUPPORT(1006, "Подкладка"),
     NONE(0, "Не определено");
 
-    public int value;
+    public int id;
     public String name;
 
-    TypeElem(int value, String name) {
-        this.value = value;
+    TypeElem(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 }

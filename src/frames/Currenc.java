@@ -25,6 +25,7 @@ public class Currenc extends javax.swing.JFrame {
     public Currenc() {
         initComponents();
         initElements();
+        loadingData();
         loadingModel();
         btnChoice.setVisible(false);
         setVisible(true);
@@ -33,6 +34,7 @@ public class Currenc extends javax.swing.JFrame {
     public Currenc(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
+        loadingData();
         loadingModel();
         this.owner = owner;
         owner.setEnabled(false);

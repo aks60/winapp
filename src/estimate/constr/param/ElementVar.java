@@ -162,7 +162,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31050:  //Контейнер имеет тип 
                         TypeElem type = elem5e.type();
-                        if (type.value != Integer.valueOf(rec.getStr(TEXT))) {
+                        if (type.id != Integer.valueOf(rec.getStr(TEXT))) {
                             return false;
                         }
                         break;
