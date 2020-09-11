@@ -1269,7 +1269,8 @@ public class Artikles extends javax.swing.JFrame {
             new DicEnums(this, listenerUnit, UseUnit.METR2);
         }
     }//GEN-LAST:event_btnField12
-    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+    
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
@@ -1337,6 +1338,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilter2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
+    
     private void initElements() {
 
         new FrameToFile(this, btnClose);

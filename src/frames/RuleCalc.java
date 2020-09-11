@@ -52,17 +52,17 @@ public class RuleCalc extends javax.swing.JFrame {
                 return val;
             }
         };
-        
+
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
-        
+
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
+            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
 
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
-            DicArtikl frame = new DicArtikl(this, listenerArtikl, 1, 2, 3, 4, 5);
+            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
         Util.buttonEditorCell(tab2, 10).addActionListener(event -> {
             int form = qRulecalc.getAs(Util.getSelectedRec(tab2), eRulecalc.form);
@@ -71,16 +71,17 @@ public class RuleCalc extends javax.swing.JFrame {
     }
 
     private void listenerDict() {
+
         listenerArtikl = (record) -> {
-            Util.stopCellEditing(tab2);
-                int row = Util.getSelectedRec(tab2);
-                qRulecalc.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElemdet.artikl_id);
-                qRulecalc.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
-                qRulecalc.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, row);
+//            Util.stopCellEditing(tab2);
+//            int row = Util.getSelectedRec(tab2);
+//            qRulecalc.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElemdet.artikl_id);
+//            qRulecalc.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
+//            qRulecalc.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
+//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+//            Util.setSelectedRow(tab2, row);
         };
-        
+
         listenerForm = (record) -> {
             Util.listenerEnums(record, tab2, eRulecalc.form, tab2);
         };
