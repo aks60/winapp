@@ -27,7 +27,6 @@ public enum eArtdet implements Field {
     //clcod("4", "10", "1", "id техстуры", "CLCOD"),
     //clnum("4", "10", "1", "id группы текстуры", "CLNUM"),
     //cluni("4", "10", "1", "null", "CLUNI"),    
-    
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
@@ -66,7 +65,7 @@ public enum eArtdet implements Field {
             return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).findFirst().orElse(null);
         }
         List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _artikl_id);
-        return record.get(0);
+        return (record.size() == 0) ? null : record.get(0);
     }
 
     public static Record record() {

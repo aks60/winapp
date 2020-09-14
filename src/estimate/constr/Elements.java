@@ -60,7 +60,7 @@ public class Elements extends Cal5e {
                 detail(elementList3, elem5e);
             }                       
         } catch (Exception e) {
-            System.err.println("estimate.constr.Elements.calc() " + e);
+            System.err.println("Ошибка estimate.constr.Elements.calc() " + e);
         }       
     }
 
@@ -95,7 +95,7 @@ public class Elements extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка wincalc.constr.Сomposition.nested() " + e);
+            System.err.println("Ошибка wincalc.constr.Сomposition.detail() " + e);
         }
     }
 }
