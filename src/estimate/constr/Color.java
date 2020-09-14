@@ -114,12 +114,12 @@ public class Color {
     }
 
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры
-    public static int colorFromProduct(Com5t com5t, int colorSide, Record record) {
-        int types = record.getInt(TYPES);
+    public static int colorFromProduct(Com5t com5t, int colorSide, Record detailRec) {
+        int types = detailRec.getInt(TYPES);
         int colorType = (colorSide == 1) ? types & 0x0000000f : (colorSide == 2) ? types & 0x000000f0 >> 4 : types & 0x00000f00 >> 8;
         switch (colorType) {
             case 0:  //указана
-                return record.getInt(COLOR_FK);
+                return detailRec.getInt(COLOR_FK);
             case 1:        // по основе изделия
                 return com5t.iwin().colorID1;
             case 2:        // по внутр.изделия
