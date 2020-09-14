@@ -67,24 +67,24 @@ public class Tariffication extends Cal5e {
         for (ElemSimple elem5e : iwin.listElem) {
 
             Record systreeRec = eSystree.find(iwin.nuni);
-            TypeElem type = elem5e.owner().type();
+            TypeElem typeArea = elem5e.owner().type();
             //Цикл по правилам расчёта
             for (Record rulecalcRec : eRulecalc.get()) {
 
                 //Только эти параметры используются в БиМакс
-                //фильтр по полю form, rused и colorXXX таблицы rulecls
+                //фильтр по полю form, type и colorX таблицы rulecls
                 if (TypeElem.GLASS == elem5e.type()) {  //фильтр для стеклопакета
 
                     if (rulecalcRec.getInt(eRulecalc.form) == PAR0) {//не проверять форму
                         checkRuleColor(rulecalcRec, elem5e.specificationRec);
 
-                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR10 && TypeElem.TRAPEZE == type) { //не прямоугольное, не арочное заполнение
+                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR10 && TypeElem.TRAPEZE == typeArea) { //не прямоугольное, не арочное заполнение
                         checkRuleColor(rulecalcRec, elem5e.specificationRec);
 
-                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR12 && TypeElem.ARCH == type) {//не прямоугольное заполнение с арками
+                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR12 && TypeElem.ARCH == typeArea) {//не прямоугольное заполнение с арками
                         checkRuleColor(rulecalcRec, elem5e.specificationRec);
                     }
-                } else if (rulecalcRec.getInt(eRulecalc.form) == PAR4 && TypeElem.FRAME_SIDE == type && LayoutArea.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
+                } else if (rulecalcRec.getInt(eRulecalc.form) == PAR4 && TypeElem.FRAME_SIDE == typeArea && LayoutArea.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
                     checkRuleColor(rulecalcRec, elem5e.specificationRec); //профиль с радиусом
 
                 } else {
@@ -185,7 +185,6 @@ public class Tariffication extends Cal5e {
     }
 
     //Считает тариф для заданного артикула заданных цветов по таблице eArtdet
-    //(Материальные ценности -> нижняя таблица)
     public void calcCostPrice(Specification specificRec) {
 
         Record color1Rec = eColor.find(specificRec.colorID1);  //
@@ -252,6 +251,7 @@ public class Tariffication extends Cal5e {
         specificRec.quantity2 = specificRec.quantity + (specificRec.quantity * specificRec.artiklRec.getFloat(eArtikl.otx_norm) / 100);
     }
 
+    //Процентная надбавка на изделия сложной формы
     private float percentMarkup() {
         if (TypeElem.ARCH == iwin.rootArea.type()) {
             return eSysdata.find(2101).getInt(eSysdata.val);

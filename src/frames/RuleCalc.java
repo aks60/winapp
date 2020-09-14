@@ -16,8 +16,10 @@ import frames.dialog.DicArtikl2;
 import frames.dialog.DicEnums;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 
 public class RuleCalc extends javax.swing.JFrame {
@@ -47,8 +49,8 @@ public class RuleCalc extends javax.swing.JFrame {
                 if (eRulecalc.id == field) {
                     return val;
                 } else if (eRulecalc.type == field) {
-                    
-                    int val2 = (val == null) ? 0 : Integer.valueOf(val.toString());                    
+
+                    int val2 = (val == null) ? 0 : Integer.valueOf(val.toString());
                     return TypeArtikl.find(val2 / 100, 0) + "." + TypeArtikl.find(val2 / 100, val2 % 10);
                 } else if (eRulecalc.form == field) {
                     int val2 = (val.equals(0) == true) ? 1 : Integer.valueOf(val.toString());
@@ -253,7 +255,7 @@ public class RuleCalc extends javax.swing.JFrame {
         txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilterfilterCaretUpdate(evt);
+                filterCaretUpdate(evt);
             }
         });
         south.add(txtFilter);
@@ -344,9 +346,18 @@ public class RuleCalc extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
+    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
-    }//GEN-LAST:event_txtFilterfilterCaretUpdate
+        JTable table = Stream.of(tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab2);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_filterCaretUpdate
 
     private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
 

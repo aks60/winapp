@@ -263,9 +263,22 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(2).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(2).setMaxWidth(60);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(120);
-            tab1.getColumnModel().getColumn(4).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(8).setMinWidth(40);
-            tab1.getColumnModel().getColumn(9).setMinWidth(40);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(220);
+            tab1.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(9).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(10).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(11).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(12).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(14).setPreferredWidth(20);
+            tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(19).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(20).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(21).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(22).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(23).setPreferredWidth(40);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
