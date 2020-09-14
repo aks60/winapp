@@ -2,7 +2,7 @@ package enums;
 
 import static enums.UseColcalc.values;
 
-public enum TypeFormProf implements Enam {
+public enum TypeForm implements Enam {
 
     P00(1, "не проверять форму"), //или 0 по умолчанию
     P02(2, "профиль прямой"),
@@ -16,7 +16,7 @@ public enum TypeFormProf implements Enam {
     public int id;
     public String name;
 
-    private TypeFormProf(int id, String name) {
+    private TypeForm(int id, String name) {
         this.id = id;
         this.name = name;
     }

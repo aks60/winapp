@@ -10,7 +10,7 @@ import domain.eArtikl;
 import domain.eElemdet;
 import domain.eRulecalc;
 import enums.TypeArtikl;
-import enums.TypeFormProf;
+import enums.TypeForm;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicArtikl2;
 import frames.dialog.DicEnums;
@@ -54,7 +54,7 @@ public class RuleCalc extends javax.swing.JFrame {
                     return TypeArtikl.find(val2 / 100, 0) + "." + TypeArtikl.find(val2 / 100, val2 % 10);
                 } else if (eRulecalc.form == field) {
                     int val2 = (val.equals(0) == true) ? 1 : Integer.valueOf(val.toString());
-                    return TypeFormProf.P00.find(val2).text();
+                    return TypeForm.P00.find(val2).text();
                 }
                 return val;
             }
@@ -73,7 +73,7 @@ public class RuleCalc extends javax.swing.JFrame {
         });
         Util.buttonEditorCell(tab2, 10).addActionListener(event -> {
             int form = qRulecalc.getAs(Util.getSelectedRec(tab2), eRulecalc.form);
-            DicEnums frame = new DicEnums(this, listenerForm, TypeFormProf.values());
+            DicEnums frame = new DicEnums(this, listenerForm, TypeForm.values());
         });
     }
 

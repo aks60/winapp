@@ -12,6 +12,7 @@ import domain.eSysdata;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.TypeElem;
+import enums.TypeForm;
 import enums.UseUnit;
 import java.util.LinkedList;
 import estimate.Wincalc;
@@ -42,10 +43,10 @@ import java.util.List;
 public class Tariffication extends Cal5e {
 
     //В прфстрое используюеся только 0, 4, 10, 12 параметры
-    protected static final int PAR0 = 0;   //не проверять форму
-    protected static final int PAR4 = 4;   //профиль с радиусом
-    protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
-    protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
+//    protected static final int PAR0 = 0;   //не проверять форму
+//    protected static final int PAR4 = 4;   //профиль с радиусом
+//    protected static final int PAR10 = 10; //не прямоугольное, не арочное заполнение
+//    protected static final int PAR12 = 12; //не прямоугольное заполнение с арками
 
     public Tariffication(Wincalc iwin) {
         super(iwin);
@@ -54,6 +55,7 @@ public class Tariffication extends Cal5e {
     public void calc() {
 
         float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
+        
         //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
         for (ElemSimple elem5e : iwin.listElem) {
             calcCostPrice(elem5e.specificationRec);
@@ -68,28 +70,28 @@ public class Tariffication extends Cal5e {
 
             Record systreeRec = eSystree.find(iwin.nuni);
             TypeElem typeArea = elem5e.owner().type();
-            //Цикл по правилам расчёта
-            for (Record rulecalcRec : eRulecalc.get()) {
-
-                //Только эти параметры используются в БиМакс
-                //фильтр по полю form, type и colorX таблицы rulecls
-                if (TypeElem.GLASS == elem5e.type()) {  //фильтр для стеклопакета
-
-                    if (rulecalcRec.getInt(eRulecalc.form) == PAR0) {//не проверять форму
+            
+            //Цикл по правилам расчёта. Фильтр по полю form, type и color
+            for (Record rulecalcRec : eRulecalc.get()) {                
+                int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
+                //Фильтр для стеклопакета
+                if (TypeElem.GLASS == elem5e.type()) {  
+                    if (form == TypeForm.P00.id) {//не проверять форму
+                        checkRuleColor(rulecalcRec, elem5e.specificationRec);                        
+                    } else if (form == TypeForm.P10.id && TypeElem.TRAPEZE == typeArea) { //не прямоугольное, не арочное заполнение
                         checkRuleColor(rulecalcRec, elem5e.specificationRec);
-
-                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR10 && TypeElem.TRAPEZE == typeArea) { //не прямоугольное, не арочное заполнение
-                        checkRuleColor(rulecalcRec, elem5e.specificationRec);
-
-                    } else if (rulecalcRec.getInt(eRulecalc.form) == PAR12 && TypeElem.ARCH == typeArea) {//не прямоугольное заполнение с арками
+                    } else if (form == TypeForm.P12.id && TypeElem.ARCH == typeArea) {//не прямоугольное заполнение с арками
                         checkRuleColor(rulecalcRec, elem5e.specificationRec);
                     }
-                } else if (rulecalcRec.getInt(eRulecalc.form) == PAR4 && TypeElem.FRAME_SIDE == typeArea && LayoutArea.ARCH == elem5e.layout()) { //фильтр для арки профиля AYPC.W62.0101
-                    checkRuleColor(rulecalcRec, elem5e.specificationRec); //профиль с радиусом
-
+                      
+                    //Профиль с радиусом
+                } else if (form == TypeForm.P04.id && TypeElem.FRAME_SIDE == typeArea && LayoutArea.ARCH == elem5e.layout()) { //профиль с радиусом
+                    checkRuleColor(rulecalcRec, elem5e.specificationRec); 
+                    
+                    //Всё остальное не проверять форму
                 } else {
-                    if (rulecalcRec.getInt(eRulecalc.form) == PAR0) {  //не проверять форму
-                        checkRuleColor(rulecalcRec, elem5e.specificationRec); //всё остальное не проверять форму
+                    if (form == TypeForm.P00.id) {  //не проверять форму
+                        checkRuleColor(rulecalcRec, elem5e.specificationRec); 
                     }
                 }
             }
@@ -100,10 +102,14 @@ public class Tariffication extends Cal5e {
             elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup;
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой
 
+            //Цыкл по элементам детализации
             for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
+                
+                
                 for (Record ruleclkRec : eRulecalc.get()) { //цикл по правилам расчёта
-
-                    if (ruleclkRec.getInt(eRulecalc.form) == PAR0) {  //не проверять форму
+                    int form = (ruleclkRec.getInt(eRulecalc.form) == 0) ? 1 : ruleclkRec.getInt(eRulecalc.form);
+                    
+                    if (form == TypeForm.P00.id) {  //не проверять форму
                         checkRuleColor(ruleclkRec, specifSubelemRec);
                     }
                 }
@@ -129,12 +135,17 @@ public class Tariffication extends Cal5e {
         Integer[] arr1 = Util.parserInt(rulecalcRec.getStr(eRulecalc.color1));
         Integer[] arr2 = Util.parserInt(rulecalcRec.getStr(eRulecalc.color2));
         Integer[] arr3 = Util.parserInt(rulecalcRec.getStr(eRulecalc.color3));
+        
+        //Если артикл ИЛИ тип ИЛИ подтип совпали
         if (specifRec.artikl.equals(rulecalcRec.getStr(eArtikl.code))
                 || ((specifRec.artiklRec.getInt(eArtikl.level1) * 100
-                + specifRec.artiklRec.getInt(eArtikl.level1)) == rulecalcRec.getInt(eRulecalc.type))) { //артикл ИЛИ тип ИЛИ подтип совпали
+                + specifRec.artiklRec.getInt(eArtikl.level1)) == rulecalcRec.getInt(eRulecalc.type))) { 
+            
+            //Если цвет попал в диапазон
             if (Util.compareColor(arr1, specifRec.colorID1) == true
                     && Util.compareColor(arr2, specifRec.colorID2) == true
                     && Util.compareColor(arr3, specifRec.colorID3) == true) {
+                
                 if (rulecalcRec.getInt(eRulecalc.common) == 0) {
 
                     boolean ret = Util.compareFloat(rulecalcRec.getStr(eRulecalc.quant), specifRec.quantity2);
