@@ -10,6 +10,7 @@ import java.util.List;
  */
 public enum TypeArtikl {
 
+    NONE(0, 0, "-"),
     PPROFIL(1, 0, "Профили"),
     KOROBKA(1, 1, "Коробка"),
     STVORKA(1, 2, "Створка"),
@@ -117,7 +118,7 @@ public enum TypeArtikl {
     }
 
     public static String find(int _id1, int _id2) {
-        return Arrays.stream(values()).filter(el -> (el.id1 == _id1 && el.id2 == _id2)).findFirst().orElse(PPROFIL).name;
+        return Arrays.stream(values()).filter(el -> (el.id1 == _id1 && el.id2 == _id2)).findFirst().orElse(NONE).name;
     }
 
     public String toString() {

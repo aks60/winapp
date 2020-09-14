@@ -9,8 +9,6 @@ import java.util.List;
 public enum eRulecalc implements Field {
     up("0", "0", "0", "Правила расчёта проектов", "RULECLK"),
     id("4", "10", "0", "Идентификатор", "id"),
-    //numb("4", "10", "1", "Номер", "RNUMB"),
-    //unic("4", "10", "1", "Идентификатор 2", "RUNIC"),
     name("12", "64", "1", "Название правила", "RNAME"),
     type("5", "5", "1", "Тип материальных ценностей (502 - заполнение)", "RUSED"),
     coeff("8", "15", "1", "Коэффициент", "RKOEF"),
@@ -25,6 +23,8 @@ public enum eRulecalc implements Field {
     sebes("5", "5", "1", "Себестоимость", "RSEBE"),
     calk("5", "5", "1", "Калькуляция", "RCALK"),
     artikl_id("12", "32", "1", "Артикул", "artikl_id");
+    //numb("4", "10", "1", "Номер", "RNUMB"),
+    //unic("4", "10", "1", "Идентификатор 2", "RUNIC"),    
     
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

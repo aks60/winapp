@@ -1521,12 +1521,7 @@ public class Systree extends javax.swing.JFrame {
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
-
-            public void valueChanged(TreeSelectionEvent tse) {
-                selectionTree();
-            }
-        });
+        tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
     }
 
     private class DefMutableTreeNode extends DefaultMutableTreeNode {

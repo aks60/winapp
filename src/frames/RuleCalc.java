@@ -9,6 +9,7 @@ import dataset.Record;
 import domain.eArtikl;
 import domain.eElemdet;
 import domain.eRulecalc;
+import enums.TypeArtikl;
 import enums.TypeFormProf;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicArtikl2;
@@ -37,7 +38,7 @@ public class RuleCalc extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab2, qRulecalc, eRulecalc.name, eArtikl.code, eArtikl.name, eRulecalc.quant, eRulecalc.size,
+        new DefTableModel(tab2, qRulecalc, eRulecalc.type, eArtikl.code, eArtikl.name, eRulecalc.quant, eRulecalc.size,
                 eRulecalc.coeff, eRulecalc.incr, eRulecalc.color1, eRulecalc.color2, eRulecalc.color3, eRulecalc.form) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -45,6 +46,10 @@ public class RuleCalc extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eRulecalc.id == field) {
                     return val;
+                } else if (eRulecalc.type == field) {
+                    
+                    int val2 = (val == null) ? 0 : Integer.valueOf(val.toString());                    
+                    return TypeArtikl.find(val2 / 100, 0) + "." + TypeArtikl.find(val2 / 100, val2 % 10);
                 } else if (eRulecalc.form == field) {
                     int val2 = (val.equals(0) == true) ? 1 : Integer.valueOf(val.toString());
                     return TypeFormProf.P00.find(val2).text();
@@ -73,13 +78,14 @@ public class RuleCalc extends javax.swing.JFrame {
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
-//            Util.stopCellEditing(tab2);
-//            int row = Util.getSelectedRec(tab2);
-//            qRulecalc.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eElemdet.artikl_id);
-//            qRulecalc.table(eArtikl.up).set(record.get(eArtikl.name), Util.getSelectedRec(tab2), eArtikl.name);
-//            qRulecalc.table(eArtikl.up).set(record.get(eArtikl.code), Util.getSelectedRec(tab2), eArtikl.code);
-//            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-//            Util.setSelectedRow(tab2, row);
+            Util.stopCellEditing(tab2);
+            int type = record.getInt(0) * 100 + record.getInt(1);
+            qRulecalc.set(type, Util.getSelectedRec(tab2), eRulecalc.type);
+            qRulecalc.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab2), eRulecalc.artikl_id);
+            qRulecalc.table(eArtikl.up).set(record.get(3), Util.getSelectedRec(tab2), eArtikl.code);
+            qRulecalc.table(eArtikl.up).set(record.get(4), Util.getSelectedRec(tab2), eArtikl.name);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.stopCellEditing(tab2);
         };
 
         listenerForm = (record) -> {
@@ -268,8 +274,8 @@ public class RuleCalc extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "1", "1", "1", "1", "1", "1", null, "1", "1", "1"},
-                {"2", "2", "2", "2", "2", "2", "2", null, "2", "2", "2"}
+                {null, "1", "1", "1", "1", "1", "1", null, "1", "1", "1"},
+                {null, "2", "2", "2", "2", "2", "2", null, "2", "2", "2"}
             },
             new String [] {
                 "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Текстура 1", "Текстура 2", "Текстура 3", "Форма позиции"

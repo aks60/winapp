@@ -88,8 +88,8 @@ public class DicArtikl2 extends javax.swing.JDialog {
 
     private void selectionTree() {
 
-        Util.clearTable(tab1, tab1);
-        Util.stopCellEditing(tab1, tab1);
+        Util.clearTable(tab1);
+        Util.stopCellEditing(tab1);
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
@@ -313,11 +313,32 @@ public class DicArtikl2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
+
+        Record record = new Record(5);
+        record.add(null);
+        record.add(null);
+        record.add(null);
+        record.add(null);
+        record.add(null);
+        Util.stopCellEditing(tab1);
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Record record = qArtikl.get(row);
-            listener.action(record);
+            Record record2 = qArtikl.get(row);
+            record.set(0, record2.get(eArtikl.level1));
+            record.set(1, record2.get(eArtikl.level2));
+            record.set(2, record2.get(eArtikl.id));
+            record.set(3, record2.get(eArtikl.code));
+            record.set(4, record2.get(eArtikl.name));
+            
+        } else {
+            DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+            if (selectedNode.getUserObject() instanceof TypeArtikl == true) {
+                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
+                record.set(0, e.id1);
+                record.set(1, e.id2);
+            }
         }
+        listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
@@ -371,7 +392,7 @@ public class DicArtikl2 extends javax.swing.JDialog {
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    
+
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
