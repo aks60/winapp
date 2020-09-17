@@ -40,7 +40,7 @@ public class RuleCalc extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab2, qRulecalc, eRulecalc.type, eArtikl.code, eArtikl.name, eRulecalc.quant, eRulecalc.size,
+        new DefTableModel(tab2, qRulecalc, eRulecalc.name, eRulecalc.type, eArtikl.code, eArtikl.name, eRulecalc.quant, eRulecalc.size,
                 eRulecalc.coeff, eRulecalc.incr, eRulecalc.color1, eRulecalc.color2, eRulecalc.color3, eRulecalc.form) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -60,10 +60,6 @@ public class RuleCalc extends javax.swing.JFrame {
             }
         };
 
-        Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
-            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
-        });
-
         Util.buttonEditorCell(tab2, 1).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
@@ -71,7 +67,11 @@ public class RuleCalc extends javax.swing.JFrame {
         Util.buttonEditorCell(tab2, 2).addActionListener(event -> {
             DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
         });
-        Util.buttonEditorCell(tab2, 10).addActionListener(event -> {
+
+        Util.buttonEditorCell(tab2, 3).addActionListener(event -> {
+            DicArtikl2 frame = new DicArtikl2(this, listenerArtikl, 1, 2, 3, 4, 5);
+        });
+        Util.buttonEditorCell(tab2, 11).addActionListener(event -> {
             int form = qRulecalc.getAs(Util.getSelectedRec(tab2), eRulecalc.form);
             DicEnums frame = new DicEnums(this, listenerForm, TypeForm.values());
         });
@@ -276,11 +276,11 @@ public class RuleCalc extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "1", "1", "1", "1", "1", "1", null, "1", "1", "1"},
-                {null, "2", "2", "2", "2", "2", "2", null, "2", "2", "2"}
+                {null, null, "1", "1", "1", "1", "1", "1", null, "1", "1", "1"},
+                {null, null, "2", "2", "2", "2", "2", "2", null, "2", "2", "2"}
             },
             new String [] {
-                "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Текстура 1", "Текстура 2", "Текстура 3", "Форма позиции"
+                "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Текстура 1", "Текстура 2", "Текстура 3", "Форма позиции"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -293,10 +293,11 @@ public class RuleCalc extends javax.swing.JFrame {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setMinWidth(140);
-            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(0).setMinWidth(80);
+            tab2.getColumnModel().getColumn(1).setMinWidth(140);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(10).setMinWidth(180);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(11).setMinWidth(180);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);

@@ -11,16 +11,14 @@ import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import frames.swing.DefTableModel;
 import estimate.Wincalc;
 import estimate.constr.Specification;
+import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
 public class Specific extends javax.swing.JFrame {
@@ -48,6 +46,7 @@ public class Specific extends javax.swing.JFrame {
     }
     
     private void loadingData() {
+        tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
         iwin.constructiv();
     }
 
@@ -213,9 +212,11 @@ public class Specific extends javax.swing.JFrame {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -236,7 +237,7 @@ public class Specific extends javax.swing.JFrame {
                 {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "ID", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "Угол1", "Угол2", "Угол к горизонту", "Кол.единиц", "Ед.изм", "Кол. без отхода", "Процент отхода", "Кол. с отходом", "Себес-сть за ед. измерения", "Себест. с отх", "Стоим. без скидки", "Стоим. со скидкой", "Скидка"
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.<br/> без_отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себес-сть<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой", "Скидка"
             }
         ) {
             Class[] types = new Class [] {
@@ -269,9 +270,10 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(10).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(11).setPreferredWidth(30);
             tab1.getColumnModel().getColumn(12).setPreferredWidth(30);
+            tab1.getColumnModel().getColumn(13).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(14).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(15).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(16).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(16).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(19).setPreferredWidth(40);

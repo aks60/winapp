@@ -67,11 +67,14 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
-                          <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="btnDel" alignment="0" max="32767" attributes="1"/>
+                              <Component id="btnIns" alignment="0" max="32767" attributes="1"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="btnClose" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnRef" alignment="0" max="32767" attributes="0"/>
@@ -275,7 +278,7 @@
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
-                    <Column editable="true" title="ID" type="java.lang.Object">
+                    <Column editable="true" title="&lt;HTML&gt;ID&lt;/HTML&gt;" type="java.lang.Object">
                       <Data value=""/>
                       <Data value=""/>
                     </Column>
@@ -306,18 +309,18 @@
                     <Column editable="true" title="&#x414;&#x43b;&#x438;&#x43d;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x428;&#x438;&#x440;&#x438;&#x43d;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x41c;&#x430;&#x441;&#x441;&#x430;" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x423;&#x433;&#x43e;&#x43b;1" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x423;&#x433;&#x43e;&#x43b;2" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x423;&#x433;&#x43e;&#x43b; &#x43a; &#x433;&#x43e;&#x440;&#x438;&#x437;&#x43e;&#x43d;&#x442;&#x443;" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x41a;&#x43e;&#x43b;.&#x435;&#x434;&#x438;&#x43d;&#x438;&#x446;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &lt;br/&gt;  1" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b;&lt;br/&gt;  2" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x423;&#x433;&#x43e;&#x43b; &#x43a;&lt;br/&gt; &#x433;&#x43e;&#x440;&#x438;&#x437;&#x43e;&#x43d;&#x442;&#x443;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&lt;br/&gt;&#x435;&#x434;&#x438;&#x43d;&#x438;&#x446;" type="java.lang.Object"/>
                     <Column editable="true" title="&#x415;&#x434;.&#x438;&#x437;&#x43c;" type="java.lang.Object"/>
-                    <Column editable="true" title="&#x41a;&#x43e;&#x43b;. &#x431;&#x435;&#x437; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Float"/>
-                    <Column editable="true" title="&#x41f;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Float"/>
-                    <Column editable="true" title="&#x41a;&#x43e;&#x43b;. &#x441; &#x43e;&#x442;&#x445;&#x43e;&#x434;&#x43e;&#x43c;" type="java.lang.Float"/>
-                    <Column editable="true" title="&#x421;&#x435;&#x431;&#x435;&#x441;-&#x441;&#x442;&#x44c; &#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Float"/>
-                    <Column editable="true" title="&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;. &#x441; &#x43e;&#x442;&#x445;" type="java.lang.Float"/>
-                    <Column editable="true" title="&#x421;&#x442;&#x43e;&#x438;&#x43c;. &#x431;&#x435;&#x437; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x438;" type="java.lang.Float"/>
-                    <Column editable="true" title="&#x421;&#x442;&#x43e;&#x438;&#x43c;. &#x441;&#x43e; &#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;" type="java.lang.Float"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&lt;br/&gt; &#x431;&#x435;&#x437;_&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Float"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41f;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&lt;br/&gt; &#x43e;&#x442;&#x445;." type="java.lang.Float"/>
+                    <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;. &#x441; &lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x43e;&#x43c;" type="java.lang.Float"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;-&#x441;&#x442;&#x44c;&lt;br/&gt; &#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Float"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x441; &#x43e;&#x442;&#x445;." type="java.lang.Float"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;.&lt;br/&gt; &#x431;&#x435;&#x437;_&#x441;&#x43a;&#x438;&#x434;&#x43a;&#x438;" type="java.lang.Float"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;. &lt;br/&gt;&#x441;&#x43e;_&#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;" type="java.lang.Float"/>
                     <Column editable="true" title="&#x421;&#x43a;&#x438;&#x434;&#x43a;&#x430;" type="java.lang.Float"/>
                   </Table>
                 </Property>
@@ -389,7 +392,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -404,7 +407,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="46" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>

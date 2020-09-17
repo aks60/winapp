@@ -41,7 +41,7 @@ import java.util.List;
  * завершении итерации перехожу к новому элементу конструкции и т.д.
  */
 public class Tariffication extends Cal5e {
-    
+
     public Tariffication(Wincalc iwin) {
         super(iwin);
     }
@@ -49,7 +49,6 @@ public class Tariffication extends Cal5e {
     public void calc() {
 
         float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
-
         //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
         for (ElemSimple elem5e : iwin.listElem) {
             calcCostPrice(elem5e.specificationRec);
@@ -59,12 +58,11 @@ public class Tariffication extends Cal5e {
             }
         }
 
-        //Увеличение себестоимости в rkoef раз и на incr величину надбавки
+        //Правила расчёта. Увеличение себестоимости в rkoef раз и на incr величину надбавки.
         for (ElemSimple elem5e : iwin.listElem) {
 
             Record systreeRec = eSystree.find(iwin.nuni);
             TypeElem typeArea = elem5e.owner().type();
-
             //Цикл по правилам расчёта. Фильтр по полю form
             for (Record rulecalcRec : eRulecalc.get()) {
                 int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
@@ -75,8 +73,18 @@ public class Tariffication extends Cal5e {
                         || (form == TypeForm.P04.id && TypeElem.FRAME_SIDE == typeArea && LayoutArea.ARCH == elem5e.layout())) { //профиль с радиусом
 
                     checkRuleColor(rulecalcRec, elem5e.specificationRec);
+                    elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
+                    Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
+                    elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef); //стоимость без скидки
+                    elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup;
+                    elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой                    
                     for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
                         checkRuleColor(rulecalcRec, specifSubelemRec);
+                        specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //расчёт себестоимости с отходом
+                        Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp_id));
+                        specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef);
+                        specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup;
+                        specifSubelemRec.outCost = specifSubelemRec.inCost;
                     }
                 }
             }
@@ -176,7 +184,7 @@ public class Tariffication extends Cal5e {
         //Если артикл ИЛИ тип ИЛИ подтип совпали
         if (specifRec.artikl.equals(rulecalcRec.getStr(eArtikl.code))
                 || ((specifRec.artiklRec.getInt(eArtikl.level1) * 100
-                + specifRec.artiklRec.getInt(eArtikl.level1)) == rulecalcRec.getInt(eRulecalc.type))) {
+                + specifRec.artiklRec.getInt(eArtikl.level2)) == rulecalcRec.getInt(eRulecalc.type))) {
 
             //Если цвет попал в диапазон
             if (Util.compareColor(arr1, specifRec.colorID1) == true
@@ -194,13 +202,14 @@ public class Tariffication extends Cal5e {
 
                     LinkedList<ElemSimple> elemList = iwin.listElem;
                     float quantity3 = 0;
-                    if (rulecalcRec.getInt(eRulecalc.type) < 0) { //по артикулу
-                        for (ElemSimple elemBase : elemList) {
-                            if (elemBase.specificationRec.artikl.equals(specifRec.artikl)) {
+                    
+                    if (rulecalcRec.get(eRulecalc.artikl_id) != null) { //по артикулу
+                        for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
+                            if (elem5e.specificationRec.artikl.equals(specifRec.artikl)) { 
 
-                                quantity3 = quantity3 + elemBase.specificationRec.quantity;
+                                quantity3 = quantity3 + elem5e.specificationRec.quantity;
                             }
-                            for (Specification specifRec2 : elemBase.specificationRec.specificationList) {
+                            for (Specification specifRec2 : elem5e.specificationRec.specificationList) {
                                 if (specifRec2.artikl.equals(specifRec.artikl)) {
 
                                     quantity3 = quantity3 + specifRec2.quantity;
@@ -208,12 +217,11 @@ public class Tariffication extends Cal5e {
                             }
                         }
                     } else { //по подтипу, типу
-
-                        for (ElemSimple elemBase : elemList) {
-                            Specification specifRec2 = elemBase.specificationRec;
+                        for (ElemSimple elem5e : elemList) { //суммирую колич. всех элементов (например штапиков)
+                            Specification specifRec2 = elem5e.specificationRec;
                             if (specifRec2.artiklRec.getInt(eArtikl.level1) * 100 + specifRec2.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {
 
-                                quantity3 = quantity3 + elemBase.specificationRec.quantity;
+                                quantity3 = quantity3 + elem5e.specificationRec.quantity;
                             }
                             for (Specification specifRec3 : specifRec2.specificationList) {
                                 if (specifRec3.artiklRec.getInt(eArtikl.level1) * 100 + specifRec3.artiklRec.getInt(eArtikl.level2) == rulecalcRec.getInt(eRulecalc.type)) {

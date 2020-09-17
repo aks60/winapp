@@ -4,6 +4,7 @@ import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
+import domain.eGlasdet;
 import estimate.model.Com5t;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Color {
                     }
 
                 } else if (colorFk > 0 && colorFk != 100000) { //указана
-                    spc.setColor(side, colorFk);
+                    spc.setColor(side, colorID);
 
                 } else if (colorFk < 0) { //текстура задана через параметр
                     int colorFK2 = parametr();
