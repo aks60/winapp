@@ -18,7 +18,9 @@ public class Test {
 
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
-        try {         
+        try {  
+            Record rec = new Record(1.0, 0.0);
+            //float ff = rec.get
             //convert.Profstroy.script();
             //wincalc();
             //query();            

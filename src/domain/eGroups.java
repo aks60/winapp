@@ -3,8 +3,6 @@ package domain;
 import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
-import dataset.Record;
-import static domain.eArtgrp.values;
 
 public enum eGroups implements Field {
     up("0", "0", "0", "Группы наименований", "EMPTY"),
