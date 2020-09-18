@@ -17,7 +17,6 @@ public abstract class ElemSimple extends Com5t {
     public Record sysprofRec = null; //профиль в системе
     public Record artiklRec = null;  //мат. средства
     public Record artiklRec2 = null;  //мат. средства, аналоги
-    public Specification specificationRec = null; //спецификация элемента
 
     public float anglHoriz = -1; //угол к горизонту
     protected Color borderColor = Color.BLACK;
