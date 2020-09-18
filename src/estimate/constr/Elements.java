@@ -50,12 +50,12 @@ public class Elements extends Cal5e {
                 elem5e.setSpecific();
                 
                 //Варианты состава для серии профилей
-                int series_id = elem5e.artiklRec.getInt(eArtikl.series_id);
+                int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
                 List<Record> elementList2 = eElement.find(series_id);
                 detail(elementList2, elem5e);
 
                 //Варианты состава для артикула профиля
-                int artikl_id = (elem5e.artiklRec.getInt(eArtikl.analog_id) != -1) ? elem5e.artiklRec.getInt(eArtikl.analog_id) : elem5e.artiklRec.getInt(eArtikl.id);
+                int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
             }                       

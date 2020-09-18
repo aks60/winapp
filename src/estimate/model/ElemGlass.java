@@ -56,6 +56,7 @@ public class ElemGlass extends ElemSimple {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
+        artiklRecAn = artiklRec;
 
         //Цвет стекла
         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));

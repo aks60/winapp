@@ -22,7 +22,7 @@ public class Test {
             Record rec = new Record(1.0, 0.0);
             //float ff = rec.get
             //convert.Profstroy.script();
-            //wincalc();
+            wincalc();
             //query();            
             //frame();
             //parseJson();

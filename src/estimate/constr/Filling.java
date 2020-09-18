@@ -63,7 +63,7 @@ public class Filling extends Cal5e {
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
-                            artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+                            artprofRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true); //включая аналог!
                             break;
                         }
                     }

@@ -41,14 +41,14 @@ public class Joining extends Cal5e {
                 ElemJoining elemJoin = hmElemJoin.getValue();
                 ElemSimple joinElem1 = elemJoin.joinElement1;
                 ElemSimple joinElem2 = elemJoin.joinElement2;
-                Record joinartRec1 = joinElem1.artiklRec;
-                Record joinartRec2 = joinElem2.artiklRec;               
+                Record joinartRec1 = joinElem1.artiklRecAn; //берём аналог профиля
+                Record joinartRec2 = joinElem2.artiklRecAn;               
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
                 int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
                 Record joiningRec = eJoining.find(id1, id2);    
                 List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
                 
-                //Если неудача, ищем в аналоге
+                //Если неудача, ищем в аналоге соединения
                 if (joinvarList.isEmpty() == true && joiningRec.getStr(eJoining.analog).isEmpty() == false) {  
                     joiningRec = eJoining.find2(joiningRec.getStr(eJoining.analog));
                     joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));

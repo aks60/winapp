@@ -60,7 +60,8 @@ public class ElemFrame extends ElemSimple {
         } else if (layout == LayoutArea.RIGHT) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
         }
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
     @Override //Главная спецификация
