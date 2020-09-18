@@ -57,7 +57,7 @@ public enum eColor implements Field {
         }
         return query;
     }
-   
+
     public static Record find(int _id) {
         if (_id == -1) {
             return record();
@@ -68,13 +68,29 @@ public enum eColor implements Field {
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
-    
+
     public static List<Record> find2(int _colgrp_id) {
 
         if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(colgrp_id) == _colgrp_id).collect(toList());
         }
-        return new Query(values()).select(up, "where", colgrp_id, "=", _colgrp_id);     
+        return new Query(values()).select(up, "where", colgrp_id, "=", _colgrp_id);
+    }
+
+    public static Record find3(int _color_fk) {
+
+        if (conf.equals("calc")) {
+            if (_color_fk < 0) {
+                return query().stream().filter(rec -> rec.getInt(colgrp_id) == _color_fk * -1).findFirst().orElse(up.newRecord());
+            } else {
+                return query().stream().filter(rec -> rec.getInt(id) == _color_fk).findFirst().orElse(up.newRecord());
+            }
+        }
+        if (_color_fk < 0) {
+            return new Query(values()).select("select first 1 * from " + up.tname() + " where " + colgrp_id.name() + " = " + (_color_fk * -1)).get(0);
+        } else {
+            return new Query(values()).select(up, "where", id, "=", _color_fk).get(0);
+        }
     }
 
     public static Record record() {

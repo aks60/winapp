@@ -35,7 +35,8 @@ public class Color {
                                 spc.setColor(side, colorFK2);
 
                             } else if (colorFK2 < 0 && colorFK2 != -1) { //это группа
-                                artdetRec = eColor.find2(colorFK2 * -1).get(0); //первая в списке запись цвета
+                                //artdetRec = eColor.find2(colorFK2 * -1).get(0); //первая в списке запись цвета
+                                artdetRec = eColor.find3(colorFK2); //первая в списке запись цвета
                                 spc.setColor(side, artdetRec.getInt(eColor.id));
                             }
                         }
@@ -54,7 +55,7 @@ public class Color {
                     spc.setColor(side, colorFK2);
                 }
             } catch (Exception e) {
-                System.out.println("Ошибка estimate.constr.Color.setting() " + e);
+                System.err.println("Ошибка estimate.constr.Color.setting() " + e);
             }
         }
     }
@@ -83,7 +84,7 @@ public class Color {
             return -1;
             
         } catch (Exception e) {
-            System.out.println("Ошибна estimate.constr.Color.location() " + e);
+            System.err.println("Ошибна estimate.constr.Color.location() " + e);
             return -1;
         }
     }
@@ -162,7 +163,7 @@ public class Color {
                     return com5t.iwin().colorNone;
             }
         } catch (Exception e) {
-            System.out.println("Ошибка estimate.constr.Color.colorFromProduct() " + e);
+            System.err.println("Ошибка estimate.constr.Color.colorFromProduct() " + e);
             return -1;
         }
     }

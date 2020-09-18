@@ -30,6 +30,7 @@ public class Specific extends javax.swing.JFrame {
     private DecimalFormat df0 = new DecimalFormat("#0");
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
+    private DecimalFormat df3 = new DecimalFormat("#0.000");
     private estimate.Wincalc iwin = null;
     private Window owner = null;
 
@@ -243,7 +244,7 @@ public class Specific extends javax.swing.JFrame {
                 {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.<br/> без_отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себес-сть<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой", "Скидка"
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.без<br/>отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себес-сть<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой", "Скидка"
             }
         ));
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -417,12 +418,25 @@ public class Specific extends javax.swing.JFrame {
                 return label;
             }
         };
+        DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                String val = "";
+                if(Float.valueOf(value.toString()) > 0) {
+                    val = df3.format(value);
+                }
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
+                return label;
+            }
+        };
         tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(16).setCellRenderer(cellRenderer3);
+        tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);
