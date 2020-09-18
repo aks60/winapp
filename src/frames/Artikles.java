@@ -162,6 +162,7 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.depth, txtField4);
         rsvArtikl.add(eArtikl.otx_norm, txtField6);
         rsvArtikl.add(eArtikl.size_centr, txtField8);
+        rsvArtikl.add(eArtikl.size_f, txtField9);
         rsvArtikl.add(eArtikl.min_rad, txtField12);
         rsvArtikl.add(eArtikl.id, txtField13);
         rsvArtikl.add(eArtikl.tech_code, txtField14);
