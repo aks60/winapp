@@ -113,9 +113,6 @@ public class Tariffication extends Cal5e {
                 artsvstRowUsed = true;
 
             } else {
-
-                Object obj = (artdetRec.getInt(eArtdet.prefe) & 4);
-                Object obj2 = Util.IsArtTariffAppliesForColor(artdetRec, color1Rec);
                 
                 if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0) {  //подбираем тариф основной текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color1Rec)) {

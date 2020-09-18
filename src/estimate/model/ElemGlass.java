@@ -17,6 +17,7 @@ import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
+import estimate.constr.Cal5e;
 import estimate.constr.Specification;
 import java.util.LinkedList;
 
@@ -88,7 +89,7 @@ public class ElemGlass extends ElemSimple {
                 }
             }
             y1 = y1 + elemArch.artiklRec.getFloat(eArtikl.height) - elemArch.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-            y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;            
+            y2 = y2 + elemImpost.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             double r = ((AreaArch) root()).radiusArch - elemArch.artiklRec.getFloat(eArtikl.height) + elemArch.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             double l = Math.sqrt(2 * height() * r - height() * height());
             x1 = (owner().width() / 2) - (float) l;
@@ -96,7 +97,7 @@ public class ElemGlass extends ElemSimple {
             radiusGlass = (float) r;
 
         } else {
-            ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);           
+            ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
             x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
             x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
@@ -229,16 +230,18 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
+            Cal5e.amount(specificationRec, specif);
+
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
-                    specificationRec.specificationList.add(specif);
+                    specificationRec.specificationList.add(new Specification(specif));
                 }
             } else if (TypeElem.ARCH == owner().type()) {
                 for (int index = 0; index < 2; index++) {
-                    specificationRec.specificationList.add(specif);
+                    specificationRec.specificationList.add(new Specification(specif));
                 }
             } else {
-                specificationRec.specificationList.add(specif);
+                specificationRec.specificationList.add(new Specification(specif));
             }
         }
     }
