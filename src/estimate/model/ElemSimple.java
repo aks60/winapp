@@ -15,8 +15,8 @@ public abstract class ElemSimple extends Com5t {
     public float anglCut2 = 45; //Угол реза рамы
 
     public Record sysprofRec = null; //профиль в системе
-    public Record artiklRec = null;  //мат. средства, основной профиль
-    public Record artdetRec = null;  //текстура артикулов
+    public Record artiklRec = null;  //мат. средства
+    public Record artiklRec2 = null;  //мат. средства, аналоги
     public Specification specificationRec = null; //спецификация элемента
 
     public float anglHoriz = -1; //угол к горизонту

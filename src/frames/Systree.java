@@ -1061,6 +1061,11 @@ public class Systree extends javax.swing.JFrame {
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(3).setMinWidth(200);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 

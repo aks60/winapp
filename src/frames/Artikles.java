@@ -1052,6 +1052,14 @@ public class Artikles extends javax.swing.JFrame {
         });
         scr2.setViewportView(tab2);
         tab2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+        }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
 
@@ -1361,6 +1369,8 @@ public class Artikles extends javax.swing.JFrame {
                 selectionTab1(event);
             }
         });
+        txtFilter2.setEditable(false);
+        txtFilter2.setBackground(new java.awt.Color(255, 255, 255));
         txtField7.setEditable(false);
         txtField7.setBackground(new java.awt.Color(255, 255, 255));
     }

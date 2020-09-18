@@ -70,7 +70,7 @@ public class Wincalc {
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture, tariffication; //объекты калькуляции конструктива
-//==============================================================================    
+ 
 ////////////////////////////////////////////////////////////////////////////////
     public static int prj = 601001;
 ////////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,6 @@ public class Wincalc {
             System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);
         }
     }
-//==============================================================================
 
     // Парсим входное json окно и строим объектную модель окна
     private void parsingScript(String json) {
