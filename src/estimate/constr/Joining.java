@@ -75,10 +75,11 @@ public class Joining extends Cal5e {
                                 if (joiningDet.check(hmParam2, joinElem1, joinpar2List) == true) {
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
                                     Specification specif = new Specification(artiklRec, joinElem1, hmParam2);
-                                    Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-                                    specif.colorID1 = artdetRec.getInt(eArtdet.color_fk);
-                                    specif.colorID2 = artdetRec.getInt(eArtdet.color_fk);
-                                    specif.colorID3 = artdetRec.getInt(eArtdet.color_fk);
+                                    //Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
+                                    //specif.colorID1 = artdetRec.getInt(eArtdet.color_fk);
+                                    //specif.colorID2 = artdetRec.getInt(eArtdet.color_fk);
+                                    //specif.colorID3 = artdetRec.getInt(eArtdet.color_fk);
+                                    Color.setting(specif, joindetRec);
                                     specif.place = "СОЕД";
                                     joinElem1.addSpecific(specif);
                                 }
