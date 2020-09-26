@@ -268,6 +268,7 @@ public class Systree extends javax.swing.JFrame {
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
             nuni = node.record.getInt(eSystree.id);
+            eProperty.systree_nuni.write(String.valueOf(nuni));
             int sysprod_id = node.record.getInt(eSystree.sysprod_id);
             //Калькуляция и прорисовка окна
             createWincalc(sysprod_id);
