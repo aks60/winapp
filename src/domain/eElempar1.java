@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
     }
         
     public static Record find(int _id) {
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
     }
     
     public static Record find2(int _par1) {
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> _par1 == rec.getInt(grup)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", grup, "=", _par1);
@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
     }
     
     public static List<Record> find3(int _element_id) {
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> _element_id == rec.getInt(element_id)).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", element_id, "=", _element_id);

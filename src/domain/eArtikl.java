@@ -93,7 +93,7 @@ public enum eArtikl implements Field {
         if (_id == -1) {
             return record();
         }
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             Record recordRec = query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
             if (_analog == true && recordRec.get(analog_id) != null) {
 
@@ -116,7 +116,7 @@ public enum eArtikl implements Field {
         if (_code.equals("0x0x0x0")) {
             return record2();
         }
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> _code.equals(rec.getStr(code))).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", code, "='", _code, "'");

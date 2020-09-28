@@ -41,7 +41,7 @@ public enum eColgrp implements Field {
     }
 
     public static Record find(int _id) {
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);

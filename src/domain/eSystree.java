@@ -84,7 +84,7 @@ public enum eSystree implements Field {
         if (_nuni == -1) {
             return record();
         }
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> _nuni == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _nuni);

@@ -45,14 +45,14 @@ public enum eGlasgrp implements Field {
     }
 
     public static ArrayList<Record>  findAll() {
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query();
         }
         return new Query(values()).select(up);
     }
     
     public static Record find(int glasgrpId) {
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> rec.getInt(id) == glasgrpId).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", glasgrpId);

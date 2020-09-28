@@ -42,7 +42,7 @@ public enum eArtgrp implements Field {
     }
 
     public static Record find(int artgrp_id) {
-        if (conf.equals("calc")) {
+        if (conf.equals("cal")) {
             return query().stream().filter(rec -> artgrp_id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "='", artgrp_id, "'");
