@@ -339,7 +339,7 @@ public class Specification {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-12s", "iwin=" + String.format("%.2f", iwinTotal), "jar="
+            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 
