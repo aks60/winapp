@@ -14,7 +14,7 @@ public class Winscript {
      * @param nuni  - nini ветки системы профилей
      */
     public static String test(Integer project, Integer nuni) {
-        
+                
         if (project == 601001) {            
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 1300, 1300, 1009, 10009, 1009, "");
             rootArea.setParam(project.toString(), 387, "KBE 58->1 ОКНА->Открывание внутрь (ств. Z77)");

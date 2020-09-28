@@ -255,9 +255,11 @@ public class Specification {
     }
 
     //сравнение спецификации с профстроем
-    public static void compareIWin(ArrayList<Specification> spcList, int prj, boolean frame) {
-
+    public static void compareIWin(ArrayList<Specification> spcList, int prj, boolean detail) {
+        
         //TODO нужна синхронизация функции
+        System.out.println();
+        System.out.println("Prj=" + prj);
         Float iwinTotal = 0f, jarTotal = 0f;
         String path = "src\\resource\\xls\\p" + prj + ".xls";
         //Specification.sort(spcList);
@@ -297,9 +299,9 @@ public class Specification {
                     continue;
                 }
             }
-            if (frame == true) {
+            if (detail == true) {
                 System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "Dll", "Jar", "Delta"});
-                System.out.println();
+                //System.out.println();
                 for (Map.Entry<String, Float> entry : hmDll.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
@@ -310,11 +312,11 @@ public class Specification {
                     jarTotal = jarTotal + val2;
                     iwinTotal = iwinTotal + val1;
                 }
-                System.out.println();
+                //System.out.println();
                 if (hmJar.isEmpty() == false) {
                     System.out.printf("%-72s%-24s%-20s", new Object[]{"Name", "Artikl", "Value"});
                 }
-                System.out.println();
+                //System.out.println();
                 for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
                     String key = entry.getKey();
                     Float value3 = entry.getValue();
@@ -337,7 +339,7 @@ public class Specification {
                     jarTotal = jarTotal + value3;
                 }
             }
-            System.out.printf("%-18s%-18s%-18s%-12s", "Prj=" + prj, "iwin=" + String.format("%.2f", iwinTotal), "jar="
+            System.out.printf("%-18s%-18s%-12s", "iwin=" + String.format("%.2f", iwinTotal), "jar="
                     + String.format("%.2f", jarTotal), "dx=" + String.format("%.2f", Math.abs(iwinTotal - jarTotal)));
             System.out.println();
 

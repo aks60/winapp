@@ -5,22 +5,20 @@ import dataset.*;
 import enums.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import domain.eParams;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.Arrays;
-import java.util.List;
 
 public class Test {
 
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
-        try {  
+        try {
             //convert.Profstroy.script();
-            //wincalc();
+            wincalc();
             //query();            
             //frame();
             //parseJson();
@@ -31,17 +29,31 @@ public class Test {
     }
 
     static void wincalc() throws Exception {
-
+        
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-        estimate.Wincalc iwin = new estimate.Wincalc();
-        System.out.println("okno=" + estimate.Wincalc.prj);
-        //int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        iwin.build(estimate.script.Winscript.test(estimate.Wincalc.prj, null));
-        iwin.constructiv();
-//        iwin.bufferImg = new BufferedImage((int) (iwin.width + 260), (int) (iwin.heightAdd + 260), BufferedImage.TYPE_INT_RGB);
-//        iwin.graphics2D = (Graphics2D) iwin.bufferImg.getGraphics();
-//        iwin.rootArea.drawWin(iwin.bufferImg.getWidth(), iwin.bufferImg.getHeight());           
+        //estimate.Wincalc iwin = new estimate.Wincalc();
+
+        String _case = "max";
+        if (_case.equals("dll")) {
+            estimate.Wincalc iwin = new estimate.Wincalc();
+            iwin.build(estimate.script.Winscript.test(iwin.prj, null));
+            iwin.constructiv();
+
+        } else {
+            if (_case.equals("min")) {
+
+            } else if (_case.equals("max")) {
+                //for (int i : Arrays.asList(601001, 601001, 601001)) {
+                for(int i = 0; i < 8; ++i) {
+                    estimate.Wincalc iwin = new estimate.Wincalc();
+                    iwin.prj = 601001;
+                    String script = estimate.script.Winscript.test(iwin.prj, null);
+                    iwin.build(script);
+                    iwin.constructiv();
+                }
+            }
+        }
     }
 
     static void frame() throws Exception {

@@ -107,9 +107,9 @@ public class ElemImpost extends ElemSimple {
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec)) {
-            specif.colorID1 = iwin().colorNone;
-            specif.colorID2 = iwin().colorNone;
-            specif.colorID3 = iwin().colorNone;
+            //specif.colorID1 = iwin().colorNone;
+            //specif.colorID2 = iwin().colorNone;
+            //specif.colorID3 = iwin().colorNone;
 
             //Остальные
         } else {
