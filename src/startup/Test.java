@@ -45,7 +45,7 @@ public class Test {
             if (_case.equals("min")) {
 
             } else if (_case.equals("max")) {
-                for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007)) {
+                for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008)) {
                     estimate.Wincalc iwin = new estimate.Wincalc();
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
