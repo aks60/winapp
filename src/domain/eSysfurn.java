@@ -51,7 +51,7 @@ public enum eSysfurn implements Field {
     }
 
     public static List<Record> find(int _nuni) {
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", npp);

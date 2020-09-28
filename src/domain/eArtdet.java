@@ -51,7 +51,7 @@ public enum eArtdet implements Field {
     }
 
     public static List<Record> find(int _artikl_id) {
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).collect(toList());
         }
         return new Query(values()).select(up, "where", artikl_id, "=", _artikl_id, "order by", id);
@@ -61,7 +61,7 @@ public enum eArtdet implements Field {
         if (_artikl_id == -1) {
             return record();
         }
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(artikl_id) == _artikl_id).findFirst().orElse(null);
         }
         List<Record> record = new Query(values()).select("select first 1 * from " + up.tname() + " where " + artikl_id.name() + " = " + _artikl_id);

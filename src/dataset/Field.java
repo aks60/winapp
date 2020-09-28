@@ -7,7 +7,7 @@ import java.util.HashSet;
 //Поле таблицы
 public interface Field {
 
-    public static String conf = "cal";
+    public static String conf = "calc";
 
     public static enum TYPE {
 

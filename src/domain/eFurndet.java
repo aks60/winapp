@@ -47,7 +47,7 @@ public enum eFurndet implements Field {
     }
 
     public static List<Record> find(int _id) {
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(furniture_id1) == _id).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", furniture_id1, "=", _id);

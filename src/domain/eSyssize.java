@@ -42,7 +42,7 @@ public enum eSyssize implements Field {
         if (_id == -1) {
             return record();
         }
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);

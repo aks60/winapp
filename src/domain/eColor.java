@@ -62,7 +62,7 @@ public enum eColor implements Field {
         if (_id == -1) {
             return record();
         }
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
@@ -71,7 +71,7 @@ public enum eColor implements Field {
 
     public static List<Record> find2(int _colgrp_id) {
 
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(colgrp_id) == _colgrp_id).collect(toList());
         }
         return new Query(values()).select(up, "where", colgrp_id, "=", _colgrp_id);
@@ -79,7 +79,7 @@ public enum eColor implements Field {
 
     public static Record find3(int _color_fk) {
 
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             if (_color_fk < 0) {
                 return query().stream().filter(rec -> rec.getInt(colgrp_id) == _color_fk * -1).findFirst().orElse(up.newRecord());
             } else {

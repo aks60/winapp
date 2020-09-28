@@ -44,7 +44,7 @@ public enum eJoinpar2 implements Field {
     }
 
     public static List<Record> find(int _id) {
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(joindet_id) == _id).collect(toList());
         }
         return new Query(values()).select(up, "where", joindet_id, "=", _id, "order by", id);

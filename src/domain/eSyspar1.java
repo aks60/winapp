@@ -40,7 +40,7 @@ public enum eSyspar1 implements Field {
     }
 
     public static List<Record> find(int _nuni) {
-        if (conf.equals("cal")) {
+        if (conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).collect(toList());
         }
         return new Query(values()).select(up, "where", systree_id, "=", _nuni);
