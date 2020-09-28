@@ -18,12 +18,12 @@ import java.util.List;
  */
 public class Util {
 
-    protected boolean DblNotZero(Object p) {
+    public boolean DblNotZero(Object p) {
         float p2 = (float) p;
         return p2 > 0.00005;
     }
 
-    protected static Integer[] parserInt(String str) {
+    public static Integer[] parserInt(String str) {
 
         ArrayList<Integer> arrList = new ArrayList();
         char symmetry = str.charAt(str.length() - 1);
@@ -51,7 +51,7 @@ public class Util {
         return arrList.stream().toArray(Integer[]::new);
     }
 
-    protected static Float[] parserFloat(String str) {
+    public static Float[] parserFloat(String str) {
 
         ArrayList<Float> arrList = new ArrayList();
         str = str.replace(",", ".");
@@ -80,7 +80,7 @@ public class Util {
         return arrList.stream().toArray(Float[]::new);
     }
 
-    protected static Float[] parserFloat2(String str) {
+    public static Float[] parserFloat2(String str) {
         Float[] arr = {0f, 6000f, 0f, 6000f};
         str = str.replace(",", ".");
         char symmetry = str.charAt(str.length() - 1);
@@ -103,7 +103,7 @@ public class Util {
         return arr;
     }
 
-    protected static boolean compareInt(String ptext, int value) {
+    public static boolean compareInt(String ptext, int value) {
 
         if (ptext == null) {
             return true;
@@ -134,7 +134,7 @@ public class Util {
         return false;
     }
 
-    protected static boolean compareFloat(String ptext, float value) {
+    public static boolean compareFloat(String ptext, float value) {
 
         if (ptext == null) {
             return true;
@@ -182,7 +182,7 @@ public class Util {
         return false;
     }
 
-    protected static boolean containsFloat(String ptext, float value) {
+    public static boolean containsFloat(String ptext, float value) {
 
         if (ptext == null || ptext.isEmpty()) {
             return true;
@@ -199,12 +199,12 @@ public class Util {
         return false;
     }
 
-    protected boolean checkSize(float par, float... arr) {
+    public boolean checkSize(float par, float... arr) {
         return true;
     }
 
     //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
-    protected static boolean IsArtTariffAppliesForColor(Record artdetRec, Record colorRec) {
+    public static boolean IsArtTariffAppliesForColor(Record artdetRec, Record colorRec) {
         if (artdetRec.getInt(eArtdet.color_fk) < 0) {    //этот тариф задан для группы текстур
 
             if ((-1 * colorRec.getInt(eColor.colgrp_id)) == artdetRec.getInt(eArtdet.color_fk)) {

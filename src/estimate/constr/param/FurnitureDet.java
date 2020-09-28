@@ -2,17 +2,14 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
-import domain.eFurnpar2;
-import enums.Enam;
 import enums.LayoutArea;
 import enums.LayoutHandle;
-import enums.ParamList;
 import enums.TypeElem;
-import enums.TypeOpen1;
 import enums.UseArtiklTo;
 import java.util.HashMap;
 import java.util.List;
 import estimate.Wincalc;
+import estimate.constr.Util;
 import estimate.model.AreaSimple;
 import estimate.model.AreaStvorka;
 import estimate.model.ElemFrame;
@@ -161,14 +158,14 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24068:  //Коды внутр. текстуры изделия 
                         int c2 = elem5e.iwin().colorID2;
-                        if (compareInt(rec.getStr(TEXT), c2) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
                     case 24069:  //Коды внешн. текстуры изделия 
                     case 25069:  //Коды внешн. текстуры изделия     
                         int c3 = elem5e.iwin().colorID3;
-                        if (compareInt(rec.getStr(TEXT), c3) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                         break;

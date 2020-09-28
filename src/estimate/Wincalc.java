@@ -45,6 +45,7 @@ public class Wincalc {
 
     public Connection conn;
     public Integer nuni = 0;
+    public int prj = -1;
     public Record artiklRec = null; //главный артикл системы профилей
     public Record syssizeRec = null; //константы    
     public float genId = 100; //генерация ключа спецификации
@@ -70,10 +71,6 @@ public class Wincalc {
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture, tariffication; //объекты калькуляции конструктива
- 
-////////////////////////////////////////////////////////////////////////////////
-    public int prj = 601003;
-////////////////////////////////////////////////////////////////////////////////
     
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);

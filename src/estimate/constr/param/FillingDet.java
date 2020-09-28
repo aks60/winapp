@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import estimate.Wincalc;
-import estimate.model.ElemGlass;
+import estimate.constr.Util;
 import estimate.model.ElemSimple;
 
 //Заполнения
@@ -85,21 +85,21 @@ public class FillingDet extends Par5s {
                     case 14067:  //Коды основной текстуры изделия 
                     case 15067:  //Коды основной текстуры изделия    
                         int c1 = elem5e.iwin().colorID1;
-                        if (compareInt(rec.getStr(TEXT), c1) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), c1) == false) {
                             return false;
                         }
                         break;
                     case 14068:  //Коды внутр. текстуры изделия 
                     case 15068:  //Коды внутр. текстуры изделия     
                         int c2 = elem5e.iwin().colorID2;
-                        if (compareInt(rec.getStr(TEXT), c2) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
                     case 14069:  //Коды внешн. текстуры изделия 
                     case 15069:  //Коды внешн. текстуры изделия     
                         int c3 = elem5e.iwin().colorID3;
-                        if (compareInt(rec.getStr(TEXT), c3) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                         break;

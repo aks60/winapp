@@ -93,19 +93,19 @@ public class ElementVar extends Par5s {
                     break;
                     case 31005:  //Коды основной текстуры контейнера 
                     case 37005:  //Коды основной текстуры контейнера 
-                        if (compareInt(rec.getStr(TEXT), elem5e.colorID1) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), elem5e.colorID1) == false) {
                             return false;
                         }
                         break;
                     case 31006:  //Коды внутр. текстуры контейнера 
                     case 37006:  //Коды внутр. текстуры контейнера  
-                        if (compareInt(rec.getStr(TEXT), elem5e.colorID2) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), elem5e.colorID2) == false) {
                             return false;
                         }
                         break;
                     case 31007:  //Коды внешн. текстуры контейнера 
                     case 37007:  //Коды внешн. текстуры контейнера  
-                        if (compareInt(rec.getStr(TEXT), elem5e.colorID3) == false) {
+                        if (Util.compareInt(rec.getStr(TEXT), elem5e.colorID3) == false) {
                             return false;
                         }
                         break;
@@ -133,7 +133,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31020:  //Ограничение угла к горизонту, ° 
-                        if (compareFloat(rec.getStr(TEXT), ((ElemSimple) elem5e).anglHoriz) == false) {
+                        if (Util.compareFloat(rec.getStr(TEXT), ((ElemSimple) elem5e).anglHoriz) == false) {
                             return false;
                         }
                         break;
@@ -156,7 +156,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31041:  //Ограничение длины профиля, мм 
                         Object obj = elem5e.length();
-                        if (compareFloat(rec.getStr(TEXT), elem5e.length()) == false) {
+                        if (Util.compareFloat(rec.getStr(TEXT), elem5e.length()) == false) {
                             return false;
                         }
                         break;
@@ -179,15 +179,15 @@ public class ElementVar extends Par5s {
                         break;
                     case 31055:  //Коды внутр. и внешн. текстуры изд.
                     case 37055:  //Коды внутр. и внешн. текстуры изд. 
-                        if ((compareInt(rec.getStr(TEXT), elem5e.colorID2) == true
-                                && compareInt(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
+                        if ((Util.compareInt(rec.getStr(TEXT), elem5e.colorID2) == true
+                                && Util.compareInt(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
                             return false;
                         }
                         break;
                     case 31056:  //Коды внутр. или внеш. текстуры изд. 
                     case 37056:  //Коды внут. или внеш. текстуры изд. 
-                        if ((compareInt(rec.getStr(TEXT), elem5e.colorID2) == true
-                                || compareInt(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
+                        if ((Util.compareInt(rec.getStr(TEXT), elem5e.colorID2) == true
+                                || Util.compareInt(rec.getStr(TEXT), elem5e.colorID3) == true) == false) {
                             return false;
                         }
                         break;
@@ -255,7 +255,7 @@ public class ElementVar extends Par5s {
                         }
                         break;
                     case 37010:  //Ограничение ширины/высоты листа, мм 
-                        Float[] arr1 = parserFloat2(rec.getStr(TEXT));
+                        Float[] arr1 = Util.parserFloat2(rec.getStr(TEXT));
                         if (((arr1[0] > elem5e.width() && arr1[1] < elem5e.width()) || (arr1[0] > elem5e.height() && arr1[1] < elem5e.height())) == false) {
                             return false;
                         }
@@ -268,7 +268,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 37030:  //Минимальная площадь или Ограничение площади, кв.м. для Ps4                        
                         if ("ps4".equals(versionDb)) {
-                            Float[] arr2 = parserFloat(rec.getStr(TEXT));
+                            Float[] arr2 = Util.parserFloat(rec.getStr(TEXT));
                             if (elem5e.width() / 1000 * elem5e.height() / 1000 < arr2[0]) {
                                 return false;
                             }

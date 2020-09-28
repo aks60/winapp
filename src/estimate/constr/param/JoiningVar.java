@@ -6,11 +6,13 @@ import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
 import domain.eSetting;
+import domain.eSystree;
 import enums.TypeJoin;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import estimate.Wincalc;
+import estimate.constr.Util;
 import estimate.model.ElemJoining;
 
 //Соединения
@@ -230,7 +232,7 @@ public class JoiningVar extends Par5s {
                     case 3020:  //Ограничение угла, ° 
                     case 4020:  //Ограничение угла, ° или Угол минимальный, ° для ps3 
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            if (parserFloat(rec.getStr(TEXT))[0] < elemJoin.anglProf) {
+                            if (Util.parserFloat(rec.getStr(TEXT))[0] < elemJoin.anglProf) {
                                 return false;
                             }
                         } else if (compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
@@ -322,7 +324,7 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 4030: // Угол максимальный, °
-                        if (parserFloat(rec.getStr(TEXT))[0] > elemJoin.anglProf) {
+                        if (Util.parserFloat(rec.getStr(TEXT))[0] > elemJoin.anglProf) {
                             return false;
                         }
                         break;
@@ -350,9 +352,14 @@ public class JoiningVar extends Par5s {
                     case 4083:  //Проходит уровень деления 
                         message(rec.getInt(GRUP));
                         break;
-                    case 4095:  //Если признак системы конструкции 
-                        message(rec.getInt(GRUP));
-                        break;
+                    case 4095: //Если признак системы конструкции 
+                    {
+                        Record record = eSystree.find(iwin.nuni);
+                        if (Util.compareInt(rec.getStr(TEXT), record.getInt(eSystree.types)) == false) {
+                            return false;
+                        }
+                    }
+                    break;
                     case 4097:  //Трудозатраты по длине 
                         message(rec.getInt(GRUP));
                         break;
