@@ -1066,8 +1066,8 @@ public class Systree extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(3).setMinWidth(200);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(80);
+            tab2.getColumnModel().getColumn(4).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(40);
         }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
@@ -1128,17 +1128,17 @@ public class Systree extends javax.swing.JFrame {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Параметр", "Значение по умолчанию", "Закреплено"
+                "Параметр", "Значение по умолчанию", "Закреплено", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1157,6 +1157,7 @@ public class Systree extends javax.swing.JFrame {
         if (tab4.getColumnModel().getColumnCount() > 0) {
             tab4.getColumnModel().getColumn(2).setPreferredWidth(60);
             tab4.getColumnModel().getColumn(2).setMaxWidth(80);
+            tab4.getColumnModel().getColumn(3).setMaxWidth(40);
         }
 
         pan5.add(scr4, java.awt.BorderLayout.CENTER);

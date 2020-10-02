@@ -272,7 +272,7 @@
                 <Component class="javax.swing.JTable" name="tab1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="8" rowCount="2">
+                      <Table columnCount="9" rowCount="2">
                         <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435; &#x43f;&#x430;&#x440;&#x430;&#x43c;&#x435;&#x442;&#x440;&#x430;" type="java.lang.Object">
                           <Data value="zzzzzz"/>
                           <Data value="xxxxx"/>
@@ -284,6 +284,7 @@
                         <Column editable="true" title="&#x424;&#x443;&#x440;&#x43d;&#x438;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Boolean"/>
                         <Column editable="true" title="&#x41e;&#x442;&#x43a;&#x43e;&#x441;&#x44b;" type="java.lang.Boolean"/>
                         <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Boolean"/>
+                        <Column editable="true" title="ID" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -324,6 +325,11 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="40" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>

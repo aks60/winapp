@@ -35,9 +35,9 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
 
-        String _case = "max";
+        String _case = "dll";
         if (_case.equals("dll")) {            
-            iwin.prj = 601008;
+            iwin.prj = 601010;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt2(iwin.listSpec);
@@ -48,7 +48,8 @@ public class Test {
             if (_case.equals("min")) {
 
             } else if (_case.equals("max")) {
-                for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008)) {
+                for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 
+                        601008, 601009, 601010)) {
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     iwin.build(script);

@@ -200,15 +200,15 @@ public class Param extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"zzzzzz", null, null, null, null, null, null, null},
-                {"xxxxx", null, null, null, null, null, null, null}
+                {"zzzzzz", null, null, null, null, null, null, null, null},
+                {"xxxxx", null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Название параметра", "Комплекты", "Соединения", "Составы", "Заполнения", "Фурнитура", "Откосы", "Текстура"
+                "Название параметра", "Комплекты", "Соединения", "Составы", "Заполнения", "Фурнитура", "Откосы", "Текстура", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -220,6 +220,7 @@ public class Param extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(300);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tab1.getColumnModel().getColumn(8).setMaxWidth(40);
         }
 
         pan1.add(scr1, java.awt.BorderLayout.CENTER);
