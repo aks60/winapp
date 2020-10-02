@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import domain.eParams;
+import estimate.constr.Specification;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.UIManager;
@@ -32,25 +33,27 @@ public class Test {
         
         Query.connection = java.sql.DriverManager.getConnection(
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
-        //estimate.Wincalc iwin = new estimate.Wincalc();
+        estimate.Wincalc iwin = new estimate.Wincalc();
 
         String _case = "max";
         if (_case.equals("dll")) {            
-            estimate.Wincalc iwin = new estimate.Wincalc();
-            iwin.prj = 601007;
+            iwin.prj = 601008;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
+            //Specification.write_txt2(iwin.listSpec);
+            Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else {
             if (_case.equals("min")) {
 
             } else if (_case.equals("max")) {
                 for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 601008)) {
-                    estimate.Wincalc iwin = new estimate.Wincalc();
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     iwin.build(script);
                     iwin.constructiv();
+                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
                 }
             }
         }

@@ -112,17 +112,11 @@ public class Wincalc {
             calcFurniture.calc();
             tariffication = new Tariffication(this); //тарификация
             tariffication.calc();
-
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
-            
-            //Тестирование
-            //Specification.write_txt2(listSpec);
-            Specification.compareIWin(listSpec, prj, false);
-            //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));
 
         } catch (Exception e) {
             System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);

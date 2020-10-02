@@ -14,7 +14,6 @@ public class Color {
     private static int COLOR_FK = 3;
     private static int ARTIKL_ID = 4;
 
-    //TODO ВАЖНО !!! необходимо по умолчанию устанавливать colorNone = 1005 - без цвета
     public static void setting(Specification spc, Record spcdetRec) {  //см. http://help.profsegment.ru/?id=1107        
         int colorFk = spcdetRec.getInt(COLOR_FK);
 
@@ -23,32 +22,46 @@ public class Color {
             try {
                 int colorID = colorFromProduct(spc.elem5e, side, spcdetRec); //цвет из варианта подбора           
                 if (colorFk == 0) { //автоподбор текстуры
-                    int color_id = location(spc.artikl, side, colorID);
+                    int color_id = colorFromArtdet(spc.artiklRec, side, colorID);
                     if (color_id != -1) {
                         spc.setColor(side, color_id);
 
-                    } else { //если неудача подбора
-                        Record artdetRec = eArtdet.find2(spcdetRec.getInt(ARTIKL_ID)); //первая в списке запись цвета
+                    } else { //если неудача подбора то первая в списке запись цвета
+                        Record artdetRec = eArtdet.find2(spcdetRec.getInt(ARTIKL_ID));
                         if (artdetRec != null) {
                             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
                             if (colorFK2 > 0) { //если это не группа цветов
                                 spc.setColor(side, colorFK2);
 
                             } else if (colorFK2 < 0 && colorFK2 != -1) { //это группа
-                                //artdetRec = eColor.find2(colorFK2 * -1).get(0); //первая в списке запись цвета
-                                artdetRec = eColor.find3(colorFK2); //первая в списке запись цвета
-                                spc.setColor(side, artdetRec.getInt(eColor.id));
+                                List<Record> colorList = eColor.find2(colorFK2 * -1);
+                                if (colorList.isEmpty() == false) {
+                                    spc.setColor(side, colorList.get(0).getInt(eColor.id));
+                                }
                             }
                         }
                     }
                 } else if (colorFk == 100000) { //точный подбор 
-                    int colorId = location(spc.artikl, side, colorID);
+                    int colorId = colorFromArtdet(spc.artiklRec, side, colorID);
                     if (colorId != -1) {
                         spc.setColor(side, colorId);
+                    } else {
+                        //TODO в спецификпцию не попадёт. См. HELP.
                     }
 
                 } else if (colorFk > 0 && colorFk != 100000) { //указана
-                    spc.setColor(side, colorID);
+                    int color_id = colorFromArtdet(spc.artiklRec, side, colorID);
+                    if (color_id != -1) {
+                        spc.setColor(side, colorID);
+                    } else {  //дордом профстроя
+                        List<Record> artdetList = eArtdet.find(spcdetRec.getInt(ARTIKL_ID));
+                        for (Record record : artdetList) {
+                            if (record.getInt(eArtdet.color_fk) >= 0) {
+                                spc.setColor(side, record.getInt(eArtdet.color_fk));
+                                break;
+                            }
+                        }
+                    }
 
                 } else if (colorFk < 0) { //текстура задана через параметр
                     int colorFK2 = parametr();
@@ -60,36 +73,36 @@ public class Color {
         }
     }
 
-    //Автоподбор или точный подбор текстуры
-    private static int location(String artikl, int side, int colorID) {
+    //Поиск текстуры в Artdet
+    private static int colorFromArtdet(Record artiklRec, int side, int colorID) {
         try {
-            Record artiklRec = eArtikl.find2(artikl);
             List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));
             //Цыкл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
-                if (canBeUsed(side, artdetRec) == true) {
-                    if (artdetRec.getInt(eArtdet.color_fk) < 0) { //группа текстур
 
-                        List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk));
-                        for (Record colorRec : colorList) {
-                            if (colorRec.getInt(eColor.id) == colorID) {
-                                return colorID;
-                            }
+                if (artdetRec.getInt(eArtdet.color_fk) < 0) { //группа текстур
+
+                    List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk) * -1);
+                    for (Record colorRec : colorList) {
+                        if (colorRec.getInt(eColor.id) == colorID) {
+                            return colorID;
                         }
-                    } else if (artdetRec.getInt(eArtdet.color_fk) == colorID) {
+                    }
+                } else if (artdetRec.getInt(eArtdet.color_fk) == colorID) {
+                    if (canBeUsed(side, artdetRec) == true) {
                         return colorID;
                     }
                 }
-            } 
+            }
             return -1;
-            
+
         } catch (Exception e) {
             System.err.println("Ошибна estimate.constr.Color.location() " + e);
             return -1;
         }
     }
-    //Текстура указана в настройках конструктива
 
+    //Текстура указана в настройках конструктива
     private static int indicated(String artikl, int side, int colorID) {
         Record artiklRec = eArtikl.find2(artikl);
         List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));

@@ -36,9 +36,9 @@ public class Specification {
     public String place = "-"; //Место расмешения
     public String name = "-"; //Наименование
     public String artikl = "-";  //Артикул
-    public int colorID1 = 1005;  //Осн.текстура
-    public int colorID2 = 1005;  //Внутр.текстура
-    public int colorID3 = 1005;  //Внешн.текстура
+    public int colorID1 = -1;  //Осн.текстура
+    public int colorID2 = -1;  //Внутр.текстура
+    public int colorID3 = -1;  //Внешн.текстура
     public float width = 0;  //Длина
     public float height = 0;  //Ширина
     public float weight = 0;  //Масса
@@ -301,7 +301,7 @@ public class Specification {
             }
             if (detail == true) {
                 System.out.printf("%-64s%-24s%-16s%-16s%-16s", new Object[]{"Name", "Artikl", "Dll", "Jar", "Delta"});
-                //System.out.println();
+                System.out.println();
                 for (Map.Entry<String, Float> entry : hmDll.entrySet()) {
                     String key = entry.getKey();
                     Float val1 = entry.getValue();
