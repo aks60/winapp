@@ -316,7 +316,7 @@ public class Specification {
                 if (hmJar.isEmpty() == false) {
                     System.out.printf("%-72s%-24s%-20s", new Object[]{"Name", "Artikl", "Value"});
                 }
-                //System.out.println();
+                System.out.println();
                 for (Map.Entry<String, Float> entry : hmJar.entrySet()) {
                     String key = entry.getKey();
                     Float value3 = entry.getValue();
