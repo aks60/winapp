@@ -35,10 +35,10 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
 
-        String _case = "max";
+        String _case = "dll";
         
         if (_case.equals("dll")) {            
-            iwin.prj = 601010;
+            iwin.prj = 604004;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt2(iwin.listSpec);
