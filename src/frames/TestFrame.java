@@ -30,13 +30,13 @@ public class TestFrame extends javax.swing.JFrame {
         } catch (Exception e) {
         }
         //sql1.setText("SELECT * from connlst where anum1 like '@21301-0%' order by cname");
-        sql1.setText("SELECT * from connlst order by cname");
+        sql1.setText("SELECT * from sysproa a where a.nuni = 37");
         loadingTab1();
     }
 
     private void loadingTab1() {
         try {
-            ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
+          ResultSet rs = cn.createStatement().executeQuery(sql1.getText());
             ResultSetMetaData rsmd = rs.getMetaData();
 
             Vector column = new Vector();
@@ -63,7 +63,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void selectionTab2() {
         try {
-            int row = tab1.getSelectedRow();
+            /*int row = tab1.getSelectedRow();
             if (row != -1) {
                 Object id = tab1.getValueAt(row, 3);
                 sql2.setText("select * from connvar where cconn = " + id + " order by cprio");
@@ -85,7 +85,7 @@ public class TestFrame extends javax.swing.JFrame {
                 tab2.setModel(new DefaultTableModel(data, column));
                 ((DefaultTableModel) tab3.getModel()). setRowCount(0);
                 Util.setSelectedRow(tab2);
-            }
+            }*/
 
         } catch (Exception e) {
             System.out.println("frames.TestFrame.selectionTab2() " + e);
@@ -94,7 +94,7 @@ public class TestFrame extends javax.swing.JFrame {
 
     private void selectionTab3() {
         try {
-            int row = tab2.getSelectedRow();
+            /*int row = tab2.getSelectedRow();
             if (row != -1) {
                 Object id = tab2.getValueAt(row, 1);
                 sql3.setText("select * from connspc where cunic = " + id + " order by anumb");
@@ -115,7 +115,7 @@ public class TestFrame extends javax.swing.JFrame {
                 }
                 tab3.setModel(new DefaultTableModel(data, column));
                 Util.setSelectedRow(tab3);
-            }
+            }*/
         } catch (Exception e) {
             System.out.println("frames.TestFrame.selectionTab3() " + e);
         }

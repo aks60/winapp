@@ -51,7 +51,9 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv() {
 
-        if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
+        if(owner().sysprofID != null) {
+           sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
+        } else  if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
         } else if (layout == LayoutArea.BOTTOM) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);

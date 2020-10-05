@@ -116,13 +116,13 @@ public class Winscript {
             rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'4663'}")); //или '4x12x4x12x4'
 
         } else if (project == 601010) {
-            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, 1009, 1009, 1009, "{'ioknaParam':[[-862071,295],[-862065,314],[-862062,325],[-862131,17],[-862097,195],[-862060,335]]}");
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, 1009, 1009, 1009, "{'sysprofID':1120, 'ioknaParam':[[-862071,295],[-862065,314],[-862062,325],[-862131,17],[-862097,195],[-862060,335]]}");
             rootArea.setParam(project.toString(), 371, "KBE->KBE Эксперт->1 ОКНА->Открывание внутрь (ств. Z 77)");
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.AREA, 650));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
-            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1,'sysfurnID':2335, 'ioknaParam': [[-862107,826],[-862106,830]]}"));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4,'sysfurnID':2916, 'ioknaParam': [[-862107,184],[-862106,186]]}"));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':1,'sysfurnID':2335, 'ioknaParam': [[-862107,826],[-862106,830]]}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916, 'ioknaParam': [[-862107,184],[-862106,186]]}"));
             area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':'4663'}"));
             area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':'4663'}"));
 

@@ -1051,7 +1051,15 @@ public class Systree extends javax.swing.JFrame {
             new String [] {
                 "Применение", "Сторона", "Артикул", "Название", "Приоритет", "ID"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tab2.setFillsViewportHeight(true);
         tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -1111,6 +1119,7 @@ public class Systree extends javax.swing.JFrame {
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(40);
             tab3.getColumnModel().getColumn(0).setMaxWidth(80);
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
             tab3.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab3.getColumnModel().getColumn(3).setMaxWidth(80);
             tab3.getColumnModel().getColumn(7).setMaxWidth(40);

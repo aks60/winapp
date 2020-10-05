@@ -1,9 +1,12 @@
 package estimate.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import frames.swing.Draw;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.LayoutJoin;
+import enums.ParamJson;
 import enums.TypeJoin;
 import java.io.File;
 import java.util.EnumMap;
@@ -20,6 +23,7 @@ import estimate.Wincalc;
 public class AreaSimple extends Com5t {
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
+    public Integer sysprofID = null; //то, что выбрал клиент
 
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
@@ -30,6 +34,13 @@ public class AreaSimple extends Com5t {
         this.colorID3 = color3;
         parsing(param);
         initDimension(width, height);
+        if (param != null && param.isEmpty() == false) {
+            JsonObject jsonObj = new Gson().fromJson(param.replace("'", "\""), JsonObject.class);
+
+            if (jsonObj.get(ParamJson.sysprofID.name()) != null) {
+                this.sysprofID = jsonObj.get(ParamJson.sysprofID.name()).getAsInt();
+            }
+        }
     }
 
     protected void initDimension(float width, float height) {

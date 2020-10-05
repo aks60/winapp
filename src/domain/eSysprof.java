@@ -86,49 +86,6 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
-    public static Record find3(Wincalc iwin, UseArtiklTo _type, UseSide... _side) {
-        if (iwin.nuni == -1) {
-            return record(_type);
-        }
-        List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
-        if (conf.equals("calc")) {
-
-            //Цикл по профилям
-            for (Record sysprofRec : query()) {
-                if (sysprofRec.getInt(systree_id) == iwin.nuni && _type.id == sysprofRec.getInt(use_type) && _side2.contains(sysprofRec.getInt(use_side))) {
-
-                    //Цикл по текстурам
-                    for (Record artdetRec : eArtdet.query()) {
-                        if (sysprofRec.getInt(artikl_id) == artdetRec.getInt(eArtdet.artikl_id)) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == iwin.colorID1) {
-                                return sysprofRec;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
-        Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ",
-                iwin.nuni, "and ", use_type, "=", _type.id, "and", use_side, "in", str, "order by", prio);
-        String par = sysprofList.stream().map(rec -> rec.getStr(artikl_id)).collect(Collectors.joining(",", "(", ")"));;
-        Query artdetList = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.artikl_id, "in", par);
-
-        //Цикл по профилям
-        for (Record sysprofRec : sysprofList) {
-
-            //Цикл по текстурам
-            for (Record artdetRec : artdetList) {
-                if (sysprofRec.getInt(artikl_id) == artdetRec.getInt(eArtdet.artikl_id)) {
-                    if (artdetRec.getInt(eArtdet.color_fk) == iwin.colorID1) {
-                        return sysprofRec;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     public static Record find4(Wincalc iwin, UseArtiklTo _type, UseSide... _side) {
         if (iwin.nuni == -1) {
             return record(_type);

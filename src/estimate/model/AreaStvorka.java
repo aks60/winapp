@@ -25,20 +25,24 @@ public class AreaStvorka extends AreaSimple {
     public LayoutFurn1 handleSide = null;
     public int handleColor = -1; //цвет ручки
     public TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
-    public int sysfurnID = -1; //то, что выбрал клиент
+    public Integer sysfurnID = null; //то, что выбрал клиент
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
 
         if (param != null && param.isEmpty() == false) {
-            String str = param.replace("'", "\"");
-            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-            this.sysfurnID = (jsonObj.get(ParamJson.sysfurnID.name()) == null) ? -1 : jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
-            this.typeOpen = (jsonObj.get(ParamJson.typeOpen.name()) == null) ? TypeOpen1.OM_INVALID : TypeOpen1.get(jsonObj.get(ParamJson.typeOpen.name()).getAsInt());
+            JsonObject jsonObj = new Gson().fromJson(param.replace("'", "\""), JsonObject.class);
+
+            if (jsonObj.get(ParamJson.sysfurnID.name()) != null) {
+                this.sysfurnID = jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
+            }
+            if (jsonObj.get(ParamJson.typeOpen.name()) != null) {
+                this.typeOpen = TypeOpen1.get(jsonObj.get(ParamJson.typeOpen.name()).getAsInt());
+            }
         }
-        
+
         //Коррекция створки с учётом нахлёста
-        ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);       
+        ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
         x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
         y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
         x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
@@ -60,7 +64,7 @@ public class AreaStvorka extends AreaSimple {
         stvLeft.specificationRec.height = height();
 
     }
-    
+
     @Override
     public void joinFrame() {
         //Цикл по сторонам створки
