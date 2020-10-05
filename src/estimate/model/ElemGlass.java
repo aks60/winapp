@@ -98,10 +98,14 @@ public class ElemGlass extends ElemSimple {
 
         } else {
             ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
-            x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-            y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
-            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
-            y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+            float size_falz = (insideLeft.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideLeft.artiklRec.getFloat(eArtikl.size_falz);
+            x1 = insideLeft.x2 - size_falz + gzazo;
+            size_falz = (insideTop.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideTop.artiklRec.getFloat(eArtikl.size_falz);
+            y1 = insideTop.y2 - size_falz + gzazo;
+            size_falz = (insideRight.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideRight.artiklRec.getFloat(eArtikl.size_falz);
+            x2 = insideRight.x1 + size_falz - gzazo;
+            size_falz = (insideBott.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideBott.artiklRec.getFloat(eArtikl.size_falz);
+            y2 = insideBott.y1 + size_falz - gzazo;
         }
         specificationRec.width = width();
         specificationRec.height = height();

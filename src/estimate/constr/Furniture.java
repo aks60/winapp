@@ -57,7 +57,6 @@ public class Furniture extends Cal5e {
                 //Сторона открывания
                 areaStvorka.handleSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
                 //Подбор текстуры ручки створки
-                //Object colorHandl = areaStvorka.mapParamUse.get(ParamJson.colorHandl);
                 if (areaStvorka.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
                     areaStvorka.handleColor = iwin().colorID1;
                 }
@@ -170,16 +169,20 @@ public class Furniture extends Cal5e {
                 }
                 if (side == 1) {
                     el = areaStvorka.mapFrame.get(LayoutArea.BOTTOM);
-                    width = el.width() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.width() - 2 * size_falz;
                 } else if (side == 2) {
                     el = areaStvorka.mapFrame.get(LayoutArea.RIGHT);
-                    width = el.height() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.height() - 2 * size_falz;
                 } else if (side == 3) {
                     el = areaStvorka.mapFrame.get(LayoutArea.TOP);
-                    width = el.width() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.width() - 2 * size_falz;
                 } else if (side == 4) {
                     el = areaStvorka.mapFrame.get(LayoutArea.LEFT);
-                    width = el.height() - 2 * el.artiklRec.getFloat(eArtikl.size_falz);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.height() - 2 * size_falz;
                 }
                 if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
                     return false;
