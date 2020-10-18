@@ -62,21 +62,29 @@ public class Tariffication extends Cal5e {
 
                     Record ruleRec = checkRule(rulecalcRec, elem5e.specificationRec);
                     elem5e.specificationRec.inPrice = elem5e.specificationRec.inPrice * ruleRec.getFloat(0) + ruleRec.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
-                    elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
-                    Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));                   
-                    elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef, 1) * systreeRec.getFloat(eSystree.coef, 1);
-                    elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
-                    elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
-
-                    for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
-                        Record ruleRec2 = checkRule(rulecalcRec, specifSubelemRec);
-                        specifSubelemRec.inPrice = specifSubelemRec.inPrice * ruleRec2.getFloat(0) + ruleRec2.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                        
-                        specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //себестоимости с отходом
-                        Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp_id));
-                        specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef);
-                        specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
-                        specifSubelemRec.outCost = specifSubelemRec.inCost; //стоимость со скидкой 
+                    if (elem5e.specificationRec.id == 14.0) {
+                        int mmm = 0;
                     }
+                }
+                elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
+                Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
+                elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef, 1) * systreeRec.getFloat(eSystree.coef, 1);
+                elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
+                elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
+
+                for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
+                    for (Record rulecalcRec2 : eRulecalc.get()) {
+                        int form2 = (rulecalcRec2.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec2.getInt(eRulecalc.form);
+                        if (form2 == TypeForm.P00.id) { //не проверять форму 
+                            Record ruleRec2 = checkRule(rulecalcRec2, specifSubelemRec);
+                            specifSubelemRec.inPrice = specifSubelemRec.inPrice * ruleRec2.getFloat(0) + ruleRec2.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                        
+                        }
+                    }
+                    specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //себестоимости с отходом
+                    Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp_id));
+                    specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef);
+                    specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
+                    specifSubelemRec.outCost = specifSubelemRec.inCost; //стоимость со скидкой 
                 }
             }
         }
@@ -113,7 +121,7 @@ public class Tariffication extends Cal5e {
                 artsvstRowUsed = true;
 
             } else {
-                
+
                 if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0) {  //подбираем тариф основной текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color1Rec)) {
                         Record colgrpRec = eColgrp.find(color1Rec.getInt(eColor.colgrp_id));
@@ -145,7 +153,7 @@ public class Tariffication extends Cal5e {
         }
         return inPrice;
     }
-    
+
     //Правила расчёта. Фильтр по полю form, color(1,2,3) таблицы RULECALC
     private Record checkRule(Record rulecalcRec, Specification specifRec) {
 
