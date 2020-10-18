@@ -41,8 +41,8 @@ public class Test {
             iwin.prj = 604004;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
-            //Specification.write_txt2(iwin.listSpec);
-            Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            Specification.write_txt2(iwin.listSpec);
+            //Specification.compareIWin(iwin.listSpec, iwin.prj, true);
             //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else {
