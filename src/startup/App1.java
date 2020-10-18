@@ -26,6 +26,7 @@ import frames.RuleCalc;
 import frames.Specific;
 import frames.TestFrame;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.util.Arrays;
 import javax.swing.JFrame;
@@ -169,6 +170,12 @@ public class App1 extends javax.swing.JFrame {
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowDeiconified(java.awt.event.WindowEvent evt) {
+                formWindowDeiconified(evt);
+            }
+            public void windowIconified(java.awt.event.WindowEvent evt) {
+                formWindowIconified(evt);
             }
         });
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
@@ -1032,8 +1039,7 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mnConstr
 
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
-        eApp1.disposeFrame();
-        dispose();
+        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
@@ -1264,7 +1270,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_btn35ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        //Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setVisible(true));
+        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.requestFocus());
     }//GEN-LAST:event_formWindowActivated
 
     private void mRulecalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRulecalc
@@ -1274,6 +1280,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         });
     }//GEN-LAST:event_mRulecalc
+
+    private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
+        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.ICONIFIED));
+    }//GEN-LAST:event_formWindowIconified
+
+    private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
+        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
+    }//GEN-LAST:event_formWindowDeiconified
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1461,14 +1475,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             App1.frame.setLocation(0, 0);
             App1.frame.setSize(screenSize.width, App1.frame.getHeight());
             App1.frame.setVisible(true);
-        }
-
-        public static void disposeFrame() {
-            for (eApp1 e : values()) {
-                if (e.frame != null) {
-                    e.frame.dispose();
-                }
-            }
         }
     }
 }
