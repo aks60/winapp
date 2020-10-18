@@ -317,7 +317,7 @@
                     <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;.&#x431;&#x435;&#x437;&lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x430;" type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x41f;&#x440;&#x43e;&#x446;&#x435;&#x43d;&#x442;&lt;br/&gt; &#x43e;&#x442;&#x445;." type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x41a;&#x43e;&#x43b;. &#x441; &lt;br/&gt;&#x43e;&#x442;&#x445;&#x43e;&#x434;&#x43e;&#x43c;" type="java.lang.Object"/>
-                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;-&#x441;&#x442;&#x44c;&lt;br/&gt; &#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
+                    <Column editable="true" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x437;&#x430; &#x435;&#x434;. &#x438;&#x437;&#x43c;&#x435;&#x440;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
                     <Column editable="false" title="&lt;html&gt;&#x421;&#x435;&#x431;&#x435;&#x441;&#x442;.&lt;br/&gt; &#x441; &#x43e;&#x442;&#x445;." type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;.&lt;br/&gt; &#x431;&#x435;&#x437;_&#x441;&#x43a;&#x438;&#x434;&#x43a;&#x438;" type="java.lang.Object"/>
                     <Column editable="true" title="&lt;html&gt;&#x421;&#x442;&#x43e;&#x438;&#x43c;. &lt;br/&gt;&#x441;&#x43e;_&#x441;&#x43a;&#x438;&#x434;&#x43a;&#x43e;&#x439;" type="java.lang.Object"/>
