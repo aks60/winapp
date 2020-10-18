@@ -246,7 +246,15 @@ public class Specific extends javax.swing.JFrame {
             new String [] {
                 "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.без<br/>отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себес-сть<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой", "Скидка"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tab1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tab1.setFillsViewportHeight(true);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -275,10 +283,10 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(16).setPreferredWidth(46);
             tab1.getColumnModel().getColumn(17).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(19).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(20).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(21).setPreferredWidth(40);
-            tab1.getColumnModel().getColumn(22).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(19).setPreferredWidth(44);
+            tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
+            tab1.getColumnModel().getColumn(21).setPreferredWidth(44);
+            tab1.getColumnModel().getColumn(22).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(23).setPreferredWidth(40);
         }
 

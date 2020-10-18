@@ -63,9 +63,9 @@ public class Tariffication extends Cal5e {
                     Record ruleRec = checkRule(rulecalcRec, elem5e.specificationRec);
                     elem5e.specificationRec.inPrice = elem5e.specificationRec.inPrice * ruleRec.getFloat(0) + ruleRec.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
                     elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
-                    Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
-                    elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef, 1) * systreeRec.getFloat(eSystree.coef, 1)
-                            + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
+                    Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));                   
+                    elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef, 1) * systreeRec.getFloat(eSystree.coef, 1);
+                    elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
                     elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
 
                     for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
@@ -73,8 +73,8 @@ public class Tariffication extends Cal5e {
                         specifSubelemRec.inPrice = specifSubelemRec.inPrice * ruleRec2.getFloat(0) + ruleRec2.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                        
                         specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //себестоимости с отходом
                         Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp_id));
-                        specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef)
-                                + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
+                        specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef);
+                        specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
                         specifSubelemRec.outCost = specifSubelemRec.inCost; //стоимость со скидкой 
                     }
                 }
