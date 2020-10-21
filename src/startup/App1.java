@@ -7,6 +7,7 @@ import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
 import convert.Convert;
+import estimate.Wincalc;
 import frames.Artikles;
 import frames.BoxTypical;
 import frames.Systree;
@@ -37,6 +38,7 @@ import javax.swing.JFrame;
  */
 public class App1 extends javax.swing.JFrame {
 
+    private Wincalc iwin = new Wincalc();
     private javax.swing.Timer timer = null;
     private FrameListener listenerMenu;
     private FrameListener<Object, Object> listenerDate = new FrameListener() {
@@ -182,14 +184,18 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb0.setRollover(true);
-        tb0.setPreferredSize(new java.awt.Dimension(42, 28));
+        tb0.setPreferredSize(new java.awt.Dimension(47, 28));
 
-        btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif"))); // NOI18N
-        btn16.setSelected(true);
+        btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
+        btn16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn16.setFocusable(false);
         btn16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn16.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnFilter(evt);
+            }
+        });
         tb0.add(btn16);
 
         getContentPane().add(tb0);
@@ -197,7 +203,7 @@ public class App1 extends javax.swing.JFrame {
         tb1.setRollover(true);
         tb1.setMaximumSize(new java.awt.Dimension(150, 28));
         tb1.setMinimumSize(new java.awt.Dimension(150, 28));
-        tb1.setPreferredSize(new java.awt.Dimension(170, 28));
+        tb1.setPreferredSize(new java.awt.Dimension(176, 28));
 
         btn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
         btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -1198,7 +1204,16 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Joining.createFrame(App1.this);
+                if (btn16.isSelected() == false) {
+                    eApp1.Joining.createFrame(App1.this);
+                } else {
+                    //iwin.build(productJson);
+                    iwin.calcJoining = new estimate.constr.Joining(iwin);
+                    iwin.calcJoining.calc();
+                    java.awt.Frame frame = new Joining(App1.this, iwin.calcJoining.listVariants);
+                    FrameToFile.setFrameSize(frame);
+                    frame.setVisible(true);
+                }
             }
         });
     }//GEN-LAST:event_mJoining
@@ -1297,6 +1312,15 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void formWindowDeiconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeiconified
         Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.setState(Frame.NORMAL));
     }//GEN-LAST:event_formWindowDeiconified
+
+    private void mnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFilter
+        if (btn16.isSelected() == true) {
+            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
+        } else {
+            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
+        }
+    }//GEN-LAST:event_mnFilter
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
