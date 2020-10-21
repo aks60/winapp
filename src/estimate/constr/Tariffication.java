@@ -29,7 +29,7 @@ public class Tariffication extends Cal5e {
         super(iwin);
     }
 
-    public void calc() {
+    public void calc2() {
 
         float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
 
@@ -93,19 +93,19 @@ public class Tariffication extends Cal5e {
         }
     }
 
-    public void calc2() {
+    public void calc() {
 
         float percentMarkup = percentMarkup(); //процентная надбавка на изделия сложной формы
 
         //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
         for (ElemSimple elem5e : iwin.listElem) {
-            elem5e.specificationRec.inPrice += inprice(elem5e.specificationRec); //себес-сть за ед. изм.
+            elem5e.specificationRec.inPrice += inprice2(elem5e.specificationRec); //себес-сть за ед. изм.
             elem5e.specificationRec.quantity = quantity(elem5e.specificationRec); //количество без отхода
             elem5e.specificationRec.quantity2 = elem5e.specificationRec.quantity
                     + (elem5e.specificationRec.quantity * elem5e.specificationRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
 
             for (Specification spcRec : elem5e.specificationRec.specificationList) {
-                spcRec.inPrice += inprice(spcRec); //себес-сть за ед. изм.
+                spcRec.inPrice += inprice2(spcRec); //себес-сть за ед. изм.
                 spcRec.quantity = quantity(spcRec); //количество без отхода
                 spcRec.quantity2 = spcRec.quantity + (spcRec.quantity * spcRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
             }
@@ -126,21 +126,26 @@ public class Tariffication extends Cal5e {
 
                     Record ruleRec = checkRule(rulecalcRec, elem5e.specificationRec);
                     elem5e.specificationRec.inPrice = elem5e.specificationRec.inPrice * ruleRec.getFloat(0) + ruleRec.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                      
-                    elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
-                    Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
-                    elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef, 1) * systreeRec.getFloat(eSystree.coef, 1);
-                    elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
-                    elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
+                }
+                elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
+                Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
+                elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef, 1) * systreeRec.getFloat(eSystree.coef, 1);
+                elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
+                elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
 
-                    for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
-                        Record ruleRec2 = checkRule(rulecalcRec, specifSubelemRec);
-                        specifSubelemRec.inPrice = specifSubelemRec.inPrice * ruleRec2.getFloat(0) + ruleRec2.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                        
-                        specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //себестоимости с отходом
-                        Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp_id));
-                        specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef);
-                        specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
-                        specifSubelemRec.outCost = specifSubelemRec.inCost; //стоимость со скидкой 
+                for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
+                    
+                    for (Record rulecalcRec2 : eRulecalc.get()) {
+                        if (rulecalcRec2.getInt(eRulecalc.form) == TypeForm.P00.id) { //не проверять форму 
+                            Record ruleRec2 = checkRule(rulecalcRec2, specifSubelemRec);
+                            specifSubelemRec.inPrice = specifSubelemRec.inPrice * ruleRec2.getFloat(0) + ruleRec2.getFloat(1); //увеличение себестоимости в coeff раз и на incr величину надбавки                        
+                        }
                     }
+                    specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //себестоимости с отходом
+                    Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp_id));
+                    specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coef) * systreeRec.getFloat(eSystree.coef);
+                    specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
+                    specifSubelemRec.outCost = specifSubelemRec.inCost; //стоимость со скидкой 
                 }
             }
         }
@@ -154,6 +159,64 @@ public class Tariffication extends Cal5e {
 
     //Себес-сть за ед. изм. Считает тариф для заданного артикула заданных цветов по таблице eArtdet
     public float inprice(Specification specificRec) {
+
+        float inPrice = 0;
+        Record color1Rec = eColor.find(specificRec.colorID1);  //
+        Record color2Rec = eColor.find(specificRec.colorID2);  //описание текстур
+        Record color3Rec = eColor.find(specificRec.colorID3);  //
+
+        Record kursBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc1_id));    // кросс-курс валюты для основной текстуры
+        Record kursNoBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc2_id));  // кросс-курс валюты для неосновных текстур (внутренняя, внешняя, двухсторонняя)
+
+        //Цикл по тарификационной таблице мат ценностей
+        for (Record artdetRec : eArtdet.find(specificRec.artiklRec.getInt(eArtikl.id))) {
+
+            float artdetTariff = 0;
+            boolean artsvstRowUsed = false;
+
+            if (artdetRec.getFloat(eArtdet.cost_cl4) != 0 && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
+                    && (artdetRec.getInt(eArtdet.prefe) & 1) != 0 && (artdetRec.getInt(eArtdet.prefe) & 2) != 0
+                    && Util.IsArtTariffAppliesForColor(artdetRec, color2Rec)) { //если двухсторонняя текстура
+
+                artdetTariff += (artdetRec.getInt(eArtdet.cost_cl4) * Math.max(color2Rec.getFloat(eColor.coef2), color2Rec.getFloat(eColor.coef3)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour));
+                artsvstRowUsed = true;
+
+            } else {
+
+                if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0) {  //подбираем тариф основной текстуры
+                    if (Util.IsArtTariffAppliesForColor(artdetRec, color1Rec)) {
+                        Record colgrpRec = eColgrp.find(color1Rec.getInt(eColor.colgrp_id));
+                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_cl1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eColgrp.coeff)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
+                        artsvstRowUsed = true;
+                    }
+                }
+                if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0) { //подбираем тариф внутренней текстуры
+                    if (Util.IsArtTariffAppliesForColor(artdetRec, color2Rec)) {
+                        Record colgrpRec = eColgrp.find(color2Rec.getInt(eColor.colgrp_id));
+                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_cl2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+                        artsvstRowUsed = true;
+                    }
+                }
+                if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0) { //подбираем тариф внешней текстуры
+                    if (Util.IsArtTariffAppliesForColor(artdetRec, color3Rec)) {
+                        Record colgrpRec = eColgrp.find(color3Rec.getInt(eColor.colgrp_id));
+                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_cl3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+                        artsvstRowUsed = true;
+                    }
+                }
+            }
+            if (artsvstRowUsed && artdetRec.getFloat(eArtdet.cost_min) != 0 && specificRec.quantity != 0 && artdetTariff * specificRec.quantity < artdetRec.getFloat(eArtdet.cost_min)) {
+                artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quantity;    //используем минимальный тариф 
+            }
+            if (artsvstRowUsed) {
+                inPrice = inPrice + (artdetTariff * artdetRec.getFloat(eArtdet.coef_nakl));
+            }
+        }
+        return inPrice;
+    }
+
+    //Себес-сть за ед. изм. Считает тариф для заданного артикула заданных цветов по таблице eArtdet
+    public float inprice2(Specification specificRec) {
 
         float inPrice = 0;
         Record color1Rec = eColor.find(specificRec.colorID1);  //

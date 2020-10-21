@@ -37,8 +37,6 @@ import estimate.constr.Furniture;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
-import java.lang.annotation.Annotation;
-import common.Column;
 import frames.swing.Draw;
 
 public class Wincalc {
