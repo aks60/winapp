@@ -1,13 +1,9 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public enum eFurniture implements Field {
     up("0", "0", "0", "Список фурнитуры", "FURNLST"),
@@ -54,7 +50,7 @@ public enum eFurniture implements Field {
     }
 
     public static Record find(int _id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
@@ -62,7 +58,7 @@ public enum eFurniture implements Field {
     }
     
 //    public static Record find2(int _id) {
-//        if (conf.equals("calc")) {
+//        if (Query.conf.equals("calc")) {
 //            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
 //        }
 //        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
@@ -70,7 +66,7 @@ public enum eFurniture implements Field {
 //    }
 
 //    public static List<Record> find2(int _id) {
-//        if (conf.equals("calc")) {
+//        if (Query.conf.equals("calc")) {
 //            List<Integer> furndetKeys = eFurndet.query().stream()
 //                    .filter(rec -> rec.getInt(eFurndet.furniture_id1) == _id && rec.get(eFurndet.furniture_id2) != null)
 //                    .map(rec -> rec.getInt(eFurndet.furniture_id2)).collect(Collectors.toList());

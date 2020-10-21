@@ -1,14 +1,9 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eJoinvar.id;
-import static domain.eJoinvar.joining_id;
-import static domain.eJoinvar.up;
-import static domain.eJoinvar.values;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
@@ -44,7 +39,7 @@ public enum eJoinpar1 implements Field {
     }
 
     public static List<Record> find(int _id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(joinvar_id) == _id).collect(toList());
         }
         return new Query(values()).select(up, "where", joinvar_id, "=", _id, "order by", id);

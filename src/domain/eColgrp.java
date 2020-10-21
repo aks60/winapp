@@ -1,13 +1,9 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eCurrenc.id;
-import static domain.eCurrenc.up;
-import static domain.eCurrenc.values;
 
 public enum eColgrp implements Field {
     up("0", "0", "0", "Группа текстур", "GRUPCOL"),
@@ -41,7 +37,7 @@ public enum eColgrp implements Field {
     }
 
     public static Record find(int _id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);

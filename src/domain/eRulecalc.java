@@ -49,7 +49,7 @@ public enum eRulecalc implements Field {
     }
 
     public static List<Record> get() {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query();
         }
         return new Query(values()).select(up, "order by", id);

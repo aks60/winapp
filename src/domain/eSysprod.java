@@ -1,14 +1,9 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eElempar2.up;
-import static domain.eSystree.id;
-import static domain.eSystree.up;
-import static domain.eSystree.values;
 
 public enum eSysprod implements Field {
     up("0", "0", "0", "Cписок типовых изделий по проф. системам", "EMPTY"),
@@ -40,7 +35,7 @@ public enum eSysprod implements Field {
     }
 
     public static Record find(int _id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);

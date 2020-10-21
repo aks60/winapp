@@ -17,6 +17,7 @@ public class Query extends Table {
 
     private static String schema = "";
     public static Connection connection = null;
+    public static String conf = "calc";
     public static String INS = "INS";
     public static String SEL = "SEL";
     public static String UPD = "UPD";

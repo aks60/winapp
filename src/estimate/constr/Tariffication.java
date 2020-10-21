@@ -247,7 +247,7 @@ public class Tariffication extends Cal5e {
     //Процентная надбавка на изделия сложной формы
     private float percentMarkup() {
         if (TypeElem.ARCH == iwin.rootArea.type()) {
-            return eSysdata.find(2101).getInt(eSysdata.val);
+            return eSysdata.find(2101).getFloat(eSysdata.val);
         }
         return 0;
     }

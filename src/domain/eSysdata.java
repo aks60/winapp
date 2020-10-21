@@ -1,14 +1,9 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eSystree.id;
-import static domain.eSystree.record;
-import static domain.eSystree.up;
-import static domain.eSystree.values;
 import java.util.List;
 
 public enum eSysdata implements Field {
@@ -40,14 +35,14 @@ public enum eSysdata implements Field {
     }
 
     public static List<Record> get() {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query();
         }
         return new Query(values()).select(up, "order by", id);
     }
     
     public static Record find(int _id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);

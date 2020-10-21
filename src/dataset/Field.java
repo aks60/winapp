@@ -7,8 +7,6 @@ import java.util.HashSet;
 //Поле таблицы
 public interface Field {
 
-    public static String conf = "calc";
-
     public static enum TYPE {
 
         OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), STR(String.class, -9, -1, 1, 12),  

@@ -1,13 +1,9 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtikl.code;
-import static domain.eArtikl.up;
-import static domain.eArtikl.values;
 
 public enum eJoining implements Field {
     up("0", "0", "0", "Соединения", "CONNLST"), //или CONNECT"),
@@ -46,7 +42,7 @@ public enum eJoining implements Field {
 
     public static Record find(int _artikl_id1, int _artikl_id2) {
 
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _artikl_id1 == rec.getInt(artikl_id1) && _artikl_id2 == rec.getInt(artikl_id2)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", artikl_id1, "=", _artikl_id1, "and", artikl_id2, "=", _artikl_id2);
@@ -55,7 +51,7 @@ public enum eJoining implements Field {
     
     public static Record find(Record rec1, Record rec2) {
 
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec1.getInt(eArtikl.id) == rec.getInt(artikl_id1) && rec2.getInt(eArtikl.id) == rec.getInt(artikl_id2)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", artikl_id1, "=", rec1.getInt(eArtikl.id), "and", artikl_id2, "=", rec2.getInt(eArtikl.id));
@@ -63,7 +59,7 @@ public enum eJoining implements Field {
     }
 
     public static Record find2(String _analog) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _analog.equals(rec.getStr(analog)) && (rec.getInt(main) & 0x100) != 0).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", analog, "='", _analog, "'");

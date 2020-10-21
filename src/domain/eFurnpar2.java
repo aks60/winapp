@@ -1,7 +1,6 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
@@ -41,7 +40,7 @@ public enum eFurnpar2 implements Field {
     }
 
     public static List<Record> find(int _id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(furndet_id) == _id).collect(Collectors.toList());
         }
         Query recordList = new Query(values()).select(up, "where", furndet_id, "=", _id);

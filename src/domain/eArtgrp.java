@@ -1,14 +1,9 @@
 package domain;
 
 import dataset.Field;
-import static dataset.Field.conf;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtikl.code;
-import static domain.eArtikl.record2;
-import static domain.eArtikl.up;
-import static domain.eArtikl.values;
 
 public enum eArtgrp implements Field {
     up("0", "0", "0", "Группа материальных ценостей", "GRUPART"),
@@ -42,7 +37,7 @@ public enum eArtgrp implements Field {
     }
 
     public static Record find(int artgrp_id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> artgrp_id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", id, "='", artgrp_id, "'");

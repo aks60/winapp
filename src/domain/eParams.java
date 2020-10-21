@@ -59,7 +59,7 @@ public enum eParams implements Field {
     }
 
     public static Record find(int _grup, int _numb) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> _grup == rec.getInt(grup) && _numb == rec.getInt(numb)).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", grup, "=", _grup, "and", numb, "=", _numb);

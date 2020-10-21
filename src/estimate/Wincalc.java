@@ -12,6 +12,7 @@ import estimate.model.ElemImpost;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSyssize;
@@ -100,6 +101,7 @@ public class Wincalc {
     public void constructiv() {
         try {
 
+            Query.conf = "calc";           
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcJoining = new Joining(this); //соединения
@@ -118,6 +120,8 @@ public class Wincalc {
 
         } catch (Exception e) {
             System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);
+        } finally {
+            Query.conf = "app";
         }
     }
 

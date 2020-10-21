@@ -50,7 +50,7 @@ public enum eSysprof implements Field {
     }
 
     public static ArrayList<Record> find(int _nuni) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             ArrayList<Record> sysproaList = new ArrayList();
             query().stream().filter(rec -> _nuni == rec.getInt(systree_id)).forEach(rec -> sysproaList.add(rec));
             return sysproaList;
@@ -62,7 +62,7 @@ public enum eSysprof implements Field {
         if (_nuni == -1) {
             return record(_type);
         }
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             HashMap<Integer, Record> mapPrio = new HashMap();
             query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(use_type) == _type.id)
                     .forEach(rec -> mapPrio.put(rec.getInt(prio), rec));
@@ -91,7 +91,7 @@ public enum eSysprof implements Field {
             return record(_type);
         }
         List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
 
             return query().stream().filter(rec -> rec.getInt(systree_id) == iwin.nuni && rec.getInt(use_type) == _type.id
                     && _side2.contains(rec.getInt(use_side))).findFirst().orElse(up.newRecord());

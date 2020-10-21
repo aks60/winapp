@@ -54,21 +54,21 @@ public enum eElement implements Field {
     }
 
     public static List<Record> find(int series2_id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> series2_id == rec.getInt(series_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
         }
         return new Query(values()).select(up, "where", series_id, "=", series2_id, "and", todef, "> 0");
     }
 
     public static List<Record> find2(int artikl2_id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
         }
         return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", todef, "> 0");
     }
 
     public static List<Record> find3(int artikl2_id, int series2_id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id)
                     && series2_id == rec.getInt(series_id) && rec.getInt(todef) > 0).collect(Collectors.toList());
         }
@@ -76,7 +76,7 @@ public enum eElement implements Field {
     }
 
     public static List<Record> find4(int artikl2_id) {
-        if (conf.equals("calc")) {
+        if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> artikl2_id == rec.getInt(artikl_id) && rec.getInt(toset) > 0).collect(Collectors.toList());
         }
         return new Query(values()).select(up, "where", artikl_id, "=", artikl2_id, "and", toset, "> 0");
