@@ -75,8 +75,9 @@ public class App1 extends javax.swing.JFrame {
 
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
         tb0 = new javax.swing.JToolBar();
-        btn15 = new javax.swing.JButton();
+        btn16 = new javax.swing.JToggleButton();
         tb1 = new javax.swing.JToolBar();
+        btn15 = new javax.swing.JButton();
         btn14 = new javax.swing.JButton();
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
@@ -181,10 +182,25 @@ public class App1 extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 1));
 
         tb0.setRollover(true);
-        tb0.setPreferredSize(new java.awt.Dimension(46, 28));
+        tb0.setPreferredSize(new java.awt.Dimension(42, 28));
+
+        btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif"))); // NOI18N
+        btn16.setSelected(true);
+        btn16.setFocusable(false);
+        btn16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn16.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tb0.add(btn16);
+
+        getContentPane().add(tb0);
+
+        tb1.setRollover(true);
+        tb1.setMaximumSize(new java.awt.Dimension(150, 28));
+        tb1.setMinimumSize(new java.awt.Dimension(150, 28));
+        tb1.setPreferredSize(new java.awt.Dimension(170, 28));
 
         btn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
-        btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         btn15.setFocusable(false);
         btn15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn15.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -197,14 +213,7 @@ public class App1 extends javax.swing.JFrame {
                 mRulecalc(evt);
             }
         });
-        tb0.add(btn15);
-
-        getContentPane().add(tb0);
-
-        tb1.setRollover(true);
-        tb1.setMaximumSize(new java.awt.Dimension(150, 28));
-        tb1.setMinimumSize(new java.awt.Dimension(150, 28));
-        tb1.setPreferredSize(new java.awt.Dimension(150, 28));
+        tb1.add(btn15);
 
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
         btn14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -1164,7 +1173,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
         PathToDb frame = new PathToDb(this);
         FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);        
+        frame.setVisible(true);
     }//GEN-LAST:event_mn61ActionPerformed
 
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
@@ -1295,6 +1304,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn13;
     private javax.swing.JButton btn14;
     private javax.swing.JButton btn15;
+    private javax.swing.JToggleButton btn16;
     private javax.swing.JButton btn22;
     private javax.swing.JButton btn23;
     private javax.swing.JButton btn24;
@@ -1386,79 +1396,79 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         public javax.swing.JFrame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
-            if (frame == null) {
-                switch (this) {
+            //if (frame == null) {
+            switch (this) {
 
-                    case TestFrame:
-                        frame = new TestFrame();
-                        break;
-                    case RuleCalc:
-                        frame = new RuleCalc();
-                        break;
-                    case AboutBox:
-                        frame = new AboutBox();
-                        break;
-                    case Artikles:
-                        frame = new Artikles();
-                        break;
-                    case Convert:
-                        frame = new Convert();
-                        break;
-                    case Color:
-                        frame = new Color();
-                        break;
-                    case Joining:
-                        frame = new Joining();
-                        break;
-                    case DicCurrenc:
-                        frame = new Currenc();
-                        break;
-                    case Element:
-                        frame = new Element();
-                        break;
-                    case Param:
-                        frame = new Param();
-                        break;
-                    case Filling:
-                        frame = new Filling();
-                        break;
-                    case Furniture:
-                        frame = new Furniture();
-                        break;
-                    case Kits:
-                        frame = new Kits();
-                        break;
-                    case Systree:
-                        frame = new Systree();
-                        break;
-                    case Partner:
-                        frame = new Partner();
-                        break;
-                    case Order:
-                        frame = new Order();
-                        break;
-                    case BoxTypical:
-                        frame = new BoxTypical();
-                        break;
-                    case BoxCustom:
-                        frame = new BoxCustom();
-                        break;
-                    case Specific:
-                        frame = new Specific();
-                        break;
-                    case DicSyssize:
-                        frame = new Syssize();
-                        break;
-                }
-                eProfile.appframe = frame;
-                frame.setName(this.name());
-                FrameToFile.setFrameSize(frame);
-                frame.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowDeiconified(java.awt.event.WindowEvent evt) {
-                        App1.frame.setExtendedState(JFrame.NORMAL);
-                    }
-                });
+                case TestFrame:
+                    frame = new TestFrame();
+                    break;
+                case RuleCalc:
+                    frame = new RuleCalc();
+                    break;
+                case AboutBox:
+                    frame = new AboutBox();
+                    break;
+                case Artikles:
+                    frame = new Artikles();
+                    break;
+                case Convert:
+                    frame = new Convert();
+                    break;
+                case Color:
+                    frame = new Color();
+                    break;
+                case Joining:
+                    frame = new Joining();
+                    break;
+                case DicCurrenc:
+                    frame = new Currenc();
+                    break;
+                case Element:
+                    frame = new Element();
+                    break;
+                case Param:
+                    frame = new Param();
+                    break;
+                case Filling:
+                    frame = new Filling();
+                    break;
+                case Furniture:
+                    frame = new Furniture();
+                    break;
+                case Kits:
+                    frame = new Kits();
+                    break;
+                case Systree:
+                    frame = new Systree();
+                    break;
+                case Partner:
+                    frame = new Partner();
+                    break;
+                case Order:
+                    frame = new Order();
+                    break;
+                case BoxTypical:
+                    frame = new BoxTypical();
+                    break;
+                case BoxCustom:
+                    frame = new BoxCustom();
+                    break;
+                case Specific:
+                    frame = new Specific();
+                    break;
+                case DicSyssize:
+                    frame = new Syssize();
+                    break;
             }
+            eProfile.appframe = frame;
+            frame.setName(this.name());
+            FrameToFile.setFrameSize(frame);
+            frame.addWindowListener(new java.awt.event.WindowAdapter() {
+                public void windowDeiconified(java.awt.event.WindowEvent evt) {
+                    App1.frame.setExtendedState(JFrame.NORMAL);
+                }
+            });
+            //}
             frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage());
             frame.setVisible(true);
         }

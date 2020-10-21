@@ -320,6 +320,7 @@ public class Systree extends javax.swing.JFrame {
             int sysprod_id = record.getInt(0);
             record2.set(eSystree.sysprod_id, sysprod_id);
             qSystree.update(record2);
+            eSystree.query().clear();
             createWincalc(sysprod_id);
         };
 
