@@ -1,5 +1,6 @@
 package estimate.model;
 
+import dataset.Query;
 import frames.swing.Draw;
 import domain.eArtikl;
 import domain.eColor;
@@ -51,13 +52,18 @@ public class ElemFrame extends ElemSimple {
 
     public void initСonstructiv() {
 
-        if(owner().sysprofID != null) {
-           sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
-        } else  if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
+        if (owner().sysprofID != null) {
+            sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
+        } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
         } else if (layout == LayoutArea.BOTTOM) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
         } else if (layout == LayoutArea.LEFT) {
+        if (specificationRec.id == 5.0) {
+           Object obj = Query.conf; 
+            System.out.println("*****");
+        }     
+        
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
         } else if (layout == LayoutArea.RIGHT) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);

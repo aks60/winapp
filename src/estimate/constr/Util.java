@@ -220,36 +220,5 @@ public class Util {
 //            }
         }
         return false;
-    }
-
-//    public static void test_param(int[] paramArr) {
-//
-//        HashMap<String, ArrayList> hm = new HashMap();
-//        for (int index = 0; index < paramArr.length; ++index) {
-//            Integer param = paramArr[index];
-//            String code = (String.valueOf(param).length() == 4) ? String.valueOf(param).substring(1, 4) : String.valueOf(param).substring(2, 5);
-//            if (hm.get(code) == null) {
-//                ArrayList<Integer> value = new ArrayList();
-//                value.add(Integer.valueOf(code));
-//                value.add(param);
-//                hm.put(code, value);
-//            } else {
-//                ArrayList arr = hm.get(code);
-//                arr.add(param);
-//            }
-//        }
-//        ArrayList<ArrayList<Integer>> arr = new ArrayList();
-//        for (Map.Entry<String, ArrayList> el : hm.entrySet()) {
-//            arr.add(el.getValue());
-//        }
-//        arr.sort(new Comparator<ArrayList<Integer>>() {
-//
-//            public int compare(ArrayList a, ArrayList b) {
-//                return (Integer) a.get(0) - (Integer) b.get(0);
-//            }
-//        });
-//        for (ArrayList el : arr) {
-//            System.out.println(el);
-//        }
-//    }    
+    }   
 }

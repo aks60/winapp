@@ -72,7 +72,7 @@ public class Specific extends javax.swing.JFrame {
 
         iwin = new Wincalc();
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        setTitle(getTitle() + ".    Система: <<" + eSystree.patch(nuni) + ">>");
+        setTitle("Спецификация.    Система: <<" + eSystree.patch(nuni) + ">>");
         Record record = eSystree.find(nuni);
         int sysprod_id = record.getInt(eSystree.sysprod_id);
         Record record2 = eSysprod.find(sysprod_id);

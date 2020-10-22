@@ -35,10 +35,10 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
 
-        String _case = "one";
+        String _case = "max";
         
         if (_case.equals("one")) {            
-            iwin.prj = 604005;
+            iwin.prj = 601009;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt2(iwin.listSpec);
@@ -56,13 +56,14 @@ public class Test {
                     Specification.compareIWin(iwin.listSpec, iwin.prj, false);
                 }
             } else if (_case.equals("max")) {
-                for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 
-                        601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009)) {
+                for (int i : Arrays.asList(601009, 601009)) {
+//                for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007, 
+//                        601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009)) {
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     iwin.build(script);
                     iwin.constructiv();
-                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    Specification.compareIWin(iwin.listSpec, iwin.prj, true);
                 }
             }
         }
