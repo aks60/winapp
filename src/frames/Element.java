@@ -62,8 +62,7 @@ public class Element extends javax.swing.JFrame {
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
-    private String subsql = "";
-    private Window owner = null;
+    private String subsql = null;
     private EditorListener listenerEditor;
 
     public Element() {
@@ -75,8 +74,7 @@ public class Element extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Element(java.awt.Window owner, Set<Object> keys) {
-        this.owner = owner;
+    public Element(Set<Object> keys) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
@@ -295,7 +293,7 @@ public class Element extends javax.swing.JFrame {
             Record record = qElemgrp.get(row);
             Integer id = record.getInt(eElemgrp.id);
             if (id == -1 || id == -5) {
-                if (owner == null) {
+                if (subsql == null) {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
                             "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
                 } else {
@@ -303,7 +301,7 @@ public class Element extends javax.swing.JFrame {
                             "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
                 }
             } else {
-                if (owner == null) {
+                if (subsql == null) {
                     qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
                             "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
                 } else {
@@ -896,10 +894,6 @@ public class Element extends javax.swing.JFrame {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (owner != null) {
-            owner.setEnabled(true);
-            owner = null;
-        }
     }//GEN-LAST:event_windowClosed
 
     private void ppmCategAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppmCategAction

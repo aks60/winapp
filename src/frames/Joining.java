@@ -64,8 +64,8 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
-    private String subsql = "";
-    private Window owner = null;
+    private String subsql = null;
+    //private Window owner = null;
     private EditorListener listenerEditor;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerJoinvar, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
 
@@ -78,8 +78,7 @@ public class Joining extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Joining(java.awt.Window owner, Set<Object> keys) {
-        this.owner = owner;
+    public Joining(Set<Object> keys) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
@@ -96,7 +95,7 @@ public class Joining extends javax.swing.JFrame {
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
-        if (owner == null) {
+        if (subsql == null) {
             qJoining.select(eJoining.up, "order by", eJoining.name);
         } else {
             qJoining.select(eJoining.up, "where", eJoining.id, "in", subsql);
@@ -863,10 +862,10 @@ public class Joining extends javax.swing.JFrame {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (owner != null) {
-            owner.setEnabled(true);
-            owner = null;
-        }
+//        if (owner != null) {
+//            owner.setEnabled(true);
+//            owner = null;
+//        }
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport

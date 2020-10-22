@@ -68,8 +68,7 @@ public class Furniture extends javax.swing.JFrame {
     private EditorListener listenerEditor = null;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
-    private String subsql = "";
-    private Window owner = null;
+    private String subsql = null;
 
     public Furniture() {
         initComponents();
@@ -80,8 +79,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerDict();
     }
 
-    public Furniture(java.awt.Window owner, Set<Object> keys) {
-        this.owner = owner;
+    public Furniture(Set<Object> keys) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();        
@@ -98,7 +96,7 @@ public class Furniture extends javax.swing.JFrame {
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
         qParams.select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text); //TODO отключил фильтр, а это неправильно
         int types = (checkBox1.isSelected()) ? 0 : (checkBox2.isSelected()) ? 1 : -1;
-        if (owner == null) {
+        if (subsql == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
         } else {
             qFurniture.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", types, "order by", eFurniture.name);
@@ -1261,8 +1259,6 @@ public class Furniture extends javax.swing.JFrame {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         Arrays.asList(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (owner != null)
-            owner.setEnabled(true);
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport

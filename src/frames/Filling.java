@@ -54,8 +54,7 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private EditorListener listenerEditor;
-    private String subsql = "";
-    private Window owner = null;
+    private String subsql = null;
 
     public Filling() {
         initComponents();
@@ -66,8 +65,7 @@ public class Filling extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Filling(java.awt.Window owner, Set<Object> keys) {
-        this.owner = owner;
+    public Filling(Set<Object> keys) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();        
@@ -81,7 +79,7 @@ public class Filling extends javax.swing.JFrame {
     private void loadingData() {
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
-        if (owner == null) {
+        if (subsql == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
         } else {
             qGlasgrp.select(eGlasgrp.up, "where", eGlasgrp.id, " in ", subsql);
@@ -783,10 +781,6 @@ public class Filling extends javax.swing.JFrame {
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
         Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
-        if (owner != null) {
-            owner.setEnabled(true);
-            owner = null;
-        }
     }//GEN-LAST:event_windowClosed
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed

@@ -1,5 +1,7 @@
 package startup;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import frames.Util;
 import common.FrameListener;
 import common.FrameProgress;
@@ -7,6 +9,10 @@ import common.FrameToFile;
 import common.eProfile;
 import common.eProperty;
 import convert.Convert;
+import dataset.Query;
+import dataset.Record;
+import domain.eSysprod;
+import domain.eSystree;
 import estimate.Wincalc;
 import frames.Artikles;
 import frames.BoxTypical;
@@ -30,6 +36,8 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
 import java.util.Arrays;
+import java.util.Set;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -52,13 +60,16 @@ public class App1 extends javax.swing.JFrame {
         }
     };
 
-    /**
-     * Creates new form PersTar
-     */
     public App1() {
 
         initComponents();
+        initElements();
 
+        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        int sysprod_id = eSystree.find(nuni).getInt(eSystree.sysprod_id);
+        if (sysprod_id == -1) {
+            setSelectedFilter(true);
+        }
         if (eProperty.lookandfeel.read().equals("Metal")) {
             mn0443.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("Nimbus")) {
@@ -68,7 +79,32 @@ public class App1 extends javax.swing.JFrame {
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn0444.setSelected(true);
         }
-        //mn41(null);
+    }
+
+    private void constructive() {
+
+        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        Record systreeRec = eSystree.find(nuni);
+        int sysprod_id = systreeRec.getInt(eSystree.sysprod_id);
+        if (sysprod_id != -1) {
+            String script1 = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
+            if (script1 != null && script1.isEmpty() == false) {
+                JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
+                script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
+                iwin.build(script2.toString()); //калькуляция изделия
+            }
+        }
+    }
+
+    private void setSelectedFilter(boolean sel) {
+
+        btn16.setSelected(sel);
+        if (btn16.isSelected() == true) {
+            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
+        } else {
+            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
+        }
+        btn16.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -1066,7 +1102,7 @@ private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
 }//GEN-LAST:event_mHelp
 
 private void mAdminPathToDb(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdminPathToDb
-    //setTitle(eProfile.P02.getTitle());
+
 }//GEN-LAST:event_mAdminPathToDb
 
 private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictDicAddr
@@ -1162,7 +1198,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Element.createFrame(App1.this);
+                if (btn16.isSelected() == true) {
+                    eApp1.Element.createFrame(App1.this);
+                } else {
+                    constructive();
+                    iwin.calcElements = new estimate.constr.Elements(iwin);
+                    iwin.calcElements.calc();
+                    eApp1.Element.createFrame(App1.this, iwin.calcElements.listVariants);
+                }
             }
         });
     }//GEN-LAST:event_mnElement
@@ -1171,7 +1214,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Furniture.createFrame(App1.this);
+                if (btn16.isSelected() == true) {
+                    eApp1.Furniture.createFrame(App1.this);
+                } else {
+                    constructive();
+                    iwin.calcFurniture = new estimate.constr.Furniture(iwin); //фурнитура 
+                    iwin.calcFurniture.calc();
+                    eApp1.Furniture.createFrame(App1.this, iwin.calcFurniture.listVariants);
+                }
             }
         });
     }//GEN-LAST:event_mnFurnityra
@@ -1204,15 +1254,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn16.isSelected() == false) {
+                if (btn16.isSelected() == true) {
                     eApp1.Joining.createFrame(App1.this);
                 } else {
-                    //iwin.build(productJson);
+                    constructive();
                     iwin.calcJoining = new estimate.constr.Joining(iwin);
                     iwin.calcJoining.calc();
-                    java.awt.Frame frame = new Joining(App1.this, iwin.calcJoining.listVariants);
-                    FrameToFile.setFrameSize(frame);
-                    frame.setVisible(true);
+                    eApp1.Joining.createFrame(App1.this, iwin.calcJoining.listVariants);
+
                 }
             }
         });
@@ -1222,7 +1271,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.Filling.createFrame(App1.this);
+                if (btn16.isSelected() == true) {
+                    eApp1.Filling.createFrame(App1.this);
+                } else {
+                    constructive();
+                    iwin.calcFilling = new estimate.constr.Filling(iwin);
+                    iwin.calcFilling.calc();
+                    eApp1.Filling.createFrame(App1.this, iwin.calcFilling.listVariants);
+                }
             }
         });
     }//GEN-LAST:event_mnGlass
@@ -1290,7 +1346,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_formWindowClosing
 
     private void btn35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn35ActionPerformed
-
     }//GEN-LAST:event_btn35ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1314,11 +1369,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_formWindowDeiconified
 
     private void mnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFilter
-        if (btn16.isSelected() == true) {
-            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
-        } else {
-            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
-        }
+        setSelectedFilter(btn16.isSelected());
     }//GEN-LAST:event_mnFilter
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
@@ -1412,6 +1463,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
+    private void initElements() {
+    }
+
     public static enum eApp1 {
 
         App1, Convert, DicCurrenc, Color, Artikles, Joining, Element, Param,
@@ -1420,7 +1474,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         public javax.swing.JFrame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
-            //if (frame == null) {
+            if (frame != null) {
+                frame.dispose();
+            }
             switch (this) {
 
                 case TestFrame:
@@ -1433,7 +1489,11 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     frame = new AboutBox();
                     break;
                 case Artikles:
-                    frame = new Artikles();
+                    if (param.length == 2) {
+                        frame = new Artikles(parent, (int) param[0], (int) param[1]);
+                    } else {
+                        frame = new Artikles();
+                    }
                     break;
                 case Convert:
                     frame = new Convert();
@@ -1442,22 +1502,38 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     frame = new Color();
                     break;
                 case Joining:
-                    frame = new Joining();
+                    if (param.length == 0) {
+                        frame = new Joining();
+                    } else {
+                        frame = new Joining((Set) param[0]);
+                    }
                     break;
                 case DicCurrenc:
                     frame = new Currenc();
                     break;
                 case Element:
-                    frame = new Element();
+                    if (param.length == 0) {
+                        frame = new Element();
+                    } else {
+                        frame = new Element((Set) param[0]);
+                    }
                     break;
                 case Param:
                     frame = new Param();
                     break;
                 case Filling:
-                    frame = new Filling();
+                    if (param.length == 0) {
+                        frame = new Filling();
+                    } else {
+                        frame = new Filling((Set) param[0]);
+                    }
                     break;
                 case Furniture:
-                    frame = new Furniture();
+                    if (param.length == 0) {
+                        frame = new Furniture();
+                    } else {
+                        frame = new Furniture((Set) param[0]);
+                    }
                     break;
                 case Kits:
                     frame = new Kits();
@@ -1492,7 +1568,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     App1.frame.setExtendedState(JFrame.NORMAL);
                 }
             });
-            //}
             frame.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage());
             frame.setVisible(true);
         }
