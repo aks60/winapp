@@ -124,10 +124,10 @@ public class ElemImpost extends ElemSimple {
 
         int rgb = eColor.find(colorID2).getInt(eColor.rgb);
         if (LayoutArea.VERT == owner().layout()) {
-            Draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
 
         } else if (LayoutArea.HORIZ == owner().layout()) {
-            Draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
+            iwin().draw.strokePolygon(x1, x2, x2, x1, y1, y1, y2, y2, rgb, borderColor);
         }
     }
 

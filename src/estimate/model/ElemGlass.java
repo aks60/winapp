@@ -260,11 +260,11 @@ public class ElemGlass extends ElemSimple {
             double r = ((AreaArch) root()).radiusArch;
             double ang1 = 90 - Math.toDegrees(Math.asin(root().width() / (r * 2)));
             double ang2 = 90 - Math.toDegrees(Math.asin((root().width() - 2 * dz) / ((r - dz) * 2)));
-            Draw.fillArc((float) (root().width() / 2 - r + dz), dz, (float) ((r - dz) * 2), (float) ((r - dz) * 2), (float) ang2, (float) ((90 - ang2) * 2));
+            iwin().draw.fillArc((float) (root().width() / 2 - r + dz), dz, (float) ((r - dz) * 2), (float) ((r - dz) * 2), (float) ang2, (float) ((90 - ang2) * 2));
 
         } else {
             float h = iwin().heightAdd - iwin().height;
-            Draw.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
+            iwin().draw.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
                     new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
         }
     }

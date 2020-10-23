@@ -57,6 +57,7 @@ public class Wincalc {
     public int colorID2 = -1; //внутренний цвет
     public int colorID3 = -1; //внещний цвет
 
+    public Draw draw = new Draw(this);
     public byte[] bufferByte = null; //буффер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D gc2d = null; //графический котекст рисунка  
@@ -92,8 +93,7 @@ public class Wincalc {
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
-        Draw.iwin = this;   
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));   
         return rootArea;
     }
 
