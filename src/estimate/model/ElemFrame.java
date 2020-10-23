@@ -59,11 +59,6 @@ public class ElemFrame extends ElemSimple {
         } else if (layout == LayoutArea.BOTTOM) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
         } else if (layout == LayoutArea.LEFT) {
-        if (specificationRec.id == 5.0) {
-           Object obj = Query.conf; 
-            System.out.println("*****");
-        }     
-        
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
         } else if (layout == LayoutArea.RIGHT) {
             sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
