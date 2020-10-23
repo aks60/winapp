@@ -2,7 +2,6 @@ package estimate.script;
 
 import enums.LayoutArea;
 import enums.TypeElem;
-import static estimate.script.Winscript.rootArea;
 import java.util.LinkedList;
 
 public class AreaRoot extends AreaElem {

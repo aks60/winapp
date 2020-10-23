@@ -10,9 +10,9 @@ import java.util.List;
 
 public class Color {
 
-    private static int TYPES = 2;
-    private static int COLOR_FK = 3;
-    private static int ARTIKL_ID = 4;
+    private static final int TYPES = 2;
+    private static final int COLOR_FK = 3;
+    private static final int ARTIKL_ID = 4;
 
     public static void setting(Specification spc, Record spcdetRec) {  //см. http://help.profsegment.ru/?id=1107        
         int colorFk = spcdetRec.getInt(COLOR_FK);

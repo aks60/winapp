@@ -32,43 +32,15 @@ public class Specific extends javax.swing.JFrame {
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
     private estimate.Wincalc iwin = null;
-    private Window owner = null;
 
     public Specific() {
         initComponents();
         initElements();
-        if (createIwin()) {
-            loadingData();
-            loadingModel();
-        }
-    }
-
-    public Specific(java.awt.Window owner, Wincalc iwin) {
-        initComponents();
-        initElements();
-        this.owner = owner;
-        this.iwin = iwin;
-        loadingData();
+        createIwin();
         loadingModel();
-        //owner.setEnabled(false);
     }
 
-    private void loadingData() {
-        iwin.constructiv();
-    }
-
-    private void loadingModel() {
-        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
-        tab1.setRowSorter(sorter);
-        dtm.getDataVector().clear();
-        int npp = 0;
-        for (Specification specRec : iwin.listSpec) { //заполним спецификацию
-            dtm.addRow(specRec.getVector(++npp));
-        }
-    }
-
-    private boolean createIwin() {
+    private void createIwin() {
 
         iwin = new Wincalc();
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
@@ -80,14 +52,25 @@ public class Specific extends javax.swing.JFrame {
             String script = record2.getStr(eSysprod.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
-                return false;
+                return;
             } else {
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
                 je.getAsJsonObject().addProperty("nuni", nuni);
                 iwin.build(je.toString());
+                iwin.constructiv();
             }
         }
-        return true;
+    }
+    
+    private void loadingModel() {
+        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
+        tab1.setRowSorter(sorter);
+        dtm.getDataVector().clear();
+        int npp = 0;
+        for (Specification specRec : iwin.listSpec) { //заполним спецификацию
+            dtm.addRow(specRec.getVector(++npp));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -112,11 +95,6 @@ public class Specific extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Спецификация");
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                Specific.this.windowClosed(evt);
-            }
-        });
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         north.setMaximumSize(new java.awt.Dimension(32767, 31));
@@ -346,13 +324,6 @@ public class Specific extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
-        if (owner != null) {
-            owner.setEnabled(true);
-            owner = null;
-        }
-    }//GEN-LAST:event_windowClosed
-
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
 
         JTable table = tab1;
@@ -399,7 +370,7 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 String val = "";
-                if(Float.valueOf(value.toString()) > 0) {
+                if (Float.valueOf(value.toString()) > 0) {
                     val = df0.format(value);
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
@@ -409,7 +380,7 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 String val = "";
-                if(Float.valueOf(value.toString()) > 0) {
+                if (Float.valueOf(value.toString()) > 0) {
                     val = df0.format(value);
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
@@ -419,7 +390,7 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer2 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 String val = "";
-                if(Float.valueOf(value.toString()) > 0) {
+                if (Float.valueOf(value.toString()) > 0) {
                     val = df2.format(value);
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
@@ -429,7 +400,7 @@ public class Specific extends javax.swing.JFrame {
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 String val = "";
-                if(Float.valueOf(value.toString()) > 0) {
+                if (Float.valueOf(value.toString()) > 0) {
                     val = df3.format(value);
                 }
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);

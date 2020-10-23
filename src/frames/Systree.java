@@ -51,6 +51,7 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import estimate.Wincalc;
+import estimate.model.ElemSimple;
 import estimate.model.PaintPanel;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -76,13 +77,13 @@ public class Systree extends javax.swing.JFrame {
     private TreeNode[] nuniNode = null;
     private PaintPanel paintPanel = new PaintPanel(iwin) {
 
-        public void actionResponse(MouseEvent evt) {
+//        public void actionResponse(MouseEvent evt) {
 //            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
 //            if (elem != null) {
-//                txtField5.setText(String.valueOf(elem.getId()));
+//                txtField5.setText(String.valueOf(elem.id()));
 //                repaint();
 //            }
-        }
+//        }
     };
 
     public Systree() {
@@ -400,7 +401,6 @@ public class Systree extends javax.swing.JFrame {
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
                 iwin.build(script2.toString()); //калькуляция изделия
                 paintPanel.repaint(true, 12);
-                //Arrays.asList(btnJoin, btnElem, btnFurn, btnFill, btnSpec).stream().forEach(btn -> btn.setEnabled(true));
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -1123,9 +1123,15 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        Set<Object> keys = iwin.calcJoining.listVariants;
-        String sql = keys.stream().map(num -> String.valueOf(num)).collect(Collectors.joining(",", "(", ")"));
-
+        Wincalc iwin = new Wincalc();
+        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        Record record = eSystree.find(nuni);
+        int sysprod_id = record.getInt(eSystree.sysprod_id);
+        Record record2 = eSysprod.find(sysprod_id);
+        String script = record2.getStr(eSysprod.script);
+        JsonElement je = new Gson().fromJson(script, JsonElement.class);
+        //je.getAsJsonObject().addProperty("nuni", nuni);
+        iwin.build(je.toString());
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
@@ -1223,7 +1229,6 @@ public class Systree extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArtikl
 
     private void btnTypicalOkna(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTypicalOkna
-        //Arrays.asList(btnJoin, btnElem, btnFurn, btnFill, btnSpec).stream().forEach(btn -> btn.setEnabled(false));
         DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null && selectedNode.isLeaf()) {
             FrameProgress.create(Systree.this, new FrameListener() {

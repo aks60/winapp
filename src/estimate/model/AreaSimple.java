@@ -176,6 +176,9 @@ public class AreaSimple extends Com5t {
 
             //Прорисовка стеклопакетов
             LinkedList<ElemGlass> elemGlassList = root().listElem(TypeElem.GLASS);
+//            for (ElemGlass elemGlass : elemGlassList) {
+//                System.out.println(elemGlass);
+//            }
             elemGlassList.stream().forEach(el -> el.paint());
 
             //Прорисовка импостов
