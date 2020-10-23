@@ -359,10 +359,10 @@ public class Color extends javax.swing.JFrame {
         south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
-        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
         txtFilter.setName(""); // NOI18N
-        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
+        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtFilterfilterCaretUpdate(evt);

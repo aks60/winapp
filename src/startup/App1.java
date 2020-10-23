@@ -1349,7 +1349,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_btn35ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.requestFocus());
+        //Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.requestFocus());
     }//GEN-LAST:event_formWindowActivated
 
     private void mRulecalc(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mRulecalc

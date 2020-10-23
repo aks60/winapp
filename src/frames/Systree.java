@@ -320,6 +320,11 @@ public class Systree extends javax.swing.JFrame {
             qSystree.update(record2);
             eSystree.query().clear();
             createWincalc(sysprod_id);
+            
+            for (TreeNode tn : node.getPath()) {
+                System.out.println(tn.toString());
+            }
+            App1.eApp1.App1.frame.setTitle("SA-OKNA <АРМ Технолог>");
         };
 
         listenerFurn = (record) -> {
