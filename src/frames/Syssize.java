@@ -61,7 +61,7 @@ public class Syssize extends javax.swing.JFrame {
         tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Системнык константы");
+        setTitle("Системные константы");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Syssize.this.windowClosed(evt);
