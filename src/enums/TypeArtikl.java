@@ -113,6 +113,15 @@ public enum TypeArtikl {
         return false;
     }
 
+    public static boolean isType(Record artiklsRec, TypeArtikl... typeList) {
+        for (TypeArtikl typeArtikl : typeList) {
+            if (typeArtikl.id1 == artiklsRec.getInt(eArtikl.level1) && typeArtikl.id2 == artiklsRec.getInt(eArtikl.level2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static TypeArtikl find(Record record) {
         return Arrays.stream(values()).filter(el -> (el.id1 == record.getInt(eArtikl.level1) && el.id2 == record.getInt(eArtikl.level2))).findFirst().orElse(PPROFIL);
     }
