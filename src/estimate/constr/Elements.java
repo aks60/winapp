@@ -88,23 +88,26 @@ public class Elements extends Cal5e {
                             specif.place = "СОСТ";
 
                             //Если (контейнер) в списке детализации, например профиль с префиксом @
-                            if (TypeArtikl.KOROBKA.isType(specif.artiklRec)
-                                    || TypeArtikl.STVORKA.isType(specif.artiklRec)
-                                    || TypeArtikl.IMPOST.isType(specif.artiklRec)) {
+                            if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.STVORKA, TypeArtikl.IMPOST)) {
                                 elem5e.specificationRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
                                 elem5e.specificationRec.mapParam = specif.mapParam; //переназначаем mapParam
                                 elementSet.change(elem5e.specificationRec); //коррекция спецификации параметрами 
-
-                            } else {
-                                elem5e.addSpecific(specif); //коррекция спецификации
-                                elementSet.change(specif);  //коррекция спецификации параметрами                               
                             }
+
+                        } else {
+                            elem5e.addSpecific(specif); //коррекция спецификации
+                            elementSet.change(specif);  //коррекция спецификации параметрами                               
                         }
                     }
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Ошибка wincalc.constr.Сomposition.detail() " + e);
         }
     }
+    catch (Exception e
+
+    
+        ) {
+            System.err.println("Ошибка wincalc.constr.Сomposition.detail() " + e);
+    }
+}
 }
