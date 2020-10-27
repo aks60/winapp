@@ -67,16 +67,14 @@ public enum eSystree implements Field {
         }
         return query;
     }
-
-    private static String patch = "";
-
-    public static String patch(int _nuni) {
+    
+    public static String patch(int _nuni, String patch) {
         Query recordList = new Query(values()).select(up, "where", id, "=", _nuni);
         Record record = recordList.get(0);
         if (record.getInt(id) == record.getInt(parent_id)) {
             return patch + record.getStr(name);
         }
-        patch = patch + patch(record.getInt(parent_id));
+        patch = patch + patch(record.getInt(parent_id), patch);
         return patch + " / " + record.getStr(name);
     }
 

@@ -99,7 +99,9 @@ public class Filling extends Cal5e {
 
             //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
             if (fillingVar.check(elemGlass, glaspar1List) == true) {
+                
                 elemGlass.setSpecific(); //заполним спецификацию элемента
+                
                 List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
                 //Цикл по списку детализации
