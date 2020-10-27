@@ -1,27 +1,20 @@
 package estimate.constr;
 
 import dataset.Record;
-import domain.eArtdet;
 import domain.eArtikl;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eJoining;
-import domain.eSysprof;
+import enums.TypeArtikl;
 import enums.TypeElem;
-import enums.UseArtiklTo;
-import enums.UseSide;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import estimate.Wincalc;
 import estimate.constr.param.ElementDet;
+import estimate.constr.param.ElementSet;
 import estimate.constr.param.ElementVar;
-import estimate.model.Com5t;
-import estimate.model.ElemFrame;
 import estimate.model.ElemSimple;
 
 /**
@@ -31,11 +24,13 @@ public class Elements extends Cal5e {
 
     private ElementVar elementVar = null;
     private ElementDet elementDet = null;
+    private ElementSet elementSet = null;
 
     public Elements(Wincalc iwin) {
         super(iwin);
         elementVar = new ElementVar(iwin);
         elementDet = new ElementDet(iwin);
+        elementSet = new ElementSet(iwin);
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
@@ -45,10 +40,10 @@ public class Elements extends Cal5e {
         LinkedList<ElemSimple> listElem = iwin().rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST);
         try {
             //Цикл по списку элементов конструкции
-            for (ElemSimple elem5e : listElem) {                                                
-                
-                elem5e.setSpecific();
-                
+            for (ElemSimple elem5e : listElem) {
+
+                elem5e.setSpecific(); //коррекция спецификации              
+
                 //Варианты состава для серии профилей
                 int series_id = elem5e.artiklRecAn.getInt(eArtikl.series_id);
                 List<Record> elementList2 = eElement.find(series_id);
@@ -58,10 +53,10 @@ public class Elements extends Cal5e {
                 int artikl_id = elem5e.artiklRecAn.getInt(eArtikl.id);
                 List<Record> elementList3 = eElement.find2(artikl_id);
                 detail(elementList3, elem5e);
-            }                       
+            }
         } catch (Exception e) {
             System.err.println("Ошибка estimate.constr.Elements.calc() " + e);
-        }       
+        }
     }
 
     protected void detail(List<Record> elementList, ElemSimple elem5e) {
@@ -74,9 +69,11 @@ public class Elements extends Cal5e {
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.check(elem5e, elempar1List) == true) {
-                    List<Record> elemdetList = eElemdet.find(element_id);
+
+                    elementSet.change(elem5e.specificationRec); //коррекция основной спецификации параметрами
 
                     //Цикл по детализации
+                    List<Record> elemdetList = eElemdet.find(element_id);
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
                         int elemdet_id = elemdetRec.getInt(eElemdet.id);
@@ -89,7 +86,19 @@ public class Elements extends Cal5e {
                             Specification specif = new Specification(artiklRec, elem5e, mapParam);
                             Color.setting(specif, elemdetRec);
                             specif.place = "СОСТ";
-                            elem5e.addSpecific(specif); //добавим спецификацию в элемент
+
+                            //Если элемент (контейнер) включен в список детализации, например фиктивный профиль, т.е. с префиксом @
+                            if (TypeArtikl.KOROBKA.isType(specif.artiklRec)
+                                    || TypeArtikl.STVORKA.isType(specif.artiklRec)
+                                    || TypeArtikl.IMPOST.isType(specif.artiklRec)) {
+                                elem5e.specificationRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
+                                elem5e.specificationRec.mapParam = specif.mapParam; //переназначаем mapParam
+                                elementSet.change(elem5e.specificationRec); //коррекция спецификации параметрами 
+
+                            } else {
+                                elem5e.addSpecific(specif); //коррекция спецификации
+                                elementSet.change(specif);  //коррекция спецификации параметрами                               
+                            }
                         }
                     }
                 }

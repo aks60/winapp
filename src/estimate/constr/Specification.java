@@ -28,7 +28,7 @@ import jxl.Workbook;
 public class Specification {
 
     public ArrayList<Specification> specificationList = new ArrayList(); //список составов, фарнитур и т.д.
-    private HashMap<Integer, String> mapParam = null; //параметры спецификации
+    public HashMap<Integer, String> mapParam = null; //параметры спецификации
     public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
 
@@ -109,7 +109,7 @@ public class Specification {
         );
         return new Vector(list);
     }
-    
+
 //    public Vector getVector2(int npp) {
 //        List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
 //                eColor.find(colorID3).getStr(eColor.name), (width == 0) ? "" : width, (height == 0) ? "" : height, (weight == 0) ? "" : weight,
@@ -118,7 +118,6 @@ public class Specification {
 //        );
 //        return new Vector(list);
 //    }
-
     public void setArtiklRec(Record artiklRec) {
         this.artikl = artiklRec.getStr(eArtikl.code);
         this.name = artiklRec.getStr(eArtikl.name);
@@ -158,16 +157,26 @@ public class Specification {
         mapParam.put(key, val);
     }
 
+    public int getParam(int key) {
+
+        if (mapParam != null) {
+            String str = mapParam.get(Integer.valueOf(key));
+            if (str != null || str.isEmpty() == false) {
+                return Integer.valueOf(str);
+            }
+        }
+        return 0;
+    }
+
     public String getParam(Object def, int... p) {
 
-        if (mapParam == null) {
-            System.err.println("ОШИБКА getHmParam() hmParamJson = null");
-        }
-        for (int index = 0; index < p.length; ++index) {
-            int key = p[index];
-            String str = mapParam.get(Integer.valueOf(key));
-            if (str != null) {
-                return str;
+        if (mapParam != null) {
+            for (int index = 0; index < p.length; ++index) {
+                int key = p[index];
+                String str = mapParam.get(Integer.valueOf(key));
+                if (str != null) {
+                    return str;
+                }
             }
         }
         return String.valueOf(def);
@@ -256,7 +265,7 @@ public class Specification {
 
     //сравнение спецификации с профстроем
     public static void compareIWin(ArrayList<Specification> spcList, int prj, boolean detail) {
-        
+
         //TODO нужна синхронизация функции
         System.out.println();
         System.out.println("Prj=" + prj);

@@ -76,7 +76,7 @@ public class Tariffication extends Cal5e {
                 }
             }
             elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
-            Record artgrpRec = eArtgrp.find(elem5e.artiklRec.getInt(eArtikl.artgrp_id));
+            Record artgrpRec = eArtgrp.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp_id));
             elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coef, 1) * systreeRec.getFloat(eSystree.coef, 1);
             elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 

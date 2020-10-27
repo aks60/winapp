@@ -92,14 +92,8 @@ public class ElemImpost extends ElemSimple {
     @Override //Вложеная спецификация      
     public void addSpecific(Specification specif) {
 
-        //Импост (если элемент включен в список состава)
-        if (TypeArtikl.IMPOST.isType(specif.artiklRec)) {
-            artiklRec = specif.artiklRec; //переназначаем артикл, как правило это c префиксом артикла @
-            setSpecific(); //дополнительно если был фиктивный профиль, т.е. с префиксом @
-            return; //сразу выход т.к. элем. сам является держателем состава
-
-            //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
+        //Армирование
+        if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
             specif.place = "СОСТ." + layout().name.substring(0, 1);
             specif.anglCut2 = 90;
             specif.anglCut1 = 90;
@@ -107,9 +101,7 @@ public class ElemImpost extends ElemSimple {
 
             //Соединитель
         } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec)) {
-            //specif.colorID1 = iwin().colorNone;
-            //specif.colorID2 = iwin().colorNone;
-            //specif.colorID3 = iwin().colorNone;
+            //
 
             //Остальные
         } else {

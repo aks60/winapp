@@ -107,6 +107,20 @@ public class Par5s {
             System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
         }
     }
+    
+    //Необработанные параметры
+    protected void message(HashMap<Integer, String> mapParam, int code) {
+        if (code >= 0) {
+            System.err.println("ОШИБКА! КОД " + code + " VALUE " + mapParam.get(code) + " НЕ ОБРАБОТАНЫ.");
+        }
+    }
+    
+    //Необработанные параметры
+    protected void message(Specification spc, int code) {
+        if (code >= 0) {
+            System.err.println("ОШИБКА! ID " + spc.id + " КОД " + code + " VALUE " + spc.getParam(code) + " НЕ ОБРАБОТАНЫ.");
+        }
+    }
 }
 
 /*

@@ -1,7 +1,5 @@
 package estimate.model;
 
-import dataset.Query;
-import frames.swing.Draw;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSyssize;
@@ -13,6 +11,7 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
 import estimate.constr.Specification;
+import estimate.constr.param.ElementSet;
 
 public class ElemFrame extends ElemSimple {
 
@@ -80,7 +79,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.anglHoriz = anglHoriz;
 
         float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
-        
+
         if (LayoutArea.ARCH == layout()) {
             AreaArch areaArch = (AreaArch) root();
             Object obj = width();
@@ -110,15 +109,8 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(Specification specif) { //добавление спесификаций зависимых элементов
 
-        //Просто рама (если элемент включен в список состава)
-        if (TypeArtikl.KOROBKA.isType(specif.artiklRec) || TypeArtikl.STVORKA.isType(specif.artiklRec)) {
-            artiklRec = specif.artiklRec; //переназначаем артикл, как правило это c префиксом артикла @
-            specificationRec.width = specificationRec.width + Float.valueOf(specif.getParam(0, 34051)); //поправка, мм 
-            setSpecific(); //дополнительно если был фиктивный профиль, т.е. с префиксом @
-            return;  //сразу выход т.к. элем. сам является держателем состава
-
-            //Теперь армирование
-        } else if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
+        //Армирование
+        if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
             specif.place = "СОСТ." + layout().name.substring(0, 1);
             specif.anglCut1 = 90;
             specif.anglCut2 = 90;
@@ -171,8 +163,7 @@ public class ElemFrame extends ElemSimple {
 
             //Всё остальное
         } else {
-            //quantityMaterials(specif);
-            //JOptionPane.showMessageDialog(null, "Запрос addSpecific не обработан", "Предупреждение", JOptionPane.OK_OPTION);
+
         }
         Cal5e.amount(specificationRec, specif);
         specificationRec.specificationList.add(specif);

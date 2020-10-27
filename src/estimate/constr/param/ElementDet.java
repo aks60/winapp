@@ -9,8 +9,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import estimate.Wincalc;
+import estimate.constr.Specification;
 import estimate.constr.Util;
 import estimate.model.ElemSimple;
+import java.util.Map;
 
 //Составы
 public class ElementDet extends Par5s {
@@ -449,4 +451,4 @@ public class ElementDet extends Par5s {
     public static int[] par = {33000, 33005, 33008, 33030, 33040, 33050, 33060, 33066, 33067, 33069, 33078, 33095, 34000, 34004, 34005,
         34006, 34007, 34008, 34010, 34011, 34015, 34030, 34051, 34060, 34066, 34067, 34068, 34069, 34070, 34071, 34075, 34095, 34099,
         38004, 38010, 38030, 38050, 38060, 38067, 38068, 38069, 39002, 39005, 39020, 39060, 39068, 39069, 39075, 39077, 39093, 40010, 40067, 40068, 40069};
-*/
+ */
