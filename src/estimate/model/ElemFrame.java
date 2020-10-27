@@ -80,6 +80,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.anglHoriz = anglHoriz;
 
         float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
+        
         if (LayoutArea.ARCH == layout()) {
             AreaArch areaArch = (AreaArch) root();
             Object obj = width();
