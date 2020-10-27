@@ -386,12 +386,12 @@
                           <Data value="1"/>
                           <Data value="2"/>
                         </Column>
-                        <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; 1" type="java.lang.Object"/>
-                        <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; 2" type="java.lang.Object">
+                        <Column editable="true" title="&#x411;&#x430;&#x437;&#x43e;&#x432;&#x430;&#x44f; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object"/>
+                        <Column editable="true" title="&#x412;&#x43d;&#x443;&#x442;&#x440;. &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object">
                           <Data value="1"/>
                           <Data value="2"/>
                         </Column>
-                        <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; 3" type="java.lang.Object">
+                        <Column editable="true" title="&#x412;&#x43d;&#x435;&#x448;&#x43d;. &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object">
                           <Data value="1"/>
                           <Data value="2"/>
                         </Column>
@@ -438,22 +438,22 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="60" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="160" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="160" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="160" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>

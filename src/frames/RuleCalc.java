@@ -280,7 +280,7 @@ public class RuleCalc extends javax.swing.JFrame {
                 {null, null, "2", "2", "2", "2", "2", "2", null, "2", "2", "2"}
             },
             new String [] {
-                "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Текстура 1", "Текстура 2", "Текстура 3", "Форма позиции"
+                "Название правила", "Использование", "Артикул", "Название", "Количество", "Габариты", "Коэффициент", "Надбавка", "Базовая текстура", "Внутр. текстура", "Внешн. текстура", "Форма позиции"
             }
         ));
         tab2.setFillsViewportHeight(true);
@@ -296,7 +296,10 @@ public class RuleCalc extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(0).setMinWidth(80);
             tab2.getColumnModel().getColumn(1).setMinWidth(140);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(8).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(9).setPreferredWidth(160);
+            tab2.getColumnModel().getColumn(10).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(11).setMinWidth(180);
         }
 
