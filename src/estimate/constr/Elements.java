@@ -87,7 +87,7 @@ public class Elements extends Cal5e {
                             Color.setting(specif, elemdetRec);
                             specif.place = "СОСТ";
 
-                            //Если элемент (контейнер) в списке детализации, например профиль с префиксом @
+                            //Если (контейнер) в списке детализации, например профиль с префиксом @
                             if (TypeArtikl.KOROBKA.isType(specif.artiklRec)
                                     || TypeArtikl.STVORKA.isType(specif.artiklRec)
                                     || TypeArtikl.IMPOST.isType(specif.artiklRec)) {
