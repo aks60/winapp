@@ -72,7 +72,7 @@ public class Filling extends Cal5e {
 
                         //Доступные толщины 
                         if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth2) == true) { 
-                            listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling из формы Systree
+                            listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
 
                             //Цикл по профилям в группах заполнений
                             for (Record glasprofRec : eGlasprof.findAll()) {

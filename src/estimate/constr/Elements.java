@@ -65,7 +65,7 @@ public class Elements extends Cal5e {
             for (Record elementRec : elementList) {
                 int element_id = elementRec.getInt(eElement.id);
                 List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
-                listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements из формы Systree
+                listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.check(elem5e, elempar1List) == true) {
@@ -83,7 +83,7 @@ public class Elements extends Cal5e {
                         if (elementDet.check(mapParam, elem5e, elempar2List) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
-                            Specification specif = new Specification(artiklRec, elem5e, mapParam);
+                            Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);
                             Color.setting(specif, elemdetRec);
                             specif.place = "СОСТ";
 
