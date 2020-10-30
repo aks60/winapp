@@ -13,6 +13,8 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
+import domain.eElemdet;
+import domain.eElement;
 import domain.eJoindet;
 import domain.eJoining;
 import domain.eJoinpar1;
@@ -86,7 +88,17 @@ public class Joining extends javax.swing.JFrame {
         listenerCell();
         listenerDict();
         loadingModel();
-        //owner.setEnabled(false);
+    }
+
+    public Joining(Set<Object> keys, int joindetID) {
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        initComponents();
+        initElements();
+        loadingData();
+        listenerCell();
+        listenerDict();
+        loadingModel();
+        selectionFind(joindetID);
     }
 
     private void loadingData() {
@@ -340,6 +352,40 @@ public class Joining extends javax.swing.JFrame {
         }
     }
 
+    private void selectionFind(int joindetID) {
+        Query qVar = new Query(eJoinvar.values(), eArtikl.values());
+        Query qDet = new Query(eJoindet.values(), eArtikl.values());
+        for (int index = 0; index < qJoining.size(); index++) {
+            int joining_id = qJoining.get(index).getInt(eJoining.id);
+            qVar.select(eJoining.up, "where", eJoinvar.joining_id, "=", joining_id);
+            for (int index2 = 0; index2 < qDet.size(); index2++) {
+                int joinvar_id = qJoinvar.get(index).getInt(eJoining.id);
+                qDet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", joinvar_id);
+                for (int index3 = 0; index3 < qDet.size(); index3++) {
+                    if (qDet.get(index3).getInt(eJoindet.id) == joindetID) {
+                        
+                        Util.setSelectedRow(tab1, index);
+                        Util.scrollRectToVisible(index, tab1);
+                        Util.setSelectedRow(tab2, index2);
+                        Util.scrollRectToVisible(index2, tab2);
+                        Util.setSelectedRow(tab4, index3);
+                        Util.scrollRectToVisible(index3, tab3);
+                    }
+                }
+                /*
+            qDet.select(eJoining.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoining.artikl_id, "where", eJoining.element_id, "=", element_id);
+            for (int index2 = 0; index2 < qDet.size(); index2++) {
+                if (qDet.get(index2).getInt(eJoining.id) == elemdetID) {
+                    Util.setSelectedRow(tab2, index);
+                    Util.scrollRectToVisible(index, tab2);
+                    Util.setSelectedRow(tab3, index2);
+                    Util.scrollRectToVisible(index2, tab3);
+                }
+            }*/
+            }
+        }
+    }
+
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
@@ -390,7 +436,7 @@ public class Joining extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab4);
             Record joindetRec = qJoindet.get(Util.getSelectedRec(tab4));
             int types = (joindetRec.getInt(eJoindet.types) == -1) ? 0 : joindetRec.getInt(eJoindet.types);
-            types = (types & 0xffffff0f) + (record.getInt(0) << 4);            
+            types = (types & 0xffffff0f) + (record.getInt(0) << 4);
             joindetRec.set(eJoindet.types, types);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);

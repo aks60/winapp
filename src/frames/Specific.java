@@ -9,6 +9,7 @@ import common.eProperty;
 import dataset.Query;
 import dataset.Record;
 import domain.eElemdet;
+import domain.eJoindet;
 import domain.eSysprod;
 import domain.eSystree;
 import java.awt.event.FocusEvent;
@@ -326,16 +327,26 @@ public class Specific extends javax.swing.JFrame {
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
         int row = Util.getSelectedRec(tab1);
-        //Object obj = iwin.listSpec.get(row);
-        Record record = iwin.listSpec.get(row).elemdetRec;
-        if (record != null) {           
+        Specification recordSpc = iwin.listSpec.get(row);
+        Record recordDet = iwin.listSpec.get(row).elemdetRec;
+        if (recordDet != null) {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    constructive();
-                    iwin.calcElements = new estimate.constr.Elements(iwin);
-                    iwin.calcElements.calc();
-                    App1.eApp1.Element.createFrame(Specific.this,
-                            iwin.calcElements.listVariants, record.getInt(eElemdet.id));
+                    String str = recordSpc.place.substring(0, 4);
+                    if (str.equals("СОСТ")) {
+                        constructive();
+                        iwin.calcElements = new estimate.constr.Elements(iwin);
+                        iwin.calcElements.calc();
+                        App1.eApp1.Element.createFrame(Specific.this,
+                                iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
+                        
+                    } else if (str.equals("СОЕД")) {
+                        constructive();
+                        iwin.calcJoining = new estimate.constr.Joining(iwin);
+                        iwin.calcJoining.calc();
+                        App1.eApp1.Joining.createFrame(Specific.this,
+                                iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));                        
+                    }
                 }
             });
         }
