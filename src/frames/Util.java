@@ -221,6 +221,14 @@ public class Util {
             table.scrollRectToVisible(cellRect);
         }
     }
+    
+    //Прокрутить скроллинг и сделать ячейку видимой
+    public static void scrollRectToVisible(int row, JTable table) {
+        if (table.getRowCount() > row) {
+            Rectangle cellRect = table.getCellRect(row, 0, false);
+            table.scrollRectToVisible(cellRect);
+        }
+    }
 
     //Выделить запись
     public static void setSelectedRow(JTable table) {

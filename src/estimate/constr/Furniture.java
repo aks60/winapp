@@ -80,7 +80,7 @@ public class Furniture extends Cal5e {
         try {
             List<Record> furndetList = eFurndet.find(furnitureRec.getInt(eFurniture.id));
             List<Record> furnside1List = eFurnside1.find(furnitureRec.getInt(eFurniture.id));
-            listVariants.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture из формы Systree
+            listVariants.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
 
             //Цикл по описанию сторон фурнитуры
             for (Record furnside1Rec : furnside1List) {

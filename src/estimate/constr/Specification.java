@@ -31,6 +31,7 @@ public class Specification {
     public HashMap<Integer, String> mapParam = null; //параметры спецификации
     public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
+    public Record elemdetRec = null; //профиль в спецификации
 
     public float id = -1; //ID
     public String place = "-"; //Место расмешения
@@ -56,23 +57,21 @@ public class Specification {
     public float outCost = 0; //Стоимость со скидкой
     public float discount = 0;  //Скидка
 
-    /**
-     * Конструктор для видимых эдементов окна
-     *
-     * @param id
-     * @param elem5e
-     */
     public Specification(float id, ElemSimple elem5e) {
         this.id = id;
         this.elem5e = elem5e;
         this.mapParam = new HashMap();
     }
 
-    //Конструктор для элементов спецификации окна
     public Specification(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+        this(null, artiklRec, elem5e, mapParam);
+    }
+    
+    public Specification(Record elemdetRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
+        this.elemdetRec = elemdetRec;
         setArtiklRec(artiklRec);
     }
 

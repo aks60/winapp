@@ -48,6 +48,7 @@ import javax.swing.table.DefaultTableModel;
 import startup.Main;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
+import java.awt.Rectangle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -82,7 +83,17 @@ public class Element extends javax.swing.JFrame {
         listenerDict();
         loadingData();
         loadingModel();
-        //owner.setEnabled(false);
+    }
+
+    public Element(Set<Object> keys, int elemdetID) {
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        initComponents();
+        initElements();
+        listenerCell();
+        listenerDict();
+        loadingData();
+        loadingModel();
+        selectionFind(elemdetID);
     }
 
     private void loadingData() {
@@ -341,6 +352,22 @@ public class Element extends javax.swing.JFrame {
                     "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab5);
+        }
+    }
+
+    private void selectionFind(int elemdetID) {
+        Query qDet = new Query(eElemdet.values(), eArtikl.values());
+        for (int index = 0; index < qElement.size(); index++) {
+            int element_id = qElement.get(index).getInt(eElement.id);
+            qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
+            for (int index2 = 0; index2 < qDet.size(); index2++) {
+                if (qDet.get(index2).getInt(eElemdet.id) == elemdetID) {
+                    Util.setSelectedRow(tab2, index);
+                    Util.scrollRectToVisible(index, tab2);
+                    Util.setSelectedRow(tab3, index2);
+                    Util.scrollRectToVisible(index2, tab3);
+                }
+            }
         }
     }
 
@@ -913,9 +940,7 @@ public class Element extends javax.swing.JFrame {
     }//GEN-LAST:event_ppmCategAction
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        Convert frame = new Convert();
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
+        Util.scrollRectToVisible(qElement, tab2);
     }//GEN-LAST:event_btnReport
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed

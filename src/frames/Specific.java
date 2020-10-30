@@ -2,12 +2,15 @@ package frames;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import common.FrameListener;
+import common.FrameProgress;
 import common.FrameToFile;
 import common.eProperty;
+import dataset.Query;
 import dataset.Record;
+import domain.eElemdet;
 import domain.eSysprod;
 import domain.eSystree;
-import java.awt.Window;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Arrays;
@@ -24,6 +27,7 @@ import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
+import startup.App1;
 
 public class Specific extends javax.swing.JFrame {
 
@@ -61,7 +65,7 @@ public class Specific extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void loadingModel() {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
@@ -321,9 +325,35 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        int row = Util.getSelectedRec(tab1);
+        //Object obj = iwin.listSpec.get(row);
+        Record record = iwin.listSpec.get(row).elemdetRec;
+        if (record != null) {           
+            FrameProgress.create(Specific.this, new FrameListener() {
+                public void actionRequest(Object obj) {
+                    constructive();
+                    iwin.calcElements = new estimate.constr.Elements(iwin);
+                    iwin.calcElements.calc();
+                    App1.eApp1.Element.createFrame(Specific.this,
+                            iwin.calcElements.listVariants, record.getInt(eElemdet.id));
+                }
+            });
+        }
     }//GEN-LAST:event_btnReport
+    private void constructive() {
 
+        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        Record systreeRec = eSystree.find(nuni);
+        int sysprod_id = systreeRec.getInt(eSystree.sysprod_id);
+        if (sysprod_id != -1) {
+            String script1 = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
+            if (script1 != null && script1.isEmpty() == false) {
+                JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
+                script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
+                iwin.build(script2.toString()); //калькуляция изделия
+            }
+        }
+    }
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
 
         JTable table = tab1;
