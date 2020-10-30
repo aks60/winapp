@@ -68,14 +68,13 @@ public class Joining extends Cal5e {
                             
                             //Цикл по детализации соединений
                             for (Record joindetRec : joindetList) {
-                                HashMap<Integer, String> hmParam2 = new HashMap(); //тут накапливаются параметры
+                                HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры
                                 List<Record> joinpar2List = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
 
                                 //ФИЛЬТР детализации 
-                                if (joiningDet.check(hmParam2, joinElem1, joinpar2List) == true) {
+                                if (joiningDet.check(mapParam, joinElem1, joinpar2List) == true) {
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
-                                    //Specification specif = new Specification(artiklRec, joinElem1, hmParam2);
-                                    Specification specif = new Specification(joindetRec, artiklRec, elem5e, mapParam);
+                                    Specification specif = new Specification(joindetRec, artiklRec, joinElem1, mapParam);
                                     Color.setting(specif, joindetRec);
                                     specif.place = "СОЕД";
                                     joinElem1.addSpecific(specif);

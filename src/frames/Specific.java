@@ -334,24 +334,21 @@ public class Specific extends javax.swing.JFrame {
                 public void actionRequest(Object obj) {
                     String str = recordSpc.place.substring(0, 4);
                     if (str.equals("СОСТ")) {
-                        constructive();
-                        iwin.calcElements = new estimate.constr.Elements(iwin);
-                        iwin.calcElements.calc();
-                        App1.eApp1.Element.createFrame(Specific.this,
-                                iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
+                        constructiv();
+                        iwin.constructiv();
+                        App1.eApp1.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
                         
                     } else if (str.equals("СОЕД")) {
-                        constructive();
-                        iwin.calcJoining = new estimate.constr.Joining(iwin);
-                        iwin.calcJoining.calc();
-                        App1.eApp1.Joining.createFrame(Specific.this,
-                                iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));                        
+                        constructiv();
+                        iwin.constructiv();
+                        App1.eApp1.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));                        
                     }
                 }
             });
         }
     }//GEN-LAST:event_btnReport
-    private void constructive() {
+    
+    private void constructiv() {
 
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         Record systreeRec = eSystree.find(nuni);
@@ -365,6 +362,7 @@ public class Specific extends javax.swing.JFrame {
             }
         }
     }
+    
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
 
         JTable table = tab1;

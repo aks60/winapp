@@ -353,35 +353,26 @@ public class Joining extends javax.swing.JFrame {
     }
 
     private void selectionFind(int joindetID) {
-        Query qVar = new Query(eJoinvar.values(), eArtikl.values());
+        Query qVar = new Query(eJoinvar.values());
         Query qDet = new Query(eJoindet.values(), eArtikl.values());
         for (int index = 0; index < qJoining.size(); index++) {
             int joining_id = qJoining.get(index).getInt(eJoining.id);
-            qVar.select(eJoining.up, "where", eJoinvar.joining_id, "=", joining_id);
-            for (int index2 = 0; index2 < qDet.size(); index2++) {
-                int joinvar_id = qJoinvar.get(index).getInt(eJoining.id);
-                qDet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", joinvar_id);
+            qVar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", joining_id, "order by", eJoinvar.prio);
+            for (int index2 = 0; index2 < qVar.size(); index2++) {
+                int joinvar_id = qVar.get(index2).getInt(eJoining.id);
+                qDet.select(eJoindet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoindet.artikl_id, "where", eJoindet.joinvar_id, "=", joinvar_id, "order by", eJoindet.artikl_id);
                 for (int index3 = 0; index3 < qDet.size(); index3++) {
                     if (qDet.get(index3).getInt(eJoindet.id) == joindetID) {
-                        
+
                         Util.setSelectedRow(tab1, index);
                         Util.scrollRectToVisible(index, tab1);
                         Util.setSelectedRow(tab2, index2);
                         Util.scrollRectToVisible(index2, tab2);
                         Util.setSelectedRow(tab4, index3);
                         Util.scrollRectToVisible(index3, tab3);
+                        return;
                     }
                 }
-                /*
-            qDet.select(eJoining.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoining.artikl_id, "where", eJoining.element_id, "=", element_id);
-            for (int index2 = 0; index2 < qDet.size(); index2++) {
-                if (qDet.get(index2).getInt(eJoining.id) == elemdetID) {
-                    Util.setSelectedRow(tab2, index);
-                    Util.scrollRectToVisible(index, tab2);
-                    Util.setSelectedRow(tab3, index2);
-                    Util.scrollRectToVisible(index2, tab3);
-                }
-            }*/
             }
         }
     }
