@@ -88,6 +88,7 @@ public class Specific extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
+        btnForms = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -181,6 +182,21 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
+        btnForms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnForms.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnForms.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnForms.setFocusable(false);
+        btnForms.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnForms.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnForms.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnForms.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnForms.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnForms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForms(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -192,9 +208,11 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnForms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 709, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 674, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -209,7 +227,8 @@ public class Specific extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnForms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -326,28 +345,9 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        int row = Util.getSelectedRec(tab1);
-        Specification recordSpc = iwin.listSpec.get(row);
-        Record recordDet = iwin.listSpec.get(row).elemdetRec;
-        if (recordDet != null) {
-            FrameProgress.create(Specific.this, new FrameListener() {
-                public void actionRequest(Object obj) {
-                    String str = recordSpc.place.substring(0, 4);
-                    if (str.equals("СОСТ")) {
-                        constructiv();
-                        iwin.constructiv();
-                        App1.eApp1.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
-                        
-                    } else if (str.equals("СОЕД")) {
-                        constructiv();
-                        iwin.constructiv();
-                        App1.eApp1.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));                        
-                    }
-                }
-            });
-        }
+
     }//GEN-LAST:event_btnReport
-    
+
     private void constructiv() {
 
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
@@ -362,7 +362,7 @@ public class Specific extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
 
         JTable table = tab1;
@@ -385,10 +385,34 @@ public class Specific extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mousePressed
 
+    private void btnForms(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForms
+        int row = Util.getSelectedRec(tab1);
+        Specification recordSpc = iwin.listSpec.get(row);
+        Record recordDet = iwin.listSpec.get(row).elemdetRec;
+        if (recordDet != null) {
+            FrameProgress.create(Specific.this, new FrameListener() {
+                public void actionRequest(Object obj) {
+                    String str = recordSpc.place.substring(0, 4);
+                    if (str.equals("СОСТ")) {
+                        constructiv();
+                        iwin.constructiv();
+                        App1.eApp1.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
+
+                    } else if (str.equals("СОЕД")) {
+                        constructiv();
+                        iwin.constructiv();
+                        App1.eApp1.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
+                    }
+                }
+            });
+        }
+    }//GEN-LAST:event_btnForms
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnForms;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
