@@ -237,6 +237,17 @@ public class Filling extends javax.swing.JFrame {
         Util.setSelectedRow(tab1);
     }
 
+        public Filling(Set<Object> keys, int joindetID) {
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        initComponents();
+        initElements();
+        loadingData();
+        listenerCell();
+        listenerDict();
+        loadingModel();
+        selectionFind(joindetID);
+    }
+        
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
@@ -273,6 +284,22 @@ public class Filling extends javax.swing.JFrame {
         }
     }
 
+    private void selectionFind(int elemdetID) {
+        Query qDet = new Query(eGlasdet.values(), eArtikl.values());
+        for (int index = 0; index < qGlasgrp.size(); index++) {
+            int element_id = qGlasgrp.get(index).getInt(eElement.id);
+            qDet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", element_id);
+            for (int index2 = 0; index2 < qDet.size(); index2++) {
+                if (qDet.get(index2).getInt(eGlasdet.id) == elemdetID) {
+                    Util.setSelectedRow(tab1, index);
+                    Util.scrollRectToVisible(index, tab1);
+                    Util.setSelectedRow(tab2, index2);
+                    Util.scrollRectToVisible(index2, tab2);
+                }
+            }
+        }
+    }
+    
     private void listenerDict() {
 
         listenerArtikl = (record) -> {

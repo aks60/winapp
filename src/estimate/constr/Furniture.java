@@ -198,7 +198,7 @@ public class Furniture extends Cal5e {
                     specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                     specif.count = specif.count * count;
                     Color.setting(specif, furndetRec);
-                    specif.place = "FURN";
+                    specif.place = "ФУРН";
                     handlFrame.addSpecific(specif); //добавим спецификацию в элемент
                 }
 

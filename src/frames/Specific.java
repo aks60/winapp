@@ -9,6 +9,7 @@ import common.eProperty;
 import dataset.Query;
 import dataset.Record;
 import domain.eElemdet;
+import domain.eFurniture;
 import domain.eJoindet;
 import domain.eSysprod;
 import domain.eSystree;
@@ -393,15 +394,16 @@ public class Specific extends javax.swing.JFrame {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
                     String str = recordSpc.place.substring(0, 4);
+                    constructiv();
+                    iwin.constructiv();
                     if (str.equals("СОСТ")) {
-                        constructiv();
-                        iwin.constructiv();
                         App1.eApp1.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕД")) {
-                        constructiv();
-                        iwin.constructiv();
                         App1.eApp1.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
+                    
+                    } else if (str.equals("ФУРН")) {
+                        App1.eApp1.Filling.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eFurniture.id));
                     }
                 }
             });

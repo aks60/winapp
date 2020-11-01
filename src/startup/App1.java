@@ -1528,8 +1528,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 case Filling:
                     if (param.length == 0) {
                         frame = new Filling();
-                    } else {
+                    } else if (param.length == 1) {
                         frame = new Filling((Set) param[0]);
+                    } else {
+                        frame = new Filling((Set) param[0], (int) param[1]);
                     }
                     break;
                 case Furniture:
