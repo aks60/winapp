@@ -90,7 +90,7 @@ public class Joining extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Joining(Set<Object> keys, int joindetID) {
+    public Joining(Set<Object> keys, int deteilID) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
@@ -98,7 +98,7 @@ public class Joining extends javax.swing.JFrame {
         listenerCell();
         listenerDict();
         loadingModel();
-        selectionFind(joindetID);
+        selectionFind(deteilID);
     }
 
     private void loadingData() {
@@ -352,7 +352,7 @@ public class Joining extends javax.swing.JFrame {
         }
     }
 
-    private void selectionFind(int joindetID) {
+    private void selectionFind(int deteilID) {
         Query qVar = new Query(eJoinvar.values());
         Query qDet = new Query(eJoindet.values(), eArtikl.values());
         for (int index = 0; index < qJoining.size(); index++) {
@@ -362,7 +362,7 @@ public class Joining extends javax.swing.JFrame {
                 int joinvar_id = qVar.get(index2).getInt(eJoining.id);
                 qDet.select(eJoindet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoindet.artikl_id, "where", eJoindet.joinvar_id, "=", joinvar_id, "order by", eJoindet.artikl_id);
                 for (int index3 = 0; index3 < qDet.size(); index3++) {
-                    if (qDet.get(index3).getInt(eJoindet.id) == joindetID) {
+                    if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
 
                         Util.setSelectedRow(tab1, index);
                         Util.scrollRectToVisible(index, tab1);

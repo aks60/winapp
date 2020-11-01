@@ -10,6 +10,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eElemdet;
 import domain.eFurniture;
+import domain.eGlasgrp;
 import domain.eJoindet;
 import domain.eSysprod;
 import domain.eSystree;
@@ -349,21 +350,6 @@ public class Specific extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReport
 
-    private void constructiv() {
-
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        Record systreeRec = eSystree.find(nuni);
-        int sysprod_id = systreeRec.getInt(eSystree.sysprod_id);
-        if (sysprod_id != -1) {
-            String script1 = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
-            if (script1 != null && script1.isEmpty() == false) {
-                JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
-                script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
-                iwin.build(script2.toString()); //калькуляция изделия
-            }
-        }
-    }
-
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate
 
         JTable table = tab1;
@@ -389,21 +375,22 @@ public class Specific extends javax.swing.JFrame {
     private void btnForms(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForms
         int row = Util.getSelectedRec(tab1);
         Specification recordSpc = iwin.listSpec.get(row);
-        Record recordDet = iwin.listSpec.get(row).elemdetRec;
+        Record recordDet = recordSpc.deteilRec();
         if (recordDet != null) {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    String str = recordSpc.place.substring(0, 4);
-                    constructiv();
-                    iwin.constructiv();
-                    if (str.equals("СОСТ")) {
+                    String str = recordSpc.place.substring(0, 3);
+                    if (str.equals("СОС")) {
                         App1.eApp1.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
 
-                    } else if (str.equals("СОЕД")) {
+                    } else if (str.equals("СОЕ")) {
                         App1.eApp1.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
                     
-                    } else if (str.equals("ФУРН")) {
-                        App1.eApp1.Filling.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eFurniture.id));
+                    } else if (str.equals("ЗАП")) {
+                        App1.eApp1.Filling.createFrame(Specific.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasgrp.id));
+                    
+                    } else if (str.equals("ФУР")) {
+                        App1.eApp1.Furniture.createFrame(Specific.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurniture.id));
                     }
                 }
             });

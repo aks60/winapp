@@ -82,12 +82,23 @@ public class Furniture extends javax.swing.JFrame {
     public Furniture(Set<Object> keys) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
-        initElements();        
+        initElements();
         listenerCell();
         loadingData();
         loadingModel();
         listenerDict();
         //owner.setEnabled(false);
+    }
+
+    public Furniture(Set<Object> keys, int deteilID) {
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        initComponents();
+        initElements();
+        loadingData();
+        listenerCell();
+        listenerDict();
+        loadingModel();
+        selectionFind(deteilID);
     }
 
     private void loadingData() {
@@ -159,8 +170,8 @@ public class Furniture extends javax.swing.JFrame {
 
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    types =  types & 0x0000000f;
-                    return UseColcalc.P00.find(types).text();                    
+                    types = types & 0x0000000f;
+                    return UseColcalc.P00.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet1.get(row, eFurndet.furniture_id2) != null) {
@@ -205,8 +216,8 @@ public class Furniture extends javax.swing.JFrame {
 
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    types =  types & 0x0000000f;
-                    return UseColcalc.P00.find(types).text(); 
+                    types = types & 0x0000000f;
+                    return UseColcalc.P00.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet2.get(row, eFurndet.furniture_id2) != null) {
@@ -251,8 +262,8 @@ public class Furniture extends javax.swing.JFrame {
 
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
-                    types =  types & 0x0000000f;
-                    return UseColcalc.P00.find(types).text(); 
+                    types = types & 0x0000000f;
+                    return UseColcalc.P00.find(types).text();
 
                 } else if (eFurndet.artikl_id == field) {
                     if (qFurndet3.get(row, eFurndet.furniture_id2) != null) {
@@ -535,6 +546,10 @@ public class Furniture extends javax.swing.JFrame {
         }
     }
 
+    private void selectionFind(int deteilID) {
+
+    }
+
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
@@ -561,7 +576,7 @@ public class Furniture extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab);
             Record furndetRec = query.get(Util.getSelectedRec(tab));
             int types = (furndetRec.getInt(eFurndet.types) == -1) ? 0 : furndetRec.getInt(eFurndet.types);
-            types = (types & 0xfffffff0) + record.getInt(0);                        
+            types = (types & 0xfffffff0) + record.getInt(0);
             furndetRec.set(eFurndet.types, types);
             ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab, row);

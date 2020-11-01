@@ -31,7 +31,7 @@ public class Specification {
     public HashMap<Integer, String> mapParam = null; //параметры спецификации
     public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
-    public Record elemdetRec = null; //профиль в спецификации
+    private Record deteilRec = null; //профиль в спецификации
 
     public float id = -1; //ID
     public String place = "-"; //Место расмешения
@@ -66,12 +66,12 @@ public class Specification {
     public Specification(Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this(null, artiklRec, elem5e, mapParam);
     }
-    
-    public Specification(Record elemdetRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
+
+    public Specification(Record deteilRec, Record artiklRec, ElemSimple elem5e, HashMap<Integer, String> mapParam) {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
-        this.elemdetRec = elemdetRec;
+        this.deteilRec = deteilRec;
         setArtiklRec(artiklRec);
     }
 
@@ -79,6 +79,7 @@ public class Specification {
         this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
+        this.deteilRec = spec.deteilRec;
         this.name = spec.name;
         this.colorID1 = spec.colorID1;
         this.colorID2 = spec.colorID2;
@@ -354,5 +355,9 @@ public class Specification {
         } catch (Exception e2) {
             System.err.println("Ошибка Main.compareIWin " + e2);
         }
+    }
+
+    public Record deteilRec() {
+        return deteilRec;
     }
 }

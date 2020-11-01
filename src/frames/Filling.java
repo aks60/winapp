@@ -68,12 +68,23 @@ public class Filling extends javax.swing.JFrame {
     public Filling(Set<Object> keys) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
-        initElements();        
+        initElements();
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
         //owner.setEnabled(false);
+    }
+
+    public Filling(Set<Object> keys, int deteilID) {
+        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        initComponents();
+        initElements();
+        loadingData();
+        listenerCell();
+        listenerDict();
+        loadingModel();
+        selectionFind(deteilID);
     }
 
     private void loadingData() {
@@ -237,17 +248,6 @@ public class Filling extends javax.swing.JFrame {
         Util.setSelectedRow(tab1);
     }
 
-        public Filling(Set<Object> keys, int joindetID) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
-        initComponents();
-        initElements();
-        loadingData();
-        listenerCell();
-        listenerDict();
-        loadingModel();
-        selectionFind(joindetID);
-    }
-        
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
@@ -284,13 +284,13 @@ public class Filling extends javax.swing.JFrame {
         }
     }
 
-    private void selectionFind(int elemdetID) {
+    private void selectionFind(int deteilID) {
         Query qDet = new Query(eGlasdet.values(), eArtikl.values());
         for (int index = 0; index < qGlasgrp.size(); index++) {
             int element_id = qGlasgrp.get(index).getInt(eElement.id);
             qDet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", element_id);
             for (int index2 = 0; index2 < qDet.size(); index2++) {
-                if (qDet.get(index2).getInt(eGlasdet.id) == elemdetID) {
+                if (qDet.get(index2).getInt(eGlasdet.id) == deteilID) {
                     Util.setSelectedRow(tab1, index);
                     Util.scrollRectToVisible(index, tab1);
                     Util.setSelectedRow(tab2, index2);
@@ -299,7 +299,7 @@ public class Filling extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void listenerDict() {
 
         listenerArtikl = (record) -> {
@@ -336,7 +336,7 @@ public class Filling extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
         };
-        
+
         listenerColvar2 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
@@ -347,7 +347,7 @@ public class Filling extends javax.swing.JFrame {
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2, row);
         };
-        
+
         listenerColvar3 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab2);
@@ -633,6 +633,7 @@ public class Filling extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(0).setMaxWidth(80);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(7).setMaxWidth(40);

@@ -1537,8 +1537,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 case Furniture:
                     if (param.length == 0) {
                         frame = new Furniture();
-                    } else {
+                    } else if (param.length == 1) {
                         frame = new Furniture((Set) param[0]);
+                    } else {
+                        frame = new Furniture((Set) param[0], (int) param[1]);
                     }
                     break;
                 case Kits:

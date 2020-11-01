@@ -194,7 +194,7 @@ public class Furniture extends Cal5e {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
 
-                    Specification specif = new Specification(artiklRec, handlFrame, mapParam);
+                    Specification specif = new Specification(furndetRec, artiklRec, handlFrame, mapParam);
                     specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                     specif.count = specif.count * count;
                     Color.setting(specif, furndetRec);

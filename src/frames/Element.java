@@ -85,7 +85,7 @@ public class Element extends javax.swing.JFrame {
         loadingModel();
     }
 
-    public Element(Set<Object> keys, int elemdetID) {
+    public Element(Set<Object> keys, int deteilID) {
         this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
@@ -93,7 +93,7 @@ public class Element extends javax.swing.JFrame {
         listenerDict();
         loadingData();
         loadingModel();
-        selectionFind(elemdetID);
+        selectionFind(deteilID);
     }
 
     private void loadingData() {
@@ -355,13 +355,13 @@ public class Element extends javax.swing.JFrame {
         }
     }
 
-    private void selectionFind(int elemdetID) {
+    private void selectionFind(int deteilID) {
         Query qDet = new Query(eElemdet.values(), eArtikl.values());
         for (int index = 0; index < qElement.size(); index++) {
             int element_id = qElement.get(index).getInt(eElement.id);
             qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
             for (int index2 = 0; index2 < qDet.size(); index2++) {
-                if (qDet.get(index2).getInt(eElemdet.id) == elemdetID) {
+                if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
                     Util.setSelectedRow(tab2, index);
                     Util.scrollRectToVisible(index, tab2);
                     Util.setSelectedRow(tab3, index2);
