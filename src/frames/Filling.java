@@ -287,7 +287,7 @@ public class Filling extends javax.swing.JFrame {
     private void selectionFind(int deteilID) {
         Query qDet = new Query(eGlasdet.values(), eArtikl.values());
         for (int index = 0; index < qGlasgrp.size(); index++) {
-            int element_id = qGlasgrp.get(index).getInt(eElement.id);
+            int element_id = qGlasgrp.get(index).getInt(eGlasgrp.id);
             qDet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", element_id);
             for (int index2 = 0; index2 < qDet.size(); index2++) {
                 if (qDet.get(index2).getInt(eGlasdet.id) == deteilID) {

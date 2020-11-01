@@ -5,12 +5,12 @@ import com.google.gson.JsonElement;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
+import common.eProfile;
 import common.eProperty;
-import dataset.Query;
 import dataset.Record;
 import domain.eElemdet;
-import domain.eFurniture;
-import domain.eGlasgrp;
+import domain.eFurndet;
+import domain.eGlasdet;
 import domain.eJoindet;
 import domain.eSysprod;
 import domain.eSystree;
@@ -387,13 +387,15 @@ public class Specific extends javax.swing.JFrame {
                         App1.eApp1.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
                     
                     } else if (str.equals("ЗАП")) {
-                        App1.eApp1.Filling.createFrame(Specific.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasgrp.id));
+                        App1.eApp1.Filling.createFrame(Specific.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasdet.id));
                     
                     } else if (str.equals("ФУР")) {
-                        App1.eApp1.Furniture.createFrame(Specific.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurniture.id));
+                        App1.eApp1.Furniture.createFrame(Specific.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurndet.id));
                     }
                 }
             });
+        } else {
+            JOptionPane.showMessageDialog(eProfile.appframe, "Смотри форму 'Конструктив->Система'");
         }
     }//GEN-LAST:event_btnForms
 
