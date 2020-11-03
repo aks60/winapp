@@ -30,8 +30,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
     private Window owner = null;
-    private ArrayList<Icon> listIcon = new ArrayList<Icon>();
-    //private FrameListener listenerFrame = null;
+    private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
+    private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private DialogListener listenet = null;
     private PaintPanel paintPanel = new PaintPanel(iwinMax) {
 
@@ -43,7 +43,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             }
         }
     };
-    private Query qSysprod = new Query(eSysprod.values()).select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up);
+    private Query qSysprod = new Query(eSysprod.values());
 
     public BoxTypical() {
         initComponents();
@@ -66,8 +66,11 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     private void loadingData() {
 
-        DefaultTableModel dm = (DefaultTableModel) tab1.getModel();
-        dm.getDataVector().removeAllElements();
+        qSysprod.select(eSysprod.up, "order by", eSysprod.npp).table(eSysprod.up);
+        DefaultTableModel dm1 = (DefaultTableModel) tab1.getModel();
+        DefaultTableModel dm2 = (DefaultTableModel) tab2.getModel();
+        dm1.getDataVector().removeAllElements();
+        dm2.getDataVector().removeAllElements();
         int length = 70;
         for (Record record : qSysprod) {
             try {
@@ -77,17 +80,25 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
                 iwinMin.rootArea.draw(length, length);
-                ImageIcon image = new ImageIcon(bi);
-                listIcon.add(image);
-                dm.addRow(obj);
+                ImageIcon image = new ImageIcon(bi);                
+                if (record.getInt(eSysprod.form) == 3) {
+                    listIcon1.add(image);
+                    dm1.addRow(obj);
+                } else {
+                    listIcon2.add(image);
+                    dm2.addRow(obj);
+                }
             } catch (Exception e) {
-                System.out.println("777-" + e);
+                System.out.println("Ошибка " + e);
             }
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        if (tab1.getRowCount() > 0) {
-            tab1.setRowSelectionInterval(0, 0);
-        }
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1);
+        Util.setSelectedRow(tab2);
+//        if (tab1.getRowCount() > 0) {
+//            tab1.setRowSelectionInterval(0, 0);
+//        }
     }
 
     private void loadingModel() {
@@ -102,7 +113,21 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 if (column == 2) {
-                    Icon icon = listIcon.get(row);
+                    Icon icon = listIcon1.get(row);
+                    label.setIcon(icon);
+                } else {
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        });
+        tab2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 2) {
+                    Icon icon = listIcon2.get(row);
                     label.setIcon(icon);
                 } else {
                     label.setIcon(null);
@@ -114,6 +139,15 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Object script = qSysprod.get(row, eSysprod.script);
+            iwinMax.build(script.toString());
+            paintPanel.repaint(true, 1);
+        }
+    }
+    
+    private void selectionTab2(ListSelectionEvent event) {
+        int row = Util.getSelectedRec(tab2);
         if (row != -1) {
             Object script = qSysprod.get(row, eSysprod.script);
             iwinMax.build(script.toString());
@@ -134,8 +168,16 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         btnChoice = new javax.swing.JButton();
         btnRemov = new javax.swing.JButton();
         west = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pan13 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        pan14 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        pan15 = new javax.swing.JPanel();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         centr = new javax.swing.JPanel();
         pan3 = new javax.swing.JPanel();
         lab2 = new javax.swing.JLabel();
@@ -333,7 +375,12 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         west.setPreferredSize(new java.awt.Dimension(340, 499));
         west.setLayout(new java.awt.BorderLayout());
 
-        scr1.setBorder(null);
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        pan13.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pan13.setLayout(new java.awt.BorderLayout());
+
+        scr1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -354,7 +401,65 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             tab1.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
-        west.add(scr1, java.awt.BorderLayout.CENTER);
+        pan13.add(scr1, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Простые", pan13);
+
+        pan14.setLayout(new java.awt.BorderLayout());
+
+        scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "хххххххххх", "123"},
+                {"99", "мммммммммм", "321"}
+            },
+            new String [] {
+                "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
+            }
+        ));
+        tab2.setRowHeight(80);
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(68);
+        }
+
+        pan14.add(scr2, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("   Арки   ", pan14);
+
+        pan15.setLayout(new java.awt.BorderLayout());
+
+        scr3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"1", "хххххххххх", "123"},
+                {"99", "мммммммммм", "321"}
+            },
+            new String [] {
+                "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
+            }
+        ));
+        tab3.setRowHeight(80);
+        tab3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tab3.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab3.getColumnModel().getColumn(2).setPreferredWidth(68);
+            tab3.getColumnModel().getColumn(2).setMaxWidth(68);
+        }
+
+        pan15.add(scr3, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Трапеции", pan15);
+
+        west.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
@@ -787,6 +892,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JButton btnTrapeze;
     private javax.swing.JButton btnTrapeze2;
     private javax.swing.JPanel centr;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;
@@ -795,6 +901,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan10;
     private javax.swing.JPanel pan12;
+    private javax.swing.JPanel pan13;
+    private javax.swing.JPanel pan14;
+    private javax.swing.JPanel pan15;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan6;
@@ -803,8 +912,12 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JPanel pan9;
     private javax.swing.JPanel panDesign;
     private javax.swing.JScrollPane scr1;
+    private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
+    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
     private javax.swing.JFormattedTextField txtField1;
     private javax.swing.JFormattedTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;
