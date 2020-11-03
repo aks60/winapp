@@ -392,6 +392,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         buttonGroup.add(btnTog1);
         btnTog1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c032.gif"))); // NOI18N
+        btnTog1.setSelected(true);
         btnTog1.setMaximumSize(new java.awt.Dimension(25, 25));
         btnTog1.setMinimumSize(new java.awt.Dimension(25, 25));
         btnTog1.setPreferredSize(new java.awt.Dimension(25, 25));
