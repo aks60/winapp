@@ -93,7 +93,7 @@ public class Element extends javax.swing.JFrame {
         listenerDict();
         loadingData();
         loadingModel();
-        selectionFind(deteilID);
+        deteilFind(deteilID);
     }
 
     private void loadingData() {
@@ -355,7 +355,7 @@ public class Element extends javax.swing.JFrame {
         }
     }
 
-    private void selectionFind(int deteilID) {
+    private void deteilFind(int deteilID) {
         Query qDet = new Query(eElemdet.values(), eArtikl.values());
         for (int index = 0; index < qElement.size(); index++) {
             int element_id = qElement.get(index).getInt(eElement.id);

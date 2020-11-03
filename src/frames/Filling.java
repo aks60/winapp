@@ -73,7 +73,6 @@ public class Filling extends javax.swing.JFrame {
         listenerDict();
         loadingData();
         loadingModel();
-        //owner.setEnabled(false);
     }
 
     public Filling(Set<Object> keys, int deteilID) {
@@ -84,7 +83,7 @@ public class Filling extends javax.swing.JFrame {
         listenerCell();
         listenerDict();
         loadingModel();
-        selectionFind(deteilID);
+        deteilFind(deteilID);
     }
 
     private void loadingData() {
@@ -284,7 +283,7 @@ public class Filling extends javax.swing.JFrame {
         }
     }
 
-    private void selectionFind(int deteilID) {
+    private void deteilFind(int deteilID) {
         Query qDet = new Query(eGlasdet.values(), eArtikl.values());
         for (int index = 0; index < qGlasgrp.size(); index++) {
             int element_id = qGlasgrp.get(index).getInt(eGlasgrp.id);

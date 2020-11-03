@@ -98,7 +98,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerCell();
         listenerDict();
         loadingModel();
-        selectionFind(deteilID);
+        deteilFind(deteilID);
     }
 
     private void loadingData() {
@@ -497,7 +497,7 @@ public class Furniture extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qFurndet2b.table(eFurndet.up).get(row);
             Integer id = record.getInt(eFurndet.id);
-            qFurndet2c.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id); //, "and", eFurndet.id, "!=", eFurndet.furndet_id);
+            qFurndet2c.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id);
             ((DefaultTableModel) tab2c.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2c);
             String count = (qFurndet2c.size() > 9) ? String.valueOf(qFurndet2c.size()) : String.valueOf(qFurndet2c.size()) + "  ";
@@ -545,23 +545,70 @@ public class Furniture extends javax.swing.JFrame {
         }
     }
 
-    private void selectionFind(int deteilID) {
+    private void selectionRows(Query qFurn, Query qDet2a, Query qDet2b, Query qDet2c, int iTabb, int iFurn, int iDet2a, int iDet2b, int iDet2c) {
+
+        if (qFurn.get(iFurn).getInt(eFurniture.types) == 0) {
+            checkBox1.setSelected(true);
+        } else if (qFurn.get(iFurn).getInt(eFurniture.types) == 1) {
+            checkBox2.setSelected(true);
+        } else {
+            checkBox3.setSelected(true);
+        }
+        checkBoxAction(null);
+        Util.setSelectedRow(tab1, iFurn);
+        Util.scrollRectToVisible(iFurn, tab1);
+        Util.setSelectedRow(tab2a, iDet2a);
+        Util.setSelectedRow(tab2b, iDet2b);
+        Util.setSelectedRow(tab2c, iDet2c);
+        tabb1.setSelectedIndex(iTabb);
+        if (iTabb == 0) {
+            Util.scrollRectToVisible(iDet2a, tab2a);
+        } else if (iTabb == 1) {
+            Util.scrollRectToVisible(iDet2b, tab2b);
+        } else {
+            Util.scrollRectToVisible(iDet2c, tab2c);
+        }
+
+    }
+
+    private void deteilFind(int deteilID) {
+        Query qFurn = new Query(eFurniture.values());
         Query qDet2a = new Query(eFurndet.values(), eArtikl.values());
         Query qDet2b = new Query(eFurndet.values(), eArtikl.values());
         Query qDet2c = new Query(eFurndet.values(), eArtikl.values());
-        for (int index = 0; index < qFurniture.size(); index++) {
-            int element_id = qFurniture.get(index).getInt(eFurniture.id);
-            qDet2a.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id1, "=", element_id);
-            for (int index2 = 0; index2 < qDet2a.size(); index2++) {
-                if (qDet2a.get(index2).getInt(eFurndet.id) == deteilID) {
-                    Util.setSelectedRow(tab1, index);
-                    Util.scrollRectToVisible(index, tab1);
-                    Util.setSelectedRow(tab2a, index2);
-                    Util.scrollRectToVisible(index2, tab2a);
-                } 
-//                else {
-//                    qDet2b.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id1, "=", element_id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
-//                }
+
+        for (int index0 : Arrays.asList(0, 1, -1)) {
+            qFurn.select(eFurniture.up, "where", eFurniture.id, "in", subsql, "and", eFurniture.types, "=", index0, "order by", eFurniture.name);
+            for (int index1 = 0; index1 < qFurn.size(); index1++) {
+                int id = qFurn.get(index1).getInt(eFurniture.id);
+                qDet2a.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "=", eFurndet.id);
+                for (int index2 = 0; index2 < qDet2a.size(); index2++) {
+                    if (qDet2a.get(index2).getInt(eFurndet.id) == deteilID) {
+                        System.out.println(qDet2a.table(eArtikl.up).get(index2));
+                        selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 0, index1, index2, 0, 0);
+                        return;
+                    } else {
+                        id = qDet2a.get(index2).getInt(eFurndet.id);
+                        qDet2b.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
+                        for (int index3 = 0; index3 < qDet2b.size(); index3++) {
+                            if (qDet2b.get(index3).getInt(eFurndet.id) == deteilID) {
+                                System.out.println(qDet2b.table(eArtikl.up).get(index3));
+                                selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 1, index1, index2, index3, 0);
+                                return;
+                            } else {
+                                id = qDet2b.get(index3).getInt(eFurndet.id);
+                                qDet2c.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id);
+                                for (int index4 = 0; index4 < qDet2c.size(); index4++) {
+                                    if (qDet2c.get(index4).getInt(eFurndet.id) == deteilID) {
+                                        System.out.println(qDet2c.table(eArtikl.up).get(index4));
+                                        selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 2, index1, index2, index3, index4);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -1293,7 +1340,8 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        checkBox3.setSelected(true);
+        checkBoxAction(null);
     }//GEN-LAST:event_btnReport
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged

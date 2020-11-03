@@ -98,7 +98,7 @@ public class Joining extends javax.swing.JFrame {
         listenerCell();
         listenerDict();
         loadingModel();
-        selectionFind(deteilID);
+        deteilFind(deteilID);
     }
 
     private void loadingData() {
@@ -352,7 +352,7 @@ public class Joining extends javax.swing.JFrame {
         }
     }
 
-    private void selectionFind(int deteilID) {
+    private void deteilFind(int deteilID) {
         Query qVar = new Query(eJoinvar.values());
         Query qDet = new Query(eJoindet.values(), eArtikl.values());
         for (int index = 0; index < qJoining.size(); index++) {
