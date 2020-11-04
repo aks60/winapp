@@ -10,8 +10,10 @@ import estimate.model.AreaRectangl;
 import estimate.model.AreaTrapeze;
 import estimate.model.ElemImpost;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
@@ -71,7 +73,7 @@ public class Wincalc {
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture, tariffication; //объекты калькуляции конструктива
-    
+
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);
         mapParamDef.clear();
@@ -93,7 +95,7 @@ public class Wincalc {
 
         //Список элементов, (важно! получаем после построения створки)
         listElem = rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.STVORKA_SIDE, TypeElem.IMPOST, TypeElem.GLASS);
-        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));   
+        Collections.sort(listElem, Collections.reverseOrder((a, b) -> Float.compare(a.id(), b.id())));
         return rootArea;
     }
 
@@ -101,13 +103,13 @@ public class Wincalc {
     public void constructiv() {
         try {
 
-            Query.conf = "calc";           
+            Query.conf = "calc";
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcJoining = new Joining(this); //соединения
-            calcJoining.calc();            
+            calcJoining.calc();
             calcFilling = new Filling(this); //заполнения
-            calcFilling.calc();            
+            calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
             tariffication = new Tariffication(this); //тарификация
@@ -154,12 +156,18 @@ public class Wincalc {
             String elemType = jsonObj.get("elemType").getAsString();
             Intermediate intermediateRoot = new Intermediate(null, id, elemType, layoutObj, width, height, paramJson);
             listIntermediate.add(intermediateRoot);
-            
+
             //Добавим все остальные Intermediate
-            intermBuild(jsonObj, intermediateRoot, listIntermediate); 
+            intermBuild(jsonObj, intermediateRoot, listIntermediate);
             Collections.sort(listIntermediate, (o1, o2) -> Float.compare(o1.id, o2.id)); //упорядочим порядок построения окна
             windowsBuild(listIntermediate); //строим конструкцию из промежуточного списка
-
+            {
+                Gson js = new GsonBuilder().setPrettyPrinting().create();
+                JsonParser jp = new JsonParser();
+                JsonElement je = jp.parse(json);
+                String str = js.toJson(je);
+                System.out.println(str);
+            }
         } catch (Exception e) {
             System.err.println("Ошибка Wincalc.parsingScript() " + e);
         }
