@@ -166,7 +166,7 @@ public class Wincalc {
                 JsonParser jp = new JsonParser();
                 JsonElement je = jp.parse(json);
                 String str = js.toJson(je);
-                System.out.println(str);
+                //System.out.println(str);
             }
         } catch (Exception e) {
             System.err.println("Ошибка Wincalc.parsingScript() " + e);
