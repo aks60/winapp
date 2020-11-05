@@ -14,11 +14,6 @@ public class AreaArch extends AreaSimple {
 
     public AreaArch(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(iwin, owner, id, typeElem, layout, width, height, color1, color2, color3, param);
-
-        mapFrame.put(LayoutArea.LEFT, new ElemFrame(this, 2, LayoutArea.LEFT));
-        mapFrame.put(LayoutArea.RIGHT, new ElemFrame(this, 3, LayoutArea.RIGHT));
-        mapFrame.put(LayoutArea.ARCH, new ElemFrame(this, 4, LayoutArea.ARCH));
-        mapFrame.put(LayoutArea.BOTTOM, new ElemFrame(this, 5, LayoutArea.BOTTOM));
     }
     
     @Override

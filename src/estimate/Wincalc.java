@@ -38,6 +38,7 @@ import estimate.constr.Elements;
 import estimate.constr.Filling;
 import estimate.constr.Furniture;
 import estimate.model.Com5t;
+import estimate.model.ElemFrame;
 import estimate.model.ElemSimple;
 import estimate.script.Intermediate;
 import frames.swing.Draw;
@@ -157,11 +158,19 @@ public class Wincalc {
             Intermediate intermediateRoot = new Intermediate(null, id, elemType, layoutObj, width, height, paramJson);
             listIntermediate.add(intermediateRoot);
 
-            //Добавим все остальные Intermediate
+            //Добавим все остальные Intermediate          
+            for (Object elemFrame : jsonObj.get("elements").getAsJsonArray()) {
+                JsonObject jsonFrame = (JsonObject) elemFrame;
+                if (TypeElem.FRAME_SIDE.name().equals(jsonFrame.get("elemType").getAsString())) {
+                    String layourFrame = jsonFrame.get("layoutFrame").getAsString();
+                    listIntermediate.add(new Intermediate(intermediateRoot, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_SIDE.name(), layourFrame, null));
+                }
+            }            
             intermBuild(jsonObj, intermediateRoot, listIntermediate);
             Collections.sort(listIntermediate, (o1, o2) -> Float.compare(o1.id, o2.id)); //упорядочим порядок построения окна
             windowsBuild(listIntermediate); //строим конструкцию из промежуточного списка
-            {
+            
+            { //для тестирования
                 Gson js = new GsonBuilder().setPrettyPrinting().create();
                 JsonParser jp = new JsonParser();
                 JsonElement je = jp.parse(json);
@@ -224,6 +233,14 @@ public class Wincalc {
             //Цикл по элементам конструкции ранж. по ключам.
             for (int index = 1; index < listIntermediate.size(); index++) {
                 Intermediate imd = listIntermediate.get(index);
+                
+                //Добавим рамы в гпавное окно
+                if (TypeElem.FRAME_SIDE == imd.type) {
+                    ElemFrame elemFrame = new ElemFrame(rootArea, imd.id, imd.layout);
+                    rootArea.mapFrame.put(elemFrame.layout(), elemFrame);
+                    continue;
+                }                
+                
                 if (TypeElem.STVORKA == imd.type) {
                     imd.addArea(new AreaStvorka(this, imd.owner.area5e, imd.id, imd.param));
                 } else if (TypeElem.AREA == imd.type) {
