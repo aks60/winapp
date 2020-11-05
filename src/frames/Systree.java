@@ -53,6 +53,7 @@ import frames.swing.DefTableModel;
 import estimate.Wincalc;
 import estimate.model.ElemSimple;
 import estimate.model.PaintPanel;
+import java.awt.Window;
 import java.util.Set;
 import java.util.stream.Collectors;
 import startup.App1;
@@ -1238,7 +1239,7 @@ public class Systree extends javax.swing.JFrame {
         if (selectedNode != null && selectedNode.isLeaf()) {
             FrameProgress.create(Systree.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    BoxTypical frame = new BoxTypical(Systree.this, listenetNuni);
+                    frame = new BoxTypical(Systree.this, listenetNuni);
                     FrameToFile.setFrameSize(frame);
                     frame.setVisible(true);
                 }

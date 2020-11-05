@@ -52,6 +52,7 @@ import domain.eSyspar1;
 import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
+import enums.TypeElem;
 import enums.TypeGroups;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -583,7 +584,7 @@ public class Profstroy {
                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + "<br/>" + jsonObj.get("name").getAsString();
-                int form = (jsonObj.get("prj").getAsInt() < 601999) ? 3 : 4;
+                int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
                 Query q = new Query(eSysprod.values());
                 Record record = q.newRecord(Query.INS);
                 record.setNo(eSysprod.npp, index + 1);

@@ -74,9 +74,11 @@ public class Wincalc {
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture, tariffication; //объекты калькуляции конструктива
-
+    public LinkedList<Intermediate> intermediateList = new LinkedList();
+    
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);
+        intermediateList.clear();
         mapParamDef.clear();
         mapJoin.clear();
         listSpec.clear();
@@ -131,10 +133,14 @@ public class Wincalc {
     // Парсим входное json окно и строим объектную модель окна
     private void parsingScript(String json) {
         try {
+            //Для тестирования
+            Gson gs = new GsonBuilder().setPrettyPrinting().create();
+            JsonElement je = new JsonParser().parse(json);
+            //System.out.println(gs.toJson(je));
+            
             Gson gson = new Gson(); //библиотека jso
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject jsonObj = jsonElement.getAsJsonObject();
-            LinkedList<Intermediate> listIntermediate = new LinkedList();
 
             int id = jsonObj.get("id").getAsInt();
             String paramJson = jsonObj.get("paramJson").getAsString();
@@ -156,34 +162,30 @@ public class Wincalc {
             String layoutObj = jsonObj.get("layoutArea").getAsString();
             String elemType = jsonObj.get("elemType").getAsString();
             Intermediate intermediateRoot = new Intermediate(null, id, elemType, layoutObj, width, height, paramJson);
-            listIntermediate.add(intermediateRoot);
+            intermediateList.add(intermediateRoot);
 
-            //Добавим все остальные Intermediate          
+            //Добавим рамы         
             for (Object elemFrame : jsonObj.get("elements").getAsJsonArray()) {
                 JsonObject jsonFrame = (JsonObject) elemFrame;
                 if (TypeElem.FRAME_SIDE.name().equals(jsonFrame.get("elemType").getAsString())) {
                     String layourFrame = jsonFrame.get("layoutFrame").getAsString();
-                    listIntermediate.add(new Intermediate(intermediateRoot, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_SIDE.name(), layourFrame, null));
+                    intermediateList.add(new Intermediate(intermediateRoot, jsonFrame.get("id").getAsInt(), TypeElem.FRAME_SIDE.name(), layourFrame, null));
                 }
-            }            
-            intermBuild(jsonObj, intermediateRoot, listIntermediate);
-            Collections.sort(listIntermediate, (o1, o2) -> Float.compare(o1.id, o2.id)); //упорядочим порядок построения окна
-            windowsBuild(listIntermediate); //строим конструкцию из промежуточного списка
-            
-            { //для тестирования
-                Gson js = new GsonBuilder().setPrettyPrinting().create();
-                JsonParser jp = new JsonParser();
-                JsonElement je = jp.parse(json);
-                String str = js.toJson(je);
-                //System.out.println(str);
             }
+            //Добавим все остальные Intermediate (через рекурсию)
+            intermBuild(jsonObj, intermediateRoot, intermediateList);
+            Collections.sort(intermediateList, (o1, o2) -> Float.compare(o1.id, o2.id)); //упорядочим порядок построения окна
+            
+            //Строим конструкцию из промежуточного списка
+            windowsBuild(intermediateList); 
+
         } catch (Exception e) {
             System.err.println("Ошибка Wincalc.parsingScript() " + e);
         }
     }
 
     //Промежуточный список окна (для последовательности построения)
-    private void intermBuild(JsonObject jso, Intermediate owner, LinkedList<Intermediate> listIntermediate) {
+    private void intermBuild(JsonObject jso, Intermediate owner, LinkedList<Intermediate> intermediateList) {
         try {
             for (Object obj : jso.get("elements").getAsJsonArray()) {
                 JsonObject objArea = (JsonObject) obj;
@@ -195,17 +197,16 @@ public class Wincalc {
                     float width = (owner.layout == LayoutArea.VERT) ? owner.width : objArea.get("width").getAsFloat();
                     float height = (owner.layout == LayoutArea.VERT) ? objArea.get("height").getAsFloat() : owner.height;
                     String layout = objArea.get("layoutArea").getAsString();
-
                     Intermediate intermediateBox = new Intermediate(owner, id, type, layout, width, height, param);
-                    listIntermediate.add(intermediateBox);
+                    intermediateList.add(intermediateBox);
 
-                    intermBuild(objArea, intermediateBox, listIntermediate); //рекурсия
+                    intermBuild(objArea, intermediateBox, intermediateList); //рекурсия
+
                 } else {
-
                     if (TypeElem.IMPOST.name().equals(type)) {
-                        listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.ANY.name(), param));
+                        intermediateList.add(new Intermediate(owner, id, type, LayoutArea.ANY.name(), param));
                     } else if (TypeElem.GLASS.name().equals(type)) {
-                        listIntermediate.add(new Intermediate(owner, id, type, LayoutArea.ANY.name(), param));
+                        intermediateList.add(new Intermediate(owner, id, type, LayoutArea.ANY.name(), param));
                     }
                 }
             }
@@ -215,10 +216,10 @@ public class Wincalc {
     }
 
     //Строим конструкцию из промежуточного списка
-    private void windowsBuild(LinkedList<Intermediate> listIntermediate) {
+    private void windowsBuild(LinkedList<Intermediate> intermediateList) {
         try {
             //Главное окно        
-            Intermediate imdRoot = listIntermediate.getFirst();
+            Intermediate imdRoot = intermediateList.getFirst();
             if (TypeElem.RECTANGL == imdRoot.type) {
                 rootArea = new AreaRectangl(this, null, imdRoot.id, TypeElem.RECTANGL, imdRoot.layout, imdRoot.width, imdRoot.height, colorID1, colorID2, colorID3, imdRoot.param); //простое
             } else if (TypeElem.TRAPEZE == imdRoot.type) {
@@ -231,16 +232,15 @@ public class Wincalc {
             imdRoot.area5e = rootArea;
 
             //Цикл по элементам конструкции ранж. по ключам.
-            for (int index = 1; index < listIntermediate.size(); index++) {
-                Intermediate imd = listIntermediate.get(index);
-                
+            for (Intermediate imd: intermediateList) {
+
                 //Добавим рамы в гпавное окно
                 if (TypeElem.FRAME_SIDE == imd.type) {
                     ElemFrame elemFrame = new ElemFrame(rootArea, imd.id, imd.layout);
                     rootArea.mapFrame.put(elemFrame.layout(), elemFrame);
                     continue;
-                }                
-                
+                }
+
                 if (TypeElem.STVORKA == imd.type) {
                     imd.addArea(new AreaStvorka(this, imd.owner.area5e, imd.id, imd.param));
                 } else if (TypeElem.AREA == imd.type) {

@@ -12,7 +12,7 @@ public class Intermediate {
     public Intermediate owner = null; //владелец
     public AreaSimple area5e = null; //ссылка для добавления детей в контейнер
     public TypeElem type = TypeElem.NONE; //тип элемента
-    public LayoutArea layout = LayoutArea.ANY;  //ориентация при располодении      
+    public LayoutArea layout = LayoutArea.ANY;  //ориентация при расположении      
     public float width = 0;  //ширина area5e, мм
     public float height = 0; //высота area5e, мм   
     public String param = null;   

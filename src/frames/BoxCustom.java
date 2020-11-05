@@ -49,7 +49,6 @@ public class BoxCustom extends javax.swing.JFrame {
     public BoxCustom() {
         initComponents();
         initElements();
-
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.id);
         rsvSystree = new DefFieldEditor(tab1);
@@ -80,30 +79,30 @@ public class BoxCustom extends javax.swing.JFrame {
     }
 
     private void selectionTree() {
-        int ind = tree1.getSelectionRows()[0];
-        txtField4.setText(String.valueOf(ind)); //TEST
-
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof UserNode) {
-                UserNode node = (UserNode) selectedNode.getUserObject();
-                int id = node.record.getInt(eSystree.id);
-                Query q = qSystree.table(eSystree.up);
-                for (int i = 0; i < q.size(); i++) {
-                    if (id == q.get(i).getInt(eSystree.id)) {
-                        rsvSystree.load(1);
-                    }
-                }
-                int typeSys = node.record.getInt(eSystree.types);
-                if (selectedNode.isLeaf() && (typeSys == 1 || typeSys == 2)) {
-
-                    iwin.build(Winscript.test(iwin.prj, id));
-                    paintPanel.repaint(true, 1f);
-                } else {
-                    paintPanel.repaint(false, 1f);
-                }                
-            }
-        }
+//        int ind = tree1.getSelectionRows()[0];
+//        txtField4.setText(String.valueOf(ind)); //TEST
+//
+//        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree1.getLastSelectedPathComponent();
+//        if (selectedNode != null) {
+//            if (selectedNode.getUserObject() instanceof UserNode) {
+//                UserNode node = (UserNode) selectedNode.getUserObject();
+//                int id = node.record.getInt(eSystree.id);
+//                Query q = qSystree.table(eSystree.up);
+//                for (int i = 0; i < q.size(); i++) {
+//                    if (id == q.get(i).getInt(eSystree.id)) {
+//                        rsvSystree.load(1);
+//                    }
+//                }
+//                int typeSys = node.record.getInt(eSystree.types);
+//                if (selectedNode.isLeaf() && (typeSys == 1 || typeSys == 2)) {
+//
+//                    iwin.build(Winscript.test(iwin.prj, id));
+//                    paintPanel.repaint(true, 1f);
+//                } else {
+//                    paintPanel.repaint(false, 1f);
+//                }                
+//            }
+//        }
     }
 
     private ArrayList<DefaultMutableTreeNode> addChild1(ArrayList<DefaultMutableTreeNode> nodeList1, ArrayList<DefaultMutableTreeNode> nodeList2) {
@@ -290,7 +289,7 @@ public class BoxCustom extends javax.swing.JFrame {
                 .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +340,7 @@ public class BoxCustom extends javax.swing.JFrame {
                 .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,7 +362,7 @@ public class BoxCustom extends javax.swing.JFrame {
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGap(0, 305, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,7 +381,7 @@ public class BoxCustom extends javax.swing.JFrame {
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
@@ -397,7 +396,7 @@ public class BoxCustom extends javax.swing.JFrame {
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGap(0, 256, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
@@ -641,7 +640,7 @@ public class BoxCustom extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 651, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 478, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
