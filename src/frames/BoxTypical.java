@@ -268,7 +268,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan26 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        pan27 = new javax.swing.JPanel();
         pan18 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -528,14 +527,13 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        west.setPreferredSize(new java.awt.Dimension(300, 560));
+        west.setPreferredSize(new java.awt.Dimension(240, 560));
         west.setLayout(new java.awt.CardLayout());
 
         pan13.setName(""); // NOI18N
-        pan13.setPreferredSize(new java.awt.Dimension(900, 560));
+        pan13.setPreferredSize(new java.awt.Dimension(240, 560));
         pan13.setLayout(new java.awt.BorderLayout());
 
-        pan16.setPreferredSize(new java.awt.Dimension(300, 560));
         pan16.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -555,18 +553,18 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab1.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan16.add(scr1, java.awt.BorderLayout.CENTER);
 
-        pan13.add(pan16, java.awt.BorderLayout.WEST);
+        pan13.add(pan16, java.awt.BorderLayout.CENTER);
 
         west.add(pan13, "pan13");
 
         pan14.setName(""); // NOI18N
-        pan14.setPreferredSize(new java.awt.Dimension(900, 560));
         pan14.setLayout(new java.awt.BorderLayout());
 
         pan25.setPreferredSize(new java.awt.Dimension(300, 560));
@@ -595,12 +593,11 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         pan25.add(scr2, java.awt.BorderLayout.CENTER);
 
-        pan14.add(pan25, java.awt.BorderLayout.WEST);
+        pan14.add(pan25, java.awt.BorderLayout.CENTER);
 
         west.add(pan14, "pan14");
 
         pan15.setName(""); // NOI18N
-        pan15.setPreferredSize(new java.awt.Dimension(900, 560));
         pan15.setLayout(new java.awt.BorderLayout());
 
         pan26.setPreferredSize(new java.awt.Dimension(300, 461));
@@ -629,11 +626,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         pan26.add(scr3, java.awt.BorderLayout.CENTER);
 
-        pan15.add(pan26, java.awt.BorderLayout.WEST);
-
-        pan27.setPreferredSize(new java.awt.Dimension(600, 461));
-        pan27.setLayout(new java.awt.BorderLayout());
-        pan15.add(pan27, java.awt.BorderLayout.CENTER);
+        pan15.add(pan26, java.awt.BorderLayout.CENTER);
 
         west.add(pan15, "pan15");
 
@@ -648,7 +641,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
-        centr.setPreferredSize(new java.awt.Dimension(600, 560));
+        centr.setPreferredSize(new java.awt.Dimension(560, 560));
         centr.setLayout(new java.awt.BorderLayout());
 
         pan17.setPreferredSize(new java.awt.Dimension(600, 540));
@@ -685,7 +678,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -773,7 +766,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 314, Short.MAX_VALUE)
+            .addGap(0, 374, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1120,7 +1113,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JPanel pan18;
     private javax.swing.JPanel pan25;
     private javax.swing.JPanel pan26;
-    private javax.swing.JPanel pan27;
     private javax.swing.JPanel pan3;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan6;
