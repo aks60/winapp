@@ -38,7 +38,7 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 604010;
+            iwin.prj = 604006;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt2(iwin.listSpec);
