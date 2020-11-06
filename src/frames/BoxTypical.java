@@ -30,6 +30,7 @@ import estimate.model.PaintPanel;
 import estimate.script.Intermediate;
 import java.awt.CardLayout;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 public class BoxTypical extends javax.swing.JFrame implements FrameListener<Object, Object> {
@@ -130,6 +131,18 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             if (TypeElem.FRAME_SIDE == imd.type) {
                 treeNode2 = new DefMutableTreeNode(imd);
                 treeNode1.add(treeNode2);
+            }
+        }
+        for (Intermediate imd : iwinMax.intermediateList) {
+            if (TypeElem.STVORKA == imd.type) {
+                treeNode2 = new DefMutableTreeNode(imd);
+                treeNode1.add(treeNode2);
+                for (Intermediate imd2 : iwinMax.intermediateList) {
+                    if (TypeElem.GLASS == imd2.type) {
+                        DefMutableTreeNode treeNode3 = new DefMutableTreeNode(imd2);
+                        treeNode2.add(treeNode3);
+                    }
+                }
             }
         }
         tree.setModel(new DefaultTreeModel(treeNode1));
@@ -1157,6 +1170,10 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             }
         };
         //scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0), "Типовые конструкции", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
+        DefaultTreeCellRenderer rnd = (DefaultTreeCellRenderer) tree.getCellRenderer();
+        rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
+        rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
+        rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
@@ -1180,7 +1197,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         public Intermediate record = null;
 
         public DefMutableTreeNode(Intermediate record) {
-            super(record.type.name);
+            super(record.type.name + ", " + record.layout.name.toLowerCase());
             this.record = record;
         }
     }
