@@ -38,6 +38,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     public Wincalc iwinMax = new Wincalc();
     public Wincalc iwinMin = new Wincalc();
     private Window owner = null;
+    private Object script = null;
     private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
     private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private DialogListener listenet = null;
@@ -127,21 +128,21 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         DefMutableTreeNode treeNode1 = new DefMutableTreeNode(imdRoot);
         DefMutableTreeNode treeNode2 = null;
 
-        for (Intermediate imd : iwinMax.intermediateList) {
-            if (TypeElem.FRAME_SIDE == imd.type) {
-                treeNode2 = new DefMutableTreeNode(imd);
-                treeNode1.add(treeNode2);
-            }
-        }
+//        for (Intermediate imd : iwinMax.intermediateList) {
+//            if (TypeElem.FRAME_SIDE == imd.type) {
+//                treeNode2 = new DefMutableTreeNode(imd);
+//                treeNode1.add(treeNode2);
+//            }
+//        }
         for (Intermediate imd : iwinMax.intermediateList) {
             if (TypeElem.STVORKA == imd.type) {
                 treeNode2 = new DefMutableTreeNode(imd);
                 treeNode1.add(treeNode2);
                 for (Intermediate imd2 : iwinMax.intermediateList) {
-                    if (TypeElem.GLASS == imd2.type) {
+                    //if (TypeElem.GLASS == imd2.type) {
                         DefMutableTreeNode treeNode3 = new DefMutableTreeNode(imd2);
                         treeNode2.add(treeNode3);
-                    }
+                    //}
                 }
             }
         }
@@ -232,7 +233,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Object script = qSysprod1.get(row, eSysprod.script);
+            script = qSysprod1.get(row, eSysprod.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true, 1);
         }
@@ -241,7 +242,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void selectionTab2(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
-            Object script = qSysprod2.get(row, eSysprod.script);
+            script = qSysprod2.get(row, eSysprod.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true, 1);
         }
