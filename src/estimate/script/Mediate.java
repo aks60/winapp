@@ -6,18 +6,18 @@ import java.util.Arrays;
 import estimate.model.AreaSimple;
 import estimate.model.ElemSimple;
 
-public class Intermediate {
+public class Mediate {
 
     public float id = -1;  // идентификатор элемента
-    public Intermediate owner = null; //владелец
+    public Mediate owner = null; //владелец
     public AreaSimple area5e = null; //ссылка для добавления детей в контейнер
     public TypeElem type = TypeElem.NONE; //тип элемента
     public LayoutArea layout = LayoutArea.ANY;  //ориентация при расположении      
     public float width = 0;  //ширина area5e, мм
     public float height = 0; //высота area5e, мм   
-    public String param = null;   
+    public String param = null;
 
-    public Intermediate(Intermediate owner, float id, String type, String layout, String param) {
+    public Mediate(Mediate owner, float id, String type, String layout, String param) {
 
         this.id = id;
         this.owner = owner;
@@ -26,27 +26,27 @@ public class Intermediate {
         this.param = param;
     }
 
-    public Intermediate(Intermediate owner, float id, String type, String layout,
+    public Mediate(Mediate owner, float id, String type, String layout,
             float width, float height, String param) {
 
         this(owner, id, type, layout, param);
         this.width = width;
         this.height = height;
     }
-    
+
     public AreaSimple addArea(AreaSimple area2) {
-        owner.area5e.listChild.add(area2);
-        this.area5e = area2;
+        owner.area5e.listChild.add(area2); //теперь владелец имеет эту AreaSimple в списке
+        this.area5e = area2; //тут будут лежать компоненты когда AreaSimple станет владельцем
         return area2;
     }
 
     public ElemSimple addElem(ElemSimple elem5e) {
-        owner.area5e.listChild.add(elem5e);
+        owner.area5e.listChild.add(elem5e); //теперь владелец имеет этот ElemSimple в списке
         return elem5e;
     }
-    
+
     public String toString() {
-        float owner2 = (owner == null) ?-1 :owner.id; 
+        float owner2 = (owner == null) ? -1 : owner.id;
         return "ELEM- " + type.name() + ", owner=" + owner2 + ", id=" + id + ", type=" + type + ", layout="
                 + layout + ", width= " + width + ", height=" + height + ", param=" + param;
     }

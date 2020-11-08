@@ -6,8 +6,6 @@ import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
 import domain.eSysprod;
-import domain.eSystree;
-import enums.TypeArtikl;
 import enums.TypeElem;
 import java.awt.Component;
 import java.awt.Window;
@@ -27,11 +25,13 @@ import javax.swing.table.DefaultTableModel;
 import estimate.Wincalc;
 import estimate.model.ElemSimple;
 import estimate.model.PaintPanel;
-import estimate.script.Intermediate;
+import estimate.script.Mediate;
 import java.awt.CardLayout;
+import java.util.Enumeration;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 
 public class BoxTypical extends javax.swing.JFrame implements FrameListener<Object, Object> {
 
@@ -62,7 +62,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         btnChoice.setVisible(false);
         btnRemov.setVisible(false);
         loadingData();
-        loadingTree();
+        //loadingTree();
     }
 
     public BoxTypical(java.awt.Window owner, DialogListener listener) {
@@ -73,7 +73,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         this.listenet = listener;
         owner.setEnabled(false);
         loadingData();
-        loadingTree();
+        //loadingTree();
 
     }
 
@@ -124,29 +124,20 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     private void loadingTree() {
         try {
-            Intermediate imdRoot = iwinMax.intermediateList.getFirst();
-            DefMutableTreeNode treeNode1 = new DefMutableTreeNode(imdRoot);
-            DefMutableTreeNode treeNode2 = null;
-
-//        for (Intermediate imd : iwinMax.intermediateList) {
-//            if (TypeElem.FRAME_SIDE == imd.type) {
-//                treeNode2 = new DefMutableTreeNode(imd);
-//                treeNode1.add(treeNode2);
-//            }
-//        }
-            for (Intermediate imd : iwinMax.intermediateList) {
-                if (TypeElem.STVORKA == imd.type) {
-                    treeNode2 = new DefMutableTreeNode(imd);
-                    treeNode1.add(treeNode2);
-                    for (Intermediate imd2 : iwinMax.intermediateList) {
-                        //if (TypeElem.GLASS == imd2.type) {
-                        DefMutableTreeNode treeNode3 = new DefMutableTreeNode(imd2);
-                        treeNode2.add(treeNode3);
-                        //}
+            Mediate mdtFirst = iwinMax.mediateList.getFirst();
+            DefMutableTreeNode root = new DefMutableTreeNode(mdtFirst);
+            DefMutableTreeNode node = null;
+            for (Mediate mdt : iwinMax.mediateList) {
+                Enumeration<TreeNode> e = root.depthFirstEnumeration();
+                while (e.hasMoreElements()) {
+                    DefMutableTreeNode node2 = (DefMutableTreeNode) e.nextElement();
+                    if (mdt.owner != null && node2.record.id == mdt.owner.id) {
+                        node = new DefMutableTreeNode(mdt);
+                        node2.add(node);
                     }
                 }
             }
-            tree.setModel(new DefaultTreeModel(treeNode1));
+            tree.setModel(new DefaultTreeModel(root));
             scrTree.setViewportView(tree);
             tree.setSelectionRow(0);
 
@@ -213,6 +204,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                     Icon icon = listIcon1.get(row);
                     label.setIcon(icon);
                 } else {
+                    label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
                     label.setIcon(null);
                 }
                 return label;
@@ -227,6 +219,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                     Icon icon = listIcon2.get(row);
                     label.setIcon(icon);
                 } else {
+                    label.setVerticalAlignment(javax.swing.SwingConstants.TOP);
                     label.setIcon(null);
                 }
                 return label;
@@ -296,6 +289,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         txtField2 = new javax.swing.JFormattedTextField();
         lab1 = new javax.swing.JLabel();
         txtField1 = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
         pan4 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
@@ -683,6 +677,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         txtField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtField1.setText("1200");
 
+        jLabel1.setText("jLabel1\nxxx");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout pan3Layout = new javax.swing.GroupLayout(pan3);
         pan3.setLayout(pan3Layout);
         pan3Layout.setHorizontalGroup(
@@ -696,7 +693,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -708,6 +707,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                     .addComponent(lab1)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pan17.add(pan3, java.awt.BorderLayout.SOUTH);
@@ -1115,6 +1115,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JButton btnTrapeze2;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;
@@ -1199,11 +1200,21 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     private class DefMutableTreeNode extends DefaultMutableTreeNode {
 
-        public Intermediate record = null;
+        public Mediate record = null;
 
-        public DefMutableTreeNode(Intermediate record) {
-            super(record.type.name + ", " + record.layout.name.toLowerCase());
+        public DefMutableTreeNode(Mediate record) {
+            super();
             this.record = record;
+        }
+
+        public String toString() {
+            if (record.type == TypeElem.FRAME_SIDE) {
+                return record.type.name + ", " + record.layout.name.toLowerCase();
+            } else if (record.type == TypeElem.AREA) {
+                return record.type.name + ". " + record.layout.name + " напр.";    
+            } else {
+                return record.type.name;
+            }
         }
     }
 }
