@@ -123,10 +123,10 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }
 
     private void loadingTree() {
-
-        Intermediate imdRoot = iwinMax.intermediateList.getFirst();
-        DefMutableTreeNode treeNode1 = new DefMutableTreeNode(imdRoot);
-        DefMutableTreeNode treeNode2 = null;
+        try {
+            Intermediate imdRoot = iwinMax.intermediateList.getFirst();
+            DefMutableTreeNode treeNode1 = new DefMutableTreeNode(imdRoot);
+            DefMutableTreeNode treeNode2 = null;
 
 //        for (Intermediate imd : iwinMax.intermediateList) {
 //            if (TypeElem.FRAME_SIDE == imd.type) {
@@ -134,21 +134,25 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 //                treeNode1.add(treeNode2);
 //            }
 //        }
-        for (Intermediate imd : iwinMax.intermediateList) {
-            if (TypeElem.STVORKA == imd.type) {
-                treeNode2 = new DefMutableTreeNode(imd);
-                treeNode1.add(treeNode2);
-                for (Intermediate imd2 : iwinMax.intermediateList) {
-                    //if (TypeElem.GLASS == imd2.type) {
+            for (Intermediate imd : iwinMax.intermediateList) {
+                if (TypeElem.STVORKA == imd.type) {
+                    treeNode2 = new DefMutableTreeNode(imd);
+                    treeNode1.add(treeNode2);
+                    for (Intermediate imd2 : iwinMax.intermediateList) {
+                        //if (TypeElem.GLASS == imd2.type) {
                         DefMutableTreeNode treeNode3 = new DefMutableTreeNode(imd2);
                         treeNode2.add(treeNode3);
-                    //}
+                        //}
+                    }
                 }
             }
+            tree.setModel(new DefaultTreeModel(treeNode1));
+            scrTree.setViewportView(tree);
+            tree.setSelectionRow(0);
+
+        } catch (Exception e) {
+            System.out.println("Ошибка frames.BoxTypical.loadingTree() " + e);
         }
-        tree.setModel(new DefaultTreeModel(treeNode1));
-        scrTree.setViewportView(tree);
-        tree.setSelectionRow(0);
     }
 
     private void selectionTree() {
