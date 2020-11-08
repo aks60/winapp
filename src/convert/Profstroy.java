@@ -49,7 +49,7 @@ import domain.eSyssize;
 import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eSysprod;
+import domain.eModels;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.TypeElem;
@@ -91,7 +91,7 @@ public class Profstroy {
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
-            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eSystree.up,
+            eSyspar1.up, eSysprof.up, eSysfurn.up, eModels.up, eSystree.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eArtdet.up, eArtikl.up, eArtgrp.up,
             eColpar1.up, eColor.up, eColgrp.up,
@@ -483,7 +483,7 @@ public class Profstroy {
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");
-            updateSysprod();
+            updateModels();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
             updateSql(eKitdet.up, eKitdet.kits_id, "kunic", eKits.up, "kunic");
@@ -572,9 +572,9 @@ public class Profstroy {
         }
     }
 
-    private static void updateSysprod() {
+    private static void updateModels() {
         try {
-            System.out.println("updateSysprod()");
+            System.out.println("updateModels()");
             Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
                 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
             cn2.commit();
@@ -585,19 +585,19 @@ public class Profstroy {
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + "<br/>" + jsonObj.get("name").getAsString();
                 int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
-                Query q = new Query(eSysprod.values());
+                Query q = new Query(eModels.values());
                 Record record = q.newRecord(Query.INS);
-                record.setNo(eSysprod.npp, index + 1);
-                record.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.up));
-                record.setNo(eSysprod.name, name);
-                record.setNo(eSysprod.script, script);
-                record.setNo(eSysprod.form, form);
+                record.setNo(eModels.npp, index + 1);
+                record.setNo(eModels.id, ConnApp.instanc().genId(eModels.up));
+                record.setNo(eModels.name, name);
+                record.setNo(eModels.script, script);
+                record.setNo(eModels.form, form);
                 q.insert(record);
             }
             cn2.commit();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-SYSPROD:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "UPDATE-MODELS:  " + e + "\u001B[0m");
         }
     }
 

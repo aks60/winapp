@@ -11,7 +11,7 @@ import common.eProperty;
 import convert.Convert;
 import dataset.Query;
 import dataset.Record;
-import domain.eSysprod;
+import domain.eModels;
 import domain.eSystree;
 import estimate.Wincalc;
 import frames.Artikles;
@@ -66,8 +66,8 @@ public class App1 extends javax.swing.JFrame {
         initElements();
 
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        int sysprod_id = eSystree.find(nuni).getInt(eSystree.sysprod_id);
-        if (sysprod_id == -1) {
+        int models_id = eSystree.find(nuni).getInt(eSystree.models_id);
+        if (models_id == -1) {
             setSelectedFilter(true);
         }
         if (eProperty.lookandfeel.read().equals("Metal")) {
@@ -85,9 +85,9 @@ public class App1 extends javax.swing.JFrame {
 
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         Record systreeRec = eSystree.find(nuni);
-        int sysprod_id = systreeRec.getInt(eSystree.sysprod_id);
-        if (sysprod_id != -1) {
-            String script1 = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
+        int models_id = systreeRec.getInt(eSystree.models_id);
+        if (models_id != -1) {
+            String script1 = new Query(eModels.script).select(eModels.up, "where", eModels.id, "=", models_id).getAs(0, eModels.script);
             if (script1 != null && script1.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script

@@ -6,7 +6,7 @@ import common.FrameToFile;
 import common.eProperty;
 import dataset.Query;
 import dataset.Record;
-import domain.eSysprod;
+import domain.eModels;
 import enums.TypeElem;
 import java.awt.Component;
 import java.awt.Window;
@@ -53,8 +53,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             }
         }
     };
-    private Query qSysprod1 = new Query(eSysprod.values());
-    private Query qSysprod2 = new Query(eSysprod.values());
+    private Query qModels1 = new Query(eModels.values());
+    private Query qModels2 = new Query(eModels.values());
 
     public BoxTypical() {
         initComponents();
@@ -80,17 +80,17 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
     private void loadingData() {
 
-        qSysprod1.select(eSysprod.up, "where", eSysprod.form, "=", TypeElem.RECTANGL.id, "order by", eSysprod.npp);
-        qSysprod2.select(eSysprod.up, "where", eSysprod.form, "=", TypeElem.ARCH.id, "order by", eSysprod.npp);
+        qModels1.select(eModels.up, "where", eModels.form, "=", TypeElem.RECTANGL.id, "order by", eModels.npp);
+        qModels2.select(eModels.up, "where", eModels.form, "=", TypeElem.ARCH.id, "order by", eModels.npp);
         DefaultTableModel dm1 = (DefaultTableModel) tab1.getModel();
         DefaultTableModel dm2 = (DefaultTableModel) tab2.getModel();
         dm1.getDataVector().removeAllElements();
         dm2.getDataVector().removeAllElements();
         int length = 70;
-        for (Record record : qSysprod1) {
+        for (Record record : qModels1) {
             try {
-                Object obj[] = {record.get(eSysprod.npp), record.get(eSysprod.name), ""};
-                Object script = record.get(eSysprod.script);
+                Object obj[] = {record.get(eModels.npp), record.get(eModels.name), ""};
+                Object script = record.get(eModels.script);
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
@@ -102,10 +102,10 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 System.out.println("Ошибка " + e);
             }
         }
-        for (Record record : qSysprod2) {
+        for (Record record : qModels2) {
             try {
-                Object obj[] = {record.get(eSysprod.npp), record.get(eSysprod.name), ""};
-                Object script = record.get(eSysprod.script);
+                Object obj[] = {record.get(eModels.npp), record.get(eModels.name), ""};
+                Object script = record.get(eModels.script);
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
@@ -212,7 +212,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-           Object script = qSysprod1.get(row, eSysprod.script);
+           Object script = qModels1.get(row, eModels.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true, 1);
         }
@@ -221,7 +221,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void selectionTab2(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab2);
         if (row != -1) {
-            Object script = qSysprod2.get(row, eSysprod.script);
+            Object script = qModels2.get(row, eModels.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true, 1);
         }
@@ -1000,7 +1000,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = new Record();
-            record.add(qSysprod1.get(row, eSysprod.id));
+            record.add(qModels1.get(row, eModels.id));
             listenet.action(record);
             this.dispose();
         }

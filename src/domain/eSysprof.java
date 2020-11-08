@@ -21,7 +21,7 @@ public enum eSysprof implements Field {
     use_type("5", "5", "1", "Тип использования", "ATYPE"),
     use_side("5", "5", "1", "Сторона использования", "ASETS"),
     artikl_id("4", "10", "0", "Артикул", "artikl_id"),
-    sysprod_id("4", "10", "1", "Ссылка", "sysprod_id"), //не использую
+    models_id("4", "10", "1", "Ссылка", "models_id"), //не использую
     systree_id("4", "10", "0", "Ссылка", "systree_id");
     //aunic("4", "10", "1", "ИД компонента", "AUNIC"),
     //nuni("4", "10", "1", "ID  серии профилей", "NUNI"),    

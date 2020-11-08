@@ -12,7 +12,7 @@ import domain.eElemdet;
 import domain.eFurndet;
 import domain.eGlasdet;
 import domain.eJoindet;
-import domain.eSysprod;
+import domain.eModels;
 import domain.eSystree;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -53,10 +53,10 @@ public class Specific extends javax.swing.JFrame {
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         setTitle("Спецификация.    Система: " + eSystree.patch(nuni, ""));
         Record record = eSystree.find(nuni);
-        int sysprod_id = record.getInt(eSystree.sysprod_id);
-        Record record2 = eSysprod.find(sysprod_id);
+        int models_id = record.getInt(eSystree.models_id);
+        Record record2 = eModels.find(models_id);
         if (record2 != null) {
-            String script = record2.getStr(eSysprod.script);
+            String script = record2.getStr(eModels.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
                 return;

@@ -33,7 +33,7 @@ public enum eSystree implements Field {
     imgview("5", "5", "1", "Вид со стороны", "TVIEW"),
     pref("12", "32", "1", "Замена / код", "NPREF"),
     types("5", "5", "1", "Типы 1-окно; 4,5-двери", "TYPEW"),
-    sysprod_id("4", "10", "1", "Ссылка", "sysprod_id"),
+    models_id("4", "10", "1", "Ссылка", "models_id"),
     parent_id("4", "10", "1", "Ссылка", "parent_id");
     //nlev("5", "5", "1", "Номер ступеньки в дереве", "NLEV"),
     //npar("4", "10", "1", "ID материнского профиля (SYSPROF.NUNI)", "NPAR"),

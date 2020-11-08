@@ -20,7 +20,7 @@ import domain.eFurniture;
 import domain.eParams;
 import domain.eSysfurn;
 import domain.eSyspar1;
-import domain.eSysprod;
+import domain.eModels;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutProduct;
@@ -268,9 +268,9 @@ public class Systree extends javax.swing.JFrame {
         if (node != null) {
             nuni = node.record.getInt(eSystree.id);
             eProperty.systree_nuni.write(String.valueOf(nuni));
-            int sysprod_id = node.record.getInt(eSystree.sysprod_id);
+            int models_id = node.record.getInt(eSystree.models_id);
             //Калькуляция и прорисовка окна
-            createWincalc(sysprod_id);
+            createWincalc(models_id);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (nuni == qSystree.get(i).getInt(eSystree.id)) {
                     //Util.setSelectedRow(tab1, i);
@@ -316,11 +316,11 @@ public class Systree extends javax.swing.JFrame {
         listenetNuni = (record) -> {
             DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
             Record record2 = node.record;
-            int sysprod_id = record.getInt(0);
-            record2.set(eSystree.sysprod_id, sysprod_id);
+            int models_id = record.getInt(0);
+            record2.set(eSystree.models_id, models_id);
             qSystree.update(record2);
             eSystree.query().clear();
-            createWincalc(sysprod_id);
+            createWincalc(models_id);
             
             for (TreeNode tn : node.getPath()) {
                 System.out.println(tn.toString());
@@ -399,9 +399,9 @@ public class Systree extends javax.swing.JFrame {
         return nodeList2;
     }
 
-    private void createWincalc(int sysprod_id) {
-        if (sysprod_id != -1) {
-            String script1 = new Query(eSysprod.script).select(eSysprod.up, "where", eSysprod.id, "=", sysprod_id).getAs(0, eSysprod.script);
+    private void createWincalc(int models_id) {
+        if (models_id != -1) {
+            String script1 = new Query(eModels.script).select(eModels.up, "where", eModels.id, "=", models_id).getAs(0, eModels.script);
             if (script1 != null && script1.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
@@ -1146,9 +1146,9 @@ public class Systree extends javax.swing.JFrame {
         Wincalc iwin = new Wincalc();
         int nuni = Integer.valueOf(eProperty.systree_nuni.read());
         Record record = eSystree.find(nuni);
-        int sysprod_id = record.getInt(eSystree.sysprod_id);
-        Record record2 = eSysprod.find(sysprod_id);
-        String script = record2.getStr(eSysprod.script);
+        int models_id = record.getInt(eSystree.models_id);
+        Record record2 = eModels.find(models_id);
+        String script = record2.getStr(eModels.script);
         JsonElement je = new Gson().fromJson(script, JsonElement.class);
         //je.getAsJsonObject().addProperty("nuni", nuni);
         iwin.build(je.toString());
