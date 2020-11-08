@@ -289,7 +289,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         txtField2 = new javax.swing.JFormattedTextField();
         lab1 = new javax.swing.JLabel();
         txtField1 = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
         pan4 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
         pan7 = new javax.swing.JPanel();
@@ -303,17 +302,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan9 = new javax.swing.JPanel();
         pan10 = new javax.swing.JPanel();
         pan6 = new javax.swing.JPanel();
-        btnSquare = new javax.swing.JButton();
-        btnArch3 = new javax.swing.JButton();
-        btnArch2 = new javax.swing.JButton();
-        btnTrapeze = new javax.swing.JButton();
-        btnTrapeze2 = new javax.swing.JButton();
-        btnSquare1 = new javax.swing.JButton();
-        pan12 = new javax.swing.JPanel();
-        btnImpostVert = new javax.swing.JButton();
-        btnImpostGoriz = new javax.swing.JButton();
-        btnSquare4 = new javax.swing.JButton();
-        btnSquare5 = new javax.swing.JButton();
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -511,7 +499,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -539,16 +527,18 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        west.setPreferredSize(new java.awt.Dimension(240, 560));
+        west.setPreferredSize(new java.awt.Dimension(200, 560));
         west.setLayout(new java.awt.CardLayout());
 
         pan13.setName(""); // NOI18N
-        pan13.setPreferredSize(new java.awt.Dimension(240, 560));
+        pan13.setPreferredSize(new java.awt.Dimension(200, 560));
         pan13.setLayout(new java.awt.BorderLayout());
 
+        pan16.setPreferredSize(new java.awt.Dimension(200, 560));
         pan16.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        scr1.setPreferredSize(new java.awt.Dimension(200, 560));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -577,12 +567,14 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         west.add(pan13, "pan13");
 
         pan14.setName(""); // NOI18N
+        pan14.setPreferredSize(new java.awt.Dimension(200, 560));
         pan14.setLayout(new java.awt.BorderLayout());
 
-        pan25.setPreferredSize(new java.awt.Dimension(300, 560));
+        pan25.setPreferredSize(new java.awt.Dimension(200, 560));
         pan25.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        scr2.setPreferredSize(new java.awt.Dimension(200, 560));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -610,12 +602,14 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         west.add(pan14, "pan14");
 
         pan15.setName(""); // NOI18N
+        pan15.setPreferredSize(new java.awt.Dimension(200, 560));
         pan15.setLayout(new java.awt.BorderLayout());
 
-        pan26.setPreferredSize(new java.awt.Dimension(300, 461));
+        pan26.setPreferredSize(new java.awt.Dimension(200, 560));
         pan26.setLayout(new java.awt.BorderLayout());
 
         scr3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        scr3.setPreferredSize(new java.awt.Dimension(200, 560));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -642,9 +636,11 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         west.add(pan15, "pan15");
 
+        pan18.setPreferredSize(new java.awt.Dimension(200, 560));
         pan18.setLayout(new java.awt.BorderLayout());
 
         scrTree.setBorder(null);
+        scrTree.setPreferredSize(new java.awt.Dimension(200, 560));
         scrTree.setViewportView(tree);
 
         pan18.add(scrTree, java.awt.BorderLayout.CENTER);
@@ -653,15 +649,14 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
-        centr.setPreferredSize(new java.awt.Dimension(560, 560));
+        centr.setPreferredSize(new java.awt.Dimension(700, 560));
         centr.setLayout(new java.awt.BorderLayout());
 
-        pan17.setPreferredSize(new java.awt.Dimension(600, 540));
         pan17.setLayout(new java.awt.BorderLayout());
 
         pan3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         pan3.setMinimumSize(new java.awt.Dimension(100, 20));
-        pan3.setPreferredSize(new java.awt.Dimension(500, 40));
+        pan3.setPreferredSize(new java.awt.Dimension(700, 40));
 
         lab2.setText("Высота");
         lab2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -677,9 +672,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         txtField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         txtField1.setText("1200");
 
-        jLabel1.setText("jLabel1\nxxx");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
         javax.swing.GroupLayout pan3Layout = new javax.swing.GroupLayout(pan3);
         pan3.setLayout(pan3Layout);
         pan3Layout.setHorizontalGroup(
@@ -693,9 +685,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 .addComponent(lab1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
         pan3Layout.setVerticalGroup(
             pan3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -707,7 +697,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                     .addComponent(lab1)
                     .addComponent(txtField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pan17.add(pan3, java.awt.BorderLayout.SOUTH);
@@ -784,7 +773,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGap(0, 296, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -803,7 +792,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         );
         pan9Layout.setVerticalGroup(
             pan9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 354, Short.MAX_VALUE)
+            .addGap(0, 336, Short.MAX_VALUE)
         );
 
         pan4.add(pan9, java.awt.BorderLayout.EAST);
@@ -818,7 +807,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         );
         pan10Layout.setVerticalGroup(
             pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 354, Short.MAX_VALUE)
+            .addGap(0, 336, Short.MAX_VALUE)
         );
 
         pan4.add(pan10, java.awt.BorderLayout.WEST);
@@ -826,146 +815,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan17.add(pan4, java.awt.BorderLayout.CENTER);
 
         pan6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan6.setPreferredSize(new java.awt.Dimension(38, 500));
+        pan6.setPreferredSize(new java.awt.Dimension(300, 500));
         pan6.setLayout(new javax.swing.BoxLayout(pan6, javax.swing.BoxLayout.Y_AXIS));
-
-        btnSquare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare.setName("areaSquare"); // NOI18N
-        btnSquare.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSquarebtnArea(evt);
-            }
-        });
-        pan6.add(btnSquare);
-
-        btnArch3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d030.gif"))); // NOI18N
-        btnArch3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnArch3.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnArch3.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnArch3.setName("areaArch"); // NOI18N
-        btnArch3.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnArch3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArch3btnArea(evt);
-            }
-        });
-        pan6.add(btnArch3);
-
-        btnArch2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d031.gif"))); // NOI18N
-        btnArch2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnArch2.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnArch2.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnArch2.setName("areaArch2"); // NOI18N
-        btnArch2.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnArch2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnArch2btnArea(evt);
-            }
-        });
-        pan6.add(btnArch2);
-
-        btnTrapeze.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d028.gif"))); // NOI18N
-        btnTrapeze.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnTrapeze.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze.setName("areaTrapeze"); // NOI18N
-        btnTrapeze.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnTrapeze.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTrapezebtnArea(evt);
-            }
-        });
-        pan6.add(btnTrapeze);
-
-        btnTrapeze2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d027.gif"))); // NOI18N
-        btnTrapeze2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnTrapeze2.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze2.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnTrapeze2.setName("areaTrapeze2"); // NOI18N
-        btnTrapeze2.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnTrapeze2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTrapeze2btnArea(evt);
-            }
-        });
-        pan6.add(btnTrapeze2);
-
-        btnSquare1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d024.gif"))); // NOI18N
-        btnSquare1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare1.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare1.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare1.setName("areaSquare"); // NOI18N
-        btnSquare1.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSquare1btnArea(evt);
-            }
-        });
-        pan6.add(btnSquare1);
-
         pan17.add(pan6, java.awt.BorderLayout.EAST);
-
-        pan12.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan12.setPreferredSize(new java.awt.Dimension(38, 500));
-        pan12.setLayout(new javax.swing.BoxLayout(pan12, javax.swing.BoxLayout.Y_AXIS));
-
-        btnImpostVert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d023.gif"))); // NOI18N
-        btnImpostVert.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnImpostVert.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnImpostVert.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnImpostVert.setName("impostVert"); // NOI18N
-        btnImpostVert.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnImpostVert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImpostVertbtnElem(evt);
-            }
-        });
-        pan12.add(btnImpostVert);
-
-        btnImpostGoriz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d022.gif"))); // NOI18N
-        btnImpostGoriz.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnImpostGoriz.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnImpostGoriz.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnImpostGoriz.setName("impostGoriz"); // NOI18N
-        btnImpostGoriz.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnImpostGoriz.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImpostGorizbtnElem(evt);
-            }
-        });
-        pan12.add(btnImpostGoriz);
-
-        btnSquare4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare4.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare4.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare4.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare4.setName("areaSquare"); // NOI18N
-        btnSquare4.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSquare4ActionPerformed(evt);
-            }
-        });
-        pan12.add(btnSquare4);
-
-        btnSquare5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d032.gif"))); // NOI18N
-        btnSquare5.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnSquare5.setMaximumSize(new java.awt.Dimension(32, 32));
-        btnSquare5.setMinimumSize(new java.awt.Dimension(32, 32));
-        btnSquare5.setName("areaSquare"); // NOI18N
-        btnSquare5.setPreferredSize(new java.awt.Dimension(32, 32));
-        btnSquare5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSquare5ActionPerformed(evt);
-            }
-        });
-        pan12.add(btnSquare5);
-
-        pan17.add(pan12, java.awt.BorderLayout.WEST);
 
         centr.add(pan17, java.awt.BorderLayout.CENTER);
 
@@ -979,7 +831,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         south.setLayout(southLayout);
         southLayout.setHorizontalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGap(0, 796, Short.MAX_VALUE)
         );
         southLayout.setVerticalGroup(
             southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1010,46 +862,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
     }//GEN-LAST:event_btnInsert
-
-    private void btnSquarebtnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquarebtnArea
-
-    }//GEN-LAST:event_btnSquarebtnArea
-
-    private void btnArch3btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArch3btnArea
-
-    }//GEN-LAST:event_btnArch3btnArea
-
-    private void btnArch2btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArch2btnArea
-
-    }//GEN-LAST:event_btnArch2btnArea
-
-    private void btnTrapezebtnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrapezebtnArea
-
-    }//GEN-LAST:event_btnTrapezebtnArea
-
-    private void btnTrapeze2btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTrapeze2btnArea
-
-    }//GEN-LAST:event_btnTrapeze2btnArea
-
-    private void btnSquare1btnArea(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare1btnArea
-
-    }//GEN-LAST:event_btnSquare1btnArea
-
-    private void btnImpostVertbtnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpostVertbtnElem
-        iwinMax.listElem.stream().forEach(el -> el.print());
-    }//GEN-LAST:event_btnImpostVertbtnElem
-
-    private void btnImpostGorizbtnElem(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImpostGorizbtnElem
-
-    }//GEN-LAST:event_btnImpostGorizbtnElem
-
-    private void btnSquare4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare4ActionPerformed
-
-    }//GEN-LAST:event_btnSquare4ActionPerformed
-
-    private void btnSquare5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSquare5ActionPerformed
-
-    }//GEN-LAST:event_btnSquare5ActionPerformed
 
     private void panMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panMouseClicked
         System.out.println(evt.getX() + " " + evt.getY());
@@ -1092,30 +904,19 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnArch2;
-    private javax.swing.JButton btnArch3;
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnImpostGoriz;
-    private javax.swing.JButton btnImpostVert;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnRemov;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnSquare;
-    private javax.swing.JButton btnSquare1;
-    private javax.swing.JButton btnSquare4;
-    private javax.swing.JButton btnSquare5;
     private javax.swing.JToggleButton btnT1;
     private javax.swing.JToggleButton btnT2;
     private javax.swing.JToggleButton btnT3;
     private javax.swing.JToggleButton btnT4;
-    private javax.swing.JButton btnTrapeze;
-    private javax.swing.JButton btnTrapeze2;
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JPanel centr;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lab1;
     private javax.swing.JLabel lab2;
     private javax.swing.JLabel lab3;
@@ -1123,7 +924,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private javax.swing.JLabel lab5;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan10;
-    private javax.swing.JPanel pan12;
     private javax.swing.JPanel pan13;
     private javax.swing.JPanel pan14;
     private javax.swing.JPanel pan15;
