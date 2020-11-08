@@ -464,6 +464,8 @@ public class Systree extends javax.swing.JFrame {
         btnField11 = new javax.swing.JButton();
         btnField7 = new javax.swing.JButton();
         pan10 = new javax.swing.JPanel();
+        scr5 = new javax.swing.JScrollPane();
+        tab5 = new javax.swing.JTable();
         pan3 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
@@ -614,7 +616,7 @@ public class Systree extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 140, Short.MAX_VALUE)
+                        .addGap(0, 125, Short.MAX_VALUE)
                         .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -667,7 +669,7 @@ public class Systree extends javax.swing.JFrame {
         panDesign.setPreferredSize(new java.awt.Dimension(200, 200));
         panDesign.setLayout(new java.awt.BorderLayout());
 
-        btnTypicalOkna.setText("Типовая конструкция");
+        btnTypicalOkna.setText("Текущая конструкция");
         btnTypicalOkna.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnTypicalOkna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -711,7 +713,7 @@ public class Systree extends javax.swing.JFrame {
                 .addGroup(pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -949,16 +951,27 @@ public class Systree extends javax.swing.JFrame {
 
         tabb1.addTab("Основные", pan6);
 
-        javax.swing.GroupLayout pan10Layout = new javax.swing.GroupLayout(pan10);
-        pan10.setLayout(pan10Layout);
-        pan10Layout.setHorizontalGroup(
-            pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
-        );
-        pan10Layout.setVerticalGroup(
-            pan10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 221, Short.MAX_VALUE)
-        );
+        pan10.setLayout(new java.awt.BorderLayout());
+
+        tab5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Наименование конструкции", "Рисунок конструкции"
+            }
+        ));
+        scr5.setViewportView(tab5);
+        if (tab5.getColumnModel().getColumnCount() > 0) {
+            tab5.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(1).setPreferredWidth(68);
+            tab5.getColumnModel().getColumn(1).setMaxWidth(68);
+        }
+
+        pan10.add(scr5, java.awt.BorderLayout.CENTER);
 
         tabb1.addTab("Конструкции", pan10);
 
@@ -1405,10 +1418,12 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
     private javax.swing.JScrollPane scr4;
+    private javax.swing.JScrollPane scr5;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTable tab4;
+    private javax.swing.JTable tab5;
     private javax.swing.JTabbedPane tabb1;
     private javax.swing.JTree tree;
     private javax.swing.JFormattedTextField txtField1;
