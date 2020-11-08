@@ -40,7 +40,6 @@ import domain.eJoinvar;
 import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
-import domain.eOrders;
 import domain.eParams;
 import domain.ePartner;
 import domain.eRulecalc;
@@ -50,6 +49,7 @@ import domain.eSysdata;
 import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eModels;
+import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.TypeElem;
@@ -91,7 +91,7 @@ public class Profstroy {
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
-            eSyspar1.up, eSysprof.up, eSysfurn.up, eModels.up, eSystree.up,
+            eSyspar1.up, eSysprof.up, eSysfurn.up, eModels.up, eSystree.up, eSysprod.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eArtdet.up, eArtikl.up, eArtgrp.up,
             eColpar1.up, eColor.up, eColgrp.up,
