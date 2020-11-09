@@ -548,6 +548,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab1.getColumnModel().getColumn(0).setMaxWidth(20);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(2).setMinWidth(68);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab1.getColumnModel().getColumn(2).setMaxWidth(68);
         }
@@ -583,6 +584,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab2.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab2.getColumnModel().getColumn(2).setMinWidth(68);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab2.getColumnModel().getColumn(2).setMaxWidth(68);
         }
@@ -618,6 +620,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab3.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab3.getColumnModel().getColumn(2).setMinWidth(68);
             tab3.getColumnModel().getColumn(2).setPreferredWidth(68);
             tab3.getColumnModel().getColumn(2).setMaxWidth(68);
         }

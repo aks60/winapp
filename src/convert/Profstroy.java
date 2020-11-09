@@ -545,6 +545,11 @@ public class Profstroy {
             metaSql("alter table kitdet add constraint fk_kitdet4 foreign key (color2_id) references color (id)");
             metaSql("alter table kitdet add constraint fk_kitdet5 foreign key (color3_id) references color (id)");
             metaSql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)");
+            
+            metaSql("INSERT INTO Sysprod VALUES (1, 1, 387)");
+            metaSql("INSERT INTO Sysprod VALUES (2, 2, 387)");
+            metaSql("INSERT INTO Sysprod VALUES (3, 3, 387)");
+            
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "ALTERDB-PART:  " + e + "\u001B[0m");
         }
@@ -583,7 +588,7 @@ public class Profstroy {
                 String script = Winscript.test(prj[index], -1);
                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
-                String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + "<br/>" + jsonObj.get("name").getAsString();
+                String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + jsonObj.get("name").getAsString();
                 int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
                 Query q = new Query(eModels.values());
                 Record record = q.newRecord(Query.INS);

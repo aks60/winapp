@@ -515,7 +515,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="68" minWidth="-1" prefWidth="68" resizable="true">
+                            <Column maxWidth="68" minWidth="68" prefWidth="68" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -618,7 +618,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="68" minWidth="-1" prefWidth="68" resizable="true">
+                            <Column maxWidth="68" minWidth="68" prefWidth="68" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -721,7 +721,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="68" minWidth="-1" prefWidth="68" resizable="true">
+                            <Column maxWidth="68" minWidth="68" prefWidth="68" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>

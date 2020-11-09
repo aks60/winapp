@@ -52,9 +52,12 @@ import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import estimate.Wincalc;
 import estimate.model.PaintPanel;
+import java.awt.Component;
 import java.awt.image.BufferedImage;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 import startup.App1;
 
 public class Systree extends javax.swing.JFrame {
@@ -143,8 +146,7 @@ public class Systree extends javax.swing.JFrame {
         
         DefaultTableModel dm5 = (DefaultTableModel) tab5.getModel();
         dm5.getDataVector().removeAllElements();
-        int length = 70;        
-        
+        int length = 70;                
         for (Record record : q.table(eModels.up)) {
             try {
                 Object obj[] = {record.get(eModels.name), ""};
@@ -214,8 +216,23 @@ public class Systree extends javax.swing.JFrame {
                 }
                 return val;
             }
-        };
-	tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
+        };	
+        iwinMin.scale2 = 25;
+        tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
+        tab5.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column == 1) {
+                    Icon icon = listIcon.get(row);
+                    label.setIcon(icon);
+                } else {
+                    label.setIcon(null);
+                }
+                return label;
+            }
+        });                        
                       
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
@@ -350,10 +367,6 @@ public class Systree extends javax.swing.JFrame {
             qSystree.update(record2);
             eSystree.query().clear();
             createWincalc(models_id);
-            
-            for (TreeNode tn : node.getPath()) {
-                System.out.println(tn.toString());
-            }
             App1.eApp1.App1.frame.setTitle("SA-OKNA <АРМ Технолог>");
         };
 
@@ -994,9 +1007,11 @@ public class Systree extends javax.swing.JFrame {
             }
         ));
         tab5.setFillsViewportHeight(true);
+        tab5.setRowHeight(80);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(0).setPreferredWidth(80);
+            tab5.getColumnModel().getColumn(1).setMinWidth(68);
             tab5.getColumnModel().getColumn(1).setPreferredWidth(68);
             tab5.getColumnModel().getColumn(1).setMaxWidth(68);
         }
