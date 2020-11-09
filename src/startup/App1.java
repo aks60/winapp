@@ -861,7 +861,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn0.add(mn03);
 
-        mn09.setText("Конструкции");
+        mn09.setText("Модели");
         mn09.setFont(frames.Util.getFont(1,1));
 
         mn91.setFont(frames.Util.getFont(1,1));

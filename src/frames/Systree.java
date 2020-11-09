@@ -711,7 +711,7 @@ public class Systree extends javax.swing.JFrame {
         panDesign.setPreferredSize(new java.awt.Dimension(200, 200));
         panDesign.setLayout(new java.awt.BorderLayout());
 
-        btnTypicalOkna.setText("Текущая конструкция");
+        btnTypicalOkna.setText("Рабочая конструкция");
         btnTypicalOkna.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnTypicalOkna.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1008,6 +1008,7 @@ public class Systree extends javax.swing.JFrame {
         ));
         tab5.setFillsViewportHeight(true);
         tab5.setRowHeight(80);
+        tab5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(0).setPreferredWidth(80);
