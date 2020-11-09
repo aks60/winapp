@@ -21,6 +21,7 @@ import domain.eParams;
 import domain.eSysfurn;
 import domain.eSyspar1;
 import domain.eModels;
+import domain.eSysprod;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutProduct;
@@ -31,7 +32,6 @@ import enums.TypeOpen2;
 import enums.UseArtiklTo;
 import enums.TypeUse;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -51,11 +51,10 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import estimate.Wincalc;
-import estimate.model.ElemSimple;
 import estimate.model.PaintPanel;
-import java.awt.Window;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.awt.image.BufferedImage;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import startup.App1;
 
 public class Systree extends javax.swing.JFrame {
@@ -63,10 +62,13 @@ public class Systree extends javax.swing.JFrame {
     private Query qParams = new Query(eParams.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qSystree = new Query(eSystree.values()).select(eSystree.up);
+    private Query qSysprod = new Query(eSysprod.values(), eModels.values(), eSystree.values());
     private Query qSysprof = new Query(eSysprof.values(), eArtikl.values());
     private Query qSysfurn = new Query(eSysfurn.values(), eFurniture.values());
     private Query qSyspar1 = new Query(eSyspar1.values());
+    public Wincalc iwinMin = new Wincalc();
     private JTable tab1 = new JTable();
+    private ArrayList<Icon> listIcon = new ArrayList<Icon>();
     private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2,
             listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
@@ -137,6 +139,29 @@ public class Systree extends javax.swing.JFrame {
         scr1.setViewportView(tree);
     }
 
+    private void loadingTab5(Query q) {
+        
+        DefaultTableModel dm5 = (DefaultTableModel) tab5.getModel();
+        dm5.getDataVector().removeAllElements();
+        int length = 70;        
+        
+        for (Record record : q.table(eModels.up)) {
+            try {
+                Object obj[] = {record.get(eModels.name), ""};
+                Object script = record.get(eModels.script);
+                iwinMin.build(script.toString());
+                BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
+                iwinMin.gc2d = bi.createGraphics();
+                iwinMin.rootArea.draw(length, length);
+                ImageIcon image = new ImageIcon(bi);
+                listIcon.add(image);
+                dm5.addRow(obj);
+            } catch (Exception e) {
+                System.out.println("Ошибка " + e);
+            }
+        }        
+    }
+    
     private void loadingModel() {
 
         DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.values());
@@ -190,8 +215,8 @@ public class Systree extends javax.swing.JFrame {
                 return val;
             }
         };
-        tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
-
+	tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
+                      
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
         });
@@ -277,11 +302,15 @@ public class Systree extends javax.swing.JFrame {
                     rsvSystree.load(i);
                 }
             }
+            qSysprod.select(eSysprod.up, "left join", eModels.up, "on", eModels.id, "=", eSysprod.models_id,
+                    "left join", eSystree.up, "on", eSystree.id, "=", eSysprod.systree_id,
+                    "where", eSystree.id, "=", node.record.getInt(eSystree.id), "order by", eModels.npp);            
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
+            loadingTab5(qSysprod);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -964,6 +993,7 @@ public class Systree extends javax.swing.JFrame {
                 "Наименование конструкции", "Рисунок конструкции"
             }
         ));
+        tab5.setFillsViewportHeight(true);
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(0).setPreferredWidth(80);
