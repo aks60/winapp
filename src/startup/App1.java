@@ -121,9 +121,9 @@ public class App1 extends javax.swing.JFrame {
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
         btn22 = new javax.swing.JButton();
-        btn11 = new javax.swing.JButton();
         td5 = new javax.swing.JToolBar();
         btn34 = new javax.swing.JButton();
+        btn11 = new javax.swing.JButton();
         btn28 = new javax.swing.JButton();
         tb2 = new javax.swing.JToolBar();
         btn23 = new javax.swing.JButton();
@@ -329,27 +329,12 @@ public class App1 extends javax.swing.JFrame {
         });
         tb1.add(btn22);
 
-        btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
-        btn11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
-        btn11.setFocusable(false);
-        btn11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn11.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn11.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn11.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn11.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn25(evt);
-            }
-        });
-        tb1.add(btn11);
-
         getContentPane().add(tb1);
 
         td5.setRollover(true);
-        td5.setMaximumSize(new java.awt.Dimension(68, 28));
-        td5.setMinimumSize(new java.awt.Dimension(68, 28));
-        td5.setPreferredSize(new java.awt.Dimension(68, 28));
+        td5.setMaximumSize(new java.awt.Dimension(94, 28));
+        td5.setMinimumSize(new java.awt.Dimension(94, 28));
+        td5.setPreferredSize(new java.awt.Dimension(94, 28));
 
         btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019.gif"))); // NOI18N
         btn34.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
@@ -366,6 +351,22 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         td5.add(btn34);
+
+        btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btn11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn11.setFocusable(false);
+        btn11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn11.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn11.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn11.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn11.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mn25(evt);
+            }
+        });
+        td5.add(btn11);
 
         btn28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
         btn28.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
@@ -907,7 +908,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn84.setFont(frames.Util.getFont(1,1));
         mn84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn84.setText("Конструктор");
+        mn84.setText("Паспорт изделия");
         mn84.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnDesign(evt);
@@ -951,6 +952,7 @@ public class App1 extends javax.swing.JFrame {
 
         buttonLookAndFiilGroup.add(mn0441);
         mn0441.setFont(frames.Util.getFont(1,1));
+        mn0441.setSelected(true);
         mn0441.setText("Win Classic");
         mn0441.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
