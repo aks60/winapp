@@ -297,7 +297,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Типовые конструкции");
+        setTitle("Конструкции");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -538,7 +538,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 {"99", "мммммммммм1", "321"}
             },
             new String [] {
-                "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
+                "№", "Наименование", "Рисунок"
             }
         ));
         tab1.setRowHeight(80);
