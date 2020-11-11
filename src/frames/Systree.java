@@ -72,7 +72,7 @@ public class Systree extends javax.swing.JFrame {
     public Wincalc iwinMin = new Wincalc();
     private JTable tab1 = new JTable();
     private ArrayList<Icon> listIcon = new ArrayList<Icon>();
-    private DialogListener listenerArtikl, listenerUsetyp, listenetNuni, listenerModify, listenerTree,
+    private DialogListener listenerArtikl, listenerUsetyp, listenerModel, listenerModels, listenerModify, listenerTree,
             listenerSide, listenerFurn, listenerTypeopen, listenerHandle, listenerParam1, listenerParam2,
             listenerBtn1, listenerBtn7, listenerBtn11, listenerArt211, listenerArt212;
     private DefMutableTreeNode rootTree = null;
@@ -142,11 +142,15 @@ public class Systree extends javax.swing.JFrame {
         scr1.setViewportView(tree);
     }
 
-    private void loadingTab5(Query q) {
-        
+    private void loadingTab5(Query q, int nuni) {
+
+        qSysprod.select(eSysprod.up, "left join", eModels.up, "on", eModels.id, "=", eSysprod.models_id,
+                "left join", eSystree.up, "on", eSystree.id, "=", eSysprod.systree_id,
+                "where", eSystree.id, "=", nuni, "order by", eModels.npp);
         DefaultTableModel dm5 = (DefaultTableModel) tab5.getModel();
         dm5.getDataVector().removeAllElements();
-        int length = 70;                
+        listIcon.clear();
+        int length = 70;
         for (Record record : q.table(eModels.up)) {
             try {
                 Object obj[] = {record.get(eModels.name), ""};
@@ -161,9 +165,10 @@ public class Systree extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.out.println("Ошибка " + e);
             }
-        }        
+        }
+        ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
     }
-    
+
     private void loadingModel() {
 
         DefTableModel rsmSystree = new DefTableModel(tab1, qSystree, eSystree.values());
@@ -216,7 +221,7 @@ public class Systree extends javax.swing.JFrame {
                 }
                 return val;
             }
-        };	
+        };
         iwinMin.scale2 = 25;
         tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
         tab5.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -232,8 +237,8 @@ public class Systree extends javax.swing.JFrame {
                 }
                 return label;
             }
-        });                        
-                      
+        });
+
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
         });
@@ -315,19 +320,19 @@ public class Systree extends javax.swing.JFrame {
             createWincalc(models_id);
             for (int i = 0; i < qSystree.size(); i++) {
                 if (nuni == qSystree.get(i).getInt(eSystree.id)) {
-                    //Util.setSelectedRow(tab1, i);
                     rsvSystree.load(i);
                 }
             }
-            qSysprod.select(eSysprod.up, "left join", eModels.up, "on", eModels.id, "=", eSysprod.models_id,
-                    "left join", eSystree.up, "on", eSystree.id, "=", eSysprod.systree_id,
-                    "where", eSystree.id, "=", node.record.getInt(eSystree.id), "order by", eModels.npp);            
+//            qSysprod.select(eSysprod.up, "left join", eModels.up, "on", eModels.id, "=", eSysprod.models_id,
+//                    "left join", eSystree.up, "on", eSystree.id, "=", eSysprod.systree_id,
+//                    "where", eSystree.id, "=", node.record.getInt(eSystree.id), "order by", eModels.npp);
             qSysprof.select(eSysprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=",
                     eSysprof.artikl_id, "where", eSysprof.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysprof.use_type, ",", eSysprof.prio);
             qSysfurn.select(eSysfurn.up, "left join", eFurniture.up, "on", eFurniture.id, "=",
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
-            loadingTab5(qSysprod);
+            loadingTab5(qSysprod, node.record.getInt(eSystree.id));
+            
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -361,7 +366,7 @@ public class Systree extends javax.swing.JFrame {
             Util.setSelectedRow(tab2, row);
         };
 
-        listenetNuni = (record) -> {
+        listenerModel = (record) -> {
             DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
             Record record2 = node.record;
             int models_id = record.getInt(0);
@@ -370,6 +375,17 @@ public class Systree extends javax.swing.JFrame {
             eSystree.query().clear();
             createWincalc(models_id);
             App1.eApp1.App1.frame.setTitle("SA-OKNA <АРМ Технолог>");
+        };
+
+        listenerModels = (record) -> {
+            int models_id = record.getInt(0);
+            Record record2 = qSysprod.newRecord(Query.INS);
+            record2.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
+            record2.setNo(eSysprod.systree_id, nuni);
+            record2.setNo(eSysprod.models_id, models_id);
+            qSysprod.insert(record2);
+            loadingTab5(qSysprod, nuni);
+            Util.scrollRectToVisible(qSysprod, tab5);
         };
 
         listenerFurn = (record) -> {
@@ -1007,7 +1023,7 @@ public class Systree extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Наименование конструкции", "Рисунок конструкции"
+                "Наименование конструкции системы", "Рисунок конструкции"
             }
         ));
         tab5.setFillsViewportHeight(true);
@@ -1016,7 +1032,6 @@ public class Systree extends javax.swing.JFrame {
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(0).setHeaderValue("Наименование конструкции");
             tab5.getColumnModel().getColumn(1).setMinWidth(68);
             tab5.getColumnModel().getColumn(1).setPreferredWidth(68);
             tab5.getColumnModel().getColumn(1).setMaxWidth(68);
@@ -1290,6 +1305,18 @@ public class Systree extends javax.swing.JFrame {
                 qSyspar1.add(record1);
                 ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
                 Util.scrollRectToVisible(qSyspar1, tab4);
+
+            } else if (tab5.getBorder() != null) {
+                DefMutableTreeNode selectedNode = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
+                if (selectedNode != null && selectedNode.isLeaf()) {
+                    FrameProgress.create(Systree.this, new FrameListener() {
+                        public void actionRequest(Object obj) {
+                            frame = new BoxTypical(Systree.this, listenerModels);
+                            FrameToFile.setFrameSize(frame);
+                            frame.setVisible(true);
+                        }
+                    });
+                }
             }
         }
     }//GEN-LAST:event_btnInsert
@@ -1317,7 +1344,7 @@ public class Systree extends javax.swing.JFrame {
         if (selectedNode != null && selectedNode.isLeaf()) {
             FrameProgress.create(Systree.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    frame = new BoxTypical(Systree.this, listenetNuni);
+                    frame = new BoxTypical(Systree.this, listenerModel);
                     FrameToFile.setFrameSize(frame);
                     frame.setVisible(true);
                 }
@@ -1359,7 +1386,7 @@ public class Systree extends javax.swing.JFrame {
             tree.getCellEditor().stopCellEditing();
         }
         eProperty.systree_nuni.write(String.valueOf(nuni)); //запишем текущий nuni в файл
-        Arrays.asList(tab1, tab2, tab3, tab4, tab5).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        Arrays.asList(tab1, tab2, tab3, tab4).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
         if (frame != null)
             frame.dispose();
     }//GEN-LAST:event_windowClosed

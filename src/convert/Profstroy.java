@@ -549,6 +549,7 @@ public class Profstroy {
             metaSql("INSERT INTO Sysprod VALUES (1, 1, 387)");
             metaSql("INSERT INTO Sysprod VALUES (2, 2, 387)");
             metaSql("INSERT INTO Sysprod VALUES (3, 3, 387)");
+            executeSql("set generator GEN_SYSPROD to " + 3);
             
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "ALTERDB-PART:  " + e + "\u001B[0m");

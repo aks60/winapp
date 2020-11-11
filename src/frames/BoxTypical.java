@@ -156,16 +156,16 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
 
             } else if (selectedNode.record.type == TypeElem.AREA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan20");
-                
+
             } else if (selectedNode.record.type == TypeElem.FRAME_SIDE) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan21");
-                
+
             } else if (selectedNode.record.type == TypeElem.STVORKA) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan22");
-                
+
             } else if (selectedNode.record.type == TypeElem.IMPOST) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan23");
-                
+
             } else if (selectedNode.record.type == TypeElem.GLASS) {
                 ((CardLayout) pan6.getLayout()).show(pan6, "pan24");
 
@@ -212,7 +212,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-           Object script = qModels1.get(row, eModels.script);
+            Object script = qModels1.get(row, eModels.script);
             iwinMax.build(script.toString());
             paintPanel.repaint(true, 1);
         }
@@ -1000,13 +1000,22 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_panMouseClicked
 
     private void btnChoiceresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoiceresh
-        int row = Util.getSelectedRec(tab1);
+        JTable table = null;
+        Query query = null;
+        if (btnT1.isSelected()) {            
+            query = qModels1;
+            table = tab1;
+        } else if (btnT2.isSelected()) {
+            query = qModels2;
+            table = tab2;
+        } 
+        int row = Util.getSelectedRec(table);
         if (row != -1) {
             Record record = new Record();
-            record.add(qModels1.get(row, eModels.id));
+            record.add(query.get(row, eModels.id));
             listenet.action(record);
-            this.dispose();
-        }
+        }        
+        this.dispose();
     }//GEN-LAST:event_btnChoiceresh
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
