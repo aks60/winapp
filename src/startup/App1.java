@@ -490,7 +490,7 @@ public class App1 extends javax.swing.JFrame {
         td3.setRollover(true);
         td3.setMaximumSize(new java.awt.Dimension(98, 28));
         td3.setMinimumSize(new java.awt.Dimension(98, 28));
-        td3.setPreferredSize(new java.awt.Dimension(92, 28));
+        td3.setPreferredSize(new java.awt.Dimension(94, 28));
 
         btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
         btn29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
