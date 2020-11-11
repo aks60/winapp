@@ -274,7 +274,7 @@ public class JoiningVar extends Par5s {
                         break;
                     case 3002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.) 
                     case 4002:  //Вид Т-образного варианта (простое Т-обр. крестовое Т-обр. сложное Y-обр.)     
-                        if (elemJoin.typeJoin == TypeJoin.VAR40 && "Простое Т-обр.".equals(rec.getStr(TEXT)) == false) {
+                        if (elemJoin.typeJoin == TypeJoin.VAR40 && "Простое Т-обр.".equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;

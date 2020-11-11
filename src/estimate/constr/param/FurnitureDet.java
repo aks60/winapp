@@ -39,20 +39,20 @@ public class FurnitureDet extends Par5s {
                     case 24001:  //Форма контура 
                     case 25001:  //Форма контура
                         //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                        if ("прямоугольная".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
+                        if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
                                 && TypeElem.AREA.equals(elem5e.owner().type()) == false && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("трапециевидная".equals(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false) {
+                        } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
+                        } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("не арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
+                        } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
                             return false;
                         }                        
                         break;
                     case 24002:  //Если артикул створки 
                     case 25002:  //Если артикул створки 
-                        if (elem5e.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                        if (elem5e.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;
@@ -105,19 +105,19 @@ public class FurnitureDet extends Par5s {
                     case 25033: //Фурнитура штульповая 
                     {
 
-                        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("Левое")) {
+                        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equalsIgnoreCase("Левое")) {
                             ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.LEFT);
-                            if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;
-                            } else if (rec.getStr(TEXT).equals("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
+                            } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
                                 return false;
                             }
-                        } else if (((AreaStvorka) elem5e.owner()).typeOpen.side.equals("Правое")) {
+                        } else if (((AreaStvorka) elem5e.owner()).typeOpen.side.equalsIgnoreCase("Правое")) {
                             ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.RIGHT);
-                            if (rec.getStr(TEXT).equals("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
+                            if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;
                             }
-                            if (el.useArtiklTo() == UseArtiklTo.SHTULP && rec.getStr(TEXT).equals("Нет")) {
+                            if (el.useArtiklTo() == UseArtiklTo.SHTULP && rec.getStr(TEXT).equalsIgnoreCase("Нет")) {
                                 return false;
                             }
                         }
@@ -171,8 +171,8 @@ public class FurnitureDet extends Par5s {
                     case 24070:  //Если высота ручки 
                     case 25070:  //Если высота ручки     
                         String str = ((AreaStvorka) elem5e.owner()).handleHeight;
-                        if (LayoutHandle.MIDDL.name.equals(str) == true && rec.getStr(TEXT).equals("не константная") == false
-                                || LayoutHandle.CONST.name.equals(str) == true && rec.getStr(TEXT).equals("константная") == false) {
+                        if (LayoutHandle.MIDDL.name.equalsIgnoreCase(str) == true && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
+                                || LayoutHandle.CONST.name.equalsIgnoreCase(str) == true && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
                             return false;
                         }
                         break;

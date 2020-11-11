@@ -38,11 +38,12 @@ public class Test {
         String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 604006;
+            iwin.prj = 604010;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
-            //Specification.write_txt2(iwin.listSpec);
+            //Specification.write_txt1(iwin.listSpec);
             Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            //Specification.compareIWin(iwin.listSpec, iwin.prj, false);
             //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else {

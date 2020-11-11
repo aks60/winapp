@@ -589,7 +589,7 @@ public class Profstroy {
                 String script = Winscript.test(prj[index], -1);
                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
-                String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + jsonObj.get("name").getAsString();
+                String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
                 int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
                 Query q = new Query(eModels.values());
                 Record record = q.newRecord(Query.INS);

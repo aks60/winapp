@@ -46,7 +46,7 @@ public class ElementDet extends Par5s {
                         boolean ret2 = false;
                         for (String str : strList) {
                             for (String str2 : strList2) {
-                                if (str.equals(str2)) {
+                                if (str.equalsIgnoreCase(str2)) {
                                     ret2 = true;
                                 }
                             }
@@ -225,7 +225,7 @@ public class ElementDet extends Par5s {
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 34051:  //Поправка, мм 
-                        if (elem5e.specificationRec.getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
+                        if (elem5e.specificationRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         }
                         break;

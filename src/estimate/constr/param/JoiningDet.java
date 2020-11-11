@@ -47,7 +47,7 @@ public class JoiningDet extends Par5s {
                         boolean ret2 = false;
                         for (String str : strList) {
                             for (String str2 : strList2) {
-                                if (str.equals(str2)) {
+                                if (str.equalsIgnoreCase(str2)) {
                                     ret2 = true;
                                 }
                             }
@@ -165,7 +165,7 @@ public class JoiningDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 12027:  //Рассчитывать для профиля 
-                        if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elem5e.artiklRec.getInt(eArtikl.with_seal) == 0) {
+                        if ("с уплотнителем".equalsIgnoreCase(rec.getStr(TEXT)) == true && elem5e.artiklRec.getInt(eArtikl.with_seal) == 0) {
                             return false;
                         }
                         break;

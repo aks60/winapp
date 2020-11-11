@@ -30,19 +30,19 @@ public class FurnitureVar extends Par5s {
 
                     case 21001:  //Форма контура 
                         //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                        if ("прямоугольная".equals(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
+                        if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
                                 && TypeElem.AREA.equals(elem5e.owner().type()) == false && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("трапециевидная".equals(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false) {
+                        } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
+                        } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
                             return false;
-                        } else if ("не арочная".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
+                        } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
                             return false;
                         }  
                         break;
                     case 21004:  //Артикул створки 
-                        if (elem5e.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT)) == false) {
+                        if (elem5e.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;

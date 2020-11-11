@@ -42,7 +42,7 @@ public class FillingDet extends Par5s {
                         boolean ret2 = false;
                         for (String str : strList) {
                             for (String str2 : strList2) {
-                                if (str.equals(str2)) {
+                                if (str.equalsIgnoreCase(str2)) {
                                     ret2 = true;
                                 }
                             }
@@ -148,7 +148,7 @@ public class FillingDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 15027:  //Рассчитывать для профиля 
-                        if ("с уплотнителем".equals(rec.getStr(TEXT)) == true && elem5e.artiklRec.getInt(eArtikl.with_seal) == 0) {
+                        if ("с уплотнителем".equalsIgnoreCase(rec.getStr(TEXT)) == true && elem5e.artiklRec.getInt(eArtikl.with_seal) == 0) {
                             return false;
                         }
                         break;
@@ -165,7 +165,7 @@ public class FillingDet extends Par5s {
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 15051:  //Удлинение на один пог.м., мм 
-                        if (elem5e.specificationRec.getParam("0", 31052).equals(rec.getStr(TEXT)) == false) {
+                        if (elem5e.specificationRec.getParam("0", 31052).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         }
                         break;

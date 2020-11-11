@@ -1067,6 +1067,7 @@ public class Furniture extends javax.swing.JFrame {
         });
         scr2a.setViewportView(tab2a);
         if (tab2a.getColumnModel().getColumnCount() > 0) {
+            tab2a.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab2a.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
@@ -1094,6 +1095,7 @@ public class Furniture extends javax.swing.JFrame {
         });
         scr2b.setViewportView(tab2b);
         if (tab2b.getColumnModel().getColumnCount() > 0) {
+            tab2b.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab2b.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 
@@ -1121,6 +1123,7 @@ public class Furniture extends javax.swing.JFrame {
         });
         scr2c.setViewportView(tab2c);
         if (tab2c.getColumnModel().getColumnCount() > 0) {
+            tab2c.getColumnModel().getColumn(0).setPreferredWidth(20);
             tab2c.getColumnModel().getColumn(4).setMaxWidth(60);
         }
 

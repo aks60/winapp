@@ -524,7 +524,6 @@ public class App1 extends javax.swing.JFrame {
         });
         td3.add(btn30);
 
-        btn33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c011.gif"))); // NOI18N
         btn33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         btn33.setFocusable(false);
         btn33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

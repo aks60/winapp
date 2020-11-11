@@ -46,7 +46,7 @@ public class ElementVar extends Par5s {
                         boolean ret2 = false;
                         for (String str : strList) {
                             for (String str2 : strList2) {
-                                if (str.equals(str2)) {
+                                if (str.equalsIgnoreCase(str2)) {
                                     ret2 = true;
                                 }
                             }
@@ -60,9 +60,9 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31002:  //Если профиль 
-                        if ("арочный".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH == elem5e.layout() == true) {
+                        if ("арочный".equalsIgnoreCase(rec.getStr(TEXT)) == false && LayoutArea.ARCH == elem5e.layout() == true) {
                             return false;
-                        } else if ("прямой".equals(rec.getStr(TEXT)) == false && LayoutArea.ARCH != elem5e.layout() == true) {
+                        } else if ("прямой".equalsIgnoreCase(rec.getStr(TEXT)) == false && LayoutArea.ARCH != elem5e.layout() == true) {
                             return false;
                         }
                         break;
@@ -81,8 +81,8 @@ public class ElementVar extends Par5s {
                         for (Map.Entry<String, ElemJoining> entry : mapJoin.entrySet()) {
                             ElemJoining el = entry.getValue();
                             if (TypeJoin.VAR10 == el.typeJoin
-                                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equals(elem5e.artiklRec.getStr(eArtikl.code))
-                                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))) {
+                                    && el.joinElement1.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(elem5e.artiklRec.getStr(eArtikl.code))
+                                    && el.joinElement2.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(rec.getStr(TEXT))) {
                                 pass = 1;
                             }
                         }
@@ -122,7 +122,7 @@ public class ElementVar extends Par5s {
                         message(grup);
                         break;
                     case 31015:  //Разбиение профиля по уровням 
-                        if (rec.getStr(TEXT).equals(elem5e.specificationRec.getParam("empty", 13015)) == false) {
+                        if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.specificationRec.getParam("empty", 13015)) == false) {
                             return false;
                         }
                         break;
@@ -214,7 +214,7 @@ public class ElementVar extends Par5s {
                         elem5e.specificationRec.putParam(grup, rec.getStr(TEXT));
                         break;
                     case 31090:  //Изменение сторон покраски 
-                        if (rec.getStr(TEXT).equals(elem5e.specificationRec.getParam("empty", 31090)) == false) {
+                        if (rec.getStr(TEXT).equalsIgnoreCase(elem5e.specificationRec.getParam("empty", 31090)) == false) {
                             return false;
                         }
                         break;
@@ -248,9 +248,9 @@ public class ElementVar extends Par5s {
                         break;
                     case 37009:  //Тип заполнения 
                         //Все, Произвольное, Прямоугольное, Арочное                                            
-                        if ("Прямоугольное".equals(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
+                        if ("Прямоугольное".equalsIgnoreCase(rec.getStr(TEXT)) && (TypeElem.RECTANGL.equals(elem5e.owner().type()) || TypeElem.AREA.equals(elem5e.owner().type()) == false)) {
                             return false;
-                        } else if ("Арочное".equals(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
+                        } else if ("Арочное".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
                             return false;
                         }
                         break;

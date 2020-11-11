@@ -60,6 +60,7 @@ public class Furniture extends Cal5e {
                 if (areaStvorka.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
                     areaStvorka.handleColor = iwin().colorID1;
                 }
+                //Ручка по умолчанию
                 if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDDL.id) {
                     areaStvorka.handleHeight = LayoutHandle.MIDDL.name;
                 } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
