@@ -19,8 +19,12 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import estimate.Wincalc;
+import java.lang.annotation.ElementType;
 
 public class AreaSimple extends Com5t {
+
+    public float dx = 0;
+    public float dy = 0;
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
     public Integer sysprofID = null; //то, что выбрал клиент
@@ -49,7 +53,7 @@ public class AreaSimple extends Com5t {
             setDimension(0, 0, width, height);
 
         } else {
-            //Первая добавляемая area
+            //Первая area добавляемая в area владельца
             if (owner().listChild.isEmpty() == true) {
                 if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
                     setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + height);
@@ -63,25 +67,16 @@ public class AreaSimple extends Com5t {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
 
                         if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-                            setDimension(owner().x1, prevArea.y2, owner().x2, prevArea.y2 + height);
+                            float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height; //если последняя доб. area выходит за коорд. area родителя
+                            setDimension(owner().x1, prevArea.y2, owner().x2, Y2);
 
                         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-                            setDimension(prevArea.x2, owner().y1, prevArea.x2 + width, owner().y2);
+                            float X2 = (prevArea.x2 + width > root().x2) ? root().x2 : prevArea.x2 + width;
+                            setDimension(prevArea.x2, owner().y1, X2, owner().y2);
                         }
                         break; //как только нашел сразу выход
                     }
                 }
-            }
-            //Поправка на подкладу над импостом
-            LinkedList<AreaSimple> listArea = root().listElem(TypeElem.AREA);
-            if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1 + (x2 - x1) / 2, y1) == true).findFirst().orElse(null);
-                float dy = (prevArea != null && prevArea.height() < 120) ? prevArea.height() : 0; //поправка на величину добавленной подкладки над импостом
-                y2 = y2 - dy;
-            } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-                AreaSimple prevArea = listArea.stream().filter(el -> el.inside(x1, y1 + (y2 - y1) / 2) == true).findFirst().orElse(null);
-                float dx = (prevArea != null && prevArea.width() < 120) ? prevArea.width() : 0; //поправка на величину добавленной подкладки над импостом
-                x2 = x2 - dx;
             }
         }
     }
