@@ -142,7 +142,7 @@ public class Artikles extends javax.swing.JFrame {
                 txtField5.setText(name);
                 name = (currenc1Rec != null) ? currenc1Rec.getStr(eCurrenc.name) : null;
                 txtField7.setText(name);
-                name = (currenc1Rec != null) ? currenc2Rec.getStr(eCurrenc.name) : null;
+                name = (currenc2Rec != null) ? currenc2Rec.getStr(eCurrenc.name) : null;
                 txtField17.setText(name);
                 name = (groupsRec != null) ? groupsRec.getStr(eGroups.name) : null;
                 txtField10.setText(name);
