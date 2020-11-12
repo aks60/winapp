@@ -66,8 +66,8 @@ public class AreaSimple extends Com5t {
                     if (owner().listChild.get(index).type == TypeElem.AREA) {
                         AreaSimple prevArea = (AreaSimple) owner().listChild.get(index);
 
-                        if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-                            float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height; //если последняя доб. area выходит за коорд. root area 
+                        if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз                            
+                            float Y2 = (prevArea.y2 + height > root().y2) ? root().y2 : prevArea.y2 + height; //если последняя доб. area выходит за коорд. root area (роисходит при подкдадке ареа над импостом) 
                             setDimension(owner().x1, prevArea.y2, owner().x2, Y2);
 
                         } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
