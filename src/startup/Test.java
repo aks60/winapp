@@ -35,7 +35,7 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
 
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 604010;
