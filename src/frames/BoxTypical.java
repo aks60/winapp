@@ -732,7 +732,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan7Layout.setVerticalGroup(
             pan7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -754,7 +754,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan8.setLayout(pan8Layout);
         pan8Layout.setHorizontalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
         pan8Layout.setVerticalGroup(
             pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -796,7 +796,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan17.add(pan4, java.awt.BorderLayout.CENTER);
 
         pan6.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan6.setPreferredSize(new java.awt.Dimension(300, 500));
+        pan6.setPreferredSize(new java.awt.Dimension(320, 500));
         pan6.setLayout(new java.awt.CardLayout());
 
         lab19.setText("jLabel19");
@@ -805,7 +805,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan19.setLayout(pan19Layout);
         pan19Layout.setHorizontalGroup(
             pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
             .addGroup(pan19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan19Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -830,7 +830,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan20.setLayout(pan20Layout);
         pan20Layout.setHorizontalGroup(
             pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
             .addGroup(pan20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan20Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -855,7 +855,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan21.setLayout(pan21Layout);
         pan21Layout.setHorizontalGroup(
             pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
             .addGroup(pan21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan21Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -880,7 +880,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan22.setLayout(pan22Layout);
         pan22Layout.setHorizontalGroup(
             pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
             .addGroup(pan22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan22Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -905,7 +905,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan23.setLayout(pan23Layout);
         pan23Layout.setHorizontalGroup(
             pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
             .addGroup(pan23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan23Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -930,7 +930,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         pan24.setLayout(pan24Layout);
         pan24Layout.setHorizontalGroup(
             pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
+            .addGap(0, 316, Short.MAX_VALUE)
             .addGroup(pan24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pan24Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
