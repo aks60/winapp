@@ -3,13 +3,12 @@ package dataset;
 import common.eProfile;
 import static dataset.Query.INS;
 import static dataset.Query.connection;
-import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -17,11 +16,12 @@ public class Query extends Table {
 
     private static String schema = "";
     public static Connection connection = null;
-    public static String conf = "calc";
+    public static String conf = "app";
     public static String INS = "INS";
     public static String SEL = "SEL";
     public static String UPD = "UPD";
     public static String DEL = "DEL";
+    public static LinkedHashSet<Query> listOpenTable = new LinkedHashSet<Query>();
 
     public Query(Query query) {
         this.root = query;

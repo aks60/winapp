@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public enum eFurnpar1 implements Field {
     up("0", "0", "0", "Параметры огр.сторон фурнитуры", "PARFURL"),
-    id("4", "10", "0", "Идентификатор", "id"),       
+    id("4", "10", "0", "Идентификатор", "id"),
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
@@ -32,9 +32,10 @@ public enum eFurnpar1 implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
+            Query.listOpenTable.add(query);
         }
         return query;
     }
@@ -46,7 +47,7 @@ public enum eFurnpar1 implements Field {
         Query recordList = new Query(values()).select(up, "where", furnside_id, "=", _id);
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
-    
+
     public String toString() {
         return meta.descr();
     }

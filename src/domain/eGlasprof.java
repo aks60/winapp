@@ -38,6 +38,7 @@ public enum eGlasprof implements Field {
     public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
+            Query.listOpenTable.add(query);
         }
         return query;
     }

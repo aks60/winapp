@@ -10,7 +10,7 @@ public enum eKitdet implements Field {
     flag("5", "5", "1", "Флаг", "KMAIN"), //Основного элемента комплекта
     color1_id("4", "10", "1", "Ссылка", "color1_id"),
     color2_id("4", "10", "1", "Ссылка", "color2_id"),
-    color3_id("4", "10", "1", "Ссылка", "color3_id"),    
+    color3_id("4", "10", "1", "Ссылка", "color3_id"),
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
     kits_id("4", "10", "0", "Ссылка", "kits_id");
 //    clnum("4", "10", "1", "Основная текстура", "CLNUM"),
@@ -34,9 +34,10 @@ public enum eKitdet implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
+            Query.listOpenTable.add(query);
         }
         return query;
     }

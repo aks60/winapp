@@ -34,9 +34,10 @@ public enum eFurnside2 implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
+            Query.listOpenTable.add(query);
         }
         return query;
     }
@@ -48,7 +49,7 @@ public enum eFurnside2 implements Field {
         Query recordList = new Query(values()).select(up, "where", furndet_id, "=", _id);
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
-    
+
     public String toString() {
         return meta.descr();
     }

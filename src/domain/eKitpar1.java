@@ -7,7 +7,7 @@ import dataset.Record;
 
 public enum eKitpar1 implements Field {
     up("0", "0", "0", "Парметры комплектов", "PARKOMP"),
-    id("4", "10", "0", "Идентификатор", "id"),    
+    id("4", "10", "0", "Идентификатор", "id"),
     grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
@@ -29,9 +29,10 @@ public enum eKitpar1 implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
+            Query.listOpenTable.add(query);
         }
         return query;
     }

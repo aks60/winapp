@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public enum eGlasdet implements Field {
     up("0", "0", "0", "Специф.групп заполнения", "GLASART"),
     id("4", "10", "0", "Идентификатор", "id"),
-    types("5", "5", "1", "Подбор текстуры", "CTYPE"),    
+    types("5", "5", "1", "Подбор текстуры", "CTYPE"),
     color_fk("4", "10", "1", "Ссылка", "CLNUM"),
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),
     depth("8", "15", "1", "Толщина", "AFRIC"),
@@ -35,9 +35,10 @@ public enum eGlasdet implements Field {
         return values();
     }
 
-        public static Query query() {
+    public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", id);
+            Query.listOpenTable.add(query);
         }
         return query;
     }
@@ -49,7 +50,7 @@ public enum eGlasdet implements Field {
         Query recordList = new Query(values()).select(up, "where", glasgrp_id, "=", _id, "and", depth, "=", _depth);
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
-    
+
     public String toString() {
         return meta.descr();
     }

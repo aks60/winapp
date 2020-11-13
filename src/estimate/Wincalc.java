@@ -42,6 +42,8 @@ import estimate.model.ElemFrame;
 import estimate.model.ElemSimple;
 import estimate.script.Mediate;
 import frames.swing.Draw;
+import java.util.Arrays;
+import startup.App1;
 
 public class Wincalc {
 
@@ -75,7 +77,7 @@ public class Wincalc {
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
     public Cal5e calcElements, calcJoining, calcFilling, calcFurniture, tariffication; //объекты калькуляции конструктива
     public LinkedList<Mediate> mediateList = new LinkedList();
-    
+
     public AreaSimple build(String productJson) {
         //System.out.println(productJson);
         mediateList.clear();
@@ -105,8 +107,8 @@ public class Wincalc {
     //Конструктив и тарификация 
     public void constructiv() {
         try {
-
             Query.conf = "calc";
+            Query.listOpenTable.forEach(q -> q.clear());
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcJoining = new Joining(this); //соединения
@@ -137,7 +139,7 @@ public class Wincalc {
             Gson gs = new GsonBuilder().setPrettyPrinting().create();
             JsonElement je = new JsonParser().parse(json);
             //System.out.println(gs.toJson(je));
-            
+
             Gson gson = new Gson(); //библиотека jso
             JsonElement jsonElement = gson.fromJson(json, JsonElement.class);
             JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -175,9 +177,9 @@ public class Wincalc {
             //Добавим все остальные Mediate, через рекурсию
             intermBuild(jsonObj, mediateRoot, mediateList);
             Collections.sort(mediateList, (o1, o2) -> Float.compare(o1.id, o2.id)); //упорядочим порядок построения окна
-            
+
             //Строим конструкцию из промежуточного списка
-            windowsBuild(mediateList); 
+            windowsBuild(mediateList);
 
         } catch (Exception e) {
             System.err.println("Ошибка Wincalc.parsingScript() " + e);
@@ -232,7 +234,7 @@ public class Wincalc {
             mdtRoot.area5e = rootArea;
 
             //Цикл по элементам конструкции ранж. по ключам.
-            for (Mediate mdt: mediateList) {
+            for (Mediate mdt : mediateList) {
 
                 //Добавим рамы в гпавное окно
                 if (TypeElem.FRAME_SIDE == mdt.type) {

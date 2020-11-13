@@ -54,6 +54,7 @@ public enum eParams implements Field {
     public static Query query() {
         if (query.size() == 0) {
             query.select(up, "order by", grup, ",", numb);
+            Query.listOpenTable.add(query);
         }
         return query;
     }
