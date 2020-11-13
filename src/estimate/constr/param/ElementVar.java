@@ -2,6 +2,7 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSetting;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.TypeElem;
@@ -132,13 +133,26 @@ public class ElementVar extends Par5s {
                     case 31019:  //Правило подбора текстур 
                         message(grup);
                         break;
-                    case 31020:  //Ограничение угла к горизонту, ° 
-                        if (Util.compareFloat(rec.getStr(TEXT), ((ElemSimple) elem5e).anglHoriz) == false) {
-                            return false;
+                    case 31020:  //Ограничение угла к горизонту, ° (Угол к горизонту минимальный, ° для ps3)
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            if (Util.parserFloat(rec.getStr(TEXT))[0] > ((ElemSimple) elem5e).anglHoriz) {
+                                return false;
+                            }
+                        } else {
+                            if (Util.compareFloat(rec.getStr(TEXT), ((ElemSimple) elem5e).anglHoriz) == false) {
+                                return false;
+                            }
                         }
                         break;
                     case 31033:  //Если предыдущий артикул 
                         message(grup);
+                        break;
+                    case 31030:  //Угол к горизонту максимальный, °
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            if (Util.parserFloat(rec.getStr(TEXT))[0] < ((ElemSimple) elem5e).anglHoriz) {
+                                return false;
+                            }
+                        }
                         break;
                     case 31034:  //Если следующий артикул 
                         message(grup);

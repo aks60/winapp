@@ -2,9 +2,11 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSetting;
 import domain.eSysprof;
 import domain.eSystree;
 import enums.LayoutArea;
+import enums.TypeElem;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +14,7 @@ import estimate.Wincalc;
 import estimate.constr.Specification;
 import estimate.constr.Util;
 import estimate.model.ElemSimple;
+import java.util.LinkedList;
 import java.util.Map;
 
 //Составы
@@ -33,7 +36,7 @@ public class ElementDet extends Par5s {
             try {
                 switch (grup) {
 
-                    case 33000:  //Для технологического кода контейнера 
+                    case 33000: //Для технологического кода контейнера 
                     case 34000: //Для технологического кода контейнера 
                     {
                         Record sysprofRec = elem5e.sysprofRec;
@@ -89,8 +92,15 @@ public class ElementDet extends Par5s {
                     case 33008:  //Эффективное заполнение изд., мм 
                         message(grup);
                         break;
-                    case 33011:  //Толщина внешнего/внутреннего заполнения, мм 
-                        message(grup);
+                    case 33011:
+                    case 34011:  //Толщина внешнего/внутреннего заполнения, мм ("Толщина заполнения, мм") 
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            LinkedList<ElemSimple> e = elem5e.owner().listElem(TypeElem.GLASS);
+                            float depth = e.getFirst().artiklRec.getFloat(eArtikl.depth);
+                            if (Util.compareFloat(rec.getStr(TEXT), depth) == false) {
+                                return false;
+                            }
+                        }
                         break;
                     case 33017:  //Код системы содержит строку 
                         message(grup);
@@ -197,9 +207,6 @@ public class ElementDet extends Par5s {
                         message(grup);
                         break;
                     case 34008:  //Эффективное заполнение изделия, мм 
-                        message(grup);
-                        break;
-                    case 34011:  //Толщина внешнего/внутреннего заполнения, мм 
                         message(grup);
                         break;
                     case 34013:  //Подбор дистанционных вставок по пролетам 

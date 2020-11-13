@@ -113,6 +113,7 @@ public class App1 extends javax.swing.JFrame {
 
         buttonLookAndFiilGroup = new javax.swing.ButtonGroup();
         btn35 = new javax.swing.JButton();
+        buttonBaseGroup = new javax.swing.ButtonGroup();
         tb0 = new javax.swing.JToolBar();
         btn16 = new javax.swing.JToggleButton();
         tb1 = new javax.swing.JToolBar();
@@ -137,7 +138,9 @@ public class App1 extends javax.swing.JFrame {
         btn30 = new javax.swing.JButton();
         btn33 = new javax.swing.JButton();
         tb6 = new javax.swing.JToolBar();
-        btn62 = new javax.swing.JButton();
+        btnT7 = new javax.swing.JToggleButton();
+        btnT8 = new javax.swing.JToggleButton();
+        btnT9 = new javax.swing.JToggleButton();
         tb4 = new javax.swing.JToolBar();
         btn31 = new javax.swing.JButton();
         btn32 = new javax.swing.JButton();
@@ -524,7 +527,7 @@ public class App1 extends javax.swing.JFrame {
         });
         td3.add(btn30);
 
-        btn33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        btn33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         btn33.setFocusable(false);
         btn33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn33.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -544,23 +547,38 @@ public class App1 extends javax.swing.JFrame {
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(68, 28));
         tb6.setMinimumSize(new java.awt.Dimension(68, 28));
-        tb6.setPreferredSize(new java.awt.Dimension(68, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(92, 28));
 
-        btn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
-        btn62.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
-        btn62.setFocusable(false);
-        btn62.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn62.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn62.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn62.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn62.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn62.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn62.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn62mHelp(evt);
-            }
-        });
-        tb6.add(btn62);
+        buttonBaseGroup.add(btnT7);
+        btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
+        btnT7.setSelected(true);
+        btnT7.setFocusable(false);
+        btnT7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnT7.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnT7.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnT7.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnT7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tb6.add(btnT7);
+
+        buttonBaseGroup.add(btnT8);
+        btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
+        btnT8.setFocusable(false);
+        btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnT8.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnT8.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnT8.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnT8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tb6.add(btnT8);
+
+        buttonBaseGroup.add(btnT9);
+        btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
+        btnT9.setFocusable(false);
+        btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnT9.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnT9.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnT9.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnT9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        tb6.add(btnT9);
 
         getContentPane().add(tb6);
 
@@ -937,7 +955,7 @@ public class App1 extends javax.swing.JFrame {
 
         mn61.setFont(frames.Util.getFont(1,1));
         mn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn61.setText("Путь к базе данных");
+        mn61.setText("Установка соединения");
         mn61.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn61ActionPerformed(evt);
@@ -1294,10 +1312,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnBoxTypical
 
-    private void btn62mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn62mHelp
-
-    }//GEN-LAST:event_btn62mHelp
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         mExit(null);
     }//GEN-LAST:event_formWindowClosing
@@ -1352,7 +1366,10 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn34;
     private javax.swing.JButton btn35;
     private javax.swing.JButton btn61;
-    private javax.swing.JButton btn62;
+    private javax.swing.JToggleButton btnT7;
+    private javax.swing.JToggleButton btnT8;
+    private javax.swing.JToggleButton btnT9;
+    private javax.swing.ButtonGroup buttonBaseGroup;
     private javax.swing.ButtonGroup buttonLookAndFiilGroup;
     private javax.swing.JMenuBar mn0;
     private javax.swing.JMenu mn01;

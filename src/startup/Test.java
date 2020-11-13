@@ -18,8 +18,8 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            convert.Profstroy.script();
-            //wincalc();
+            //convert.Profstroy.script();
+            wincalc();
             //query();            
             //frame();
             //parseJson();
@@ -35,14 +35,14 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
 
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 604010;
+            iwin.prj = 601006;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
-            //Specification.write_txt1(iwin.listSpec);
-            Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            Specification.write_txt1(iwin.listSpec);
+            //Specification.compareIWin(iwin.listSpec, iwin.prj, true);
             //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else {

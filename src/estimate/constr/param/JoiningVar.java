@@ -198,7 +198,14 @@ public class JoiningVar extends Par5s {
                     case 2003:  //Угол варианта 
                         message(rec.getInt(GRUP));
                         break;
-                    case 2012:  //Для Артикулов указан состав
+                    case 2010:  //Угол минимальный, °
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            if (Util.parserFloat(rec.getStr(TEXT))[0] < elemJoin.anglProf) {
+                                return false;
+                            }
+                        }
+                        break;
+                    case 2012: //Для Артикулов указан состав
                     case 3012: //Для Артикулов указан состав 
                     {
                         List<Record> elementList1 = eElement.find3(elemJoin.joinElement1.artiklRec.getInt(eArtikl.code), elemJoin.joinElement1.artiklRec.getInt(eArtikl.series_id));
@@ -237,6 +244,14 @@ public class JoiningVar extends Par5s {
                             }
                         } else if (compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
                             return false;
+                        }
+                        break;
+
+                    case 2021: //Точный угол, °
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            if (Util.parserFloat(rec.getStr(TEXT))[0] != elemJoin.anglProf) {
+                                return false;
+                            }
                         }
                         break;
                     case 2030: //Припуск Артикула1/Артикула2 , мм 
