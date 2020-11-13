@@ -79,7 +79,9 @@ public class App1 extends javax.swing.JFrame {
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
             mn624.setSelected(true);
         }
-        if (eProperty.base_num.read().equals("2")) {
+        if (eProperty.base_num.read().equals("1")) {
+            mn631.setSelected(true);
+        } else if (eProperty.base_num.read().equals("2")) {
             mn632.setSelected(true);
         } else if (eProperty.base_num.read().equals("3")) {
             mn633.setSelected(true);
@@ -190,10 +192,6 @@ public class App1 extends javax.swing.JFrame {
         mn07 = new javax.swing.JMenu();
         mn71 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
-        mn64 = new javax.swing.JMenu();
-        mn641 = new javax.swing.JMenuItem();
-        mn642 = new javax.swing.JMenuItem();
-        mn643 = new javax.swing.JMenuItem();
         mn63 = new javax.swing.JMenu();
         mn631 = new javax.swing.JCheckBoxMenuItem();
         mn632 = new javax.swing.JCheckBoxMenuItem();
@@ -950,42 +948,9 @@ public class App1 extends javax.swing.JFrame {
         mn06.setText("Сервис");
         mn06.setFont(frames.Util.getFont(1,1));
 
-        mn64.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
-        mn64.setText("Установка соединения");
-        mn64.setFont(frames.Util.getFont(1,1));
-
-        mn641.setFont(frames.Util.getFont(1,1));
-        mn641.setText("Базе 1");
-        mn641.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConnect(evt);
-            }
-        });
-        mn64.add(mn641);
-
-        mn642.setFont(frames.Util.getFont(1,1));
-        mn642.setText("Базе 2");
-        mn642.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConnect(evt);
-            }
-        });
-        mn64.add(mn642);
-
-        mn643.setFont(frames.Util.getFont(1,1));
-        mn643.setText("Базе 3");
-        mn643.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnConnect(evt);
-            }
-        });
-        mn64.add(mn643);
-
-        mn06.add(mn64);
-
         mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b051.gif"))); // NOI18N
+        mn63.setText("Установка соединения");
         mn63.setFont(frames.Util.getFont(1,1));
-        mn63.setLabel("Текущая база данных");
 
         buttonLookAndFiilGroup.add(mn631);
         mn631.setFont(frames.Util.getFont(1,1));
@@ -1134,11 +1099,7 @@ public class App1 extends javax.swing.JFrame {
 }//GEN-LAST:event_mExit
 
 private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-    FrameProgress.create(App1.this, new FrameListener() {
-        public void actionRequest(Object obj) {
-            eApp1.TestFrame.createFrame(App1.this);
-        }
-    });
+    //System.out.println(Query.connection.getCatalog());
 }//GEN-LAST:event_mHelp
 
 private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictDicAddr
@@ -1394,32 +1355,21 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_mnFilter
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
-        if (evt.getSource() == mn631) {
-            eProperty.base_num.write("1");
-        } else if (evt.getSource() == mn632) {
-            eProperty.base_num.write("2");
-        } else if (evt.getSource() == mn633) {
-            eProperty.base_num.write("3");
-        }
-        eProperty.save();
-    }//GEN-LAST:event_mnBase
-
-    private void mnConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConnect
-        Integer num_base = (evt.getSource() == mn641) ? 1 : (evt.getSource() == mn642) ? 2 : 3;
+        Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.dispose());
         
+        Integer num_base = (evt.getSource() == mn631) ? 1 : (evt.getSource() == mn632) ? 2 : 3;
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
         
-        eProperty.base_num.write(num_base.toString());
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
         } else if (eProperty.base_num.read().equals("2")) {
-            mn632.setSelected(true);      
-        } else if (eProperty.base_num.read().equals("2")) {
+            mn632.setSelected(true);
+        } else if (eProperty.base_num.read().equals("3")) {
             mn633.setSelected(true);
-        }        
-    }//GEN-LAST:event_mnConnect
+        }
+    }//GEN-LAST:event_mnBase
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1495,10 +1445,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JCheckBoxMenuItem mn631;
     private javax.swing.JCheckBoxMenuItem mn632;
     private javax.swing.JCheckBoxMenuItem mn633;
-    private javax.swing.JMenu mn64;
-    private javax.swing.JMenuItem mn641;
-    private javax.swing.JMenuItem mn642;
-    private javax.swing.JMenuItem mn643;
     private javax.swing.JMenuItem mn71;
     private javax.swing.JMenuItem mn81;
     private javax.swing.JMenuItem mn82;

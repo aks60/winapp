@@ -10,6 +10,7 @@ import java.util.Locale;
 import javax.swing.JFileChooser;
 import dataset.eExcep;
 import estimate.Wincalc;
+import java.awt.Frame;
 
 /**
  * <p>
@@ -20,8 +21,8 @@ public class PathToDb extends javax.swing.JDialog {
     private Locale locale;
     private int num_base = 0;
 
-    public PathToDb(java.awt.Window owner, int num_base) {
-        super(owner);
+    public PathToDb(Frame parent, int num_base) {
+        super(parent, true);
         this.num_base = num_base;
         Locale loc = new Locale("en", "US");
         this.setLocale(loc);
@@ -30,7 +31,7 @@ public class PathToDb extends javax.swing.JDialog {
         initComponents();
 
         new FrameToFile(this, btnClose);
-        
+
         //Загрузка параметров входа
         labMes.setText("");
         if (eProperty.typedb.read().equals(eProperty.fb)) {
@@ -71,10 +72,10 @@ public class PathToDb extends javax.swing.JDialog {
         if (num_base == 1) {
             eProperty.server1.write(edHost.getText());
             eProperty.base1.write(edPath.getText());
-        } else if (num_base == 1) {
+        } else if (num_base == 2) {
             eProperty.server2.write(edHost.getText());
             eProperty.base2.write(edPath.getText());
-        } else if (num_base == 1) {
+        } else if (num_base == 3) {
             eProperty.server3.write(edHost.getText());
             eProperty.base3.write(edPath.getText());
         }
@@ -91,14 +92,14 @@ public class PathToDb extends javax.swing.JDialog {
         }
         //создание соединения
         ConnApp con = ConnApp.initConnect();
-        eExcep pass = con.createConnection();
+        eExcep pass = con.createConnection(num_base);
         Query.connection = con.getConnection();
         if (pass == eExcep.yesConn) {
             if (App1.eApp1.App1 == null) {  //запуск главного меню
                 App1.eApp1.createApp(eProfile.profile);
-                rotateDataBase();
             }
-            eProperty.save(); //тут мы сохраняем в файл текущего пользователя
+            eProperty.base_num.write(String.valueOf(num_base));
+            eProperty.save(); //свойства текущего пользователя
             dispose();
 
         } else {
@@ -107,13 +108,9 @@ public class PathToDb extends javax.swing.JDialog {
         }
     }
 
-    public void rotateDataBase() {
-
-    }
-
-    public static void pathToDb(java.awt.Window owner) {
+    public static void pathToDb(Frame parent) {
         int num_base = Integer.valueOf(eProperty.base_num.read());
-        PathToDb pathToDb = new PathToDb(owner, num_base);
+        PathToDb pathToDb = new PathToDb(parent, num_base);
         FrameToFile.setFrameSize(pathToDb);
         pathToDb.setVisible(true);
     }

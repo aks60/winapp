@@ -63,14 +63,14 @@ public class LogoToDb extends javax.swing.JDialog {
                 //создание соединения
                 labMes.setText("Установка соединения с базой данных");
                 ConnApp con = ConnApp.initConnect();
-                eExcep pass = con.createConnection();
+                int num_base = Integer.valueOf(eProperty.base_num.read());
+                eExcep pass = con.createConnection(num_base);
                 Query.connection = con.getConnection();
                 if (pass == eExcep.yesConn) {
                     //запуск главного меню
-                    App1.eApp1.createApp(eProfile.profile);
+                    App1.eApp1.createApp(eProfile.profile);                   
+                    eProperty.save();  //свойства текущего пользователя
                     dispose();
-                    //тут мы сохраняем в файл текущего пользователя
-                    eProperty.save();
                 } else if (pass == eExcep.noLogin) {
                     labMes.setText(eExcep.noLogin.mes);
                 } else if (pass == eExcep.noGrant) {

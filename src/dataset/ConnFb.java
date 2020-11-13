@@ -28,16 +28,16 @@ public class ConnFb extends dataset.ConnApp {
     /**
      * Соединение с БД
      */
-    public eExcep createConnection() {
+    public eExcep createConnection(int num_base) {
         try {
             if (Class.forName(driver) == null) {
                 return eExcep.loadDrive; //Ошибка загрузки файла драйвера;
             }
-            if (eProperty.base_num.read().equals("1")) {
+            if (num_base == 1) {
                 url = fbserver + "//" + eProperty.server1.read() + ":" + eProperty.port.read() + "/" + eProperty.base1.read();
-            } else if (eProperty.base_num.read().equals("2")) {
+            } else if (num_base == 2) {
                 url = fbserver + "//" + eProperty.server2.read() + ":" + eProperty.port.read() + "/" + eProperty.base2.read();
-            } else if (eProperty.base_num.read().equals("3")) {
+            } else if (num_base == 3) {
                 url = fbserver + "//" + eProperty.server3.read() + ":" + eProperty.port.read() + "/" + eProperty.base3.read();
             }
             String user2 = eProperty.user.read();
