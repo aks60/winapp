@@ -19,6 +19,7 @@ public class ConnFb extends dataset.ConnApp {
 
     public final static String driver = "org.firebirdsql.jdbc.FBDriver";
     public final static String fbserver = "jdbc:firebirdsql:";
+    public String url = "";
 
     public void configApp() {
         Util.setSimpleDateFormat(new SimpleDateFormat("dd.MM.yyyy"));
@@ -32,10 +33,16 @@ public class ConnFb extends dataset.ConnApp {
             if (Class.forName(driver) == null) {
                 return eExcep.loadDrive; //Ошибка загрузки файла драйвера;
             }
-            String url = fbserver + "//" + eProperty.server.read() + ":" + eProperty.port.read() + "/" + eProperty.base.read();
+            if (eProperty.base_num.read().equals("1")) {
+                url = fbserver + "//" + eProperty.server1.read() + ":" + eProperty.port.read() + "/" + eProperty.base1.read();
+            } else if (eProperty.base_num.read().equals("2")) {
+                url = fbserver + "//" + eProperty.server2.read() + ":" + eProperty.port.read() + "/" + eProperty.base2.read();
+            } else if (eProperty.base_num.read().equals("3")) {
+                url = fbserver + "//" + eProperty.server3.read() + ":" + eProperty.port.read() + "/" + eProperty.base3.read();
+            }
             String user2 = eProperty.user.read();
             String passw = eProperty.password;
-            connection = DriverManager.getConnection(url, user2, passw);  
+            connection = DriverManager.getConnection(url, user2, passw);
             connection.setAutoCommit(true);
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
@@ -125,7 +132,7 @@ public class ConnFb extends dataset.ConnApp {
         try {
             connection.createStatement().executeUpdate("delete from school.uchusers where user2 = '" + user + "'");
             connection.createStatement().executeUpdate("REVOKE SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA school, logger from " + user);
-            connection.createStatement().executeUpdate("REVOKE GRANT OPTION FOR ALL PRIVILEGES ON DATABASE " + eProperty.base.read() + " FROM " + user);
+            connection.createStatement().executeUpdate("REVOKE GRANT OPTION FOR ALL PRIVILEGES ON DATABASE " + eProperty.base1.read() + " FROM " + user);
             connection.createStatement().executeUpdate("REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA school, logger FROM " + user);
             connection.createStatement().executeUpdate("REVOKE USAGE ON SCHEMA school, logger FROM " + user);
             connection.createStatement().executeUpdate("DROP USER " + user);
@@ -148,7 +155,7 @@ public class ConnFb extends dataset.ConnApp {
 
     //Генератор ключа ID
     @Override
-    public int genId(Field field) {                
+    public int genId(Field field) {
         try {
             int next_id = 0;
             Statement statement = connection.createStatement();
@@ -164,6 +171,6 @@ public class ConnFb extends dataset.ConnApp {
         } catch (SQLException e) {
             System.err.println("Ошибка генерации ключа " + e);
             return 0;
-        }        
+        }
     }
 }

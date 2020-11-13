@@ -18,12 +18,11 @@ import estimate.Wincalc;
 public class PathToDb extends javax.swing.JDialog {
 
     private Locale locale;
+    private int num_base = 0;
 
-    /**
-     * Creates new form PathToDb
-     */
-    public PathToDb(java.awt.Window owner) {
+    public PathToDb(java.awt.Window owner, int num_base) {
         super(owner);
+        this.num_base = num_base;
         Locale loc = new Locale("en", "US");
         this.setLocale(loc);
         this.getInputContext().selectInputMethod(loc);
@@ -31,29 +30,34 @@ public class PathToDb extends javax.swing.JDialog {
         initComponents();
 
         new FrameToFile(this, btnClose);
+        
         //Загрузка параметров входа
         labMes.setText("");
-
         if (eProperty.typedb.read().equals(eProperty.fb)) {
-            cboxDB.setSelectedIndex(1);
+            cboxDB.setSelectedIndex(0);
         } else if (eProperty.typedb.read().equals(eProperty.pg)) {
-            cboxDB.setSelectedIndex(2);
+            cboxDB.setSelectedIndex(1);
         }
-        edHost.setText(eProperty.server.read());
+        if (num_base == 1) {
+            edHost.setText(eProperty.server1.read());
+            edPath.setText(eProperty.base1.read());
+        } else if (num_base == 2) {
+            edHost.setText(eProperty.server2.read());
+            edPath.setText(eProperty.base2.read());
+        } else if (num_base == 3) {
+            edHost.setText(eProperty.server3.read());
+            edPath.setText(eProperty.base3.read());
+        }
         edPort.setText(eProperty.port.read());
-        edPath.setText(eProperty.base.read());
         edUser.setText(eProperty.user.read());
         edPass.setText(eProperty.password);
 
         if (Main.dev == false) {
             btnAdm.setVisible(false);
             btnUser.setVisible(false);
-            btnFile.setVisible(false);
+            //btnFile.setVisible(false);
 //            labDB.setVisible(false);
 //            cboxDB.setVisible(false);
-        }
-        if (eProperty.typedb.read().equals(eProperty.fb)) {
-            btnFile.setVisible(false);
         }
         onCaretUpdate(null);
     }
@@ -64,9 +68,17 @@ public class PathToDb extends javax.swing.JDialog {
     private void ConnectToDb() {
 
         //Устанавливаем параметры входа
-        eProperty.server.write(edHost.getText());
+        if (num_base == 1) {
+            eProperty.server1.write(edHost.getText());
+            eProperty.base1.write(edPath.getText());
+        } else if (num_base == 1) {
+            eProperty.server2.write(edHost.getText());
+            eProperty.base2.write(edPath.getText());
+        } else if (num_base == 1) {
+            eProperty.server3.write(edHost.getText());
+            eProperty.base3.write(edPath.getText());
+        }
         eProperty.port.write(edPort.getText());
-        eProperty.base.write(edPath.getText());
         eProperty.user.write(edUser.getText().trim());
         eProperty.password = String.valueOf(edPass.getPassword());
 
@@ -84,9 +96,10 @@ public class PathToDb extends javax.swing.JDialog {
         if (pass == eExcep.yesConn) {
             if (App1.eApp1.App1 == null) {  //запуск главного меню
                 App1.eApp1.createApp(eProfile.profile);
+                rotateDataBase();
             }
             eProperty.save(); //тут мы сохраняем в файл текущего пользователя
-            dispose();                    
+            dispose();
 
         } else {
             String mes = (Main.dev == true) ? pass.mes + " (код. " + pass.id + ")" : pass.mes;
@@ -94,8 +107,13 @@ public class PathToDb extends javax.swing.JDialog {
         }
     }
 
+    public void rotateDataBase() {
+
+    }
+
     public static void pathToDb(java.awt.Window owner) {
-        PathToDb pathToDb = new PathToDb(owner);
+        int num_base = Integer.valueOf(eProperty.base_num.read());
+        PathToDb pathToDb = new PathToDb(owner, num_base);
         FrameToFile.setFrameSize(pathToDb);
         pathToDb.setVisible(true);
     }
@@ -193,7 +211,7 @@ public class PathToDb extends javax.swing.JDialog {
         edPort.setMinimumSize(new java.awt.Dimension(0, 0));
         edPort.setPreferredSize(new java.awt.Dimension(60, 18));
 
-        cboxDB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "...", "Firebird", "Postgres" }));
+        cboxDB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Firebird", "Postgres" }));
         cboxDB.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         cboxDB.setMinimumSize(new java.awt.Dimension(57, 20));
         cboxDB.setPreferredSize(new java.awt.Dimension(80, 20));
@@ -477,32 +495,26 @@ public class PathToDb extends javax.swing.JDialog {
         int result = chooser.showDialog(this, "Выбрать");
         if (result == JFileChooser.APPROVE_OPTION) {
             String path = chooser.getSelectedFile().getPath();
-            edPath.setText(path);
+            edPath.setText(path + "?encoding=win1251");
         }
 }//GEN-LAST:event_btnFileActionPerformed
     //Выбрал тип базы
     private void btnAdmDef2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmDef2
 
-        if (cboxDB.getSelectedIndex() == 1) {
-            edHost.setText("localhosr");
+        if (cboxDB.getSelectedIndex() == 0) {
+            edHost.setText("localhost");
             edPort.setText("3050");
             edPath.setText("C:\\okna\\fbase\\base.gdb");
             btnFile.setVisible(true);
             edUser.setText("sysdba");
             edPass.setText("masterkey");
-        } else if (cboxDB.getSelectedIndex() == 2) {
+        } else if (cboxDB.getSelectedIndex() == 1) {
             edHost.setText("localhost");
             edPort.setText("5432");
             edPath.setText("new_db1");
-            btnFile.setVisible(true);
+            btnFile.setVisible(false);
             edUser.setText("postgres");
             edPass.setText("Platina6");
-        }
-        if (cboxDB.getSelectedIndex() == 3) {
-            btnFile.setVisible(true);
-
-        } else {
-            btnFile.setVisible(false);
         }
     }//GEN-LAST:event_btnAdmDef2
 // <editor-fold defaultstate="collapsed" desc="Generated Code">

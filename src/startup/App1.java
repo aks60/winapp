@@ -71,13 +71,18 @@ public class App1 extends javax.swing.JFrame {
             setSelectedFilter(true);
         }
         if (eProperty.lookandfeel.read().equals("Metal")) {
-            mn0443.setSelected(true);
+            mn623.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("Nimbus")) {
-            mn0442.setSelected(true);
+            mn622.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("Windows")) {
-            mn0441.setSelected(true);
+            mn621.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("CDE/Motif")) {
-            mn0444.setSelected(true);
+            mn624.setSelected(true);
+        }
+        if (eProperty.base_num.read().equals("2")) {
+            mn632.setSelected(true);
+        } else if (eProperty.base_num.read().equals("3")) {
+            mn633.setSelected(true);
         }
     }
 
@@ -136,7 +141,6 @@ public class App1 extends javax.swing.JFrame {
         td3 = new javax.swing.JToolBar();
         btn29 = new javax.swing.JButton();
         btn30 = new javax.swing.JButton();
-        btn33 = new javax.swing.JButton();
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
@@ -186,12 +190,19 @@ public class App1 extends javax.swing.JFrame {
         mn07 = new javax.swing.JMenu();
         mn71 = new javax.swing.JMenuItem();
         mn06 = new javax.swing.JMenu();
-        mn61 = new javax.swing.JMenuItem();
+        mn64 = new javax.swing.JMenu();
+        mn641 = new javax.swing.JMenuItem();
+        mn642 = new javax.swing.JMenuItem();
+        mn643 = new javax.swing.JMenuItem();
+        mn63 = new javax.swing.JMenu();
+        mn631 = new javax.swing.JCheckBoxMenuItem();
+        mn632 = new javax.swing.JCheckBoxMenuItem();
+        mn633 = new javax.swing.JCheckBoxMenuItem();
         mn62 = new javax.swing.JMenu();
-        mn0441 = new javax.swing.JCheckBoxMenuItem();
-        mn0442 = new javax.swing.JCheckBoxMenuItem();
-        mn0443 = new javax.swing.JCheckBoxMenuItem();
-        mn0444 = new javax.swing.JCheckBoxMenuItem();
+        mn621 = new javax.swing.JCheckBoxMenuItem();
+        mn622 = new javax.swing.JCheckBoxMenuItem();
+        mn623 = new javax.swing.JCheckBoxMenuItem();
+        mn624 = new javax.swing.JCheckBoxMenuItem();
         mn05 = new javax.swing.JMenu();
         mn51 = new javax.swing.JMenuItem();
         mn52 = new javax.swing.JMenuItem();
@@ -493,7 +504,7 @@ public class App1 extends javax.swing.JFrame {
         td3.setRollover(true);
         td3.setMaximumSize(new java.awt.Dimension(98, 28));
         td3.setMinimumSize(new java.awt.Dimension(98, 28));
-        td3.setPreferredSize(new java.awt.Dimension(94, 28));
+        td3.setPreferredSize(new java.awt.Dimension(68, 28));
 
         btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
         btn29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -527,30 +538,16 @@ public class App1 extends javax.swing.JFrame {
         });
         td3.add(btn30);
 
-        btn33.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
-        btn33.setFocusable(false);
-        btn33.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn33.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn33.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn33.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn33.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn33.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnDesign(evt);
-            }
-        });
-        td3.add(btn33);
-
         getContentPane().add(td3);
 
+        tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         tb6.setRollover(true);
         tb6.setMaximumSize(new java.awt.Dimension(68, 28));
         tb6.setMinimumSize(new java.awt.Dimension(68, 28));
-        tb6.setPreferredSize(new java.awt.Dimension(92, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(86, 28));
 
         buttonBaseGroup.add(btnT7);
-        btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
+        btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c002.gif"))); // NOI18N
         btnT7.setSelected(true);
         btnT7.setFocusable(false);
         btnT7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -561,7 +558,7 @@ public class App1 extends javax.swing.JFrame {
         tb6.add(btnT7);
 
         buttonBaseGroup.add(btnT8);
-        btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
+        btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c002.gif"))); // NOI18N
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnT8.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -571,7 +568,7 @@ public class App1 extends javax.swing.JFrame {
         tb6.add(btnT8);
 
         buttonBaseGroup.add(btnT9);
-        btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
+        btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c002.gif"))); // NOI18N
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnT9.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -953,61 +950,120 @@ public class App1 extends javax.swing.JFrame {
         mn06.setText("Сервис");
         mn06.setFont(frames.Util.getFont(1,1));
 
-        mn61.setFont(frames.Util.getFont(1,1));
-        mn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b031.gif"))); // NOI18N
-        mn61.setText("Установка соединения");
-        mn61.addActionListener(new java.awt.event.ActionListener() {
+        mn64.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
+        mn64.setText("Установка соединения");
+        mn64.setFont(frames.Util.getFont(1,1));
+
+        mn641.setFont(frames.Util.getFont(1,1));
+        mn641.setText("Базе 1");
+        mn641.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn61ActionPerformed(evt);
+                mnConnect(evt);
             }
         });
-        mn06.add(mn61);
+        mn64.add(mn641);
+
+        mn642.setFont(frames.Util.getFont(1,1));
+        mn642.setText("Базе 2");
+        mn642.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnConnect(evt);
+            }
+        });
+        mn64.add(mn642);
+
+        mn643.setFont(frames.Util.getFont(1,1));
+        mn643.setText("Базе 3");
+        mn643.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnConnect(evt);
+            }
+        });
+        mn64.add(mn643);
+
+        mn06.add(mn64);
+
+        mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b051.gif"))); // NOI18N
+        mn63.setFont(frames.Util.getFont(1,1));
+        mn63.setLabel("Текущая база данных");
+
+        buttonLookAndFiilGroup.add(mn631);
+        mn631.setFont(frames.Util.getFont(1,1));
+        mn631.setSelected(true);
+        mn631.setText("База 1");
+        mn631.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBase(evt);
+            }
+        });
+        mn63.add(mn631);
+
+        buttonLookAndFiilGroup.add(mn632);
+        mn632.setFont(frames.Util.getFont(1,1));
+        mn632.setText("База 2");
+        mn632.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBase(evt);
+            }
+        });
+        mn63.add(mn632);
+
+        buttonLookAndFiilGroup.add(mn633);
+        mn633.setFont(frames.Util.getFont(1,1));
+        mn633.setText("База 3");
+        mn633.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBase(evt);
+            }
+        });
+        mn63.add(mn633);
+
+        mn06.add(mn63);
 
         mn62.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b061.gif"))); // NOI18N
         mn62.setText("Вид интерфейса");
         mn62.setFont(frames.Util.getFont(1,1));
 
-        buttonLookAndFiilGroup.add(mn0441);
-        mn0441.setFont(frames.Util.getFont(1,1));
-        mn0441.setSelected(true);
-        mn0441.setText("Win Classic");
-        mn0441.addActionListener(new java.awt.event.ActionListener() {
+        buttonLookAndFiilGroup.add(mn621);
+        mn621.setFont(frames.Util.getFont(1,1));
+        mn621.setText("Win Classic");
+        mn621.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnLookAndFeel(evt);
             }
         });
-        mn62.add(mn0441);
+        mn62.add(mn621);
 
-        buttonLookAndFiilGroup.add(mn0442);
-        mn0442.setFont(frames.Util.getFont(1,1));
-        mn0442.setText("Java Nimbus");
-        mn0442.addActionListener(new java.awt.event.ActionListener() {
+        buttonLookAndFiilGroup.add(mn622);
+        mn622.setFont(frames.Util.getFont(1,1));
+        mn622.setText("Java Nimbus");
+        mn622.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnLookAndFeel(evt);
             }
         });
-        mn62.add(mn0442);
+        mn62.add(mn622);
 
-        buttonLookAndFiilGroup.add(mn0443);
-        mn0443.setFont(frames.Util.getFont(1,1));
-        mn0443.setText("Java Metal");
-        mn0443.addActionListener(new java.awt.event.ActionListener() {
+        buttonLookAndFiilGroup.add(mn623);
+        mn623.setFont(frames.Util.getFont(1,1));
+        mn623.setText("Java Metal");
+        mn623.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnLookAndFeel(evt);
             }
         });
-        mn62.add(mn0443);
+        mn62.add(mn623);
 
-        buttonLookAndFiilGroup.add(mn0444);
-        mn0444.setFont(frames.Util.getFont(1,1));
-        mn0444.setText("CDE/Motif");
-        mn0444.setName(""); // NOI18N
-        mn0444.addActionListener(new java.awt.event.ActionListener() {
+        buttonLookAndFiilGroup.add(mn624);
+        mn624.setFont(frames.Util.getFont(1,1));
+        mn624.setText("CDE/Motif");
+        mn624.setName(""); // NOI18N
+        mn624.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnLookAndFeel(evt);
             }
         });
-        mn62.add(mn0444);
+        mn62.add(mn624);
 
         mn06.add(mn62);
 
@@ -1114,13 +1170,13 @@ private void mn0111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_mn0111ActionPerformed
 
 private void mnLookAndFeel(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnLookAndFeel
-    if (evt.getSource() == mn0441) {
+    if (evt.getSource() == mn621) {
         eProperty.lookandfeel.write("Window");
-    } else if (evt.getSource() == mn0443) {
+    } else if (evt.getSource() == mn623) {
         eProperty.lookandfeel.write("Metal");
-    } else if (evt.getSource() == mn0442) {
+    } else if (evt.getSource() == mn622) {
         eProperty.lookandfeel.write("Nimbus");
-    } else if (evt.getSource() == mn0444) {
+    } else if (evt.getSource() == mn624) {
         eProperty.lookandfeel.write("CDE/Motif");
     }
     eProperty.save();
@@ -1200,12 +1256,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
             }
         });
     }//GEN-LAST:event_mnFurnityra
-
-    private void mn61ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn61ActionPerformed
-        PathToDb frame = new PathToDb(this);
-        FrameToFile.setFrameSize(frame);
-        frame.setVisible(true);
-    }//GEN-LAST:event_mn61ActionPerformed
 
     private void mnPartner(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnPartner
 
@@ -1343,6 +1393,34 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         setSelectedFilter(btn16.isSelected());
     }//GEN-LAST:event_mnFilter
 
+    private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
+        if (evt.getSource() == mn631) {
+            eProperty.base_num.write("1");
+        } else if (evt.getSource() == mn632) {
+            eProperty.base_num.write("2");
+        } else if (evt.getSource() == mn633) {
+            eProperty.base_num.write("3");
+        }
+        eProperty.save();
+    }//GEN-LAST:event_mnBase
+
+    private void mnConnect(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConnect
+        Integer num_base = (evt.getSource() == mn641) ? 1 : (evt.getSource() == mn642) ? 2 : 3;
+        
+        PathToDb frame = new PathToDb(this, num_base);
+        FrameToFile.setFrameSize(frame);
+        frame.setVisible(true);
+        
+        eProperty.base_num.write(num_base.toString());
+        if (eProperty.base_num.read().equals("1")) {
+            mn631.setSelected(true);
+        } else if (eProperty.base_num.read().equals("2")) {
+            mn632.setSelected(true);      
+        } else if (eProperty.base_num.read().equals("2")) {
+            mn633.setSelected(true);
+        }        
+    }//GEN-LAST:event_mnConnect
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1362,7 +1440,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JButton btn30;
     private javax.swing.JButton btn31;
     private javax.swing.JButton btn32;
-    private javax.swing.JButton btn33;
     private javax.swing.JButton btn34;
     private javax.swing.JButton btn35;
     private javax.swing.JButton btn61;
@@ -1384,10 +1461,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn0123;
     private javax.swing.JMenu mn02;
     private javax.swing.JMenu mn03;
-    private javax.swing.JCheckBoxMenuItem mn0441;
-    private javax.swing.JCheckBoxMenuItem mn0442;
-    private javax.swing.JCheckBoxMenuItem mn0443;
-    private javax.swing.JCheckBoxMenuItem mn0444;
     private javax.swing.JMenu mn05;
     private javax.swing.JMenu mn06;
     private javax.swing.JMenu mn07;
@@ -1413,8 +1486,19 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn51;
     private javax.swing.JMenuItem mn52;
     private javax.swing.JMenuItem mn54;
-    private javax.swing.JMenuItem mn61;
     private javax.swing.JMenu mn62;
+    private javax.swing.JCheckBoxMenuItem mn621;
+    private javax.swing.JCheckBoxMenuItem mn622;
+    private javax.swing.JCheckBoxMenuItem mn623;
+    private javax.swing.JCheckBoxMenuItem mn624;
+    private javax.swing.JMenu mn63;
+    private javax.swing.JCheckBoxMenuItem mn631;
+    private javax.swing.JCheckBoxMenuItem mn632;
+    private javax.swing.JCheckBoxMenuItem mn633;
+    private javax.swing.JMenu mn64;
+    private javax.swing.JMenuItem mn641;
+    private javax.swing.JMenuItem mn642;
+    private javax.swing.JMenuItem mn643;
     private javax.swing.JMenuItem mn71;
     private javax.swing.JMenuItem mn81;
     private javax.swing.JMenuItem mn82;

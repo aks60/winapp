@@ -95,11 +95,14 @@ public class ElementDet extends Par5s {
                     case 33011:
                     case 34011:  //Толщина внешнего/внутреннего заполнения, мм ("Толщина заполнения, мм") 
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            LinkedList<ElemSimple> e = elem5e.owner().listElem(TypeElem.GLASS);
-                            float depth = e.getFirst().artiklRec.getFloat(eArtikl.depth);
-                            if (Util.compareFloat(rec.getStr(TEXT), depth) == false) {
-                                return false;
-                            }
+//                            LinkedList<ElemSimple> e = elem5e.owner().listElem(TypeElem.GLASS);
+//                            float depth = e.getFirst().artiklRec.getFloat(eArtikl.depth);
+//                            if (Util.compareFloat(rec.getStr(TEXT), depth) == false) {
+//                                return false;
+//                            }
+                            message(grup);
+                        } else {
+                            message(grup);
                         }
                         break;
                     case 33017:  //Код системы содержит строку 
