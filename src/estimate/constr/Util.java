@@ -23,35 +23,6 @@ public class Util {
         return p2 > 0.00005;
     }
 
-    //33;10-99;44;17-21;23-28=>[33,33,10,99,44,44,17,21,23,28]
-    public static Integer[] parserInt(String str) {
-
-        ArrayList<Integer> arrList = new ArrayList();
-        String[] arr = str.split(";");
-        if (arr.length == 1) {
-            arr = arr[0].split("-");
-            if (arr.length == 1) {
-                arrList.add(Integer.valueOf(arr[0]));
-                arrList.add(Integer.valueOf(arr[0]));
-            } else {
-                arrList.add(Integer.valueOf(arr[0]));
-                arrList.add(Integer.valueOf(arr[1]));
-            }
-        } else {
-            for (int index = 0; index < arr.length; index++) {
-                String[] arr2 = arr[index].split("-");
-                if (arr2.length == 1) {
-                    arrList.add(Integer.valueOf(arr2[0]));
-                    arrList.add(Integer.valueOf(arr2[0]));
-                } else {
-                    arrList.add(Integer.valueOf(arr2[0]));
-                    arrList.add(Integer.valueOf(arr2[1]));
-                }
-            }
-        }
-        return arrList.stream().toArray(Integer[]::new);
-    }
-
     //0.55;79,01-10;0-10=>[0.55,0.55,79.01,10.0,0.0,10.0]
     public static Float[] parserFloat(String str) {
 
@@ -81,126 +52,112 @@ public class Util {
         }
         return arrList.stream().toArray(Float[]::new);
     }
-   //-10-10/-10-10@
-    public static Float[] parserFloat2(String str) {
-        Float[] arr = {0f, 6000f, 0f, 6000f};
+
+    //"30-89,99;90,01-150;180,01-269,99;270,01-359,99"
+    public static boolean containsInt(String str, int value) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        ArrayList<Integer> arrList = new ArrayList();
         str = str.replace(",", ".");
-        char symmetry = str.charAt(str.length() - 1);
-        if (symmetry == '@') {
-            str = str.substring(0, str.length() - 1);
-        }
-        String[] arr2 = str.split("/");
-        if (arr2.length == 2) {
-            String[] arr3 = arr2[0].split("-");
-            String[] arr4 = arr2[1].split("-");
-            if (arr3.length == 2) {
-                arr[0] = Float.valueOf(arr3[0]);
-                arr[1] = Float.valueOf(arr3[1]);
-            }
-            if (arr4.length == 2) {
-                arr[2] = Float.valueOf(arr4[0]);
-                arr[3] = Float.valueOf(arr4[1]);
-            }
-        }
-        return arr;
-    }
-
-    public static boolean compareInt(String ptext, int value) {
-
-        if (ptext == null) {
-            return true;
-        }
-        ptext = ptext.replace(",", "."); //парсинг параметра
-        char symmetry = ptext.charAt(ptext.length() - 1);
-        if (symmetry == '@') {
-            ptext = ptext.substring(0, ptext.length() - 1);
-        }
-        String[] arr = ptext.split(";");
-        List<String> arrList = Arrays.asList(arr);
-
-        for (String str : arrList) {
-            String[] p = str.split("-");
-            if (p.length == 1) {
-                Integer valueOne = Integer.valueOf(p[0]);
-                if (value == valueOne) {
-                    return true;
-                }
-            } else if (p.length == 2) {
-                Integer valueMin = Integer.valueOf(p[0]);
-                Integer valueMax = Integer.valueOf(p[1]);
-                if (valueMin <= value && valueMax >= value) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static boolean compareFloat(String ptext, float value) {
-
-        if (ptext == null) {
-            return true;
-        }
-        ptext = ptext.replace(",", "."); //парсинг параметра
-        char symmetry = ptext.charAt(ptext.length() - 1);
-        if (symmetry == '@') {
-            ptext = ptext.substring(0, ptext.length() - 1);
-        }
-        String[] arr = ptext.split(";");
-        List<String> arrList = Arrays.asList(arr);
-        for (String str : arrList) {
-
-            String[] p = str.split("-");
-            if (p.length == 1) {
-                Float valueOne = Float.valueOf(p[0]);
-                if (value == valueOne) {
-                    return true;
-                }
-
-            } else if (p.length == 2) {
-                Float valueMin = Float.valueOf(p[0]);
-                Float valueMax = Float.valueOf(p[1]);
-                if (valueMin <= value && valueMax >= value) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static boolean compareColor(Integer[] arr, Integer color) {
+        String[] arr = str.split(";");
         if (arr.length == 1) {
-            int arr1 = arr[0];
-            return (arr1 == color);
+            arr = arr[0].split("-");
+            if (arr.length == 1) {
+                arrList.add(Integer.valueOf(arr[0]));
+                arrList.add(Integer.valueOf(arr[0]));
+            } else {
+                arrList.add(Integer.valueOf(arr[0]));
+                arrList.add(Integer.valueOf(arr[1]));
+            }
         } else {
-            for (int index1 = 0; index1 < arr.length; index1 = index1 + 2) {
-                int arr1 = arr[index1];
-                int arr2 = arr[index1 + 1];
-                if (arr1 <= color && color <= arr2) {
-                    return true;
+            for (int index = 0; index < arr.length; index++) {
+                String[] arr2 = arr[index].split("-");
+                if (arr2.length == 1) {
+                    arrList.add(Integer.valueOf(arr2[0]));
+                    arrList.add(Integer.valueOf(arr2[0]));
+                } else {
+                    arrList.add(Integer.valueOf(arr2[0]));
+                    arrList.add(Integer.valueOf(arr2[1]));
                 }
             }
         }
-        return false;
-    }
-
-    public static boolean containsFloat(String ptext, float value) {
-
-        if (ptext == null || ptext.isEmpty()) {
-            return true;
-        }
-        ptext = ptext.replace(",", "."); //парсинг параметра
-        String[] arr = ptext.split(";");
-        for (String el : arr) {
-
-            Float valueOne = Float.valueOf(el);
-            if (value == valueOne) {
+        for (int index = 0; index < arrList.size(); ++index) {
+            float v1 = arrList.get(index);
+            float v2 = arrList.get(++index);
+            if (v1 <= value && value <= v2) {
                 return true;
             }
         }
         return false;
     }
 
+    //"180",  "30-179",  "0-89,99;90,01-150;180,01-269,99;270,01-359,99"
+    public static boolean containsFloat(String str, float value) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        ArrayList<Float> arrList = new ArrayList();
+        str = str.replace(",", ".");
+        String[] arr = str.split(";");
+        if (arr.length == 1) {
+            arr = arr[0].split("-");
+            if (arr.length == 1) {
+                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(Float.valueOf(arr[0]));
+            } else {
+                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(Float.valueOf(arr[1]));
+            }
+        } else {
+            for (int index = 0; index < arr.length; index++) {
+                String[] arr2 = arr[index].split("-");
+                if (arr2.length == 1) {
+                    arrList.add(Float.valueOf(arr2[0]));
+                    arrList.add(Float.valueOf(arr2[0]));
+                } else {
+                    arrList.add(Float.valueOf(arr2[0]));
+                    arrList.add(Float.valueOf(arr2[1]));
+                }
+            }
+        }
+        for (int index = 0; index < arrList.size(); ++index) {
+            float v1 = arrList.get(index);
+            float v2 = arrList.get(++index);
+            if (v1 <= value && value <= v2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "554192;/*"
+    public static boolean containsFloat(String str, float val1, float val2) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        char symmetry = str.charAt(str.length() - 1);
+        if (symmetry == '@') {
+            str = str.substring(0, str.length() - 1);
+        }
+        String[] arr = str.split("/");
+        if (symmetry == '@') {
+            if (containsFloat(arr[0], val1) == true || containsFloat(arr[1], val2) == true) {
+                return true;
+            }
+            if (containsFloat(arr[1], val1) == true || containsFloat(arr[0], val2) == true) {
+                return true;
+            }
+            return false;
+        } else {
+            if (containsFloat(arr[0], val1) == true && containsFloat(arr[1], val2) == true) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+//==============================================================================    
     public boolean checkSize(float par, float... arr) {
         return true;
     }
@@ -229,7 +186,6 @@ public class Util {
 //  Slidors 60;@/Slidors 60;@
 //
 //  30-89,99;90,01-150;180,01-269,99;270,01-359,99
-//  10000-10999;17000-29999;42000-42999;46000-46999
 //  1009;10000-10999;17000-29999;42003-42999;46000-46999
 //
 //  288-488/1028,01-1128
@@ -238,4 +194,14 @@ public class Util {
 //  */1@
 //  S;/*
 //  554192;/*
-
+/*
+select grup, text from elempar1 where grup > 0 union
+select grup, text from elempar2 where grup > 0 union
+select grup, text from furnpar1 where grup > 0 union
+select grup, text from furnpar2 where grup > 0 union
+select grup, text from glaspar1 where grup > 0 union
+select grup, text from glaspar2 where grup > 0 union
+select grup, text from joinpar1 where grup > 0 union
+select grup, text from joinpar2 where grup > 0
+order by 1
+ */
