@@ -20,11 +20,11 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.script();
-            wincalc();
+            //wincalc();
             //query();            
             //frame();
             //parse();
-            //test();
+            test();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -162,7 +162,8 @@ public class Test {
 
     private static void test() {
 //80,1-120;
-        Integer arr[] = estimate.constr.Util.parserInt("330;100-109;440;170-219");
+        //Integer arr[] = estimate.constr.Util.parserInt("33;10-99;44;17-21;23-28");
+        Float arr[] = estimate.constr.Util.parserFloat2("1-2/1-2@");
         List list = Arrays.asList(arr);
         System.out.println(list);
     }
