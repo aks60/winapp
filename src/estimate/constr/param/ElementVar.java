@@ -135,7 +135,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31020:  //Ограничение угла к горизонту, ° (Угол к горизонту минимальный, ° для ps3)
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            if (Util.parserFloat(rec.getStr(TEXT))[0] > ((ElemSimple) elem5e).anglHoriz) {
+                            if (rec.getFloat(TEXT) > ((ElemSimple) elem5e).anglHoriz) {
                                 return false;
                             }
                         } else {
@@ -149,7 +149,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31030:  //Угол к горизонту максимальный, °
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            if (Util.parserFloat(rec.getStr(TEXT))[0] < ((ElemSimple) elem5e).anglHoriz) {
+                            if (rec.getFloat(TEXT) < ((ElemSimple) elem5e).anglHoriz) {
                                 return false;
                             }
                         }
@@ -176,7 +176,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31050:  //Контейнер имеет тип 
                         TypeElem type = elem5e.type();
-                        if (type.id != Integer.valueOf(rec.getStr(TEXT))) {
+                        if (type.id != rec.getInt(TEXT)) {
                             return false;
                         }
                         break;
@@ -185,7 +185,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 31052:  //Поправка в спецификацию, мм 
                         if (elem5e.layout() == LayoutArea.ARCH) {
-                            elem5e.specificationRec.width = elem5e.specificationRec.width + Float.valueOf(rec.getFloat(TEXT));
+                            elem5e.specificationRec.width = elem5e.specificationRec.width + rec.getFloat(TEXT);
                         }
                         break;
                     case 31054:  //Коды основной текстуры изделия 
@@ -278,11 +278,7 @@ public class ElementVar extends Par5s {
                         break;
                     case 37030:  //Минимальная площадь или Ограничение площади, кв.м. для Ps4                        
                         if ("ps4".equals(versionDb)) {
-                            Float[] arr2 = Util.parserFloat(rec.getStr(TEXT));
-                            if (elem5e.width() / 1000 * elem5e.height() / 1000 < arr2[0]) {
-                                return false;
-                            }
-                            if (elem5e.width() / 1000 * elem5e.height() / 1000 > arr2[1]) {
+                            if (Util.containsFloat(rec.getStr(TEXT), elem5e.width() / 1000 * elem5e.height() / 1000) == false) {
                                 return false;
                             }
                         } else if ("ps3".equals(versionDb)) {

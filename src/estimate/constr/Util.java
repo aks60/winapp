@@ -94,7 +94,7 @@ public class Util {
 
     //"180",  "30-179",  "0-89,99;90,01-150;180,01-269,99;270,01-359,99"
     public static boolean containsFloat(String str, float value) {
-        if (str == null || str.isEmpty()) {
+        if (str == null || str.isEmpty() || str.equals("*")) {
             return true;
         }
         ArrayList<Float> arrList = new ArrayList();
@@ -131,7 +131,7 @@ public class Util {
         return false;
     }
 
-    //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "554192;/*"
+    //"288-488/1028,01-1128", "2000,2-3000/0-1250@", "55;/*"
     public static boolean containsFloat(String str, float val1, float val2) {
         if (str == null || str.isEmpty()) {
             return true;
@@ -157,9 +157,28 @@ public class Util {
         }
     }
 
-//==============================================================================    
-    public boolean checkSize(float par, float... arr) {
-        return true;
+    //"Стойка 172;Стойка 240;
+    public static boolean containsStr(String str, String val) {
+        String[] arr = str.split(";");
+        for (String str2 : arr) {
+            if (str2.equals(val)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //"Стойка 100;Стойка 200;/*", "Slidors 60;@/Slidors 60;@"
+    public static boolean containsStr(String str, String val1, String val2) {
+        if (str == null || str.isEmpty()) {
+            return true;
+        }
+        String[] arr = str.split("/");
+        if ((arr[0].equals("*") || containsStr(arr[0], val1) == true)
+                && (arr[1].equals("*") || containsStr(arr[1], val2) == true)) {
+            return true;
+        }
+        return false;
     }
 
     //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
@@ -181,20 +200,8 @@ public class Util {
         return false;
     }
 }
-//  ==  Примеры параметров  ==
-//  GW58;Без упллотнения;@/GW58;Без упллотнения;@
-//  Slidors 60;@/Slidors 60;@
-//
-//  30-89,99;90,01-150;180,01-269,99;270,01-359,99
-//  1009;10000-10999;17000-29999;42003-42999;46000-46999
-//
-//  288-488/1028,01-1128
-//  1-2/1-2@
-//  -10-10/-10-10@
-//  */1@
-//  S;/*
-//  554192;/*
 /*
+ ==  Примеры параметров смю в базе ==
 select grup, text from elempar1 where grup > 0 union
 select grup, text from elempar2 where grup > 0 union
 select grup, text from furnpar1 where grup > 0 union
@@ -202,6 +209,5 @@ select grup, text from furnpar2 where grup > 0 union
 select grup, text from glaspar1 where grup > 0 union
 select grup, text from glaspar2 where grup > 0 union
 select grup, text from joinpar1 where grup > 0 union
-select grup, text from joinpar2 where grup > 0
-order by 1
+select grup, text from joinpar2 where grup > 0 order by 1
  */

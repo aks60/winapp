@@ -200,7 +200,7 @@ public class JoiningVar extends Par5s {
                         break;
                     case 2010:  //Угол минимальный, °
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            if (Util.parserFloat(rec.getStr(TEXT))[0] < elemJoin.anglProf) {
+                            if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                                 return false;
                             }
                         }
@@ -239,7 +239,7 @@ public class JoiningVar extends Par5s {
                     case 3020:  //Ограничение угла, ° 
                     case 4020:  //Ограничение угла, ° или Угол минимальный, ° для ps3 
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            if (Util.parserFloat(rec.getStr(TEXT))[0] < elemJoin.anglProf) {
+                            if (rec.getFloat(TEXT) < elemJoin.anglProf) {
                                 return false;
                             }
                         } else if (compareBetween(rec.getStr(TEXT), elemJoin.anglProf) == false) {
@@ -249,7 +249,7 @@ public class JoiningVar extends Par5s {
 
                     case 2021: //Точный угол, °
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
-                            if (Util.parserFloat(rec.getStr(TEXT))[0] != elemJoin.anglProf) {
+                            if (rec.getFloat(TEXT) != elemJoin.anglProf) {
                                 return false;
                             }
                         }
@@ -339,7 +339,7 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 4030: // Угол максимальный, °
-                        if (Util.parserFloat(rec.getStr(TEXT))[0] > elemJoin.anglProf) {
+                        if (rec.getFloat(TEXT) > elemJoin.anglProf) {
                             return false;
                         }
                         break;

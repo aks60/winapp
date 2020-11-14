@@ -162,11 +162,11 @@ public class Test {
 
     private static void test() {
         //Integer arr[] = estimate.constr.Util.parserInt("33;10-99;44;17-21;23-28");
-//        Float arr[] = estimate.constr.Util.parserFloat2("1-2/1-2@");
-          boolean list = estimate.constr.Util.containsFloat("90,01-150;180,01-269,99;270,01-359,99"
-                  + "/0-89,99;90,01-150;180,01-269,99;270,01-359,99", 0, 100);
+        boolean obj = estimate.constr.Util.containsStr("Стойка 100;Стойка 200;/sel", "Стойка 200", "sel");
+//        String[] obj = "55;".split(";");
+//        boolean list = estimate.constr.Util.containsFloat("90,01-150;180,01-269,99;270,01-359,99/0-89,99;90,01-150;180,01-269,99;270,01-359,99", 0, 100);
 //        List list = Arrays.asList(arr);
-        System.out.println(list);
+        System.out.println(obj);
 
     }
 }

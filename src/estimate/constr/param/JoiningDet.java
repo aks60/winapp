@@ -34,29 +34,24 @@ public class JoiningDet extends Par5s {
             try {
                 switch (grup) {
 
-                    case 11000:  //Для технологического кода контейнера 1/2
+                    case 11000: //Для технологического кода контейнера 1/2
                     case 12000: //Для технологического кода контейнера 1/2 
-                    {
                         Record sysprofRec = elem5e.sysprofRec;
                         Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
                         if (artiklVRec.get(eArtikl.tech_code) == null) {
                             return false;
                         }
-                        String[] strList = rec.getStr(TEXT).split(";");
-                        String[] strList2 = artiklVRec.getStr(eArtikl.tech_code).split(";");
+                        String[] strList = artiklVRec.getStr(eArtikl.tech_code).split(";");
                         boolean ret2 = false;
                         for (String str : strList) {
-                            for (String str2 : strList2) {
-                                if (str.equalsIgnoreCase(str2)) {
-                                    ret2 = true;
-                                }
+                            if (Util.containsStr(rec.getStr(TEXT), str) == true) {
+                                ret2 = true;
                             }
                         }
                         if (ret2 == false) {
                             return false;
                         }
-                    }
-                    break;
+                        break;
                     case 11001:  //Если признак состава Арт.1 
                         message(rec.getInt(GRUP));
                         break;
