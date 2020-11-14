@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.Arrays;
+import java.util.List;
 
 public class Test {
 
@@ -22,7 +23,7 @@ public class Test {
             wincalc();
             //query();            
             //frame();
-            //parseJson();
+            //parse();
             //test();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
@@ -35,7 +36,7 @@ public class Test {
                 "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
 
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 601006;
@@ -103,7 +104,7 @@ public class Test {
         return ++count;
     }
 
-    static void parseJson() {
+    static void parse() {
 
         HashMap<Integer, Record> mapParamUse = new HashMap();
         String paramJson = "{'typeOpen':1,'nuni':23, 'ioknaParam': [[-862107,826],[-862106,830]]}";
@@ -160,30 +161,9 @@ public class Test {
     }
 
     private static void test() {
-//0:вручную        
-//11:по профилю   
-//15:по заполнению
-//1:по основе изделия, 2:по внутр.изделия, 3:по внешн.изделия
-//6:по основе в серии, 7:по внутр. в серии, 8:по внешн. в серии
-
-//3003 - по профилю
-//799 - по заполнению (зависимая?), 4095 - по заполнению
-//273 - на основе изделия, 801 - по основе изделия, 546 - по внутр. изделия, 819 - по внешн. изделия
-//1638 - по основе в серии , 1911 - по внутр. в серии, 2184 - по внешн. в серии
-//3145 - по параметру (основа), 1092 - по параметру (внутр.), 3276 - по параметру (внешн.)
-        int CTYPE[] = {0, 32, 48, 256, 273, 512, 529, 545, 546, 560, 561, 768, 785,
-            799, 800, 801, 811, 816, 817, 819, 1092, 1097, 2457, 2992,
-            2993, 3003, 3145, 3147, 3273, 3275, 3276, 4095};
-
-        for (int i = 0; i < CTYPE.length; i++) {
-            int j = CTYPE[i];
-
-            System.out.println(" " + j);
-            System.out.println("1ур " + j % 16 + " - " + (j & 0x000f));
-            System.out.println("2ур " + (j / 16) % 16 + " - " + (j & 0x00f0 >> 4));
-            System.out.println("3ур " + (j / (16 * 16)) % 16 + " - " + (j & 0x0f00 >> 8));
-            System.out.println("============================");
-
-        }
+//80,1-120;
+        Integer arr[] = estimate.constr.Util.parserInt("330;100-109;440;170-219");
+        List list = Arrays.asList(arr);
+        System.out.println(list);
     }
 }
