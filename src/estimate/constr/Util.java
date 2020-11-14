@@ -23,8 +23,7 @@ public class Util {
         return p2 > 0.00005;
     }
 
-    //33333;10000-10999;444444;17000-21999;23000-28999 => 
-    //[33333, 33333, 10000, 10999, 444444, 444444, 17000, 21999, 23000, 28999]
+    //33;10-99;44;17-21;23-28=>[33,33,10,99,44,44,17,21,23,28]
     public static Integer[] parserInt(String str) {
 
         ArrayList<Integer> arrList = new ArrayList();
@@ -53,20 +52,17 @@ public class Util {
         return arrList.stream().toArray(Integer[]::new);
     }
 
-    
+    //0.55;79,01-10;0-10=>[0.55,0.55,79.01,10.0,0.0,10.0]
     public static Float[] parserFloat(String str) {
 
-        ArrayList<Float> arrList = new ArrayList();
+        ArrayList<Object> arrList = new ArrayList();
         str = str.replace(",", ".");
-        char symmetry = str.charAt(str.length() - 1);
-        if (symmetry == '@') {
-            str = str.substring(0, str.length() - 1);
-        }
         String[] arr = str.split(";");
         if (arr.length == 1) {
             arr = arr[0].split("-");
             if (arr.length == 1) {
-                return new Float[]{Float.valueOf(arr[0])};
+                arrList.add(Float.valueOf(arr[0]));
+                arrList.add(Float.valueOf(arr[0]));
             } else {
                 arrList.add(Float.valueOf(arr[0]));
                 arrList.add(Float.valueOf(arr[1]));
@@ -74,7 +70,10 @@ public class Util {
         } else {
             for (int index = 0; index < arr.length; index++) {
                 String[] arr2 = arr[index].split("-");
-                if (arr2.length == 2) {
+                if (arr2.length == 1) {
+                    arrList.add(Float.valueOf(arr2[0]));
+                    arrList.add(Float.valueOf(arr2[0]));
+                } else {
                     arrList.add(Float.valueOf(arr2[0]));
                     arrList.add(Float.valueOf(arr2[1]));
                 }
@@ -82,7 +81,7 @@ public class Util {
         }
         return arrList.stream().toArray(Float[]::new);
     }
-
+   //-10-10/-10-10@
     public static Float[] parserFloat2(String str) {
         Float[] arr = {0f, 6000f, 0f, 6000f};
         str = str.replace(",", ".");
@@ -228,17 +227,15 @@ public class Util {
 //  ==  Примеры параметров  ==
 //  GW58;Без упллотнения;@/GW58;Без упллотнения;@
 //  Slidors 60;@/Slidors 60;@
-//  */1@
-//  S;/*
-//  554192;/*
 //
 //  30-89,99;90,01-150;180,01-269,99;270,01-359,99
 //  10000-10999;17000-29999;42000-42999;46000-46999
-//  1009;10000-10999;17000-22999
 //  1009;10000-10999;17000-29999;42003-42999;46000-46999
 //
-//  790,01-10000/0-1000000
 //  288-488/1028,01-1128
+//  1-2/1-2@
 //  -10-10/-10-10@
-//  400,1-450
+//  */1@
+//  S;/*
+//  554192;/*
 
