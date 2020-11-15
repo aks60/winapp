@@ -586,7 +586,7 @@ public class Profstroy {
             cn2.commit();
             for (int index = 0; index < prj.length; ++index) {
 
-                String script = Winscript.test(prj[index], -1);
+                String script = Winscript.testPs4(prj[index], -1);
                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();

@@ -54,7 +54,7 @@ public class Filling extends Cal5e {
             //Цикл по стеклопакетам
             for (ElemGlass elemGlass : elemGlassList) {
                 UseArtiklTo typeProf = (elemGlass.owner().type() == TypeElem.STVORKA) ? UseArtiklTo.STVORKA : UseArtiklTo.FRAME;
-                String depth = (elemGlass.artiklRec.getStr(eArtikl.depth) == null) ? "" :elemGlass.artiklRec.getStr(eArtikl.depth).replace(".", ",");
+                //String depth = (elemGlass.artiklRec.getStr(eArtikl.depth) == null) ? "" :elemGlass.artiklRec.getStr(eArtikl.depth).replace(".", ",");
                 Float depth2 = elemGlass.artiklRec.getFloat(eArtikl.depth);
                 Record artprofRec = null;
 

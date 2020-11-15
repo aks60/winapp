@@ -1,6 +1,7 @@
 package estimate.script;
 
 import com.google.gson.Gson;
+import domain.eSetting;
 import enums.LayoutArea;
 import enums.TypeElem;
 import startup.Main;
@@ -14,6 +15,14 @@ public class Winscript {
      * @param nuni - nini ветки системы профилей
      */
     public static String test(Integer project, Integer nuni) {
+        if (eSetting.find(2).getInt(eSetting.val) == 4) {
+            return estimate.script.Winscript.testPs4(project, null);
+        } else {
+            return estimate.script.Winscript.testPs3(project, null);
+        }
+    }
+
+    public static String testPs4(Integer project, Integer nuni) {
 
         if (project == 601001) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 1300, 1300, 1009, 10009, 1009, "");
@@ -31,7 +40,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
@@ -46,7 +55,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 400));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area4 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1300));
@@ -65,7 +74,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 400));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area4 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1300));
@@ -84,7 +93,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.AREA, 800));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 800));
@@ -96,11 +105,10 @@ public class Winscript {
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 900, 1400, 1400, 1009, 1009, 1009, "");
             rootArea.setParam(project.toString(), 10, "RAZIO\\RAZIO 58 N\\1 ОКНА");
-            rootArea.setParam(project.toString(), 10, "RAZIO->RAZIO 58 N->1 ОКНА");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'5746'}")); //или 'R4x10x4x10x4'
 
         } else if (project == 601007) {
@@ -109,7 +117,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 300));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area4 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1100));
@@ -146,7 +154,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'4663'}")); //или '4x12x4x12x4'
 
         } else if (project == 601010) {
@@ -155,7 +163,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.AREA, 650));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
@@ -171,7 +179,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1050));
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
@@ -188,7 +196,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1200));
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
@@ -206,7 +214,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1220));
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 550));
@@ -224,7 +232,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1300));
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 700));
@@ -242,7 +250,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1200));
             AreaElem area4 = (AreaElem) area3.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
@@ -260,7 +268,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1200));
             rootArea.add(new Element(8, TypeElem.GLASS));
@@ -272,7 +280,7 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area7 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1400));
             AreaElem area8 = (AreaElem) area7.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
@@ -293,11 +301,29 @@ public class Winscript {
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.ARCH));
-            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));            
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             rootArea.add(new Element(6, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1200));
             rootArea.add(new Element(8, TypeElem.GLASS));
             area3.add(new Element(9, TypeElem.GLASS));
+        }
+        if (nuni != null) {
+            rootArea.setParam(project.toString(), nuni);
+        }
+        return new Gson().toJson(rootArea);
+
+    }
+
+    public static String testPs3(Integer project, Integer nuni) {
+
+        if (project == 601006) {
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 900, 1400, 1400, -1, -1, -1, "");
+            rootArea.setParam(project.toString(), 12, "СИАЛ\\КП45\\Окна");
+            rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'285'}")); //или 'R4x10x4x10x4'
         }
         if (nuni != null) {
             rootArea.setParam(project.toString(), nuni);

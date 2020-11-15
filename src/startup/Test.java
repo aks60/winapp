@@ -6,13 +6,14 @@ import enums.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import convert.Profstroy;
 import domain.eParams;
+import domain.eSetting;
 import estimate.constr.Specification;
 import java.sql.SQLException;
 import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.Arrays;
-import java.util.List;
 
 public class Test {
 
@@ -33,14 +34,14 @@ public class Test {
     static void wincalc() throws Exception {
 
         Query.connection = java.sql.DriverManager.getConnection(
-                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE.FDB?encoding=win1251", "sysdba", "masterkey");
+                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251", "sysdba", "masterkey");
         estimate.Wincalc iwin = new estimate.Wincalc();
 
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
             iwin.prj = 601006;
-            iwin.build(estimate.script.Winscript.test(iwin.prj, null));
+            iwin.build(estimate.script.Winscript.testPs4(iwin.prj, null));
             iwin.constructiv();
             Specification.write_txt1(iwin.listSpec);
             //Specification.compareIWin(iwin.listSpec, iwin.prj, true);
@@ -50,7 +51,7 @@ public class Test {
             if (_case.equals("min")) {
                 for (int i : Arrays.asList(601008, 601009, 601010)) {
                     iwin.prj = i;
-                    String script = estimate.script.Winscript.test(iwin.prj, null);
+                    String script = estimate.script.Winscript.testPs4(iwin.prj, null);
                     iwin.build(script);
                     iwin.constructiv();
                     Specification.compareIWin(iwin.listSpec, iwin.prj, true);
@@ -59,7 +60,7 @@ public class Test {
                 for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007,
                         601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)) {
                     iwin.prj = i;
-                    String script = estimate.script.Winscript.test(iwin.prj, null);
+                    String script = estimate.script.Winscript.testPs4(iwin.prj, null);
                     iwin.build(script);
                     iwin.constructiv();
                     Specification.compareIWin(iwin.listSpec, iwin.prj, false);
