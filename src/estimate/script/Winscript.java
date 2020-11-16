@@ -306,7 +306,7 @@ public class Winscript {
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1200));
             rootArea.add(new Element(8, TypeElem.GLASS));
             area3.add(new Element(9, TypeElem.GLASS));
-            
+
         } else {
             return "";
         }
@@ -319,19 +319,47 @@ public class Winscript {
 
     public static String testPs3(Integer project, Integer nuni) {
 
-        if (project == 601006) {
-            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 900, 1400, 1400, -1, -1, -1, "");
-            rootArea.setParam(project.toString(), 12, "СИАЛ\\КП45\\Окна");
+        if (project == 601001) {
+            rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 600, 25, 25, 25, "");
+            rootArea.setParam(project.toString(), 11, "СИМАЛ\\КП40\\Окна");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'285'}"));
+            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1"));
+            area2.add(new Element(7, TypeElem.GLASS, "{'artikleID':285}"));
+
+        } else if (project == 601002) {
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1400, 2000, 2000, 26, 26, 26, "");
+            rootArea.setParam(project.toString(), 12, "СИМАЛ\\КП45\\Окна");
+            rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
+            rootArea.add(new Element(7, TypeElem.IMPOST));
+            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':2"));
+            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':284}"));
+            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':284}"));
+
+        } else if (project == 601006) {
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 31, 31, 31, "");
+            rootArea.setParam(project.toString(), 12, "СИМАЛ\\КП45\\Окна");
+            rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':285}"));
         }
-        if (nuni != null) {
+        if (nuni
+                != null) {
             rootArea.setParam(project.toString(), nuni);
         }
-        return new Gson().toJson(rootArea);
+
+        return new Gson()
+                .toJson(rootArea);
 
     }
 }
