@@ -100,7 +100,7 @@ public class Profstroy {
         try {
             String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3.fdb?encoding=win1251";
             //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
-            String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE3.FDB?encoding=win1251";
+            String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
@@ -582,28 +582,29 @@ public class Profstroy {
             System.out.println("updateModels()");
             Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
                 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
+            String script;
             cn2.commit();
             for (int index = 0; index < prj.length; ++index) {
 
-                String script = Winscript.testPs3(prj[index], -1);
-                if (eSetting.find(2).getInt(eSetting.val) == 4) {
+                if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                    script = Winscript.testPs3(prj[index], -1);
+                } else {
                     script = Winscript.testPs4(prj[index], -1);
                 }
-                if (script.isEmpty()) {
-                    continue;
+                if (script != null) {
+                    JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
+                    JsonObject jsonObj = jsonElem.getAsJsonObject();
+                    String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
+                    int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
+                    Query q = new Query(eModels.values());
+                    Record record = q.newRecord(Query.INS);
+                    record.setNo(eModels.npp, index + 1);
+                    record.setNo(eModels.id, ConnApp.instanc().genId(eModels.up));
+                    record.setNo(eModels.name, name);
+                    record.setNo(eModels.script, script);
+                    record.setNo(eModels.form, form);
+                    q.insert(record);
                 }
-                JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
-                JsonObject jsonObj = jsonElem.getAsJsonObject();
-                String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
-                int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
-                Query q = new Query(eModels.values());
-                Record record = q.newRecord(Query.INS);
-                record.setNo(eModels.npp, index + 1);
-                record.setNo(eModels.id, ConnApp.instanc().genId(eModels.up));
-                record.setNo(eModels.name, name);
-                record.setNo(eModels.script, script);
-                record.setNo(eModels.form, form);
-                q.insert(record);
             }
             cn2.commit();
 
