@@ -545,12 +545,12 @@ public class Profstroy {
             metaSql("alter table kitdet add constraint fk_kitdet4 foreign key (color2_id) references color (id)");
             metaSql("alter table kitdet add constraint fk_kitdet5 foreign key (color3_id) references color (id)");
             metaSql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)");
-            
+
             metaSql("INSERT INTO Sysprod VALUES (1, 1, 387)");
             metaSql("INSERT INTO Sysprod VALUES (2, 2, 387)");
             metaSql("INSERT INTO Sysprod VALUES (3, 3, 387)");
             executeSql("set generator GEN_SYSPROD to " + 3);
-            
+
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "ALTERDB-PART:  " + e + "\u001B[0m");
         }
@@ -586,7 +586,13 @@ public class Profstroy {
             cn2.commit();
             for (int index = 0; index < prj.length; ++index) {
 
-                String script = Winscript.testPs4(prj[index], -1);
+                String script = Winscript.testPs3(prj[index], -1);
+                if (eSetting.find(2).getInt(eSetting.val) == 4) {
+                    script = Winscript.testPs4(prj[index], -1);
+                }
+                if (script.isEmpty()) {
+                    continue;
+                }
                 JsonElement jsonElem = new Gson().fromJson(script, JsonElement.class);
                 JsonObject jsonObj = jsonElem.getAsJsonObject();
                 String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();

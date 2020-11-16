@@ -306,6 +306,9 @@ public class Winscript {
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(7, LayoutArea.HORIZ, TypeElem.AREA, 1200));
             rootArea.add(new Element(8, TypeElem.GLASS));
             area3.add(new Element(9, TypeElem.GLASS));
+            
+        } else {
+            return "";
         }
         if (nuni != null) {
             rootArea.setParam(project.toString(), nuni);
@@ -323,7 +326,7 @@ public class Winscript {
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'285'}")); //или 'R4x10x4x10x4'
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':'285'}"));
         }
         if (nuni != null) {
             rootArea.setParam(project.toString(), nuni);
