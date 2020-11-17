@@ -543,8 +543,8 @@ public class App1 extends javax.swing.JFrame {
 
         tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         tb6.setRollover(true);
-        tb6.setMaximumSize(new java.awt.Dimension(68, 28));
-        tb6.setMinimumSize(new java.awt.Dimension(68, 28));
+        tb6.setMaximumSize(new java.awt.Dimension(86, 28));
+        tb6.setMinimumSize(new java.awt.Dimension(86, 28));
         tb6.setPreferredSize(new java.awt.Dimension(86, 28));
 
         buttonBaseGroup.add(btnT7);
@@ -552,9 +552,9 @@ public class App1 extends javax.swing.JFrame {
         btnT7.setSelected(true);
         btnT7.setFocusable(false);
         btnT7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT7.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnT7.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnT7.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnT7.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnT7.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnT7.setPreferredSize(new java.awt.Dimension(28, 25));
         btnT7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -567,9 +567,9 @@ public class App1 extends javax.swing.JFrame {
         btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT8.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnT8.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnT8.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnT8.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnT8.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnT8.setPreferredSize(new java.awt.Dimension(28, 25));
         btnT8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -582,9 +582,9 @@ public class App1 extends javax.swing.JFrame {
         btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnT9.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnT9.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnT9.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnT9.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnT9.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnT9.setPreferredSize(new java.awt.Dimension(28, 25));
         btnT9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnT9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -966,7 +966,7 @@ public class App1 extends javax.swing.JFrame {
         mn06.setText("Сервис");
         mn06.setFont(frames.Util.getFont(1,1));
 
-        mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b051.gif"))); // NOI18N
+        mn63.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b052.gif"))); // NOI18N
         mn63.setText("Установка соединения");
         mn63.setFont(frames.Util.getFont(1,1));
 

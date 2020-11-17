@@ -43,7 +43,7 @@ public class Test {
 
         Query.connection = connection();       
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
             iwin.prj = 601006;
