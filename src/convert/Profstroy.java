@@ -98,9 +98,11 @@ public class Profstroy {
             eCurrenc.up, eGroups.up
         };
         try {
-            String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3.fdb?encoding=win1251";
-            //String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
-            String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+            //String src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3.fdb?encoding=win1251";
+            //String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+            String src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+            String out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
+            
 
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
@@ -448,8 +450,8 @@ public class Profstroy {
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update glasprof set toin = 1  where gtype in (1,3)");
-            executeSql("update glasprof set toout = 1  where gtype in (2,3)");
+            executeSql("update glasprof set toin = 1  where gtype in (1,3,7)");
+            executeSql("update glasprof set toout = 1  where gtype in (2,3,7)");
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
