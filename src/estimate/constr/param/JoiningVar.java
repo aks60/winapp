@@ -80,7 +80,7 @@ public class JoiningVar extends Par5s {
                                 }
                             }
                         } catch (Exception e) {
-                            System.err.println("Ошибка ParamVariant.checkParconv() " + e);
+                            System.out.println("Ошибка:JoiningVar.check() " + e);
                             return false;
                         }
                     }
@@ -401,7 +401,7 @@ public class JoiningVar extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.err.println("wincalc.constr.param.JoiningVar.check()  parametr=" + grup + "    " + e);
+                System.err.println("Ошибка param.JoiningVar.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }

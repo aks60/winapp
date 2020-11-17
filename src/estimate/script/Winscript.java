@@ -11,7 +11,7 @@ public class Winscript {
     public static AreaRoot rootArea;
 
     public static String test(Integer project, Integer nuni) {
-        if ("ps4".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+        if ("ps4".equals(eSetting.find(2).get(eSetting.val)) == true) {
             return estimate.script.Winscript.testPs4(project, null);
         } else {
             return estimate.script.Winscript.testPs3(project, null);
