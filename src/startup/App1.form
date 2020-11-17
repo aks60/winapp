@@ -990,7 +990,7 @@
         <Component class="javax.swing.JButton" name="btn34">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c019.gif"/>
+              <Image iconType="3" name="/resource/img24/c014.gif"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -1404,7 +1404,7 @@
               <ComponentRef name="buttonBaseGroup"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c002.gif"/>
+              <Image iconType="3" name="/resource/img24/c057.gif"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -1420,6 +1420,9 @@
             </Property>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBase"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="btnT8">
           <Properties>
@@ -1427,7 +1430,7 @@
               <ComponentRef name="buttonBaseGroup"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c002.gif"/>
+              <Image iconType="3" name="/resource/img24/c058.gif"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -1442,6 +1445,9 @@
             </Property>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBase"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="btnT9">
           <Properties>
@@ -1449,7 +1455,7 @@
               <ComponentRef name="buttonBaseGroup"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c002.gif"/>
+              <Image iconType="3" name="/resource/img24/c059.gif"/>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
@@ -1464,6 +1470,9 @@
             </Property>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBase"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

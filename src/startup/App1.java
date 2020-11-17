@@ -81,10 +81,13 @@ public class App1 extends javax.swing.JFrame {
         }
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
+            btnT7.setSelected(true);
         } else if (eProperty.base_num.read().equals("2")) {
             mn632.setSelected(true);
+            btnT8.setSelected(true);
         } else if (eProperty.base_num.read().equals("3")) {
             mn633.setSelected(true);
+            btnT9.setSelected(true);
         }
     }
 
@@ -348,7 +351,7 @@ public class App1 extends javax.swing.JFrame {
         td5.setMinimumSize(new java.awt.Dimension(94, 28));
         td5.setPreferredSize(new java.awt.Dimension(94, 28));
 
-        btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019.gif"))); // NOI18N
+        btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c014.gif"))); // NOI18N
         btn34.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         btn34.setFocusable(false);
         btn34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -545,7 +548,7 @@ public class App1 extends javax.swing.JFrame {
         tb6.setPreferredSize(new java.awt.Dimension(86, 28));
 
         buttonBaseGroup.add(btnT7);
-        btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c002.gif"))); // NOI18N
+        btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
         btnT7.setSelected(true);
         btnT7.setFocusable(false);
         btnT7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -553,26 +556,41 @@ public class App1 extends javax.swing.JFrame {
         btnT7.setMinimumSize(new java.awt.Dimension(25, 25));
         btnT7.setPreferredSize(new java.awt.Dimension(25, 25));
         btnT7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnT7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBase(evt);
+            }
+        });
         tb6.add(btnT7);
 
         buttonBaseGroup.add(btnT8);
-        btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c002.gif"))); // NOI18N
+        btnT8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c058.gif"))); // NOI18N
         btnT8.setFocusable(false);
         btnT8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnT8.setMaximumSize(new java.awt.Dimension(25, 25));
         btnT8.setMinimumSize(new java.awt.Dimension(25, 25));
         btnT8.setPreferredSize(new java.awt.Dimension(25, 25));
         btnT8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnT8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBase(evt);
+            }
+        });
         tb6.add(btnT8);
 
         buttonBaseGroup.add(btnT9);
-        btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c002.gif"))); // NOI18N
+        btnT9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c059.gif"))); // NOI18N
         btnT9.setFocusable(false);
         btnT9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnT9.setMaximumSize(new java.awt.Dimension(25, 25));
         btnT9.setMinimumSize(new java.awt.Dimension(25, 25));
         btnT9.setPreferredSize(new java.awt.Dimension(25, 25));
         btnT9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnT9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBase(evt);
+            }
+        });
         tb6.add(btnT9);
 
         getContentPane().add(tb6);
@@ -1356,20 +1374,34 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
         Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null && el != eApp1.App1).forEach(el -> el.frame.dispose());
-        
-        Integer num_base = (evt.getSource() == mn631) ? 1 : (evt.getSource() == mn632) ? 2 : 3;
+
+        Integer num_base = (mn631.isSelected()) ? 1 : (mn632.isSelected()) ? 2 : 3;
         PathToDb frame = new PathToDb(this, num_base);
         FrameToFile.setFrameSize(frame);
         frame.setVisible(true);
-        
+
         if (eProperty.base_num.read().equals("1")) {
             mn631.setSelected(true);
+            btnT7.setSelected(true);
         } else if (eProperty.base_num.read().equals("2")) {
             mn632.setSelected(true);
+            btnT8.setSelected(true);
         } else if (eProperty.base_num.read().equals("3")) {
             mn633.setSelected(true);
+            btnT9.setSelected(true);
         }
     }//GEN-LAST:event_mnBase
+
+    private void btnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBase
+        if (btnT7.isSelected()) {
+            mn631.setSelected(true);
+        } else if (btnT8.isSelected()) {
+            mn632.setSelected(true);
+        } else if (btnT9.isSelected()) {
+            mn633.setSelected(true);
+        }
+        mnBase(null);
+    }//GEN-LAST:event_btnBase
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables

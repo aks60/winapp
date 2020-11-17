@@ -20,8 +20,8 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            convert.Profstroy.script();
-            //wincalc();
+            //convert.Profstroy.script();
+            wincalc();
             //query();            
             //frame();
             //parse();
@@ -33,8 +33,13 @@ public class Test {
 
     static void wincalc() throws Exception {
 
-        Query.connection = java.sql.DriverManager.getConnection(
-                "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BASE2.FDB?encoding=win1251", "sysdba", "masterkey");
+        eProperty.user.write("sysdba");
+        eProperty.password = String.valueOf("masterkey");
+        ConnApp con = ConnApp.initConnect();
+        int num_base = Integer.valueOf(eProperty.base_num.read());
+        eExcep pass = con.createConnection(num_base);
+        Query.connection = con.getConnection();
+        
         estimate.Wincalc iwin = new estimate.Wincalc();
 
         String _case = "one";
@@ -45,7 +50,7 @@ public class Test {
             iwin.constructiv();
             Specification.write_txt1(iwin.listSpec);
             //Specification.compareIWin(iwin.listSpec, iwin.prj, true);
-            //mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
+            //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else {
             if (_case.equals("min")) {
