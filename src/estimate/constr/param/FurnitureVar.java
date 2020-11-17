@@ -2,6 +2,7 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSetting;
 import enums.TypeElem;
 import java.util.List;
 import estimate.Wincalc;
@@ -70,6 +71,13 @@ public class FurnitureVar extends Par5s {
                     case 21040:  //Ограничение угла, ° 
                         message(rec.getInt(GRUP));
                         break;
+                    case 2145: //Исключить угол, °
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            if (rec.getFloat(TEXT) == elem5e.anglHoriz) {
+                                return false;
+                            }
+                        }
+                        break;                        
                     case 21050:  //Ориентация стороны, ° 
                         message(rec.getInt(GRUP));
                         break;

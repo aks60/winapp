@@ -71,16 +71,18 @@ public class Filling extends Cal5e {
                     for (Record glasgrpRec : eGlasgrp.findAll()) {
 
                         //Доступные толщины 
-                        if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth2) == true) { 
+                        if (Util.containsFloat(glasgrpRec.getStr(eGlasgrp.depth), depth2) == true) {
                             listVariants.add(glasgrpRec.getInt(eGlasgrp.id)); //сделано для запуска формы Filling на ветке Systree
 
                             //Цикл по профилям в группах заполнений
                             for (Record glasprofRec : eGlasprof.findAll()) {
+
                                 if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
                                     if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-
-                                        elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
-                                        detail(elemGlass, glasgrpRec);
+                                        if (glasprofRec.getInt(eGlasprof.toin) == 1 ) {
+                                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
+                                            detail(elemGlass, glasgrpRec);
+                                        }
                                     }
                                 }
                             }
@@ -93,15 +95,15 @@ public class Filling extends Cal5e {
         }
     }
 
-    protected boolean detail(ElemGlass elemGlass, Record glasgrpRec) {
+    protected void detail(ElemGlass elemGlass, Record glasgrpRec) {
         try {
             List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
 
             //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
             if (fillingVar.check(elemGlass, glaspar1List) == true) {
-                
+
                 elemGlass.setSpecific(); //заполним спецификацию элемента
-                
+
                 List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
 
                 //Цикл по списку детализации
@@ -119,10 +121,8 @@ public class Filling extends Cal5e {
                     }
                 }
             }
-            return true;
         } catch (Exception e) {
-            System.err.println("estimate.constr.Filling.detail() " + e);
-            return false;
+            System.err.println("Ошибка estimate.constr.Filling.detail() " + e);
         }
     }
 }

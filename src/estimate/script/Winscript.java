@@ -10,12 +10,8 @@ public class Winscript {
 
     public static AreaRoot rootArea;
 
-    /**
-     * @param project - форма(скрипт) окна
-     * @param nuni - nini ветки системы профилей
-     */
     public static String test(Integer project, Integer nuni) {
-        if (eSetting.find(2).getInt(eSetting.val) == 4) {
+        if ("ps4".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
             return estimate.script.Winscript.testPs4(project, null);
         } else {
             return estimate.script.Winscript.testPs3(project, null);
@@ -343,7 +339,6 @@ public class Winscript {
 //            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"));
 //            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':284}"));
 //            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':284}"));
-
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 31, 31, 31, "");
             rootArea.setParam(project.toString(), 12, "СИАЛ\\КП45\\Окна");

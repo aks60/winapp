@@ -254,6 +254,15 @@ public class JoiningVar extends Par5s {
                             }
                         }
                         break;
+                    case 2022: //Исключить угол, °
+                    case 3022: 
+                    case 4032: 
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+                            if (rec.getFloat(TEXT) == elemJoin.anglProf) {
+                                return false;
+                            }
+                        }
+                        break;                        
                     case 2030: //Припуск Артикула1/Артикула2 , мм 
                     {
                         String strTxt = rec.getStr(TEXT);

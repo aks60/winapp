@@ -42,7 +42,7 @@ public class Joining extends Cal5e {
                 ElemSimple joinElem1 = elemJoin.joinElement1;
                 ElemSimple joinElem2 = elemJoin.joinElement2;
                 Record joinartRec1 = joinElem1.artiklRecAn; //берём аналог профиля
-                Record joinartRec2 = joinElem2.artiklRecAn;               
+                Record joinartRec2 = joinElem2.artiklRecAn; //т.к. если его нет там будет оригинал              
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
                 int id2 = (joinartRec2.get(eArtikl.analog_id) == null) ? joinartRec2.getInt(eArtikl.id) : joinartRec2.getInt(eArtikl.analog_id);
                 Record joiningRec = eJoining.find(id1, id2);    
