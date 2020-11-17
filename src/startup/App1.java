@@ -351,7 +351,7 @@ public class App1 extends javax.swing.JFrame {
         td5.setMinimumSize(new java.awt.Dimension(94, 28));
         td5.setPreferredSize(new java.awt.Dimension(94, 28));
 
-        btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c014.gif"))); // NOI18N
+        btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019a.gif"))); // NOI18N
         btn34.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         btn34.setFocusable(false);
         btn34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
