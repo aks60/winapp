@@ -12,11 +12,6 @@ import javax.swing.text.NumberFormatter;
 import domain.eSetting;
 import java.util.ArrayList;
 
-/**
- * соединения eJoinvar.types * 1000 составы eElemgrp.level=1 -> 31000,
- * eElemgrp.level=5 -> 37000 соединения
- *
- */
 public class ParamList {
 
     public static Enam[] values() {
@@ -1119,7 +1114,7 @@ public class ParamList {
 
     public static Dictionary dic_38004_39005 = () -> {
         return Arrays.asList("по периметру", "по площади", "как крест", "как концевик",
-                 "длина по коробке", "для прямых углов", "для не прямых углов");
+                "длина по коробке", "для прямых углов", "для не прямых углов");
     };
 
     public static Dictionary dic_2003_3003 = () -> {
@@ -1361,3 +1356,64 @@ public class ParamList {
     };
     // </editor-fold>      
 }
+
+/*
+
+          Алгоритм открытия справочника системных параметров   
+
+СОЕДИНЕНИЯ
+PAR1 СПИСОК ПАРАМЕТРОВ(ВАРИАНТОВ)
+Прилегающее соед. -> 1000
+Угловое на ус     -> 2000
+угловое(лев,прав) -> 3000
+Т - образное      -> 4000
+PAR2 СПИСОК ПАРАМЕТРОВ(СПЕЦИФИКАЦИЙ)
+eArtikl.level1 = 1 -> 12000
+eArtikl.level1 = 2 -> 11000
+eArtikl.level1 = 3 -> 12000
+eArtikl.level1 = 4 -> 11000
+eArtikl.level1 = 5 - нет такого списка в артикулах соединений
+ИТОГО: 1000, 2000, 3000, 4000, 11000, 12000
+
+СОСТАВЫ
+PAR1 СПИСОК ПАРАМЕТРОВ(ВАРИАНТОВ)
+eElemgrp.level = 1 -> 31000
+eElemgrp.level = 5 -> 37000
+PAR2 СПИСОК ПАРАМЕТРОВ(СПЕЦИФИКАЦИЙ)
+Если eElemgrp.level = 1 то...
+eArtikl.level1 =  1 -> 34000
+eArtikl.level1 =  2 -> 33000
+eArtikl.level1 =  3 -> 34000
+eArtikl.level1 =  4 -> 33000
+eArtikl.level1 =  5 -> 40000
+Если eElemgrp.level = 5 то...
+eArtikl.level1 =  1 -> 39000
+eArtikl.level1 =  2 -> 38000
+eArtikl.level1 =  3 -> 39000
+eArtikl.level1 =  4 -> 38000
+eArtikl.level1 =  5 -> 40000
+ИТОГО: 31000, 33000, 34000, 37000, 38000, 39000, 40000
+
+ ЗАПОЛНЕНИЯ
+ PAR1 СПИСОК ПАРАМЕТРОВ(ВАРИАНТОВ)
+ Всегда -> 13000
+ PAR2 СПИСОК ПАРАМЕТРОВ(СПЕЦИФИКАЦИЙ)
+ eArtikl.level1 =  1 -> 15000
+ eArtikl.level1 =  2 -> 14000
+ eArtikl.level1 =  3 -> 15000
+ eArtikl.level1 =  4 -> 14000
+ИТОГО: 13000, 14000, 15000
+
+ ФУРНИТУРА
+ PAR1 СПИСОК ПАРАМЕТРОВ(ВАРИАНТОВ)
+ Всегда -> 21000
+ PAR2 СПИСОК ПАРАМЕТРОВ(СПЕЦИФИКАЦИЙ)
+ eArtikl.level1 =  1 -> 25000
+ eArtikl.level1 =  2 -> 24000
+ eArtikl.level1 =  3 -> 25000
+ eArtikl.level1 =  4 -> 24000
+ИТОГО: 21000, 24000, 25000
+
+ИТОГО: 1000, 2000, 3000, 4000, 11000, 12000 :13000, 14000, 15000 :21000, 24000, 25000 :31000б 33000, 34000, 37000, 38000, 39000, 40000
+ПРОПУЩЕНО: 7000, 8000, 9000, 50000, 51000, 52000
+*/
