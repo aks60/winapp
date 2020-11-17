@@ -801,7 +801,9 @@ public class Filling extends javax.swing.JFrame {
             Util.insertRecord(tab2, tab4, eGlasdet.up, eGlaspar2.up, eGlaspar2.glasdet_id);
 
         } else if (tab5.getBorder() != null) {
-            Util.insertRecord(tab1, tab5, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
+            Record record = Util.insertRecord(tab1, tab5, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
+            record.set(eGlasprof.toin, 1);
+            record.set(eGlasprof.toout, 1);
         }
     }//GEN-LAST:event_btnInsert
 
