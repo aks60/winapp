@@ -235,7 +235,7 @@ public class AreaSimple extends Com5t {
                 }
             }
         } catch (Exception s) {
-            System.err.println("Ошибка AreaSimple.drawWin() " + s);
+            System.err.println("Ошибка:AreaSimple.drawWin() " + s);
         }
     }
 

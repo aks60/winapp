@@ -40,47 +40,17 @@ public class JoiningVar extends Par5s {
                     case 1005:  //Контейнер имеет тип Артикула1/Артикула2
                     case 2005:  //Контейнер имеет тип Артикула1/Артикула2  
                     case 3005:  //Контейнер имеет тип Артикула1/Артикула2 
-                    case 4005: //Контейнер имеет тип Артикула1/Артикула2    
+                    case 4005:  //Контейнер имеет тип Артикула1/Артикула2    
                     {
                         try {
                             String strTxt = rec.getStr(TEXT);
-                            int type1 = elemJoin.joinElement1.type().id;
-                            int type2 = elemJoin.joinElement2.type().id;
-
-                            char symmetry = strTxt.charAt(strTxt.length() - 1);
-                            if (symmetry == '@') {
-                                strTxt = strTxt.substring(0, strTxt.length() - 1);
-                            }
-                            String arr2[] = strTxt.split("/");//парсинг параметра
-                            int[] arr3 = Arrays.asList(arr2).stream().mapToInt(Integer::parseInt).toArray();
-                            if (arr2.length == 1) {
-                                if (!(arr3[0] == type1 || arr3[0] == type2)) {
-                                    return false;
-                                }
-                            } else if (arr2.length == 2) {
-                                if (symmetry == '@') {
-                                    if (!((arr3[0] == type1 && arr3[1] == type2) || (arr3[0] == type2 && arr3[1] == type1))) {
-                                        return false;
-                                    }
-                                } else {
-                                    if (!((arr3[0] == type1 && arr3[1] == type2))) {
-                                        return false;
-                                    }
-                                }
-                            } else {
-                                if (symmetry == '@') {
-                                    if (!((type1 >= arr3[0] && type1 < arr3[1]) && (type2 >= arr3[2] && type2 < arr3[3])
-                                            || (type2 >= arr3[0] && type2 < arr3[1]) && (type1 >= arr3[2] && type1 < arr3[3]))) {
-                                        return false;
-                                    }
-                                } else {
-                                    if (!((type1 >= arr3[0] && type1 < arr3[1]) && (type2 >= arr3[2] && type2 < arr3[3]))) {
-                                        return false;
-                                    }
-                                }
+                            String type1 = String.valueOf(elemJoin.joinElement1.type().id);
+                            String type2 = String.valueOf(elemJoin.joinElement2.type().id);
+                            if(Util.containsStr(strTxt, type1, type2) == false) {
+                                return false;
                             }
                         } catch (Exception e) {
-                            System.out.println("Ошибка:JoiningVar.check() " + e);
+                            System.out.println("Ошибка2:JoiningVar.check() " + e);
                             return false;
                         }
                     }
@@ -401,7 +371,7 @@ public class JoiningVar extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.err.println("Ошибка param.JoiningVar.check()  parametr=" + grup + "    " + e);
+                System.err.println("Ошибка:JoiningVar.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }

@@ -68,7 +68,7 @@ public class Color {
                     spc.setColor(side, colorFK2);
                 }
             } catch (Exception e) {
-                System.err.println("Ошибка estimate.constr.Color.setting() " + e);
+                System.err.println("Ошибка:Color.setting() " + e);
             }
         }
     }
@@ -176,7 +176,7 @@ public class Color {
                     return com5t.iwin().colorNone;
             }
         } catch (Exception e) {
-            System.err.println("Ошибка estimate.constr.Color.colorFromProduct() " + e);
+            System.err.println("Ошибка:Color.colorFromProduct() " + e);
             return -1;
         }
     }

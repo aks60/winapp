@@ -36,6 +36,7 @@ public class JoiningDet extends Par5s {
 
                     case 11000: //Для технологического кода контейнера 1/2
                     case 12000: //Для технологического кода контейнера 1/2 
+                    {
                         Record sysprofRec = elem5e.sysprofRec;
                         Record artiklVRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
                         if (artiklVRec.get(eArtikl.tech_code) == null) {
@@ -51,6 +52,7 @@ public class JoiningDet extends Par5s {
                         if (ret2 == false) {
                             return false;
                         }
+                    }
                         break;
                     case 11001:  //Если признак состава Арт.1 
                         message(rec.getInt(GRUP));

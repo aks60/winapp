@@ -182,7 +182,7 @@ public class Wincalc {
             windowsBuild(mediateList);
 
         } catch (Exception e) {
-            System.err.println("Ошибка Wincalc.parsingScript() " + e);
+            System.err.println("Ошибка:Wincalc.parsingScript() " + e);
         }
     }
 

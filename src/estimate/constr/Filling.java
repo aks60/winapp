@@ -122,7 +122,7 @@ public class Filling extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка estimate.constr.Filling.detail() " + e);
+            System.err.println("Ошибка:Filling.detail() " + e);
         }
     }
 }

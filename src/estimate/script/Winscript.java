@@ -317,7 +317,7 @@ public class Winscript {
 
         if (project == 601001) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 600, 25, 25, 25, "");
-            rootArea.setParam(project.toString(), 11, "СИАЛ\\КП40\\Окна");
+            rootArea.setParam(project.toString(), 18, "СИАЛ\\КП40\\Окна");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
@@ -341,7 +341,7 @@ public class Winscript {
 //            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':284}"));
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 31, 31, 31, "");
-            rootArea.setParam(project.toString(), 12, "СИАЛ\\КП45\\Окна");
+            rootArea.setParam(project.toString(), 19, "СИАЛ\\КП45\\Окна");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));

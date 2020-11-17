@@ -104,7 +104,6 @@ public class FurnitureDet extends Par5s {
                     case 24033:  //Фурнитура штульповая 
                     case 25033: //Фурнитура штульповая 
                     {
-
                         if (((AreaStvorka) elem5e.owner()).typeOpen.side.equalsIgnoreCase("Левое")) {
                             ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.LEFT);
                             if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {

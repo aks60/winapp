@@ -54,7 +54,7 @@
             System.out.println(str4);
 
         } catch (IOException ex) {
-            System.err.println("Ошибка Specification.write_txt() " + ex);
+            System.err.println("Ошибка:Specification.write_txt() " + ex);
         }
     }
 	///////////////////////////////////////////////////////
@@ -143,7 +143,7 @@ public static void compareIWin(ArrayList<Specification> spcList, String prj, boo
                     hmDll.put(key, val3);
                     hmJarArt.put(key, art);
                 } catch (Exception e) {
-                    System.err.println("Ошибка Main.compareIWin " + e);
+                    System.err.println("Ошибка:Main.compareIWin " + e);
                     continue;
                 }
             }
@@ -191,7 +191,7 @@ public static void compareIWin(ArrayList<Specification> spcList, String prj, boo
             System.out.println();
 
         } catch (Exception e2) {
-            System.err.println("Ошибка Main.compareIWin " + e2);
+            System.err.println("Ошибка:Main.compareIWin " + e2);
         }
     }
 ////////////////////////////////////////////////////////////////////	

@@ -95,7 +95,7 @@ public abstract class Com5t {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Ошибка Com5t.parsingParam() " + e);
+            System.err.println("Ошибка:Com5t.parsingParam() " + e);
         }
     }
 

@@ -93,7 +93,8 @@ public class ElementDet extends Par5s {
                         message(grup);
                         break;
                     case 33011:
-                    case 34011:  //Толщина внешнего/внутреннего заполнения, мм ("Толщина заполнения, мм") 
+                    case 34011: //Толщина внешнего/внутреннего заполнения, мм ("Толщина заполнения, мм") 
+                    {
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
 //                            LinkedList<ElemSimple> e = elem5e.owner().listElem(TypeElem.GLASS);
 //                            float depth = e.getFirst().artiklRec.getFloat(eArtikl.depth);
@@ -104,7 +105,8 @@ public class ElementDet extends Par5s {
                         } else {
                             message(grup);
                         }
-                        break;
+                    }
+                    break;
                     case 33017:  //Код системы содержит строку 
                         message(grup);
                         break;
@@ -294,12 +296,14 @@ public class ElementDet extends Par5s {
                     case 34069:  //Коды внешн. текстуры изделия 
                     case 38069:  //Коды внешн. текстуры изделия 
                     case 39069:  //Коды внешн. текстуры изделия 
-                    case 40069:  //Коды внешн. текстуры изделия                      
+                    case 40069: //Коды внешн. текстуры изделия  
+                    {
                         int c3 = elem5e.iwin().colorID3;
                         if (Util.containsInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
-                        break;
+                    }
+                    break;
                     case 34070:  //Длина, мм 
                     case 39070:  //Длина, мм
                         hmParam.put(rec.getInt(GRUP), rec.getStr(TEXT));

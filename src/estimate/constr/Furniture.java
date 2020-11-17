@@ -210,7 +210,7 @@ public class Furniture extends Cal5e {
                 try {
                     middle(areaStvorka, furnitureRec2, count2); //рекурсия обработки наборов
                 } catch (Exception e) {
-                    System.err.println("Ошибка recursion, estimate.constr.Furniture.middle() " + e);
+                    System.err.println("Ошибка:Furniture.middle() " + e);
                 }
             }
             return true;

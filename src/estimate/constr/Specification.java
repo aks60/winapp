@@ -201,13 +201,13 @@ public class Specification {
                 writer.write(str);
             }
         } catch (Exception ex) {
-            System.err.println("Ошибка Specification.write_csv() " + ex);
+            System.err.println("Ошибка:Specification.write_csv() " + ex);
         } finally {
             try {
                 writer.flush();
                 writer.close();
             } catch (Exception ex2) {
-                System.err.println("Ошибка Specification.write_csv() " + ex2);
+                System.err.println("Ошибка:Specification.write_csv() " + ex2);
             }
         }
     }
@@ -259,7 +259,7 @@ public class Specification {
             }
             System.out.println("Масса окна " + total + " кг.");
         } catch (Exception e) {
-            System.err.println("Ошибка estimate.constr.write_txt2() " + e);
+            System.err.println("Ошибка:Specification.write_txt2() " + e);
         }
     }
 
@@ -304,7 +304,7 @@ public class Specification {
                     hmDll.put(key, val3);
                     hmJarArt.put(key, art);
                 } catch (Exception e) {
-                    System.err.println("Ошибка Main.compareIWin " + e);
+                    System.err.println("Ошибка:Main.compareIWin " + e);
                     continue;
                 }
             }
@@ -353,7 +353,7 @@ public class Specification {
             System.out.println();
 
         } catch (Exception e2) {
-            System.err.println("Ошибка Main.compareIWin " + e2);
+            System.err.println("Ошибка:Main.compareIWin " + e2);
         }
     }
 
