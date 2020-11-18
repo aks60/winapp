@@ -27,7 +27,7 @@ public class FurnitureDet extends Par5s {
     public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> tableList) {
 
         if (filterParamUse(elem5e, tableList) == false) {
-            return false; //параметры по умолчанию и I-OKNA
+            return false; //параметры по умолчанию
         }
         //Цикл по параметрам фурнитуры
         for (Record rec : tableList) {

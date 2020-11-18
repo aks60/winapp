@@ -30,7 +30,10 @@ public class JoiningVar extends Par5s {
 
         //цикл по параметрам элементов соединения
         for (Record rec : paramList) {
-
+            
+            if (filterParamDef(rec) == false) {
+                return false;
+            }
             int grup = rec.getInt(GRUP);
             try {
                 switch (grup) {

@@ -28,6 +28,7 @@ public class ElementVar extends Par5s {
 
         //Цикл по параметрам состава
         for (Record rec : paramList) {
+            
             if (filterParamDef(rec) == false) {
                 return false;
             }
