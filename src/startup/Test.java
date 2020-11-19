@@ -46,7 +46,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.prj = 601006;
+            iwin.prj = 601001;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             Specification.write_txt1(iwin.listSpec);
