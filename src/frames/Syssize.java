@@ -41,7 +41,7 @@ public class Syssize extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.napl, eSyssize.naxl, eSyssize.zax);
+        new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.falz, eSyssize.naxl, eSyssize.zax);
     }
 
     @SuppressWarnings("unchecked")
