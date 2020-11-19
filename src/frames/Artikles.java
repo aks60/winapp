@@ -569,7 +569,7 @@ public class Artikles extends javax.swing.JFrame {
         center.setLayout(new java.awt.BorderLayout());
 
         pan2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        pan2.setPreferredSize(new java.awt.Dimension(300, 500));
+        pan2.setPreferredSize(new java.awt.Dimension(320, 500));
 
         jLabel13.setFont(frames.Util.getFont(0,0));
         jLabel13.setText("Длина");
@@ -981,7 +981,6 @@ public class Artikles extends javax.swing.JFrame {
                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan2Layout.createSequentialGroup()
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1003,7 +1002,7 @@ public class Artikles extends javax.swing.JFrame {
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
                             .addComponent(txtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1040,7 +1039,7 @@ public class Artikles extends javax.swing.JFrame {
 
         center.add(pan4, java.awt.BorderLayout.WEST);
 
-        pan5.setPreferredSize(new java.awt.Dimension(400, 500));
+        pan5.setPreferredSize(new java.awt.Dimension(380, 500));
         pan5.setLayout(new java.awt.BorderLayout());
 
         tab1.setFont(frames.Util.getFont(0,0));
@@ -1071,7 +1070,7 @@ public class Artikles extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(204);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
