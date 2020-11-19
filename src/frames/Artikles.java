@@ -27,6 +27,7 @@ import frames.dialog.DicArtikl;
 import frames.dialog.DicGroups;
 import domain.eGroups;
 import domain.eSysprof;
+import domain.eSyssize;
 import enums.TypeGroups;
 import enums.UseUnit;
 import frames.dialog.DicEnums;
@@ -48,12 +49,14 @@ public class Artikles extends javax.swing.JFrame {
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtik2 = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
+    private Query qSyssize = new Query(eSyssize.values());
     private DefFieldEditor rsvArtikl;
     private String subsql = "";
     private int nuni = -1;
     private int artId = -1;
     private Window owner = null;
-    private DialogListener listenerSeries, listenerFilter, listenerColor, listenerUnit, listenerCurrenc1, listenerCurrenc2, listenerAnalog;
+    private DialogListener listenerSeries, listenerFilter, listenerColor, listenerUnit,
+            listenerCurrenc1, listenerCurrenc2, listenerAnalog, listenerSyssize;
 
     public Artikles() {
         initComponents();
@@ -90,6 +93,7 @@ public class Artikles extends javax.swing.JFrame {
             subsql = "(" + subsql.substring(1) + ")";
         }
         qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERIES.id);
+        qSyssize.select(eSyssize.up, "order by", eSyssize.name);
     }
 
     private void loadingModel() {
@@ -138,6 +142,7 @@ public class Artikles extends javax.swing.JFrame {
                 Record groupsRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(null);
                 Record currenc1Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(null);
                 Record currenc2Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc2_id))).findFirst().orElse(null);
+                Record syssizeRec = qSyssize.stream().filter(rec -> rec.getInt(eSyssize.id) == artiklRec.getInt(eArtikl.syssize_id)).findFirst().orElse(eSyssize.up.newRecord());;
                 String name = UseUnit.getName(artiklRec.getInt(eArtikl.unit));
                 txtField5.setText(name);
                 name = (currenc1Rec != null) ? currenc1Rec.getStr(eCurrenc.name) : null;
@@ -146,6 +151,7 @@ public class Artikles extends javax.swing.JFrame {
                 txtField17.setText(name);
                 name = (groupsRec != null) ? groupsRec.getStr(eGroups.name) : null;
                 txtField10.setText(name);
+                txtField18.setText(syssizeRec.getStr(eSyssize.name));
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
                     Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(null);
                     name = (analogRec != null) ? analogRec.getStr(eArtikl.code) : null;
@@ -215,8 +221,10 @@ public class Artikles extends javax.swing.JFrame {
 
     private void selectionTree() {
 
+        Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
         Util.clearTable(tab1, tab2);
         Util.stopCellEditing(tab1, tab2);
+         
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
@@ -299,7 +307,6 @@ public class Artikles extends javax.swing.JFrame {
         listenerAnalog = (record) -> {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
-                System.out.println(record);
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.analog_id, record.get(eArtikl.id));
                 rsvArtikl.load();
@@ -340,10 +347,20 @@ public class Artikles extends javax.swing.JFrame {
             if (tab1.getBorder() != null) {
                 int row = Util.getSelectedRec(tab1);
                 if (row != -1) {
-                    Record artiklRec = qArtikl.get(row);                    
+                    Record artiklRec = qArtikl.get(row);
                     artiklRec.set(eArtikl.currenc2_id, record.get(eCurrenc.id));
                     rsvArtikl.load();
                 }
+                Util.stopCellEditing(tab1, tab2);
+            }
+        };
+
+        listenerSyssize = (record) -> {
+            int row = Util.getSelectedRec(tab1);
+            if (row != -1) {
+                Record artiklRec = qArtikl.get(row);
+                artiklRec.set(eArtikl.syssize_id, record.get(eSyssize.id));
+                rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
             }
         };
@@ -401,6 +418,9 @@ public class Artikles extends javax.swing.JFrame {
         txtField17 = new javax.swing.JTextField();
         btnField9 = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        txtField18 = new javax.swing.JFormattedTextField();
+        btnField18 = new javax.swing.JButton();
         pan4 = new javax.swing.JPanel();
         scrTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -791,6 +811,27 @@ public class Artikles extends javax.swing.JFrame {
         jLabel29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel29.setPreferredSize(new java.awt.Dimension(108, 18));
 
+        jLabel30.setFont(frames.Util.getFont(0,0));
+        jLabel30.setText("Система констант");
+        jLabel30.setToolTipText("");
+        jLabel30.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jLabel30.setPreferredSize(new java.awt.Dimension(108, 18));
+
+        txtField18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtField18.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtField18.setPreferredSize(new java.awt.Dimension(120, 18));
+
+        btnField18.setText("...");
+        btnField18.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnField18.setMaximumSize(new java.awt.Dimension(18, 18));
+        btnField18.setMinimumSize(new java.awt.Dimension(18, 18));
+        btnField18.setPreferredSize(new java.awt.Dimension(18, 18));
+        btnField18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnField18(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
         pan2.setLayout(pan2Layout);
         pan2Layout.setHorizontalGroup(
@@ -881,7 +922,13 @@ public class Artikles extends javax.swing.JFrame {
                                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pan2Layout.createSequentialGroup()
+                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan2Layout.setVerticalGroup(
@@ -929,9 +976,14 @@ public class Artikles extends javax.swing.JFrame {
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -951,13 +1003,13 @@ public class Artikles extends javax.swing.JFrame {
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel25)
                             .addComponent(txtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pan2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(checkBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
@@ -1286,7 +1338,11 @@ public class Artikles extends javax.swing.JFrame {
             new DicEnums(this, listenerUnit, UseUnit.METR2);
         }
     }//GEN-LAST:event_btnField12
-    
+
+    private void btnField18(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField18
+         new Syssize(this, listenerSyssize);
+    }//GEN-LAST:event_btnField18
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -1294,6 +1350,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JButton btnField10;
     private javax.swing.JButton btnField11;
     private javax.swing.JButton btnField12;
+    private javax.swing.JButton btnField18;
     private javax.swing.JButton btnField7;
     private javax.swing.JButton btnField8;
     private javax.swing.JButton btnField9;
@@ -1321,6 +1378,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel labFilter;
     private javax.swing.JLabel labFilter2;
     private javax.swing.JPanel north;
@@ -1344,6 +1402,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField15;
     private javax.swing.JFormattedTextField txtField16;
     private javax.swing.JTextField txtField17;
+    private javax.swing.JFormattedTextField txtField18;
     private javax.swing.JFormattedTextField txtField2;
     private javax.swing.JFormattedTextField txtField3;
     private javax.swing.JFormattedTextField txtField4;
@@ -1356,7 +1415,7 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilter2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    
+
     private void initElements() {
 
         new FrameToFile(this, btnClose);
@@ -1374,11 +1433,7 @@ public class Artikles extends javax.swing.JFrame {
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Текстура артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
-        tab1.getSelectionModel().addListSelectionListener(event -> {
-            if (event.getValueIsAdjusting() == false) {
-                selectionTab1(event);
-            }
-        });
+        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1(event));
         txtFilter2.setEditable(false);
         txtFilter2.setBackground(new java.awt.Color(255, 255, 255));
         txtField7.setEditable(false);
