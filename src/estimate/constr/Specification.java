@@ -214,9 +214,9 @@ public class Specification {
 
     public static void write_txt1(ArrayList<Specification> specList) {
         int npp = 0;
-        String format = "%-6s%-46s%-32s%-32s%-32s%-32s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s"
+        String format = "%-6s%-42s%-24s%-18s%-18s%-18s%-8s%-8s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s"
                 + "%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s %n";
-        Object str[] = {"Code", "Name", "Art", "BaseColor", "InsideColor", "OutsideColor", "Count", "Quantity",
+        Object str[] = {"Code", "Name", "Art", "Color1", "Color2", "Color3", "Count", "Quantity",
             "UM", "InPrice", "CostPrice", "OutPrice", "OutTotal", "Width", "Height", "Weight",
             "Angle", "ComplType", "ElemID", "elemType", "ObjectID", "ObjectType", "AreaID", "AreaType",
             "AccessoryID", "PriceGRP", "PrintGroup", "CutAngle1", "CutAngle2", "Composite", "Усл.окна"};
@@ -225,9 +225,9 @@ public class Specification {
         for (Specification s : specList) {
 
             Object str2[] = {String.valueOf(++npp), s.name, s.artikl,
-                eColor.find(s.colorID1).getInt(eColor.name),
-                eColor.find(s.colorID2).getInt(eColor.name),
-                eColor.find(s.colorID3).getInt(eColor.name),
+                eColor.find(s.colorID1).getStr(eColor.name),
+                eColor.find(s.colorID2).getStr(eColor.name),
+                eColor.find(s.colorID3).getStr(eColor.name),
                 String.valueOf(s.count), String.valueOf(s.quantity),
                 UseUnit.getName(s.unit), "0", String.valueOf(s.inPrice), String.valueOf(s.outPrice), String.valueOf(s.inCost),
                 String.valueOf(s.width), String.valueOf(s.height), "0", "0", "0", String.valueOf(s.id), "0", "0", "0", "0", "0",

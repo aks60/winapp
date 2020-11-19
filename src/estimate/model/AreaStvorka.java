@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import frames.swing.Draw;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSetting;
+import domain.eSysfurn;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
@@ -24,7 +26,7 @@ public class AreaStvorka extends AreaSimple {
     public String handleHeight = ""; //высота ручки
     public LayoutFurn1 handleSide = null;
     public int handleColor = -1; //цвет ручки
-    public TypeOpen1 typeOpen = TypeOpen1.OM_INVALID; //тип открывания
+    public TypeOpen1 typeOpen = TypeOpen1.OM_LEFT; //тип открывания
     public Integer sysfurnID = null; //то, что выбрал клиент
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
@@ -32,21 +34,30 @@ public class AreaStvorka extends AreaSimple {
 
         if (param != null && param.isEmpty() == false) {
             JsonObject jsonObj = new Gson().fromJson(param.replace("'", "\""), JsonObject.class);
-
-            if (jsonObj.get(ParamJson.sysfurnID.name()) != null) {
-                this.sysfurnID = jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
-            }
             if (jsonObj.get(ParamJson.typeOpen.name()) != null) {
                 this.typeOpen = TypeOpen1.get(jsonObj.get(ParamJson.typeOpen.name()).getAsInt());
+            }
+            if (jsonObj.get(ParamJson.sysfurnID.name()) != null) {
+                this.sysfurnID = jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
+            } else {
+                //eSysfurn.find(0)
             }
         }
 
         //Коррекция створки с учётом нахлёста
         ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
-        x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-        y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-        x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
-        y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+        if ("ps3".equals(eSetting.find(2).get(eSetting.val)) == true) {
+            
+            x1 = insideLeft.x2 - insideLeft.width() / 2;
+            y1 = insideTop.y2 - insideTop.height() / 2;
+            x2 = insideRight.x1 + insideRight.width() / 2;
+            y2 = insideBott.y1 + insideBott.height() / 2;
+        } else {
+            x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+        }
 
         //Добавим рамы створки        
         ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);

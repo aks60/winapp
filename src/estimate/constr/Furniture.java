@@ -48,32 +48,40 @@ public class Furniture extends Cal5e {
         try {
             //Цикл по створкам      
             for (AreaStvorka areaStvorka : stvorkaList) {
+
                 setFurndet.clear();
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
                 Record sysfurnRec = sysfurnList.get(0);
+                try {
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStvorka.sysfurnID).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna             
+                
+                
+                
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
-                //Сторона открывания
-                areaStvorka.handleSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
-                //Подбор текстуры ручки створки
-                if (areaStvorka.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
-                    areaStvorka.handleColor = iwin().colorID1;
+                
+                    //Сторона открывания
+                    areaStvorka.handleSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
+                    //Подбор текстуры ручки створки
+                    if (areaStvorka.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
+                        areaStvorka.handleColor = iwin().colorID1;
+                    }
+                    //Ручка по умолчанию
+                    if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDDL.id) {
+                        areaStvorka.handleHeight = LayoutHandle.MIDDL.name;
+                    } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
+                        areaStvorka.handleHeight = LayoutHandle.CONST.name;
+                    } else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная")) {
+                        areaStvorka.handleHeight = "установлена";
+                    }
+                    middle(areaStvorka, furnityreRec, 1); //основная фурнитура
+                } catch (Exception e) {
+                    System.err.println("Ошибка2:Furniture.calc() " + e);
                 }
-                //Ручка по умолчанию
-                if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDDL.id) {
-                    areaStvorka.handleHeight = LayoutHandle.MIDDL.name;
-                } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
-                    areaStvorka.handleHeight = LayoutHandle.CONST.name;
-                } else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная")) {
-                    areaStvorka.handleHeight = "установлена";
-                }
-
-                middle(areaStvorka, furnityreRec, 1); //основная фурнитура
 
             }
         } catch (Exception e) {
-            System.err.println("estimate.constr.Furniture.calc() " + e);
+            System.err.println("Ошибка:Furniture.calc() " + e);
         }
     }
 
@@ -118,7 +126,7 @@ public class Furniture extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("estimate.constr.Furniture.middle() " + e);
+            System.err.println("Ошибка:Furniture.middle() " + e);
         }
     }
 
