@@ -26,7 +26,7 @@ public class AreaStvorka extends AreaSimple {
     public String handleHeight = ""; //высота ручки
     public LayoutFurn1 handleSide = null;
     public int handleColor = -1; //цвет ручки
-    public TypeOpen1 typeOpen = TypeOpen1.OM_LEFT; //тип открывания
+    public TypeOpen1 typeOpen = TypeOpen1.LEFT; //тип открывания
     public Integer sysfurnID = null; //то, что выбрал клиент
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
@@ -40,7 +40,7 @@ public class AreaStvorka extends AreaSimple {
             if (jsonObj.get(ParamJson.sysfurnID.name()) != null) {
                 this.sysfurnID = jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
             } else {
-                //eSysfurn.find(0)
+                this.sysfurnID = eSysfurn.find2(typeOpen.id).getInt(eSysfurn.id);
             }
         }
 
@@ -151,7 +151,7 @@ public class AreaStvorka extends AreaSimple {
         mapFrame.get(LayoutArea.LEFT).paint();
         mapFrame.get(LayoutArea.RIGHT).paint();
 
-        if (typeOpen != TypeOpen1.OM_INVALID) {
+        if (typeOpen != TypeOpen1.INVALID) {
             float DX = 20, DY = 60, X1 = 0, Y1 = 0;
             ElemSimple elemL = mapFrame.get(LayoutArea.LEFT);
             ElemSimple elemR = mapFrame.get(LayoutArea.RIGHT);
