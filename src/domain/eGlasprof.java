@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public enum eGlasprof implements Field {
     up("0", "0", "0", "Профили в группе заполнения", "GLASPRO"),
     id("4", "10", "0", "Идентификатор", "id"),
-    sizeax("8", "15", "1", "Размер от оси, мм", "ASIZE"),
+    //falz("8", "15", "1", "Наплав системы (полка)", "ASIZE"),
     toin("16", "5", "1", "Внутреннее", "toin"),
     toout("16", "5", "1", "Внншнее", "toout"),
     artikl_id("4", "10", "1", "Ссылка", "artikl_id"),

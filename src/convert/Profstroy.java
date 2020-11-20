@@ -425,6 +425,7 @@ public class Profstroy {
             updateSql(eArtikl.up, eArtikl.artgrp_id, "munic", eArtgrp.up, "munic");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
+            executeSql("update artikl a set size_falz = (select first 1 b.asize from glasprof b where a.code = b.anumb and b.asize != 0 order by b.asize desc)");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();

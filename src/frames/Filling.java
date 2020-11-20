@@ -156,7 +156,7 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.sizeax, eGlasprof.toin, eGlasprof.toout);
+        new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.toin, eGlasprof.toout);
 
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
@@ -678,15 +678,15 @@ public class Filling extends javax.swing.JFrame {
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"yyyyyyyy", "fffffffffffffff", "44", null, null, null},
-                {"rrrrrrrrrrr", "pppppppppp", "77", null, null, null}
+                {"yyyyyyyy", "fffffffffffffff", null, null, null},
+                {"rrrrrrrrrrr", "pppppppppp", null, null, null}
             },
             new String [] {
-                "Артикул", "Название", "Размер от оси", "Внутреннее", "Внешнее", "ID"
+                "Артикул", "Название", "Внутреннее", "Внешнее", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -703,13 +703,11 @@ public class Filling extends javax.swing.JFrame {
         });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
-            tab5.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tab5.getColumnModel().getColumn(2).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(2).setMaxWidth(120);
             tab5.getColumnModel().getColumn(3).setPreferredWidth(80);
             tab5.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab5.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tab5.getColumnModel().getColumn(4).setMaxWidth(120);
-            tab5.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab5.getColumnModel().getColumn(4).setMaxWidth(40);
         }
 
         pan3.add(scr5, java.awt.BorderLayout.CENTER);
