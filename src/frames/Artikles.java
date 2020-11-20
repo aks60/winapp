@@ -3,6 +3,7 @@ package frames;
 import frames.dialog.DicColor2;
 import common.DialogListener;
 import common.FrameToFile;
+import common.eProperty;
 import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
@@ -67,6 +68,17 @@ public class Artikles extends javax.swing.JFrame {
         loadingTree();
     }
 
+    public Artikles(java.awt.Window owner, int id) {
+        initComponents();
+        this.owner = owner;
+        this.artId = id;
+        initElements();
+        listenerDict();
+        loadingData();
+        loadingModel();
+        loadingTree();
+    }
+    
     public Artikles(java.awt.Window owner, int nuni, int id) {
         initComponents();
         this.owner = owner;
@@ -80,7 +92,7 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        if (owner != null) {
+        if (nuni != -1) {
             new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).forEach(record -> {
                 new Query(eArtikl.id, eArtikl.analog_id).select(eArtikl.up, "where", eArtikl.id, "=", record.getStr(eSysprof.artikl_id)).forEach(record2 -> {
                     if (record2.get(eArtikl.analog_id) != null) {
@@ -228,7 +240,7 @@ public class Artikles extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                if (owner == null) {
+                if (nuni == -1) {
                     qArtik2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
                     qArtik2.select(eArtikl.up, "where", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
@@ -236,14 +248,14 @@ public class Artikles extends javax.swing.JFrame {
 
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                if (owner == null) {
+                if (nuni == -1) {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
                 }
             } else {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                if (owner == null) {
+                if (nuni == -1) {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
                 } else {
                     qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
@@ -252,11 +264,12 @@ public class Artikles extends javax.swing.JFrame {
             qArtikl.clear();
             qArtikl.addAll(qArtik2);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            if (owner != null) {
+            if (artId != -1) {
                 for (int index = 0; index < qArtikl.size(); ++index) {
                     int id = qArtikl.getAs(index, eArtikl.id);
                     if (id == artId) {
                         Util.setSelectedRow(tab1, index);
+                        Util.scrollRectToVisible(index, tab1);
                     }
                 }
             }

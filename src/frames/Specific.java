@@ -5,9 +5,9 @@ import com.google.gson.JsonElement;
 import common.FrameListener;
 import common.FrameProgress;
 import common.FrameToFile;
-import common.eProfile;
 import common.eProperty;
 import dataset.Record;
+import domain.eArtikl;
 import domain.eElemdet;
 import domain.eFurndet;
 import domain.eGlasdet;
@@ -90,7 +90,8 @@ public class Specific extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
-        btnForms = new javax.swing.JButton();
+        btnArtikles = new javax.swing.JButton();
+        btnConstructiv = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -184,18 +185,33 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        btnForms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
-        btnForms.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnForms.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnForms.setFocusable(false);
-        btnForms.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnForms.setMaximumSize(new java.awt.Dimension(25, 25));
-        btnForms.setMinimumSize(new java.awt.Dimension(25, 25));
-        btnForms.setPreferredSize(new java.awt.Dimension(25, 25));
-        btnForms.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnForms.addActionListener(new java.awt.event.ActionListener() {
+        btnArtikles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnArtikles.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnArtikles.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArtikles.setFocusable(false);
+        btnArtikles.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnArtikles.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnArtikles.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnArtikles.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnArtikles.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnArtikles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnForms(evt);
+                btnArtikles(evt);
+            }
+        });
+
+        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnConstructiv.setFocusable(false);
+        btnConstructiv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConstructiv.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConstructiv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConstructiv(evt);
             }
         });
 
@@ -210,11 +226,13 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnForms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 674, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 635, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -230,7 +248,8 @@ public class Specific extends javax.swing.JFrame {
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnForms, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnArtikles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConstructiv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -372,7 +391,19 @@ public class Specific extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mousePressed
 
-    private void btnForms(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForms
+    private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
+
+        int row = Util.getSelectedRec(tab1);
+        Specification recordSpc = iwin.listSpec.get(row);
+        int artId = recordSpc.artiklRec.getInt(eArtikl.id);
+        FrameProgress.create(this, new FrameListener() {
+            public void actionRequest(Object obj) {
+                App1.eApp1.Artikles.createFrame(Specific.this, artId);
+            }
+        });
+    }//GEN-LAST:event_btnArtikles
+
+    private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         int row = Util.getSelectedRec(tab1);
         Specification recordSpc = iwin.listSpec.get(row);
         Record recordDet = recordSpc.deteilRec();
@@ -385,25 +416,33 @@ public class Specific extends javax.swing.JFrame {
 
                     } else if (str.equals("СОЕ")) {
                         App1.eApp1.Joining.createFrame(Specific.this, iwin.calcJoining.listVariants, recordDet.getInt(eJoindet.id));
-                    
+
                     } else if (str.equals("ЗАП")) {
                         App1.eApp1.Filling.createFrame(Specific.this, iwin.calcFilling.listVariants, recordDet.getInt(eGlasdet.id));
-                    
+
                     } else if (str.equals("ФУР")) {
                         App1.eApp1.Furniture.createFrame(Specific.this, iwin.calcFurniture.listVariants, recordDet.getInt(eFurndet.id));
                     }
                 }
             });
         } else {
-            JOptionPane.showMessageDialog(eProfile.appframe, "Смотри форму 'Конструктив->Система'");
+            FrameProgress.create(Specific.this, new FrameListener() {
+                public void actionRequest(Object obj) {
+                    String str = recordSpc.place.substring(0, 3);
+                    if (str.equals("СОС")) {
+                        App1.eApp1.Systree.createFrame(Specific.this, recordSpc.artiklRec.getInt(eArtikl.id));
+                    }
+                }
+            });
         }
-    }//GEN-LAST:event_btnForms
+    }//GEN-LAST:event_btnConstructiv
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnArtikles;
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnConstructiv;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnForms;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;

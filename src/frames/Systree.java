@@ -100,6 +100,19 @@ public class Systree extends javax.swing.JFrame {
         loadingModel();
     }
 
+    public Systree(int artiklID) {
+        initComponents();
+        initElements();
+        listenerDict();
+        loadingData();
+        loadingModel();
+        for (int i = 0; i < qSysprof.size(); i++) {
+            if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
+                Util.setSelectedRow(tab2, i);
+            }
+        }
+    }
+
     private void loadingData() {
         qParams.select(eParams.up, "where", eParams.grup, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
@@ -332,7 +345,7 @@ public class Systree extends javax.swing.JFrame {
                     eSysfurn.furniture_id, "where", eSysfurn.systree_id, "=", node.record.getInt(eSystree.id), "order by", eSysfurn.npp);
             qSyspar1.select(eSyspar1.up, "where", eSyspar1.systree_id, "=", node.record.getInt(eSystree.id));
             loadingTab5(qSysprod, node.record.getInt(eSystree.id));
-            
+
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
@@ -646,7 +659,7 @@ public class Systree extends javax.swing.JFrame {
         );
 
         btnArtikl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btnArtikl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
         btnArtikl.setToolTipText("Артикулы в системе...");
         btnArtikl.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnArtikl.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -1331,7 +1344,7 @@ public class Systree extends javax.swing.JFrame {
             int nuni = node.record.getInt(eSystree.id);
             FrameProgress.create(this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    App1.eApp1.Artikles.createFrame(Systree.this, nuni, artId);
+                    App1.eApp1.Artikles.createFrame(Systree.this, artId);
                 }
             });
         } else {

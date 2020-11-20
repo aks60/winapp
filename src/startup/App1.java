@@ -1523,6 +1523,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                 case Artikles:
                     if (param.length == 2) {
                         frame = new Artikles(parent, (int) param[0], (int) param[1]);
+                    } else if (param.length == 1) {
+                        frame = new Artikles(parent, (int) param[0]);
                     } else {
                         frame = new Artikles();
                     }
@@ -1579,7 +1581,11 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     frame = new Kits();
                     break;
                 case Systree:
-                    frame = new Systree();
+                    if (param.length == 0) {
+                        frame = new Systree();
+                    } else {
+                        frame = new Systree((int) param[0]);
+                    }
                     break;
                 case Partner:
                     frame = new Partner();

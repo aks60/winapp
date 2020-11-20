@@ -24,22 +24,12 @@ public class Test {
             //query();
             //frame();
             //parse();
-            //test();
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
     }
 
-    static Connection connection() {
-        eProperty.user.write("sysdba");
-        eProperty.password = String.valueOf("masterkey");
-        int num_base = Integer.valueOf(eProperty.base_num.read());
-        ConnApp con = ConnApp.initConnect();
-        con.createConnection(num_base);
-        return con.getConnection();
-    }
-
-    static void wincalc() throws Exception {
+    private static void wincalc() throws Exception {
 
         Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
@@ -75,7 +65,7 @@ public class Test {
         }
     }
 
-    static void frame() throws Exception {
+    private static void frame() throws Exception {
 
         Query.connection = connection();
         lookAndFeel();
@@ -87,7 +77,7 @@ public class Test {
         frm.setVisible(true);
     }
 
-    static void query() {
+    private static void query() {
         try {
             Query.connection = connection();
             DatabaseMetaData dmd = Query.connection.getMetaData();
@@ -109,7 +99,7 @@ public class Test {
         }
     }
 
-    static void parse() {
+    private static void parse() {
 
         HashMap<Integer, Record> mapParamUse = new HashMap();
         String paramJson = "{'typeOpen':1,'nuni':23, 'ioknaParam': [[-862107,826],[-862106,830]]}";
@@ -139,7 +129,7 @@ public class Test {
         }
     }
 
-    static void classToJson() {
+    private static void classToJson() {
 
 //        AreaRoot rootArea = new AreaRoot("1", LayoutArea.VERT, TypeElem.SQUARE, 900, 1300, 1300, 1009, 10009, 1009, "");
 //        rootArea.setParam("1", 8);
@@ -164,14 +154,13 @@ public class Test {
             System.err.println(e);
         }
     }
-
-    private static void test() {
-        //Integer arr[] = estimate.constr.Util.parserInt("33;10-99;44;17-21;23-28");
-        boolean obj = estimate.constr.Util.containsStr("Стойка 100;Стойка 200;/sel", "Стойка 200", "sel");
-//        String[] obj = "55;".split(";");
-//        boolean list = estimate.constr.Util.containsFloat("90,01-150;180,01-269,99;270,01-359,99/0-89,99;90,01-150;180,01-269,99;270,01-359,99", 0, 100);
-//        List list = Arrays.asList(arr);
-        System.out.println(obj);
-
-    }
+    
+    private static Connection connection() {
+        eProperty.user.write("sysdba");
+        eProperty.password = String.valueOf("masterkey");
+        int num_base = Integer.valueOf(eProperty.base_num.read());
+        ConnApp con = ConnApp.initConnect();
+        con.createConnection(num_base);
+        return con.getConnection();
+    }   
 }

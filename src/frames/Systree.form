@@ -293,7 +293,7 @@
               <Font name="Tahoma" size="14" style="1"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c021.gif"/>
+              <Image iconType="3" name="/resource/img24/c055.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="&#x410;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x44b; &#x432; &#x441;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x435;..."/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
