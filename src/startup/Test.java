@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 import domain.eParams;
 import estimate.constr.Specification;
 import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.DatabaseMetaData;
 import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class Test {
         try {
             //convert.Profstroy.script();
             wincalc();
-            //query();            
+            //query();
             //frame();
             //parse();
             //test();
@@ -29,28 +29,28 @@ public class Test {
             System.err.println("TEST-MAIN: " + e);
         }
     }
-    
+
     static Connection connection() {
         eProperty.user.write("sysdba");
         eProperty.password = String.valueOf("masterkey");
         int num_base = Integer.valueOf(eProperty.base_num.read());
         ConnApp con = ConnApp.initConnect();
         con.createConnection(num_base);
-        return con.getConnection();        
+        return con.getConnection();
     }
 
     static void wincalc() throws Exception {
 
-        Query.connection = connection();       
+        Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 601006;
+            iwin.prj = 601001;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
-            //Specification.write_txt1(iwin.listSpec);
-            Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+            Specification.write_txt1(iwin.listSpec);
+            //Specification.compareIWin(iwin.listSpec, iwin.prj, true);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
 
         } else {
@@ -90,12 +90,16 @@ public class Test {
     static void query() {
         try {
             Query.connection = connection();
+            DatabaseMetaData dmd = Query.connection.getMetaData();
+            String name = dmd.getURL().substring(dmd.getURL().lastIndexOf("\\") + 1);
+            System.out.println(dmd.getURL().toCharArray());
+            System.out.println(Integer.valueOf(eProperty.base_num.read()));
+
             //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
             //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
             //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
             //Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
-
 //            int count = 3;
 //            System.out.println(count);
 //            int dx = temp(count);

@@ -46,12 +46,6 @@ public class AreaStvorka extends AreaSimple {
 
         //Коррекция створки с учётом нахлёста
         ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
-        if ("ps3".equals(eSetting.find(2).get(eSetting.val)) == true) {
-            if (insideLeft.artiklRec.getFloat(eArtikl.size_falz) == 0) {
-                insideLeft.artiklRec.set(eArtikl.size_falz, insideLeft.width() / 2);
-                eArtikl.query().execsql();
-            }
-        }
         x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
         y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
         x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);

@@ -40,7 +40,7 @@ public class FurnitureVar extends Par5s {
                             return false;
                         } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
                             return false;
-                        }  
+                        }
                         break;
                     case 21004:  //Артикул створки 
                         if (elem5e.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
@@ -51,7 +51,16 @@ public class FurnitureVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 21010:  //Ограничение длины стороны, мм 
-                        message(rec.getInt(GRUP));
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) { //Минимальная длина, мм
+                            if (rec.getInt(TEXT) < elem5e.width()) {
+                                return false;
+                            }
+                        } else {
+                            String[] arr = rec.getStr(TEXT).split("/");
+                            if (Integer.valueOf(arr[0]) > elem5e.width() || Integer.valueOf(arr[1]) < elem5e.width()) {
+                                return false;
+                            }
+                        }
                         break;
                     case 21011:  //Ограничение длины ручка константа, мм 
                         message(rec.getInt(GRUP));
@@ -77,7 +86,7 @@ public class FurnitureVar extends Par5s {
                                 return false;
                             }
                         }
-                        break;                        
+                        break;
                     case 21050:  //Ориентация стороны, ° 
                         message(rec.getInt(GRUP));
                         break;

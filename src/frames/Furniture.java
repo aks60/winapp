@@ -80,7 +80,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     public Furniture(Set<Object> keys) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
         listenerCell();
@@ -91,7 +91,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     public Furniture(Set<Object> keys, int deteilID) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
         initComponents();
         initElements();
         loadingData();
