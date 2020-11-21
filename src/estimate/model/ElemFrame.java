@@ -156,13 +156,16 @@ public class ElemFrame extends ElemSimple {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
-            float naxl = iwin().syssizeRec.getFloat(eSyssize.naxl);
-            specif.width = (specificationRec.width - naxl) * 2 * koef;
+            if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
+                specif.width = specificationRec.width * 2 * koef;
+            } else {
+                specif.width = specificationRec.height * 2 * koef;
+            }
 
             //Монтажный профиль
         } else if (TypeArtikl.MONTPROF.isType(specif.artiklRec) == true) {
-            float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
-            specificationRec.width = x2 - x1 + prip * 2;
+            //float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
+            //specificationRec.width = x2 - x1 + prip * 2;
             //specif.width = specificationRec.weight;
 
             //Соединитель
