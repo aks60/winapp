@@ -109,10 +109,12 @@ public class Wincalc {
         try {
             Query.conf = "calc";
             Query.listOpenTable.forEach(q -> q.clear());
+            calcJoining = new Joining(this); //соединения
+            calcJoining.calc();            
             calcElements = new Elements(this); //составы
             calcElements.calc();
-            calcJoining = new Joining(this); //соединения
-            calcJoining.calc();
+//            calcJoining = new Joining(this); //соединения
+//            calcJoining.calc();
             calcFilling = new Filling(this); //заполнения
             calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 
