@@ -453,8 +453,8 @@ public class Profstroy {
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update glasprof set inside = 1  where gtype in (1,3,7)");
-            executeSql("update glasprof set outside = 1  where gtype in (2,3,7)");
+            executeSql("update glasprof set toin = 1  where gtype in (1,3,7)");
+            executeSql("update glasprof set toout = 1  where gtype in (2,3,7)");
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");

@@ -79,12 +79,8 @@ public class Filling extends Cal5e {
 
                                 if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
                                     if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
-                                        if (glasprofRec.getInt(eGlasprof.inside) == 1 ) {
-                                            
-                                            //Данные для старого алгоритма расчёта
-                                            elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
-                                            elemGlass.owner().gsize = glasprofRec.getFloat(eGlasprof.gsize);
-                                            
+                                        if (glasprofRec.getInt(eGlasprof.toin) == 1 ) {
+                                            elemGlass.mapFieldVal.put("GZAZO", String.valueOf(glasgrpRec.get(eGlasgrp.gap)));
                                             detail(elemGlass, glasgrpRec);
                                         }
                                     }

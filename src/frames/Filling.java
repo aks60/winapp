@@ -156,7 +156,7 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.gsize, eGlasprof.inside, eGlasprof.outside);
+        new DefTableModel(tab5, qGlasprof, eArtikl.code, eArtikl.name, eGlasprof.sizeax, eGlasprof.toin, eGlasprof.toout);
 
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
@@ -802,8 +802,8 @@ public class Filling extends javax.swing.JFrame {
 
         } else if (tab5.getBorder() != null) {
             Record record = Util.insertRecord(tab1, tab5, eGlasgrp.up, eGlasprof.up, eArtikl.up, eGlasprof.glasgrp_id);
-            record.set(eGlasprof.inside, 1);
-            record.set(eGlasprof.outside, 1);
+            record.set(eGlasprof.toin, 1);
+            record.set(eGlasprof.toout, 1);
         }
     }//GEN-LAST:event_btnInsert
 

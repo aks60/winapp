@@ -137,9 +137,9 @@ public class JoiningVar extends Par5s {
                     case 1039:  //Для типа открывания 
                         message(rec.getInt(GRUP));
                         break;
-                    case 1040:  //Размер, мм
-                        elemJoin.joinElement1.owner().offset = rec.getFloat(TEXT);
-                        break;
+                    case 1040:  //Размер, мм 
+                        //TODO Тут полное непонимание логиги работы
+                        return false; //Т. к. есть системные константы
                     //break;
                     case 1043:  //Ограничение габарита контура, мм 
                         message(rec.getInt(GRUP));
