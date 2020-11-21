@@ -21,7 +21,6 @@ public abstract class ElemSimple extends Com5t {
 
     public float anglHoriz = -1; //угол к горизонту
     protected Color borderColor = Color.BLACK;
-    public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
