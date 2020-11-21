@@ -1,30 +1,26 @@
 package estimate.model;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import frames.swing.Draw;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eGlasdet;
-import domain.eSysprof;
+import domain.eSyssize;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
-import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
 import estimate.constr.Specification;
-import java.util.LinkedList;
 
 public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус арки
     public int artikleID = -1;
+    public float gzazo = 0; //зазор между фальцем и стеклопакетом    
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
@@ -77,7 +73,6 @@ public class ElemGlass extends ElemSimple {
         specificationRec.colorID3 = colorID3;
         specificationRec.id = id();
 
-        float gzazo = (mapFieldVal.get("GZAZO") != null) ? Float.valueOf(mapFieldVal.get("GZAZO")) : 0;
         if (owner() instanceof AreaArch) { //если арка
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
@@ -98,14 +93,22 @@ public class ElemGlass extends ElemSimple {
 
         } else {
             ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
-            float size_falz = (insideLeft.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideLeft.artiklRec.getFloat(eArtikl.size_falz);
-            x1 = insideLeft.x2 - size_falz + gzazo;
-            size_falz = (insideTop.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideTop.artiklRec.getFloat(eArtikl.size_falz);
-            y1 = insideTop.y2 - size_falz + gzazo;
-            size_falz = (insideRight.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideRight.artiklRec.getFloat(eArtikl.size_falz);
-            x2 = insideRight.x1 + size_falz - gzazo;
-            size_falz = (insideBott.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : insideBott.artiklRec.getFloat(eArtikl.size_falz);
-            y2 = insideBott.y1 + size_falz - gzazo;
+            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+
+                x1 = insideLeft.x1 + insideLeft.owner().gsize;
+                y1 = insideTop.y1 + insideTop.owner().gsize;
+                x2 = insideRight.x2 - insideRight.owner().gsize;
+                y2 = insideBott.y2 - insideBott.owner().gsize;
+            } else {
+                float size_falz = (insideLeft.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideLeft.artiklRec.getFloat(eArtikl.size_falz);
+                x1 = insideLeft.x2 - size_falz + gzazo;
+                size_falz = (insideTop.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideTop.artiklRec.getFloat(eArtikl.size_falz);
+                y1 = insideTop.y2 - size_falz + gzazo;
+                size_falz = (insideRight.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideRight.artiklRec.getFloat(eArtikl.size_falz);
+                x2 = insideRight.x1 + size_falz - gzazo;
+                size_falz = (insideBott.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideBott.artiklRec.getFloat(eArtikl.size_falz);
+                y2 = insideBott.y1 + size_falz - gzazo;
+            }
         }
         specificationRec.width = width();
         specificationRec.height = height();
@@ -113,7 +116,6 @@ public class ElemGlass extends ElemSimple {
 
     @Override //Вложеная спецификация 
     public void addSpecific(Specification specif) {
-        Float gzazo = Float.valueOf(mapFieldVal.get("GZAZO"));
 
         //Стеклопакет
         if (TypeArtikl.GLASS.isType(specif.artiklRec)) {

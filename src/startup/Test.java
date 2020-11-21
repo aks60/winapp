@@ -33,7 +33,7 @@ public class Test {
 
         Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 601001;
@@ -50,7 +50,7 @@ public class Test {
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     iwin.build(script);
                     iwin.constructiv();
-                    Specification.compareIWin(iwin.listSpec, iwin.prj, true);
+                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
                 }
             } else if (_case.equals("max")) {
                 for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007,
