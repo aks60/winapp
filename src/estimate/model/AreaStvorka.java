@@ -46,10 +46,17 @@ public class AreaStvorka extends AreaSimple {
 
         //Коррекция створки с учётом нахлёста
         ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
-        x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-        y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-        x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
-        y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+        if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+            x1 = insideLeft.x2 - insideLeft.owner().offset;
+            y1 = insideTop.y2 - insideTop.owner().offset;
+            x2 = insideRight.x1 + insideRight.owner().offset;
+            y2 = insideBott.y1 + insideBott.owner().offset;
+        } else {
+            x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+        }
 
         //Добавим рамы створки        
         ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);

@@ -25,7 +25,9 @@ public class AreaSimple extends Com5t {
 
     public float dx = 0;
     public float dy = 0;
+    
     public float gsize = 0; //размер от оси профиля до заполнения (стеклопакета)
+    public float offset = 0; //смещение осей профилей
 
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
     public Integer sysprofID = null; //то, что выбрал клиент
