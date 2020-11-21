@@ -67,7 +67,7 @@ public class FillingDet extends Par5s {
                         break;
                     case 14017:  //Код системы содержит строку 
                         message(rec.getInt(GRUP));
-                        break;                         
+                        break;
                     case 14030:  //Количество 
                         mapParam.put(grup, rec.getStr(TEXT));
                         break;
@@ -90,7 +90,7 @@ public class FillingDet extends Par5s {
                                 return false;
                             }
                         }
-                        break;                        
+                        break;
                     case 14067:  //Коды основной текстуры изделия 
                     case 15067:  //Коды основной текстуры изделия    
                         int c1 = elem5e.iwin().colorID1;
@@ -144,8 +144,12 @@ public class FillingDet extends Par5s {
                     case 15009:  //Арочное заполнение 
                         message(rec.getInt(GRUP));
                         break;
-                    case 15010:  //Расчет реза штапика 
-                        mapParam.put(grup, rec.getStr(TEXT));
+                    case 15010:  //Расчет реза штапика (Усекать нижний штапик)
+                        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
+                            message(rec.getInt(GRUP));
+                        } else {
+                            mapParam.put(grup, rec.getStr(TEXT));
+                        }
                         break;
                     case 15011:  //Расчет реза штапика 
                         mapParam.put(grup, rec.getStr(TEXT));

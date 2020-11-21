@@ -78,11 +78,6 @@ public class ElemGlass extends ElemSimple {
         specificationRec.colorID2 = colorID2;
         specificationRec.colorID3 = colorID3;
         specificationRec.id = id();
-
-//        float size_falz = 0;
-//        if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-//            size_falz = 
-//        } 
         if (owner() instanceof AreaArch) { //если арка
 
             ElemFrame elemArch = root().mapFrame.get(LayoutArea.ARCH);
@@ -104,10 +99,11 @@ public class ElemGlass extends ElemSimple {
         } else {
             ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                x1 = insideLeft.x2 - insideLeft.owner().gsize;
-                y1 = insideTop.y2 - insideTop.owner().gsize;
-                x2 = insideRight.x1 + insideRight.owner().gsize;
-                y2 = insideBott.y1 + insideBott.owner().gsize;
+
+                x1 = insideLeft.x1 + insideLeft.owner().gsize;
+                y1 = insideTop.y1 + insideTop.owner().gsize;
+                x2 = insideRight.x2 - insideRight.owner().gsize;
+                y2 = insideBott.y2 - insideBott.owner().gsize;
             } else {
                 x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
                 y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
