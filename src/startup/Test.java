@@ -20,7 +20,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.script();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //parse();
@@ -154,7 +154,7 @@ public class Test {
             System.err.println(e);
         }
     }
-    
+
     private static Connection connection() {
         eProperty.user.write("sysdba");
         eProperty.password = String.valueOf("masterkey");
@@ -162,5 +162,5 @@ public class Test {
         ConnApp con = ConnApp.initConnect();
         con.createConnection(num_base);
         return con.getConnection();
-    }   
+    }
 }

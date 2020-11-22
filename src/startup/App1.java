@@ -611,7 +611,7 @@ public class App1 extends javax.swing.JFrame {
         btn31.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mHelp(evt);
+                mnConvert(evt);
             }
         });
         tb4.add(btn31);
@@ -1115,10 +1115,6 @@ public class App1 extends javax.swing.JFrame {
     private void mExit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mExit
         Arrays.asList(eApp1.values()).stream().filter(el -> el.frame != null).forEach(el -> el.frame.dispose());
 }//GEN-LAST:event_mExit
-
-private void mHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHelp
-    //System.out.println(Query.connection.getCatalog());
-}//GEN-LAST:event_mHelp
 
 private void mDictDicAddr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictDicAddr
 

@@ -68,6 +68,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import estimate.script.Winscript;
+import java.util.Arrays;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
@@ -742,5 +743,14 @@ public class Profstroy {
         if (Profstroy.versionPs == versionPs) {
             executeSql(str);
         }
+    }
+    
+    private static void println(Object... p) {
+      
+        Object str = "";
+        for (Object s : p) {
+             str = str + s.toString();
+        }
+        System.out.println(str);
     }
 }

@@ -62,7 +62,7 @@ public class ConnFb extends dataset.ConnApp {
                 JOptionPane.showMessageDialog(eProfile.appframe, "Ошибка загрузки файла драйвера",
                         "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
-            String url = fbserver + "//" + server + ":" + port + "/" + base + "?characterEncoding=cp1251";
+            String url = fbserver + "//" + server + ":" + port + "/" + base + "?encoding=win1251";
 
             user = user.toLowerCase();
             connection = DriverManager.getConnection(url, user, String.valueOf(password));
