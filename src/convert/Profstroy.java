@@ -68,7 +68,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import estimate.script.Winscript;
-import java.util.Arrays;
+import java.awt.Color;
+import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
@@ -86,8 +91,16 @@ public class Profstroy {
     private static Statement st1; //источник 
     private static Statement st2;//приёмник
     private static String src, out;
+    private static JTextPane tp = null;
 
-    public static void script() {
+    public static void convert(JTextPane _tp, Connection _cn1, Connection _cn2) {
+        tp = _tp;
+        cn1 = _cn1;
+        cn2 = _cn2;
+        script();
+    }
+
+    public static void convert2() {
         try {
             if (Integer.valueOf(eProperty.base_num.read()) == 1) {
                 src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
@@ -98,15 +111,14 @@ public class Profstroy {
             }
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
-            //script2();
+            script();
 
         } catch (Exception e) {
-            System.err.println("TEST-MAIN: " + e);
             System.out.println("Ошибка: Profstroy.script() " + e);
         }
     }
 
-    public static void script2() {
+    public static void script() {
         Field[] fieldsUp = { //в порядке удаления
             eSetting.up, eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, //eOrders.up, - временно
             eKitpar1.up, eKitdet.up, eKits.up,
@@ -121,7 +133,8 @@ public class Profstroy {
         };
         try {
 
-            println("\u001B[32m", "Подготовка методанных", "\u001B[0m");
+            println("\u001B[32m", "Подготовка методанных");
+            //println("\u001B[34m", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
@@ -150,7 +163,7 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
-            println("\u001B[32m", "Перенос данных", "\u001B[0m");
+            println("\u001B[32m", "Перенос данных");
             //Цикл по доменам приложения
             for (Field fieldUp : fieldsUp) {
                 //Поля не вошедшие в eEnum.values()
@@ -193,7 +206,7 @@ public class Profstroy {
                 executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
             }
 
-            println("\u001B[32m", "Добавление комментариев к полям", "\u001B[0m");
+            println("\u001B[32m", "Добавление комментариев к полям");
             for (Field field : fieldsUp) {
                 executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
@@ -202,16 +215,16 @@ public class Profstroy {
             updatePart(cn2, st2);
             metaPart(cn2, st2);
 
-            println("\u001B[32m", "Удаление лищних столбцов", "\u001B[0m");
+            println("\u001B[32m", "Удаление лищних столбцов");
             for (Field fieldUp : fieldsUp) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
-            println("\u001B[34m", "ОБНОВЛЕНИЕ ЗАВЕРШЕНО", "\u001B[0m");
+            println("\u001B[34m", "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e);
         }
     }
 
@@ -306,7 +319,7 @@ public class Profstroy {
                         try {  //Если была ошибка в пакете выполняю отдельные sql insert
                             st2.executeUpdate(sql);
                         } catch (SQLException e) {
-                            System.err.println("\u001B[31m" + "SCRIPT-INSERT:  " + e + "\u001B[0m");
+                            System.err.println("\u001B[31m" + "SCRIPT-INSERT:  " + e);
                         }
                     }
                 }
@@ -321,11 +334,11 @@ public class Profstroy {
                     cn2.rollback();
                     bash = false;
                     --index_page;
-                    println("\u001B[31m", "SCRIPT-BATCH:  ", e, "\u001B[0m");
+                    println("\u001B[31m", "SCRIPT-BATCH:  ", e);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "CONVERT-TABLE:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "CONVERT-TABLE:  " + e);
         }
     }
 
@@ -355,14 +368,14 @@ public class Profstroy {
             }
             return hmDeltaCol;
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "DELTA-COLUMN: " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "DELTA-COLUMN: " + e);
             return null;
         }
     }
 
     private static void deletePart(Connection cn2, Statement st2) {
         try {
-            println("\u001B[32m", "Секция удаления потеренных ссылок (фантомов)", "\u001B[0m");
+            println("\u001B[32m", "Секция удаления потеренных ссылок (фантомов)");
             executeSql("delete from params where grup > 0");  //group > 0  
             deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
             deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
@@ -406,13 +419,13 @@ public class Profstroy {
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");//kitdet_id
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "DELETE-PART:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "DELETE-PART:  " + e);
         }
     }
 
     private static void updatePart(Connection cn2, Statement st2) {
         try {
-            println("\u001B[32m", "Секция коррекции внешних ключей", "\u001B[0m");
+            println("\u001B[32m", "Секция коррекции внешних ключей");
             updateSetting();
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERIES.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
@@ -495,14 +508,14 @@ public class Profstroy {
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-PART:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "UPDATE-PART:  " + e);
         }
     }
 
     private static void metaPart(Connection cn2, Statement st2) {
 
         try {
-            println("\u001B[32m", "Секция создания внешних ключей", "\u001B[0m");
+            println("\u001B[32m", "Секция создания внешних ключей");
             metaSql("alter table artikl add constraint fk_currenc1 foreign key (currenc1_id) references currenc (id)");
             metaSql("alter table artikl add constraint fk_currenc2 foreign key (currenc2_id) references currenc (id)");
             metaSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
@@ -553,7 +566,7 @@ public class Profstroy {
             executeSql("set generator GEN_SYSPROD to " + 3);
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "ALTERDB-PART:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "ALTERDB-PART:  " + e);
         }
     }
 
@@ -575,7 +588,7 @@ public class Profstroy {
                 cn2.commit();
             }
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-ELEMGRP:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "UPDATE-ELEMGRP:  " + e);
         }
     }
 
@@ -611,7 +624,7 @@ public class Profstroy {
             cn2.commit();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-MODELS:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "UPDATE-MODELS:  " + e);
         }
     }
 
@@ -631,7 +644,7 @@ public class Profstroy {
             q.insert(record);
             cn2.commit();
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-SETTING:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "UPDATE-SETTING:  " + e);
         }
     }
 
@@ -652,16 +665,16 @@ public class Profstroy {
                 }
             }
             rs.close();
-            String postpref = (recordDelete == 0) ? "" : "\u001B[34m Всего/удалено = " + recordCount + "/" + recordDelete + "\u001B[0m";
+            String postpref = (recordDelete == 0) ? "" : " Всего/удалено = " + recordCount + "/" + recordDelete;
             println("delete from ", table1.tname() + " where not exists (select id from ", table2.tname(),
-                    " a where a.", id2, " = " + table1.tname(), ".", id1, ")", postpref);
+                    " a where a.", id2, " = ", table1.tname(), ".", id1, ")", "\u001B[34m", postpref, "\u001B[0m");
 
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "DELETE-SQL:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "DELETE-SQL:  " + e);
         }
     }
 
@@ -684,15 +697,15 @@ public class Profstroy {
                     st2.addBatch("update " + table1.tname() + " set " + fk1.name() + " = " + obj[0] + " where id = " + rs.getObject("id"));
                 }
             }
-            String postpref = (recordCount == recordUpdate) ? "" : "\u001B[34m Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate) + "\u001B[0m";
+            String postpref = (recordCount == recordUpdate) ? "" : " Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate);
             println("update ", table1.tname(), " set ", fk1.name(), " = (select id from ", table2.tname(),
-                    " a where a.", id2, " = ", table1.tname(), ".", id1, ")", postpref);
+                    " a where a.", id2, " = ", table1.tname(), ".", id1, ")", "\u001B[34m", postpref, "\u001B[0m");
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-SQL:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "UPDATE-SQL:  " + e);
         }
     }
 
@@ -721,7 +734,7 @@ public class Profstroy {
             st2.execute(str);
             cn2.commit();
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "НЕУДАЧА-SQL: Связь не установлена\u001B[0m");
+            System.err.println("\u001B[31m" + "НЕУДАЧА-SQL: Связь не установлена");
         }
     }
 
@@ -731,7 +744,7 @@ public class Profstroy {
             st2.execute(str);
             cn2.commit();
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "SQL-DB:  " + e + "\u001B[0m");
+            System.err.println("\u001B[31m" + "SQL-DB:  " + e);
         }
     }
 
@@ -745,9 +758,39 @@ public class Profstroy {
 
         Object str = "";
         for (Object s : p) {
+            if (tp != null) {
+                if ("\u001B[0m".equals(s)) { //чёрн.
+                    appendToPane(s.toString(), Color.BLACK);
+                    continue;
+                } else if ("\u001B[31m".equals(s)) { //красн.
+                    appendToPane(s.toString(), Color.RED);
+                    continue;
+                } else if ("\u001B[32m".equals(s)) { //зелён.
+                    appendToPane(s.toString(), Color.GREEN);
+                    continue;
+                } else if ("\u001B[34m".equals(s)) { //син.
+                    appendToPane(s.toString(), Color.BLUE);
+                    continue;
+                }
+            }
             str = str + s.toString();
         }
+        str = str + "\n";
+
         System.out.println(str);
         return str.toString();
+    }
+
+    private static void appendToPane(String msg, Color c) {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
     }
 }

@@ -3,6 +3,7 @@ package convert;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.ConnFb;
+import dataset.Query;
 import dataset.eExcep;
 import java.awt.Color;
 import java.awt.Insets;
@@ -44,8 +45,8 @@ public class Convert extends javax.swing.JFrame {
 
     private void test() {
         appendToPane(txtPane, "1111111111111\n", Color.RED);
-        appendToPane(txtPane, "2222222222222", Color.BLUE);
-        appendToPane(txtPane, "3333333333333", Color.DARK_GRAY);
+        appendToPane(txtPane, "2222222222222\n", Color.BLUE);
+        appendToPane(txtPane, "3333333333333\n", Color.GREEN);
         appendToPane(txtPane, "4444444444444", Color.MAGENTA);
         appendToPane(txtPane, "5555555555555\n", Color.ORANGE);
     }
@@ -354,25 +355,17 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
-test();
-//        ConnApp src = new ConnFb();
-//        eExcep excep = src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
-//            edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
-//
-//        if (excep.yesConn != excep) {
-//            JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
-//
-//        } else {
-//            connectionSrc = src.getConnection();
-//            new SwingWorker() {
-//
-//                protected Object doInBackground() throws Exception {
-//
-//                    begin();
-//                    return null;
-//                }
-//            }.execute();
-//        }
+
+        ConnApp con2 = new ConnFb();
+        eExcep excep = con2.createConnection(edServer.getText().trim(), edPort.getText().trim(),
+            edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+
+        if (excep.yesConn != excep) {
+            JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {            
+            Profstroy.convert(txtPane, con2.getConnection(), Query.connection);
+        }
     }//GEN-LAST:event_btnStartBtnStartClick
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
