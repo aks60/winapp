@@ -88,6 +88,25 @@ public class Profstroy {
     private static String src, out;
 
     public static void script() {
+        try {
+            if (Integer.valueOf(eProperty.base_num.read()) == 1) {
+                src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
+            } else {
+                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3.fdb?encoding=win1251";
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
+            }
+            cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
+            cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
+            //script2();
+
+        } catch (Exception e) {
+            System.err.println("TEST-MAIN: " + e);
+            System.out.println("Ошибка: Profstroy.script() " + e);
+        }
+    }
+
+    public static void script2() {
         Field[] fieldsUp = { //в порядке удаления
             eSetting.up, eSyssize.up, eSysdata.up, eParams.up, eRulecalc.up, ePartner.up, //eOrders.up, - временно
             eKitpar1.up, eKitdet.up, eKits.up,
@@ -101,15 +120,6 @@ public class Profstroy {
             eCurrenc.up, eGroups.up
         };
         try {
-            if (Integer.valueOf(eProperty.base_num.read()) == 1) {
-                src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
-            } else {
-                src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3.fdb?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
-            }
-            cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
-            cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
             println("\u001B[32m", "Подготовка методанных", "\u001B[0m");
             cn2.setAutoCommit(false);
@@ -205,12 +215,6 @@ public class Profstroy {
         }
     }
 
-    /**
-     * Создание таблицы
-     *
-     * @param f все поля соэдаваемой таблицы
-     * @return список ddl операторов создания таблицы
-     */
     public static ArrayList<String> createTable(Field... f) {
 
         ArrayList<String> batch = new ArrayList();
@@ -232,14 +236,6 @@ public class Profstroy {
         return batch;
     }
 
-    /**
-     * Конвертор данных таблиц
-     *
-     * @param cn1 соединение источника
-     * @param cn2 соединение приёмника
-     * @param fields все поля таблицы
-     * @param hmDeltaCol поля не вошедшие в eEnum.values()
-     */
     public static void convertTable(Connection cn1, Connection cn2, HashMap<String, String[]> hmDeltaCol, Field[] fields) {
         String sql = "";
         try {
@@ -658,7 +654,7 @@ public class Profstroy {
             rs.close();
             String postpref = (recordDelete == 0) ? "" : "\u001B[34m Всего/удалено = " + recordCount + "/" + recordDelete + "\u001B[0m";
             println("delete from ", table1.tname() + " where not exists (select id from ", table2.tname(),
-                     " a where a.", id2, " = " + table1.tname(), ".", id1, ")", postpref);
+                    " a where a.", id2, " = " + table1.tname(), ".", id1, ")", postpref);
 
             st2.executeBatch();
             cn2.commit();
@@ -690,7 +686,7 @@ public class Profstroy {
             }
             String postpref = (recordCount == recordUpdate) ? "" : "\u001B[34m Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate) + "\u001B[0m";
             println("update ", table1.tname(), " set ", fk1.name(), " = (select id from ", table2.tname(),
-                     " a where a.", id2, " = ", table1.tname(), ".", id1, ")", postpref);
+                    " a where a.", id2, " = ", table1.tname(), ".", id1, ")", postpref);
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
