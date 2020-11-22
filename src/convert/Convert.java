@@ -180,7 +180,7 @@ public class Convert extends javax.swing.JFrame {
         panNorth.setLayout(new javax.swing.BoxLayout(panNorth, javax.swing.BoxLayout.PAGE_AXIS));
 
         pan5.setBorder(javax.swing.BorderFactory.createTitledBorder("  База данных источник"));
-        pan5.setPreferredSize(new java.awt.Dimension(500, 72));
+        pan5.setPreferredSize(new java.awt.Dimension(500, 70));
 
         lab1.setFont(frames.Util.getFont(0,0));
         lab1.setText("Cервер (host)");
@@ -336,7 +336,7 @@ public class Convert extends javax.swing.JFrame {
             pan4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan4Layout.createSequentialGroup()
                 .addComponent(labPath2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panNorth.add(pan4);
