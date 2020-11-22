@@ -93,8 +93,8 @@ public class ElemGlass extends ElemSimple {
 
         } else {
             ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
+            
             if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-
                 x1 = insideLeft.x1 + insideLeft.owner().gsize;
                 y1 = insideTop.y1 + insideTop.owner().gsize;
                 x2 = insideRight.x2 - insideRight.owner().gsize;
