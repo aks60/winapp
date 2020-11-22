@@ -22,7 +22,6 @@ public class Convert extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingModel();
-        test();
     }
 
     private void loadingModel() {
@@ -44,14 +43,11 @@ public class Convert extends javax.swing.JFrame {
     }
 
     private void test() {
-        txtPane.setMargin(new Insets(5, 5, 5, 5));
-        appendToPane(txtPane, "My Name is Too Good.\n", Color.RED);
-        appendToPane(txtPane, "I wish I could be ONE of THE BEST on ", Color.BLUE);
-        appendToPane(txtPane, "Stack", Color.DARK_GRAY);
-        appendToPane(txtPane, "Over", Color.MAGENTA);
-        appendToPane(txtPane, "flow\n", Color.ORANGE);
-        appendToPane(txtPane, "\u001B[32m" + "Перенос данных" + "\u001B[0m", Color.ORANGE);
-        appendToPane(txtPane, "ОБНОВЛЕНИЕ 3 ЗАВЕРШЕНО", Color.ORANGE);
+        appendToPane(txtPane, "1111111111111\n", Color.RED);
+        appendToPane(txtPane, "2222222222222", Color.BLUE);
+        appendToPane(txtPane, "3333333333333", Color.DARK_GRAY);
+        appendToPane(txtPane, "4444444444444", Color.MAGENTA);
+        appendToPane(txtPane, "5555555555555\n", Color.ORANGE);
     }
 
     private void appendToPane(JTextPane tp, String msg, Color c) {
@@ -363,15 +359,15 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
-
-        ConnApp src = new ConnFb();
-        eExcep excep = src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
-            edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
-
-        if (excep.yesConn != excep) {
-            JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
-
-        } else {
+test();
+//        ConnApp src = new ConnFb();
+//        eExcep excep = src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
+//            edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+//
+//        if (excep.yesConn != excep) {
+//            JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+//
+//        } else {
 //            connectionSrc = src.getConnection();
 //            new SwingWorker() {
 //
@@ -381,7 +377,7 @@ public class Convert extends javax.swing.JFrame {
 //                    return null;
 //                }
 //            }.execute();
-        }
+//        }
     }//GEN-LAST:event_btnStartBtnStartClick
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

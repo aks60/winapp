@@ -24,6 +24,12 @@ public class Test {
             //query();
             //frame();
             //parse();
+            System.out.println("\u001B[31m" + "SCRIPT-INSERT:  " + "error");
+            System.out.println("1 startup.Test.main()");
+            System.out.println("\u001B[32m" + "Перенос данных" + "\u001B[0m" + "ZZZZZZZ");
+            System.out.println("2 startup.Test.main()");
+            System.out.println("\u001B[34m"+ "ОБНОВЛЕНИЕ ЗАВЕРШЕНО"+ "\u001B[0m");;
+
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }

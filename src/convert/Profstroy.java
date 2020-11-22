@@ -103,15 +103,15 @@ public class Profstroy {
         try {
             if (Integer.valueOf(eProperty.base_num.read()) == 1) {
                 src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
-                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";                
+                out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\BIMAX.FDB?encoding=win1251";
             } else {
                 src = "jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base3.fdb?encoding=win1251";
                 out = "jdbc:firebirdsql:localhost/3050:C:\\Okna\\fbase\\SIAL.FDB?encoding=win1251";
-            }  
+            }
             cn1 = java.sql.DriverManager.getConnection(src, "sysdba", "masterkey"); //источник
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
-            System.out.println("\u001B[32m" + "Подготовка методанных" + "\u001B[0m");
+            println("\u001B[32m", "Подготовка методанных", "\u001B[0m");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
@@ -140,7 +140,7 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
-            System.out.println("\u001B[32m" + "Перенос данных" + "\u001B[0m");
+            println("\u001B[32m", "Перенос данных", "\u001B[0m");
             //Цикл по доменам приложения
             for (Field fieldUp : fieldsUp) {
                 //Поля не вошедшие в eEnum.values()
@@ -183,7 +183,7 @@ public class Profstroy {
                 executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
             }
 
-            System.out.println("\u001B[32m" + "Добавление комментариев к полям" + "\u001B[0m");
+            println("\u001B[32m", "Добавление комментариев к полям", "\u001B[0m");
             for (Field field : fieldsUp) {
                 executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
@@ -192,14 +192,14 @@ public class Profstroy {
             updatePart(cn2, st2);
             metaPart(cn2, st2);
 
-            System.out.println("\u001B[32m" + "Удаление лищних столбцов" + "\u001B[0m");
+            println("\u001B[32m", "Удаление лищних столбцов", "\u001B[0m");
             for (Field fieldUp : fieldsUp) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
-            System.out.println("\u001B[34m" + "ОБНОВЛЕНИЕ ЗАВЕРШЕНО" + "\u001B[0m");
+            println("\u001B[34m", "ОБНОВЛЕНИЕ ЗАВЕРШЕНО", "\u001B[0m");
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e + "\u001B[0m");
         }
@@ -257,7 +257,7 @@ public class Profstroy {
             //Цикл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
-                System.out.println("Таблица:" + tname2 + " пакет:" + index_page);
+                println("Таблица:", tname2, " пакет:" + index_page);
                 String nameCols2 = "";
                 rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + tname1);
                 ResultSetMetaData md1 = rs1.getMetaData();
@@ -325,7 +325,7 @@ public class Profstroy {
                     cn2.rollback();
                     bash = false;
                     --index_page;
-                    System.out.println("\u001B[31m" + "SCRIPT-BATCH:  " + e + "\u001B[0m");
+                    println("\u001B[31m", "SCRIPT-BATCH:  ", e, "\u001B[0m");
                 }
             }
         } catch (SQLException e) {
@@ -366,7 +366,7 @@ public class Profstroy {
 
     private static void deletePart(Connection cn2, Statement st2) {
         try {
-            System.out.println("\u001B[32m" + "Секция удаления потеренных ссылок (фантомов)" + "\u001B[0m");
+            println("\u001B[32m", "Секция удаления потеренных ссылок (фантомов)", "\u001B[0m");
             executeSql("delete from params where grup > 0");  //group > 0  
             deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
             deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
@@ -416,7 +416,7 @@ public class Profstroy {
 
     private static void updatePart(Connection cn2, Statement st2) {
         try {
-            System.out.println("\u001B[32m" + "Секция коррекции внешних ключей" + "\u001B[0m");
+            println("\u001B[32m", "Секция коррекции внешних ключей", "\u001B[0m");
             updateSetting();
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERIES.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
@@ -506,7 +506,7 @@ public class Profstroy {
     private static void metaPart(Connection cn2, Statement st2) {
 
         try {
-            System.out.println("\u001B[32m" + "Секция создания внешних ключей" + "\u001B[0m");
+            println("\u001B[32m", "Секция создания внешних ключей", "\u001B[0m");
             metaSql("alter table artikl add constraint fk_currenc1 foreign key (currenc1_id) references currenc (id)");
             metaSql("alter table artikl add constraint fk_currenc2 foreign key (currenc2_id) references currenc (id)");
             metaSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
@@ -563,7 +563,7 @@ public class Profstroy {
 
     private static void updateElemgrp() throws SQLException {
         try {
-            System.out.println("updateElemgrp()");
+            println("updateElemgrp()");
             Query q = new Query(eElemgrp.values());
             ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
             ArrayList<Object[]> fieldList = new ArrayList();
@@ -585,7 +585,7 @@ public class Profstroy {
 
     private static void updateModels() {
         try {
-            System.out.println("updateModels()");
+            println("updateModels()");
             Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
                 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
             String script;
@@ -621,7 +621,7 @@ public class Profstroy {
 
     private static void updateSetting() {
         try {
-            System.out.println("updateSetting()");
+            println("updateSetting()");
             Query q = new Query(eSetting.values());
             Record record = q.newRecord(Query.INS);
             record.setNo(eSetting.id, 1);
@@ -657,8 +657,8 @@ public class Profstroy {
             }
             rs.close();
             String postpref = (recordDelete == 0) ? "" : "\u001B[34m Всего/удалено = " + recordCount + "/" + recordDelete + "\u001B[0m";
-            System.out.println("delete from " + table1.tname() + " where not exists (select id from " + table2.tname()
-                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")" + postpref);
+            println("delete from ", table1.tname() + " where not exists (select id from ", table2.tname(),
+                     " a where a.", id2, " = " + table1.tname(), ".", id1, ")", postpref);
 
             st2.executeBatch();
             cn2.commit();
@@ -689,8 +689,8 @@ public class Profstroy {
                 }
             }
             String postpref = (recordCount == recordUpdate) ? "" : "\u001B[34m Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate) + "\u001B[0m";
-            System.out.println("update " + table1.tname() + " set " + fk1.name() + " = (select id from " + table2.tname()
-                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")" + postpref);
+            println("update ", table1.tname(), " set ", fk1.name(), " = (select id from ", table2.tname(),
+                     " a where a.", id2, " = ", table1.tname(), ".", id1, ")", postpref);
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
@@ -709,7 +709,7 @@ public class Profstroy {
                 recordList.add(new Integer[]{rs.getInt("ID"), rs.getInt("CNUMB")});
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            System.err.println(e);
         }
         for (Integer[] recordArr : recordList) {
             if (set.add(recordArr[0]) == false) {
@@ -721,17 +721,17 @@ public class Profstroy {
 
     private static void metaSql(String str) {
         try {
-            System.out.println(str);
+            println(str);
             st2.execute(str);
             cn2.commit();
         } catch (SQLException e) {
-            System.out.println("\u001B[31m" + "НЕУДАЧА-SQL: Связь не установлена\u001B[0m");
+            System.err.println("\u001B[31m" + "НЕУДАЧА-SQL: Связь не установлена\u001B[0m");
         }
     }
 
     private static void executeSql(String str) {
         try {
-            System.out.println(str);
+            println(str);
             st2.execute(str);
             cn2.commit();
         } catch (Exception e) {
@@ -744,13 +744,14 @@ public class Profstroy {
             executeSql(str);
         }
     }
-    
-    private static void println(Object... p) {
-      
+
+    private static String println(Object... p) {
+
         Object str = "";
         for (Object s : p) {
-             str = str + s.toString();
+            str = str + s.toString();
         }
         System.out.println(str);
+        return str.toString();
     }
 }
