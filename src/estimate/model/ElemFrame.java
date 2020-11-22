@@ -105,15 +105,15 @@ public class ElemFrame extends ElemSimple {
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
         }
-        //Заплатка для ps3
-        if ("ps3".equals(eSetting.find(2).get(eSetting.val)) == true) {
-            if (LayoutArea.LEFT == layout && type() == TypeElem.FRAME_SIDE) {
-                if (artiklRec.get(eArtikl.size_falz) == null) {
-                    artiklRec.set(eArtikl.size_falz, width() / 2);
-                    eArtikl.query().update(artiklRec);
-                }
-            }
-        }        
+//        Заплатка для ps3
+//        if ("ps3".equals(eSetting.find(2).get(eSetting.val)) == true) {
+//            if (LayoutArea.LEFT == layout && type() == TypeElem.FRAME_SIDE) {
+//                if (artiklRec.get(eArtikl.size_falz) == null) {
+//                    artiklRec.set(eArtikl.size_falz, width() / 2);
+//                    eArtikl.query().update(artiklRec);
+//                }
+//            }
+//        }        
     }
 
     @Override //Вложеная спецификация
@@ -156,13 +156,16 @@ public class ElemFrame extends ElemSimple {
             String str = specif.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
-            float naxl = iwin().syssizeRec.getFloat(eSyssize.naxl);
-            specif.width = (specificationRec.width - naxl) * 2 * koef;
+            if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
+                specif.width = specificationRec.width * 2 * koef;
+            } else {
+                specif.width = specificationRec.height * 2 * koef;
+            }
 
             //Монтажный профиль
         } else if (TypeArtikl.MONTPROF.isType(specif.artiklRec) == true) {
-            float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
-            specificationRec.width = x2 - x1 + prip * 2;
+            //float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
+            //specificationRec.width = x2 - x1 + prip * 2;
             //specif.width = specificationRec.weight;
 
             //Соединитель

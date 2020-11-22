@@ -95,7 +95,8 @@ public class Elements extends Cal5e {
 
                             } else {
                                 elem5e.addSpecific(specif); //коррекция спецификации
-                                elementSet.change(specif);  //коррекция спецификации параметрами                               
+                                elementSet.change(specif);  //коррекция спецификации параметрами  
+                                int mmm = 0;
                             }
                         }
                     }
