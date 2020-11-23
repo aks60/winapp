@@ -19,15 +19,11 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            //convert.Profstroy.convert2();
+            convert.Profstroy.convert2();
             //wincalc();
             //query();
             //frame();
             //parse();
-            System.out.println("\u001B[0m" + "000000000000000");
-            System.out.println("\u001B[31m" + "1111111111111111");
-            System.out.println("\u001B[32m" + "2222222222222222");
-            System.out.println("\u001B[34m" + "33333333333333333");;
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);

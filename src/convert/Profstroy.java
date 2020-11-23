@@ -134,7 +134,6 @@ public class Profstroy {
         try {
 
             println("\u001B[32m", "Подготовка методанных");
-            //println("\u001B[34m", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
@@ -754,43 +753,44 @@ public class Profstroy {
         }
     }
 
-    private static String println(Object... p) {
+    private static void println(Object... p) {
 
         Object str = "";
         for (Object s : p) {
             if (tp != null) {
                 if ("\u001B[0m".equals(s)) { //чёрн.
-                    appendToPane(s.toString(), Color.BLACK);
+                    //appendToPane(s.toString(), Color.BLACK);
                     continue;
                 } else if ("\u001B[31m".equals(s)) { //красн.
-                    appendToPane(s.toString(), Color.RED);
+                    //appendToPane(s.toString(), Color.RED);
                     continue;
                 } else if ("\u001B[32m".equals(s)) { //зелён.
-                    appendToPane(s.toString(), Color.GREEN);
+                    //appendToPane(s.toString(), Color.GREEN);
                     continue;
                 } else if ("\u001B[34m".equals(s)) { //син.
-                    appendToPane(s.toString(), Color.BLUE);
+                    //appendToPane(s.toString(), Color.BLUE);
                     continue;
                 }
             }
             str = str + s.toString();
         }
-        str = str + "\n";
+        //str = str + "\n";
+        //appendToPane(str.toString(), Color.BLACK);
 
         System.out.println(str);
-        return str.toString();
     }
 
     private static void appendToPane(String msg, Color c) {
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
-        int len = tp.getDocument().getLength();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.replaceSelection(msg);
+        System.out.print(msg);
+//        StyleContext sc = StyleContext.getDefaultStyleContext();
+//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+//
+//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+//
+//        int len = tp.getDocument().getLength();
+//        tp.setCaretPosition(len);
+//        tp.setCharacterAttributes(aset, false);
+//        tp.replaceSelection(msg);
     }
 }

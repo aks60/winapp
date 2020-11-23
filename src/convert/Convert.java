@@ -6,7 +6,7 @@ import dataset.ConnFb;
 import dataset.Query;
 import dataset.eExcep;
 import java.awt.Color;
-import java.awt.Insets;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -355,20 +355,34 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
+        try {
+            Query.connection.close();
+            eProperty.user.write("sysdba");
+            eProperty.password = String.valueOf("masterkey");
+            int num_base = Integer.valueOf(eProperty.base_num.read());
+            ConnApp con1 = ConnApp.initConnect();
+            con1.createConnection(num_base);
+            Connection c1 = con1.getConnection();
 
-        ConnApp con2 = new ConnFb();
-        eExcep excep = con2.createConnection(edServer.getText().trim(), edPort.getText().trim(),
-            edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+            ConnApp con2 = new ConnFb();
+            eExcep excep = con2.createConnection(edServer.getText().trim(), edPort.getText().trim(),
+                    edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+            Connection c2 = con2.getConnection();
 
-        if (excep.yesConn != excep) {
-            JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+            if (excep.yesConn != excep) {
+                JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
 
-        } else {            
-            Profstroy.convert(txtPane, con2.getConnection(), Query.connection);
+            } else {
+                Profstroy.convert(txtPane, c1, c2);
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+           //Query.connection. 
         }
     }//GEN-LAST:event_btnStartBtnStartClick
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnExit1;
