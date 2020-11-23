@@ -98,6 +98,11 @@ public class Profstroy {
         cn1 = _cn1;
         cn2 = _cn2;
         script();
+//        appendToPane("1111111111111\n", Color.RED);
+//        appendToPane("2222222222222\n", Color.BLUE);
+//        appendToPane("3333333333333\n", Color.GREEN);
+//        appendToPane( "4444444444444", Color.MAGENTA);
+//        appendToPane("5555555555555\n", Color.ORANGE);        
     }
 
     public static void convert2() {
@@ -165,6 +170,8 @@ public class Profstroy {
             println("\u001B[32m", "Перенос данных");
             //Цикл по доменам приложения
             for (Field fieldUp : fieldsUp) {
+                println("\u001B[32m", " *** Секция " + fieldUp.tname() + " ***");
+                
                 //Поля не вошедшие в eEnum.values()
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
 
@@ -193,11 +200,13 @@ public class Profstroy {
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
-                } else {
+                } 
+                //Особенности таблицы COLOR
+                if ("COLOR".equals(fieldUp.tname()) == true) {
                     int max1 = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getInt(1);
                     int max2 = checkUniqueKeyColor(max1); //проверим ключ на уникальность
                     executeSql("set generator GEN_" + fieldUp.tname() + " to " + max2);
-                }
+                }                
                 //Создание триггеров генераторов
                 executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
                         + " if (new.id is null) then new.id = gen_id(gen_" + fieldUp.tname() + ", 1); end");
@@ -758,19 +767,19 @@ public class Profstroy {
         Object str = "";
         for (Object s : p) {
             if (tp != null) {
-                if ("\u001B[0m".equals(s)) { //чёрн.
-                    //appendToPane(s.toString(), Color.BLACK);
-                    continue;
-                } else if ("\u001B[31m".equals(s)) { //красн.
-                    //appendToPane(s.toString(), Color.RED);
-                    continue;
-                } else if ("\u001B[32m".equals(s)) { //зелён.
-                    //appendToPane(s.toString(), Color.GREEN);
-                    continue;
-                } else if ("\u001B[34m".equals(s)) { //син.
-                    //appendToPane(s.toString(), Color.BLUE);
-                    continue;
-                }
+//                if ("\u001B[0m".equals(s)) { //чёрн.
+//                    //appendToPane(s.toString(), Color.BLACK);
+//                    continue;
+//                } else if ("\u001B[31m".equals(s)) { //красн.
+//                    //appendToPane(s.toString(), Color.RED);
+//                    continue;
+//                } else if ("\u001B[32m".equals(s)) { //зелён.
+//                    //appendToPane(s.toString(), Color.GREEN);
+//                    continue;
+//                } else if ("\u001B[34m".equals(s)) { //син.
+//                    //appendToPane(s.toString(), Color.BLUE);
+//                    continue;
+//                }
             }
             str = str + s.toString();
         }
@@ -781,16 +790,15 @@ public class Profstroy {
     }
 
     private static void appendToPane(String msg, Color c) {
-        System.out.print(msg);
-//        StyleContext sc = StyleContext.getDefaultStyleContext();
-//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-//
-//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-//
-//        int len = tp.getDocument().getLength();
-//        tp.setCaretPosition(len);
-//        tp.setCharacterAttributes(aset, false);
-//        tp.replaceSelection(msg);
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
     }
 }
