@@ -43,27 +43,26 @@ public class Convert extends javax.swing.JFrame {
         edPass.setText("masterkey");
     }
 
-    private void test() {
-        appendToPane(txtPane, "1111111111111\n", Color.RED);
-        appendToPane(txtPane, "2222222222222\n", Color.BLUE);
-        appendToPane(txtPane, "3333333333333\n", Color.GREEN);
-        appendToPane(txtPane, "4444444444444", Color.MAGENTA);
-        appendToPane(txtPane, "5555555555555\n", Color.ORANGE);
-    }
-
-    private void appendToPane(JTextPane tp, String msg, Color c) {
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
-        int len = tp.getDocument().getLength();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.replaceSelection(msg);
-    }
-
+//    private void test() {
+//        appendToPane(txtPane, "1111111111111\n", Color.RED);
+//        appendToPane(txtPane, "2222222222222\n", Color.BLUE);
+//        appendToPane(txtPane, "3333333333333\n", Color.GREEN);
+//        appendToPane(txtPane, "4444444444444", Color.MAGENTA);
+//        appendToPane(txtPane, "5555555555555\n", Color.ORANGE);
+//    }
+//
+//    private void appendToPane(JTextPane tp, String msg, Color c) {
+//        StyleContext sc = StyleContext.getDefaultStyleContext();
+//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+//
+//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+//
+//        int len = tp.getDocument().getLength();
+//        tp.setCaretPosition(len);
+//        tp.setCharacterAttributes(aset, false);
+//        tp.replaceSelection(msg);
+//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -356,29 +355,24 @@ public class Convert extends javax.swing.JFrame {
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
         try {
+            Query.listOpenTable.forEach(q -> q.clear());
             Query.connection.close();
+            
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             int num_base = Integer.valueOf(eProperty.base_num.read());
-            ConnApp con1 = ConnApp.initConnect();
-            con1.createConnection(num_base);
-            Connection c1 = con1.getConnection();
-
-            ConnApp con2 = new ConnFb();
-            eExcep excep = con2.createConnection(edServer.getText().trim(), edPort.getText().trim(),
-                    edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+            ConnApp con2 = ConnApp.initConnect();
+            con2.createConnection(num_base);
             Connection c2 = con2.getConnection();
 
-            if (excep.yesConn != excep) {
-                JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
+            ConnApp con1 = new ConnFb();
+            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+            Connection c1 = con1.getConnection();
 
-            } else {
-                Profstroy.convert(txtPane, c1, c2);
-            }
+            Profstroy.convert(txtPane, c1, c2);
+
         } catch (Exception e) {
             System.err.println(e);
-        } finally {
-           //Query.connection. 
         }
     }//GEN-LAST:event_btnStartBtnStartClick
 

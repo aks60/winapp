@@ -108,6 +108,7 @@ public class Query extends Table {
                     selector = selector + table.fields.size();
                 }
             }
+            statement.close();
             return this;
 
         } catch (SQLException e) {

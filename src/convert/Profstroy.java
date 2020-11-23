@@ -85,6 +85,13 @@ import javax.swing.text.StyleContext;
  */
 public class Profstroy {
 
+    private static enum Clr{
+ 
+    RED,
+    GRE,
+    BLU,
+    BLK
+}
     private static int versionPs = 4;
     private static Connection cn1;
     private static Connection cn2;
@@ -97,12 +104,7 @@ public class Profstroy {
         tp = _tp;
         cn1 = _cn1;
         cn2 = _cn2;
-        script();
-//        appendToPane("1111111111111\n", Color.RED);
-//        appendToPane("2222222222222\n", Color.BLUE);
-//        appendToPane("3333333333333\n", Color.GREEN);
-//        appendToPane( "4444444444444", Color.MAGENTA);
-//        appendToPane("5555555555555\n", Color.ORANGE);        
+        script();    
     }
 
     public static void convert2() {
@@ -674,7 +676,7 @@ public class Profstroy {
             }
             rs.close();
             String postpref = (recordDelete == 0) ? "" : " Всего/удалено = " + recordCount + "/" + recordDelete;
-            println("delete from ", table1.tname() + " where not exists (select id from ", table2.tname(),
+            println("\u001B[0m" + "delete from ", table1.tname() + " where not exists (select id from ", table2.tname(),
                     " a where a.", id2, " = ", table1.tname(), ".", id1, ")", "\u001B[34m", postpref, "\u001B[0m");
 
             st2.executeBatch();
@@ -706,7 +708,7 @@ public class Profstroy {
                 }
             }
             String postpref = (recordCount == recordUpdate) ? "" : " Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate);
-            println("update ", table1.tname(), " set ", fk1.name(), " = (select id from ", table2.tname(),
+            println("\u001B[0m" + "update ", table1.tname(), " set ", fk1.name(), " = (select id from ", table2.tname(),
                     " a where a.", id2, " = ", table1.tname(), ".", id1, ")", "\u001B[34m", postpref, "\u001B[0m");
             st2.executeBatch();
             cn2.commit();
@@ -763,42 +765,41 @@ public class Profstroy {
     }
 
     private static void println(Object... p) {
-
         Object str = "";
         for (Object s : p) {
-            if (tp != null) {
+//            if (tp == null) {
 //                if ("\u001B[0m".equals(s)) { //чёрн.
 //                    //appendToPane(s.toString(), Color.BLACK);
 //                    continue;
 //                } else if ("\u001B[31m".equals(s)) { //красн.
 //                    //appendToPane(s.toString(), Color.RED);
 //                    continue;
-//                } else if ("\u001B[32m".equals(s)) { //зелён.
+//                } else if ("\u001B[32m".equals(s)) { //зелён. 
 //                    //appendToPane(s.toString(), Color.GREEN);
 //                    continue;
 //                } else if ("\u001B[34m".equals(s)) { //син.
 //                    //appendToPane(s.toString(), Color.BLUE);
 //                    continue;
 //                }
-            }
+//            }
             str = str + s.toString();
         }
         //str = str + "\n";
-        //appendToPane(str.toString(), Color.BLACK);
+        //appendToPane("++++++++++++++++++", Color.BLACK);
 
         System.out.println(str);
     }
 
     private static void appendToPane(String msg, Color c) {
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
-        int len = tp.getDocument().getLength();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.replaceSelection(msg);
+//        StyleContext sc = StyleContext.getDefaultStyleContext();
+//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+//
+//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+//
+//        int len = tp.getDocument().getLength();
+//        tp.setCaretPosition(len);
+//        tp.setCharacterAttributes(aset, false);
+//        tp.replaceSelection(msg);
     }
 }
