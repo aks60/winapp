@@ -67,9 +67,9 @@ public class Convert extends javax.swing.JFrame {
                     appendToPane(obj[3].toString() + "\n", (Color) obj[2]);
                 }
             }
-        }        
+        }
     }
-    
+
     private void appendToPane(String msg, Color c) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
@@ -383,7 +383,6 @@ public class Convert extends javax.swing.JFrame {
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
         try {
-
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             int num_base = Integer.valueOf(eProperty.base_num.read());
@@ -417,6 +416,9 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartBtnStartClick
 
     private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
+
+clearQue();
+
 //        appendToPane("1111111111111\n", Color.RED);
 //        appendToPane("2222222222222\n", Color.BLUE);
 //        appendToPane("3333333333333\n", Color.GREEN);
