@@ -50,19 +50,20 @@ public class Convert extends javax.swing.JFrame {
 //        appendToPane(txtPane, "4444444444444", Color.MAGENTA);
 //        appendToPane(txtPane, "5555555555555\n", Color.ORANGE);
 //    }
-//
-//    private void appendToPane(JTextPane tp, String msg, Color c) {
-//        StyleContext sc = StyleContext.getDefaultStyleContext();
-//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-//
-//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-//
-//        int len = tp.getDocument().getLength();
-//        tp.setCaretPosition(len);
-//        tp.setCharacterAttributes(aset, false);
-//        tp.replaceSelection(msg);
-//    }
+
+    private void appendToPane(String msg, Color c) {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = txtPane.getDocument().getLength();
+        txtPane.setCaretPosition(len);
+        txtPane.setCharacterAttributes(aset, false);
+        txtPane.replaceSelection(msg);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -354,23 +355,33 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
+
         try {
-            Query.listOpenTable.forEach(q -> q.clear());
-            Query.connection.close();
-            
-            eProperty.user.write("sysdba");
-            eProperty.password = String.valueOf("masterkey");
-            int num_base = Integer.valueOf(eProperty.base_num.read());
-            ConnApp con2 = ConnApp.initConnect();
-            con2.createConnection(num_base);
-            Connection c2 = con2.getConnection();
+            Thread thread = new Thread() {
 
-            ConnApp con1 = new ConnFb();
-            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
-            Connection c1 = con1.getConnection();
-
-            Profstroy.convert(txtPane, c1, c2);
-
+                public void run() {
+                    
+        for(int index = 0; index < 10; index++) {
+            txtPane.setText("1");
+        }                    
+                    
+//                    //Query.listOpenTable.forEach(q -> q.clear());
+//                    //Query.connection.close();
+//
+//                    eProperty.user.write("sysdba");
+//                    eProperty.password = String.valueOf("masterkey");
+//                    int num_base = Integer.valueOf(eProperty.base_num.read());
+//                    ConnApp con2 = ConnApp.initConnect();
+//                    con2.createConnection(num_base);
+//                    Connection c2 = con2.getConnection();
+//
+//                    ConnApp con1 = new ConnFb();
+//                    con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+//                    Connection c1 = con1.getConnection();
+//
+//                    Profstroy.convert(txtPane, c1, c2);
+                }
+            };
         } catch (Exception e) {
             System.err.println(e);
         }

@@ -153,7 +153,6 @@ public class Profstroy {
             List<String> listExistTable1 = new ArrayList<String>();//таблицы источника
             List<String> listExistTable2 = new ArrayList<String>();//таблицы приёмника
             List<String> listGenerator2 = new ArrayList<String>();//генераторы приёмника 
-/////////////////////////////////////////////////////////////////////////////////////////////////
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
@@ -774,6 +773,7 @@ public class Profstroy {
         } else if (clr == Clr.BLU) {
             pre = "\u001B[34m";
         }
+        //appendToPane(txt, Color.BLACK);
         if (line == 1) {
             System.out.println(pre + txt + "\u001B[0m");
         } else {
@@ -781,7 +781,9 @@ public class Profstroy {
         }
     }
 
-//    private static void appendToPane(String msg, Color c) {
+    private static void appendToPane(String msg, Color c) {
+        
+//        tp.setText(msg);
 //        StyleContext sc = StyleContext.getDefaultStyleContext();
 //        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 //
@@ -792,5 +794,5 @@ public class Profstroy {
 //        tp.setCaretPosition(len);
 //        tp.setCharacterAttributes(aset, false);
 //        tp.replaceSelection(msg);
-//    }
+    }
 }
