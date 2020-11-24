@@ -136,7 +136,7 @@ public class Query extends Table {
                     nameCols = nameCols.substring(0, nameCols.length() - 1);
                     nameVals = nameVals.substring(0, nameVals.length() - 1);
                     String sql = "insert into " + schema + fields.get(0).tname() + "(" + nameCols + ") values(" + nameVals + ")";
-                    System.out.println("SQL-INSERT " + sql);
+                    //System.out.println("SQL-INSERT " + sql);
                     statement.executeUpdate(sql);
                 }
             }
@@ -161,7 +161,7 @@ public class Query extends Table {
                     nameCols = nameCols.substring(0, nameCols.length() - 1);
                     String sql = "update " + schema + fields.get(0).tname() + " set "
                             + nameCols + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-                    System.out.println("SQL-UPDATE " + sql);
+                    //System.out.println("SQL-UPDATE " + sql);
                     statement.executeUpdate(sql);
                 }
             }
@@ -176,7 +176,7 @@ public class Query extends Table {
                 Statement statement = connection.createStatement();
                 Field[] f = fields.get(0).fields();
                 String sql = "delete from " + schema + fields.get(0).tname() + " where " + f[1].name() + " = " + wrapper(record, f[1]);
-                System.out.println("SQL-DELETE " + sql);
+                //System.out.println("SQL-DELETE " + sql);
                 statement.executeUpdate(sql);
             }
         } catch (SQLException e) {

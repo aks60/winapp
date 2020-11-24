@@ -77,10 +77,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
-public class Profstroy2 extends SwingWorker<String, Object> {
+public class Profstroy2 extends SwingWorker<Boolean, Object> {
 
-    private int count = 0;   
-    private Queue que = null;
+    private int count = 0;
+
     private enum Clr {
 
         RED,
@@ -166,6 +166,7 @@ public class Profstroy2 extends SwingWorker<String, Object> {
             println(Clr.GRE, 1, "Перенос данных");
             //Цикл по доменам приложения
             for (Field fieldUp : fieldsUp) {
+                Thread.sleep(1000);
                 println(Clr.GRE, 1, " *** Секция " + fieldUp.tname() + " ***");
 
                 //Поля не вошедшие в eEnum.values()
@@ -782,27 +783,28 @@ public class Profstroy2 extends SwingWorker<String, Object> {
         } else if (clr == Clr.BLU) {
             pre = "\u001B[34m";
         }
-        //publish(txt, Color.RED);
-        if (line == 1) {
-            System.out.println(pre + txt + "\u001B[0m");
-            //publish(pre + txt + "\u001B[0m");
-        } else {
-            //publish(pre + txt + "\u001B[0m");            
-            System.out.print(pre + txt + "\u001B[0m");
-        }
+        publish((++count) + " -" + txt, Color.BLACK);
+        //System.out.println((count) + " -" + txt);
+
+//        //publish(txt, Color.RED);
+//        if (line == 1) {
+//            System.out.println(pre + txt + "\u001B[0m");
+//            //publish(pre + txt + "\u001B[0m");
+//        } else {
+//            //publish(pre + txt + "\u001B[0m");            
+//            System.out.print(pre + txt + "\u001B[0m");
+//        }
     }
 
     //Здесь выполняется работа
-    public String doInBackground() throws Exception {
-        try {
-            script();
-        } catch (Exception t) {
-            System.err.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
-        }
-        return "";
+    @Override
+    public Boolean doInBackground() throws Exception {
+        script();
+        return true;
     }
 
     //Поток рассылки событий
+    @Override
     public void process(List<Object> chunks) {
         try {
             String msg = chunks.get(0).toString() + "\n";
@@ -819,11 +821,13 @@ public class Profstroy2 extends SwingWorker<String, Object> {
             tp.setCharacterAttributes(aset, false);
             tp.replaceSelection(msg);
         } catch (Exception e) {
-          System.err.println("process " + e);
+            System.err.println("process " + e);
         }
     }
 
+    @Override
     public void done() {
+        publish("Работа завершена", Color.BLACK);
         System.out.println("Работа завершена");
     }
 }

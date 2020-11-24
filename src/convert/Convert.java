@@ -20,7 +20,7 @@ import javax.swing.text.StyleContext;
 
 public class Convert extends javax.swing.JFrame {
 
-    private Queue<String> que = new ConcurrentLinkedQueue<String>();
+    private Queue<Object[]> que = new ConcurrentLinkedQueue<Object[]>();
     private JTextField smallField, bigField;
 
     public Convert() {
@@ -372,8 +372,8 @@ public class Convert extends javax.swing.JFrame {
             
             new Thread(new Runnable() {
                 public void run() {
-                    new Profstroy2(txtPane, c1, c2).execute();
-                    //Profstroy.convert(que, c1, c2);
+                    //new Profstroy2(txtPane, c1, c2).execute();
+                    Profstroy.convert(que, c1, c2);
                 }
             }).start();
 
@@ -381,8 +381,8 @@ public class Convert extends javax.swing.JFrame {
 //                    new Runnable() {
 //                public void run() {
 //                    
-//                    //new Profstroy2(txtPane, c1, c2).execute();
-//                    Profstroy.convert(que, c1, c2);
+//                    new Profstroy2(txtPane, c1, c2).execute();
+//                    //Profstroy.convert(que, c1, c2);
 //                }
 //            });
 
@@ -392,12 +392,14 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartBtnStartClick
 
     private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
-
-        appendToPane("1111111111111\n", Color.RED);
-        appendToPane("2222222222222\n", Color.BLUE);
-        appendToPane("3333333333333\n", Color.GREEN);
-        appendToPane("4444444444444", Color.MAGENTA);
-        appendToPane("5555555555555\n", Color.ORANGE);
+        for (int i = 0; i < que.size(); ++i) {
+            appendToPane(que.poll() + "\n", Color.BLUE);
+        }
+//        appendToPane("1111111111111\n", Color.RED);
+//        appendToPane("2222222222222\n", Color.BLUE);
+//        appendToPane("3333333333333\n", Color.GREEN);
+//        appendToPane("4444444444444", Color.MAGENTA);
+//        appendToPane("5555555555555\n", Color.ORANGE);
     }//GEN-LAST:event_btnExit1ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
