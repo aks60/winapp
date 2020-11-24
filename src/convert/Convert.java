@@ -3,13 +3,14 @@ package convert;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.ConnFb;
-import dataset.Query;
 import dataset.eExcep;
 import java.awt.Color;
+import java.awt.Insets;
 import java.sql.Connection;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -37,19 +38,11 @@ public class Convert extends javax.swing.JFrame {
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port.read() + "\\" + eProperty.base3.read());
             edPath.setText("D:\\Okna\\Database\\Sialbase2\\base4.fdb");
         }
-        edPort.setText("3050");
+        edPort.setText("3055");
         edServer.setText("localhost");
         edUser.setText("sysdba");
         edPass.setText("masterkey");
     }
-
-//    private void test() {
-//        appendToPane(txtPane, "1111111111111\n", Color.RED);
-//        appendToPane(txtPane, "2222222222222\n", Color.BLUE);
-//        appendToPane(txtPane, "3333333333333\n", Color.GREEN);
-//        appendToPane(txtPane, "4444444444444", Color.MAGENTA);
-//        appendToPane(txtPane, "5555555555555\n", Color.ORANGE);
-//    }
 
     private void appendToPane(String msg, Color c) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
@@ -63,7 +56,7 @@ public class Convert extends javax.swing.JFrame {
         txtPane.setCharacterAttributes(aset, false);
         txtPane.replaceSelection(msg);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -267,8 +260,10 @@ public class Convert extends javax.swing.JFrame {
         panCent.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
+        scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         txtPane.setBorder(null);
+        txtPane.setMargin(new java.awt.Insets(20, 20, 20, 20));
         scr1.setViewportView(txtPane);
 
         panCent.add(scr1, java.awt.BorderLayout.CENTER);
@@ -299,6 +294,11 @@ public class Convert extends javax.swing.JFrame {
         btnExit1.setMaximumSize(new java.awt.Dimension(25, 25));
         btnExit1.setMinimumSize(new java.awt.Dimension(0, 0));
         btnExit1.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnExit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExit1ActionPerformed(evt);
+            }
+        });
 
         btnStart.setFont(frames.Util.getFont(0,0));
         btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b059.gif"))); // NOI18N
@@ -355,37 +355,41 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
-
         try {
-            Thread thread = new Thread() {
+            //Query.listOpenTable.forEach(q -> q.clear());
+            //Query.connection.close();
 
+            eProperty.user.write("sysdba");
+            eProperty.password = String.valueOf("masterkey");
+            int num_base = Integer.valueOf(eProperty.base_num.read());
+            ConnApp con2 = ConnApp.initConnect();
+            con2.createConnection(num_base);
+            Connection c2 = con2.getConnection();
+
+            ConnApp con1 = new ConnFb();
+            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+            Connection c1 = con1.getConnection();
+
+            SwingUtilities.invokeLater(
+                    new Runnable() {
                 public void run() {
-                    
-        for(int index = 0; index < 10; index++) {
-            txtPane.setText("1");
-        }                    
-                    
-//                    //Query.listOpenTable.forEach(q -> q.clear());
-//                    //Query.connection.close();
-//
-//                    eProperty.user.write("sysdba");
-//                    eProperty.password = String.valueOf("masterkey");
-//                    int num_base = Integer.valueOf(eProperty.base_num.read());
-//                    ConnApp con2 = ConnApp.initConnect();
-//                    con2.createConnection(num_base);
-//                    Connection c2 = con2.getConnection();
-//
-//                    ConnApp con1 = new ConnFb();
-//                    con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
-//                    Connection c1 = con1.getConnection();
-//
-//                    Profstroy.convert(txtPane, c1, c2);
+                    new Profstroy2(txtPane, c1, c2).execute();
+                    //Profstroy.convert(txtPane, c1, c2);
                 }
-            };
+            });
+
         } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_btnStartBtnStartClick
+
+    private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
+        appendToPane("1111111111111\n", Color.RED);
+        appendToPane("2222222222222\n", Color.BLUE);
+        appendToPane("3333333333333\n", Color.GREEN);
+        appendToPane("4444444444444", Color.MAGENTA);
+        appendToPane("5555555555555\n", Color.ORANGE);
+    }//GEN-LAST:event_btnExit1ActionPerformed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -414,6 +418,7 @@ public class Convert extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-
+   	Insets insets = txtPane.getInsets();
+	txtPane.setBorder(BorderFactory.createEmptyBorder(insets.top, 6, insets.bottom, insets.right));
     }
 }
