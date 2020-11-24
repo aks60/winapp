@@ -676,7 +676,7 @@ public class Profstroy {
             rs.close();
             String postpref = (recordDelete == 0) ? "" : " Всего/удалено = " + recordCount + "/" + recordDelete;
             println(Color.BLACK, "delete from " + table1.tname() + " where not exists (select id from " + table2.tname()
-                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")", Color.BLUE, 1, postpref);
+                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")", Color.BLUE, postpref);
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
@@ -707,7 +707,7 @@ public class Profstroy {
             }
             String postpref = (recordCount == recordUpdate) ? "" : " Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate);
             println(Color.BLACK, 0, "update " + table1.tname() + " set " + fk1.name() + " = (select id from "
-                    + table2.tname() + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")", Color.BLUE, 1, postpref);
+                    + table2.tname() + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")", Color.BLUE, postpref);
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
@@ -761,11 +761,12 @@ public class Profstroy {
     }
 
     private static void println(Object... obj) {
-        //que.add((++count) + " -" + txt, );
         if (obj.length == 2) {
-            System.out.println(consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
+            que.add(new Object[] {obj[0], obj[1]});
+            //System.out.println(consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
         } else {
-            System.out.println(consoleColor(obj[0]) + obj[1].toString() + consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
+            que.add(new Object[] {obj[0], obj[1], obj[2], obj[3]});
+            //System.out.println(consoleColor(obj[0]) + obj[1].toString() + consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
         }
     }
 }

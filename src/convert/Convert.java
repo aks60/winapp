@@ -369,7 +369,7 @@ public class Convert extends javax.swing.JFrame {
             ConnApp con1 = new ConnFb();
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
             Connection c1 = con1.getConnection();
-            
+
             new Thread(new Runnable() {
                 public void run() {
                     //new Profstroy2(txtPane, c1, c2).execute();
@@ -385,7 +385,6 @@ public class Convert extends javax.swing.JFrame {
 //                    //Profstroy.convert(que, c1, c2);
 //                }
 //            });
-
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -393,7 +392,13 @@ public class Convert extends javax.swing.JFrame {
 
     private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
         for (int i = 0; i < que.size(); ++i) {
-            appendToPane(que.poll() + "\n", Color.BLUE);
+            Object obj[] = que.poll();
+            if (obj.length == 2) {
+                appendToPane(obj[1].toString() + "\n", (Color) obj[0]);
+            } else {
+                appendToPane(obj[1].toString(), (Color) obj[0]);
+                appendToPane(obj[3].toString() + "\n", (Color) obj[2]);
+            }
         }
 //        appendToPane("1111111111111\n", Color.RED);
 //        appendToPane("2222222222222\n", Color.BLUE);
@@ -429,7 +434,7 @@ public class Convert extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-   	Insets insets = txtPane.getInsets();
-	txtPane.setBorder(BorderFactory.createEmptyBorder(insets.top, 6, insets.bottom, insets.right));
+        Insets insets = txtPane.getInsets();
+        txtPane.setBorder(BorderFactory.createEmptyBorder(insets.top, 6, insets.bottom, insets.right));
     }
 }
