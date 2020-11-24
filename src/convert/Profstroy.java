@@ -69,6 +69,7 @@ import java.util.Map;
 import java.util.Set;
 import estimate.script.Winscript;
 import java.awt.Color;
+import java.util.Queue;
 import javax.swing.JTextPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -85,14 +86,15 @@ import javax.swing.text.StyleContext;
  */
 public class Profstroy {
 
-    private static enum Clr {
+    private static Queue<String> que = null;
 
+    private static enum Clr {
         RED,
         GRE,
         BLU,
         BLK
     }
-    private static int versionPs = 4;
+    private static String versionPs = "4";
     private static Connection cn1;
     private static Connection cn2;
     private static Statement st1; //источник 
@@ -100,8 +102,8 @@ public class Profstroy {
     private static String src, out;
     private static JTextPane tp = null;
 
-    public static void convert(JTextPane _tp, Connection _cn1, Connection _cn2) {
-        tp = _tp;
+    public static void convert(Queue<String> _que, Connection _cn1, Connection _cn2) {
+        que =_que;
         cn1 = _cn1;
         cn2 = _cn2;
         script();
@@ -156,7 +158,7 @@ public class Profstroy {
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
-                    versionPs = 3;
+                    versionPs = "3";
                     eJoining.up.meta().fname = "CONNECT";
                 }
             }
@@ -450,13 +452,13 @@ public class Profstroy {
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
-            executeSql(4, "update element set typset = vtype");
-            executeSql(3, "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
+            executeSql("4", "update element set typset = vtype");
+            executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
             executeSql("update element set todef = 1  where vsets in (1,2)");
             executeSql("update element set toset = 1  where vsets = 1");
             updateSql(eElemdet.up, eElemdet.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql(4, "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
-            executeSql(4, "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
+            executeSql("4", "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
+            executeSql("4", "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
@@ -486,12 +488,12 @@ public class Profstroy {
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
-            executeSql(3, "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
-            executeSql(4, "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
-            executeSql(3, "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
-            executeSql(4, "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            executeSql(3, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
-            executeSql(4, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)");
+            executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
+            executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
+            executeSql("3", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
+            executeSql("4", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
+            executeSql("3", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
+            executeSql("4", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)");
             updateSql(eFurndet.up, eFurndet.furniture_id2, "furniture_id2", eFurniture.up, "funic");
             executeSql("update furndet set furndet_id = id where furndet_id = 0");
             executeSql("update furndet set color_fk = null where furniture_id2 > 0");
@@ -746,19 +748,17 @@ public class Profstroy {
         }
     }
 
-    private static void executeSql(String str) {
+    private static void executeSql(String... s) {
+        if (s.length == 2 && versionPs.equals(s[0]) == false) {
+            return;
+        }
+        String str = (s.length == 2) ? s[1] : s[0];
         try {
-            println(Clr.BLK, 1, str);
+            println(Profstroy.Clr.BLK, 1, str);
             st2.execute(str);
             cn2.commit();
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "SQL-DB:  " + e);
-        }
-    }
-
-    private static void executeSql(int versionPs, String str) {
-        if (Profstroy.versionPs == versionPs) {
-            executeSql(str);
+            System.err.println("SQL-DB:  " + e);
         }
     }
 
@@ -773,26 +773,11 @@ public class Profstroy {
         } else if (clr == Clr.BLU) {
             pre = "\u001B[34m";
         }
-        //appendToPane(txt, Color.BLACK);
+        que.add(txt);
         if (line == 1) {
             System.out.println(pre + txt + "\u001B[0m");
         } else {
             System.out.print(pre + txt + "\u001B[0m");
         }
-    }
-
-    private static void appendToPane(String msg, Color c) {
-        
-//        tp.setText(msg);
-//        StyleContext sc = StyleContext.getDefaultStyleContext();
-//        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
-//
-//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-//
-//        int len = tp.getDocument().getLength();
-//        tp.setCaretPosition(len);
-//        tp.setCharacterAttributes(aset, false);
-//        tp.replaceSelection(msg);
     }
 }

@@ -68,6 +68,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
@@ -76,8 +77,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
-public class Profstroy2 extends SwingWorker<Object, Object> {
+public class Profstroy2 extends SwingWorker<String, Object> {
 
+    private int count = 0;   
+    private Queue que = null;
     private enum Clr {
 
         RED,
@@ -85,7 +88,7 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
         BLU,
         BLK
     }
-    private int versionPs = 3;
+    private String versionPs = "4";
     private Connection cn1;
     private Connection cn2;
     private Statement st1; //источник 
@@ -112,6 +115,7 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             cn2 = java.sql.DriverManager.getConnection(out, "sysdba", "masterkey"); //приёмник
 
         } catch (Exception e) {
+            //println(Clr.RED, 1, "Ошибка: Profstroy.script() " + e);
             System.err.println("Ошибка: Profstroy.script() " + e);
         }
     }
@@ -147,7 +151,7 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             while (resultSet1.next()) {
                 listExistTable1.add(resultSet1.getString("TABLE_NAME"));
                 if ("CONNECT".equals(resultSet1.getString("TABLE_NAME"))) {
-                    versionPs = 3;
+                    versionPs = "3";
                     eJoining.up.meta().fname = "CONNECT";
                 }
             }
@@ -224,7 +228,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             }
             println(Clr.BLU, 1, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e);
+            System.err.println("SQL-SCRIPT: " + e);
+//            println(Clr.RED, 1, "SQL-SCRIPT: " + e);
         }
     }
 
@@ -319,7 +324,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
                         try {  //Если была ошибка в пакете выполняю отдельные sql insert
                             st2.executeUpdate(sql);
                         } catch (SQLException e) {
-                            System.err.println("\u001B[31m" + "SCRIPT-INSERT:  " + e);
+                            System.err.println("SCRIPT-INSERT:  " + e);
+//                            println(Clr.RED, 1, "SCRIPT-INSERT:  " + e);
                         }
                     }
                 }
@@ -334,11 +340,13 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
                     cn2.rollback();
                     bash = false;
                     --index_page;
-                    println(Clr.BLK, 1, "SCRIPT-BATCH:  " + e);
+                    System.err.println("SCRIPT-BATCH:  " + e);
+//                    println(Clr.BLK, 1, "SCRIPT-BATCH:  " + e);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "CONVERT-TABLE:  " + e);
+            System.err.println("CONVERT-TABLE:  " + e);
+//            println(Clr.RED, 1, "CONVERT-TABLE:  " + e);
         }
     }
 
@@ -368,7 +376,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             }
             return hmDeltaCol;
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "DELTA-COLUMN: " + e);
+            System.err.println("DELTA-COLUMN: " + e);
+//            println(Clr.RED, 1, "DELTA-COLUMN: " + e);
             return null;
         }
     }
@@ -419,7 +428,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");//kitdet_id
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "DELETE-PART:  " + e);
+            System.err.println("DELETE-PART:  " + e);
+//            println(Clr.RED, 1, "DELETE-PART:  " + e);
         }
     }
 
@@ -441,13 +451,13 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
-            executeSql(4, "update element set typset = vtype");
-            executeSql(3, "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
+            executeSql("4", "update element set typset = vtype");
+            executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
             executeSql("update element set todef = 1  where vsets in (1,2)");
             executeSql("update element set toset = 1  where vsets = 1");
             updateSql(eElemdet.up, eElemdet.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql(4, "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
-            executeSql(4, "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
+            executeSql("4", "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
+            executeSql("4", "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
@@ -477,12 +487,12 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
-            executeSql(3, "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
-            executeSql(4, "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
-            executeSql(3, "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
-            executeSql(4, "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            executeSql(3, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
-            executeSql(4, "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)");
+            executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
+            executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
+            executeSql("3", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
+            executeSql("4", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
+            executeSql("3", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
+            executeSql("4", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)");
             updateSql(eFurndet.up, eFurndet.furniture_id2, "furniture_id2", eFurniture.up, "funic");
             executeSql("update furndet set furndet_id = id where furndet_id = 0");
             executeSql("update furndet set color_fk = null where furniture_id2 > 0");
@@ -508,7 +518,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-PART:  " + e);
+            System.err.println("UPDATE-PART:  " + e);
+//            println(Clr.RED, 1, "UPDATE-PART:  " + e);
         }
     }
 
@@ -566,7 +577,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             executeSql("set generator GEN_SYSPROD to " + 3);
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "ALTERDB-PART:  " + e);
+            System.err.println("ALTERDB-PART:  " + e);
+//            println(Clr.RED, 1, "ALTERDB-PART:  " + e);
         }
     }
 
@@ -588,7 +600,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
                 cn2.commit();
             }
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-ELEMGRP:  " + e);
+            System.err.println("UPDATE-ELEMGRP:  " + e);
+//            println(Clr.RED, 1, "UPDATE-ELEMGRP:  " + e);
         }
     }
 
@@ -624,7 +637,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             cn2.commit();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-MODELS:  " + e);
+            System.err.println("UPDATE-MODELS:  " + e);
+//            println(Clr.RED, 1, "UPDATE-MODELS:  " + e);
         }
     }
 
@@ -644,7 +658,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             q.insert(record);
             cn2.commit();
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-SETTING:  " + e);
+            System.err.println("UPDATE-SETTING:  " + e);
+//            println(Clr.RED, 1, "UPDATE-SETTING:  " + e);
         }
     }
 
@@ -673,7 +688,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             st2.clearBatch();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "DELETE-SQL:  " + e);
+            System.err.println("DELETE-SQL:  " + e);
+//            println(Clr.RED, 1, "DELETE-SQL:  " + e);
         }
     }
 
@@ -704,7 +720,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             st2.clearBatch();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-SQL:  " + e);
+            System.err.println("UPDATE-SQL:  " + e);
+//            println(Clr.RED, 1, "UPDATE-SQL:  " + e);
         }
     }
 
@@ -717,7 +734,8 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
                 recordList.add(new Integer[]{rs.getInt("ID"), rs.getInt("CNUMB")});
             }
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println(e.toString());
+//            println(Clr.RED, 1, e.toString());
         }
         for (Integer[] recordArr : recordList) {
             if (set.add(recordArr[0]) == false) {
@@ -733,23 +751,23 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
             st2.execute(str);
             cn2.commit();
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "НЕУДАЧА-SQL: Связь не установлена");
+            System.err.println("НЕУДАЧА-SQL: Связь не установлена");
+//            println(Clr.RED, 1, "НЕУДАЧА-SQL: Связь не установлена");
         }
     }
 
-    private void executeSql(String str) {
+    private void executeSql(String... s) {
+        if (s.length == 2 && this.versionPs.equals(s[0]) == false) {
+            return;
+        }
+        String str = (s.length == 2) ? s[1] : s[0];
         try {
             println(Clr.BLK, 1, str);
             st2.execute(str);
             cn2.commit();
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "SQL-DB:  " + e);
-        }
-    }
-
-    private void executeSql(int versionPs, String str) {
-        if (this.versionPs == versionPs) {
-            executeSql(str);
+            System.err.println("SQL-DB:  " + e);
+//            println(Clr.RED, 1, "SQL-DB:  " + e);
         }
     }
 
@@ -764,35 +782,48 @@ public class Profstroy2 extends SwingWorker<Object, Object> {
         } else if (clr == Clr.BLU) {
             pre = "\u001B[34m";
         }
-        //publish(txt, Color.BLACK);
+        //publish(txt, Color.RED);
         if (line == 1) {
             System.out.println(pre + txt + "\u001B[0m");
+            //publish(pre + txt + "\u001B[0m");
         } else {
+            //publish(pre + txt + "\u001B[0m");            
             System.out.print(pre + txt + "\u001B[0m");
-        }        
+        }
     }
 
     //Здесь выполняется работа
-    public Object doInBackground() throws Exception {
-
-        script();
-        return null;
+    public String doInBackground() throws Exception {
+        try {
+            script();
+        } catch (Exception t) {
+            System.err.println("XXXXXXXXXXXXXXXXXXXXXXXXXX");
+        }
+        return "";
     }
 
     //Поток рассылки событий
     public void process(List<Object> chunks) {
-        String msg = chunks.get(0).toString() + "\n";
-        Color c = (Color) chunks.get(1);
+        try {
+            String msg = chunks.get(0).toString() + "\n";
+            Color c = (Color) chunks.get(1);
 
-        StyleContext sc = StyleContext.getDefaultStyleContext();
-        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+            StyleContext sc = StyleContext.getDefaultStyleContext();
+            AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+            aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+            aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 
-        int len = tp.getDocument().getLength();
-        tp.setCaretPosition(len);
-        tp.setCharacterAttributes(aset, false);
-        tp.replaceSelection(msg);
+            int len = tp.getDocument().getLength();
+            tp.setCaretPosition(len);
+            tp.setCharacterAttributes(aset, false);
+            tp.replaceSelection(msg);
+        } catch (Exception e) {
+          System.err.println("process " + e);
+        }
+    }
+
+    public void done() {
+        System.out.println("Работа завершена");
     }
 }

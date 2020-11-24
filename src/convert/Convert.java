@@ -7,6 +7,8 @@ import dataset.eExcep;
 import java.awt.Color;
 import java.awt.Insets;
 import java.sql.Connection;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -18,6 +20,7 @@ import javax.swing.text.StyleContext;
 
 public class Convert extends javax.swing.JFrame {
 
+    private Queue<String> que = new ConcurrentLinkedQueue<String>();
     private JTextField smallField, bigField;
 
     public Convert() {
@@ -356,9 +359,6 @@ public class Convert extends javax.swing.JFrame {
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
         try {
-            //Query.listOpenTable.forEach(q -> q.clear());
-            //Query.connection.close();
-
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             int num_base = Integer.valueOf(eProperty.base_num.read());
@@ -369,14 +369,22 @@ public class Convert extends javax.swing.JFrame {
             ConnApp con1 = new ConnFb();
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
             Connection c1 = con1.getConnection();
-
-            SwingUtilities.invokeLater(
-                    new Runnable() {
+            
+            new Thread(new Runnable() {
                 public void run() {
                     new Profstroy2(txtPane, c1, c2).execute();
-                    //Profstroy.convert(txtPane, c1, c2);
+                    //Profstroy.convert(que, c1, c2);
                 }
-            });
+            }).start();
+
+//            SwingUtilities.invokeLater(
+//                    new Runnable() {
+//                public void run() {
+//                    
+//                    //new Profstroy2(txtPane, c1, c2).execute();
+//                    Profstroy.convert(que, c1, c2);
+//                }
+//            });
 
         } catch (Exception e) {
             System.err.println(e);
@@ -384,6 +392,7 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartBtnStartClick
 
     private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
+
         appendToPane("1111111111111\n", Color.RED);
         appendToPane("2222222222222\n", Color.BLUE);
         appendToPane("3333333333333\n", Color.GREEN);
