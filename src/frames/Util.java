@@ -139,6 +139,19 @@ public class Util {
         return new Font(eProperty.fontname.read(), bold, Integer.valueOf(eProperty.fontsize.read()) + size);
     }
 
+    public static String consoleColor(Object clr) {
+
+        if (clr == java.awt.Color.RED) {
+            return "\u001B[31m";
+        } else if (clr == java.awt.Color.GREEN) {
+            return "\u001B[32m";
+        } else if (clr == java.awt.Color.BLUE) {
+            return "\u001B[34m";
+        } else {
+            return "\u001B[0m";
+        }
+    }
+
     //Все компоненты формы
     public static List<Component> getAllComponents(final Container c) {
         Component[] comps = c.getComponents();
@@ -221,7 +234,7 @@ public class Util {
             table.scrollRectToVisible(cellRect);
         }
     }
-    
+
     //Прокрутить скроллинг и сделать ячейку видимой
     public static void scrollRectToVisible(int row, JTable table) {
         if (table.getRowCount() > row) {
@@ -240,10 +253,10 @@ public class Util {
     //Выделить запись
     public static void setSelectedRow(JTable table, int rowModel) {
         if (table.getRowCount() > 0) {
-            
+
             int rowTable = table.convertRowIndexToView(rowModel);
-            if (rowTable < table.getRowCount()) { 
-                
+            if (rowTable < table.getRowCount()) {
+
                 table.setRowSelectionInterval(rowTable, rowTable);
             } else {
                 table.setRowSelectionInterval(0, 0);
@@ -530,7 +543,7 @@ public class Util {
         });
     }
 
-    //Программный клик на копоненте
+    //Программный клик на компоненте
     public static void componentClick(JComponent comp) {
         try {
             Point p = comp.getLocationOnScreen();

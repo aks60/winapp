@@ -68,13 +68,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import estimate.script.Winscript;
+import static frames.Util.consoleColor;
 import java.awt.Color;
 import java.util.Queue;
 import javax.swing.JTextPane;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 
 /**
  * В пс3 и пс4 разное количество полей в таблицах, но список столбцов в
@@ -143,7 +140,7 @@ public class Profstroy {
         };
         try {
 
-            println(Color.GREEN, 1, "Подготовка методанных");
+            println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
@@ -171,10 +168,10 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
-            println(Color.GREEN, 1, "Перенос данных");
+            println(Color.GREEN, "Перенос данных");
             //Цикл по доменам приложения
             for (Field fieldUp : fieldsUp) {
-                println(Color.GREEN, 1, " *** Секция " + fieldUp.tname() + " ***");
+                println(Color.GREEN, " *** Секция " + fieldUp.tname() + " ***");
 
                 //Поля не вошедшие в eEnum.values()
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);//в последствии будут использоваться для sql update
@@ -218,7 +215,7 @@ public class Profstroy {
                 executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
             }
 
-            println(Color.GREEN, 1, "Добавление комментариев к полям");
+            println(Color.GREEN, "Добавление комментариев к полям");
             for (Field field : fieldsUp) {
                 executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
@@ -227,14 +224,14 @@ public class Profstroy {
             updatePart(cn2, st2);
             metaPart(cn2, st2);
 
-            println(Color.GREEN, 1, "Удаление лищних столбцов");
+            println(Color.GREEN, "Удаление лищних столбцов");
             for (Field fieldUp : fieldsUp) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
-            println(Color.BLUE, 1, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
+            println(Color.BLUE, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
             System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e);
         }
@@ -278,7 +275,7 @@ public class Profstroy {
             //Цикл по пакетам
             for (int index_page = 0; index_page <= count / 500; ++index_page) {
 
-                println(Color.BLACK, 1, "Таблица:" + tname2 + " пакет:" + index_page);
+                println(Color.BLACK, "Таблица:" + tname2 + " пакет:" + index_page);
                 String nameCols2 = "";
                 rs1 = st1.executeQuery("select first 500 skip " + index_page * 500 + " * from " + tname1);
                 ResultSetMetaData md1 = rs1.getMetaData();
@@ -346,7 +343,7 @@ public class Profstroy {
                     cn2.rollback();
                     bash = false;
                     --index_page;
-                    println(Color.BLACK, 1, "SCRIPT-BATCH:  " + e);
+                    println(Color.BLACK, "SCRIPT-BATCH:  " + e);
                 }
             }
         } catch (SQLException e) {
@@ -387,7 +384,7 @@ public class Profstroy {
 
     private static void deletePart(Connection cn2, Statement st2) {
         try {
-            println(Color.GREEN, 1, "Секция удаления потеренных ссылок (фантомов)");
+            println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
             executeSql("delete from params where grup > 0");  //group > 0  
             deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
             deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
@@ -437,7 +434,7 @@ public class Profstroy {
 
     private static void updatePart(Connection cn2, Statement st2) {
         try {
-            println(Color.GREEN, 1, "Секция коррекции внешних ключей");
+            println(Color.GREEN, "Секция коррекции внешних ключей");
             updateSetting();
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERIES.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
@@ -527,7 +524,7 @@ public class Profstroy {
     private static void metaPart(Connection cn2, Statement st2) {
 
         try {
-            println(Color.GREEN, 1, "Секция создания внешних ключей");
+            println(Color.GREEN, "Секция создания внешних ключей");
             metaSql("alter table artikl add constraint fk_currenc1 foreign key (currenc1_id) references currenc (id)");
             metaSql("alter table artikl add constraint fk_currenc2 foreign key (currenc2_id) references currenc (id)");
             metaSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
@@ -584,7 +581,7 @@ public class Profstroy {
 
     private static void updateElemgrp() throws SQLException {
         try {
-            println(Color.BLACK, 1, "updateElemgrp()");
+            println(Color.BLACK, "updateElemgrp()");
             Query q = new Query(eElemgrp.values());
             ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
             ArrayList<Object[]> fieldList = new ArrayList();
@@ -606,7 +603,7 @@ public class Profstroy {
 
     private static void updateModels() {
         try {
-            println(Color.BLACK, 1, "updateModels()");
+            println(Color.BLACK, "updateModels()");
             Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
                 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
             String script;
@@ -642,7 +639,7 @@ public class Profstroy {
 
     private static void updateSetting() {
         try {
-            println(Color.BLACK, 1, "updateSetting()");
+            println(Color.BLACK, "updateSetting()");
             Query q = new Query(eSetting.values());
             Record record = q.newRecord(Query.INS);
             record.setNo(eSetting.id, 1);
@@ -678,8 +675,8 @@ public class Profstroy {
             }
             rs.close();
             String postpref = (recordDelete == 0) ? "" : " Всего/удалено = " + recordCount + "/" + recordDelete;
-            println(Color.BLACK, 0, "delete from " + table1.tname() + " where not exists (select id from " + table2.tname() + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")");
-            println(Color.BLUE, 1, postpref);
+            println(Color.BLACK, "delete from " + table1.tname() + " where not exists (select id from " + table2.tname()
+                    + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")", Color.BLUE, 1, postpref);
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
@@ -709,8 +706,8 @@ public class Profstroy {
                 }
             }
             String postpref = (recordCount == recordUpdate) ? "" : " Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate);
-            println(Color.BLACK, 0, "update " + table1.tname() + " set " + fk1.name() + " = (select id from " + table2.tname() + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")");
-            println(Color.BLUE, 1, postpref);
+            println(Color.BLACK, 0, "update " + table1.tname() + " set " + fk1.name() + " = (select id from "
+                    + table2.tname() + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")", Color.BLUE, 1, postpref);
             st2.executeBatch();
             cn2.commit();
             st2.clearBatch();
@@ -741,7 +738,7 @@ public class Profstroy {
 
     private static void metaSql(String str) {
         try {
-            println(Color.BLACK, 1, str);
+            println(Color.BLACK, str);
             st2.execute(str);
             cn2.commit();
         } catch (SQLException e) {
@@ -755,7 +752,7 @@ public class Profstroy {
         }
         String str = (s.length == 2) ? s[1] : s[0];
         try {
-            println(Color.BLACK, 1, str);
+            println(Color.BLACK, str);
             st2.execute(str);
             cn2.commit();
         } catch (Exception e) {
@@ -763,23 +760,12 @@ public class Profstroy {
         }
     }
 
-    private static void println(Color clr, int line, String txt) {
-        String pre = "";
-        if (clr == Color.BLACK) {
-            pre = "\u001B[0m";
-        } else if (clr == Color.RED) {
-            pre = "\u001B[31m";
-        } else if (clr == Color.GREEN) {
-            pre = "\u001B[32m";
-        } else if (clr == Color.BLUE) {
-            pre = "\u001B[34m";
-        }
+    private static void println(Object... obj) {
         //que.add((++count) + " -" + txt, );
-        //System.out.println((count) + " -" + txt);
-        if (line == 1) {
-            System.out.println(pre + txt + "\u001B[0m");
+        if (obj.length == 2) {
+            System.out.println(consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
         } else {
-            System.out.print(pre + txt + "\u001B[0m");
+            System.out.println(consoleColor(obj[0]) + obj[1].toString() + consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
         }
     }
 }
