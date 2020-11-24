@@ -6,13 +6,15 @@ import dataset.ConnFb;
 import dataset.eExcep;
 import java.awt.Color;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -20,6 +22,7 @@ import javax.swing.text.StyleContext;
 
 public class Convert extends javax.swing.JFrame {
 
+    javax.swing.Timer timer;
     private Queue<Object[]> que = new ConcurrentLinkedQueue<Object[]>();
     private JTextField smallField, bigField;
 
@@ -47,6 +50,26 @@ public class Convert extends javax.swing.JFrame {
         edPass.setText("masterkey");
     }
 
+    private void clearQue() {
+
+        if (que.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < que.size(); ++i) {
+            Object obj[] = que.poll();
+            if (obj.length == 2) {
+                if (obj[0] instanceof Color && obj[1] instanceof String) {
+                    appendToPane(obj[1].toString() + "\n", (Color) obj[0]);
+                }
+            } else {
+                if (obj[0] instanceof Color && obj[1] instanceof String && obj[2] instanceof Color && obj[3] instanceof String) {
+                    appendToPane(obj[1].toString(), (Color) obj[0]);
+                    appendToPane(obj[3].toString() + "\n", (Color) obj[2]);
+                }
+            }
+        }        
+    }
+    
     private void appendToPane(String msg, Color c) {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
@@ -265,6 +288,7 @@ public class Convert extends javax.swing.JFrame {
         scr1.setBorder(null);
         scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
+        txtPane.setBackground(new java.awt.Color(232, 233, 236));
         txtPane.setBorder(null);
         txtPane.setMargin(new java.awt.Insets(20, 20, 20, 20));
         scr1.setViewportView(txtPane);
@@ -359,6 +383,7 @@ public class Convert extends javax.swing.JFrame {
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
         try {
+
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             int num_base = Integer.valueOf(eProperty.base_num.read());
@@ -370,36 +395,28 @@ public class Convert extends javax.swing.JFrame {
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
             Connection c1 = con1.getConnection();
 
+            timer = new Timer(300, new ActionListener() {
+
+                public void actionPerformed(ActionEvent ev) {
+                    clearQue();
+                }
+            });
+            timer.start();
+
             new Thread(new Runnable() {
                 public void run() {
                     //new Profstroy2(txtPane, c1, c2).execute();
                     Profstroy.convert(que, c1, c2);
                 }
+
             }).start();
 
-//            SwingUtilities.invokeLater(
-//                    new Runnable() {
-//                public void run() {
-//                    
-//                    new Profstroy2(txtPane, c1, c2).execute();
-//                    //Profstroy.convert(que, c1, c2);
-//                }
-//            });
         } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_btnStartBtnStartClick
 
     private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
-        for (int i = 0; i < que.size(); ++i) {
-            Object obj[] = que.poll();
-            if (obj.length == 2) {
-                appendToPane(obj[1].toString() + "\n", (Color) obj[0]);
-            } else {
-                appendToPane(obj[1].toString(), (Color) obj[0]);
-                appendToPane(obj[3].toString() + "\n", (Color) obj[2]);
-            }
-        }
 //        appendToPane("1111111111111\n", Color.RED);
 //        appendToPane("2222222222222\n", Color.BLUE);
 //        appendToPane("3333333333333\n", Color.GREEN);

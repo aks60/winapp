@@ -140,7 +140,7 @@ public class Profstroy {
         };
         try {
 
-            println(Color.GREEN, "Подготовка методанных");
+            //println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
@@ -761,6 +761,9 @@ public class Profstroy {
     }
 
     private static void println(Object... obj) {
+        if(obj.length == 0 && obj.length == 1) {
+            return;
+        }
         if (obj.length == 2) {
             que.add(new Object[] {obj[0], obj[1]});
             //System.out.println(consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
