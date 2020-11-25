@@ -44,7 +44,6 @@ public class Convert extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        //localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
         if (eProperty.base_num.read().equals("1")) {
             labPath2.setText(eProperty.server1.read() + "/" + eProperty.port.read() + "\\" + eProperty.base1.read());
             edPath.setText("D:\\Okna\\Database\\Profstroy4\\ITEST.FDB");
@@ -114,6 +113,7 @@ public class Convert extends javax.swing.JFrame {
         labPath2 = new javax.swing.JLabel();
         panCent = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
+        pan1 = new javax.swing.JPanel();
         txtPane = new javax.swing.JTextPane();
         panSouth = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
@@ -301,12 +301,14 @@ public class Convert extends javax.swing.JFrame {
         panCent.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
-        scr1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        pan1.setLayout(new java.awt.BorderLayout());
 
         txtPane.setBackground(new java.awt.Color(232, 233, 236));
-        txtPane.setBorder(null);
-        txtPane.setMargin(new java.awt.Insets(20, 20, 20, 20));
-        scr1.setViewportView(txtPane);
+        txtPane.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 6, 1, 1));
+        pan1.add(txtPane, java.awt.BorderLayout.CENTER);
+
+        scr1.setViewportView(pan1);
 
         panCent.add(scr1, java.awt.BorderLayout.CENTER);
 
@@ -338,7 +340,7 @@ public class Convert extends javax.swing.JFrame {
         btnExit1.setPreferredSize(new java.awt.Dimension(25, 25));
         btnExit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExit1ActionPerformed(evt);
+                btnHelp(evt);
             }
         });
 
@@ -352,7 +354,7 @@ public class Convert extends javax.swing.JFrame {
         btnStart.setPreferredSize(new java.awt.Dimension(120, 25));
         btnStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnStartBtnStartClick(evt);
+                btnStart(evt);
             }
         });
 
@@ -396,7 +398,7 @@ public class Convert extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnExit
 
-    private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
+    private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
         try {
             Query.listOpenTable.clear();
             eProperty.user.write("sysdba");
@@ -412,7 +414,6 @@ public class Convert extends javax.swing.JFrame {
 
             new Thread(new Runnable() {
                 public void run() {
-                    //new Profstroy2(txtPane, c1, c2).execute();
                     Profstroy.convert(listQue, c1, c2);
                 }
 
@@ -421,16 +422,11 @@ public class Convert extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println(e);
         }
-    }//GEN-LAST:event_btnStartBtnStartClick
+    }//GEN-LAST:event_btnStart
 
-    private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
-        clearListQue();
-//        appendToPane("1111111111111\n", Color.RED);
-//        appendToPane("2222222222222\n", Color.BLUE);
-//        appendToPane("3333333333333\n", Color.GREEN);
-//        appendToPane("4444444444444", Color.MAGENTA);
-//        appendToPane("5555555555555\n", Color.ORANGE);
-    }//GEN-LAST:event_btnExit1ActionPerformed
+    private void btnHelp(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp
+
+    }//GEN-LAST:event_btnHelp
 
     private void wndowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowClosed
         timer.stop();
@@ -453,6 +449,7 @@ public class Convert extends javax.swing.JFrame {
     private javax.swing.JLabel lab4;
     private javax.swing.JLabel lab5;
     private javax.swing.JLabel labPath2;
+    private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan4;
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel panCent;
@@ -464,7 +461,5 @@ public class Convert extends javax.swing.JFrame {
 // </editor-fold> 
 
     private void initElements() {
-        Insets insets = txtPane.getInsets();
-        txtPane.setBorder(BorderFactory.createEmptyBorder(insets.top, 6, insets.bottom, insets.right));
     }
 }
