@@ -121,7 +121,7 @@ public class Profstroy {
             script();
 
         } catch (Exception e) {
-            System.err.println("Ошибка: Profstroy.script() " + e);
+            System.err.println("Ошибка: convert2() " + e);
         }
     }
 
@@ -233,7 +233,7 @@ public class Profstroy {
             }
             println(Color.BLUE, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "SQL-SCRIPT: " + e);
+            println(Color.RED, "Ошибка: script() " + e);
         }
     }
 
@@ -347,7 +347,7 @@ public class Profstroy {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "CONVERT-TABLE:  " + e);
+            println(Color.RED, "Ошибка: convertTable().  " + e);
         }
     }
 
@@ -377,7 +377,7 @@ public class Profstroy {
             }
             return hmDeltaCol;
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "DELTA-COLUMN: " + e);
+            println(Color.RED, "Ошибка: deltaColumn(). " + e);
             return null;
         }
     }
@@ -428,7 +428,7 @@ public class Profstroy {
             deleteSql(eKitdet.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eKitpar1.up, "psss", eKitdet.up, "kincr");//kitdet_id
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "DELETE-PART:  " + e);
+            println(Color.RED, "Ошибка: deletePart().  " + e);
         }
     }
 
@@ -517,12 +517,11 @@ public class Profstroy {
             updateSql(eKitpar1.up, eKitpar1.kitdet_id, "psss", eKitdet.up, "kincr");
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-PART:  " + e);
+            println(Color.RED, "Ошибка: updatePart().  " + e);
         }
     }
 
     private static void metaPart(Connection cn2, Statement st2) {
-
         try {
             println(Color.GREEN, "Секция создания внешних ключей");
             metaSql("alter table artikl add constraint fk_currenc1 foreign key (currenc1_id) references currenc (id)");
@@ -575,7 +574,7 @@ public class Profstroy {
             executeSql("set generator GEN_SYSPROD to " + 3);
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "ALTERDB-PART:  " + e);
+            println(Color.RED, "Ошибка: metaPart().  " + e);
         }
     }
 
@@ -597,7 +596,7 @@ public class Profstroy {
                 cn2.commit();
             }
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-ELEMGRP:  " + e);
+            println(Color.RED, "Ошибка: updateElemgrp().  " + e);
         }
     }
 
@@ -633,7 +632,7 @@ public class Profstroy {
             cn2.commit();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-MODELS:  " + e);
+            println(Color.RED, "Ошибка: updateModels.  " + e);
         }
     }
 
@@ -653,7 +652,7 @@ public class Profstroy {
             q.insert(record);
             cn2.commit();
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-SETTING:  " + e);
+            println(Color.RED, "Ошибка: UPDATE-updateSetting().  " + e);
         }
     }
 
@@ -682,7 +681,7 @@ public class Profstroy {
             st2.clearBatch();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "DELETE-SQL:  " + e);
+            println(Color.RED, "Ошибка: deleteSql().  " + e);
         }
     }
 
@@ -713,7 +712,7 @@ public class Profstroy {
             st2.clearBatch();
 
         } catch (Exception e) {
-            System.err.println("\u001B[31m" + "UPDATE-SQL:  " + e);
+            println(Color.RED, "Ошибка: updateSql().  " + e);
         }
     }
 
@@ -742,7 +741,7 @@ public class Profstroy {
             st2.execute(str);
             cn2.commit();
         } catch (SQLException e) {
-            System.err.println("\u001B[31m" + "НЕУДАЧА-SQL: Связь не установлена");
+            println(Color.RED, "НЕУДАЧА-SQL: checkUniqueKeyColor(). Связь не установлена");
         }
     }
 
@@ -756,7 +755,7 @@ public class Profstroy {
             st2.execute(str);
             cn2.commit();
         } catch (Exception e) {
-            System.err.println("SQL-DB:  " + e);
+            println(Color.RED, "Ошибка:  executeSql(). " + e);
         }
     }
 

@@ -3,6 +3,7 @@ package convert;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.ConnFb;
+import dataset.Query;
 import dataset.eExcep;
 import java.awt.Color;
 import java.awt.Insets;
@@ -22,14 +23,24 @@ import javax.swing.text.StyleContext;
 
 public class Convert extends javax.swing.JFrame {
 
-    javax.swing.Timer timer;
-    private Queue<Object[]> que = new ConcurrentLinkedQueue<Object[]>();
+    private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
     private JTextField smallField, bigField;
+    javax.swing.Timer timer = new Timer(100, new ActionListener() {
+
+        public void actionPerformed(ActionEvent ev) {
+            if (listQue.isEmpty()) {
+                Thread.yield();
+            } else {
+                clearListQue();
+            }
+        }
+    });
 
     public Convert() {
         initComponents();
         initElements();
         loadingModel();
+        timer.start();
     }
 
     private void loadingModel() {
@@ -44,27 +55,26 @@ public class Convert extends javax.swing.JFrame {
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port.read() + "\\" + eProperty.base3.read());
             edPath.setText("D:\\Okna\\Database\\Sialbase2\\base4.fdb");
         }
-        edPort.setText("3055");
+        edPort.setText((eProperty.base_num.read().equals("1")) ? "3050" : "3055");
         edServer.setText("localhost");
         edUser.setText("sysdba");
         edPass.setText("masterkey");
     }
 
-    private void clearQue() {
+    private void clearListQue() {
 
-        if (que.isEmpty()) {
-            return;
-        }
-        for (int i = 0; i < que.size(); ++i) {
-            Object obj[] = que.poll();
-            if (obj.length == 2) {
-                if (obj[0] instanceof Color && obj[1] instanceof String) {
-                    appendToPane(obj[1].toString() + "\n", (Color) obj[0]);
-                }
-            } else {
-                if (obj[0] instanceof Color && obj[1] instanceof String && obj[2] instanceof Color && obj[3] instanceof String) {
-                    appendToPane(obj[1].toString(), (Color) obj[0]);
-                    appendToPane(obj[3].toString() + "\n", (Color) obj[2]);
+        if (listQue.isEmpty() == false) {
+            for (int i = 0; i < listQue.size(); ++i) {
+                Object obj[] = listQue.poll();
+                if (obj.length == 2) {
+                    if (obj[0] instanceof Color && obj[1] instanceof String) {
+                        appendToPane(obj[1].toString() + "\n", (Color) obj[0]);
+                    }
+                } else {
+                    if (obj[0] instanceof Color && obj[1] instanceof String && obj[2] instanceof Color && obj[3] instanceof String) {
+                        appendToPane(obj[1].toString(), (Color) obj[0]);
+                        appendToPane(obj[3].toString() + "\n", (Color) obj[2]);
+                    }
                 }
             }
         }
@@ -113,6 +123,11 @@ public class Convert extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Конвертор баз данных");
         setPreferredSize(new java.awt.Dimension(700, 650));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                wndowClosed(evt);
+            }
+        });
 
         panNorth.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panNorth.setPreferredSize(new java.awt.Dimension(700, 120));
@@ -383,6 +398,7 @@ public class Convert extends javax.swing.JFrame {
 
     private void btnStartBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartBtnStartClick
         try {
+            Query.listOpenTable.clear();
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
             int num_base = Integer.valueOf(eProperty.base_num.read());
@@ -394,18 +410,10 @@ public class Convert extends javax.swing.JFrame {
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
             Connection c1 = con1.getConnection();
 
-            timer = new Timer(300, new ActionListener() {
-
-                public void actionPerformed(ActionEvent ev) {
-                    clearQue();
-                }
-            });
-            timer.start();
-
             new Thread(new Runnable() {
                 public void run() {
                     //new Profstroy2(txtPane, c1, c2).execute();
-                    Profstroy.convert(que, c1, c2);
+                    Profstroy.convert(listQue, c1, c2);
                 }
 
             }).start();
@@ -416,15 +424,17 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartBtnStartClick
 
     private void btnExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExit1ActionPerformed
-
-clearQue();
-
+        clearListQue();
 //        appendToPane("1111111111111\n", Color.RED);
 //        appendToPane("2222222222222\n", Color.BLUE);
 //        appendToPane("3333333333333\n", Color.GREEN);
 //        appendToPane("4444444444444", Color.MAGENTA);
 //        appendToPane("5555555555555\n", Color.ORANGE);
     }//GEN-LAST:event_btnExit1ActionPerformed
+
+    private void wndowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowClosed
+        timer.stop();
+    }//GEN-LAST:event_wndowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -452,6 +462,7 @@ clearQue();
     private javax.swing.JTextPane txtPane;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
+
     private void initElements() {
         Insets insets = txtPane.getInsets();
         txtPane.setBorder(BorderFactory.createEmptyBorder(insets.top, 6, insets.bottom, insets.right));
