@@ -18,12 +18,24 @@ public class ParamList {
         return ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) ? Ps3.values() : Ps4.values();
     }
 
-    public static Enam find(int numb) {
+    public static Enam find(int grup) {
         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val)) == true) {
-            return Arrays.stream(Ps3.values()).filter(en -> en.numb() == numb).findFirst().orElse(null);
+            return Arrays.stream(Ps3.values()).filter(en -> en.numb() == grup).findFirst().orElse(null);
         } else {
-            return Arrays.stream(Ps4.values()).filter(en -> en.numb() == numb).findFirst().orElse(null);
+            return Arrays.stream(Ps4.values()).filter(en -> en.numb() == grup).findFirst().orElse(null);
         }
+    }
+
+    public static int valueOf(int grup, String text) {
+        if (text != null && text.isEmpty() == false) {
+            List<String> list = find(grup).dict();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).equals(text)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     public static enum Ps3 implements Enam {
@@ -496,7 +508,7 @@ public class ParamList {
         P40068(40068, "Коды внутр. текстуры изделия", check_FLOAT_LIST),
         P40069(40069, "Коды внешн. текстуры изделия", check_FLOAT_LIST);
 
-        public int numb = 0;
+        public int grup = 0;
         public String text = "";
         public Defparam defparam = def_Default;
         public Dictionary dictionary = null;
@@ -504,12 +516,12 @@ public class ParamList {
         public Checkparam check = check_STRING;
 
         Ps3(int numb, String text) {
-            this.numb = numb;
+            this.grup = numb;
             this.text = text;
         }
 
         Ps3(int numb, String text, Object... obj) {
-            this.numb = numb;
+            this.grup = numb;
             this.text = text;
             for (Object o : obj) {
                 if (o instanceof Dictionary) {
@@ -523,7 +535,7 @@ public class ParamList {
         }
 
         public int numb() {
-            return numb;
+            return grup;
         }
 
         public String text() {
@@ -1014,9 +1026,11 @@ public class ParamList {
         P40095(40095, "Если признак системы конструкции", check_STRING);
         //P40108(40108, "Применять коэффициенты АКЦИИ для МЦ"),
         //P40109(40109, "Возможное управление жалюзи"),
+        //P40113(40113, "Установить текстуру по");//P40108(40108, "Применять коэффициенты АКЦИИ для МЦ"),
+        //P40109(40109, "Возможное управление жалюзи"),
         //P40113(40113, "Установить текстуру по");
 
-        public int numb = 0;
+        public int grup = 0;
         public String text = "";
 
         public Defparam defparam = def_Default;
@@ -1025,12 +1039,12 @@ public class ParamList {
         public Checkparam check = check_STRING;
 
         Ps4(int numb, String text) {
-            this.numb = numb;
+            this.grup = numb;
             this.text = text;
         }
 
         Ps4(int numb, String text, Object... obj) {
-            this.numb = numb;
+            this.grup = numb;
             this.text = text;
             for (Object o : obj) {
                 if (o instanceof Dictionary) {
@@ -1044,7 +1058,7 @@ public class ParamList {
         }
 
         public int numb() {
-            return numb;
+            return grup;
         }
 
         public String text() {
@@ -1415,4 +1429,4 @@ eArtikl.level1 =  5 -> 40000
 
 ИТОГО: 1000, 2000, 3000, 4000, 11000, 12000 :13000, 14000, 15000 :21000, 24000, 25000 :31000б 33000, 34000, 37000, 38000, 39000, 40000
 ПРОПУЩЕНО: 7000, 8000, 9000, 50000, 51000, 52000
-*/
+ */

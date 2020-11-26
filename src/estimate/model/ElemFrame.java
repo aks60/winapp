@@ -117,24 +117,24 @@ public class ElemFrame extends ElemSimple {
     }
 
     @Override //Вложеная спецификация
-    public void addSpecific(Specification specif) { //добавление спесификаций зависимых элементов
+    public void addSpecific(Specification specificationAdd) { //добавление спесификаций зависимых элементов
 
         //Армирование
-        if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
-            specif.place = "СОСТ." + layout().name.substring(0, 1);
-            specif.anglCut1 = 90;
-            specif.anglCut2 = 90;
+        if (TypeArtikl.ARMIROVANIE.isType(specificationAdd.artiklRec)) {
+            specificationAdd.place = "СОСТ." + layout().name.substring(0, 1);
+            specificationAdd.anglCut1 = 90;
+            specificationAdd.anglCut2 = 90;
 
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                specif.width = x2 - x1;
+                specificationAdd.width = x2 - x1;
 
             } else if (LayoutArea.LEFT == layout || LayoutArea.RIGHT == layout) {
-                specif.width = y2 - y1;
+                specificationAdd.width = y2 - y1;
             }
-            if ("от внутреннего угла".equals(specif.getParam(null, 34010))) {
+            if ("от внутреннего угла".equals(specificationAdd.getParam(null, 34010))) {
                 Double dw1 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
                 Double dw2 = artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
-                specif.width = specif.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
+                specificationAdd.width = specificationAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
                 /*
@@ -152,34 +152,34 @@ public class ElemFrame extends ElemSimple {
             }
 
             //Концевой профиль
-        } else if (TypeArtikl.KONZEVPROF.isType(specif.artiklRec) == true) {
-            String str = specif.getParam(0, 12030);
+        } else if (TypeArtikl.KONZEVPROF.isType(specificationAdd.artiklRec) == true) {
+            String str = specificationAdd.getParam(0, 12030);
             str = str.replace(",", ".");
             Float koef = Float.valueOf(str);
             if (LayoutArea.TOP == layout || LayoutArea.BOTTOM == layout) {
-                specif.width = specificationRec.width * 2 * koef;
+                specificationAdd.width = specificationRec.width * 2 * koef;
             } else {
-                specif.width = specificationRec.height * 2 * koef;
+                specificationAdd.width = specificationRec.height * 2 * koef;
             }
 
             //Монтажный профиль
-        } else if (TypeArtikl.MONTPROF.isType(specif.artiklRec) == true) {
+        } else if (TypeArtikl.MONTPROF.isType(specificationAdd.artiklRec) == true) {
             //float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
             //specificationRec.width = x2 - x1 + prip * 2;
             //specif.width = specificationRec.weight;
 
             //Соединитель
-        } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec) == true) {
-            specif.colorID1 = iwin().colorNone;
-            specif.colorID2 = iwin().colorNone;
-            specif.colorID3 = iwin().colorNone;
+        } else if (TypeArtikl.SOEDINITEL.isType(specificationAdd.artiklRec) == true) {
+            specificationAdd.colorID1 = iwin().colorNone;
+            specificationAdd.colorID2 = iwin().colorNone;
+            specificationAdd.colorID3 = iwin().colorNone;
 
             //Всё остальное
         } else {
 
         }
-        Cal5e.amount(specificationRec, specif);
-        specificationRec.specificationList.add(specif);
+        Cal5e.amount(specificationRec, specificationAdd);
+        specificationRec.specificationList.add(specificationAdd);
     }
 
     @Override

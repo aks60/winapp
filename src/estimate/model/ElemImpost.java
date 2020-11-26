@@ -91,25 +91,25 @@ public class ElemImpost extends ElemSimple {
     }
 
     @Override //Вложеная спецификация      
-    public void addSpecific(Specification specif) {
+    public void addSpecific(Specification specificationAdd) {
 
         //Армирование
-        if (TypeArtikl.ARMIROVANIE.isType(specif.artiklRec)) {
-            specif.place = "СОСТ." + layout().name.substring(0, 1);
-            specif.anglCut2 = 90;
-            specif.anglCut1 = 90;
-            specif.width = specificationRec.width;
+        if (TypeArtikl.ARMIROVANIE.isType(specificationAdd.artiklRec)) {
+            specificationAdd.place = "СОСТ." + layout().name.substring(0, 1);
+            specificationAdd.anglCut2 = 90;
+            specificationAdd.anglCut1 = 90;
+            specificationAdd.width = specificationRec.width;
 
             //Соединитель
-        } else if (TypeArtikl.SOEDINITEL.isType(specif.artiklRec)) {
+        } else if (TypeArtikl.SOEDINITEL.isType(specificationAdd.artiklRec)) {
             //
 
             //Остальные
         } else {
             //
         }
-        Cal5e.amount(specificationRec, specif);
-        specificationRec.specificationList.add(specif);
+        Cal5e.amount(specificationRec, specificationAdd);
+        specificationRec.specificationList.add(specificationAdd);
     }
 
     @Override
