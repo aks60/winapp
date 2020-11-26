@@ -19,8 +19,8 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            convert.Profstroy.convert2();
-            //wincalc();
+            //convert.Profstroy.convert2();
+            wincalc();
             //query();
             //frame();
             //parse();
@@ -34,10 +34,10 @@ public class Test {
 
         Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "max";
+        String _case = "one";
 
         if (_case.equals("one")) {
-            iwin.prj = 601001;
+            iwin.prj = 601006;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
