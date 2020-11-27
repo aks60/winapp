@@ -664,17 +664,18 @@ public class Profstroy {
         try {
             executeSql("ALTER TABLE ARTGRP ADD FK INTEGER;");
             Query q = new Query(eArtgrp.values());
-            ResultSet rs = st2.executeQuery("select * from GRUPART");
+            ResultSet rs = st1.executeQuery("select * from GRUPART");
+            cn2.commit();            
             while (rs.next()) {
                 Record record = q.newRecord(Query.INS);
                 record.setNo(eArtgrp.id, ConnApp.instanc().genId(eArtgrp.up));
                 record.setNo(eArtgrp.categ, "INCR");
                 record.setNo(eArtgrp.name, rs.getString("MNAME"));
                 record.setNo(eArtgrp.coef, rs.getString("MKOEF"));
-                record.setNo(record.size(), rs.getString("MUNIC"));
+//                record.setNo(record.size(), rs.getString("MUNIC"));
                 q.insert(record);
             }
-//            rs = st2.executeQuery("select * from DESCLST");
+//            rs = st1.executeQuery("select * from DESCLST");
 //            while (rs.next()) {                
 //                Record record = q.newRecord(Query.INS);
 //                record.setNo(eArtgrp.id, ConnApp.instanc().genId(eArtgrp.up));
@@ -683,7 +684,11 @@ public class Profstroy {
 //                record.setNo(eArtgrp.coef, rs.getString("VDESC"));
 //                record.setNo(record.size(), rs.getString("UDESC"));
 //                q.insert(record);
-//            }            
+//            }
+            //rs.close();
+            cn2.commit();
+            //Query.connection.commit();
+
         } catch (SQLException e) {
             println(Color.RED, "Ошибка: UPDATE-updateArtgrp().  " + e);
         }
@@ -805,7 +810,7 @@ public class Profstroy {
         } else {
             if (que != null) {
                 que.add(new Object[]{obj[0], obj[1], obj[2], obj[3]});
-            } else {               
+            } else {
                 System.out.println(Util.consoleColor(obj[0]) + obj[1].toString() + Util.consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
             }
         }
