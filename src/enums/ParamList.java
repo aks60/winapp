@@ -26,17 +26,17 @@ public class ParamList {
         }
     }
 
-    public static int valueOf(int grup, String text) {
-        if (text != null && text.isEmpty() == false) {
-            List<String> list = find(grup).dict();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).equals(text)) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
+//    public static boolean valueOf(int grup, String text) {
+//        if (text != null && text.isEmpty() == false) {
+//            List<String> list = find(grup).dict();
+//            for (int i = 0; i < list.size(); i++) {
+//                if (list.get(i).equals(text)) {
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
     public static enum Ps3 implements Enam {
 

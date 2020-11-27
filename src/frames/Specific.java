@@ -406,11 +406,11 @@ public class Specific extends javax.swing.JFrame {
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
         int row = Util.getSelectedRec(tab1);
         Specification recordSpc = iwin.listSpec.get(row);
+        String str = recordSpc.place.substring(0, 3);
         Record recordDet = recordSpc.deteilRec();
         if (recordDet != null) {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    String str = recordSpc.place.substring(0, 3);
                     if (str.equals("СОС")) {
                         App1.eApp1.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
 
@@ -428,9 +428,11 @@ public class Specific extends javax.swing.JFrame {
         } else {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    String str = recordSpc.place.substring(0, 3);
                     if (str.equals("СОС")) {
                         App1.eApp1.Systree.createFrame(Specific.this, recordSpc.artiklRec.getInt(eArtikl.id));
+
+                    } else if (str.equals("ЗАП")) {
+                        App1.eApp1.Systree.createFrame(Specific.this);
                     }
                 }
             });

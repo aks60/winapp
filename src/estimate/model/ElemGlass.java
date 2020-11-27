@@ -172,22 +172,22 @@ public class ElemGlass extends ElemSimple {
             } else if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) { //глухарь или створка
                 specificationAdd.anglCut2 = 45;
                 specificationAdd.anglCut1 = 45;
-                int indexPar = ParamList.valueOf(15010, specificationAdd.mapParam.get(15010));
                 //По горизонтали                
                 specificationAdd.width = width() + 2 * gzazo;
                 specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationRec.specificationList.add(new Specification(specificationAdd));
-                specificationRec.specificationList.add(new Specification(specificationAdd));
+                Specification specificationHor = new Specification(specificationAdd);
+                specificationRec.specificationList.add(specificationHor);
+                specificationRec.specificationList.add(specificationHor);
                 //По вертикали
                 specificationAdd.width = height() + 2 * gzazo;
                 specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                specificationRec.specificationList.add(new Specification(specificationAdd));
-                specificationRec.specificationList.add(new Specification(specificationAdd));
-                if (indexPar == 0) {
+                Specification specificationVer = new Specification(specificationAdd);
+                specificationRec.specificationList.add(specificationVer);
+                specificationRec.specificationList.add(specificationVer);
 
-                } else if (indexPar == 1) {
-
-                }
+                if ("Нет".equals(specificationAdd.mapParam.get(15010))) {
+                    specificationVer.width = specificationVer.width - 2 * specificationHor.height;
+                } 
             }
             //Уплотнитель
         } else if (TypeArtikl.KONZEVPROF.isType(specificationAdd.artiklRec)) {
