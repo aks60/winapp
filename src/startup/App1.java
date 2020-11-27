@@ -14,6 +14,7 @@ import dataset.Record;
 import domain.eModels;
 import domain.eSystree;
 import estimate.Wincalc;
+import frames.ArtGroups;
 import frames.Artikles;
 import frames.BoxTypical;
 import frames.Systree;
@@ -37,7 +38,6 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.util.Arrays;
 import java.util.Set;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -171,6 +171,7 @@ public class App1 extends javax.swing.JFrame {
         mn14 = new javax.swing.JMenuItem();
         mn02 = new javax.swing.JMenu();
         mn26 = new javax.swing.JMenuItem();
+        mn22 = new javax.swing.JMenuItem();
         mn21 = new javax.swing.JMenuItem();
         mn24 = new javax.swing.JMenuItem();
         mn23 = new javax.swing.JMenuItem();
@@ -308,7 +309,7 @@ public class App1 extends javax.swing.JFrame {
         btn12.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mDictColor(evt);
+                mnColor(evt);
             }
         });
         tb1.add(btn12);
@@ -323,7 +324,7 @@ public class App1 extends javax.swing.JFrame {
         btn13.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
         btn13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn24(evt);
+                mnCurrency(evt);
             }
         });
         tb1.add(btn13);
@@ -339,7 +340,7 @@ public class App1 extends javax.swing.JFrame {
         btn22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                parametr(evt);
+                mnParametr(evt);
             }
         });
         tb1.add(btn22);
@@ -735,7 +736,7 @@ public class App1 extends javax.swing.JFrame {
         mn0121.setText("Размерные");
         mn0121.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mDictColor(evt);
+                mnColor(evt);
             }
         });
         mn12.add(mn0121);
@@ -778,12 +779,22 @@ public class App1 extends javax.swing.JFrame {
         });
         mn02.add(mn26);
 
+        mn22.setFont(frames.Util.getFont(1,1));
+        mn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
+        mn22.setText("Группы");
+        mn22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGroup(evt);
+            }
+        });
+        mn02.add(mn22);
+
         mn21.setFont(frames.Util.getFont(1,1));
         mn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b055.gif"))); // NOI18N
         mn21.setText("Текстуры");
         mn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mDictColor(evt);
+                mnColor(evt);
             }
         });
         mn02.add(mn21);
@@ -793,7 +804,7 @@ public class App1 extends javax.swing.JFrame {
         mn24.setText("Валюта");
         mn24.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mn24(evt);
+                mnCurrency(evt);
             }
         });
         mn02.add(mn24);
@@ -803,7 +814,7 @@ public class App1 extends javax.swing.JFrame {
         mn23.setText("Параметры");
         mn23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                parametr(evt);
+                mnParametr(evt);
             }
         });
         mn02.add(mn23);
@@ -1094,14 +1105,14 @@ public class App1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mDictColor(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mDictColor
+    private void mnColor(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnColor
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 eApp1.Color.createFrame(App1.this);
             }
         });
-}//GEN-LAST:event_mDictColor
+}//GEN-LAST:event_mnColor
 
     private void mn42(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn42
 
@@ -1191,14 +1202,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         //
     }//GEN-LAST:event_mn0116
 
-    private void mn24(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn24
+    private void mnCurrency(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCurrency
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 eApp1.DicCurrenc.createFrame(App1.this);
             }
         });
-    }//GEN-LAST:event_mn24
+    }//GEN-LAST:event_mnCurrency
 
     private void mnElement(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnElement
 
@@ -1241,14 +1252,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         });
     }//GEN-LAST:event_mnPartner
 
-    private void parametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_parametr
+    private void mnParametr(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnParametr
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
                 eApp1.Param.createFrame(App1.this);
             }
         });
-    }//GEN-LAST:event_parametr
+    }//GEN-LAST:event_mnParametr
 
     private void mJoining(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mJoining
 
@@ -1399,6 +1410,14 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
         mnBase(null);
     }//GEN-LAST:event_btnBase
 
+    private void mnGroup(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup
+        FrameProgress.create(App1.this, new FrameListener() {
+            public void actionRequest(Object obj) {
+                eApp1.ArtGroups.createFrame(App1.this);
+            }
+        });
+    }//GEN-LAST:event_mnGroup
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn11;
@@ -1450,6 +1469,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private javax.swing.JMenuItem mn14;
     private javax.swing.JMenuItem mn15;
     private javax.swing.JMenuItem mn21;
+    private javax.swing.JMenuItem mn22;
     private javax.swing.JMenuItem mn23;
     private javax.swing.JMenuItem mn24;
     private javax.swing.JMenuItem mn25;
@@ -1496,7 +1516,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public static enum eApp1 {
 
-        App1, Convert, DicCurrenc, Color, Artikles, Joining, Element, Param,
+        App1, Convert, ArtGroups, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
         BoxCustom, Specific, DicSyssize, TestFrame, RuleCalc;
         public javax.swing.JFrame frame;
@@ -1524,6 +1544,9 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     } else {
                         frame = new Artikles();
                     }
+                    break;
+                case ArtGroups:
+                    frame = new ArtGroups();
                     break;
                 case Convert:
                     frame = new Convert();
