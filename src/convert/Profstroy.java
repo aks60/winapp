@@ -68,7 +68,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import estimate.script.Winscript;
-import static frames.Util.consoleColor;
 import java.awt.Color;
 import java.util.Queue;
 import javax.swing.JTextPane;
@@ -100,14 +99,14 @@ public class Profstroy {
     private static String src, out;
     private static JTextPane tp = null;
 
-    public static void convert(Queue<Object[]> _que, Connection _cn1, Connection _cn2) {
+    public static void exec(Queue<Object[]> _que, Connection _cn1, Connection _cn2) {
         que = _que;
         cn1 = _cn1;
         cn2 = _cn2;
         script();
     }
 
-    public static void convert2() {
+    public static void exec2() {
         try {
             if (Integer.valueOf(eProperty.base_num.read()) == 1) {
                 src = "jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\ITEST.FDB?encoding=win1251";
@@ -121,7 +120,7 @@ public class Profstroy {
             script();
 
         } catch (Exception e) {
-            System.err.println("Ошибка: convert2() " + e);
+            System.err.println("Ошибка: exec2() " + e);
         }
     }
 
@@ -225,12 +224,12 @@ public class Profstroy {
             metaPart(cn2, st2);
 
             println(Color.GREEN, "Удаление лищних столбцов");
-            for (Field fieldUp : fieldsUp) {
-                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-                }
-            }
+//            for (Field fieldUp : fieldsUp) {
+//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+//                }
+//            }
             println(Color.BLUE, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
             println(Color.RED, "Ошибка: script() " + e);
@@ -328,7 +327,7 @@ public class Profstroy {
                         try {  //Если была ошибка в пакете выполняю отдельные sql insert
                             st2.executeUpdate(sql);
                         } catch (SQLException e) {
-                            System.err.println("\u001B[31m" + "SCRIPT-INSERT:  " + e);
+                            println(Color.RED, "SCRIPT-INSERT:  " + e);
                         }
                     }
                 }
@@ -382,6 +381,7 @@ public class Profstroy {
         }
     }
 
+    //Секция удаления потеренных ссылок (фантомов)
     private static void deletePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
@@ -432,6 +432,7 @@ public class Profstroy {
         }
     }
 
+    //Секция коррекции внешних ключей
     private static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
@@ -441,9 +442,11 @@ public class Profstroy {
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
-            updateSql(eArtikl.up, eArtikl.artgrp_id, "munic", eArtgrp.up, "munic");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
+            updateArtgrp();
+            /////////////////updateSql(eArtikl.up, eArtikl.artgrp1_id, "munic", eArtgrp.up, "id");
+            /////////////////updateSql(eArtikl.up, eArtikl.artgrp2_id, "udesc", eArtgrp.up, "id");            
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
@@ -656,6 +659,36 @@ public class Profstroy {
         }
     }
 
+    private static void updateArtgrp() {
+        println(Color.BLACK, "updateArtgrp()");
+        try {
+            executeSql("ALTER TABLE ARTGRP ADD FK INTEGER;");
+            Query q = new Query(eArtgrp.values());
+            ResultSet rs = st2.executeQuery("select * from GRUPART");
+            while (rs.next()) {
+                Record record = q.newRecord(Query.INS);
+                record.setNo(eArtgrp.id, ConnApp.instanc().genId(eArtgrp.up));
+                record.setNo(eArtgrp.categ, "INCR");
+                record.setNo(eArtgrp.name, rs.getString("MNAME"));
+                record.setNo(eArtgrp.coef, rs.getString("MKOEF"));
+                record.setNo(record.size(), rs.getString("MUNIC"));
+                q.insert(record);
+            }
+//            rs = st2.executeQuery("select * from DESCLST");
+//            while (rs.next()) {                
+//                Record record = q.newRecord(Query.INS);
+//                record.setNo(eArtgrp.id, ConnApp.instanc().genId(eArtgrp.up));
+//                record.setNo(eArtgrp.categ, "DECR");
+//                record.setNo(eArtgrp.name, rs.getString("NDESC"));                                
+//                record.setNo(eArtgrp.coef, rs.getString("VDESC"));
+//                record.setNo(record.size(), rs.getString("UDESC"));
+//                q.insert(record);
+//            }            
+        } catch (SQLException e) {
+            println(Color.RED, "Ошибка: UPDATE-updateArtgrp().  " + e);
+        }
+    }
+
     private static void deleteSql(Field table1, String id1, Field table2, String id2) {
         try {
             int recordDelete = 0, recordCount = 0;
@@ -705,7 +738,7 @@ public class Profstroy {
                 }
             }
             String postpref = (recordCount == recordUpdate) ? "" : " Всего/неудач = " + recordCount + "/" + (recordCount - recordUpdate);
-            println(Color.BLACK, 0, "update " + table1.tname() + " set " + fk1.name() + " = (select id from "
+            println(Color.BLACK, "update " + table1.tname() + " set " + fk1.name() + " = (select id from "
                     + table2.tname() + " a where a." + id2 + " = " + table1.tname() + "." + id1 + ")", Color.BLUE, postpref);
             st2.executeBatch();
             cn2.commit();
@@ -725,7 +758,7 @@ public class Profstroy {
                 recordList.add(new Integer[]{rs.getInt("ID"), rs.getInt("CNUMB")});
             }
         } catch (SQLException e) {
-            System.err.println(e);
+            println(Color.RED, "Ошибка: UPDATE-checkUniqueKeyColor().  " + e);
         }
         for (Integer[] recordArr : recordList) {
             if (set.add(recordArr[0]) == false) {
@@ -760,15 +793,21 @@ public class Profstroy {
     }
 
     private static void println(Object... obj) {
-        if(obj.length == 0 && obj.length == 1) {
+        if (obj.length == 0 && obj.length == 1) {
             return;
         }
         if (obj.length == 2) {
-            que.add(new Object[] {obj[0], obj[1]});
-            //System.out.println(consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
+            if (que != null) {
+                que.add(new Object[]{obj[0], obj[1]});
+            } else {
+                System.out.println(Util.consoleColor(obj[0]) + obj[1].toString() + "\u001B[0m");
+            }
         } else {
-            que.add(new Object[] {obj[0], obj[1], obj[2], obj[3]});
-            //System.out.println(consoleColor(obj[0]) + obj[1].toString() + consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
+            if (que != null) {
+                que.add(new Object[]{obj[0], obj[1], obj[2], obj[3]});
+            } else {               
+                System.out.println(Util.consoleColor(obj[0]) + obj[1].toString() + Util.consoleColor(obj[2]) + obj[3].toString() + "\u001B[0m");
+            }
         }
     }
 }

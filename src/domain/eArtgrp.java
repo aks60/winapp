@@ -6,7 +6,7 @@ import dataset.Query;
 import dataset.Record;
 
 public enum eArtgrp implements Field {
-    up("0", "0", "0", "Группа материальных ценостей", "GRUPART"),
+    up("0", "0", "0", "Группа материальных ценостей","EMPTY"), //GRUPART, DESCLST
     id("4", "10", "0", "Идентификатор", "id"),
     categ("12", "16", "1", "Категория группы МЦ", "MPREF"),
     name("12", "32", "1", "Название группы МЦ", "MNAME"),

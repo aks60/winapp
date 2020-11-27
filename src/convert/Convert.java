@@ -23,6 +23,7 @@ import javax.swing.text.StyleContext;
 
 public class Convert extends javax.swing.JFrame {
 
+    private Thread thread = null;
     private Queue<Object[]> listQue = new ConcurrentLinkedQueue<Object[]>();
     private JTextField smallField, bigField;
     javax.swing.Timer timer = new Timer(100, new ActionListener() {
@@ -412,12 +413,13 @@ public class Convert extends javax.swing.JFrame {
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
             Connection c1 = con1.getConnection();
 
-            new Thread(new Runnable() {
+            thread = new Thread(new Runnable() {
                 public void run() {
-                    Profstroy.convert(listQue, c1, c2);
+                    Profstroy.exec(listQue, c1, c2);
                 }
 
-            }).start();
+            });
+            thread.start();
 
         } catch (Exception e) {
             System.err.println(e);
@@ -430,6 +432,7 @@ public class Convert extends javax.swing.JFrame {
 
     private void wndowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowClosed
         timer.stop();
+        thread.stop();
     }//GEN-LAST:event_wndowClosed
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

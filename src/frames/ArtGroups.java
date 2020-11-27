@@ -41,6 +41,7 @@ public class ArtGroups extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Группы артикулов");
         setPreferredSize(new java.awt.Dimension(500, 600));
 
         centr.setPreferredSize(new java.awt.Dimension(500, 640));

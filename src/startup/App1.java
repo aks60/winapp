@@ -56,7 +56,7 @@ public class App1 extends javax.swing.JFrame {
 
         public void actionResponse(Object obj) {
             Util.setGregorianCalendar(obj);
-            btn11.setText(Util.getDateStr(null));
+            btn51.setText(Util.getDateStr(null));
         }
     };
 
@@ -108,13 +108,13 @@ public class App1 extends javax.swing.JFrame {
 
     private void setSelectedFilter(boolean sel) {
 
-        btn16.setSelected(sel);
-        if (btn16.isSelected() == true) {
-            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
+        btn01.setSelected(sel);
+        if (btn01.isSelected() == true) {
+            btn01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c064.gif")));
         } else {
-            btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
+            btn01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif")));
         }
-        btn16.repaint();
+        btn01.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -125,34 +125,35 @@ public class App1 extends javax.swing.JFrame {
         btn35 = new javax.swing.JButton();
         buttonBaseGroup = new javax.swing.ButtonGroup();
         tb0 = new javax.swing.JToolBar();
-        btn16 = new javax.swing.JToggleButton();
+        btn01 = new javax.swing.JToggleButton();
         tb1 = new javax.swing.JToolBar();
         btn15 = new javax.swing.JButton();
+        btn16 = new javax.swing.JButton();
         btn14 = new javax.swing.JButton();
         btn12 = new javax.swing.JButton();
         btn13 = new javax.swing.JButton();
-        btn22 = new javax.swing.JButton();
-        td5 = new javax.swing.JToolBar();
-        btn34 = new javax.swing.JButton();
         btn11 = new javax.swing.JButton();
-        btn28 = new javax.swing.JButton();
+        td5 = new javax.swing.JToolBar();
+        btn52 = new javax.swing.JButton();
+        btn51 = new javax.swing.JButton();
+        btn53 = new javax.swing.JButton();
         tb2 = new javax.swing.JToolBar();
         btn23 = new javax.swing.JButton();
         btn24 = new javax.swing.JButton();
         btn25 = new javax.swing.JButton();
         btn26 = new javax.swing.JButton();
         btn27 = new javax.swing.JButton();
-        btn61 = new javax.swing.JButton();
+        btn21 = new javax.swing.JButton();
         td3 = new javax.swing.JToolBar();
-        btn29 = new javax.swing.JButton();
+        btn31 = new javax.swing.JButton();
         btn30 = new javax.swing.JButton();
         tb6 = new javax.swing.JToolBar();
         btnT7 = new javax.swing.JToggleButton();
         btnT8 = new javax.swing.JToggleButton();
         btnT9 = new javax.swing.JToggleButton();
         tb4 = new javax.swing.JToolBar();
-        btn31 = new javax.swing.JButton();
-        btn32 = new javax.swing.JButton();
+        btn41 = new javax.swing.JButton();
+        btn42 = new javax.swing.JButton();
         mn0 = new javax.swing.JMenuBar();
         mn01 = new javax.swing.JMenu();
         mn11 = new javax.swing.JMenu();
@@ -249,24 +250,24 @@ public class App1 extends javax.swing.JFrame {
         tb0.setRollover(true);
         tb0.setPreferredSize(new java.awt.Dimension(44, 28));
 
-        btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
-        btn16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn16.setFocusable(false);
-        btn16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn16.addActionListener(new java.awt.event.ActionListener() {
+        btn01.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c056.gif"))); // NOI18N
+        btn01.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn01.setFocusable(false);
+        btn01.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn01.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn01.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnFilter(evt);
             }
         });
-        tb0.add(btn16);
+        tb0.add(btn01);
 
         getContentPane().add(tb0);
 
         tb1.setRollover(true);
         tb1.setMaximumSize(new java.awt.Dimension(150, 28));
         tb1.setMinimumSize(new java.awt.Dimension(150, 28));
-        tb1.setPreferredSize(new java.awt.Dimension(148, 28));
+        tb1.setPreferredSize(new java.awt.Dimension(176, 28));
 
         btn15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c018.gif"))); // NOI18N
         btn15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -283,6 +284,22 @@ public class App1 extends javax.swing.JFrame {
             }
         });
         tb1.add(btn15);
+
+        btn16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
+        btn16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
+        btn16.setFocusable(false);
+        btn16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn16.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn16.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn16.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn16.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnGroup(evt);
+            }
+        });
+        tb1.add(btn16);
 
         btn14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c008.gif"))); // NOI18N
         btn14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
@@ -329,47 +346,8 @@ public class App1 extends javax.swing.JFrame {
         });
         tb1.add(btn13);
 
-        btn22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
-        btn22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
-        btn22.setFocusable(false);
-        btn22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn22.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn22.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn22.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn22.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnParametr(evt);
-            }
-        });
-        tb1.add(btn22);
-
-        getContentPane().add(tb1);
-
-        td5.setRollover(true);
-        td5.setMaximumSize(new java.awt.Dimension(94, 28));
-        td5.setMinimumSize(new java.awt.Dimension(94, 28));
-        td5.setPreferredSize(new java.awt.Dimension(94, 28));
-
-        btn34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019a.gif"))); // NOI18N
-        btn34.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        btn34.setFocusable(false);
-        btn34.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn34.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn34.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn34.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn34.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn34.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn34.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnBoxTypical(evt);
-            }
-        });
-        td5.add(btn34);
-
-        btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
-        btn11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c022.gif"))); // NOI18N
+        btn11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 0)));
         btn11.setFocusable(false);
         btn11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn11.setMaximumSize(new java.awt.Dimension(26, 26));
@@ -379,26 +357,65 @@ public class App1 extends javax.swing.JFrame {
         btn11.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btn11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnParametr(evt);
+            }
+        });
+        tb1.add(btn11);
+
+        getContentPane().add(tb1);
+
+        td5.setRollover(true);
+        td5.setMaximumSize(new java.awt.Dimension(94, 28));
+        td5.setMinimumSize(new java.awt.Dimension(94, 28));
+        td5.setPreferredSize(new java.awt.Dimension(94, 28));
+
+        btn52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c019a.gif"))); // NOI18N
+        btn52.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn52.setFocusable(false);
+        btn52.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn52.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn52.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn52.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn52.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn52.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnBoxTypical(evt);
+            }
+        });
+        td5.add(btn52);
+
+        btn51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btn51.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn51.setFocusable(false);
+        btn51.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn51.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn51.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn51.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn51.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn51.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn51.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn25(evt);
             }
         });
-        td5.add(btn11);
+        td5.add(btn51);
 
-        btn28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
-        btn28.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
-        btn28.setFocusable(false);
-        btn28.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn28.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn28.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn28.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn28.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn28.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn28.addActionListener(new java.awt.event.ActionListener() {
+        btn53.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c028.gif"))); // NOI18N
+        btn53.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        btn53.setFocusable(false);
+        btn53.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn53.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn53.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn53.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn53.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn53.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn53.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn42(evt);
             }
         });
-        td5.add(btn28);
+        td5.add(btn53);
 
         getContentPane().add(td5);
 
@@ -485,21 +502,21 @@ public class App1 extends javax.swing.JFrame {
         });
         tb2.add(btn27);
 
-        btn61.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
-        btn61.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
-        btn61.setFocusable(false);
-        btn61.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn61.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn61.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn61.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn61.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn61.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn61.addActionListener(new java.awt.event.ActionListener() {
+        btn21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c016.gif"))); // NOI18N
+        btn21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        btn21.setFocusable(false);
+        btn21.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn21.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn21.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn21.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn21.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mn41(evt);
             }
         });
-        tb2.add(btn61);
+        tb2.add(btn21);
 
         getContentPane().add(tb2);
 
@@ -508,21 +525,21 @@ public class App1 extends javax.swing.JFrame {
         td3.setMinimumSize(new java.awt.Dimension(98, 28));
         td3.setPreferredSize(new java.awt.Dimension(68, 28));
 
-        btn29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
-        btn29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        btn29.setFocusable(false);
-        btn29.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn29.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn29.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn29.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn29.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn29.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn29.addActionListener(new java.awt.event.ActionListener() {
+        btn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c030.gif"))); // NOI18N
+        btn31.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+        btn31.setFocusable(false);
+        btn31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn31.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn31.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn31.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn31.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn31.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnPartner(evt);
             }
         });
-        td3.add(btn29);
+        td3.add(btn31);
 
         btn30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c047.gif"))); // NOI18N
         btn30.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -601,37 +618,37 @@ public class App1 extends javax.swing.JFrame {
         tb4.setMinimumSize(new java.awt.Dimension(70, 28));
         tb4.setPreferredSize(new java.awt.Dimension(70, 28));
 
-        btn31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c013.gif"))); // NOI18N
-        btn31.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btn31.setFocusable(false);
-        btn31.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn31.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn31.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn31.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn31.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn31.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn31.addActionListener(new java.awt.event.ActionListener() {
+        btn41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c013.gif"))); // NOI18N
+        btn41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btn41.setFocusable(false);
+        btn41.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn41.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn41.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn41.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn41.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn41.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn41.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnConvert(evt);
             }
         });
-        tb4.add(btn31);
+        tb4.add(btn41);
 
-        btn32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
-        btn32.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        btn32.setFocusable(false);
-        btn32.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btn32.setMaximumSize(new java.awt.Dimension(26, 26));
-        btn32.setMinimumSize(new java.awt.Dimension(26, 26));
-        btn32.setPreferredSize(new java.awt.Dimension(26, 26));
-        btn32.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btn32.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btn32.addActionListener(new java.awt.event.ActionListener() {
+        btn42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
+        btn42.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        btn42.setFocusable(false);
+        btn42.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn42.setMaximumSize(new java.awt.Dimension(26, 26));
+        btn42.setMinimumSize(new java.awt.Dimension(26, 26));
+        btn42.setPreferredSize(new java.awt.Dimension(26, 26));
+        btn42.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btn42.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn42.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mExit(evt);
             }
         });
-        tb4.add(btn32);
+        tb4.add(btn42);
 
         getContentPane().add(tb4);
 
@@ -1215,7 +1232,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn16.isSelected() == true) {
+                if (btn01.isSelected() == true) {
                     eApp1.Element.createFrame(App1.this);
                 } else {
                     constructive();
@@ -1231,7 +1248,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn16.isSelected() == true) {
+                if (btn01.isSelected() == true) {
                     eApp1.Furniture.createFrame(App1.this);
                 } else {
                     constructive();
@@ -1265,7 +1282,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn16.isSelected() == true) {
+                if (btn01.isSelected() == true) {
                     eApp1.Joining.createFrame(App1.this);
                 } else {
                     constructive();
@@ -1282,7 +1299,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                if (btn16.isSelected() == true) {
+                if (btn01.isSelected() == true) {
                     eApp1.Filling.createFrame(App1.this);
                 } else {
                     constructive();
@@ -1376,7 +1393,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     }//GEN-LAST:event_formWindowDeiconified
 
     private void mnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnFilter
-        setSelectedFilter(btn16.isSelected());
+        setSelectedFilter(btn01.isSelected());
     }//GEN-LAST:event_mnFilter
 
     private void mnBase(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnBase
@@ -1420,26 +1437,27 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btn01;
     private javax.swing.JButton btn11;
     private javax.swing.JButton btn12;
     private javax.swing.JButton btn13;
     private javax.swing.JButton btn14;
     private javax.swing.JButton btn15;
-    private javax.swing.JToggleButton btn16;
-    private javax.swing.JButton btn22;
+    private javax.swing.JButton btn16;
+    private javax.swing.JButton btn21;
     private javax.swing.JButton btn23;
     private javax.swing.JButton btn24;
     private javax.swing.JButton btn25;
     private javax.swing.JButton btn26;
     private javax.swing.JButton btn27;
-    private javax.swing.JButton btn28;
-    private javax.swing.JButton btn29;
     private javax.swing.JButton btn30;
     private javax.swing.JButton btn31;
-    private javax.swing.JButton btn32;
-    private javax.swing.JButton btn34;
     private javax.swing.JButton btn35;
-    private javax.swing.JButton btn61;
+    private javax.swing.JButton btn41;
+    private javax.swing.JButton btn42;
+    private javax.swing.JButton btn51;
+    private javax.swing.JButton btn52;
+    private javax.swing.JButton btn53;
     private javax.swing.JToggleButton btnT7;
     private javax.swing.JToggleButton btnT8;
     private javax.swing.JToggleButton btnT9;
