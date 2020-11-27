@@ -157,7 +157,7 @@ public class Tariffication extends Cal5e {
                 artdetTariff = artdetRec.getFloat(eArtdet.cost_min) / specificRec.quantity;    //используем минимальный тариф 
             }
             if (artsvstRowUsed) {
-                inPrice = inPrice + (artdetTariff * artdetRec.getFloat(eArtdet.coef_nakl));
+                inPrice = inPrice + (artdetTariff * artdetRec.getFloat(eArtdet.price_coeff));
             }
         }
         return inPrice;

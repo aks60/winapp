@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
 public enum eArtdet implements Field {
     up("0", "0", "0", "Тариф.мат.цености", "ARTSVST"),
     id("4", "10", "0", "Идентификатор", "id"),
-    coef_nakl("8", "15", "1", "Коэф.накладных расходов", "KNAKL"),
+    price_coeff("8", "15", "1", "Коэф.накладных расходов", "KNAKL"),
     cost_unit("8", "15", "1", "Тариф единицы измерения", "CLPRV"),
     cost_cl1("8", "15", "1", "Тариф основной текстуры", "CLPRC"),
     cost_cl2("8", "15", "1", "Тариф внутренний текстуры", "CLPR1"),

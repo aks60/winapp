@@ -42,9 +42,15 @@ public class Specific extends javax.swing.JFrame {
 
     public Specific() {
         initComponents();
-        initElements();
-        createIwin();
-        loadingModel();
+        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+        Record record = eSystree.find(nuni);
+        if (record.getInt(eSystree.models_id) == -1) {
+            JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);;
+        } else {
+            initElements();
+            createIwin();
+            loadingModel();
+        }
     }
 
     private void createIwin() {
@@ -59,7 +65,7 @@ public class Specific extends javax.swing.JFrame {
             String script = record2.getStr(eModels.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
-                return;
+                //this.dispose();
             } else {
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
                 je.getAsJsonObject().addProperty("nuni", nuni);
