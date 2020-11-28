@@ -447,7 +447,8 @@ public class Profstroy {
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             updateArtgrp();
             updateSql(eArtikl.up, eArtikl.artgrp1_id, "munic", eArtgrp.up, "fk");
-            updateSql(eArtikl.up, eArtikl.artgrp2_id, "udesc", eArtgrp.up, "fk"); 
+            updateSql(eArtikl.up, eArtikl.artgrp2_id, "udesc", eArtgrp.up, "fk");
+            executeSql("update artikl set size_falz = (select a.SSIZN from syssize a where a.id = artikl.syssize_id)");
             executeSql("ALTER TABLE " + eArtgrp.up.tname() + " DROP  FK");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");

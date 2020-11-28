@@ -337,10 +337,9 @@
             <Component class="javax.swing.JTable" name="tab1">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="5" rowCount="4">
+                  <Table columnCount="4" rowCount="4">
                     <Column editable="true" title="&#x421;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x430; &#x430;&#x440;&#x442;&#x438;&#x43a;&#x443;&#x43b;&#x43e;&#x432;" type="java.lang.String"/>
                     <Column editable="true" title="&#x41f;&#x440;&#x438;&#x43f;&#x443;&#x441;&#x43a; &#x43d;&#x430; &#x441;&#x432;&#x430;&#x440;&#x43a;&#x443;" type="java.lang.String"/>
-                    <Column editable="true" title="&#x41d;&#x430;&#x43f;&#x43b;&#x430;&#x432; &#x441;&#x438;&#x441;&#x442;&#x435;&#x43c;&#x44b;" type="java.lang.String"/>
                     <Column editable="true" title="&#x41d;&#x430;&#x445;&#x43b;&#x435;&#x441;&#x442; &#x441;&#x442;&#x432;&#x43e;&#x440;&#x43a;&#x438;" type="java.lang.String"/>
                     <Column editable="true" title="&#x417;&#x430;&#x445;&#x43e;&#x434; &#x438;&#x43c;&#x43f;&#x43e;&#x441;&#x442;&#x430;" type="java.lang.String"/>
                   </Table>
@@ -348,11 +347,6 @@
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="200" prefWidth="200" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>

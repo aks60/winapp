@@ -41,7 +41,7 @@ public class Syssize extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.falz, eSyssize.naxl, eSyssize.zax);
+        new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax);
     }
 
     @SuppressWarnings("unchecked")
@@ -224,17 +224,17 @@ public class Syssize extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Система артикулов", "Припуск на сварку", "Наплав системы", "Нахлест створки", "Заход импоста"
+                "Система артикулов", "Припуск на сварку", "Нахлест створки", "Заход импоста"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

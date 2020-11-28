@@ -42,7 +42,7 @@ public enum eArtikl implements Field {
     artgrp2_id("4", "10", "1", "Группы скидок", "artgrp2_id"),
     analog_id("4", "10", "1", "Ссылка", "analog_id"),
     series_id("4", "10", "1", "Ссылка(cерия)", "series_id"),
-    syssize_id("4", "10", "1", "Ссылка", "syssize_id"),
+    syssize_id("4", "10", "1", "Системные константы", "syssize_id"),
     currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
     currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT");
     //artgrp2_id("5", "5", "1", "ID группы скидок (см. DescLst)", "UDESC"),

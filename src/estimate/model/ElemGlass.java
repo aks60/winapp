@@ -101,14 +101,10 @@ public class ElemGlass extends ElemSimple {
                 x2 = insideRight.x2 - insideRight.owner().gsize;
                 y2 = insideBott.y2 - insideBott.owner().gsize;
             } else {
-                float size_falz = (insideLeft.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideLeft.artiklRec.getFloat(eArtikl.size_falz);
-                x1 = insideLeft.x2 - size_falz + gzazo;
-                size_falz = (insideTop.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideTop.artiklRec.getFloat(eArtikl.size_falz);
-                y1 = insideTop.y2 - size_falz + gzazo;
-                size_falz = (insideRight.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideRight.artiklRec.getFloat(eArtikl.size_falz);
-                x2 = insideRight.x1 + size_falz - gzazo;
-                size_falz = (insideBott.artiklRec.getFloat(eArtikl.size_falz) == 0) ? iwin().syssizeRec.getFloat(eSyssize.falz) : insideBott.artiklRec.getFloat(eArtikl.size_falz);
-                y2 = insideBott.y1 + size_falz - gzazo;
+                x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) + gzazo;
+                x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
+                y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) - gzazo;
             }
         }
         specificationRec.width = width();
