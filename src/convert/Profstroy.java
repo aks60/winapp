@@ -772,7 +772,7 @@ public class Profstroy {
             st2.execute(str);
             cn2.commit();
         } catch (SQLException e) {
-            println(Color.RED, "НЕУДАЧА-SQL: checkUniqueKeyColor(). Связь не установлена");
+            println(Color.BLUE, "НЕУДАЧА-SQL: checkUniqueKeyColor(). Связь не установлена");
         }
     }
 
