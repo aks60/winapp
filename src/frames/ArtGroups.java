@@ -83,7 +83,7 @@ public class ArtGroups extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Название группы", "Коэффициент"
+                "Название группы", "Наценка (коэф)"
             }
         ) {
             Class[] types = new Class [] {
@@ -104,7 +104,7 @@ public class ArtGroups extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(86);
             tab1.getColumnModel().getColumn(1).setMaxWidth(140);
         }
 
@@ -122,7 +122,7 @@ public class ArtGroups extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Название группы", "Коэффициент"
+                "Название группы", "Скидка %"
             }
         ) {
             Class[] types = new Class [] {

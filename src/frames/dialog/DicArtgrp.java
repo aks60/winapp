@@ -2,82 +2,67 @@ package frames.dialog;
 
 import common.DialogListener;
 import common.FrameToFile;
-import frames.Util;
-import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtikl;
-import domain.eFurndet;
-import enums.TypeArtikl;
-import java.util.Arrays;
+import domain.eArtgrp;
+import frames.Util;
 import frames.swing.DefTableModel;
-import java.util.stream.Collectors;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
-//Справочник артикулов
-public class DicArtikl extends javax.swing.JDialog {
+public class DicArtgrp extends javax.swing.JDialog {
 
     private DialogListener listener = null;
-    private Query qArtikl = new Query(eArtikl.id, eArtikl.level1, eArtikl.level2, eArtikl.code, eArtikl.name);
+    private Query qArtgrp = new Query(eArtgrp.values());
+    private String categ = "";
 
-    public DicArtikl(java.awt.Frame parent, DialogListener listenet, int... level) {
+    public DicArtgrp(java.awt.Frame parent, DialogListener listener, String categ) {
         super(parent, true);
         initComponents();
+        this.categ = categ;
         initElements();
-        String p1 = Arrays.toString(level).split("[\\[\\]]")[1];
-        qArtikl.select(eArtikl.up, "where", eArtikl.level1, "in (", p1, ") order by", eArtikl.level1, ",", eArtikl.level2, ",", eArtikl.code, ",", eArtikl.name);
-        this.listener = listenet;
+        this.listener = listener;
+        loadingData();
         loadingModel();
-        Util.setSelectedRow(tab2);
         setVisible(true);
     }
 
-    public DicArtikl(java.awt.Frame parent, DialogListener listenet, int furnId, int level1, int level2) {
-        super(parent, true);
-        initComponents();
-        initElements();
-        Query qFurndet = new Query(eFurndet.id, eArtikl.id).select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, 
-                "where", eFurndet.furniture_id1, "=", furnId, "and", eArtikl.level1, "=", level1, "and", eArtikl.level2, "=", level2);
-        String arr = qFurndet.table(eArtikl.up).stream().map(rec -> rec.getStr(eArtikl.id)).collect(Collectors.joining(",", "(", ")"));
-        qArtikl.select(eArtikl.up).select(eArtikl.up, "where", eArtikl.id, "in", arr);       
-        this.listener = listenet;
-        loadingModel();
-        Util.setSelectedRow(tab2);
-        setVisible(true);
+    private void loadingData() {
+        qArtgrp.select(eArtgrp.up, "where", eArtgrp.categ, "= '", categ, "'");
     }
 
     private void loadingModel() {
-
-        new DefTableModel(tab2, qArtikl, eArtikl.level2, eArtikl.code, eArtikl.name) {
-            public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if (field == eArtikl.level2) {
-                    Record record = qArtikl.get(row);
-                    return TypeArtikl.find(record.getInt(eArtikl.level1), record.getInt(eArtikl.level2));
-                }
-                return val;
-            }
-        };
+        new DefTableModel(tab1, qArtgrp, eArtgrp.name, eArtgrp.coeff);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        north = new javax.swing.JPanel();
+        panNn = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         south = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
         centr = new javax.swing.JPanel();
-        scr2 = new javax.swing.JScrollPane();
-        tab2 = new javax.swing.JTable();
+        scr1 = new javax.swing.JScrollPane();
+        tab1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Справочник артикулов");
+        setPreferredSize(new java.awt.Dimension(400, 600));
 
-        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        north.setMaximumSize(new java.awt.Dimension(32767, 31));
-        north.setPreferredSize(new java.awt.Dimension(460, 29));
+        panNn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        panNn.setMaximumSize(new java.awt.Dimension(32767, 31));
+        panNn.setPreferredSize(new java.awt.Dimension(400, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -121,93 +106,103 @@ public class DicArtikl extends javax.swing.JDialog {
         btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemov(evt);
+                btnRemove(evt);
             }
         });
 
-        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
-        north.setLayout(northLayout);
-        northLayout.setHorizontalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
+        javax.swing.GroupLayout panNnLayout = new javax.swing.GroupLayout(panNn);
+        panNn.setLayout(panNnLayout);
+        panNnLayout.setHorizontalGroup(
+            panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panNnLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        northLayout.setVerticalGroup(
-            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panNnLayout.setVerticalGroup(
+            panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panNnLayout.createSequentialGroup()
+                .addGroup(panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panNnLayout.createSequentialGroup()
+                        .addGroup(panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        getContentPane().add(north, java.awt.BorderLayout.NORTH);
+        getContentPane().add(panNn, java.awt.BorderLayout.NORTH);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(460, 20));
+        south.setPreferredSize(new java.awt.Dimension(400, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 355, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setMaximumSize(new java.awt.Dimension(20, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(20, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(20, 14));
+        south.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(80, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(80, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtFilterCaretUpdate(evt);
+            }
+        });
+        south.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        south.add(checkFilter);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
-        centr.setPreferredSize(new java.awt.Dimension(460, 500));
+        centr.setPreferredSize(new java.awt.Dimension(400, 540));
         centr.setLayout(new java.awt.BorderLayout());
 
-        scr2.setBorder(null);
+        scr1.setBorder(null);
+        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
-        tab2.setModel(new javax.swing.table.DefaultTableModel(
+        tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Nmae 0", "Name 1", "Value 1"},
-                {"Name 0", "Name 2", "Value 2"}
+                {"Nmae 0", null},
+                {"Name 0", null}
             },
             new String [] {
-                "Тип артикула", "Код арикула", "Наименование артикула"
+                "Наименование", "Коеффициент"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tab2.setFillsViewportHeight(true);
-        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+        tab1.setFillsViewportHeight(true);
+        tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mouse2Clicked(evt);
             }
         });
-        scr2.setViewportView(tab2);
-        if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(110);
-            tab2.getColumnModel().getColumn(1).setMaxWidth(160);
+        scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab1.getColumnModel().getColumn(1).setMaxWidth(140);
         }
 
-        centr.add(scr2, java.awt.BorderLayout.CENTER);
+        centr.add(scr1, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
@@ -215,22 +210,35 @@ public class DicArtikl extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
+
         this.dispose();
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = Util.getSelectedRec(tab2);
+        int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Record record = qArtikl.get(row);
+            Record record = qArtgrp.get(row);
             listener.action(record);
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice
 
-    private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        listener.action(eArtikl.up.newRecord());
+    private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
+        Record record = eArtgrp.up.newRecord();
+        listener.action(record);
         this.dispose();
-    }//GEN-LAST:event_btnRemov
+    }//GEN-LAST:event_btnRemove
+
+    private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
+
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tab1.getRowSorter();
+        if (txtFilter.getText().length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            sorter.setRowFilter(RowFilter.regexFilter(text, 0));
+        }
+    }//GEN-LAST:event_txtFilterCaretUpdate
 
     private void mouse2Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouse2Clicked
         if (evt.getClickCount() == 2) {
@@ -238,21 +246,33 @@ public class DicArtikl extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_mouse2Clicked
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel centr;
-    private javax.swing.JPanel north;
-    private javax.swing.JScrollPane scr2;
+    private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel labFilter;
+    private javax.swing.JPanel panNn;
+    private javax.swing.JScrollPane scr1;
     private javax.swing.JPanel south;
-    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab1;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
-
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
-        new FrameToFile(this, btnClose);
+        new FrameToFile(this, btnClose);        
+        if ("INCR".equalsIgnoreCase(categ)) {
+            setTitle("Группы наценок");
+            tab1.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{}, new String[]{"Наименование", "Наценка (коэф)"}
+            ));
+        } else {
+            setTitle("Группы скидок");
+            tab1.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{}, new String[]{"Наименование", "Скидка (%)"}
+            ));
+        }
     }
 }
