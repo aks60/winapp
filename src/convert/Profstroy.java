@@ -139,7 +139,7 @@ public class Profstroy {
         };
         try {
 
-            //println(Color.GREEN, "Подготовка методанных");
+            println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
             st1 = cn1.createStatement(); //источник 
@@ -167,6 +167,7 @@ public class Profstroy {
             while (resultSet2.next()) {
                 listGenerator2.add(resultSet2.getString("RDB$GENERATOR_NAME").trim());
             }
+            println(Color.BLACK, "Методанные готовы");
             println(Color.GREEN, "Перенос данных");
             //Цикл по доменам приложения
             for (Field fieldUp : fieldsUp) {
@@ -224,12 +225,12 @@ public class Profstroy {
             metaPart(cn2, st2);
 
             println(Color.GREEN, "Удаление лищних столбцов");
-//            for (Field fieldUp : fieldsUp) {
-//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-//                }
-//            }
+            for (Field fieldUp : fieldsUp) {
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+                }
+            }
             println(Color.BLUE, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
             println(Color.RED, "Ошибка: script() " + e);
@@ -445,8 +446,9 @@ public class Profstroy {
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             updateArtgrp();
-            /////////////////updateSql(eArtikl.up, eArtikl.artgrp1_id, "munic", eArtgrp.up, "id");
-            /////////////////updateSql(eArtikl.up, eArtikl.artgrp2_id, "udesc", eArtgrp.up, "id");            
+            updateSql(eArtikl.up, eArtikl.artgrp1_id, "munic", eArtgrp.up, "fk");
+            updateSql(eArtikl.up, eArtikl.artgrp2_id, "udesc", eArtgrp.up, "fk"); 
+            executeSql("ALTER TABLE " + eArtgrp.up.tname() + " DROP  FK");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             updateElemgrp();
@@ -663,31 +665,21 @@ public class Profstroy {
         println(Color.BLACK, "updateArtgrp()");
         try {
             executeSql("ALTER TABLE ARTGRP ADD FK INTEGER;");
-            Query q = new Query(eArtgrp.values());
             ResultSet rs = st1.executeQuery("select * from GRUPART");
-            cn2.commit();            
             while (rs.next()) {
-                Record record = q.newRecord(Query.INS);
-                record.setNo(eArtgrp.id, ConnApp.instanc().genId(eArtgrp.up));
-                record.setNo(eArtgrp.categ, "INCR");
-                record.setNo(eArtgrp.name, rs.getString("MNAME"));
-                record.setNo(eArtgrp.coef, rs.getString("MKOEF"));
-//                record.setNo(record.size(), rs.getString("MUNIC"));
-                q.insert(record);
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEF, FK) values ("
+                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'INCR', '" + rs.getString("MNAME") + "', "
+                        + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
+                st2.executeUpdate(sql);
             }
-//            rs = st1.executeQuery("select * from DESCLST");
-//            while (rs.next()) {                
-//                Record record = q.newRecord(Query.INS);
-//                record.setNo(eArtgrp.id, ConnApp.instanc().genId(eArtgrp.up));
-//                record.setNo(eArtgrp.categ, "DECR");
-//                record.setNo(eArtgrp.name, rs.getString("NDESC"));                                
-//                record.setNo(eArtgrp.coef, rs.getString("VDESC"));
-//                record.setNo(record.size(), rs.getString("UDESC"));
-//                q.insert(record);
-//            }
-            //rs.close();
+            rs = st1.executeQuery("select * from DESCLST");
+            while (rs.next()) {
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEF, FK) values ("
+                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'DECR', '" + rs.getString("NDESC") + "', "
+                        + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
+                st2.executeUpdate(sql);
+            }
             cn2.commit();
-            //Query.connection.commit();
 
         } catch (SQLException e) {
             println(Color.RED, "Ошибка: UPDATE-updateArtgrp().  " + e);
