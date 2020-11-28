@@ -21,18 +21,20 @@ public class Syssize extends javax.swing.JFrame {
 
     private DialogListener listener = null;
     private Window owner = null;
-    private Query qSyssize = new Query(eSyssize.values()).select(eSyssize.up, "order by", eSyssize.name);
+    private Query qSyssize = new Query(eSyssize.values());
 
     public Syssize() {
         initComponents();
         initElements();
+        loadingData();
         loadingModel();
         btnChoice.setVisible(false);
     }
-
+    
     public Syssize(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
+        loadingData();
         loadingModel();
         this.owner = owner;
         owner.setEnabled(false);
@@ -41,8 +43,13 @@ public class Syssize extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    private void loadingData() {
+        qSyssize.select(eSyssize.up, "order by", eSyssize.name);
+    }
+    
     private void loadingModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")

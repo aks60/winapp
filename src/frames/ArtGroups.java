@@ -2,14 +2,15 @@ package frames;
 
 import common.FrameToFile;
 import dataset.Query;
+import dataset.Record;
 import domain.eArtgrp;
-import domain.eCurrenc;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
 
 public class ArtGroups extends javax.swing.JFrame {
 
@@ -29,8 +30,10 @@ public class ArtGroups extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qArtIncr, eArtgrp.name, eArtgrp.coef);
-        new DefTableModel(tab2, qArtDecr, eArtgrp.name, eArtgrp.coef);
+        new DefTableModel(tab1, qArtIncr, eArtgrp.name, eArtgrp.coeff);
+        new DefTableModel(tab2, qArtDecr, eArtgrp.name, eArtgrp.coeff);
+        Util.setSelectedRow(tab1);
+        Util.setSelectedRow(tab2);
     }
 
     @SuppressWarnings("unchecked")
@@ -61,6 +64,11 @@ public class ArtGroups extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Группы артикулов");
         setPreferredSize(new java.awt.Dimension(500, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         centr.setPreferredSize(new java.awt.Dimension(500, 640));
         centr.setLayout(new java.awt.BorderLayout());
@@ -296,22 +304,34 @@ public class ArtGroups extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        Arrays.asList(tab1).forEach(tab -> ((DefTableModel) tab.getModel()).getQuery().execsql());
+        loadingData();
+        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+        ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+        Util.setSelectedRow(tab1);
+        Util.setSelectedRow(tab2);
     }//GEN-LAST:event_btnRefresh
 
     private void btnDelete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-
+            if (tab1.getBorder() != null) {
+                Util.deleteRecord(tab1, eArtgrp.up);
+            } else if (tab2.getBorder() != null) {
+                Util.deleteRecord(tab2, eArtgrp.up);
+            }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-//        if (tab1.getBorder() != null) {
-//
-//        } else if (tab2.getBorder() != null) {
-//
-//        }
+        if (tab1.getBorder() != null) {
+            Record record = Util.insertRecord(tab1, eArtgrp.up);
+            record.set(eArtgrp.categ, "INCR");
+
+        } else if (tab2.getBorder() != null) {
+            Record record = Util.insertRecord(tab2, eArtgrp.up);
+            record.set(eArtgrp.categ, "DECR");
+        }
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
@@ -339,6 +359,12 @@ public class ArtGroups extends javax.swing.JFrame {
             txtFilter.setName(table.getName());
         }
     }//GEN-LAST:event_tabMousePressed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        Util.stopCellEditing(tab1, tab2);
+        qArtIncr.execsql();
+        qArtDecr.execsql();
+    }//GEN-LAST:event_formWindowClosed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables

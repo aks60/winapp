@@ -75,6 +75,7 @@ public class RuleCalc extends javax.swing.JFrame {
             int form = qRulecalc.getAs(Util.getSelectedRec(tab2), eRulecalc.form);
             DicEnums frame = new DicEnums(this, listenerForm, TypeForm.values());
         });
+        Util.setSelectedRow(tab2);
     }
 
     private void listenerDict() {

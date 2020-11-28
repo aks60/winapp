@@ -668,14 +668,14 @@ public class Profstroy {
             executeSql("ALTER TABLE ARTGRP ADD FK INTEGER;");
             ResultSet rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEF, FK) values ("
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
                         + ConnApp.instanc().genId(eArtgrp.up) + ", 'INCR', '" + rs.getString("MNAME") + "', "
                         + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEF, FK) values ("
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
                         + ConnApp.instanc().genId(eArtgrp.up) + ", 'DECR', '" + rs.getString("NDESC") + "', "
                         + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
                 st2.executeUpdate(sql);

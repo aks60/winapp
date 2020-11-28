@@ -45,9 +45,10 @@ public class Currenc extends javax.swing.JFrame {
     private void loadingData() {
         qCurrenc.select(eCurrenc.up, "order by", eCurrenc.name);
     }
-    
+
     private void loadingModel() {
         new DefTableModel(tab1, qCurrenc, eCurrenc.name, eCurrenc.par_case1, eCurrenc.par_case3, eCurrenc.cross_cour);
+        Util.setSelectedRow(tab1);
     }
 
     @SuppressWarnings("unchecked")
@@ -297,7 +298,7 @@ public class Currenc extends javax.swing.JFrame {
 
     private void windowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosed
 
-        Util.stopCellEditing(tab1, tab1);
+        Util.stopCellEditing(tab1);
         qCurrenc.execsql();
         if (owner != null)
             owner.setEnabled(true);
