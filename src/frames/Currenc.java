@@ -331,9 +331,7 @@ public class Currenc extends javax.swing.JFrame {
 // </editor-fold>     
     private void initElements() {
 
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         FocusListener listenerFocus = new FocusListener() {

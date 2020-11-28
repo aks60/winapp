@@ -1,6 +1,9 @@
 package frames;
 
 import common.FrameToFile;
+import dataset.Query;
+import domain.eArtgrp;
+import domain.eCurrenc;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -10,9 +13,24 @@ import javax.swing.RowFilter;
 
 public class ArtGroups extends javax.swing.JFrame {
 
+    private Query qArtIncr = new Query(eArtgrp.values());
+    private Query qArtDecr = new Query(eArtgrp.values());
+
     public ArtGroups() {
         initComponents();
         initElements();
+        loadingData();
+        loadingModel();
+    }
+
+    private void loadingData() {
+        qArtIncr.select(eArtgrp.up, "where", eArtgrp.categ, "= 'INCR'", "order by", eArtgrp.name);
+        qArtDecr.select(eArtgrp.up, "where", eArtgrp.categ, "= 'DECR'", "order by", eArtgrp.name);
+    }
+
+    private void loadingModel() {
+        new DefTableModel(tab1, qArtIncr, eArtgrp.name, eArtgrp.coef);
+        new DefTableModel(tab2, qArtDecr, eArtgrp.name, eArtgrp.coef);
     }
 
     @SuppressWarnings("unchecked")
@@ -73,12 +91,12 @@ public class ArtGroups extends javax.swing.JFrame {
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab1tabMousePressed(evt);
+                tabMousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
             tab1.getColumnModel().getColumn(1).setMaxWidth(140);
         }
 
@@ -111,13 +129,13 @@ public class ArtGroups extends javax.swing.JFrame {
         tab2.setName("tab1"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                tab2tabMousePressed(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
-            tab2.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(1).setMaxWidth(140);
         }
 
@@ -302,7 +320,7 @@ public class ArtGroups extends javax.swing.JFrame {
 
     private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
 
-        JTable table = Stream.of(tab1, tab1).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         btnIns.setEnabled(txtFilter.getText().length() == 0);
         if (txtFilter.getText().length() == 0) {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
@@ -313,18 +331,14 @@ public class ArtGroups extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFilterfilterCaretUpdate
 
-    private void tab1tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab1tabMousePressed
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
-        Util.listenerClick(table, Arrays.asList(tab1, tab1));
+        Util.listenerClick(table, Arrays.asList(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
             txtFilter.setName(table.getName());
         }
-    }//GEN-LAST:event_tab1tabMousePressed
-
-    private void tab2tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2tabMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tab2tabMousePressed
+    }//GEN-LAST:event_tabMousePressed
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -348,9 +362,10 @@ public class ArtGroups extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
-    
+
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2)));
     }
 }

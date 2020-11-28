@@ -469,29 +469,6 @@ public class Color extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-
-                Util.stopCellEditing(tab1, tab2, tab3);
-                tab1.setBorder(null);
-                tab2.setBorder(null);
-                tab3.setBorder(null);
-                if (e.getSource() instanceof JTable) {
-                    ((JComponent) e.getSource()).setBorder(border);
-                }
-            }
-
-            public void focusLost(FocusEvent e) {
-            }
-        };
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2, tab3));
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
-        tab3.addFocusListener(listenerFocus);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

@@ -93,7 +93,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="140" minWidth="-1" prefWidth="60" resizable="true">
+                            <Column maxWidth="140" minWidth="-1" prefWidth="80" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -110,7 +110,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab1tabMousePressed"/>
+                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabMousePressed"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -160,7 +160,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="140" minWidth="-1" prefWidth="60" resizable="true">
+                            <Column maxWidth="140" minWidth="-1" prefWidth="80" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -177,7 +177,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tab2tabMousePressed"/>
+                        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabMousePressed"/>
                       </Events>
                     </Component>
                   </SubComponents>

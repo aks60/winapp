@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
+import java.util.Arrays;
 
 public class Syssize extends javax.swing.JFrame {
 
@@ -335,10 +336,9 @@ public class Syssize extends javax.swing.JFrame {
             public void focusLost(FocusEvent e) {
             }
         };
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1));
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
         tab1.addFocusListener(listenerFocus);
+        
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Системнык константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }
