@@ -88,8 +88,12 @@ public class Color {
                             return colorID;
                         }
                     }
-                } else if (artdetRec.getInt(eArtdet.color_fk) == colorID) {
-                    if (canBeUsed(side, artdetRec) == true) {
+                } else if (artdetRec.getInt(eArtdet.color_fk) == colorID) { //если есть такая текстура в ARTDET
+                    //Сторона подлежит рассмотрению?
+                    if ((side == 1 && artdetRec.getInt(eArtdet.mark_c1) == 1)
+                            || side == 2 && (artdetRec.getInt(eArtdet.mark_c2) == 1 || artdetRec.getInt(eArtdet.mark_c1) == 1)
+                            || side == 3 && (artdetRec.getInt(eArtdet.mark_c3) == 1) || artdetRec.getInt(eArtdet.mark_c1) == 1) {
+
                         return colorID;
                     }
                 }
@@ -108,8 +112,11 @@ public class Color {
         List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));
         //Цыкл по ARTDET определённого артикула
         for (Record artdetRec : artdetList) {
-            if (canBeUsed(side, artdetRec) == true) {
-                if (artdetRec.getInt(eArtdet.color_fk) == colorID) { //если есть такая текстура в ARTDET
+            if (artdetRec.getInt(eArtdet.color_fk) == colorID) { //если есть такая текстура в ARTDET
+                //Сторона подлежит рассмотрению?
+                if ((side == 1 && artdetRec.getInt(eArtdet.mark_c1) == 1)
+                        || side == 2 && (artdetRec.getInt(eArtdet.mark_c2) == 1 || artdetRec.getInt(eArtdet.mark_c1) == 1)
+                        || side == 3 && (artdetRec.getInt(eArtdet.mark_c3) == 1) || artdetRec.getInt(eArtdet.mark_c1) == 1) {
                     return colorID;
                 }
             }
@@ -130,16 +137,6 @@ public class Color {
 //            }
 //            return colorCode;
         return -1; //иначе виртуальный цвет
-    }
-
-    //Cторона подлежит рассмотрению ?
-    public static boolean canBeUsed(int side, Record artdetRec) {
-        if ((side == 1 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0)
-                || (side == 2 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0)
-                || (side == 3 && (artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0)) {
-            return true;
-        }
-        return false;
     }
 
     // Выдает цвет из текущего изделия в соответствии с заданным вариантом подбора текстуры

@@ -109,9 +109,9 @@ public class Tariffication extends Cal5e {
     public float calcPrice(Specification specificRec) {
 
         float inPrice = 0;
-        Record color1Rec = eColor.find(specificRec.colorID1);  //
-        Record color2Rec = eColor.find(specificRec.colorID2);  //описание текстур
-        Record color3Rec = eColor.find(specificRec.colorID3);  //
+        Record color1Rec = eColor.find(specificRec.colorID1);  //основная
+        Record color2Rec = eColor.find(specificRec.colorID2);  //внутренняя
+        Record color3Rec = eColor.find(specificRec.colorID3);  //внешняя
 
         Record kursBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc1_id));    // кросс-курс валюты для основной текстуры
         Record kursNoBaseRec = eCurrenc.find(specificRec.artiklRec.getInt(eArtikl.currenc2_id));  // кросс-курс валюты для неосновных текстур (внутренняя, внешняя, двухсторонняя)
@@ -123,7 +123,7 @@ public class Tariffication extends Cal5e {
             boolean artsvstRowUsed = false;
 
             if (artdetRec.getFloat(eArtdet.cost_c4) != 0 && color2Rec.getInt(eColor.id) == color3Rec.getInt(eColor.id)
-                    && (artdetRec.getInt(eArtdet.prefe) & 1) != 0 && (artdetRec.getInt(eArtdet.prefe) & 2) != 0
+                    && artdetRec.getInt(eArtdet.mark_c2) == 1 && artdetRec.getInt(eArtdet.mark_c3) == 1
                     && Util.IsArtTariffAppliesForColor(artdetRec, color2Rec)) { //если двухсторонняя текстура
 
                 artdetTariff += (artdetRec.getInt(eArtdet.cost_c4) * Math.max(color2Rec.getFloat(eColor.coef2), color2Rec.getFloat(eColor.coef3)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour));
@@ -131,21 +131,21 @@ public class Tariffication extends Cal5e {
 
             } else {
 
-                if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0) {  //подбираем тариф основной текстуры
+                if (artdetRec.getInt(eArtdet.cost_c1) == 1) {  //подбираем тариф основной текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color1Rec)) {
                         Record colgrpRec = eColgrp.find(color1Rec.getInt(eColor.colgrp_id));
                         artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eColgrp.coeff)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
                         artsvstRowUsed = true;
                     }
                 }
-                if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 1) != 0) { //подбираем тариф внутренней текстуры
+                if (artdetRec.getInt(eArtdet.cost_c2) == 1 || artdetRec.getInt(eArtdet.cost_c1) == 1) { //подбираем тариф внутренней текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color2Rec)) {
                         Record colgrpRec = eColgrp.find(color2Rec.getInt(eColor.colgrp_id));
                         artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                         artsvstRowUsed = true;
                     }
                 }
-                if ((artdetRec.getInt(eArtdet.prefe) & 4) != 0 || (artdetRec.getInt(eArtdet.prefe) & 2) != 0) { //подбираем тариф внешней текстуры
+                if (artdetRec.getInt(eArtdet.cost_c3) == 1 || artdetRec.getInt(eArtdet.cost_c1) == 1) { //подбираем тариф внешней текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color3Rec)) {
                         Record colgrpRec = eColgrp.find(color3Rec.getInt(eColor.colgrp_id));
                         artdetTariff += (artdetRec.getFloat(eArtdet.cost_c3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
