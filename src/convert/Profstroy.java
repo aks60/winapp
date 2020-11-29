@@ -437,7 +437,7 @@ public class Profstroy {
     private static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
-            updateSetting();
+            updateSetting("Функция updateSetting()");
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERIES.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
@@ -445,16 +445,13 @@ public class Profstroy {
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
-            updateArtgrp();
-            updateSql(eArtikl.up, eArtikl.artgrp1_id, "munic", eArtgrp.up, "fk");
-            updateSql(eArtikl.up, eArtikl.artgrp2_id, "udesc", eArtgrp.up, "fk");            
-            executeSql("ALTER TABLE " + eArtgrp.up.tname() + " DROP  FK");
+            updateArtgrp("Функция updateArtgrp()");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             executeSql("update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
             executeSql("update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
-            updateElemgrp();
+            updateElemgrp("Функция updateElemgrp()");
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
@@ -587,9 +584,9 @@ public class Profstroy {
         }
     }
 
-    private static void updateElemgrp() throws SQLException {
+    private static void updateElemgrp(String mes) throws SQLException {
+        println(Color.BLACK, mes);
         try {
-            println(Color.BLACK, "updateElemgrp()");
             Query q = new Query(eElemgrp.values());
             ResultSet rs = st2.executeQuery("select distinct VPREF, ATYPM from element order by  ATYPM, VPREF");
             ArrayList<Object[]> fieldList = new ArrayList();
@@ -645,7 +642,8 @@ public class Profstroy {
         }
     }
 
-    private static void updateSetting() {
+    private static void updateSetting(String mes) {
+        println(Color.BLACK, mes);
         try {
             println(Color.BLACK, "updateSetting()");
             Query q = new Query(eSetting.values());
@@ -665,24 +663,35 @@ public class Profstroy {
         }
     }
 
-    private static void updateArtgrp() {
-        println(Color.BLACK, "updateArtgrp()");
+    private static void updateArtgrp(String mes) {
+        println(Color.BLACK, mes);
         try {
-            executeSql("ALTER TABLE ARTGRP ADD FK INTEGER;");
+            Query qArtikl = new Query(eArtikl.id, eArtikl.artgrp1_id, eArtikl.artgrp2_id).select(eArtikl.up);
             ResultSet rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
-                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'INCR', '" + rs.getString("MNAME") + "', "
-                        + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
+                int id = ConnApp.instanc().genId(eArtgrp.up);
+                int pk = rs.getInt("MUNIC");
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF) values ("
+                        + id + ", 'INCR', '" + rs.getString("MNAME") + "', " + rs.getString("MKOEF") + ")";
                 st2.executeUpdate(sql);
+                Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == pk).findFirst().orElse(null);
+                if (record != null) {
+                    record.set(eArtikl.artgrp1_id, id);
+                }
             }
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
-                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'DECR', '" + rs.getString("NDESC") + "', "
-                        + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
+                int id = ConnApp.instanc().genId(eArtgrp.up);
+                int pk = rs.getInt("UDESC");
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF) values ("
+                        + id + ", 'DECR', '" + rs.getString("NDESC") + "', " + rs.getString("VDESC") + ")";
                 st2.executeUpdate(sql);
+                Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == pk).findFirst().orElse(null);
+                if (record != null) {
+                    record.set(eArtikl.artgrp2_id, id);
+                }
             }
+            qArtikl.execsql();
             cn2.commit();
 
         } catch (SQLException e) {

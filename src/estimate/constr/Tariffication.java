@@ -76,8 +76,8 @@ public class Tariffication extends Cal5e {
                 }
             }
             elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
-            Record artgrpRec = eArtgrp.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp1_id));
-            elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrpRec.getFloat(eArtgrp.coeff, 1) * systreeRec.getFloat(eSystree.coef, 1);
+            Record artgrp1Rec = eArtgrp.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp1_id));
+            elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrp1Rec.getFloat(eArtgrp.coeff, 1) * systreeRec.getFloat(eSystree.coef, 1);
             elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
 
@@ -90,8 +90,8 @@ public class Tariffication extends Cal5e {
                     }
                 }
                 specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //себестоимости с отходом
-                Record artgrpRec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp1_id));
-                specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrpRec2.getFloat(eArtgrp.coeff) * systreeRec.getFloat(eSystree.coef);
+                Record artgrp1Rec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp1_id));
+                specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrp1Rec2.getFloat(eArtgrp.coeff, 1) * systreeRec.getFloat(eSystree.coef);
                 specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
                 specifSubelemRec.outCost = specifSubelemRec.inCost; //стоимость со скидкой 
             }
@@ -131,21 +131,21 @@ public class Tariffication extends Cal5e {
 
             } else {
 
-                if (artdetRec.getInt(eArtdet.cost_c1) == 1) {  //подбираем тариф основной текстуры
+                if ("1".equals(artdetRec.getStr(eArtdet.mark_c1))) {  //подбираем тариф основной текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color1Rec)) {
                         Record colgrpRec = eColgrp.find(color1Rec.getInt(eColor.colgrp_id));
                         artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eColgrp.coeff)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
                         artsvstRowUsed = true;
                     }
                 }
-                if (artdetRec.getInt(eArtdet.cost_c2) == 1 || artdetRec.getInt(eArtdet.cost_c1) == 1) { //подбираем тариф внутренней текстуры
+                if ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) { //подбираем тариф внутренней текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color2Rec)) {
                         Record colgrpRec = eColgrp.find(color2Rec.getInt(eColor.colgrp_id));
                         artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                         artsvstRowUsed = true;
                     }
                 }
-                if (artdetRec.getInt(eArtdet.cost_c3) == 1 || artdetRec.getInt(eArtdet.cost_c1) == 1) { //подбираем тариф внешней текстуры
+                if ("1".equals(artdetRec.getStr(eArtdet.mark_c3)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) { //подбираем тариф внешней текстуры
                     if (Util.IsArtTariffAppliesForColor(artdetRec, color3Rec)) {
                         Record colgrpRec = eColgrp.find(color3Rec.getInt(eColor.colgrp_id));
                         artdetTariff += (artdetRec.getFloat(eArtdet.cost_c3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
