@@ -451,7 +451,6 @@ public class Profstroy {
             executeSql("ALTER TABLE " + eArtgrp.up.tname() + " DROP  FK");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
-            executeSql("update artdet set mark_c1 = 1");
             executeSql("update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
             executeSql("update artdet set mark_c3 = 1 where cways in (2,3,6,7)");

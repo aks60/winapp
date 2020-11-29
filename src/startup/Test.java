@@ -6,10 +6,10 @@ import enums.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import domain.eArtdet;
 import domain.eParams;
 import estimate.constr.Specification;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 import java.util.HashMap;
 import javax.swing.UIManager;
 import java.util.Arrays;
@@ -20,8 +20,8 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            wincalc();
-            //query();
+            //wincalc();
+            query();
             //frame();
             //parse();
 
@@ -81,20 +81,17 @@ public class Test {
     private static void query() {
         try {
             Query.connection = connection();
-            DatabaseMetaData dmd = Query.connection.getMetaData();
-            String name = dmd.getURL().substring(dmd.getURL().lastIndexOf("\\") + 1);
-            System.out.println(dmd.getURL().toCharArray());
-            System.out.println(Integer.valueOf(eProperty.base_num.read()));
+            Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up, "where", eArtdet.id, "=", 19143);
+            Record artdetRec = qArtdet.get(0);
+            int side = 1;
+            if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
+                    || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
+                    || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
 
-            //"jdbc:firebirdsql:localhost/3050:D:\\Okna\\Database\\Profstroy4\\IBASE.FDB?encoding=win1251", "sysdba", "masterkey");
-            //"jdbc:firebirdsql:localhost/3055:D:\\Okna\\Database\\Sialbase2\\base2.GDB?encoding=win1251", "sysdba", "masterkey");
-            //Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            //ResultSet recordset = statement.executeQuery("select first 1 * from ARTDET where artikl_id = 693");
-            //Query qArtdet = new Query(eArtdet.values()).select(eArtdet.up);
-//            int count = 3;
-//            System.out.println(count);
-//            int dx = temp(count);
-//            System.out.println(dx);
+                System.out.println("++++++");
+            } else {
+                System.out.println("------");
+            }
         } catch (Exception e) {
             System.out.println("main.Test.query()");
         }
