@@ -90,9 +90,9 @@ public class Color {
                     }
                 } else if (artdetRec.getInt(eArtdet.color_fk) == colorID) { //если есть такая текстура в ARTDET
                     //Сторона подлежит рассмотрению?
-                    if ((side == 1 && artdetRec.getInt(eArtdet.mark_c1) == 1)
-                            || side == 2 && (artdetRec.getInt(eArtdet.mark_c2) == 1 || artdetRec.getInt(eArtdet.mark_c1) == 1)
-                            || side == 3 && (artdetRec.getInt(eArtdet.mark_c3) == 1) || artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                    if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
+                            || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
+                            || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
 
                         return colorID;
                     }
@@ -114,9 +114,9 @@ public class Color {
         for (Record artdetRec : artdetList) {
             if (artdetRec.getInt(eArtdet.color_fk) == colorID) { //если есть такая текстура в ARTDET
                 //Сторона подлежит рассмотрению?
-                if ((side == 1 && artdetRec.getInt(eArtdet.mark_c1) == 1)
-                        || side == 2 && (artdetRec.getInt(eArtdet.mark_c2) == 1 || artdetRec.getInt(eArtdet.mark_c1) == 1)
-                        || side == 3 && (artdetRec.getInt(eArtdet.mark_c3) == 1) || artdetRec.getInt(eArtdet.mark_c1) == 1) {
+                if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
+                        || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
+                        || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
                     return colorID;
                 }
             }
