@@ -33,6 +33,7 @@ import enums.TypeGroups;
 import enums.UseUnit;
 import frames.dialog.DicArtgrp;
 import frames.dialog.DicEnums;
+import frames.swing.BooleanRenderer;
 import java.awt.Window;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -114,7 +115,8 @@ public class Artikles extends javax.swing.JFrame {
     private void loadingModel() {
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_c1, eArtdet.cost_c2, eArtdet.cost_c3, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_c1, eArtdet.mark_c1
+                , eArtdet.cost_c2, eArtdet.mark_c2, eArtdet.cost_c3, eArtdet.mark_c3, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -148,7 +150,11 @@ public class Artikles extends javax.swing.JFrame {
                 return val;
             }
         };
-
+        
+        tab2.getColumnModel().getColumn(3).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(7).setCellRenderer(new BooleanRenderer());
+        
         rsvArtikl = new DefFieldEditor(tab1) {
             @Override
             public void load(Integer row) {
@@ -852,7 +858,7 @@ public class Artikles extends javax.swing.JFrame {
 
         txtField13.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField13.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        txtField13.setPreferredSize(new java.awt.Dimension(60, 18));
+        txtField13.setPreferredSize(new java.awt.Dimension(40, 18));
 
         jLabel25.setFont(frames.Util.getFont(0,0));
         jLabel25.setText("ID");
@@ -922,7 +928,7 @@ public class Artikles extends javax.swing.JFrame {
         txtField17.setFont(frames.Util.getFont(0,0));
         txtField17.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtField17.setFocusable(false);
-        txtField17.setPreferredSize(new java.awt.Dimension(72, 18));
+        txtField17.setPreferredSize(new java.awt.Dimension(68, 18));
 
         btnField9.setText("...");
         btnField9.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1064,10 +1070,6 @@ public class Artikles extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan2Layout.createSequentialGroup()
-                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan2Layout.createSequentialGroup()
                         .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1148,6 +1150,12 @@ public class Artikles extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pan2Layout.setVerticalGroup(
             pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1234,11 +1242,11 @@ public class Artikles extends javax.swing.JFrame {
                     .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         center.add(pan2, java.awt.BorderLayout.EAST);
@@ -1252,15 +1260,15 @@ public class Artikles extends javax.swing.JFrame {
         tab2.setFont(frames.Util.getFont(0,0));
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Группа", "Название", "Основная", "Внутренняя", "Внешняя", "За ед. веса", "Коэф. ценовой", "ID"
+                "Группа", "Название", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Применить", "За ед. веса", "Коэф. ценовой", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1283,10 +1291,16 @@ public class Artikles extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(3).setMaxWidth(120);
             tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(5).setMaxWidth(120);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(40);
+            tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(7).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(10).setMaxWidth(40);
         }
 
         pan3.add(scr2, java.awt.BorderLayout.CENTER);
