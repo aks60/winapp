@@ -674,23 +674,23 @@ public class Profstroy {
                 String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF) values ("
                         + id + ", 'INCR', '" + rs.getString("MNAME") + "', " + rs.getString("MKOEF") + ")";
                 st2.executeUpdate(sql);
-                Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == pk).findFirst().orElse(null);
+                Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.artgrp1_id) == pk).findFirst().orElse(null);
                 if (record != null) {
                     record.set(eArtikl.artgrp1_id, id);
                 }
-            }
-            rs = st1.executeQuery("select * from DESCLST");
-            while (rs.next()) {
-                int id = ConnApp.instanc().genId(eArtgrp.up);
-                int pk = rs.getInt("UDESC");
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF) values ("
-                        + id + ", 'DECR', '" + rs.getString("NDESC") + "', " + rs.getString("VDESC") + ")";
-                st2.executeUpdate(sql);
-                Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == pk).findFirst().orElse(null);
-                if (record != null) {
-                    record.set(eArtikl.artgrp2_id, id);
-                }
-            }
+            }            
+//            ResultSet rs2 = st1.executeQuery("select * from DESCLST");
+//            while (rs2.next()) {
+//                int id = ConnApp.instanc().genId(eArtgrp.up);
+//                int pk = rs2.getInt("UDESC");
+//                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF) values ("
+//                        + id + ", 'DECR', '" + rs2.getString("NDESC") + "', " + rs2.getString("VDESC") + ")";
+//                st2.executeUpdate(sql);
+//                Record record = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.artgrp2_id) == pk).findFirst().orElse(null);
+//                if (record != null) {
+//                    record.set(eArtikl.artgrp2_id, id);
+//                }
+//            }
             qArtikl.execsql();
             cn2.commit();
 
