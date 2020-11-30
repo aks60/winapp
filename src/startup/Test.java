@@ -20,7 +20,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //parse();
@@ -34,7 +34,7 @@ public class Test {
 
         Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 601001;
@@ -60,7 +60,7 @@ public class Test {
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     iwin.build(script);
                     iwin.constructiv();
-                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    Specification.compareIWin(iwin.listSpec, iwin.prj, true);
                 }
             }
         }
