@@ -445,7 +445,11 @@ public class Profstroy {
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
+            
             updateArtgrp("Функция updateArtgrp()");
+            updateSql(eArtikl.up, eArtikl.artgrp1_id, "munic", eArtgrp.up, "fk");
+            updateSql(eArtikl.up, eArtikl.artgrp2_id, "udesc", eArtgrp.up, "fk"); 
+            
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             executeSql("update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
@@ -664,6 +668,31 @@ public class Profstroy {
     }
 
     private static void updateArtgrp(String mes) {
+        println(Color.BLACK, mes);
+        try {
+            executeSql("ALTER TABLE ARTGRP ADD FK INTEGER;");
+            ResultSet rs = st1.executeQuery("select * from GRUPART");
+            while (rs.next()) {
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
+                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'INCR', '" + rs.getString("MNAME") + "', "
+                        + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
+                st2.executeUpdate(sql);
+            }
+            rs = st1.executeQuery("select * from DESCLST");
+            while (rs.next()) {
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
+                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'DECR', '" + rs.getString("NDESC") + "', "
+                        + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
+                st2.executeUpdate(sql);
+            }
+            cn2.commit();
+
+        } catch (SQLException e) {
+            println(Color.RED, "Ошибка: UPDATE-updateArtgrp().  " + e);
+        }
+    }
+        
+    private static void updateArtgrp2(String mes) {
         println(Color.BLACK, mes);
         try {
             Query qArtikl = new Query(eArtikl.id, eArtikl.artgrp1_id, eArtikl.artgrp2_id).select(eArtikl.up);
