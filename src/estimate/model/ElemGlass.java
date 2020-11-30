@@ -173,13 +173,13 @@ public class ElemGlass extends ElemSimple {
                 specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
                 Specification specificationHor = new Specification(specificationAdd);
                 specificationRec.specificationList.add(specificationHor);
-                specificationRec.specificationList.add(specificationHor);
+                specificationRec.specificationList.add(new Specification(specificationAdd));
                 //По вертикали
                 specificationAdd.width = height() + 2 * gzazo;
                 specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
                 Specification specificationVer = new Specification(specificationAdd);
                 specificationRec.specificationList.add(specificationVer);
-                specificationRec.specificationList.add(specificationVer);
+                specificationRec.specificationList.add(new Specification(specificationAdd));
 
                 if ("Нет".equals(specificationAdd.mapParam.get(15010))) {
                     specificationVer.width = specificationVer.width - 2 * specificationHor.height;

@@ -39,14 +39,13 @@ public class Tariffication extends Cal5e {
             elem5e.specificationRec.quantity2 = elem5e.specificationRec.quantity
                     + (elem5e.specificationRec.quantity * elem5e.specificationRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
 
-            for (Specification spcRec : elem5e.specificationRec.specificationList) {
-                spcRec.inPrice += calcPrice(spcRec); //себес-сть за ед. изм.
-                spcRec.quantity = quantity(spcRec); //количество без отхода
-                spcRec.quantity2 = spcRec.quantity + (spcRec.quantity * spcRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
+            for (Specification specificationRec2 : elem5e.specificationRec.specificationList) {
+                specificationRec2.inPrice += calcPrice(specificationRec2); //себес-сть за ед. изм.
+                specificationRec2.quantity = quantity(specificationRec2); //количество без отхода
+                specificationRec2.quantity2 = specificationRec2.quantity + (specificationRec2.quantity * specificationRec2.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
             }
         }
-
-        //Правила расчёта. Увеличение себестоимости в rkoef раз и на incr величину надбавки.
+        //Правила расчёта. Увеличение себестоимости в rkoef раз и на incr величину наценки.
         for (ElemSimple elem5e : iwin.listElem) {
 
             Record systreeRec = eSystree.find(iwin.nuni);
@@ -81,19 +80,20 @@ public class Tariffication extends Cal5e {
             elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
 
-            for (Specification specifSubelemRec : elem5e.specificationRec.specificationList) {
+            for (Specification specificationRec2 : elem5e.specificationRec.specificationList) {
 
+                //Цикл по правилам расчёта.
                 for (Record rulecalcRec : eRulecalc.get()) {
                     int form = (rulecalcRec.getInt(eRulecalc.form) == 0) ? 1 : rulecalcRec.getInt(eRulecalc.form);
                     if (form == TypeForm.P00.id) { //не проверять форму 
-                        rulePrise(rulecalcRec, specifSubelemRec);
+                        rulePrise(rulecalcRec, specificationRec2);
                     }
                 }
-                specifSubelemRec.outPrice = specifSubelemRec.inPrice * specifSubelemRec.quantity2; //себестоимости с отходом
-                Record artgrp1Rec2 = eArtgrp.find(specifSubelemRec.artiklRec.getInt(eArtikl.artgrp1_id));
-                specifSubelemRec.inCost = specifSubelemRec.outPrice * artgrp1Rec2.getFloat(eArtgrp.coeff, 1) * systreeRec.getFloat(eSystree.coef);
-                specifSubelemRec.inCost = specifSubelemRec.inCost + (specifSubelemRec.inCost / 100) * percentMarkup; //стоимость без скидки                        
-                specifSubelemRec.outCost = specifSubelemRec.inCost; //стоимость со скидкой 
+                specificationRec2.outPrice = specificationRec2.inPrice * specificationRec2.quantity2; //себестоимости с отходом
+                Record artgrp1Rec2 = eArtgrp.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
+                specificationRec2.inCost = specificationRec2.outPrice * artgrp1Rec2.getFloat(eArtgrp.coeff, 1) * systreeRec.getFloat(eSystree.coef);
+                specificationRec2.inCost = specificationRec2.inCost + (specificationRec2.inCost / 100) * percentMarkup; //стоимость без скидки                        
+                specificationRec2.outCost = specificationRec2.inCost; //стоимость со скидкой 
             }
         }
 

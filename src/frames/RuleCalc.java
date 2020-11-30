@@ -295,13 +295,13 @@ public class RuleCalc extends javax.swing.JFrame {
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMinWidth(80);
-            tab2.getColumnModel().getColumn(1).setMinWidth(140);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(60);
             tab2.getColumnModel().getColumn(8).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(9).setPreferredWidth(160);
             tab2.getColumnModel().getColumn(10).setPreferredWidth(160);
-            tab2.getColumnModel().getColumn(11).setMinWidth(180);
+            tab2.getColumnModel().getColumn(11).setPreferredWidth(180);
         }
 
         pan1.add(scr2, java.awt.BorderLayout.CENTER);
