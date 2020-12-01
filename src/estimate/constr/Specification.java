@@ -56,7 +56,7 @@ public class Specification {
     public float inCost = 0; //Стоимость без скидки
     public float outCost = 0; //Стоимость со скидкой
     public float discount = 0;  //Скидка
-
+    
     public Specification(float id, ElemSimple elem5e) {
         this.id = id;
         this.elem5e = elem5e;
