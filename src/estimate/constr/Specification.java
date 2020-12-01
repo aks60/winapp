@@ -105,19 +105,11 @@ public class Specification {
     public Vector getVector(int npp) {
         List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
                 eColor.find(colorID3).getStr(eColor.name), width, height, weight, anglCut1, anglCut2, anglHoriz,
-                count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount
+                count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost
         );
         return new Vector(list);
     }
 
-//    public Vector getVector2(int npp) {
-//        List list = Arrays.asList(npp, id, place, artikl, name, eColor.find(colorID1).getStr(eColor.name), eColor.find(colorID2).getStr(eColor.name),
-//                eColor.find(colorID3).getStr(eColor.name), (width == 0) ? "" : width, (height == 0) ? "" : height, (weight == 0) ? "" : weight,
-//                (anglCut1 == 0) ? "" : anglCut1, (anglCut2 == 0) ? "" : anglCut2, (anglHoriz == 0) ? "" : anglHoriz,
-//                count, UseUnit.getName(unit), quantity, wastePrc, quantity2, inPrice, outPrice, inCost, outCost, discount
-//        );
-//        return new Vector(list);
-//    }
     public void setArtiklRec(Record artiklRec) {
         this.artikl = artiklRec.getStr(eArtikl.code);
         this.name = artiklRec.getStr(eArtikl.name);

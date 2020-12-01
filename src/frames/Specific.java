@@ -75,33 +75,29 @@ public class Specific extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void loadingData() {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
         tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
-        int npp = 0;
-        for (Specification specRec : iwin.listSpec) { //заполним спецификацию
-            dtm.addRow(specRec.getVector(++npp));
+        int insexLast = iwin.listSpec.get(0).getVector(0).size();
+        float sum1 = 0, sum2 = 0, sum3 = 0;
+        for (int i = 0; i < iwin.listSpec.size(); i++) { //заполним спецификацию
+            Vector v = iwin.listSpec.get(i).getVector(i);
+            dtm.addRow(v);
+            sum1 = sum1 + (Float) v.get(insexLast - 1);
+            sum2 = sum2 + (Float) v.get(insexLast - 2);
+            sum3 = sum3 + (Float) v.get(insexLast - 13);     
         }
-        Vector v = iwin.listSpec.get(0).getVector(npp);
-//        Vector total = new Vector();
-//        for(int index = 0; index < 24; index++) {
-//          //total.add(null);
-//          v.set(index, null);
-//        }
-
-        int i = 0;
-         v.set(i++, null);
-         v.set(i++, null);
-         v.set(i++, null);
-         v.set(i++, null);
-         v.set(i++, null);
-         v.set(i++, null);
-         v.set(i++, null);
-         v.set(i++, 0);
-        dtm.addRow(v);
+        Vector vectorLast = new Vector();
+        for (int i = 0; i < insexLast; i++) {
+            vectorLast.add(null);
+        }
+        vectorLast.set(insexLast - 1, sum1);
+        vectorLast.set(insexLast - 2, sum2);
+        vectorLast.set(insexLast - 13, sum3);
+        dtm.addRow(vectorLast);
     }
 
     @SuppressWarnings("unchecked")
@@ -125,8 +121,6 @@ public class Specific extends javax.swing.JFrame {
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Спецификация");
@@ -289,15 +283,15 @@ public class Specific extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {"", "", "", "", "", "", "", "", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.без<br/>отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой", "Скидка"
+                "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.без<br/>отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true
+                true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -336,7 +330,6 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(21).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(22).setPreferredWidth(44);
-            tab1.getColumnModel().getColumn(23).setPreferredWidth(40);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -369,12 +362,6 @@ public class Specific extends javax.swing.JFrame {
 
         checkFilter.setText("в конце строки");
         south.add(checkFilter);
-        south.add(filler2);
-
-        jLabel1.setText("Итого:");
-        jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jLabel1.setPreferredSize(new java.awt.Dimension(200, 18));
-        south.add(jLabel1);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -482,8 +469,6 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.Box.Filler filler2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
@@ -498,31 +483,34 @@ public class Specific extends javax.swing.JFrame {
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                String val = "";
-                if (Float.valueOf(value.toString()) > 0) {
-                    val = df0.format(value);
+                if (value != null) {
+                    if (Float.valueOf(value.toString()) > 0) {
+                        value = df0.format(value);
+                    }
                 }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
             }
         };
         DefaultTableCellRenderer cellRenderer2 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                String val = "";
-                if (Float.valueOf(value.toString()) > 0) {
-                    val = df2.format(value);
+                if (value != null) {
+                    if (Float.valueOf(value.toString()) > 0) {
+                        value = df2.format(value);
+                    }
                 }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
             }
         };
         DefaultTableCellRenderer cellRenderer3 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                String val = "";
-                if (Float.valueOf(value.toString()) > 0) {
-                    val = df3.format(value);
+                if (value != null) {
+                    if (Float.valueOf(value.toString()) > 0) {
+                        value = df3.format(value);
+                    }
                 }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, val, isSelected, hasFocus, row, column);
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 return label;
             }
         };
@@ -539,7 +527,6 @@ public class Specific extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(23).setCellRenderer(cellRenderer2);
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
