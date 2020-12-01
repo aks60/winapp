@@ -450,9 +450,10 @@ public class Profstroy {
             executeSql("update artikl set artgrp2_id = (select a.id from artgrp a where udesc = a.fk and categ = 'DECR')");            
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
-            executeSql("update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
-            executeSql("update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
-            executeSql("update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
+            executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1 where clnum < 0");
+            executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
+            executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
+            executeSql("4", "update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
             modifyElemgrp("Функция updateElemgrp()");
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
