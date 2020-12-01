@@ -340,7 +340,7 @@ public class Winscript {
 //            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':284}"));
 //            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':284}"));
         } else if (project == 601006) {
-            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 31, 31, 31, "");
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 25, 25, 25, "");
             rootArea.setParam(project.toString(), 39, "СИАЛ\\КП45\\Окна");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
