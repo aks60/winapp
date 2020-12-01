@@ -171,18 +171,21 @@ public class ElemGlass extends ElemSimple {
                 //По горизонтали                
                 specificationAdd.width = width() + 2 * gzazo;
                 specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                Specification specificationHor = new Specification(specificationAdd);
-                specificationRec.specificationList.add(specificationHor);
-                specificationRec.specificationList.add(new Specification(specificationAdd));
+                Specification specificationHor1 = new Specification(specificationAdd);
+                Specification specificationHor2 = new Specification(specificationAdd);
+                specificationRec.specificationList.add(specificationHor1);
+                specificationRec.specificationList.add(specificationHor2);
                 //По вертикали
                 specificationAdd.width = height() + 2 * gzazo;
                 specificationAdd.height = specificationAdd.artiklRec.getFloat(eArtikl.height);
-                Specification specificationVer = new Specification(specificationAdd);
-                specificationRec.specificationList.add(specificationVer);
-                specificationRec.specificationList.add(new Specification(specificationAdd));
+                Specification specificationVer1 = new Specification(specificationAdd);
+                Specification specificationVer2 = new Specification(specificationAdd);
+                specificationRec.specificationList.add(specificationVer1);
+                specificationRec.specificationList.add(specificationVer2);
 
                 if ("Нет".equals(specificationAdd.mapParam.get(15010))) {
-                    specificationVer.width = specificationVer.width - 2 * specificationHor.height;
+                    specificationVer1.width = specificationVer1.width - 2 * specificationHor1.height;
+                    specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
                 } 
             }
             //Уплотнитель
