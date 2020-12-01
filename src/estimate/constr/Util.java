@@ -181,27 +181,9 @@ public class Util {
         return false;
     }
 
-    //Проверяет, должен ли применяться заданный тариф мат-ценности для заданной текстуры
-    public static boolean IsArtTariffAppliesForColor(Record artdetRec, Record colorRec) {
-        if (artdetRec.getInt(eArtdet.color_fk) < 0) {    //этот тариф задан для группы текстур
-
-            if ((-1 * colorRec.getInt(eColor.colgrp_id)) == artdetRec.getInt(eArtdet.color_fk)) {
-                return true;
-            }
-        } else {  //проверяем не только colorCode, а еще и colorNumber
-            if (colorRec.getInt(eColor.id) == artdetRec.getInt(eArtdet.color_fk)) {
-                return true;
-
-            }
-//            else if (colorRec.cnumb == artdetRec.getInt(eArtdet.color_fk)) {
-//                return true;
-//            }
-        }
-        return false;
-    }
 }
 /*
- ==  Примеры параметров смю в базе ==
+ ==  Примеры параметров см. в базе ==
 select grup, text from elempar1 where grup > 0 union
 select grup, text from elempar2 where grup > 0 union
 select grup, text from furnpar1 where grup > 0 union

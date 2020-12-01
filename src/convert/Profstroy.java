@@ -483,9 +483,13 @@ public class Profstroy {
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasprof set inside = 1  where gtype in (1,3,7)");
             executeSql("update glasprof set outside = 1  where gtype in (2,3,7)");
+            
+            ////////////////////////////////////////////////////////////////////
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
+            ////////////////////////////////////////////////////////////////////
+            
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
             executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
