@@ -75,7 +75,7 @@ public class Specific extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void loadingData() {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
@@ -93,14 +93,14 @@ public class Specific extends javax.swing.JFrame {
 //        }
 
         int i = 0;
-        v.set(i++, null);
-        v.set(i++, null);
-        v.set(i++, null);
-        v.set(i++, null);
-        v.set(i++, null);
-        v.set(i++, null);
-        v.set(i++, null);
-        v.set(i++, 0);
+         v.set(i++, null);
+         v.set(i++, null);
+         v.set(i++, null);
+         v.set(i++, null);
+         v.set(i++, null);
+         v.set(i++, null);
+         v.set(i++, null);
+         v.set(i++, 0);
         dtm.addRow(v);
     }
 
@@ -498,18 +498,6 @@ public class Specific extends javax.swing.JFrame {
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                if (value != null) {
-                    //String val = "";
-                    if (Float.valueOf(value.toString()) > 0) {
-                        value = df0.format(value);
-                    }
-                }
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                return label;
-            }
-        };
-        DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 String val = "";
                 if (Float.valueOf(value.toString()) > 0) {
                     val = df0.format(value);
@@ -541,9 +529,9 @@ public class Specific extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer1);
-        tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer0);
+        tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer0);
+        tab1.getColumnModel().getColumn(13).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(16).setCellRenderer(cellRenderer3);
         tab1.getColumnModel().getColumn(17).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(18).setCellRenderer(cellRenderer3);
