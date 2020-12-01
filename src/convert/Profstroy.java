@@ -487,7 +487,7 @@ public class Profstroy {
             ////////////////////////////////////////////////////////////////////
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
+            executeSql("4", "update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
             ////////////////////////////////////////////////////////////////////
             
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
