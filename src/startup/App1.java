@@ -14,7 +14,7 @@ import dataset.Record;
 import domain.eModels;
 import domain.eSystree;
 import estimate.Wincalc;
-import frames.ArtGroups;
+import frames.Groups;
 import frames.Artikles;
 import frames.BoxTypical;
 import frames.Systree;
@@ -1430,7 +1430,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
     private void mnGroup(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnGroup
         FrameProgress.create(App1.this, new FrameListener() {
             public void actionRequest(Object obj) {
-                eApp1.ArtGroups.createFrame(App1.this);
+                eApp1.Groups.createFrame(App1.this);
             }
         });
     }//GEN-LAST:event_mnGroup
@@ -1534,7 +1534,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     public static enum eApp1 {
 
-        App1, Convert, ArtGroups, DicCurrenc, Color, Artikles, Joining, Element, Param,
+        App1, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
         BoxCustom, Specific, DicSyssize, TestFrame, RuleCalc;
         public javax.swing.JFrame frame;
@@ -1563,8 +1563,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                         frame = new Artikles();
                     }
                     break;
-                case ArtGroups:
-                    frame = new ArtGroups();
+                case Groups:
+                    frame = new Groups();
                     break;
                 case Convert:
                     frame = new Convert();

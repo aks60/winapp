@@ -32,7 +32,7 @@ import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
-import domain.eGrups;
+import domain.eGroups;
 import domain.eJoindet;
 import domain.eJoinpar1;
 import domain.eJoinpar2;
@@ -134,7 +134,7 @@ public class Profstroy {
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eArtdet.up, eArtikl.up,
             eColpar1.up, eColor.up, eColgrp.up,
-            eCurrenc.up, eGrups.up
+            eCurrenc.up, eGroups.up
         };
         try {
 
@@ -223,13 +223,13 @@ public class Profstroy {
             updatePart(cn2, st2);
             metaPart(cn2, st2);
 
-//            println(Color.GREEN, "Удаление лищних столбцов");
-//            for (Field fieldUp : fieldsUp) {
-//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-//                }
-//            }
+            println(Color.GREEN, "Удаление лищних столбцов");
+            for (Field fieldUp : fieldsUp) {
+                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+                }
+            }
             println(Color.BLUE, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
             println(Color.RED, "Ошибка: script() " + e);
@@ -436,15 +436,15 @@ public class Profstroy {
     private static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
-            modifySetting("Функция updateSetting()");
-            executeSql("insert into grups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
+            modifySetting("Функция modifySetting()");
+            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
-            updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGrups.up, "name");
+            updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");           
-            modifyArtgrp("Функция updateArtgrp()");
+            modifyGroups("Функция modifyGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from artgrp a where munic = a.fk and a.categ = 'INCR')");
             executeSql("update artikl set artgrp2_id = (select a.id from artgrp a where udesc = a.fk and categ = 'DECR')");            
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
@@ -453,10 +453,10 @@ public class Profstroy {
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
             executeSql("4", "update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
-            modifyElemgrp("Функция updateElemgrp()");
+            modifyElemgrp("Функция modifyElemgrp()");
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
-            updateSql(eElement.up, eElement.series_id, "vlets", eGrups.up, "name");
+            updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
             executeSql("4", "update element set typset = vtype");
             executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
             executeSql("update element set todef = 1  where vsets in (1,2)");
@@ -608,13 +608,13 @@ public class Profstroy {
                 cn2.commit();
             }
         } catch (Exception e) {
-            println(Color.RED, "Ошибка: updateElemgrp().  " + e);
+            println(Color.RED, "Ошибка: modifyElemgrp().  " + e);
         }
     }
 
     private static void modifyModels() {
         try {
-            println(Color.BLACK, "updateModels()");
+            println(Color.BLACK, "modifyModels()");
             Integer prj[] = {601001, 601002, 601003, 601004, 601005, 601006, 601007,
                 601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010};
             String script;
@@ -644,7 +644,7 @@ public class Profstroy {
             cn2.commit();
 
         } catch (Exception e) {
-            println(Color.RED, "Ошибка: updateModels.  " + e);
+            println(Color.RED, "Ошибка: modifyModels.  " + e);
         }
     }
 
@@ -665,33 +665,33 @@ public class Profstroy {
             q.insert(record);
             cn2.commit();
         } catch (Exception e) {
-            println(Color.RED, "Ошибка: UPDATE-updateSetting().  " + e);
+            println(Color.RED, "Ошибка: modifySetting().  " + e);
         }
     }
 
-    private static void modifyArtgrp(String mes) {
+    private static void modifyGroups(String mes) {
         println(Color.BLACK, mes);
         try {
-            executeSql("ALTER TABLE GRUPS ADD FK INTEGER;");
-            ResultSet rs = st1.executeQuery("select * from GRUPS");
+            executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
+            ResultSet rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
-                String sql = "insert into " + eGrups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
-                        + ConnApp.instanc().genId(eGrups.up) + "," + TypeGroups.PRICE_INC.id + "," + rs.getString("MNAME") + "',"
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
                         + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
-                String sql = "insert into " + eGrups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
-                        + ConnApp.instanc().genId(eGrups.up) + "," + TypeGroups.PRICE_DEC.id + "," + rs.getString("NDESC") + "',"
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
                         + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
             cn2.commit();
-            //executeSql("ALTER TABLE GRUPS DROP  FK;");
+            executeSql("ALTER TABLE GROUPS DROP  FK;");
 
         } catch (SQLException e) {
-            println(Color.RED, "Ошибка: UPDATE-updateGrups().  " + e);
+            println(Color.RED, "Ошибка: modifyGroups().  " + e);
         }
     }
         

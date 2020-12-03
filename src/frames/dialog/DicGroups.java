@@ -5,7 +5,7 @@ import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
-import domain.eGrups;
+import domain.eGroups;
 import enums.Enam;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -13,42 +13,58 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
+import java.awt.CardLayout;
+import javax.swing.JToggleButton;
 
-//TODO для справочника серии сделать вставку и редактирование
-//Серии для элемента состава
+//TODO для справочника сделать вставку и редактирование
 public class DicGroups extends javax.swing.JDialog {
 
     private Enam grup = null;
     private DialogListener listener = null;
-    private Query qGroups = new Query(eGrups.values());
+    private Query qGroups = new Query(eGroups.values());
 
-    public DicGroups(java.awt.Frame parent, Enam grup, DialogListener listenet) {
+    public DicGroups(java.awt.Frame parent, DialogListener listenet, Enam grup) {
         super(parent, true);
         this.grup = grup;
         this.listener = listenet;
         initComponents();
         initElements();
-        this.listener = listenet;
         loadingData();
         loadingModel();
         setVisible(true);
     }
 
     private void loadingData() {
-        qGroups.select(eGrups.up, "where grup =", grup.numb());
+        qGroups.select(eGroups.up, "where grup =", grup.numb());
     }
 
     private void loadingModel() {
-        tab1.setModel(new DefTableModel(tab1, qGroups, eGrups.name));
-        ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-        Util.setSelectedRow(tab1);
+        if (grup.numb() == 3) {
+            setTitle("Серии профилей");
+            ((CardLayout) centr.getLayout()).show(centr, "pan1");
+            tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab1);
+        } else if (grup.numb() == 4) {
+            setTitle("Группы наценок");
+            ((CardLayout) centr.getLayout()).show(centr, "pan2");
+            tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.name, eGroups.val));
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2);
+        } else if (grup.numb() == 5) {
+            setTitle("Группы скидок");
+            ((CardLayout) centr.getLayout()).show(centr, "pan3");
+            tab3.setModel(new DefTableModel(tab3, qGroups, eGroups.name, eGroups.val));
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3);
+        }
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panNn = new javax.swing.JPanel();
+        north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnChoice = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
@@ -59,15 +75,22 @@ public class DicGroups extends javax.swing.JDialog {
         };
         checkFilter = new javax.swing.JCheckBox();
         centr = new javax.swing.JPanel();
+        pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
+        pan2 = new javax.swing.JPanel();
+        scr2 = new javax.swing.JScrollPane();
+        tab2 = new javax.swing.JTable();
+        pan3 = new javax.swing.JPanel();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник");
 
-        panNn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        panNn.setMaximumSize(new java.awt.Dimension(32767, 31));
-        panNn.setPreferredSize(new java.awt.Dimension(300, 29));
+        north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        north.setMaximumSize(new java.awt.Dimension(32767, 31));
+        north.setPreferredSize(new java.awt.Dimension(300, 29));
 
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c009.gif"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resource/prop/hint"); // NOI18N
@@ -115,33 +138,33 @@ public class DicGroups extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout panNnLayout = new javax.swing.GroupLayout(panNn);
-        panNn.setLayout(panNnLayout);
-        panNnLayout.setHorizontalGroup(
-            panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNnLayout.createSequentialGroup()
+        javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
+        north.setLayout(northLayout);
+        northLayout.setHorizontalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        panNnLayout.setVerticalGroup(
-            panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panNnLayout.createSequentialGroup()
-                .addGroup(panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        northLayout.setVerticalGroup(
+            northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panNnLayout.createSequentialGroup()
-                        .addGroup(panNnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(northLayout.createSequentialGroup()
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        getContentPane().add(panNn, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
@@ -171,11 +194,14 @@ public class DicGroups extends javax.swing.JDialog {
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
+        centr.setName("card"); // NOI18N
         centr.setPreferredSize(new java.awt.Dimension(300, 440));
-        centr.setLayout(new java.awt.BorderLayout());
+        centr.setLayout(new java.awt.CardLayout());
+
+        pan1.setName(""); // NOI18N
+        pan1.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
-        scr1.setPreferredSize(new java.awt.Dimension(400, 200));
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,9 +229,76 @@ public class DicGroups extends javax.swing.JDialog {
         });
         scr1.setViewportView(tab1);
 
-        centr.add(scr1, java.awt.BorderLayout.CENTER);
+        pan1.add(scr1, java.awt.BorderLayout.CENTER);
+
+        centr.add(pan1, "pan1");
+
+        pan2.setName(""); // NOI18N
+        pan2.setLayout(new java.awt.BorderLayout());
+
+        scr2.setBorder(null);
+
+        tab2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"Nmae 0", null},
+                {"Name 0", null}
+            },
+            new String [] {
+                "Наименование", "Наценка коеф."
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab2.setFillsViewportHeight(true);
+        tab2.setName(""); // NOI18N
+        tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tab2mouse2Clicked(evt);
+            }
+        });
+        scr2.setViewportView(tab2);
+        if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(1).setMaxWidth(120);
+        }
+
+        pan2.add(scr2, java.awt.BorderLayout.CENTER);
+
+        centr.add(pan2, "pan2");
+
+        pan3.setLayout(new java.awt.BorderLayout());
+
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Наименование", "Скидка %"
+            }
+        ));
+        tab3.setFillsViewportHeight(true);
+        scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(1).setPreferredWidth(40);
+            tab3.getColumnModel().getColumn(1).setMaxWidth(120);
+        }
+
+        pan3.add(scr3, java.awt.BorderLayout.CENTER);
+
+        centr.add(pan3, "pan3");
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
+        centr.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,7 +318,7 @@ public class DicGroups extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        Record record = eGrups.up.newRecord();
+        Record record = eGroups.up.newRecord();
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnRemove
@@ -238,7 +331,8 @@ public class DicGroups extends javax.swing.JDialog {
 
     private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
 
-        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) tab1.getRowSorter();        
+        JTable table = (grup.numb() == 3) ? tab1 : (grup.numb() == 3) ? tab2 : tab3;
+        TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) table.getRowSorter();
         if (txtFilter.getText().length() == 0) {
             sorter.setRowFilter(null);
         } else {
@@ -247,6 +341,12 @@ public class DicGroups extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtFilterCaretUpdate
 
+    private void tab2mouse2Clicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tab2mouse2Clicked
+        if (evt.getClickCount() == 2) {
+            btnChoice(null);
+        }
+    }//GEN-LAST:event_tab2mouse2Clicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
@@ -254,10 +354,17 @@ public class DicGroups extends javax.swing.JDialog {
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
     private javax.swing.JLabel labFilter;
-    private javax.swing.JPanel panNn;
+    private javax.swing.JPanel north;
+    private javax.swing.JPanel pan1;
+    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
     private javax.swing.JScrollPane scr1;
+    private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
+    private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
     private void initElements() {

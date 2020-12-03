@@ -3,21 +3,23 @@ package frames;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
-import domain.eGrups;
+import domain.eGroups;
 import frames.swing.DefTableModel;
+import java.awt.CardLayout;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JToggleButton;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 
-public class ArtGroups extends javax.swing.JFrame {
+public class Groups extends javax.swing.JFrame {
 
-    private Query qArtIncr = new Query(eGrups.values());
-    private Query qArtDecr = new Query(eGrups.values());
+    private Query qArtIncr = new Query(eGroups.values());
+    private Query qArtDecr = new Query(eGroups.values());
 
-    public ArtGroups() {
+    public Groups() {
         initComponents();
         initElements();
         loadingData();
@@ -25,13 +27,13 @@ public class ArtGroups extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qArtIncr.select(eGrups.up, "where", eGrups.val, "= 4", "order by", eGrups.name);
-        qArtDecr.select(eGrups.up, "where", eGrups.val, "= 5", "order by", eGrups.name);
+        qArtIncr.select(eGroups.up, "where", eGroups.grup, "= 4", "order by", eGroups.name);
+        qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.name);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qArtIncr, eGrups.name, eGrups.val);
-        new DefTableModel(tab2, qArtDecr, eGrups.name, eGrups.val);
+        new DefTableModel(tab1, qArtIncr, eGroups.name, eGroups.val);
+        new DefTableModel(tab2, qArtDecr, eGroups.name, eGroups.val);
         Util.setSelectedRow(tab1);
         Util.setSelectedRow(tab2);
     }
@@ -316,21 +318,21 @@ public class ArtGroups extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(this, "Вы действительно хотите удалить текущую запись?",
                 "Предупреждение", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
             if (tab1.getBorder() != null) {
-                Util.deleteRecord(tab1, eGrups.up);
+                Util.deleteRecord(tab1, eGroups.up);
             } else if (tab2.getBorder() != null) {
-                Util.deleteRecord(tab2, eGrups.up);
+                Util.deleteRecord(tab2, eGroups.up);
             }
         }
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
         if (tab1.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, eGrups.up);
-            record.set(eGrups.grup, 4);
+            Record record = Util.insertRecord(tab1, eGroups.up);
+            record.set(eGroups.grup, 4);
 
         } else if (tab2.getBorder() != null) {
-            Record record = Util.insertRecord(tab2, eGrups.up);
-            record.set(eGrups.grup, 5);
+            Record record = Util.insertRecord(tab2, eGroups.up);
+            record.set(eGroups.grup, 5);
         }
     }//GEN-LAST:event_btnInsert
 

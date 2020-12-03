@@ -6,7 +6,7 @@ import domain.eArtikl;
 import domain.eColgrp;
 import domain.eColor;
 import domain.eCurrenc;
-import domain.eGrups;
+import domain.eGroups;
 import domain.eRulecalc;
 import domain.eSysdata;
 import domain.eSystree;
@@ -75,8 +75,8 @@ public class Tariffication extends Cal5e {
             }
 
             elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
-            Record artgrp1Rec = eGrups.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp1_id));
-            elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrp1Rec.getFloat(eGrups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
+            Record artgrp1Rec = eGroups.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp1_id));
+            elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrp1Rec.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
             elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
 
@@ -90,8 +90,8 @@ public class Tariffication extends Cal5e {
                     }
                 }
                 specificationRec2.outPrice = specificationRec2.inPrice * specificationRec2.quantity2; //себестоимости с отходом
-                Record artgrp1Rec2 = eGrups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
-                specificationRec2.inCost = specificationRec2.outPrice * artgrp1Rec2.getFloat(eGrups.val, 1) * systreeRec.getFloat(eSystree.coef);
+                Record artgrp1Rec2 = eGroups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
+                specificationRec2.inCost = specificationRec2.outPrice * artgrp1Rec2.getFloat(eGroups.val, 1) * systreeRec.getFloat(eSystree.coef);
                 specificationRec2.inCost = specificationRec2.inCost + (specificationRec2.inCost / 100) * percentMarkup; //стоимость без скидки                        
                 specificationRec2.outCost = specificationRec2.inCost; //стоимость со скидкой 
             }

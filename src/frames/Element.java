@@ -26,7 +26,7 @@ import domain.eElement;
 import domain.eElemgrp;
 import domain.eElempar1;
 import domain.eElempar2;
-import domain.eGrups;
+import domain.eGroups;
 import domain.eJoindet;
 import domain.eJoinpar1;
 import domain.eSysprof;
@@ -56,7 +56,7 @@ public class Element extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qGroups = new Query(eGrups.values());
+    private Query qGroups = new Query(eGroups.values());
     private Query qElemgrp = new Query(eElemgrp.values());
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
@@ -100,7 +100,7 @@ public class Element extends javax.swing.JFrame {
 
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
-        qGroups.select(eGrups.up, "where grup =" + TypeGroups.SERI_PROF.id);
+        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         Record record = qElemgrp.newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
@@ -133,7 +133,7 @@ public class Element extends javax.swing.JFrame {
                     return Arrays.asList(TypeSet.values()).stream().filter(el -> el.id == typset).findFirst().orElse(TypeSet.P1).name;
 
                 } else if (val != null && columns[col] == eElement.series_id) {
-                    return qGroups.stream().filter(rec -> rec.getInt(eGrups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGrups.name);
+                    return qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);
                 }
                 return val;
             }
@@ -215,7 +215,7 @@ public class Element extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
-            DicGroups frame = new DicGroups(this, TypeGroups.SERI_PROF, listenerSeries);
+            DicGroups frame = new DicGroups(this, listenerSeries, TypeGroups.SERI_PROF);
         });
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
@@ -407,7 +407,7 @@ public class Element extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             if (tab2.getBorder() != null) {
                 int row = Util.getSelectedRec(tab2);
-                int series_id = record.getInt(eGrups.id);
+                int series_id = record.getInt(eGroups.id);
                 qElement.set(series_id, Util.getSelectedRec(tab2), eElement.series_id);
                 ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
                 Util.setSelectedRow(tab2, row);
