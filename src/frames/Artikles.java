@@ -115,8 +115,8 @@ public class Artikles extends javax.swing.JFrame {
     private void loadingModel() {
 
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.cost_c1, eArtdet.mark_c1
-                , eArtdet.cost_c2, eArtdet.mark_c2, eArtdet.cost_c3, eArtdet.mark_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1
+                , eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
@@ -151,9 +151,9 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
         
-        tab2.getColumnModel().getColumn(3).setCellRenderer(new BooleanRenderer());
-        tab2.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
-        tab2.getColumnModel().getColumn(7).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(4).setCellRenderer(new BooleanRenderer());
+        tab2.getColumnModel().getColumn(6).setCellRenderer(new BooleanRenderer());
         
         rsvArtikl = new DefFieldEditor(tab1) {
             @Override
@@ -1264,11 +1264,11 @@ public class Artikles extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Группа", "Название", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Применить", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "ID"
+                "Группа", "Название", "Применить", "Основная", "Применить", "Внутренняя", "Применить", "Внешняя", "Двухсторонняя", "За ед. веса", "Коэф. ценовой", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1289,15 +1289,15 @@ public class Artikles extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setPreferredWidth(120);
             tab2.getColumnModel().getColumn(1).setPreferredWidth(160);
-            tab2.getColumnModel().getColumn(2).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(120);
             tab2.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(4).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(4).setMaxWidth(120);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(5).setMaxWidth(120);
-            tab2.getColumnModel().getColumn(6).setPreferredWidth(40);
+            tab2.getColumnModel().getColumn(6).setPreferredWidth(20);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(120);
             tab2.getColumnModel().getColumn(7).setPreferredWidth(40);
-            tab2.getColumnModel().getColumn(7).setMaxWidth(120);
             tab2.getColumnModel().getColumn(8).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(9).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(10).setPreferredWidth(40);
