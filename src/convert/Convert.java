@@ -53,7 +53,7 @@ public class Convert extends javax.swing.JFrame {
             edPath.setText("D:\\Okna\\Database\\Sialbase2\\base3.fdb");
         } else if (eProperty.base_num.read().equals("3")) {
             labPath2.setText(eProperty.server3.read() + "/" + eProperty.port.read() + "\\" + eProperty.base3.read());
-            edPath.setText("D:\\Okna\\Database\\Sialbase2\\base4.fdb");
+            edPath.setText("D:\\Okna\\Database\\Sialbase2\\base3b.fdb");
         }
         edPort.setText((eProperty.base_num.read().equals("1")) ? "3050" : "3055");
         edServer.setText("localhost");

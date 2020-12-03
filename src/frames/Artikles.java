@@ -114,7 +114,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void loadingModel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name);
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff);
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1
                 , eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
             @Override
@@ -654,15 +654,15 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFont(frames.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111"},
-                {"2", "222"}
+                {"1", "111", null, null},
+                {"2", "222", null, null}
             },
             new String [] {
-                "Актикул", "Наименование"
+                "Актикул", "Наименование", "Отход %", "Коэф. ценовой"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -680,6 +680,10 @@ public class Artikles extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(204);
+            tab1.getColumnModel().getColumn(2).setPreferredWidth(32);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(120);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(32);
+            tab1.getColumnModel().getColumn(3).setMaxWidth(120);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);

@@ -30,6 +30,7 @@ public enum eArtikl implements Field {
     section("8", "15", "1", "Сечение", "ASECH"),
     noopt("5", "5", "1", "Не оптимизировать", "NOOPT"),
     otx_norm("8", "15", "1", "Норма отхода", "AOUTS"),
+    coeff("8", "15", "1", "Ценовой коэффицент", "AKOEF"),
     ost_delov("8", "15", "1", "Деловой остаток", "AOSTD"),
     cut_perim("8", "15", "1", "Периметр сечения", "APERI"),
     min_rad("8", "15", "1", "Мин.радиус гиба", "AMINR"),    
@@ -43,8 +44,7 @@ public enum eArtikl implements Field {
     series_id("4", "10", "1", "Серия профиля", "series_id"),
     syssize_id("4", "10", "1", "Системные константы", "syssize_id"),
     currenc1_id("4", "10", "1", "Основная валюта", "CNUMB"),
-    currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT");
-    //price_coeff("8", "15", "1", "Ценовой коэффицент", "AKOEF"),
+    currenc2_id("4", "10", "1", "Неосновная валюта", "CNUMT");    
     //group2("12", "32", "1", "Категория", "APREF")
     //series("12", "32", "1", "Серия", "ASERI"),
     //amain("12", "32", "1", "Артикул аналога?", "AMAIN"),

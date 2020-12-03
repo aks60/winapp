@@ -338,7 +338,7 @@
                       <Connection code="frames.Util.getFont(0,0)" type="code"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="2">
+                      <Table columnCount="4" rowCount="2">
                         <Column editable="true" title="&#x410;&#x43a;&#x442;&#x438;&#x43a;&#x443;&#x43b;" type="java.lang.String">
                           <Data value="1"/>
                           <Data value="2"/>
@@ -347,6 +347,8 @@
                           <Data value="111"/>
                           <Data value="222"/>
                         </Column>
+                        <Column editable="true" title="&#x41e;&#x442;&#x445;&#x43e;&#x434; %" type="java.lang.Float"/>
+                        <Column editable="true" title="&#x41a;&#x43e;&#x44d;&#x444;. &#x446;&#x435;&#x43d;&#x43e;&#x432;&#x43e;&#x439;" type="java.lang.Float"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -357,6 +359,16 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="204" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="120" minWidth="-1" prefWidth="32" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="120" minWidth="-1" prefWidth="32" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
