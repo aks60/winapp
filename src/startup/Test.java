@@ -20,10 +20,20 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //parse();
+            System.out.println("11 = " + (11 + (11 << 4) + (11 << 8)));
+            System.out.println("21 = " + (15 + (15 << 4) + (15 << 8)));
+            System.out.println("31 = " + (1 + (1 << 4) + (1 << 8)));
+            System.out.println("32 = " + (2 + (2 << 4) + (2 << 8)));
+            System.out.println("33 = " + (3 + (3 << 4) + (3 << 8)));
+            System.out.println("41 = " + (6 + (6 << 4) + (6 << 8)));
+            System.out.println("42 = " + (7 + (7 << 4) + (7 << 8)));
+            System.out.println("43 = " + (8 + (8 << 4) + (8 << 8)));
+            System.out.println("50 = " + (11 + (11 << 4) + (11 << 8)));
+            System.out.println("60 = " + (11 + (11 << 4) + (11 << 8)));
 
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
