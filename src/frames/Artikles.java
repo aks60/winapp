@@ -107,7 +107,7 @@ public class Artikles extends javax.swing.JFrame {
             });
             subsql = "(" + subsql.substring(1) + ")";
         }
-        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERIES.id);
+        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qArtgrp.select(eArtgrp.up, "order by", eArtgrp.name);
     }
@@ -1468,7 +1468,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_tabMousePressed
 
     private void btnField10(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField10
-        DicGroups groups = new DicGroups(this, TypeGroups.SERIES, listenerSeries);
+        DicGroups groups = new DicGroups(this, TypeGroups.SERI_PROF, listenerSeries);
     }//GEN-LAST:event_btnField10
 
     private void btnField11(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField11
@@ -1489,7 +1489,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFilterCaretUpdate
 
     private void btnField8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField8
-        DicGroups groups = new DicGroups(this, TypeGroups.SERIES, listenerFilter);
+        DicGroups groups = new DicGroups(this, TypeGroups.SERI_PROF, listenerFilter);
     }//GEN-LAST:event_btnField8
 
     private void checkBox1Action(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox1Action

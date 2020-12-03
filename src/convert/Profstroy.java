@@ -438,7 +438,7 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
             modifySetting("Функция updateSetting()");
-            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERIES.id + ", aseri from artikl");
+            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
@@ -673,10 +673,10 @@ public class Profstroy {
     private static void modifyArtgrp(String mes) {
         println(Color.BLACK, mes);
         try {
-            executeSql("ALTER TABLE ARTGRP ADD FK INTEGER;");
+            executeSql("ALTER GRUPS ARTGRP ADD FK INTEGER;");
             ResultSet rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
+                String sql = "insert into " + eArtgrp.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
                         + ConnApp.instanc().genId(eArtgrp.up) + ", 'INCR', '" + rs.getString("MNAME") + "', "
                         + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
                 st2.executeUpdate(sql);

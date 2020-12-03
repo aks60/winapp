@@ -100,7 +100,7 @@ public class Element extends javax.swing.JFrame {
 
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
-        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERIES.id);
+        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         Record record = qElemgrp.newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
@@ -215,7 +215,7 @@ public class Element extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab2, 4).addActionListener(event -> {
-            DicGroups frame = new DicGroups(this, TypeGroups.SERIES, listenerSeries);
+            DicGroups frame = new DicGroups(this, TypeGroups.SERI_PROF, listenerSeries);
         });
 
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
