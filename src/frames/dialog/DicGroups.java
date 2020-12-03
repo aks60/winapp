@@ -5,7 +5,7 @@ import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
-import domain.eGroups;
+import domain.eGrups;
 import enums.Enam;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
@@ -20,7 +20,7 @@ public class DicGroups extends javax.swing.JDialog {
 
     private Enam grup = null;
     private DialogListener listener = null;
-    private Query qGroups = new Query(eGroups.values());
+    private Query qGroups = new Query(eGrups.values());
 
     public DicGroups(java.awt.Frame parent, Enam grup, DialogListener listenet) {
         super(parent, true);
@@ -35,11 +35,11 @@ public class DicGroups extends javax.swing.JDialog {
     }
 
     private void loadingData() {
-        qGroups.select(eGroups.up, "where grup =", grup.numb());
+        qGroups.select(eGrups.up, "where grup =", grup.numb());
     }
 
     private void loadingModel() {
-        tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
+        tab1.setModel(new DefTableModel(tab1, qGroups, eGrups.name));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }
@@ -225,7 +225,7 @@ public class DicGroups extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        Record record = eGroups.up.newRecord();
+        Record record = eGrups.up.newRecord();
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnRemove

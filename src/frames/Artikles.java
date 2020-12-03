@@ -9,7 +9,6 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eArtdet;
-import domain.eArtgrp;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eColgrp;
@@ -26,7 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicGroups;
-import domain.eGroups;
+import domain.eGrups;
 import domain.eSysprof;
 import domain.eSyssize;
 import enums.TypeGroups;
@@ -47,13 +46,13 @@ public class Artikles extends javax.swing.JFrame {
 
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
     private Query qColor = new Query(eColor.values()).select(eColor.up);
-    private Query qGroups = new Query(eGroups.values());
+    private Query qGroups = new Query(eGrups.values());
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
     private Query qArtikl = new Query(eArtikl.values());
     private Query qArtik2 = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
     private Query qSyssize = new Query(eSyssize.values());
-    private Query qArtgrp = new Query(eArtgrp.values());
+    private Query qArtgrp = new Query(eGrups.values());
     private DefFieldEditor rsvArtikl;
     private String subsql = "";
     private int nuni = -1;
@@ -107,9 +106,9 @@ public class Artikles extends javax.swing.JFrame {
             });
             subsql = "(" + subsql.substring(1) + ")";
         }
-        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
+        qGroups.select(eGrups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
-        qArtgrp.select(eArtgrp.up, "order by", eArtgrp.name);
+        qArtgrp.select(eGrups.up, "order by", eGrups.name);
     }
 
     private void loadingModel() {
@@ -160,11 +159,11 @@ public class Artikles extends javax.swing.JFrame {
             public void load(Integer row) {
                 super.load(row);
                 Record artiklRec = qArtikl.get(Util.getSelectedRec(tab1));
-                Record groupsRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(eGroups.up.newRecord());
+                Record groupsRec = qGroups.stream().filter(rec -> rec.getInt(eGrups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(eGrups.up.newRecord());
                 Record currenc1Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(eCurrenc.up.newRecord());
                 Record currenc2Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc2_id))).findFirst().orElse(eCurrenc.up.newRecord());
-                Record artgrp1Rec = qArtgrp.stream().filter(rec -> rec.get(eArtgrp.id).equals(artiklRec.get(eArtikl.artgrp1_id))).findFirst().orElse(eArtgrp.up.newRecord());
-                Record artgrp2Rec = qArtgrp.stream().filter(rec -> rec.get(eArtgrp.id).equals(artiklRec.get(eArtikl.artgrp2_id))).findFirst().orElse(eArtgrp.up.newRecord());
+                Record artgrp1Rec = qArtgrp.stream().filter(rec -> rec.get(eGrups.id).equals(artiklRec.get(eArtikl.artgrp1_id))).findFirst().orElse(eGrups.up.newRecord());
+                Record artgrp2Rec = qArtgrp.stream().filter(rec -> rec.get(eGrups.id).equals(artiklRec.get(eArtikl.artgrp2_id))).findFirst().orElse(eGrups.up.newRecord());
                 Record syssizeRec = qSyssize.stream().filter(rec -> rec.getInt(eSyssize.id) == artiklRec.getInt(eArtikl.syssize_id)).findFirst().orElse(eSyssize.up.newRecord());;
                 String name = UseUnit.getName(artiklRec.getInt(eArtikl.unit));
                 txtField5.setText(name);
@@ -172,7 +171,7 @@ public class Artikles extends javax.swing.JFrame {
                 txtField7.setText(name);
                 name = (currenc2Rec != null) ? currenc2Rec.getStr(eCurrenc.name) : null;
                 txtField17.setText(name);
-                name = (groupsRec != null) ? groupsRec.getStr(eGroups.name) : null;
+                name = (groupsRec != null) ? groupsRec.getStr(eGrups.name) : null;
                 txtField10.setText(name);                
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
                     Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(null);
@@ -182,8 +181,8 @@ public class Artikles extends javax.swing.JFrame {
                     txtField11.setText(null);
                 }
                 txtField18.setText(syssizeRec.getStr(eSyssize.name));
-                txtField19.setText(artgrp1Rec.getStr(eArtgrp.coeff));
-                txtField20.setText(artgrp2Rec.getStr(eArtgrp.coeff));
+                txtField19.setText(artgrp1Rec.getStr(eGrups.val));
+                txtField20.setText(artgrp2Rec.getStr(eGrups.val));
                 //rsvArtikl.add(eArtikl.price_coeff, txtField19);
 
             }
@@ -314,15 +313,15 @@ public class Artikles extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
-                artiklRec.set(eArtikl.series_id, record.get(eGroups.id));
+                artiklRec.set(eArtikl.series_id, record.get(eGrups.id));
                 rsvArtikl.load();
             }
             Util.stopCellEditing(tab1, tab2);
         };
 
         listenerFilter = (record) -> {
-            int id = record.getInt(eGroups.id);
-            txtFilter2.setText(record.getStr(eGroups.name));
+            int id = record.getInt(eGrups.id);
+            txtFilter2.setText(record.getStr(eGrups.name));
             qArtikl.clear();
             if (id == -1) {
                 qArtikl.addAll(qArtik2);
@@ -397,7 +396,7 @@ public class Artikles extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
-                artiklRec.set(eArtikl.artgrp1_id, record.get(eArtgrp.id));
+                artiklRec.set(eArtikl.artgrp1_id, record.get(eGrups.id));
                 rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
             }
@@ -407,7 +406,7 @@ public class Artikles extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
-                artiklRec.set(eArtikl.artgrp2_id, record.get(eArtgrp.id));
+                artiklRec.set(eArtikl.artgrp2_id, record.get(eGrups.id));
                 rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
             }
@@ -1530,11 +1529,11 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnField18
 
     private void btnField19(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField19
-        new DicArtgrp(this, listenerArtincr, "INCR");
+        new DicArtgrp(this, listenerArtincr, TypeGroups.PRICE_INC.id);
     }//GEN-LAST:event_btnField19
 
     private void btnField20(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField20
-        new DicArtgrp(this, listenerArtdecr, "DECR");
+        new DicArtgrp(this, listenerArtdecr, TypeGroups.PRICE_DEC.id);
     }//GEN-LAST:event_btnField20
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 

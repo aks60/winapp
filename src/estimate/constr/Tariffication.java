@@ -2,11 +2,11 @@ package estimate.constr;
 
 import dataset.Record;
 import domain.eArtdet;
-import domain.eArtgrp;
 import domain.eArtikl;
 import domain.eColgrp;
 import domain.eColor;
 import domain.eCurrenc;
+import domain.eGrups;
 import domain.eRulecalc;
 import domain.eSysdata;
 import domain.eSystree;
@@ -17,8 +17,6 @@ import enums.UseUnit;
 import java.util.LinkedList;
 import estimate.Wincalc;
 import estimate.model.ElemSimple;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Расчёт стоимости элементов окна
@@ -77,8 +75,8 @@ public class Tariffication extends Cal5e {
             }
 
             elem5e.specificationRec.outPrice = elem5e.specificationRec.inPrice * elem5e.specificationRec.quantity2; //себестоимость с отходом
-            Record artgrp1Rec = eArtgrp.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp1_id));
-            elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrp1Rec.getFloat(eArtgrp.coeff, 1) * systreeRec.getFloat(eSystree.coef, 1);
+            Record artgrp1Rec = eGrups.find(elem5e.specificationRec.artiklRec.getInt(eArtikl.artgrp1_id));
+            elem5e.specificationRec.inCost = elem5e.specificationRec.outPrice * artgrp1Rec.getFloat(eGrups.val, 1) * systreeRec.getFloat(eSystree.coef, 1);
             elem5e.specificationRec.inCost = elem5e.specificationRec.inCost + (elem5e.specificationRec.inCost / 100) * percentMarkup; //стоимость без скидки                     
             elem5e.specificationRec.outCost = elem5e.specificationRec.inCost; //стоимость со скидкой 
 
@@ -92,8 +90,8 @@ public class Tariffication extends Cal5e {
                     }
                 }
                 specificationRec2.outPrice = specificationRec2.inPrice * specificationRec2.quantity2; //себестоимости с отходом
-                Record artgrp1Rec2 = eArtgrp.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
-                specificationRec2.inCost = specificationRec2.outPrice * artgrp1Rec2.getFloat(eArtgrp.coeff, 1) * systreeRec.getFloat(eSystree.coef);
+                Record artgrp1Rec2 = eGrups.find(specificationRec2.artiklRec.getInt(eArtikl.artgrp1_id));
+                specificationRec2.inCost = specificationRec2.outPrice * artgrp1Rec2.getFloat(eGrups.val, 1) * systreeRec.getFloat(eSystree.coef);
                 specificationRec2.inCost = specificationRec2.inCost + (specificationRec2.inCost / 100) * percentMarkup; //стоимость без скидки                        
                 specificationRec2.outCost = specificationRec2.inCost; //стоимость со скидкой 
             }

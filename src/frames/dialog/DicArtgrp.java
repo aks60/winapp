@@ -4,25 +4,25 @@ import common.DialogListener;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
-import domain.eArtgrp;
+import domain.eGrups;
+import enums.TypeGroups;
 import frames.Util;
 import frames.swing.DefTableModel;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class DicArtgrp extends javax.swing.JDialog {
 
     private DialogListener listener = null;
-    private Query qArtgrp = new Query(eArtgrp.values());
-    private String categ = "";
+    private Query qArtgrp = new Query(eGrups.values());
+    private int grup = -1;
 
-    public DicArtgrp(java.awt.Frame parent, DialogListener listener, String categ) {
+    public DicArtgrp(java.awt.Frame parent, DialogListener listener, int grup) {
         super(parent, true);
         initComponents();
-        this.categ = categ;
+        this.grup = grup;
         initElements();
         this.listener = listener;
         loadingData();
@@ -31,11 +31,11 @@ public class DicArtgrp extends javax.swing.JDialog {
     }
 
     private void loadingData() {
-        qArtgrp.select(eArtgrp.up, "where", eArtgrp.categ, "= '", categ, "'");
+        qArtgrp.select(eGrups.up, "where", eGrups.grup, "= ", grup);
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qArtgrp, eArtgrp.name, eArtgrp.coeff);
+        new DefTableModel(tab1, qArtgrp, eGrups.name, eGrups.grup);
         Util.setSelectedRow(tab1);
     }
 
@@ -224,7 +224,7 @@ public class DicArtgrp extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
-        Record record = eArtgrp.up.newRecord();
+        Record record = eGrups.up.newRecord();
         listener.action(record);
         this.dispose();
     }//GEN-LAST:event_btnRemove
@@ -262,13 +262,13 @@ public class DicArtgrp extends javax.swing.JDialog {
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
-        new FrameToFile(this, btnClose);        
-        if ("INCR".equalsIgnoreCase(categ)) {
+        new FrameToFile(this, btnClose);
+        if (grup == TypeGroups.PRICE_INC.id) {
             setTitle("Группы наценок");
             tab1.setModel(new javax.swing.table.DefaultTableModel(
                     new Object[][]{}, new String[]{"Наименование", "Наценка (коэф)"}
             ));
-        } else {
+        } else if (grup == TypeGroups.PRICE_DEC.id) {
             setTitle("Группы скидок");
             tab1.setModel(new javax.swing.table.DefaultTableModel(
                     new Object[][]{}, new String[]{"Наименование", "Скидка (%)"}

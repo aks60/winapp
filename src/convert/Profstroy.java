@@ -10,7 +10,6 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
-import domain.eArtgrp;
 import domain.eArtikl;
 import domain.eColgrp;
 import domain.eColor;
@@ -33,7 +32,7 @@ import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
-import domain.eGroups;
+import domain.eGrups;
 import domain.eJoindet;
 import domain.eJoinpar1;
 import domain.eJoinpar2;
@@ -133,9 +132,9 @@ public class Profstroy {
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eSyspar1.up, eSysprof.up, eSysfurn.up, eModels.up, eSystree.up, eSysprod.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
-            eArtdet.up, eArtikl.up, eArtgrp.up,
+            eArtdet.up, eArtikl.up,
             eColpar1.up, eColor.up, eColgrp.up,
-            eCurrenc.up, eGroups.up
+            eCurrenc.up, eGrups.up
         };
         try {
 
@@ -438,12 +437,12 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
             modifySetting("Функция updateSetting()");
-            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
+            executeSql("insert into grups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
-            updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
+            updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGrups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");           
             modifyArtgrp("Функция updateArtgrp()");
             executeSql("update artikl set artgrp1_id = (select a.id from artgrp a where munic = a.fk and a.categ = 'INCR')");
@@ -457,7 +456,7 @@ public class Profstroy {
             modifyElemgrp("Функция updateElemgrp()");
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
-            updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
+            updateSql(eElement.up, eElement.series_id, "vlets", eGrups.up, "name");
             executeSql("4", "update element set typset = vtype");
             executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
             executeSql("update element set todef = 1  where vsets in (1,2)");
@@ -673,25 +672,26 @@ public class Profstroy {
     private static void modifyArtgrp(String mes) {
         println(Color.BLACK, mes);
         try {
-            executeSql("ALTER GRUPS ARTGRP ADD FK INTEGER;");
-            ResultSet rs = st1.executeQuery("select * from GRUPART");
+            executeSql("ALTER TABLE GRUPS ADD FK INTEGER;");
+            ResultSet rs = st1.executeQuery("select * from GRUPS");
             while (rs.next()) {
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
-                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'INCR', '" + rs.getString("MNAME") + "', "
+                String sql = "insert into " + eGrups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                        + ConnApp.instanc().genId(eGrups.up) + "," + TypeGroups.PRICE_INC.id + "," + rs.getString("MNAME") + "',"
                         + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
-                String sql = "insert into " + eArtgrp.up.tname() + "(ID, CATEG, NAME, COEFF, FK) values ("
-                        + ConnApp.instanc().genId(eArtgrp.up) + ", 'DECR', '" + rs.getString("NDESC") + "', "
+                String sql = "insert into " + eGrups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                        + ConnApp.instanc().genId(eGrups.up) + "," + TypeGroups.PRICE_DEC.id + "," + rs.getString("NDESC") + "',"
                         + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
             cn2.commit();
+            //executeSql("ALTER TABLE GRUPS DROP  FK;");
 
         } catch (SQLException e) {
-            println(Color.RED, "Ошибка: UPDATE-updateArtgrp().  " + e);
+            println(Color.RED, "Ошибка: UPDATE-updateGrups().  " + e);
         }
     }
         
