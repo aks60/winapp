@@ -50,6 +50,7 @@ public class Groups extends javax.swing.JFrame {
         pan2 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -152,6 +153,19 @@ public class Groups extends javax.swing.JFrame {
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
 
         jTabbedPane1.addTab("Группы скидок", pan2);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 493, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 377, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Серии профилей", jPanel1);
 
         centr.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
@@ -377,6 +391,7 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
