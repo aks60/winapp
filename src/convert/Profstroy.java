@@ -487,9 +487,9 @@ public class Profstroy {
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
-            executeSql("3", "update glasdet set typess = (CASE  WHEN (typess = 11) THEN 3003 WHEN (typess = 21) THEN 4095 "
-                    + "WHEN (typess = 31) THEN 273 WHEN (typess = 32) THEN 546 WHEN (typess = 33) THEN 819 "
-                    + "WHEN (typess = 41) THEN 1638 WHEN (typess = 42) THEN 1911 WHEN (typess = 43) THEN 2184 ELSE  (3003) END )");
+            executeSql("3", "update glasdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 "
+                    + "WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (3003) END )");
             ////////////////////////////////////////////////////////////////////
             
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");

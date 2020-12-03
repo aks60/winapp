@@ -24,17 +24,6 @@ public class Test {
             //query();
             //frame();
             //parse();
-            System.out.println("11 = " + (11 + (11 << 4) + (11 << 8)));
-            System.out.println("21 = " + (15 + (15 << 4) + (15 << 8)));
-            System.out.println("31 = " + (1 + (1 << 4) + (1 << 8)));
-            System.out.println("32 = " + (2 + (2 << 4) + (2 << 8)));
-            System.out.println("33 = " + (3 + (3 << 4) + (3 << 8)));
-            System.out.println("41 = " + (6 + (6 << 4) + (6 << 8)));
-            System.out.println("42 = " + (7 + (7 << 4) + (7 << 8)));
-            System.out.println("43 = " + (8 + (8 << 4) + (8 << 8)));
-            System.out.println("50 = " + (11 + (11 << 4) + (11 << 8)));
-            System.out.println("60 = " + (11 + (11 << 4) + (11 << 8)));
-
         } catch (Exception e) {
             System.err.println("TEST-MAIN: " + e);
         }
@@ -108,20 +97,30 @@ public class Test {
     }
 
     private static void parse() {
-
-        HashMap<Integer, Record> mapParamUse = new HashMap();
-        String paramJson = "{'typeOpen':1,'nuni':23, 'ioknaParam': [[-862107,826],[-862106,830]]}";
-        String str = paramJson.replace("'", "\"");
-
-        JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-        JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
-        if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-            jsonArr.forEach(it -> {
-                Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
-                mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
-            });
-            System.out.println(mapParamUse);
-
+            System.out.println("11 = " + (11 + (11 << 4) + (11 << 8)));
+            System.out.println("21 = " + (15 + (15 << 4) + (15 << 8)));
+            System.out.println("31 = " + (1 + (1 << 4) + (1 << 8)));
+            System.out.println("32 = " + (2 + (2 << 4) + (2 << 8)));
+            System.out.println("33 = " + (3 + (3 << 4) + (3 << 8)));
+            System.out.println("41 = " + (6 + (6 << 4) + (6 << 8)));
+            System.out.println("42 = " + (7 + (7 << 4) + (7 << 8)));
+            System.out.println("43 = " + (8 + (8 << 4) + (8 << 8)));
+            System.out.println("50 = " + (11 + (11 << 4) + (11 << 8)));
+            System.out.println("60 = " + (11 + (11 << 4) + (11 << 8)));
+            
+//        HashMap<Integer, Record> mapParamUse = new HashMap();
+//        String paramJson = "{'typeOpen':1,'nuni':23, 'ioknaParam': [[-862107,826],[-862106,830]]}";
+//        String str = paramJson.replace("'", "\"");
+//
+//        JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+//        JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
+//        if (!jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+//            jsonArr.forEach(it -> {
+//                Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
+//                mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
+//            });
+//            System.out.println(mapParamUse);
+//
             //System.out.println(list.get(0));
 //            mapParam.put(ParamJson.ioknaParam, jsonObj.get(ParamJson.ioknaParam.name()));
 //            HashMap<Integer, Object[]> hmValue = new HashMap();
@@ -134,7 +133,7 @@ public class Test {
 //                int mm = 0;
 //            }
 //            mapParam.put(ParamJson.ioknaParam2, hmValue); //второй вариант                
-        }
+//        }
     }
 
     private static void classToJson() {
