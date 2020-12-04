@@ -54,6 +54,7 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.TypeElem;
 import enums.TypeGroups;
+import enums.TypeUse;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -445,8 +446,9 @@ public class Profstroy {
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");           
             modifyGroups("Функция modifyGroups()");
-            executeSql("update artikl set artgrp1_id = (select a.id from artgrp a where munic = a.fk and a.categ = 'INCR')");
-            executeSql("update artikl set artgrp2_id = (select a.id from artgrp a where udesc = a.fk and categ = 'DECR')");            
+            executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
+            executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");  
+            executeSql("ALTER TABLE GROUPS DROP  FK;");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
@@ -690,8 +692,7 @@ public class Profstroy {
                         + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
-            cn2.commit();
-            executeSql("ALTER TABLE GROUPS DROP  FK;");
+            cn2.commit();            
 
         } catch (SQLException e) {
             println(Color.RED, "Ошибка: modifyGroups().  " + e);
