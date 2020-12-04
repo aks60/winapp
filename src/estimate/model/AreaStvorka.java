@@ -47,9 +47,6 @@ public class AreaStvorka extends AreaSimple {
         //Коррекция створки с учётом нахлёста
         ElemSimple adjacentLeft = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
                 adjacentBott = join(LayoutArea.BOTTOM), adjacentRight = join(LayoutArea.RIGHT);
-        if(adjacentLeft.specificationRec.getParam(1040) != 0) {
-            
-        }
         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
 
             x1 = adjacentLeft.x2 - adjacentLeft.owner().offset;
