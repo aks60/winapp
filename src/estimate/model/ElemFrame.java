@@ -176,9 +176,9 @@ public class ElemFrame extends ElemSimple {
 
             //Всё остальное
         } else {
-
-        }
-        Cal5e.amount(specificationRec, specificationAdd);
+           
+        } 
+        Cal5e.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
     }
 

@@ -444,10 +444,10 @@ public class Profstroy {
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
-            updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");           
+            updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             modifyGroups("Функция modifyGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
-            executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");  
+            executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("ALTER TABLE GROUPS DROP  FK;");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
@@ -469,6 +469,8 @@ public class Profstroy {
             executeSql("4", "update artikl set size_falz = (select a.SSIZN from syssize a where a.id = artikl.syssize_id) where size_falz is null or size_falz = 0");
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
+            executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (0) END )");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
             updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
             updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
@@ -478,22 +480,19 @@ public class Profstroy {
             updateSql(eJoindet.up, eJoindet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update joinvar set types = types * 10 + cnext");
             executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
+            executeSql("3", "update joindet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasprof set inside = 1  where gtype in (1,3,7)");
             executeSql("update glasprof set outside = 1  where gtype in (2,3,7)");
-            
-            ////////////////////////////////////////////////////////////////////
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
             executeSql("3", "update glasdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
-                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 "
-                    + "WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (3003) END )");
-            ////////////////////////////////////////////////////////////////////
-            
+                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
             executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
@@ -505,6 +504,8 @@ public class Profstroy {
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
             executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
             executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
+            executeSql("3", "update furndet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+                    + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             executeSql("3", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
             executeSql("4", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
             executeSql("3", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
@@ -692,13 +693,13 @@ public class Profstroy {
                         + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
-            cn2.commit();            
+            cn2.commit();
 
         } catch (SQLException e) {
             println(Color.RED, "Ошибка: modifyGroups().  " + e);
         }
     }
-        
+
     private static void deleteSql(Field table1, String id1, Field table2, String id2) {
         try {
             int recordDelete = 0, recordCount = 0;

@@ -19,8 +19,8 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            convert.Profstroy.exec2();
-            //wincalc();
+            //convert.Profstroy.exec2();
+            wincalc();
             //query();
             //frame();
             //parse();
@@ -48,18 +48,22 @@ public class Test {
                 for (int i : Arrays.asList(601008, 601009, 601010)) {
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
-                    iwin.build(script);
-                    iwin.constructiv();
-                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    if (script != null) {
+                        iwin.build(script);
+                        iwin.constructiv();
+                        Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    }
                 }
             } else if (_case.equals("max")) {
                 for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007,
                         601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)) {
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
-                    iwin.build(script);
-                    iwin.constructiv();
-                    Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    if (script != null) {
+                        iwin.build(script);
+                        iwin.constructiv();
+                        Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+                    }
                 }
             }
         }
@@ -97,17 +101,18 @@ public class Test {
     }
 
     private static void parse() {
-            System.out.println("11 = " + (11 + (11 << 4) + (11 << 8)));
-            System.out.println("21 = " + (15 + (15 << 4) + (15 << 8)));
-            System.out.println("31 = " + (1 + (1 << 4) + (1 << 8)));
-            System.out.println("32 = " + (2 + (2 << 4) + (2 << 8)));
-            System.out.println("33 = " + (3 + (3 << 4) + (3 << 8)));
-            System.out.println("41 = " + (6 + (6 << 4) + (6 << 8)));
-            System.out.println("42 = " + (7 + (7 << 4) + (7 << 8)));
-            System.out.println("43 = " + (8 + (8 << 4) + (8 << 8)));
-            System.out.println("50 = " + (11 + (11 << 4) + (11 << 8)));
-            System.out.println("60 = " + (11 + (11 << 4) + (11 << 8)));
-            
+
+        System.out.println("11 = " + (11 + (11 << 4) + (11 << 8)));
+        System.out.println("21 = " + (15 + (15 << 4) + (15 << 8)));
+        System.out.println("31 = " + (1 + (1 << 4) + (1 << 8)));
+        System.out.println("32 = " + (2 + (2 << 4) + (2 << 8)));
+        System.out.println("33 = " + (3 + (3 << 4) + (3 << 8)));
+        System.out.println("41 = " + (6 + (6 << 4) + (6 << 8)));
+        System.out.println("42 = " + (7 + (7 << 4) + (7 << 8)));
+        System.out.println("43 = " + (8 + (8 << 4) + (8 << 8)));
+        System.out.println("50 = " + (11 + (11 << 4) + (11 << 8)));
+        System.out.println("60 = " + (11 + (11 << 4) + (11 << 8)));
+
 //        HashMap<Integer, Record> mapParamUse = new HashMap();
 //        String paramJson = "{'typeOpen':1,'nuni':23, 'ioknaParam': [[-862107,826],[-862106,830]]}";
 //        String str = paramJson.replace("'", "\"");
@@ -121,7 +126,7 @@ public class Test {
 //            });
 //            System.out.println(mapParamUse);
 //
-            //System.out.println(list.get(0));
+        //System.out.println(list.get(0));
 //            mapParam.put(ParamJson.ioknaParam, jsonObj.get(ParamJson.ioknaParam.name()));
 //            HashMap<Integer, Object[]> hmValue = new HashMap();
 //            for (int index = 0; index < jsonArr.size(); index++) {

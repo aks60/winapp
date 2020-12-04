@@ -108,7 +108,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        Cal5e.amount(specificationRec, specificationAdd);
+        Cal5e.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
     }
 

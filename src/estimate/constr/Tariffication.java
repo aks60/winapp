@@ -33,13 +33,13 @@ public class Tariffication extends Cal5e {
         //Расчёт  собес-сть за ед. изм. по таблице мат. ценностей
         for (ElemSimple elem5e : iwin.listElem) {
             elem5e.specificationRec.inPrice += calcPrice(elem5e.specificationRec); //себес-сть за ед. изм.
-            elem5e.specificationRec.quantity = quantity(elem5e.specificationRec); //количество без отхода
+            elem5e.specificationRec.quantity = formatAmount(elem5e.specificationRec); //количество без отхода
             elem5e.specificationRec.quantity2 = elem5e.specificationRec.quantity
                     + (elem5e.specificationRec.quantity * elem5e.specificationRec.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
 
             for (Specification specificationRec2 : elem5e.specificationRec.specificationList) {
                 specificationRec2.inPrice += calcPrice(specificationRec2); //себес-сть за ед. изм.
-                specificationRec2.quantity = quantity(specificationRec2); //количество без отхода
+                specificationRec2.quantity = formatAmount(specificationRec2); //количество без отхода
                 specificationRec2.quantity2 = specificationRec2.quantity + (specificationRec2.quantity * specificationRec2.artiklRec.getFloat(eArtikl.otx_norm) / 100); //количество с отходом
             }
         }
@@ -266,8 +266,8 @@ public class Tariffication extends Cal5e {
         }
     }
 
-    //Количество без отхода/ В зав. от единицы изм. считает количество
-    private float quantity(Specification specificRec) {
+    //В зав. от единицы изм. форматируется количество
+    private float formatAmount(Specification specificRec) {
         //TODO Нужна доработка для расчёта по минимальному тарифу. См. dll VirtualPro4::CalcArtTariff
         if (UseUnit.METR.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //метры
             return specificRec.width / 1000;
@@ -277,6 +277,9 @@ public class Tariffication extends Cal5e {
 
         } else if (UseUnit.PIE.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //шт.
             return specificRec.count;
+            
+        } else if (UseUnit.ML.id == specificRec.artiklRec.getInt(eArtikl.unit)) { //мл
+            return specificRec.quantity;
         }
         return 0;
     }

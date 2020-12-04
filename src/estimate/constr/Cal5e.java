@@ -52,6 +52,9 @@ public abstract class Cal5e {
             }
             specificationAdd.width = Float.valueOf(specificationAdd.getParam(specificationAdd.width, 34070)); //Длина, мм (должна быть первой)
             specificationAdd.width = specificationAdd.width + Float.valueOf(specificationAdd.getParam(0, 34051)); //Поправка, мм
+
+        } else if (UseUnit.ML.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //мл
+            specificationAdd.quantity = Float.valueOf(specificationAdd.getParam(specificationAdd.quantity, 11030, 33030, 14030));
         }
     }
 }
