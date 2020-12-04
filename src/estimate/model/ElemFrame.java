@@ -11,12 +11,13 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
+import estimate.constr.Color;
 import estimate.constr.Specification;
 import estimate.constr.param.ElementSet;
 
 public class ElemFrame extends ElemSimple {
 
-    protected float length = 0; //Длина арки
+    protected float length = 0; //длина арки     
 
     public ElemFrame(AreaSimple owner, float id, LayoutArea layout) {
         super(id, owner.iwin(), owner);
@@ -65,6 +66,7 @@ public class ElemFrame extends ElemSimple {
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        colorElem = Color.colorFromArt(artiklRec.getInt(eArtikl.id));
     }
 
     @Override //Главная спецификация
@@ -176,8 +178,8 @@ public class ElemFrame extends ElemSimple {
 
             //Всё остальное
         } else {
-           
-        } 
+
+        }
         Cal5e.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
     }

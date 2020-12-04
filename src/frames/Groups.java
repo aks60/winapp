@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Groups extends javax.swing.JFrame {
 
+    private Query qArtSeri = new Query(eGroups.values());
     private Query qArtIncr = new Query(eGroups.values());
     private Query qArtDecr = new Query(eGroups.values());
 
@@ -27,6 +28,7 @@ public class Groups extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        qArtSeri.select(eGroups.up, "where", eGroups.grup, "= 3", "order by", eGroups.name);
         qArtIncr.select(eGroups.up, "where", eGroups.grup, "= 4", "order by", eGroups.name);
         qArtDecr.select(eGroups.up, "where", eGroups.grup, "= 5", "order by", eGroups.name);
     }
@@ -34,6 +36,7 @@ public class Groups extends javax.swing.JFrame {
     private void loadingModel() {
         new DefTableModel(tab1, qArtIncr, eGroups.name, eGroups.val);
         new DefTableModel(tab2, qArtDecr, eGroups.name, eGroups.val);
+        new DefTableModel(tab3, qArtSeri, eGroups.name, eGroups.val);
         Util.setSelectedRow(tab1);
         Util.setSelectedRow(tab2);
     }
@@ -50,7 +53,9 @@ public class Groups extends javax.swing.JFrame {
         pan2 = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        pan3 = new javax.swing.JPanel();
+        scr3 = new javax.swing.JScrollPane();
+        tab3 = new javax.swing.JTable();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -154,18 +159,25 @@ public class Groups extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Группы скидок", pan2);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 493, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 377, Short.MAX_VALUE)
-        );
+        pan3.setLayout(new java.awt.BorderLayout());
 
-        jTabbedPane1.addTab("Серии профилей", jPanel1);
+        tab3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Наименование"
+            }
+        ));
+        tab3.setFillsViewportHeight(true);
+        scr3.setViewportView(tab3);
+
+        pan3.add(scr3, java.awt.BorderLayout.CENTER);
+
+        jTabbedPane1.addTab("Серии профилей", pan3);
 
         centr.add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
@@ -391,17 +403,19 @@ public class Groups extends javax.swing.JFrame {
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan2;
+    private javax.swing.JPanel pan3;
     private javax.swing.JPanel panl1;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
+    private javax.swing.JScrollPane scr3;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
+    private javax.swing.JTable tab3;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 

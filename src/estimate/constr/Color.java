@@ -4,8 +4,8 @@ import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eGlasdet;
 import estimate.model.Com5t;
+import estimate.model.ElemSimple;
 import java.util.List;
 
 public class Color {
@@ -14,20 +14,20 @@ public class Color {
     private static final int COLOR_FK = 3;
     private static final int ARTIKL_ID = 4;
 
-    public static void setting(Specification spc, Record spcdetRec) {  //см. http://help.profsegment.ru/?id=1107        
-        int colorFk = spcdetRec.getInt(COLOR_FK);
+    public static void setting(Specification spc, Record detailRec) {  //см. http://help.profsegment.ru/?id=1107        
+        int colorFk = detailRec.getInt(COLOR_FK);
 
         //Цыкл по сторонам текстур элемента
         for (int side = 1; side < 4; ++side) {
             try {
-                int colorID = colorFromProduct(spc.elem5e, side, spcdetRec); //цвет из варианта подбора           
+                int colorID = colorFromProduct(spc.elem5e, side, detailRec); //цвет из варианта подбора           
                 if (colorFk == 0) { //автоподбор текстуры
-                    int color_id = colorFromArtdet(spc.artiklRec, side, colorID);
+                    int color_id = colorFromArt(spc.artiklRec, side, colorID);
                     if (color_id != -1) {
                         spc.setColor(side, color_id);
 
                     } else { //если неудача подбора то первая в списке запись цвета
-                        Record artdetRec = eArtdet.find2(spcdetRec.getInt(ARTIKL_ID));
+                        Record artdetRec = eArtdet.find2(detailRec.getInt(ARTIKL_ID));
                         if (artdetRec != null) {
                             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
                             if (colorFK2 > 0) { //если это не группа цветов
@@ -42,7 +42,7 @@ public class Color {
                         }
                     }
                 } else if (colorFk == 100000) { //точный подбор 
-                    int colorId = colorFromArtdet(spc.artiklRec, side, colorID);
+                    int colorId = colorFromArt(spc.artiklRec, side, colorID);
                     if (colorId != -1) {
                         spc.setColor(side, colorId);
                     } else {
@@ -50,11 +50,11 @@ public class Color {
                     }
 
                 } else if (colorFk > 0 && colorFk != 100000) { //указана
-                    int color_id = colorFromArtdet(spc.artiklRec, side, colorID);
+                    int color_id = colorFromArt(spc.artiklRec, side, colorID);
                     if (color_id != -1) {
                         spc.setColor(side, colorID);
                     } else {  //дордом профстроя
-                        List<Record> artdetList = eArtdet.find(spcdetRec.getInt(ARTIKL_ID));
+                        List<Record> artdetList = eArtdet.find(detailRec.getInt(ARTIKL_ID));
                         for (Record record : artdetList) {
                             if (record.getInt(eArtdet.color_fk) >= 0) {
                                 spc.setColor(side, record.getInt(eArtdet.color_fk));
@@ -73,8 +73,31 @@ public class Color {
         }
     }
 
+    //Поиск цвета элемента профиля или заполнения
+    public static int colorFromArt(int artiklId) {
+        try {
+            List<Record> artdetList = eArtdet.find(artiklId);
+            //Цыкл по ARTDET определённого артикула
+            for (Record artdetRec : artdetList) {
+                if (artdetRec.getInt(eArtdet.color_fk) >= 0) {
+                    if ("1".equals(artdetRec.getStr(eArtdet.mark_c1))
+                            && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
+                            && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) {
+
+                        return artdetRec.getInt(eArtdet.color_fk);
+                    }
+                }
+            }
+            return -1;
+
+        } catch (Exception e) {
+            System.err.println("Ошибна Color.colorFromArt() " + e);
+            return -1;
+        }
+    }
+
     //Поиск текстуры в Artdet
-    private static int colorFromArtdet(Record artiklRec, int side, int colorID) {
+    private static int colorFromArt(Record artiklRec, int side, int colorID) {
         try {
             List<Record> artdetList = eArtdet.find(artiklRec.getInt(eArtikl.id));
             //Цыкл по ARTDET определённого артикула
@@ -101,7 +124,7 @@ public class Color {
             return -1;
 
         } catch (Exception e) {
-            System.err.println("Ошибна estimate.constr.Color.location() " + e);
+            System.err.println("Ошибна Color.colorFromArt() " + e);
             return -1;
         }
     }
@@ -164,11 +187,11 @@ public class Color {
                 case 9:        // по параметру (основа)
                     return -1;
                 case 11:       // по профилю
-                    return com5t.iwin().colorID1;
+                    return ((ElemSimple) com5t).colorElem;
                 case 12:       // по параметру (внешн.)    
                     return -1;
                 case 15:       // по заполнению
-                    return com5t.colorID1;
+                    return ((ElemSimple) com5t).colorElem;
                 default:    // без цвета
                     return com5t.iwin().colorNone;
             }

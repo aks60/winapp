@@ -15,13 +15,14 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
+import estimate.constr.Color;
 import estimate.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус арки
     public int artikleID = -1;
-    public float gzazo = 0; //зазор между фальцем и стеклопакетом    
+    public float gzazo = 0; //зазор между фальцем и стеклопакетом  
 
     public ElemGlass(AreaSimple owner, float id, String param) {
 
@@ -57,8 +58,9 @@ public class ElemGlass extends ElemSimple {
         artiklRecAn = artiklRec;
 
         //Цвет стекла
+        colorElem = Color.colorFromArt(artiklRec.getInt(eArtikl.id));
         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));
+        Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));        
         colorID1 = colorRec.getInt(eColor.id);
         colorID2 = colorRec.getInt(eColor.id);
         colorID3 = colorRec.getInt(eColor.id);
@@ -186,7 +188,7 @@ public class ElemGlass extends ElemSimple {
                 if ("Нет".equals(specificationAdd.mapParam.get(15010))) {
                     specificationVer1.width = specificationVer1.width - 2 * specificationHor1.height;
                     specificationVer2.width = specificationVer2.width - 2 * specificationHor2.height;
-                } 
+                }
             }
             //Уплотнитель
         } else if (TypeArtikl.KONZEVPROF.isType(specificationAdd.artiklRec)) {

@@ -24,6 +24,7 @@ import enums.LayoutArea;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
+import estimate.constr.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.sql.Connection;
@@ -50,7 +51,7 @@ public class Wincalc {
     public Connection conn;
     public Integer nuni = 0;
     public int prj = -1;
-    public Record artiklRec = null; //главный артикл системы профилей
+    public Record artiklRec = null; //главный артикл системы профилей   
     public Record syssizeRec = null; //константы    
     public float genId = 100; //генерация ключа спецификации
 
@@ -58,12 +59,12 @@ public class Wincalc {
     public float height = 0.f;    //высота окна
     public float heightAdd = 0.f; //арка, трапеция, треугольник
     public final int colorNone = 1005;  //без цвета (возвращаемое значение по умолчанию)
-    public int colorID1 = -1; //базовый цвет
-    public int colorID2 = -1; //внутренний цвет
-    public int colorID3 = -1; //внещний цвет
+    public int colorID1 = -1;  //базовый цвет
+    public int colorID2 = -1;  //внутренний цвет
+    public int colorID3 = -1;  //внещний цвет
 
     public Draw draw = new Draw(this);
-    public byte[] bufferByte = null; //буффер рисунка
+    public byte[] bufferByte = null; //буфер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D gc2d = null; //графический котекст рисунка  
     public float scale1 = 1, scale2 = 20; //коэффициент сжатия
@@ -110,7 +111,7 @@ public class Wincalc {
             Query.conf = "calc";
             Query.listOpenTable.forEach(q -> q.clear());
             calcJoining = new Joining(this); //соединения
-            calcJoining.calc();            
+            calcJoining.calc();
             calcElements = new Elements(this); //составы
             calcElements.calc();
             calcFilling = new Filling(this); //заполнения
