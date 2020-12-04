@@ -31,7 +31,7 @@ public class JoiningVar extends Par5s {
 
         //цикл по параметрам элементов соединения
         for (Record rec : paramList) {
-            
+
             if (filterParamDef(rec) == false) {
                 return false;
             }
@@ -44,13 +44,13 @@ public class JoiningVar extends Par5s {
                     case 1005:  //Контейнер имеет тип Артикула1/Артикула2
                     case 2005:  //Контейнер имеет тип Артикула1/Артикула2  
                     case 3005:  //Контейнер имеет тип Артикула1/Артикула2 
-                    case 4005:  //Контейнер имеет тип Артикула1/Артикула2    
+                    case 4005: //Контейнер имеет тип Артикула1/Артикула2    
                     {
                         try {
                             String strTxt = rec.getStr(TEXT);
                             String type1 = String.valueOf(elemJoin.joinElement1.type().id);
                             String type2 = String.valueOf(elemJoin.joinElement2.type().id);
-                            if(Util.containsStr(strTxt, type1, type2) == false) {
+                            if (Util.containsStr(strTxt, type1, type2) == false) {
                                 return false;
                             }
                         } catch (Exception e) {
@@ -139,9 +139,8 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 1040:  //Размер, мм (Смещение осей рамы и створки. Наследие ps3)
-                        elemJoin.joinElement2.specificationRec.putParam(1040, rec.getStr(eJoinpar1.text));
+                        elemJoin.joinElement1.owner().offset = Util.getFloat(rec.getStr(eJoinpar1.text));
                         break;
-                    //break;
                     case 1043:  //Ограничение габарита контура, мм 
                         message(rec.getInt(GRUP));
                         break;
@@ -229,14 +228,14 @@ public class JoiningVar extends Par5s {
                         }
                         break;
                     case 2022: //Исключить угол, °
-                    case 3022: 
-                    case 4032: 
+                    case 3022:
+                    case 4032:
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
                             if (rec.getFloat(TEXT) == elemJoin.anglProf) {
                                 return false;
                             }
                         }
-                        break;                        
+                        break;
                     case 2030: //Припуск Артикула1/Артикула2 , мм 
                     {
                         String strTxt = rec.getStr(TEXT);

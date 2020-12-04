@@ -23,6 +23,11 @@ public class Util {
         return p2 > 0.00005;
     }
 
+    public static Float getFloat(String str) {
+        str = str.replace(",", ".");
+        return Float.valueOf(str);
+    }
+    
     //0.55;79,01-10;0-10=>[0.55,0.55,79.01,10.0,0.0,10.0]
     public static Float[] parserFloat(String str) {
 
