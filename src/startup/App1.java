@@ -561,9 +561,9 @@ public class App1 extends javax.swing.JFrame {
 
         tb6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 255)));
         tb6.setRollover(true);
-        tb6.setMaximumSize(new java.awt.Dimension(86, 28));
-        tb6.setMinimumSize(new java.awt.Dimension(86, 28));
-        tb6.setPreferredSize(new java.awt.Dimension(86, 28));
+        tb6.setMaximumSize(new java.awt.Dimension(96, 28));
+        tb6.setMinimumSize(new java.awt.Dimension(96, 28));
+        tb6.setPreferredSize(new java.awt.Dimension(96, 28));
 
         buttonBaseGroup.add(btnT7);
         btnT7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c057.gif"))); // NOI18N
