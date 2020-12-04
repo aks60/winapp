@@ -28,7 +28,7 @@ public abstract class Cal5e {
 
     //Расчёт количества материала в зависимости от ед. измерения
     public static void amount(Specification specificationRec, Specification specificationAdd) {
-        if (UseUnit.PIE.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //шт
+        if (UseUnit.PIE.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //шт.
             specificationAdd.count = Integer.valueOf(specificationAdd.getParam(specificationAdd.count, 11030, 33030, 14030));
 
             if (specificationAdd.getParam(0, 33050).equals("0") == false) {
@@ -46,14 +46,14 @@ public abstract class Cal5e {
                     ++specificationAdd.count;
                 }
             }
-        } else if (UseUnit.METR.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //метры
+        } else if (UseUnit.METR.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //пог.м.
             if (specificationAdd.width == 0) {
                 specificationAdd.width = specificationRec.width; //TODO вообще это неправильно, надо проанализировать. Без этой записи специф. считается неправильно.
             }
             specificationAdd.width = Float.valueOf(specificationAdd.getParam(specificationAdd.width, 34070)); //Длина, мм (должна быть первой)
             specificationAdd.width = specificationAdd.width + Float.valueOf(specificationAdd.getParam(0, 34051)); //Поправка, мм
 
-        } else if (UseUnit.ML.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //мл
+        } else if (UseUnit.ML.id == specificationAdd.artiklRec.getInt(eArtikl.unit)) { //мл.
             specificationAdd.quantity = Float.valueOf(specificationAdd.getParam(specificationAdd.quantity, 11030, 33030, 14030));
         }
     }
