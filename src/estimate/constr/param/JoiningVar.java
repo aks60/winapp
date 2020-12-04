@@ -5,6 +5,7 @@ import domain.eArtikl;
 import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
+import domain.eJoinpar1;
 import domain.eSetting;
 import domain.eSystree;
 import enums.TypeJoin;
@@ -137,9 +138,9 @@ public class JoiningVar extends Par5s {
                     case 1039:  //Для типа открывания 
                         message(rec.getInt(GRUP));
                         break;
-                    case 1040:  //Размер, мм 
-                        //TODO Тут полное непонимание логиги работы
-                        return false; //Т. к. есть системные константы
+                    case 1040:  //Размер, мм (Смещение осей рамы и створки. Наследие ps3)
+                        elemJoin.joinElement2.specificationRec.putParam(1040, rec.getStr(eJoinpar1.text));
+                        break;
                     //break;
                     case 1043:  //Ограничение габарита контура, мм 
                         message(rec.getInt(GRUP));

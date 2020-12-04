@@ -24,7 +24,7 @@ import estimate.Wincalc;
 public class AreaStvorka extends AreaSimple {
 
     public String handleHeight = ""; //высота ручки
-    public LayoutFurn1 handleSide = null;
+    public LayoutFurn1 handleSide = null; //сторона ручки
     public int handleColor = -1; //цвет ручки
     public TypeOpen1 typeOpen = TypeOpen1.LEFT; //тип открывания
     public Integer sysfurnID = null; //то, что выбрал клиент
@@ -45,20 +45,24 @@ public class AreaStvorka extends AreaSimple {
         }
 
         //Коррекция створки с учётом нахлёста
-        ElemSimple insideLeft = join(LayoutArea.LEFT), insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM), insideRight = join(LayoutArea.RIGHT);
+        ElemSimple adjacentLeft = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
+                adjacentBott = join(LayoutArea.BOTTOM), adjacentRight = join(LayoutArea.RIGHT);
+        if(adjacentLeft.specificationRec.getParam(1040) != 0) {
+            
+        }
         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
 
-            x1 = insideLeft.x2 - insideLeft.owner().offset;
-            y1 = insideTop.y2 - insideTop.owner().offset;
-            x2 = insideRight.x1 + insideRight.owner().offset;
-            y2 = insideBott.y1 + insideBott.owner().offset;
+            x1 = adjacentLeft.x2 - adjacentLeft.owner().offset;
+            y1 = adjacentTop.y2 - adjacentTop.owner().offset;
+            x2 = adjacentRight.x1 + adjacentRight.owner().offset;
+            y2 = adjacentBott.y1 + adjacentBott.owner().offset;
         } else {
-            x1 = insideLeft.x2 - insideLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-            y1 = insideTop.y2 - insideTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-            x2 = insideRight.x1 + insideRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
-            y2 = insideBott.y1 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x1 = adjacentLeft.x2 - adjacentLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = adjacentRight.x1 + adjacentRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = adjacentBott.y1 + adjacentBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
         }
-        
+
         //Добавим рамы створки        
         ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);
         mapFrame.put(stvBot.layout(), stvBot);
