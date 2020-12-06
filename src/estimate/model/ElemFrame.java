@@ -28,28 +28,7 @@ public class ElemFrame extends ElemSimple {
         colorID3 = iwin().colorID3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
         initСonstructiv();
-
-        //Установка координат
-        if (LayoutArea.LEFT == layout) {
-            setDimension(owner.x1, owner.y1, owner.x1 + artiklRec.getFloat(eArtikl.height), owner.y2);
-            anglHoriz = 270;
-
-        } else if (LayoutArea.RIGHT == layout) {
-            setDimension(owner.x2 - artiklRec.getFloat(eArtikl.height), owner.y1, owner.x2, owner.y2);
-            anglHoriz = 90;
-
-        } else if (LayoutArea.TOP == layout) {
-            setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + artiklRec.getFloat(eArtikl.height));
-            anglHoriz = 180;
-
-        } else if (LayoutArea.BOTTOM == layout) {
-            setDimension(owner.x1, owner.y2 - artiklRec.getFloat(eArtikl.height), owner.x2, owner.y2);
-            anglHoriz = 0;
-
-        } else if (LayoutArea.ARCH == layout) {
-            setDimension(owner.x1, owner.y1, owner.x2, owner.y1 + artiklRec.getFloat(eArtikl.height));
-            anglHoriz = 180;
-        }
+        setDimension();
     }
 
     public void initСonstructiv() {
@@ -70,6 +49,30 @@ public class ElemFrame extends ElemSimple {
         colorElem = Color.colorFromArt(artiklRec.getInt(eArtikl.id));
     }
 
+    public void setDimension() {
+        //Установка координат
+        if (LayoutArea.LEFT == layout) {
+            setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+            anglHoriz = 270;
+
+        } else if (LayoutArea.RIGHT == layout) {
+            setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+            anglHoriz = 90;
+
+        } else if (LayoutArea.TOP == layout) {
+            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+            anglHoriz = 180;
+
+        } else if (LayoutArea.BOTTOM == layout) {
+            setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
+            anglHoriz = 0;
+
+        } else if (LayoutArea.ARCH == layout) {
+            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+            anglHoriz = 180;
+        }
+    }
+
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
@@ -83,51 +86,48 @@ public class ElemFrame extends ElemSimple {
         specificationRec.anglHoriz = anglHoriz;
 
         float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
+        float v1040 = Util.getFloat(specificationRec.getParam(0, 1040));
 
         if (LayoutArea.ARCH == layout()) {
             AreaArch areaArch = (AreaArch) root();
-            Object obj = width();
             double angl = Math.toDegrees(Math.asin(width() / (areaArch.radiusArch * 2)));
             length = (float) (Math.PI * areaArch.radiusArch * angl * 2) / 180;
             specificationRec.width = length + prip; // ssizp * 2; //TODO ВАЖНО !!! расчет требует корректировки
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.TOP == layout) {
-//            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-//                y1 = y2 - specificationRec.getParam(1040);
-//            } else {
-//                y1 = owner()map.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
-//            }
+            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+                owner().y1 = owner().y2 - Util.getFloat(specificationRec.getParam(0, 1040));
+                setDimension();
+            }
             specificationRec.width = x2 - x1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.BOTTOM == layout) {
-//            if (specificationRec.getParam(1040) != 0) {
-//                y2 = y1 + specificationRec.getParam(1040);
-//            } else {
-//
-//            }
+            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+                owner().y2 = owner().y1 + Util.getFloat(specificationRec.getParam(0, 1040));
+                setDimension();
+            }
             specificationRec.width = x2 - x1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-//            if (specificationRec.getParam(1040) != 0) {
-//                x1 = x2 - specificationRec.getParam(1040);
-//            } else {
-//
-//            }
+            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+                owner().x1 = owner().x2 - specificationRec.getParam(1040);
+                setDimension();
+            }
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
-//            if (specificationRec.getParam(1040) != 0) {
-//                x2 = x1 + specificationRec.getParam(1040);
-//            } else {
-//
-//            }
+            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+                owner().x2 = owner().x1 + Util.getFloat(specificationRec.getParam(0, 1040));
+                setDimension();
+            }
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
         }
+
 //        Заплатка для ps3
 //        if ("ps3".equals(eSetting.find(2).get(eSetting.val)) == true) {
 //            if (LayoutArea.LEFT == layout && type() == TypeElem.FRAME_SIDE) {

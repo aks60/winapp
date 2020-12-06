@@ -49,26 +49,8 @@ public class AreaStvorka extends AreaSimple {
         //Коррекция створки с учётом нахлёста
         ElemSimple adjacentLeft = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
                 adjacentBott = join(LayoutArea.BOTTOM), adjacentRight = join(LayoutArea.RIGHT);
-        if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-
-//            Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
-//            Record sysproRight = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.RIGHT, UseSide.ANY);
-//            Record sysproTop = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.TOP, UseSide.ANY);
-//            Record sysproBott = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.BOTTOM, UseSide.ANY);
-//            Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);
-//            Record artiklRight = eArtikl.find(sysproRight.getInt(eSysprof.artikl_id), false);
-//            Record artiklTop = eArtikl.find(sysproTop.getInt(eSysprof.artikl_id), false);
-//            Record artiklBott = eArtikl.find(sysproBott.getInt(eSysprof.artikl_id), false);
-//            Record joiningLeft = eJoining.find(artiklLeft, adjacentLeft.artiklRec);
-//            Record joiningRight = eJoining.find(artiklRight, adjacentRight.artiklRec);
-//            Record joiningTop = eJoining.find(artiklTop, adjacentTop.artiklRec);
-//            Record joiningBott = eJoining.find(artiklBott, adjacentBott.artiklRec);
+        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             
-            x1 = adjacentLeft.x2 - adjacentLeft.owner().offset;
-            y1 = adjacentTop.y2 - adjacentTop.owner().offset;
-            x2 = adjacentRight.x1 + adjacentRight.owner().offset;
-            y2 = adjacentBott.y1 + adjacentBott.owner().offset;
-        } else {
             x1 = adjacentLeft.x2 - adjacentLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
             y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
             x2 = adjacentRight.x1 + adjacentRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
