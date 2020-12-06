@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import frames.swing.Draw;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eJoining;
 import domain.eSetting;
 import domain.eSysfurn;
 import domain.eSyssize;
@@ -17,6 +18,7 @@ import enums.LayoutJoin;
 import enums.TypeOpen1;
 import enums.UseArtiklTo;
 import enums.TypeJoin;
+import enums.UseSide;
 import java.awt.Color;
 import java.util.LinkedList;
 import estimate.Wincalc;
@@ -47,8 +49,21 @@ public class AreaStvorka extends AreaSimple {
         //Коррекция створки с учётом нахлёста
         ElemSimple adjacentLeft = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
                 adjacentBott = join(LayoutArea.BOTTOM), adjacentRight = join(LayoutArea.RIGHT);
-        if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) {
+        if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
 
+//            Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
+//            Record sysproRight = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.RIGHT, UseSide.ANY);
+//            Record sysproTop = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.TOP, UseSide.ANY);
+//            Record sysproBott = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.BOTTOM, UseSide.ANY);
+//            Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);
+//            Record artiklRight = eArtikl.find(sysproRight.getInt(eSysprof.artikl_id), false);
+//            Record artiklTop = eArtikl.find(sysproTop.getInt(eSysprof.artikl_id), false);
+//            Record artiklBott = eArtikl.find(sysproBott.getInt(eSysprof.artikl_id), false);
+//            Record joiningLeft = eJoining.find(artiklLeft, adjacentLeft.artiklRec);
+//            Record joiningRight = eJoining.find(artiklRight, adjacentRight.artiklRec);
+//            Record joiningTop = eJoining.find(artiklTop, adjacentTop.artiklRec);
+//            Record joiningBott = eJoining.find(artiklBott, adjacentBott.artiklRec);
+            
             x1 = adjacentLeft.x2 - adjacentLeft.owner().offset;
             y1 = adjacentTop.y2 - adjacentTop.owner().offset;
             x2 = adjacentRight.x1 + adjacentRight.owner().offset;

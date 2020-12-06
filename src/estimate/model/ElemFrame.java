@@ -13,6 +13,7 @@ import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
 import estimate.constr.Color;
 import estimate.constr.Specification;
+import estimate.constr.Util;
 import estimate.constr.param.ElementSet;
 
 public class ElemFrame extends ElemSimple {
@@ -92,18 +93,38 @@ public class ElemFrame extends ElemSimple {
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.TOP == layout) {
+//            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
+//                y1 = y2 - specificationRec.getParam(1040);
+//            } else {
+//                y1 = owner()map.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
+//            }
             specificationRec.width = x2 - x1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.BOTTOM == layout) {
+//            if (specificationRec.getParam(1040) != 0) {
+//                y2 = y1 + specificationRec.getParam(1040);
+//            } else {
+//
+//            }
             specificationRec.width = x2 - x1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
+//            if (specificationRec.getParam(1040) != 0) {
+//                x1 = x2 - specificationRec.getParam(1040);
+//            } else {
+//
+//            }
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
+//            if (specificationRec.getParam(1040) != 0) {
+//                x2 = x1 + specificationRec.getParam(1040);
+//            } else {
+//
+//            }
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
         }
