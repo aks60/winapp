@@ -280,15 +280,15 @@ public class Color extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, "111", null, null, null, null},
-                {null, "222", null, null, null, null}
+                {null, "111", null, null, null, null, null},
+                {null, "222", null, null, null, null, null}
             },
             new String [] {
-                "Код текстуры", "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)", "Для изделий"
+                "Код текстуры", "Название", "Коэф.(основн.текстура)", "Коэф.(внутр.текстура)", "Коэф.(внешн.текстура)", "Для изделий", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Boolean.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -313,6 +313,7 @@ public class Color extends javax.swing.JFrame {
             tab2.getColumnModel().getColumn(4).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(5).setPreferredWidth(40);
             tab2.getColumnModel().getColumn(5).setMaxWidth(120);
+            tab2.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
@@ -322,11 +323,11 @@ public class Color extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxx", "xxxxxx"},
-                {"zzzzzz", "zzzzzzz"}
+                {"xxxxx", "xxxxxx", null},
+                {"zzzzzz", "zzzzzzz", null}
             },
             new String [] {
-                "Параметр", "Текстура"
+                "Параметр", "Текстура", "ID"
             }
         ));
         tab3.setFillsViewportHeight(true);
@@ -340,6 +341,7 @@ public class Color extends javax.swing.JFrame {
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tab3.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
         centr.add(scr3, java.awt.BorderLayout.SOUTH);
