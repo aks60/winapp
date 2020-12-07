@@ -328,8 +328,8 @@ public class Specific extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(18).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(19).setPreferredWidth(44);
             tab1.getColumnModel().getColumn(20).setPreferredWidth(44);
-            tab1.getColumnModel().getColumn(21).setPreferredWidth(44);
-            tab1.getColumnModel().getColumn(22).setPreferredWidth(44);
+            tab1.getColumnModel().getColumn(21).setPreferredWidth(52);
+            tab1.getColumnModel().getColumn(22).setPreferredWidth(52);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
