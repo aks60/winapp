@@ -127,7 +127,10 @@ public class ElemFrame extends ElemSimple {
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
         }
-
+//            x1 = adjacentLeft.x2 - adjacentLeft.owner().offset;
+//            y1 = adjacentTop.y2 - adjacentTop.owner().offset;
+//            x2 = adjacentRight.x1 + adjacentRight.owner().offset;
+//            y2 = adjacentBott.y1 + adjacentBott.owner().offset;
 //        Заплатка для ps3
 //        if ("ps3".equals(eSetting.find(2).get(eSetting.val)) == true) {
 //            if (LayoutArea.LEFT == layout && type() == TypeElem.FRAME_SIDE) {
