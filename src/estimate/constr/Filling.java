@@ -80,7 +80,7 @@ public class Filling extends Cal5e {
                                 if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
                                     if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                         if (glasprofRec.getInt(eGlasprof.inside) == 1) {
-                                            
+
                                             //Данные для старого алгоритма расчёта
                                             elemGlass.gzazo = glasgrpRec.getFloat(eGlasgrp.gap);
                                             elemGlass.owner().gsize = glasprofRec.getFloat(eGlasprof.gsize);
@@ -118,10 +118,14 @@ public class Filling extends Cal5e {
                     //ФИЛЬТР детализации, параметры накапливаются в mapParam
                     if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) {
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
-                        Specification specif = new Specification(glasdetRec, artiklRec, elemGlass, mapParam);
-                        Color.setting(specif, glasdetRec);
-                        specif.place = "ЗАП";
-                        elemGlass.addSpecific(specif);
+                        Map<Integer, Integer> map = Color.colorFromProduct(elemGlass, artiklRec, glasdetRec);
+                        if (map != null) {
+
+                            Specification specif = new Specification(glasdetRec, artiklRec, elemGlass, mapParam);
+                            specif.setColor(map.get(1), map.get(2), map.get(3));
+                            specif.place = "ЗАП";
+                            elemGlass.addSpecific(specif);
+                        }
                     }
                 }
             }

@@ -16,6 +16,7 @@ import estimate.constr.param.ElementDet;
 import estimate.constr.param.ElementSet;
 import estimate.constr.param.ElementVar;
 import estimate.model.ElemSimple;
+import java.util.Map;
 
 /**
  * Составы.
@@ -83,20 +84,23 @@ public class Elements extends Cal5e {
                         if (elementDet.check(mapParam, elem5e, elempar2List) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
-                            Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);
-                            Color.setting(specif, elemdetRec);
-                            specif.place = "СОСТ";
+                            Map<Integer, Integer> map = Color.colorFromProduct(elem5e, artiklRec, elemdetRec);
+                            if (map != null) {
+                                
+                                Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);
+                                specif.setColor(map.get(1), map.get(2), map.get(3));
+                                specif.place = "СОСТ";
 
-                            //Если (контейнер) в списке детализации, например профиль с префиксом @
-                            if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.STVORKA, TypeArtikl.IMPOST)) {
-                                elem5e.specificationRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
-                                elem5e.specificationRec.mapParam = specif.mapParam; //переназначаем mapParam
-                                elementSet.change(elem5e.specificationRec); //коррекция спецификации параметрами 
+                                //Если (контейнер) в списке детализации, например профиль с префиксом @
+                                if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.STVORKA, TypeArtikl.IMPOST)) {
+                                    elem5e.specificationRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
+                                    elem5e.specificationRec.mapParam = specif.mapParam; //переназначаем mapParam
+                                    elementSet.change(elem5e.specificationRec); //коррекция спецификации параметрами 
 
-                            } else {
-                                elem5e.addSpecific(specif); //коррекция спецификации
-                                elementSet.change(specif);  //коррекция спецификации параметрами  
-                                int mmm = 0;
+                                } else {
+                                    elem5e.addSpecific(specif); //коррекция спецификации
+                                    elementSet.change(specif);  //коррекция спецификации параметрами  
+                                }
                             }
                         }
                     }

@@ -26,6 +26,7 @@ import estimate.model.ElemFrame;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Фурнитура
@@ -194,13 +195,16 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+                    Map<Integer, Integer> map = Color.colorFromProduct(handlFrame, artiklRec, furndetRec);
+                    if (map != null) {
 
-                    Specification specif = new Specification(furndetRec, artiklRec, handlFrame, mapParam);
-                    specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
-                    specif.count = specif.count * count;
-                    Color.setting(specif, furndetRec);
-                    specif.place = "ФУРН";
-                    handlFrame.addSpecific(specif); //добавим спецификацию в элемент
+                        Specification specif = new Specification(furndetRec, artiklRec, handlFrame, mapParam);
+                        specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
+                        specif.count = specif.count * count;
+                        specif.setColor(map.get(1), map.get(2), map.get(3));
+                        specif.place = "ФУРН";
+                        handlFrame.addSpecific(specif); //добавим спецификацию в элемент
+                    }
                 }
 
                 //Если это нобор   

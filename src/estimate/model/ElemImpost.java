@@ -64,7 +64,7 @@ public class ElemImpost extends ElemSimple {
         specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        colorElem = Color.colorFromArt(artiklRec.getInt(eArtikl.id));
+        colorElem = Color.colorFromArtikl(artiklRec.getInt(eArtikl.id));
     }
 
     @Override //Главная спецификация
