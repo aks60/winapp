@@ -3,6 +3,7 @@ package estimate.constr.param;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eSetting;
+import enums.LayoutArea;
 import enums.TypeElem;
 import java.util.List;
 import estimate.Wincalc;
@@ -50,18 +51,26 @@ public class FurnitureVar extends Par5s {
                     case 21005:  //Артикул заполнения по умолчанию 
                         message(rec.getInt(GRUP));
                         break;
-                    case 21010:  //Ограничение длины стороны, мм 
+                    case 21010: //Ограничение длины стороны, мм 
+                    {
+                        float length = 0;
+                        if (LayoutArea.LEFT == elem5e.layout() || LayoutArea.RIGHT == elem5e.layout()) {
+                            length = elem5e.height();
+                        } else if (LayoutArea.TOP == elem5e.layout() || LayoutArea.BOTTOM == elem5e.layout()) {
+                            length = elem5e.width();
+                        }
                         if ("ps3".equals(eSetting.find(2).getStr(eSetting.val))) { //Минимальная длина, мм
-                            if (rec.getInt(TEXT) < elem5e.width()) {
+                            if (rec.getInt(TEXT) > length) {
                                 return false;
                             }
                         } else {
                             String[] arr = rec.getStr(TEXT).split("/");
-                            if (Integer.valueOf(arr[0]) > elem5e.width() || Integer.valueOf(arr[1]) < elem5e.width()) {
+                            if (Integer.valueOf(arr[0]) > length || Integer.valueOf(arr[1]) < length) {
                                 return false;
                             }
                         }
-                        break;
+                    }
+                    break;
                     case 21011:  //Ограничение длины ручка константа, мм 
                         message(rec.getInt(GRUP));
                         break;
