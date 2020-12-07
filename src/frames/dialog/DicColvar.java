@@ -30,20 +30,22 @@ public class DicColvar extends javax.swing.JDialog {
         ((DefaultTableModel) tab1.getModel()).setRowCount(0);
         if (colorFk != -1) {
 
-            if (colorFk == 0 || colorFk == 100) {
+            if (colorFk == 0 || colorFk == 100000) {
                 rows = new Object[][]{{UseColcalc.P11.name, UseColcalc.P11.id}, {UseColcalc.P15.name, UseColcalc.P15.id},
                 {UseColcalc.P01.name, UseColcalc.P01.id}, {UseColcalc.P02.name, UseColcalc.P02.id}, {UseColcalc.P03.name, UseColcalc.P03.id},
-                {UseColcalc.P06.name, UseColcalc.P06.id}, {UseColcalc.P07.name, UseColcalc.P07.id}, {UseColcalc.P08.name, UseColcalc.P08.id},
-                {UseColcalc.P09.name, UseColcalc.P09.id}, {UseColcalc.P04.name, UseColcalc.P04.id}, {UseColcalc.P12.name, UseColcalc.P12.id}};
+                {UseColcalc.P06.name, UseColcalc.P06.id}, {UseColcalc.P07.name, UseColcalc.P07.id}, {UseColcalc.P08.name, UseColcalc.P08.id}};
 
             } else if (colorFk > 0) {
-                rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id}};
+                rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id},
+                {UseColcalc.P01.name, UseColcalc.P01.id}, {UseColcalc.P02.name, UseColcalc.P02.id}, {UseColcalc.P03.name, UseColcalc.P03.id}};
+                
             } else {
                 rows = new Object[][]{{UseColcalc.P00.name, UseColcalc.P00.id},{UseColcalc.P11.name, UseColcalc.P11.id}, {UseColcalc.P15.name, UseColcalc.P15.id},
                 {UseColcalc.P01.name, UseColcalc.P01.id}, {UseColcalc.P02.name, UseColcalc.P02.id}, {UseColcalc.P03.name, UseColcalc.P03.id},
                 {UseColcalc.P06.name, UseColcalc.P06.id}, {UseColcalc.P07.name, UseColcalc.P07.id}, {UseColcalc.P08.name, UseColcalc.P08.id},
                 {UseColcalc.P09.name, UseColcalc.P09.id}, {UseColcalc.P04.name, UseColcalc.P04.id}, {UseColcalc.P12.name, UseColcalc.P12.id}};                
             }
+            
             ((DefaultTableModel) tab1.getModel()).setDataVector(rows, titl);
         }
         Util.setSelectedRow(tab1);

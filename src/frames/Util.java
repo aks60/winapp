@@ -511,10 +511,14 @@ public class Util {
         Record elemdetRec = query.get(row);
         int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
         elemdetRec.set(color_fk, group);
-        if (group > 0) {
-            elemdetRec.set(types, UseColcalc.P00.id);
+        if (group == 0 || group == 100000) {
+            int val = UseColcalc.P11.id + (UseColcalc.P11.id << 4)  + (UseColcalc.P11.id << 8);
+            elemdetRec.set(types, val);
+        } else if(group > 0) {
+            elemdetRec.set(types, 0);
         } else {
-            elemdetRec.set(types, null);
+            int val = UseColcalc.P11.id + (UseColcalc.P11.id << 4)  + (UseColcalc.P11.id << 8);
+            elemdetRec.set(types, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
         Util.setSelectedRow(table, row);
