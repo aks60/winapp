@@ -28,28 +28,6 @@ public class ElemFrame extends ElemSimple {
         colorID3 = iwin().colorID3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
         initСonstructiv();
-        setDimension();
-    }
-
-    public void initСonstructiv() {
-
-        if (owner().sysprofID != null) {
-            sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
-        } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
-        } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
-        } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
-        } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
-        }
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        colorElem = Color.colorFromArt(artiklRec.getInt(eArtikl.id));
-    }
-
-    public void setDimension() {
         //Установка координат
         if (LayoutArea.LEFT == layout) {
             setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
@@ -73,6 +51,24 @@ public class ElemFrame extends ElemSimple {
         }
     }
 
+    public void initСonstructiv() {
+
+        if (owner().sysprofID != null) {
+            sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
+        } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
+        } else if (layout == LayoutArea.BOTTOM) {
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
+        } else if (layout == LayoutArea.LEFT) {
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
+        } else if (layout == LayoutArea.RIGHT) {
+            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
+        }
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        colorElem = Color.colorFromArt(artiklRec.getInt(eArtikl.id));
+    }
+
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
@@ -84,9 +80,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.anglCut2 = anglCut2;
         specificationRec.anglCut1 = anglCut1;
         specificationRec.anglHoriz = anglHoriz;
-
         float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
-        float v1040 = Util.getFloat(specificationRec.getParam(0, 1040));
 
         if (LayoutArea.ARCH == layout()) {
             AreaArch areaArch = (AreaArch) root();
@@ -96,50 +90,21 @@ public class ElemFrame extends ElemSimple {
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.TOP == layout) {
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                owner().y1 = owner().y2 - Util.getFloat(specificationRec.getParam(0, 1040));
-                setDimension();
-            }
             specificationRec.width = x2 - x1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.BOTTOM == layout) {
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                owner().y2 = owner().y1 + Util.getFloat(specificationRec.getParam(0, 1040));
-                setDimension();
-            }
             specificationRec.width = x2 - x1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.LEFT == layout) {
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                owner().x1 = owner().x2 - specificationRec.getParam(1040);
-                setDimension();
-            }
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
 
         } else if (LayoutArea.RIGHT == layout) {
-            if (iwin().syssizeRec.getInt(eSyssize.id) == -1) {
-                owner().x2 = owner().x1 + Util.getFloat(specificationRec.getParam(0, 1040));
-                setDimension();
-            }
             specificationRec.width = y2 - y1 + prip * 2;
             specificationRec.height = artiklRec.getFloat(eArtikl.height);
         }
-//            x1 = adjacentLeft.x2 - adjacentLeft.owner().offset;
-//            y1 = adjacentTop.y2 - adjacentTop.owner().offset;
-//            x2 = adjacentRight.x1 + adjacentRight.owner().offset;
-//            y2 = adjacentBott.y1 + adjacentBott.owner().offset;
-//        Заплатка для ps3
-//        if ("ps3".equals(eSetting.find(2).get(eSetting.val)) == true) {
-//            if (LayoutArea.LEFT == layout && type() == TypeElem.FRAME_SIDE) {
-//                if (artiklRec.get(eArtikl.size_falz) == null) {
-//                    artiklRec.set(eArtikl.size_falz, width() / 2);
-//                    eArtikl.query().update(artiklRec);
-//                }
-//            }
-//        }        
     }
 
     @Override //Вложеная спецификация

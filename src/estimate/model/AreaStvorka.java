@@ -2,11 +2,11 @@ package estimate.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import frames.swing.Draw;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eJoining;
-import domain.eSetting;
+import domain.eJoinpar1;
+import domain.eJoinvar;
 import domain.eSysfurn;
 import domain.eSyssize;
 import domain.eSysprof;
@@ -22,6 +22,8 @@ import enums.UseSide;
 import java.awt.Color;
 import java.util.LinkedList;
 import estimate.Wincalc;
+import estimate.constr.Util;
+import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
 
@@ -48,13 +50,32 @@ public class AreaStvorka extends AreaSimple {
 
         //Коррекция створки с учётом нахлёста
         ElemSimple adjacentLeft = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
-                adjacentBott = join(LayoutArea.BOTTOM), adjacentRight = join(LayoutArea.RIGHT);
+                adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
-            
+
             x1 = adjacentLeft.x2 - adjacentLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
             y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-            x2 = adjacentRight.x1 + adjacentRight.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
-            y2 = adjacentBott.y1 + adjacentBott.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+        } else {
+            //Примерный расчёт для совместимости с ps3
+            float offset = 0; //смещение осей профилей            
+            Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
+            Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);
+            Record joiningLeft = eJoining.find(artiklLeft, adjacentLeft.artiklRec);
+            List<Record> joinvarList = eJoinvar.find(joiningLeft.getInt(eJoining.id));
+            Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
+            if (joinvarRec != null) {
+                List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
+                Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
+                if (joinpar1Rec != null) {
+                    offset = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+                }
+            }
+            x1 = adjacentLeft.x2 - offset;
+            y1 = adjacentTop.y2 - offset;
+            x2 = adjacentRig.x1 + offset;
+            y2 = adjacentBot.y1 + offset;
         }
 
         //Добавим рамы створки        

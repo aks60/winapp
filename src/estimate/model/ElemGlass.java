@@ -254,6 +254,7 @@ public class ElemGlass extends ElemSimple {
                     specificationRec.specificationList.add(new Specification(specificationAdd));
                 }
             } else {
+                //specificationRec.specificationList.add(new Specification(specificationAdd));
                 specificationRec.specificationList.add(new Specification(specificationAdd));
             }
         }

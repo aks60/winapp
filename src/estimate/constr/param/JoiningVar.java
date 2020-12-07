@@ -139,8 +139,7 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 1040:  //Размер, мм (Смещение осей рамы и створки. Наследие ps3)
-                        elemJoin.joinElement1.owner().offset = Util.getFloat(rec.getStr(eJoinpar1.text));
-                        elemJoin.joinElement1.specificationRec.mapParam.put(1040, rec.getStr(eJoinpar1.text));
+                        //См. конструктор AreaStvorka()
                         break;
                     case 1043:  //Ограничение габарита контура, мм 
                         message(rec.getInt(GRUP));
