@@ -4,9 +4,8 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eSysprof.artikl_id;
-import static domain.eSysprof.up;
-import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public enum eArtikl implements Field {
     up("0", "0", "0", "Материальные цености", "ARTIKLS"),
@@ -121,6 +120,13 @@ public enum eArtikl implements Field {
         }
         Query recordList = new Query(values()).select(up, "where", code, "='", _code, "'");
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
+    public static List<Record> find3(int _series_id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _series_id == rec.getInt(series_id)).collect(Collectors.toList());
+        }
+        return new Query(values()).select(up, "where", series_id, "=", _series_id, "");
     }
 
     public static Record record() {

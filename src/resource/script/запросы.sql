@@ -19,3 +19,10 @@ select grup, text from glaspar1 where grup > 0 union
 select grup, text from glaspar2 where grup > 0 union
 select grup, text from joinpar1 where grup > 0 union
 select grup, text from joinpar2 where grup > 0 order by 1
+
+
+select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from elemdet  union
+select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from glasdet  union
+select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from joindet  union
+select  id, bin_shr(bin_and(types, 3840), 8), bin_shr(bin_and(types, 240), 4), bin_and(types, 15) from furndet
+

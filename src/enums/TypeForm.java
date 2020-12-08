@@ -1,6 +1,6 @@
 package enums;
 
-import static enums.UseColcalc.values;
+import static enums.UseColor.values;
 
 public enum TypeForm implements Enam {
 

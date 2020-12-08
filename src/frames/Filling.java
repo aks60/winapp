@@ -34,7 +34,7 @@ import domain.eElempar1;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
-import enums.UseColcalc;
+import enums.UseColor;
 import java.util.List;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
@@ -105,11 +105,11 @@ public class Filling extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (eGlasdet.color_fk == field) {
                     int colorFk = Integer.valueOf(val.toString());
-                    if (Integer.valueOf(UseColcalc.automatic[0]) == colorFk) {
-                        return UseColcalc.automatic[1];
+                    if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
+                        return UseColor.automatic[1];
 
-                    } else if (Integer.valueOf(UseColcalc.precision[0]) == colorFk) {
-                        return UseColcalc.precision[1];
+                    } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
+                        return UseColor.precision[1];
                     }
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
@@ -119,7 +119,7 @@ public class Filling extends javax.swing.JFrame {
                 } else if (eGlasdet.types == field) {
                     int types = Integer.valueOf(val.toString());
                     types = (col == 4) ? types & 0x0000000f : (col == 5) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8;
-                    return UseColcalc.P00.find(types).text();
+                    return UseColor.MANUAL.find(types).text();
                 }
                 return val;
             }

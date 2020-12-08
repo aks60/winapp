@@ -12,7 +12,7 @@ import domain.eParams;
 import domain.eSystree;
 import enums.Enam;
 import enums.ParamList;
-import enums.UseColcalc;
+import enums.UseColor;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
@@ -512,12 +512,12 @@ public class Util {
         int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group == 0 || group == 100000) {
-            int val = UseColcalc.P11.id + (UseColcalc.P11.id << 4)  + (UseColcalc.P11.id << 8);
+            int val = UseColor.PROF.id + (UseColor.PROF.id << 4)  + (UseColor.PROF.id << 8);
             elemdetRec.set(types, val);
         } else if(group > 0) {
             elemdetRec.set(types, 0);
         } else {
-            int val = UseColcalc.P11.id + (UseColcalc.P11.id << 4)  + (UseColcalc.P11.id << 8);
+            int val = UseColor.PROF.id + (UseColor.PROF.id << 4)  + (UseColor.PROF.id << 8);
             elemdetRec.set(types, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();

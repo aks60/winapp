@@ -2,7 +2,7 @@
 package enums;
 
 import dataset.Field;
-import static enums.UseColcalc.values;
+import static enums.UseColor.values;
 
 
 public enum TypeUse implements Enam {

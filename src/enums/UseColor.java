@@ -3,26 +3,25 @@ package enums;
 //Варианты рассчёта текстуры
 import static enums.UseFurn1.values;
 
-public enum UseColcalc implements Enam {
+public enum UseColor implements Enam {
 
-    P00(0, "Указанная вручную"),    
-    P11(11, "Профиль"),
-    P15(15, "Заполнение"),    
-    P01(1, "Основная"),
-    P02(2, "Внутренняя"),
-    P03(3, "Внешняя"),
-    P06(6, "Основная и серия"),
-    P07(7, "Внутренняя и серия"),
-    P08(8, "Внешняя и серия"),
-    P09(9, "Параметр основная"),
-    P04(4, "Параметр внутренняя"),    
-    P12(12, "Параметр внешняя");
+    MANUAL(0, "Указанная вручную"),
+    PROF(11, "Профиль"),
+    GLAS(15, "Заполнение"),
+    COL1(1, "Основная"),
+    COL2(2, "Внутренняя"),
+    COL3(3, "Внешняя"),
+    C1SER(6, "Основная и серия"),
+    C2SER(7, "Внутренняя и серия"),
+    C3SER(8, "Внешняя и серия"),
+    C1PAR(9, "Параметр основная"),
+    C2PAR(4, "Параметр внутренняя"),
+    C3PAR(12, "Параметр внешняя");
 
     public int id;
-    public int id2;
     public String name;
 
-    private UseColcalc(int id, String name) {
+    private UseColor(int id, String name) {
         this.id = id;
         this.name = name;
     }

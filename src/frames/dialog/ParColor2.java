@@ -14,7 +14,7 @@ import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import dataset.Field;
-import enums.UseColcalc;
+import enums.UseColor;
 
 public class ParColor2 extends javax.swing.JDialog {
 
@@ -43,8 +43,8 @@ public class ParColor2 extends javax.swing.JDialog {
 
         DefaultTableModel tableModel = (DefaultTableModel) tab1.getModel();
         tableModel.getDataVector().removeAllElements();
-        tableModel.addRow(new String[]{UseColcalc.automatic[0], UseColcalc.automatic[1]});
-        tableModel.addRow(new String[]{UseColcalc.precision[0], UseColcalc.precision[1]});
+        tableModel.addRow(new String[]{UseColor.automatic[0], UseColor.automatic[1]});
+        tableModel.addRow(new String[]{UseColor.precision[0], UseColor.precision[1]});
         for (Record record : qArtdet) {
             if (record.getInt(eArtdet.color_fk) > 0) {
                 Query qColor = new Query(eColor.id, eColor.name).select(eColor.up, "where", eColor.id, "=", record.getStr(eArtdet.color_fk));
