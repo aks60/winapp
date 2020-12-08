@@ -31,7 +31,7 @@ public class Specification {
     public HashMap<Integer, String> mapParam = null; //параметры спецификации
     public ElemSimple elem5e = null; //элемент пораждающий спецификацию
     public Record artiklRec = null; //профиль в спецификации
-    private Record deteilRec = null; //профиль в спецификации
+    public Record detailRec = null; //профиль в спецификации
 
     public float id = -1; //ID
     public String place = "-"; //Место расмешения
@@ -71,7 +71,7 @@ public class Specification {
         this.id = ++elem5e.iwin().genId;
         this.elem5e = elem5e;
         this.mapParam = mapParam;
-        this.deteilRec = deteilRec;
+        this.detailRec = deteilRec;
         setArtiklRec(artiklRec);
     }
 
@@ -79,7 +79,7 @@ public class Specification {
         this.id = spec.id; //++spec.elem5e.iwin().genId;
         this.place = spec.place;
         this.artikl = spec.artikl;
-        this.deteilRec = spec.deteilRec;
+        this.detailRec = spec.detailRec;
         this.name = spec.name;
         this.colorID1 = spec.colorID1;
         this.colorID2 = spec.colorID2;
@@ -125,7 +125,7 @@ public class Specification {
         this.colorID2 = colorID2;
         this.colorID3 = colorID3;
     }
-
+    
     protected void setAnglCut() {
         //TODO Тут логическая ошибка
         if (TypeArtikl.FURNITURA.isType(artiklRec)
@@ -345,7 +345,4 @@ public class Specification {
         }
     }
 
-    public Record deteilRec() {
-        return deteilRec;
-    }
 }

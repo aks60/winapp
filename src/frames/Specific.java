@@ -426,7 +426,7 @@ public class Specific extends javax.swing.JFrame {
         int row = Util.getSelectedRec(tab1);
         Specification recordSpc = iwin.listSpec.get(row);
         String str = recordSpc.place.substring(0, 3);
-        Record recordDet = recordSpc.deteilRec();
+        Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {

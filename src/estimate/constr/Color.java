@@ -7,6 +7,7 @@ import domain.eColor;
 import enums.UseColor;
 import estimate.model.Com5t;
 import estimate.model.ElemSimple;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +20,10 @@ public class Color {
     private static final int ARTIKL_ID = 4;
 
     public static Map colorFromProduct(ElemSimple elem5e, Record artiklRec, Record detailRec) {  //см. http://help.profsegment.ru/?id=1107        
+
         int colorFk = detailRec.getInt(COLOR_FK);
         int types = detailRec.getInt(TYPES);
-        Map<Integer, Integer> returnMap = new HashMap();
+        Map<Integer, Integer> outMap = new HashMap();
 
         //Цыкл по сторонам текстур элемента
         for (int side = 1; side < 4; ++side) {
@@ -31,7 +33,6 @@ public class Color {
                 int colorFromArtdetID = -1;
 
                 if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) { //поиск в серии
-                    //colorFromArtdetID = colorFromSeridet(artiklRec.getInt(eArtikl.id), side, colorFromTypesID);
                     JOptionPane.showMessageDialog(null, "Подбор текстуры по серии не реализован", "ВНИМАНИЕ!", 1);
                 } else if (colorType == UseColor.C1PAR.id || colorType == UseColor.C2PAR.id || colorType == UseColor.C3PAR.id) { //поиск в параметре
                     colorFromArtdetID = colorFromParam();
@@ -42,19 +43,19 @@ public class Color {
                 //Автоподбор текстуры
                 if (colorFk == 0) {
                     if (colorFromArtdetID != -1) {
-                        returnMap.put(side, colorFromArtdetID);
+                        outMap.put(side, colorFromArtdetID);
 
                     } else { //если неудача подбора то первая в списке запись цвета
                         Record artdetRec = eArtdet.find2(detailRec.getInt(ARTIKL_ID));
                         if (artdetRec != null) {
                             int colorFK2 = artdetRec.getInt(eArtdet.color_fk);
                             if (colorFK2 > 0) { //если это не группа цветов                               
-                                returnMap.put(side, colorFK2);
+                                outMap.put(side, colorFK2);
 
                             } else if (colorFK2 < 0 && colorFK2 != -1) { //это группа
                                 List<Record> colorList = eColor.find2(colorFK2 * -1);
                                 if (colorList.isEmpty() == false) {
-                                    returnMap.put(side, colorList.get(0).getInt(eColor.id));
+                                    outMap.put(side, colorList.get(0).getInt(eColor.id));
                                 }
                             }
                         }
@@ -63,7 +64,7 @@ public class Color {
                     //Точный подбор
                 } else if (colorFk == 100000) {
                     if (colorFromArtdetID != -1) {
-                        returnMap.put(side, colorFromArtdetID);
+                        outMap.put(side, colorFromArtdetID);
 
                     } else {
                         //В спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
@@ -73,13 +74,13 @@ public class Color {
                     //Указана вручную
                 } else if (colorFk > 0 && colorFk != 100000) {
                     if (colorFromArtdetID != -1) {
-                        returnMap.put(side, colorFromTypesID);
+                        outMap.put(side, colorFromTypesID);
 
                     } else {  //дордом профстроя
                         List<Record> artdetList = eArtdet.find(detailRec.getInt(ARTIKL_ID));
                         for (Record record : artdetList) {
                             if (record.getInt(eArtdet.color_fk) >= 0) {
-                                returnMap.put(side, record.getInt(eArtdet.color_fk));
+                                outMap.put(side, record.getInt(eArtdet.color_fk));
                                 break;
                             }
                         }
@@ -88,14 +89,14 @@ public class Color {
                     //Текстура задана через параметр
                 } else if (colorFk < 0) {
                     int colorFK2 = colorFromParam();
-                    returnMap.put(side, colorFK2);
+                    outMap.put(side, colorFK2);
                 }
 
             } catch (Exception e) {
                 System.err.println("Ошибка:Color.setting() " + e);
             }
         }
-        return returnMap;
+        return outMap;
     }
 
     //Поиск текстуры в Artdet
@@ -129,44 +130,6 @@ public class Color {
 
         } catch (Exception e) {
             System.err.println("Ошибка Color.colorFromArtdet() " + e);
-            return -1;
-        }
-    }
-
-    //Поиск текстуры в серии Artdet
-    private static int colorFromSeridet(int seriesID, int side, int colorID) {
-        try {
-            for (Record artiklRec : eArtikl.find3(seriesID)) {
-                List<Record> artdetList = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-
-                //Цыкл по ARTDET определённого артикула
-                for (Record artdetRec : artdetList) {
-                    //Сторона подлежит рассмотрению?
-                    if ((side == 1 && "1".equals(artdetRec.getStr(eArtdet.mark_c1)))
-                            || (side == 2 && ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))))
-                            || (side == 3 && ("1".equals(artdetRec.getStr(eArtdet.mark_c3))) || "1".equals(artdetRec.getStr(eArtdet.mark_c1)))) {
-
-                        //Группа текстур
-                        if (artdetRec.getInt(eArtdet.color_fk) < 0) {
-                            List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk) * -1); //фильтр списка определённой группы
-                            //Цыкл по COLOR определённой группы
-                            for (Record colorRec : colorList) {
-                                if (colorRec.getInt(eColor.id) == colorID) {
-                                    return colorID;
-                                }
-                            }
-
-                            //Одна текстура
-                        } else if (artdetRec.getInt(eArtdet.color_fk) == colorID) { //если есть такая текстура в ARTDET
-                            return colorID;
-                        }
-                    }
-                }
-            }
-            return -1;
-
-        } catch (Exception e) {
-            System.err.println("Ошибка Color.colorFromSeridet() " + e);
             return -1;
         }
     }
