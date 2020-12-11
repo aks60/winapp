@@ -223,4 +223,103 @@ public class Furniture extends Cal5e {
             return false;
         }
     }
+
+    protected boolean detail2(AreaStvorka areaStvorka, Record furndetRec, int count) {
+        try {
+            HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
+            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
+            ElemFrame handlFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnitureRec.getInt(eFurniture.hand_side))); //Крепится ручка
+
+            //Подбор текстуры ручки
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {
+                Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
+                if (artiklRec != null && TypeArtikl.FURNRUCHKA.isType(artiklRec)) {
+                    if (furndetRec.getInt(eFurndet.color_fk) > 0) {
+                        boolean empty = true;
+                        List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
+                        for (Record artdetRec : artdetList) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == areaStvorka.handleColor) {
+                                empty = false;
+                            }
+                        }
+                        if (empty == true) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            //ФИЛЬТР детализации
+            List<Record> furnpar2List = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
+            if (furnitureDet.check(mapParam, handlFrame, furnpar2List) == false) {
+                return false; //параметры детализации
+            }
+            List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
+
+            //Цикл по ограничению сторон фурнитуры
+            for (Record furnside2Rec : furnside2List) {
+                ElemFrame el = null;
+                float width = 0;
+                int side = furnside2Rec.getInt(eFurnside2.side_num);
+
+                if (side < 0) {
+                    String txt = (furnitureDet.mapParamTmp.get(24038) == null) ? furnitureDet.mapParamTmp.get(25038) : furnitureDet.mapParamTmp.get(24038);
+                    String[] par = txt.split("/");
+                    if (side == -1) {
+                        side = (par[0].equals("*") == true) ? 99 : Integer.valueOf(par[0]);
+                    } else if (side == -2) {
+                        side = (par[1].equals("*") == true) ? 99 : Integer.valueOf(par[1]);
+                    }
+                }
+                if (side == 1) {
+                    el = areaStvorka.mapFrame.get(LayoutArea.BOTTOM);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.specificationRec.width - 2 * size_falz;
+                } else if (side == 2) {
+                    el = areaStvorka.mapFrame.get(LayoutArea.RIGHT);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.specificationRec.width - 2 * size_falz;
+                } else if (side == 3) {
+                    el = areaStvorka.mapFrame.get(LayoutArea.TOP);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.specificationRec.width - 2 * size_falz;
+                } else if (side == 4) {
+                    el = areaStvorka.mapFrame.get(LayoutArea.LEFT);
+                    float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
+                    width = el.specificationRec.width - 2 * size_falz;
+                }
+                if (furnside2Rec.getFloat(eFurnside2.len_max) < width || (furnside2Rec.getFloat(eFurnside2.len_min) > width)) {
+                    return false;
+                }
+            }
+
+            //Если это элемент из мат. ценности (не набор)
+            if (furndetRec.get(eFurndet.furniture_id2) == null) {
+                Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
+                if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+                    Specification specif = new Specification(furndetRec, artiklRec, handlFrame, mapParam);
+                    if (Color2.colorFromProduct(specif)) {
+
+                        specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
+                        specif.count = specif.count * count;
+                        specif.place = "ФУРН";
+                        handlFrame.addSpecific(specif); //добавим спецификацию в элемент
+                    }
+                }
+
+                //Если это нобор   
+            } else {
+                int count2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
+                Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
+                try {
+                    middle(areaStvorka, furnitureRec2, count2); //рекурсия обработки наборов
+                } catch (Exception e) {
+                    System.err.println("Ошибка:Furniture.middle() " + e);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            System.err.println("estimate.constr.Furniture.detail() " + e);
+            return false;
+        }
+    }
 }

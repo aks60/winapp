@@ -98,7 +98,7 @@ public class Filling extends Cal5e {
             System.err.println("estimate.constr.Filling.calc() " + e);
         }
     }
-
+    
     protected void detail(ElemGlass elemGlass, Record glasgrpRec) {
         try {
             List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
@@ -133,4 +133,37 @@ public class Filling extends Cal5e {
             System.err.println("Ошибка:Filling.detail() " + e);
         }
     }
+    
+    protected void detail2(ElemGlass elemGlass, Record glasgrpRec) {
+        try {
+            List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
+
+            //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
+            if (fillingVar.check(elemGlass, glaspar1List) == true) {
+
+                elemGlass.setSpecific(); //заполним спецификацию элемента
+
+                List<Record> glasdetList = eGlasdet.find(glasgrpRec.getInt(eGlasgrp.id), elemGlass.artiklRec.getFloat(eArtikl.depth));
+
+                //Цикл по списку детализации
+                for (Record glasdetRec : glasdetList) {
+                    HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
+                    List<Record> glaspar2List = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
+
+                    //ФИЛЬТР детализации, параметры накапливаются в mapParam
+                    if (fillingDet.check(mapParam, elemGlass, glaspar2List) == true) {
+                        Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
+                        Specification specif = new Specification(glasdetRec, artiklRec, elemGlass, mapParam);
+                        if (Color2.colorFromProduct(specif)) {
+
+                            specif.place = "ЗАП";
+                            elemGlass.addSpecific(specif);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Filling.detail() " + e);
+        }
+    }        
 }
