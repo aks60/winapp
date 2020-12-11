@@ -4,6 +4,13 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eColor.colgrp_id;
+import static domain.eColor.id;
+import static domain.eColor.record;
+import static domain.eColor.up;
+import static domain.eColor.values;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public enum eColpar1 implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),
@@ -35,6 +42,31 @@ public enum eColpar1 implements Field {
             Query.listOpenTable.add(query);
         }
         return query;
+    }
+
+    public static List<Record> find(int _color_id) {
+
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(color_id) == _color_id).collect(toList());
+        }
+        return new Query(values()).select(up, "where", color_id, "=", _color_id);
+    }
+    
+    public static List<Record> find2(int _grup) {
+
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(grup) == _grup).collect(toList());
+        }
+        return new Query(values()).select(up, "where", grup, "=", _grup);
+    }
+
+    public static Record find3(int _grup, int _numb) {
+
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(grup) == _grup && numb == numb).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", grup, "=", _grup, "and", numb, _numb);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
     public String toString() {

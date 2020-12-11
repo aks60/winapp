@@ -56,7 +56,7 @@ public class Specification {
     public float inCost = 0; //Стоимость без скидки
     public float outCost = 0; //Стоимость со скидкой
     public float discount = 0;  //Скидка
-    
+
     public Specification(float id, ElemSimple elem5e) {
         this.id = id;
         this.elem5e = elem5e;
@@ -119,13 +119,23 @@ public class Specification {
         setAnglCut();
         //this.height = artiklRec.aheig; //TODO парадокс добавления ширины, надо разобраться
     }
-    
+
+    public void setColor(int side, int colorID) {
+        if (side == 1) {
+            colorID1 = colorID;
+        } else if (side == 2) {
+            colorID2 = colorID;
+        } else if (side == 3) {
+            colorID2 = colorID;
+        }
+    }
+
     public void setColor(int colorID1, int colorID2, int colorID3) {
         this.colorID1 = colorID1;
         this.colorID2 = colorID2;
         this.colorID3 = colorID3;
     }
-    
+
     protected void setAnglCut() {
         //TODO Тут логическая ошибка
         if (TypeArtikl.FURNITURA.isType(artiklRec)

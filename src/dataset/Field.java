@@ -67,6 +67,7 @@ public interface Field {
             record.add(null);
         }
         record.set(0, Query.SEL);
+        record.set(1, -1);
         return record;
     }
 
