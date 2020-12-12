@@ -23,8 +23,30 @@ public class Color2 {
         int colorFk = spc.detailRec.getInt(COLOR_FK);
         int types = spc.detailRec.getInt(TYPES);
 
-        //Назначение функции сравнения текстур по id или по параметру текстур
-        Comparator comp = (colorFk < 0) ? compare1 : compare2;
+        Comparator comp = new Comparator<Integer>() {
+            public int compare(Integer p1, Integer p2) {
+                return (p1 == p2) ? p2 : -1;
+            }
+        };
+        if (colorFk < 0) {  //функции сравнения по параметру текстур
+            comp = new Comparator<Integer>() {
+                public int compare(Integer p1, Integer p2) {
+
+                    List<Record> list1 = eColpar1.find(p1);
+                    List<Record> list2 = eColpar1.find(p2);
+
+                    for (Record record1 : list1) {
+                        for (Record record2 : list2) {
+                            if (record1.getInt(eColpar1.grup) == record2.getInt(eColpar1.grup)
+                                    && record1.getInt(eColpar1.numb) == record2.getInt(eColpar1.numb)) {
+                                return p2;
+                            }
+                        }
+                    }
+                    return -1;
+                }
+            };
+        }
 
         //Цыкл по сторонам текстур элемента
         for (int side = 1; side < 4; ++side) {
@@ -184,10 +206,10 @@ public class Color2 {
                     return spc.elem5e.iwin().colorID3; //по внешн. в серии
                 case 4:
                     return -1;
-                case 9: 
-                    return -1;                    
+                case 9:
+                    return -1;
                 case 12:
-                    return -1; 
+                    return -1;
                 default:
                     return spc.elem5e.iwin().colorNone; //без цвета
             }
@@ -219,26 +241,4 @@ public class Color2 {
             return -1;
         }
     }
-
-    //Сравнение по id текстур
-    public static Comparator<Integer> compare1 = (p1, p2) -> {
-
-        return (p1 == p2) ? p2 : -1;
-    };
-
-    //Сравнение по параметрам текстур
-    public static Comparator<Integer> compare2 = (p1, p2) -> {
-
-        List<Record> list1 = eColpar1.find(p1);
-        List<Record> list2 = eColpar1.find(p2);
-        for (Record record1 : list1) {
-            for (Record record2 : list2) {
-                if (record1.getInt(eColpar1.grup) == record2.getInt(eColpar1.grup)
-                        && record1.getInt(eColpar1.numb) == record2.getInt(eColpar1.numb)) {
-                    return p2;
-                }
-            }
-        }
-        return -1;
-    };
 }
