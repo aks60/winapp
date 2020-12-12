@@ -367,7 +367,7 @@ public class Color extends javax.swing.JFrame {
         txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
         txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtFilterfilterCaretUpdate(evt);
+                filterCaretUpdate(evt);
             }
         });
         south.add(txtFilter);
@@ -435,7 +435,7 @@ public class Color extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabMousePressed
 
-    private void txtFilterfilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterfilterCaretUpdate
+    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
 
         JTable table = Stream.of(tab1, tab2, tab3).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         btnIns.setEnabled(txtFilter.getText().length() == 0);
@@ -446,7 +446,7 @@ public class Color extends javax.swing.JFrame {
             String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
-    }//GEN-LAST:event_txtFilterfilterCaretUpdate
+    }//GEN-LAST:event_filterCaretUpdate
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

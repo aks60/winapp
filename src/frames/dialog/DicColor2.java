@@ -3,7 +3,6 @@ package frames.dialog;
 import common.DialogListener;
 import common.FrameToFile;
 import frames.Util;
-import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eColgrp;
@@ -14,6 +13,9 @@ import java.awt.event.FocusListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
+import java.util.Arrays;
+import java.util.stream.Stream;
+import javax.swing.RowFilter;
 
 //Текстура артикулов
 public class DicColor2 extends javax.swing.JDialog {
@@ -63,6 +65,11 @@ public class DicColor2 extends javax.swing.JDialog {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         south2 = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
+        checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник текстур");
@@ -166,10 +173,14 @@ public class DicColor2 extends javax.swing.JDialog {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr1.setViewportView(tab1);
@@ -201,10 +212,14 @@ public class DicColor2 extends javax.swing.JDialog {
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tab2MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
             }
         });
         scr2.setViewportView(tab2);
@@ -214,17 +229,29 @@ public class DicColor2 extends javax.swing.JDialog {
         south2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south2.setMinimumSize(new java.awt.Dimension(100, 20));
         south2.setPreferredSize(new java.awt.Dimension(400, 20));
+        south2.setLayout(new javax.swing.BoxLayout(south2, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout south2Layout = new javax.swing.GroupLayout(south2);
-        south2.setLayout(south2Layout);
-        south2Layout.setHorizontalGroup(
-            south2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 385, Short.MAX_VALUE)
-        );
-        south2Layout.setVerticalGroup(
-            south2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        south2.add(labFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                filterCaretUpdate(evt);
+            }
+        });
+        south2.add(txtFilter);
+
+        checkFilter.setText("в конце строки");
+        south2.add(checkFilter);
 
         south.add(south2, java.awt.BorderLayout.SOUTH);
 
@@ -270,11 +297,34 @@ public class DicColor2 extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tab2MouseClicked
 
+    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
+
+        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_filterCaretUpdate
+
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+        JTable table = (JTable) evt.getSource();
+        Util.listenerClick(table, Arrays.asList(tab1, tab2));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }//GEN-LAST:event_tabMousePressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnRemove;
     private javax.swing.JPanel centr;
+    private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
@@ -282,6 +332,7 @@ public class DicColor2 extends javax.swing.JDialog {
     private javax.swing.JPanel south2;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 
     private void initElements() {

@@ -99,7 +99,7 @@ public class Filling extends Cal5e {
         }
     }
     
-    protected void detail(ElemGlass elemGlass, Record glasgrpRec) {
+    protected void detail2(ElemGlass elemGlass, Record glasgrpRec) {
         try {
             List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
 
@@ -134,7 +134,7 @@ public class Filling extends Cal5e {
         }
     }
     
-    protected void detail2(ElemGlass elemGlass, Record glasgrpRec) {
+    protected void detail(ElemGlass elemGlass, Record glasgrpRec) {
         try {
             List<Record> glaspar1List = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
 
