@@ -13,7 +13,10 @@ public enum UseColor implements Enam {
     COL3(3, "Внешняя"),
     C1SER(6, "Основная и серия"),
     C2SER(7, "Внутренняя и серия"),
-    C3SER(8, "Внешняя и серия");
+    C3SER(8, "Внешняя и серия"),   
+    C1PAR(4, "Не разобрался"),
+    C2PAR(9, "Не разобрался"),
+    C3PAR(12, "Не разобрался");
 
     public int id;
     public String name;
