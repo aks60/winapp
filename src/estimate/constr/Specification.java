@@ -126,14 +126,8 @@ public class Specification {
         } else if (side == 2) {
             colorID2 = colorID;
         } else if (side == 3) {
-            colorID2 = colorID;
+            colorID3 = colorID;
         }
-    }
-
-    public void setColor(int colorID1, int colorID2, int colorID3) {
-        this.colorID1 = colorID1;
-        this.colorID2 = colorID2;
-        this.colorID3 = colorID3;
     }
 
     protected void setAnglCut() {

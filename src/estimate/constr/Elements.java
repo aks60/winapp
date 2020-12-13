@@ -59,8 +59,7 @@ public class Elements extends Cal5e {
             System.err.println("Ошибка:Elements.calc() " + e);
         }
     }
-
-
+    
     protected void detail(List<Record> elementList, ElemSimple elem5e) {
         try {
             //Цикл по вариантам
@@ -85,59 +84,8 @@ public class Elements extends Cal5e {
                         if (elementDet.check(mapParam, elem5e, elempar2List) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
-                            Map<Integer, Integer> map = Color.colorFromProduct(elem5e, artiklRec, elemdetRec);
-                            if (map != null) {
-
-                                Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);
-                                specif.setColor(map.get(1), map.get(2), map.get(3));
-                                specif.place = "СОСТ";
-
-                                //Если (контейнер) в списке детализации, например профиль с префиксом @
-                                if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.STVORKA, TypeArtikl.IMPOST)) {
-                                    elem5e.specificationRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
-                                    elem5e.specificationRec.mapParam = specif.mapParam; //переназначаем mapParam
-                                    elementSet.change(elem5e.specificationRec); //коррекция спецификации параметрами 
-
-                                } else {
-                                    elem5e.addSpecific(specif); //коррекция спецификации
-                                    elementSet.change(specif);  //коррекция спецификации параметрами  
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:Сomposition.detail() " + e);
-        }
-    }
-    
-    protected void detail2(List<Record> elementList, ElemSimple elem5e) {
-        try {
-            //Цикл по вариантам
-            for (Record elementRec : elementList) {
-                int element_id = elementRec.getInt(eElement.id);
-                List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
-                listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
-
-                //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
-                if (elementVar.check(elem5e, elempar1List) == true) {
-
-                    elementSet.change(elem5e.specificationRec); //коррекция основной спецификации параметрами
-
-                    //Цикл по детализации
-                    List<Record> elemdetList = eElemdet.find(element_id);
-                    for (Record elemdetRec : elemdetList) {
-                        HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
-                        int elemdet_id = elemdetRec.getInt(eElemdet.id);
-                        List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации 
-
-                        //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                        if (elementDet.check(mapParam, elem5e, elempar2List) == true) {
-
-                            Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);
-                            if (Color2.colorFromProduct(specif)) {
+                            if (Color.colorFromProduct(specif)) {
                                 specif.place = "СОСТ";
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @
