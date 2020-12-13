@@ -40,9 +40,9 @@ public class Color {
                     artdetColorID = colorFromArtikl(spc.artiklRec, side, elemColorID, colorFk);
                 }
 
-                //Явное указание текстуры + указана вручную
+                //Указана вручную
                 if (colorFk > 0 && colorFk != 100000) {
-                    if (colorType == UseColor.MANUAL.id || artdetColorID == -1) {
+                    if (colorType == UseColor.MANUAL.id || artdetColorID == -1) { //явное указание текстуры или неудача поиска
                         spc.setColor(side, colorFk);
                     } else {
                         spc.setColor(side, artdetColorID);
