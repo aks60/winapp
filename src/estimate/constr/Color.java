@@ -40,7 +40,7 @@ public class Color {
                     artdetColorFK = colorFromArtikl(spc.artiklRec, side, elemColorID, colorFk);
                     
                 } else {
-
+                    JOptionPane.showMessageDialog(null, "Подбор текстуры по коду " + colorType, "ВНИМАНИЕ!", 1);
                 }
                 //Указана вручную
                 if (colorFk > 0 && colorFk != 100000) {
