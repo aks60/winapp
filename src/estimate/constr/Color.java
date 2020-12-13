@@ -26,32 +26,32 @@ public class Color {
         //Цыкл по сторонам текстур элемента
         for (int side = 1; side < 4; ++side) {
             try {
-                int artdetColorID = -1;
+                int artdetColorFK = -1;
                 int colorType = (side == 1) ? types & 0x0000000f : (side == 2) ? (types & 0x000000f0) >> 4 : (types & 0x00000f00) >> 8; //тип подбора                
                 int elemColorID = colorFromTypes(spc, colorType, side); //цвет из варианта подбора 
 
                 //Поиск по стороне текстуры в серии артикулов
                 if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorID = colorFromSeries(spc.artiklRec, side, elemColorID, colorFk);
+                    artdetColorFK = colorFromSeries(spc.artiklRec, side, elemColorID, colorFk);
 
                     //Поиск по стороне текстуры в артикуле
                 } else if (colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id
                         || colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id) {
-                    artdetColorID = colorFromArtikl(spc.artiklRec, side, elemColorID, colorFk);
+                    artdetColorFK = colorFromArtikl(spc.artiklRec, side, elemColorID, colorFk);
                 }
 
                 //Указана вручную
                 if (colorFk > 0 && colorFk != 100000) {
-                    if (colorType == UseColor.MANUAL.id || artdetColorID == -1) { //явное указание текстуры или неудача поиска
+                    if (colorType == UseColor.MANUAL.id || artdetColorFK == -1) { //явное указание текстуры или неудача поиска
                         spc.setColor(side, colorFk);
                     } else {
-                        spc.setColor(side, artdetColorID);
+                        spc.setColor(side, artdetColorFK);
                     }
 
                     //Автоподбор текстуры
                 } else if (colorFk == 0) {
-                    if (artdetColorID != -1) {
-                        spc.setColor(side, artdetColorID);
+                    if (artdetColorFK != -1) {
+                        spc.setColor(side, artdetColorFK);
 
                     } else { //если неудача подбора то первая в списке запись цвета
                         Record artdetRec = eArtdet.find2(spc.detailRec.getInt(ARTIKL_ID));
@@ -71,8 +71,8 @@ public class Color {
 
                     //Точный подбор
                 } else if (colorFk == 100000) {
-                    if (artdetColorID != -1) {
-                        spc.setColor(side, artdetColorID);
+                    if (artdetColorFK != -1) {
+                        spc.setColor(side, artdetColorFK);
 
                     } else {
                         //В спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
@@ -81,7 +81,7 @@ public class Color {
 
                     //Текстура задана через параметр
                 } else if (colorFk < 0) {
-                    if (artdetColorID != -1) {
+                    if (artdetColorFK != -1) {
                         spc.setColor(side, elemColorID);
 
                     } else {//В спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур"
