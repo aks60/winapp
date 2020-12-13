@@ -15,7 +15,6 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
-import estimate.constr.Color;
 import estimate.constr.Specification;
 
 public class ElemGlass extends ElemSimple {
@@ -58,7 +57,6 @@ public class ElemGlass extends ElemSimple {
         artiklRecAn = artiklRec;
 
         //Цвет стекла
-        colorElem = Color.colorFromArtikl(artiklRec.getInt(eArtikl.id));
         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
         Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));        
         colorID1 = colorRec.getInt(eColor.id);

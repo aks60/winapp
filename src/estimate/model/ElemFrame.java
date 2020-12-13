@@ -11,7 +11,6 @@ import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
-import estimate.constr.Color;
 import estimate.constr.Specification;
 import estimate.constr.Util;
 import estimate.constr.param.ElementSet;
@@ -66,7 +65,6 @@ public class ElemFrame extends ElemSimple {
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        colorElem = Color.colorFromArtikl(artiklRec.getInt(eArtikl.id));
     }
 
     @Override //Главная спецификация
