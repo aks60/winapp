@@ -38,16 +38,18 @@ public class Color {
                 } else if (colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id
                         || colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id) {
                     artdetColorFK = colorFromArtikl(spc.artiklRec, side, elemColorID, colorFk);
-                    
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Подбор текстуры по коду " + colorType, "ВНИМАНИЕ!", 1);
+                    if (colorType != UseColor.MANUAL.id) {
+                        JOptionPane.showMessageDialog(null, "Подбор текстуры по коду " + colorType + " не реализован.", "ВНИМАНИЕ!", 1);
+                    }
                 }
                 //Указана вручную
                 if (colorFk > 0 && colorFk != 100000) {
-                    if (colorType == UseColor.MANUAL.id || artdetColorFK == -1) { //явное указание текстуры или неудача поиска
+                    if (colorType == UseColor.MANUAL.id || artdetColorFK == -1) { //явное указание текстуры или неудача поиска в серии
                         spc.setColor(side, colorFk);
                     } else {
-                        spc.setColor(side, artdetColorFK);
+                        spc.setColor(side, artdetColorFK); //случай поиска в серии
                     }
 
                     //Автоподбор текстуры
