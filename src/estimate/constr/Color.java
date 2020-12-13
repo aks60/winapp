@@ -38,8 +38,10 @@ public class Color {
                 } else if (colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id
                         || colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id) {
                     artdetColorFK = colorFromArtikl(spc.artiklRec, side, elemColorID, colorFk);
-                }
+                    
+                } else {
 
+                }
                 //Указана вручную
                 if (colorFk > 0 && colorFk != 100000) {
                     if (colorType == UseColor.MANUAL.id || artdetColorFK == -1) { //явное указание текстуры или неудача поиска
