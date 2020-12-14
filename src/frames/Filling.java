@@ -601,7 +601,7 @@ public class Filling extends javax.swing.JFrame {
         tabb1.setPreferredSize(new java.awt.Dimension(1000, 300));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                tabb1StateChanged(evt);
+                tabbStateChanged(evt);
             }
         });
 
@@ -834,13 +834,13 @@ public class Filling extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_filterCaretUpdate
 
-    private void tabb1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabb1StateChanged
+    private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged
         if (tabb1.getSelectedIndex() == 0) {
             Util.listenerClick(tab2, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         } else if (tabb1.getSelectedIndex() == 1) {
             Util.listenerClick(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         }
-    }//GEN-LAST:event_tabb1StateChanged
+    }//GEN-LAST:event_tabbStateChanged
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;

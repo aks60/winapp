@@ -39,6 +39,7 @@ public enum eArtikl implements Field {
     with_seal("5", "5", "1", "С уплотнением", "AWORK"),    
     artgrp1_id("4", "10", "1", "Группы наценок", "artgrp1_id"),
     artgrp2_id("4", "10", "1", "Группы скидок", "artgrp2_id"),
+    artgrp3_id("4", "10", "1", "Группы фильтров", "artgrp3_id"),
     analog_id("4", "10", "1", "Аналог профиля", "analog_id"),
     series_id("4", "10", "1", "Серия профиля", "series_id"),
     syssize_id("4", "10", "1", "Системные константы", "syssize_id"),

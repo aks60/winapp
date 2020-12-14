@@ -512,12 +512,12 @@ public class Util {
         int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group == 0 || group == 100000) {
-            int val = UseColor.PROF.id + (UseColor.PROF.id << 4)  + (UseColor.PROF.id << 8);
+            int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
             elemdetRec.set(types, val);
-        } else if(group > 0) {
+        } else if (group > 0) {
             elemdetRec.set(types, 0);
         } else {
-            int val = UseColor.PROF.id + (UseColor.PROF.id << 4)  + (UseColor.PROF.id << 8);
+            int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);
             elemdetRec.set(types, val);
         }
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
@@ -533,18 +533,20 @@ public class Util {
         Util.setSelectedRow(table, row);
     }
 
-    //Слушатель клика на таблице
+    //Слушатель клика по таблице
     public static void listenerClick(JTable table, List<JTable> tabList) {
-        tabList.forEach(tab -> tab.setBorder(null));
-        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
-        tabList.forEach(tab -> {
-            if (tab != table) {
-                Util.stopCellEditing(tab);
-                if (tab.getModel() instanceof DefTableModel) {
-                    ((DefTableModel) tab.getModel()).getQuery().execsql();
+        if (tabList != null) {
+            tabList.forEach(tab -> tab.setBorder(null));
+            tabList.forEach(tab -> {
+                if (tab != table) {
+                    Util.stopCellEditing(tab);
+                    if (tab.getModel() instanceof DefTableModel) {
+                        ((DefTableModel) tab.getModel()).getQuery().execsql();
+                    }
                 }
-            }
-        });
+            });
+        }
+        table.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255)));
     }
 
     //Программный клик на компоненте

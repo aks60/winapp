@@ -7,7 +7,8 @@ public enum TypeGroups implements Enam {
     P2(2, "Empty"),
     SERI_PROF(3, "Серии профилей"),
     PRICE_INC(4, "Группы наценок"),
-    PRICE_DEC(5, "Группы скидок");
+    PRICE_DEC(5, "Группы скидок"),
+    FILTER(6, "Группы фильтров");
 
     public int id = 0;
     public String name = "";

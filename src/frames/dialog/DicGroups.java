@@ -7,6 +7,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eGroups;
 import enums.Enam;
+import enums.TypeGroups;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +15,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import frames.swing.DefTableModel;
 import java.awt.CardLayout;
+import java.util.Arrays;
+import java.util.stream.Stream;
 import javax.swing.JToggleButton;
 
 //TODO для справочника сделать вставку и редактирование
@@ -39,24 +42,34 @@ public class DicGroups extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        if (grup.numb() == 3) {
+        if (grup.numb() == TypeGroups.SERI_PROF.id) {
             setTitle("Серии профилей");
             ((CardLayout) centr.getLayout()).show(centr, "pan1");
             tab1.setModel(new DefTableModel(tab1, qGroups, eGroups.name));
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab1);
-        } else if (grup.numb() == 4) {
+            Util.listenerClick(tab1, null);
+        } else if (grup.numb() == TypeGroups.PRICE_INC.id) {
             setTitle("Группы наценок");
             ((CardLayout) centr.getLayout()).show(centr, "pan2");
             tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2);
-        } else if (grup.numb() == 5) {
+            Util.listenerClick(tab2, null);
+        } else if (grup.numb() == TypeGroups.PRICE_DEC.id) {
             setTitle("Группы скидок");
             ((CardLayout) centr.getLayout()).show(centr, "pan3");
             tab3.setModel(new DefTableModel(tab3, qGroups, eGroups.name, eGroups.val));
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
+            Util.listenerClick(tab3, null);
+        } else if (grup.numb() == TypeGroups.FILTER.id) {
+            setTitle("Группы фильтров");
+            ((CardLayout) centr.getLayout()).show(centr, "pan4");
+            tab4.setModel(new DefTableModel(tab4, qGroups, eGroups.name));
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4);
+            Util.listenerClick(tab4, null);
         }
     }
 
@@ -84,6 +97,9 @@ public class DicGroups extends javax.swing.JDialog {
         pan3 = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
+        pan4 = new javax.swing.JPanel();
+        scr4 = new javax.swing.JScrollPane();
+        tab4 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Справочник");
@@ -221,6 +237,7 @@ public class DicGroups extends javax.swing.JDialog {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.setName("tab1"); // NOI18N
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -256,7 +273,7 @@ public class DicGroups extends javax.swing.JDialog {
             }
         });
         tab2.setFillsViewportHeight(true);
-        tab2.setName(""); // NOI18N
+        tab2.setName("tab2"); // NOI18N
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -273,6 +290,7 @@ public class DicGroups extends javax.swing.JDialog {
 
         centr.add(pan2, "pan2");
 
+        pan3.setName(""); // NOI18N
         pan3.setLayout(new java.awt.BorderLayout());
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
@@ -287,6 +305,7 @@ public class DicGroups extends javax.swing.JDialog {
             }
         ));
         tab3.setFillsViewportHeight(true);
+        tab3.setName("tab3"); // NOI18N
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(40);
@@ -296,6 +315,28 @@ public class DicGroups extends javax.swing.JDialog {
         pan3.add(scr3, java.awt.BorderLayout.CENTER);
 
         centr.add(pan3, "pan3");
+
+        pan4.setName("pan4"); // NOI18N
+        pan4.setLayout(new java.awt.BorderLayout());
+
+        tab4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Наименование"
+            }
+        ));
+        tab4.setFillsViewportHeight(true);
+        tab4.setName("tab4"); // NOI18N
+        scr4.setViewportView(tab4);
+
+        pan4.add(scr4, java.awt.BorderLayout.CENTER);
+
+        centr.add(pan4, "pan4");
 
         getContentPane().add(centr, java.awt.BorderLayout.CENTER);
         centr.getAccessibleContext().setAccessibleName("");
@@ -309,12 +350,22 @@ public class DicGroups extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        int row = Util.getSelectedRec(tab1);
-        if (row != -1) {
-            Record record = qGroups.get(row);
-            listener.action(record);
+
+        int row = -1;
+        if (tab1.getBorder() != null) {
+            row = Util.getSelectedRec(tab1);
+        } else if (tab2.getBorder() != null) {
+            row = Util.getSelectedRec(tab2);
+        } else if (tab3.getBorder() != null) {
+            row = Util.getSelectedRec(tab3);
+        } else if (tab4.getBorder() != null) {
+            row = Util.getSelectedRec(tab4);
         }
-        this.dispose();
+        if (row != -1) {
+            listener.action(qGroups.get(row));
+            this.dispose();
+        }        
+
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
@@ -331,7 +382,7 @@ public class DicGroups extends javax.swing.JDialog {
 
     private void txtFilterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtFilterCaretUpdate
 
-        JTable table = (grup.numb() == 3) ? tab1 : (grup.numb() == 3) ? tab2 : tab3;
+        JTable table = Stream.of(tab1, tab2, tab2, tab3).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
         TableRowSorter<TableModel> sorter = (TableRowSorter<TableModel>) table.getRowSorter();
         if (txtFilter.getText().length() == 0) {
             sorter.setRowFilter(null);
@@ -358,13 +409,16 @@ public class DicGroups extends javax.swing.JDialog {
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
+    private javax.swing.JPanel pan4;
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
+    private javax.swing.JScrollPane scr4;
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
+    private javax.swing.JTable tab4;
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
     private void initElements() {

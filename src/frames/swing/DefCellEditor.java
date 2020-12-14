@@ -84,7 +84,7 @@ public class DefCellEditor extends DefaultCellEditor {
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
 
-        Field field = ((DefTableModel) table.getModel()).getColumn(column);
+        Field field = ((DefTableModel) table.getModel()).columns[column];
         ((JTextField) editorComponent).setEditable(field.meta().type() == Field.TYPE.STR); //разрешить редактирование стрингу
         delegate.setValue(value);
         return panel;

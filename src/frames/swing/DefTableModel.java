@@ -22,7 +22,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
     private JTable table = null;
     private DefaultTableModel model;
     private Query query = null;
-    protected Field[] columns = null;
+    public Field[] columns = null;
     private Boolean[] editable = null;
     private TableRowSorter<DefTableModel> sorter = null;
     private FrameListener<Object, Object> listenerModify = null;
@@ -67,10 +67,6 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
 
     public TableRowSorter<DefTableModel> getSorter() {
         return sorter;
-    }
-
-    public Field getColumn(int index) {
-        return columns[index];
     }
 
     @Override
