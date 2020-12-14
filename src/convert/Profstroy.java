@@ -413,8 +413,8 @@ public class Profstroy {
             deleteSql(eGlaspar2.up, "psss", eGlasdet.up, "gunic");//glasdet_id
             deleteSql(eFurnside1.up, "funic", eFurniture.up, "funic");//furniture_id
             deleteSql(eFurnside2.up, "fincs", eFurndet.up, "id");
-            deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id  
-            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id          
+            deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id  //++++++++++++++++++++++++++++++++++
+            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id //++++++++++++++++++++++++++++++++++         
             deleteSql(eFurndet.up, "anumb", eArtikl.up, "code");//artikl_id          
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
