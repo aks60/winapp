@@ -20,7 +20,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            convert.Profstroy.exec2();
+            //convert.Profstroy.exec2();
             //wincalc();
             //query();
             //frame();
