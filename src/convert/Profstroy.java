@@ -395,6 +395,7 @@ public class Profstroy {
             deleteSql(eElemdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально на калькуляцию!!! executeSql("delete from elemdet where not exists (select id from color a where a.cnumb = elemdet.color_fk) and elemdet.color_fk > 0 and elemdet.color_fk != 100000"); //color_fk
             deleteSql(eElemdet.up, "vnumb", eElement.up, "vnumb");//element_id
+            //=======1
             deleteSql(eElempar1.up, "psss", eElement.up, "vnumb");//element_id   
             deleteSql(eElempar2.up, "psss", eElemdet.up, "aunic");//elemdet_id
             //Включить в продакшине!!!  deleteSql(eJoining.up, "anum1", eArtikl.up, "code");//artikl_id1
@@ -404,8 +405,9 @@ public class Profstroy {
             executeSql("delete from joindet where not exists (select id from color a where a.cnumb = joindet.color_fk) and joindet.color_fk > 0 and joindet.color_fk != 100000"); //color_fk  
             deleteSql(eJoinpar1.up, "psss", eJoinvar.up, "cunic");//joinvar_id
             deleteSql(eJoinpar2.up, "psss", eJoindet.up, "aunic");//joindet_id 
-            deleteSql(eGlasprof.up, "gnumb", eGlasgrp.up, "gnumb");//glasgrp_id
+            deleteSql(eGlasprof.up, "gnumb", eGlasgrp.up, "gnumb");//glasgrp_id            
             deleteSql(eGlasprof.up, "anumb", eArtikl.up, "code");//artikl_id
+            //===2
             deleteSql(eGlasdet.up, "gnumb", eGlasgrp.up, "gnumb");//glasgrp_id
             executeSql("delete from glasdet where not exists (select id from color a where a.cnumb = glasdet.color_fk) and glasdet.color_fk > 0 and glasdet.color_fk != 100000"); //color_fk
             deleteSql(eGlasdet.up, "anumb", eArtikl.up, "code");//artikl_id 
@@ -413,9 +415,11 @@ public class Profstroy {
             deleteSql(eGlaspar2.up, "psss", eGlasdet.up, "gunic");//glasdet_id
             deleteSql(eFurnside1.up, "funic", eFurniture.up, "funic");//furniture_id
             deleteSql(eFurnside2.up, "fincs", eFurndet.up, "id");
-            deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id  //++++++++++++++++++++++++++++++++++
-            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id //++++++++++++++++++++++++++++++++++         
-            deleteSql(eFurndet.up, "anumb", eArtikl.up, "code");//artikl_id          
+            
+            deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id
+            //deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id ++++       
+            //deleteSql(eFurndet.up, "anumb", eArtikl.up, "code");//artikl_id +++++
+            //===3
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
             deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id
@@ -431,7 +435,7 @@ public class Profstroy {
         } catch (Exception e) {
             println(Color.RED, "Ошибка: deletePart().  " + e);
         }
-    }
+    }  
 
     //Секция коррекции внешних ключей
     private static void updatePart(Connection cn2, Statement st2) {
@@ -444,11 +448,11 @@ public class Profstroy {
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
-            updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
+            updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");           
             modifyGroups("Функция modifyGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
-            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");
+            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");           
             executeSql("ALTER TABLE GROUPS DROP  FK;");
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
@@ -539,7 +543,7 @@ public class Profstroy {
             println(Color.RED, "Ошибка: updatePart().  " + e);
         }
     }
-
+    
     private static void metaPart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция создания внешних ключей");
