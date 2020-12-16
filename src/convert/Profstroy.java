@@ -84,13 +84,6 @@ public class Profstroy {
 
     private static Queue<Object[]> que = null;
     private static int count = 0;
-
-    private static enum Clr {
-        RED,
-        GRE,
-        BLU,
-        BLK
-    }
     private static String versionPs = "4";
     private static Connection cn1;
     private static Connection cn2;
