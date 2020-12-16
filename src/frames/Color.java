@@ -12,11 +12,8 @@ import domain.eColgrp;
 import domain.eColpar1;
 import domain.eElempar2;
 import domain.eParams;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Arrays;
 import java.util.stream.Stream;
-import javax.swing.JComponent;
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
@@ -25,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
 import startup.Main;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
+import java.awt.Component;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 
 public class Color extends javax.swing.JFrame {
 
@@ -61,9 +61,18 @@ public class Color extends javax.swing.JFrame {
                 return val;
             }
         };
-        
+
+        tab2.getColumnModel().getColumn(0).setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+                JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+                int rgb = qColor.getAs(row, eColor.rgb);
+                lab.setBackground(new java.awt.Color((rgb & 0x000000ff), (rgb & 0x0000ff00) >> 8, (rgb & 0x00ff0000) >> 16));
+                return lab;
+            }
+        });
         tab2.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
-        
+
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             ParGrup1 frame = new ParGrup1(this, listenerPar, eParams.color);
         });
