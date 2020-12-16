@@ -50,7 +50,7 @@ public class Color {
                             if (artdetColorFK != -1) {
                                 spc.setColor(side, artdetColorFK);
                             } else {
-                                spc.setColor(side, colorFromFirst(spc)); //первая в списке
+                                spc.setColor(side, colorFromFirst(spc)); //первая в списке запись цвета
                             }
                         }
                     } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
@@ -63,7 +63,7 @@ public class Color {
                             if (artdetColorFK != -1) {
                                 spc.setColor(side, artdetColorFK);
                             } else {
-                                spc.setColor(side, colorFromFirst(spc)); //первая в списке
+                                spc.setColor(side, colorFromFirst(spc)); //первая в списке запись цвета
                             }
                         }
                     }
