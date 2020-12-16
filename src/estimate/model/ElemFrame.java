@@ -70,7 +70,7 @@ public class ElemFrame extends ElemSimple {
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
-        specificationRec.place = "СОСТ." + layout().name.substring(0, 1);
+        specificationRec.place = "ВСТ." + layout().name.substring(0, 1);
         specificationRec.setArtiklRec(artiklRec);
         specificationRec.colorID1 = colorID1;
         specificationRec.colorID2 = colorID2;
@@ -110,7 +110,7 @@ public class ElemFrame extends ElemSimple {
 
         //Армирование
         if (TypeArtikl.ARMIROVANIE.isType(specificationAdd.artiklRec)) {
-            specificationAdd.place = "СОСТ." + layout().name.substring(0, 1);
+            specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
             specificationAdd.anglCut1 = 90;
             specificationAdd.anglCut2 = 90;
 

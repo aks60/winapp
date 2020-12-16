@@ -86,7 +86,7 @@ public class Elements extends Cal5e {
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);
                             if (Color.colorFromProduct(specif)) {
-                                specif.place = "СОСТ";
+                                specif.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.STVORKA, TypeArtikl.IMPOST)) {
