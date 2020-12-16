@@ -325,20 +325,21 @@ public class Winscript {
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"));
             area2.add(new Element(7, TypeElem.GLASS, "{'artikleID':285}"));
 
-//        } else if (project == 601002) {
-//            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1400, 2000, 2000, 26, 26, 26, "");
-//            rootArea.setParam(project.toString(), 12, "СИАЛ\\КП45\\Окна");
-//            rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
-//            rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
-//            rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
-//            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-//            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
-//            rootArea.add(new Element(7, TypeElem.IMPOST));
-//            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
-//            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"));
-//            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"));
-//            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':284}"));
-//            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':284}"));
+        } else if (project == 601002) {
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 1600, 26, 26, 26, "");
+            rootArea.setParam(project.toString(), 12, "СИАЛ\\КП74\\Окна");
+            rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
+            rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
+            rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
+            rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
+            AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
+            rootArea.add(new Element(7, TypeElem.IMPOST));
+            AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1300 / 2));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"));
+            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':284}"));
+            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':284}"));
+            
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 25, 25, 25, "");
             rootArea.setParam(project.toString(), 32, "СИАЛ\\КП45\\Окна");
