@@ -21,7 +21,7 @@ public class Test {
         try {
             //convert.Profstroy.exec2();
             //convert.Profstroy.exec2();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //parse();
