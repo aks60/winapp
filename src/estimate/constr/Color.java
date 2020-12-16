@@ -20,7 +20,6 @@ public class Color {
 
     public static boolean colorFromProduct(Specification spc) {  //см. http://help.profsegment.ru/?id=1107        
 
-        //JOptionPane.showMessageDialog(null, "Подбор текстуры по коду " + colorType + " не реализован.", "ВНИМАНИЕ!", 1);
         int colorFk = spc.detailRec.getInt(COLOR_FK);
         int types = spc.detailRec.getInt(TYPES);
 
