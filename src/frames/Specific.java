@@ -28,7 +28,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Vector;
 import static java.util.stream.Collectors.toList;
 import javax.swing.JButton;
@@ -104,6 +109,36 @@ public class Specific extends javax.swing.JFrame {
         dtm.addRow(vectorLast);
     }
 
+    private List<Specification> groups() {
+        HashSet<String> hs = new HashSet();
+        List<Specification> list = new ArrayList();
+        Map<String, Specification> map = new HashMap();
+        for (Specification spc : iwin.listSpec) {
+            String key = spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.anglCut1
+                    + spc.anglCut2 + spc.unit + spc.wastePrc + spc.inPrice + spc.discount;
+            if (hs.add(key)) {
+                map.put(key, new Specification(spc));
+            } else {
+                Specification s = map.get(key);
+                s.width = s.width + spc.width;
+                s.height = 0;
+                s.weight = s.weight + spc.weight;
+                s.anglCut1 = 0;
+                s.anglCut2 = 0;
+                s.anglHoriz = 0;
+                s.count = s.count + spc.count;
+                s.quantity = s.quantity + spc.quantity;
+                s.quantity2 = s.quantity2 + spc.quantity2;
+                s.outPrice = s.outPrice + spc.outPrice;
+                s.inCost = s.inCost + spc.inCost;
+                s.outCost = s.outCost + spc.outCost;
+            }
+        }
+        map.entrySet().forEach(act -> list.add(act.getValue()));
+        Collections.sort(list, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
+        return list;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -116,10 +151,12 @@ public class Specific extends javax.swing.JFrame {
         btnReport = new javax.swing.JButton();
         btnArtikles = new javax.swing.JButton();
         btnConstructiv = new javax.swing.JButton();
+        btnAll = new javax.swing.JButton();
         btnJon = new javax.swing.JButton();
         btnFix = new javax.swing.JButton();
         btnFill = new javax.swing.JButton();
         btnFurn = new javax.swing.JButton();
+        btnFurn1 = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -243,6 +280,21 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
+        btnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c006.gif"))); // NOI18N
+        btnAll.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnAll.setFocusable(false);
+        btnAll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAll.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnAll.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnAll.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnAll.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnAll.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAll(evt);
+            }
+        });
+
         btnJon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
         btnJon.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnJon.setFocusable(false);
@@ -302,6 +354,21 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
+        btnFurn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
+        btnFurn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFurn1.setFocusable(false);
+        btnFurn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFurn1.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnFurn1.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnFurn1.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnFurn1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFurn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFurn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGroups(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -317,7 +384,9 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(48, 48, 48)
+                .addComponent(btnAll, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,33 +394,35 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFurn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnClose, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnArtikles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConstructiv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, northLayout.createSequentialGroup()
+            .addGroup(northLayout.createSequentialGroup()
+                .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnArtikles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConstructiv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(northLayout.createSequentialGroup()
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(northLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFurn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -512,7 +583,7 @@ public class Specific extends javax.swing.JFrame {
         if (recordDet != null) {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    if (str.equals("СОС")) {
+                    if (str.equals("ВСТ")) {
                         App1.eApp1.Element.createFrame(Specific.this, iwin.calcElements.listVariants, recordDet.getInt(eElemdet.id));
 
                     } else if (str.equals("СОЕ")) {
@@ -529,7 +600,7 @@ public class Specific extends javax.swing.JFrame {
         } else {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
-                    if (str.equals("СОС")) {
+                    if (str.equals("ВСТ")) {
                         App1.eApp1.Systree.createFrame(Specific.this, recordSpc.artiklRec.getInt(eArtikl.id));
 
                     } else if (str.equals("ЗАП")) {
@@ -544,19 +615,28 @@ public class Specific extends javax.swing.JFrame {
         JButton tab = (JButton) evt.getSource();
         List<Specification> listSpec = null;
         if (tab == btnJon) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "СОЕД".equals(rec.place)).collect(toList());
+            listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
         } else if (tab == btnFix) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place)).collect(toList());
+            listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
         } else if (tab == btnFill) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place)).collect(toList());
+            listSpec = iwin.listSpec.stream().filter(rec -> "ЗАП".equals(rec.place.substring(0, 3))).collect(toList());
         } else if (tab == btnFurn) {
-            listSpec = iwin.listSpec.stream().filter(rec -> "ФУРН".equals(rec.place)).collect(toList());
+            listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
         }
         loadingData(listSpec);
     }//GEN-LAST:event_btnFilter
 
+    private void btnGroups(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroups
+        loadingData(groups());
+    }//GEN-LAST:event_btnGroups
+
+    private void btnAll(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAll
+        loadingData(iwin.listSpec);
+    }//GEN-LAST:event_btnAll
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAll;
     private javax.swing.JButton btnArtikles;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConstructiv;
@@ -564,6 +644,7 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JButton btnFill;
     private javax.swing.JButton btnFix;
     private javax.swing.JButton btnFurn;
+    private javax.swing.JButton btnFurn1;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnJon;
     private javax.swing.JButton btnRef;

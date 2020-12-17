@@ -86,6 +86,7 @@ public class Specification {
         this.colorID3 = spec.colorID3;
         this.width = spec.width;
         this.height = spec.height;
+        this.weight = spec.weight;
         this.anglCut2 = spec.anglCut2;
         this.anglCut1 = spec.anglCut1;
         this.count = spec.count;
@@ -95,6 +96,8 @@ public class Specification {
         this.quantity2 = spec.quantity2;
         this.inPrice = spec.inPrice;
         this.outPrice = spec.outPrice;
+        this.inCost = spec.inCost;
+        this.outCost = spec.outCost;
         this.discount = spec.discount;
         this.anglHoriz = spec.anglHoriz;
         this.mapParam = spec.mapParam;
@@ -173,7 +176,7 @@ public class Specification {
         }
         return String.valueOf(def);
     }
-
+    
     public static void write_csv(ArrayList<Specification> spcList) {
         Writer writer = null;
         try {
@@ -347,6 +350,5 @@ public class Specification {
         } catch (Exception e2) {
             System.err.println("Ошибка:Main.compareIWin " + e2);
         }
-    }
-
+    }   
 }

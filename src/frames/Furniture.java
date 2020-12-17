@@ -68,9 +68,10 @@ public class Furniture extends javax.swing.JFrame {
     private EditorListener listenerEditor = null;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerColor,
             listenerColvar, listenerSide1, listenerSide2, listenerSide3, listenerSide4, listenerVariant1, listenerVariant2;
-    private String subsql = null;
+    private String subsql = "(-1)";
 
     public Furniture() {
+        this.subsql = null;
         initComponents();
         initElements();
         listenerCell();
@@ -80,7 +81,9 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     public Furniture(Set<Object> keys) {
-        this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        if (keys.isEmpty() == false) {
+            this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        }
         initComponents();
         initElements();
         listenerCell();
@@ -91,7 +94,9 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     public Furniture(Set<Object> keys, int deteilID) {
-        this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        if (keys.isEmpty() == false) {
+            this.subsql = (keys.isEmpty()) ? "(-1)" : keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        }
         initComponents();
         initElements();
         loadingData();

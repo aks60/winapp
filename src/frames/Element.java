@@ -63,10 +63,11 @@ public class Element extends javax.swing.JFrame {
     private Query qElempar1 = new Query(eElempar1.values(), eParams.values());
     private Query qElempar2 = new Query(eElempar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerTypset, listenerSeries, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
-    private String subsql = null;
+    private String subsql = "(-1)";
     private EditorListener listenerEditor;
 
     public Element() {
+        this.subsql = null;
         initComponents();
         initElements();
         listenerCell();
@@ -76,7 +77,9 @@ public class Element extends javax.swing.JFrame {
     }
 
     public Element(Set<Object> keys) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        if (keys.isEmpty() == false) {
+            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        }
         initComponents();
         initElements();
         listenerCell();
@@ -86,7 +89,9 @@ public class Element extends javax.swing.JFrame {
     }
 
     public Element(Set<Object> keys, int deteilID) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        if (keys.isEmpty() == false) {
+            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        }
         initComponents();
         initElements();
         listenerCell();

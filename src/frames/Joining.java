@@ -66,12 +66,12 @@ public class Joining extends javax.swing.JFrame {
     private Query qJoindet = new Query(eJoindet.values());
     private Query qJoinpar1 = new Query(eJoinpar1.values());
     private Query qJoinpar2 = new Query(eJoinpar2.values());
-    private String subsql = null;
-    //private Window owner = null;
+    private String subsql = "(-1)";
     private EditorListener listenerEditor;
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerJoinvar, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3;
 
     public Joining() {
+        this.subsql = null;
         initComponents();
         initElements();
         loadingData();
@@ -81,7 +81,9 @@ public class Joining extends javax.swing.JFrame {
     }
 
     public Joining(Set<Object> keys) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        if (keys.isEmpty() == false) {
+            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        }
         initComponents();
         initElements();
         loadingData();

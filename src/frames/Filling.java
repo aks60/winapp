@@ -54,9 +54,10 @@ public class Filling extends javax.swing.JFrame {
     private Query qGlaspar2 = new Query(eGlaspar2.values(), eParams.values());
     private DialogListener listenerArtikl, listenerPar1, listenerPar2, listenerColor, listenerColvar1, listenerColvar2, listenerColvar3, listenerTypset, listenerThicknes;
     private EditorListener listenerEditor;
-    private String subsql = null;
+    private String subsql = "(-1)";
 
     public Filling() {
+        this.subsql = null;
         initComponents();
         initElements();
         listenerCell();
@@ -66,7 +67,9 @@ public class Filling extends javax.swing.JFrame {
     }
 
     public Filling(Set<Object> keys) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        if (keys.isEmpty() == false) {
+            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        }
         initComponents();
         initElements();
         listenerCell();
@@ -76,7 +79,9 @@ public class Filling extends javax.swing.JFrame {
     }
 
     public Filling(Set<Object> keys, int deteilID) {
-        this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        if (keys.isEmpty() == false) {
+            this.subsql = keys.stream().map(pk -> String.valueOf(pk)).collect(Collectors.joining(",", "(", ")"));
+        }
         initComponents();
         initElements();
         loadingData();
