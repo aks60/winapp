@@ -115,13 +115,11 @@ public class Specific extends javax.swing.JFrame {
         Map<String, Specification> map = new HashMap();
         for (Specification spc : iwin.listSpec) {
             String key = spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.anglCut1
-                    + spc.anglCut2 + spc.unit + spc.wastePrc + spc.inPrice + spc.discount;
+                    + spc.width + spc.height + spc.anglCut2 + spc.unit + spc.wastePrc + spc.inPrice + spc.discount;
             if (hs.add(key)) {
                 map.put(key, new Specification(spc));
             } else {
                 Specification s = map.get(key);
-                s.width = s.width + spc.width;
-                s.height = 0;
                 s.weight = s.weight + spc.weight;
                 s.anglCut1 = 0;
                 s.anglCut2 = 0;

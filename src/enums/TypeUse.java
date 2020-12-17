@@ -7,7 +7,7 @@ import static enums.UseColor.values;
 
 public enum TypeUse implements Enam {
     
-    EMPTY(0, "Не определено"),
+    EMPTY(0, "Не определен"),
     WIN_OPEN_IN(1, "Окно открывание внутрь"),
     WIN_OPEN_OUT(2, "Окно открывание наружу"),
     WIN_EXP(3, "Окно раздвижное"),

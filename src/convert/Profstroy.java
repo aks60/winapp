@@ -509,6 +509,7 @@ public class Profstroy {
             executeSql("update furndet set color_fk = null where furniture_id2 > 0");
             executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
             executeSql("update systree set parent_id = id where npar = 0");
+            executeSql("update systree set types = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");
             updateSql(eSysfurn.up, eSysfurn.furniture_id, "funic", eFurniture.up, "funic");

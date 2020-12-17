@@ -49,22 +49,36 @@ public class AreaStvorka extends AreaSimple {
         }
 
         //Коррекция створки с учётом нахлёста
-        ElemSimple adjacentLeft = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
+        ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
                 adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
 
-            x1 = adjacentLeft.x2 - adjacentLeft.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x1 = adjacentLef.x2 - adjacentLef.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
             y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
             x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
             y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
         } else {
-            //Примерный расчёт для совместимости с ps3
-            float offset = 0; //смещение осей профилей            
-            Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
-            Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);
-            Record joiningLeft = eJoining.find(artiklLeft, adjacentLeft.artiklRec);
-            List<Record> joinvarList = eJoinvar.find(joiningLeft.getInt(eJoining.id));
+            //Расчёт для совместимости с ps3                      
+            Record sysprofLef = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
+            Record sysprofBot = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.BOTTOM, UseSide.ANY);
+            Record sysprofRig = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.RIGHT, UseSide.ANY);
+            Record sysprofTop = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.TOP, UseSide.ANY);
+            
+            Record artiklLef = eArtikl.find(sysprofLef.getInt(eSysprof.artikl_id), false);
+            Record artiklBot = eArtikl.find(sysprofBot.getInt(eSysprof.artikl_id), false);
+            Record artiklRig = eArtikl.find(sysprofRig.getInt(eSysprof.artikl_id), false);
+            Record artiklTop = eArtikl.find(sysprofTop.getInt(eSysprof.artikl_id), false);
+            
+            Record joiningLef = eJoining.find(artiklLef, adjacentLef.artiklRec);
+            Record joiningBot = eJoining.find(artiklBot, adjacentBot.artiklRec);
+            Record joiningRig = eJoining.find(artiklRig, adjacentRig.artiklRec);
+            Record joiningTop = eJoining.find(artiklTop, adjacentTop.artiklRec);
+            
+            
+            List<Record> joinvarList = eJoinvar.find(joiningLef.getInt(eJoining.id));
             Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
+            
+            float offset = 0; //смещение осей профилей  
             if (joinvarRec != null) {
                 List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
                 Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
@@ -72,7 +86,12 @@ public class AreaStvorka extends AreaSimple {
                     offset = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
                 }
             }
-            x1 = adjacentLeft.x2 - offset;
+            //Record artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+            //int X2 = (adjacentLeft.type() == TypeElem.FRAME_SIDE) ?adjacentLeft.x2 : adjacentLeft.x2 -(adjacentLeft.x2 - adjacentLeft.x1)
+            if((adjacentLef.type() == TypeElem.FRAME_SIDE)) {
+                x1 = adjacentLef.x2 - adjacentLef.width() / 2;
+            }
+            x1 = adjacentLef.x2 - offset;
             y1 = adjacentTop.y2 - offset;
             x2 = adjacentRig.x1 + offset;
             y2 = adjacentBot.y1 + offset;

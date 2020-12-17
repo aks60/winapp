@@ -26,7 +26,9 @@ public class ElemFrame extends ElemSimple {
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
+        
         initСonstructiv();
+        
         //Установка координат
         if (LayoutArea.LEFT == layout) {
             setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);

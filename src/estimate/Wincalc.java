@@ -75,7 +75,7 @@ public class Wincalc {
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
     public ArrayList<Specification> listSpec = new ArrayList(); //спецификация
-    public Cal5e calcElements, calcJoining, calcFilling, calcFurniture, tariffication; //объекты калькуляции конструктива
+    public Cal5e calcJoining, calcElements, calcFilling, calcFurniture, calTariffication; //объекты калькуляции конструктива
     public LinkedList<Mediate> mediateList = new LinkedList();
 
     public AreaSimple build(String productJson) {
@@ -117,8 +117,8 @@ public class Wincalc {
             calcFilling.calc();
             calcFurniture = new Furniture(this); //фурнитура 
             calcFurniture.calc();
-            tariffication = new Tariffication(this); //тарификация
-            tariffication.calc();
+            calTariffication = new Tariffication(this); //тарификация
+            calTariffication.calc();
             for (ElemSimple elemRec : listElem) {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);
