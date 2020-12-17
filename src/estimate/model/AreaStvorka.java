@@ -73,7 +73,7 @@ public class AreaStvorka extends AreaSimple {
             Record joiningBot = eJoining.find(artiklBot, adjacentBot.artiklRec);
             Record joiningRig = eJoining.find(artiklRig, adjacentRig.artiklRec);
             Record joiningTop = eJoining.find(artiklTop, adjacentTop.artiklRec);
-
+/*
             Record joinvarLef = eJoinvar.find(joiningLef.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
             Record joinvarBot = eJoinvar.find(joiningBot.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
             Record joinvarRig = eJoinvar.find(joiningRig.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
@@ -88,7 +88,7 @@ public class AreaStvorka extends AreaSimple {
             float offsetBot = Util.getFloat(joinpar1Bot.getStr(eJoinpar1.text));
             float offsetRig = Util.getFloat(joinpar1Rig.getStr(eJoinpar1.text));
             float offsetTop = Util.getFloat(joinpar1Top.getStr(eJoinpar1.text));        
-            
+     */       
             
             
             float offset = 0; //смещение осей профилей            
