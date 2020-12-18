@@ -4,6 +4,9 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
+import static domain.eColgrp.id;
+import static domain.eColgrp.up;
+import static domain.eColgrp.values;
 import enums.UseSide;
 import enums.UseArtiklTo;
 import estimate.Wincalc;
@@ -87,6 +90,15 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
 
+    
+    public static Record find3(int _id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
     public static Record find4(Wincalc iwin, UseArtiklTo _type, UseSide... _side) {
         if (iwin.nuni == -1) {
             return record(_type);

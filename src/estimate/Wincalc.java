@@ -126,7 +126,7 @@ public class Wincalc {
             Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
 
         } catch (Exception e) {
-            System.out.println("Ошибка калькуляции конструктива Wincalc.constructiv(" + e);
+            System.out.println("Ошибка:Wincalc.constructiv(" + e);
         } finally {
             Query.conf = "app";
         }
@@ -238,7 +238,7 @@ public class Wincalc {
 
                 //Добавим рамы в гпавное окно
                 if (TypeElem.FRAME_SIDE == mdt.type) {
-                    ElemFrame elemFrame = new ElemFrame(rootArea, mdt.id, mdt.layout);
+                    ElemFrame elemFrame = new ElemFrame(rootArea, mdt.id, mdt.layout, mdt.param);
                     rootArea.mapFrame.put(elemFrame.layout(), elemFrame);
                     continue;
                 }
@@ -248,7 +248,7 @@ public class Wincalc {
                 } else if (TypeElem.AREA == mdt.type) {
                     mdt.addArea(new AreaSimple(this, mdt.owner.area5e, mdt.id, mdt.type, mdt.layout, mdt.width, mdt.height, -1, -1, -1, null)); //простое
                 } else if (TypeElem.IMPOST == mdt.type) {
-                    mdt.addElem(new ElemImpost(mdt.owner.area5e, mdt.id));
+                    mdt.addElem(new ElemImpost(mdt.owner.area5e, mdt.id, mdt.param));
                 } else if (TypeElem.GLASS == mdt.type) {
                     mdt.addElem(new ElemGlass(mdt.owner.area5e, mdt.id, mdt.param));
                 }

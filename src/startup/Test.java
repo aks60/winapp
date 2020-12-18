@@ -34,10 +34,10 @@ public class Test {
 
         Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "one";
+        String _case = "min";
 
         if (_case.equals("one")) {
-            iwin.prj = 601002;
+            iwin.prj = 601009;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);

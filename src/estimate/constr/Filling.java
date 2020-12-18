@@ -60,6 +60,7 @@ public class Filling extends Cal5e {
 
                 //Доступные толщины
                 if (Util.containsFloat(depthSet, depth2) == true) {
+                    
                     //Цикл по системе конструкций, ищем артикул системы профилей
                     for (Record sysprofRec : sysprofList) {
                         if (typeProf.id == sysprofRec.getInt(eSysprof.use_type)) {
@@ -78,6 +79,7 @@ public class Filling extends Cal5e {
                             for (Record glasprofRec : eGlasprof.findAll()) {
 
                                 if (glasgrpRec.getInt(eGlasgrp.id) == glasprofRec.getInt(eGlasprof.glasgrp_id)) {
+                                    //if (artprofRec != null && artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                     if (artprofRec.getInt(eArtikl.id) == glasprofRec.getInt(eGlasprof.artikl_id)) {
                                         if (glasprofRec.getInt(eGlasprof.inside) == 1) {
 
@@ -95,7 +97,7 @@ public class Filling extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("estimate.constr.Filling.calc() " + e);
+            System.err.println("Ошибка:Filling.calc() " + e);
         }
     }
     

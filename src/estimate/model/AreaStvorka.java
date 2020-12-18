@@ -59,6 +59,7 @@ public class AreaStvorka extends AreaSimple {
             y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
         } else {
             //Расчёт для совместимости с ps3  
+            /*
             Record sysprofLef = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
             Record sysprofBot = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.BOTTOM, UseSide.ANY);
             Record sysprofRig = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.RIGHT, UseSide.ANY);
@@ -73,7 +74,7 @@ public class AreaStvorka extends AreaSimple {
             Record joiningBot = eJoining.find(artiklBot, adjacentBot.artiklRec);
             Record joiningRig = eJoining.find(artiklRig, adjacentRig.artiklRec);
             Record joiningTop = eJoining.find(artiklTop, adjacentTop.artiklRec);
-/*
+
             Record joinvarLef = eJoinvar.find(joiningLef.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
             Record joinvarBot = eJoinvar.find(joiningBot.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
             Record joinvarRig = eJoinvar.find(joiningRig.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
@@ -111,20 +112,19 @@ public class AreaStvorka extends AreaSimple {
         }
 
         //Добавим рамы створки        
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM);
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, null);
         mapFrame.put(stvBot.layout(), stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT);
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, null);
         mapFrame.put(stvRigh.layout(), stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP);
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT);
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
         mapFrame.put(stvLeft.layout(), stvLeft);
 
         stvBot.specificationRec.width = width();
         stvTop.specificationRec.width = width();
         stvRigh.specificationRec.height = height();
         stvLeft.specificationRec.height = height();
-
     }
 
     @Override

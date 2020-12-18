@@ -1,6 +1,7 @@
 package estimate.model;
 
-import frames.swing.Draw;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSysprof;
@@ -11,13 +12,15 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import estimate.constr.Specification;
 import domain.eSyssize;
+import enums.ParamJson;
 import estimate.constr.Cal5e;
 
 public class ElemImpost extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
+    private int artikleID = -1;
 
-    public ElemImpost(AreaSimple owner, float id) {
+    public ElemImpost(AreaSimple owner, float id, String param) {
 
         super(id, owner.iwin(), owner);
         this.layout = (owner.layout() == LayoutArea.HORIZ) ? LayoutArea.VERT : LayoutArea.HORIZ;
@@ -25,7 +28,8 @@ public class ElemImpost extends ElemSimple {
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
         this.type = TypeElem.IMPOST;
-        initСonstructiv();
+
+        initСonstructiv(param);
 
         //Коррекция положения импоста арки (подкдадка ареа над импомтом)
         if ((TypeElem.ARCH == owner.type || TypeElem.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
@@ -52,13 +56,20 @@ public class ElemImpost extends ElemSimple {
         }
     }
 
-    public void initСonstructiv() {
+    public void initСonstructiv(String param) {
+        if (param != null && param.isEmpty() == false) {
+            String str = param.replace("'", "\"");
+            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+            this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
+            sysprofRec = eSysprof.find3(artikleID);
+        }
+        if (sysprofRec == null) {
+            if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);
 
-        if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-            sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);
-
-        } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-            sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
+            } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
+            }
         }
         specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
