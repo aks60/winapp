@@ -24,10 +24,13 @@ public class Util {
     }
 
     public static Float getFloat(String str) {
-        str = str.replace(",", ".");
-        return Float.valueOf(str);
+        if (str != null && str.isEmpty() == false) {
+            str = str.replace(",", ".");
+            return Float.valueOf(str);
+        }
+        return 0f;
     }
-    
+
     //0.55;79,01-10;0-10=>[0.55,0.55,79.01,10.0,0.0,10.0]
     public static Float[] parserFloat(String str) {
 

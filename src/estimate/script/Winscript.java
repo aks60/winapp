@@ -317,7 +317,7 @@ public class Winscript {
 
         if (project == 601001) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 900, 600, 600, 25, 25, 25, "");
-            rootArea.setParam(project.toString(), 31, "СИАЛ\\КП40\\Окна");
+            rootArea.setParam(project.toString(), 12, "СИАЛ\\КП40\\Окна");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
