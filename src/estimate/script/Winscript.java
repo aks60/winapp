@@ -166,7 +166,7 @@ public class Winscript {
             AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':1,'sysfurnID':2335, 'ioknaParam': [[-862107,826],[-862106,830]]}"));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916, 'ioknaParam': [[-862107,184],[-862106,186]]}"));
             area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':4663}"));
-            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':466}"));
+            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':4663}"));
 
         } else if (project == 604004) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1050, 1700, 1009, 1009, 1009, "");

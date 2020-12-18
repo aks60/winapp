@@ -18,7 +18,6 @@ import estimate.constr.Cal5e;
 public class ElemImpost extends ElemSimple {
 
     protected float truncation = 0; //усечение параметр Артикула1/Артикула2, мм
-    private int artikleID = -1;
 
     public ElemImpost(AreaSimple owner, float id, String param) {
 
@@ -57,10 +56,9 @@ public class ElemImpost extends ElemSimple {
     }
 
     public void initСonstructiv(String param) {
-        if (param != null && param.isEmpty() == false) {
-            String str = param.replace("'", "\"");
-            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-            this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
+
+        int artikleID = elemParam(param, ParamJson.artikleID);
+        if(artikleID != -1) {
             sysprofRec = eSysprof.find3(artikleID);
         }
         if (sysprofRec == null) {

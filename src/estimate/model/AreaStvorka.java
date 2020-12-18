@@ -58,40 +58,38 @@ public class AreaStvorka extends AreaSimple {
             x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
             y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
         } else {
-            //Расчёт для совместимости с ps3  
-            /*
+  
+            //Находим профили створки в таблице SYSPROF
             Record sysprofLef = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
             Record sysprofBot = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.BOTTOM, UseSide.ANY);
             Record sysprofRig = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.RIGHT, UseSide.ANY);
             Record sysprofTop = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.TOP, UseSide.ANY);
-            
+            //По профилям находим их артиклы
             Record artiklLef = eArtikl.find(sysprofLef.getInt(eSysprof.artikl_id), false);
             Record artiklBot = eArtikl.find(sysprofBot.getInt(eSysprof.artikl_id), false);
             Record artiklRig = eArtikl.find(sysprofRig.getInt(eSysprof.artikl_id), false);
             Record artiklTop = eArtikl.find(sysprofTop.getInt(eSysprof.artikl_id), false);
-            
+            //Находим соединения примыкающих профилей в таблице соединений
             Record joiningLef = eJoining.find(artiklLef, adjacentLef.artiklRec);
             Record joiningBot = eJoining.find(artiklBot, adjacentBot.artiklRec);
             Record joiningRig = eJoining.find(artiklRig, adjacentRig.artiklRec);
             Record joiningTop = eJoining.find(artiklTop, adjacentTop.artiklRec);
-
+            //В таблице вариантов соединения находим примыкающие соединения
             Record joinvarLef = eJoinvar.find(joiningLef.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
             Record joinvarBot = eJoinvar.find(joiningBot.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
             Record joinvarRig = eJoinvar.find(joiningRig.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
             Record joinvarTop = eJoinvar.find(joiningTop.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
-            
+            //Дёргаем параиетр 1040 для важдой стороны
             Record joinpar1Lef = eJoinpar1.find(joinvarLef.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
             Record joinpar1Bot = eJoinpar1.find(joinvarBot.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
             Record joinpar1Rig = eJoinpar1.find(joinvarRig.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
             Record joinpar1Top = eJoinpar1.find(joinvarTop.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
-            
+            //Получам смещение створки для сторон
             float offsetLef = Util.getFloat(joinpar1Lef.getStr(eJoinpar1.text));
             float offsetBot = Util.getFloat(joinpar1Bot.getStr(eJoinpar1.text));
             float offsetRig = Util.getFloat(joinpar1Rig.getStr(eJoinpar1.text));
             float offsetTop = Util.getFloat(joinpar1Top.getStr(eJoinpar1.text));        
-     */       
-            
-            
+                      
             float offset = 0; //смещение осей профилей            
             Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
             Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);

@@ -30,15 +30,9 @@ public class ElemGlass extends ElemSimple {
         this.type = TypeElem.GLASS;
 
         if (param != null && param.isEmpty() == false) {
-            try {
-                String str = param.replace("'", "\"");
-                JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-                this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
-                System.out.println(this.artikleID);
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-
+            String str = param.replace("'", "\"");
+            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+            this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
         }
         initСonstructiv();
 

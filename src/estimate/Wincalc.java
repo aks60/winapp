@@ -79,7 +79,7 @@ public class Wincalc {
     public LinkedList<Mediate> mediateList = new LinkedList();
 
     public AreaSimple build(String productJson) {
-        //System.out.println(productJson);
+        System.out.println(productJson);
         mediateList.clear();
         mapParamDef.clear();
         mapJoin.clear();

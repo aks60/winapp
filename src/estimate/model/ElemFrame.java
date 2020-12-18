@@ -1,11 +1,14 @@
 package estimate.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import domain.eArtikl;
 import domain.eColor;
 import domain.eSetting;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
+import enums.ParamJson;
 import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
@@ -17,7 +20,7 @@ import estimate.constr.param.ElementSet;
 
 public class ElemFrame extends ElemSimple {
 
-    protected float length = 0; //длина арки     
+    protected float length = 0; //длина арки 
 
     public ElemFrame(AreaSimple owner, float id, LayoutArea layout, String param) {
         super(id, owner.iwin(), owner);
@@ -26,9 +29,9 @@ public class ElemFrame extends ElemSimple {
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
-        
-        initСonstructiv();
-        
+
+        initСonstructiv(param);
+
         //Установка координат
         if (LayoutArea.LEFT == layout) {
             setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
@@ -52,18 +55,24 @@ public class ElemFrame extends ElemSimple {
         }
     }
 
-    public void initСonstructiv() {
-
-        if (owner().sysprofID != null) {
-            sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
-        } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
-        } else if (layout == LayoutArea.BOTTOM) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
-        } else if (layout == LayoutArea.LEFT) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
-        } else if (layout == LayoutArea.RIGHT) {
-            sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
+    public void initСonstructiv(String param) {
+        
+        int artikleID = elemParam(param, ParamJson.artikleID);
+        if(artikleID != -1) {
+            sysprofRec = eSysprof.find3(artikleID);
+        }
+        if (sysprofRec == null) {
+            if (owner().sysprofID != null) {
+                sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
+            } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
+                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
+            } else if (layout == LayoutArea.BOTTOM) {
+                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
+            } else if (layout == LayoutArea.LEFT) {
+                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
+            } else if (layout == LayoutArea.RIGHT) {
+                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
+            }
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);

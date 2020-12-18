@@ -1,7 +1,11 @@
 package estimate.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eSysprof;
+import enums.ParamJson;
 import enums.UseUnit;
 import estimate.constr.Specification;
 import enums.UseArtiklTo;
@@ -26,6 +30,16 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
         specificationRec = new Specification(id, this);
+    }
+
+    public int elemParam(String param, ParamJson enam) {
+        
+        if (param != null && param.isEmpty() == false) {
+            String str = param.replace("'", "\"");
+            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+            return (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(enam.name()).getAsInt();
+        }
+        return -1;
     }
 
     //Клик мышки попадает в контур элемента
