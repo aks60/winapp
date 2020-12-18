@@ -30,9 +30,15 @@ public class ElemGlass extends ElemSimple {
         this.type = TypeElem.GLASS;
 
         if (param != null && param.isEmpty() == false) {
-            String str = param.replace("'", "\"");
-            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-            this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
+            try {
+                String str = param.replace("'", "\"");
+                JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+                this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
+                System.out.println(this.artikleID);
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+
         }
         initСonstructiv();
 
@@ -58,7 +64,7 @@ public class ElemGlass extends ElemSimple {
 
         //Цвет стекла
         Record artdetRec = eArtdet.find2(artiklRec.getInt(eArtikl.id));
-        Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));        
+        Record colorRec = eColor.find3(artdetRec.getInt(eArtdet.color_fk));
         colorID1 = colorRec.getInt(eColor.id);
         colorID2 = colorRec.getInt(eColor.id);
         colorID3 = colorRec.getInt(eColor.id);
