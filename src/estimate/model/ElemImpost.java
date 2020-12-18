@@ -30,35 +30,19 @@ public class ElemImpost extends ElemSimple {
 
         initСonstructiv(param);
 
-        //Коррекция положения импоста арки (подкдадка ареа над импомтом)
+        //Коррекция положения импоста арки (подкдадка ареа над импостом)
         if ((TypeElem.ARCH == owner.type || TypeElem.TRAPEZE == owner.type) && owner.listChild.isEmpty()) {
             float dh = artiklRec.getFloat(eArtikl.height) / 2;
             owner.listChild.add(new AreaSimple(iwin(), owner, owner.id() + .1f, TypeElem.AREA, LayoutArea.HORIZ, owner.width(), dh, -1, -1, -1, null));
             root().dy = dh;
         }
-        //Установка координат
-        for (int index = owner.listChild.size() - 1; index >= 0; --index) {
-            if (owner.listChild.get(index).type == TypeElem.AREA) {
-                Com5t prevArea = owner.listChild.get(index); //index указывает на предыдущий элемент
-                float dx = artiklRec.getFloat(eArtikl.size_centr);
-
-                if (LayoutArea.VERT.equals(owner.layout())) { //сверху вниз
-                    setDimension(owner.x1, prevArea.y2 - dx, prevArea.x2, prevArea.y2 + dx);
-                    anglHoriz = 0;
-
-                } else if (LayoutArea.HORIZ.equals(owner.layout())) { //слева направо
-                    setDimension(prevArea.x2 - dx, prevArea.y1, prevArea.x2 + dx, prevArea.y2);
-                    anglHoriz = 90;
-                }
-                break;
-            }
-        }
+        setLocation();
     }
 
     public void initСonstructiv(String param) {
 
         int artikleID = elemParam(param, ParamJson.artikleID);
-        if(artikleID != -1) {
+        if (artikleID != -1) {
             sysprofRec = eSysprof.find3(artikleID);
         }
         if (sysprofRec == null) {
@@ -72,6 +56,26 @@ public class ElemImpost extends ElemSimple {
         specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+    }
+
+    //Установка координат
+    public void setLocation() {
+        for (int index = owner().listChild.size() - 1; index >= 0; --index) {
+            if (owner().listChild.get(index).type == TypeElem.AREA) {
+                Com5t prevArea = owner().listChild.get(index); //index указывает на предыдущий элемент
+                float dx = artiklRec.getFloat(eArtikl.size_centr);
+
+                if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
+                    setDimension(owner().x1, prevArea.y2 - dx, prevArea.x2, prevArea.y2 + dx);
+                    anglHoriz = 0;
+
+                } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
+                    setDimension(prevArea.x2 - dx, prevArea.y1, prevArea.x2 + dx, prevArea.y2);
+                    anglHoriz = 90;
+                }
+                break;
+            }
+        }
     }
 
     @Override //Главная спецификация

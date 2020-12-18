@@ -47,16 +47,41 @@ public class AreaStvorka extends AreaSimple {
                 this.sysfurnID = eSysfurn.find2(typeOpen.id).getInt(eSysfurn.id);
             }
         }
+                        
+        //Добавим рамы створки        
+        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, null);
+        mapFrame.put(stvBot.layout(), stvBot);
+        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, null);
+        mapFrame.put(stvRigh.layout(), stvRigh);
+        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
+        mapFrame.put(stvTop.layout(), stvTop);
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
+        mapFrame.put(stvLeft.layout(), stvLeft);
 
-        //Коррекция створки с учётом нахлёста
+        correctLocation();
+        
+        stvBot.setLocation();
+        stvRigh.setLocation();
+        stvTop.setLocation();
+        stvLeft.setLocation();
+        
+        stvBot.specificationRec.width = width();
+        stvTop.specificationRec.width = width();
+        stvRigh.specificationRec.height = height();
+        stvLeft.specificationRec.height = height();
+    }
+
+    //Коррекция створки с учётом нахлёста
+    private void correctLocation() {
+
         ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
                 adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
 
-            x1 = adjacentLef.x2 - adjacentLef.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-            y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin.syssizeRec.getFloat(eSyssize.naxl);
-            x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
-            y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin.syssizeRec.getFloat(eSyssize.naxl);
+            x1 = adjacentLef.x2 - adjacentLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
+            y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
+            x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
+            y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
         } else {
 
             //Находим профили створки в таблице SYSPROF
@@ -90,14 +115,15 @@ public class AreaStvorka extends AreaSimple {
             float offsetRig = (joinpar1Rig.getInt(eJoinpar1.id) == -1) ? 0f : Util.getFloat(joinpar1Rig.getStr(eJoinpar1.text));
             float offsetTop = (joinpar1Top.getInt(eJoinpar1.id) == -1) ? 0f : Util.getFloat(joinpar1Top.getStr(eJoinpar1.text));
             //System.out.println("offset = " + offsetLef + "-" + offsetBot + "-" + offsetRig + "-" + offsetTop);
-            
-            if(adjacentLef.type == TypeElem.STVORKA_SIDE) {
-                x1 = x1 + offsetLef;
-            } else {
-                float z1 = adjacentLef.x1 + (adjacentLef.x2 - adjacentLef.x1) / 2; 
-                x1 = adjacentLef.x2 - offsetLef;
-            }
-            
+
+//            if(adjacentLef.type == TypeElem.STVORKA_SIDE) {
+//                x1 = x1 + offsetLef;
+//            } else {
+//                float z2 = adjacentLef.x1 + (adjacentLef.x2 - adjacentLef.x1) / 2; 
+//                //float z1 =  
+//                x1 = adjacentLef.x2 - offsetLef;
+//            }
+
             float offset = 0; //смещение осей профилей            
             Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
             Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);
@@ -116,21 +142,6 @@ public class AreaStvorka extends AreaSimple {
             x2 = adjacentRig.x1 + offset;
             y2 = adjacentBot.y1 + offset;
         }
-
-        //Добавим рамы створки        
-        ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, null);
-        mapFrame.put(stvBot.layout(), stvBot);
-        ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, null);
-        mapFrame.put(stvRigh.layout(), stvRigh);
-        ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
-        mapFrame.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
-        mapFrame.put(stvLeft.layout(), stvLeft);
-
-        stvBot.specificationRec.width = width();
-        stvTop.specificationRec.width = width();
-        stvRigh.specificationRec.height = height();
-        stvLeft.specificationRec.height = height();
     }
 
     @Override

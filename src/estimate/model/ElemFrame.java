@@ -29,30 +29,10 @@ public class ElemFrame extends ElemSimple {
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
-
+        
         initСonstructiv(param);
-
-        //Установка координат
-        if (LayoutArea.LEFT == layout) {
-            setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
-            anglHoriz = 270;
-
-        } else if (LayoutArea.RIGHT == layout) {
-            setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
-            anglHoriz = 90;
-
-        } else if (LayoutArea.TOP == layout) {
-            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
-            anglHoriz = 180;
-
-        } else if (LayoutArea.BOTTOM == layout) {
-            setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
-            anglHoriz = 0;
-
-        } else if (LayoutArea.ARCH == layout) {
-            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
-            anglHoriz = 180;
-        }
+        
+        setLocation(); 
     }
 
     public void initСonstructiv(String param) {
@@ -78,6 +58,31 @@ public class ElemFrame extends ElemSimple {
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
+    //Установка координат
+    public void setLocation() {
+        
+        if (LayoutArea.LEFT == layout) {
+            setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
+            anglHoriz = 270;
+
+        } else if (LayoutArea.RIGHT == layout) {
+            setDimension(owner().x2 - artiklRec.getFloat(eArtikl.height), owner().y1, owner().x2, owner().y2);
+            anglHoriz = 90;
+
+        } else if (LayoutArea.TOP == layout) {
+            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+            anglHoriz = 180;
+
+        } else if (LayoutArea.BOTTOM == layout) {
+            setDimension(owner().x1, owner().y2 - artiklRec.getFloat(eArtikl.height), owner().x2, owner().y2);
+            anglHoriz = 0;
+
+        } else if (LayoutArea.ARCH == layout) {
+            setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
+            anglHoriz = 180;
+        }        
+    }
+    
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
