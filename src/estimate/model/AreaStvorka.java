@@ -58,7 +58,7 @@ public class AreaStvorka extends AreaSimple {
         ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
 
-        correctLocation();
+        correctLocation(stvLeft, stvBot, stvRigh, stvTop);
         
         stvBot.setLocation();
         stvRigh.setLocation();
@@ -84,61 +84,24 @@ public class AreaStvorka extends AreaSimple {
             y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
         } else {
 
-            //Находим профили створки в таблице SYSPROF
-            Record sysprofLef = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
-            Record sysprofBot = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.BOTTOM, UseSide.ANY);
-            Record sysprofRig = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.RIGHT, UseSide.ANY);
-            Record sysprofTop = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.TOP, UseSide.ANY);
-            //По профилям находим их артиклы
-            Record artiklLef = eArtikl.find(sysprofLef.getInt(eSysprof.artikl_id), false);
-            Record artiklBot = eArtikl.find(sysprofBot.getInt(eSysprof.artikl_id), false);
-            Record artiklRig = eArtikl.find(sysprofRig.getInt(eSysprof.artikl_id), false);
-            Record artiklTop = eArtikl.find(sysprofTop.getInt(eSysprof.artikl_id), false);
-            //Находим соединения примыкающих профилей в таблице соединений
-            Record joiningLef = eJoining.find(artiklLef, adjacentLef.artiklRec);
-            Record joiningBot = eJoining.find(artiklBot, adjacentBot.artiklRec);
-            Record joiningRig = eJoining.find(artiklRig, adjacentRig.artiklRec);
-            Record joiningTop = eJoining.find(artiklTop, adjacentTop.artiklRec);
-            //В таблице вариантов соединения находим примыкающие соединения
-            Record joinvarLef = eJoinvar.find(joiningLef.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
-            Record joinvarBot = eJoinvar.find(joiningBot.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
-            Record joinvarRig = eJoinvar.find(joiningRig.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
-            Record joinvarTop = eJoinvar.find(joiningTop.getInt(eJoining.id)).stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(eJoinvar.up.newRecord());
-            //Дёргаем параметр 1040 для важдой стороны
-            Record joinpar1Lef = eJoinpar1.find(joinvarLef.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
-            Record joinpar1Bot = eJoinpar1.find(joinvarBot.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
-            Record joinpar1Rig = eJoinpar1.find(joinvarRig.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
-            Record joinpar1Top = eJoinpar1.find(joinvarTop.getInt(eJoinvar.id)).stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(eJoinpar1.up.newRecord());
-            //Получам смещение створки для сторон
-            float offsetLef = (joinpar1Lef.getInt(eJoinpar1.id) == -1) ? 0f : Util.getFloat(joinpar1Lef.getStr(eJoinpar1.text));
-            float offsetBot = (joinpar1Bot.getInt(eJoinpar1.id) == -1) ? 0f : Util.getFloat(joinpar1Bot.getStr(eJoinpar1.text));
-            float offsetRig = (joinpar1Rig.getInt(eJoinpar1.id) == -1) ? 0f : Util.getFloat(joinpar1Rig.getStr(eJoinpar1.text));
-            float offsetTop = (joinpar1Top.getInt(eJoinpar1.id) == -1) ? 0f : Util.getFloat(joinpar1Top.getStr(eJoinpar1.text));
-            //System.out.println("offset = " + offsetLef + "-" + offsetBot + "-" + offsetRig + "-" + offsetTop);
-
-//            if(adjacentLef.type == TypeElem.STVORKA_SIDE) {
-//                x1 = x1 + offsetLef;
-//            } else {
-//                float z2 = adjacentLef.x1 + (adjacentLef.x2 - adjacentLef.x1) / 2; 
-//                //float z1 =  
-//                x1 = adjacentLef.x2 - offsetLef;
-//            }
-
-            
-            Record joiningLeft = eJoining.find(artiklLeft, stvLeft.artiklRec);
-            List<Record> joinvarList = eJoinvar.find(joiningLeft.getInt(eJoining.id));
-            Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
+            Record joiningLef = eJoining.find(stvLeft.artiklRec, adjacentLef.artiklRec);
+            List<Record> joinvarLefList = eJoinvar.find(joiningLef.getInt(eJoining.id));
+            Record joinvarRec = joinvarLefList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
             if (joinvarRec != null) {
-                List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-                Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
+                List<Record> joinpar1LefList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
+                Record joinpar1Rec = joinpar1LefList.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
                 if (joinpar1Rec != null) {
-                    offsetLef = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+                    float offsetLef = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+                    if (adjacentLef.type == TypeElem.STVORKA_SIDE) {
+                        x1 = x1 + offsetLef;
+                    } else {
+                        float z2 = adjacentLef.x1 + (adjacentLef.x2 - adjacentLef.x1) / 2;
+                        //float z1 =  
+                        x1 = adjacentLef.x2 - offsetLef;
+                    }                   
                 }
             }
-//            x1 = adjacentLef.x2 - offset;
-//            y1 = adjacentTop.y2 - offset;
-//            x2 = adjacentRig.x1 + offset;
-//            y2 = adjacentBot.y1 + offset;
+
         }
     }
 
