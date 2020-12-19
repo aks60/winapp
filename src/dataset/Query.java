@@ -98,7 +98,7 @@ public class Query extends Table {
                 int selector = 0;
                 for (Map.Entry<String, Query> q : root.mapQuery.entrySet()) {
                     Query table = q.getValue();
-                    Record record = table.newRecord(SEL);
+                    Record record = table.fields.get(0).newRecord(SEL);
                     table.add(record);
                     for (int index = 0; index < table.fields.size(); index++) {
                         Field field = table.fields.get(index);

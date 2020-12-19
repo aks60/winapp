@@ -107,7 +107,7 @@ public class Element extends javax.swing.JFrame {
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
         qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
-        Record record = qElemgrp.newRecord(Query.SEL);
+        Record record = eElemgrp.up.newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
         record.setNo(eElemgrp.level, 1);
         record.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;&nbsp;ПРОФИЛИ</font>");
@@ -115,7 +115,7 @@ public class Element extends javax.swing.JFrame {
         for (int index = 0; index < qElemgrp.size(); ++index) {
             int level = qElemgrp.getAs(index, eElemgrp.level);
             if (level == 5) {
-                Record record2 = qElemgrp.newRecord(Query.SEL);
+                Record record2 = eElemgrp.up.newRecord(Query.SEL);
                 record2.setNo(eElemgrp.id, -5);
                 record2.setNo(eElemgrp.level, 5);
                 record2.setNo(eElemgrp.name, "<html><font size='3' color='red'>&nbsp;&nbsp;ЗАПОЛНЕНИЯ</font>");
@@ -933,7 +933,7 @@ public class Element extends javax.swing.JFrame {
         int indexCateg = (ppm == itCateg1) ? 1 : 5;
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Record elemgrpRec = qElemgrp.newRecord(Query.INS);
+            Record elemgrpRec = eElemgrp.up.newRecord(Query.INS);
             elemgrpRec.setNo(eElemgrp.id, ConnApp.instanc().genId(eElemgrp.up));
             elemgrpRec.setNo(eElemgrp.level, indexCateg); //-1 -ПРОФИЛИ, -5 -ЗАПОЛНЕНИЯ
             qElemgrp.add(elemgrpRec);

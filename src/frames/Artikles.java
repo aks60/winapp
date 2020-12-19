@@ -1442,7 +1442,7 @@ public class Artikles extends javax.swing.JFrame {
             DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
             if (selectedNode != null && selectedNode.isLeaf()) {
                 TypeArtikl typeArtikl = (TypeArtikl) selectedNode.getUserObject();
-                Record artiklRec = qArtikl.newRecord(Query.INS);
+                Record artiklRec = eArtikl.up.newRecord(Query.INS);
                 artiklRec.setNo(eArtikl.id, ConnApp.instanc().genId(eArtikl.up));
                 artiklRec.setNo(eArtikl.level1, typeArtikl.id1);
                 artiklRec.setNo(eArtikl.level2, typeArtikl.id2);
@@ -1458,7 +1458,7 @@ public class Artikles extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
-                Record artdetRec = qArtdet.newRecord(Query.INS);
+                Record artdetRec = eArtdet.up.newRecord(Query.INS);
                 artdetRec.setNo(eArtdet.id, ConnApp.instanc().genId(eArtdet.up));
                 artdetRec.setNo(eArtdet.artikl_id, artiklRec.get(eArtikl.id));
                 qArtdet.add(artdetRec);

@@ -341,7 +341,7 @@ public class RuleCalc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Record currencRec = qRulecalc.newRecord(Query.INS);
+        Record currencRec = eRulecalc.up.newRecord(Query.INS);
         currencRec.setNo(eRulecalc.id, ConnApp.instanc().genId(eRulecalc.up));
         qRulecalc.add(currencRec);
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();

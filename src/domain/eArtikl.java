@@ -131,7 +131,7 @@ public enum eArtikl implements Field {
     }
 
     public static Record record() {
-        Record record = query.newRecord(Query.SEL);
+        Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(name, "none");
         record.setNo(code, "none");
@@ -145,7 +145,7 @@ public enum eArtikl implements Field {
 
     //[SEL, 2633, 4x10x4x10x4, 5, 2, 8, null, 32 Стеклопакет двухкамерный, null, null, 0.0, 1СП-1,5 все, 0.0, 10.0, 0.0, 2, 2250.0, 1605.0, 32.0, 30.0, 10.0, 0, 0.0, 0.0, 0.0, 0.0, 0, 0.0, 2, 0, 0, null, 3, null]
     public static Record record2() {
-        Record record = query.newRecord(Query.SEL);
+        Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(code, "0x0x0x0");
         record.setNo(name, "Стеклопакет");

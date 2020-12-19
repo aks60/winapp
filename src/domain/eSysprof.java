@@ -116,7 +116,7 @@ public enum eSysprof implements Field {
 
     public static Record record(UseArtiklTo _type) {
 
-        Record record = query.newRecord(Query.SEL);
+        Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(use_type, _type.id);
         record.setNo(use_side, UseSide.ANY.id);

@@ -603,7 +603,7 @@ public class Profstroy {
                 fieldList.add(new Object[]{rs.getString("VPREF"), rs.getInt("ATYPM")});
             }
             for (Object[] obj : fieldList) {
-                Record record = q.newRecord(Query.INS);
+                Record record = eElemgrp.up.newRecord(Query.INS);
                 record.setNo(eElemgrp.id, ConnApp.instanc().genId(eElemgrp.up));
                 record.setNo(eElemgrp.name, obj[0]);
                 record.setNo(eElemgrp.level, obj[1]);
@@ -635,7 +635,7 @@ public class Profstroy {
                     String name = "<html>Проект № " + jsonObj.get("prj").getAsString() + " " + jsonObj.get("name").getAsString();
                     int form = (jsonObj.get("prj").getAsInt() < 601999) ? TypeElem.RECTANGL.id : TypeElem.ARCH.id;
                     Query q = new Query(eModels.values());
-                    Record record = q.newRecord(Query.INS);
+                    Record record = eModels.up.newRecord(Query.INS);
                     record.setNo(eModels.npp, index + 1);
                     record.setNo(eModels.id, ConnApp.instanc().genId(eModels.up));
                     record.setNo(eModels.name, name);
@@ -656,12 +656,12 @@ public class Profstroy {
         try {
             println(Color.BLACK, "updateSetting()");
             Query q = new Query(eSetting.values());
-            Record record = q.newRecord(Query.INS);
+            Record record = eSetting.up.newRecord(Query.INS);
             record.setNo(eSetting.id, 1);
             record.setNo(eSetting.name, "Версия программы");
             record.setNo(eSetting.val, "1.0");
             q.insert(record);
-            record = q.newRecord(Query.INS);
+            record = eSetting.up.newRecord(Query.INS);
             record.setNo(eSetting.id, 2);
             record.setNo(eSetting.name, "Версия базы данных");
             record.setNo(eSetting.val, "ps" + versionPs);

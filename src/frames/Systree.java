@@ -132,7 +132,7 @@ public class Systree extends javax.swing.JFrame {
                 editingStopped(e);
             }
         });
-        Record recordRoot = qSystree.newRecord(Query.SEL);
+        Record recordRoot = eSystree.up.newRecord(Query.SEL);
         recordRoot.set(eSystree.id, 0);
         recordRoot.set(eSystree.parent_id, 0);
         recordRoot.set(eSystree.name, "Дерево системы профилей");
@@ -230,7 +230,7 @@ public class Systree extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.grup) {
                     return qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
-                            && rec.getInt(eParams.numb) == 0)).findFirst().orElse(qParams.newRecord(Query.SEL)).getStr(eParams.text);
+                            && rec.getInt(eParams.numb) == 0)).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                 }
                 return val;
             }
@@ -392,7 +392,7 @@ public class Systree extends javax.swing.JFrame {
 
         listenerModels = (record) -> {
             int models_id = record.getInt(0);
-            Record record2 = qSysprod.newRecord(Query.INS);
+            Record record2 = eSysprod.up.newRecord(Query.INS);
             record2.setNo(eSysprod.id, ConnApp.instanc().genId(eSysprod.id));
             record2.setNo(eSysprod.systree_id, nuni);
             record2.setNo(eSysprod.models_id, models_id);
@@ -1275,7 +1275,7 @@ public class Systree extends javax.swing.JFrame {
         DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
         if (node != null) {
             if (tree.getBorder() != null) {
-                Record record = qSystree.newRecord(Query.INS);
+                Record record = eSystree.up.newRecord(Query.INS);
                 record.setNo(eSystree.id, ConnApp.instanc().genId(eSystree.id));
                 int parent_id = (node.record.getInt(eSystree.id) == node.record.getInt(eSystree.parent_id)) ? record.getInt(eSystree.id) : node.record.getInt(eSystree.id);
                 record.setNo(eSystree.parent_id, parent_id);
@@ -1290,7 +1290,7 @@ public class Systree extends javax.swing.JFrame {
                 tree.setSelectionPath(new TreePath(nodes));
 
             } else if (tab2.getBorder() != null) {
-                Record record1 = qSysprof.newRecord(Query.INS);
+                Record record1 = eSysprof.up.newRecord(Query.INS);
                 Record record2 = eArtikl.up.newRecord();
                 record1.setNo(eSysprof.id, ConnApp.instanc().genId(eSysprof.id));
                 record1.setNo(eSysprof.systree_id, nuni);
@@ -1300,7 +1300,7 @@ public class Systree extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qSysprof, tab2);
 
             } else if (tab3.getBorder() != null) {
-                Record record1 = qSysfurn.newRecord(Query.INS);
+                Record record1 = eSysfurn.up.newRecord(Query.INS);
                 Record record2 = eFurniture.up.newRecord();
                 record1.setNo(eSysfurn.id, ConnApp.instanc().genId(eSysfurn.id));
                 record1.setNo(eSysfurn.systree_id, nuni);
@@ -1312,7 +1312,7 @@ public class Systree extends javax.swing.JFrame {
                 Util.scrollRectToVisible(qSysfurn, tab3);
 
             } else if (tab4.getBorder() != null) {
-                Record record1 = qSyspar1.newRecord(Query.INS);
+                Record record1 = eSyspar1.up.newRecord(Query.INS);
                 record1.setNo(eSyspar1.id, ConnApp.instanc().genId(eSyspar1.id));
                 record1.setNo(eSyspar1.systree_id, nuni);
                 qSyspar1.add(record1);

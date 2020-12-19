@@ -323,7 +323,7 @@ public class Param extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Record paramlRec = qParams.newRecord(Query.INS);
+            Record paramlRec = eParams.up.newRecord(Query.INS);
             int id = ConnApp.instanc().genId(eParams.up);
             paramlRec.setNo(eParams.id, id);
             paramlRec.setNo(eParams.grup, -1 * id);
@@ -338,7 +338,7 @@ public class Param extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 Record paramRec = qParams.get(row);
-                Record pardetRec = qPardet.newRecord(Query.INS);
+                Record pardetRec = eParams.up.newRecord(Query.INS);
                 int grup = paramRec.getInt(eParams.grup);
                 int id = ConnApp.instanc().genId(eParams.up);
                 pardetRec.setNo(eParams.id, id);

@@ -283,7 +283,7 @@ public class Util {
     public static Record insertRecord(JTable table, Field up) {
 
         Query query = ((DefTableModel) table.getModel()).getQuery();
-        Record record = query.newRecord(Query.INS);
+        Record record = up.newRecord(Query.INS);
         record.setNo(up.fields()[1], ConnApp.instanc().genId(up));
         query.add(record);
         ((DefaultTableModel) table.getModel()).fireTableDataChanged();
@@ -299,7 +299,7 @@ public class Util {
             Query query1 = ((DefTableModel) table1.getModel()).getQuery();
             Query query2 = ((DefTableModel) table2.getModel()).getQuery();
             Record record1 = query1.get(row);
-            Record record2 = query2.newRecord(Query.INS);
+            Record record2 = up2.newRecord(Query.INS);
             record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
             record2.setNo(fk2, record1.getInt(up1.fields()[1]));
             query2.add(record2);
@@ -320,7 +320,7 @@ public class Util {
             Query query1 = ((DefTableModel) table1.getModel()).getQuery();
             Query query2 = ((DefTableModel) table2.getModel()).getQuery();
             Record record1 = query1.get(row);
-            Record record2 = ((DefTableModel) table2.getModel()).getQuery().newRecord(Query.INS);
+            Record record2 = ((DefTableModel) table2.getModel()).getQuery().fields().get(0).newRecord(Query.INS);
             Record record3 = up3.newRecord();
             record2.setNo(up2.fields()[1], ConnApp.instanc().genId(up2));
             record2.setNo(fk2, record1.getInt(up1.fields()[1]));

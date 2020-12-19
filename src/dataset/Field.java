@@ -9,8 +9,8 @@ public interface Field {
 
     public static enum TYPE {
 
-        OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), STR(String.class, -9, -1, 1, 12),  
-        DBL(Double.class, 8), FLT(Float.class, 6),  LONG(Long.class, -5), DATE(Date.class, 91, 92, 93), 
+        OBJ(Object.class, 0), INT(Integer.class, 4, 5), NPP(Integer.class), STR(String.class, -9, -1, 1, 12),
+        DBL(Double.class, 8), FLT(Float.class, 6), LONG(Long.class, -5), DATE(Date.class, 91, 92, 93),
         BOOL(Boolean.class, 16), BLOB(String.class, -2, -3, -4, 2004);
         Class type;
         public HashSet<Integer> hsConv = new HashSet<Integer>();
@@ -62,12 +62,15 @@ public interface Field {
     public int ordinal();
 
     default Record newRecord() {
-        Record record = new Record();
+        return newRecord(Query.SEL);
+    }
+
+    default Record newRecord(String up) {
+        Record record = new Record(this);
         for (Field field : fields()) {
             record.add(null);
         }
-        record.set(0, Query.SEL);
-        record.set(1, -1);
+        record.set(0, up);
         return record;
     }
 

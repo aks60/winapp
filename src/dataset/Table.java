@@ -54,13 +54,4 @@ public class Table extends ArrayList<Record> {
         Object obj = get(index, field);
         return (obj == null) ? (T) def : (T) obj;
     }
-
-    public Record newRecord(String up) {
-        Record record = new Record(this);
-        for (Field field : fields.get(0).fields()) {
-            record.add(null);
-        }
-        record.set(0, up);
-        return record;
-    }
 }

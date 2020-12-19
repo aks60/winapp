@@ -289,7 +289,7 @@ public class Currenc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Record currencRec = qCurrenc.newRecord(Query.INS);
+        Record currencRec = eCurrenc.up.newRecord(Query.INS);
         currencRec.setNo(eCurrenc.id, ConnApp.instanc().genId(eCurrenc.up));
         qCurrenc.add(currencRec);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();

@@ -288,7 +288,7 @@ public class Syssize extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
-        Record currencRec = qSyssize.newRecord(Query.INS);
+        Record currencRec = eSyssize.up.newRecord(Query.INS);
         currencRec.setNo(eCurrenc.id, ConnApp.instanc().genId(eCurrenc.up));
         qSyssize.add(currencRec);
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();

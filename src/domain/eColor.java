@@ -95,7 +95,7 @@ public enum eColor implements Field {
     }
 
     public static Record record() {
-        Record record = query.newRecord(Query.SEL);
+        Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(code, 33240);
         record.setNo(name, "Виртуал");

@@ -91,7 +91,7 @@ public enum eSystree implements Field {
     }
 
     public static Record record() {
-        Record record = query.newRecord(Query.SEL);
+        Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(glas, "0x0x0x0");
         return record;

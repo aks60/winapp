@@ -81,7 +81,7 @@ public enum eArtdet implements Field {
     }
 
     public static Record record() {
-        Record record = query.newRecord(Query.SEL);
+        Record record = up.newRecord();
         record.setNo(id, -3);
         record.setNo(artikl_id, -3);
         record.setNo(color_fk, -3);
