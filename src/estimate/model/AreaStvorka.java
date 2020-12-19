@@ -85,9 +85,9 @@ public class AreaStvorka extends AreaSimple {
             y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
 
         } else {
-            float X1 = (adjacentLef.type() == TypeElem.IMPOST) ? adjacentLef.x1 + adjacentLef.height() / 2 : adjacentLef.x1;
-            float Y2 = (adjacentBot.type() == TypeElem.IMPOST) ? adjacentBot.y2 + adjacentBot.height() / 2 : adjacentBot.y2;
-            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 + adjacentRig.height() / 2 : adjacentRig.x2;
+            float X1 = (adjacentLef.type() == TypeElem.IMPOST) ? adjacentLef.x1 + adjacentLef.width() / 2 : adjacentLef.x1;
+            float Y2 = (adjacentBot.type() == TypeElem.IMPOST) ? adjacentBot.y2 - adjacentBot.height() / 2 : adjacentBot.y2;
+            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 - adjacentRig.width()/ 2 : adjacentRig.x2;
             float Y1 = (adjacentTop.type() == TypeElem.IMPOST) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;            
             x1 = X1 + offset(stvLef, adjacentLef);            
             y2 = Y2 - offset(stvBot, adjacentBot);
