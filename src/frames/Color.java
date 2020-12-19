@@ -67,7 +67,7 @@ public class Color extends javax.swing.JFrame {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
                 JLabel lab = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
                 int rgb = qColor.getAs(row, eColor.rgb);
-                lab.setBackground(new java.awt.Color((rgb & 0x000000ff), (rgb & 0x0000ff00) >> 8, (rgb & 0x00ff0000) >> 16));
+                lab.setBackground(new java.awt.Color(rgb));
                 return lab;
             }
         });
