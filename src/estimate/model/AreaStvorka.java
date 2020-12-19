@@ -48,15 +48,15 @@ public class AreaStvorka extends AreaSimple {
             }
         }
                         
-        //Добавим рамы створки        
+        //Добавим рамы створки      
+        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
+        mapFrame.put(stvLeft.layout(), stvLeft);        
         ElemFrame stvBot = new ElemFrame(this, id + .1f, LayoutArea.BOTTOM, null);
         mapFrame.put(stvBot.layout(), stvBot);
         ElemFrame stvRigh = new ElemFrame(this, id + .2f, LayoutArea.RIGHT, null);
         mapFrame.put(stvRigh.layout(), stvRigh);
         ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
-        ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
-        mapFrame.put(stvLeft.layout(), stvLeft);
 
         correctLocation();
         
@@ -72,7 +72,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     //Коррекция створки с учётом нахлёста
-    private void correctLocation() {
+    private void correctLocation(ElemFrame stvLeft, ElemFrame stvBot, ElemFrame stvRigh, ElemFrame stvTop) {
 
         ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
                 adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
@@ -124,23 +124,21 @@ public class AreaStvorka extends AreaSimple {
 //                x1 = adjacentLef.x2 - offsetLef;
 //            }
 
-            float offset = 0; //смещение осей профилей            
-            Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
-            Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);
-            Record joiningLeft = eJoining.find(artiklLeft, adjacentLef.artiklRec);
+            
+            Record joiningLeft = eJoining.find(artiklLeft, stvLeft.artiklRec);
             List<Record> joinvarList = eJoinvar.find(joiningLeft.getInt(eJoining.id));
             Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
             if (joinvarRec != null) {
                 List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
                 Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
                 if (joinpar1Rec != null) {
-                    offset = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+                    offsetLef = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
                 }
             }
-            x1 = adjacentLef.x2 - offset;
-            y1 = adjacentTop.y2 - offset;
-            x2 = adjacentRig.x1 + offset;
-            y2 = adjacentBot.y1 + offset;
+//            x1 = adjacentLef.x2 - offset;
+//            y1 = adjacentTop.y2 - offset;
+//            x2 = adjacentRig.x1 + offset;
+//            y2 = adjacentBot.y1 + offset;
         }
     }
 
