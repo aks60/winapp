@@ -89,8 +89,7 @@ public enum eSysprof implements Field {
                 + systree_id.name() + " = " + _nuni + " and " + use_type.name() + " = " + _type.id + " order by " + prio.name());
         return (recordList.isEmpty() == true) ? null : recordList.get(0);
     }
-
-    
+   
     public static Record find3(int _id) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
@@ -118,11 +117,11 @@ public enum eSysprof implements Field {
     public static Record record(UseArtiklTo _type) {
 
         Record record = query.newRecord(Query.SEL);
-        record.setNo(id, -1);
+        record.setNo(id, -3);
         record.setNo(use_type, _type.id);
         record.setNo(use_side, UseSide.ANY.id);
-        record.setNo(systree_id, -1);
-        record.setNo(artikl_id, -1);
+        record.setNo(systree_id, -3);
+        record.setNo(artikl_id, -3);
         return record;
     }
 
