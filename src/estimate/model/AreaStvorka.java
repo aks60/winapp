@@ -59,8 +59,8 @@ public class AreaStvorka extends AreaSimple {
         ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
 
-        correctLocation(stvLeft, stvBot, stvRigh, stvTop);
-
+        //Положение с учётом нахлёста створки
+        setLocation(stvLeft, stvBot, stvRigh, stvTop);
         stvBot.setLocation();
         stvRigh.setLocation();
         stvTop.setLocation();
@@ -73,82 +73,27 @@ public class AreaStvorka extends AreaSimple {
     }
 
     //Коррекция створки с учётом нахлёста
-    private void correctLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
+    private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
         ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
                 adjacentBot = join(LayoutArea.BOTTOM), adjacentRig = join(LayoutArea.RIGHT);
-        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
 
+        if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             x1 = adjacentLef.x2 - adjacentLef.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
             y1 = adjacentTop.y2 - adjacentTop.artiklRec.getFloat(eArtikl.size_falz) - iwin().syssizeRec.getFloat(eSyssize.naxl);
             x2 = adjacentRig.x1 + adjacentRig.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
             y2 = adjacentBot.y1 + adjacentBot.artiklRec.getFloat(eArtikl.size_falz) + iwin().syssizeRec.getFloat(eSyssize.naxl);
+
         } else {
-
-            System.out.println("1- " + offset(stvLef, adjacentLef));
-            System.out.println("2- " + offset(stvBot, adjacentBot));
-            System.out.println("3- " + offset(stvRig, adjacentRig));
-            System.out.println("4- " + offset(stvTop, adjacentTop));
-
-            float offset = 0; //смещение осей профилей            
-            Record sysproLeft = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.LEFT, UseSide.ANY);
-            Record artiklLeft = eArtikl.find(sysproLeft.getInt(eSysprof.artikl_id), false);
-            Record joiningLeft = eJoining.find(artiklLeft, adjacentLef.artiklRec);
-            List<Record> joinvarList = eJoinvar.find(joiningLeft.getInt(eJoining.id));
-            Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
-            if (joinvarRec != null) {
-                List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-                Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
-                if (joinpar1Rec != null) {
-                    offset = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
-                }
-            }
-            x1 = adjacentLef.x2 - offset;
-            y1 = adjacentTop.y2 - offset;
-            x2 = adjacentRig.x1 + offset;
-            y2 = adjacentBot.y1 + offset;
+            float X1 = (adjacentLef.type() == TypeElem.IMPOST) ? adjacentLef.x1 + adjacentLef.height() / 2 : adjacentLef.x1;
+            float Y2 = (adjacentBot.type() == TypeElem.IMPOST) ? adjacentBot.y2 + adjacentBot.height() / 2 : adjacentBot.y2;
+            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 + adjacentRig.height() / 2 : adjacentRig.x2;
+            float Y1 = (adjacentTop.type() == TypeElem.IMPOST) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;            
+            x1 = X1 + offset(stvLef, adjacentLef);            
+            y2 = Y2 - offset(stvBot, adjacentBot);
+            x2 = X2 - offset(stvRig, adjacentRig);
+            y1 = Y1 + offset(stvTop, adjacentTop);
         }
-    }
-
-    //Вычисление смещения створки
-    private float offset(ElemSimple profStv, ElemSimple profFrm) {
-        Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
-        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
-        Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
-        if (joinvarRec != null) {
-            List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
-            if (joinpar1Rec != null) {
-                float dx1040 = Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
-
-                if (profFrm.layout == LayoutArea.LEFT) {
-                    float b1 = profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                    float b2 = profFrm.x1 + profFrm.artiklRec.getFloat(eArtikl.height) / 2;
-                    return profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                }else                 if (profFrm.layout == LayoutArea.LEFT) {
-                    float b1 = profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                    float b2 = profFrm.x1 + profFrm.artiklRec.getFloat(eArtikl.height) / 2;
-                    return profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                } else                 if (profFrm.layout == LayoutArea.LEFT) {
-                    float b1 = profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                    float b2 = profFrm.x1 + profFrm.artiklRec.getFloat(eArtikl.height) / 2;
-                    return profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                } else                 if (profFrm.layout == LayoutArea.LEFT) {
-                    float b1 = profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                    float b2 = profFrm.x1 + profFrm.artiklRec.getFloat(eArtikl.height) / 2;
-                    return profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-                }    
-//                if (profFrm.type == TypeElem.IMPOST) {
-//                    float b2 = profFrm.x1 + profFrm.artiklRec.getFloat(eArtikl.height) / 2;
-//                    return dx1040 - (x1 - b2);
-//                } else {
-//                    float b1 = profStv.x1 + profStv.artiklRec.getFloat(eArtikl.height) / 2;
-//                    float b2 = profFrm.x1 + profFrm.artiklRec.getFloat(eArtikl.height) / 2;
-//                    return dx1040 - (b1 - b2);
-//                }
-            }
-        }
-        return 0;
     }
 
     @Override
@@ -216,6 +161,21 @@ public class AreaStvorka extends AreaSimple {
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1 + height() / 2), el);
             }
         }
+    }
+
+    //Вычисление смещения створки
+    private float offset(ElemSimple profStv, ElemSimple profFrm) {
+        Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
+        List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
+        Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
+        if (joinvarRec != null) {
+            List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
+            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 1040).findFirst().orElse(null);
+            if (joinpar1Rec != null) {
+                return Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
+            }
+        }
+        return 0;
     }
 
     @Override

@@ -88,7 +88,7 @@ public class Joining extends Cal5e {
                 }
             }
         } catch (Exception e) {
-            System.err.println("estimate.constr.Joining.calc() " + e);
+            System.err.println("Ошибка:Joining.calc() " + e);
         }
     }
 }
