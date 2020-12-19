@@ -40,7 +40,7 @@ public enum eSyssize implements Field {
     }
 
     public static Record find(int _id) {
-        if (_id == -1) {
+        if (_id == -3) {
             return record();
         }
         if (Query.conf.equals("calc")) {
@@ -52,18 +52,11 @@ public enum eSyssize implements Field {
 
     public static Record record() {
         Record record = query.newRecord(Query.SEL);
-        record.setNo(id, -1);
+        record.setNo(id, -3);
         record.setNo(prip, 0);
         record.setNo(naxl, 0);
         record.setNo(zax, 0);
         return record;
-//        Record record = query.newRecord(Query.SEL);
-//        record.setNo(id, -1);
-//        record.setNo(prip, 3);
-//        record.setNo(napl, 20);
-//        record.setNo(naxl, 8);
-//        record.setNo(zax, 6);
-//        return record;
     }
 
     public String toString() {

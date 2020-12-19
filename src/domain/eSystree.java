@@ -80,7 +80,7 @@ public enum eSystree implements Field {
     }
 
     public static Record find(int _nuni) {
-        if (_nuni == -1) {
+        if (_nuni == -3) {
             return record();
         }
         if (Query.conf.equals("calc")) {
@@ -92,7 +92,7 @@ public enum eSystree implements Field {
 
     public static Record record() {
         Record record = query.newRecord(Query.SEL);
-        record.setNo(id, -1);
+        record.setNo(id, -3);
         record.setNo(glas, "0x0x0x0");
         return record;
     }

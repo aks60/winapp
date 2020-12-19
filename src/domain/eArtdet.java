@@ -70,7 +70,7 @@ public enum eArtdet implements Field {
     }
 
     public static Record find2(int _artikl_id) {
-        if (_artikl_id == -1) {
+        if (_artikl_id == -3) {
             return record();
         }
         if (Query.conf.equals("calc")) {
@@ -82,9 +82,9 @@ public enum eArtdet implements Field {
 
     public static Record record() {
         Record record = query.newRecord(Query.SEL);
-        record.setNo(id, -1);
-        record.setNo(artikl_id, -1);
-        record.setNo(color_fk, -1);
+        record.setNo(id, -3);
+        record.setNo(artikl_id, -3);
+        record.setNo(color_fk, -3);
         return record;
     }
 

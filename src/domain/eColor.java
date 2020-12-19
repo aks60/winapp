@@ -60,7 +60,7 @@ public enum eColor implements Field {
     }
 
     public static Record find(int _id) {
-        if (_id == -1) {
+        if (_id == -3) {
             return record();
         }
         if (Query.conf.equals("calc")) {
@@ -96,7 +96,7 @@ public enum eColor implements Field {
 
     public static Record record() {
         Record record = query.newRecord(Query.SEL);
-        record.setNo(id, -1);
+        record.setNo(id, -3);
         record.setNo(code, 33240);
         record.setNo(name, "Виртуал");
         record.setNo(rgb, 33240);

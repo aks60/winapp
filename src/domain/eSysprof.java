@@ -63,7 +63,7 @@ public enum eSysprof implements Field {
     }
 
     public static Record find2(int _nuni, UseArtiklTo _type) {
-        if (_nuni == -1) {
+        if (_nuni == -3) {
             return record(_type);
         }
         if (Query.conf.equals("calc")) {

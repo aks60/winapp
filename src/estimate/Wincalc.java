@@ -254,7 +254,7 @@ public class Wincalc {
                 }
             }
         } catch (Exception e) {
-            System.err.println("wincalc.Wincalc.windowsBuild() " + e);
+            System.err.println("Ошибка:wincalc.Wincalc.windowsBuild() " + e);
         }
     }
 }
