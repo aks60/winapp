@@ -99,7 +99,7 @@ public enum eSysprof implements Field {
     }
     
     public static Record find4(Wincalc iwin, UseArtiklTo _type, UseSide... _side) {
-        if (iwin.nuni == -1) {
+        if (iwin.nuni == -3) {
             return record(_type);
         }
         List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
