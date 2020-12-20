@@ -13,9 +13,9 @@ public enum eSyssize implements Field {
     name("12", "32", "1", "Система артикулов", "SNAME"),
     prip("8", "15", "1", "Припуск на сварку", "SSIZP"),    
     naxl("8", "15", "1", "Нахлест створки", "SSIZF"),
+    falz("8", "15", "1", "T - Глубина до фальца", "SSIZN"),
     zax("8", "15", "1", "Заход импоста", "SSIZI");
     //sunic("4", "10", "1", "ID системы", "SUNIC"),
-    //falz("8", "15", "1", "Глубина до фальца", "SSIZN"),
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
 
