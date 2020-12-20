@@ -461,7 +461,7 @@ public class Profstroy {
             updateSql(eElemdet.up, eElemdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("4", "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
             executeSql("4", "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
-            executeSql("4", "update artikl set size_falz = (select a.SSIZN from syssize a where a.id = artikl.syssize_id) where size_falz is null or size_falz = 0");
+            executeSql("4", "update artikl set size_falz = (select a.falz from syssize a where a.id = artikl.syssize_id) where size_falz is null or size_falz = 0");
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
             executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
             executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "

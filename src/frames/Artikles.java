@@ -401,6 +401,9 @@ public class Artikles extends javax.swing.JFrame {
             if (row != -1) {
                 Record artiklRec = qArtikl.get(row);
                 artiklRec.set(eArtikl.syssize_id, record.get(eSyssize.id));
+                if (artiklRec.getInt(eArtikl.size_falz) == -1) {
+                    artiklRec.set(eArtikl.size_falz, record.get(eSyssize.falz));
+                }
                 rsvArtikl.load();
                 Util.stopCellEditing(tab1, tab2);
             }
@@ -425,7 +428,7 @@ public class Artikles extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1, tab2);
             }
         };
-        
+
         listenerCateg = (record) -> {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
