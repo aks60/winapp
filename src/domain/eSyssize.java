@@ -44,12 +44,23 @@ public enum eSyssize implements Field {
             return record();
         }
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(recdef());
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        return (recordList.isEmpty() == true) ? recdef() : recordList.get(0);
     }
 
+    //Cистемные переменные по умолчанию
+    public static Record recdef() {
+        Record record = up.newRecord();
+        record.setNo(id, -1);
+        record.setNo(prip, 0);
+        record.setNo(naxl, 0);
+        record.setNo(zax, 0);
+        return record;
+    }
+    
+    //Виртуал. системные переменные
     public static Record record() {
         Record record = up.newRecord();
         record.setNo(id, -3);

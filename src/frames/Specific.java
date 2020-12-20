@@ -724,7 +724,7 @@ public class Specific extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);
+        tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);       
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
