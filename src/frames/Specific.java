@@ -109,13 +109,14 @@ public class Specific extends javax.swing.JFrame {
         dtm.addRow(vectorLast);
     }
 
-    private List<Specification> groups() {
+    private List<Specification> groups(int num) {
         HashSet<String> hs = new HashSet();
         List<Specification> list = new ArrayList();
         Map<String, Specification> map = new HashMap();
         for (Specification spc : iwin.listSpec) {
-            String key = spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.anglCut1
-                    + spc.width + spc.height + spc.anglCut2 + spc.unit + spc.wastePrc + spc.inPrice + spc.discount;
+            String key = (num == 1)
+                    ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.inPrice + spc.discount
+                    : spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.wastePrc + spc.inPrice + spc.discount;
             if (hs.add(key)) {
                 map.put(key, new Specification(spc));
             } else {
@@ -154,7 +155,8 @@ public class Specific extends javax.swing.JFrame {
         btnFix = new javax.swing.JButton();
         btnFill = new javax.swing.JButton();
         btnFurn = new javax.swing.JButton();
-        btnFurn1 = new javax.swing.JButton();
+        btnGrup1 = new javax.swing.JButton();
+        btnGup2 = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -278,7 +280,8 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        btnAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c006.gif"))); // NOI18N
+        btnAll.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnAll.setText("∑");
         btnAll.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnAll.setFocusable(false);
         btnAll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -286,7 +289,6 @@ public class Specific extends javax.swing.JFrame {
         btnAll.setMinimumSize(new java.awt.Dimension(26, 26));
         btnAll.setPreferredSize(new java.awt.Dimension(26, 26));
         btnAll.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnAll.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAll(evt);
@@ -352,18 +354,35 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        btnFurn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c017.gif"))); // NOI18N
-        btnFurn1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFurn1.setFocusable(false);
-        btnFurn1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFurn1.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnFurn1.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnFurn1.setPreferredSize(new java.awt.Dimension(26, 26));
-        btnFurn1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnFurn1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnFurn1.addActionListener(new java.awt.event.ActionListener() {
+        btnGrup1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGrup1.setText("Гр1");
+        btnGrup1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnGrup1.setFocusable(false);
+        btnGrup1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGrup1.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnGrup1.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnGrup1.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnGrup1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnGrup1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGrup1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGroups(evt);
+                btnGroup1(evt);
+            }
+        });
+
+        btnGup2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGup2.setText("Гр2");
+        btnGup2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnGup2.setFocusable(false);
+        btnGup2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGup2.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnGup2.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnGup2.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnGup2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnGup2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGup2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGroup2(evt);
             }
         });
 
@@ -385,6 +404,10 @@ public class Specific extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(btnAll, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGrup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -392,11 +415,9 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFurn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(91, 91, 91)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -417,9 +438,10 @@ public class Specific extends javax.swing.JFrame {
                             .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFurn1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGrup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -631,13 +653,17 @@ public class Specific extends javax.swing.JFrame {
         loadingData(listSpec);
     }//GEN-LAST:event_btnFilter
 
-    private void btnGroups(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroups
-        loadingData(groups());
-    }//GEN-LAST:event_btnGroups
+    private void btnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup1
+        loadingData(groups(1));
+    }//GEN-LAST:event_btnGroup1
 
     private void btnAll(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAll
         loadingData(iwin.listSpec);
     }//GEN-LAST:event_btnAll
+
+    private void btnGroup2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup2
+        loadingData(groups(2));
+    }//GEN-LAST:event_btnGroup2
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -649,7 +675,8 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JButton btnFill;
     private javax.swing.JButton btnFix;
     private javax.swing.JButton btnFurn;
-    private javax.swing.JButton btnFurn1;
+    private javax.swing.JButton btnGrup1;
+    private javax.swing.JButton btnGup2;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnJon;
     private javax.swing.JButton btnRef;
@@ -724,7 +751,7 @@ public class Specific extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(19).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);
-        tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);       
+        tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);
         FocusListener listenerFocus = new FocusListener() {
 
             javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));

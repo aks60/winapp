@@ -59,7 +59,7 @@ public class AreaStvorka extends AreaSimple {
         ElemFrame stvTop = new ElemFrame(this, id + .3f, LayoutArea.TOP, null);
         mapFrame.put(stvTop.layout(), stvTop);
 
-        //Положение с учётом нахлёста створки
+        //Положение элементов створки с учётом нахлёста
         setLocation(stvLeft, stvBot, stvRigh, stvTop);
         stvBot.setLocation();
         stvRigh.setLocation();
@@ -72,7 +72,7 @@ public class AreaStvorka extends AreaSimple {
         stvLeft.specificationRec.height = height();
     }
 
-    //Коррекция створки с учётом нахлёста
+    //Коррекция координат створки с учётом нахлёста
     private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
         ElemSimple adjacentLef = join(LayoutArea.LEFT), adjacentTop = join(LayoutArea.TOP),
