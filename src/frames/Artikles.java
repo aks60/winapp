@@ -916,7 +916,7 @@ public class Artikles extends javax.swing.JFrame {
         jLabel27.setPreferredSize(new java.awt.Dimension(98, 18));
 
         jLabel28.setFont(frames.Util.getFont(0,0));
-        jLabel28.setText("Глуб. до фальца");
+        jLabel28.setText("Наплав, полка(N)");
         jLabel28.setToolTipText("");
         jLabel28.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel28.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -960,7 +960,7 @@ public class Artikles extends javax.swing.JFrame {
         });
 
         jLabel29.setFont(frames.Util.getFont(0,0));
-        jLabel29.setText("Толщина выступа");
+        jLabel29.setText("Толщ. наплава(T) ");
         jLabel29.setToolTipText("");
         jLabel29.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel29.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -1040,7 +1040,6 @@ public class Artikles extends javax.swing.JFrame {
         jLabel33.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jLabel33.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         jLabel33.setMinimumSize(new java.awt.Dimension(34, 14));
-        jLabel33.setPreferredSize(new java.awt.Dimension(98, 18));
 
         jLabel20.setFont(frames.Util.getFont(0,0));
         jLabel20.setText("Толщина фрезы");
