@@ -97,15 +97,14 @@ public class ElemImpost extends ElemSimple {
         specificationRec.anglCut1 = 90;
         specificationRec.anglHoriz = anglHoriz;
 
-        //Заход импоста на эскизе не показываю. Сразу пишу в спецификацию
+        //Заход импоста на эскизе не показываю, сразу пишу в спецификацию
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
-
+            
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
                 specificationRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
                 specificationRec.height = artiklRec.getFloat(eArtikl.height);
-
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
                 ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
                 specificationRec.width = insideRight.x1 - insideLeft.x2 + zax * 2 + insideLeft.artiklRec.getFloat(eArtikl.size_falz) + insideRight.artiklRec.getFloat(eArtikl.size_falz);
@@ -116,7 +115,6 @@ public class ElemImpost extends ElemSimple {
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
                 specificationRec.width = insideBott.y2 - insideTop.y1 - 2 * offset(this, join(LayoutArea.TOP));
                 specificationRec.height = artiklRec.getFloat(eArtikl.height);
-
             } else if (LayoutArea.VERT == owner().layout()) { //сверху вниз
                 ElemSimple insideLeft = join(LayoutArea.LEFT), insideRight = join(LayoutArea.RIGHT);
                 specificationRec.width = insideRight.x1 - insideLeft.x2 - 2 * offset(this, join(LayoutArea.LEFT));
