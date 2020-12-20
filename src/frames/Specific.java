@@ -441,9 +441,16 @@ public class Specific extends javax.swing.JFrame {
                 "Nпп", "<HTML>ID</HTML>", "Расположенние", "Артикул", "Наименование", "Текстура", "Внутренняя", "Внешняя", "Длина", "Ширина", "Масса", "<html>Угол <br/>  1", "<html>Угол<br/>  2", "<html>Угол к<br/> горизонту", "<html>Кол.<br/>единиц", "Ед.изм", "<html>Кол.без<br/>отхода", "<html>Процент<br/> отх.", "<html>Кол. с <br/>отходом", "<html>Себест.<br/> за ед. измерения", "<html>Себест.<br/> с отх.", "<html>Стоим.<br/> без_скидки", "<html>Стоим. <br/>со_скидкой"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -672,6 +679,17 @@ public class Specific extends javax.swing.JFrame {
                 return label;
             }
         };
+        DefaultTableCellRenderer cellRenderer1 = new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                if (value != null) {
+                    if (Float.valueOf(value.toString()) > 0) {
+                        value = df1.format(value);
+                    }
+                }
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                return label;
+            }
+        };
         DefaultTableCellRenderer cellRenderer2 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 if (value != null) {
@@ -694,8 +712,8 @@ public class Specific extends javax.swing.JFrame {
                 return label;
             }
         };
-        tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer0);
-        tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer0);
+        tab1.getColumnModel().getColumn(8).setCellRenderer(cellRenderer1);
+        tab1.getColumnModel().getColumn(9).setCellRenderer(cellRenderer1);
         tab1.getColumnModel().getColumn(10).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(11).setCellRenderer(cellRenderer0);
         tab1.getColumnModel().getColumn(12).setCellRenderer(cellRenderer0);

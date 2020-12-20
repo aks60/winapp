@@ -95,6 +95,7 @@ public class ElemFrame extends ElemSimple {
         specificationRec.anglCut1 = anglCut1;
         specificationRec.anglHoriz = anglHoriz;
         float prip = iwin().syssizeRec.getFloat(eSyssize.prip);
+       // prip = 
 
         if (LayoutArea.ARCH == layout()) {
             AreaArch areaArch = (AreaArch) root();
