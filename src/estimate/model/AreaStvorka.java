@@ -163,7 +163,7 @@ public class AreaStvorka extends AreaSimple {
         }
     }
 
-    //Вычисление смещения створки
+    //Вычисление смещения створки через параметр
     private float offset(ElemSimple profStv, ElemSimple profFrm) {
         Record joiningRec = eJoining.find(profStv.artiklRec, profFrm.artiklRec);
         List<Record> joinvarList = eJoinvar.find(joiningRec.getInt(eJoining.id));
