@@ -64,12 +64,11 @@ public class Elements extends Cal5e {
         try {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
-                int element_id = elementRec.getInt(eElement.id);
-                List<Record> elempar1List = eElempar1.find3(element_id); //список параметров вариантов использования
+                int element_id = elementRec.getInt(eElement.id);                
                 listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
-                if (elementVar.check(elem5e, elempar1List) == true) {
+                if (elementVar.check(elem5e, elementRec) == true) {
 
                     elementSet.change(elem5e.specificationRec); //коррекция основной спецификации параметрами
 
@@ -77,11 +76,10 @@ public class Elements extends Cal5e {
                     List<Record> elemdetList = eElemdet.find(element_id);
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
-                        int elemdet_id = elemdetRec.getInt(eElemdet.id);
-                        List<Record> elempar2List = eElempar2.find3(elemdet_id); //список параметров детализации 
+                        int elemdet_id = elemdetRec.getInt(eElemdet.id);                        
 
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
-                        if (elementDet.check(mapParam, elem5e, elempar2List) == true) {
+                        if (elementDet.check(mapParam, elem5e, elemdetRec) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);

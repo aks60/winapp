@@ -2,6 +2,8 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eJoindet;
+import domain.eJoinpar2;
 import domain.eSysprof;
 import domain.eSystree;
 import java.util.Arrays;
@@ -20,8 +22,9 @@ public class JoiningDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> paramList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record joindetRec) {
 
+        List<Record> paramList = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
         if (filterParamUse(elem5e, paramList) == false) {
             return false; //параметры по умолчанию
         }
@@ -53,7 +56,7 @@ public class JoiningDet extends Par5s {
                             return false;
                         }
                     }
-                        break;
+                    break;
                     case 11001:  //Если признак состава Арт.1 
                         message(rec.getInt(GRUP));
                         break;

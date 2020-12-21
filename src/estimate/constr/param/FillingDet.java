@@ -2,6 +2,8 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eGlasdet;
+import domain.eGlaspar2;
 import domain.eSetting;
 import domain.eSystree;
 import java.util.Arrays;
@@ -20,8 +22,9 @@ public class FillingDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> paramList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record glasdetRec) {
 
+        List<Record> paramList = eGlaspar2.find(glasdetRec.getInt(eGlasdet.id)); //список параметров детализации  
         if (filterParamUse(elem5e, paramList) == false) {
             return false; //параметры по умолчанию
         }
@@ -67,7 +70,7 @@ public class FillingDet extends Par5s {
                         break;
                     case 14017:  //Код системы содержит строку 
                         message(rec.getInt(GRUP));
-                        break;                         
+                        break;
                     case 14030:  //Количество 
                         mapParam.put(grup, rec.getStr(TEXT));
                         break;
@@ -90,7 +93,7 @@ public class FillingDet extends Par5s {
                                 return false;
                             }
                         }
-                        break;                        
+                        break;
                     case 14067:  //Коды основной текстуры изделия 
                     case 15067:  //Коды основной текстуры изделия    
                         int c1 = elem5e.iwin().colorID1;

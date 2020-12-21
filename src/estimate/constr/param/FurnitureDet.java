@@ -2,6 +2,8 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eFurndet;
+import domain.eFurnpar2;
 import enums.LayoutArea;
 import enums.LayoutHandle;
 import enums.TypeElem;
@@ -24,8 +26,9 @@ public class FurnitureDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, List<Record> tableList) {
+    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record furndetRec) {
 
+        List<Record> tableList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
         if (filterParamUse(elem5e, tableList) == false) {
             return false; //параметры по умолчанию
         }

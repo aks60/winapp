@@ -1,6 +1,8 @@
 package estimate.constr.param;
 
 import dataset.Record;
+import domain.eGlasgrp;
+import domain.eGlaspar1;
 import domain.eSystree;
 import enums.TypeElem;
 import java.util.List;
@@ -16,8 +18,9 @@ public class FillingVar extends Par5s {
         super(iwin);
     }
 
-    public boolean check(ElemGlass elem5e, List<Record> paramList) {
+    public boolean check(ElemGlass elem5e, Record glasgrpRec) {
 
+        List<Record> paramList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
         //Цикл по параметрам заполнения
         for (Record rec : paramList) {
 

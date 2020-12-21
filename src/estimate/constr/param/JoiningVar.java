@@ -6,6 +6,7 @@ import domain.eElement;
 import domain.eElempar1;
 import domain.eElempar2;
 import domain.eJoinpar1;
+import domain.eJoinvar;
 import domain.eSetting;
 import domain.eSystree;
 import enums.TypeJoin;
@@ -27,8 +28,9 @@ public class JoiningVar extends Par5s {
     }
 
     //1000 - прилегающее соединение, 2000 - угловое на ус, 3000 - угловое (левое, правое), 4000 - Т образное соединение
-    public boolean check(ElemJoining elemJoin, List<Record> paramList) {
+    public boolean check(ElemJoining elemJoin, Record joinvarRec) {
 
+        List<Record> paramList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
         //цикл по параметрам элементов соединения
         for (Record rec : paramList) {
 
@@ -66,14 +68,13 @@ public class JoiningVar extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 1011:  //Для Артикула 1 указан состав 
-                    case 4011: //Для Артикула 1 указан состав     
+                    case 4011:  //Для Артикула 1 указан состав     
                     {
                         boolean substr = false;
                         List<Record> elementList = eElement.find3(elemJoin.joinElement1.artiklRec.getInt(eArtikl.code), elemJoin.joinElement1.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar2List = eElempar2.find2(elementRec.getInt(eElement.id));
-                                substr = (new ElementVar(iwin)).check(elemJoin.joinElement1, elempar2List);
+                                substr = (new ElementVar(iwin)).check(elemJoin.joinElement1, elementRec);
                                 break;
                             }
                         }
@@ -89,8 +90,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList = eElement.find3(elemJoin.joinElement2.artiklRec.getInt(eArtikl.code), elemJoin.joinElement2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar2List = eElempar2.find2(elementRec.getInt(eElement.id));
-                                substr = (new ElementVar(iwin)).check(elemJoin.joinElement2, elempar2List);
+                                substr = (new ElementVar(iwin)).check(elemJoin.joinElement2, elementRec);
                                 break;
                             }
                         }
@@ -110,8 +110,7 @@ public class JoiningVar extends Par5s {
                         ElementVar elementVar = new ElementVar(iwin);
                         for (Record elementRec : elementList1) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                                substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
+                                substr1 = elementVar.check(elemJoin.joinElement1, elementRec);
                                 break;
                             }
                         }
@@ -119,8 +118,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList2 = eElement.find3(elemJoin.joinElement2.artiklRec.getInt(eArtikl.code), elemJoin.joinElement2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList2) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                                substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
+                                substr1 = elementVar.check(elemJoin.joinElement1, elementRec);
                                 break;
                             }
                         }
@@ -186,8 +184,7 @@ public class JoiningVar extends Par5s {
                         ElementVar elementVar = new ElementVar(iwin);
                         for (Record elementRec : elementList1) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                                substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
+                                substr1 = elementVar.check(elemJoin.joinElement1, elementRec);
                                 break;
                             }
                         }
@@ -195,8 +192,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList2 = eElement.find3(elemJoin.joinElement2.artiklRec.getInt(eArtikl.code), elemJoin.joinElement2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList2) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
-                                substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
+                                substr1 = elementVar.check(elemJoin.joinElement1, elementRec);
                                 break;
                             }
                         }

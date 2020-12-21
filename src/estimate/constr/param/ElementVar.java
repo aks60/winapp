@@ -2,6 +2,8 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eElement;
+import domain.eElempar1;
 import domain.eSetting;
 import domain.eSysprof;
 import enums.LayoutArea;
@@ -24,8 +26,9 @@ public class ElementVar extends Par5s {
         super(iwin);
     }
 
-    public boolean check(ElemSimple elem5e, List<Record> paramList) {
+    public boolean check(ElemSimple elem5e, Record elementRec) {
 
+        List<Record> paramList = eElempar1.find3(elementRec.getInt(eElement.id)); //список параметров вариантов использования
         //Цикл по параметрам состава
         for (Record rec : paramList) {
             

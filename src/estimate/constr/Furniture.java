@@ -85,12 +85,11 @@ public class Furniture extends Cal5e {
             listVariants.add(furnitureRec.getInt(eFurniture.id)); //сделано для запуска формы Furniture на ветке Systree
 
             //Цикл по описанию сторон фурнитуры
-            for (Record furnside1Rec : furnside1List) {
-                List<Record> furnpar1List = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
+            for (Record furnside1Rec : furnside1List) {                
                 ElemFrame sideFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnside1Rec.getInt(eFurnside1.side_num)));
 
                 //ФИЛЬТР вариантов
-                if (furnitureVar.check(sideFrame, furnpar1List) == false) {
+                if (furnitureVar.check(sideFrame, furnside1Rec) == false) {
                     return;
                 }
             }
@@ -147,10 +146,9 @@ public class Furniture extends Cal5e {
                     }
                 }
             }
-            //ФИЛЬТР детализации
-            List<Record> furnpar2List = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
+            //ФИЛЬТР детализации            
             furnitureDet.detailRec = furndetRec; //для тестирования
-            if (furnitureDet.check(mapParam, handlFrame, furnpar2List) == false) {
+            if (furnitureDet.check(mapParam, handlFrame, furndetRec) == false) {
                 return false; //параметры детализации
             }
             List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));

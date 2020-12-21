@@ -2,6 +2,8 @@ package estimate.constr.param;
 
 import dataset.Record;
 import domain.eArtikl;
+import domain.eFurnpar1;
+import domain.eFurnside1;
 import domain.eSetting;
 import enums.LayoutArea;
 import enums.TypeElem;
@@ -18,8 +20,9 @@ public class FurnitureVar extends Par5s {
         super(iwin);
     }
 
-    public boolean check(ElemSimple elem5e, List<Record> tableList) {
+    public boolean check(ElemSimple elem5e, Record furnside1Rec) {
 
+        List<Record> tableList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
         //Цикл по параметрам фурнитуры
         for (Record rec : tableList) {
 
