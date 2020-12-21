@@ -149,6 +149,7 @@ public class Furniture extends Cal5e {
             }
             //ФИЛЬТР детализации
             List<Record> furnpar2List = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
+            furnitureDet.detailRec = furndetRec; //для тестирования
             if (furnitureDet.check(mapParam, handlFrame, furnpar2List) == false) {
                 return false; //параметры детализации
             }

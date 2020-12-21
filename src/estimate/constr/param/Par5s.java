@@ -23,6 +23,7 @@ public class Par5s {
     protected String versionDb = eSetting.find(2).getStr(eSetting.val);
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
     public HashMap<Integer, String> mapParamTmp = new HashMap();
+    public Record detailRec = null; //для тестирования
 
     public Par5s(Wincalc iwin) {
         this.iwin = iwin;

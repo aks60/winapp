@@ -86,7 +86,7 @@ public class Specific extends javax.swing.JFrame {
     }
 
     private void loadingData(List<Specification> listSpec) {
-        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
+        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());        
         dtm.getDataVector().clear();
         dtm.fireTableDataChanged();
         int insexLast = listSpec.get(0).getVector(0).size();
@@ -697,6 +697,8 @@ public class Specific extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
+        tab1.setRowSorter(sorter);        
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -755,29 +757,5 @@ public class Specific extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(20).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(21).setCellRenderer(cellRenderer2);
         tab1.getColumnModel().getColumn(22).setCellRenderer(cellRenderer2);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-                JTable table = (JTable) e.getSource();
-                table.setBorder(border);
-//            tabList.add(table);
-//            tabActive = table;
-//            tmActive = (TableModel) table.getModel();
-                btnIns.setEnabled(true);
-//            if (table != treeMat) {
-//                btnDel.setEnabled(true);
-//            }
-            }
-
-            public void focusLost(FocusEvent e) {
-                JTable table = (JTable) e.getSource();
-                table.setBorder(null);
-                btnIns.setEnabled(false);
-                btnDel.setEnabled(false);
-            }
-        };
-        tab1.addFocusListener(listenerFocus);
     }
 }
