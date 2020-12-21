@@ -41,7 +41,7 @@ public class Convert extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingModel();
-        timer.start();
+        timer.start();        
     }
 
     private void loadingModel() {
