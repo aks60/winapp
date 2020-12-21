@@ -102,7 +102,7 @@ public class JoiningVar extends Par5s {
                     case 1013:  //Для Артикулов не указан состав
                     case 2013:  //Для Артикулов не указан состав 
                     case 3013:  //Для Артикулов не указан состав
-                    case 4013: //Для Артикулов не указан состав  
+                    case 4013:  //Для Артикулов не указан состав  
                     {
 
                         List<Record> elementList1 = eElement.find3(elemJoin.joinElement1.artiklRec.getInt(eArtikl.code), elemJoin.joinElement1.artiklRec.getInt(eArtikl.series_id));

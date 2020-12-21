@@ -20,7 +20,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            //wincalc();
+            wincalc();
             //query();
             //frame();
             //parse();
@@ -33,7 +33,7 @@ public class Test {
 
         Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 604004;
