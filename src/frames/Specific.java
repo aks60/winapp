@@ -76,7 +76,6 @@ public class Specific extends javax.swing.JFrame {
             String script = record2.getStr(eModels.script);
             if (script.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Выберите конструкцию в системе профилей", "Предупреждение", JOptionPane.OK_OPTION);
-                //this.dispose();
             } else {
                 JsonElement je = new Gson().fromJson(script, JsonElement.class);
                 je.getAsJsonObject().addProperty("nuni", nuni);
@@ -88,9 +87,8 @@ public class Specific extends javax.swing.JFrame {
 
     private void loadingData(List<Specification> listSpec) {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
-        //TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
-        //tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
+        dtm.fireTableDataChanged();
         int insexLast = listSpec.get(0).getVector(0).size();
         float sum1 = 0, sum2 = 0, sum3 = 0;
         for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
@@ -114,6 +112,7 @@ public class Specific extends javax.swing.JFrame {
         HashSet<String> hs = new HashSet();
         List<Specification> list = new ArrayList();
         Map<String, Specification> map = new HashMap();
+        
         for (Specification spc : iwin.listSpec) {
             String key = (num == 1)
                     ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.inPrice + spc.discount
@@ -564,7 +563,11 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsert
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
+        //TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
+        //tab1.setRowSorter(sorter);
+        dtm.getDataVector().clear();
+        dtm.fireTableDataChanged();
     }//GEN-LAST:event_btnReport
 
     private void filterUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterUpdate

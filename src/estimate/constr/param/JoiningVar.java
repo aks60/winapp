@@ -325,6 +325,11 @@ public class JoiningVar extends Par5s {
                             return false;
                         }
                         break;
+                    case 4031: // Точный угол, °
+                        if (rec.getFloat(TEXT) != elemJoin.joinElement1.anglHoriz) {
+                            return false;
+                        }
+                        break;
                     case 4040:  //Размер от оси профиля, мм. или заход импоста
                         //Параметр вычисляктся на раннем этапе см. код
                         break;

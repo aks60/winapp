@@ -1000,7 +1000,7 @@ public class Element extends javax.swing.JFrame {
     private javax.swing.JTextField txtFilter;
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
-// </editor-fold> 
+    // </editor-fold> 
     private void initElements() {
 
         new FrameToFile(this, btnClose);

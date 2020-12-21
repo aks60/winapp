@@ -230,6 +230,7 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 25010:  //Номер стороны 
+                        System.out.println(elem5e);
                         message(rec.getInt(GRUP));
                         break;
                     case 25011:  //Расчет по общей арке 
