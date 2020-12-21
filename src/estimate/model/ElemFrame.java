@@ -124,6 +124,7 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(Specification specificationAdd) { //добавление спесификаций зависимых элементов
 
+        Object obj = owner();
         //Армирование
         if (TypeArtikl.ARMIROVANIE.isType(specificationAdd.artiklRec)) {
             specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
@@ -142,20 +143,19 @@ public class ElemFrame extends ElemSimple {
                 specificationAdd.width = specificationAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();
 
             } else {
-                /*
-                Double dw1 = 0.0;
-                Double dw2 = 0.0;
-                if (anglCut1 != 90) {
-                    dw1 = specif.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
-                }
-                if (anglCut1 != 90) {
-                    dw2 = specif.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
-                }
-                specif.width = specif.width + 2 * syssizeRec.ssizp - dw1.floatValue() - dw2.floatValue();
-                 */
+//                Double dw1 = 0.0;
+//                Double dw2 = 0.0;
+//                if (anglCut1 != 90) {
+//                    dw1 = specificationAdd.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut1));
+//                }
+//                if (anglCut1 != 90) {
+//                    dw2 = specificationAdd.artiklRec.getDbl(eArtikl.height) / Math.tan(Math.toRadians(anglCut2));
+//                }
+//                specificationAdd.width = specificationAdd.width + 2 * iwin().syssizeRec.getFloat(eSyssize.prip) - dw1.floatValue() - dw2.floatValue();                 
                 //TODO тут код незакончен
             }
 
+            
             //Концевой профиль
         } else if (TypeArtikl.KONZEVPROF.isType(specificationAdd.artiklRec) == true) {
             String str = specificationAdd.getParam(0, 12030);

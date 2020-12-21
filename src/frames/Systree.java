@@ -334,6 +334,7 @@ public class Systree extends javax.swing.JFrame {
             for (int i = 0; i < qSystree.size(); i++) {
                 if (nuni == qSystree.get(i).getInt(eSystree.id)) {
                     rsvSystree.load(i);
+                    System.out.println(qSystree.get(i).getInt(eSystree.types));
                 }
             }
 //            qSysprod.select(eSysprod.up, "left join", eModels.up, "on", eModels.id, "=", eSysprod.models_id,
