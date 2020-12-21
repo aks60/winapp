@@ -72,7 +72,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList = eElement.find3(elemJoin.joinElement1.artiklRec.getInt(eArtikl.code), elemJoin.joinElement1.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar2List = eElempar2.find2(elementRec.getInt(GRUP));
+                                ArrayList<Record> elempar2List = eElempar2.find2(elementRec.getInt(eElement.id));
                                 substr = (new ElementVar(iwin)).check(elemJoin.joinElement1, elempar2List);
                                 break;
                             }
@@ -89,7 +89,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList = eElement.find3(elemJoin.joinElement2.artiklRec.getInt(eArtikl.code), elemJoin.joinElement2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar2List = eElempar2.find2(elementRec.getInt(GRUP));
+                                ArrayList<Record> elempar2List = eElempar2.find2(elementRec.getInt(eElement.id));
                                 substr = (new ElementVar(iwin)).check(elemJoin.joinElement2, elempar2List);
                                 break;
                             }
@@ -110,7 +110,7 @@ public class JoiningVar extends Par5s {
                         ElementVar elementVar = new ElementVar(iwin);
                         for (Record elementRec : elementList1) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
+                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
                                 substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
                                 break;
                             }
@@ -119,7 +119,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList2 = eElement.find3(elemJoin.joinElement2.artiklRec.getInt(eArtikl.code), elemJoin.joinElement2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList2) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
+                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
                                 substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
                                 break;
                             }
@@ -186,7 +186,7 @@ public class JoiningVar extends Par5s {
                         ElementVar elementVar = new ElementVar(iwin);
                         for (Record elementRec : elementList1) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
+                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
                                 substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
                                 break;
                             }
@@ -195,7 +195,7 @@ public class JoiningVar extends Par5s {
                         List<Record> elementList2 = eElement.find3(elemJoin.joinElement2.artiklRec.getInt(eArtikl.code), elemJoin.joinElement2.artiklRec.getInt(eArtikl.series_id));
                         for (Record elementRec : elementList2) {
                             if (elementRec.getStr(eElement.name).contains(rec.getStr(TEXT))) {
-                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(GRUP));
+                                ArrayList<Record> elempar1List = eElempar1.find(elementRec.getInt(eElement.id));
                                 substr1 = elementVar.check(elemJoin.joinElement1, elempar1List);
                                 break;
                             }
