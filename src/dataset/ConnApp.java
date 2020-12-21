@@ -50,5 +50,6 @@ public abstract class ConnApp {
     public abstract void modifyPassword(String user, String pass);
 
     public abstract int genId(Field field);
-
+    
+    public abstract String version();
 }

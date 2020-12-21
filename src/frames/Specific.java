@@ -39,6 +39,7 @@ import static java.util.stream.Collectors.toList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App1;
 
@@ -87,8 +88,8 @@ public class Specific extends javax.swing.JFrame {
 
     private void loadingData(List<Specification> listSpec) {
         DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
-        tab1.setRowSorter(sorter);
+        //TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
+        //tab1.setRowSorter(sorter);
         dtm.getDataVector().clear();
         int insexLast = listSpec.get(0).getVector(0).size();
         float sum1 = 0, sum2 = 0, sum3 = 0;
@@ -142,6 +143,7 @@ public class Specific extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroup = new javax.swing.ButtonGroup();
         north = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
         btnRef = new javax.swing.JButton();
@@ -151,12 +153,19 @@ public class Specific extends javax.swing.JFrame {
         btnArtikles = new javax.swing.JButton();
         btnConstructiv = new javax.swing.JButton();
         btnAll = new javax.swing.JButton();
-        btnJon = new javax.swing.JButton();
-        btnFix = new javax.swing.JButton();
-        btnFill = new javax.swing.JButton();
-        btnFurn = new javax.swing.JButton();
-        btnGrup1 = new javax.swing.JButton();
-        btnGup2 = new javax.swing.JButton();
+        btnJon_ = new javax.swing.JButton();
+        btnFix_ = new javax.swing.JButton();
+        btnFill_ = new javax.swing.JButton();
+        btnFurn_ = new javax.swing.JButton();
+        btnGrup1_ = new javax.swing.JButton();
+        btnGup2_ = new javax.swing.JButton();
+        btnGroup1 = new javax.swing.JToggleButton();
+        btnGroup2 = new javax.swing.JToggleButton();
+        btnGroup3 = new javax.swing.JToggleButton();
+        btnJoin = new javax.swing.JToggleButton();
+        btnFix = new javax.swing.JToggleButton();
+        btnFill = new javax.swing.JToggleButton();
+        btnFurn = new javax.swing.JToggleButton();
         centr = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
         tab1 = new javax.swing.JTable();
@@ -265,7 +274,7 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c006.gif"))); // NOI18N
         btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
         btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnConstructiv.setFocusable(false);
@@ -281,7 +290,7 @@ public class Specific extends javax.swing.JFrame {
         });
 
         btnAll.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnAll.setText("∑");
+        btnAll.setText("Гр1");
         btnAll.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnAll.setFocusable(false);
         btnAll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -289,100 +298,165 @@ public class Specific extends javax.swing.JFrame {
         btnAll.setMinimumSize(new java.awt.Dimension(26, 26));
         btnAll.setPreferredSize(new java.awt.Dimension(26, 26));
         btnAll.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnAll.addActionListener(new java.awt.event.ActionListener() {
+
+        btnJon_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
+        btnJon_.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnJon_.setFocusable(false);
+        btnJon_.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnJon_.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnJon_.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnJon_.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnJon_.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+
+        btnFix_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
+        btnFix_.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFix_.setFocusable(false);
+        btnFix_.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFix_.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnFix_.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnFix_.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnFix_.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFix_.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnFill_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
+        btnFill_.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFill_.setFocusable(false);
+        btnFill_.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFill_.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnFill_.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnFill_.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnFill_.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFill_.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnFurn_.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
+        btnFurn_.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnFurn_.setFocusable(false);
+        btnFurn_.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFurn_.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnFurn_.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnFurn_.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnFurn_.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnFurn_.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnGrup1_.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGrup1_.setText("Гр2");
+        btnGrup1_.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnGroup.add(btnGrup1_);
+        btnGrup1_.setFocusable(false);
+        btnGrup1_.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGrup1_.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnGrup1_.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnGrup1_.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnGrup1_.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnGrup1_.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnGup2_.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGup2_.setText("Гр3");
+        btnGup2_.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnGup2_.setFocusable(false);
+        btnGup2_.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGup2_.setMaximumSize(new java.awt.Dimension(26, 26));
+        btnGup2_.setMinimumSize(new java.awt.Dimension(26, 26));
+        btnGup2_.setPreferredSize(new java.awt.Dimension(26, 26));
+        btnGup2_.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
+        btnGup2_.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnGroup.add(btnGroup1);
+        btnGroup1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGroup1.setSelected(true);
+        btnGroup1.setText("Гр1");
+        btnGroup1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnGroup1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnGroup1.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnGroup1.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnGroup1.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnGroup1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAll(evt);
+                btnGroup1(evt);
             }
         });
 
-        btnJon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
-        btnJon.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnJon.setFocusable(false);
-        btnJon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnJon.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnJon.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnJon.setPreferredSize(new java.awt.Dimension(26, 26));
-        btnJon.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnJon.addActionListener(new java.awt.event.ActionListener() {
+        btnGroup.add(btnGroup2);
+        btnGroup2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGroup2.setText("Гр2");
+        btnGroup2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnGroup2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnGroup2.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnGroup2.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnGroup2.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnGroup2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGroup2(evt);
+            }
+        });
+
+        btnGroup.add(btnGroup3);
+        btnGroup3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnGroup3.setText("Гр3");
+        btnGroup3.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnGroup3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnGroup3.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnGroup3.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnGroup3.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnGroup3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGroup3(evt);
+            }
+        });
+
+        btnGroup.add(btnJoin);
+        btnJoin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnJoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c024.gif"))); // NOI18N
+        btnJoin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnJoin.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnJoin.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnJoin.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnJoin.setPreferredSize(new java.awt.Dimension(28, 25));
+        btnJoin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
             }
         });
 
+        btnGroup.add(btnFix);
+        btnFix.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnFix.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c025.gif"))); // NOI18N
         btnFix.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFix.setFocusable(false);
-        btnFix.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFix.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnFix.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnFix.setPreferredSize(new java.awt.Dimension(26, 26));
-        btnFix.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnFix.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFix.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnFix.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnFix.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnFix.setPreferredSize(new java.awt.Dimension(28, 25));
         btnFix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
             }
         });
 
+        btnGroup.add(btnFill);
+        btnFill.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnFill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c026.gif"))); // NOI18N
         btnFill.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFill.setFocusable(false);
-        btnFill.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFill.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnFill.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnFill.setPreferredSize(new java.awt.Dimension(26, 26));
-        btnFill.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnFill.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFill.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnFill.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnFill.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnFill.setPreferredSize(new java.awt.Dimension(28, 25));
         btnFill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
             }
         });
 
+        btnGroup.add(btnFurn);
+        btnFurn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnFurn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c027.gif"))); // NOI18N
         btnFurn.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnFurn.setFocusable(false);
-        btnFurn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnFurn.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnFurn.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnFurn.setPreferredSize(new java.awt.Dimension(26, 26));
-        btnFurn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnFurn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFurn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnFurn.setMaximumSize(new java.awt.Dimension(28, 25));
+        btnFurn.setMinimumSize(new java.awt.Dimension(28, 25));
+        btnFurn.setPreferredSize(new java.awt.Dimension(28, 25));
         btnFurn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFilter(evt);
-            }
-        });
-
-        btnGrup1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGrup1.setText("Гр1");
-        btnGrup1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnGrup1.setFocusable(false);
-        btnGrup1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnGrup1.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnGrup1.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnGrup1.setPreferredSize(new java.awt.Dimension(26, 26));
-        btnGrup1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnGrup1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnGrup1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGroup1(evt);
-            }
-        });
-
-        btnGup2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnGup2.setText("Гр2");
-        btnGup2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        btnGup2.setFocusable(false);
-        btnGup2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnGup2.setMaximumSize(new java.awt.Dimension(26, 26));
-        btnGup2.setMinimumSize(new java.awt.Dimension(26, 26));
-        btnGup2.setPreferredSize(new java.awt.Dimension(26, 26));
-        btnGup2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c001.gif"))); // NOI18N
-        btnGup2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnGup2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGroup2(evt);
             }
         });
 
@@ -401,23 +475,37 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(18, 18, 18)
                 .addComponent(btnAll, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGrup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGrup1_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGup2_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnJon_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFix_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFill_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFurn_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -425,6 +513,11 @@ public class Specific extends javax.swing.JFrame {
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(northLayout.createSequentialGroup()
                 .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -435,13 +528,19 @@ public class Specific extends javax.swing.JFrame {
                             .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGrup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFurn_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFill_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFix_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGrup1_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnJon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnJon_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGup2_, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnGroup3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnFix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -639,9 +738,9 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
-        JButton tab = (JButton) evt.getSource();
+        JToggleButton tab = (JToggleButton) evt.getSource();
         List<Specification> listSpec = null;
-        if (tab == btnJon) {
+        if (tab == btnJoin) {
             listSpec = iwin.listSpec.stream().filter(rec -> "СОЕ".equals(rec.place.substring(0, 3))).collect(toList());
         } else if (tab == btnFix) {
             listSpec = iwin.listSpec.stream().filter(rec -> "ВСТ".equals(rec.place.substring(0, 3))).collect(toList());
@@ -653,17 +752,17 @@ public class Specific extends javax.swing.JFrame {
         loadingData(listSpec);
     }//GEN-LAST:event_btnFilter
 
-    private void btnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup1
+    private void btnGroup2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup2
         loadingData(groups(1));
+    }//GEN-LAST:event_btnGroup2
+
+    private void btnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup1
+        loadingData(iwin.listSpec);
     }//GEN-LAST:event_btnGroup1
 
-    private void btnAll(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAll
-        loadingData(iwin.listSpec);
-    }//GEN-LAST:event_btnAll
-
-    private void btnGroup2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup2
+    private void btnGroup3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup3
         loadingData(groups(2));
-    }//GEN-LAST:event_btnGroup2
+    }//GEN-LAST:event_btnGroup3
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -672,13 +771,21 @@ public class Specific extends javax.swing.JFrame {
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConstructiv;
     private javax.swing.JButton btnDel;
-    private javax.swing.JButton btnFill;
-    private javax.swing.JButton btnFix;
-    private javax.swing.JButton btnFurn;
-    private javax.swing.JButton btnGrup1;
-    private javax.swing.JButton btnGup2;
+    private javax.swing.JToggleButton btnFill;
+    private javax.swing.JButton btnFill_;
+    private javax.swing.JToggleButton btnFix;
+    private javax.swing.JButton btnFix_;
+    private javax.swing.JToggleButton btnFurn;
+    private javax.swing.JButton btnFurn_;
+    private javax.swing.ButtonGroup btnGroup;
+    private javax.swing.JToggleButton btnGroup1;
+    private javax.swing.JToggleButton btnGroup2;
+    private javax.swing.JToggleButton btnGroup3;
+    private javax.swing.JButton btnGrup1_;
+    private javax.swing.JButton btnGup2_;
     private javax.swing.JButton btnIns;
-    private javax.swing.JButton btnJon;
+    private javax.swing.JToggleButton btnJoin;
+    private javax.swing.JButton btnJon_;
     private javax.swing.JButton btnRef;
     private javax.swing.JButton btnReport;
     private javax.swing.JPanel centr;

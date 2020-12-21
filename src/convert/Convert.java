@@ -388,7 +388,6 @@ public class Convert extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTestBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestBtnStartClick
-
         ConnApp Src = new ConnFb();
         eExcep excep = Src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
                 edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
@@ -400,7 +399,7 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit
 
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
-        try {
+        try {            
             Query.listOpenTable.clear();
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
@@ -413,6 +412,7 @@ public class Convert extends javax.swing.JFrame {
             con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
             Connection c1 = con1.getConnection();
 
+            txtPane.setText("");
             thread = new Thread(new Runnable() {
                 public void run() {
                     Profstroy.exec(listQue, c1, c2);
@@ -464,5 +464,11 @@ public class Convert extends javax.swing.JFrame {
 // </editor-fold> 
 
     private void initElements() {
+        appendToPane("\n", Color.RED);
+        appendToPane("    У Вас установлена версия Firebird " + ConnApp.instanc().version() + "\n", Color.RED);
+        appendToPane("\n", Color.RED);
+        appendToPane("    Внимание!!! Перенос данных из ПрофСтрой-3 должен\n", Color.RED);
+        appendToPane("    выполняться под управлением Firebird 2.1 НЕ ВЫШЕ.\n", Color.RED);
+        appendToPane("    Если версия выше чем 2.1 переустановите Firebird.\n", Color.RED);
     }
 }

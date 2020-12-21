@@ -123,7 +123,9 @@ public class Wincalc {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }
-            Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name).compareTo(o2.place.subSequence(0, 3) + o2.name));
+            Collections.sort(listSpec, (o1, o2) -> (
+                    o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width)
+            );
 
         } catch (Exception e) {
             System.out.println("Ошибка:Wincalc.constructiv(" + e);

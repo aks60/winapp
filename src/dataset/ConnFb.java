@@ -173,4 +173,21 @@ public class ConnFb extends dataset.ConnApp {
             return 0;
         }
     }
+
+    @Override
+    public String version() {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT rdb$get_context('SYSTEM', 'ENGINE_VERSION') as version from rdb$database";
+            ResultSet rs = statement.executeQuery(sql);
+            rs.next();
+            String v = rs.getString("VERSION");
+            rs.close();
+            return v;
+            
+        } catch (SQLException e) {
+            System.err.println("Ошибка получения версии " + e);
+            return "";
+        }
+    }
 }
