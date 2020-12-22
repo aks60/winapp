@@ -96,6 +96,14 @@ public class AreaStvorka extends AreaSimple {
         }
     }
 
+    public void addLocation() {
+                 
+             //Фурнитура
+        //} else if (TypeArtikl.FURNITURA.isType(specificationAdd.artiklRec)) {
+
+               
+    }
+    
     @Override
     public void joinFrame() {
         //Цикл по сторонам створки
