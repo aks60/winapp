@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import estimate.Wincalc;
-import estimate.constr.param.ElementDet;
-import estimate.constr.param.ElementSet;
-import estimate.constr.param.ElementVar;
+import estimate.param.ElementDet;
+import estimate.param.ElementSet;
+import estimate.param.ElementVar;
 import estimate.model.ElemSimple;
 import java.util.Map;
 

@@ -16,7 +16,7 @@ import enums.UseArtiklTo;
 import estimate.constr.Cal5e;
 import estimate.constr.Specification;
 import estimate.constr.Util;
-import estimate.constr.param.ElementSet;
+import estimate.param.ElementSet;
 
 public class ElemFrame extends ElemSimple {
 

@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import estimate.Wincalc;
-import estimate.constr.param.ElementDet;
-import estimate.constr.param.JoiningDet;
-import estimate.constr.param.JoiningVar;
+import estimate.param.ElementDet;
+import estimate.param.JoiningDet;
+import estimate.param.JoiningVar;
 import estimate.model.ElemJoining;
 import estimate.model.ElemSimple;
 

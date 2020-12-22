@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
+import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinpar1;
 import domain.eJoinvar;
@@ -97,7 +98,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     public void addLocation() {
-                 
+        ElemFrame handlFrame = mapFrame.get((LayoutArea) LayoutArea.ANY.find(handleSide.id)); //Крепится ручка         
              //Фурнитура
         //} else if (TypeArtikl.FURNITURA.isType(specificationAdd.artiklRec)) {
 

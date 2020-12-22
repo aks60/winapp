@@ -1,4 +1,4 @@
-package estimate.constr.param;
+package estimate.param;
 
 import estimate.Wincalc;
 import estimate.constr.Specification;
