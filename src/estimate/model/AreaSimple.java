@@ -2,12 +2,15 @@ package estimate.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import domain.eSysprof;
 import frames.swing.Draw;
 import enums.LayoutArea;
 import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.ParamJson;
 import enums.TypeJoin;
+import enums.UseArtiklTo;
+import enums.UseSide;
 import java.io.File;
 import java.util.EnumMap;
 import java.util.LinkedList;
@@ -38,13 +41,20 @@ public class AreaSimple extends Com5t {
         this.colorID3 = color3;
         parsing(param);
         initDimension(width, height);
-        if (param != null && param.isEmpty() == false) {
-            JsonObject jsonObj = new Gson().fromJson(param.replace("'", "\""), JsonObject.class);
-
-            if (jsonObj.get(ParamJson.sysprofID.name()) != null) {
-                this.sysprofID = jsonObj.get(ParamJson.sysprofID.name()).getAsInt();
-            }
-        }
+        
+        //Профили коробки, створки
+        if (elemParam(param, ParamJson.artikleID) != -1) {
+            sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
+        } else {
+            sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.ANY);
+        }        
+//        if (param != null && param.isEmpty() == false) {
+//            JsonObject jsonObj = new Gson().fromJson(param.replace("'", "\""), JsonObject.class);
+//
+//            if (jsonObj.get(ParamJson.sysprofID.name()) != null) {
+//                this.sysprofID = jsonObj.get(ParamJson.sysprofID.name()).getAsInt();
+//            }
+//        }
     }
 
     protected void initDimension(float width, float height) {

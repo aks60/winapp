@@ -70,19 +70,11 @@ public class AreaStvorka extends AreaSimple {
         if (elemParam(param, ParamJson.typeOpen) != -1) {
             this.typeOpen = TypeOpen1.get(elemParam(param, ParamJson.typeOpen));
         }
-        //Профили створки
-        if (elemParam(param, ParamJson.artikleID) != -1) {
-            sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
-        }
-        if (sysprofRec == null) {
-            sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.ANY);
-        }
         //Фурнитура створки
         if (elemParam(param, ParamJson.sysfurnID) != -1) {
-            this.sysfurnRec = eSysfurn.find2(elemParam(param, ParamJson.sysfurnID));
-        }
-        if (this.sysfurnRec == null) {
-            this.sysfurnRec = eSysfurn.find4(iwin().nuni, typeOpen.id);
+            sysfurnRec = eSysfurn.find2(elemParam(param, ParamJson.sysfurnID));
+        } else {
+            sysfurnRec = eSysfurn.find4(iwin().nuni, typeOpen.id);
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);

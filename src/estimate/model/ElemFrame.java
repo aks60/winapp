@@ -36,13 +36,15 @@ public class ElemFrame extends ElemSimple {
     }
 
     public void initСonstructiv(String param) {
-        
-        int artikleID = elemParam(param, ParamJson.artikleID);
-        if(artikleID != -1) {
-            sysprofRec = eSysprof.find3(artikleID);
+
+        if(elemParam(param, ParamJson.artikleID) != -1) {
+            sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
         }
-        if (sysprofRec == null) {
-            if (owner().sysprofID != null) {
+        System.out.println(owner().sysprofRec);
+        if (sysprofRec == null) {  
+            if (owner().sysprofRec.getInt(eSysprof.id) != -1) {
+                //sysprofRec = owner().sysprofRec;            
+            //if (owner().sysprofID != null) {
                 sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
             } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
                 sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
@@ -56,6 +58,13 @@ public class ElemFrame extends ElemSimple {
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+        
+
+//        if (sysprofRec.getInt(eSysprof.id) == -1) {           
+//            if (owner().sysprofRec.getInt(eSysprof.id) != -1) {
+//                sysprofRec = owner().sysprofRec;
+//            } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
+       
     }
 
     //Установка координат
