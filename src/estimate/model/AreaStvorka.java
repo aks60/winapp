@@ -23,6 +23,7 @@ import enums.UseSide;
 import java.awt.Color;
 import java.util.LinkedList;
 import estimate.Wincalc;
+import estimate.constr.Specification;
 import estimate.constr.Util;
 import java.lang.annotation.ElementType;
 import java.util.List;
@@ -97,12 +98,9 @@ public class AreaStvorka extends AreaSimple {
         }
     }
 
-    public void addLocation() {
-        ElemFrame handlFrame = mapFrame.get((LayoutArea) LayoutArea.ANY.find(handleSide.id)); //Крепится ручка         
-             //Фурнитура
-        //} else if (TypeArtikl.FURNITURA.isType(specificationAdd.artiklRec)) {
-
-               
+    public void addSpecific(Specification spc) {
+        ElemFrame handlFrame = mapFrame.get((LayoutArea) LayoutArea.ANY.find(handleSide.id)); //Крепится ручка
+        handlFrame.addSpecific(spc);               
     }
     
     @Override

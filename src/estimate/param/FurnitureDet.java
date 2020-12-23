@@ -26,10 +26,11 @@ public class FurnitureDet extends Par5s {
         super(iwin);
     }
 
-    public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record furndetRec) {
+    public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record furndetRec) {
 
         List<Record> tableList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
-        if (filterParamUse(elem5e, tableList) == false) {
+        ElemFrame handlFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(areaStv.handleSide.id)); //Крепится ручка
+        if (filterParamUse(handlFrame, tableList) == false) {
             return false; //параметры по умолчанию
         }
         //Цикл по параметрам фурнитуры
@@ -42,20 +43,20 @@ public class FurnitureDet extends Par5s {
                     case 24001:  //Форма контура 
                     case 25001:  //Форма контура
                         //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
-                        if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(elem5e.owner().type()) == false
-                                && TypeElem.AREA.equals(elem5e.owner().type()) == false && TypeElem.STVORKA.equals(elem5e.owner().type()) == false) {
+                        if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(areaStv.type()) == false
+                                && TypeElem.AREA.equals(areaStv.type()) == false && TypeElem.STVORKA.equals(areaStv.type()) == false) {
                             return false;
-                        } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(elem5e.owner().type()) == false) {
+                        } else if ("трапециевидная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.TRAPEZE.equals(areaStv.type()) == false) {
                             return false;
-                        } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == false) {
+                        } else if ("арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == false) {
                             return false;
-                        } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(elem5e.owner().type()) == true) {
+                        } else if ("не арочная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.ARCH.equals(areaStv.type()) == true) {
                             return false;
-                        }                        
+                        }
                         break;
                     case 24002:  //Если артикул створки 
                     case 25002:  //Если артикул створки 
-                        if (elem5e.artiklRec.getStr(eArtikl.code).equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        if (areaStv.mapFrame.entrySet().stream().filter(el -> el.getValue().artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().isEmpty()) {
                             return false;
                         }
                         break;
@@ -87,7 +88,7 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24012:  //Направление открывания
-                        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        if (areaStv.typeOpen.side.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;
@@ -107,15 +108,15 @@ public class FurnitureDet extends Par5s {
                     case 24033:  //Фурнитура штульповая 
                     case 25033: //Фурнитура штульповая 
                     {
-                        if (((AreaStvorka) elem5e.owner()).typeOpen.side.equalsIgnoreCase("Левое")) {
-                            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.LEFT);
+                        if (areaStv.typeOpen.side.equalsIgnoreCase("Левое")) {
+                            ElemFrame el = areaStv.mapFrame.get(LayoutArea.LEFT);
                             if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;
                             } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
                                 return false;
                             }
-                        } else if (((AreaStvorka) elem5e.owner()).typeOpen.side.equalsIgnoreCase("Правое")) {
-                            ElemFrame el = ((AreaSimple) elem5e.owner()).mapFrame.get(LayoutArea.RIGHT);
+                        } else if (areaStv.typeOpen.side.equalsIgnoreCase("Правое")) {
+                            ElemFrame el = areaStv.mapFrame.get(LayoutArea.RIGHT);
                             if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;
                             }
@@ -158,23 +159,22 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24068:  //Коды внутр. текстуры изделия 
-                        int c2 = elem5e.iwin().colorID2;
+                        int c2 = areaStv.iwin().colorID2;
                         if (Util.containsInt(rec.getStr(TEXT), c2) == false) {
                             return false;
                         }
                         break;
                     case 24069:  //Коды внешн. текстуры изделия 
                     case 25069:  //Коды внешн. текстуры изделия     
-                        int c3 = elem5e.iwin().colorID3;
+                        int c3 = areaStv.iwin().colorID3;
                         if (Util.containsInt(rec.getStr(TEXT), c3) == false) {
                             return false;
                         }
                         break;
                     case 24070:  //Если высота ручки 
                     case 25070:  //Если высота ручки     
-                        String str = ((AreaStvorka) elem5e.owner()).handleHeight;
-                        if (LayoutHandle.MIDDL.name.equalsIgnoreCase(str) == true && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
-                                || LayoutHandle.CONST.name.equalsIgnoreCase(str) == true && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
+                        if (LayoutHandle.MIDDL.name.equalsIgnoreCase(areaStv.handleHeight) == true && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
+                                || LayoutHandle.CONST.name.equalsIgnoreCase(areaStv.handleHeight) == true && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
                             return false;
                         }
                         break;
@@ -234,7 +234,7 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 25010:  //Номер стороны 
                         message(rec.getInt(GRUP));
-                        System.out.println("- " + detailRec.getInt(1) + " - " + elem5e.id() + " - " + rec.getStr(TEXT));
+                        System.out.println("- " + detailRec.getInt(1) + " - " + areaStv.id() + " - " + rec.getStr(TEXT));
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 25011:  //Расчет по общей арке 

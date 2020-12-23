@@ -48,30 +48,30 @@ public class Furniture extends Cal5e {
         LinkedList<AreaStvorka> stvorkaList = root().listElem(TypeElem.STVORKA);
         try {
             //Цикл по створкам      
-            for (AreaStvorka areaStvorka : stvorkaList) {
+            for (AreaStvorka areaStv : stvorkaList) {
 
                 setFurndet.clear();
                 //Подбор фурнитуры по параметрам
                 List<Record> sysfurnList = eSysfurn.find(iwin().nuni);
                 Record sysfurnRec = sysfurnList.get(0);
-                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStvorka.sysfurnID).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna                                                             
+                sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnID).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna                                                             
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
                 //Сторона открывания
-                areaStvorka.handleSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
+                areaStv.handleSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
                 //Подбор текстуры ручки створки
-                if (areaStvorka.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
-                    areaStvorka.handleColor = iwin().colorID1;
+                if (areaStv.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
+                    areaStv.handleColor = iwin().colorID1;
                 }
                 //Ручка по умолчанию
                 if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDDL.id) {
-                    areaStvorka.handleHeight = LayoutHandle.MIDDL.name;
+                    areaStv.handleHeight = LayoutHandle.MIDDL.name;
                 } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
-                    areaStvorka.handleHeight = LayoutHandle.CONST.name;
+                    areaStv.handleHeight = LayoutHandle.CONST.name;
                 } else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная")) {
-                    areaStvorka.handleHeight = "установлена";
+                    areaStv.handleHeight = "установлена";
                 }
-                middle(areaStvorka, furnityreRec, 1); //основная фурнитура
+                middle(areaStv, furnityreRec, 1); //основная фурнитура
             }
         } catch (Exception e) {
             System.err.println("Ошибка:Furniture.calc() " + e);
@@ -122,11 +122,10 @@ public class Furniture extends Cal5e {
         }
     }
 
-    protected boolean detail(AreaStvorka areaStvorka, Record furndetRec, int count) {
+    protected boolean detail(AreaStvorka areaStv, Record furndetRec, int count) {
         try {
             HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры element и specific
-            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));
-            ElemFrame handlFrame = areaStvorka.mapFrame.get((LayoutArea) LayoutArea.ANY.find(furnitureRec.getInt(eFurniture.hand_side))); //Крепится ручка
+            Record furnitureRec = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id1));            
 
             //Подбор текстуры ручки
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
@@ -136,7 +135,7 @@ public class Furniture extends Cal5e {
                         boolean empty = true;
                         List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
                         for (Record artdetRec : artdetList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == areaStvorka.handleColor) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == areaStv.handleColor) {
                                 empty = false;
                             }
                         }
@@ -148,7 +147,7 @@ public class Furniture extends Cal5e {
             }
             //ФИЛЬТР детализации            
             furnitureDet.detailRec = furndetRec; //для тестирования
-            if (furnitureDet.check(mapParam, handlFrame, furndetRec) == false) {
+            if (furnitureDet.check(mapParam, areaStv, furndetRec) == false) {
                 return false; //параметры детализации
             }
             List<Record> furnside2List = eFurnside2.find(furndetRec.getInt(eFurndet.id));
@@ -169,19 +168,19 @@ public class Furniture extends Cal5e {
                     }
                 }
                 if (side == 1) {
-                    el = areaStvorka.mapFrame.get(LayoutArea.BOTTOM);
+                    el = areaStv.mapFrame.get(LayoutArea.BOTTOM);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.specificationRec.width - 2 * size_falz;
                 } else if (side == 2) {
-                    el = areaStvorka.mapFrame.get(LayoutArea.RIGHT);
+                    el = areaStv.mapFrame.get(LayoutArea.RIGHT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.specificationRec.width - 2 * size_falz;
                 } else if (side == 3) {
-                    el = areaStvorka.mapFrame.get(LayoutArea.TOP);
+                    el = areaStv.mapFrame.get(LayoutArea.TOP);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.specificationRec.width - 2 * size_falz;
                 } else if (side == 4) {
-                    el = areaStvorka.mapFrame.get(LayoutArea.LEFT);
+                    el = areaStv.mapFrame.get(LayoutArea.LEFT);
                     float size_falz = (el.artiklRec.getFloat(eArtikl.size_falz) == 0) ? 21 : el.artiklRec.getFloat(eArtikl.size_falz);
                     width = el.specificationRec.width - 2 * size_falz;
                 }
@@ -194,13 +193,14 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
+                    ElemFrame handlFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(areaStv.handleSide.id)); //Крепится ручка
                     Specification specif = new Specification(furndetRec, artiklRec, handlFrame, mapParam);
                     if (Color.colorFromProduct(specif)) {
 
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                         specif.count = specif.count * count;
                         specif.place = "ФУРН";
-                        handlFrame.addSpecific(specif); //добавим спецификацию в элемент
+                        areaStv.addSpecific(specif); //добавим спецификацию в элемент
                     }
                 }
 
@@ -209,7 +209,7 @@ public class Furniture extends Cal5e {
                 int count2 = (mapParam.get(24030) == null) ? 1 : Integer.valueOf((mapParam.get(24030)));
                 Record furnitureRec2 = eFurniture.find(furndetRec.getInt(eFurndet.furniture_id2));
                 try {
-                    middle(areaStvorka, furnitureRec2, count2); //рекурсия обработки наборов
+                    middle(areaStv, furnitureRec2, count2); //рекурсия обработки наборов
                 } catch (Exception e) {
                     System.err.println("Ошибка:Furniture.middle() " + e);
                 }
