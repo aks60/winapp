@@ -26,6 +26,9 @@ public abstract class Com5t {
 
     protected TypeElem type = TypeElem.NONE; //Тип элемента   
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
+    public Record sysprofRec = null; //профиль в системе
+    public Record artiklRec = null;  //мат. средства
+    public Record artiklRecAn = null;  //аналог мат. средства    
 
     private float id = -1; //идентификатор    
     private AreaSimple owner = null; //владелец
@@ -99,6 +102,17 @@ public abstract class Com5t {
         }
     }
 
+
+    public int elemParam(String param, ParamJson enam) {
+        
+        if (param != null && param.isEmpty() == false) {
+            String str = param.replace("'", "\"");
+            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+            return (jsonObj.get(enam.name()) == null) ? -1 : jsonObj.get(enam.name()).getAsInt();
+        }
+        return -1;
+    }
+    
     public TypeElem type() {
         return type;
     }

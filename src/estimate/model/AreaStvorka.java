@@ -34,22 +34,12 @@ public class AreaStvorka extends AreaSimple {
     public LayoutFurn1 handleSide = null; //сторона ручки
     public int handleColor = -1; //цвет ручки
     public TypeOpen1 typeOpen = TypeOpen1.LEFT; //тип открывания
-    public Integer sysfurnID = null; //то, что выбрал клиент
+    public Record sysfurnRec = null; //фурнитура
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
 
-        if (param != null && param.isEmpty() == false) {
-            JsonObject jsonObj = new Gson().fromJson(param.replace("'", "\""), JsonObject.class);
-            if (jsonObj.get(ParamJson.typeOpen.name()) != null) {
-                this.typeOpen = TypeOpen1.get(jsonObj.get(ParamJson.typeOpen.name()).getAsInt());
-            }
-            if (jsonObj.get(ParamJson.sysfurnID.name()) != null) {
-                this.sysfurnID = jsonObj.get(ParamJson.sysfurnID.name()).getAsInt();
-            } else {
-                this.sysfurnID = eSysfurn.find2(typeOpen.id).getInt(eSysfurn.id);
-            }
-        }
+        initСonstructiv(param);
 
         //Добавим рамы створки      
         ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
@@ -74,6 +64,30 @@ public class AreaStvorka extends AreaSimple {
         stvLeft.specificationRec.height = height();
     }
 
+    public void initСonstructiv(String param) {
+
+        //Сторона открывания
+        if (elemParam(param, ParamJson.typeOpen) != -1) {
+            this.typeOpen = TypeOpen1.get(elemParam(param, ParamJson.typeOpen));
+        }
+        //Профили створки
+        if (elemParam(param, ParamJson.artikleID) != -1) {
+            sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
+        }
+        if (sysprofRec == null) {
+            sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.ANY);
+        }
+        //Фурнитура створки
+        if (elemParam(param, ParamJson.sysfurnID) != -1) {
+            this.sysfurnRec = eSysfurn.find2(elemParam(param, ParamJson.sysfurnID));
+        }
+        if (this.sysfurnRec == null) {
+            this.sysfurnRec = eSysfurn.find4(iwin().nuni, typeOpen.id);
+        }
+        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+        artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
+    }
+
     //Коррекция координат створки с учётом нахлёста
     private void setLocation(ElemFrame stvLef, ElemFrame stvBot, ElemFrame stvRig, ElemFrame stvTop) {
 
@@ -89,9 +103,9 @@ public class AreaStvorka extends AreaSimple {
         } else {
             float X1 = (adjacentLef.type() == TypeElem.IMPOST) ? adjacentLef.x1 + adjacentLef.width() / 2 : adjacentLef.x1;
             float Y2 = (adjacentBot.type() == TypeElem.IMPOST) ? adjacentBot.y2 - adjacentBot.height() / 2 : adjacentBot.y2;
-            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 - adjacentRig.width()/ 2 : adjacentRig.x2;
-            float Y1 = (adjacentTop.type() == TypeElem.IMPOST) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;            
-            x1 = X1 + offset(stvLef, adjacentLef);            
+            float X2 = (adjacentRig.type() == TypeElem.IMPOST) ? adjacentRig.x2 - adjacentRig.width() / 2 : adjacentRig.x2;
+            float Y1 = (adjacentTop.type() == TypeElem.IMPOST) ? adjacentTop.y1 + adjacentTop.height() / 2 : adjacentTop.y1;
+            x1 = X1 + offset(stvLef, adjacentLef);
             y2 = Y2 - offset(stvBot, adjacentBot);
             x2 = X2 - offset(stvRig, adjacentRig);
             y1 = Y1 + offset(stvTop, adjacentTop);
@@ -100,9 +114,9 @@ public class AreaStvorka extends AreaSimple {
 
     public void addSpecific(Specification spc) {
         ElemFrame handlFrame = mapFrame.get((LayoutArea) LayoutArea.ANY.find(handleSide.id)); //Крепится ручка
-        handlFrame.addSpecific(spc);               
+        handlFrame.addSpecific(spc);
     }
-    
+
     @Override
     public void joinFrame() {
         //Цикл по сторонам створки

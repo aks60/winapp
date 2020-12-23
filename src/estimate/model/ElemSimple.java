@@ -17,12 +17,7 @@ public abstract class ElemSimple extends Com5t {
 
     public float anglCut1 = 45; //Угол реза рамы
     public float anglCut2 = 45; //Угол реза рамы
-
-    public Record sysprofRec = null; //профиль в системе
-    public Record artiklRec = null;  //мат. средства
-    public Record artiklRecAn = null;  //аналог мат. средства
     public Specification specificationRec = null; //спецификация элемента
-
     public float anglHoriz = -1; //угол к горизонту
     protected Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
@@ -30,16 +25,6 @@ public abstract class ElemSimple extends Com5t {
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
         super(id, iwin, owner);
         specificationRec = new Specification(id, this);
-    }
-
-    public int elemParam(String param, ParamJson enam) {
-        
-        if (param != null && param.isEmpty() == false) {
-            String str = param.replace("'", "\"");
-            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-            return (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(enam.name()).getAsInt();
-        }
-        return -1;
     }
 
     //Клик мышки попадает в контур элемента

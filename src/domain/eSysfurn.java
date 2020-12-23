@@ -57,11 +57,27 @@ public enum eSysfurn implements Field {
         return (recordList.isEmpty() == true) ? new ArrayList() : recordList;
     }
 
-    public static Record find2(int _side_open) {
+    public static Record find2(int _id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id, "order by", npp);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+
+    public static Record find3(int _side_open) {
         if (Query.conf.equals("calc")) {
             return query().stream().filter(rec -> rec.getInt(side_open) == _side_open).findFirst().orElse(up.newRecord());
         }
         Query recordList = new Query(values()).select(up, "where", side_open, "=", _side_open, "order by", npp);
+        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+    
+    public static Record find4(int _nuni, int _side_open) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni && rec.getInt(side_open) == _side_open).findFirst().orElse(up.newRecord());
+        }
+        Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni, "and", side_open, "=", _side_open, "order by", npp);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 

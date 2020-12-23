@@ -45,7 +45,7 @@ public class Test {
 
         } else {
             if (_case.equals("min")) {
-                for (int i : Arrays.asList(601008, 601009, 601010)) {
+                for (int i : Arrays.asList(601001, 601009, 601010)) {
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     if (script != null) {

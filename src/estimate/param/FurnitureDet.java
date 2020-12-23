@@ -106,7 +106,7 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24033:  //Фурнитура штульповая 
-                    case 25033: //Фурнитура штульповая 
+                    case 25033:  //Фурнитура штульповая 
                     {
                         if (areaStv.typeOpen.side.equalsIgnoreCase("Левое")) {
                             ElemFrame el = areaStv.mapFrame.get(LayoutArea.LEFT);
