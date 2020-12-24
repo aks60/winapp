@@ -20,7 +20,6 @@ import estimate.constr.Specification;
 public class ElemGlass extends ElemSimple {
 
     public float radiusGlass = 0; //радиус арки
-    public int artikleID = -1;
     public float gzazo = 0; //зазор между фальцем и стеклопакетом  
 
     public ElemGlass(AreaSimple owner, float id, String param) {
@@ -29,12 +28,7 @@ public class ElemGlass extends ElemSimple {
         this.layout = LayoutArea.FULL;
         this.type = TypeElem.GLASS;
 
-        if (param != null && param.isEmpty() == false) {
-            String str = param.replace("'", "\"");
-            JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-            this.artikleID = (jsonObj.get(ParamJson.artikleID.name()) == null) ? -1 : jsonObj.get(ParamJson.artikleID.name()).getAsInt();
-        }
-        initСonstructiv();
+        initСonstructiv(param);
 
         if (TypeElem.ARCH == owner.type) {
             setDimension(owner.x1, owner.y1, owner.x2, iwin().heightAdd - owner.y2);
@@ -45,12 +39,11 @@ public class ElemGlass extends ElemSimple {
         }
     }
 
-    public void initСonstructiv() {
+    public void initСonstructiv(String param) {
 
-        if (artikleID != -1) {
-            artiklRec = eArtikl.find(artikleID, false);
-        }
-        if (artiklRec == null) {
+        if (getParam(param, ParamJson.artikleID) != -1) {
+            artiklRec = eArtikl.find(getParam(param, ParamJson.artikleID), false);
+        } else {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));
         }
