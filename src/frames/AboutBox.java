@@ -1,4 +1,4 @@
-package startup;
+package frames;
 
 import frames.Util;
 
