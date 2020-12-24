@@ -39,8 +39,6 @@ public class AreaStvorka extends AreaSimple {
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
 
-        initСonstructiv(param);
-
         //Добавим рамы створки      
         ElemFrame stvLeft = new ElemFrame(this, id + .4f, LayoutArea.LEFT, null);
         mapFrame.put(stvLeft.layout(), stvLeft);
@@ -58,14 +56,16 @@ public class AreaStvorka extends AreaSimple {
         stvTop.setLocation();
         stvLeft.setLocation();
 
+        initFurniture(param);
+        
         stvBot.specificationRec.width = width();
         stvTop.specificationRec.width = width();
         stvRigh.specificationRec.height = height();
         stvLeft.specificationRec.height = height();
     }
 
-    public void initСonstructiv(String param) {
-
+    public void initFurniture(String param) {
+        
         //Сторона открывания
         if (elemParam(param, ParamJson.typeOpen) != -1) {
             this.typeOpen = TypeOpen1.get(elemParam(param, ParamJson.typeOpen));

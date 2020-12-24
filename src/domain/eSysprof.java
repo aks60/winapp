@@ -98,19 +98,19 @@ public enum eSysprof implements Field {
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
-    public static Record find4(Wincalc iwin, UseArtiklTo _type, UseSide... _side) {
-        if (iwin.nuni == -3) {
+    public static Record find4(int nuni, UseArtiklTo _type, UseSide... _side) {
+        if (nuni == -3) {
             return record(_type);
         }
         List<Integer> _side2 = Arrays.asList(_side).stream().map(s -> s.id).collect(Collectors.toList());
         if (Query.conf.equals("calc")) {
 
-            return query().stream().filter(rec -> rec.getInt(systree_id) == iwin.nuni && rec.getInt(use_type) == _type.id
+            return query().stream().filter(rec -> rec.getInt(systree_id) == nuni && rec.getInt(use_type) == _type.id
                     && _side2.contains(rec.getInt(use_side))).findFirst().orElse(up.newRecord());
         }
         String str = _side2.stream().map(n -> String.valueOf(n)).collect(Collectors.joining(",", "(", ")"));
         Query sysprofList = new Query(values()).select(up, "where", systree_id, " = ",
-                iwin.nuni, "and ", use_type, "=", _type.id, "and", use_side, "in", str, "order by", prio);
+                nuni, "and ", use_type, "=", _type.id, "and", use_side, "in", str, "order by", prio);
         return (sysprofList.isEmpty() == true) ? up.newRecord() : sysprofList.get(0);
     }
 

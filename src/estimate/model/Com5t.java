@@ -84,7 +84,7 @@ public abstract class Com5t {
         return y2 - y1;
     }
 
-    protected void parsing(String param) {
+    protected void initParamUse(String param) {
         try {
             if (param != null && param.isEmpty() == false && param.equals("null") == false) {
                 String str = param.replace("'", "\"");

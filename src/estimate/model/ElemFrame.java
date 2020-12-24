@@ -29,47 +29,24 @@ public class ElemFrame extends ElemSimple {
         colorID2 = iwin().colorID2;
         colorID3 = iwin().colorID3;
         this.type = (TypeElem.STVORKA == owner.type) ? TypeElem.STVORKA_SIDE : TypeElem.FRAME_SIDE;
-        
         initСonstructiv(param);
-        
-        setLocation(); 
+        setLocation();
     }
 
     public void initСonstructiv(String param) {
 
-        if(elemParam(param, ParamJson.artikleID) != -1) {
+        if (elemParam(param, ParamJson.artikleID) != -1) {
             sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
-        }
-        System.out.println(owner().sysprofRec);
-        if (sysprofRec == null) {  
-            if (owner().sysprofRec.getInt(eSysprof.id) != -1) {
-                //sysprofRec = owner().sysprofRec;            
-            //if (owner().sysprofID != null) {
-                sysprofRec = eSysprof.query().stream().filter(rec -> owner().sysprofID == rec.getInt(eSysprof.id)).findFirst().orElse(eSysprof.up.newRecord());
-            } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.TOP, UseSide.ANY);
-            } else if (layout == LayoutArea.BOTTOM) {
-                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.BOTTOM, UseSide.ANY);
-            } else if (layout == LayoutArea.LEFT) {
-                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.LEFT, UseSide.ANY);
-            } else if (layout == LayoutArea.RIGHT) {
-                sysprofRec = eSysprof.find4(iwin(), useArtiklTo(), UseSide.RIGHT, UseSide.ANY);
-            }
+        } else {
+            sysprofRec = owner().sysprofRec;
         }
         artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
         artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
-        
-
-//        if (sysprofRec.getInt(eSysprof.id) == -1) {           
-//            if (owner().sysprofRec.getInt(eSysprof.id) != -1) {
-//                sysprofRec = owner().sysprofRec;
-//            } else if (layout == LayoutArea.ARCH || layout == LayoutArea.TOP) {
-       
     }
 
     //Установка координат
     public void setLocation() {
-        
+
         if (LayoutArea.LEFT == layout) {
             setDimension(owner().x1, owner().y1, owner().x1 + artiklRec.getFloat(eArtikl.height), owner().y2);
             anglHoriz = 270;
@@ -89,9 +66,9 @@ public class ElemFrame extends ElemSimple {
         } else if (LayoutArea.ARCH == layout) {
             setDimension(owner().x1, owner().y1, owner().x2, owner().y1 + artiklRec.getFloat(eArtikl.height));
             anglHoriz = 180;
-        }        
+        }
     }
-    
+
     @Override //Главная спецификация
     public void setSpecific() {  //добавление основной спесификации
 
@@ -164,7 +141,6 @@ public class ElemFrame extends ElemSimple {
                 //TODO тут код незакончен
             }
 
-            
             //Концевой профиль
         } else if (TypeArtikl.KONZEVPROF.isType(specificationAdd.artiklRec) == true) {
             String str = specificationAdd.getParam(0, 12030);

@@ -6,14 +6,13 @@ import dataset.ConnFb;
 import dataset.Query;
 import dataset.eExcep;
 import java.awt.Color;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.text.AttributeSet;
@@ -106,10 +105,10 @@ public class Convert extends javax.swing.JFrame {
         edServer = new javax.swing.JTextField();
         edPath = new javax.swing.JTextField();
         edUser = new javax.swing.JTextField();
-        edPass = new javax.swing.JPasswordField();
         lab5 = new javax.swing.JLabel();
         edPort = new javax.swing.JTextField();
         btnTest = new javax.swing.JButton();
+        edPass = new javax.swing.JTextField();
         pan4 = new javax.swing.JPanel();
         labPath2 = new javax.swing.JLabel();
         panCent = new javax.swing.JPanel();
@@ -179,13 +178,10 @@ public class Convert extends javax.swing.JFrame {
         edPath.setPreferredSize(new java.awt.Dimension(80, 16));
 
         edUser.setFont(frames.Util.getFont(0,0));
+        edUser.setText("sysdba");
         edUser.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         edUser.setMinimumSize(new java.awt.Dimension(0, 0));
         edUser.setPreferredSize(new java.awt.Dimension(120, 16));
-
-        edPass.setFont(frames.Util.getFont(0,0));
-        edPass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        edPass.setPreferredSize(new java.awt.Dimension(80, 16));
 
         lab5.setFont(frames.Util.getFont(0,0));
         lab5.setText("Порт");
@@ -213,6 +209,12 @@ public class Convert extends javax.swing.JFrame {
             }
         });
 
+        edPass.setFont(frames.Util.getFont(0,0));
+        edPass.setText("masterkey");
+        edPass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        edPass.setMinimumSize(new java.awt.Dimension(0, 0));
+        edPass.setPreferredSize(new java.awt.Dimension(80, 16));
+
         javax.swing.GroupLayout pan5Layout = new javax.swing.GroupLayout(pan5);
         pan5.setLayout(pan5Layout);
         pan5Layout.setHorizontalGroup(
@@ -231,13 +233,13 @@ public class Convert extends javax.swing.JFrame {
                     .addGroup(pan5Layout.createSequentialGroup()
                         .addComponent(lab5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(edPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pan5Layout.createSequentialGroup()
                         .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(21, 21, 21)
-                .addComponent(lab2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan5Layout.createSequentialGroup()
@@ -262,8 +264,8 @@ public class Convert extends javax.swing.JFrame {
                     .addComponent(lab3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lab4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -390,7 +392,7 @@ public class Convert extends javax.swing.JFrame {
     private void btnTestBtnStartClick(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestBtnStartClick
         ConnApp Src = new ConnFb();
         eExcep excep = Src.createConnection(edServer.getText().trim(), edPort.getText().trim(),
-                edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+                edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray());
         JOptionPane.showMessageDialog(this, excep.mes, "Сообщение", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnTestBtnStartClick
 
@@ -409,7 +411,7 @@ public class Convert extends javax.swing.JFrame {
             Connection c2 = con2.getConnection();
 
             ConnApp con1 = new ConnFb();
-            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getPassword());
+            con1.createConnection(edServer.getText().trim(), edPort.getText().trim(), edPath.getText().trim(), edUser.getText().trim(), edPass.getText().toCharArray());
             Connection c1 = con1.getConnection();
 
             txtPane.setText("");
@@ -441,7 +443,7 @@ public class Convert extends javax.swing.JFrame {
     private javax.swing.JButton btnExit1;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnTest;
-    private javax.swing.JPasswordField edPass;
+    private javax.swing.JTextField edPass;
     private javax.swing.JTextField edPath;
     private javax.swing.JTextField edPort;
     private javax.swing.JTextField edServer;

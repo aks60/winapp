@@ -19,8 +19,8 @@ public class Test {
     public static void main(String[] args) { //java -jar C:\\Okna\\winapp\\dist\\winapp.jar dev loc
         Main.dev = true;
         try {
-            //convert.Profstroy.exec2();
-            wincalc();
+            convert.Profstroy.exec2();
+            //wincalc();
             //query();
             //frame();
             //parse();
@@ -36,7 +36,7 @@ public class Test {
         String _case = "max";
 
         if (_case.equals("one")) {
-            iwin.prj = 604004;
+            iwin.prj = 601010;
             iwin.build(estimate.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);

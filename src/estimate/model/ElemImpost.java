@@ -54,10 +54,10 @@ public class ElemImpost extends ElemSimple {
         }
         if (sysprofRec == null) {
             if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
-                sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);
+                sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);
 
             } else if (LayoutArea.HORIZ.equals(owner().layout())) { //слева направо
-                sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
+                sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.VERT, UseSide.ANY);
             }
         }
         specificationRec.place = (LayoutArea.HORIZ == owner().layout()) ? LayoutArea.VERT.name : LayoutArea.HORIZ.name;

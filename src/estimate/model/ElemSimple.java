@@ -37,7 +37,7 @@ public abstract class ElemSimple extends Com5t {
         return inside(x, y);
     }
 
-    //Использовать артикл для...
+    //Использовать артикл для "коробка", "створка", "импост", "стойка", "поперечина", "штульп", "раскладка", "эркер"
     public abstract UseArtiklTo useArtiklTo();
 
     //Главная спецификация

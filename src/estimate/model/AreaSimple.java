@@ -30,7 +30,7 @@ public class AreaSimple extends Com5t {
     public float dy = 0;
     public float gsize = 0; //размер от оси профиля до заполнения (стеклопакета)
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
-    public Integer sysprofID = null; //то, что выбрал клиент
+    //public Integer sysprofID = null; //то, что выбрал клиент
 
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
@@ -39,22 +39,24 @@ public class AreaSimple extends Com5t {
         this.colorID1 = color1;
         this.colorID2 = color2;
         this.colorID3 = color3;
-        parsing(param);
+        initParamUse(param);
+        initСonstructiv(param);
         initDimension(width, height);
-        
-        //Профили коробки, створки
-        if (elemParam(param, ParamJson.artikleID) != -1) {
-            sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
-        } else {
-            sysprofRec = eSysprof.find4(iwin(), UseArtiklTo.STVORKA, UseSide.ANY);
-        }        
-//        if (param != null && param.isEmpty() == false) {
-//            JsonObject jsonObj = new Gson().fromJson(param.replace("'", "\""), JsonObject.class);
-//
-//            if (jsonObj.get(ParamJson.sysprofID.name()) != null) {
-//                this.sysprofID = jsonObj.get(ParamJson.sysprofID.name()).getAsInt();
-//            }
-//        }
+    }
+
+    public void initСonstructiv(String param) {
+        if (TypeElem.AREA != type) {
+            //Профили коробки или створки
+            if (elemParam(param, ParamJson.artikleID) != -1) {
+                sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
+            } else {
+                if (this instanceof AreaStvorka) {
+                    sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.STVORKA, UseSide.ANY);
+                } else {
+                    sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.FRAME, UseSide.ANY);
+                }
+            }
+        }
     }
 
     protected void initDimension(float width, float height) {
@@ -89,10 +91,6 @@ public class AreaSimple extends Com5t {
                 }
             }
         }
-    }
-
-    public void initСonstructiv(String param) {
-
     }
 
     //Список элементов окна
