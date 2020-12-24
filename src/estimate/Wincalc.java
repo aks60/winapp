@@ -128,7 +128,7 @@ public class Wincalc {
             );
 
         } catch (Exception e) {
-            System.out.println("Ошибка:Wincalc.constructiv(" + e);
+            System.err.println("Ошибка:Wincalc.constructiv(" + e);
         } finally {
             Query.conf = "app";
         }

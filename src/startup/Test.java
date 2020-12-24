@@ -20,7 +20,7 @@ public class Test {
         Main.dev = true;
         try {
             //convert.Profstroy.exec2();
-            wincalc();
+            //wincalc();
             //query();
             //frame();
             //parse();
@@ -45,7 +45,7 @@ public class Test {
 
         } else {
             if (_case.equals("min")) {
-                for (int i : Arrays.asList(601001, 601002, 601006)) {
+                for (int i : Arrays.asList(601001, 601002, 601007)) {
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     if (script != null) {

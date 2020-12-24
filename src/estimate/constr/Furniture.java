@@ -193,8 +193,8 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-                    ElemFrame handlFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(areaStv.handleSide.id)); //Крепится ручка
-                    Specification specif = new Specification(furndetRec, artiklRec, handlFrame, mapParam);
+                    ElemFrame firstFrame = areaStv.mapFrame.values().stream().findFirst().get(); //первая попавшаяся
+                    Specification specif = new Specification(furndetRec, artiklRec, firstFrame, mapParam);
                     if (Color.colorFromProduct(specif)) {
 
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));

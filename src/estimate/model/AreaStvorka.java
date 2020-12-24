@@ -1,32 +1,27 @@
 package estimate.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
-import domain.eFurniture;
 import domain.eJoining;
 import domain.eJoinpar1;
 import domain.eJoinvar;
 import domain.eSysfurn;
 import domain.eSyssize;
-import domain.eSysprof;
 import enums.LayoutArea;
 import enums.LayoutFurn1;
 import enums.ParamJson;
 import enums.TypeElem;
 import enums.LayoutJoin;
 import enums.TypeOpen1;
-import enums.UseArtiklTo;
 import enums.TypeJoin;
-import enums.UseSide;
 import java.awt.Color;
 import java.util.LinkedList;
 import estimate.Wincalc;
 import estimate.constr.Specification;
 import estimate.constr.Util;
-import java.lang.annotation.ElementType;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class AreaStvorka extends AreaSimple {
 
@@ -103,8 +98,10 @@ public class AreaStvorka extends AreaSimple {
     }
 
     public void addSpecific(Specification spc) {
+        
         ElemFrame handlFrame = mapFrame.get((LayoutArea) LayoutArea.ANY.find(handleSide.id)); //Крепится ручка
-        handlFrame.addSpecific(spc);
+        ElemFrame firstFrame = mapFrame.values().stream().findFirst().get();
+        firstFrame.addSpecific(spc);
     }
 
     @Override
