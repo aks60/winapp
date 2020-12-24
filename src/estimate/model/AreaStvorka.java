@@ -62,12 +62,12 @@ public class AreaStvorka extends AreaSimple {
     public void initFurniture(String param) {
         
         //Сторона открывания
-        if (elemParam(param, ParamJson.typeOpen) != -1) {
-            this.typeOpen = TypeOpen1.get(elemParam(param, ParamJson.typeOpen));
+        if (getParam(param, ParamJson.typeOpen) != -1) {
+            this.typeOpen = TypeOpen1.get(getParam(param, ParamJson.typeOpen));
         }
         //Фурнитура створки
-        if (elemParam(param, ParamJson.sysfurnID) != -1) {
-            sysfurnRec = eSysfurn.find2(elemParam(param, ParamJson.sysfurnID));
+        if (getParam(param, ParamJson.sysfurnID) != -1) {
+            sysfurnRec = eSysfurn.find2(getParam(param, ParamJson.sysfurnID));
         } else {
             sysfurnRec = eSysfurn.find4(iwin().nuni, typeOpen.id);
         }

@@ -48,7 +48,7 @@ public class ElemImpost extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        int artikleID = elemParam(param, ParamJson.artikleID);
+        int artikleID = getParam(param, ParamJson.artikleID);
         if (artikleID != -1) {
             sysprofRec = eSysprof.find3(artikleID);
         }

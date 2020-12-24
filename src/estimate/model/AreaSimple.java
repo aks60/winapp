@@ -40,7 +40,6 @@ public class AreaSimple extends Com5t {
         this.colorID1 = color1;
         this.colorID2 = color2;
         this.colorID3 = color3;
-        initParamUse(param);
         initСonstructiv(param);
         initDimension(width, height);
     }
@@ -48,8 +47,8 @@ public class AreaSimple extends Com5t {
     public void initСonstructiv(String param) {
         if (TypeElem.AREA != type) {
             //Профили коробки или створки
-            if (elemParam(param, ParamJson.artikleID) != -1) {
-                sysprofRec = eSysprof.find3(elemParam(param, ParamJson.artikleID));
+            if (getParam(param, ParamJson.artikleID) != -1) {
+                sysprofRec = eSysprof.find3(getParam(param, ParamJson.artikleID));
             } else {
                 if (this instanceof AreaStvorka) {
                     sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.STVORKA, UseSide.ANY);
