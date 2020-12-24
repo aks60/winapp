@@ -58,24 +58,24 @@ public class Draw {
     }
 
     public void strokePolygon(float x1, float x2, float x3, float x4, float y1,
-            float y2, float y3, float y4, int rgbFill, Color rdbStroke) {
+            float y2, float y3, float y4, int rgbFill, Color rgbStroke) {
         setStroke(8); //толщина линии
-        iwin.gc2d.setColor(rdbStroke);
+        iwin.gc2d.setColor(rgbStroke);
         float sc = iwin.scale2;
         float dy = (iwin.heightAdd - iwin.height) / sc;
         iwin.gc2d.drawPolygon(new int[]{(int) (x1 / sc), (int) (x2 / sc), (int) (x3 / sc), (int) (x4 / sc)},
                 new int[]{(int) (y1 / sc + dy), (int) (y2 / sc + dy), (int) (y3 / sc + dy), (int) (y4 / sc + dy)}, 4);
-        iwin.gc2d.setColor(new java.awt.Color(rgbFill & 0x000000FF, (rgbFill & 0x0000FF00) >> 8, (rgbFill & 0x00FF0000) >> 16));
+        iwin.gc2d.setColor(new java.awt.Color(rgbFill));
         iwin.gc2d.fillPolygon(new int[]{(int) (x1 / sc), (int) (x2 / sc), (int) (x3 / sc), (int) (x4 / sc)},
                 new int[]{(int) (y1 / sc + dy), (int) (y2 / sc + dy), (int) (y3 / sc + dy), (int) (y4 / sc + dy)}, 4);
     }
 
     public void strokeArc(double x, double y, double w, double h, double startAngle,
-            double arcExtent, int rdbStroke, double lineWidth) {
+            double arcExtent, int rgbStroke, double lineWidth) {
         float sc = iwin.scale2;
         int sw = (int) (lineWidth / iwin.scale2);
         iwin.gc2d.setStroke(new BasicStroke(sw)); //толщина линии
-        iwin.gc2d.setColor(new java.awt.Color(rdbStroke & 0x000000FF, (rdbStroke & 0x0000FF00) >> 8, (rdbStroke & 0x00FF0000) >> 16));
+        iwin.gc2d.setColor(new java.awt.Color(rgbStroke));
         iwin.gc2d.drawArc((int) (x / sc), (int) (y / sc), (int) (w / sc), (int) (h / sc), (int) startAngle, (int) arcExtent);
     }
 }

@@ -76,8 +76,6 @@ public class AreaStvorka extends AreaSimple {
         } else {
             sysfurnRec = eSysfurn.find4(iwin().nuni, typeOpen.id);
         }
-        artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
-        artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
     }
 
     //Коррекция координат створки с учётом нахлёста

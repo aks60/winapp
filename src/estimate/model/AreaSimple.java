@@ -2,6 +2,7 @@ package estimate.model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import domain.eArtikl;
 import domain.eSysprof;
 import frames.swing.Draw;
 import enums.LayoutArea;
@@ -56,8 +57,11 @@ public class AreaSimple extends Com5t {
                     sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.FRAME, UseSide.ANY);
                 }
             }
+            artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), false);
+            artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         }
     }
+    
 
     protected void initDimension(float width, float height) {
 

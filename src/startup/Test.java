@@ -33,7 +33,7 @@ public class Test {
 
         Query.connection = connection();
         estimate.Wincalc iwin = new estimate.Wincalc();
-        String _case = "max";
+        String _case = "min";
 
         if (_case.equals("one")) {
             iwin.prj = 601010;
@@ -45,7 +45,7 @@ public class Test {
 
         } else {
             if (_case.equals("min")) {
-                for (int i : Arrays.asList(601001, 601009, 601010)) {
+                for (int i : Arrays.asList(601001, 601002, 601006)) {
                     iwin.prj = i;
                     String script = estimate.script.Winscript.test(iwin.prj, null);
                     if (script != null) {
