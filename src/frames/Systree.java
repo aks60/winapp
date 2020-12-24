@@ -59,6 +59,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App1;
+import startup.Main;
 
 public class Systree extends javax.swing.JFrame {
 
@@ -229,8 +230,13 @@ public class Systree extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.grup) {
-                    return qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
-                            && rec.getInt(eParams.numb) == 0)).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    if (Main.dev == true) {
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
+                                && rec.getInt(eParams.numb) == 0)).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    } else {
+                        return qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
+                                && rec.getInt(eParams.numb) == 0)).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                    }
                 }
                 return val;
             }

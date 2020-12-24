@@ -38,10 +38,11 @@ public class ParDefault extends javax.swing.JDialog {
         } else {
           qParam.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);  
         }
-        tab1.setModel(new DefTableModel(tab1, qParam, eParams.text));
+        tab1.setModel(new DefTableModel(tab1, qParam, eParams.numb, eParams.text));
         ((DefTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -141,15 +142,15 @@ public class ParDefault extends javax.swing.JDialog {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"name1"},
-                {"name2"}
+                {null, "name1"},
+                {null, "name2"}
             },
             new String [] {
-                "Наименование"
+                "Код", "Наименование"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -164,6 +165,10 @@ public class ParDefault extends javax.swing.JDialog {
             }
         });
         scr1.setViewportView(tab1);
+        if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(1).setPreferredWidth(400);
+        }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
 
