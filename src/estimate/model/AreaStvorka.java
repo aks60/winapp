@@ -99,8 +99,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void addSpecific(Specification spc) {
         
-        ElemFrame handlFrame = mapFrame.get((LayoutArea) LayoutArea.ANY.find(handleSide.id)); //Крепится ручка
-        ElemFrame firstFrame = mapFrame.values().stream().findFirst().get();
+        ElemFrame firstFrame = mapFrame.values().stream().findFirst().get();  //первая попавшаяся
         firstFrame.addSpecific(spc);
     }
 

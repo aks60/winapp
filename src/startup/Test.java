@@ -155,7 +155,7 @@ public class Test {
 
     private static void lookAndFeel() {
         try {
-            AppRus.runRussifier();
+            Main.runRussifier();
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(laf.getName())) { //"Windows Classic", "Windows", "CDE/Motif", "Metal", "Nimbus"
