@@ -98,7 +98,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     public void addSpecific(Specification spc) {
-        
+        //spc.mapParam.getOrDefault(dy, handleHeight)
         ElemFrame firstFrame = mapFrame.values().stream().findFirst().get();  //первая попавшаяся
         firstFrame.addSpecific(spc);
     }

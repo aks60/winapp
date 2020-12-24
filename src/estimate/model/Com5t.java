@@ -102,17 +102,16 @@ public abstract class Com5t {
         }
     }
 
+    public int elemParam(String param, ParamJson key) {
 
-    public int elemParam(String param, ParamJson enam) {
-        
         if (param != null && param.isEmpty() == false) {
             String str = param.replace("'", "\"");
             JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-            return (jsonObj.get(enam.name()) == null) ? -1 : jsonObj.get(enam.name()).getAsInt();
+            return (jsonObj.get(key.name()) == null) ? -1 : jsonObj.get(key.name()).getAsInt();
         }
         return -1;
     }
-    
+
     public TypeElem type() {
         return type;
     }
