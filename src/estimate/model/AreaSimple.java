@@ -40,6 +40,7 @@ public class AreaSimple extends Com5t {
         this.colorID1 = color1;
         this.colorID2 = color2;
         this.colorID3 = color3;
+        initParamUse(param);
         initСonstructiv(param);
         initDimension(width, height);
     }

@@ -68,7 +68,25 @@ public abstract class Com5t {
         this.x2 = x2;
         this.y2 = y2;
     }
-
+    
+    protected void initParamUse(String param) {
+        try {
+            if (param != null && param.isEmpty() == false && param.equals("null") == false) {
+                String str = param.replace("'", "\"");
+                JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
+                if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                    jsonArr.forEach(it -> {
+                        Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
+                        mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
+                    });
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Com5t.parsingParam() " + e);
+        }
+    }
+    
     public int getParam(String param, ParamJson key) {
 
         if (param != null && param.isEmpty() == false) {
