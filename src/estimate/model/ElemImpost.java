@@ -48,11 +48,9 @@ public class ElemImpost extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        int artikleID = getParam(param, ParamJson.artikleID);
-        if (artikleID != -1) {
-            sysprofRec = eSysprof.find3(artikleID);
-        }
-        if (sysprofRec == null) {
+        if (getParam(param, ParamJson.artikleID) != -1) {
+            sysprofRec = eSysprof.find3(getParam(param, ParamJson.artikleID));
+        } else {
             if (LayoutArea.VERT.equals(owner().layout())) { //сверху вниз
                 sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.IMPOST, UseSide.HORIZ, UseSide.ANY);
 
@@ -100,7 +98,7 @@ public class ElemImpost extends ElemSimple {
         //Заход импоста на эскизе не показываю, сразу пишу в спецификацию
         if (iwin().syssizeRec.getInt(eSyssize.id) != -1) {
             float zax = iwin().syssizeRec.getFloat(eSyssize.zax);
-            
+
             if (LayoutArea.HORIZ == owner().layout()) { //слева направо  
                 ElemSimple insideTop = join(LayoutArea.TOP), insideBott = join(LayoutArea.BOTTOM);
                 specificationRec.width = insideBott.y1 - insideTop.y2 + zax * 2 + insideBott.artiklRec.getFloat(eArtikl.size_falz) + insideTop.artiklRec.getFloat(eArtikl.size_falz);
