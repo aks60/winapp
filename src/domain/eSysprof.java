@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum eSysprof implements Field {
-    up("0", "0", "0", "Профили сист.профилей", "SYSPROA"),
+    up("0", "0", "0", "Профили системы", "SYSPROA"),
     id("4", "10", "0", "Идентификатор", "id"),
     prio("4", "10", "1", "Приоритет", "APRIO"), //0 - 1 -  2 -  3 -  4 -  5 -  6 - 10 -  1000 - "
     use_type("5", "5", "1", "Тип использования", "ATYPE"),

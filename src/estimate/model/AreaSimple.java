@@ -50,8 +50,8 @@ public class AreaSimple extends Com5t {
     public void initСonstructiv(String param) {
         if (TypeElem.AREA != type) {
             //Профили коробки или створки
-            if (getParam(param, ParamJson.artikleID) != -1) {
-                sysprofRec = eSysprof.find3(getParam(param, ParamJson.artikleID));
+            if (getParam(param, ParamJson.sysprofID) != -1) {
+                sysprofRec = eSysprof.find3(getParam(param, ParamJson.sysprofID));
             } else {
                 if (this instanceof AreaStvorka) {
                     sysprofRec = eSysprof.find4(iwin().nuni, UseArtiklTo.STVORKA, UseSide.ANY);

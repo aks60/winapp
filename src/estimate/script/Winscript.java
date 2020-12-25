@@ -105,7 +105,7 @@ public class Winscript {
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':5746}")); //или 'R4x10x4x10x4'
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artglasID':5746}")); //или 'R4x10x4x10x4'
 
         } else if (project == 601007) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.RECTANGL, 1100, 1400, 1400, 1009, 10018, 10018, "");
@@ -151,10 +151,10 @@ public class Winscript {
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':4663}")); //или '4x12x4x12x4'
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artglasID':4663}")); //или '4x12x4x12x4'
 
         } else if (project == 601010) {
-            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, 1009, 1009, 1009, "{'artikleID':1120, 'ioknaParam':[[-862131,17],[-862097,195], [-862107,826]]}");
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, 1009, 1009, 1009, "{'sysprofID':1120, 'ioknaParam':[[-862131,17],[-862097,195], [-862107,826]]}");
             rootArea.setParam(project.toString(), 371, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z 77)");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -163,10 +163,10 @@ public class Winscript {
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.AREA, 650));
             rootArea.add(new Element(7, TypeElem.IMPOST));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.VERT, TypeElem.AREA, 650));
-            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'artikleID':1121, 'typeOpen':1,'sysfurnID':2335}"));
-            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'artikleID':1121, 'typeOpen':4,'sysfurnID':2916}"));
-            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':4663}"));
-            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':4663}"));
+            AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':1,'sysfurnID':2335}"));
+            AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'sysprofID':1121, 'typeOpen':4,'sysfurnID':2916}"));
+            area4.add(new Element(11, TypeElem.GLASS, "{'artglasID':4663}"));
+            area5.add(new Element(12, TypeElem.GLASS, "{'artglasID':4663}"));
 
         } else if (project == 604004) {
             rootArea = new AreaRoot(1, LayoutArea.VERT, TypeElem.ARCH, 1300, 1050, 1700, 1009, 1009, 1009, "");
@@ -322,7 +322,7 @@ public class Winscript {
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':1}"));
-            area2.add(new Element(7, TypeElem.GLASS, "{'artikleID':285}"));
+            area2.add(new Element(7, TypeElem.GLASS, "{'artglasID':285}"));
 
         } else if (project == 601002) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1200, 1600, 1600, 25, 25, 25, "");
@@ -332,12 +332,12 @@ public class Winscript {
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
             AreaElem area2 = (AreaElem) rootArea.add(new AreaElem(6, LayoutArea.HORIZ, TypeElem.AREA, 1200 / 2));
-            rootArea.add(new Element(7, TypeElem.IMPOST, "{'artikleID':357}"));
+            rootArea.add(new Element(7, TypeElem.IMPOST, "{'sysprofID':357}"));
             AreaElem area3 = (AreaElem) rootArea.add(new AreaElem(8, LayoutArea.HORIZ, TypeElem.AREA, 1200 / 2));
             AreaElem area4 = (AreaElem) area2.add(new AreaElem(9, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':3, 'sysfurnID':143}"));
             AreaElem area5 = (AreaElem) area3.add(new AreaElem(10, LayoutArea.VERT, TypeElem.STVORKA, "{'typeOpen':4, 'sysfurnID':143}"));
-            area4.add(new Element(11, TypeElem.GLASS, "{'artikleID':285}"));
-            area5.add(new Element(12, TypeElem.GLASS, "{'artikleID':285}"));
+            area4.add(new Element(11, TypeElem.GLASS, "{'artglasID':285}"));
+            area5.add(new Element(12, TypeElem.GLASS, "{'artglasID':285}"));
             
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 25, 25, 25, "");
@@ -346,7 +346,7 @@ public class Winscript {
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
             rootArea.add(new Element(5, TypeElem.FRAME_SIDE, LayoutArea.BOTTOM));
-            rootArea.add(new Element(6, TypeElem.GLASS, "{'artikleID':285}"));
+            rootArea.add(new Element(6, TypeElem.GLASS, "{'artglasID':285}"));
         } else {
             return null;
         }

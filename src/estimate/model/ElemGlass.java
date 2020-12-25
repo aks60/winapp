@@ -41,8 +41,8 @@ public class ElemGlass extends ElemSimple {
 
     public void initСonstructiv(String param) {
 
-        if (getParam(param, ParamJson.artikleID) != -1) {
-            artiklRec = eArtikl.find(getParam(param, ParamJson.artikleID), false);
+        if (getParam(param, ParamJson.artglasID) != -1) {
+            artiklRec = eArtikl.find(getParam(param, ParamJson.artglasID), false);
         } else {
             Record sysreeRec = eSystree.find(iwin().nuni); //по умолчанию стеклопакет
             artiklRec = eArtikl.find2(sysreeRec.getStr(eSystree.glas));

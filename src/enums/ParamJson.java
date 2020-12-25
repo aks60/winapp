@@ -4,12 +4,13 @@ import static enums.TypeOpen1.values;
 
 public enum ParamJson implements Enam {
 
-    sysfurnID(1, "ID Фурнитуры"),
-    typeOpen(2, "Тип открывания"),
-    colorHandl(3, "Цвет ручки створки"),
-    ioknaParam(4, "Параметры iokna"),    
-    artikleID(6, "ID артикула");
-
+    sysprofID(1, "ID профиля"),
+    sysfurnID(2, "ID Фурнитуры"),
+    artglasID(3, "ID заполнения"),
+    typeOpen(4, "Тип открывания"),
+    colorHandl(5, "Цвет ручки створки"),
+    ioknaParam(6, "Параметры iokna");       
+    
     int id = 0;
     String name = "";
 
