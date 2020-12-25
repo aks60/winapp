@@ -1,8 +1,11 @@
 package estimate.model;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dataset.Record;
 import domain.eArtikl;
+import domain.eParams;
 import domain.eSysprof;
 import frames.swing.Draw;
 import enums.LayoutArea;
@@ -40,9 +43,9 @@ public class AreaSimple extends Com5t {
         this.colorID1 = color1;
         this.colorID2 = color2;
         this.colorID3 = color3;
-        initParamUse(param);
         initСonstructiv(param);
         initDimension(width, height);
+        _initParamUse(param);
     }
 
     public void initСonstructiv(String param) {
@@ -61,7 +64,6 @@ public class AreaSimple extends Com5t {
             artiklRecAn = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
         }
     }
-    
 
     protected void initDimension(float width, float height) {
 
@@ -94,6 +96,28 @@ public class AreaSimple extends Com5t {
                     }
                 }
             }
+        }
+    }
+
+    protected void _initParamUse(String param) {
+        try {
+            if (param != null) {
+                iwin().mapParamSum.putAll(iwin().mapParamDef);
+                if (param != null && param.isEmpty() == false && param.equals("null") == false) {
+                    String str = param.replace("'", "\"");
+                    JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+                    JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
+                    if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                        jsonArr.forEach(it -> {
+                            Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
+                            iwin().mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
+                        });
+                    }
+                    iwin().mapParamSum.putAll(iwin().mapParamUse);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Ошибка:Com5t.parsingParam() " + e);
         }
     }
 

@@ -22,13 +22,13 @@ public class FurnitureVar extends Par5s {
 
     public boolean check(ElemSimple elem5e, Record furnside1Rec) {
 
-        List<Record> tableList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
+        List<Record> paramList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
+        if (filterParamUse(paramList) == false) {
+            return false;
+        }        
         //Цикл по параметрам фурнитуры
-        for (Record rec : tableList) {
+        for (Record rec : paramList) {
 
-            if (filterParamDef(rec) == false) {
-                return false;
-            }
             int grup = rec.getInt(GRUP);
             try {
                 switch (grup) {

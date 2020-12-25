@@ -59,43 +59,17 @@ public class Par5s {
         return false;
     }
 
-    //Фильтр параметров по умолчанию
-    protected boolean filterParamDef(Record paramRec) {
-
-        if (paramRec.getInt(GRUP) < 0) {
-            if (iwin.mapParamDef.get(paramRec.getInt(GRUP)) == null) {
-                return false;
-            }
-            int id1 = iwin.mapParamDef.get(paramRec.getInt(GRUP)).getInt(NUMB);
-            int id2 = paramRec.getInt(NUMB);
-            if ((id1 == id2) == false) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    //Фильтр параметров выбранных клиентом
-    protected boolean filterParamUse(Com5t com5t, List<Record> paramList) {
-
-        HashMap<Integer, Record> paramTotal = new HashMap();
-        paramTotal.putAll(iwin.mapParamDef); //добавим параметры по умолчанию
-        paramTotal.putAll(com5t.mapParamUse);
-
-        Com5t el = com5t;
-        do { //все владельцы этого элемента
-            el = el.owner();
-            paramTotal.putAll(el.mapParamUse);
-        } while (el != iwin.rootArea);
+    //Фильтр параметров по умолчанию + выбранных клиентом
+    protected boolean filterParamUse(List<Record> paramList) {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
-                if (paramTotal.get(paramRec.getInt(GRUP)) == null) {
-                    return false;
+                Record rec = iwin.mapParamSum.get(paramRec.getInt(GRUP));
+                if (rec == null) {
+                    return false; //если группы нет
                 }
-                Record rec = paramTotal.get(paramRec.getInt(GRUP));
                 if (rec.getInt(NUMB) != paramRec.getInt(NUMB)) {
-                    return false;
+                    return false; //если группа есть, а параметр не совпал
                 }
             }
         }
@@ -108,14 +82,14 @@ public class Par5s {
             System.err.println("ОШИБКА! КОД " + code + " НЕ ОБРАБОТАН.");
         }
     }
-    
+
     //Необработанные параметры
     protected void message(HashMap<Integer, String> mapParam, int code) {
         if (code >= 0) {
             System.err.println("ОШИБКА! КОД " + code + " VALUE " + mapParam.get(code) + " НЕ ОБРАБОТАНЫ.");
         }
     }
-    
+
     //Необработанные параметры
     protected void message(Specification spc, int code) {
         if (code >= 0) {

@@ -70,7 +70,9 @@ public class Wincalc {
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
-    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию           
+    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию 
+    public HashMap<Integer, Record> mapParamUse = new HashMap(); //клиентские параметры 
+    public HashMap<Integer, Record> mapParamSum = new HashMap(); //клиентские + по умолчанию параметры 
     public LinkedList<Com5t> listCom5t; //список всех Component
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -82,15 +84,14 @@ public class Wincalc {
         //System.out.println(productJson);
         mediateList.clear();
         mapParamDef.clear();
+        mapParamUse.clear();
+        mapParamSum.clear();
         mapJoin.clear();
         listSpec.clear();
         genId = 100;
 
         //Парсинг входного скрипта
         parsingScript(productJson);
-
-        //Загрузим параметры по умолчанию
-        eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.grup), rec));
 
         //Соединения 
         rootArea.joinFrame(); //соединения рамы
@@ -123,8 +124,7 @@ public class Wincalc {
                 listSpec.add(elemRec.specificationRec);
                 listSpec.addAll(elemRec.specificationRec.specificationList);
             }
-            Collections.sort(listSpec, (o1, o2) -> (
-                    o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width)
+            Collections.sort(listSpec, (o1, o2) -> (o1.place.subSequence(0, 3) + o1.name + o1.width).compareTo(o2.place.subSequence(0, 3) + o2.name + o2.width)
             );
 
         } catch (Exception e) {
@@ -148,8 +148,8 @@ public class Wincalc {
 
             int id = jsonObj.get("id").getAsInt();
             String paramJson = jsonObj.get("paramJson").getAsString();
-            nuni = jsonObj.get("nuni").getAsInt();
-
+            nuni = jsonObj.get("nuni").getAsInt();                       
+            
             width = jsonObj.get("width").getAsFloat();
             height = jsonObj.get("height").getAsFloat();
             heightAdd = jsonObj.get("heightAdd").getAsFloat();
@@ -157,6 +157,7 @@ public class Wincalc {
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
+            eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.grup), rec)); //загрузим параметры по умолчанию
 
             colorID1 = jsonObj.get("color1").getAsInt();
             colorID2 = jsonObj.get("color2").getAsInt();

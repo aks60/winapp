@@ -29,8 +29,7 @@ public class FurnitureDet extends Par5s {
     public boolean check(HashMap<Integer, String> mapParam, AreaStvorka areaStv, Record furndetRec) {
 
         List<Record> tableList = eFurnpar2.find(furndetRec.getInt(eFurndet.id));
-        ElemFrame handlFrame = areaStv.mapFrame.get((LayoutArea) LayoutArea.ANY.find(areaStv.handleSide.id)); //Крепится ручка
-        if (filterParamUse(handlFrame, tableList) == false) {
+        if (filterParamUse(tableList) == false) {
             return false; //параметры по умолчанию
         }
         //Цикл по параметрам фурнитуры

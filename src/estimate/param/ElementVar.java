@@ -29,12 +29,12 @@ public class ElementVar extends Par5s {
     public boolean check(ElemSimple elem5e, Record elementRec) {
 
         List<Record> paramList = eElempar1.find3(elementRec.getInt(eElement.id)); //список параметров вариантов использования
+        if (filterParamUse(paramList) == false) {
+            return false;
+        }
         //Цикл по параметрам состава
         for (Record rec : paramList) {
-            
-            if (filterParamDef(rec) == false) {
-                return false;
-            }
+
             int grup = rec.getInt(GRUP);
             try {
                 switch (grup) {

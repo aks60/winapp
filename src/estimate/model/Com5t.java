@@ -36,9 +36,7 @@ public abstract class Com5t {
     private Wincalc iwin = null; //главный класс калькуляции
 
     protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
-    public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний
-
-    public HashMap<Integer, Record> mapParamUse = new HashMap(); //клиентские параметры       
+    public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
     public Com5t(float id, Wincalc iwin, AreaSimple owner) {
         this.id = id;
@@ -67,24 +65,6 @@ public abstract class Com5t {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-    }
-    
-    protected void initParamUse(String param) {
-        try {
-            if (param != null && param.isEmpty() == false && param.equals("null") == false) {
-                String str = param.replace("'", "\"");
-                JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
-                if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                    jsonArr.forEach(it -> {
-                        Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
-                        mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
-                    });
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:Com5t.parsingParam() " + e);
-        }
     }
     
     public int getParam(String param, ParamJson key) {

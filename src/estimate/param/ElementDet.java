@@ -29,8 +29,8 @@ public class ElementDet extends Par5s {
     public boolean check(HashMap<Integer, String> hmParam, ElemSimple elem5e, Record elemdetRec) {
 
         List<Record> paramList = eElempar2.find3(elemdetRec.getInt(eElemdet.id)); //список параметров детализации 
-        if (filterParamUse(elem5e, paramList) == false) {
-            return false; //параметры по умолчанию
+        if (filterParamUse(paramList) == false) {
+            return false;
         }
         //Цикл по параметрам составов
         for (Record rec : paramList) {
