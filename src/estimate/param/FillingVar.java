@@ -21,7 +21,7 @@ public class FillingVar extends Par5s {
     public boolean check(ElemGlass elem5e, Record glasgrpRec) {
 
         List<Record> paramList = eGlaspar1.find(glasgrpRec.getInt(eGlasgrp.id));
-        if (filterParamUse(paramList) == false) {
+        if (filterParamDef(paramList) == false) {
             return false;
         }
         //Цикл по параметрам заполнения

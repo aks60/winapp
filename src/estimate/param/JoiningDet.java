@@ -25,7 +25,7 @@ public class JoiningDet extends Par5s {
     public boolean check(HashMap<Integer, String> mapParam, ElemSimple elem5e, Record joindetRec) {
 
         List<Record> paramList = eJoinpar2.find(joindetRec.getInt(eJoindet.id));
-        if (filterParamUse(paramList) == false) {
+        if (filterParamDef(paramList) == false) {
             return false;
         }
         //Цикл по параметрам соединения

@@ -23,7 +23,7 @@ public class FurnitureVar extends Par5s {
     public boolean check(ElemSimple elem5e, Record furnside1Rec) {
 
         List<Record> paramList = eFurnpar1.find(furnside1Rec.getInt(eFurnside1.id));
-        if (filterParamUse(paramList) == false) {
+        if (filterParamDef(paramList) == false) {
             return false;
         }        
         //Цикл по параметрам фурнитуры

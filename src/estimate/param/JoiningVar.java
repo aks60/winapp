@@ -31,7 +31,7 @@ public class JoiningVar extends Par5s {
     public boolean check(ElemJoining elemJoin, Record joinvarRec) {
 
         List<Record> paramList = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-        if (filterParamUse(paramList) == false) {
+        if (filterParamDef(paramList) == false) {
             return false;
         }        
         //цикл по параметрам элементов соединения

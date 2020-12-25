@@ -70,7 +70,7 @@ public class Wincalc {
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
-    public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию 
+    public HashMap<Integer, Record> mapParamDef = new HashMap(); //пар. по умолчанию + наложенные пар. клиента
     public LinkedList<Com5t> listCom5t; //список всех Component
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 

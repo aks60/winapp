@@ -60,7 +60,7 @@ public class Par5s {
     }
 
     //Фильтр параметров по умолчанию + выбранных клиентом
-    protected boolean filterParamUse(List<Record> paramList) {
+    protected boolean filterParamDef(List<Record> paramList) {
 
         for (Record paramRec : paramList) {
             if (paramRec.getInt(GRUP) < 0) {
