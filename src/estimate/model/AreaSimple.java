@@ -34,7 +34,6 @@ public class AreaSimple extends Com5t {
     public float dy = 0;
     public float gsize = 0; //размер от оси профиля до заполнения (стеклопакета)
     public EnumMap<LayoutArea, ElemFrame> mapFrame = new EnumMap<>(LayoutArea.class); //список рам в окне  
-    //public Integer sysprofID = null; //то, что выбрал клиент
 
     public AreaSimple(Wincalc iwin, AreaSimple owner, float id, TypeElem typeElem, LayoutArea layout, float width, float height, int color1, int color2, int color3, String param) {
         super(id, iwin, owner);
@@ -45,7 +44,7 @@ public class AreaSimple extends Com5t {
         this.colorID3 = color3;
         initСonstructiv(param);
         initDimension(width, height);
-        initParamUse(param);
+        initParametr(param);
     }
 
     public void initСonstructiv(String param) {
@@ -99,7 +98,7 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    protected void initParamUse(String param) {
+    protected void initParametr(String param) {
         try {
             if (param != null) {
                 if (param != null && param.isEmpty() == false && param.equals("null") == false) {
