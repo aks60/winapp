@@ -23,7 +23,7 @@ public class ElementSet extends Par5s {
                 }
             }
         } catch (Exception e) {
-            System.err.println("wincalc.constr.param.ElementDet.change()  parametr=" + grup + "    " + e);
+            System.err.println("Ошибка:param.ElementDet.change()  parametr=" + grup + "    " + e);
         }
     }    
 }

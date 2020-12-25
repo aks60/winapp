@@ -113,7 +113,7 @@ public class FurnitureVar extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.err.println("wincalc.constr.param.FurnitureVar.check()  parametr=" + grup + "    " + e);
+                System.err.println("Ошибка: param.FurnitureVar.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }

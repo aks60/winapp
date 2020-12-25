@@ -233,7 +233,7 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 25010:  //Номер стороны 
                         message(rec.getInt(GRUP));
-                        System.out.println("- " + detailRec.getInt(1) + " - " + areaStv.id() + " - " + rec.getStr(TEXT));
+                        //System.out.println("- " + detailRec.getInt(1) + " - " + areaStv.id() + " - " + rec.getStr(TEXT));
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 25011:  //Расчет по общей арке 
@@ -296,7 +296,7 @@ public class FurnitureDet extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.err.println("wincalc.constr.param.FurnitureDet.check()  parametr=" + grup + "    " + e);
+                System.err.println("Ошибка:param.FurnitureDet.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }

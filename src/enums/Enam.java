@@ -18,10 +18,6 @@ public interface Enam {
         return -1;
     }
 
-//    default int grup() {
-//        return -1;
-//    }
-
     default int numb() {
         return -1;
     }

@@ -12,6 +12,7 @@ import enums.LayoutFurn1;
 import enums.ParamJson;
 import enums.TypeElem;
 import enums.LayoutJoin;
+import enums.TypeArtikl;
 import enums.TypeOpen1;
 import enums.TypeJoin;
 import java.awt.Color;
@@ -19,9 +20,8 @@ import java.util.LinkedList;
 import estimate.Wincalc;
 import estimate.constr.Specification;
 import estimate.constr.Util;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Set;
 
 public class AreaStvorka extends AreaSimple {
 
@@ -52,7 +52,7 @@ public class AreaStvorka extends AreaSimple {
         stvLeft.setLocation();
 
         initFurniture(param);
-        
+
         stvBot.specificationRec.width = width();
         stvTop.specificationRec.width = width();
         stvRigh.specificationRec.height = height();
@@ -60,7 +60,7 @@ public class AreaStvorka extends AreaSimple {
     }
 
     public void initFurniture(String param) {
-        
+
         //Сторона открывания
         if (getParam(param, ParamJson.typeOpen) != -1) {
             this.typeOpen = TypeOpen1.get(getParam(param, ParamJson.typeOpen));
@@ -98,11 +98,25 @@ public class AreaStvorka extends AreaSimple {
     }
 
     public void addSpecific(Specification spc) {
-        //spc.mapParam.getOrDefault(dy, handleHeight)
-        Object side = spc.mapParam.get(25010);
-        
-        ElemFrame firstFrame = mapFrame.values().stream().findFirst().get();  //первая попавшаяся
-        firstFrame.addSpecific(spc);
+
+        ElemFrame sideFrame = mapFrame.values().stream().findFirst().get();  //первая попавшаяся
+        if ("1".equals(spc.mapParam.get(25010))) {
+            sideFrame = mapFrame.get(LayoutArea.BOTTOM);
+        } else if ("2".equals(spc.mapParam.get(25010))) {
+            sideFrame = mapFrame.get(LayoutArea.RIGHT);
+        } else if ("3".equals(spc.mapParam.get(25010))) {
+            sideFrame = mapFrame.get(LayoutArea.TOP);
+        } else if ("4".equals(spc.mapParam.get(25010))) {
+            sideFrame = mapFrame.get(LayoutArea.LEFT);
+        }
+        if (spc.artiklRec.getInt(eArtikl.level1) == TypeArtikl.PPROFIL.id1) {
+            sideFrame.addSpecific(spc);
+        } else if (spc.artiklRec.getInt(eArtikl.level1) == TypeArtikl.ACSESYAR.id1) {
+            sideFrame.addSpecific(spc);
+        } else {
+            sideFrame.addSpecific(spc);
+        }
+
     }
 
     @Override

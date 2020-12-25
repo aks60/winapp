@@ -192,7 +192,7 @@ public class FillingDet extends Par5s {
                         break;
                 }
             } catch (Exception e) {
-                System.err.println("wincalc.constr.param.FillingDet.check()  parametr=" + grup + "    " + e);
+                System.err.println("Ошибка:param.FillingDet.check()  parametr=" + grup + "    " + e);
                 return false;
             }
         }
