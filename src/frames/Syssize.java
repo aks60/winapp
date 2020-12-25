@@ -16,6 +16,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumn;
 
 public class Syssize extends javax.swing.JFrame {
 
@@ -30,7 +32,7 @@ public class Syssize extends javax.swing.JFrame {
         loadingModel();
         btnChoice.setVisible(false);
     }
-    
+
     public Syssize(Frame owner, DialogListener listener) {
         initComponents();
         initElements();
@@ -46,7 +48,7 @@ public class Syssize extends javax.swing.JFrame {
     private void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
     }
-    
+
     private void loadingModel() {
         new DefTableModel(tab1, qSyssize, eSyssize.name, eSyssize.prip, eSyssize.naxl, eSyssize.zax, eSyssize.falz);
         Util.setSelectedRow(tab1);
@@ -232,17 +234,17 @@ public class Syssize extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Система артикулов", "Припуск на сварку", "Нахлест створки", "Заход импоста", "Наплав системы"
+                "Система артикулов", "Припуск на сварку", "Нахлест створки", "Заход импоста", "Наплав системы", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -255,6 +257,7 @@ public class Syssize extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(200);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(5).setMaxWidth(40);
         }
 
         centr.add(scr1, java.awt.BorderLayout.CENTER);
@@ -313,6 +316,7 @@ public class Syssize extends javax.swing.JFrame {
     private void btnRemoveert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveert
         listener.action(eSyssize.up.newRecord());
     }//GEN-LAST:event_btnRemoveert
+
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChoice;
@@ -328,6 +332,7 @@ public class Syssize extends javax.swing.JFrame {
     private javax.swing.JTable tab1;
     // End of variables declaration//GEN-END:variables
 // </editor-fold>    
+    
     private void initElements() {
 
         FrameToFile.setFrameSize(this);
@@ -345,7 +350,7 @@ public class Syssize extends javax.swing.JFrame {
         };
         Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1)));
         tab1.addFocusListener(listenerFocus);
-        
+
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Системные константы", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
     }

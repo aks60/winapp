@@ -13,9 +13,12 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
+import startup.Main;
 
 public class DefTableModel extends DefaultTableModel implements FrameListener {
 
@@ -59,6 +62,14 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             table.getColumnModel().getColumn(index).setPreferredWidth(prefWidthList.get(index));
             table.getColumnModel().getColumn(index).setMaxWidth(maxWidthList.get(index));
         }
+        if (Main.dev == false) {
+            DefaultTableColumnModel cmodel = (DefaultTableColumnModel) table.getColumnModel();
+            TableColumn col = cmodel.getColumn(table.getColumnModel().getColumnCount() - 1);
+            col.setMinWidth(0);
+            col.setPreferredWidth(0);
+            col.setResizable(false);
+        }
+        
     }
 
     public Query getQuery() {
