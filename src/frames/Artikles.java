@@ -218,7 +218,7 @@ public class Artikles extends javax.swing.JFrame {
         DefaultMutableTreeNode treeNode2 = null;
         for (TypeArtikl it : TypeArtikl.values()) {
             if (it.id1 == 1 && it.id2 == 0) {
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.PPROFIL); //"Профили"
+                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.PROFIL); //"Профили"
 
             } else if (it.id1 == 2 && it.id2 == 0) {
                 treeNode1.add(treeNode2);

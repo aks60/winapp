@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import estimate.Wincalc;
 import estimate.constr.Specification;
 import estimate.constr.Util;
+import estimate.param.Processing;
 import java.util.Arrays;
 import java.util.List;
 
@@ -95,28 +96,6 @@ public class AreaStvorka extends AreaSimple {
             x2 = X2 - offset(stvRig, adjacentRig);
             y1 = Y1 + offset(stvTop, adjacentTop);
         }
-    }
-
-    public void addSpecific(Specification spc) {
-
-        ElemFrame sideFrame = mapFrame.values().stream().findFirst().get();  //первая попавшаяся
-        if ("1".equals(spc.mapParam.get(25010))) {
-            sideFrame = mapFrame.get(LayoutArea.BOTTOM);
-        } else if ("2".equals(spc.mapParam.get(25010))) {
-            sideFrame = mapFrame.get(LayoutArea.RIGHT);
-        } else if ("3".equals(spc.mapParam.get(25010))) {
-            sideFrame = mapFrame.get(LayoutArea.TOP);
-        } else if ("4".equals(spc.mapParam.get(25010))) {
-            sideFrame = mapFrame.get(LayoutArea.LEFT);
-        }
-        if (spc.artiklRec.getInt(eArtikl.level1) == TypeArtikl.PPROFIL.id1) {
-            sideFrame.addSpecific(spc);
-        } else if (spc.artiklRec.getInt(eArtikl.level1) == TypeArtikl.ACSESYAR.id1) {
-            sideFrame.addSpecific(spc);
-        } else {
-            sideFrame.addSpecific(spc);
-        }
-
     }
 
     @Override

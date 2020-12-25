@@ -23,6 +23,7 @@ import estimate.param.FurnitureDet;
 import estimate.param.FurnitureVar;
 import estimate.model.AreaStvorka;
 import estimate.model.ElemFrame;
+import estimate.param.Processing;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -193,14 +194,14 @@ public class Furniture extends Cal5e {
             if (furndetRec.get(eFurndet.furniture_id2) == null) {
                 Record artiklRec = eArtikl.find(furndetRec.getInt(eFurndet.artikl_id), false);
                 if (artiklRec.getInt(eArtikl.id) != -1 && artiklRec.getStr(eArtikl.code).charAt(0) != '@') {
-                    ElemFrame firstFrame = areaStv.mapFrame.values().stream().findFirst().get(); //первая попавшаяся
-                    Specification specif = new Specification(furndetRec, artiklRec, firstFrame, mapParam);
-                    if (Color.colorFromProduct(specif)) {
+                    ElemFrame sideStv = Processing.determOfSide(mapParam, areaStv);
+                    Specification specif = new Specification(furndetRec, artiklRec, sideStv, mapParam);
+                    if (Color.colorFromProduct(specif)) { //попадает или нет в спецификацию по цвету
 
                         specif.count = Integer.valueOf(specif.getParam(specif.count, 24030));
                         specif.count = specif.count * count;
                         specif.place = "ФУРН";
-                        areaStv.addSpecific(specif); //добавим спецификацию в элемент
+                        sideStv.addSpecific(specif); //добавим спецификацию в элемент
                     }
                 }
 

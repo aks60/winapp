@@ -11,7 +11,7 @@ import java.util.List;
 public enum TypeArtikl {
 
     NONE(0, 0, "-"),
-    PPROFIL(1, 0, "Профили"),
+    PROFIL(1, 0, "Профили"),
     KOROBKA(1, 1, "Коробка"),
     STVORKA(1, 2, "Створка"),
     IMPOST(1, 3, "Импост"),
@@ -123,7 +123,7 @@ public enum TypeArtikl {
     }
 
     public static TypeArtikl find(Record record) {
-        return Arrays.stream(values()).filter(el -> (el.id1 == record.getInt(eArtikl.level1) && el.id2 == record.getInt(eArtikl.level2))).findFirst().orElse(PPROFIL);
+        return Arrays.stream(values()).filter(el -> (el.id1 == record.getInt(eArtikl.level1) && el.id2 == record.getInt(eArtikl.level2))).findFirst().orElse(PROFIL);
     }
 
     public static String find(int _id1, int _id2) {
