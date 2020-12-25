@@ -71,8 +71,6 @@ public class Wincalc {
 
     public AreaSimple rootArea = null;
     public HashMap<Integer, Record> mapParamDef = new HashMap(); //параметры по умолчанию 
-    public HashMap<Integer, Record> mapParamUse = new HashMap(); //клиентские параметры 
-    public HashMap<Integer, Record> mapParamSum = new HashMap(); //клиентские + по умолчанию параметры 
     public LinkedList<Com5t> listCom5t; //список всех Component
     public LinkedList<ElemSimple> listElem; //список ElemSimple
     public HashMap<String, ElemJoining> mapJoin = new HashMap(); //список соединений рам и створок 
@@ -84,8 +82,6 @@ public class Wincalc {
         //System.out.println(productJson);
         mediateList.clear();
         mapParamDef.clear();
-        mapParamUse.clear();
-        mapParamSum.clear();
         mapJoin.clear();
         listSpec.clear();
         genId = 100;

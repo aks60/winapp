@@ -45,7 +45,7 @@ public class AreaSimple extends Com5t {
         this.colorID3 = color3;
         initСonstructiv(param);
         initDimension(width, height);
-        _initParamUse(param);
+        initParamUse(param);
     }
 
     public void initСonstructiv(String param) {
@@ -99,10 +99,9 @@ public class AreaSimple extends Com5t {
         }
     }
 
-    protected void _initParamUse(String param) {
+    protected void initParamUse(String param) {
         try {
             if (param != null) {
-                iwin().mapParamSum.putAll(iwin().mapParamDef);
                 if (param != null && param.isEmpty() == false && param.equals("null") == false) {
                     String str = param.replace("'", "\"");
                     JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
@@ -110,10 +109,9 @@ public class AreaSimple extends Com5t {
                     if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
                         jsonArr.forEach(it -> {
                             Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt(), it.getAsJsonArray().get(1).getAsInt());
-                            iwin().mapParamUse.put(paramRec.getInt(eParams.grup), paramRec);
+                            iwin().mapParamDef.put(paramRec.getInt(eParams.grup), paramRec);
                         });
                     }
-                    iwin().mapParamSum.putAll(iwin().mapParamUse);
                 }
             }
         } catch (Exception e) {
