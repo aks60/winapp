@@ -15,10 +15,9 @@ import estimate.model.Com5t;
 
 public class Par5s {
 
-    protected final int ID = 1;   //Ключ 0  
-    protected final int GRUP = 2;   //Ключ 1  
-    protected final int NUMB = 3;   //Ключ 2   
-    protected final int TEXT = 4;   //Текст 
+    protected final int ID = 1;   //Ключ в таблице  
+    protected final int GRUP = 3;   //Ключ параметра    
+    protected final int TEXT = 2;   //Текст 
     protected Wincalc iwin = null;
     protected String versionDb = eSetting.find(2).getStr(eSetting.val);
     protected int pass = 1; //проверка на попадание либо pass=1 ищем тех что попали, pass=2 основной цикл, pass=3 находим доступные параметры
@@ -68,7 +67,7 @@ public class Par5s {
                 if (rec == null) {
                     return false; //если группы нет
                 }
-                if (rec.getInt(NUMB) != paramRec.getInt(NUMB)) {
+                if (rec.getInt(GRUP) != paramRec.getInt(GRUP)) {
                     return false; //если группа есть, а параметр не совпал
                 }
             }
