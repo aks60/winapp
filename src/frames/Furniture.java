@@ -306,7 +306,7 @@ public class Furniture extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eFurnpar1.id && val != null) {
+                if (field == eFurnpar1.params_id && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eFurnpar1.id) + "-" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
@@ -343,7 +343,7 @@ public class Furniture extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eFurnpar2.id) {
+                if (val != null && field == eFurnpar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eFurnpar2.id) + "-" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);

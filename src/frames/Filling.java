@@ -133,7 +133,7 @@ public class Filling extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eGlaspar1.id == field) {
+                if (val != null && eGlaspar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eGlaspar1.id) + "-" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
@@ -149,7 +149,7 @@ public class Filling extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eGlaspar2.id) {
+                if (val != null && field == eGlaspar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eGlaspar2.id) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
@@ -262,8 +262,7 @@ public class Filling extends javax.swing.JFrame {
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
             qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
-            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=",
-                    eGlaspar1.id, "and", eParams.id, "=" , eParams.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar1.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -281,8 +280,7 @@ public class Filling extends javax.swing.JFrame {
             Util.clearTable(tab4);
             Record record = qGlasdet.table(eGlasdet.up).get(row);
             Integer id = record.getInt(eGlasdet.id);
-            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.id,
-                    "and", eParams.id, "=", eParams.params_id, "where", eGlaspar2.glasdet_id, "=", id);
+            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.params_id, "where", eGlaspar2.glasdet_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4);
         }

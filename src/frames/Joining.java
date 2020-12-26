@@ -131,7 +131,7 @@ public class Joining extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name, eJoinvar.mirr);
-        new DefTableModel(tab3, qJoinpar1, eJoinpar1.id, eJoinpar1.text) {
+        new DefTableModel(tab3, qJoinpar1, eJoinpar1.params_id, eJoinpar1.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
                 if (columnIndex == 1) {
@@ -141,10 +141,10 @@ public class Joining extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eJoinpar1.id == field) {
+                if (val != null && eJoinpar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eJoinpar1.id) + "-" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
+                        return (Main.dev) ? record.getStr(eJoinpar1.params_id) + "-" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -186,7 +186,7 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.id, eJoinpar2.text) {
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.params_id, eJoinpar2.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
                 if (columnIndex == 1) {
@@ -196,7 +196,7 @@ public class Joining extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eJoinpar2.id == field) {
+                if (val != null && eJoinpar2.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eJoinpar2.id) + "-" + record.getStr(eJoinpar2.text) : record.getStr(eJoinpar2.text);

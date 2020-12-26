@@ -169,14 +169,14 @@ public class Element extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qElempar1, eElempar1.id, eElempar1.text) {
+        new DefTableModel(tab4, qElempar1, eElempar1.params_id, eElempar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eElempar1.id == field) {
+                if (val != null && eElempar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? joinpar1Rec.getStr(eElempar1.id) + "-" + joinpar1Rec.getStr(eElempar1.text) : joinpar1Rec.getStr(eElempar1.text);
+                        Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.id) + "-" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -185,11 +185,11 @@ public class Element extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qElempar2, eElempar2.id, eElempar2.text) {
+        new DefTableModel(tab5, qElempar2, eElempar2.params_id, eElempar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eElempar2.id) {
+                if (field == eElempar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eElempar2.id) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
@@ -337,7 +337,7 @@ public class Element extends javax.swing.JFrame {
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.id, "= 0", "where", eElempar1.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
@@ -352,7 +352,7 @@ public class Element extends javax.swing.JFrame {
             Arrays.asList(qElempar2).forEach(q -> q.execsql());
             Record record = qElemdet.table(eElemdet.up).get(row);
             Integer p1 = record.getInt(eElemdet.id);
-            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.id, "= 0", "where", eElempar2.elemdet_id, "=", p1);
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab5);
         }
