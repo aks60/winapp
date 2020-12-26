@@ -54,7 +54,7 @@ import java.util.stream.Collectors;
 
 public class Element extends javax.swing.JFrame {
 
-    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qGroups = new Query(eGroups.values());
     private Query qElemgrp = new Query(eElemgrp.values());
@@ -104,7 +104,7 @@ public class Element extends javax.swing.JFrame {
     private void loadingData() {
 
         qColor.select(eColor.up);
-        qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id,  "order by", eParams.text);
         qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         Record record = eElemgrp.up.newRecord(Query.SEL);
@@ -159,7 +159,7 @@ public class Element extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
                 } else if (eElemdet.types == field) {
                     int types = Integer.valueOf(val.toString());
@@ -175,7 +175,7 @@ public class Element extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eElempar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record joinpar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? joinpar1Rec.getStr(eElempar1.grup) + "-" + joinpar1Rec.getStr(eElempar1.text) : joinpar1Rec.getStr(eElempar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -191,7 +191,7 @@ public class Element extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (field == eElempar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eElempar2.grup) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -337,8 +337,7 @@ public class Element extends javax.swing.JFrame {
             Record record = qElement.table(eElement.up).get(row);
             Integer p1 = record.getInt(eElement.id);
             qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar1.grup,
-                    "and", eParams.numb, "= 0", "where", eElempar1.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.grup, "= 0", "where", eElempar1.element_id, "=", p1);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
@@ -353,8 +352,7 @@ public class Element extends javax.swing.JFrame {
             Arrays.asList(qElempar2).forEach(q -> q.execsql());
             Record record = qElemdet.table(eElemdet.up).get(row);
             Integer p1 = record.getInt(eElemdet.id);
-            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.grup, "=", eElempar2.grup,
-                    "and", eParams.numb, "= 0", "where", eElempar2.elemdet_id, "=", p1);
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.grup, "= 0", "where", eElempar2.elemdet_id, "=", p1);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab5);
         }

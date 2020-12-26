@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 public class Filling extends javax.swing.JFrame {
 
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qGlasgrp = new Query(eGlasgrp.values());
     private Query qGlasdet = new Query(eGlasdet.values(), eArtikl.values());
     private Query qGlasprof = new Query(eGlasprof.values(), eArtikl.values());
@@ -93,7 +93,7 @@ public class Filling extends javax.swing.JFrame {
 
     private void loadingData() {
         qColor.select(eColor.up);
-        qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.id, "=",  eParams.params_id, "order by", eParams.text);
         if (subsql == null) {
             qGlasgrp.select(eGlasgrp.up, "order by", eGlasgrp.name);
         } else {
@@ -119,7 +119,7 @@ public class Filling extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
                 } else if (eGlasdet.types == field) {
                     int types = Integer.valueOf(val.toString());
@@ -135,7 +135,7 @@ public class Filling extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eGlaspar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eGlaspar1.grup) + "-" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -151,7 +151,7 @@ public class Filling extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && field == eGlaspar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eGlaspar2.grup) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -262,8 +262,8 @@ public class Filling extends javax.swing.JFrame {
             Integer id = record.getInt(eGlasgrp.id);
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
             qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
-            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.grup, "=",
-                    eGlaspar1.grup, "and", eParams.numb, "= 0", "where", eGlaspar1.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=",
+                    eGlaspar1.grup, "and", eParams.id, "=" , eParams.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -281,8 +281,8 @@ public class Filling extends javax.swing.JFrame {
             Util.clearTable(tab4);
             Record record = qGlasdet.table(eGlasdet.up).get(row);
             Integer id = record.getInt(eGlasdet.id);
-            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.grup, "=", eGlaspar2.grup,
-                    "and", eParams.numb, "= 0", "where", eGlaspar2.glasdet_id, "=", id);
+            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.grup,
+                    "and", eParams.id, "=", eParams.params_id, "where", eGlaspar2.glasdet_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4);
         }

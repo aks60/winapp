@@ -28,11 +28,11 @@ public class ParGrup1 extends javax.swing.JDialog {
     }
 
     private void loadingData() {
-        qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.numb, "= 0", "order by", eParams.text);
+        qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
     
     private void loadingModel() {
-        tab1.setModel(new DefTableModel(tab1, qParams, eParams.grup, eParams.text));
+        tab1.setModel(new DefTableModel(tab1, qParams, eParams.id, eParams.text));
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);       
     }

@@ -27,7 +27,7 @@ public class ParGrup2a extends javax.swing.JDialog {
     }
 
     private void loadingData() {       
-        qParam2.select(eParams.up, "where", eParams.grup, "=", grup, "and", eParams.numb, "!= 0", "order by", eParams.text);
+        qParam2.select(eParams.up, "where", eParams.id, "=", grup, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);
     }
 
     private void loadingModel() {

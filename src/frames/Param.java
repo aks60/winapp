@@ -23,7 +23,7 @@ import frames.swing.DefTableModel;
 
 public class Param extends javax.swing.JFrame {
 
-    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.grup, "< 0", "and", eParams.numb, "= 0", "order by", eParams.text);
+    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     private Query qPardet = new Query(eParams.values());
 
     public Param() {
@@ -52,8 +52,8 @@ public class Param extends javax.swing.JFrame {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = qParams.table(eParams.up).get(row);
-            Integer p1 = record.getInt(eParams.grup);
-            qPardet.select(eParams.up, "where", eParams.grup, "=", p1, "and", eParams.numb, "!= 0", "order by", eParams.text);
+            Integer p1 = record.getInt(eParams.id);
+            qPardet.select(eParams.up, "where", eParams.params_id, "=", p1, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             if (tab2.getRowCount() > 0) {
                 tab2.setRowSelectionInterval(0, 0);
@@ -326,8 +326,8 @@ public class Param extends javax.swing.JFrame {
             Record paramlRec = eParams.up.newRecord(Query.INS);
             int id = ConnApp.instanc().genId(eParams.up);
             paramlRec.setNo(eParams.id, id);
-            paramlRec.setNo(eParams.grup, -1 * id);
-            paramlRec.setNo(eParams.numb, 0);
+            paramlRec.setNo(eParams.id, -1 * id);
+            //paramlRec.setNo(eParams.numb, 0);
             Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                     eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramlRec.set(index, 0));
             qParams.add(paramlRec);
@@ -339,11 +339,11 @@ public class Param extends javax.swing.JFrame {
             if (row != -1) {
                 Record paramRec = qParams.get(row);
                 Record pardetRec = eParams.up.newRecord(Query.INS);
-                int grup = paramRec.getInt(eParams.grup);
+                int grup = paramRec.getInt(eParams.id);
                 int id = ConnApp.instanc().genId(eParams.up);
                 pardetRec.setNo(eParams.id, id);
-                pardetRec.setNo(eParams.grup, grup);
-                pardetRec.setNo(eParams.numb, id);
+                pardetRec.setNo(eParams.id, grup);
+                //pardetRec.setNo(eParams.numb, id);
                 Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> pardetRec.set(index, 0));
                 qPardet.add(pardetRec);

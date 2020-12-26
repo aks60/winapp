@@ -35,7 +35,7 @@ public class ParColor2 extends javax.swing.JDialog {
     private void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
         
-        qParams.select(eParams.up, "where", eParams.numb, "= 0 and", eParams.color, "= 1 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id,  "and", eParams.color, "= 1 order by", eParams.text);
         //qParams.select(eParams.up, "where", eParams.numb, "= 0 and", constr, "= 1 and", eParams.color, "= 1 order by", eParams.text);
     }
 
@@ -60,7 +60,7 @@ public class ParColor2 extends javax.swing.JDialog {
             }
         }
         tableModel.getDataVector().stream().sorted((rec1, rec2) -> rec1.get(1).toString().compareTo(rec2.get(1).toString())).collect(Collectors.toList());
-        tab2.setModel(new DefTableModel(tab2, qParams, eParams.grup, eParams.text));
+        tab2.setModel(new DefTableModel(tab2, qParams, eParams.id, eParams.text));
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);

@@ -115,7 +115,7 @@ public class Systree extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qParams.select(eParams.up, "where", eParams.grup, "< 0").table(eParams.up);
+        qParams.select(eParams.up, "where", eParams.id, "< 0").table(eParams.up);
         qArtikl.select(eArtikl.up, "where", eArtikl.level1, "= 2 and", eArtikl.level2, "in (11,12)");
 
         ((DefaultTreeCellEditor) tree.getCellEditor()).addCellEditorListener(new CellEditorListener() {
@@ -231,11 +231,11 @@ public class Systree extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && field == eSyspar1.grup) {
                     if (Main.dev == true) {
-                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
-                                && rec.getInt(eParams.numb) == 0)).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     } else {
-                        return qParams.stream().filter(rec -> (rec.get(eParams.grup).equals(val)
-                                && rec.getInt(eParams.numb) == 0)).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
+                        return qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
+                                && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
                     }
                 }
                 return val;
@@ -443,7 +443,7 @@ public class Systree extends javax.swing.JFrame {
         listenerParam1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab4);
-            qSyspar1.set(record.getInt(eParams.grup), Util.getSelectedRec(tab4), eSyspar1.grup);
+            qSyspar1.set(record.getInt(eParams.id), Util.getSelectedRec(tab4), eSyspar1.grup);
             qSyspar1.set(null, Util.getSelectedRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);

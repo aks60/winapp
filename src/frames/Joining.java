@@ -58,7 +58,7 @@ public class Joining extends javax.swing.JFrame {
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
     private int[] indexIcon = {10, 20, 30, 31, 40, 41};
 
-    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
     private Query qJoining = new Query(eJoining.values());
@@ -106,7 +106,7 @@ public class Joining extends javax.swing.JFrame {
     private void loadingData() {
 
         tab1.setToolTipText("");
-        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.id, "=", eParams.id, "order by", eParams.text);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         if (subsql == null) {
@@ -143,7 +143,7 @@ public class Joining extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eJoinpar1.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eJoinpar1.grup) + "-" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -176,7 +176,7 @@ public class Joining extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
                 } else if (eJoindet.types == field) {
                     int types = Integer.valueOf(val.toString());
@@ -198,7 +198,7 @@ public class Joining extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && eJoinpar2.grup == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eJoinpar2.grup) + "-" + record.getStr(eJoinpar2.text) : record.getStr(eJoinpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));

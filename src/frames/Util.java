@@ -487,8 +487,8 @@ public class Util {
         Record record2 = query.get(Util.getSelectedRec(table));
 
         if (eParams.values().length == record.size()) {
-            record2.set(grup, record.getInt(eParams.grup));
-            record2.set(numb, record.getInt(eParams.numb));
+            record2.set(grup, record.getInt(eParams.id));
+            //record2.set(numb, record.getInt(eParams.numb));
             record2.set(text, null);
 
         } else if (record.size() == 2) {
@@ -509,7 +509,7 @@ public class Util {
         int row = getSelectedRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record elemdetRec = query.get(row);
-        int group = (eParams.values().length == record.size()) ? record.getInt(eParams.grup) : record.getInt(0);
+        int group = (eParams.values().length == record.size()) ? record.getInt(eParams.id) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group == 0 || group == 100000) {
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);

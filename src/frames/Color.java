@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class Color extends javax.swing.JFrame {
 
-    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qParams = new Query(eParams.id, eParams.id, eParams.text);
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values());
@@ -43,7 +43,7 @@ public class Color extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qParams.select(eParams.up, "where", eParams.color, "= 1 and", eParams.numb, "= 0 order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.color, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
     }
 
@@ -55,7 +55,7 @@ public class Color extends javax.swing.JFrame {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eColpar1.grup) {
-                    Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                    Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                     return (Main.dev) ? record.getStr(eElempar2.grup) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                 }
                 return val;

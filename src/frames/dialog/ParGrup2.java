@@ -37,7 +37,7 @@ public class ParGrup2 extends javax.swing.JDialog {
     }
 
     private void loadingData() {
-        qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.numb, "= 0", "order by", eParams.text);
+        qParams.select(eParams.up, "where", filter.name(), "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
 
     private void loadingModel(int... part) {
@@ -58,7 +58,7 @@ public class ParGrup2 extends javax.swing.JDialog {
         for (List record : recordList) {
             dm.addRow((Vector) record);
         }
-        tab2.setModel(new DefTableModel(tab2, qParams, eParams.grup, eParams.numb, eParams.text));
+        tab2.setModel(new DefTableModel(tab2, qParams, eParams.id, eParams.id, eParams.text));
         ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
         Util.setSelectedRow(tab2);

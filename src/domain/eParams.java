@@ -11,8 +11,6 @@ import static domain.eArtikl.values;
 public enum eParams implements Field {
     up("0", "0", "0", "Список параметров", "PARLIST"),
     id("4", "10", "0", "Идентификатор", "id"),    
-    grup("4", "10", "1", "Группа", "PNUMB"), 
-    numb("4", "10", "1", "Нпп в группе", "ZNUMB"),
     text("12", "64", "1", "Название или значения параметра", "PNAME"),     
     joint("16", "5", "1", "Параметры соединений", "PCONN"),
     elem("16", "5", "1", "Парметры составов", "PVSTA"),
@@ -24,6 +22,8 @@ public enum eParams implements Field {
     label("12", "32", "1", "Надпись на эскизе", "PMACR"),
     prog("16", "5", "1", "Системные (вшитые в систему)", "VPROG"),
     params_id("4", "10", "1", "Владелец", "params_id");
+    //grup("4", "10", "1", "Группа", "PNUMB"), 
+    //numb("4", "10", "1", "Нпп в группе", "ZNUMB"),    
     //[INS, 603, -603, null, null, 0, 0, 0, 0, 0, 0, null, null, null]
     //npp("5", "5", "1", "Номер параметра", "PPORN"),
     //ptype("16", "5", "1", "Количество тысяч par1", "PTYPF"),
@@ -54,17 +54,17 @@ public enum eParams implements Field {
 
     public static Query query() {
         if (query.size() == 0) {
-            query.select(up, "order by", grup, ",", numb);
+            query.select(up, "order by", params_id, ",", text);
             Query.listOpenTable.add(query);
         }
         return query;
     }
 
-    public static Record find(int _grup, int _numb) {
+    public static Record find(int _id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _grup == rec.getInt(grup) && _numb == rec.getInt(numb)).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
-        Query recordList = new Query(values()).select(up, "where", grup, "=", _grup, "and", numb, "=", _numb);
+        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 

@@ -54,7 +54,7 @@ import startup.Main;
 public class Furniture extends javax.swing.JFrame {
 
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qParams = new Query(eParams.id, eParams.grup, eParams.numb, eParams.text);
+    private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qFurnall = new Query(eFurniture.values());
     private Query qFurniture = new Query(eFurniture.values());
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
@@ -110,7 +110,7 @@ public class Furniture extends javax.swing.JFrame {
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
-        qParams.select(eParams.up, "where", eParams.numb, "= 0 order by", eParams.text); //TODO отключил фильтр, а это неправильно
+        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text); //TODO отключил фильтр, а это неправильно
         int types = (checkBox1.isSelected()) ? 0 : (checkBox2.isSelected()) ? 1 : -1;
         if (subsql == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
@@ -170,7 +170,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -216,7 +216,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -262,7 +262,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.grup) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -308,7 +308,7 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (field == eFurnpar1.grup && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eFurnpar1.grup) + "-" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
@@ -345,7 +345,7 @@ public class Furniture extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (val != null && field == eFurnpar2.grup) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
-                        Record record = qParams.stream().filter(rec -> rec.get(eParams.grup).equals(val)).findFirst().orElse(eParams.up.newRecord());
+                        Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                         return (Main.dev) ? record.getStr(eFurnpar2.grup) + "-" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
