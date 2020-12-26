@@ -10,12 +10,12 @@ import static java.util.stream.Collectors.toList;
 public enum eSyspar1 implements Field {
     up("0", "0", "0", "Парамметры системы профилей", "PARSYSP"),
     id("4", "10", "0", "Идентификатор", "id"),
-    grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
-    numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
     fixed("16", "5", "1", "Закреплено", "PFIXX"),
+    params_id("4", "10", "0", "Ссылка", "PNUMB"),
     systree_id("4", "10", "0", "Ссылка", "systree_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
+    //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей    
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());

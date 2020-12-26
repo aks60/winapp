@@ -192,10 +192,10 @@ public class Profstroy {
                 }
                 //Создание генератора
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
-                
+
                 //Особенности таблицы PARAMS
                 if ("PARAMS".equals(fieldUp.tname()) == true) {
-                   executeSql("SET GENERATOR  GEN_" + fieldUp.tname() + " TO " + -2147483648); 
+                    executeSql("SET GENERATOR  GEN_" + fieldUp.tname() + " TO " + -2147483648);
                 }
                 //Заполнение таблицы ключами
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
@@ -534,6 +534,7 @@ public class Profstroy {
             executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
             executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");
+            executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             loadModels();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");

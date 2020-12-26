@@ -226,10 +226,10 @@ public class Systree extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qSyspar1, eSyspar1.grup, eSyspar1.text, eSyspar1.fixed) {
+        new DefTableModel(tab4, qSyspar1, eSyspar1.params_id, eSyspar1.text, eSyspar1.fixed) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eSyspar1.grup) {
+                if (val != null && field == eSyspar1.params_id) {
                     if (Main.dev == true) {
                         return val + "   " + qParams.stream().filter(rec -> (rec.get(eParams.id).equals(val)
                                 && rec.getInt(eParams.id) == rec.getInt(eParams.params_id))).findFirst().orElse(eParams.up.newRecord(Query.SEL)).getStr(eParams.text);
@@ -301,7 +301,7 @@ public class Systree extends javax.swing.JFrame {
         });
 
         Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
-            Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.grup);
+            Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
         });
 
@@ -443,7 +443,7 @@ public class Systree extends javax.swing.JFrame {
         listenerParam1 = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
             int row = Util.getSelectedRec(tab4);
-            qSyspar1.set(record.getInt(eParams.id), Util.getSelectedRec(tab4), eSyspar1.grup);
+            qSyspar1.set(record.getInt(eParams.id), Util.getSelectedRec(tab4), eSyspar1.params_id);
             qSyspar1.set(null, Util.getSelectedRec(tab4), eSyspar1.text);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);

@@ -153,7 +153,7 @@ public class Wincalc {
             Record sysprofRec = eSysprof.find2(nuni, UseArtiklTo.FRAME);
             artiklRec = eArtikl.find(sysprofRec.getInt(eSysprof.artikl_id), true);
             syssizeRec = eSyssize.find(artiklRec.getInt(eArtikl.syssize_id));
-            eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.grup), rec)); //загрузим параметры по умолчанию
+            eSyspar1.find(nuni).stream().forEach(rec -> mapParamDef.put(rec.getInt(eSyspar1.params_id), rec)); //загрузим параметры по умолчанию
 
             colorID1 = jsonObj.get("color1").getAsInt();
             colorID2 = jsonObj.get("color2").getAsInt();
