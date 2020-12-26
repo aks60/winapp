@@ -176,7 +176,7 @@ public class Element extends javax.swing.JFrame {
                 if (val != null && eElempar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.id) + "-" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
+                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.id).substring(5, 10) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -192,7 +192,7 @@ public class Element extends javax.swing.JFrame {
                 if (field == eElempar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eElempar2.id) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
+                        return (Main.dev) ? record.getStr(eElempar2.id).substring(5, 10) + ":" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();

@@ -144,7 +144,7 @@ public class Joining extends javax.swing.JFrame {
                 if (val != null && eJoinpar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eJoinpar1.params_id) + "-" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
+                        return (Main.dev) ? record.getStr(eJoinpar1.params_id).substring(5, 10) + ":" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -199,7 +199,7 @@ public class Joining extends javax.swing.JFrame {
                 if (val != null && eJoinpar2.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eJoinpar2.id) + "-" + record.getStr(eJoinpar2.text) : record.getStr(eJoinpar2.text);
+                        return (Main.dev) ? record.getStr(eJoinpar2.id).substring(5, 10) + ":" + record.getStr(eJoinpar2.text) : record.getStr(eJoinpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();

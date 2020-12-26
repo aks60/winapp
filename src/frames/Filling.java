@@ -129,14 +129,14 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qGlaspar1, eGlaspar1.id, eGlaspar1.text) {
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.params_id, eGlaspar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && eGlaspar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eGlaspar1.id) + "-" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
+                        return  (Main.dev) ? record.getStr(eGlaspar1.id).substring(5, 10) + ":" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -145,14 +145,14 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qGlaspar2, eGlaspar2.id, eGlaspar2.text) {
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.params_id, eGlaspar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eGlaspar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eGlaspar2.id) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
+                        return (Main.dev) ? record.getStr(eGlaspar2.id).substring(5, 10) + ":" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();

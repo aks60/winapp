@@ -302,14 +302,14 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qFurnpar1, eFurnpar1.id, eFurnpar1.text) {
+        new DefTableModel(tab4, qFurnpar1, eFurnpar1.params_id, eFurnpar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eFurnpar1.params_id && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar1.id) + "-" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
+                        return (Main.dev) ? record.getStr(eFurnpar1.id).substring(5, 10) + ":" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -339,14 +339,14 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab6, qFurnpar2, eFurnpar2.id, eFurnpar2.text) {
+        new DefTableModel(tab6, qFurnpar2, eFurnpar2.params_id, eFurnpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (val != null && field == eFurnpar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar2.id) + "-" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
+                        return (Main.dev) ? record.getStr(eFurnpar2.id).substring(5, 10) + ":" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
