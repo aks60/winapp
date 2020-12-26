@@ -190,8 +190,14 @@ public class Profstroy {
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
                 }
-                //Создание генератора и заполнение таблиц ключами
+                //Создание генератора
                 executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
+                
+                //Особенности таблицы PARAMS
+                if ("PARAMS".equals(fieldUp.tname()) == true) {
+                   executeSql("SET GENERATOR  GEN_" + fieldUp.tname() + " TO " + -2147483648); 
+                }
+                //Заполнение таблицы ключами
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
                     executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
@@ -433,7 +439,7 @@ public class Profstroy {
             modifySetting("Функция modifySetting()");
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");                                    
+            executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
@@ -468,9 +474,9 @@ public class Profstroy {
             executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (0) END )");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
-            //executeSql("update elempar1 b set b.params_id = (select id from params a where a.pnumb = element.vpref and a.level = element.atypm)");
-            
             updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
+            executeSql("update elempar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
+            executeSql("update elempar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
             updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
             updateSql(eJoining.up, eJoining.artikl_id2, "anum2", eArtikl.up, "code");
             updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");
@@ -482,6 +488,8 @@ public class Profstroy {
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
+            executeSql("update joinpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
+            executeSql("update joinpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update glasprof set inside = 1  where gtype in (1,3,7)");
@@ -493,11 +501,15 @@ public class Profstroy {
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
+            executeSql("update glaspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
+            executeSql("update glaspar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
             executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
             executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id");
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
+            executeSql("update furnpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
+            executeSql("update furnpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and b.znumb = a.znumb) where b.params_id < 0");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
             executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");

@@ -12,10 +12,9 @@ public enum eGlaspar1 implements Field {
     up("0", "0", "0", "Парам.групп заполнения", "PARGRUP"),
     id("4", "10", "0", "Идентификатор", "id"),    
     text("12", "64", "1", "Значения параметра", "PTEXT"),
-    params_id("4", "10", "0", "Ссылка", "params_id"),
+    params_id("4", "10", "0", "Ссылка", "PNUMB"),
     glasgrp_id("4", "10", "0", "Ссылка", "glasgrp_id");
     //npp("5", "5", "1", "нпп параметра", "PPORN"),
-    //grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
     //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей    
 
     private MetaField meta = new MetaField(this);
