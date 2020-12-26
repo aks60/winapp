@@ -433,12 +433,13 @@ public class Profstroy {
             modifySetting("Функция modifySetting()");
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
+            executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");                                    
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
+            executeSql("update params a set a.params_id = (select b.id from params b where a.grup = b.grup and b.numb = 0)");
             modifyGroups("Функция modifyGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");

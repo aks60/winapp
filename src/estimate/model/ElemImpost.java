@@ -1,7 +1,5 @@
 package estimate.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
@@ -18,8 +16,8 @@ import estimate.constr.Specification;
 import domain.eSyssize;
 import enums.ParamJson;
 import enums.TypeJoin;
-import estimate.constr.Cal5e;
 import estimate.constr.Util;
+import estimate.param.Processing;
 import java.util.List;
 
 public class ElemImpost extends ElemSimple {
@@ -139,7 +137,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        Cal5e.amount(specificationRec, specificationAdd); //количество от параметра
+        Processing.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
     }
 

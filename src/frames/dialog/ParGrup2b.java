@@ -49,7 +49,7 @@ public class ParGrup2b extends javax.swing.JDialog {
         south = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Параметры смсстемные");
+        setTitle("Параметры системные");
         setPreferredSize(new java.awt.Dimension(300, 450));
 
         north.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));

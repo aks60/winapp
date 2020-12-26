@@ -1,22 +1,16 @@
 package estimate.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eSetting;
 import domain.eSyssize;
 import domain.eSysprof;
 import enums.LayoutArea;
 import enums.ParamJson;
-import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import estimate.constr.Cal5e;
 import estimate.constr.Specification;
-import estimate.constr.Util;
-import estimate.param.ElementSet;
+import estimate.param.Processing;
 
 public class ElemFrame extends ElemSimple {
 
@@ -110,7 +104,6 @@ public class ElemFrame extends ElemSimple {
     @Override //Вложеная спецификация
     public void addSpecific(Specification specificationAdd) { //добавление спесификаций зависимых элементов
 
-        Object obj = owner();
         //Армирование
         if (TypeArtikl.ARMIROVANIE.isType(specificationAdd.artiklRec)) {
             specificationAdd.place = "ВСТ." + layout().name.substring(0, 1);
@@ -168,7 +161,10 @@ public class ElemFrame extends ElemSimple {
         } else {
 
         }
-        Cal5e.amount(specificationRec, specificationAdd); //количество от параметра
+        if(specificationAdd.mapParam.get(25013) != null) {
+           Processing.set(specificationAdd, 25013);
+        }
+        Processing.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
     }
 

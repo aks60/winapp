@@ -1,7 +1,5 @@
 package estimate.model;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
@@ -10,12 +8,11 @@ import domain.eSyssize;
 import domain.eSystree;
 import enums.LayoutArea;
 import enums.ParamJson;
-import enums.ParamList;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import estimate.constr.Cal5e;
 import estimate.constr.Specification;
+import estimate.param.Processing;
 
 public class ElemGlass extends ElemSimple {
 
@@ -234,7 +231,7 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
-            Cal5e.amount(specificationRec, specificationAdd); //количество от параметра
+            Processing.amount(specificationRec, specificationAdd); //количество от параметра
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {
