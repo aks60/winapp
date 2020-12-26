@@ -10,12 +10,13 @@ import static java.util.stream.Collectors.toList;
 
 public enum eElempar2 implements Field {
     up("0", "0", "0", "Параметры специф.составов", "PARVSTS"),
-    id("4", "10", "0", "Идентификатор", "id"),    
-    grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
-    numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
+    id("4", "10", "0", "Идентификатор", "id"),   
     text("12", "64", "1", "Значения параметра", "PTEXT"),
+    params_id("4", "10", "0", "Ссылка", "params_id"),
     elemdet_id("4", "10", "0", "Спецификацмя", "element_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
+    //grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
+    //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей    
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
@@ -50,9 +51,9 @@ public enum eElempar2 implements Field {
     
     public static Record find2(int _grup) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> _grup == rec.getInt(grup)).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> _grup == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
-        Query recordList = new Query(values()).select(up, "where", grup, "=", _grup);
+        Query recordList = new Query(values()).select(up, "where", id, "=", _grup);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     

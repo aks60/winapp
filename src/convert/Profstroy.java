@@ -468,6 +468,8 @@ public class Profstroy {
             executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (0) END )");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
+            //executeSql("update elempar1 b set b.params_id = (select id from params a where a.pnumb = element.vpref and a.level = element.atypm)");
+            
             updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
             updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
             updateSql(eJoining.up, eJoining.artikl_id2, "anum2", eArtikl.up, "code");

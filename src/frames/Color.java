@@ -56,7 +56,7 @@ public class Color extends javax.swing.JFrame {
                 Field field = columns[col];
                 if (field == eColpar1.grup) {
                     Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                    return (Main.dev) ? record.getStr(eElempar2.grup) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
+                    return (Main.dev) ? record.getStr(eElempar2.id) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                 }
                 return val;
             }

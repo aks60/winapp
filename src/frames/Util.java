@@ -448,10 +448,10 @@ public class Util {
             JTable tab = Util.getCellEditing(tabses);
             String txt = (String) component;
             if (tab == table1) {
-                return ParamList.find(qParam1.getAs(Util.getSelectedRec(table1), eJoinpar1.grup)).check(txt);
+                return ParamList.find(qParam1.getAs(Util.getSelectedRec(table1), eJoinpar1.id)).check(txt);
             }
             if (tab == table2) {
-                return ParamList.find(qParam2.getAs(Util.getSelectedRec(table2), eJoinpar1.grup)).check(txt);
+                return ParamList.find(qParam2.getAs(Util.getSelectedRec(table2), eJoinpar1.id)).check(txt);
             }
         }
         return true;
@@ -461,7 +461,7 @@ public class Util {
     public static void formatterCell(Query query, JTable table, DefCellEditor editor) {
 
         JTextField txt = editor.getTextField();
-        int grup = query.getAs(getSelectedRec(table), eJoinpar1.grup, -1);
+        int grup = query.getAs(getSelectedRec(table), eJoinpar1.id, -1);
         if (grup < 0) { //пользовательский список параметров
             editor.getButton().setVisible(true);
             txt.setEnabled(false);

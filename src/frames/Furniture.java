@@ -302,14 +302,14 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qFurnpar1, eFurnpar1.grup, eFurnpar1.text) {
+        new DefTableModel(tab4, qFurnpar1, eFurnpar1.id, eFurnpar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eFurnpar1.grup && val != null) {
+                if (field == eFurnpar1.id && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar1.grup) + "-" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
+                        return (Main.dev) ? record.getStr(eFurnpar1.id) + "-" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -339,14 +339,14 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab6, qFurnpar2, eFurnpar2.grup, eFurnpar2.text) {
+        new DefTableModel(tab6, qFurnpar2, eFurnpar2.id, eFurnpar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eFurnpar2.grup) {
+                if (val != null && field == eFurnpar2.id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar2.grup) + "-" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
+                        return (Main.dev) ? record.getStr(eFurnpar2.id) + "-" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -410,7 +410,7 @@ public class Furniture extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eFurnpar1.grup);
+            int grup = record.getInt(eFurnpar1.id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
@@ -440,7 +440,7 @@ public class Furniture extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab6, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
-            int grup = record.getInt(eFurnpar2.grup);
+            int grup = record.getInt(eFurnpar2.id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
@@ -486,7 +486,7 @@ public class Furniture extends javax.swing.JFrame {
             }
 
             if (tabb1.getSelectedIndex() == 0) {
-                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
                 qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
                 ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -509,7 +509,7 @@ public class Furniture extends javax.swing.JFrame {
             tabb1.setTitleAt(2, "Детализация (3 уровень)    " + count + "  ");
 
             if (tabb1.getSelectedIndex() == 1) {
-                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+                qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
                 qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
                 ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
                 ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -527,7 +527,7 @@ public class Furniture extends javax.swing.JFrame {
                 Record record = qFurndet2c.table(eFurndet.up).get(row);
                 Integer id = record.getInt(eFurndet.id);
                 if (tabb1.getSelectedIndex() == 2) {
-                    qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.grup);
+                    qFurnpar2.select(eFurnpar2.up, "where", eFurnpar2.furndet_id, "=", id, "order by", eFurnpar2.id);
                     qFurnside2.select(eFurnside2.up, "where", eFurnside2.furndet_id, "=", id, "order by", eFurnside2.side_num);
                     ((DefaultTableModel) tab6.getModel()).fireTableDataChanged();
                     ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -544,7 +544,7 @@ public class Furniture extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qFurnside1.table(eFurnside1.up).get(row);
             Integer id = record.getInt(eFurnside1.id);
-            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.grup);
+            qFurnpar1.select(eFurnpar1.up, "where", eFurnpar1.furnside_id, "=", id, "order by", eFurnpar1.id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4);
         }
@@ -667,11 +667,11 @@ public class Furniture extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab4, eFurnpar1.grup, eFurnpar1.numb, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            Util.listenerParam(record, tab4, eFurnpar1.id, eFurnpar1.id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab6, eFurnpar2.grup, eFurnpar2.numb, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            Util.listenerParam(record, tab6, eFurnpar2.id, eFurnpar2.id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerVariant1 = (record) -> {

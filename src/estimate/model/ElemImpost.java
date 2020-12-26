@@ -148,7 +148,7 @@ public class ElemImpost extends ElemSimple {
         Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR40.id).findFirst().orElse(null);
         if (joinvarRec != null) {
             List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.grup) == 4040).findFirst().orElse(null);
+            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.id) == 4040).findFirst().orElse(null);
             if (joinpar1Rec != null) {
                 return Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
             }

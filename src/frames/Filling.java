@@ -129,14 +129,14 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab3, qGlaspar1, eGlaspar1.grup, eGlaspar1.text) {
+        new DefTableModel(tab3, qGlaspar1, eGlaspar1.id, eGlaspar1.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eGlaspar1.grup == field) {
+                if (val != null && eGlaspar1.id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eGlaspar1.grup) + "-" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
+                        return (Main.dev) ? record.getStr(eGlaspar1.id) + "-" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -145,14 +145,14 @@ public class Filling extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab4, qGlaspar2, eGlaspar2.grup, eGlaspar2.text) {
+        new DefTableModel(tab4, qGlaspar2, eGlaspar2.id, eGlaspar2.text) {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && field == eGlaspar2.grup) {
+                if (val != null && field == eGlaspar2.id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eGlaspar2.grup) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
+                        return (Main.dev) ? record.getStr(eGlaspar2.id) + "-" + record.getStr(eGlaspar2.text) : record.getStr(eGlaspar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -211,7 +211,7 @@ public class Filling extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qGlaspar1.get(Util.getSelectedRec(tab3));
-            int grup = record.getInt(eGlaspar1.grup);
+            int grup = record.getInt(eGlaspar1.id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
@@ -232,7 +232,7 @@ public class Filling extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qGlaspar2.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eGlaspar1.grup);
+            int grup = record.getInt(eGlaspar1.id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
@@ -263,7 +263,7 @@ public class Filling extends javax.swing.JFrame {
             qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
             qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
             qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=",
-                    eGlaspar1.grup, "and", eParams.id, "=" , eParams.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
+                    eGlaspar1.id, "and", eParams.id, "=" , eParams.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
@@ -281,7 +281,7 @@ public class Filling extends javax.swing.JFrame {
             Util.clearTable(tab4);
             Record record = qGlasdet.table(eGlasdet.up).get(row);
             Integer id = record.getInt(eGlasdet.id);
-            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.grup,
+            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.id,
                     "and", eParams.id, "=", eParams.params_id, "where", eGlaspar2.glasdet_id, "=", id);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4);
@@ -385,11 +385,11 @@ public class Filling extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab3, eElempar1.grup, eGlaspar1.numb, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab3, eElempar1.id, eGlaspar1.id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab4, eGlaspar2.grup, eGlaspar2.numb, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab4, eGlaspar2.id, eGlaspar2.id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
         };
     }
 

@@ -131,7 +131,7 @@ public class Joining extends javax.swing.JFrame {
             }
         };
         new DefTableModel(tab2, qJoinvar, eJoinvar.prio, eJoinvar.name, eJoinvar.mirr);
-        new DefTableModel(tab3, qJoinpar1, eJoinpar1.grup, eJoinpar1.text) {
+        new DefTableModel(tab3, qJoinpar1, eJoinpar1.id, eJoinpar1.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
                 if (columnIndex == 1) {
@@ -141,10 +141,10 @@ public class Joining extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eJoinpar1.grup == field) {
+                if (val != null && eJoinpar1.id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eJoinpar1.grup) + "-" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
+                        return (Main.dev) ? record.getStr(eJoinpar1.id) + "-" + record.getStr(eJoinpar1.text) : record.getStr(eJoinpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -186,7 +186,7 @@ public class Joining extends javax.swing.JFrame {
                 return val;
             }
         };
-        new DefTableModel(tab5, qJoinpar2, eJoinpar2.grup, eJoinpar2.text) {
+        new DefTableModel(tab5, qJoinpar2, eJoinpar2.id, eJoinpar2.text) {
 
             public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
                 if (columnIndex == 1) {
@@ -196,10 +196,10 @@ public class Joining extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (val != null && eJoinpar2.grup == field) {
+                if (val != null && eJoinpar2.id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eJoinpar2.grup) + "-" + record.getStr(eJoinpar2.text) : record.getStr(eJoinpar2.text);
+                        return (Main.dev) ? record.getStr(eJoinpar2.id) + "-" + record.getStr(eJoinpar2.text) : record.getStr(eJoinpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -250,7 +250,7 @@ public class Joining extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar1.get(Util.getSelectedRec(tab3));
-            int grup = record.getInt(eJoinpar1.grup);
+            int grup = record.getInt(eJoinpar1.id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
@@ -305,7 +305,7 @@ public class Joining extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab5, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar2.get(Util.getSelectedRec(tab5));
-            int grup = record.getInt(eJoinpar2.grup);
+            int grup = record.getInt(eJoinpar2.id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {
@@ -335,7 +335,7 @@ public class Joining extends javax.swing.JFrame {
             Record record = qJoinvar.table(eJoinvar.up).get(row);
             Integer id = record.getInt(eJoinvar.id);
             qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
-            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.grup);
+            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
@@ -348,7 +348,7 @@ public class Joining extends javax.swing.JFrame {
         if (row != -1) {
             Record record = qJoindet.table(eJoindet.up).get(row);
             Integer id = record.getInt(eJoindet.id);
-            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.grup);
+            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.id);
             ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab5);
         }
@@ -402,11 +402,11 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab3, eJoinpar1.grup, eJoinpar1.numb, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab3, eJoinpar1.id, eJoinpar1.id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab5, eJoinpar2.grup, eJoinpar2.numb, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab5, eJoinpar2.id, eJoinpar2.id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColor = (record) -> {
