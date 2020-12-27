@@ -51,10 +51,10 @@ public class Color extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qСolgrup, eColgrp.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
-        new DefTableModel(tab3, qColpar1, eColpar1.grup, eColpar1.text) {
+        new DefTableModel(tab3, qColpar1, eColpar1.params_id, eColpar1.text) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eColpar1.grup) {
+                if (field == eColpar1.params_id) {
                     Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                     return (Main.dev) ? record.getStr(eElempar2.id) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                 }
@@ -79,7 +79,7 @@ public class Color extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
             Record record = qColpar1.get(Util.getSelectedRec(tab3));
-            int grup = record.getInt(eColpar1.grup);
+            int grup = record.getInt(eColpar1.params_id);
             ParGrup2a frame = new ParGrup2a(this, listenerPar, grup);
         });
         Util.setSelectedRow(tab1);
@@ -112,7 +112,7 @@ public class Color extends javax.swing.JFrame {
     public void listenerDict() {
 
         listenerPar = (record) -> {
-            Util.listenerParam(record, tab3, eColpar1.grup, eColpar1.numb, eColpar1.text, tab1, tab2, tab3);
+            Util.listenerParam(record, tab3, eColpar1.params_id, eColpar1.text, tab1, tab2, tab3);
         };
     }
 

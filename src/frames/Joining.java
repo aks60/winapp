@@ -402,11 +402,11 @@ public class Joining extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab3, eJoinpar1.id, eJoinpar1.id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab3, eJoinpar1.params_id, eJoinpar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab5, eJoinpar2.id, eJoinpar2.id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab5, eJoinpar2.params_id, eJoinpar2.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerColor = (record) -> {

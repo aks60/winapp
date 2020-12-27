@@ -255,8 +255,7 @@ public class Color {
 
                             for (Record record1 : colparList1) {
                                 for (Record record2 : colparList2) {
-                                    if (record1.getInt(eColpar1.grup) == record2.getInt(eColpar1.grup)
-                                            && record1.getInt(eColpar1.numb) == record2.getInt(eColpar1.numb)) {
+                                    if (record1.getInt(eColpar1.params_id) == record2.getInt(eColpar1.params_id)) {
                                         return elemColorID;
                                     }
                                 }

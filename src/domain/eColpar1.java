@@ -15,11 +15,11 @@ import static java.util.stream.Collectors.toList;
 public enum eColpar1 implements Field {
     up("0", "0", "0", "Парметры текстур", "PARCOLS"),
     id("4", "10", "0", "Идентификатор", "id"),
-    grup("4", "10", "1", "Группа", "PNUMB"), //см. eEnum параметры
-    numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
     text("12", "64", "1", "Значения параметра", "PTEXT"),
+    params_id("4", "10", "1", "Группа", "PNUMB"),    
     color_id("4", "10", "0", "Ссылка", "color_id");
     //npp("5", "5", "1", "Нпп параметра", "PPORN"),
+    //numb("4", "10", "1", "Параметр", "ZNUMB"), //пар. вводимые пользователем в системе профилей
 
     private MetaField meta = new MetaField(this);
     private static Query query = new Query(values());
@@ -52,21 +52,12 @@ public enum eColpar1 implements Field {
         return new Query(values()).select(up, "where", color_id, "=", _color_id);
     }
     
-    public static List<Record> find2(int _grup) {
+    public static List<Record> find2(int _params_id) {
 
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(grup) == _grup).collect(toList());
+            return query().stream().filter(rec -> rec.getInt(params_id) == _params_id).collect(toList());
         }
-        return new Query(values()).select(up, "where", grup, "=", _grup);
-    }
-
-    public static Record find3(int _grup, int _numb) {
-
-        if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(grup) == _grup && numb == numb).findFirst().orElse(up.newRecord());
-        }
-        Query recordList = new Query(values()).select(up, "where", grup, "=", _grup, "and", numb, _numb);
-        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+        return new Query(values()).select(up, "where", params_id, "=", _params_id);
     }
 
     public String toString() {

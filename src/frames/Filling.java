@@ -383,11 +383,11 @@ public class Filling extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab3, eElempar1.id, eGlaspar1.id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab3, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab4, eGlaspar2.id, eGlaspar2.id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab4, eGlaspar2.params_id, eGlaspar2.text, tab1, tab2, tab3, tab4, tab5);
         };
     }
 

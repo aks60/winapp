@@ -455,11 +455,11 @@ public class Element extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab4, eElempar1.id, eElempar1.id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab4, eElempar1.params_id, eElempar1.text, tab1, tab2, tab3, tab4, tab5);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab5, eElempar2.id, eElempar2.id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
+            Util.listenerParam(record, tab5, eElempar2.params_id, eElempar2.text, tab1, tab2, tab3, tab4, tab5);
         };
     }
 

@@ -480,7 +480,7 @@ public class Util {
     }
 
     //Слушатель редактирование параметров
-    public static void listenerParam(Record record, JTable table, Field grup, Field numb, Field text, JTable... tables) {
+    public static void listenerParam(Record record, JTable table, Field grup, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
         int row = getSelectedRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
@@ -488,12 +488,10 @@ public class Util {
 
         if (eParams.values().length == record.size()) {
             record2.set(grup, record.getInt(eParams.id));
-            //record2.set(numb, record.getInt(eParams.numb));
             record2.set(text, null);
 
         } else if (record.size() == 2) {
             record2.set(grup, record.get(0));
-            record2.set(numb, -1);
             record2.set(text, null);
 
         } else if (record.size() == 1) {

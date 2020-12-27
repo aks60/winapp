@@ -667,11 +667,11 @@ public class Furniture extends javax.swing.JFrame {
         };
 
         listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab4, eFurnpar1.id, eFurnpar1.id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            Util.listenerParam(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab6, eFurnpar2.id, eFurnpar2.id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+            Util.listenerParam(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
         };
 
         listenerVariant1 = (record) -> {
