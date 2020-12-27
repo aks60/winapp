@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -61,6 +62,7 @@ public class Specific extends javax.swing.JFrame {
             initElements();
             createIwin();
             loadingData(iwin.listSpec);
+            Util.setSelectedRow(tab1);
         }
     }
 
@@ -86,25 +88,25 @@ public class Specific extends javax.swing.JFrame {
     }
 
     private void loadingData(List<Specification> listSpec) {
-        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());        
+        DefaultTableModel dtm = ((DefaultTableModel) tab1.getModel());
         dtm.getDataVector().clear();
         dtm.fireTableDataChanged();
-        int insexLast = listSpec.get(0).getVector(0).size();
+        int indexLast = listSpec.get(0).getVector(0).size();
         float sum1 = 0, sum2 = 0, sum3 = 0;
         for (int i = 0; i < listSpec.size(); i++) { //заполним спецификацию
             Vector v = listSpec.get(i).getVector(i);
             dtm.addRow(v);
-            sum1 = sum1 + (Float) v.get(insexLast - 1);
-            sum2 = sum2 + (Float) v.get(insexLast - 2);
-            sum3 = sum3 + (Float) v.get(insexLast - 13);
+            sum1 = sum1 + (Float) v.get(indexLast - 1);
+            sum2 = sum2 + (Float) v.get(indexLast - 2);
+            sum3 = sum3 + (Float) v.get(indexLast - 13);
         }
         Vector vectorLast = new Vector();
-        for (int i = 0; i < insexLast; i++) {
+        for (int i = 0; i < indexLast; i++) {
             vectorLast.add(null);
         }
-        vectorLast.set(insexLast - 1, sum1);
-        vectorLast.set(insexLast - 2, sum2);
-        vectorLast.set(insexLast - 13, sum3);
+        vectorLast.set(indexLast - 1, sum1);
+        vectorLast.set(indexLast - 2, sum2);
+        vectorLast.set(indexLast - 13, sum3);
         dtm.addRow(vectorLast);
     }
 
@@ -112,7 +114,7 @@ public class Specific extends javax.swing.JFrame {
         HashSet<String> hs = new HashSet();
         List<Specification> list = new ArrayList();
         Map<String, Specification> map = new HashMap();
-        
+
         for (Specification spc : iwin.listSpec) {
             String key = (num == 1)
                     ? spc.name + spc.artikl + spc.colorID1 + spc.colorID2 + spc.colorID3 + spc.width + spc.height + spc.anglCut1 + spc.anglCut2 + spc.wastePrc + spc.inPrice + spc.discount
@@ -266,7 +268,7 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c006.gif"))); // NOI18N
+        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
         btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
         btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         btnConstructiv.setFocusable(false);
@@ -392,10 +394,10 @@ public class Specific extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnArtikles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addComponent(btnGroup1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGroup2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,7 +413,7 @@ public class Specific extends javax.swing.JFrame {
                 .addComponent(btnFurn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -605,10 +607,14 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnArtikles
 
     private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
-        int row = Util.getSelectedRec(tab1);
-        Specification recordSpc = iwin.listSpec.get(row);
-        String str = recordSpc.place.substring(0, 3);
+        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
+        String str = tab1.getValueAt(Util.getSelectedRec(tab1), 2).toString().substring(0, 3);
+        Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
+//        int row = Util.getSelectedRec(tab1);
+//        Specification recordSpc = iwin.listSpec.get(row);
+//        String str = recordSpc.place.substring(0, 3);
+//        Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {
@@ -641,6 +647,7 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConstructiv
 
     private void btnFilter(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilter
+        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
         JToggleButton tab = (JToggleButton) evt.getSource();
         List<Specification> listSpec = null;
         if (tab == btnJoin) {
@@ -653,18 +660,49 @@ public class Specific extends javax.swing.JFrame {
             listSpec = iwin.listSpec.stream().filter(rec -> "ФУР".equals(rec.place.substring(0, 3))).collect(toList());
         }
         loadingData(listSpec);
+        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
+            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
+                Util.setSelectedRow(tab1, i);
+                return;
+            }
+        } 
+        Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnFilter
 
     private void btnGroup2(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup2
+
+        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
         loadingData(groups(1));
+        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
+            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
+                Util.setSelectedRow(tab1, i);
+                return;
+            }
+        }
     }//GEN-LAST:event_btnGroup2
 
     private void btnGroup1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup1
+
+        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
         loadingData(iwin.listSpec);
+        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
+            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
+                Util.setSelectedRow(tab1, i);
+                return;
+            }
+        }
     }//GEN-LAST:event_btnGroup1
 
     private void btnGroup3(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGroup3
+
+        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
         loadingData(groups(2));
+        for (int i = 0; i < tab1.getRowCount() - 1; i++) {
+            if (Float.valueOf(tab1.getValueAt(i, 1).toString()) == id) {
+                Util.setSelectedRow(tab1, i);
+                return;
+            }
+        }
     }//GEN-LAST:event_btnGroup3
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">     
@@ -698,7 +736,7 @@ public class Specific extends javax.swing.JFrame {
 
         new FrameToFile(this, btnClose);
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tab1.getModel());
-        tab1.setRowSorter(sorter);        
+        tab1.setRowSorter(sorter);
         tab1.getTableHeader().setPreferredSize(new Dimension(0, 32));
         DefaultTableCellRenderer cellRenderer0 = new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
