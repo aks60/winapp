@@ -100,17 +100,15 @@ public class AreaSimple extends Com5t {
 
     protected void initParametr(String param) {
         try {
-            if (param != null) {
-                if (param != null && param.isEmpty() == false && param.equals("null") == false) {
-                    String str = param.replace("'", "\"");
-                    JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
-                    JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
-                    if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
-                        jsonArr.forEach(it -> {
-                            Record paramRec = eParams.find(it.getAsJsonArray().get(0).getAsInt());
-                            iwin().mapParamDef.put(paramRec.getInt(eParams.id), paramRec);
-                        });
-                    }
+            if (param != null && param.isEmpty() == false && param.equals("null") == false) {
+                String str = param.replace("'", "\"");
+                JsonObject jsonObj = new Gson().fromJson(str, JsonObject.class);
+                JsonArray jsonArr = jsonObj.getAsJsonArray(ParamJson.ioknaParam.name());
+                if (jsonArr != null && !jsonArr.isJsonNull() && jsonArr.isJsonArray()) {
+                    jsonArr.forEach(it -> {
+                        Record paramRec = eParams.find(it.getAsInt());
+                        iwin().mapParamDef.put(paramRec.getInt(eParams.params_id), paramRec);
+                    });
                 }
             }
         } catch (Exception e) {

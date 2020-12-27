@@ -154,7 +154,7 @@ public class Winscript {
             rootArea.add(new Element(6, TypeElem.GLASS, "{'artglasID':4663}")); //или '4x12x4x12x4'
 
         } else if (project == 601010) {
-            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, 1009, 1009, 1009, "{'sysprofID':1120, 'ioknaParam':[[-2147482183],[-2147482226], [--2147482193]]}");
+            rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 1300, 1400, 1400, 1009, 1009, 1009, "{'sysprofID':1120, 'ioknaParam':[-2147482183,-2147482226, -2147482193]}");
             rootArea.setParam(project.toString(), 371, "KBE\\KBE Эксперт\\1 ОКНА\\Открывание внутрь (ств. Z 77)");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
@@ -341,7 +341,7 @@ public class Winscript {
             
         } else if (project == 601006) {
             rootArea = new AreaRoot(1, LayoutArea.HORIZ, TypeElem.RECTANGL, 800, 1200, 1200, 25, 25, 25, "");
-            rootArea.setParam(project.toString(), 32, "СИАЛ\\КП45\\Окна");
+            rootArea.setParam(project.toString(), 24, "СИАЛ\\КП45\\Окна");
             rootArea.add(new Element(2, TypeElem.FRAME_SIDE, LayoutArea.LEFT));
             rootArea.add(new Element(3, TypeElem.FRAME_SIDE, LayoutArea.RIGHT));
             rootArea.add(new Element(4, TypeElem.FRAME_SIDE, LayoutArea.TOP));
