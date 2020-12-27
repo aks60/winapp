@@ -1,4 +1,4 @@
-package builder.constr;
+package builder.specif;
 
 import builder.Wincalc;
 

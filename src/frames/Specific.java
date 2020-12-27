@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import builder.Wincalc;
-import builder.constr.Specification;
+import builder.specif.Specification;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.text.DecimalFormat;

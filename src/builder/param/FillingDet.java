@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import builder.Wincalc;
-import builder.constr.Util;
+import builder.specif.Util;
 import builder.model.ElemSimple;
 
 //Заполнения

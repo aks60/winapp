@@ -1,7 +1,7 @@
 package builder.param;
 
 import builder.Wincalc;
-import builder.constr.Specification;
+import builder.specif.Specification;
 import java.util.Map;
 
 public class ElementSet extends Par5s {

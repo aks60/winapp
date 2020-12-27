@@ -1,4 +1,4 @@
-package builder.constr;
+package builder.specif;
 
 import dataset.Record;
 import domain.eArtikl;

@@ -7,7 +7,7 @@ import domain.eArtikl;
 import domain.eSysprof;
 import enums.ParamJson;
 import enums.UseUnit;
-import builder.constr.Specification;
+import builder.specif.Specification;
 import enums.UseArtiklTo;
 import java.awt.Color;
 import java.util.HashMap;

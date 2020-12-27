@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import builder.Wincalc;
-import builder.constr.Util;
+import builder.specif.Util;
 import builder.model.ElemJoining;
 
 //Соединения

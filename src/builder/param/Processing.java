@@ -4,7 +4,7 @@ import domain.eArtikl;
 import enums.LayoutArea;
 import enums.ParamList;
 import enums.UseUnit;
-import builder.constr.Specification;
+import builder.specif.Specification;
 import builder.model.AreaSimple;
 import builder.model.ElemFrame;
 import java.util.HashMap;

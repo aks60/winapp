@@ -12,11 +12,11 @@ import enums.UseSide;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.constr.Specification;
+import builder.specif.Specification;
 import domain.eSyssize;
 import enums.ParamJson;
 import enums.TypeJoin;
-import builder.constr.Util;
+import builder.specif.Util;
 import builder.param.Processing;
 import java.util.List;
 

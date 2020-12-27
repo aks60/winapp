@@ -8,7 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
 import domain.eParams;
-import builder.constr.Specification;
+import builder.specif.Specification;
 import java.sql.Connection;
 import java.util.HashMap;
 import javax.swing.UIManager;

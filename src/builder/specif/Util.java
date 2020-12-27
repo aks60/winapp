@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package builder.constr;
+package builder.specif;
 
 import dataset.Record;
 import domain.eArtdet;

@@ -11,7 +11,7 @@ import enums.ParamJson;
 import enums.TypeArtikl;
 import enums.TypeElem;
 import enums.UseArtiklTo;
-import builder.constr.Specification;
+import builder.specif.Specification;
 import builder.param.Processing;
 
 public class ElemGlass extends ElemSimple {
