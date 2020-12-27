@@ -13,22 +13,22 @@ import java.util.List;
 public class Processing {
 
     public static void set(Specification spc, int code) {
-        try {
-            switch (code) {
-
-                case 25013: {
-                    List list = ParamList.find(code).dict();
-                    int dx = spc.getParam(25030);
-                    return;
-                }
-                case 33001: {
-
-                    return;
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Ошибка:param.Processing.set() " + e);
-        }
+//        try {
+//            switch (code) {
+//
+//                case 25013: {
+//                    List list = ParamList.find(code).dict();
+//                    int dx = spc.getParam(25030);
+//                    return;
+//                }
+//                case 33001: {
+//
+//                    return;
+//                }
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Ошибка:param.Processing.set() " + e);
+//        }
     }
 
     //Расчёт количества материала в зависимости от ед. измерения

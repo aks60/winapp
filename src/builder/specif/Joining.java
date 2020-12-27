@@ -41,6 +41,9 @@ public class Joining extends Cal5e {
                 ElemJoining elemJoin = hmElemJoin.getValue();
                 ElemSimple joinElem1 = elemJoin.joinElement1;
                 ElemSimple joinElem2 = elemJoin.joinElement2;
+//                if(joinElem1 == null || joinElem2 == null) {
+//                    System.out.println("XX-builder.specif.Joining.calc()");
+//                }
                 Record joinartRec1 = joinElem1.artiklRecAn; //берём аналог профиля
                 Record joinartRec2 = joinElem2.artiklRecAn; //т.к. если его нет там будет оригинал              
                 int id1 = (joinartRec1.get(eArtikl.analog_id) == null) ? joinartRec1.getInt(eArtikl.id) : joinartRec1.getInt(eArtikl.analog_id);
