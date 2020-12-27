@@ -16,18 +16,29 @@ public class AboutBox extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panText1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        north = new javax.swing.JPanel();
         labTitle = new javax.swing.JLabel();
-        labImage = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        pan2 = new javax.swing.JPanel();
         labProjectVersion = new javax.swing.JLabel();
         labBase = new javax.swing.JLabel();
         labConfig = new javax.swing.JLabel();
-        panText2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        panTool = new javax.swing.JPanel();
+        labImage = new javax.swing.JLabel();
+        centr = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        south = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(Util.getFont(0, 1));
+        jLabel2.setText("<html>\n<body>\n<p>&nbsp;&nbsp;<b><span lang=\"en-us\"> </span>Программа для расчета окон<br>&nbsp;&nbsp; из пластика, дерева и алюминия.</b></p><br>\n<p><b><span lang=\"en-us\">&nbsp;</span>Разработчик Аксёнов Сергей Аркадьевич<span lang=\"en-us\">\n</span>&nbsp;<span lang=\"en-us\"> </span><br><br>\n<span lang=\"en-us\">&nbsp;</span>Сайт разработчика:<font color=\"#0000FF\">\n<span lang=\"en-us\"><a href=\" http://www.iicokna.ru\">&nbsp www.iicokna.ru</a></span>.<br>\n<span lang=\"en-us\">&nbsp;</span></font>Телефон<span lang=\"en-us\">:</span>+7 (903) XXX-XX-XX <br>\n&nbsp;E-mail:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang=\"en-us\">gonved60@gmail.com</span></b><br>&nbsp;\n<span lang=\"en-us\">&nbsp;</span></font>Выпуск первой программы 2021<span lang=\"en-us\">:</span>+7 (903) XXX-XX-XX <br></p>\n</body>\n</html>");
+        jLabel2.setOpaque(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
@@ -38,8 +49,8 @@ public class AboutBox extends javax.swing.JFrame {
             }
         });
 
-        panText1.setPreferredSize(new java.awt.Dimension(300, 100));
-        panText1.setLayout(new java.awt.BorderLayout());
+        north.setPreferredSize(new java.awt.Dimension(300, 100));
+        north.setLayout(new java.awt.BorderLayout());
 
         labTitle.setBackground(new java.awt.Color(255, 255, 255));
         labTitle.setFont(Util.getFont(0, 1));
@@ -47,7 +58,19 @@ public class AboutBox extends javax.swing.JFrame {
         labTitle.setText("<<SA-OKNA>>");
         labTitle.setOpaque(true);
         labTitle.setPreferredSize(new java.awt.Dimension(123, 30));
-        panText1.add(labTitle, java.awt.BorderLayout.PAGE_START);
+        north.add(labTitle, java.awt.BorderLayout.PAGE_START);
+
+        pan2.setBackground(new java.awt.Color(255, 255, 255));
+        pan2.setPreferredSize(new java.awt.Dimension(200, 60));
+
+        labProjectVersion.setFont(Util.getFont(0, 1));
+        labProjectVersion.setText("Верия программы - 1.0");
+
+        labBase.setFont(Util.getFont(0, 1));
+        labBase.setText("Версия базы данных - 1.0");
+
+        labConfig.setFont(Util.getFont(0, 1));
+        labConfig.setText("Конфигурация  - 2.0");
 
         labImage.setBackground(new java.awt.Color(255, 255, 255));
         labImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -55,60 +78,98 @@ public class AboutBox extends javax.swing.JFrame {
         labImage.setMaximumSize(new java.awt.Dimension(300, 70));
         labImage.setOpaque(true);
         labImage.setPreferredSize(new java.awt.Dimension(80, 60));
-        panText1.add(labImage, java.awt.BorderLayout.WEST);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setPreferredSize(new java.awt.Dimension(200, 60));
-        jPanel2.setLayout(new java.awt.GridLayout(3, 0));
+        javax.swing.GroupLayout pan2Layout = new javax.swing.GroupLayout(pan2);
+        pan2.setLayout(pan2Layout);
+        pan2Layout.setHorizontalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labConfig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labBase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                    .addComponent(labProjectVersion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pan2Layout.setVerticalGroup(
+            pan2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan2Layout.createSequentialGroup()
+                .addComponent(labProjectVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(labBase, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(labConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        labProjectVersion.setFont(Util.getFont(0, 1));
-        labProjectVersion.setText("Верия программы - 1.0");
-        jPanel2.add(labProjectVersion);
-
-        labBase.setFont(Util.getFont(0, 1));
-        labBase.setText("Версия базы данных - 1.0");
-        jPanel2.add(labBase);
-
-        labConfig.setFont(Util.getFont(0, 1));
-        labConfig.setText("Конфигурация  - 2.0");
-        jPanel2.add(labConfig);
         labConfig.getAccessibleContext().setAccessibleName("");
 
-        panText1.add(jPanel2, java.awt.BorderLayout.CENTER);
+        north.add(pan2, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panText1, java.awt.BorderLayout.NORTH);
+        getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
-        panText2.setPreferredSize(new java.awt.Dimension(300, 160));
-        panText2.setLayout(new java.awt.BorderLayout());
+        centr.setBackground(new java.awt.Color(255, 255, 255));
+        centr.setPreferredSize(new java.awt.Dimension(300, 160));
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(Util.getFont(0, 1));
-        jLabel2.setText("<html>\n<body>\n<p><b>&nbsp;<span lang=\"en-us\"> </span>&nbsp;Информационно - аналитическая \nсистема<br>\n<span lang=\"en-us\">&nbsp;</span>компании АВЕРС (&quot;ФинПромМаркет-ХХ<span lang=\"en-us\">I&quot;</span>).<br>\n&nbsp;</b></p>\n<p><b><span lang=\"en-us\">&nbsp;</span>Все права защищены. Подробная инфор<span lang=\"en-us\">\n</span>&nbsp;-<span lang=\"en-us\"> </span><br>\n<span lang=\"en-us\">&nbsp;</span>мация о компании на сайте <font color=\"#0000FF\">\n<span lang=\"en-us\"><a href=\"http://www.iicavers.ru\">www.iicavers.ru</a></span>.<br>\n<span lang=\"en-us\">&nbsp;</span></font>Телефон<span lang=\"en-us\">:</span>+7 (495) 909-03-60 <br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+7 (495) 909-03-64 <br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+7 (903) 250-61-59 <br>\n&nbsp;E-mail:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span lang=\"en-us\">office@iicavers.ru</span></b><br>&nbsp;</p>\n<p>&nbsp;</p>\n</body>\n</html>");
-        jLabel2.setOpaque(true);
-        panText2.add(jLabel2, java.awt.BorderLayout.CENTER);
+        jLabel1.setText("Программа для расчета оконных конструкций");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(20, 160));
+        jLabel3.setText("из пластика, дерева и алюминия.");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+        jLabel4.setText("Разработчик: Аксёнов Сергей Аркадьевич");
+
+        jLabel5.setText("Сайт разработчика: http: www.iicokna.ru");
+
+        jLabel6.setText("Телефон: +7(903)XXX-XX-XX");
+
+        jLabel7.setText("Релиз версии: 1.01");
+
+        jLabel8.setText("Выпуск первой версии 2021");
+
+        javax.swing.GroupLayout centrLayout = new javax.swing.GroupLayout(centr);
+        centr.setLayout(centrLayout);
+        centrLayout.setHorizontalGroup(
+            centrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(centrLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(centrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(centrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 177, Short.MAX_VALUE)
+        centrLayout.setVerticalGroup(
+            centrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(centrLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(8, 8, 8)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        panText2.add(jPanel1, java.awt.BorderLayout.WEST);
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(panText2, java.awt.BorderLayout.CENTER);
-
-        panTool.setPreferredSize(new java.awt.Dimension(300, 40));
+        south.setPreferredSize(new java.awt.Dimension(300, 40));
 
         btnClose.setFont(Util.getFont(0, 1));
-        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b005.gif"))); // NOI18N
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b020.gif"))); // NOI18N
         btnClose.setText("ОК");
         btnClose.setPreferredSize(new java.awt.Dimension(69, 20));
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -117,24 +178,24 @@ public class AboutBox extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panToolLayout = new javax.swing.GroupLayout(panTool);
-        panTool.setLayout(panToolLayout);
-        panToolLayout.setHorizontalGroup(
-            panToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panToolLayout.createSequentialGroup()
+        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
+        south.setLayout(southLayout);
+        southLayout.setHorizontalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(southLayout.createSequentialGroup()
                 .addGap(107, 107, 107)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
-        panToolLayout.setVerticalGroup(
-            panToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panToolLayout.createSequentialGroup()
+        southLayout.setVerticalGroup(
+            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, southLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        getContentPane().add(panTool, java.awt.BorderLayout.SOUTH);
+        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,16 +210,22 @@ public class AboutBox extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JPanel centr;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel labBase;
     private javax.swing.JLabel labConfig;
     private javax.swing.JLabel labImage;
     private javax.swing.JLabel labProjectVersion;
     private javax.swing.JLabel labTitle;
-    private javax.swing.JPanel panText1;
-    private javax.swing.JPanel panText2;
-    private javax.swing.JPanel panTool;
+    private javax.swing.JPanel north;
+    private javax.swing.JPanel pan2;
+    private javax.swing.JPanel south;
     // End of variables declaration//GEN-END:variables
 }
