@@ -67,7 +67,7 @@ public class Par5s {
                 if (rec == null) {
                     return false; //если группы нет
                 }
-                if (rec.getInt(GRUP) != paramRec.getInt(GRUP)) {
+                if (paramRec.getStr(TEXT).equals(rec.getStr(TEXT)) == false) {
                     return false; //если группа есть, а параметр не совпал
                 }
             }
