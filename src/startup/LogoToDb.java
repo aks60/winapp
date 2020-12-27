@@ -7,7 +7,7 @@ import common.eProfile;
 import common.eProperty;
 import dataset.Query;
 import javax.swing.SwingWorker;
-import estimate.Wincalc;
+import builder.Wincalc;
 
 /**
  * <p>

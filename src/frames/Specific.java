@@ -22,8 +22,8 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import estimate.Wincalc;
-import estimate.constr.Specification;
+import builder.Wincalc;
+import builder.constr.Specification;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.text.DecimalFormat;
@@ -50,7 +50,7 @@ public class Specific extends javax.swing.JFrame {
     private DecimalFormat df1 = new DecimalFormat("#0.0");
     private DecimalFormat df2 = new DecimalFormat("#0.00");
     private DecimalFormat df3 = new DecimalFormat("#0.000");
-    private estimate.Wincalc iwin = null;
+    private builder.Wincalc iwin = null;
 
     public Specific() {
         initComponents();

@@ -14,7 +14,7 @@ import dataset.Query;
 import dataset.Record;
 import domain.eModels;
 import domain.eSystree;
-import estimate.Wincalc;
+import builder.Wincalc;
 import frames.Groups;
 import frames.Artikles;
 import frames.BoxTypical;
@@ -1237,7 +1237,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     eApp1.Element.createFrame(App1.this);
                 } else {
                     constructive();
-                    iwin.calcElements = new estimate.constr.Elements(iwin);
+                    iwin.calcElements = new builder.constr.Elements(iwin);
                     iwin.calcElements.calc();
                     eApp1.Element.createFrame(App1.this, iwin.calcElements.listVariants);
                 }
@@ -1253,7 +1253,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     eApp1.Furniture.createFrame(App1.this);
                 } else {
                     constructive();
-                    iwin.calcFurniture = new estimate.constr.Furniture(iwin); //фурнитура 
+                    iwin.calcFurniture = new builder.constr.Furniture(iwin); //фурнитура 
                     iwin.calcFurniture.calc();
                     eApp1.Furniture.createFrame(App1.this, iwin.calcFurniture.listVariants);
                 }
@@ -1287,7 +1287,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     eApp1.Joining.createFrame(App1.this);
                 } else {
                     constructive();
-                    iwin.calcJoining = new estimate.constr.Joining(iwin);
+                    iwin.calcJoining = new builder.constr.Joining(iwin);
                     iwin.calcJoining.calc();
                     eApp1.Joining.createFrame(App1.this, iwin.calcJoining.listVariants);
 
@@ -1304,7 +1304,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     eApp1.Filling.createFrame(App1.this);
                 } else {
                     constructive();
-                    iwin.calcFilling = new estimate.constr.Filling(iwin);
+                    iwin.calcFilling = new builder.constr.Filling(iwin);
                     iwin.calcFilling.calc();
                     eApp1.Filling.createFrame(App1.this, iwin.calcFilling.listVariants);
                 }

@@ -9,7 +9,7 @@ import static domain.eColgrp.up;
 import static domain.eColgrp.values;
 import enums.UseSide;
 import enums.UseArtiklTo;
-import estimate.Wincalc;
+import builder.Wincalc;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

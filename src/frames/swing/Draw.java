@@ -1,6 +1,6 @@
 package frames.swing;
 
-import estimate.Wincalc;
+import builder.Wincalc;
 import java.awt.BasicStroke;
 import java.awt.Color;
 

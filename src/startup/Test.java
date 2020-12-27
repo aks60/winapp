@@ -8,7 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import domain.eArtdet;
 import domain.eParams;
-import estimate.constr.Specification;
+import builder.constr.Specification;
 import java.sql.Connection;
 import java.util.HashMap;
 import javax.swing.UIManager;
@@ -32,12 +32,12 @@ public class Test {
     private static void wincalc() throws Exception {
 
         Query.connection = connection();
-        estimate.Wincalc iwin = new estimate.Wincalc();
+        builder.Wincalc iwin = new builder.Wincalc();
         String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 601001;
-            iwin.build(estimate.script.Winscript.test(iwin.prj, null));
+            iwin.build(builder.script.Winscript.test(iwin.prj, null));
             iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
             Specification.compareIWin(iwin.listSpec, iwin.prj, true);
@@ -47,7 +47,7 @@ public class Test {
             if (_case.equals("min")) {
                 for (int i : Arrays.asList(601001, 601002, 601007)) {
                     iwin.prj = i;
-                    String script = estimate.script.Winscript.test(iwin.prj, null);
+                    String script = builder.script.Winscript.test(iwin.prj, null);
                     if (script != null) {
                         iwin.build(script);
                         iwin.constructiv();
@@ -58,7 +58,7 @@ public class Test {
                 for (int i : Arrays.asList(601001, 601002, 601003, 601004, 601005, 601006, 601007,
                         601008, 601009, 601010, 604004, 604005, 604006, 604007, 604008, 604009, 604010)) {
                     iwin.prj = i;
-                    String script = estimate.script.Winscript.test(iwin.prj, null);
+                    String script = builder.script.Winscript.test(iwin.prj, null);
                     if (script != null) {
                         iwin.build(script);
                         iwin.constructiv();
