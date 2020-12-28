@@ -38,9 +38,9 @@ public class Convert extends javax.swing.JFrame {
 
     public Convert() {
         initComponents();
-        initElements();
+        //initElements();
         loadingModel();
-        timer.start();        
+        timer.start();
     }
 
     private void loadingModel() {
@@ -126,6 +126,9 @@ public class Convert extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 wndowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -401,7 +404,7 @@ public class Convert extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExit
 
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
-        try {            
+        try {
             Query.listOpenTable.clear();
             eProperty.user.write("sysdba");
             eProperty.password = String.valueOf("masterkey");
@@ -434,8 +437,13 @@ public class Convert extends javax.swing.JFrame {
 
     private void wndowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_wndowClosed
         timer.stop();
-        thread.stop();
+        if (thread != null)
+            thread.stop();
     }//GEN-LAST:event_wndowClosed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        initElements();
+    }//GEN-LAST:event_formWindowOpened
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
