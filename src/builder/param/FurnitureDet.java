@@ -105,7 +105,7 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24033:  //Фурнитура штульповая 
-                    case 25033:  //Фурнитура штульповая 
+                    case 25033: //Фурнитура штульповая 
                     {
                         if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
                             ElemFrame el = areaStv.mapFrame.get(LayoutArea.LEFT);
@@ -172,13 +172,14 @@ public class FurnitureDet extends Par5s {
                         break;
                     case 24070:  //Если высота ручки 
                     case 25070:  //"по середине", "константная", "не константная", "установлена"
-                        System.out.println(rec.getStr(TEXT));
-//                        if (LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная")
-//                                || LayoutHandle.CONST != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная")
-//                                || LayoutHandle.MIDL != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("по середине")
-//                                || LayoutHandle.EMPTY == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("установлена")) {                        
-                        if (LayoutHandle.MIDL == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
-                                || LayoutHandle.CONST ==areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
+                        //System.out.println(rec.getStr(TEXT));
+//                        if ((LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная") == false)
+//                                || (LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная") == true)
+//                                || (LayoutHandle.MIDL == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("по середине") == false)
+//                                || (LayoutHandle.EMPTY == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("установлена") == true)) {
+
+                            if (LayoutHandle.MIDL == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
+                                    || LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
                             return false;
                         }
                         break;

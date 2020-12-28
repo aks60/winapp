@@ -22,12 +22,12 @@ import enums.TypeOpen2;
 import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
-
-    public LayoutHandle handleHeight = LayoutHandle.EMPTY; //высота ручки
-    //public LayoutFurn1 handleSide = null; //сторона ручки
-    public int handleColor = -1; //цвет ручки
-    public TypeOpen1 typeOpen = TypeOpen1.LEFT; //тип открывания
+    
     public Record sysfurnRec = null; //фурнитура
+    public TypeOpen1 typeOpen = TypeOpen1.LEFT; //направление открывания
+    public Record artiklHandl = null; //ручка
+    public int handleColor = -1; //цвет ручки
+    public LayoutHandle handleHeight = LayoutHandle.EMPTY; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
@@ -71,20 +71,24 @@ public class AreaStvorka extends AreaSimple {
         } else {
             this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }
-        //Подбор текстуры ручки створки
+        //Ручка на створке
+        if (getParam(param, ParamJson.artiklHandl) != -1) {
+            sysfurnRec = eSysfurn.find2(getParam(param, ParamJson.sysfurnID));
+        } else {
+            //TODO Ручка на створке
+        }        
+        //Подбор текстуры ручки
         if (getParam(param, ParamJson.colorHandl) != -1) { //если цвет не установлен подбираю по основной текстуре
             handleColor = getParam(param, ParamJson.colorHandl);
         } else {
             handleColor = iwin().colorID1;
         }
-        //Ручка по умолчанию
+        //Положение ручки на створке
         if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDL.id) {
             handleHeight = LayoutHandle.MIDL;
-        } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
-            handleHeight = LayoutHandle.CONST;
         } else {
-            handleHeight = LayoutHandle.VAR;
-        }
+            handleHeight = LayoutHandle.CONST;
+        } 
     }
 
     //Коррекция координат створки с учётом нахлёста
@@ -150,29 +154,28 @@ public class AreaStvorka extends AreaSimple {
             el.id = id() + (float) (index + 5) / 100;
             el.typeJoin = TypeJoin.VAR10;
             el.anglProf = 0;
-
             if (index == 0) { //Прилигающее верхнее 
                 el.layoutJoin = LayoutJoin.CTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.TOP);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y1), el);
 
             } else if (index == 1) { //Прилигающее нижнее
                 el.layoutJoin = LayoutJoin.CBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.BOTTOM);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y2), el);
 
             } else if (index == 2) { //Прилигающее левое
                 el.layoutJoin = LayoutJoin.CLEFT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1 + height() / 2), el);
 
             } else if (index == 3) { //Прилигающее правое
                 el.layoutJoin = LayoutJoin.CRIGH;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement1 && el2.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1 + height() / 2), el);
             }
         }

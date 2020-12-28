@@ -8,8 +8,9 @@ public enum ParamJson implements Enam {
     sysfurnID(2, "ID Фурнитуры"),
     artglasID(3, "ID заполнения"),
     typeOpen(4, "Тип открывания"),
-    colorHandl(5, "Цвет ручки створки"),
-    ioknaParam(6, "Параметры iokna");       
+    artiklHandl(5, "Ручка на створке"),
+    colorHandl(6, "Цвет ручки створки"),
+    ioknaParam(7, "Параметры iokna");       
     
     int id = 0;
     String name = "";
