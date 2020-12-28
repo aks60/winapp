@@ -136,7 +136,7 @@ public class Filling extends javax.swing.JFrame {
                 if (val != null && eGlaspar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return  (Main.dev) ? record.getStr(eGlaspar1.id).substring(5, 10) + ":" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
+                        return  (Main.dev) ? record.getStr(eGlaspar1.params_id).substring(5, 10) + ":" + record.getStr(eGlaspar1.text) : record.getStr(eGlaspar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -211,7 +211,7 @@ public class Filling extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qGlaspar1.get(Util.getSelectedRec(tab3));
-            int grup = record.getInt(eGlaspar1.id);
+            int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
@@ -232,7 +232,7 @@ public class Filling extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qGlaspar2.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eGlaspar1.id);
+            int grup = record.getInt(eGlaspar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {

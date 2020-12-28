@@ -250,7 +250,7 @@ public class Joining extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab3, 1, listenerEditor).addActionListener(event -> {
             Record record = qJoinpar1.get(Util.getSelectedRec(tab3));
-            int grup = record.getInt(eJoinpar1.id);
+            int grup = record.getInt(eJoinpar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {

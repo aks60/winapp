@@ -461,7 +461,7 @@ public class Util {
     public static void formatterCell(Query query, JTable table, DefCellEditor editor) {
 
         JTextField txt = editor.getTextField();
-        int grup = query.getAs(getSelectedRec(table), eJoinpar1.id, -1);
+        int grup = query.getAs(getSelectedRec(table), eJoinpar1.params_id, -1);
         if (grup < 0) { //пользовательский список параметров
             editor.getButton().setVisible(true);
             txt.setEnabled(false);

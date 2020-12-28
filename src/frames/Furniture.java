@@ -309,7 +309,7 @@ public class Furniture extends javax.swing.JFrame {
                 if (field == eFurnpar1.params_id && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar1.id).substring(5, 10) + ":" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
+                        return (Main.dev) ? record.getStr(eFurnpar1.params_id).substring(5, 10) + ":" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -410,7 +410,7 @@ public class Furniture extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eFurnpar1.id);
+            int grup = record.getInt(eFurnpar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {
@@ -440,7 +440,7 @@ public class Furniture extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab6, 1, listenerEditor).addActionListener(event -> {
             Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
-            int grup = record.getInt(eFurnpar2.id);
+            int grup = record.getInt(eFurnpar2.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
             } else {

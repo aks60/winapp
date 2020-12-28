@@ -176,7 +176,7 @@ public class Element extends javax.swing.JFrame {
                 if (val != null && eElempar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.id).substring(5, 10) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
+                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id).substring(5, 10) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -267,7 +267,7 @@ public class Element extends javax.swing.JFrame {
 
         Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
             Record record = qElempar1.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eElempar1.id);
+            int grup = record.getInt(eElempar1.params_id);
             if (grup < 0) {
                 ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
             } else {

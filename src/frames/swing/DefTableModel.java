@@ -35,11 +35,11 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         this.table = table;
         this.model = (DefaultTableModel) table.getModel();
         this.query = query;
-        
+
         Field[] newArray = Arrays.copyOf(columns, columns.length + 1);
         newArray[newArray.length - 1] = query.fields().get(0).fields()[1];
         this.columns = newArray; //последний столбец всегда = ID
-        
+
         editable = new Boolean[model.getColumnCount()];
         for (int index = 0; index < model.getColumnCount(); index++) {
             editable[index] = model.isCellEditable(0, index);
@@ -57,19 +57,19 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         table.setRowSorter(sorter);
         JTableHeader header = table.getTableHeader();
         header.setFont(Util.getFont(0, 0));
+
         for (int index = 0; index < resizableList.size(); index++) {
             table.getColumnModel().getColumn(index).setResizable(resizableList.get(index));
             table.getColumnModel().getColumn(index).setPreferredWidth(prefWidthList.get(index));
             table.getColumnModel().getColumn(index).setMaxWidth(maxWidthList.get(index));
         }
-        if (Main.dev == false) {
+        if (Main.dev == false && "ID".equals(table.getColumnName(table.getColumnCount() - 1))) {
             DefaultTableColumnModel cmodel = (DefaultTableColumnModel) table.getColumnModel();
             TableColumn col = cmodel.getColumn(table.getColumnModel().getColumnCount() - 1);
             col.setMinWidth(0);
             col.setPreferredWidth(0);
             col.setResizable(false);
         }
-        
     }
 
     public Query getQuery() {
