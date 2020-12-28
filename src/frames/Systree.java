@@ -211,7 +211,7 @@ public class Systree extends javax.swing.JFrame {
 
                 if (field == eSysfurn.side_open) {
                     int id = Integer.valueOf(val.toString());
-                    return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.P1).name;
+                    return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.QUE).name;
 
                 } else if (field == eSysfurn.hand_pos) {
                     int id = Integer.valueOf(val.toString());
@@ -389,11 +389,10 @@ public class Systree extends javax.swing.JFrame {
             DefMutableTreeNode node = (DefMutableTreeNode) tree.getLastSelectedPathComponent();
             Record record2 = node.record;
             int models_id = record.getInt(0);
-            record2.set(eSystree.models_id, models_id);
+            record2.setNo(eSystree.models_id, models_id);
             qSystree.update(record2);
             eSystree.query().clear();
             createWincalc(models_id);
-            App1.eApp1.App1.frame.setTitle("SA-OKNA <АРМ Технолог>");
         };
 
         listenerModels = (record) -> {

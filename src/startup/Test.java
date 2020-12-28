@@ -33,17 +33,15 @@ public class Test {
 
         Query.connection = connection();
         builder.Wincalc iwin = new builder.Wincalc();
-        String _case = "one";
+        String _case = "max";
 
         if (_case.equals("one")) {
             iwin.prj = 601001;
             iwin.build(builder.script.Winscript.test(iwin.prj, null));
             //iwin.constructiv();
             //Specification.write_txt1(iwin.listSpec);
-            //Specification.compareIWin(iwin.listSpec, iwin.prj, false);
+            Specification.compareIWin(iwin.listSpec, iwin.prj, false);
             //iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1.specificationRec.artikl + ":" + it.getValue().joinElement2.specificationRec.artikl + ") -" + it.getValue().layoutJoin.name));           
-            iwin.mapJoin.entrySet().forEach(it -> System.out.println("id=" + it.getValue().id + "  JOIN=" + it.getValue().typeJoin + "  POINT:" + it.getKey() + " (" + it.getValue().joinElement1 + ":" + it.getValue().joinElement2 + ") -" + it.getValue().layoutJoin.name));           
-
         } else {
             if (_case.equals("min")) {
                 for (int i : Arrays.asList(601001, 601002, 601007)) {

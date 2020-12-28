@@ -119,7 +119,7 @@ public class Query extends Table {
 
     public void insert(Record record) {
         try {
-            if (Query.INS.equals(record.getStr(0))) {
+            //if (Query.INS.equals(record.getStr(0))) {
                 Field[] f = fields.get(0).fields();
                 Statement statement = connection.createStatement();
                 //если нет, генерю сам
@@ -139,7 +139,7 @@ public class Query extends Table {
                     System.out.println("SQL-INSERT " + sql);
                     statement.executeUpdate(sql);
                 }
-            }
+            //}
         } catch (SQLException e) {
             System.out.println("Query.insert() " + e);
         }
@@ -147,7 +147,7 @@ public class Query extends Table {
 
     public void update(Record record) {
         try {
-            if (Query.UPD.equals(record.getStr(0))) {
+            //if (Query.UPD.equals(record.getStr(0))) {
                 String nameCols = "";
                 Statement statement = statement = connection.createStatement();
                 //цикл по полям таблицы
@@ -164,7 +164,7 @@ public class Query extends Table {
                     System.out.println("SQL-UPDATE " + sql);
                     statement.executeUpdate(sql);
                 }
-            }
+            //}
         } catch (SQLException e) {
             System.out.println("Query.update() " + e);
         }
@@ -188,8 +188,7 @@ public class Query extends Table {
         try {
             for (Record record : this) {
                 if (record.get(0).equals(Query.UPD) || record.get(0).equals(INS)) {
-                    if (record.validate(fields) != null) { //проверка на корректность ввода данных
-                        
+                    if (record.validate(fields) != null) { //проверка на корректность ввода данных                        
                         JOptionPane.showMessageDialog(eProfile.appframe, record.validate(fields), "Предупреждение", JOptionPane.INFORMATION_MESSAGE);
                         return record.validate(fields);
                     }

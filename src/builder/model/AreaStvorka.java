@@ -21,6 +21,7 @@ import builder.Wincalc;
 import builder.specif.Specification;
 import builder.specif.Util;
 import builder.param.Processing;
+import enums.TypeOpen2;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,15 +63,17 @@ public class AreaStvorka extends AreaSimple {
 
     public void initFurniture(String param) {
 
-        //Сторона открывания
-        if (getParam(param, ParamJson.typeOpen) != -1) {
-            this.typeOpen = TypeOpen1.get(getParam(param, ParamJson.typeOpen));
-        }
         //Фурнитура створки
         if (getParam(param, ParamJson.sysfurnID) != -1) {
             sysfurnRec = eSysfurn.find2(getParam(param, ParamJson.sysfurnID));
         } else {
-            sysfurnRec = eSysfurn.find4(iwin().nuni, typeOpen.id);
+            sysfurnRec = eSysfurn.find3(iwin().nuni);
+        }
+        //Сторона открывания
+        if (getParam(param, ParamJson.typeOpen) != -1) {
+            this.typeOpen = TypeOpen1.get(getParam(param, ParamJson.typeOpen));
+        } else {
+            this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
         }
     }
 
@@ -141,25 +144,25 @@ public class AreaStvorka extends AreaSimple {
             if (index == 0) { //Прилигающее верхнее 
                 el.layoutJoin = LayoutJoin.CTOP;
                 el.joinElement1 = mapFrame.get(LayoutArea.TOP);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1 + width() / 2, y1 - 1) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x1 + width() / 2, y1) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y1), el);
 
             } else if (index == 1) { //Прилигающее нижнее
                 el.layoutJoin = LayoutJoin.CBOT;
                 el.joinElement1 = mapFrame.get(LayoutArea.BOTTOM);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1 + width() / 2, y2 + 1) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x1 + width() / 2, y2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1 + width() / 2) + ":" + String.valueOf(y2), el);
 
             } else if (index == 2) { //Прилигающее левое
                 el.layoutJoin = LayoutJoin.CLEFT;
                 el.joinElement1 = mapFrame.get(LayoutArea.LEFT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x1 - 1, y1 + height() / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x1, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x1) + ":" + String.valueOf(y1 + height() / 2), el);
 
             } else if (index == 3) { //Прилигающее правое
                 el.layoutJoin = LayoutJoin.CRIGH;
                 el.joinElement1 = mapFrame.get(LayoutArea.RIGHT);
-                el.joinElement2 = listElem.stream().filter(el2 -> el2.inside(x2 + 1, y1 + height() / 2) == true).findFirst().orElse(null);
+                el.joinElement2 = listElem.stream().filter(el2 -> el2 != el.joinElement2 && el2.inside(x2, y1 + height() / 2) == true).findFirst().orElse(null);
                 iwin().mapJoin.put(String.valueOf(x2) + ":" + String.valueOf(y1 + height() / 2), el);
             }
         }
@@ -172,7 +175,7 @@ public class AreaStvorka extends AreaSimple {
         Record joinvarRec = joinvarList.stream().filter(rec -> rec.getInt(eJoinvar.types) == TypeJoin.VAR10.id).findFirst().orElse(null);
         if (joinvarRec != null) {
             List<Record> joinpar1List = eJoinpar1.find(joinvarRec.getInt(eJoinvar.id));
-            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.id) == 1040).findFirst().orElse(null);
+            Record joinpar1Rec = joinpar1List.stream().filter(rec -> rec.getInt(eJoinpar1.params_id) == 1040).findFirst().orElse(null);
             if (joinpar1Rec != null) {
                 return Util.getFloat(joinpar1Rec.getStr(eJoinpar1.text));
             }

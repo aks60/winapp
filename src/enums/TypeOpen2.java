@@ -4,9 +4,9 @@ package enums;
 import static enums.UseUnit.values;
 
 public enum TypeOpen2 implements Enam {
-    P1(1, "Запрос"),
-    P2(2, "Левое"),
-    P3(3, "Правое");
+    QUE(1, "Запрос"),
+    LEF(2, "Левое"),
+    RIG(3, "Правое");
 
     public int id = 0;
     public String name = "";

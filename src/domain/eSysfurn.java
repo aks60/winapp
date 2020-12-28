@@ -65,11 +65,11 @@ public enum eSysfurn implements Field {
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
 
-    public static Record find3(int _side_open) {
+    public static Record find3(int _nuni) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> rec.getInt(side_open) == _side_open).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> rec.getInt(systree_id) == _nuni).findFirst().orElse(up.newRecord());
         }
-        Query recordList = new Query(values()).select(up, "where", side_open, "=", _side_open, "order by", npp);
+        Query recordList = new Query(values()).select(up, "where", systree_id, "=", _nuni, "order by", npp);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
     
