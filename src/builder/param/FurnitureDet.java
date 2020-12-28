@@ -87,7 +87,7 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 24012:  //Направление открывания
-                        if (areaStv.typeOpen.side.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
+                        if (areaStv.typeOpen.name.equalsIgnoreCase(rec.getStr(TEXT)) == false) {
                             return false;
                         }
                         break;
@@ -107,14 +107,14 @@ public class FurnitureDet extends Par5s {
                     case 24033:  //Фурнитура штульповая 
                     case 25033:  //Фурнитура штульповая 
                     {
-                        if (areaStv.typeOpen.side.equalsIgnoreCase("Левое")) {
+                        if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
                             ElemFrame el = areaStv.mapFrame.get(LayoutArea.LEFT);
                             if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;
                             } else if (rec.getStr(TEXT).equalsIgnoreCase("Нет") && el.useArtiklTo() == UseArtiklTo.SHTULP) {
                                 return false;
                             }
-                        } else if (areaStv.typeOpen.side.equalsIgnoreCase("Правое")) {
+                        } else if (areaStv.typeOpen.name.equalsIgnoreCase("Правое")) {
                             ElemFrame el = areaStv.mapFrame.get(LayoutArea.RIGHT);
                             if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
                                 return false;

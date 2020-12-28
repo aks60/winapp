@@ -13,18 +13,18 @@ public enum TypeOpen1 implements Enam {
     RIGHT(2, "Правое", "Правая поворотная (открывается слева-направо, ручка слева)"),
     LEFTUP(3, "Левое", "Левая поворотно-откидная"),
     RIGHTUP(4, "Правое", "Правая поворотно-откидная"),
-    UPPER(5, "", "Откидная (открывается сверху)"),
+    UPPER(5, "Откидная", "Откидная (открывается сверху)"),
     LEFTSHIFT(11, "Левое", "Раздвижная влево (открывается справа-налево, защелка справа"),
     RIGHTSHIFT(12, "Правое", "Раздвижная вправо (открывается слева-направо, защелка слева");
 
     public int id;
-    public String side;
     public String name;
+    public String name2;
 
-    TypeOpen1(int id, String side, String name) {
+    TypeOpen1(int id, String name, String name2) {
         this.id = id;
-        this.side = side;
         this.name = name;
+        this.name2 = name2;
     }
 
     public int numb() {
@@ -32,7 +32,7 @@ public enum TypeOpen1 implements Enam {
     }
 
     public String text() {
-        return name;
+        return name2;
     }
 
     public Enam[] fields() {

@@ -13,11 +13,11 @@ public enum TypeGlass implements Enam {
     ANY(5, "Любое");
 
     public int id = 0;
-    public String name = "";
+    public String name2 = "";
 
-    TypeGlass(int id, String name) {
+    TypeGlass(int id, String name2) {
         this.id = id;
-        this.name = name;
+        this.name2 = name2;
     }
 
     public int numb() {
@@ -25,7 +25,7 @@ public enum TypeGlass implements Enam {
     }
 
     public String text() {
-        return name;
+        return name2;
     }
     
     public Enam[] fields() {
