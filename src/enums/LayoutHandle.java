@@ -3,8 +3,11 @@ package enums;
 import static enums.TypeOpen2.values;
 
 public enum LayoutHandle implements Enam {
-    MIDDL(1, "По середине"),
-    CONST(2, "Константная");
+    EMPTY(0, "Не установлена"),
+    MIDL(1, "По середине"),
+    CONST(2, "Константная"),
+    VAR(3, "Вариационная"),
+    NOCON(4, "Не константная");
 
     public int id = 0;
     public String name = "";

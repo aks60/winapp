@@ -8,27 +8,23 @@ import domain.eJoinvar;
 import domain.eSysfurn;
 import domain.eSyssize;
 import enums.LayoutArea;
-import enums.LayoutFurn1;
 import enums.ParamJson;
 import enums.TypeElem;
 import enums.LayoutJoin;
-import enums.TypeArtikl;
 import enums.TypeOpen1;
 import enums.TypeJoin;
 import java.awt.Color;
 import java.util.LinkedList;
 import builder.Wincalc;
-import builder.specif.Specification;
 import builder.specif.Util;
-import builder.param.Processing;
+import enums.LayoutHandle;
 import enums.TypeOpen2;
-import java.util.Arrays;
 import java.util.List;
 
 public class AreaStvorka extends AreaSimple {
 
-    public String handleHeight = ""; //высота ручки
-    public LayoutFurn1 handleSide = null; //сторона ручки
+    public LayoutHandle handleHeight = LayoutHandle.EMPTY; //высота ручки
+    //public LayoutFurn1 handleSide = null; //сторона ручки
     public int handleColor = -1; //цвет ручки
     public TypeOpen1 typeOpen = TypeOpen1.LEFT; //тип открывания
     public Record sysfurnRec = null; //фурнитура
@@ -74,6 +70,20 @@ public class AreaStvorka extends AreaSimple {
             this.typeOpen = TypeOpen1.get(getParam(param, ParamJson.typeOpen));
         } else {
             this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
+        }
+        //Подбор текстуры ручки створки
+        if (getParam(param, ParamJson.colorHandl) != -1) { //если цвет не установлен подбираю по основной текстуре
+            handleColor = getParam(param, ParamJson.colorHandl);
+        } else {
+            handleColor = iwin().colorID1;
+        }
+        //Ручка по умолчанию
+        if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDL.id) {
+            handleHeight = LayoutHandle.MIDL;
+        } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
+            handleHeight = LayoutHandle.CONST;
+        } else {
+            handleHeight = LayoutHandle.VAR;
         }
     }
 

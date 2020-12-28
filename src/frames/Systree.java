@@ -215,7 +215,7 @@ public class Systree extends javax.swing.JFrame {
 
                 } else if (field == eSysfurn.hand_pos) {
                     int id = Integer.valueOf(val.toString());
-                    return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.MIDDL).name;
+                    return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.MIDL).name;
                 } else if (field == eSysfurn.artikl_id1) {
                     int id = Integer.valueOf(val.toString());
                     return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);

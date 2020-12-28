@@ -171,9 +171,14 @@ public class FurnitureDet extends Par5s {
                         }
                         break;
                     case 24070:  //Если высота ручки 
-                    case 25070:  //Если высота ручки     
-                        if (LayoutHandle.MIDDL.name.equalsIgnoreCase(areaStv.handleHeight) == true && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
-                                || LayoutHandle.CONST.name.equalsIgnoreCase(areaStv.handleHeight) == true && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
+                    case 25070:  //"по середине", "константная", "не константная", "установлена"
+                        System.out.println(rec.getStr(TEXT));
+//                        if (LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная")
+//                                || LayoutHandle.CONST != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная")
+//                                || LayoutHandle.MIDL != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("по середине")
+//                                || LayoutHandle.EMPTY == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("установлена")) {                        
+                        if (LayoutHandle.MIDL == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
+                                || LayoutHandle.CONST ==areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
                             return false;
                         }
                         break;

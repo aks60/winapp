@@ -58,20 +58,6 @@ public class Furniture extends Cal5e {
                 sysfurnRec = sysfurnList.stream().filter(rec -> rec.getInt(eSysfurn.id) == areaStv.sysfurnRec.getInt(eSysfurn.id)).findFirst().orElse(sysfurnRec);//теперь sysfurnRec соответствует параметру полученному из i-okna                                                             
                 Record furnityreRec = eFurniture.find(sysfurnRec.getInt(eSysfurn.furniture_id));
 
-                //Сторона открывания
-                areaStv.handleSide = Arrays.stream(LayoutFurn1.values()).filter(el -> el.id == furnityreRec.getInt(eFurniture.hand_side)).findFirst().get();
-                //Подбор текстуры ручки створки
-                if (areaStv.handleColor == -1) { //если цвет не установлен подбираю по основной текстуре
-                    areaStv.handleColor = iwin().colorID1;
-                }
-                //Ручка по умолчанию
-                if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDDL.id) {
-                    areaStv.handleHeight = LayoutHandle.MIDDL.name;
-                } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
-                    areaStv.handleHeight = LayoutHandle.CONST.name;
-                } else if (sysfurnRec.getStr(eSysfurn.hand_pos).equalsIgnoreCase("вариационная")) {
-                    areaStv.handleHeight = "установлена";
-                }
                 middle(areaStv, furnityreRec, 1); //основная фурнитура
             }
         } catch (Exception e) {
