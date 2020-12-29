@@ -23,8 +23,10 @@ import startup.Main;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
 import java.awt.Component;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
 
 public class Color extends javax.swing.JFrame {
 
@@ -83,6 +85,22 @@ public class Color extends javax.swing.JFrame {
             ParGrup2a frame = new ParGrup2a(this, listenerPar, grup);
         });
         Util.setSelectedRow(tab1);
+    }
+
+    public static void setDefaultTableEditorsClicks(JTable table, int clickCountToStart) {
+        TableCellEditor editor;
+        editor = table.getDefaultEditor(Object.class);
+        if (editor instanceof DefaultCellEditor) {
+            ((DefaultCellEditor) editor).setClickCountToStart(clickCountToStart);
+        }
+        editor = table.getDefaultEditor(Number.class);
+        if (editor instanceof DefaultCellEditor) {
+            ((DefaultCellEditor) editor).setClickCountToStart(clickCountToStart);
+        }
+        editor = table.getDefaultEditor(Boolean.class);
+        if (editor instanceof DefaultCellEditor) {
+            ((DefaultCellEditor) editor).setClickCountToStart(clickCountToStart);
+        }
     }
 
     private void selectionTab1(ListSelectionEvent event) {
@@ -480,6 +498,7 @@ public class Color extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
+        ((DefaultCellEditor) tab2.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
