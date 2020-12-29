@@ -13,7 +13,6 @@ import java.util.LinkedList;
 import java.util.List;
 import builder.Wincalc;
 import builder.param.ElementDet;
-import builder.param.ElementSet;
 import builder.param.ElementVar;
 import builder.model.ElemSimple;
 import java.util.Map;
@@ -25,13 +24,11 @@ public class Elements extends Cal5e {
 
     private ElementVar elementVar = null;
     private ElementDet elementDet = null;
-    private ElementSet elementSet = null;
 
     public Elements(Wincalc iwin) {
         super(iwin);
         elementVar = new ElementVar(iwin);
         elementDet = new ElementDet(iwin);
-        elementSet = new ElementSet(iwin);
     }
 
     //Идем по списку профилей, смотрю есть аналог работаю с ним.
@@ -70,8 +67,6 @@ public class Elements extends Cal5e {
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
                 if (elementVar.check(elem5e, elementRec) == true) {
 
-                    elementSet.change(elem5e.specificationRec); //коррекция основной спецификации параметрами
-
                     //Цикл по детализации
                     List<Record> elemdetList = eElemdet.find(element_id);
                     for (Record elemdetRec : elemdetList) {
@@ -90,11 +85,9 @@ public class Elements extends Cal5e {
                                 if (TypeArtikl.isType(artiklRec, TypeArtikl.KOROBKA, TypeArtikl.STVORKA, TypeArtikl.IMPOST)) {
                                     elem5e.specificationRec.setArtiklRec(specif.artiklRec); //переназначаем артикл, как правило это c префиксом артикла @
                                     elem5e.specificationRec.mapParam = specif.mapParam; //переназначаем mapParam
-                                    elementSet.change(elem5e.specificationRec); //коррекция спецификации параметрами 
 
                                 } else {
-                                    elem5e.addSpecific(specif); //коррекция спецификации
-                                    elementSet.change(specif);  //коррекция спецификации параметрами  
+                                    elem5e.addSpecific(specif); //коррекция спецификации 
                                 }
                             }
                         }

@@ -40,7 +40,7 @@ public class FurnitureDet extends Par5s {
                 switch (grup) {
 
                     case 24001:  //Форма контура 
-                    case 25001:  //Форма контура
+                    case 25001: {
                         //"Прямоугольное", "Не прямоугольное", "Не арочное", "Арочное" (TypeElem.AREA - глухарь)
                         if ("прямоугольная".equalsIgnoreCase(rec.getStr(TEXT)) && TypeElem.RECTANGL.equals(areaStv.type()) == false
                                 && TypeElem.AREA.equals(areaStv.type()) == false && TypeElem.STVORKA.equals(areaStv.type()) == false) {
@@ -53,6 +53,7 @@ public class FurnitureDet extends Par5s {
                             return false;
                         }
                         break;
+                    }
                     case 24002:  //Если артикул створки 
                     case 25002:  //Если артикул створки 
                         if (areaStv.mapFrame.entrySet().stream().filter(el -> el.getValue().artiklRec.getStr(eArtikl.code).equals(rec.getStr(TEXT))).findFirst().isEmpty()) {
@@ -104,9 +105,8 @@ public class FurnitureDet extends Par5s {
                     case 24032:  //Правильная полуарка 
                         message(rec.getInt(GRUP));
                         break;
-                    case 24033:  //Фурнитура штульповая 
-                    case 25033: //Фурнитура штульповая 
-                    {
+                    case 24033:   //Фурнитура штульповая 
+                    case 25033: {
                         if (areaStv.typeOpen.name.equalsIgnoreCase("Левое")) {
                             ElemFrame el = areaStv.mapFrame.get(LayoutArea.LEFT);
                             if (rec.getStr(TEXT).equalsIgnoreCase("Да") && el.useArtiklTo() != UseArtiklTo.SHTULP) {
@@ -171,7 +171,7 @@ public class FurnitureDet extends Par5s {
                         }
                         break;
                     case 24070:  //Если высота ручки "по середине", "константная", "не константная", "установлена"
-                    case 25070: { 
+                    case 25070: {
                         if (LayoutHandle.CONST != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная")) {
                             return false;
                         } else if (LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная")) {
