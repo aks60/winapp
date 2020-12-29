@@ -5,21 +5,17 @@ import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eParams;
-import java.awt.Component;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Arrays;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefTableModel;
+import java.util.stream.Stream;
+import javax.swing.DefaultCellEditor;
+import javax.swing.RowFilter;
 
 public class Param extends javax.swing.JFrame {
 
@@ -79,6 +75,11 @@ public class Param extends javax.swing.JFrame {
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
         south = new javax.swing.JPanel();
+        labFilter = new javax.swing.JLabel();
+        checkFilter = new javax.swing.JCheckBox();
+        txtFilter = new javax.swing.JTextField(){
+            public JTable table = null;
+        };
 
         jSplitPane1.setBorder(null);
         jSplitPane1.setDividerLocation(400);
@@ -216,6 +217,11 @@ public class Param extends javax.swing.JFrame {
             }
         });
         tab1.setFillsViewportHeight(true);
+        tab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setMinWidth(300);
@@ -250,6 +256,11 @@ public class Param extends javax.swing.JFrame {
             }
         });
         tab2.setFillsViewportHeight(true);
+        tab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(0).setMinWidth(300);
@@ -266,17 +277,29 @@ public class Param extends javax.swing.JFrame {
         south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         south.setMinimumSize(new java.awt.Dimension(100, 20));
         south.setPreferredSize(new java.awt.Dimension(900, 20));
+        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
 
-        javax.swing.GroupLayout southLayout = new javax.swing.GroupLayout(south);
-        south.setLayout(southLayout);
-        southLayout.setHorizontalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 920, Short.MAX_VALUE)
-        );
-        southLayout.setVerticalGroup(
-            southLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
+        labFilter.setText("Поле");
+        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        south.add(labFilter);
+
+        checkFilter.setText("в конце строки");
+        south.add(checkFilter);
+
+        txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setMinimumSize(new java.awt.Dimension(180, 20));
+        txtFilter.setName(""); // NOI18N
+        txtFilter.setPreferredSize(new java.awt.Dimension(180, 20));
+        txtFilter.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                filterCaretUpdate(evt);
+            }
+        });
+        south.add(txtFilter);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -357,6 +380,28 @@ public class Param extends javax.swing.JFrame {
         Util.stopCellEditing(tab1, tab2);
         Arrays.asList(qParams, qPardet).forEach(q -> q.execsql());
     }//GEN-LAST:event_windowClosed
+
+    private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
+         JTable table = (JTable) evt.getSource();
+        Util.listenerClick(table, Arrays.asList(tab1, tab2));
+        if (txtFilter.getText().length() == 0) {
+            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
+            txtFilter.setName(table.getName());
+        }
+    }//GEN-LAST:event_tabMousePressed
+
+    private void filterCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_filterCaretUpdate
+
+        JTable table = Stream.of(tab1, tab2).filter(tab -> tab.getName().equals(txtFilter.getName())).findFirst().orElse(tab1);
+        btnIns.setEnabled(txtFilter.getText().length() == 0);
+        if (txtFilter.getText().length() == 0) {
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(null);
+        } else {
+            int index = (table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn();
+            String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
+            ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
+        }
+    }//GEN-LAST:event_filterCaretUpdate
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -364,7 +409,9 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
     private javax.swing.JPanel centr;
+    private javax.swing.JCheckBox checkFilter;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel pan2;
@@ -373,6 +420,7 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JPanel south;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
+    private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
@@ -380,21 +428,8 @@ public class Param extends javax.swing.JFrame {
         btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
         btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-
-                Util.stopCellEditing(tab1, tab2);
-                tab1.setBorder(null);
-                tab2.setBorder(null);
-                ((JComponent) e.getSource()).setBorder(border);
-            }
-
-            public void focusLost(FocusEvent e) {
-            }
-        };
+//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
+//        ((DefaultCellEditor) tab2.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
@@ -420,7 +455,5 @@ public class Param extends javax.swing.JFrame {
                 }
             }
         });
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
     }
 }

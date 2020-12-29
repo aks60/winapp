@@ -39,6 +39,7 @@ import enums.LayoutFurn3;
 import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
+import frames.swing.BooleanRenderer;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RowFilter;
@@ -120,7 +122,7 @@ public class Furniture extends javax.swing.JFrame {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.hand_side, eFurniture.p2_max,
+        new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.hand_side, eFurniture.hand_set1, eFurniture.hand_set2, eFurniture.hand_set3, eFurniture.p2_max,
                 eFurniture.max_width, eFurniture.max_height, eFurniture.max_weight, eFurniture.ways_use, eFurniture.pars, eFurniture.coord_lim, eFurniture.id) {
 
             public Object getValueAt(int col, int row, Object val) {
@@ -356,6 +358,13 @@ public class Furniture extends javax.swing.JFrame {
             }
         };
 
+        tab1.getColumnModel().getColumn(3).setCellRenderer(new BooleanRenderer());
+        tab1.getColumnModel().getColumn(4).setCellRenderer(new BooleanRenderer());
+        tab1.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
+//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
+//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
+//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
+        
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
         });
@@ -880,7 +889,7 @@ public class Furniture extends javax.swing.JFrame {
                 .addComponent(checkBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -918,15 +927,15 @@ public class Furniture extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"333333333333333", "3", "3", "3", null, null, null, null, null, null, null},
-                {"444444444444444", "3", "4", "5", null, null, null, null, null, null, null}
+                {"333333333333333", "3", "3", null, null, null, "3", null, null, null, null, null, null, null},
+                {"444444444444444", "3", "4", null, null, null, "5", null, null, null, null, null, null, null}
             },
             new String [] {
-                "Название", "Вид", "Сторона ручки", "Р/2 максимальная", "Ширина максимальная", "Высота максимальная", "Вес максимальный", "Створка", "Использ. параметры", "Ограничения", "ID"
+                "Название", "Вид", "Сторона ручки", "По середине", "Константная", "Вариационная", "Р/2 максимальная", "Ширина максимальная", "Высота максимальная", "Вес максимальный", "Створка", "Использ. параметры", "Ограничения", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -944,7 +953,10 @@ public class Furniture extends javax.swing.JFrame {
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
-            tab1.getColumnModel().getColumn(10).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tab1.getColumnModel().getColumn(13).setMaxWidth(40);
         }
 
         pan4.add(scr1, java.awt.BorderLayout.CENTER);
