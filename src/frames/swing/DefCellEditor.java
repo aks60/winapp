@@ -33,6 +33,7 @@ public class DefCellEditor extends DefaultCellEditor {
     }
 
     private void init(JButton button) {
+        setClickCountToStart(2);
         this.button = button;
         button.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         button.setFocusable(false);
