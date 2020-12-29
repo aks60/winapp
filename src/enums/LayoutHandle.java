@@ -6,8 +6,7 @@ public enum LayoutHandle implements Enam {
 
     MIDL(1, "По середине"),
     CONST(2, "Константная"),
-    NOCON(3, "Не константная"),
-    EMPTY(4, "Не усановлена");
+    SET(3, "Усановлена");
     
 
     public int id = 0;

@@ -27,7 +27,7 @@ public class AreaStvorka extends AreaSimple {
     public TypeOpen1 typeOpen = TypeOpen1.LEFT; //направление открывания
     public Record artiklHandl = null; //ручка
     public int handleColor = -1; //цвет ручки
-    public LayoutHandle handleHeight = LayoutHandle.EMPTY; //положение ручки на створке       
+    public LayoutHandle handleHeight = LayoutHandle.SET; //положение ручки на створке       
 
     public AreaStvorka(Wincalc iwin, AreaSimple owner, float id, String param) {
         super(iwin, owner, id, TypeElem.STVORKA, LayoutArea.VERT, (owner.x2 - owner.x1), (owner.y2 - owner.y1), iwin.colorID1, iwin.colorID2, iwin.colorID3, param);
@@ -59,7 +59,7 @@ public class AreaStvorka extends AreaSimple {
 
     public void initFurniture(String param) {
 
-        //Фурнитура створки
+        //Фурнитура створки, ручка, подвес
         if (getParam(param, ParamJson.sysfurnID) != -1) {
             sysfurnRec = eSysfurn.find2(getParam(param, ParamJson.sysfurnID));
         } else {
@@ -70,25 +70,21 @@ public class AreaStvorka extends AreaSimple {
             this.typeOpen = TypeOpen1.get(getParam(param, ParamJson.typeOpen));
         } else {
             this.typeOpen = (sysfurnRec.getInt(eSysfurn.side_open) == TypeOpen2.LEF.id) ? TypeOpen1.LEFT : TypeOpen1.RIGHT;
-        }
-        //Ручка на створке
-        if (getParam(param, ParamJson.artiklHandl) != -1) {
-            sysfurnRec = eSysfurn.find2(getParam(param, ParamJson.sysfurnID));
-        } else {
-            //TODO Ручка на створке
-        }        
+        }     
         //Подбор текстуры ручки
-        if (getParam(param, ParamJson.colorHandl) != -1) { //если цвет не установлен подбираю по основной текстуре
+        if (getParam(param, ParamJson.colorHandl) != -1) { 
             handleColor = getParam(param, ParamJson.colorHandl);
         } else {
-            handleColor = iwin().colorID1;
+            handleColor = iwin().colorID1; //если цвет не установлен подбираю по основной текстуре
         }
         //Положение ручки на створке
         if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.MIDL.id) {
             handleHeight = LayoutHandle.MIDL;
-        } else {
+        } else if (sysfurnRec.getInt(eSysfurn.hand_pos) == LayoutHandle.CONST.id) {
             handleHeight = LayoutHandle.CONST;
-        } 
+        } else {
+            handleHeight = LayoutHandle.MIDL; //по умолчанию
+        }
     }
 
     //Коррекция координат створки с учётом нахлёста

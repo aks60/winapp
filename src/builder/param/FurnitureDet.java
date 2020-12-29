@@ -170,19 +170,19 @@ public class FurnitureDet extends Par5s {
                             return false;
                         }
                         break;
-                    case 24070:  //Если высота ручки 
-                    case 25070:  //"по середине", "константная", "не константная", "установлена"
-                        //System.out.println(rec.getStr(TEXT));
-//                        if ((LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная") == false)
-//                                || (LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная") == true)
-//                                || (LayoutHandle.MIDL == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("по середине") == false)
-//                                || (LayoutHandle.EMPTY == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("установлена") == true)) {
-
-                            if (LayoutHandle.MIDL == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная") == false
-                                    || LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная") == false) {
+                    case 24070:  //Если высота ручки "по середине", "константная", "не константная", "установлена"
+                    case 25070: { 
+                        if (LayoutHandle.CONST != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("константная")) {
+                            return false;
+                        } else if (LayoutHandle.CONST == areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("не константная")) {
+                            return false;
+                        } else if (LayoutHandle.MIDL != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("по середине")) {
+                            return false;
+                        } else if (LayoutHandle.SET != areaStv.handleHeight && rec.getStr(TEXT).equalsIgnoreCase("установлена")) {
                             return false;
                         }
                         break;
+                    }
                     case 24072:  //Ручка от низа створки, мм 
                     case 25072:  //Ручка от низа створки, мм     
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
@@ -306,6 +306,7 @@ public class FurnitureDet extends Par5s {
                 return false;
             }
         }
+
         return true;
     }
 }
