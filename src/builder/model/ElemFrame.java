@@ -162,7 +162,7 @@ public class ElemFrame extends ElemSimple {
 
         }
         if(specificationAdd.mapParam.get(25013) != null) {
-           Processing.set(specificationAdd, 25013);
+           Processing.param(specificationAdd, 25013);
         }
         Processing.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
