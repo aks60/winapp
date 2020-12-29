@@ -121,7 +121,7 @@ public class Furniture extends javax.swing.JFrame {
 
     private void loadingModel() {
         new DefTableModel(tab1, qFurniture, eFurniture.name, eFurniture.view_open, eFurniture.hand_side, eFurniture.p2_max,
-                eFurniture.width_max, eFurniture.height_max, eFurniture.weight_max, eFurniture.ways_use, eFurniture.pars, eFurniture.coord_lim, eFurniture.id) {
+                eFurniture.max_width, eFurniture.max_height, eFurniture.max_weight, eFurniture.ways_use, eFurniture.pars, eFurniture.coord_lim, eFurniture.id) {
 
             public Object getValueAt(int col, int row, Object val) {
 

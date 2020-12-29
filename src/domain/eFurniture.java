@@ -10,12 +10,12 @@ public enum eFurniture implements Field {
     id("4", "10", "0", "Идентификатор", "id"),
     name("12", "64", "1", "Название", "FNAME"),
     p2_max("8", "15", "1", "Макс. P/2, мм", "FMAXP"),
-    height_max("8", "15", "1", "Макс.выс., мм", "FMAXH"),
-    width_max("8", "15", "1", "Макс.шир., мм", "FMAXL"),
-    weight_max("8", "15", "1", "Макс.вес, кг", "FMAXM"),
-    types("5", "5", "1", "Тип фурнитуры", "FTYPE"), //0 - основная, 1 - дополнительная, -1 - фурнитурные наборы
+    max_height("8", "15", "1", "Макс.выс., мм", "FMAXH"),
+    max_width("8", "15", "1", "Макс.шир., мм", "FMAXL"),
+    max_weight("8", "15", "1", "Макс.вес, кг", "FMAXM"),
     hand_height("5", "5", "1", "Допустимые варианты высоты ручки", "THAND"),
     hand_side("5", "5", "1", "Сторона ручки", "FHAND"),
+    types("5", "5", "1", "Тип фурнитуры", "FTYPE"), //0 - основная, 1 - дополнительная, -1 - фурнитурные наборы
     ways_use("5", "5", "1", "Использовать створку как...", "FWAYS"),
     view_open("5", "5", "1", "Вид открывания", "view_open"), //(поворотная, раздвижная, фрамуга)
     pars("12", "96", "1", "Использ. параметры №№", "FPARS"),
@@ -57,7 +57,7 @@ public enum eFurniture implements Field {
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     }
-    
+
 //    public static Record find2(int _id) {
 //        if (Query.conf.equals("calc")) {
 //            return query().stream().filter(rec -> rec.getInt(id) == _id).findFirst().orElse(up.newRecord());
@@ -65,7 +65,6 @@ public enum eFurniture implements Field {
 //        Query recordList = new Query(values()).select(up, "where", id, "=", _id);
 //        return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
 //    }
-
 //    public static List<Record> find2(int _id) {
 //        if (Query.conf.equals("calc")) {
 //            List<Integer> furndetKeys = eFurndet.query().stream()
@@ -78,7 +77,6 @@ public enum eFurniture implements Field {
 //        List<Record> furnitureList = new Query(values()).select(up, "where", id, "in", sql);
 //        return (furnitureList.isEmpty() == true) ? new ArrayList() : furnitureList;
 //    }
-
     public String toString() {
         return meta.descr();
     }
