@@ -135,7 +135,7 @@ public class Profstroy {
             println(Color.GREEN, "Подготовка методанных");
             cn2.setAutoCommit(false);
             Query.connection = cn2;
-            st1 = cn1.createStatement(); //источник 
+            st1 = cn1.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY); //источник 
             st2 = cn2.createStatement();//приёмник
             DatabaseMetaData mdb1 = cn1.getMetaData();
             DatabaseMetaData mdb2 = cn2.getMetaData();
@@ -230,6 +230,9 @@ public class Profstroy {
                     executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
+            cn2.commit();
+            cn2.setAutoCommit(true);
+            
             println(Color.BLUE, "ОБНОВЛЕНИЕ ЗАВЕРШЕНО");
         } catch (Exception e) {
             println(Color.RED, "Ошибка: script() " + e);
