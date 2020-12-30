@@ -498,7 +498,6 @@ public class Color extends javax.swing.JFrame {
     private void initElements() {
 
         new FrameToFile(this, btnClose);
-//        ((DefaultCellEditor) tab2.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
         tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {

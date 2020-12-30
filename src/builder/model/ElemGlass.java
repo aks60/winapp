@@ -231,7 +231,7 @@ public class ElemGlass extends ElemSimple {
             }
             //Всё остальное
         } else {
-            Processing.amount(specificationRec, specificationAdd); //количество от параметра
+            proc.amount(specificationRec, specificationAdd); //количество от параметра
 
             if (TypeElem.RECTANGL == owner().type() || TypeElem.AREA == owner().type() || TypeElem.STVORKA == owner().type()) {
                 for (int index = 0; index < 4; index++) {

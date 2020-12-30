@@ -56,7 +56,7 @@ public class JoiningVar extends Par5s {
                                 return false;
                             }
                         } catch (Exception e) {
-                            System.out.println("Ошибка2:JoiningVar.check() " + e);
+                            System.err.println("Ошибка2:JoiningVar.check() " + e);
                             return false;
                         }
                     }

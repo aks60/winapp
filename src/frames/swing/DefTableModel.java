@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableColumnModel;
@@ -70,6 +71,7 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
             col.setPreferredWidth(0);
             col.setResizable(false);
         }
+        ((DefaultCellEditor) table.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
     }
 
     public Query getQuery() {

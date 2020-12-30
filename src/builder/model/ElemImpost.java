@@ -137,7 +137,7 @@ public class ElemImpost extends ElemSimple {
         } else {
             //
         }
-        Processing.amount(specificationRec, specificationAdd); //количество от параметра
+        proc.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
     }
 

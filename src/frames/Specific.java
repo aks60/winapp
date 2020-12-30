@@ -611,10 +611,6 @@ public class Specific extends javax.swing.JFrame {
         String str = tab1.getValueAt(Util.getSelectedRec(tab1), 2).toString().substring(0, 3);
         Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();
         Record recordDet = recordSpc.detailRec;
-//        int row = Util.getSelectedRec(tab1);
-//        Specification recordSpc = iwin.listSpec.get(row);
-//        String str = recordSpc.place.substring(0, 3);
-//        Record recordDet = recordSpc.detailRec;
         if (recordDet != null) {
             FrameProgress.create(Specific.this, new FrameListener() {
                 public void actionRequest(Object obj) {

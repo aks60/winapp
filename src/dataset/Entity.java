@@ -166,10 +166,9 @@ public enum Entity {
                 column.set(nullable.ordinal(), rsColumns.getString("NULLABLE"));
                 column.set(fname.ordinal(), rsColumns.getString("COLUMN_NAME"));
                 rangcol.set(rsColumns.getInt("ORDINAL_POSITION") - 1, rsColumns.getString("COLUMN_NAME"));
-                //System.out.println(rsColumns.getString("COLUMN_NAME"));
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 

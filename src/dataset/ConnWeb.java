@@ -23,7 +23,7 @@ public class ConnWeb {
             ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/school-sr");
             //ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/rono5");
         } catch (NamingException e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 
@@ -32,7 +32,7 @@ public class ConnWeb {
             Connection conn = ds.getConnection();
             return conn;
         } catch (SQLException e) {
-            System.out.println(e);
+            System.err.println(e);
             return null;
         }
     }
@@ -43,7 +43,7 @@ public class ConnWeb {
             conn.setAutoCommit(f);
             return conn;
         } catch (SQLException e) {
-            System.out.println(e);
+            System.err.println(e);
             return null;
         }
     }

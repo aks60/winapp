@@ -161,11 +161,13 @@ public class ElemFrame extends ElemSimple {
         } else {
 
         }
-        if(specificationAdd.mapParam.get(25013) != null) {
-           Processing.param(specificationAdd, 25013);
-        }
-        Processing.amount(specificationRec, specificationAdd); //количество от параметра
+        
+        proc.amount(specificationRec, specificationAdd); //количество от параметра
         specificationRec.specificationList.add(specificationAdd);
+        
+        if(specificationAdd.mapParam.get(25013) != null) {
+           proc.param(specificationAdd, 25013);
+        }        
     }
 
     @Override

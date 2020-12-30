@@ -57,7 +57,7 @@ public class TestFrame extends javax.swing.JFrame {
             ((DefaultTableModel) tab3.getModel()). setRowCount(0);
 
         } catch (Exception e) {
-            System.out.println("frames.TestFrame.selectionTab1() " + e);
+            System.err.println("frames.TestFrame.selectionTab1() " + e);
         }
     }
 
@@ -88,7 +88,7 @@ public class TestFrame extends javax.swing.JFrame {
             }*/
 
         } catch (Exception e) {
-            System.out.println("frames.TestFrame.selectionTab2() " + e);
+            System.err.println("frames.TestFrame.selectionTab2() " + e);
         }
     }
 
@@ -117,7 +117,7 @@ public class TestFrame extends javax.swing.JFrame {
                 Util.setSelectedRow(tab3);
             }*/
         } catch (Exception e) {
-            System.out.println("frames.TestFrame.selectionTab3() " + e);
+            System.err.println("frames.TestFrame.selectionTab3() " + e);
         }
     }
 

@@ -122,7 +122,7 @@ public class Furniture extends Cal5e {
                         boolean empty = true;
                         List<Record> artdetList = eArtdet.find(furndetRec.getInt(eFurndet.artikl_id));
                         for (Record artdetRec : artdetList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == areaStv.handleColor) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == areaStv.handlColor) {
                                 empty = false;
                             }
                         }

@@ -112,7 +112,7 @@ public class Query extends Table {
             return this;
 
         } catch (SQLException e) {
-            System.out.println(e + "  " + sql);
+            System.err.println(e + "  " + sql);
             return null;
         }
     }
@@ -205,7 +205,7 @@ public class Query extends Table {
             }
             return "";
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println(e);
             return "";
         }
     }
@@ -227,7 +227,7 @@ public class Query extends Table {
             }
             return record.getStr(field);
         } catch (Exception e) {
-            System.out.println("Query.vrapper() " + e);
+            System.err.println("Query.vrapper() " + e);
             return null;
         }
     }

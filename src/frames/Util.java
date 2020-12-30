@@ -208,7 +208,7 @@ public class Util {
             return value;
 
         } catch (Exception e) {
-            System.out.println("Query.vrapper() " + e);
+            System.err.println("Query.vrapper() " + e);
             return null;
         }
     }

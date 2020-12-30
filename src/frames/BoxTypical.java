@@ -99,7 +99,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 listIcon1.add(image);
                 dm1.addRow(obj);
             } catch (Exception e) {
-                System.out.println("Ошибка " + e);
+                System.err.println("Ошибка " + e);
             }
         }
         for (Record record : qModels2) {
@@ -114,7 +114,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 listIcon2.add(image);
                 dm2.addRow(obj);
             } catch (Exception e) {
-                System.out.println("Ошибка " + e);
+                System.err.println("Ошибка " + e);
             }
         }
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -143,7 +143,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             tree.setSelectionRow(0);
 
         } catch (Exception e) {
-            System.out.println("Ошибка frames.BoxTypical.loadingTree() " + e);
+            System.err.println("Ошибка frames.BoxTypical.loadingTree() " + e);
         }
     }
 

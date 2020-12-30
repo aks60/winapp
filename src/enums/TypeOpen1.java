@@ -47,4 +47,16 @@ public enum TypeOpen1 implements Enam {
         }
         return null;
     }
+
+    public LayoutArea axisStv() {
+        if (this == LEFT || this == LEFTUP || this == LEFTSHIFT) {
+            return LayoutArea.LEFT;
+        } else if (this == RIGHT || this == RIGHTUP || this == RIGHTSHIFT) {
+            return LayoutArea.RIGHT;
+        } else if (this == UPPER) {
+            return LayoutArea.BOTTOM;
+        } else {
+            return LayoutArea.LEFT;  //по умолчанию
+        }
+    }
 }

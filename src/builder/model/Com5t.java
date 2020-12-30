@@ -1,21 +1,14 @@
 package builder.model;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import builder.specif.Specification;
 import dataset.Record;
-import domain.eParams;
 import enums.LayoutArea;
 import enums.ParamJson;
-import enums.TypeArtikl;
 import enums.TypeElem;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.util.HashMap;
 import java.util.LinkedList;
 import builder.Wincalc;
+import builder.param.Processing;
 
 public abstract class Com5t {
 
@@ -24,6 +17,7 @@ public abstract class Com5t {
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
+    protected Processing proc = null;
     protected TypeElem type = TypeElem.NONE; //Тип элемента   
     protected LayoutArea layout = LayoutArea.FULL; //направление(AREA) сторона(ELEM) расположения компонентов ...
     public Record sysprofRec = null; //профиль в системе
@@ -42,6 +36,7 @@ public abstract class Com5t {
         this.id = id;
         this.owner = owner;
         this.iwin = iwin;
+        proc = new Processing(iwin);
     }
 
     public float id() {

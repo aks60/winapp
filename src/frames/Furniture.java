@@ -598,7 +598,6 @@ public class Furniture extends javax.swing.JFrame {
                 qDet2a.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furniture_id1, "=", id, "and", eFurndet.furndet_id, "=", eFurndet.id);
                 for (int index2 = 0; index2 < qDet2a.size(); index2++) {
                     if (qDet2a.get(index2).getInt(eFurndet.id) == deteilID) {
-                        System.out.println(qDet2a.table(eArtikl.up).get(index2));
                         selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 0, index1, index2, 0, 0);
                         return;
                     } else {
@@ -606,7 +605,6 @@ public class Furniture extends javax.swing.JFrame {
                         qDet2b.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
                         for (int index3 = 0; index3 < qDet2b.size(); index3++) {
                             if (qDet2b.get(index3).getInt(eFurndet.id) == deteilID) {
-                                System.out.println(qDet2b.table(eArtikl.up).get(index3));
                                 selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 1, index1, index2, index3, 0);
                                 return;
                             } else {
@@ -614,7 +612,6 @@ public class Furniture extends javax.swing.JFrame {
                                 qDet2c.select(eFurndet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eFurndet.artikl_id, "where", eFurndet.furndet_id, "=", id);
                                 for (int index4 = 0; index4 < qDet2c.size(); index4++) {
                                     if (qDet2c.get(index4).getInt(eFurndet.id) == deteilID) {
-                                        System.out.println(qDet2c.table(eArtikl.up).get(index4));
                                         selectionRows(qFurn, qDet2a, qDet2b, qDet2c, 2, index1, index2, index3, index4);
                                         return;
                                     }

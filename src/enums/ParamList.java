@@ -1074,7 +1074,7 @@ public class ParamList {
 
     ////////////////////////////////////////////////////////////////////////////
     //Default value
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">   
+    // <editor-fold defaultstate="collapsed" desc="Generated Defparam">   
     interface Defparam {
 
         public String def();
@@ -1102,7 +1102,7 @@ public class ParamList {
     // </editor-fold>  
 
     //Dictionary
-    // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+    // <editor-fold defaultstate="collapsed" desc="Generated Dictionary"> 
     interface Dictionary {
 
         public List<String> dict();
@@ -1277,7 +1277,7 @@ public class ParamList {
     // </editor-fold>
 
     //Check
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">   
+    // <editor-fold defaultstate="collapsed" desc="Generated Checkparam">   
     interface Checkparam {
 
         public boolean check(String c);

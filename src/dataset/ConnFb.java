@@ -49,7 +49,7 @@ public class ConnFb extends dataset.ConnApp {
         } catch (ClassNotFoundException e) {
             return eExcep.findDrive;
         } catch (SQLException e) {
-            System.out.println(e);
+            System.err.println(e);
             return eExcep.getError(e.getErrorCode());
         }
         configApp();
@@ -106,7 +106,7 @@ public class ConnFb extends dataset.ConnApp {
                 connection.createStatement().executeUpdate(sql);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 
@@ -123,7 +123,7 @@ public class ConnFb extends dataset.ConnApp {
         try {
             connection.createStatement().executeUpdate(sql);
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 
@@ -149,7 +149,7 @@ public class ConnFb extends dataset.ConnApp {
             String sql = "ALTER USER " + user + " WITH PASSWORD '" + pass + "'";
             connection.createStatement().executeUpdate(sql);
         } catch (Exception e) {
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 

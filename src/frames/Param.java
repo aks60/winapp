@@ -428,8 +428,6 @@ public class Param extends javax.swing.JFrame {
         btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
         btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
         new FrameToFile(this, btnClose);
-//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
-//        ((DefaultCellEditor) tab2.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
