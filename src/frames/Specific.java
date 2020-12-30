@@ -253,9 +253,9 @@ public class Specific extends javax.swing.JFrame {
             }
         });
 
-        btnArtikles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c021.gif"))); // NOI18N
+        btnArtikles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
         btnArtikles.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnArtikles.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnArtikles.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 255), null));
         btnArtikles.setFocusable(false);
         btnArtikles.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnArtikles.setMaximumSize(new java.awt.Dimension(25, 25));
@@ -270,7 +270,7 @@ public class Specific extends javax.swing.JFrame {
 
         btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
         btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
-        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(180, 90, 90), null));
         btnConstructiv.setFocusable(false);
         btnConstructiv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnConstructiv.setMaximumSize(new java.awt.Dimension(25, 25));

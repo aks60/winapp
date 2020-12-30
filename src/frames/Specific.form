@@ -276,14 +276,16 @@
         <Component class="javax.swing.JButton" name="btnArtikles">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/resource/img24/c021.gif"/>
+              <Image iconType="3" name="/resource/img24/c055.gif"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
               <ResourceString bundle="resource/prop/hint.properties" key="&#x41f;&#x435;&#x447;&#x430;&#x442;&#x44c;" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                <EtchetBorder bevelType="0"/>
+                <EtchetBorder bevelType="0">
+                  <Color PropertyName="highlight" blue="ff" green="0" red="0" type="rgb"/>
+                </EtchetBorder>
               </Border>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
@@ -313,7 +315,9 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                <EtchetBorder bevelType="0"/>
+                <EtchetBorder bevelType="0">
+                  <Color PropertyName="highlight" blue="5a" green="5a" red="b4" type="rgb"/>
+                </EtchetBorder>
               </Border>
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
