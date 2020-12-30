@@ -26,7 +26,6 @@ import javax.swing.event.ListSelectionEvent;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicGroups;
 import domain.eGroups;
-import domain.eSysprof;
 import domain.eSyssize;
 import enums.TypeGroups;
 import enums.UseUnit;
@@ -37,6 +36,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JButton;
 import javax.swing.RowFilter;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
 /**
  * Материальные ценности
@@ -53,8 +55,9 @@ public class Artikles extends javax.swing.JFrame {
     private Query qSyssize = new Query(eSyssize.values());
     private Query qArtgrp = new Query(eGroups.values());
     private DefFieldEditor rsvArtikl;
-    private String subsql = "";
-    private int nuni = -1;
+    //private String subsql = "";
+    //private int nuni = -1;
+    TreeNode[] path = null;
     private int artId = -1;
     private Window owner = null;
     private DialogListener listenerSeries, listenerCateg, listenerColor, listenerUnit, listenerCurrenc1,
@@ -80,31 +83,30 @@ public class Artikles extends javax.swing.JFrame {
         loadingTree();
     }
 
-    public Artikles(java.awt.Window owner, int nuni, int id) {
-        initComponents();
-        this.owner = owner;
-        this.nuni = nuni;
-        this.artId = id;
-        initElements();
-        listenerDict();
-        loadingData();
-        loadingModel();
-        loadingTree();
-    }
-
+//    public Artikles(java.awt.Window owner, int nuni, int id) {
+//        initComponents();
+//        this.owner = owner;
+//        //this.nuni = nuni;
+//        this.artId = id;
+//        initElements();
+//        listenerDict();
+//        loadingData();
+//        loadingModel();
+//        loadingTree();
+//    }
     private void loadingData() {
-        if (nuni != -1) {
-            new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).forEach(record -> {
-                new Query(eArtikl.id, eArtikl.analog_id).select(eArtikl.up, "where", eArtikl.id, "=", record.getStr(eSysprof.artikl_id)).forEach(record2 -> {
-                    if (record2.get(eArtikl.analog_id) != null) {
-                        subsql = subsql + "," + record2.getInt(eArtikl.id) + "," + record2.getInt(eArtikl.analog_id);
-                    } else {
-                        subsql = subsql + "," + record2.getInt(eArtikl.id);
-                    }
-                });
-            });
-            subsql = "(" + subsql.substring(1) + ")";
-        }
+//        if (nuni != -1) {
+//            new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).forEach(record -> {
+//                new Query(eArtikl.id, eArtikl.analog_id).select(eArtikl.up, "where", eArtikl.id, "=", record.getStr(eSysprof.artikl_id)).forEach(record2 -> {
+//                    if (record2.get(eArtikl.analog_id) != null) {
+//                        subsql = subsql + "," + record2.getInt(eArtikl.id) + "," + record2.getInt(eArtikl.analog_id);
+//                    } else {
+//                        subsql = subsql + "," + record2.getInt(eArtikl.id);
+//                    }
+//                });
+//            });
+//            subsql = "(" + subsql.substring(1) + ")";
+//        }
         qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qArtgrp.select(eGroups.up, "order by", eGroups.name);
@@ -231,6 +233,9 @@ public class Artikles extends javax.swing.JFrame {
             } else if (it.id1 == 4 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
                 treeNode2 = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
+                 path = treeNode2.getPath();
+                 //Arrays.asList(path).forEach(el -> System.out.println(el));
+                
 
             } else if (it.id1 == 5 && it.id2 == 0) {
                 treeNode1.add(treeNode2);
@@ -256,26 +261,26 @@ public class Artikles extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                if (nuni == -1) {
-                    qArtik2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
-                } else {
-                    qArtik2.select(eArtikl.up, "where", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
-                }
+                //               if (nuni == -1) {
+                qArtik2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
+//                } else {
+//                    qArtik2.select(eArtikl.up, "where", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
+//                }
 
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                if (nuni == -1) {
-                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
-                } else {
-                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
-                }
+//                if (nuni == -1) {
+                qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+//                } else {
+//                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
+//                }
             } else {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                if (nuni == -1) {
-                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
-                } else {
-                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
-                }
+//                if (nuni == -1) {
+                qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
+//                } else {
+//                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
+//                }
             }
             qArtikl.clear();
             qArtikl.addAll(qArtik2);
@@ -1508,7 +1513,11 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        //TreeModel model = tree.getModel();
+        //Object[] getNode = {TypeArtikl.PROFIL, TypeArtikl.IMPOST};
+        DefaultMutableTreeNode node = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR);
+        TreePath tPath = new TreePath(node.getPath());
+        tree.setSelectionPath(tPath);
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose

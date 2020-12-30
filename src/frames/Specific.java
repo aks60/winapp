@@ -595,13 +595,16 @@ public class Specific extends javax.swing.JFrame {
     }//GEN-LAST:event_mousePressed
 
     private void btnArtikles(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArtikles
-
-        int row = Util.getSelectedRec(tab1);
-        Specification recordSpc = iwin.listSpec.get(row);
+        float id = Float.valueOf(tab1.getValueAt(Util.getSelectedRec(tab1), 1).toString());
+        Specification recordSpc = iwin.listSpec.stream().filter(spc -> spc.id == id).findFirst().get();       
+        
+        //int row = Util.getSelectedRec(tab1);
+        //Specification recordSpc = iwin.listSpec.get(row);
         int artId = recordSpc.artiklRec.getInt(eArtikl.id);
+        int level2 = recordSpc.artiklRec.getInt(eArtikl.level2);
         FrameProgress.create(this, new FrameListener() {
             public void actionRequest(Object obj) {
-                App1.eApp1.Artikles.createFrame(Specific.this, artId);
+                App1.eApp1.Artikles.createFrame(Specific.this, artId, level2);
             }
         });
     }//GEN-LAST:event_btnArtikles
