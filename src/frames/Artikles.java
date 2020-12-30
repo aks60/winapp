@@ -50,13 +50,12 @@ public class Artikles extends javax.swing.JFrame {
     private Query qGroups = new Query(eGroups.values());
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
     private Query qArtikl = new Query(eArtikl.values());
-    private Query qArtik2 = new Query(eArtikl.values());
+    private Query qArtikl2 = new Query(eArtikl.values());
     private Query qArtdet = new Query(eArtdet.values());
     private Query qSyssize = new Query(eSyssize.values());
     private Query qArtgrp = new Query(eGroups.values());
     private DefFieldEditor rsvArtikl;
     DefaultMutableTreeNode nodeRoot = null;
-    private int artId = -1;
     private Window owner = null;
     private DialogListener listenerSeries, listenerCateg, listenerColor, listenerUnit, listenerCurrenc1,
             listenerCurrenc2, listenerAnalog, listenerSyssize, listenerArtincr, listenerArtdecr, listenerSeriesFilter, listenerCategFilter;
@@ -70,29 +69,17 @@ public class Artikles extends javax.swing.JFrame {
         loadingTree();
     }
 
-    public Artikles(java.awt.Window owner, Record record) {
+    public Artikles(java.awt.Window owner, Record artiklRec) {
         initComponents();
         initElements();
         listenerDict();
         loadingData();
         loadingModel();
         loadingTree();
-        //setSelectionPath(id1, id2);
+        setSelectionPath(artiklRec);
     }
 
     private void loadingData() {
-//        if (nuni != -1) {
-//            new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).forEach(record -> {
-//                new Query(eArtikl.id, eArtikl.analog_id).select(eArtikl.up, "where", eArtikl.id, "=", record.getStr(eSysprof.artikl_id)).forEach(record2 -> {
-//                    if (record2.get(eArtikl.analog_id) != null) {
-//                        subsql = subsql + "," + record2.getInt(eArtikl.id) + "," + record2.getInt(eArtikl.analog_id);
-//                    } else {
-//                        subsql = subsql + "," + record2.getInt(eArtikl.id);
-//                    }
-//                });
-//            });
-//            subsql = "(" + subsql.substring(1) + ")";
-//        }
         qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qArtgrp.select(eGroups.up, "order by", eGroups.name);
@@ -244,39 +231,19 @@ public class Artikles extends javax.swing.JFrame {
         DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
         if (selectedNode != null) {
             if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                //               if (nuni == -1) {
-                qArtik2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
-//                } else {
-//                    qArtik2.select(eArtikl.up, "where", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
-//                }
+                qArtikl2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
 
             } else if (selectedNode.isLeaf()) {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-//                if (nuni == -1) {
-                qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
-//                } else {
-//                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
-//                }
+                qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+
             } else {
                 TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-//                if (nuni == -1) {
-                qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
-//                } else {
-//                    qArtik2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "and", eArtikl.id, "in", subsql, "order by", eArtikl.level1, ",", eArtikl.code);
-//                }
+                qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
             }
             qArtikl.clear();
-            qArtikl.addAll(qArtik2);
+            qArtikl.addAll(qArtikl2);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            if (artId != -1) {
-                for (int index = 0; index < qArtikl.size(); ++index) {
-                    int id = qArtikl.getAs(index, eArtikl.id);
-                    if (id == artId) {
-                        Util.setSelectedRow(tab1, index);
-                        Util.scrollRectToVisible(index, tab1);
-                    }
-                }
-            }
             if (Util.getSelectedRec(tab1) == -1) {
                 Util.setSelectedRow(tab1);
             }
@@ -313,9 +280,9 @@ public class Artikles extends javax.swing.JFrame {
             int id = record.getInt(eGroups.id);
             qArtikl.clear();
             if (id == -1) {
-                qArtikl.addAll(qArtik2);
+                qArtikl.addAll(qArtikl2);
             } else {
-                qArtikl.addAll(qArtik2.stream().filter(rec -> rec.getInt(eArtikl.series_id) == id).collect(Collectors.toList()));
+                qArtikl.addAll(qArtikl2.stream().filter(rec -> rec.getInt(eArtikl.series_id) == id).collect(Collectors.toList()));
             }
             rsvArtikl.load();
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -325,9 +292,9 @@ public class Artikles extends javax.swing.JFrame {
             int id = record.getInt(eGroups.id);
             qArtikl.clear();
             if (id == -1) {
-                qArtikl.addAll(qArtik2);
+                qArtikl.addAll(qArtikl2);
             } else {
-                qArtikl.addAll(qArtik2.stream().filter(rec -> rec.getInt(eArtikl.artgrp3_id) == id).collect(Collectors.toList()));
+                qArtikl.addAll(qArtikl2.stream().filter(rec -> rec.getInt(eArtikl.artgrp3_id) == id).collect(Collectors.toList()));
             }
             rsvArtikl.load();
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
@@ -428,19 +395,29 @@ public class Artikles extends javax.swing.JFrame {
         };
     }
 
-    public void setSelectionPath(int id1, int id2) {
+    public void setSelectionPath(Record artiklRec) {
         DefaultMutableTreeNode node = nodeRoot;
-        node = node.getNextNode();    
+        node = node.getNextNode();
         do {
             TypeArtikl typeArt = (TypeArtikl) node.getUserObject();
-            if (typeArt.id1 == TypeArtikl.PROFIL.id1 && typeArt.id2 == TypeArtikl.IMPOST.id2) {
+            if (typeArt.id1 == artiklRec.getInt(eArtikl.level1)
+                    && typeArt.id2 == artiklRec.getInt(eArtikl.level2)) {
                 TreePath path = new TreePath(node.getPath());
                 tree.setSelectionPath(path);
-                tree.scrollPathToVisible(path);               
+                tree.scrollPathToVisible(path);
             }
             node = node.getNextNode();
-        } while (node != null);        
+        } while (node != null);
+
+        for (int index = 0; index < qArtikl2.size(); ++index) {
+            int id = qArtikl2.getAs(index, eArtikl.id);
+            if (id == artiklRec.getInt(eArtikl.id)) {
+                Util.setSelectedRow(tab1, index);
+                Util.scrollRectToVisible(index, tab1);
+            }
+        }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1509,7 +1486,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-    
+
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
