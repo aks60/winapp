@@ -1556,11 +1556,8 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     frame = new AboutBox();
                     break;
                 case Artikles:
-//                    if (param.length == 2) {
-//                        frame = new Artikles(parent, (int) param[0], (int) param[1]);
-//                    } else 
                     if (param.length == 1) {
-                        frame = new Artikles(parent, (int) param[0]);
+                        frame = new Artikles(parent, (Record) param[0]);
                     } else {
                         frame = new Artikles();
                     }

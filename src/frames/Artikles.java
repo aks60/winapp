@@ -55,9 +55,7 @@ public class Artikles extends javax.swing.JFrame {
     private Query qSyssize = new Query(eSyssize.values());
     private Query qArtgrp = new Query(eGroups.values());
     private DefFieldEditor rsvArtikl;
-    //private String subsql = "";
-    //private int nuni = -1;
-    TreeNode[] path = null;
+    DefaultMutableTreeNode nodeRoot = null;
     private int artId = -1;
     private Window owner = null;
     private DialogListener listenerSeries, listenerCateg, listenerColor, listenerUnit, listenerCurrenc1,
@@ -72,28 +70,16 @@ public class Artikles extends javax.swing.JFrame {
         loadingTree();
     }
 
-    public Artikles(java.awt.Window owner, int id) {
+    public Artikles(java.awt.Window owner, Record record) {
         initComponents();
-        this.owner = owner;
-        this.artId = id;
         initElements();
         listenerDict();
         loadingData();
         loadingModel();
         loadingTree();
+        //setSelectionPath(id1, id2);
     }
 
-//    public Artikles(java.awt.Window owner, int nuni, int id) {
-//        initComponents();
-//        this.owner = owner;
-//        //this.nuni = nuni;
-//        this.artId = id;
-//        initElements();
-//        listenerDict();
-//        loadingData();
-//        loadingModel();
-//        loadingTree();
-//    }
     private void loadingData() {
 //        if (nuni != -1) {
 //            new Query(eSysprof.artikl_id).select(eSysprof.up, "where", eSysprof.systree_id, "=", nuni).forEach(record -> {
@@ -216,38 +202,35 @@ public class Artikles extends javax.swing.JFrame {
 
     private void loadingTree() {
 
-        DefaultMutableTreeNode treeNode1 = new DefaultMutableTreeNode("Мат. ценности");
-        DefaultMutableTreeNode treeNode2 = null;
+        nodeRoot = new DefaultMutableTreeNode("Мат. ценности");
+        DefaultMutableTreeNode node = null;
         for (TypeArtikl it : TypeArtikl.values()) {
             if (it.id1 == 1 && it.id2 == 0) {
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.PROFIL); //"Профили"
+                node = new DefaultMutableTreeNode(TypeArtikl.PROFIL); //"Профили"
 
             } else if (it.id1 == 2 && it.id2 == 0) {
-                treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR); //"Аксессуары"
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR); //"Аксессуары"
 
             } else if (it.id1 == 3 && it.id2 == 0) {
-                treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.POGONAG); //"Погонаж"
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.POGONAG); //"Погонаж"
 
             } else if (it.id1 == 4 && it.id2 == 0) {
-                treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
-                 path = treeNode2.getPath();
-                 //Arrays.asList(path).forEach(el -> System.out.println(el));
-                
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
 
             } else if (it.id1 == 5 && it.id2 == 0) {
-                treeNode1.add(treeNode2);
-                treeNode2 = new DefaultMutableTreeNode(TypeArtikl.ZAPOLNEN); //"Заполнения"
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.ZAPOLNEN); //"Заполнения"
 
             } else if (it.id2 > 0) {   //остальное       
-                treeNode1.add(treeNode2);
-                treeNode2.add(new javax.swing.tree.DefaultMutableTreeNode(it));
+                nodeRoot.add(node);
+                node.add(new javax.swing.tree.DefaultMutableTreeNode(it));
             }
         }
-        treeNode1.add(treeNode2);
-        tree.setModel(new DefaultTreeModel(treeNode1));
+        nodeRoot.add(node);
+        tree.setModel(new DefaultTreeModel(nodeRoot));
         scrTree.setViewportView(tree);
         tree.setSelectionRow(0);
     }
@@ -445,6 +428,19 @@ public class Artikles extends javax.swing.JFrame {
         };
     }
 
+    public void setSelectionPath(int id1, int id2) {
+        DefaultMutableTreeNode node = nodeRoot;
+        node = node.getNextNode();    
+        do {
+            TypeArtikl typeArt = (TypeArtikl) node.getUserObject();
+            if (typeArt.id1 == TypeArtikl.PROFIL.id1 && typeArt.id2 == TypeArtikl.IMPOST.id2) {
+                TreePath path = new TreePath(node.getPath());
+                tree.setSelectionPath(path);
+                tree.scrollPathToVisible(path);               
+            }
+            node = node.getNextNode();
+        } while (node != null);        
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -1513,11 +1509,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        //TreeModel model = tree.getModel();
-        //Object[] getNode = {TypeArtikl.PROFIL, TypeArtikl.IMPOST};
-        DefaultMutableTreeNode node = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR);
-        TreePath tPath = new TreePath(node.getPath());
-        tree.setSelectionPath(tPath);
+    
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
