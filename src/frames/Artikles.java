@@ -36,6 +36,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.swing.JButton;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumn;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
@@ -87,7 +89,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void loadingModel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff);
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.series_id);
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1,
                 eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
             @Override
@@ -277,15 +279,8 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerSeriesFilter = (record) -> {
-            int id = record.getInt(eGroups.id);
-            qArtikl.clear();
-            if (id == -1) {
-                qArtikl.addAll(qArtikl2);
-            } else {
-                qArtikl.addAll(qArtikl2.stream().filter(rec -> rec.getInt(eArtikl.series_id) == id).collect(Collectors.toList()));
-            }
-            rsvArtikl.load();
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            labFilter.setText("Серия профилей");
+            txtFilter.setText(record.getStr(eGroups.name));
         };
 
         listenerCategFilter = (record) -> {
@@ -660,15 +655,15 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFont(frames.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", null, null},
-                {"2", "222", null, null}
+                {"1", "111", null, null, null, null},
+                {"2", "222", null, null, null, null}
             },
             new String [] {
-                "Актикул", "Наименование", "Отход %", "Коэф. ценовой"
+                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "id", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -690,6 +685,7 @@ public class Artikles extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(32);
             tab1.getColumnModel().getColumn(3).setMaxWidth(120);
+            tab1.getColumnModel().getColumn(5).setMaxWidth(40);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);

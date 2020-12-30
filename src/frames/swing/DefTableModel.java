@@ -48,10 +48,12 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         ArrayList<Boolean> resizableList = new ArrayList();
         ArrayList<Integer> prefWidthList = new ArrayList();
         ArrayList<Integer> maxWidthList = new ArrayList();
-        for (int index = 0; index < table.getColumnModel().getColumnCount(); index++) {
-            resizableList.add(table.getColumnModel().getColumn(index).getResizable());
-            prefWidthList.add(table.getColumnModel().getColumn(index).getPreferredWidth());
-            maxWidthList.add(table.getColumnModel().getColumn(index).getMaxWidth());
+        DefaultTableColumnModel columnModel = (DefaultTableColumnModel) table.getColumnModel();
+
+        for (int index = 0; index < columnModel.getColumnCount(); index++) {
+            resizableList.add(columnModel.getColumn(index).getResizable());
+            prefWidthList.add(columnModel.getColumn(index).getPreferredWidth());
+            maxWidthList.add(columnModel.getColumn(index).getMaxWidth());
         }
         table.setModel(this);
         sorter = new TableRowSorter<DefTableModel>((DefTableModel) table.getModel());
@@ -59,17 +61,19 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         JTableHeader header = table.getTableHeader();
         header.setFont(Util.getFont(0, 0));
 
-        for (int index = 0; index < resizableList.size(); index++) {
-            table.getColumnModel().getColumn(index).setResizable(resizableList.get(index));
-            table.getColumnModel().getColumn(index).setPreferredWidth(prefWidthList.get(index));
-            table.getColumnModel().getColumn(index).setMaxWidth(maxWidthList.get(index));
+        for (int index = 0; index < columnModel.getColumnCount(); index++) {
+            columnModel.getColumn(index).setResizable(resizableList.get(index));
+            columnModel.getColumn(index).setPreferredWidth(prefWidthList.get(index));
+            columnModel.getColumn(index).setMaxWidth(maxWidthList.get(index));
         }
-        if (Main.dev == false && "ID".equals(table.getColumnName(table.getColumnCount() - 1))) {
-            DefaultTableColumnModel cmodel = (DefaultTableColumnModel) table.getColumnModel();
-            TableColumn col = cmodel.getColumn(table.getColumnModel().getColumnCount() - 1);
-            col.setMinWidth(0);
-            col.setPreferredWidth(0);
-            col.setResizable(false);
+
+        for (int index = 0; index < columnModel.getColumnCount(); index++) {
+            if (Main.dev == false && "ID".equals(table.getColumnName(index))
+                    || "id".equals(table.getColumnName(index))) {
+                TableColumn col = columnModel.getColumn(index);
+                col.setMinWidth(0);
+                col.setMaxWidth(0);
+            }
         }
         ((DefaultCellEditor) table.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
     }
