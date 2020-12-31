@@ -281,6 +281,7 @@ public class Artikles extends javax.swing.JFrame {
         listenerSeriesFilter = (record) -> {
             labFilter.setText("Серия профилей");
             txtFilter.setText(record.getStr(eGroups.name));
+            Util.setSelectedRow(tab1);
         };
 
         listenerCategFilter = (record) -> {
