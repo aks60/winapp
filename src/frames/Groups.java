@@ -454,8 +454,7 @@ public class Groups extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         Util.stopCellEditing(tab1, tab2, tab3, tab4);
-        qArtIncr.execsql();
-        qArtDecr.execsql();
+        Arrays.asList(qArtIncr, qArtDecr, qArtSeri, qArtFlltr).forEach(q -> q.execsql());
     }//GEN-LAST:event_formWindowClosed
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged

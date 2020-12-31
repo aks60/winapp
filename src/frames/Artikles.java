@@ -82,14 +82,29 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
+        qGroups.select(eGroups.up, "where grup = " + TypeGroups.SERI_PROF.id);
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
         qArtgrp.select(eGroups.up, "order by", eGroups.name);
     }
 
     private void loadingModel() {
 
-        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.series_id);
+        DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.series_id, eArtikl.artgrp3_id) {
+            @Override
+            public Object getValueAt(int col, int row, Object val) {
+                Field field = columns[col];                
+                if (field == eArtikl.series_id) {
+                    Record artiklRec = qArtikl.get(row);
+                    Record groupRec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.series_id))).findFirst().orElse(eGroups.up.newRecord());
+                    return groupRec.get(eGroups.name);
+                } else if (field == eArtikl.artgrp3_id) {
+                    Record artiklRec = qArtikl.get(row);
+                    Record groupRec = qArtgrp.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.artgrp3_id))).findFirst().orElse(eGroups.up.newRecord());
+                    return groupRec.get(eGroups.name);
+                }
+                return val;
+            }
+        };
         DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1,
                 eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
             @Override
@@ -135,7 +150,7 @@ public class Artikles extends javax.swing.JFrame {
             public void load(Integer row) {
                 super.load(row);
                 Record artiklRec = qArtikl.get(Util.getSelectedRec(tab1));
-                Record groupsRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(eGroups.up.newRecord());
+                Record seriesRec = qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == artiklRec.getInt(eArtikl.series_id)).findFirst().orElse(eGroups.up.newRecord());
                 Record currenc1Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc1_id))).findFirst().orElse(eCurrenc.up.newRecord());
                 Record currenc2Rec = qCurrenc.stream().filter(rec -> rec.get(eCurrenc.id).equals(artiklRec.get(eArtikl.currenc2_id))).findFirst().orElse(eCurrenc.up.newRecord());
                 Record artgrp1Rec = qArtgrp.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.artgrp1_id))).findFirst().orElse(eGroups.up.newRecord());
@@ -148,8 +163,8 @@ public class Artikles extends javax.swing.JFrame {
                 txtField7.setText(name);
                 name = (currenc2Rec != null) ? currenc2Rec.getStr(eCurrenc.name) : null;
                 txtField17.setText(name);
-                name = (groupsRec != null) ? groupsRec.getStr(eGroups.name) : null;
-                txtField10.setText(name);
+                //name = (groupsRec != null) ? groupsRec.getStr(eGroups.name) : null;
+                //txtField10.setText(name);
 
                 if (artiklRec.getInt(eArtikl.analog_id) != -1) {
                     Record analogRec = qArtikl.stream().filter(rec -> rec.get(eArtikl.id).equals(artiklRec.get(eArtikl.analog_id))).findFirst().orElse(null);
@@ -158,6 +173,7 @@ public class Artikles extends javax.swing.JFrame {
                 } else {
                     txtField11.setText(null);
                 }
+                txtField10.setText(seriesRec.getStr(eGroups.name));
                 txtField18.setText(syssizeRec.getStr(eSyssize.name));
                 txtField19.setText(artgrp1Rec.getStr(eGroups.val));
                 txtField20.setText(artgrp2Rec.getStr(eGroups.val));
@@ -178,7 +194,7 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_falz, txtField15);
         rsvArtikl.add(eArtikl.size_tech, txtField16);
         rsvArtikl.add(eArtikl.size_frez, txtField21);
-        //rsvArtikl.add(eArtikl.artgrp3_id, txtField22);
+        //rsvArtikl.add(eArtikl.series_id, txtField10);
 
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             DicColor2 frame = new DicColor2(this, listenerColor);
@@ -279,21 +295,19 @@ public class Artikles extends javax.swing.JFrame {
         };
 
         listenerSeriesFilter = (record) -> {
+            tab1.setColumnSelectionInterval(4, 4);
             labFilter.setText("Серия профилей");
+            txtFilter.setName("tab1");
             txtFilter.setText(record.getStr(eGroups.name));
-            Util.setSelectedRow(tab1);
+            //Util.setSelectedRow(tab1);
         };
 
         listenerCategFilter = (record) -> {
-            int id = record.getInt(eGroups.id);
-            qArtikl.clear();
-            if (id == -1) {
-                qArtikl.addAll(qArtikl2);
-            } else {
-                qArtikl.addAll(qArtikl2.stream().filter(rec -> rec.getInt(eArtikl.artgrp3_id) == id).collect(Collectors.toList()));
-            }
-            rsvArtikl.load();
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            tab1.setColumnSelectionInterval(5, 5);
+            labFilter.setText("Категоря профилей");
+            txtFilter.setName("tab1");
+            txtFilter.setText(record.getStr(eGroups.name));
+            //Util.setSelectedRow(tab1);
         };
 
         listenerAnalog = (record) -> {
@@ -496,10 +510,6 @@ public class Artikles extends javax.swing.JFrame {
         };
         checkFilter = new javax.swing.JCheckBox();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 0), new java.awt.Dimension(80, 32767));
-        labFilter2 = new javax.swing.JLabel();
-        txtFilter2 = new javax.swing.JTextField(){
-            public JTable table = null;
-        };
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Материальные ценности");
@@ -656,15 +666,15 @@ public class Artikles extends javax.swing.JFrame {
         tab1.setFont(frames.Util.getFont(0,0));
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1", "111", null, null, null, null},
-                {"2", "222", null, null, null, null}
+                {"1", "111", null, null, null, null, null},
+                {"2", "222", null, null, null, null, null}
             },
             new String [] {
-                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "id", "ID"
+                "Актикул", "Наименование", "Отход %", "Коэф. ценовой", "id", "id", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -686,7 +696,7 @@ public class Artikles extends javax.swing.JFrame {
             tab1.getColumnModel().getColumn(2).setMaxWidth(120);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(32);
             tab1.getColumnModel().getColumn(3).setMaxWidth(120);
-            tab1.getColumnModel().getColumn(5).setMaxWidth(40);
+            tab1.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 
         pan5.add(scr1, java.awt.BorderLayout.CENTER);
@@ -1371,9 +1381,9 @@ public class Artikles extends javax.swing.JFrame {
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
-        labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
+        labFilter.setMaximumSize(new java.awt.Dimension(140, 14));
+        labFilter.setMinimumSize(new java.awt.Dimension(140, 14));
+        labFilter.setPreferredSize(new java.awt.Dimension(140, 14));
         south.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -1391,20 +1401,6 @@ public class Artikles extends javax.swing.JFrame {
         checkFilter.setText("в конце строки");
         south.add(checkFilter);
         south.add(filler1);
-
-        labFilter2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
-        labFilter2.setText(" Для серии");
-        labFilter2.setMaximumSize(new java.awt.Dimension(100, 14));
-        labFilter2.setMinimumSize(new java.awt.Dimension(100, 14));
-        labFilter2.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter2);
-
-        txtFilter2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        txtFilter2.setMaximumSize(new java.awt.Dimension(180, 20));
-        txtFilter2.setMinimumSize(new java.awt.Dimension(180, 20));
-        txtFilter2.setName(""); // NOI18N
-        txtFilter2.setPreferredSize(new java.awt.Dimension(180, 20));
-        south.add(txtFilter2);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
 
@@ -1483,7 +1479,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefresh
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-
+        System.out.println(tab1.getSelectedColumn());
     }//GEN-LAST:event_btnReport
 
     private void btnClose(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClose
@@ -1524,6 +1520,7 @@ public class Artikles extends javax.swing.JFrame {
             String text = (checkFilter.isSelected()) ? txtFilter.getText() + "$" : "^" + txtFilter.getText();
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
+        Util.setSelectedRow(table);
     }//GEN-LAST:event_txtFilterCaretUpdate
 
     private void btnField8(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnField8
@@ -1627,7 +1624,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel labFilter;
-    private javax.swing.JLabel labFilter2;
     private javax.swing.JPanel north;
     private javax.swing.JPanel pan2;
     private javax.swing.JPanel pan3;
@@ -1662,7 +1658,6 @@ public class Artikles extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtField8;
     private javax.swing.JFormattedTextField txtField9;
     private javax.swing.JTextField txtFilter;
-    private javax.swing.JTextField txtFilter2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
 
@@ -1684,8 +1679,6 @@ public class Artikles extends javax.swing.JFrame {
                 "Текстура артикулов", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
         tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1(event));
-        txtFilter2.setEditable(false);
-        txtFilter2.setBackground(new java.awt.Color(255, 255, 255));
         txtField7.setEditable(false);
         txtField7.setBackground(new java.awt.Color(255, 255, 255));
     }
