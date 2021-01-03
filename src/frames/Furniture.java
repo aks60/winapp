@@ -176,7 +176,7 @@ public class Furniture extends javax.swing.JFrame {
                         }
                     } else if (eFurndet.types == field) {
                         if (qFurndet2a.get(row).getInt(eFurndet.color_fk) < 0) {
-                            return UseColor.PARAM1.text();
+                            return "Параметр";
                         } else {
                             int types = Integer.valueOf(val.toString());
                             types = types & 0x0000000f;
@@ -364,9 +364,6 @@ public class Furniture extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(3).setCellRenderer(new BooleanRenderer());
         tab1.getColumnModel().getColumn(4).setCellRenderer(new BooleanRenderer());
         tab1.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
-//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
-//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
-//        ((DefaultCellEditor) tab1.getDefaultEditor(Boolean.class)).setClickCountToStart(2);
 
         Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
             new DicEnums(this, listenerVariant1, UseFurn1.values());
@@ -475,10 +472,10 @@ public class Furniture extends javax.swing.JFrame {
 
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-//            Util.setSelectedRow(tab2a);
-//            Util.setSelectedRow(tab3);
-//            String count = (qFurndet2a.size() > 9) ? String.valueOf(qFurndet2a.size()) : String.valueOf(qFurndet2a.size()) + "  ";
-//            tabb1.setTitleAt(0, "Детализация (1 уровень)    " + count + "  ");
+            Util.setSelectedRow(tab2a);
+            Util.setSelectedRow(tab3);
+            String count = (qFurndet2a.size() > 9) ? String.valueOf(qFurndet2a.size()) : String.valueOf(qFurndet2a.size()) + "  ";
+            tabb1.setTitleAt(0, "Детализация (1 уровень)    " + count + "  ");
         }
     }
 
