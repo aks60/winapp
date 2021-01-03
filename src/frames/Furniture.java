@@ -176,7 +176,7 @@ public class Furniture extends javax.swing.JFrame {
                         }
                     } else if (eFurndet.types == field) {
                         if (qFurndet2a.get(row).getInt(eFurndet.color_fk) < 0) {
-                            return UseColor.PARAM.text();
+                            return UseColor.PARAM1.text();
                         } else {
                             int types = Integer.valueOf(val.toString());
                             types = types & 0x0000000f;
