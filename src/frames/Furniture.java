@@ -153,47 +153,47 @@ public class Furniture extends javax.swing.JFrame {
                 if (columns != null) {
                     Table query2 = qFurndet2a.table(columns[columnIndex]);
                     Object val = query2.get(rowIndex, columns[columnIndex]);
-                    return getValueAt(columnIndex, rowIndex, val);
-                    //return (val != null) ? getValueAt(columnIndex, rowIndex, val) : null;
+                    //return getValueAt(columnIndex, rowIndex, val);
+                    return (val != null) ? getValueAt(columnIndex, rowIndex, val) : null;
                 }
                 return null;
             }
 
             public Object getValueAt(int col, int row, Object val) {
 
-                Field field = columns[col];
-                if (val != null) {
-                    if (eFurndet.color_fk == field) {
-                        int colorFk = Integer.valueOf(val.toString());
-                        if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
-                            return UseColor.automatic[1];
-                        } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
-                            return UseColor.precision[1];
-                        } else if (colorFk > 0) {
-                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
-                        } else if (colorFk < 0) {
-                            return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.newRecord2()).get(eParams.text);
-                        }
-                    } else if (eFurndet.types == field) {
-                        if (qFurndet2a.get(row).getInt(eFurndet.color_fk) < 0) {
-                            return "Параметр";
-                        } else {
-                            int types = Integer.valueOf(val.toString());
-                            types = types & 0x0000000f;
-                            return UseColor.MANUAL.find(types).text();
-                        }
-                    } else if (eFurndet.artikl_id == field) {
-                        if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
-                            int furniture_id2 = qFurndet2a.getAs(row, eFurndet.furniture_id2);
-                            String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
-                            return (col == 0) ? "Набор" : name;
-                        } else if (val != null) {
-                            int artikl_id = Integer.valueOf(val.toString());
-                            Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
-                            return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
-                        }
-                    }
-                }
+//                Field field = columns[col];
+//                if (val != null) {
+//                    if (eFurndet.color_fk == field) {
+//                        int colorFk = Integer.valueOf(val.toString());
+//                        if (Integer.valueOf(UseColor.automatic[0]) == colorFk) {
+//                            return UseColor.automatic[1];
+//                        } else if (Integer.valueOf(UseColor.precision[0]) == colorFk) {
+//                            return UseColor.precision[1];
+//                        } else if (colorFk > 0) {
+//                            return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
+//                        } else if (colorFk < 0) {
+//                            return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.newRecord2()).get(eParams.text);
+//                        }
+//                    } else if (eFurndet.types == field) {
+//                        if (qFurndet2a.get(row).getInt(eFurndet.color_fk) < 0) {
+//                            return "Параметр";
+//                        } else {
+//                            int types = Integer.valueOf(val.toString());
+//                            types = types & 0x0000000f;
+//                            return UseColor.MANUAL.find(types).text();
+//                        }
+//                    } else if (eFurndet.artikl_id == field) {
+//                        if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
+//                            int furniture_id2 = qFurndet2a.getAs(row, eFurndet.furniture_id2);
+//                            String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
+//                            return (col == 0) ? "Набор" : name;
+//                        } else if (val != null) {
+//                            int artikl_id = Integer.valueOf(val.toString());
+//                            Record recordArt = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == artikl_id).findFirst().orElse(eArtikl.up.newRecord());
+//                            return (col == 0) ? recordArt.getStr(eArtikl.code) : recordArt.getStr(eArtikl.name);
+//                        }
+//                    }
+//                }
                 return val;
             }
         };
