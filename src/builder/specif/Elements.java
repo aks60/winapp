@@ -56,12 +56,12 @@ public class Elements extends Cal5e {
             System.err.println("Ошибка:Elements.calc() " + e);
         }
     }
-    
+
     protected void detail(List<Record> elementList, ElemSimple elem5e) {
         try {
             //Цикл по вариантам
             for (Record elementRec : elementList) {
-                int element_id = elementRec.getInt(eElement.id);                
+                int element_id = elementRec.getInt(eElement.id);
                 listVariants.add(elementRec.getInt(eElement.id)); //сделано для запуска формы Elements на ветке Systree
 
                 //ФИЛЬТР вариантов, параметры накапливаются в спецификации элемента
@@ -71,14 +71,17 @@ public class Elements extends Cal5e {
                     List<Record> elemdetList = eElemdet.find(element_id);
                     for (Record elemdetRec : elemdetList) {
                         HashMap<Integer, String> mapParam = new HashMap(); //тут накапливаются параметры детализации
-                        int elemdet_id = elemdetRec.getInt(eElemdet.id);                        
+                        int elemdet_id = elemdetRec.getInt(eElemdet.id);
 
                         //ФИЛЬТР детализации, параметры накапливаются в mapParam
                         if (elementDet.check(mapParam, elem5e, elemdetRec) == true) {
 
                             Record artiklRec = eArtikl.find(elemdetRec.getInt(eElemdet.artikl_id), false);
                             Specification specif = new Specification(elemdetRec, artiklRec, elem5e, mapParam);
-                            if (Color.colorFromProduct(specif)) {
+                            if (Color.colorFromProduct(specif, 1)
+                                    && Color.colorFromProduct(specif, 2)
+                                    && Color.colorFromProduct(specif, 3)) {
+                                
                                 specif.place = "ВСТ";
 
                                 //Если (контейнер) в списке детализации, например профиль с префиксом @
@@ -97,5 +100,5 @@ public class Elements extends Cal5e {
         } catch (Exception e) {
             System.err.println("Ошибка:Сomposition.detail() " + e);
         }
-    }    
+    }
 }

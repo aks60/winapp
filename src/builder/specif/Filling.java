@@ -118,7 +118,9 @@ public class Filling extends Cal5e {
                     if (fillingDet.check(mapParam, elemGlass, glasdetRec) == true) {
                         Record artiklRec = eArtikl.find(glasdetRec.getInt(eGlasdet.artikl_id), false);
                         Specification specif = new Specification(glasdetRec, artiklRec, elemGlass, mapParam);
-                        if (Color.colorFromProduct(specif)) {
+                            if (Color.colorFromProduct(specif, 1)
+                                    && Color.colorFromProduct(specif, 2)
+                                    && Color.colorFromProduct(specif, 3)) {
 
                             specif.place = "ЗАП";
                             elemGlass.addSpecific(specif);

@@ -238,8 +238,6 @@ public class FurnitureDet extends Par5s {
                         message(rec.getInt(GRUP));
                         break;
                     case 25010:  //Номер стороны 
-                        message(rec.getInt(GRUP));
-                        //System.out.println("- " + detailRec.getInt(1) + " - " + areaStv.id() + " - " + rec.getStr(TEXT));
                         mapParam.put(rec.getInt(GRUP), rec.getStr(TEXT));
                         break;
                     case 25011:  //Расчет по общей арке 

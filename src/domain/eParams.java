@@ -4,14 +4,13 @@ import dataset.Field;
 import dataset.MetaField;
 import dataset.Query;
 import dataset.Record;
-import static domain.eArtikl.code;
-import static domain.eArtikl.up;
-import static domain.eArtikl.values;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 public enum eParams implements Field {
     up("0", "0", "0", "Список параметров", "PARLIST"),
-    id("4", "10", "0", "Идентификатор", "id"),    
-    text("12", "64", "1", "Название или значения параметра", "PNAME"),     
+    id("4", "10", "0", "Идентификатор", "id"),
+    text("12", "64", "1", "Название или значения параметра", "PNAME"),
     joint("16", "5", "1", "Параметры соединений", "PCONN"),
     elem("16", "5", "1", "Парметры составов", "PVSTA"),
     glas("16", "5", "1", "Параметры стеклопакетов", "PGLAS"),
@@ -66,6 +65,19 @@ public enum eParams implements Field {
         }
         Query recordList = new Query(values()).select(up, "where", id, "=", _id);
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
+    }
+
+    public static List<Record> find2(int _params_id) {
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> _params_id == rec.getInt(params_id)).collect(toList());
+        }
+        return new Query(values()).select(up, "where", params_id, "=", _params_id);
+    }
+
+    public static Record newRecord2() {
+        Record record = up.newRecord();
+        record.set(text, "");
+        return record;
     }
 
     public String toString() {

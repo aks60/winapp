@@ -73,7 +73,9 @@ public class Joining extends Cal5e {
                                 if (joiningDet.check(mapParam, joinElem1, joindetRec) == true) {
                                     Record artiklRec = eArtikl.find(joindetRec.getInt(eJoindet.artikl_id), false);
                                     Specification specif = new Specification(joindetRec, artiklRec, joinElem1, mapParam);
-                                    if (Color.colorFromProduct(specif)) {
+                            if (Color.colorFromProduct(specif, 1)
+                                    && Color.colorFromProduct(specif, 2)
+                                    && Color.colorFromProduct(specif, 3)) {
 
                                         specif.place = "СОЕД";
                                         joinElem1.addSpecific(specif);
