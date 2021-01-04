@@ -70,6 +70,7 @@ public class Element extends javax.swing.JFrame {
         this.subsql = null;
         initComponents();
         initElements();
+        listenerAdd();
         listenerCell();
         listenerDict();
         loadingData();
@@ -82,6 +83,7 @@ public class Element extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
+        listenerAdd();
         listenerCell();
         listenerDict();
         loadingData();
@@ -94,6 +96,7 @@ public class Element extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
+        listenerAdd();
         listenerCell();
         listenerDict();
         loadingData();
@@ -104,7 +107,7 @@ public class Element extends javax.swing.JFrame {
     private void loadingData() {
 
         qColor.select(eColor.up);
-        qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id,  "order by", eParams.text);
+        qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         Record record = eElemgrp.up.newRecord(Query.SEL);
@@ -176,7 +179,7 @@ public class Element extends javax.swing.JFrame {
                 if (val != null && eElempar1.params_id == field) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record elempar1Rec = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id).substring(5, 10) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
+                        return (Main.dev) ? elempar1Rec.getStr(eElempar1.params_id) + ":" + elempar1Rec.getStr(eElempar1.text) : elempar1Rec.getStr(eElempar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -192,7 +195,7 @@ public class Element extends javax.swing.JFrame {
                 if (field == eElempar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eElempar2.id).substring(5, 10) + ":" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
+                        return (Main.dev) ? record.getStr(eElempar2.id) + ":" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -205,6 +208,82 @@ public class Element extends javax.swing.JFrame {
         BooleanRenderer br = new BooleanRenderer();
         Arrays.asList(5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
+        Util.setSelectedRow(tab1);
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+        Util.clearTable(tab2, tab3, tab4, tab5);
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Record record = qElemgrp.get(row);
+            Integer id = record.getInt(eElemgrp.id);
+            if (id == -1 || id == -5) {
+                if (subsql == null) {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
+                } else {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
+                }
+            } else {
+                if (subsql == null) {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
+                } else {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "where", eElement.elemgrp_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
+                }
+            }
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2);
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        Util.clearTable(tab3, tab4, tab5);
+        int row = Util.getSelectedRec(tab2);
+        if (row != -1) {
+            Record record = qElement.table(eElement.up).get(row);
+            Integer p1 = record.getInt(eElement.id);
+            qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab4);
+        }
+    }
+
+    private void selectionTab3(ListSelectionEvent event) {
+        int row = Util.getSelectedRec(tab3);
+        if (row != -1) {
+            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qElempar2).forEach(q -> q.execsql());
+            Record record = qElemdet.table(eElemdet.up).get(row);
+            Integer p1 = record.getInt(eElemdet.id);
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab5);
+        }
+    }
+
+    private void deteilFind(int deteilID) {
+        Query qDet = new Query(eElemdet.values(), eArtikl.values());
+        for (int index = 0; index < qElement.size(); index++) {
+            int element_id = qElement.get(index).getInt(eElement.id);
+            qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
+            for (int index2 = 0; index2 < qDet.size(); index2++) {
+                if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
+                    Util.setSelectedRow(tab2, index);
+                    Util.scrollRectToVisible(index, tab2);
+                    Util.setSelectedRow(tab3, index2);
+                    Util.scrollRectToVisible(index2, tab3);
+                }
+            }
+        }
+    }
+
+    private void listenerAdd() {
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
             DicArtikl frame = new DicArtikl(this, listenerArtikl, level);
@@ -298,80 +377,6 @@ public class Element extends javax.swing.JFrame {
                 ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
             }
         });
-
-        Util.setSelectedRow(tab1);
-    }
-
-    private void selectionTab1(ListSelectionEvent event) {
-        Util.clearTable(tab2, tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab1);
-        if (row != -1) {
-            Record record = qElemgrp.get(row);
-            Integer id = record.getInt(eElemgrp.id);
-            if (id == -1 || id == -5) {
-                if (subsql == null) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
-                } else {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
-                }
-            } else {
-                if (subsql == null) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
-                } else {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
-                }
-            }
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2);
-        }
-    }
-
-    private void selectionTab2(ListSelectionEvent event) {
-        Util.clearTable(tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab2);
-        if (row != -1) {
-            Record record = qElement.table(eElement.up).get(row);
-            Integer p1 = record.getInt(eElement.id);
-            qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3);
-            Util.setSelectedRow(tab4);
-        }
-    }
-
-    private void selectionTab3(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab3);
-        if (row != -1) {
-            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qElempar2).forEach(q -> q.execsql());
-            Record record = qElemdet.table(eElemdet.up).get(row);
-            Integer p1 = record.getInt(eElemdet.id);
-            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5);
-        }
-    }
-
-    private void deteilFind(int deteilID) {
-        Query qDet = new Query(eElemdet.values(), eArtikl.values());
-        for (int index = 0; index < qElement.size(); index++) {
-            int element_id = qElement.get(index).getInt(eElement.id);
-            qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
-            for (int index2 = 0; index2 < qDet.size(); index2++) {
-                if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
-                    Util.setSelectedRow(tab2, index);
-                    Util.scrollRectToVisible(index, tab2);
-                    Util.setSelectedRow(tab3, index2);
-                    Util.scrollRectToVisible(index2, tab3);
-                }
-            }
-        }
     }
 
     private void listenerDict() {

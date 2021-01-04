@@ -79,6 +79,7 @@ public class Furniture extends javax.swing.JFrame {
         listenerCell();
         loadingData();
         loadingModel();
+        listenerAdd();
         listenerDict();
     }
 
@@ -91,8 +92,8 @@ public class Furniture extends javax.swing.JFrame {
         listenerCell();
         loadingData();
         loadingModel();
+        listenerAdd();
         listenerDict();
-        //owner.setEnabled(false);
     }
 
     public Furniture(Set<Object> keys, int deteilID) {
@@ -102,9 +103,10 @@ public class Furniture extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        listenerCell();
-        listenerDict();
         loadingModel();
+        listenerAdd();
+        listenerCell();
+        listenerDict();       
         deteilFind(deteilID);
     }
 
@@ -147,8 +149,9 @@ public class Furniture extends javax.swing.JFrame {
                 return val;
             }
         };
+
         new DefTableModel(tab2a, qFurndet2a, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
-           
+
             public Object getValueAt(int col, int row, Object val) {
 
                 Field field = columns[col];
@@ -162,19 +165,16 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.newRecord2()).get(eParams.text);
+                        return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
                     int types = Integer.valueOf(val.toString());
                     types = types & 0x0000000f;
-                    Enam uc = UseColor.MANUAL.find(types);
-                    return (uc == null) ?"Параметр" :uc.text();
-                    
+                    return UseColor.MANUAL.find(types).text();
+
                 } else if (eFurndet.artikl_id == field) {
-                    //System.out.println(qFurndet2a.get(row, eFurndet.furniture_id2));
                     if (qFurndet2a.get(row, eFurndet.furniture_id2) != null) {
-                        System.out.println("+++++++++++++++++++++++++++++");
                         int furniture_id2 = qFurndet2a.getAs(row, eFurndet.furniture_id2);
                         String name = qFurnall.stream().filter(rec -> rec.getInt(eFurniture.id) == furniture_id2).findFirst().orElse(eFurniture.up.newRecord()).getStr(eFurniture.name);
                         return (col == 0) ? "Набор" : name;
@@ -185,7 +185,7 @@ public class Furniture extends javax.swing.JFrame {
                     }
                 }
                 return val;
-            }            
+            }
         };
         new DefTableModel(tab2b, qFurndet2b, eFurndet.artikl_id, eFurndet.artikl_id, eFurndet.color_fk, eFurndet.types, eFurndet.id) {
 
@@ -202,7 +202,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -239,7 +239,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -286,7 +286,7 @@ public class Furniture extends javax.swing.JFrame {
                 if (field == eFurnpar1.params_id && val != null) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar1.params_id).substring(5, 10) + ":" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
+                        return (Main.dev) ? record.getStr(eFurnpar1.params_id) + ":" + record.getStr(eFurnpar1.text) : record.getStr(eFurnpar1.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -298,14 +298,6 @@ public class Furniture extends javax.swing.JFrame {
         new DefTableModel(tab5, qFurnside2, eFurnside2.side_num, eFurnside2.len_min, eFurnside2.len_max, eFurnside2.ang_min, eFurnside2.ang_max) {
 
             public Object getValueAt(int col, int row, Object val) {
-//                Field field = columns[col];
-//                if (val != null && eFurnside2.side_num == field) {
-//                    int v = Integer.valueOf(val.toString());
-//                    if (v > 0 && v < 7) {
-//                        return LayoutFurn3.values()[v - 1].name;
-//                    }
-//                }
-//                return val;
                 Field field = columns[col];
                 if (val != null && eFurnside2.side_num == field) {
                     int v = Integer.valueOf(val.toString());
@@ -323,7 +315,7 @@ public class Furniture extends javax.swing.JFrame {
                 if (val != null && field == eFurnpar2.params_id) {
                     if (Integer.valueOf(String.valueOf(val)) < 0) {
                         Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
-                        return (Main.dev) ? record.getStr(eFurnpar2.id).substring(5, 10) + ":" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
+                        return (Main.dev) ? record.getStr(eFurnpar2.id) + ":" + record.getStr(eFurnpar2.text) : record.getStr(eFurnpar2.text);
                     } else {
                         Enam en = ParamList.find(Integer.valueOf(val.toString()));
                         return (Main.dev) ? en.numb() + "-" + en.text() : en.text();
@@ -336,99 +328,6 @@ public class Furniture extends javax.swing.JFrame {
         tab1.getColumnModel().getColumn(3).setCellRenderer(new BooleanRenderer());
         tab1.getColumnModel().getColumn(4).setCellRenderer(new BooleanRenderer());
         tab1.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
-
-        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
-            new DicEnums(this, listenerVariant1, UseFurn1.values());
-        });
-
-        Util.buttonEditorCell(tab1, 2).addActionListener(event -> {
-            new DicEnums(this, listenerSide4, LayoutFurn1.values());
-        });
-
-        Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
-            new DicEnums(this, listenerVariant2, UseFurn2.values());
-        });
-
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Util.buttonEditorCell(tab, 0).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
-            });
-        }
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Util.buttonEditorCell(tab, 1).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
-            });
-        }
-
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
-            Util.buttonEditorCell(tab, 2).addActionListener(event -> {
-                Record record = query.get(Util.getSelectedRec(tab));
-                int artikl_id = record.getInt(eFurndet.artikl_id);
-                ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
-            });
-        }
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
-            Util.buttonEditorCell(tab, 3).addActionListener(event -> {
-                Record record = query.get(Util.getSelectedRec(tab));
-                int colorFk = record.getInt(eFurndet.color_fk);
-                DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
-            });
-        }
-
-        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            new DicEnums(this, listenerSide1, LayoutFurn1.values());
-        });
-
-        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            new DicEnums(this, listenerSide2, UseFurn3.values());
-        });
-
-        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, 21000);
-        });
-
-        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
-            Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eFurnpar1.params_id);
-            if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
-            } else {
-                List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
-            }
-        });
-
-        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
-            new DicEnums(this, listenerSide3, LayoutFurn3.values());
-        });
-
-        Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
-            int index = tabb1.getSelectedIndex();
-            JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
-            int row = Util.getSelectedRec(table);
-            if (row != -1) {
-                Query query = (index == 0) ? qFurndet2a : (index == 1) ? qFurndet2b : qFurndet2c;
-                Record furndetRec = query.get(row);
-                int artikl_id = furndetRec.getInt(eFurndet.artikl_id);
-                Record recordArt = eArtikl.find(artikl_id, false);
-                int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
-                Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
-            }
-        });
-
-        Util.buttonEditorCell(tab6, 1, listenerEditor).addActionListener(event -> {
-            Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
-            int grup = record.getInt(eFurnpar2.params_id);
-            if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
-            } else {
-                List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
-            }
-        });
 
         Util.setSelectedRow(tab1);
     }
@@ -444,10 +343,10 @@ public class Furniture extends javax.swing.JFrame {
 
             ((DefaultTableModel) tab2a.getModel()).fireTableDataChanged();
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-//            Util.setSelectedRow(tab2a);
-//            Util.setSelectedRow(tab3);
-//            String count = (qFurndet2a.size() > 9) ? String.valueOf(qFurndet2a.size()) : String.valueOf(qFurndet2a.size()) + "  ";
-//            tabb1.setTitleAt(0, "Детализация (1 уровень)    " + count + "  ");
+            Util.setSelectedRow(tab2a);
+            Util.setSelectedRow(tab3);
+            String count = (qFurndet2a.size() > 9) ? String.valueOf(qFurndet2a.size()) : String.valueOf(qFurndet2a.size()) + "  ";
+            tabb1.setTitleAt(0, "Детализация (1 уровень)    " + count + "  ");
         }
     }
 
@@ -456,7 +355,7 @@ public class Furniture extends javax.swing.JFrame {
         int row = Util.getSelectedRec(tab2a);
         if (row != -1) {
             Record record = qFurndet2a.table(eFurndet.up).get(row);
-            Integer id = record.getInt(eFurndet.id);
+            int id = record.getInt(eFurndet.id);
             qFurndet2b.select(eFurndet.up, "where", eFurndet.furndet_id, "=", id, "and", eFurndet.id, "!=", eFurndet.furndet_id);
             ((DefaultTableModel) tab2b.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2b);
@@ -594,6 +493,101 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         }
+    }
+
+    private void listenerAdd() {
+        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
+            new DicEnums(this, listenerVariant1, UseFurn1.values());
+        });
+
+        Util.buttonEditorCell(tab1, 2).addActionListener(event -> {
+            new DicEnums(this, listenerSide4, LayoutFurn1.values());
+        });
+
+        Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
+            new DicEnums(this, listenerVariant2, UseFurn2.values());
+        });
+
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Util.buttonEditorCell(tab, 0).addActionListener(event -> {
+                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            });
+        }
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Util.buttonEditorCell(tab, 1).addActionListener(event -> {
+                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            });
+        }
+
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
+            Util.buttonEditorCell(tab, 2).addActionListener(event -> {
+                Record record = query.get(Util.getSelectedRec(tab));
+                int artikl_id = record.getInt(eFurndet.artikl_id);
+                ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
+            });
+        }
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
+            Util.buttonEditorCell(tab, 3).addActionListener(event -> {
+                Record record = query.get(Util.getSelectedRec(tab));
+                int colorFk = record.getInt(eFurndet.color_fk);
+                DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+            });
+        }
+
+        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+            new DicEnums(this, listenerSide1, LayoutFurn1.values());
+        });
+
+        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+            new DicEnums(this, listenerSide2, UseFurn3.values());
+        });
+
+        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+            ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, 21000);
+        });
+
+        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
+            Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
+            int grup = record.getInt(eFurnpar1.params_id);
+            if (grup < 0) {
+                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
+            } else {
+                List list = ParamList.find(grup).dict();
+                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
+            }
+        });
+
+        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
+            new DicEnums(this, listenerSide3, LayoutFurn3.values());
+        });
+
+        Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
+            int index = tabb1.getSelectedIndex();
+            JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
+            int row = Util.getSelectedRec(table);
+            if (row != -1) {
+                Query query = (index == 0) ? qFurndet2a : (index == 1) ? qFurndet2b : qFurndet2c;
+                Record furndetRec = query.get(row);
+                int artikl_id = furndetRec.getInt(eFurndet.artikl_id);
+                Record recordArt = eArtikl.find(artikl_id, false);
+                int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
+                Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
+            }
+        });
+
+        Util.buttonEditorCell(tab6, 1, listenerEditor).addActionListener(event -> {
+            Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
+            int grup = record.getInt(eFurnpar2.params_id);
+            if (grup < 0) {
+                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
+            } else {
+                List list = ParamList.find(grup).dict();
+                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
+            }
+        });
     }
 
     private void listenerDict() {
