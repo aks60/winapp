@@ -112,7 +112,7 @@ public class Color {
             } else if (colorFk < 0) {
                 if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id
                         || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
-                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.id), colorFk);
+                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
@@ -127,6 +127,14 @@ public class Color {
                     } else { //В спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
                         return false;
                     }
+                } else {
+                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.series_id), colorFk);
+                    if (artdetColorFK != -1) {
+
+                        spc.setColor(side, artdetColorFK);
+                    } else { //В спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
+                        return false;
+                    }                    
                 }
             }
         } catch (Exception e) {
@@ -274,7 +282,7 @@ public class Color {
     }
 
     //Поиск текстуры в артикуле по параметру. Мой вариант!
-    private static int colorFromArtiklParam2(int artiklID, int side, int elemColorID) {
+    private static int colorFromArtiklParam(int artiklID, int side, int elemColorID) {
         try {
             if (artiklID == 84) {
                 System.out.println("TEST");
