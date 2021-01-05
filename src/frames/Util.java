@@ -427,13 +427,12 @@ public class Util {
     }
 
     //Слушатель редактирование типа данных и вида ячейки таблицы 
-    public static boolean listenerCell(JTable table1, JTable table2, Object component, JTable... tabses) {
+    public static boolean listenerCell(JTable table1, JTable table2, Object component, JTable... tableList) {
         Query qParam1 = ((DefTableModel) table1.getModel()).getQuery();
         Query qParam2 = ((DefTableModel) table2.getModel()).getQuery();
 
         if (component instanceof DefCellEditor) { //вид и тип ячейки
             DefCellEditor editor = (DefCellEditor) component;
-            JTable tab = Util.getCellEditing(tabses);
 
             DefCellEditor editor2 = (DefCellEditor) table1.getColumnModel().getColumn(1).getCellEditor();
             if (editor.getButton() == editor2.getButton()) {
@@ -445,7 +444,7 @@ public class Util {
             }
 
         } else if (component != null && component instanceof String) {  //проверка на коррекность ввода
-            JTable tab = Util.getCellEditing(tabses);
+            JTable tab = Util.getCellEditing(tableList);
             String txt = (String) component;
             if (tab == table1) {
                 return ParamList.find(qParam1.getAs(Util.getSelectedRec(table1), eJoinpar1.id)).check(txt);

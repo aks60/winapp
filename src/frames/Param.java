@@ -1,5 +1,6 @@
 package frames;
 
+import common.EditorListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
@@ -12,20 +13,30 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.BooleanRenderer;
+import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
 import java.util.stream.Stream;
-import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.RowFilter;
 
 public class Param extends javax.swing.JFrame {
 
-    private Query qParams = new Query(eParams.values()).select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
+    private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
+    private EditorListener listenerEditor;
 
     public Param() {
         initComponents();
         initElements();
+        loadData();
         loadingModel();
+        lstenerAdd();
+    }
+
+    private void loadData() {
+        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text);
     }
 
     private void loadingModel() {
@@ -55,6 +66,24 @@ public class Param extends javax.swing.JFrame {
                 tab2.setRowSelectionInterval(0, 0);
             }
         }
+    }
+
+    private void lstenerAdd() {
+        
+        listenerEditor = (component) -> {
+            DefCellEditor editor = (DefCellEditor) component;
+            editor.getButton().setVisible(true);
+            System.out.println("XXXXXXXXXXXXXX");
+            return false;
+        };
+        
+        JButton btn = new JButton("...");
+        DefCellEditor editor = new DefCellEditor(listenerEditor, btn);
+        tab2.getColumnModel().getColumn(0).setCellEditor(editor);
+
+        btn.addActionListener(event -> {
+            System.out.println("VVVVVVVVVVVV");
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -382,7 +411,7 @@ public class Param extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
-         JTable table = (JTable) evt.getSource();
+        JTable table = (JTable) evt.getSource();
         Util.listenerClick(table, Arrays.asList(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
@@ -432,7 +461,7 @@ public class Param extends javax.swing.JFrame {
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
-                tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
                     selectionTab1(event);

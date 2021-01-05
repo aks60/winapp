@@ -92,9 +92,9 @@ public class DefCellEditor extends DefaultCellEditor {
     }
 
     @Override
-    public boolean isCellEditable(EventObject anEvent) {
-        if (anEvent instanceof MouseEvent == true) {          
-            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) { 
+    public boolean isCellEditable(EventObject anEvent) {        
+        if (anEvent instanceof MouseEvent == true) {     
+            if (listenerCell != null && ((MouseEvent) anEvent).getClickCount() == 2) {                 
                 listenerCell.action(DefCellEditor.this);
             }
         }
