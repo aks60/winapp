@@ -112,7 +112,7 @@ public class Color {
             } else if (colorFk < 0) {
                 if (colorType == UseColor.PROF.id || colorType == UseColor.GLAS.id
                         || colorType == UseColor.COL1.id || colorType == UseColor.COL2.id || colorType == UseColor.COL3.id) {
-                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.id), side, elemColorID);
+                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
@@ -120,7 +120,7 @@ public class Color {
                         return false;
                     }
                 } else if (colorType == UseColor.C1SER.id || colorType == UseColor.C2SER.id || colorType == UseColor.C3SER.id) {
-                    artdetColorFK = colorFromSeriesParam(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID);
+                    artdetColorFK = colorFromSeriesParam(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
@@ -128,13 +128,13 @@ public class Color {
                         return false;
                     }
                 } else {
-                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.series_id), colorFk);
+                    artdetColorFK = colorFromArtiklParam(spc.artiklRec.getInt(eArtikl.series_id), side, elemColorID, colorFk);
                     if (artdetColorFK != -1) {
 
                         spc.setColor(side, artdetColorFK);
                     } else { //В спецификпцию не попадёт. См. HELP "Конструктив=>Подбор текстур" 
                         return false;
-                    }                    
+                    }
                 }
             }
         } catch (Exception e) {
@@ -188,12 +188,12 @@ public class Color {
     }
 
     //Поиск текстуры в серии артикулов по параметру
-    private static int colorFromSeriesParam(int seriesID, int side, int colorFk) {
+    private static int colorFromSeriesParam(int seriesID, int side, int elemColorID, int colorFk) {
 
         List<Record> artseriList = eArtikl.find3(seriesID);
         for (Record artseriRec : artseriList) {
 
-            int color_id = colorFromArtiklParam(artseriRec.getInt(eArtikl.id), colorFk);
+            int color_id = colorFromArtiklParam(artseriRec.getInt(eArtikl.id), side, elemColorID, colorFk);
             if (color_id != -1) {
                 return color_id;
             }
@@ -238,57 +238,15 @@ public class Color {
         }
     }
 
-    //Поиск текстуры в артикуле по параметру. По алгоритму PS3
-    private static int colorFromArtiklParam(int artiklID, int paramFk) {
-//        try {
-//            if (artiklID == 84) {
-//                System.out.println("TEST");
-//            }
-//            List<Record> colparList1 = eParams.find2(paramFk);
-//            List<Record> artdetList = eArtdet.find(artiklID);
-//            //Цыкл по ARTDET определённого артикула
-//            for (Record artdetRec : artdetList) {
-//
-//                //Группа текстур
-//                if (artdetRec.getInt(eArtdet.color_fk) < 0) {
-//                    List<Record> colorList = eColor.find2(artdetRec.getInt(eArtdet.color_fk) * -1); //фильтр списка определённой группы
-//                    //Цыкл по COLOR определённой группы
-//                    for (Record colorRec : colorList) {
-//
-//                        List<Record> colparList2 = eColpar1.find(colorRec.getInt(eColor.id));
-//
-//                        for (Record record1 : colparList1) {
-//                            for (Record record2 : colparList2) {
-//                                if (record1.getInt(eColpar1.params_id) == record2.getInt(eColpar1.params_id)) {
-//                                    return elemColorID;
-//                                }
-//                            }
-//                        }
-//                    }
-//
-//                    //Одна текстура
-//                } else {
-//                    if (artdetRec.getInt(eArtdet.color_fk) == elemColorID) { //если есть такая текстура в ARTDET
-//                        return elemColorID;
-//                    }
-//                }
-//            }
-            return -1;
-
-//        } catch (Exception e) {
-//            System.err.println("Ошибка Color.colorFromArtdet() " + e);
-//            return -1;
-//        }
-    }
-
-    //Поиск текстуры в артикуле по параметру. Мой вариант!
-    private static int colorFromArtiklParam(int artiklID, int side, int elemColorID) {
+    //Поиск текстуры в артикуле по параметру.
+    private static int colorFromArtiklParam(int artiklID, int side, int elemColorID, int paramFk) {
         try {
 //            if (artiklID == 84) {
 //                System.out.println("TEST");
 //            }
-            List<Record> colparList1 = eColpar1.find(elemColorID);
+            List<Record> colparList = eColpar1.find3(elemColorID, paramFk);
             List<Record> artdetList = eArtdet.find(artiklID);
+
             //Цыкл по ARTDET определённого артикула
             for (Record artdetRec : artdetList) {
                 //Сторона подлежит рассмотрению?
@@ -304,7 +262,7 @@ public class Color {
 
                             List<Record> colparList2 = eColpar1.find(colorRec.getInt(eColor.id));
 
-                            for (Record record1 : colparList1) {
+                            for (Record record1 : colparList) {
                                 for (Record record2 : colparList2) {
                                     if (record1.getInt(eColpar1.params_id) == record2.getInt(eColpar1.params_id)) {
                                         return elemColorID;
@@ -315,8 +273,11 @@ public class Color {
 
                         //Одна текстура
                     } else {
-                        if (artdetRec.getInt(eArtdet.color_fk) == elemColorID) { //если есть такая текстура в ARTDET
-                            return elemColorID;
+                        for (Record colparRec : colparList) {
+                            if (artdetRec.getInt(eArtdet.color_fk) == colparRec.getInt(eColpar1.color_id)) { 
+                                //Object obj = record1.getInt(eColpar1.color_id)
+                                return elemColorID;
+                            }
                         }
                     }
                 }
@@ -335,14 +296,15 @@ public class Color {
             switch (colorType) {
                 case 0:
                     return spc.detailRec.getInt(COLOR_FK);  //указана вручную
-                case 11:
-                    if (side == 1) {
-                        return spc.elem5e.colorID1; //по основе текстуры профиля
-                    } else if (side == 2) {
-                        return spc.elem5e.colorID2; //по внутр. текстуры профиля 
-                    } else if (side == 3) {
-                        return spc.elem5e.colorID3; //по внешн. текстуры профиля  
-                    }
+                case 11: //Профиль
+                    return spc.elem5e.colorID1; //по основе текстуры профиля
+//                    if (side == 1) {
+//                        return spc.elem5e.colorID1; //по основе текстуры профиля
+//                    } else if (side == 2) {
+//                        return spc.elem5e.colorID2; //по внутр. текстуры профиля 
+//                    } else if (side == 3) {
+//                        return spc.elem5e.colorID3; //по внешн. текстуры профиля  
+//                    }
                 case 15:
                     return spc.elem5e.colorID1; //по основе текстуры заполнения                 
                 case 1:

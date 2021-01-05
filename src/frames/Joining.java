@@ -74,11 +74,11 @@ public class Joining extends javax.swing.JFrame {
         this.subsql = null;
         initComponents();
         initElements();
-        loadingData();
-        listenerAdd();
+        loadingData();        
         listenerCell();
         listenerDict();
         loadingModel();
+        listenerAdd();
     }
 
     public Joining(Set<Object> keys) {
@@ -88,10 +88,10 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        listenerAdd();
         listenerCell();
         listenerDict();
         loadingModel();
+        listenerAdd();
     }
 
     public Joining(Set<Object> keys, int deteilID) {
@@ -99,10 +99,10 @@ public class Joining extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        listenerAdd();
         listenerCell();
         listenerDict();
         loadingModel();
+        listenerAdd();
         deteilFind(deteilID);
     }
 

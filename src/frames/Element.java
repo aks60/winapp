@@ -69,12 +69,12 @@ public class Element extends javax.swing.JFrame {
     public Element() {
         this.subsql = null;
         initComponents();
-        initElements();
-        listenerAdd();
+        initElements();        
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
+        listenerAdd();
     }
 
     public Element(Set<Object> keys) {
@@ -83,11 +83,11 @@ public class Element extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
-        listenerAdd();
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
+        listenerAdd();
     }
 
     public Element(Set<Object> keys, int deteilID) {
@@ -96,11 +96,11 @@ public class Element extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
-        listenerAdd();
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
+        listenerAdd();
         deteilFind(deteilID);
     }
 

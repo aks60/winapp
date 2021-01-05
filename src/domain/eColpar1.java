@@ -59,6 +59,14 @@ public enum eColpar1 implements Field {
         }
         return new Query(values()).select(up, "where", params_id, "=", _params_id);
     }
+    
+    public static List<Record> find3(int _color_id, int _params_id) {
+
+        if (Query.conf.equals("calc")) {
+            return query().stream().filter(rec -> rec.getInt(color_id) == _color_id && rec.getInt(params_id) == _params_id).collect(toList());
+        }
+        return new Query(values()).select(up, "where", color_id, "=", _color_id, "and", params_id, "=", _params_id);
+    }
 
     public String toString() {
         return meta.descr();

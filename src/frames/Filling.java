@@ -60,11 +60,11 @@ public class Filling extends javax.swing.JFrame {
         this.subsql = null;
         initComponents();
         initElements();
-        listenerAdd();
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
+        listenerAdd();
     }
 
     public Filling(Set<Object> keys) {
@@ -73,11 +73,11 @@ public class Filling extends javax.swing.JFrame {
         }
         initComponents();
         initElements();
-        listenerAdd();
         listenerCell();
         listenerDict();
         loadingData();
         loadingModel();
+        listenerAdd();
     }
 
     public Filling(Set<Object> keys, int deteilID) {
@@ -87,10 +87,10 @@ public class Filling extends javax.swing.JFrame {
         initComponents();
         initElements();
         loadingData();
-        listenerAdd();
         listenerCell();
         listenerDict();
         loadingModel();
+        listenerAdd();
         deteilFind(deteilID);
     }
 
