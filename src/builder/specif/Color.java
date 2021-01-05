@@ -284,9 +284,9 @@ public class Color {
     //Поиск текстуры в артикуле по параметру. Мой вариант!
     private static int colorFromArtiklParam(int artiklID, int side, int elemColorID) {
         try {
-            if (artiklID == 84) {
-                System.out.println("TEST");
-            }
+//            if (artiklID == 84) {
+//                System.out.println("TEST");
+//            }
             List<Record> colparList1 = eColpar1.find(elemColorID);
             List<Record> artdetList = eArtdet.find(artiklID);
             //Цыкл по ARTDET определённого артикула
