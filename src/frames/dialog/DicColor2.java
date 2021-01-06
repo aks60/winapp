@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import java.util.Arrays;
 import java.util.stream.Stream;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -25,19 +26,25 @@ public class DicColor2 extends javax.swing.JDialog {
     private DialogListener listener;
     private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up);
     private Query qColor = new Query(eColor.values()).table(eColor.up);
+    private boolean master = true;
 
     public DicColor2(Frame parent, DialogListener listener) {
+        this(parent, listener, true);
+    }
+
+    public DicColor2(Frame parent, DialogListener listener, boolean master) {
         super(parent, true);
         initComponents();
-        initElements();
+        initElements(master);
         this.listener = listener;
+        this.master = master; 
         loadingModel();
-        setVisible(true);        
+        setVisible(true);
     }
 
     private void loadingModel() {
         new DefTableModel(tab1, qColgrp, eColgrp.name);
-        new DefTableModel(tab2, qColor, eColor.name);        
+        new DefTableModel(tab2, qColor, eColor.name);
         Util.setSelectedRow(tab1);
     }
 
@@ -267,18 +274,20 @@ public class DicColor2 extends javax.swing.JDialog {
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
 
-        if (tab1.getBorder() != null) {
+        if (tab1.getBorder() != null && master == true) {
             int row = Util.getSelectedRec(tab1);
             if (row != -1) {
                 listener.action(qColgrp.get(row));
+                this.dispose();
             }
         } else if (tab2.getBorder() != null) {
             int row = Util.getSelectedRec(tab2);
             if (row != -1) {
                 listener.action(qColor.get(row));
+                this.dispose();
             }
-        }
-        this.dispose();
+        }  
+        JOptionPane.showMessageDialog(this, "Запись не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
@@ -336,24 +345,10 @@ public class DicColor2 extends javax.swing.JDialog {
     private javax.swing.JTextField txtFilter;
     // End of variables declaration//GEN-END:variables
 
-    private void initElements() {
+    private void initElements(boolean master) {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
         tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());       
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    Util.listenerClick(tab1, Arrays.asList(tab1, tab2));
-                }
-            }
-        });        
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    Util.listenerClick(tab2, Arrays.asList(tab1, tab2));
-                }
-            }
-        });
     }
 }

@@ -54,13 +54,13 @@ public class Param extends javax.swing.JFrame {
 
         editorBtn.getButton().addActionListener(event -> {
             new DicColor2(this, (record) -> {
-                int row = Util.getSelectedRec(tab1);
+                int row = Util.getSelectedRec(tab2);
                 if (row != -1) {
                     Record pardetRec = qPardet.get(row);
                     pardetRec.set(eParams.text, record.getStr(eColor.name));
                     qPardet.update(pardetRec);
                 }
-            });
+            }, false);
         });
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -399,14 +399,12 @@ public class Param extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Record paramlRec = eParams.up.newRecord(Query.INS);
+            Record paramыRec = eParams.up.newRecord(Query.INS);
             int id = ConnApp.instanc().genId(eParams.up);
-            paramlRec.setNo(eParams.id, id);
-            paramlRec.setNo(eParams.id, -1 * id);
-            //paramlRec.setNo(eParams.numb, 0);
+            paramыRec.setNo(eParams.id, id);
             Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
-                    eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramlRec.set(index, 0));
-            qParams.add(paramlRec);
+                    eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramыRec.set(index, 0));
+            qParams.add(paramыRec);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qParams, tab1);
 
@@ -415,11 +413,10 @@ public class Param extends javax.swing.JFrame {
             if (row != -1) {
                 Record paramRec = qParams.get(row);
                 Record pardetRec = eParams.up.newRecord(Query.INS);
-                int grup = paramRec.getInt(eParams.id);
+                int grup = paramRec.getInt(eParams.params_id);
                 int id = ConnApp.instanc().genId(eParams.up);
                 pardetRec.setNo(eParams.id, id);
-                pardetRec.setNo(eParams.id, grup);
-                //pardetRec.setNo(eParams.numb, id);
+                pardetRec.setNo(eParams.params_id, grup);
                 Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                         eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> pardetRec.set(index, 0));
                 qPardet.add(pardetRec);
