@@ -57,6 +57,25 @@ public class Param extends javax.swing.JFrame {
             tab1.setRowSelectionInterval(0, 0);
         }
     }
+    
+    private void listenerAdd() {
+
+        editorBtn.getButton().addActionListener(event -> {
+            new DicColor2(this, listenerColor, false);
+        });
+
+        listenerColor = (record) -> {
+            Util.stopCellEditing(tab1, tab2);
+            int row = Util.getSelectedRec(tab2);
+            if (row != -1) {
+                Record pardetRec = qPardet.get(row);
+                pardetRec.set(eParams.text, record.getStr(eColor.name));
+                qPardet.update(pardetRec);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+            }
+        };
+    }
 
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
@@ -83,25 +102,6 @@ public class Param extends javax.swing.JFrame {
         }
     }
 
-    private void listenerAdd() {
-
-        editorBtn.getButton().addActionListener(event -> {
-            new DicColor2(this, listenerColor, false);
-        });
-
-        listenerColor = (record) -> {
-            Util.stopCellEditing(tab1, tab2);
-            int row = Util.getSelectedRec(tab2);
-            if (row != -1) {
-                Record pardetRec = qPardet.get(row);
-                pardetRec.set(eParams.text, record.getStr(eColor.name));
-                qPardet.update(pardetRec);
-                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab2, row);
-            }
-        };
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -112,7 +112,6 @@ public class Param extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -206,13 +205,6 @@ public class Param extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setText("jCheckBox1");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -227,11 +219,6 @@ public class Param extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 788, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(northLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,11 +232,6 @@ public class Param extends javax.swing.JFrame {
                             .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(northLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
@@ -443,6 +425,9 @@ public class Param extends javax.swing.JFrame {
 
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
+        if(table == tab2) {
+           selectionTab2(null); 
+        }
         Util.listenerClick(table, Arrays.asList(tab1, tab2));
         if (txtFilter.getText().length() == 0) {
             labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
@@ -462,10 +447,6 @@ public class Param extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterCaretUpdate
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        System.out.println("frames.Param.jCheckBox1ActionPerformed()");
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -474,7 +455,6 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;

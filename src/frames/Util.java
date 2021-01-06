@@ -460,12 +460,12 @@ public class Util {
     public static void formatterCell(Query query, JTable table, DefCellEditor editor) {
 
         JTextField txt = editor.getTextField();
-        int grup = query.getAs(getSelectedRec(table), eJoinpar1.params_id, -1);
-        if (grup < 0) { //пользовательский список параметров
+        int paramsID = query.getAs(getSelectedRec(table), eJoinpar1.params_id, -1);
+        if (paramsID < 0) { //пользовательский список параметров
             editor.getButton().setVisible(true);
             txt.setEnabled(false);
         } else {
-            Enam enam = ParamList.find(grup);
+            Enam enam = ParamList.find(paramsID);
             if (enam.dict() != null) { //системный список параметров
                 editor.getButton().setVisible(true);
                 txt.setEnabled(false);
@@ -479,18 +479,18 @@ public class Util {
     }
 
     //Слушатель редактирование параметров
-    public static void listenerParam(Record record, JTable table, Field grup, Field text, JTable... tables) {
+    public static void listenerParam(Record record, JTable table, Field paramsID, Field text, JTable... tables) {
         Util.stopCellEditing(tables);
         int row = getSelectedRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record record2 = query.get(Util.getSelectedRec(table));
 
         if (eParams.values().length == record.size()) {
-            record2.set(grup, record.getInt(eParams.id));
+            record2.set(paramsID, record.getInt(eParams.id));
             record2.set(text, null);
 
         } else if (record.size() == 2) {
-            record2.set(grup, record.get(0));
+            record2.set(paramsID, record.get(0));
             record2.set(text, null);
 
         } else if (record.size() == 1) {

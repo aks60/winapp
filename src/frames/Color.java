@@ -5,7 +5,7 @@ import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import frames.dialog.ParGrup1;
+import frames.dialog.ParGrup2v;
 import frames.dialog.ParGrup2a;
 import domain.eColor;
 import domain.eColgrp;
@@ -34,7 +34,7 @@ public class Color extends javax.swing.JFrame {
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values());
-    private DialogListener listenerPar;
+    private DialogListener listenerGrup, listenerPar;
 
     public Color() {
         initComponents();
@@ -82,13 +82,13 @@ public class Color extends javax.swing.JFrame {
     private void listenerAdd() {
         
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            ParGrup1 frame = new ParGrup1(this, listenerPar, eParams.color);
+            ParGrup2v frame = new ParGrup2v(this, listenerGrup, eParams.color);
         });
 
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
             Record record = qColpar1.get(Util.getSelectedRec(tab3));
-            int grup = record.getInt(eColpar1.params_id);
-            ParGrup2a frame = new ParGrup2a(this, listenerPar, grup);
+            int paramsID = record.getInt(eColpar1.params_id);
+            ParGrup2a frame = new ParGrup2a(this, listenerPar, paramsID);
         });
     }
 
@@ -134,8 +134,21 @@ public class Color extends javax.swing.JFrame {
 
     public void listenerDict() {
 
+        listenerGrup = (record) -> {
+            int row = Util.getSelectedRec(tab2);            
+            Record record2 = qColpar1.get(row);
+            record2.set(eColpar1.params_id, record.getInt(eParams.id));
+            record2.set(eColpar1.text, null);  
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, row);            
+        };
+                
         listenerPar = (record) -> {
-            Util.listenerParam(record, tab3, eColpar1.params_id, eColpar1.text, tab1, tab2, tab3);
+            int row = Util.getSelectedRec(tab2);            
+            Record record2 = qColpar1.get(row);
+            record2.set(eColpar1.text, null);  
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2, row);  
         };
     }
 
