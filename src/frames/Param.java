@@ -35,6 +35,7 @@ public class Param extends javax.swing.JFrame {
         initElements();
         loadData();
         loadingModel();
+        listenerAdd();
     }
 
     private void loadData() {
@@ -53,14 +54,7 @@ public class Param extends javax.swing.JFrame {
         Arrays.asList(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
         editorBtn.getButton().addActionListener(event -> {
-            new DicColor2(this, (record) -> {
-                int row = Util.getSelectedRec(tab2);
-                if (row != -1) {
-                    Record pardetRec = qPardet.get(row);
-                    pardetRec.set(eParams.text, record.getStr(eColor.name));
-                    qPardet.update(pardetRec);
-                }
-            }, false);
+            new DicColor2(this, listenerColor, false);
         });
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
@@ -90,6 +84,21 @@ public class Param extends javax.swing.JFrame {
                 tab2.getColumnModel().getColumn(0).setCellEditor(editorStr);
             }
         }
+    }
+
+    private void listenerAdd() {
+
+        listenerColor = (record) -> {
+            Util.stopCellEditing(tab1, tab2);
+            int row = Util.getSelectedRec(tab2);
+            if (row != -1) {
+                Record pardetRec = qPardet.get(row);
+                pardetRec.set(eParams.text, record.getStr(eColor.name));
+                qPardet.update(pardetRec);
+                ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab2, row);
+            }
+        };
     }
 
     @SuppressWarnings("unchecked")

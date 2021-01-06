@@ -37,7 +37,7 @@ public class DicColor2 extends javax.swing.JDialog {
         initComponents();
         initElements(master);
         this.listener = listener;
-        this.master = master; 
+        this.master = master;
         loadingModel();
         setVisible(true);
     }
@@ -286,8 +286,9 @@ public class DicColor2 extends javax.swing.JDialog {
                 listener.action(qColor.get(row));
                 this.dispose();
             }
-        }  
-        JOptionPane.showMessageDialog(this, "Запись не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+        } else {
+            JOptionPane.showMessageDialog(this, "Запись не выбрана", "Предупреждение", JOptionPane.NO_OPTION);
+        }
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
@@ -349,6 +350,6 @@ public class DicColor2 extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());       
+        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());
     }
 }
