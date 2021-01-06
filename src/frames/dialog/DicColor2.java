@@ -16,6 +16,8 @@ import frames.swing.DefTableModel;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 //Текстура артикулов
 public class DicColor2 extends javax.swing.JDialog {
@@ -35,8 +37,7 @@ public class DicColor2 extends javax.swing.JDialog {
 
     private void loadingModel() {
         new DefTableModel(tab1, qColgrp, eColgrp.name);
-        new DefTableModel(tab2, qColor, eColor.name);
-        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());
+        new DefTableModel(tab2, qColor, eColor.name);        
         Util.setSelectedRow(tab1);
     }
 
@@ -339,23 +340,20 @@ public class DicColor2 extends javax.swing.JDialog {
 
         FrameToFile.setFrameSize(this);
         new FrameToFile(this, btnClose);
-        FocusListener listenerFocus = new FocusListener() {
-
-            javax.swing.border.Border border = javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 255));
-
-            public void focusGained(FocusEvent e) {
-                ((JTable) e.getSource()).setBorder(border);
-            }
-
-            public void focusLost(FocusEvent e) {
-                ((JTable) e.getSource()).setBorder(null);
-                JTable table = (JTable) e.getSource();
-                if (table == tab2) {
-                    ((JTable) e.getSource()).clearSelection();
+        tab1.getSelectionModel().addListSelectionListener(event -> selectionTab1());       
+        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    Util.listenerClick(tab1, Arrays.asList(tab1, tab2));
                 }
             }
-        };
-        tab1.addFocusListener(listenerFocus);
-        tab2.addFocusListener(listenerFocus);
+        });        
+        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    Util.listenerClick(tab2, Arrays.asList(tab1, tab2));
+                }
+            }
+        });
     }
 }

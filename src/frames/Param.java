@@ -1,38 +1,40 @@
 package frames;
 
-import common.EditorListener;
+import common.DialogListener;
 import common.FrameToFile;
 import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
+import domain.eColor;
 import domain.eParams;
+import frames.dialog.DicColor2;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.BooleanRenderer;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
-import java.awt.event.MouseEvent;
-import java.util.EventObject;
 import java.util.stream.Stream;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 import javax.swing.RowFilter;
 
 public class Param extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.values());
     private Query qPardet = new Query(eParams.values());
-    private EditorListener listenerEditor;
+    DefaultCellEditor editorStr = new DefaultCellEditor(new JTextField());
+    DefCellEditor editorBtn = new DefCellEditor(new JButton("..."));
+    private DialogListener listenerColor;
 
     public Param() {
         initComponents();
         initElements();
         loadData();
         loadingModel();
-        lstenerAdd();
     }
 
     private void loadData() {
@@ -50,6 +52,16 @@ public class Param extends javax.swing.JFrame {
         Arrays.asList(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
         Arrays.asList(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
+        editorBtn.getButton().addActionListener(event -> {
+            new DicColor2(this, (record) -> {
+                int row = Util.getSelectedRec(tab1);
+                if (row != -1) {
+                    Record pardetRec = qPardet.get(row);
+                    pardetRec.set(eParams.text, record.getStr(eColor.name));
+                    qPardet.update(pardetRec);
+                }
+            });
+        });
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -58,7 +70,7 @@ public class Param extends javax.swing.JFrame {
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Record record = qParams.table(eParams.up).get(row);
+            Record record = qParams.get(row);
             Integer p1 = record.getInt(eParams.id);
             qPardet.select(eParams.up, "where", eParams.params_id, "=", p1, "and", eParams.id, "!=", eParams.params_id, "order by", eParams.text);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
@@ -68,22 +80,16 @@ public class Param extends javax.swing.JFrame {
         }
     }
 
-    private void lstenerAdd() {
-        
-        listenerEditor = (component) -> {
-            DefCellEditor editor = (DefCellEditor) component;
-            editor.getButton().setVisible(true);
-            System.out.println("XXXXXXXXXXXXXX");
-            return false;
-        };
-        
-        JButton btn = new JButton("...");
-        DefCellEditor editor = new DefCellEditor(listenerEditor, btn);
-        tab2.getColumnModel().getColumn(0).setCellEditor(editor);
-
-        btn.addActionListener(event -> {
-            System.out.println("VVVVVVVVVVVV");
-        });
+    private void selectionTab2(ListSelectionEvent event) {
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Record record = qParams.get(row);
+            if (record.getInt(eParams.color) == 1) {
+                tab2.getColumnModel().getColumn(0).setCellEditor(editorBtn);
+            } else {
+                tab2.getColumnModel().getColumn(0).setCellEditor(editorStr);
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -96,6 +102,7 @@ public class Param extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -189,6 +196,13 @@ public class Param extends javax.swing.JFrame {
             }
         });
 
+        jCheckBox1.setText("jCheckBox1");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -203,6 +217,11 @@ public class Param extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 788, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(northLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jCheckBox1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         northLayout.setVerticalGroup(
             northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,6 +235,11 @@ public class Param extends javax.swing.JFrame {
                             .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(northLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jCheckBox1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
@@ -431,6 +455,10 @@ public class Param extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterCaretUpdate
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        System.out.println("frames.Param.jCheckBox1ActionPerformed()");
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
@@ -439,6 +467,7 @@ public class Param extends javax.swing.JFrame {
     private javax.swing.JButton btnRef;
     private javax.swing.JPanel centr;
     private javax.swing.JCheckBox checkFilter;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JLabel labFilter;
     private javax.swing.JPanel north;
@@ -461,25 +490,15 @@ public class Param extends javax.swing.JFrame {
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Значение параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectionTab1(event);
-                }
+
+        tab1.getSelectionModel().addListSelectionListener(event -> {
+            if (event.getValueIsAdjusting() == false) {
+                selectionTab1(event);
             }
         });
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    //selectionTab1(event);
-                }
-            }
-        });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    //selectionTab2(event);
-                }
+        tab2.getSelectionModel().addListSelectionListener(event -> {
+            if (event.getValueIsAdjusting() == false) {
+                selectionTab2(event);
             }
         });
     }
