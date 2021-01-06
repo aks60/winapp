@@ -53,9 +53,6 @@ public class Param extends javax.swing.JFrame {
         Arrays.asList(1, 2, 3, 4, 5, 6, 7).forEach(index -> tab1.getColumnModel().getColumn(index).setCellRenderer(br));
         Arrays.asList(1, 2, 3, 4, 5, 6).forEach(index -> tab2.getColumnModel().getColumn(index).setCellRenderer(br));
 
-        editorBtn.getButton().addActionListener(event -> {
-            new DicColor2(this, listenerColor, false);
-        });
         if (tab1.getRowCount() > 0) {
             tab1.setRowSelectionInterval(0, 0);
         }
@@ -87,6 +84,10 @@ public class Param extends javax.swing.JFrame {
     }
 
     private void listenerAdd() {
+
+        editorBtn.getButton().addActionListener(event -> {
+            new DicColor2(this, listenerColor, false);
+        });
 
         listenerColor = (record) -> {
             Util.stopCellEditing(tab1, tab2);
@@ -408,12 +409,12 @@ public class Param extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Record paramыRec = eParams.up.newRecord(Query.INS);
+            Record paramsRec = eParams.up.newRecord(Query.INS);
             int id = ConnApp.instanc().genId(eParams.up);
-            paramыRec.setNo(eParams.id, id);
+            paramsRec.setNo(eParams.id, id);
             Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
-                    eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramыRec.set(index, 0));
-            qParams.add(paramыRec);
+                    eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramsRec.set(index, 0));
+            qParams.add(paramsRec);
             ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
             Util.scrollRectToVisible(qParams, tab1);
 
@@ -488,10 +489,9 @@ public class Param extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     private void initElements() {
-        btnIns.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
-        btnDel.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
-        btnRef.addActionListener(l -> Util.stopCellEditing(tab1, tab2));
+
         new FrameToFile(this, btnClose);
+        Arrays.asList(btnIns, btnDel, btnRef).forEach(b -> b.addActionListener(l -> Util.stopCellEditing(tab1, tab2)));
         scr1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),
                 "Список параметров", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, frames.Util.getFont(0, 0)));
         scr2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0),

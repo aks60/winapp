@@ -42,6 +42,7 @@ public class Color extends javax.swing.JFrame {
         listenerDict();
         loadingData();
         loadingModel();
+        listenerAdd();
     }
 
     private void loadingData() {
@@ -75,6 +76,11 @@ public class Color extends javax.swing.JFrame {
         });
         tab2.getColumnModel().getColumn(5).setCellRenderer(new BooleanRenderer());
 
+        Util.setSelectedRow(tab1);
+    }
+
+    private void listenerAdd() {
+        
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
             ParGrup1 frame = new ParGrup1(this, listenerPar, eParams.color);
         });
@@ -84,7 +90,6 @@ public class Color extends javax.swing.JFrame {
             int grup = record.getInt(eColpar1.params_id);
             ParGrup2a frame = new ParGrup2a(this, listenerPar, grup);
         });
-        Util.setSelectedRow(tab1);
     }
 
     public static void setDefaultTableEditorsClicks(JTable table, int clickCountToStart) {
