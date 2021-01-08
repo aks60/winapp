@@ -565,6 +565,8 @@ public class Profstroy {
             metaSql("alter table artikl add constraint fk_currenc1 foreign key (currenc1_id) references currenc (id)");
             metaSql("alter table artikl add constraint fk_currenc2 foreign key (currenc2_id) references currenc (id)");
             metaSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
+            metaSql("alter table colpar1 add constraint fk_colpar_1 foreign key (params_id) references params (id)");
+            metaSql("alter table colpar1 add constraint fk_colpar_2 foreign key (color_id) references color (id)");
             metaSql("alter table artikl add constraint fk_artikl1 foreign key (artgrp1_id) references groups (id)");
             metaSql("alter table artikl add constraint fk_artikl2 foreign key (artgrp2_id) references groups (id)");
             metaSql("alter table artikl add constraint fk_artikl3 foreign key (artgrp3_id) references groups (id)");
