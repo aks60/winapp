@@ -123,9 +123,9 @@ public class Profstroy {
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
-            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,            
+            eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
-            eColpar1.up, eColor.up, eColgrp.up,                                    
+            eColpar1.up, eColor.up, eColgrp.up,
             eSetting.up, eSyssize.up, eSysdata.up, eRulecalc.up, ePartner.up, //eOrders.up, - временно            
             eArtdet.up, eArtikl.up, eGroups.up, eCurrenc.up, eParams.up
         };
@@ -170,52 +170,52 @@ public class Profstroy {
 
                 //Удаление таблиц приёмника
                 if (listExistTable2.contains(fieldUp.tname()) == true) {
-                    Profstroy.executeSql("DROP TABLE " + fieldUp.tname() + ";");
+                    executeSql("DROP TABLE " + fieldUp.tname() + ";");
                 }
                 //Удаление генератора приёмника
                 if (listGenerator2.contains("GEN_" + fieldUp.tname()) == true) {
-                    Profstroy.executeSql("DROP GENERATOR GEN_" + fieldUp.tname() + ";");
+                    executeSql("DROP GENERATOR GEN_" + fieldUp.tname() + ";");
                 }
                 //Создание таблицы приёмника
-                for (String ddl : Profstroy.createTable(fieldUp.fields())) {
-                    Profstroy.executeSql(ddl);
+                for (String ddl : createTable(fieldUp.fields())) {
+                    executeSql(ddl);
                 }
                 //Добавление столбцов не вошедших в eEnum.values()
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
                     String deltaCol[] = entry.getValue();
-                    Profstroy.executeSql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + Util.typeSql(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " ADD " + entry.getKey() + " " + Util.typeSql(Field.TYPE.type(deltaCol[0]), deltaCol[1]) + ";");
                 }
                 //Конвертирование данных в таблицу
                 if (listExistTable1.contains(fieldUp.meta().fname) == true) {
                     convertTable(cn1, cn2, hmDeltaCol, fieldUp.fields());
                 }
                 //Создание генератора
-                Profstroy.executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
+                executeSql("CREATE GENERATOR GEN_" + fieldUp.tname());
 
                 //Особенности таблицы PARAMS
                 if ("PARAMS".equals(fieldUp.tname()) == true) {
-                    Profstroy.executeSql("SET GENERATOR  GEN_" + fieldUp.tname() + " TO " + -10000);
+                    executeSql("SET GENERATOR  GEN_" + fieldUp.tname() + " TO " + -10000);
                 }
                 //Заполнение таблицы ключами
                 if ("id".equals(fieldUp.fields()[1].meta().fname)) { //если имена ключей совпадают
-                    Profstroy.executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
+                    executeSql("UPDATE " + fieldUp.tname() + " SET id = gen_id(gen_" + fieldUp.tname() + ", 1)"); //заполнение ключей
                 }
                 //Особенности таблицы COLOR
                 if ("COLOR".equals(fieldUp.tname()) == true) {
                     int max1 = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getInt(1);
                     int max2 = checkUniqueKeyColor(max1); //проверим ключ на уникальность
-                    Profstroy.executeSql("set generator GEN_" + fieldUp.tname() + " to " + max2);
+                    executeSql("set generator GEN_" + fieldUp.tname() + " to " + max2);
                 }
                 //Создание триггеров генераторов
-                Profstroy.executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
+                executeSql("CREATE OR ALTER TRIGGER " + fieldUp.tname() + "_bi FOR " + fieldUp.tname() + " ACTIVE BEFORE INSERT POSITION 0 as begin"
                         + " if (new.id is null) then new.id = gen_id(gen_" + fieldUp.tname() + ", 1); end");
                 //DDL создание первичного ключа
-                Profstroy.executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
+                executeSql("ALTER TABLE " + fieldUp.tname() + " ADD CONSTRAINT PK_" + fieldUp.tname() + " PRIMARY KEY (ID);");
             }
 
             println(Color.GREEN, "Добавление комментариев к полям");
             for (Field field : fieldsUp) {
-                Profstroy.executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
+                executeSql("COMMENT ON TABLE " + field.tname() + " IS '" + field.meta().descr() + "'"); //DDL описание таблиц
             }
             ConnApp.initConnect().setConnection(cn2);
             deletePart(cn2, st2);
@@ -226,7 +226,7 @@ public class Profstroy {
             for (Field fieldUp : fieldsUp) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-                    Profstroy.executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
                 }
             }
             cn2.commit();
@@ -387,7 +387,7 @@ public class Profstroy {
     private static void deletePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
-            Profstroy.executeSql("delete from params where pnumb > 0");  //group > 0  
+            executeSql("delete from params where pnumb > 0");  //group > 0  
             deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
             deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
@@ -402,13 +402,13 @@ public class Profstroy {
             //Включить в продакшине!!!  deleteSql(eJoining.up, "anum2", eArtikl.up, "code");//artikl_id2
             deleteSql(eJoinvar.up, "cconn", eJoining.up, "cconn");//joining_id
             deleteSql(eJoindet.up, "cunic", eJoinvar.up, "cunic");//joinvar_id
-            Profstroy.executeSql("delete from joindet where not exists (select id from color a where a.cnumb = joindet.color_fk) and joindet.color_fk > 0 and joindet.color_fk != 100000"); //color_fk  
+            executeSql("delete from joindet where not exists (select id from color a where a.cnumb = joindet.color_fk) and joindet.color_fk > 0 and joindet.color_fk != 100000"); //color_fk  
             deleteSql(eJoinpar1.up, "psss", eJoinvar.up, "cunic");//joinvar_id
             deleteSql(eJoinpar2.up, "psss", eJoindet.up, "aunic");//joindet_id 
             deleteSql(eGlasprof.up, "gnumb", eGlasgrp.up, "gnumb");//glasgrp_id            
             deleteSql(eGlasprof.up, "anumb", eArtikl.up, "code");//artikl_id
             deleteSql(eGlasdet.up, "gnumb", eGlasgrp.up, "gnumb");//glasgrp_id
-            Profstroy.executeSql("delete from glasdet where not exists (select id from color a where a.cnumb = glasdet.color_fk) and glasdet.color_fk > 0 and glasdet.color_fk != 100000"); //color_fk
+            executeSql("delete from glasdet where not exists (select id from color a where a.cnumb = glasdet.color_fk) and glasdet.color_fk > 0 and glasdet.color_fk != 100000"); //color_fk
             deleteSql(eGlasdet.up, "anumb", eArtikl.up, "code");//artikl_id 
             deleteSql(eGlaspar1.up, "psss", eGlasgrp.up, "gnumb");//glasgrp_id
             deleteSql(eGlaspar2.up, "psss", eGlasdet.up, "gunic");//glasdet_id
@@ -439,110 +439,110 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
             modifySetting("Функция modifySetting()");
-            Profstroy.executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
+            executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
-            Profstroy.executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
+            executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
-            Profstroy.executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
+            executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
-            Profstroy.executeSql("update colpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update colpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
-            Profstroy.executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");
+            executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");
             modifyGroups("Функция modifyGroups()");
-            Profstroy.executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
-            Profstroy.executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
-            Profstroy.executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");
-            Profstroy.executeSql("ALTER TABLE GROUPS DROP  FK;");
-            Profstroy.executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
-            Profstroy.executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
-            Profstroy.executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
-            Profstroy.executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
-            Profstroy.executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
-            Profstroy.executeSql("4", "update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
+            executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
+            executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
+            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");
+            executeSql("ALTER TABLE GROUPS DROP  FK;");
+            executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
+            executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
+            executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
+            executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
+            executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
+            executeSql("4", "update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
             modifyElemgrp("Функция modifyElemgrp()");
-            Profstroy.executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
+            executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
-            Profstroy.executeSql("4", "update element set typset = vtype");
-            Profstroy.executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
-            Profstroy.executeSql("update element set todef = 1  where vsets in (1,2)");
-            Profstroy.executeSql("update element set toset = 1  where vsets = 1");
+            executeSql("4", "update element set typset = vtype");
+            executeSql("3", "update element set typset = case vtype when 'внутренний' then 1  when 'армирование' then 2 when 'ламинирование' then 3 when 'покраска' then 4 when 'состав_С/П' then 5 when 'кронштейн_стойки' then 6 when 'дополнительно' then 7 else null  end;");
+            executeSql("update element set todef = 1  where vsets in (1,2)");
+            executeSql("update element set toset = 1  where vsets = 1");
             updateSql(eElemdet.up, eElemdet.artikl_id, "anumb", eArtikl.up, "code");
-            Profstroy.executeSql("4", "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
-            Profstroy.executeSql("4", "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
-            Profstroy.executeSql("4", "update artikl set size_falz = (select a.falz from syssize a where a.id = artikl.syssize_id) where size_falz is null or size_falz = 0");
+            executeSql("4", "update artikl set analog_id = (select id from artikl a where a.code = artikl.amain)");
+            executeSql("4", "update artikl set syssize_id = (select id from syssize a where a.sunic = artikl.sunic)");
+            executeSql("4", "update artikl set size_falz = (select a.falz from syssize a where a.id = artikl.syssize_id) where size_falz is null or size_falz = 0");
             updateSql(eElemdet.up, eElemdet.element_id, "vnumb", eElement.up, "vnumb");
-            Profstroy.executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
-            Profstroy.executeSql("update elemdet set color_fk = (select id from params a where a.pnumb = elemdet.color_fk and a.znumb = 0) where elemdet.color_fk < 0");
-            Profstroy.executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+            executeSql("update elemdet set color_fk = (select id from color a where a.cnumb = elemdet.color_fk) where elemdet.color_fk > 0 and elemdet.color_fk != 100000");
+            executeSql("update elemdet set color_fk = (select id from params a where a.pnumb = elemdet.color_fk and a.znumb = 0) where elemdet.color_fk < 0");
+            executeSql("3", "update elemdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184 ELSE  (0) END )");
             updateSql(eElempar1.up, eElempar1.element_id, "psss", eElement.up, "vnumb");
             updateSql(eElempar2.up, eElempar2.elemdet_id, "psss", eElemdet.up, "aunic");
-            Profstroy.executeSql("update elempar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            Profstroy.executeSql("update elempar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update elempar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update elempar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             updateSql(eJoining.up, eJoining.artikl_id1, "anum1", eArtikl.up, "code");
             updateSql(eJoining.up, eJoining.artikl_id2, "anum2", eArtikl.up, "code");
             updateSql(eJoinvar.up, eJoinvar.joining_id, "cconn", eJoining.up, "cconn");
             updateSql(eJoindet.up, eJoindet.joinvar_id, "cunic", eJoinvar.up, "cunic");
             updateSql(eJoindet.up, eJoindet.artikl_id, "anumb", eArtikl.up, "code");
-            Profstroy.executeSql("update joinvar set types = types * 10 + cnext");
-            Profstroy.executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
-            Profstroy.executeSql("update joindet set color_fk = (select id from params a where a.pnumb = joindet.color_fk and a.znumb = 0) where joindet.color_fk < 0");
-            Profstroy.executeSql("3", "update joindet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+            executeSql("update joinvar set types = types * 10 + cnext");
+            executeSql("update joindet set color_fk = (select id from color a where a.cnumb = joindet.color_fk) where joindet.color_fk > 0 and joindet.color_fk != 100000");
+            executeSql("update joindet set color_fk = (select id from params a where a.pnumb = joindet.color_fk and a.znumb = 0) where joindet.color_fk < 0");
+            executeSql("3", "update joindet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eJoinpar1.up, eJoinpar1.joinvar_id, "psss", eJoinvar.up, "cunic");
             updateSql(eJoinpar2.up, eJoinpar2.joindet_id, "psss", eJoindet.up, "aunic");
-            Profstroy.executeSql("update joinpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            Profstroy.executeSql("update joinpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update joinpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update joinpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             updateSql(eGlasprof.up, eGlasprof.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasprof.up, eGlasprof.artikl_id, "anumb", eArtikl.up, "code");
-            Profstroy.executeSql("update glasprof set inside = 1  where gtype in (1,3,7)");
-            Profstroy.executeSql("update glasprof set outside = 1  where gtype in (2,3,7)");
+            executeSql("update glasprof set inside = 1  where gtype in (1,3,7)");
+            executeSql("update glasprof set outside = 1  where gtype in (2,3,7)");
             updateSql(eGlasdet.up, eGlasdet.glasgrp_id, "gnumb", eGlasgrp.up, "gnumb");
             updateSql(eGlasdet.up, eGlasdet.artikl_id, "anumb", eArtikl.up, "code");
-            Profstroy.executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
-            Profstroy.executeSql("update glasdet set color_fk = (select id from params a where a.pnumb = glasdet.color_fk and a.znumb = 0) where glasdet.color_fk < 0");
-            Profstroy.executeSql("3", "update glasdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+            executeSql("update glasdet set color_fk = (select id from color a where a.cnumb = glasdet.color_fk) where glasdet.color_fk > 0 and glasdet.color_fk != 100000");
+            executeSql("update glasdet set color_fk = (select id from params a where a.pnumb = glasdet.color_fk and a.znumb = 0) where glasdet.color_fk < 0");
+            executeSql("3", "update glasdet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
             updateSql(eGlaspar1.up, eGlaspar1.glasgrp_id, "psss", eGlasgrp.up, "gnumb");
             updateSql(eGlaspar2.up, eGlaspar2.glasdet_id, "psss", eGlasdet.up, "gunic");
-            Profstroy.executeSql("update glaspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            Profstroy.executeSql("update glaspar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            Profstroy.executeSql("4", "update furniture set hand_set1 = cast(bin_and(thand, 1) as varchar(5)), hand_set2 = cast(bin_shr(bin_and(thand, 2), 1) as varchar(5)), hand_set3 = cast(bin_shr(bin_and(thand, 4), 2) as varchar(5))");
-            Profstroy.executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
+            executeSql("update glaspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update glaspar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("4", "update furniture set hand_set1 = cast(bin_and(thand, 1) as varchar(5)), hand_set2 = cast(bin_shr(bin_and(thand, 2), 1) as varchar(5)), hand_set3 = cast(bin_shr(bin_and(thand, 4), 2) as varchar(5))");
+            executeSql("update furniture set view_open = case fview when 'поворотная' then 1  when 'раздвижная' then 2 when 'раздвижная <=>' then 3 when 'раздвижная |^|' then 4  else null  end;");
             updateSql(eFurnside1.up, eFurnside1.furniture_id, "funic", eFurniture.up, "funic");
-            Profstroy.executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
+            executeSql("update furnside1 set side_use = ( CASE  WHEN (FTYPE = 'сторона') THEN 1 WHEN (FTYPE = 'ось поворота') THEN 2 WHEN (FTYPE = 'крепление петель') THEN 3 ELSE  (1) END )");
             updateSql(eFurnside2.up, eFurnside2.furndet_id, "fincs", eFurndet.up, "id");
             updateSql(eFurnpar1.up, eFurnpar1.furnside_id, "psss", eFurnside1.up, "fincr");
             updateSql(eFurnpar2.up, eFurnpar2.furndet_id, "psss", eFurndet.up, "id");
-            Profstroy.executeSql("update furnpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
-            Profstroy.executeSql("update furnpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update furnpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update furnpar2 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             updateSql(eFurndet.up, eFurndet.furniture_id1, "funic", eFurniture.up, "funic");
-            Profstroy.executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
-            Profstroy.executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
-            Profstroy.executeSql("update furndet set color_fk = (select id from params a where a.pnumb = furndet.color_fk and a.znumb = 0) where furndet.color_fk < 0");
-            Profstroy.executeSql("3", "update furndet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
+            executeSql("3", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'КОМПЛЕКТ'");
+            executeSql("4", "update furndet set color_fk = (select id from color a where a.cnumb = furndet.color_fk) where furndet.color_fk > 0 and furndet.color_fk != 100000 and furndet.anumb != 'НАБОР'");
+            executeSql("update furndet set color_fk = (select id from params a where a.pnumb = furndet.color_fk and a.znumb = 0) where furndet.color_fk < 0");
+            executeSql("3", "update furndet set types = (CASE  WHEN (types = 11) THEN 3003 WHEN (types = 21) THEN 4095 "
                     + "WHEN (types = 31) THEN 273 WHEN (types = 32) THEN 546 WHEN (types = 33) THEN 819 WHEN (types = 41) THEN 1638 WHEN (types = 42) THEN 1911 WHEN (types = 43) THEN 2184  ELSE  (0) END )");
-            Profstroy.executeSql("3", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
-            Profstroy.executeSql("4", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
-            Profstroy.executeSql("3", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
-            Profstroy.executeSql("4", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)");
+            executeSql("3", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'КОМПЛЕКТ')");
+            executeSql("4", "update furndet set artikl_id = (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");
+            executeSql("3", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'КОМПЛЕКТ') THEN color_fk ELSE  (null) END)");
+            executeSql("4", "update furndet set furniture_id2 = (CASE  WHEN (furndet.anumb = 'НАБОР') THEN color_fk ELSE  (null) END)");
             updateSql(eFurndet.up, eFurndet.furniture_id2, "furniture_id2", eFurniture.up, "funic");
-            Profstroy.executeSql("update furndet set furndet_id = id where furndet_id = 0");
-            Profstroy.executeSql("update furndet set color_fk = null where furniture_id2 > 0"); //ссылка на набор
-            Profstroy.executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
-            Profstroy.executeSql("update systree set parent_id = id where npar = 0");
+            executeSql("update furndet set furndet_id = id where furndet_id = 0");
+            executeSql("update furndet set color_fk = null where furniture_id2 > 0"); //ссылка на набор
+            executeSql("update systree set parent_id = (select id from systree a where a.nuni = systree.npar and systree.npar != 0)");
+            executeSql("update systree set parent_id = id where npar = 0");
             updateSql(eSysprof.up, eSysprof.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eSysprof.up, eSysprof.systree_id, "nuni", eSystree.up, "nuni");
             updateSql(eSysfurn.up, eSysfurn.furniture_id, "funic", eFurniture.up, "funic");
             updateSql(eSysfurn.up, eSysfurn.systree_id, "nuni", eSystree.up, "nuni");
             updateSql(eSysfurn.up, eSysfurn.artikl_id1, "aruch", eArtikl.up, "code");
             updateSql(eSysfurn.up, eSysfurn.artikl_id2, "apetl", eArtikl.up, "code");
-            Profstroy.executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
-            Profstroy.executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
+            executeSql("update sysfurn set side_open = (CASE  WHEN (NOTKR = 'запрос') THEN 1 WHEN (NOTKR = 'левое') THEN 2 WHEN (NOTKR = 'правое') THEN 3 ELSE  (1) END )");
+            executeSql("update sysfurn set hand_pos = (CASE  WHEN (NRUCH = 'по середине') THEN 1 WHEN (NRUCH = 'константная') THEN 2 ELSE  (1) END )");
             updateSql(eSyspar1.up, eSyspar1.systree_id, "psss", eSystree.up, "nuni");
-            Profstroy.executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
+            executeSql("update syspar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             loadModels();
             updateSql(eKits.up, eKits.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eKits.up, eKits.color_id, "clnum", eColor.up, "cnumb");
@@ -560,60 +560,60 @@ public class Profstroy {
 
     private static void metaPart(Connection cn2, Statement st2) {
         try {
-            println(Color.GREEN, "Секция создания внешних ключей");            
-            metaSql("alter table artikl add constraint fk_currenc1 foreign key (currenc1_id) references currenc (id)");
-            metaSql("alter table artikl add constraint fk_currenc2 foreign key (currenc2_id) references currenc (id)");
-            metaSql("alter table color add constraint fk_color1 foreign key (colgrp_id) references colgrp (id)");
-            metaSql("alter table color add constraint ung1_color unique (name)");
-            metaSql("alter table colpar1 add constraint fk_colpar_1 foreign key (params_id) references params (id)");
-            metaSql("alter table colpar1 add constraint fk_colpar_2 foreign key (color_id) references color (id)");
-            metaSql("alter table artikl add constraint fk_artikl1 foreign key (artgrp1_id) references groups (id)");
-            metaSql("alter table artikl add constraint fk_artikl2 foreign key (artgrp2_id) references groups (id)");
-            metaSql("alter table artikl add constraint fk_artikl3 foreign key (artgrp3_id) references groups (id)");
-            metaSql("alter table artdet add constraint fk_artdet1 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table systree add constraint fk_systree1 foreign key (parent_id) references systree (id)");
-            metaSql("alter table element add constraint fk_element1 foreign key (elemgrp_id) references elemgrp (id)");
-            metaSql("alter table element add constraint fk_element2 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table elemdet add constraint fk_elemdet1 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table elemdet add constraint fk_elemdet2 foreign key (element_id) references element (id)");
-            metaSql("alter table elempar1 add constraint fk_elempar1 foreign key (element_id) references element (id)");
-            metaSql("alter table elempar2 add constraint fk_elempar2 foreign key (elemdet_id) references elemdet (id)");
-            metaSql("alter table joining add constraint fk_joining1 foreign key (artikl_id1) references artikl (id)");
-            metaSql("alter table joining add constraint fk_joining2 foreign key (artikl_id2) references artikl (id)");
-            metaSql("alter table joinvar add constraint fk_joinvar1 foreign key (joining_id) references joining (id)");
-            metaSql("alter table joindet add constraint fk_joindet1 foreign key (joinvar_id) references joinvar (id)");
-            metaSql("alter table joinpar1 add constraint fk_joinpar1 foreign key (joinvar_id) references joinvar (id)");
-            metaSql("alter table joinpar2 add constraint fk_joinpar2 foreign key (joindet_id) references joindet (id)");
-            metaSql("alter table glasprof add constraint fk_glasprof1 foreign key (glasgrp_id) references glasgrp (id)");
-            metaSql("alter table glasprof add constraint fk_glasprof2 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table glasdet add constraint fk_glasdet1 foreign key (glasgrp_id) references glasgrp (id)");
-            metaSql("alter table glasdet add constraint fk_glasdet2 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table glaspar1 add constraint fk_glaspar1 foreign key (glasgrp_id) references glasgrp (id)");
-            metaSql("alter table glaspar2 add constraint fk_glaspar2 foreign key (glasdet_id) references glasdet (id)");
-            metaSql("alter table furnside1 add constraint fk_furnside1 foreign key (furniture_id) references furniture (id)");
-            metaSql("alter table furnside2 add constraint fk_furnside2 foreign key (furndet_id) references furndet (id)");
-            metaSql("alter table furnpar1 add constraint fk_furnpar1 foreign key (furnside_id) references furnside1 (id)");
-            metaSql("alter table furndet add constraint fk_furndet1 foreign key (furniture_id) references furniture (id)");
-            metaSql("alter table furndet add constraint fk_furndet2 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table furnpar2 add constraint fk_furnpar2 foreign key (furndet_id) references furndet (id)");
-            metaSql("alter table sysprof add constraint fk_sysprof1 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table sysprof add constraint fk_sysprof2 foreign key (systree_id) references systree (id)");
-            metaSql("alter table sysfurn add constraint fk_sysfurn1 foreign key (systree_id) references systree (id)");
-            metaSql("alter table sysfurn add constraint fk_sysfurn2 foreign key (furniture_id) references furniture (id)");
-            metaSql("alter table syspar1 add constraint fk_syspar1 foreign key (systree_id) references systree (id)");
-            metaSql("alter table kits add constraint fk_kits1 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table kits add constraint fk_kits2 foreign key (color_id) references color (id)");
-            metaSql("alter table kitdet add constraint fk_kitdet1 foreign key (kits_id) references kits (id)");
-            metaSql("alter table kitdet add constraint fk_kitdet2 foreign key (artikl_id) references artikl (id)");
-            metaSql("alter table kitdet add constraint fk_kitdet3 foreign key (color1_id) references color (id)");
-            metaSql("alter table kitdet add constraint fk_kitdet4 foreign key (color2_id) references color (id)");
-            metaSql("alter table kitdet add constraint fk_kitdet5 foreign key (color3_id) references color (id)");
-            metaSql("alter table kitpar1 add constraint fk_kitpar1 foreign key (kitdet_id) references kitdet (id)");
+            println(Color.GREEN, "Секция создания внешних ключей");
+            alterTable("artikl", "fk_currenc1", "currenc1_id", "currenc");
+            alterTable("artikl",  "fk_currenc2", "currenc2_id", "currenc");
+            alterTable("color", "fk_color1", "colgrp_id", "colgrp");
+            alterTable("alter table color add constraint ung1_color unique (name)");
+            alterTable("colpar1", "fk_colpar_1", "params_id", "params");
+            alterTable("colpar1", "fk_colpar_2", "color_id", "color");
+            alterTable("artikl", "fk_artikl1", "artgrp1_id", "groups");            
+            alterTable("artikl", "fk_artikl2", "artgrp2_id", " groups");
+            alterTable("artikl", "fk_artikl3", "artgrp3_id", "groups");
+            alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
+            alterTable("systree", "fk_systree1", "parent_id", "systree");
+            alterTable("element", "fk_element1", "elemgrp_id", "elemgrp");
+            alterTable("element", "fk_element2", "artikl_id", "artikl");
+            alterTable("elemdet", "fk_elemdet1", "artikl_id", "artikl");
+            alterTable("elemdet", "fk_elemdet2", "element_id", "element");
+            alterTable("elempar1", "fk_elempar1", "element_id", "element");
+            alterTable("elempar2", "fk_elempar2", "elemdet_id", "elemdet");
+            alterTable("joining", "fk_joining1", "artikl_id1", "artikl");
+            alterTable("joining", "fk_joining2", "artikl_id2", "artikl");
+            alterTable("joinvar", "fk_joinvar1", "joining_id", "joining");
+            alterTable("joindet", "fk_joindet1", "joinvar_id", "joinvar");
+            alterTable("joinpar1", "fk_joinpar1", "joinvar_id", "joinvar");
+            alterTable("joinpar2", "fk_joinpar2", "joindet_id", "joindet");           
+            alterTable("glasprof", "fk_glasprof1", "glasgrp_id", "glasgrp");
+            alterTable("glasprof", "fk_glasprof2", "artikl_id", "artikl");
+            alterTable("glasdet", "fk_glasdet1", "glasgrp_id", "glasgrp");
+            alterTable("glasdet", "fk_glasdet2", "artikl_id", "artikl");
+            alterTable("glaspar1", "fk_glaspar1", "glasgrp_id", "glasgrp");
+            alterTable("glaspar2", "fk_glaspar2", "glasdet_id", "glasdet");
+            alterTable("furnside1", "fk_furnside1", "furniture_id", "furniture");
+            alterTable("furnside2", "fk_furnside2", "furndet_id", "furndet");
+            alterTable("furnpar1", "fk_furnpar1", "furnside_id", "furnside1");
+            alterTable("furndet", "fk_furndet1", "furniture_id", "furniture");
+            alterTable("furndet", "fk_furndet2", "artikl_id", "artikl");
+            alterTable("furnpar2", "fk_furnpar2", "furndet_id", "furndet");
+            alterTable("sysprof", "fk_sysprof1", "artikl_id", "artikl");
+            alterTable("sysprof", "fk_sysprof2", "systree_id", "systree");
+            alterTable("sysfurn", "fk_sysfurn1", "systree_id", "systree");
+            alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
+            alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
+            alterTable("kits", "fk_kits1", "artikl_id", "artikl");
+            alterTable("kits", "fk_kits2", "color_id", "color");
+            alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
+            alterTable("kitdet", "fk_kitdet2", "artikl_id", "artikl");
+            alterTable("kitdet", "fk_kitdet3", "color1_id", "color");
+            alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
+            alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
+            alterTable("kitpar1", "fk_kitpar1", "kitdet_id", "kitdet");
 
-            metaSql("INSERT INTO Sysprod VALUES (1, 1, 387)");
-            metaSql("INSERT INTO Sysprod VALUES (2, 2, 387)");
-            metaSql("INSERT INTO Sysprod VALUES (3, 3, 387)");
-            Profstroy.executeSql("set generator GEN_SYSPROD to " + 3);
+            executeSql("INSERT INTO Sysprod VALUES (1, 1, 387)");
+            executeSql("INSERT INTO Sysprod VALUES (2, 2, 387)");
+            executeSql("INSERT INTO Sysprod VALUES (3, 3, 387)");
+            executeSql("set generator GEN_SYSPROD to " + 3);
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
@@ -702,7 +702,7 @@ public class Profstroy {
     private static void modifyGroups(String mes) {
         println(Color.BLACK, mes);
         try {
-            Profstroy.executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
+            executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
             ResultSet rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
@@ -803,15 +803,15 @@ public class Profstroy {
         }
         for (Integer[] recordArr : recordList) {
             if (set.add(recordArr[0]) == false) {
-                Profstroy.executeSql("update COLOR set id = " + (++max) + " where cnumb = " + recordArr[1]);
+                executeSql("update COLOR set id = " + (++max) + " where cnumb = " + recordArr[1]);
             }
         }
         return max;
     }
 
-    private static void executeSql(String table, String cn, String fk) {
-        String str = "alter table " + table + " add constraint " + cn + " foreign key (" + fk + ") references currenc (id)";
-       println(Color.BLACK, str);
+    private static void alterTable(String tname1, String cn, String fk, String tname2) {
+        String str = "alter table " + tname1 + " add constraint " + cn + " foreign key (" + fk + ") references " + tname2 + " (id)";
+        println(Color.BLACK, str);
         try {
             st2.execute(str);
             cn2.commit();
@@ -820,7 +820,7 @@ public class Profstroy {
         }
     }
 
-    private static void metaSql(String str) {
+    private static void alterTable(String str) {
         try {
             println(Color.BLACK, str);
             st2.execute(str);
