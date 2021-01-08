@@ -1,5 +1,6 @@
 package convert;
 
+import common.FrameToFile;
 import common.eProperty;
 import dataset.ConnApp;
 import dataset.ConnFb;
@@ -474,6 +475,7 @@ public class Convert extends javax.swing.JFrame {
 // </editor-fold> 
 
     private void initElements() {
+        new FrameToFile(this, btnExit);
         appendToPane("\n", Color.RED);
         appendToPane("    У Вас установлена версия Firebird " + ConnApp.instanc().version() + "\n", Color.RED);
         appendToPane("\n", Color.RED);
