@@ -411,15 +411,15 @@ public class Profstroy {
             executeSql("delete from glasdet where not exists (select id from color a where a.cnumb = glasdet.color_fk) and glasdet.color_fk > 0 and glasdet.color_fk != 100000"); //color_fk
             deleteSql(eGlasdet.up, "anumb", eArtikl.up, "code");//artikl_id 
             deleteSql(eGlaspar1.up, "psss", eGlasgrp.up, "gnumb");//glasgrp_id
-            deleteSql(eGlaspar2.up, "psss", eGlasdet.up, "gunic");//glasdet_id
+            deleteSql(eGlaspar2.up, "psss", eGlasdet.up, "gunic");//glasdet_id           
             deleteSql(eFurnside1.up, "funic", eFurniture.up, "funic");//furniture_id
             deleteSql(eFurnside2.up, "fincs", eFurndet.up, "id");
             deleteSql(eFurnpar1.up, "psss", eFurnside1.up, "fincr");//furnside_id
-            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id           
+            deleteSql(eFurndet.up, "funic", eFurniture.up, "funic");//furniture_id            
             //исключение незаконченной транзакции deleteSql(eFurndet.up, "anumb", eArtikl.up, "code");//artikl_id
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from artikl a where a.code = furndet.anumb and furndet.anumb != 'НАБОР')");  //artikl_id
             //теряется ссылка в furnside2 executeSql("delete from furndet where not exists (select id from color a where a.cnumb = furndet.color_fk) and furndet.color_fk > 0 and furndet.color_fk != 100000"); //color_fk           
-            deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id
+            deleteSql(eFurnpar2.up, "psss", eFurndet.up, "id");//furndet_id           
             deleteSql(eSysprof.up, "anumb", eArtikl.up, "code");//artikl_id 
             deleteSql(eSysprof.up, "nuni", eSystree.up, "nuni");//systree_id 
             deleteSql(eSysfurn.up, "funic", eFurniture.up, "funic");//furniture_id 
@@ -593,7 +593,9 @@ public class Profstroy {
             alterTable("furnside1", "fk_furnside1", "furniture_id", "furniture");
             alterTable("furnside2", "fk_furnside2", "furndet_id", "furndet");
             alterTable("furnpar1", "fk_furnpar1", "furnside_id", "furnside1");
-            alterTable("furndet", "fk_furndet1", "furniture_id", "furniture");
+            
+            alterTable("furndet", "fk_furndet1", "furniture_id1", "furniture");
+            
             alterTable("furndet", "fk_furndet2", "artikl_id", "artikl");
             alterTable("furnpar2", "fk_furnpar2", "furndet_id", "furndet");
             alterTable("sysprof", "fk_sysprof1", "artikl_id", "artikl");
