@@ -229,15 +229,8 @@ public class ParGrup2v extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClose
 
     private void btnChoice(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoice
-        listener.action(qParams.get(Util.getSelectedRec(tab1)));
+        listener.action(qPardet.get(Util.getSelectedRec(tab2)));
         this.dispose();
-//        int row = Util.getSelectedRec(tab1);
-//        if (row != -1) {
-//            Record record = new Record(1);
-//            record.add(qParams.get(row).getInt(eParams.id));
-//            listener.action(qParams.get(Util.getSelectedRec(tab1)));
-//            this.dispose();
-//        }
     }//GEN-LAST:event_btnChoice
 
     private void btnRemove(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemove
@@ -251,10 +244,6 @@ public class ParGrup2v extends javax.swing.JDialog {
     private void tabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMousePressed
         JTable table = (JTable) evt.getSource();
         Util.listenerClick(table, Arrays.asList(tab1, tab2));
-//        if (txtFilter.getText().length() == 0) {
-//            labFilter.setText(table.getColumnName((table.getSelectedColumn() == -1 || table.getSelectedColumn() == 0) ? 0 : table.getSelectedColumn()));
-//            txtFilter.setName(table.getName());
-//        }
     }//GEN-LAST:event_tabMousePressed
 
     private void tabMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMouseClicked

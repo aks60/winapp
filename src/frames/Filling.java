@@ -61,7 +61,7 @@ public class Filling extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -74,7 +74,7 @@ public class Filling extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -88,7 +88,7 @@ public class Filling extends javax.swing.JFrame {
         initElements();
         loadingData();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingModel();
         listenerAdd();
         deteilFind(deteilID);
@@ -170,56 +170,6 @@ public class Filling extends javax.swing.JFrame {
         Arrays.asList(3, 4).forEach(index -> tab5.getColumnModel().getColumn(index).setCellRenderer(br));
 
         Util.setSelectedRow(tab1);
-    }
-
-    private void selectionTab1(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab1);
-        if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
-            Util.clearTable(tab2, tab3, tab4, tab5);
-            Record record = qGlasgrp.table(eGlasgrp.up).get(row);
-            Integer id = record.getInt(eGlasgrp.id);
-            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
-            qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
-            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar1.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2);
-            Util.setSelectedRow(tab3);
-            Util.setSelectedRow(tab5);
-        }
-    }
-
-    private void selectionTab2(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab2);
-        if (row != -1) {
-            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
-            Util.clearTable(tab4);
-            Record record = qGlasdet.table(eGlasdet.up).get(row);
-            Integer id = record.getInt(eGlasdet.id);
-            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.params_id, "where", eGlaspar2.glasdet_id, "=", id);
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab4);
-        }
-    }
-
-    private void deteilFind(int deteilID) {
-        Query qDet = new Query(eGlasdet.values(), eArtikl.values());
-        for (int index = 0; index < qGlasgrp.size(); index++) {
-            int element_id = qGlasgrp.get(index).getInt(eGlasgrp.id);
-            qDet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", element_id);
-            for (int index2 = 0; index2 < qDet.size(); index2++) {
-                if (qDet.get(index2).getInt(eGlasdet.id) == deteilID) {
-                    Util.setSelectedRow(tab1, index);
-                    Util.scrollRectToVisible(index, tab1);
-                    Util.setSelectedRow(tab2, index2);
-                    Util.scrollRectToVisible(index2, tab2);
-                }
-            }
-        }
     }
 
     private void listenerAdd() {
@@ -307,7 +257,7 @@ public class Filling extends javax.swing.JFrame {
         });
     }
 
-    private void listenerDict() {
+    private void listenerSet() {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -401,6 +351,56 @@ public class Filling extends javax.swing.JFrame {
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
             return Util.listenerCell(tab3, tab4, component, tab1, tab2, tab3, tab4, tab5);
         };
+    }
+    
+    private void selectionTab1(ListSelectionEvent event) {
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qGlasdet, qGlaspar1, qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            Util.clearTable(tab2, tab3, tab4, tab5);
+            Record record = qGlasgrp.table(eGlasgrp.up).get(row);
+            Integer id = record.getInt(eGlasgrp.id);
+            qGlasdet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", id);
+            qGlasprof.select(eGlasprof.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasprof.artikl_id, "where", eGlasprof.glasgrp_id, "=", id);
+            qGlaspar1.select(eGlaspar1.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar1.params_id, "where", eGlaspar1.glasgrp_id, "=", id);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2);
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab5);
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        int row = Util.getSelectedRec(tab2);
+        if (row != -1) {
+            Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qGlaspar2, qGlasprof).forEach(q -> q.execsql());
+            Util.clearTable(tab4);
+            Record record = qGlasdet.table(eGlasdet.up).get(row);
+            Integer id = record.getInt(eGlasdet.id);
+            qGlaspar2.select(eGlaspar2.up, "left join", eParams.up, "on", eParams.id, "=", eGlaspar2.params_id, "where", eGlaspar2.glasdet_id, "=", id);
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab4);
+        }
+    }
+
+    private void deteilFind(int deteilID) {
+        Query qDet = new Query(eGlasdet.values(), eArtikl.values());
+        for (int index = 0; index < qGlasgrp.size(); index++) {
+            int element_id = qGlasgrp.get(index).getInt(eGlasgrp.id);
+            qDet.select(eGlasdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eGlasdet.artikl_id, "where", eGlasdet.glasgrp_id, "=", element_id);
+            for (int index2 = 0; index2 < qDet.size(); index2++) {
+                if (qDet.get(index2).getInt(eGlasdet.id) == deteilID) {
+                    Util.setSelectedRow(tab1, index);
+                    Util.scrollRectToVisible(index, tab1);
+                    Util.setSelectedRow(tab2, index2);
+                    Util.scrollRectToVisible(index2, tab2);
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

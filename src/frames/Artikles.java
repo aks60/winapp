@@ -65,7 +65,7 @@ public class Artikles extends javax.swing.JFrame {
     public Artikles() {
         initComponents();
         initElements();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         loadingTree();
@@ -74,7 +74,7 @@ public class Artikles extends javax.swing.JFrame {
     public Artikles(java.awt.Window owner, Record artiklRec) {
         initComponents();
         initElements();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         loadingTree();
@@ -205,84 +205,7 @@ public class Artikles extends javax.swing.JFrame {
         });
     }
 
-    private void loadingTree() {
-
-        nodeRoot = new DefaultMutableTreeNode("Мат. ценности");
-        DefaultMutableTreeNode node = null;
-        for (TypeArtikl it : TypeArtikl.values()) {
-            if (it.id1 == 1 && it.id2 == 0) {
-                node = new DefaultMutableTreeNode(TypeArtikl.PROFIL); //"Профили"
-
-            } else if (it.id1 == 2 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR); //"Аксессуары"
-
-            } else if (it.id1 == 3 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.POGONAG); //"Погонаж"
-
-            } else if (it.id1 == 4 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
-
-            } else if (it.id1 == 5 && it.id2 == 0) {
-                nodeRoot.add(node);
-                node = new DefaultMutableTreeNode(TypeArtikl.ZAPOLNEN); //"Заполнения"
-
-            } else if (it.id2 > 0) {   //остальное       
-                nodeRoot.add(node);
-                node.add(new javax.swing.tree.DefaultMutableTreeNode(it));
-            }
-        }
-        nodeRoot.add(node);
-        tree.setModel(new DefaultTreeModel(nodeRoot));
-        scrTree.setViewportView(tree);
-        tree.setSelectionRow(0);
-    }
-
-    private void selectionTree() {
-
-        Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
-        Util.clearTable(tab1, tab2);
-        Util.stopCellEditing(tab1, tab2);
-
-        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
-        if (selectedNode != null) {
-            if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
-                qArtikl2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
-
-            } else if (selectedNode.isLeaf()) {
-                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
-
-            } else {
-                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
-                qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
-            }
-            qArtikl.clear();
-            qArtikl.addAll(qArtikl2);
-            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
-            if (Util.getSelectedRec(tab1) == -1) {
-                Util.setSelectedRow(tab1);
-            }
-        }
-    }
-
-    private void selectionTab1(ListSelectionEvent event) {
-
-        int row = Util.getSelectedRec(tab1);
-        if (row != -1) {
-            Record record = qArtikl.get(row);
-            int id = record.getInt(eArtikl.id);
-            qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
-            rsvArtikl.load();
-            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2);
-        }
-    }
-
-    public void listenerDict() {
+    public void listenerSet() {
 
         listenerSeries = (record) -> {
             int row = Util.getSelectedRec(tab1);
@@ -403,6 +326,83 @@ public class Artikles extends javax.swing.JFrame {
                 Util.stopCellEditing(tab1, tab2);
             }
         };
+    }
+    
+    private void loadingTree() {
+
+        nodeRoot = new DefaultMutableTreeNode("Мат. ценности");
+        DefaultMutableTreeNode node = null;
+        for (TypeArtikl it : TypeArtikl.values()) {
+            if (it.id1 == 1 && it.id2 == 0) {
+                node = new DefaultMutableTreeNode(TypeArtikl.PROFIL); //"Профили"
+
+            } else if (it.id1 == 2 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.ACSESYAR); //"Аксессуары"
+
+            } else if (it.id1 == 3 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.POGONAG); //"Погонаж"
+
+            } else if (it.id1 == 4 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.INSTRYMENT); //"Инструмент"
+
+            } else if (it.id1 == 5 && it.id2 == 0) {
+                nodeRoot.add(node);
+                node = new DefaultMutableTreeNode(TypeArtikl.ZAPOLNEN); //"Заполнения"
+
+            } else if (it.id2 > 0) {   //остальное       
+                nodeRoot.add(node);
+                node.add(new javax.swing.tree.DefaultMutableTreeNode(it));
+            }
+        }
+        nodeRoot.add(node);
+        tree.setModel(new DefaultTreeModel(nodeRoot));
+        scrTree.setViewportView(tree);
+        tree.setSelectionRow(0);
+    }
+
+    private void selectionTree() {
+
+        Arrays.asList(qArtikl, qArtdet).forEach(q -> q.execsql());
+        Util.clearTable(tab1, tab2);
+        Util.stopCellEditing(tab1, tab2);
+
+        DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) tree.getLastSelectedPathComponent();
+        if (selectedNode != null) {
+            if (selectedNode.getUserObject() instanceof TypeArtikl == false) {
+                qArtikl2.select(eArtikl.up, "order by", eArtikl.level1, ",", eArtikl.code);
+
+            } else if (selectedNode.isLeaf()) {
+                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
+                qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1 + "and", eArtikl.level2, "=", e.id2, "order by", eArtikl.level1, ",", eArtikl.code);
+
+            } else {
+                TypeArtikl e = (TypeArtikl) selectedNode.getUserObject();
+                qArtikl2.select(eArtikl.up, "where", eArtikl.level1, "=", e.id1, "order by", eArtikl.level1, ",", eArtikl.code);
+            }
+            qArtikl.clear();
+            qArtikl.addAll(qArtikl2);
+            ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
+            if (Util.getSelectedRec(tab1) == -1) {
+                Util.setSelectedRow(tab1);
+            }
+        }
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Record record = qArtikl.get(row);
+            int id = record.getInt(eArtikl.id);
+            qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
+            rsvArtikl.load();
+            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2);
+        }
     }
 
     public void setSelectionPath(Record artiklRec) {

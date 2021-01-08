@@ -34,12 +34,12 @@ public class Color extends javax.swing.JFrame {
     private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values());
-    private DialogListener listenerGrup, listenerPar;
+    private DialogListener listenerColor;
 
     public Color() {
         initComponents();
         initElements();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -60,7 +60,7 @@ public class Color extends javax.swing.JFrame {
                 if (field == eColpar1.params_id) {
                     Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                     return (Main.dev) ? record.getStr(eElempar2.id) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
-                }
+                } 
                 return val;
             }
         };
@@ -82,16 +82,28 @@ public class Color extends javax.swing.JFrame {
     private void listenerAdd() {
         
         Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            ParGrup2v frame = new ParGrup2v(this, listenerGrup, eParams.color);
+            ParGrup2v frame = new ParGrup2v(this, listenerColor, eParams.color);
         });
-
+        
         Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            Record record = qColpar1.get(Util.getSelectedRec(tab3));
-            int paramsID = record.getInt(eColpar1.params_id);
-            ParGrup2a frame = new ParGrup2a(this, listenerPar, paramsID);
+            ParGrup2v frame = new ParGrup2v(this, listenerColor, eParams.color);
         });
     }
 
+    public void listenerSet() {
+
+        listenerColor = (record) -> {
+            Util.stopCellEditing(tab1, tab2, tab3);
+            int row = Util.getSelectedRec(tab3);            
+            Record record2 = qColpar1.get(row);
+            record2.set(eColpar1.params_id, record.getInt(eParams.params_id));
+            record2.set(eColpar1.text, record.getStr(eParams.text)); 
+            qColpar1.update(record2);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3, row);            
+        };
+    }
+    
     public static void setDefaultTableEditorsClicks(JTable table, int clickCountToStart) {
         TableCellEditor editor;
         editor = table.getDefaultEditor(Object.class);
@@ -130,26 +142,6 @@ public class Color extends javax.swing.JFrame {
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
         }
-    }
-
-    public void listenerDict() {
-
-        listenerGrup = (record) -> {
-            int row = Util.getSelectedRec(tab2);            
-            Record record2 = qColpar1.get(row);
-            record2.set(eColpar1.params_id, record.getInt(eParams.id));
-            record2.set(eColpar1.text, null);  
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, row);            
-        };
-                
-        listenerPar = (record) -> {
-            int row = Util.getSelectedRec(tab2);            
-            Record record2 = qColpar1.get(row);
-            record2.set(eColpar1.text, null);  
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2, row);  
-        };
     }
 
     @SuppressWarnings("unchecked")

@@ -30,7 +30,7 @@ public class RuleCalc extends javax.swing.JFrame {
     public RuleCalc() {
         initComponents();
         initElements();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
     }
@@ -78,7 +78,7 @@ public class RuleCalc extends javax.swing.JFrame {
         Util.setSelectedRow(tab2);
     }
 
-    private void listenerDict() {
+    private void listenerSet() {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab2);

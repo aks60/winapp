@@ -69,9 +69,9 @@ public class Element extends javax.swing.JFrame {
     public Element() {
         this.subsql = null;
         initComponents();
-        initElements();        
+        initElements();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -84,7 +84,7 @@ public class Element extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -97,7 +97,7 @@ public class Element extends javax.swing.JFrame {
         initComponents();
         initElements();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingData();
         loadingModel();
         listenerAdd();
@@ -211,78 +211,6 @@ public class Element extends javax.swing.JFrame {
         Util.setSelectedRow(tab1);
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
-        Util.clearTable(tab2, tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab1);
-        if (row != -1) {
-            Record record = qElemgrp.get(row);
-            Integer id = record.getInt(eElemgrp.id);
-            if (id == -1 || id == -5) {
-                if (subsql == null) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
-                } else {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
-                }
-            } else {
-                if (subsql == null) {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
-                } else {
-                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
-                            "where", eElement.elemgrp_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
-                }
-            }
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2);
-        }
-    }
-
-    private void selectionTab2(ListSelectionEvent event) {
-        Util.clearTable(tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab2);
-        if (row != -1) {
-            Record record = qElement.table(eElement.up).get(row);
-            Integer p1 = record.getInt(eElement.id);
-            qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
-            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3);
-            Util.setSelectedRow(tab4);
-        }
-    }
-
-    private void selectionTab3(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab3);
-        if (row != -1) {
-            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            Arrays.asList(qElempar2).forEach(q -> q.execsql());
-            Record record = qElemdet.table(eElemdet.up).get(row);
-            Integer p1 = record.getInt(eElemdet.id);
-            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5);
-        }
-    }
-
-    private void deteilFind(int deteilID) {
-        Query qDet = new Query(eElemdet.values(), eArtikl.values());
-        for (int index = 0; index < qElement.size(); index++) {
-            int element_id = qElement.get(index).getInt(eElement.id);
-            qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
-            for (int index2 = 0; index2 < qDet.size(); index2++) {
-                if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
-                    Util.setSelectedRow(tab2, index);
-                    Util.scrollRectToVisible(index, tab2);
-                    Util.setSelectedRow(tab3, index2);
-                    Util.scrollRectToVisible(index2, tab3);
-                }
-            }
-        }
-    }
-
     private void listenerAdd() {
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             int level = qElemgrp.getAs(Util.getSelectedRec(tab1), eElemgrp.level);
@@ -379,7 +307,7 @@ public class Element extends javax.swing.JFrame {
         });
     }
 
-    private void listenerDict() {
+    private void listenerSet() {
 
         listenerTypset = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -473,6 +401,78 @@ public class Element extends javax.swing.JFrame {
         listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
             return Util.listenerCell(tab4, tab5, component, tab1, tab2, tab3, tab4, tab5);
         };
+    }
+    
+    private void selectionTab1(ListSelectionEvent event) {
+        Util.clearTable(tab2, tab3, tab4, tab5);
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Record record = qElemgrp.get(row);
+            Integer id = record.getInt(eElemgrp.id);
+            if (id == -1 || id == -5) {
+                if (subsql == null) {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id));
+                } else {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "left join", eElemgrp.up, "on", eElemgrp.id, "=", eElement.elemgrp_id, "where", eElemgrp.level, "=", Math.abs(id), "and", eElement.id, "in " + subsql);
+                }
+            } else {
+                if (subsql == null) {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "where", eElement.elemgrp_id, "=", id, "order by", eElement.name);
+                } else {
+                    qElement.select(eElement.up, "left join", eArtikl.up, "on", eElement.artikl_id, "=", eArtikl.id,
+                            "where", eElement.elemgrp_id, "=", id, "and", eElement.id, "in " + subsql, "order by", eElement.name);
+                }
+            }
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2);
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        Util.clearTable(tab3, tab4, tab5);
+        int row = Util.getSelectedRec(tab2);
+        if (row != -1) {
+            Record record = qElement.table(eElement.up).get(row);
+            Integer p1 = record.getInt(eElement.id);
+            qElemdet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", p1);
+            qElempar1.select(eElempar1.up, "left join", eParams.up, "on", eParams.id, "=", eElempar1.params_id, "where", eElempar1.element_id, "=", p1);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab4);
+        }
+    }
+
+    private void selectionTab3(ListSelectionEvent event) {
+        int row = Util.getSelectedRec(tab3);
+        if (row != -1) {
+            //Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
+            Arrays.asList(qElempar2).forEach(q -> q.execsql());
+            Record record = qElemdet.table(eElemdet.up).get(row);
+            Integer p1 = record.getInt(eElemdet.id);
+            qElempar2.select(eElempar2.up, "left join", eParams.up, "on", eParams.id, "=", eElempar2.params_id, "where", eElempar2.elemdet_id, "=", p1);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab5);
+        }
+    }
+
+    private void deteilFind(int deteilID) {
+        Query qDet = new Query(eElemdet.values(), eArtikl.values());
+        for (int index = 0; index < qElement.size(); index++) {
+            int element_id = qElement.get(index).getInt(eElement.id);
+            qDet.select(eElemdet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eElemdet.artikl_id, "where", eElemdet.element_id, "=", element_id);
+            for (int index2 = 0; index2 < qDet.size(); index2++) {
+                if (qDet.get(index2).getInt(eElemdet.id) == deteilID) {
+                    Util.setSelectedRow(tab2, index);
+                    Util.scrollRectToVisible(index, tab2);
+                    Util.setSelectedRow(tab3, index2);
+                    Util.scrollRectToVisible(index2, tab3);
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")

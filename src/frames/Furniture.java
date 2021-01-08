@@ -80,7 +80,7 @@ public class Furniture extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
-        listenerDict();
+        listenerSet();
     }
 
     public Furniture(Set<Object> keys) {
@@ -93,7 +93,7 @@ public class Furniture extends javax.swing.JFrame {
         loadingData();
         loadingModel();
         listenerAdd();
-        listenerDict();
+        listenerSet();
     }
 
     public Furniture(Set<Object> keys, int deteilID) {
@@ -106,7 +106,7 @@ public class Furniture extends javax.swing.JFrame {
         loadingModel();
         listenerAdd();
         listenerCell();
-        listenerDict();       
+        listenerSet();
         deteilFind(deteilID);
     }
 
@@ -332,6 +332,173 @@ public class Furniture extends javax.swing.JFrame {
         Util.setSelectedRow(tab1);
     }
 
+    private void listenerAdd() {
+        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
+            new DicEnums(this, listenerVariant1, UseFurn1.values());
+        });
+
+        Util.buttonEditorCell(tab1, 2).addActionListener(event -> {
+            new DicEnums(this, listenerSide4, LayoutFurn1.values());
+        });
+
+        Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
+            new DicEnums(this, listenerVariant2, UseFurn2.values());
+        });
+
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Util.buttonEditorCell(tab, 0).addActionListener(event -> {
+                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            });
+        }
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Util.buttonEditorCell(tab, 1).addActionListener(event -> {
+                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
+            });
+        }
+
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
+            Util.buttonEditorCell(tab, 2).addActionListener(event -> {
+                Record record = query.get(Util.getSelectedRec(tab));
+                int artikl_id = record.getInt(eFurndet.artikl_id);
+                ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
+            });
+        }
+        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
+            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
+            Util.buttonEditorCell(tab, 3).addActionListener(event -> {
+                Record record = query.get(Util.getSelectedRec(tab));
+                int colorFk = record.getInt(eFurndet.color_fk);
+                DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
+            });
+        }
+
+        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
+            new DicEnums(this, listenerSide1, LayoutFurn1.values());
+        });
+
+        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
+            new DicEnums(this, listenerSide2, UseFurn3.values());
+        });
+
+        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
+            ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, 21000);
+        });
+
+        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
+            Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
+            int grup = record.getInt(eFurnpar1.params_id);
+            if (grup < 0) {
+                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
+            } else {
+                List list = ParamList.find(grup).dict();
+                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
+            }
+        });
+
+        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
+            new DicEnums(this, listenerSide3, LayoutFurn3.values());
+        });
+
+        Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
+            int index = tabb1.getSelectedIndex();
+            JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
+            int row = Util.getSelectedRec(table);
+            if (row != -1) {
+                Query query = (index == 0) ? qFurndet2a : (index == 1) ? qFurndet2b : qFurndet2c;
+                Record furndetRec = query.get(row);
+                int artikl_id = furndetRec.getInt(eFurndet.artikl_id);
+                Record recordArt = eArtikl.find(artikl_id, false);
+                int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
+                Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
+                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
+            }
+        });
+
+        Util.buttonEditorCell(tab6, 1, listenerEditor).addActionListener(event -> {
+            Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
+            int grup = record.getInt(eFurnpar2.params_id);
+            if (grup < 0) {
+                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
+            } else {
+                List list = ParamList.find(grup).dict();
+                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
+            }
+        });
+    }
+
+    private void listenerSet() {
+
+        listenerArtikl = (record) -> {
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
+            Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
+            if (tab.getBorder() != null) {
+                int row = Util.getSelectedRec(tab);
+                query.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab), eFurndet.artikl_id);
+                ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
+                Util.setSelectedRow(tab, row);
+            }
+        };
+
+        listenerColor = (record) -> {
+            JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
+            Util.listenerColor(record, tab, eFurndet.color_fk, eFurndet.types, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+        };
+
+        listenerColvar = (record) -> {
+            JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
+            Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
+            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+            int row = Util.getSelectedRec(tab);
+            Record furndetRec = query.get(Util.getSelectedRec(tab));
+            int types = (furndetRec.getInt(eFurndet.types) == -1) ? 0 : furndetRec.getInt(eFurndet.types);
+            types = (types & 0xfffffff0) + record.getInt(0);
+            furndetRec.set(eFurndet.types, types);
+            ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab, row);
+        };
+
+        listenerSide1 = (record) -> {
+            Util.listenerEnums(record, tab3, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+
+        listenerSide2 = (record) -> {
+            Util.listenerEnums(record, tab3, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+
+        listenerSide3 = (record) -> {
+            Util.listenerEnums(record, tab5, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+
+        listenerSide4 = (record) -> {
+            Util.listenerEnums(record, tab1, eFurniture.hand_side, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+
+        listenerPar1 = (record) -> {
+            Util.listenerParam(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+        };
+
+        listenerPar2 = (record) -> {
+            Util.listenerParam(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
+        };
+
+        listenerVariant1 = (record) -> {
+            Util.listenerEnums(record, tab1, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+
+        listenerVariant2 = (record) -> {
+            Util.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+    }
+
+    private void listenerCell() {
+
+        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
+            return Util.listenerCell(tab4, tab6, component, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
+        };
+    }
+
     private void selectionTab1(ListSelectionEvent event) {
         Util.clearTable(tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
         int row = Util.getSelectedRec(tab1);
@@ -493,173 +660,6 @@ public class Furniture extends javax.swing.JFrame {
                 }
             }
         }
-    }
-
-    private void listenerAdd() {
-        Util.buttonEditorCell(tab1, 1).addActionListener(event -> {
-            new DicEnums(this, listenerVariant1, UseFurn1.values());
-        });
-
-        Util.buttonEditorCell(tab1, 2).addActionListener(event -> {
-            new DicEnums(this, listenerSide4, LayoutFurn1.values());
-        });
-
-        Util.buttonEditorCell(tab1, 7).addActionListener(event -> {
-            new DicEnums(this, listenerVariant2, UseFurn2.values());
-        });
-
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Util.buttonEditorCell(tab, 0).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
-            });
-        }
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Util.buttonEditorCell(tab, 1).addActionListener(event -> {
-                new DicArtikl(this, listenerArtikl, 1, 2, 3, 4);
-            });
-        }
-
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
-            Util.buttonEditorCell(tab, 2).addActionListener(event -> {
-                Record record = query.get(Util.getSelectedRec(tab));
-                int artikl_id = record.getInt(eFurndet.artikl_id);
-                ParColor2 frame = new ParColor2(this, listenerColor, artikl_id);
-            });
-        }
-        for (JTable tab : Arrays.asList(tab2a, tab2b, tab2c)) {
-            Query query = (tab == tab2a) ? qFurndet2a : (tab == tab2b) ? qFurndet2b : qFurndet2c;
-            Util.buttonEditorCell(tab, 3).addActionListener(event -> {
-                Record record = query.get(Util.getSelectedRec(tab));
-                int colorFk = record.getInt(eFurndet.color_fk);
-                DicColvar frame = new DicColvar(this, listenerColvar, colorFk);
-            });
-        }
-
-        Util.buttonEditorCell(tab3, 0).addActionListener(event -> {
-            new DicEnums(this, listenerSide1, LayoutFurn1.values());
-        });
-
-        Util.buttonEditorCell(tab3, 1).addActionListener(event -> {
-            new DicEnums(this, listenerSide2, UseFurn3.values());
-        });
-
-        Util.buttonEditorCell(tab4, 0).addActionListener(event -> {
-            ParGrup2 frame = new ParGrup2(this, listenerPar1, eParams.joint, 21000);
-        });
-
-        Util.buttonEditorCell(tab4, 1, listenerEditor).addActionListener(event -> {
-            Record record = qFurnpar1.get(Util.getSelectedRec(tab4));
-            int grup = record.getInt(eFurnpar1.params_id);
-            if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar1, grup);
-            } else {
-                List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar1, list);
-            }
-        });
-
-        Util.buttonEditorCell(tab5, 0).addActionListener(event -> {
-            new DicEnums(this, listenerSide3, LayoutFurn3.values());
-        });
-
-        Util.buttonEditorCell(tab6, 0).addActionListener(event -> {
-            int index = tabb1.getSelectedIndex();
-            JTable table = (index == 0) ? tab2a : (index == 1) ? tab2b : tab2c;
-            int row = Util.getSelectedRec(table);
-            if (row != -1) {
-                Query query = (index == 0) ? qFurndet2a : (index == 1) ? qFurndet2b : qFurndet2c;
-                Record furndetRec = query.get(row);
-                int artikl_id = furndetRec.getInt(eFurndet.artikl_id);
-                Record recordArt = eArtikl.find(artikl_id, false);
-                int level = (recordArt.getInt(eArtikl.level1) == -1) ? 0 : recordArt.getInt(eArtikl.level1);
-                Integer[] part = {0, 25000, 24000, 25000, 24000, 0};
-                ParGrup2 frame = new ParGrup2(this, listenerPar2, eParams.joint, part[level]);
-            }
-        });
-
-        Util.buttonEditorCell(tab6, 1, listenerEditor).addActionListener(event -> {
-            Record record = qFurnpar2.get(Util.getSelectedRec(tab6));
-            int grup = record.getInt(eFurnpar2.params_id);
-            if (grup < 0) {
-                ParGrup2a frame = new ParGrup2a(this, listenerPar2, grup);
-            } else {
-                List list = ParamList.find(grup).dict();
-                ParGrup2b frame = new ParGrup2b(this, listenerPar2, list);
-            }
-        });
-    }
-
-    private void listenerDict() {
-
-        listenerArtikl = (record) -> {
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-            Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
-            if (tab.getBorder() != null) {
-                int row = Util.getSelectedRec(tab);
-                query.set(record.getInt(eArtikl.id), Util.getSelectedRec(tab), eFurndet.artikl_id);
-                ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-                Util.setSelectedRow(tab, row);
-            }
-        };
-
-        listenerColor = (record) -> {
-            JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-            Util.listenerColor(record, tab, eFurndet.color_fk, eFurndet.types, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
-        };
-
-        listenerColvar = (record) -> {
-            JTable tab = (tab2a.getBorder() != null) ? tab2a : (tab2b.getBorder() != null) ? tab2b : tab2c;
-            Query query = (tab2a.getBorder() != null) ? qFurndet2a : (tab2b.getBorder() != null) ? qFurndet2b : qFurndet2c;
-            Util.stopCellEditing(tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-            int row = Util.getSelectedRec(tab);
-            Record furndetRec = query.get(Util.getSelectedRec(tab));
-            int types = (furndetRec.getInt(eFurndet.types) == -1) ? 0 : furndetRec.getInt(eFurndet.types);
-            types = (types & 0xfffffff0) + record.getInt(0);
-            furndetRec.set(eFurndet.types, types);
-            ((DefaultTableModel) tab.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab, row);
-        };
-
-        listenerSide1 = (record) -> {
-            Util.listenerEnums(record, tab3, eFurnside1.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
-
-        listenerSide2 = (record) -> {
-            Util.listenerEnums(record, tab3, eFurnside1.side_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
-
-        listenerSide3 = (record) -> {
-            Util.listenerEnums(record, tab5, eFurnside2.side_num, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
-
-        listenerSide4 = (record) -> {
-            Util.listenerEnums(record, tab1, eFurniture.hand_side, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
-
-        listenerPar1 = (record) -> {
-            Util.listenerParam(record, tab4, eFurnpar1.params_id, eFurnpar1.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
-        };
-
-        listenerPar2 = (record) -> {
-            Util.listenerParam(record, tab6, eFurnpar2.params_id, eFurnpar2.text, tab1, tab2a, tab2b, tab2c, tab6, tab3, tab4);
-        };
-
-        listenerVariant1 = (record) -> {
-            Util.listenerEnums(record, tab1, eFurniture.view_open, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
-
-        listenerVariant2 = (record) -> {
-            Util.listenerEnums(record, tab1, eFurniture.ways_use, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
-    }
-
-    private void listenerCell() {
-
-        listenerEditor = (component) -> { //слушатель редактирование типа и вида данных и вида ячейки таблицы
-            return Util.listenerCell(tab4, tab6, component, tab1, tab2a, tab2b, tab2c, tab3, tab4, tab5, tab6);
-        };
     }
 
     @SuppressWarnings("unchecked")

@@ -74,9 +74,9 @@ public class Joining extends javax.swing.JFrame {
         this.subsql = null;
         initComponents();
         initElements();
-        loadingData();        
+        loadingData();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingModel();
         listenerAdd();
     }
@@ -89,7 +89,7 @@ public class Joining extends javax.swing.JFrame {
         initElements();
         loadingData();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingModel();
         listenerAdd();
     }
@@ -100,7 +100,7 @@ public class Joining extends javax.swing.JFrame {
         initElements();
         loadingData();
         listenerCell();
-        listenerDict();
+        listenerSet();
         loadingModel();
         listenerAdd();
         deteilFind(deteilID);
@@ -233,69 +233,6 @@ public class Joining extends javax.swing.JFrame {
         Util.setSelectedRow(tab1);
     }
 
-    private void selectionTab1(ListSelectionEvent event) {
-        Util.clearTable(tab2, tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab1);
-        if (row != -1) {
-            Record record = qJoining.table(eJoining.up).get(row);
-            Integer id = record.getInt(eJoining.id);
-            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
-            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab2);
-        }
-    }
-
-    private void selectionTab2(ListSelectionEvent event) {
-        Util.clearTable(tab3, tab4, tab5);
-        int row = Util.getSelectedRec(tab2);
-        if (row != -1) {
-            Record record = qJoinvar.table(eJoinvar.up).get(row);
-            Integer id = record.getInt(eJoinvar.id);
-            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
-            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.id);
-            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
-            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab3);
-            Util.setSelectedRow(tab4);
-        }
-    }
-
-    private void selectionTab4(ListSelectionEvent event) {
-        int row = Util.getSelectedRec(tab4);
-        if (row != -1) {
-            Record record = qJoindet.table(eJoindet.up).get(row);
-            Integer id = record.getInt(eJoindet.id);
-            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.id);
-            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
-            Util.setSelectedRow(tab5);
-        }
-    }
-
-    private void deteilFind(int deteilID) {
-        Query qVar = new Query(eJoinvar.values());
-        Query qDet = new Query(eJoindet.values(), eArtikl.values());
-        for (int index = 0; index < qJoining.size(); index++) {
-            int joining_id = qJoining.get(index).getInt(eJoining.id);
-            qVar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", joining_id, "order by", eJoinvar.prio);
-            for (int index2 = 0; index2 < qVar.size(); index2++) {
-                int joinvar_id = qVar.get(index2).getInt(eJoining.id);
-                qDet.select(eJoindet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoindet.artikl_id, "where", eJoindet.joinvar_id, "=", joinvar_id, "order by", eJoindet.artikl_id);
-                for (int index3 = 0; index3 < qDet.size(); index3++) {
-                    if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
-
-                        Util.setSelectedRow(tab1, index);
-                        Util.scrollRectToVisible(index, tab1);
-                        Util.setSelectedRow(tab2, index2);
-                        Util.scrollRectToVisible(index2, tab2);
-                        Util.setSelectedRow(tab4, index3);
-                        Util.scrollRectToVisible(index3, tab3);
-                        return;
-                    }
-                }
-            }
-        }
-    }
-
     private void listenerAdd() {
         Util.buttonEditorCell(tab1, 0).addActionListener(event -> {
             DicArtikl frame = new DicArtikl(this, listenerArtikl, 1);
@@ -385,7 +322,7 @@ public class Joining extends javax.swing.JFrame {
         });
     }
 
-    private void listenerDict() {
+    private void listenerSet() {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
@@ -474,6 +411,69 @@ public class Joining extends javax.swing.JFrame {
         listenerEditor = (component) -> { //слушатель редактирование типа, вида данных и вида ячейки таблицы
             return Util.listenerCell(tab3, tab5, component, tab1, tab2, tab3, tab4, tab5);
         };
+    }
+
+    private void selectionTab1(ListSelectionEvent event) {
+        Util.clearTable(tab2, tab3, tab4, tab5);
+        int row = Util.getSelectedRec(tab1);
+        if (row != -1) {
+            Record record = qJoining.table(eJoining.up).get(row);
+            Integer id = record.getInt(eJoining.id);
+            qJoinvar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", id, "order by", eJoinvar.prio);
+            ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab2);
+        }
+    }
+
+    private void selectionTab2(ListSelectionEvent event) {
+        Util.clearTable(tab3, tab4, tab5);
+        int row = Util.getSelectedRec(tab2);
+        if (row != -1) {
+            Record record = qJoinvar.table(eJoinvar.up).get(row);
+            Integer id = record.getInt(eJoinvar.id);
+            qJoindet.select(eJoindet.up, "where", eJoindet.joinvar_id, "=", id, "order by", eJoindet.artikl_id);
+            qJoinpar1.select(eJoinpar1.up, "where", eJoinpar1.joinvar_id, "=", id, "order by", eJoinpar1.id);
+            ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
+            ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab3);
+            Util.setSelectedRow(tab4);
+        }
+    }
+
+    private void selectionTab4(ListSelectionEvent event) {
+        int row = Util.getSelectedRec(tab4);
+        if (row != -1) {
+            Record record = qJoindet.table(eJoindet.up).get(row);
+            Integer id = record.getInt(eJoindet.id);
+            qJoinpar2.select(eJoinpar2.up, "where", eJoinpar2.joindet_id, "=", id, "order by", eJoinpar2.id);
+            ((DefaultTableModel) tab5.getModel()).fireTableDataChanged();
+            Util.setSelectedRow(tab5);
+        }
+    }
+
+    private void deteilFind(int deteilID) {
+        Query qVar = new Query(eJoinvar.values());
+        Query qDet = new Query(eJoindet.values(), eArtikl.values());
+        for (int index = 0; index < qJoining.size(); index++) {
+            int joining_id = qJoining.get(index).getInt(eJoining.id);
+            qVar.select(eJoinvar.up, "where", eJoinvar.joining_id, "=", joining_id, "order by", eJoinvar.prio);
+            for (int index2 = 0; index2 < qVar.size(); index2++) {
+                int joinvar_id = qVar.get(index2).getInt(eJoining.id);
+                qDet.select(eJoindet.up, "left join", eArtikl.up, "on", eArtikl.id, "=", eJoindet.artikl_id, "where", eJoindet.joinvar_id, "=", joinvar_id, "order by", eJoindet.artikl_id);
+                for (int index3 = 0; index3 < qDet.size(); index3++) {
+                    if (qDet.get(index3).getInt(eJoindet.id) == deteilID) {
+
+                        Util.setSelectedRow(tab1, index);
+                        Util.scrollRectToVisible(index, tab1);
+                        Util.setSelectedRow(tab2, index2);
+                        Util.scrollRectToVisible(index2, tab2);
+                        Util.setSelectedRow(tab4, index3);
+                        Util.scrollRectToVisible(index3, tab3);
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
