@@ -394,6 +394,7 @@ public class Param extends javax.swing.JFrame {
             Record paramsRec = eParams.up.newRecord(Query.INS);
             int id = ConnApp.instanc().genId(eParams.up);
             paramsRec.setNo(eParams.id, id);
+            paramsRec.setNo(eParams.params_id, id);
             Arrays.asList(eParams.komp.ordinal(), eParams.joint.ordinal(), eParams.elem.ordinal(), eParams.glas.ordinal(),
                     eParams.furn.ordinal(), eParams.otkos.ordinal(), eParams.color.ordinal()).forEach(index -> paramsRec.set(index, 0));
             qParams.add(paramsRec);
