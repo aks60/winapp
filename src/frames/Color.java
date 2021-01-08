@@ -505,6 +505,7 @@ public class Color extends javax.swing.JFrame {
     private javax.swing.JPanel west;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
+    
     private void initElements() {
 
         new FrameToFile(this, btnClose);
