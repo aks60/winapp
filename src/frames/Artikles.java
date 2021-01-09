@@ -109,34 +109,36 @@ public class Artikles extends javax.swing.JFrame {
                 eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];
-                if ((field == eArtdet.id && col < 7) || field == eArtdet.color_fk) {
-                    Record artdetRec = qArtdet.get(row);
-                    Integer color_fk = artdetRec.getInt(eArtdet.color_fk);
-                    if (color_fk == null || (color_fk == -1 && artdetRec.getStr(eArtdet.up).equals("INS"))) {
-                        return null;
-                    }
-                    if (field == eArtdet.id) {
-                        if (color_fk >= 0) {
-                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
-                            int colgrp_id = colorRec.getInt(eColor.colgrp_id);
-                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == colgrp_id).findFirst().orElse(null);
-                            return colgrpRec.getStr(eGroups.name);
-
-                        } else if (color_fk < 0) {
-                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == Math.abs(color_fk)).findFirst().orElse(null);
-                            return colgrpRec.getStr(eGroups.name);
-                        }
-                    } else if (field == eArtdet.color_fk) {
-                        if (color_fk >= 0) {
-                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
-                            return colorRec.getStr(eColor.name);
-
-                        } else if (color_fk < 0) {
-                            return "Все текстуры группы";
-                        }
-                    }
-                }
+//                Field field = columns[col];
+//                if ((field == eArtdet.id && col < 7) || field == eArtdet.color_fk) {
+//                    Record artdetRec = qArtdet.get(row);
+//                    Integer color_fk = artdetRec.getInt(eArtdet.color_fk);
+//                    if (color_fk == null || (color_fk == -1 && artdetRec.getStr(eArtdet.up).equals("INS"))) {
+//                        return null;
+//                    }
+//                    if (field == eArtdet.id) {
+//                        if (color_fk >= 0) {
+//                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
+//                            int colgrp_id = colorRec.getInt(eColor.colgrp_id);
+//                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == colgrp_id).findFirst().orElse(null);
+//                            return colgrpRec.getStr(eGroups.name);
+//
+//                        } else if (color_fk < 0) {
+//                            System.out.println(color_fk);
+//                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == Math.abs(color_fk)).findFirst().orElse(null);
+//                            //System.out.println(colgrpRec);    
+//                            //return colgrpRec.getStr(eGroups.name);
+//                        }
+//                    } else if (field == eArtdet.color_fk) {
+//                        if (color_fk >= 0) {
+//                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
+//                            return colorRec.getStr(eColor.name);
+//
+//                        } else if (color_fk < 0) {
+//                            return "Все текстуры группы";
+//                        }
+//                    }
+//                }
                 return val;
             }
         };
@@ -222,7 +224,6 @@ public class Artikles extends javax.swing.JFrame {
             labFilter.setText("Серия профилей");
             txtFilter.setName("tab1");
             txtFilter.setText(record.getStr(eGroups.name));
-            //Util.setSelectedRow(tab1);
         };
 
         listenerCategFilter = (record) -> {
@@ -230,7 +231,6 @@ public class Artikles extends javax.swing.JFrame {
             labFilter.setText("Категоря профилей");
             txtFilter.setName("tab1");
             txtFilter.setText(record.getStr(eGroups.name));
-            //Util.setSelectedRow(tab1);
         };
 
         listenerAnalog = (record) -> {
@@ -398,8 +398,8 @@ public class Artikles extends javax.swing.JFrame {
             Record record = qArtikl.get(row);
             int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
-//            rsvArtikl.load();
-//            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
+            rsvArtikl.load();
+            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2);
         }

@@ -225,6 +225,7 @@ public class Profstroy {
             metaPart(cn2, st2);
 
             println(Color.GREEN, "Удаление лищних столбцов");
+            executeSql("ALTER TABLE GROUPS DROP  FK;");
             for (Field fieldUp : fieldsUp) {
                 HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
                 for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
@@ -390,9 +391,6 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
             executeSql("delete from params where pnumb > 0");  //group > 0  
-            
-            ////////////////deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
-            
             deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
@@ -446,9 +444,6 @@ public class Profstroy {
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
-            
-            ///////////////updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
-            
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             executeSql("update colpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
@@ -459,10 +454,9 @@ public class Profstroy {
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");           
-            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");            
-            executeSql("ALTER TABLE GROUPS DROP  FK;");           
-            executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
-            executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
+            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");                                   
+            executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");            
+            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2)");     
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
