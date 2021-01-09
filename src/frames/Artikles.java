@@ -82,7 +82,7 @@ public class Artikles extends javax.swing.JFrame {
 
     private void loadingData() {
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
-        qGroups.select(eGroups.up, "where grup = " + TypeGroups.SERI_PROF.id, "order by", eGroups.name);        
+        qGroups.select(eGroups.up, "where grup = " + TypeGroups.SERI_PROF.id, "order by", eGroups.name);
         qArtgrp.select(eGroups.up, "where grup = " + TypeGroups.FILTER.id, "order by", eGroups.name);
         qColgrp.select(eGroups.up, "where grup = " + TypeGroups.COLOR.id, "order by", eGroups.name);
     }
@@ -92,7 +92,7 @@ public class Artikles extends javax.swing.JFrame {
         DefTableModel rsmArtikl = new DefTableModel(tab1, qArtikl, eArtikl.code, eArtikl.name, eArtikl.otx_norm, eArtikl.coeff, eArtikl.series_id, eArtikl.artgrp3_id) {
             @Override
             public Object getValueAt(int col, int row, Object val) {
-                Field field = columns[col];                
+                Field field = columns[col];
                 if (field == eArtikl.series_id) {
                     Record artiklRec = qArtikl.get(row);
                     Record groupRec = qGroups.stream().filter(rec -> rec.get(eGroups.id).equals(artiklRec.get(eArtikl.series_id))).findFirst().orElse(eGroups.up.newRecord());
@@ -105,40 +105,33 @@ public class Artikles extends javax.swing.JFrame {
                 return val;
             }
         };
-        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.id, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1,
+        DefTableModel rsmArtdet = new DefTableModel(tab2, qArtdet, eArtdet.color_fk, eArtdet.color_fk, eArtdet.mark_c1, eArtdet.cost_c1,
                 eArtdet.mark_c2, eArtdet.cost_c2, eArtdet.mark_c3, eArtdet.cost_c3, eArtdet.cost_c4, eArtdet.cost_unit, eArtdet.price_coeff, eArtdet.id) {
+
             @Override
             public Object getValueAt(int col, int row, Object val) {
-//                Field field = columns[col];
-//                if ((field == eArtdet.id && col < 7) || field == eArtdet.color_fk) {
-//                    Record artdetRec = qArtdet.get(row);
-//                    Integer color_fk = artdetRec.getInt(eArtdet.color_fk);
-//                    if (color_fk == null || (color_fk == -1 && artdetRec.getStr(eArtdet.up).equals("INS"))) {
-//                        return null;
-//                    }
-//                    if (field == eArtdet.id) {
-//                        if (color_fk >= 0) {
-//                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
-//                            int colgrp_id = colorRec.getInt(eColor.colgrp_id);
-//                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == colgrp_id).findFirst().orElse(null);
-//                            return colgrpRec.getStr(eGroups.name);
-//
-//                        } else if (color_fk < 0) {
-//                            System.out.println(color_fk);
-//                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == Math.abs(color_fk)).findFirst().orElse(null);
-//                            //System.out.println(colgrpRec);    
-//                            //return colgrpRec.getStr(eGroups.name);
-//                        }
-//                    } else if (field == eArtdet.color_fk) {
-//                        if (color_fk >= 0) {
-//                            Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
-//                            return colorRec.getStr(eColor.name);
-//
-//                        } else if (color_fk < 0) {
-//                            return "Все текстуры группы";
-//                        }
-//                    }
-//                }
+                Field field = columns[col];
+                if (field == eArtdet.color_fk && val != null) {
+                    Integer color_fk = Integer.valueOf(val.toString());
+
+                    if (color_fk >= 0) {
+                        Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
+                        if (col == 0) {
+                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == colorRec.getInt(eColor.colgrp_id)).findFirst().orElse(eGroups.up.newRecord());
+                            return colgrpRec.getStr(eGroups.name);
+                        } else {
+                            colorRec.getStr(eColor.name);
+                        }
+
+                    } else if (color_fk < 0) {
+                        if (col == 0) {
+                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == Math.abs(color_fk)).findFirst().orElse(eGroups.up.newRecord());
+                            return colgrpRec.getStr(eGroups.name);
+                        } else {
+                            return "Все текстуры группы";
+                        }
+                    }
+                }
                 return val;
             }
         };
@@ -327,7 +320,7 @@ public class Artikles extends javax.swing.JFrame {
             }
         };
     }
-    
+
     private void loadingTree() {
 
         nodeRoot = new DefaultMutableTreeNode("Мат. ценности");
