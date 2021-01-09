@@ -34,11 +34,11 @@ public enum eGroups implements Field {
         return query;
     }
 
-    public static Record find(int artgrp_id) {
+    public static Record find(int _id) {
         if (Query.conf.equals("calc")) {
-            return query().stream().filter(rec -> artgrp_id == rec.getInt(id)).findFirst().orElse(up.newRecord());
+            return query().stream().filter(rec -> _id == rec.getInt(id)).findFirst().orElse(up.newRecord());
         }
-        Query recordList = new Query(values()).select(up, "where", id, "='", artgrp_id, "'");
+        Query recordList = new Query(values()).select(up, "where", id, "='", _id, "'");
         return (recordList.isEmpty() == true) ? up.newRecord() : recordList.get(0);
     } 
     

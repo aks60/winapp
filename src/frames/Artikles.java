@@ -120,7 +120,7 @@ public class Artikles extends javax.swing.JFrame {
                             Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == colorRec.getInt(eColor.colgrp_id)).findFirst().orElse(eGroups.up.newRecord());
                             return colgrpRec.getStr(eGroups.name);
                         } else {
-                            colorRec.getStr(eColor.name);
+                            return colorRec.getStr(eColor.name);
                         }
 
                     } else if (color_fk < 0) {
@@ -189,7 +189,6 @@ public class Artikles extends javax.swing.JFrame {
         rsvArtikl.add(eArtikl.size_falz, txtField15);
         rsvArtikl.add(eArtikl.size_tech, txtField16);
         rsvArtikl.add(eArtikl.size_frez, txtField21);
-        //rsvArtikl.add(eArtikl.series_id, txtField10);
 
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             DicColor2 frame = new DicColor2(this, listenerColor);

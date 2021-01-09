@@ -3,7 +3,6 @@ package builder.specif;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
-import domain.eColgrp;
 import domain.eColor;
 import domain.eCurrenc;
 import domain.eGroups;
@@ -131,18 +130,18 @@ public class Tariffication extends Cal5e {
             } else {
 
                 if (isTariff(artdetRec, color1Rec)) { //подбираем тариф основной текстуры
-                    Record colgrpRec = eColgrp.find(color1Rec.getInt(eColor.colgrp_id));
-                    artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eColgrp.coeff)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
+                    Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
+                    artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eGroups.val)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
                     artdetUsed = true;
                 }
                 if (isTariff(artdetRec, color2Rec)) {  //подбираем тариф внутренней текстуры
-                    Record colgrpRec = eColgrp.find(color2Rec.getInt(eColor.colgrp_id));
-                    artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+                    Record colgrpRec = eGroups.find(color2Rec.getInt(eColor.colgrp_id));
+                    artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                     artdetUsed = true;
                 }
                 if (isTariff(artdetRec, color3Rec)) { //подбираем тариф внешней текстуры
-                    Record colgrpRec = eColgrp.find(color3Rec.getInt(eColor.colgrp_id));
-                    artdetTariff += (artdetRec.getFloat(eArtdet.cost_c3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+                    Record colgrpRec = eGroups.find(color3Rec.getInt(eColor.colgrp_id));
+                    artdetTariff += (artdetRec.getFloat(eArtdet.cost_c3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                     artdetUsed = true;
                 }
             }
@@ -184,22 +183,22 @@ public class Tariffication extends Cal5e {
 
                 if ("1".equals(artdetRec.getStr(eArtdet.mark_c1))) {  //подбираем тариф основной текстуры
                     if (isTariff(artdetRec, color1Rec)) {
-                        Record colgrpRec = eColgrp.find(color1Rec.getInt(eColor.colgrp_id));
-                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eColgrp.coeff)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
+                        Record colgrpRec = eGroups.find(color1Rec.getInt(eColor.colgrp_id));
+                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c1) * color1Rec.getFloat(eColor.coef1) * colgrpRec.getFloat(eGroups.val)) / kursBaseRec.getFloat(eCurrenc.cross_cour);
                         artdetUsed = true;
                     }
                 }
                 if ("1".equals(artdetRec.getStr(eArtdet.mark_c2)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) { //подбираем тариф внутренней текстуры
                     if (isTariff(artdetRec, color2Rec)) {
-                        Record colgrpRec = eColgrp.find(color2Rec.getInt(eColor.colgrp_id));
-                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+                        Record colgrpRec = eGroups.find(color2Rec.getInt(eColor.colgrp_id));
+                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c2) * color2Rec.getFloat(eColor.coef2) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                         artdetUsed = true;
                     }
                 }
                 if ("1".equals(artdetRec.getStr(eArtdet.mark_c3)) || "1".equals(artdetRec.getStr(eArtdet.mark_c1))) { //подбираем тариф внешней текстуры
                     if (isTariff(artdetRec, color3Rec)) {
-                        Record colgrpRec = eColgrp.find(color3Rec.getInt(eColor.colgrp_id));
-                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eColgrp.coeff)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
+                        Record colgrpRec = eGroups.find(color3Rec.getInt(eColor.colgrp_id));
+                        artdetTariff += (artdetRec.getFloat(eArtdet.cost_c3) * color3Rec.getFloat(eColor.coef3) * colgrpRec.getFloat(eGroups.val)) / kursNoBaseRec.getFloat(eCurrenc.cross_cour);
                         artdetUsed = true;
                     }
                 }

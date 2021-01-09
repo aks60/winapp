@@ -5,11 +5,10 @@ import common.FrameToFile;
 import frames.Util;
 import dataset.Query;
 import dataset.Record;
-import domain.eColgrp;
 import domain.eColor;
+import domain.eGroups;
+import enums.TypeGroups;
 import java.awt.Frame;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
@@ -17,14 +16,12 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 //Текстура артикулов
 public class DicColor2 extends javax.swing.JDialog {
 
     private DialogListener listener;
-    private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up, "order by", eColgrp.name).table(eColgrp.up);
+    private Query qColgrp = new Query(eGroups.values()).select(eGroups.up, "where grup=", TypeGroups.COLOR.id, "order by", eGroups.name);
     private Query qColor = new Query(eColor.values()).table(eColor.up);
     private boolean master = true;
 
@@ -43,7 +40,7 @@ public class DicColor2 extends javax.swing.JDialog {
     }
 
     private void loadingModel() {
-        new DefTableModel(tab1, qColgrp, eColgrp.name);
+        new DefTableModel(tab1, qColgrp, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.name);
         Util.setSelectedRow(tab1);
     }
@@ -51,8 +48,8 @@ public class DicColor2 extends javax.swing.JDialog {
     private void selectionTab1() {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Record record = qColgrp.table(eColgrp.up).get(row);
-            int id = record.getInt(eColgrp.id);
+            Record record = qColgrp.table(eGroups.up).get(row);
+            int id = record.getInt(eGroups.id);
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=", id, "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
         }
@@ -292,7 +289,7 @@ public class DicColor2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnChoice
 
     private void btnRemov(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemov
-        listener.action(eColgrp.up.newRecord());
+        listener.action(eGroups.up.newRecord());
         this.dispose();
     }//GEN-LAST:event_btnRemov
 

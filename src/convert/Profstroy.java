@@ -456,7 +456,7 @@ public class Profstroy {
             executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");           
             executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");                                   
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");            
-            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2)");     
+            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");     
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
