@@ -592,17 +592,17 @@ public class Profstroy {
             alterTable("glaspar2", "fk_glaspar2", "glasdet_id", "glasdet");
             alterTable("furnside1", "fk_furnside1", "furniture_id", "furniture");
             alterTable("furnside2", "fk_furnside2", "furndet_id", "furndet");
-            alterTable("furnpar1", "fk_furnpar1", "furnside_id", "furnside1");
-            
-            alterTable("furndet", "fk_furndet1", "furniture_id1", "furniture");
-            
+            alterTable("furnpar1", "fk_furnpar1", "furnside_id", "furnside1");            
+            alterTable("furndet", "fk_furndet1", "furniture_id1", "furniture");            
             alterTable("furndet", "fk_furndet2", "artikl_id", "artikl");
             alterTable("furnpar2", "fk_furnpar2", "furndet_id", "furndet");
             alterTable("sysprof", "fk_sysprof1", "artikl_id", "artikl");
             alterTable("sysprof", "fk_sysprof2", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn1", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
-            alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
+            alterTable("syspar1", "fk_syspar1", "systree_id", "systree");            
+            alterTable("sysprod", "fk_sysprod_1", "models_id", "models");
+            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");                        
             alterTable("kits", "fk_kits1", "artikl_id", "artikl");
             alterTable("kits", "fk_kits2", "color_id", "color");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
