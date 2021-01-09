@@ -11,7 +11,6 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
-import domain.eColgrp;
 import domain.eColor;
 import domain.eColpar1;
 import domain.eCurrenc;
@@ -54,7 +53,6 @@ import domain.eSysprof;
 import domain.eSystree;
 import enums.TypeElem;
 import enums.TypeGroups;
-import enums.TypeUse;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -126,7 +124,7 @@ public class Profstroy {
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
-            eColpar1.up, eColor.up, eColgrp.up,
+            eColpar1.up, eColor.up,
             eRulecalc.up, eSystree.up,            
             eArtdet.up, eArtikl.up,
             eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,     
