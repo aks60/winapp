@@ -119,15 +119,17 @@ public class Profstroy {
 
     public static void script() {
         Field[] fieldsUp = { //в порядке удаления
-            eSyspar1.up, eSysprof.up, eSysfurn.up, eModels.up, eSystree.up, eSysprod.up,
+            eSetting.up, ePartner.up, eSysdata.up, //eOrders.up, - временно 
+            eSyspar1.up, eSysprof.up, eSysfurn.up, eSysprod.up, eModels.up,
             eKitpar1.up, eKitdet.up, eKits.up,
             eJoinpar2.up, eJoinpar1.up, eJoindet.up, eJoinvar.up, eJoining.up,
             eElempar1.up, eElempar2.up, eElemdet.up, eElement.up, eElemgrp.up,
             eGlaspar1.up, eGlaspar2.up, eGlasdet.up, eGlasprof.up, eGlasgrp.up,
             eFurnpar1.up, eFurnpar2.up, eFurnside1.up, eFurnside2.up, eFurndet.up, eFurniture.up,
             eColpar1.up, eColor.up, eColgrp.up,
-            eSetting.up, eSyssize.up, eSysdata.up, eRulecalc.up, ePartner.up, //eOrders.up, - временно            
-            eArtdet.up, eArtikl.up, eGroups.up, eCurrenc.up, eParams.up
+            eRulecalc.up, eSystree.up,            
+            eArtdet.up, eArtikl.up,
+            eSyssize.up, eGroups.up, eCurrenc.up, eParams.up,     
         };
         try {
 
@@ -442,18 +444,21 @@ public class Profstroy {
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
+            
             updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
+            
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
             executeSql("update colpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
-            executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");
+            executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");           
             modifyGroups("Функция modifyGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
-            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");
-            executeSql("ALTER TABLE GROUPS DROP  FK;");
+            executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");           
+            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");            
+            executeSql("ALTER TABLE GROUPS DROP  FK;");           
             executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");
             executeSql("update artdet set color_fk = artdet.clnum where artdet.clnum < 0");
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
@@ -562,14 +567,16 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Секция создания внешних ключей");
             alterTable("artikl", "fk_currenc1", "currenc1_id", "currenc");
-            alterTable("artikl",  "fk_currenc2", "currenc2_id", "currenc");
-            alterTable("color", "fk_color1", "colgrp_id", "colgrp");
+            alterTable("artikl", "fk_currenc2", "currenc2_id", "currenc");
+            alterTable("color", "fk_color1", "colgrp_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (name)");
             alterTable("colpar1", "fk_colpar_1", "params_id", "params");
             alterTable("colpar1", "fk_colpar_2", "color_id", "color");
-            alterTable("artikl", "fk_artikl1", "artgrp1_id", "groups");            
+            alterTable("artikl", "fk_artikl1", "artgrp1_id", "groups");
             alterTable("artikl", "fk_artikl2", "artgrp2_id", " groups");
             alterTable("artikl", "fk_artikl3", "artgrp3_id", "groups");
+            alterTable("artikl", "fk_artikl4", "series_id", "groups");
+            alterTable("artikl", "fk_artikl5", "syssize_id", "syssize");
             alterTable("artdet", "fk_artdet1", "artikl_id", "artikl");
             alterTable("systree", "fk_systree1", "parent_id", "systree");
             alterTable("element", "fk_element1", "elemgrp_id", "elemgrp");
@@ -583,7 +590,7 @@ public class Profstroy {
             alterTable("joinvar", "fk_joinvar1", "joining_id", "joining");
             alterTable("joindet", "fk_joindet1", "joinvar_id", "joinvar");
             alterTable("joinpar1", "fk_joinpar1", "joinvar_id", "joinvar");
-            alterTable("joinpar2", "fk_joinpar2", "joindet_id", "joindet");           
+            alterTable("joinpar2", "fk_joinpar2", "joindet_id", "joindet");
             alterTable("glasprof", "fk_glasprof1", "glasgrp_id", "glasgrp");
             alterTable("glasprof", "fk_glasprof2", "artikl_id", "artikl");
             alterTable("glasdet", "fk_glasdet1", "glasgrp_id", "glasgrp");
@@ -592,17 +599,17 @@ public class Profstroy {
             alterTable("glaspar2", "fk_glaspar2", "glasdet_id", "glasdet");
             alterTable("furnside1", "fk_furnside1", "furniture_id", "furniture");
             alterTable("furnside2", "fk_furnside2", "furndet_id", "furndet");
-            alterTable("furnpar1", "fk_furnpar1", "furnside_id", "furnside1");            
-            alterTable("furndet", "fk_furndet1", "furniture_id1", "furniture");            
+            alterTable("furnpar1", "fk_furnpar1", "furnside_id", "furnside1");
+            alterTable("furndet", "fk_furndet1", "furniture_id1", "furniture");
             alterTable("furndet", "fk_furndet2", "artikl_id", "artikl");
             alterTable("furnpar2", "fk_furnpar2", "furndet_id", "furndet");
             alterTable("sysprof", "fk_sysprof1", "artikl_id", "artikl");
             alterTable("sysprof", "fk_sysprof2", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn1", "systree_id", "systree");
             alterTable("sysfurn", "fk_sysfurn2", "furniture_id", "furniture");
-            alterTable("syspar1", "fk_syspar1", "systree_id", "systree");            
+            alterTable("syspar1", "fk_syspar1", "systree_id", "systree");
             alterTable("sysprod", "fk_sysprod_1", "models_id", "models");
-            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");                        
+            alterTable("sysprod", "fk_sysprod_2", "systree_id", "systree");
             alterTable("kits", "fk_kits1", "artikl_id", "artikl");
             alterTable("kits", "fk_kits2", "color_id", "color");
             alterTable("kitdet", "fk_kitdet1", "kits_id", "kits");
@@ -611,11 +618,6 @@ public class Profstroy {
             alterTable("kitdet", "fk_kitdet4", "color2_id", "color");
             alterTable("kitdet", "fk_kitdet5", "color3_id", "color");
             alterTable("kitpar1", "fk_kitpar1", "kitdet_id", "kitdet");
-
-            executeSql("INSERT INTO Sysprod VALUES (1, 1, 387)");
-            executeSql("INSERT INTO Sysprod VALUES (2, 2, 387)");
-            executeSql("INSERT INTO Sysprod VALUES (3, 3, 387)");
-            executeSql("set generator GEN_SYSPROD to " + 3);
 
         } catch (Exception e) {
             println(Color.RED, "Ошибка: metaPart().  " + e);
@@ -705,7 +707,14 @@ public class Profstroy {
         println(Color.BLACK, mes);
         try {
             executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
-            ResultSet rs = st1.executeQuery("select * from GRUPART");
+            ResultSet rs = st1.executeQuery("select * from GRUPCOL");
+            while (rs.next()) {
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
+                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
+                        + rs.getString("GKOEF") + "," + rs.getString("GUNIC") + ")";
+                st2.executeUpdate(sql);
+            }
+            rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
                         + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"

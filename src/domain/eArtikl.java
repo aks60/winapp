@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum eArtikl implements Field {
-    up("0", "0", "0", "Материальные цености", "ARTIKLS"),
+    up("0", "0", "0", "Материальные ценности", "ARTIKLS"),
     id("4", "10", "0", "Идентификатор", "id"),
     code("12", "32", "1", "Артикул", "ANUMB"),
     level1("5", "5", "1", "Главный тип", "ATYPM"),
