@@ -390,7 +390,9 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
             executeSql("delete from params where pnumb > 0");  //group > 0  
-            deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
+            
+            ////////////////deleteSql(eColor.up, "cgrup", eColgrp.up, "id");//colgrp_id
+            
             deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
@@ -445,7 +447,7 @@ public class Profstroy {
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             
-            updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
+            ///////////////updateSql(eColor.up, eColor.colgrp_id, "cgrup", eColgrp.up, "id");
             
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
             updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");

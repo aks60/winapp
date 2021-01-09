@@ -6,12 +6,12 @@ import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import frames.dialog.ParGrup2v;
-import frames.dialog.ParGrup2a;
 import domain.eColor;
-import domain.eColgrp;
 import domain.eColpar1;
 import domain.eElempar2;
+import domain.eGroups;
 import domain.eParams;
+import enums.TypeGroups;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import javax.swing.JTable;
@@ -31,7 +31,7 @@ import javax.swing.table.TableCellEditor;
 public class Color extends javax.swing.JFrame {
 
     private Query qParams = new Query(eParams.id, eParams.id, eParams.text);
-    private Query qСolgrup = new Query(eColgrp.id, eColgrp.name, eColgrp.coeff);
+    private Query qСolgrup = new Query(eGroups.id, eGroups.name);
     private Query qColor = new Query(eColor.values());
     private Query qColpar1 = new Query(eColpar1.values());
     private DialogListener listenerColor;
@@ -47,12 +47,12 @@ public class Color extends javax.swing.JFrame {
 
     private void loadingData() {
         qParams.select(eParams.up, "where", eParams.color, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
+        qСolgrup.select(eGroups.up, "where grup=" + TypeGroups.COLOR.id, "order by", eGroups.name);
     }
 
     private void loadingModel() {
 
-        new DefTableModel(tab1, qСolgrup, eColgrp.name);
+        new DefTableModel(tab1, qСolgrup, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
         new DefTableModel(tab3, qColpar1, eColpar1.params_id, eColpar1.text) {
             public Object getValueAt(int col, int row, Object val) {
@@ -124,8 +124,8 @@ public class Color extends javax.swing.JFrame {
         Util.stopCellEditing(tab1, tab2, tab3);
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
-            Record record = qСolgrup.table(eColgrp.up).get(row);
-            Integer cgrup = record.getInt(eColgrp.id);
+            Record record = qСolgrup.table(eGroups.up).get(row);
+            Integer cgrup = record.getInt(eGroups.id);
             qColor.select(eColor.up, "where", eColor.colgrp_id, "=" + cgrup + "order by", eColor.name);
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2);
@@ -422,7 +422,7 @@ public class Color extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qСolgrup.select(eColgrp.up, "order by", eColgrp.name);
+        loadingData();
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
     }//GEN-LAST:event_btnRefresh
@@ -431,7 +431,7 @@ public class Color extends javax.swing.JFrame {
 
         if (tab1.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab2) == 0) {
-                Util.deleteRecord(tab1, eColgrp.up);
+                Util.deleteRecord(tab1, eGroups.up);
             }
         } else if (tab2.getBorder() != null) {
             if (Util.isDeleteRecord(this, tab3) == 0) {
@@ -447,11 +447,11 @@ public class Color extends javax.swing.JFrame {
     private void btnInsert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert
 
         if (tab1.getBorder() != null) {
-            Record record = Util.insertRecord(tab1, eColgrp.up);
-            record.set(eColgrp.coeff, 1);
+            Record record = Util.insertRecord(tab1, eGroups.up);
+            record.set(eGroups.val, 1);
 
         } else if (tab2.getBorder() != null) {
-            Util.insertRecord(tab1, tab2, eColgrp.up, eColor.up, eColor.colgrp_id);
+            Util.insertRecord(tab1, tab2, eGroups.up, eColor.up, eColor.colgrp_id);
 
         } else if (tab3.getBorder() != null) {
             Util.insertRecord(tab2, tab3, eColor.up, eColpar1.up, eColpar1.color_id);

@@ -11,7 +11,6 @@ import domain.eArtikl;
 import domain.eArtdet;
 import domain.eColor;
 import domain.eCurrenc;
-import domain.eColgrp;
 import enums.TypeArtikl;
 import java.util.Arrays;
 import javax.swing.JTable;
@@ -47,7 +46,7 @@ import javax.swing.tree.TreePath;
  */
 public class Artikles extends javax.swing.JFrame {
 
-    private Query qColgrp = new Query(eColgrp.values()).select(eColgrp.up);
+    private Query qColgrp = new Query(eGroups.values());
     private Query qColor = new Query(eColor.values()).select(eColor.up);
     private Query qGroups = new Query(eGroups.values());
     private Query qCurrenc = new Query(eCurrenc.values()).select(eCurrenc.up);
@@ -82,9 +81,10 @@ public class Artikles extends javax.swing.JFrame {
     }
 
     private void loadingData() {
-        qGroups.select(eGroups.up, "where grup = " + TypeGroups.SERI_PROF.id);
         qSyssize.select(eSyssize.up, "order by", eSyssize.name);
-        qArtgrp.select(eGroups.up, "order by", eGroups.name);
+        qGroups.select(eGroups.up, "where grup = " + TypeGroups.SERI_PROF.id, "order by", eGroups.name);        
+        qArtgrp.select(eGroups.up, "where grup = " + TypeGroups.FILTER.id, "order by", eGroups.name);
+        qColgrp.select(eGroups.up, "where grup = " + TypeGroups.COLOR.id, "order by", eGroups.name);
     }
 
     private void loadingModel() {
@@ -120,12 +120,12 @@ public class Artikles extends javax.swing.JFrame {
                         if (color_fk >= 0) {
                             Record colorRec = qColor.stream().filter(rec -> rec.getInt(eColor.id) == color_fk).findFirst().orElse(null);
                             int colgrp_id = colorRec.getInt(eColor.colgrp_id);
-                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == colgrp_id).findFirst().orElse(null);
-                            return colgrpRec.getStr(eColgrp.name);
+                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == colgrp_id).findFirst().orElse(null);
+                            return colgrpRec.getStr(eGroups.name);
 
                         } else if (color_fk < 0) {
-                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eColgrp.id) == Math.abs(color_fk)).findFirst().orElse(null);
-                            return colgrpRec.getStr(eColgrp.name);
+                            Record colgrpRec = qColgrp.stream().filter(rec -> rec.getInt(eGroups.id) == Math.abs(color_fk)).findFirst().orElse(null);
+                            return colgrpRec.getStr(eGroups.name);
                         }
                     } else if (field == eArtdet.color_fk) {
                         if (color_fk >= 0) {
@@ -245,8 +245,8 @@ public class Artikles extends javax.swing.JFrame {
 
         listenerColor = (record) -> {
             if (tab2.getBorder() != null) {
-                if (eColgrp.values().length == record.size()) {
-                    qArtdet.set(-1 * record.getInt(eColgrp.id), Util.getSelectedRec(tab2), eArtdet.color_fk);
+                if (eGroups.values().length == record.size()) {
+                    qArtdet.set(-1 * record.getInt(eGroups.id), Util.getSelectedRec(tab2), eArtdet.color_fk);
 
                 } else if (eColor.values().length == record.size()) {
                     qArtdet.set(record.getInt(eColor.id), Util.getSelectedRec(tab2), eArtdet.color_fk);
@@ -398,8 +398,8 @@ public class Artikles extends javax.swing.JFrame {
             Record record = qArtikl.get(row);
             int id = record.getInt(eArtikl.id);
             qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", id);
-            rsvArtikl.load();
-            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
+//            rsvArtikl.load();
+//            checkBox1.setSelected((record.getInt(eArtikl.with_seal) != 0));
             ((DefaultTableModel) tab2.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab2);
         }
@@ -1472,9 +1472,7 @@ public class Artikles extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelete
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-        qColgrp.select(eColgrp.up);
-        qColor.select(eColor.up);
-        qCurrenc.select(eCurrenc.up);
+        loadingData();
         selectionTree();
     }//GEN-LAST:event_btnRefresh
 
