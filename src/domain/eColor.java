@@ -28,7 +28,7 @@ public enum eColor implements Field {
     is_prod("16", "5", "1", "Для изделий", "CORDS"),
     orient("5", "5", "1", "Ориентация", "CORIE"),
     pain("5", "5", "1", "Покраска", "CTYPE"),
-    colgrp_id("5", "5", "1", "Ссылка", "colgrp_id");
+    colgrp_id("5", "5", "1", "Группа", "colgrp_id");
     //numb("4", "10", "1", "id", "CNUMB"),
     //cgrup("5", "5", "1", "группа", "CGRUP");    
     //cpict("-4", "80", "1", "null", "CPICT"),

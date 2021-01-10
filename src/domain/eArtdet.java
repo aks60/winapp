@@ -24,7 +24,7 @@ public enum eArtdet implements Field {
     artikl1("12", "32", "1", "Артикул склада", "ASKL1"),
     artikl2("12", "32", "1", "Артикул 1С", "ASKL2"),
     color_fk("4", "10", "1", "Ссылка на id_Группы или id_Текстуры", "color_fk"),
-    artikl_id("4", "10", "0", "Ссылка", "artikl_id");
+    artikl_id("4", "10", "0", "Артикул", "artikl_id");
     //anumb("12", "32", "1", "артикул", "ANUMB"),
     //clcod("4", "10", "1", "id техстуры", "CLCOD"),
     //clnum("4", "10", "1", "id группы текстуры", "CLNUM"),

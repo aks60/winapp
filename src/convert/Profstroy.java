@@ -203,7 +203,7 @@ public class Profstroy {
                 //Особенности таблицы COLOR
                 if ("COLOR".equals(fieldUp.tname()) == true) {
                     int max1 = new Query(fieldUp.fields()[1]).select("select max(id) as id from " + fieldUp.tname()).get(0).getInt(1);
-                    int max2 = checkUniqueKeyColor(max1); //проверим ключ на уникальность
+                    int max2 = checkKeyColor(max1); //проверим ключ на уникальность
                     executeSql("set generator GEN_" + fieldUp.tname() + " to " + max2);
                 }
                 //Создание триггеров генераторов
@@ -222,14 +222,14 @@ public class Profstroy {
             updatePart(cn2, st2);
             metaPart(cn2, st2);
 
-            println(Color.GREEN, "Удаление лищних столбцов");
-            executeSql("ALTER TABLE GROUPS DROP  FK;");
-            for (Field fieldUp : fieldsUp) {
-                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
-                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
-                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
-                }
-            }
+//            println(Color.GREEN, "Удаление лищних столбцов");
+//            executeSql("ALTER TABLE GROUPS DROP  FK;");
+//            for (Field fieldUp : fieldsUp) {
+//                HashMap<String, String[]> hmDeltaCol = deltaColumn(mdb1, fieldUp);
+//                for (Map.Entry<String, String[]> entry : hmDeltaCol.entrySet()) {
+//                    executeSql("ALTER TABLE " + fieldUp.tname() + " DROP  " + entry.getKey() + ";");
+//                }
+//            }
             cn2.commit();
             cn2.setAutoCommit(true);
 
@@ -438,7 +438,7 @@ public class Profstroy {
     private static void updatePart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция коррекции внешних ключей");
-            modifySetting("Функция modifySetting()");
+            loadSetting("Функция loadSetting()");
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
@@ -448,18 +448,18 @@ public class Profstroy {
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");           
-            modifyGroups("Функция modifyGroups()");
+            loadGroups("Функция loadGroups()");
             executeSql("update artikl set artgrp1_id = (select a.id from groups a where munic = a.fk and a.grup = " + TypeGroups.PRICE_INC.numb() + ")");
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");           
-            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");                                   
-            executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod and a.cnumb = artdet.clnum)");            
-            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");     
+            executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");              
+            executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");            
+            executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");            
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
             executeSql("4", "update artdet set mark_c2 = 1 where cways in (1,3,5,7)");
             executeSql("4", "update artdet set mark_c3 = 1 where cways in (2,3,6,7)");
-            modifyElemgrp("Функция modifyElemgrp()");
+            loadElemgrp("Функция loadElemgrp()");
             executeSql("update element set elemgrp_id = (select id from elemgrp a where a.name = element.vpref and a.level = element.atypm)");
             updateSql(eElement.up, eElement.artikl_id, "anumb", eArtikl.up, "code");
             updateSql(eElement.up, eElement.series_id, "vlets", eGroups.up, "name");
@@ -557,6 +557,7 @@ public class Profstroy {
         }
     }
 
+    //Секция ссылочной целостности
     private static void metaPart(Connection cn2, Statement st2) {
         try {
             println(Color.GREEN, "Секция создания внешних ключей");
@@ -618,7 +619,7 @@ public class Profstroy {
         }
     }
 
-    private static void modifyElemgrp(String mes) throws SQLException {
+    private static void loadElemgrp(String mes) throws SQLException {
         println(Color.BLACK, mes);
         try {
             Query q = new Query(eElemgrp.values());
@@ -676,7 +677,7 @@ public class Profstroy {
         }
     }
 
-    private static void modifySetting(String mes) {
+    private static void loadSetting(String mes) {
         println(Color.BLACK, mes);
         try {
             println(Color.BLACK, "updateSetting()");
@@ -697,7 +698,7 @@ public class Profstroy {
         }
     }
 
-    private static void modifyGroups(String mes) {
+    private static void loadGroups(String mes) {
         println(Color.BLACK, mes);
         try {
             executeSql("ALTER TABLE GROUPS ADD FK INTEGER;");
@@ -735,6 +736,25 @@ public class Profstroy {
         }
     }
 
+    private static int checkKeyColor(int max) {
+        List<Integer[]> recordList = new ArrayList();
+        Set<Integer> set = new HashSet();
+        try {
+            ResultSet rs = st2.executeQuery("select * from COLOR");
+            while (rs.next()) {
+                recordList.add(new Integer[]{rs.getInt("ID"), rs.getInt("CNUMB")});
+            }
+        } catch (SQLException e) {
+            println(Color.RED, "Ошибка: UPDATE-checkUniqueKeyColor().  " + e);
+        }
+        for (Integer[] recordArr : recordList) {
+            if (set.add(recordArr[0]) == false) {
+                executeSql("update COLOR set id = " + (++max) + " where cnumb = " + recordArr[1]);
+            }
+        }
+        return max;
+    }
+    
     private static void deleteSql(Field table1, String id1, Field table2, String id2) {
         try {
             int recordDelete = 0, recordCount = 0;
@@ -793,25 +813,6 @@ public class Profstroy {
         } catch (Exception e) {
             println(Color.RED, "Ошибка: updateSql().  " + e);
         }
-    }
-
-    private static int checkUniqueKeyColor(int max) {
-        List<Integer[]> recordList = new ArrayList();
-        Set<Integer> set = new HashSet();
-        try {
-            ResultSet rs = st2.executeQuery("select * from COLOR");
-            while (rs.next()) {
-                recordList.add(new Integer[]{rs.getInt("ID"), rs.getInt("CNUMB")});
-            }
-        } catch (SQLException e) {
-            println(Color.RED, "Ошибка: UPDATE-checkUniqueKeyColor().  " + e);
-        }
-        for (Integer[] recordArr : recordList) {
-            if (set.add(recordArr[0]) == false) {
-                executeSql("update COLOR set id = " + (++max) + " where cnumb = " + recordArr[1]);
-            }
-        }
-        return max;
     }
 
     private static void alterTable(String tname1, String cn, String fk, String tname2) {
