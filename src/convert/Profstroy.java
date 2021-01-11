@@ -442,11 +442,9 @@ public class Profstroy {
             executeSql("insert into groups (grup, name) select distinct " + TypeGroups.SERI_PROF.id + ", aseri from artikl");
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
-            executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
-           //////////////////////             
-            updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");
-            executeSql("update colmap b set b.colgrp_id = (select id from params a where b.colgrp_id = a.pnumb and a.znumb = 0) where b.colgrp_id < 0");
-            /////////////////////
+            executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");            
+            executeSql("update colmap a set a.color_id2 = (select first 1 id from color b where a.text = b.name)");            
+            updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");           
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update params a set a.params_id = (select b.id from params b where a.pnumb = b.pnumb and b.znumb = 0)");           
@@ -710,21 +708,21 @@ public class Profstroy {
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
                         + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.COLOR.id + ",'" + rs.getString("GNAME") + "',"
-                        + rs.getString("GKOEF") + "," + rs.getString("GUNIC") + ")";
+                        + rs.getString("GKOEF") + "," + rs.getInt("GUNIC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from GRUPART");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
                         + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.PRICE_INC.id + ",'" + rs.getString("MNAME") + "',"
-                        + rs.getString("MKOEF") + "," + rs.getString("MUNIC") + ")";
+                        + rs.getString("MKOEF") + "," + rs.getInt("MUNIC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select * from DESCLST");
             while (rs.next()) {
                 String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, VAL, FK) values ("
                         + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.PRICE_DEC.id + ",'" + rs.getString("NDESC") + "',"
-                        + rs.getString("VDESC") + "," + rs.getString("UDESC") + ")";
+                        + rs.getString("VDESC") + "," + rs.getInt("UDESC") + ")";
                 st2.executeUpdate(sql);
             }
             rs = st1.executeQuery("select distinct APREF from ARTIKLS where APREF is not null");
@@ -733,12 +731,12 @@ public class Profstroy {
                         + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.FILTER.id + ",'" + rs.getString("APREF") + "')";
                 st2.executeUpdate(sql);
             }
-//            rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
-//            while (rs.next()) {
-//                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, FK) values ("
-//                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.COLMAP.id + ",'" + rs.getString("PNAME") + rs.getString("PNUMB") + ")";
-//                st2.executeUpdate(sql);
-//            }
+            rs = st1.executeQuery("select * from PARLIST where PCOLL = 1 and ZNUMB = 0");
+            while (rs.next()) {
+                String sql = "insert into " + eGroups.up.tname() + "(ID, GRUP, NAME, FK) values ("
+                        + ConnApp.instanc().genId(eGroups.up) + "," + TypeGroups.COLMAP.id + ",'" + rs.getString("PNAME") + "'," + rs.getInt("PNUMB") + ")";
+                st2.executeUpdate(sql);
+            }
             cn2.commit();
 
         } catch (SQLException e) {
