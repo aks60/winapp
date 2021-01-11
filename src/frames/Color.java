@@ -138,7 +138,7 @@ public class Color extends javax.swing.JFrame {
         if (row != -1) {
             Record colorRec = qColor.table(eColor.up).get(row);
             int id = colorRec.getInt(eColor.id);
-            qColpar1.select(eColpar1.up, "where", eColpar1.color_id, "=", id);
+            qColpar1.select(eColpar1.up, "where", eColpar1.color_id1, "=", id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
         }
@@ -454,7 +454,7 @@ public class Color extends javax.swing.JFrame {
             Util.insertRecord(tab1, tab2, eGroups.up, eColor.up, eColor.colgrp_id);
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab2, tab3, eColor.up, eColpar1.up, eColpar1.color_id);
+            Util.insertRecord(tab2, tab3, eColor.up, eColpar1.up, eColpar1.color_id1);
         }
     }//GEN-LAST:event_btnInsert
 
