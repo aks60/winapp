@@ -179,9 +179,9 @@ public class Color {
         List<Record> artseriList = eArtikl.find3(seriesID);
         for (Record artseriRec : artseriList) {
 
-            int color_id = colorFromArtikl(artseriRec.getInt(eArtikl.id), side, elemColorID);
-            if (color_id != -1) {
-                return color_id;
+            int color_id1 = colorFromArtikl(artseriRec.getInt(eArtikl.id), side, elemColorID);
+            if (color_id1 != -1) {
+                return color_id1;
             }
         }
         return -1;
@@ -193,9 +193,9 @@ public class Color {
         List<Record> artseriList = eArtikl.find3(seriesID);
         for (Record artseriRec : artseriList) {
 
-            int color_id = colorFromArtiklParam(artseriRec.getInt(eArtikl.id), side, elemColorID, colorFk);
-            if (color_id != -1) {
-                return color_id;
+            int color_id1 = colorFromArtiklParam(artseriRec.getInt(eArtikl.id), side, elemColorID, colorFk);
+            if (color_id1 != -1) {
+                return color_id1;
             }
         }
         return -1;
@@ -274,8 +274,8 @@ public class Color {
                         //Одна текстура
                     } else {
                         for (Record colparRec : colparList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == colparRec.getInt(eColpar1.color_id)) { 
-                                //Object obj = record1.getInt(eColpar1.color_id)
+                            if (artdetRec.getInt(eArtdet.color_fk) == colparRec.getInt(eColpar1.color_id1)) { 
+                                //Object obj = record1.getInt(eColpar1.color_id1)
                                 return elemColorID;
                             }
                         }

@@ -389,7 +389,7 @@ public class Profstroy {
         try {
             println(Color.GREEN, "Секция удаления потеренных ссылок (фантомов)");
             executeSql("delete from params where pnumb > 0");  //group > 0  
-            deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id 
+            deleteSql(eColpar1.up, "psss", eColor.up, "cnumb"); //color_id1 
             deleteSql(eArtdet.up, "anumb", eArtikl.up, "code");//artikl_id
             //цвет не должен влиять глобально, теряются ссылки... ("delete from artdet where not exists (select id from color a where a.ccode = artdet.clcod and a.cnumb = artdet.clnum)");  //color_fk            
             deleteSql(eElement.up, "anumb", eArtikl.up, "code");//artikl_id  
@@ -443,7 +443,7 @@ public class Profstroy {
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");
-            updateSql(eColpar1.up, eColpar1.color_id, "psss", eColor.up, "cnumb");
+            updateSql(eColpar1.up, eColpar1.color_id1, "psss", eColor.up, "cnumb");
             executeSql("update colpar1 b set b.params_id = (select id from params a where b.params_id = a.pnumb and a.znumb = 0) where b.params_id < 0");
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
@@ -453,7 +453,7 @@ public class Profstroy {
             executeSql("update artikl set artgrp2_id = (select a.id from groups a where udesc = a.fk and a.grup = " + TypeGroups.PRICE_DEC.numb() + ")");
             executeSql("update artikl set artgrp3_id = (select a.id from groups a where apref = a.name and a.grup = " + TypeGroups.FILTER.numb() + ")");           
             executeSql("update color set colgrp_id = (select a.id from groups a where cgrup = a.fk and a.grup = " + TypeGroups.COLOR.numb() + ")");              
-            executeSql("update artdet set color_fk = (select id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");            
+            executeSql("update artdet set color_fk = (select first 1 id from color a where a.id = artdet.clcod or a.cnumb = artdet.clnum) where artdet.clnum >= 0");            
             executeSql("update artdet set color_fk = (select -1 * id from groups a where a.fk = (-1 * artdet.clnum) and a.grup = 2) where artdet.clnum < 0");            
             executeSql("3", "update artdet set mark_c1 = 1, mark_c2 = 1, mark_c3 = 1"); // where clnum >= 0");
             executeSql("4", "update artdet set mark_c1 = 1 where cways in (4,5,6,7)");
@@ -566,7 +566,7 @@ public class Profstroy {
             alterTable("color", "fk_color1", "colgrp_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (name)");
             alterTable("colpar1", "fk_colpar_1", "params_id", "params");
-            alterTable("colpar1", "fk_colpar_2", "color_id", "color");
+            alterTable("colpar1", "fk_colpar_2", "color_id1", "color");
             alterTable("artikl", "fk_artikl1", "artgrp1_id", "groups");
             alterTable("artikl", "fk_artikl2", "artgrp2_id", " groups");
             alterTable("artikl", "fk_artikl3", "artgrp3_id", "groups");
