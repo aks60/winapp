@@ -4,7 +4,7 @@ import dataset.Record;
 import domain.eArtdet;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eColpar1;
+import domain.eColmap;
 import domain.eParams;
 import enums.UseColor;
 import java.util.Comparator;
@@ -244,7 +244,7 @@ public class Color {
 //            if (artiklID == 84) {
 //                System.out.println("TEST");
 //            }
-            List<Record> colparList = eColpar1.find3(elemColorID, paramFk);
+            List<Record> colparList = eColmap.find3(elemColorID, paramFk);
             List<Record> artdetList = eArtdet.find(artiklID);
 
             //Цыкл по ARTDET определённого артикула
@@ -260,11 +260,11 @@ public class Color {
                         //Цыкл по COLOR определённой группы
                         for (Record colorRec : colorList) {
 
-                            List<Record> colparList2 = eColpar1.find(colorRec.getInt(eColor.id));
+                            List<Record> colparList2 = eColmap.find(colorRec.getInt(eColor.id));
 
                             for (Record record1 : colparList) {
                                 for (Record record2 : colparList2) {
-                                    if (record1.getInt(eColpar1.params_id) == record2.getInt(eColpar1.params_id)) {
+                                    if (record1.getInt(eColmap.colgrp_id) == record2.getInt(eColmap.colgrp_id)) {
                                         return elemColorID;
                                     }
                                 }
@@ -274,8 +274,8 @@ public class Color {
                         //Одна текстура
                     } else {
                         for (Record colparRec : colparList) {
-                            if (artdetRec.getInt(eArtdet.color_fk) == colparRec.getInt(eColpar1.color_id1)) { 
-                                //Object obj = record1.getInt(eColpar1.color_id1)
+                            if (artdetRec.getInt(eArtdet.color_fk) == colparRec.getInt(eColmap.color_id1)) { 
+                                //Object obj = record1.getInt(eColmap.color_id1)
                                 return elemColorID;
                             }
                         }

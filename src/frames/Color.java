@@ -7,7 +7,7 @@ import dataset.Query;
 import dataset.Record;
 import frames.dialog.ParGrup2v;
 import domain.eColor;
-import domain.eColpar1;
+import domain.eColmap;
 import domain.eElempar2;
 import domain.eGroups;
 import domain.eParams;
@@ -33,7 +33,7 @@ public class Color extends javax.swing.JFrame {
     private Query qParams = new Query(eParams.id, eParams.id, eParams.text);
     private Query qСolgrup = new Query(eGroups.id, eGroups.name);
     private Query qColor = new Query(eColor.values());
-    private Query qColpar1 = new Query(eColpar1.values());
+    private Query qColpar1 = new Query(eColmap.values());
     private DialogListener listenerColor;
 
     public Color() {
@@ -54,10 +54,10 @@ public class Color extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qСolgrup, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
-        new DefTableModel(tab3, qColpar1, eColpar1.params_id, eColpar1.text, eColpar1.color_id2) {
+        new DefTableModel(tab3, qColpar1, eColmap.colgrp_id, eColmap.text, eColmap.color_id2) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-                if (field == eColpar1.params_id) {
+                if (field == eColmap.colgrp_id) {
                     Record record = qParams.stream().filter(rec -> rec.get(eParams.id).equals(val)).findFirst().orElse(eParams.up.newRecord());
                     return (Main.dev) ? record.getStr(eElempar2.id) + "-" + record.getStr(eElempar2.text) : record.getStr(eElempar2.text);
                 } 
@@ -96,8 +96,8 @@ public class Color extends javax.swing.JFrame {
             Util.stopCellEditing(tab1, tab2, tab3);
             int row = Util.getSelectedRec(tab3);            
             Record record2 = qColpar1.get(row);
-            record2.set(eColpar1.params_id, record.getInt(eParams.params_id));
-            record2.set(eColpar1.text, record.getStr(eParams.text)); 
+            record2.set(eColmap.colgrp_id, record.getInt(eParams.params_id));
+            record2.set(eColmap.text, record.getStr(eParams.text)); 
             qColpar1.update(record2);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3, row);            
@@ -138,7 +138,7 @@ public class Color extends javax.swing.JFrame {
         if (row != -1) {
             Record colorRec = qColor.table(eColor.up).get(row);
             int id = colorRec.getInt(eColor.id);
-            qColpar1.select(eColpar1.up, "where", eColpar1.color_id1, "=", id);
+            qColpar1.select(eColmap.up, "where", eColmap.color_id1, "=", id);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab3);
         }
@@ -459,7 +459,7 @@ public class Color extends javax.swing.JFrame {
             }
         } else if (tab3.getBorder() != null) {
             if (Util.isDeleteRecord(this) == 0) {
-                Util.deleteRecord(tab3, eColpar1.up);
+                Util.deleteRecord(tab3, eColmap.up);
             }
         }
     }//GEN-LAST:event_btnDelete
@@ -474,7 +474,7 @@ public class Color extends javax.swing.JFrame {
             Util.insertRecord(tab1, tab2, eGroups.up, eColor.up, eColor.colgrp_id);
 
         } else if (tab3.getBorder() != null) {
-            Util.insertRecord(tab2, tab3, eColor.up, eColpar1.up, eColpar1.color_id1);
+            Util.insertRecord(tab2, tab3, eColor.up, eColmap.up, eColmap.color_id1);
         }
     }//GEN-LAST:event_btnInsert
 

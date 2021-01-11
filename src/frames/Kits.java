@@ -5,7 +5,7 @@ import dataset.ConnApp;
 import dataset.Query;
 import dataset.Record;
 import domain.eColor;
-import domain.eColpar1;
+import domain.eColmap;
 import domain.eKitdet;
 import domain.eKitpar1;
 import domain.eKits;
@@ -366,7 +366,7 @@ public class Kits extends javax.swing.JFrame {
 
             } else if (tab3.getBorder() != null) {
                 Record kitpar1Rec = qKitpar1.get(Util.getSelectedRec(tab3));
-                kitpar1Rec.set(eColpar1.up, Query.DEL);
+                kitpar1Rec.set(eColmap.up, Query.DEL);
                 qKitpar1.delete(kitpar1Rec);
                 qKitpar1.removeRec(Util.getSelectedRec(tab3));
                 ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
@@ -397,7 +397,7 @@ public class Kits extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab2);
             Record kitdetRec = qKitdet.get(row);
             Record kitpar1Rec = eKitpar1.up.newRecord(Query.INS);
-            kitpar1Rec.setNo(eColpar1.id, ConnApp.instanc().genId(eColpar1.up));
+            kitpar1Rec.setNo(eColmap.id, ConnApp.instanc().genId(eColmap.up));
             kitpar1Rec.setNo(eKitpar1.kitdet_id, kitdetRec.getInt(eKitdet.id));
             qKitpar1.add(kitpar1Rec);
             ((DefaultTableModel) tab3.getModel()).fireTableDataChanged();
