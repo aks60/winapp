@@ -54,7 +54,7 @@ public class Color extends javax.swing.JFrame {
 
         new DefTableModel(tab1, qСolgrup, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
-        new DefTableModel(tab3, qColpar1, eColpar1.params_id, eColpar1.text) {
+        new DefTableModel(tab3, qColpar1, eColpar1.params_id, eColpar1.text, eColpar1.color_id2) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
                 if (field == eColpar1.params_id) {
@@ -159,14 +159,16 @@ public class Color extends javax.swing.JFrame {
         centr = new javax.swing.JPanel();
         scr2 = new javax.swing.JScrollPane();
         tab2 = new javax.swing.JTable();
+        soutch = new javax.swing.JPanel();
         scr3 = new javax.swing.JScrollPane();
         tab3 = new javax.swing.JTable();
-        south = new javax.swing.JPanel();
+        south2 = new javax.swing.JPanel();
         labFilter = new javax.swing.JLabel();
         txtFilter = new javax.swing.JTextField(){
             public JTable table = null;
         };
         checkFilter = new javax.swing.JCheckBox();
+        west2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Текстура");
@@ -253,7 +255,7 @@ public class Color extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 641, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 697, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -272,7 +274,7 @@ public class Color extends javax.swing.JFrame {
         getContentPane().add(north, java.awt.BorderLayout.NORTH);
 
         west.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        west.setPreferredSize(new java.awt.Dimension(200, 500));
+        west.setPreferredSize(new java.awt.Dimension(200, 400));
         west.setLayout(new java.awt.BorderLayout());
 
         scr1.setBorder(null);
@@ -309,11 +311,10 @@ public class Color extends javax.swing.JFrame {
         getContentPane().add(west, java.awt.BorderLayout.WEST);
 
         centr.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        centr.setPreferredSize(new java.awt.Dimension(700, 500));
+        centr.setPreferredSize(new java.awt.Dimension(700, 400));
         centr.setLayout(new java.awt.BorderLayout());
 
         scr2.setBorder(null);
-        scr2.setPreferredSize(new java.awt.Dimension(450, 360));
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -355,16 +356,20 @@ public class Color extends javax.swing.JFrame {
 
         centr.add(scr2, java.awt.BorderLayout.CENTER);
 
+        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
+
+        soutch.setPreferredSize(new java.awt.Dimension(900, 200));
+        soutch.setLayout(new java.awt.BorderLayout());
+
         scr3.setBorder(null);
-        scr3.setPreferredSize(new java.awt.Dimension(454, 200));
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxx", "xxxxxx", null},
-                {"zzzzzz", "zzzzzzz", null}
+                {"xxxxx", "xxxxxx", null, null},
+                {"zzzzzz", "zzzzzzz", null, null}
             },
             new String [] {
-                "Параметр", "Текстура", "ID"
+                "Параметр", "Текстура", "Цвет", "ID"
             }
         ));
         tab3.setFillsViewportHeight(true);
@@ -378,24 +383,22 @@ public class Color extends javax.swing.JFrame {
         scr3.setViewportView(tab3);
         if (tab3.getColumnModel().getColumnCount() > 0) {
             tab3.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab3.getColumnModel().getColumn(2).setMaxWidth(40);
+            tab3.getColumnModel().getColumn(3).setMaxWidth(40);
         }
 
-        centr.add(scr3, java.awt.BorderLayout.SOUTH);
+        soutch.add(scr3, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(centr, java.awt.BorderLayout.CENTER);
-
-        south.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        south.setMinimumSize(new java.awt.Dimension(100, 20));
-        south.setPreferredSize(new java.awt.Dimension(900, 20));
-        south.setLayout(new javax.swing.BoxLayout(south, javax.swing.BoxLayout.LINE_AXIS));
+        south2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        south2.setMinimumSize(new java.awt.Dimension(100, 20));
+        south2.setPreferredSize(new java.awt.Dimension(900, 20));
+        south2.setLayout(new javax.swing.BoxLayout(south2, javax.swing.BoxLayout.LINE_AXIS));
 
         labFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c054.gif"))); // NOI18N
         labFilter.setText("Поле");
         labFilter.setMaximumSize(new java.awt.Dimension(100, 14));
         labFilter.setMinimumSize(new java.awt.Dimension(100, 14));
         labFilter.setPreferredSize(new java.awt.Dimension(100, 14));
-        south.add(labFilter);
+        south2.add(labFilter);
 
         txtFilter.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         txtFilter.setMaximumSize(new java.awt.Dimension(180, 20));
@@ -407,12 +410,29 @@ public class Color extends javax.swing.JFrame {
                 filterCaretUpdate(evt);
             }
         });
-        south.add(txtFilter);
+        south2.add(txtFilter);
 
         checkFilter.setText("в конце строки");
-        south.add(checkFilter);
+        south2.add(checkFilter);
 
-        getContentPane().add(south, java.awt.BorderLayout.SOUTH);
+        soutch.add(south2, java.awt.BorderLayout.SOUTH);
+
+        west2.setPreferredSize(new java.awt.Dimension(300, 180));
+
+        javax.swing.GroupLayout west2Layout = new javax.swing.GroupLayout(west2);
+        west2.setLayout(west2Layout);
+        west2Layout.setHorizontalGroup(
+            west2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        west2Layout.setVerticalGroup(
+            west2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 180, Short.MAX_VALUE)
+        );
+
+        soutch.add(west2, java.awt.BorderLayout.WEST);
+
+        getContentPane().add(soutch, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -497,12 +517,14 @@ public class Color extends javax.swing.JFrame {
     private javax.swing.JScrollPane scr1;
     private javax.swing.JScrollPane scr2;
     private javax.swing.JScrollPane scr3;
-    private javax.swing.JPanel south;
+    private javax.swing.JPanel soutch;
+    private javax.swing.JPanel south2;
     private javax.swing.JTable tab1;
     private javax.swing.JTable tab2;
     private javax.swing.JTable tab3;
     private javax.swing.JTextField txtFilter;
     private javax.swing.JPanel west;
+    private javax.swing.JPanel west2;
     // End of variables declaration//GEN-END:variables
 // </editor-fold> 
     
