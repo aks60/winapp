@@ -443,7 +443,7 @@ public class Profstroy {
             updateSql(eRulecalc.up, eRulecalc.artikl_id, "anumb", eArtikl.up, "code");
             executeSql("update rulecalc set type = rulecalc.type * -1 where rulecalc.type < 0");
             executeSql("update color set rgb = bin_or(bin_shl(bin_and(rgb, 0xff), 16), bin_and(rgb, 0xff00), bin_shr(bin_and(rgb, 0xff0000), 16))");            
-            executeSql("update colmap a set a.color_id2 = (select first 1 id from color b where a.text = b.name)");            
+            executeSql("update colmap a set a.color_id2 = (select first 1 id from color b where a.ptext = b.name), joint = '1', elem = '1', glas = '1', furn = '1', otkos = '1', komp = '1'");            
             updateSql(eColmap.up, eColmap.color_id1, "psss", eColor.up, "cnumb");           
             updateSql(eArtikl.up, eArtikl.series_id, "aseri", eGroups.up, "name");
             updateSql(eArtdet.up, eArtdet.artikl_id, "anumb", eArtikl.up, "code");
@@ -566,9 +566,9 @@ public class Profstroy {
             alterTable("artikl", "fk_currenc2", "currenc2_id", "currenc");
             alterTable("color", "fk_color1", "colgrp_id", "groups");
             alterTable("alter table color add constraint ung1_color unique (name)");
-            alterTable("colmap", "fk_colpar_1", "params_id", "groups");
-            alterTable("colmap", "fk_colpar_2", "color_id1", "color");
-            alterTable("colmap", "fk_colpar_3", "color_id2", "color");
+            alterTable("colmap", "fk_colmap_1", "params_id", "groups");
+            alterTable("colmap", "fk_colmap_2", "color_id1", "color");
+            alterTable("colmap", "fk_colmap_3", "color_id2", "color");
             alterTable("artikl", "fk_artikl1", "artgrp1_id", "groups");
             alterTable("artikl", "fk_artikl2", "artgrp2_id", " groups");
             alterTable("artikl", "fk_artikl3", "artgrp3_id", "groups");

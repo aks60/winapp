@@ -57,7 +57,7 @@ public class Color extends javax.swing.JFrame {
         new DefTableModel(tab1, qСolgrup1, eGroups.name);
         new DefTableModel(tab2, qColor, eColor.id, eColor.name, eColor.coef1, eColor.coef2, eColor.coef3, eColor.is_prod);
         new DefTableModel(tab3, qСolgrup2, eGroups.name, eGroups.id);
-        new DefTableModel(tab4, qColmap, eColmap.colgrp_id, eColmap.color_id2) {
+        new DefTableModel(tab4, qColmap, eColmap.color_id2, eColmap.id, eColmap.id, eColmap.id, eColmap.id) {
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
 //                if (field == eColmap.colgrp_id) {
@@ -100,7 +100,7 @@ public class Color extends javax.swing.JFrame {
             int row = Util.getSelectedRec(tab4);            
             Record record2 = qColmap.get(row);
             record2.set(eColmap.colgrp_id, record.getInt(eParams.params_id));
-            record2.set(eColmap.text, record.getStr(eParams.text)); 
+            //record2.set(eColmap.text, record.getStr(eParams.text)); 
             qColmap.update(record2);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4, row);            
@@ -124,7 +124,7 @@ public class Color extends javax.swing.JFrame {
     }
 
     private void selectionTab1(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab4);
+        Util.stopCellEditing(tab1, tab2, tab3, tab4);
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
             Record record = qСolgrup1.table(eGroups.up).get(row);
@@ -135,18 +135,17 @@ public class Color extends javax.swing.JFrame {
         }
     }
 
-    private void selectionTab2(ListSelectionEvent event) {
-        Util.stopCellEditing(tab1, tab2, tab4);
-        int row = Util.getSelectedRec(tab2);
+    private void selectionTab3(ListSelectionEvent event) {
+        Util.stopCellEditing(tab1, tab2, tab3, tab4);
+        int row = Util.getSelectedRec(tab3);
         if (row != -1) {
-            Record colorRec = qColor.table(eColor.up).get(row);
-            int id = colorRec.getInt(eColor.id);
-            qColmap.select(eColmap.up, "where", eColmap.color_id1, "=", id);
+            Record record = qСolgrup2.get(row);
+            Integer cgrup = record.getInt(eGroups.id);
+            qColmap.select(eColmap.up, "where", eColmap.colgrp_id, "=" + cgrup);
             ((DefaultTableModel) tab4.getModel()).fireTableDataChanged();
             Util.setSelectedRow(tab4);
         }
-    }
-
+    }    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -178,7 +177,6 @@ public class Color extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Текстура");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
-        setPreferredSize(new java.awt.Dimension(800, 549));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 Color.this.windowClosed(evt);
@@ -393,11 +391,11 @@ public class Color extends javax.swing.JFrame {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"xxxxx", "xxxxxx", null, null},
-                {"zzzzzz", "zzzzzzz", null, null}
+                {null, "xxxxxx", null, null, null, null, null, null},
+                {null, "zzzzzzz", null, null, null, null, null, null}
             },
             new String [] {
-                "Параметр", "Текстура", "Цвет", "ID"
+                "Группы текстур", "Текстуры профилей", "Соединения", "Вставки", "Заполнения", "Фурнитура", "Откосы", "Комплекты"
             }
         ));
         tab4.setFillsViewportHeight(true);
@@ -410,8 +408,8 @@ public class Color extends javax.swing.JFrame {
         });
         scr4.setViewportView(tab4);
         if (tab4.getColumnModel().getColumnCount() > 0) {
-            tab4.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tab4.getColumnModel().getColumn(3).setMaxWidth(40);
+            tab4.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab4.getColumnModel().getColumn(1).setPreferredWidth(300);
         }
 
         pan2.add(scr4, java.awt.BorderLayout.CENTER);
@@ -557,10 +555,10 @@ public class Color extends javax.swing.JFrame {
                 }
             }
         });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tab3.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent event) {
                 if (event.getValueIsAdjusting() == false) {
-                    selectionTab2(event);
+                    selectionTab3(event);
                 }
             }
         });
