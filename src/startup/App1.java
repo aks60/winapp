@@ -37,6 +37,9 @@ import frames.TestFrame;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Set;
 import javax.swing.JFrame;
@@ -65,12 +68,20 @@ public class App1 extends javax.swing.JFrame {
 
         initComponents();
         initElements();
-
-        int nuni = Integer.valueOf(eProperty.systree_nuni.read());
-        int models_id = eSystree.find(nuni).getInt(eSystree.models_id);
-        if (models_id == -1) {
-            setSelectedFilter(true);
+        try {
+            Statement st = Query.connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = st.executeQuery("select 1 from RDB$RELATIONS r where r.RDB$RELATION_NAME = 'SYSTREE'");
+            if (rs.next() == true) {
+                int nuni = Integer.valueOf(eProperty.systree_nuni.read());
+                int models_id = eSystree.find(nuni).getInt(eSystree.models_id);
+                if (models_id == -1) {
+                    setSelectedFilter(true);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
         }
+
         if (eProperty.lookandfeel.read().equals("Metal")) {
             mn623.setSelected(true);
         } else if (eProperty.lookandfeel.read().equals("Nimbus")) {

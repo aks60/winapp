@@ -86,7 +86,7 @@ public class Groups extends javax.swing.JFrame {
         checkFilter = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Группы артикулов");
+        setTitle("Группы");
         setPreferredSize(new java.awt.Dimension(500, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -109,15 +109,15 @@ public class Groups extends javax.swing.JFrame {
 
         tab1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Название группы", "Наценка (коэф)"
+                "Название группы", "Наценка (коэф)", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -136,6 +136,7 @@ public class Groups extends javax.swing.JFrame {
         if (tab1.getColumnModel().getColumnCount() > 0) {
             tab1.getColumnModel().getColumn(1).setPreferredWidth(86);
             tab1.getColumnModel().getColumn(1).setMaxWidth(140);
+            tab1.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
         panl1.add(scr1, java.awt.BorderLayout.CENTER);
@@ -148,15 +149,15 @@ public class Groups extends javax.swing.JFrame {
 
         tab2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Название группы", "Скидка %"
+                "Название группы", "Скидка %", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -175,6 +176,7 @@ public class Groups extends javax.swing.JFrame {
         if (tab2.getColumnModel().getColumnCount() > 0) {
             tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
             tab2.getColumnModel().getColumn(1).setMaxWidth(140);
+            tab2.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
         pan2.add(scr2, java.awt.BorderLayout.CENTER);
@@ -185,13 +187,13 @@ public class Groups extends javax.swing.JFrame {
 
         tab3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Наименование"
+                "Наименование", "ID"
             }
         ));
         tab3.setFillsViewportHeight(true);
@@ -202,6 +204,9 @@ public class Groups extends javax.swing.JFrame {
             }
         });
         scr3.setViewportView(tab3);
+        if (tab3.getColumnModel().getColumnCount() > 0) {
+            tab3.getColumnModel().getColumn(1).setMaxWidth(40);
+        }
 
         pan3.add(scr3, java.awt.BorderLayout.CENTER);
 
@@ -211,13 +216,13 @@ public class Groups extends javax.swing.JFrame {
 
         tab4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Наименование"
+                "Наименование", "ID"
             }
         ));
         tab4.setFillsViewportHeight(true);
@@ -229,6 +234,9 @@ public class Groups extends javax.swing.JFrame {
             }
         });
         scr4.setViewportView(tab4);
+        if (tab4.getColumnModel().getColumnCount() > 0) {
+            tab4.getColumnModel().getColumn(1).setMaxWidth(40);
+        }
 
         pan4.add(scr4, java.awt.BorderLayout.CENTER);
 
@@ -238,20 +246,27 @@ public class Groups extends javax.swing.JFrame {
 
         tab5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Наименование групп", "Коэффициент"
+                "Наименование групп", "Коэффициент", "ID"
             }
         ));
         tab5.setFillsViewportHeight(true);
+        tab5.setName("tab5"); // NOI18N
+        tab5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tabMousePressed(evt);
+            }
+        });
         scr5.setViewportView(tab5);
         if (tab5.getColumnModel().getColumnCount() > 0) {
             tab5.getColumnModel().getColumn(1).setPreferredWidth(60);
             tab5.getColumnModel().getColumn(1).setMaxWidth(80);
+            tab5.getColumnModel().getColumn(2).setMaxWidth(40);
         }
 
         pan5.add(scr5, java.awt.BorderLayout.CENTER);
@@ -402,6 +417,8 @@ public class Groups extends javax.swing.JFrame {
         south.add(checkFilter);
 
         getContentPane().add(south, java.awt.BorderLayout.SOUTH);
+
+        getAccessibleContext().setAccessibleName("Группы");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

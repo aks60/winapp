@@ -246,8 +246,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;">
-                    <Property name="tabTitle" type="java.lang.String" value="&#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;"/>
+                  <JTabbedPaneConstraints tabName="      &#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;      ">
+                    <Property name="tabTitle" type="java.lang.String" value="      &#x421;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;      "/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -405,8 +405,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="&#x421;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;">
-                    <Property name="tabTitle" type="java.lang.String" value="&#x421;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;"/>
+                  <JTabbedPaneConstraints tabName="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x441;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;">
+                    <Property name="tabTitle" type="java.lang.String" value="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x441;&#x43e;&#x43e;&#x442;&#x432;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x432;"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -437,7 +437,7 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="4">
-                            <Column editable="true" title="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x441;&#x43e;&#x43e;&#x442;&#x438;&#x435;&#x442;&#x441;&#x442;&#x432;&#x438;&#x44f;" type="java.lang.Object"/>
+                            <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435; &#x433;&#x440;&#x443;&#x43f;&#x43f;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x426;&#x432;&#x435;&#x442; &#x44d;&#x43b;&#x435;&#x43c;&#x435;&#x43d;&#x442;&#x430;" type="java.lang.Object"/>
                             <Column editable="true" title="ID" type="java.lang.Object"/>
                           </Table>
@@ -490,17 +490,17 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="8" rowCount="2">
-                            <Column editable="true" title="&#x413;&#x440;&#x443;&#x43f;&#x43f;&#x44b; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;" type="java.lang.Object"/>
+                            <Column editable="true" title="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435; &#x433;&#x440;. &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;" type="java.lang.Object"/>
                             <Column editable="true" title="&#x422;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x430; &#x43f;&#x440;&#x43e;&#x444;&#x438;&#x43b;&#x44f;" type="java.lang.Object">
                               <Data value="xxxxxx"/>
                               <Data value="zzzzzzz"/>
                             </Column>
-                            <Column editable="true" title="&#x421;&#x43e;&#x435;&#x434;&#x438;&#x43d;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x412;&#x441;&#x442;&#x430;&#x432;&#x43a;&#x438;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x417;&#x430;&#x43f;&#x43e;&#x43b;&#x43d;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x424;&#x443;&#x440;&#x43d;&#x438;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x41e;&#x442;&#x43a;&#x43e;&#x441;&#x44b;" type="java.lang.Object"/>
-                            <Column editable="true" title="&#x41a;&#x43e;&#x43c;&#x43f;&#x43b;&#x435;&#x43a;&#x442;&#x44b;" type="java.lang.Object"/>
+                            <Column editable="true" title="&#x421;&#x43e;&#x435;&#x434;&#x438;&#x43d;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Boolean"/>
+                            <Column editable="true" title="&#x412;&#x441;&#x442;&#x430;&#x432;&#x43a;&#x438;" type="java.lang.Boolean"/>
+                            <Column editable="true" title="&#x417;&#x430;&#x43f;&#x43e;&#x43b;&#x43d;&#x435;&#x43d;&#x438;&#x44f;" type="java.lang.Boolean"/>
+                            <Column editable="true" title="&#x424;&#x443;&#x440;&#x43d;&#x438;&#x442;&#x443;&#x440;&#x430;" type="java.lang.Boolean"/>
+                            <Column editable="true" title="&#x41e;&#x442;&#x43a;&#x43e;&#x441;&#x44b;" type="java.lang.Boolean"/>
+                            <Column editable="true" title="&#x41a;&#x43e;&#x43c;&#x43f;&#x43b;&#x435;&#x43a;&#x442;&#x44b;" type="java.lang.Boolean"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
