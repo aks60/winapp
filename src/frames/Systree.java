@@ -208,20 +208,20 @@ public class Systree extends javax.swing.JFrame {
 
             public Object getValueAt(int col, int row, Object val) {
                 Field field = columns[col];
-
-                if (field == eSysfurn.side_open) {
-                    int id = Integer.valueOf(val.toString());
-                    return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.QUE).name;
-
-                } else if (field == eSysfurn.hand_pos) {
-                    int id = Integer.valueOf(val.toString());
-                    return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.MIDL).name;
-                } else if (field == eSysfurn.artikl_id1) {
-                    int id = Integer.valueOf(val.toString());
-                    return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
-                } else if (field == eSysfurn.artikl_id2) {
-                    int id = Integer.valueOf(val.toString());
-                    return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                if (val != null) {
+                    if (field == eSysfurn.side_open) {
+                        int id = Integer.valueOf(val.toString());
+                        return Arrays.asList(TypeOpen2.values()).stream().filter(el -> el.id == id).findFirst().orElse(TypeOpen2.QUE).name;
+                    } else if (field == eSysfurn.hand_pos) {
+                        int id = Integer.valueOf(val.toString());
+                        return Arrays.asList(LayoutHandle.values()).stream().filter(el -> el.id == id).findFirst().orElse(LayoutHandle.MIDL).name;
+                    } else if (field == eSysfurn.artikl_id1) {
+                        int id = Integer.valueOf(val.toString());
+                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                    } else if (field == eSysfurn.artikl_id2) {
+                        int id = Integer.valueOf(val.toString());
+                        return qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == id).findFirst().orElse(eArtikl.up.newRecord()).get(eArtikl.code);
+                    }
                 }
                 return val;
             }
