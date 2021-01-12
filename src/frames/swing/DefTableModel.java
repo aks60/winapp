@@ -68,8 +68,8 @@ public class DefTableModel extends DefaultTableModel implements FrameListener {
         }
 
         for (int index = 0; index < columnModel.getColumnCount(); index++) {
-            if (Main.dev == false && "ID".equals(table.getColumnName(index))
-                    || "id".equals(table.getColumnName(index))) {
+            if (Main.dev == false && "ID".equals(table.getColumnName(index))) {
+                    //|| "id".equals(table.getColumnName(index))) {
                 TableColumn col = columnModel.getColumn(index);
                 col.setMinWidth(0);
                 col.setMaxWidth(0);
