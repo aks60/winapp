@@ -97,6 +97,7 @@ public class Color extends javax.swing.JFrame {
         Arrays.asList(4, 5, 6, 7, 8, 9).forEach(index -> tab4.getColumnModel().getColumn(index).setCellRenderer(br));
 
         Util.setSelectedRow(tab1);
+        Util.setSelectedRow(tab3);
     }
 
     private void listenerAdd() {
