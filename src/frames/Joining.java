@@ -7,24 +7,22 @@ import frames.dialog.ParGrup2a;
 import frames.dialog.DicArtikl;
 import common.DialogListener;
 import common.EditorListener;
+import common.FrameListener;
+import common.FrameProgress;
 import common.FrameToFile;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
 import domain.eArtikl;
 import domain.eColor;
-import domain.eElemdet;
-import domain.eElement;
 import domain.eGroups;
 import domain.eJoindet;
 import domain.eJoining;
 import domain.eJoinpar1;
 import domain.eJoinpar2;
 import domain.eParams;
-import domain.eSysprof;
 import enums.Enam;
 import enums.ParamList;
-import java.awt.Window;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JTable;
@@ -46,6 +44,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
+import startup.App1;
 import startup.Main;
 
 //варианты соединений
@@ -63,7 +62,7 @@ public class Joining extends javax.swing.JFrame {
     private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
+    private Query qArtikl = new Query(eArtikl.values());
     private Query qJoining = new Query(eJoining.values());
     private Query qJoinvar = new Query(eJoinvar.values());
     private Query qJoindet = new Query(eJoindet.values());
@@ -330,7 +329,7 @@ public class Joining extends javax.swing.JFrame {
 
         listenerArtikl = (record) -> {
             Util.stopCellEditing(tab1, tab2, tab3, tab4, tab5);
-            
+
             if (tab1.getBorder() != null) {
                 Record joiningRec = qJoining.get(Util.getSelectedRec(tab1));
                 if (tab1.getSelectedColumn() == 0) {
@@ -491,6 +490,7 @@ public class Joining extends javax.swing.JFrame {
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
+        btnConstructiv = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan4 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -602,6 +602,21 @@ public class Joining extends javax.swing.JFrame {
             }
         });
 
+        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnConstructiv.setFocusable(false);
+        btnConstructiv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConstructiv.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConstructiv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConstructiv(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -613,7 +628,9 @@ public class Joining extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(195, 195, 195)
+                .addGap(18, 18, 18)
+                .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(152, 152, 152)
                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 468, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -630,7 +647,8 @@ public class Joining extends javax.swing.JFrame {
                         .addGroup(northLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnConstructiv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -943,9 +961,20 @@ public class Joining extends javax.swing.JFrame {
             ((DefTableModel) table.getModel()).getSorter().setRowFilter(RowFilter.regexFilter(text, index));
         }
     }//GEN-LAST:event_filterCaretUpdate
+
+    private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
+        Record record = ((DefTableModel) tab4.getModel()).getQuery().get(Util.getSelectedRec(tab4));
+        Record record2 = qArtikl.stream().filter(rec -> rec.getInt(eArtikl.id) == record.getInt(eJoindet.artikl_id)).findFirst().orElse(eJoindet.up.newRecord());
+        FrameProgress.create(this, new FrameListener() {
+            public void actionRequest(Object obj) {
+                App1.eApp1.Artikles.createFrame(Joining.this, record2);
+            }
+        });
+    }//GEN-LAST:event_btnConstructiv
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnConstructiv;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;

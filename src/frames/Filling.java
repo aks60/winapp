@@ -2,6 +2,8 @@ package frames;
 
 import common.DialogListener;
 import common.EditorListener;
+import common.FrameListener;
+import common.FrameProgress;
 import common.FrameToFile;
 import dataset.Query;
 import dataset.Record;
@@ -11,8 +13,6 @@ import domain.eGlasgrp;
 import domain.eGlaspar1;
 import domain.eGlaspar2;
 import domain.eGlasprof;
-import domain.eSysprof;
-import java.awt.Window;
 import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -44,6 +44,7 @@ import startup.Main;
 import frames.swing.BooleanRenderer;
 import java.util.Set;
 import java.util.stream.Collectors;
+import startup.App1;
 
 public class Filling extends javax.swing.JFrame {
 
@@ -416,6 +417,7 @@ public class Filling extends javax.swing.JFrame {
         btnRef = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
         btnIns = new javax.swing.JButton();
+        btnConstructiv = new javax.swing.JButton();
         centr = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         scr1 = new javax.swing.JScrollPane();
@@ -512,6 +514,21 @@ public class Filling extends javax.swing.JFrame {
             }
         });
 
+        btnConstructiv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img24/c055.gif"))); // NOI18N
+        btnConstructiv.setToolTipText(bundle.getString("Печать")); // NOI18N
+        btnConstructiv.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnConstructiv.setFocusable(false);
+        btnConstructiv.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnConstructiv.setMaximumSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setMinimumSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setPreferredSize(new java.awt.Dimension(25, 25));
+        btnConstructiv.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnConstructiv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConstructiv(evt);
+            }
+        });
+
         javax.swing.GroupLayout northLayout = new javax.swing.GroupLayout(north);
         north.setLayout(northLayout);
         northLayout.setHorizontalGroup(
@@ -523,7 +540,9 @@ public class Filling extends javax.swing.JFrame {
                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 667, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnConstructiv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
                 .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -535,7 +554,8 @@ public class Filling extends javax.swing.JFrame {
                         .addComponent(btnDel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIns, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnConstructiv, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -853,9 +873,21 @@ public class Filling extends javax.swing.JFrame {
             Util.listenerClick(tab5, Arrays.asList(tab1, tab2, tab3, tab4, tab5));
         }
     }//GEN-LAST:event_tabbStateChanged
+
+    private void btnConstructiv(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConstructiv
+        Record record = ((DefTableModel) tab2.getModel()).getQuery().get(Util.getSelectedRec(tab2));
+        Record record2 = eArtikl.find(record.getInt(eElemdet.artikl_id), false);
+
+        FrameProgress.create(this, new FrameListener() {
+            public void actionRequest(Object obj) {
+                App1.eApp1.Artikles.createFrame(Filling.this, record2);
+            }
+        });
+    }//GEN-LAST:event_btnConstructiv
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnConstructiv;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnIns;
     private javax.swing.JButton btnRef;
