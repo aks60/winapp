@@ -919,7 +919,7 @@ public class Furniture extends javax.swing.JFrame {
         });
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
-            tab1.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tab1.getColumnModel().getColumn(0).setPreferredWidth(240);
             tab1.getColumnModel().getColumn(3).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(4).setPreferredWidth(40);
             tab1.getColumnModel().getColumn(5).setPreferredWidth(40);
@@ -1327,8 +1327,6 @@ public class Furniture extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosed
 
     private void btnReport(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReport
-        checkBox3.setSelected(true);
-        checkBoxAction(null);
     }//GEN-LAST:event_btnReport
 
     private void tabbStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabbStateChanged

@@ -15,6 +15,8 @@ import dataset.Record;
 import domain.eModels;
 import domain.eSystree;
 import builder.Wincalc;
+import dataset.Field;
+import domain.eGroups;
 import frames.Groups;
 import frames.Artikles;
 import frames.BoxTypical;
@@ -1343,11 +1345,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnConvert(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConvert
 
-        FrameProgress.create(App1.this, new FrameListener() {
-            public void actionRequest(Object obj) {
-                eApp1.Convert.createFrame(App1.this);
-            }
-        });
     }//GEN-LAST:event_mnConvert
 
     private void mnOrder(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnOrder

@@ -1,5 +1,6 @@
 package dataset;
 
+import domain.eGroups;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashSet;
@@ -67,7 +68,7 @@ public interface Field {
 
     default Record newRecord(String up) {
         Record record = new Record(this);
-        for (Field field : fields()) {
+        for (int index = 1; index < fields().length; ++index) {
             record.add(null);
         }
         record.set(0, up);
