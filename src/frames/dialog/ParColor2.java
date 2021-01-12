@@ -7,19 +7,19 @@ import dataset.Query;
 import dataset.Record;
 import domain.eArtdet;
 import domain.eColor;
-import domain.eParams;
 import java.awt.CardLayout;
 import java.util.stream.Collectors;
 import javax.swing.JToggleButton;
 import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
-import dataset.Field;
+import domain.eGroups;
+import enums.TypeGroups;
 import enums.UseColor;
 
 public class ParColor2 extends javax.swing.JDialog {
 
     private Query qArtdet = new Query(eArtdet.values());
-    private Query qParams = new Query(eParams.values());
+    private Query qGroups = new Query(eGroups.values());
     private DialogListener listener;
 
     public ParColor2(java.awt.Frame parent, DialogListener listener, int artikl_id) {
@@ -34,9 +34,7 @@ public class ParColor2 extends javax.swing.JDialog {
 
     private void loadingData(int artikl_id) {
         qArtdet.select(eArtdet.up, "where", eArtdet.artikl_id, "=", artikl_id);
-        
-        qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id,  "and", eParams.color, "= 1 order by", eParams.text);
-        //qParams.select(eParams.up, "where", eParams.numb, "= 0 and", constr, "= 1 and", eParams.color, "= 1 order by", eParams.text);
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
     }
 
     private void loadingModel() {
@@ -60,7 +58,7 @@ public class ParColor2 extends javax.swing.JDialog {
             }
         }
         tableModel.getDataVector().stream().sorted((rec1, rec2) -> rec1.get(1).toString().compareTo(rec2.get(1).toString())).collect(Collectors.toList());
-        tab2.setModel(new DefTableModel(tab2, qParams, eParams.id, eParams.text));
+        tab2.setModel(new DefTableModel(tab2, qGroups, eGroups.id, eGroups.name));
 
         ((DefaultTableModel) tab1.getModel()).fireTableDataChanged();
         Util.setSelectedRow(tab1);
@@ -316,7 +314,7 @@ public class ParColor2 extends javax.swing.JDialog {
             record.add(tab1.getModel().getValueAt(Util.getSelectedRec(tab1), 1));
             listener.action(record);
         } else {
-            listener.action(qParams.get(Util.getSelectedRec(tab2)));
+            listener.action(qGroups.get(Util.getSelectedRec(tab2)));
         }
         this.dispose();
     }//GEN-LAST:event_btnChoice

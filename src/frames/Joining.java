@@ -15,6 +15,7 @@ import domain.eArtikl;
 import domain.eColor;
 import domain.eElemdet;
 import domain.eElement;
+import domain.eGroups;
 import domain.eJoindet;
 import domain.eJoining;
 import domain.eJoinpar1;
@@ -33,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import frames.dialog.DicJoinvar;
 import domain.eJoinvar;
+import enums.TypeGroups;
 import frames.swing.BooleanRenderer;
 import frames.dialog.DicColvar;
 import enums.UseColor;
@@ -58,6 +60,7 @@ public class Joining extends javax.swing.JFrame {
         new ImageIcon(getClass().getResource("/resource/img16/b005.gif"))};
     private int[] indexIcon = {10, 20, 30, 31, 40, 41};
 
+    private Query qGroups = new Query(eGroups.values());
     private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qArtikl = new Query(eArtikl.id, eArtikl.code, eArtikl.name);
@@ -109,6 +112,7 @@ public class Joining extends javax.swing.JFrame {
     private void loadingData() {
 
         tab1.setToolTipText("");
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         qParams.select(eParams.up, "where", eParams.joint, "= 1 and", eParams.id, "=", eParams.id, "order by", eParams.text);
         qColor.select(eColor.up);
         qArtikl.select(eArtikl.up);
@@ -179,7 +183,7 @@ public class Joining extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        //return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1*colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                     }
                 } else if (eJoindet.types == field) {
                     int types = Integer.valueOf(val.toString());

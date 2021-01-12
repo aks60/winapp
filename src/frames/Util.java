@@ -6,7 +6,7 @@ import dataset.ConnApp;
 import dataset.Field;
 import dataset.Query;
 import dataset.Record;
-import domain.eFurnpar2;
+import domain.eGroups;
 import domain.eJoinpar1;
 import domain.eParams;
 import domain.eSystree;
@@ -24,7 +24,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -39,7 +38,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import startup.Main;
 import frames.swing.DefCellEditor;
 import frames.swing.DefTableModel;
 
@@ -506,7 +504,7 @@ public class Util {
         int row = getSelectedRec(table);
         Query query = ((DefTableModel) table.getModel()).getQuery();
         Record elemdetRec = query.get(row);
-        int group = (eParams.values().length == record.size()) ? record.getInt(eParams.id) : record.getInt(0);
+        int group = (eGroups.values().length == record.size()) ? record.getInt(eGroups.id) : record.getInt(0);
         elemdetRec.set(color_fk, group);
         if (group == 0 || group == 100000) {
             int val = UseColor.PROF.id + (UseColor.PROF.id << 4) + (UseColor.PROF.id << 8);

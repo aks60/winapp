@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import frames.swing.DefTableModel;
 import dataset.Field;
 import dataset.Table;
+import domain.eGroups;
 import frames.dialog.DicArtikl;
 import frames.dialog.DicColvar;
 import frames.dialog.DicEnums;
@@ -36,6 +37,7 @@ import enums.ParamList;
 import enums.LayoutFurn1;
 import enums.UseFurn3;
 import enums.LayoutFurn3;
+import enums.TypeGroups;
 import enums.UseColor;
 import enums.UseFurn1;
 import enums.UseFurn2;
@@ -55,6 +57,7 @@ import startup.Main;
 
 public class Furniture extends javax.swing.JFrame {
 
+    private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qFurnall = new Query(eFurniture.values());
@@ -115,6 +118,7 @@ public class Furniture extends javax.swing.JFrame {
         qArtikl.select(eArtikl.up);
         qFurnall.select(eFurniture.up, "order by", eFurniture.name);
         qParams.select(eParams.up, "where", eParams.id, "=", eParams.params_id, "order by", eParams.text); //TODO отключил фильтр, а это неправильно
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         int types = (checkBox1.isSelected()) ? 0 : (checkBox2.isSelected()) ? 1 : -1;
         if (subsql == null) {
             qFurniture.select(eFurniture.up, "where", eFurniture.types, "=", types, "order by", eFurniture.name);
@@ -165,7 +169,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -202,7 +206,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                     }
 
                 } else if (val != null && eFurndet.types == field) {
@@ -239,7 +243,7 @@ public class Furniture extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return "# " + qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                     }
 
                 } else if (val != null && eFurndet.types == field) {

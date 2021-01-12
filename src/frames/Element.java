@@ -54,9 +54,10 @@ import java.util.stream.Collectors;
 
 public class Element extends javax.swing.JFrame {
 
+    private Query qGrMap = new Query(eGroups.values());
+    private Query qGrSeri = new Query(eGroups.values());
     private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
-    private Query qGroups = new Query(eGroups.values());
     private Query qElemgrp = new Query(eElemgrp.values());
     private Query qElement = new Query(eElement.values(), eArtikl.values());
     private Query qElemdet = new Query(eElemdet.values(), eArtikl.values());
@@ -108,7 +109,8 @@ public class Element extends javax.swing.JFrame {
 
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.elem, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
-        qGroups.select(eGroups.up, "where grup =" + TypeGroups.SERI_PROF.id);
+        qGrSeri.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.SERI_PROF.id);
+        qGrMap.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         qElemgrp.select(eElemgrp.up, "order by", eElemgrp.level, ",", eElemgrp.name);
         Record record = eElemgrp.up.newRecord(Query.SEL);
         record.setNo(eElemgrp.id, -1);
@@ -141,7 +143,7 @@ public class Element extends javax.swing.JFrame {
                     return Arrays.asList(TypeSet.values()).stream().filter(el -> el.id == typset).findFirst().orElse(TypeSet.P1).name;
 
                 } else if (val != null && columns[col] == eElement.series_id) {
-                    return qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);
+                    return qGrSeri.stream().filter(rec -> rec.getInt(eGroups.id) == Integer.valueOf(val.toString())).findFirst().orElse(eElement.up.newRecord()).get(eGroups.name);
                 }
                 return val;
             }
@@ -162,7 +164,7 @@ public class Element extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return "# " + qGrMap.stream().filter(rec -> rec.getInt(eGroups.id) == -1*colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                     }
                 } else if (eElemdet.types == field) {
                     int types = Integer.valueOf(val.toString());

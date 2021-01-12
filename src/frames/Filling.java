@@ -31,9 +31,11 @@ import domain.eColor;
 import domain.eElemdet;
 import domain.eElement;
 import domain.eElempar1;
+import domain.eGroups;
 import domain.eParams;
 import enums.Enam;
 import enums.ParamList;
+import enums.TypeGroups;
 import enums.UseColor;
 import java.util.List;
 import java.util.stream.Stream;
@@ -45,6 +47,7 @@ import java.util.stream.Collectors;
 
 public class Filling extends javax.swing.JFrame {
 
+    private Query qGroups = new Query(eGroups.values());
     private Query qColor = new Query(eColor.id, eColor.colgrp_id, eColor.name);
     private Query qParams = new Query(eParams.id, eParams.id, eParams.id, eParams.text);
     private Query qGlasgrp = new Query(eGlasgrp.values());
@@ -95,6 +98,7 @@ public class Filling extends javax.swing.JFrame {
     }
 
     private void loadingData() {
+        qGroups.select(eGroups.up, "where", eGroups.grup, "=", TypeGroups.COLMAP.id);
         qColor.select(eColor.up);
         qParams.select(eParams.up, "where", eParams.glas, "= 1 and", eParams.id, "=", eParams.params_id, "order by", eParams.text);
         if (subsql == null) {
@@ -122,7 +126,7 @@ public class Filling extends javax.swing.JFrame {
                     if (colorFk > 0) {
                         return qColor.stream().filter(rec -> rec.getInt(eColor.id) == colorFk).findFirst().orElse(eColor.up.newRecord()).get(eColor.name);
                     } else {
-                        return qParams.stream().filter(rec -> rec.getInt(eParams.id) == colorFk).findFirst().orElse(eParams.up.newRecord()).get(eParams.text);
+                        return "# " + qGroups.stream().filter(rec -> rec.getInt(eGroups.id) == -1 * colorFk).findFirst().orElse(eGroups.up.newRecord()).get(eGroups.name);
                     }
                 } else if (eGlasdet.types == field) {
                     int types = Integer.valueOf(val.toString());
@@ -352,7 +356,7 @@ public class Filling extends javax.swing.JFrame {
             return Util.listenerCell(tab3, tab4, component, tab1, tab2, tab3, tab4, tab5);
         };
     }
-    
+
     private void selectionTab1(ListSelectionEvent event) {
         int row = Util.getSelectedRec(tab1);
         if (row != -1) {
