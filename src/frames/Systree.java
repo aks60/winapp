@@ -510,10 +510,9 @@ public class Systree extends javax.swing.JFrame {
         tree = new javax.swing.JTree();
         pan1 = new javax.swing.JPanel();
         pan2 = new javax.swing.JPanel();
-        pan7 = new javax.swing.JPanel();
         panDesign = new javax.swing.JPanel();
         btnTypicalOkna = new javax.swing.JButton();
-        pan8 = new javax.swing.JPanel();
+        pan7 = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -694,7 +693,7 @@ public class Systree extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, northLayout.createSequentialGroup()
-                        .addGap(0, 297, Short.MAX_VALUE)
+                        .addGap(0, 391, Short.MAX_VALUE)
                         .addComponent(pan9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -736,12 +735,10 @@ public class Systree extends javax.swing.JFrame {
         centr.add(scr1, java.awt.BorderLayout.WEST);
 
         pan1.setPreferredSize(new java.awt.Dimension(602, 565));
-        pan1.setLayout(new java.awt.BorderLayout());
+        pan1.setLayout(new java.awt.GridLayout(2, 1));
 
         pan2.setPreferredSize(new java.awt.Dimension(692, 200));
         pan2.setLayout(new java.awt.BorderLayout());
-
-        pan7.setLayout(new java.awt.BorderLayout());
 
         panDesign.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         panDesign.setPreferredSize(new java.awt.Dimension(200, 200));
@@ -756,26 +753,15 @@ public class Systree extends javax.swing.JFrame {
         });
         panDesign.add(btnTypicalOkna, java.awt.BorderLayout.SOUTH);
 
-        pan7.add(panDesign, java.awt.BorderLayout.WEST);
+        pan2.add(panDesign, java.awt.BorderLayout.CENTER);
 
-        pan2.add(pan7, java.awt.BorderLayout.WEST);
+        pan7.setPreferredSize(new java.awt.Dimension(300, 200));
+        pan7.setLayout(new java.awt.BorderLayout());
+        pan2.add(pan7, java.awt.BorderLayout.EAST);
 
-        javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
-        pan8.setLayout(pan8Layout);
-        pan8Layout.setHorizontalGroup(
-            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 393, Short.MAX_VALUE)
-        );
-        pan8Layout.setVerticalGroup(
-            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
+        pan1.add(pan2);
 
-        pan2.add(pan8, java.awt.BorderLayout.CENTER);
-
-        pan1.add(pan2, java.awt.BorderLayout.NORTH);
-
-        tabb1.setPreferredSize(new java.awt.Dimension(455, 275));
+        tabb1.setPreferredSize(new java.awt.Dimension(600, 275));
         tabb1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 tabb1StateChanged(evt);
@@ -976,7 +962,7 @@ public class Systree extends javax.swing.JFrame {
                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         pan6Layout.setVerticalGroup(
             pan6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1020,7 +1006,7 @@ public class Systree extends javax.swing.JFrame {
                     .addComponent(btnField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         tabb1.addTab("Основные", pan6);
@@ -1191,7 +1177,7 @@ public class Systree extends javax.swing.JFrame {
 
         tabb1.addTab("Параметры", pan5);
 
-        pan1.add(tabb1, java.awt.BorderLayout.CENTER);
+        pan1.add(tabb1);
 
         centr.add(pan1, java.awt.BorderLayout.CENTER);
 
@@ -1495,7 +1481,6 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
-    private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
     private javax.swing.JPanel panDesign;
     private javax.swing.JScrollPane scr1;
