@@ -95,18 +95,20 @@ public class Systree extends javax.swing.JFrame {
 
     public Systree() {
         initComponents();
-        initElements();
-        listenerSet();
+        initElements();        
         loadingData();
         loadingModel();
+        listenerAdd();
+        listenerSet();
     }
 
     public Systree(int artiklID) {
         initComponents();
         initElements();
-        listenerSet();
         loadingData();
         loadingModel();
+        listenerAdd();
+        listenerSet();
         for (int i = 0; i < qSysprof.size(); i++) {
             if (qSysprof.get(i).getInt(eSysprof.artikl_id) == artiklID) {
                 Util.setSelectedRow(tab2, i);
@@ -258,6 +260,31 @@ public class Systree extends javax.swing.JFrame {
             }
         });
 
+        rsmSysprof.setFrameListener(listenerModify);
+        rsvSystree = new DefFieldEditor(tab1);
+        rsvSystree.add(eSystree.name, txtField8);
+        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
+        rsvSystree.add(eSystree.glas, txtField1);
+        rsvSystree.add(eSystree.depth, txtField2);
+        rsvSystree.add(eSystree.col1, txtField3);
+        rsvSystree.add(eSystree.col2, txtField4);
+        rsvSystree.add(eSystree.col3, txtField5);
+        rsvSystree.add(eSystree.id, txtField6);
+        rsvSystree.add(eSystree.pref, txtField10);
+        rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
+        rsvSystree.add(eSystree.nuni, txtField12);
+
+        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
+        paintPanel.setVisible(true);
+
+        if (nuniNode != null) {
+            tree.setSelectionPath(new TreePath(nuniNode));
+        } else {
+            tree.setSelectionRow(0);
+        }
+    }
+
+    private void listenerAdd() {
         Util.buttonEditorCell(tab2, 0).addActionListener(event -> {
             new DicEnums(this, listenerUsetyp, UseArtiklTo.values());
         });
@@ -303,32 +330,9 @@ public class Systree extends javax.swing.JFrame {
         Util.buttonEditorCell(tab4, 1).addActionListener(event -> {
             Integer grup = qSyspar1.getAs(Util.getSelectedRec(tab4), eSyspar1.params_id);
             ParDefault frame = new ParDefault(this, listenerParam2, grup);
-        });
-
-        rsmSysprof.setFrameListener(listenerModify);
-        rsvSystree = new DefFieldEditor(tab1);
-        rsvSystree.add(eSystree.name, txtField8);
-        rsvSystree.add(eSystree.types, txtField7, TypeUse.values());
-        rsvSystree.add(eSystree.glas, txtField1);
-        rsvSystree.add(eSystree.depth, txtField2);
-        rsvSystree.add(eSystree.col1, txtField3);
-        rsvSystree.add(eSystree.col2, txtField4);
-        rsvSystree.add(eSystree.col3, txtField5);
-        rsvSystree.add(eSystree.id, txtField6);
-        rsvSystree.add(eSystree.pref, txtField10);
-        rsvSystree.add(eSystree.imgview, txtField11, LayoutProduct.values());
-        rsvSystree.add(eSystree.nuni, txtField12);
-
-        panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
-        paintPanel.setVisible(true);
-
-        if (nuniNode != null) {
-            tree.setSelectionPath(new TreePath(nuniNode));
-        } else {
-            tree.setSelectionRow(0);
-        }
+        });        
     }
-
+    
     private void listenerSet() {
 
         listenerUsetyp = (record) -> {
@@ -483,8 +487,8 @@ public class Systree extends javax.swing.JFrame {
             if (script1 != null && script1.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
-                iwin.build(script2.toString()); //калькуляция изделия
-                paintPanel.repaint(true, 12);
+                iwin.build(script2.toString()); //калькуляция изделия               
+                paintPanel.repaint(true, 1);
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -513,6 +517,7 @@ public class Systree extends javax.swing.JFrame {
         panDesign = new javax.swing.JPanel();
         btnTypicalOkna = new javax.swing.JButton();
         pan7 = new javax.swing.JPanel();
+        pan8 = new javax.swing.JPanel();
         tabb1 = new javax.swing.JTabbedPane();
         pan6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -758,6 +763,21 @@ public class Systree extends javax.swing.JFrame {
         pan7.setPreferredSize(new java.awt.Dimension(300, 200));
         pan7.setLayout(new java.awt.BorderLayout());
         pan2.add(pan7, java.awt.BorderLayout.EAST);
+
+        pan8.setPreferredSize(new java.awt.Dimension(8, 308));
+
+        javax.swing.GroupLayout pan8Layout = new javax.swing.GroupLayout(pan8);
+        pan8.setLayout(pan8Layout);
+        pan8Layout.setHorizontalGroup(
+            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 8, Short.MAX_VALUE)
+        );
+        pan8Layout.setVerticalGroup(
+            pan8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 308, Short.MAX_VALUE)
+        );
+
+        pan2.add(pan8, java.awt.BorderLayout.WEST);
 
         pan1.add(pan2);
 
@@ -1481,6 +1501,7 @@ public class Systree extends javax.swing.JFrame {
     private javax.swing.JPanel pan5;
     private javax.swing.JPanel pan6;
     private javax.swing.JPanel pan7;
+    private javax.swing.JPanel pan8;
     private javax.swing.JPanel pan9;
     private javax.swing.JPanel panDesign;
     private javax.swing.JScrollPane scr1;
