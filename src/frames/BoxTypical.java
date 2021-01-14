@@ -94,8 +94,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
+                //iwinMin.gc2d.translate(4, 4);
                 iwinMin.gc2d.fillRect(0, 0, length, length);
-                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / iwinMin.heightAdd : length / iwinMin.width;               
+                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 16) : length / (iwinMin.width + 16);               
                 iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
@@ -113,7 +114,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
                 iwinMin.gc2d.fillRect(0, 0, length, length);
-                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / iwinMin.heightAdd : length / iwinMin.width;  
+                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 8) : length / (iwinMin.width + 8);  
                 iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);                
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
