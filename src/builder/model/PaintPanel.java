@@ -52,16 +52,15 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
             iwin.gc2d = gc;
             gc.setColor(getBackground());
             gc.setStroke(new BasicStroke(2)); //толщина линии
-            if (iwin.width > iwin.heightAdd) {
-                double scale = getWidth() / (iwin.width + 80);
+            if (getWidth() / iwin.width > getHeight() / iwin.heightAdd) {
+                
+                double scale = getHeight() / (iwin.heightAdd + 180);
                 gc.scale(scale, scale);
             } else {
-                double scale = getHeight() / (iwin.heightAdd + 80);
+                double scale = getWidth() / (iwin.width + 180);
                 gc.scale(scale, scale);
             }
-            //iwin.rootArea.draw(getWidth(), getHeight());
-            iwin.draw.strokePolygon2(0, 60, 60, 0, 0, 60, 540, 600, Color.CYAN, Color.BLACK);
-            iwin.draw.strokePolygon2(60, 840, 900, 0, 540, 540, 600, 600, Color.CYAN, Color.BLACK);
+            iwin.rootArea.draw(getWidth(), getHeight());
 
         } else {
             g.clearRect(0, 0, getWidth(), getHeight());

@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import startup.Main;
 import builder.Wincalc;
+import java.awt.BasicStroke;
 import java.lang.annotation.ElementType;
 
 public class AreaSimple extends Com5t {
@@ -202,70 +203,70 @@ public class AreaSimple extends Com5t {
     //Рисуем конструкцию
     public void draw(int width, int height) {
         try {
-//            iwin().gc2d.fillRect(0, 0, width, height);
-//
-//            //Прорисовка стеклопакетов
-//            LinkedList<ElemGlass> elemGlassList = root().listElem(TypeElem.GLASS);
-//            elemGlassList.stream().forEach(el -> el.paint());
-//
-//            //Прорисовка импостов
-//            LinkedList<ElemImpost> elemImpostList = root().listElem(TypeElem.IMPOST);
-//            elemImpostList.stream().forEach(el -> el.paint());
-//
-//            //Прорисовка рам
-//            if (TypeElem.ARCH == type) {
-//                mapFrame.get(LayoutArea.ARCH).paint();
-//            } else {
-//                mapFrame.get(LayoutArea.TOP).paint();
-//            }
+            iwin().gc2d.fillRect(0, 0, width, height);
+
+            //Прорисовка стеклопакетов
+            LinkedList<ElemGlass> elemGlassList = root().listElem(TypeElem.GLASS);
+            elemGlassList.stream().forEach(el -> el.paint());
+
+            //Прорисовка импостов
+            LinkedList<ElemImpost> elemImpostList = root().listElem(TypeElem.IMPOST);
+            elemImpostList.stream().forEach(el -> el.paint());
+
+            //Прорисовка рам
+            if (TypeElem.ARCH == type) {
+                mapFrame.get(LayoutArea.ARCH).paint();
+            } else {
+                mapFrame.get(LayoutArea.TOP).paint();
+            }
             mapFrame.get(LayoutArea.BOTTOM).paint();
             mapFrame.get(LayoutArea.LEFT).paint();
-//            mapFrame.get(LayoutArea.RIGHT).paint();
-//
-//            //Прорисовка створок
-//            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.STVORKA);
-//            elemStvorkaList.stream().forEach(el -> el.paint());
-//
-//            //Прорисовка размера            
-//            LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
-//            LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST);
-//            for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
-//                if (LayoutArea.VERT == impostElem.owner().layout) {
-//                    ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
-//                } else {
-//                    ls1.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);
-//                }
-//            }
-//            Collections.sort(ls1);
-//            Collections.sort(ls2);
-//            float dy = iwin().heightAdd - iwin().height;
-//            int mov = 80;
-//            for (int i = 1; i < ls1.size(); i++) {
-//                float x1 = ls1.get(i - 1), x2 = ls1.get(i);
-//                line(x1, (iwin().heightAdd + mov), x2, (iwin().heightAdd + mov), 0);
-//            }
-//            for (int i = 1; i < ls2.size(); i++) {
-//                float y1 = ls2.get(i - 1), y2 = ls2.get(i);
-//                line((this.x2 + mov), y1, (this.x2 + mov), y2, dy);
-//            }
-//            if (ls1.size() > 2) { //линия общей ширины
-//                line(root().x1, iwin().heightAdd + mov * 2, root().x2, iwin().heightAdd + mov * 2, 0);
-//            }
-//            if (ls2.size() > 2) { //линия общей высоты
-//                line(iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().heightAdd, 0);
-//            }
-//
-//            //Рисунок в память
-//            if (iwin().bufferImg != null) {
-//                ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
-//                ImageIO.write(iwin().bufferImg, "png", bosFill);
-//                iwin().bufferByte = bosFill.toByteArray();
-//
-//                if (Main.dev == true) {
-//                    File outputfile = new File("CanvasImage.png");
-//                    ImageIO.write(iwin().bufferImg, "png", outputfile);
-//                }
-//            }
+            mapFrame.get(LayoutArea.RIGHT).paint();
+
+            //Прорисовка створок
+            LinkedList<AreaStvorka> elemStvorkaList = root().listElem(TypeElem.STVORKA);
+            elemStvorkaList.stream().forEach(el -> el.paint());
+
+            //Прорисовка размера            
+            LinkedList<Float> ls1 = new LinkedList(Arrays.asList(x1, x2)), ls2 = new LinkedList(Arrays.asList(y1, y2));
+            LinkedList<ElemImpost> impostList = root().listElem(TypeElem.IMPOST);
+            for (ElemSimple impostElem : impostList) { //по импостам определим точки разрыва линии
+                if (LayoutArea.VERT == impostElem.owner().layout) {
+                    ls2.add(impostElem.y1 + (impostElem.y2 - impostElem.y1) / 2);
+                } else {
+                    ls1.add(impostElem.x1 + (impostElem.x2 - impostElem.x1) / 2);
+                }
+            }
+            Collections.sort(ls1);
+            Collections.sort(ls2);
+            float dy = iwin().heightAdd - iwin().height;
+            int mov = 80;
+            for (int i = 1; i < ls1.size(); i++) {
+                float x1 = ls1.get(i - 1), x2 = ls1.get(i);
+                line(x1, (iwin().heightAdd + mov), x2, (iwin().heightAdd + mov), 0);
+            }
+            for (int i = 1; i < ls2.size(); i++) {
+                float y1 = ls2.get(i - 1), y2 = ls2.get(i);
+                line((this.x2 + mov), y1, (this.x2 + mov), y2, dy);
+            }
+            if (ls1.size() > 2) { //линия общей ширины
+                line(root().x1, iwin().heightAdd + mov * 2, root().x2, iwin().heightAdd + mov * 2, 0);
+            }
+            if (ls2.size() > 2) { //линия общей высоты
+                line(iwin().width + mov * 2, 0, iwin().width + mov * 2, iwin().heightAdd, 0);
+            }
+
+            //Рисунок в память
+            if (iwin().bufferImg != null) {
+                ByteArrayOutputStream bosFill = new ByteArrayOutputStream();
+                ImageIO.write(iwin().bufferImg, "png", bosFill);
+                iwin().bufferByte = bosFill.toByteArray();
+
+                if (Main.dev == true) {
+                    File outputfile = new File("CanvasImage.png");
+                    ImageIO.write(iwin().bufferImg, "png", outputfile);
+                }
+            }
         } catch (Exception s) {
             System.err.println("Ошибка:AreaSimple.drawWin() " + s);
         }
@@ -275,7 +276,7 @@ public class AreaSimple extends Com5t {
 
         iwin().gc2d.setColor(java.awt.Color.BLACK);
         iwin().gc2d.setFont(new java.awt.Font("Serif", java.awt.Font.BOLD, 60));
-        iwin().draw.setStroke(6); //толщина линии
+        iwin().gc2d.setStroke(new BasicStroke(6)); //толщина линии
         y1 = y1 + dy;
         y2 = y2 + dy;
         iwin().draw.drawLine(x1, y1, x2, y2);
@@ -286,9 +287,9 @@ public class AreaSimple extends Com5t {
             iwin().draw.drawLine(x1, y1, x1 - 12, y1 + 24);
             iwin().draw.drawLine(x2, y2, x2 + 12, y2 - 24);
             iwin().draw.drawLine(x2, y2, x2 - 12, y2 - 24);
-            iwin().draw.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
-            iwin().draw.drawString(String.valueOf((int) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
-            iwin().draw.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
+            iwin().gc2d.rotate(Math.toRadians(270), x1 + 60, y1 + (y2 - y1) / 2);
+            iwin().gc2d.drawString(String.valueOf((int) (y2 - y1)), x1 + 60, y1 + (y2 - y1) / 2);
+            iwin().gc2d.rotate(Math.toRadians(-270), x1 + 60, y1 + (y2 - y1) / 2);
         } else if (y1 == y2 && x2 - x1 != 0) {
             iwin().draw.drawLine(x1, y1 - 24, x1, y1 + 24);
             iwin().draw.drawLine(x2, y2 - 24, x2, y2 + 24);
@@ -296,7 +297,7 @@ public class AreaSimple extends Com5t {
             iwin().draw.drawLine(x1, y1, x1 + 24, y1 + 12);
             iwin().draw.drawLine(x2, y2, x2 - 24, y2 - 12);
             iwin().draw.drawLine(x2, y2, x2 - 24, y2 + 12);
-            iwin().draw.drawString(String.valueOf((int) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
+            iwin().gc2d.drawString(String.valueOf((int) (x2 - x1)), x1 + (x2 - x1) / 2, y2 + 60);
         }
     }
 }

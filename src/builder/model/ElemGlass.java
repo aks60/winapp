@@ -13,6 +13,7 @@ import enums.TypeElem;
 import enums.UseArtiklTo;
 import builder.specif.Specification;
 import builder.param.Processing;
+import static frames.swing.Draw.ls;
 
 public class ElemGlass extends ElemSimple {
 
@@ -261,9 +262,9 @@ public class ElemGlass extends ElemSimple {
             iwin().draw.fillArc((float) (root().width() / 2 - r + dz), dz, (float) ((r - dz) * 2), (float) ((r - dz) * 2), (float) ang2, (float) ((90 - ang2) * 2));
 
         } else {
-            float h = iwin().heightAdd - iwin().height;
-            iwin().draw.fillPolygon(new int[]{(int) x1, (int) x2, (int) x2, (int) x1},
-                    new int[]{(int) (y1 + h), (int) (y1 + h), (int) (y2 + h), (int) (y2 + h)}, 4);
+            float h = iwin().heightAdd - iwin().height;            
+            iwin().gc2d.fillPolygon(new int[]{(int) (x1+ls), (int) (x2-ls), (int) (x2-ls), (int) (x1+ls)},
+                new int[]{(int) (y1 + ls + h), (int) (y1 + ls + h), (int) (y2 - ls + h), (int) (y2 - ls + h)}, 4);
         }
     }
 
