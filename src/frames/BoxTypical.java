@@ -94,6 +94,8 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
+                iwinMin.gc2d.fillRect(0, 0, length, length);
+                iwinMin.gc2d.scale(.04, .04);
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
                 listIcon1.add(image);
