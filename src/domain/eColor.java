@@ -79,7 +79,9 @@ public enum eColor implements Field {
     }
 
     public static Record find3(int _color_fk) {
-
+        if (_color_fk == -3) {
+            return record();
+        }
         if (Query.conf.equals("calc")) {
             if (_color_fk < 0) {
                 return query().stream().filter(rec -> rec.getInt(colgrp_id) == _color_fk * -1).findFirst().orElse(up.newRecord());
