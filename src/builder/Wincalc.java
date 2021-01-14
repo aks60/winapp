@@ -66,7 +66,7 @@ public class Wincalc {
     public byte[] bufferByte = null; //буфер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D gc2d = null; //графический котекст рисунка  
-    public float scale1 = 2; //коэффициент сжатия
+    public double scale = .04; //коэффициент сжатия
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
@@ -134,8 +134,8 @@ public class Wincalc {
     private void parsingScript(String json) {
         try {
             //Для тестирования
-            Gson gs = new GsonBuilder().setPrettyPrinting().create();
-            JsonElement je = new JsonParser().parse(json);
+            //Gson gs = new GsonBuilder().setPrettyPrinting().create();
+            //JsonElement je = new JsonParser().parse(json);
             //System.out.println(gs.toJson(je));
 
             Gson gson = new Gson(); //библиотека jso

@@ -14,7 +14,6 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
 
     private boolean visible = true;
     private Wincalc iwin = null;
-    //private Graphics2D gc = null;
 
     public PaintPanel(Wincalc iwin) {
         this.iwin = iwin;
@@ -51,14 +50,9 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
             iwin.gc2d = (Graphics2D) g;
             iwin.gc2d.setColor(getBackground());
             iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
-            if (getWidth() / iwin.width > getHeight() / iwin.heightAdd) {
-                
-                double scale = getHeight() / (iwin.heightAdd + 180);
-                iwin.gc2d.scale(scale, scale);
-            } else {
-                double scale = getWidth() / (iwin.width + 180);
-                iwin.gc2d.scale(scale, scale);
-            }
+            iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.heightAdd)
+                    ? getHeight() / (iwin.heightAdd + 240) : getWidth() / (iwin.width + 240);
+            iwin.gc2d.scale(iwin.scale, iwin.scale);
             iwin.rootArea.draw(getWidth(), getHeight());
 
         } else {
