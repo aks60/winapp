@@ -1120,21 +1120,21 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         rnd.setLeafIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b037.gif")));
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
-        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectionTab1(event);
-                }
-            }
-        });
-        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
-                    selectionTab2(event);
-                }
-            }
-        });
-        tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
+//        tab1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent event) {
+//                if (event.getValueIsAdjusting() == false) {
+//                    selectionTab1(event);
+//                }
+//            }
+//        });
+//        tab2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent event) {
+//                if (event.getValueIsAdjusting() == false) {
+//                    selectionTab2(event);
+//                }
+//            }
+//        });
+//        tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
     }
 
     private class DefMutableTreeNode extends DefaultMutableTreeNode {
