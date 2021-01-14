@@ -38,9 +38,8 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
         }
     }
 
-    public void repaint(boolean b, float scale2) {
+    public void repaint(boolean b) {
         this.visible = b;
-        iwin.scale2 = scale2;
         repaint();
     }
 
@@ -49,15 +48,21 @@ public class PaintPanel extends JPanel implements FrameListener<MouseEvent, Mous
         super.paintComponent(g);
         if (iwin.rootArea != null && visible == true) {
 
-            float max1 = (getWidth() > getHeight()) ? getHeight() : getWidth();
-            float max2 = (iwin.width > iwin.heightAdd) ? iwin.width + Com5t.SPACE_DX : iwin.heightAdd + Com5t.SPACE_DY;
-            iwin.scale1 = (iwin.scale2 == 1) ? max1 / max2 : 1;
             gc = (Graphics2D) g;
-            gc.setColor(getBackground());
-            gc.scale(iwin.scale1, iwin.scale1);
-            gc.translate(Com5t.TRANSLATE_X, Com5t.TRANSLATE_Y);
             iwin.gc2d = gc;
-            iwin.rootArea.draw(getWidth(), getHeight());
+            gc.setColor(getBackground());
+            gc.setStroke(new BasicStroke(2)); //толщина линии
+            if (iwin.width > iwin.heightAdd) {
+                double scale = getWidth() / (iwin.width + 80);
+                gc.scale(scale, scale);
+            } else {
+                double scale = getHeight() / (iwin.heightAdd + 80);
+                gc.scale(scale, scale);
+            }
+            //iwin.rootArea.draw(getWidth(), getHeight());
+            iwin.draw.strokePolygon2(0, 60, 60, 0, 0, 60, 540, 600, Color.CYAN, Color.BLACK);
+            iwin.draw.strokePolygon2(60, 840, 900, 0, 540, 540, 600, 600, Color.CYAN, Color.BLACK);
+
         } else {
             g.clearRect(0, 0, getWidth(), getHeight());
         }

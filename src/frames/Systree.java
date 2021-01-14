@@ -243,7 +243,6 @@ public class Systree extends javax.swing.JFrame {
                 return val;
             }
         };
-        iwinMin.scale2 = 25;
         tab4.getColumnModel().getColumn(2).setCellRenderer(new BooleanRenderer());
         tab5.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
@@ -488,7 +487,6 @@ public class Systree extends javax.swing.JFrame {
                 JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
                 iwin.build(script2.toString()); //калькуляция изделия               
-                paintPanel.repaint(true, 1);
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();

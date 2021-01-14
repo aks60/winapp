@@ -176,7 +176,6 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void loadingModel() {
         panDesign.add(paintPanel, java.awt.BorderLayout.CENTER);
         paintPanel.setVisible(true);
-        iwinMin.scale2 = 25;
         tab1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -214,7 +213,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         if (row != -1) {
             Object script = qModels1.get(row, eModels.script);
             iwinMax.build(script.toString());
-            paintPanel.repaint(true, 1);
+            paintPanel.repaint(true);
         }
     }
 
@@ -223,7 +222,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         if (row != -1) {
             Object script = qModels2.get(row, eModels.script);
             iwinMax.build(script.toString());
-            paintPanel.repaint(true, 1);
+            paintPanel.repaint(true);
         }
     }
 
@@ -980,7 +979,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }//GEN-LAST:event_btnClose
 
     private void btnRefresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefresh
-
+        System.out.println(paintPanel.getWidth() + "  -  " + paintPanel.getHeight());
     }//GEN-LAST:event_btnRefresh
 
     private void btnSave(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave

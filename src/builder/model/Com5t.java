@@ -12,8 +12,8 @@ import builder.param.Processing;
 
 public abstract class Com5t {
 
-    public static final int TRANSLATE_X = 20; //сдвиг графика   
-    public static final int TRANSLATE_Y = 20; //сдвиг графика    
+    public static final int TRANSLATE_X = 4; //сдвиг графика   
+    public static final int TRANSLATE_Y = 4; //сдвиг графика    
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
