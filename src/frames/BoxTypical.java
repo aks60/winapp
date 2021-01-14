@@ -27,6 +27,7 @@ import builder.Wincalc;
 import builder.model.ElemSimple;
 import builder.model.PaintPanel;
 import builder.script.Mediate;
+import java.awt.BasicStroke;
 import java.awt.CardLayout;
 import java.util.Enumeration;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -86,7 +87,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
         DefaultTableModel dm2 = (DefaultTableModel) tab2.getModel();
         dm1.getDataVector().removeAllElements();
         dm2.getDataVector().removeAllElements();
-        int length = 70;
+        int length = 68;
         for (Record record : qModels1) {
             try {
                 Object obj[] = {record.get(eModels.npp), record.get(eModels.name), ""};
@@ -94,9 +95,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 iwinMin.build(script.toString());
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
-                //iwinMin.gc2d.translate(4, 4);
                 iwinMin.gc2d.fillRect(0, 0, length, length);
-                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 16) : length / (iwinMin.width + 16);               
+                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 200) : length / (iwinMin.width + 200);
+                iwinMin.gc2d.translate(2, 2);
                 iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
@@ -114,8 +115,9 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 BufferedImage bi = new BufferedImage(length, length, BufferedImage.TYPE_INT_RGB);
                 iwinMin.gc2d = bi.createGraphics();
                 iwinMin.gc2d.fillRect(0, 0, length, length);
-                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 8) : length / (iwinMin.width + 8);  
-                iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);                
+                iwinMin.scale = (length / iwinMin.width > length / iwinMin.heightAdd) ? length / (iwinMin.heightAdd + 200) : length / (iwinMin.width + 200);
+                iwinMin.gc2d.translate(2, 2);
+                iwinMin.gc2d.scale(iwinMin.scale, iwinMin.scale);
                 iwinMin.rootArea.draw(length, length);
                 ImageIcon image = new ImageIcon(bi);
                 listIcon2.add(image);
@@ -546,17 +548,25 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
             new String [] {
                 "№", "Наименование", "Рисунок"
             }
-        ));
-        tab1.setRowHeight(80);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab1.setRowHeight(68);
         tab1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr1.setViewportView(tab1);
         if (tab1.getColumnModel().getColumnCount() > 0) {
+            tab1.getColumnModel().getColumn(0).setResizable(false);
             tab1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab1.getColumnModel().getColumn(0).setMaxWidth(20);
+            tab1.getColumnModel().getColumn(1).setResizable(false);
             tab1.getColumnModel().getColumn(1).setPreferredWidth(80);
-            tab1.getColumnModel().getColumn(2).setMinWidth(68);
+            tab1.getColumnModel().getColumn(2).setResizable(false);
             tab1.getColumnModel().getColumn(2).setPreferredWidth(68);
-            tab1.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan16.add(scr1, java.awt.BorderLayout.CENTER);
@@ -581,18 +591,27 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
                 {"99", "мммммммммм", "321"}
             },
             new String [] {
-                "Ном.п/п", "Наименование конструкции", "Рисунок конструкции"
+                "№", "Наименование конструкции", "Рисунок конструкции"
             }
-        ));
-        tab2.setRowHeight(80);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tab2.setRowHeight(68);
         tab2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scr2.setViewportView(tab2);
         if (tab2.getColumnModel().getColumnCount() > 0) {
+            tab2.getColumnModel().getColumn(0).setResizable(false);
             tab2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            tab2.getColumnModel().getColumn(0).setMaxWidth(20);
-            tab2.getColumnModel().getColumn(2).setMinWidth(68);
+            tab2.getColumnModel().getColumn(1).setResizable(false);
+            tab2.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tab2.getColumnModel().getColumn(2).setResizable(false);
             tab2.getColumnModel().getColumn(2).setPreferredWidth(68);
-            tab2.getColumnModel().getColumn(2).setMaxWidth(68);
         }
 
         pan25.add(scr2, java.awt.BorderLayout.CENTER);
@@ -1008,19 +1027,19 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private void btnChoiceresh(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChoiceresh
         JTable table = null;
         Query query = null;
-        if (btnT1.isSelected()) {            
+        if (btnT1.isSelected()) {
             query = qModels1;
             table = tab1;
         } else if (btnT2.isSelected()) {
             query = qModels2;
             table = tab2;
-        } 
+        }
         int row = Util.getSelectedRec(table);
         if (row != -1) {
             Record record = new Record();
             record.add(query.get(row, eModels.id));
             listenet.action(record);
-        }        
+        }
         this.dispose();
     }//GEN-LAST:event_btnChoiceresh
 

@@ -66,7 +66,7 @@ public class Wincalc {
     public byte[] bufferByte = null; //буфер рисунка
     public BufferedImage bufferImg = null;  //образ рисунка
     public Graphics2D gc2d = null; //графический котекст рисунка  
-    public double scale = .04; //коэффициент сжатия
+    public double scale = 1; //коэффициент сжатия
     public String labelSketch = "empty"; //надпись на эскизе
 
     public AreaSimple rootArea = null;
