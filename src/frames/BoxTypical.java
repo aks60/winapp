@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.model.ElemSimple;
-import builder.model.PaintPanel;
+import frames.swing.PaintPanel;
 import builder.script.Mediate;
 import java.awt.BasicStroke;
 import java.awt.CardLayout;

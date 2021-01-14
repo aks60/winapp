@@ -51,7 +51,7 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
-import builder.model.PaintPanel;
+import frames.swing.PaintPanel;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import javax.swing.Icon;

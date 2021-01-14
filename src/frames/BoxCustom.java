@@ -21,7 +21,7 @@ import frames.swing.DefFieldEditor;
 import builder.script.AreaRoot;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
-import builder.model.PaintPanel;
+import frames.swing.PaintPanel;
 import builder.script.Winscript;
 
 public class BoxCustom extends javax.swing.JFrame {

@@ -1,4 +1,4 @@
-package builder.model;
+package frames.swing;
 
 import common.FrameListener;
 import java.awt.*;
