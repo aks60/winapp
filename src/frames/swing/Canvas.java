@@ -9,6 +9,7 @@ import java.io.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import builder.Wincalc;
+import builder.model.Com5t;
 
 public class Canvas extends JPanel implements FrameListener<MouseEvent, MouseEvent> {
 
@@ -50,7 +51,7 @@ public class Canvas extends JPanel implements FrameListener<MouseEvent, MouseEve
             iwin.gc2d = (Graphics2D) g;
             iwin.gc2d.setColor(getBackground());
             iwin.gc2d.setStroke(new BasicStroke(2)); //толщина линии
-            iwin.gc2d.translate(2, 2);
+            iwin.gc2d.translate(Com5t.TRANSLATE_XY, Com5t.TRANSLATE_XY);
             iwin.scale = (getWidth() / iwin.width > getHeight() / iwin.heightAdd)
                     ? getHeight() / (iwin.heightAdd + 240) : getWidth() / (iwin.width + 240);
             iwin.gc2d.scale(iwin.scale, iwin.scale);

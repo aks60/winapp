@@ -19,7 +19,11 @@ public class Draw {
     public void strokePolygon(float x1, float x2, float x3, float x4, float y1,
             float y2, float y3, float y4, int rgbFill, Color rgbStroke) {
 
-        iwin.gc2d.setStroke(new BasicStroke(1)); //толщина линии
+        if(rgbStroke == Color.RED) {
+           iwin.gc2d.setStroke(new BasicStroke(4)); //толщина линии 
+        } else {
+           iwin.gc2d.setStroke(new BasicStroke(1)); //толщина линии 
+        }
         float dy = iwin.heightAdd - iwin.height;   
         iwin.gc2d.setColor(new java.awt.Color(rgbFill));
         iwin.gc2d.fillPolygon(new int[]{(int) x1, (int) x2, (int) x3, (int) x4},

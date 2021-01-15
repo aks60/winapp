@@ -49,18 +49,19 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private Canvas paintPanel = new Canvas(iwinMax) {
 
         public void actionResponse(MouseEvent evt) {
-            LinkedList<ElemSimple> listElem = iwinMax.rootArea.listElem(TypeElem.GLASS);
-            if(elemMouseClick(listElem, evt)) {
-               return; 
+
+           LinkedList<ElemSimple>  listElem = iwinMax.rootArea.listElem(TypeElem.STVORKA_SIDE);
+            if (elemMouseClick(listElem, evt)) {
+                return;
             }
-            listElem = iwinMax.rootArea.listElem(TypeElem.STVORKA_SIDE);
-            if(elemMouseClick(listElem, evt)) {
-               return; 
-            }            
             listElem = iwinMax.rootArea.listElem(TypeElem.FRAME_SIDE);
-            if(elemMouseClick(listElem, evt)) {
-               return; 
-            }            
+            if (elemMouseClick(listElem, evt)) {
+                return;
+            }
+            listElem = iwinMax.rootArea.listElem(TypeElem.GLASS);
+            if (elemMouseClick(listElem, evt)) {
+                return;
+            }
         }
     };
     private Query qModels1 = new Query(eModels.values());
@@ -251,9 +252,10 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     }
 
     private boolean elemMouseClick(LinkedList<ElemSimple> listElem, MouseEvent evt) {
-        ElemSimple elem = listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);
-        if (elem != null) {
-            repaint();
+        ElemSimple e = listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);
+        if (e != null) {
+            e.paint();
+            System.out.println(e.type().name + " - " + e.layout().name);
             return true;
         }
         return false;

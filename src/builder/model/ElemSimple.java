@@ -31,8 +31,8 @@ public abstract class ElemSimple extends Com5t {
     public boolean mouseClick(int X, int Y) {
 
         iwin().listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
-        int x = (int) (X / iwin().scale) - Com5t.TRANSLATE_X;
-        int y = (int) (Y / iwin().scale) - Com5t.TRANSLATE_Y;
+        int x = (int) (X / iwin().scale) - Com5t.TRANSLATE_XY;
+        int y = (int) (Y / iwin().scale) - Com5t.TRANSLATE_XY;
         borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;
         return inside(x, y);
     }

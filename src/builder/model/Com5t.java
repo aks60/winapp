@@ -12,8 +12,7 @@ import builder.param.Processing;
 
 public abstract class Com5t {
 
-    public static final int TRANSLATE_X = 4; //сдвиг графика   
-    public static final int TRANSLATE_Y = 4; //сдвиг графика    
+    public static final int TRANSLATE_XY = 2; //сдвиг графика    
     public static final int SPACE_DX = 200;   //пространство для линий    
     public static final int SPACE_DY = 240;   //пространство для линий              
 
@@ -29,7 +28,7 @@ public abstract class Com5t {
     public LinkedList<Com5t> listChild = new LinkedList(); //дети
     private Wincalc iwin = null; //главный класс калькуляции
 
-    protected float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
+    public float x1 = 0, y1 = 0, x2 = 0, y2 = 0; //координаты area     
     public int colorID1 = -1, colorID2 = -1, colorID3 = -1; //1-базовый 2-внутренний 3-внешний     
 
     public Com5t(float id, Wincalc iwin, AreaSimple owner) {
