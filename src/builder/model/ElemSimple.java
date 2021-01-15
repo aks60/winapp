@@ -19,7 +19,7 @@ public abstract class ElemSimple extends Com5t {
     public float anglCut2 = 45; //Угол реза рамы
     public Specification specificationRec = null; //спецификация элемента
     public float anglHoriz = -1; //угол к горизонту
-    protected Color borderColor = Color.BLACK;
+    public Color borderColor = Color.BLACK;
     public HashMap<String, String> mapFieldVal = new HashMap(); //свойства элемента <имя поля => значение>
 
     public ElemSimple(float id, Wincalc iwin, AreaSimple owner) {
@@ -29,11 +29,8 @@ public abstract class ElemSimple extends Com5t {
 
     //Клик мышки попадает в контур элемента
     public boolean mouseClick(int X, int Y) {
-
-        iwin().listElem.stream().forEach(el -> el.borderColor = java.awt.Color.BLACK);
         int x = (int) (X / iwin().scale) - Com5t.TRANSLATE_XY;
         int y = (int) (Y / iwin().scale) - Com5t.TRANSLATE_XY;
-        borderColor = (inside(x, y) == true) ? Color.RED : Color.BLACK;
         return inside(x, y);
     }
 

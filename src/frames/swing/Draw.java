@@ -20,7 +20,7 @@ public class Draw {
             float y2, float y3, float y4, int rgbFill, Color rgbStroke) {
 
         if(rgbStroke == Color.RED) {
-           iwin.gc2d.setStroke(new BasicStroke(4)); //толщина линии 
+           iwin.gc2d.setStroke(new BasicStroke(6)); //толщина линии 
         } else {
            iwin.gc2d.setStroke(new BasicStroke(1)); //толщина линии 
         }

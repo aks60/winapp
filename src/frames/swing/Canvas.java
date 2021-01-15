@@ -10,6 +10,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import builder.Wincalc;
 import builder.model.Com5t;
+import builder.model.ElemSimple;
+import enums.TypeElem;
+import java.util.LinkedList;
 
 public class Canvas extends JPanel implements FrameListener<MouseEvent, MouseEvent> {
 
@@ -22,6 +25,33 @@ public class Canvas extends JPanel implements FrameListener<MouseEvent, MouseEve
         this.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 actionResponse(evt);
+            }
+        });
+    }
+
+    public void actionResponse(MouseEvent evt) {
+
+        iwin.listElem.forEach(el -> el.borderColor = Color.BLACK);
+        repaint();
+        iwin.rootArea.listElem(TypeElem.STVORKA_SIDE).forEach(el -> {
+            if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                ((ElemSimple) el).borderColor = Color.RED;
+                ((ElemSimple) el).paint();
+                repaint();
+            }
+        });
+        iwin.rootArea.listElem(TypeElem.FRAME_SIDE, TypeElem.IMPOST).forEach(el -> {
+            if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                ((ElemSimple) el).borderColor = Color.RED;
+                ((ElemSimple) el).paint();
+                repaint();
+            }
+        });
+        iwin.rootArea.listElem(TypeElem.GLASS).forEach(el -> {
+            if (((ElemSimple) el).mouseClick(evt.getX(), evt.getY())) {
+                ((ElemSimple) el).borderColor = Color.RED;
+                ((ElemSimple) el).paint();
+                repaint();
             }
         });
     }

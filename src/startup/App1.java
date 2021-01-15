@@ -21,7 +21,6 @@ import frames.Groups;
 import frames.Artikles;
 import frames.BoxTypical;
 import frames.Systree;
-import frames.BoxCustom;
 import frames.Element;
 import frames.Furniture;
 import frames.Filling;
@@ -1327,11 +1326,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
     private void mnDesign(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnDesign
 
-        FrameProgress.create(App1.this, new FrameListener() {
-            public void actionRequest(Object obj) {
-                eApp1.BoxCustom.createFrame(App1.this);
-            }
-        });
     }//GEN-LAST:event_mnDesign
 
     private void mnKits(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnKits
@@ -1550,7 +1544,7 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
 
         App1, Convert, Groups, DicCurrenc, Color, Artikles, Joining, Element, Param,
         Filling, Furniture, Kits, Systree, Partner, Order, AboutBox, BoxTypical,
-        BoxCustom, Specific, DicSyssize, TestFrame, RuleCalc;
+        Specific, DicSyssize, TestFrame, RuleCalc;
         public javax.swing.JFrame frame;
 
         public void createFrame(java.awt.Window parent, Object... param) {
@@ -1644,9 +1638,6 @@ private void mn25(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mn25
                     break;
                 case BoxTypical:
                     frame = new BoxTypical();
-                    break;
-                case BoxCustom:
-                    frame = new BoxCustom();
                     break;
                 case Specific:
                     frame = new Specific();
