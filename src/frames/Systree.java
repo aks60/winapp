@@ -57,6 +57,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import startup.App1;
 import startup.Main;
@@ -464,6 +466,14 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 
+    private void selectionTab5() {
+        int row = Util.getSelectedRec(tab5);
+        if (row != -1) {
+            Record record = qSysprod.table(eSysprod.up).get(row);
+            int models_id = record.getInt(eSysprof.models_id); 
+            createWincalc(models_id); //калькуляция и прорисовка окна
+        }              
+    }
     private ArrayList<DefMutableTreeNode> addChild(ArrayList<DefMutableTreeNode> nodeList1, ArrayList<DefMutableTreeNode> nodeList2) {
 
         Query systreeList = qSystree.table(eSystree.up);
@@ -490,7 +500,8 @@ public class Systree extends javax.swing.JFrame {
             if (script1 != null && script1.isEmpty() == false) {
                 JsonElement script2 = new Gson().fromJson(script1, JsonElement.class);
                 script2.getAsJsonObject().addProperty("nuni", nuni); //запишем nuni в script
-                iwin.build(script2.toString()); //калькуляция изделия               
+                iwin.build(script2.toString()); //калькуляция изделия
+                paintPanel.repaint(true);
             }
         } else {
             Graphics2D g = (Graphics2D) paintPanel.getGraphics();
@@ -1567,6 +1578,13 @@ public class Systree extends javax.swing.JFrame {
         rnd.setOpenIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b007.gif")));
         rnd.setClosedIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/img16/b006.gif")));
         tree.getSelectionModel().addTreeSelectionListener(tse -> selectionTree());
+        tab5.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (event.getValueIsAdjusting() == false) {
+                    selectionTab5();
+                }
+            }
+        });        
     }
 
     private class DefMutableTreeNode extends DefaultMutableTreeNode {
@@ -1579,3 +1597,4 @@ public class Systree extends javax.swing.JFrame {
         }
     }
 }
+

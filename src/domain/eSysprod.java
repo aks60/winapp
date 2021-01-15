@@ -8,6 +8,7 @@ import dataset.Record;
 public enum eSysprod implements Field {
     up("0", "0", "0", "Cписок типовых изделий", "EMPTY"),
     id("4", "10", "0", "Идентификатор", "id"),
+    script("12", "2048", "0", "Скрипт построения окна", "script"),
     models_id("4", "10", "0", "Ссылка", "models_id"),
     systree_id("4", "10", "0", "Ссылка", "systree_id");
 
