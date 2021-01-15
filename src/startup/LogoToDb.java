@@ -109,6 +109,7 @@ public class LogoToDb extends javax.swing.JDialog {
         setTitle("Авторизация доступа");
         setIconImage((new javax.swing.ImageIcon(getClass().getResource("/resource/img32/d033.gif")).getImage()));
         setPreferredSize(new java.awt.Dimension(308, 220));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -116,7 +117,7 @@ public class LogoToDb extends javax.swing.JDialog {
         });
 
         pan2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        pan2.setPreferredSize(new java.awt.Dimension(278, 132));
+        pan2.setPreferredSize(new java.awt.Dimension(290, 132));
 
         labPass.setFont(frames.Util.getFont(0,0));
         labPass.setText("Пароль");
