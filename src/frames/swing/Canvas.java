@@ -10,12 +10,12 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import builder.Wincalc;
 
-public class PaintPanel extends JPanel implements FrameListener<MouseEvent, MouseEvent> {
+public class Canvas extends JPanel implements FrameListener<MouseEvent, MouseEvent> {
 
     private boolean visible = true;
     private Wincalc iwin = null;
 
-    public PaintPanel(Wincalc iwin) {
+    public Canvas(Wincalc iwin) {
         this.iwin = iwin;
         iwin.gc2d = (Graphics2D) this.getGraphics();
         this.addMouseListener(new MouseAdapter() {

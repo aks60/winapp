@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import builder.Wincalc;
 import builder.model.ElemSimple;
-import frames.swing.PaintPanel;
+import frames.swing.Canvas;
 import builder.script.Mediate;
 import java.awt.BasicStroke;
 import java.awt.CardLayout;
@@ -44,7 +44,7 @@ public class BoxTypical extends javax.swing.JFrame implements FrameListener<Obje
     private ArrayList<Icon> listIcon1 = new ArrayList<Icon>();
     private ArrayList<Icon> listIcon2 = new ArrayList<Icon>();
     private DialogListener listenet = null;
-    private PaintPanel paintPanel = new PaintPanel(iwinMax) {
+    private Canvas paintPanel = new Canvas(iwinMax) {
 
         public void actionResponse(MouseEvent evt) {
             ElemSimple elem5e = iwinMax.listElem.stream().filter(el -> el.mouseClick(evt.getX(), evt.getY())).findFirst().orElse(null);

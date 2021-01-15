@@ -21,7 +21,7 @@ import frames.swing.DefFieldEditor;
 import builder.script.AreaRoot;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
-import frames.swing.PaintPanel;
+import frames.swing.Canvas;
 import builder.script.Winscript;
 
 public class BoxCustom extends javax.swing.JFrame {
@@ -44,7 +44,7 @@ public class BoxCustom extends javax.swing.JFrame {
     private JTable tab1 = new JTable();
     private AreaRoot rootArea;
     public Wincalc iwin = new Wincalc();
-    private PaintPanel paintPanel = new PaintPanel(iwin);
+    private Canvas paintPanel = new Canvas(iwin);
 
     public BoxCustom() {
         initComponents();

@@ -51,7 +51,7 @@ import frames.swing.BooleanRenderer;
 import frames.swing.DefFieldEditor;
 import frames.swing.DefTableModel;
 import builder.Wincalc;
-import frames.swing.PaintPanel;
+import frames.swing.Canvas;
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import javax.swing.Icon;
@@ -82,7 +82,7 @@ public class Systree extends javax.swing.JFrame {
     private java.awt.Frame frame = null;
     private int nuni = -1;
     private TreeNode[] nuniNode = null;
-    private PaintPanel paintPanel = new PaintPanel(iwin) {
+    private Canvas paintPanel = new Canvas(iwin) {
 
 //        public void actionResponse(MouseEvent evt) {
 //            ElemSimple elem = iwin.listElem.stream().filter(el -> el.contains(evt.getX(), evt.getY())).findFirst().orElse(null);
